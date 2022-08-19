@@ -54,6 +54,107 @@ import { toast } from 'react-toastify'
 import UploadOther from '../../src/components/UploadOther'
 
 
+let alertObj = {
+  "isShell": "Shell",
+  "isCompanyUnderLiquidation": "Company Under Liquidation",
+  "isMlm": "MLM",
+  "isVanishing": "Vanishing",
+  "NA": "Non-Genuine Dealers of Mahavat",
+  "isSebiDebarred": "SEBI Debarred",
+  "NA": "BSE Disciplinary Action",
+  "isNseCompanySuspended": "NSE Company Suspended",
+  "isNseExpelled": "NSE Expelled",
+  "isNseCompanySuspendedNonCompliance": "NSE Company Suspended Non Compliance",
+  "isNseUnderGsmSurveillance": "NSE Under GSM Surveillance",
+  "isNseDefaulter": "NSE Defaulter",
+  "isCompanyStrikedOffUs248": "Company Striked Off Us 248",
+  "isBseCompanySuspendedMoreThan7Years": "BSE Company Suspended More Than 7 Years",
+  "isBsePenalSuspended": "BSE Penal Suspended",
+  "isBseExpelled": "BSE Expelled",
+  "isBseDefaulter": "BSE Defaulter",
+  "isCompanyStrikedOff": "Company Striked Off",
+  "isCompanyUnderStrikeOff": "Company Under Strike Off",
+  "isProclaimedOffender": "Proclaimed Offender",
+  "isCompanyUnderProsecution": "Company Under Prosecution",
+  "isNseSuspended": "NSE Suspended",
+  "isMcaDirectorUnderProsecution": "MCA Director Under Prosecution",
+  "isNseUnderAsmSurveillance": "NSE Under Asm Surveillance",
+  "isBseUnderGsmSurveillance": "BSE Under GSM Surveillance",
+  "isCompanyActiveNonCompliant": "Company Active Non Compliant",
+  "isDinDeactivated": "DIN Deactivated",
+  "isDinDisabled": "DIN Disabled",
+  "isBseIlliquidSecurity": "BSE Illiquid Security",
+  "isDormant": "Dormant",
+  "isNotFiled5inv": "Not Filed 5INV",
+  "isDinDisqualified": "DIN Disqualied",
+  "isDinSurrendered": "DIN Surrendered",
+  "isMcaCompanyDefaulter": "MCA Company Defaulter",
+  "isMcaDirectorDefaulter": "MCA Director Defaulter",
+  "isSuspendedAtStockExchange": "Suspended At Stock Exchange",
+  "isBseMemberInactive": "BSE Member Inactive",
+  "isDinLapsed": "DIN Lapsed",
+  "isNseCompanyDelisted": "NSE Company Delisted",
+  "isBseCompanyDelisted": "BSE Company Delisted",
+  "isBseSebiRelaxationForMps": "BSE SEBI Relaxation For MPS",
+  "isEpfTransactionDefault": "EPF Transaction Default",
+  "isIecBlackListed": "IEC Black Listed",
+  "isIecInDeniedEntityList": "IEC In Denied Entity List",
+  "isGstTransactionDefault": "GST Transaction Default",
+  "isGstInactive": "GST Inactive",
+  "isEpfTransactionDelay": "EPF Transaction Delay",
+  "isEpfClosed": "EPF Closed",
+  "NA": "TDS Payment Delay",
+  "isLeiRegistrationRetired": "LEI Registration Retired",
+  "isIecSuspended": "IEC Suspended",
+  "NA": "TDS Payment Default",
+  "isIecCancelled": "IEC Cancelled",
+  "isGstCancelled": "GST Cancelled",
+  "isGstProvisional": "GST Provisional",
+  "isTanInactive": "TAN Inactive",
+  "isGstTransactionDelay": "GST Transaction Delay",
+  "isLeiRegistrationLapsed": "LEI Registration Lapsed",
+  "isLeiRegistrationDuplicate": "LEI Registration Duplicate",
+  "isIbbi": "IBBI",
+  "isWilfulBankDefaulter": "Wilful Defaulter",
+  "isCompanyUnderCirp": "Company Under CIRP",
+  "isBifr": "BIFR",
+  "isChargeOpenAtArc_": "Charge Open At ARC",
+  "isEpfRegisteredWithBifr": "EPF Registered With BIFR",
+  "isEpfUnderLiquidation": "EPF Under Liquidation",
+  "isSickUnit": "Sick Unit",
+  "isBankDefaulterSuitFiled": "Suit Filed",
+  "isChargeOpenAtSasf_": "Charge Open At SASF",
+  "isCorporateDebtRestructuring": "Corporate Debt Restructuring",
+  "isChargeClosedAtArc_": "Charge Closed At ARC",
+  "isChargeClosedAtSasf_": "Charge Closed At SASF",
+  "isQualifiedOpinion": "Qualified Opinion",
+  "isDisclaimerRemarks": "Disclaimer Remarks",
+  "isUnfavourableRemarks": "Unfavourable Remarks",
+  "isCreditRatingSuspended": "Credit Rating Suspended",
+  "isCreditRatingWithdrawn": "Credit Rating Withdrawn",
+  "isRatedEntityNonCooperative": "Entity Non-Cooperative",
+  "isCreditRatingOutlookNegative": "Credit Rating Outlook Negative",
+  "isCreditRatingDowngraded": "Credit Rating Downgraded",
+  "isCreditWatchWithNegativeImplication": "Credit Watch With Negative Implication",
+  "isCreditWatchWithDevelopingImplication": "Credit Watch With Developing Implication",
+  "isDomainInvalid_": "Domain Invalid",
+  "isEmailInvalid_": "Email Invalid",
+  "isEmailDisposable_": "Email Disposable",
+  "isAddressQualityPoor_": "Generic Address",
+  "isOffshoreLeak": "Offshore Leak",
+  "IsDirectorResigned": "Director Resignation(s)",
+  "isGstUnderCancellation": "GST Under Cancellation",
+  "isTanTransactionDefault": "TAN Transaction Default",
+  "isTanTransactionDelay": "TAN Transaction Delay",
+  "isPanInactive": "PAN Inactive",
+  "isHawala": "Hawala",
+  "isGstFraud": "GST Fraud",
+  "isBankDefaulterNonSuitFiled": "Bank Defaulter Non SuitFiled",
+  "isBankAuction": "Bank Auction",
+  "isiecdgftpenalty": "IEC DGFT Penalty"
+}
+
+
 function Index() {
   const dispatch = useDispatch()
 
@@ -62,8 +163,8 @@ function Index() {
   const [complienceFilter, setComplienceFilter] = useState('')
   const [complienceStatutoryFilter, setComplienceStatutoryFilter] = useState([])
   const [complienceBalanceFilter, setComplienceBalanceFilter] = useState([])
-  
-const { fetchingKarzaGst } = useSelector((state) => state.review)
+
+  const { fetchingKarzaGst } = useSelector((state) => state.review)
 
 
   // const [newDoc, setNewDoc] = useState({
@@ -74,16 +175,16 @@ const { fetchingKarzaGst } = useSelector((state) => state.review)
   //   module: 'LeadOnboarding,OrderApproval',
   // })
   useEffect(() => {
-    if(companyData){
-     let statutory=[]
-     let balance=[]
-      companyData.compliance?.alerts?.forEach((val,index)=>{
-        if(val.alert.trim()=="isIbbi" 
-        
-        
-        ){
+    if (companyData) {
+      let statutory = []
+      let balance = []
+      companyData.compliance?.alerts?.forEach((val, index) => {
+        if (val.alert.trim() == "isIbbi"
+
+
+        ) {
           balance.push(val)
-        }else{
+        } else {
           statutory.push(val)
         }
       })
@@ -91,8 +192,8 @@ const { fetchingKarzaGst } = useSelector((state) => state.review)
       setComplienceStatutoryFilter(statutory)
       setComplienceBalanceFilter(balance)
     }
-  },[companyData])
-  console.log(complienceFilter,"complienceFilter")
+  }, [companyData])
+  console.log(complienceFilter, "complienceFilter")
   // const [manualDocModule, setManualDocModule] = useState(true)
   // const [filteredDoc, setFilteredDoc] = useState([])
   const [gstData, setGstData] = useState({})
@@ -124,7 +225,7 @@ const { fetchingKarzaGst } = useSelector((state) => state.review)
 
   console.log(orderList?.termsheet?.order, 'termsheetOrder')
   // useEffect(() => {
-   
+
   //   dispatch(GetDocuments(`?order=${id}`))
   // }, [dispatch, companyData, orderList?.termsheet?.order])
   const id = sessionStorage.getItem('orderID')
@@ -153,24 +254,24 @@ const { fetchingKarzaGst } = useSelector((state) => state.review)
   })
   useEffect(() => {
     setOrderDetails({
-    transactionType: orderList?.transactionType,
-    commodity: orderList?.commodity,
-    quantity: orderList?.quantity,
-    unitOfQuantity: orderList?.unitOfQuantity,
-    orderValue: orderList?.orderValue,
-    orderCurrency: orderList?.orderCurrency,
-    unitOfValue: orderList?.unitOfValue,
-    supplierName: orderList?.supplierName,
-    countryOfOrigin: orderList?.countryOfOrigin,
-    portOfDischarge: orderList?.portOfDischarge,
-    ExpectedDateOfShipment: orderList?.ExpectedDateOfShipment,
-    incoTerm: orderList?.incoTerm,
-    grade: orderList?.grade,
-    tolerance: orderList?.tolerance,
-    transactionPeriodDays: orderList?.transactionPeriodDays,
-    manufacturerName: orderList?.manufacturerName,
-  })
-  },[orderList])
+      transactionType: orderList?.transactionType,
+      commodity: orderList?.commodity,
+      quantity: orderList?.quantity,
+      unitOfQuantity: orderList?.unitOfQuantity,
+      orderValue: orderList?.orderValue,
+      orderCurrency: orderList?.orderCurrency,
+      unitOfValue: orderList?.unitOfValue,
+      supplierName: orderList?.supplierName,
+      countryOfOrigin: orderList?.countryOfOrigin,
+      portOfDischarge: orderList?.portOfDischarge,
+      ExpectedDateOfShipment: orderList?.ExpectedDateOfShipment,
+      incoTerm: orderList?.incoTerm,
+      grade: orderList?.grade,
+      tolerance: orderList?.tolerance,
+      transactionPeriodDays: orderList?.transactionPeriodDays,
+      manufacturerName: orderList?.manufacturerName,
+    })
+  }, [orderList])
 
   const [shipment, setShipment] = useState({
     ETAofDischarge: {
@@ -186,7 +287,7 @@ const { fetchingKarzaGst } = useSelector((state) => state.review)
   })
 
   const saveOrderData = (name, value) => {
-    console.log(value,"value888")
+    console.log(value, "value888")
     const newInput = { ...orderDetails }
     newInput[name] = value
     // console.log(newInput)
@@ -302,15 +403,15 @@ const { fetchingKarzaGst } = useSelector((state) => state.review)
       }
       return
     } else {
-      let orderToSend={...orderDetails}
-      orderToSend.quantity=removePrefixOrSuffix(orderDetails.quantity)
-      orderToSend.orderValue=removePrefixOrSuffix(orderDetails.orderValue)* 10000000
+      let orderToSend = { ...orderDetails }
+      orderToSend.quantity = removePrefixOrSuffix(orderDetails.quantity)
+      orderToSend.orderValue = removePrefixOrSuffix(orderDetails.orderValue) * 10000000
       if (orderDetails.unitOfValue === 'Cr' || 'Crores') {
         const obj = {
           ...orderToSend,
           shipmentDetail: { ...shipment },
           order: orderList._id,
-          orderValue:removePrefixOrSuffix(orderDetails.orderValue)  * 10000000,
+          orderValue: removePrefixOrSuffix(orderDetails.orderValue) * 10000000,
         }
         dispatch(UpdateOrderShipment(obj))
       } else {
@@ -788,8 +889,8 @@ const { fetchingKarzaGst } = useSelector((state) => state.review)
         let toastMessage =
           'More than 30% diff in derived and suggested value,Approved credit value required'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })  
-           return false
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          return false
         }
       }
       return true
@@ -804,7 +905,7 @@ const { fetchingKarzaGst } = useSelector((state) => state.review)
           'More than 30% diff in applied and suggested order value,Approved order value required'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-             return false
+          return false
         }
       }
       return true
@@ -843,10 +944,10 @@ const { fetchingKarzaGst } = useSelector((state) => state.review)
 
 
 
-list[0].children[i].children[0].classList.remove('active')
+        list[0].children[i].children[0].classList.remove('active')
 
-tab[0].children[i].classList.remove('show')
-tab[0].children[i].classList.remove('active')
+        tab[0].children[i].classList.remove('show')
+        tab[0].children[i].classList.remove('active')
 
 
       }
@@ -950,286 +1051,287 @@ tab[0].children[i].classList.remove('active')
     setCompanyComment([...companyComment.slice(0, index), ...companyComment.slice(index + 1)])
   }
 
-const [totalCourt,setTotalCourt]=useState({
-  pending:0,
-  disposed:0,
-  total:0,
-  high:0,
-  medium:0,
-  relevence:0
- }) 
- const [Supreme,setSupreme]=useState([])
- const [District,setDistrict]=useState([])
- const [High,setHigh]=useState([])
- const [Tribunal,setTribunal]=useState([])
- const [filterType,setFilterType]=useState({
-  filterBy:{
-    pending:false,
-    disposed:false,
-    total:false
-  },
-  party:"",
-  class:"Criminal",
-  risk:""
+  const [totalCourt, setTotalCourt] = useState({
+    pending: 0,
+    disposed: 0,
+    total: 0,
+    high: 0,
+    medium: 0,
+    relevence: 0
+  })
+  const [Supreme, setSupreme] = useState([])
+  const [District, setDistrict] = useState([])
+  const [High, setHigh] = useState([])
+  const [Tribunal, setTribunal] = useState([])
+  const [filterType, setFilterType] = useState({
+    filterBy: {
+      pending: false,
+      disposed: false,
+      total: false
+    },
+    party: "",
+    class: "Criminal",
+    risk: ""
 
- })
- console.log(filterType,"filterType")
+  })
+  console.log(filterType, "filterType")
   useEffect(() => {
-   if(companyData){
-     filterLitigation()
-   }
-  },[companyData,filterType])
- const filterLitigation=()=>{
-  let count={
-  pending:0,
-  disposed:0,
-  total:0,
-  high:0,
-  medium:0,
-  relevence:0}
-  companyData?.compliance.districtCourt.cases.forEach((val,index)=>{
-    count.total=count.total+1
-    if(val.caseStatus=="Disposed"){
-      count.disposed=count.disposed+1
+    if (companyData) {
+      filterLitigation()
     }
-    if(val.caseStatus=="Pending"){
-      count.pending=count.pending+1
+  }, [companyData, filterType])
+  const filterLitigation = () => {
+    let count = {
+      pending: 0,
+      disposed: 0,
+      total: 0,
+      high: 0,
+      medium: 0,
+      relevence: 0
     }
-     if(val.severity_ == "HIGH" ||val.severity_ == "high"){
-      count.high=count.high+1
-    }
-     if(val.severity_ == "medium"){
-      count.medium=count.medium+1
-    }
-     if(val.severity_ == null){
-      count.relevence=count.relevence+1
-    }
-  })
-   companyData?.compliance.highCourt.cases.forEach((val,index)=>{
-    count.total=count.total+1
-    if(val.caseStatus=="Disposed"){
-      count.disposed=count.disposed+1
-    }
-    if(val.caseStatus=="Pending"){
-      count.pending=count.pending+1
-    }
-     if(val.severity_ == "HIGH" ||val.severity_ == "high"){
-      count.high=count.high+1
-    }
-     if(val.severity_ == "medium"){
-      count.medium=count.medium+1
-    }
-     if(val.severity_ == null){
-      count.relevence=count.relevence+1
-    }
-  })
-   companyData?.compliance.supremeCourt.cases.forEach((val,index)=>{
-    count.total=count.total+1
-    if(val.caseStatus=="Disposed"){
-      count.disposed=count.disposed+1
-    }
-    if(val.caseStatus=="Pending"){
-      count.pending=count.pending+1
-    }
-     if(val.severity_ == "HIGH" ||val.severity_ == "high"){
-      count.high=count.high+1
-    }
-     if(val.severity_ == "medium"){
-      count.medium=count.medium+1
-    }
-     if(val.severity_ == null){
-      count.relevence=count.relevence+1
-    }
-  })
-   companyData?.compliance.tribunalCourts.cases.forEach((val,index)=>{
-    count.total=count.total+1
-    if(val.caseStatus=="Disposed"){
-      count.disposed=count.disposed+1
-    }
-    if(val.caseStatus=="Pending"){
-      count.pending=count.pending+1
-    }
-     if(val.severity_ == "HIGH" ||val.severity_ == "high"){
-      count.high=count.high+1
-    }
-     if(val.severity_ == "medium"){
-      count.medium=count.medium+1
-    }
-     if(val.severity_ == null){
-      count.relevence=count.relevence+1
-    }
-  })
-  let districtCourt=[]
-  let supremeCourt=[]
-  let highCourt=[]
-  let tribunalCourts=[]
-  //civil
-  districtCourt=companyData?.compliance.districtCourt.cases.filter((val)=>{
+    companyData?.compliance.districtCourt.cases.forEach((val, index) => {
+      count.total = count.total + 1
+      if (val.caseStatus == "Disposed") {
+        count.disposed = count.disposed + 1
+      }
+      if (val.caseStatus == "Pending") {
+        count.pending = count.pending + 1
+      }
+      if (val.severity_ == "HIGH" || val.severity_ == "high") {
+        count.high = count.high + 1
+      }
+      if (val.severity_ == "medium") {
+        count.medium = count.medium + 1
+      }
+      if (val.severity_ == null) {
+        count.relevence = count.relevence + 1
+      }
+    })
+    companyData?.compliance.highCourt.cases.forEach((val, index) => {
+      count.total = count.total + 1
+      if (val.caseStatus == "Disposed") {
+        count.disposed = count.disposed + 1
+      }
+      if (val.caseStatus == "Pending") {
+        count.pending = count.pending + 1
+      }
+      if (val.severity_ == "HIGH" || val.severity_ == "high") {
+        count.high = count.high + 1
+      }
+      if (val.severity_ == "medium") {
+        count.medium = count.medium + 1
+      }
+      if (val.severity_ == null) {
+        count.relevence = count.relevence + 1
+      }
+    })
+    companyData?.compliance.supremeCourt.cases.forEach((val, index) => {
+      count.total = count.total + 1
+      if (val.caseStatus == "Disposed") {
+        count.disposed = count.disposed + 1
+      }
+      if (val.caseStatus == "Pending") {
+        count.pending = count.pending + 1
+      }
+      if (val.severity_ == "HIGH" || val.severity_ == "high") {
+        count.high = count.high + 1
+      }
+      if (val.severity_ == "medium") {
+        count.medium = count.medium + 1
+      }
+      if (val.severity_ == null) {
+        count.relevence = count.relevence + 1
+      }
+    })
+    companyData?.compliance.tribunalCourts.cases.forEach((val, index) => {
+      count.total = count.total + 1
+      if (val.caseStatus == "Disposed") {
+        count.disposed = count.disposed + 1
+      }
+      if (val.caseStatus == "Pending") {
+        count.pending = count.pending + 1
+      }
+      if (val.severity_ == "HIGH" || val.severity_ == "high") {
+        count.high = count.high + 1
+      }
+      if (val.severity_ == "medium") {
+        count.medium = count.medium + 1
+      }
+      if (val.severity_ == null) {
+        count.relevence = count.relevence + 1
+      }
+    })
+    let districtCourt = []
+    let supremeCourt = []
+    let highCourt = []
+    let tribunalCourts = []
+    //civil
+    districtCourt = companyData?.compliance.districtCourt.cases.filter((val) => {
 
-    if( 
-      val.civilCriminal==filterType.class
-      
-        
-      
-      ){
+      if (
+        val.civilCriminal == filterType.class
 
-      return val
-    }
-  })
-  supremeCourt=companyData?.compliance.supremeCourt.cases.filter((val)=>{
 
-    if( 
-      val.civilCriminal==filterType.class
-      
-        
-      
-      ){
 
-      return val
-    }
-  })
-  highCourt=companyData?.compliance.highCourt.cases.filter((val)=>{
+      ) {
 
-    if( 
-      val.civilCriminal==filterType.class
-      
-        
-      
-      ){
+        return val
+      }
+    })
+    supremeCourt = companyData?.compliance.supremeCourt.cases.filter((val) => {
 
-      return val
-    }
-  })
-  tribunalCourts=companyData?.compliance.tribunalCourts.cases.filter((val)=>{
+      if (
+        val.civilCriminal == filterType.class
 
-    if( 
-      val.civilCriminal==filterType.class
-      
-        
-      
-      ){
 
-      return val
-    }
-  })
-  //risk:
-  districtCourt=companyData?.compliance.districtCourt.cases.filter((val)=>{
 
-    if( 
-      val.severity_==filterType.risk=="high"?"High"||"high":filterType.risk
-      
-        
-      
-      ){
+      ) {
 
-      return val
-    }
-  })
-  supremeCourt=companyData?.compliance.supremeCourt.cases.filter((val)=>{
+        return val
+      }
+    })
+    highCourt = companyData?.compliance.highCourt.cases.filter((val) => {
 
-    if( 
-     val.severity_==filterType.risk=="high"?"High"||"high":filterType.risk
-      
-        
-      
-      ){
+      if (
+        val.civilCriminal == filterType.class
 
-      return val
-    }
-  })
-  highCourt=companyData?.compliance.highCourt.cases.filter((val)=>{
 
-    if( 
-      val.severity_==filterType.risk=="high"?"High"||"high":filterType.risk
-      
-        
-      
-      ){
 
-      return val
-    }
-  })
-  tribunalCourts=companyData?.compliance.tribunalCourts.cases.filter((val)=>{
+      ) {
 
-    if( 
-      val.severity_==filterType.risk=="high"?"High"||"high":filterType.risk
-      
-        
-      
-      ){
+        return val
+      }
+    })
+    tribunalCourts = companyData?.compliance.tribunalCourts.cases.filter((val) => {
 
-      return val
-    }
-  })
-  //filterBY
-  districtCourt=companyData?.compliance.districtCourt.cases.filter((val)=>{
-   
-    if( 
-      val.caseStatus==filterType.pending?"Pending":null||
-      val.caseStatus==filterType.disposed?"Disposed":null
-      
-        
-      
-      ){
+      if (
+        val.civilCriminal == filterType.class
 
-      return val
-    }else{
-      return val
-    }
-  })
-  supremeCourt=companyData?.compliance.supremeCourt.cases.filter((val)=>{
 
-     if( 
-      val.caseStatus==filterType.pending?"Pending":null||
-      val.caseStatus==filterType.disposed?"Disposed":null
-      
-        
-      
-      ){
 
-      return val
-    }else{
-      return val
-    }
-  })
-  highCourt=companyData?.compliance.highCourt.cases.filter((val)=>{
-   if( 
-      val.caseStatus==filterType.pending?"Pending":null||
-      val.caseStatus==filterType.disposed?"Disposed":null
-      
-        
-      
-      ){
+      ) {
 
-      return val
-    }else{
-      return val
-    }
-  })
-  tribunalCourts=companyData?.compliance.tribunalCourts.cases.filter((val)=>{
+        return val
+      }
+    })
+    //risk:
+    districtCourt = companyData?.compliance.districtCourt.cases.filter((val) => {
 
-    if( 
-      val.caseStatus==filterType.pending?"Pending":null||
-      val.caseStatus==filterType.disposed?"Disposed":null
-      
-        
-      
-      ){
+      if (
+        val.severity_ == filterType.risk == "high" ? "High" || "high" : filterType.risk
 
-      return val
-    }else{
-      return val
-    }
-  })
-  console.log(districtCourt,"districtCourt99")
 
-  setSupreme(supremeCourt)
-  setTribunal(tribunalCourts)
-  setHigh(highCourt)
-  setDistrict(districtCourt)
- 
-  setTotalCourt(count)
- }
+
+      ) {
+
+        return val
+      }
+    })
+    supremeCourt = companyData?.compliance.supremeCourt.cases.filter((val) => {
+
+      if (
+        val.severity_ == filterType.risk == "high" ? "High" || "high" : filterType.risk
+
+
+
+      ) {
+
+        return val
+      }
+    })
+    highCourt = companyData?.compliance.highCourt.cases.filter((val) => {
+
+      if (
+        val.severity_ == filterType.risk == "high" ? "High" || "high" : filterType.risk
+
+
+
+      ) {
+
+        return val
+      }
+    })
+    tribunalCourts = companyData?.compliance.tribunalCourts.cases.filter((val) => {
+
+      if (
+        val.severity_ == filterType.risk == "high" ? "High" || "high" : filterType.risk
+
+
+
+      ) {
+
+        return val
+      }
+    })
+    //filterBY
+    districtCourt = companyData?.compliance.districtCourt.cases.filter((val) => {
+
+      if (
+        val.caseStatus == filterType.pending ? "Pending" : null ||
+          val.caseStatus == filterType.disposed ? "Disposed" : null
+
+
+
+      ) {
+
+        return val
+      } else {
+        return val
+      }
+    })
+    supremeCourt = companyData?.compliance.supremeCourt.cases.filter((val) => {
+
+      if (
+        val.caseStatus == filterType.pending ? "Pending" : null ||
+          val.caseStatus == filterType.disposed ? "Disposed" : null
+
+
+
+      ) {
+
+        return val
+      } else {
+        return val
+      }
+    })
+    highCourt = companyData?.compliance.highCourt.cases.filter((val) => {
+      if (
+        val.caseStatus == filterType.pending ? "Pending" : null ||
+          val.caseStatus == filterType.disposed ? "Disposed" : null
+
+
+
+      ) {
+
+        return val
+      } else {
+        return val
+      }
+    })
+    tribunalCourts = companyData?.compliance.tribunalCourts.cases.filter((val) => {
+
+      if (
+        val.caseStatus == filterType.pending ? "Pending" : null ||
+          val.caseStatus == filterType.disposed ? "Disposed" : null
+
+
+
+      ) {
+
+        return val
+      } else {
+        return val
+      }
+    })
+    console.log(districtCourt, "districtCourt99")
+
+    setSupreme(supremeCourt)
+    setTribunal(tribunalCourts)
+    setHigh(highCourt)
+    setDistrict(districtCourt)
+
+    setTotalCourt(count)
+  }
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -1245,21 +1347,21 @@ const [totalCourt,setTotalCourt]=useState({
                 {orderList?.company?.companyName}
               </h1>
             </div>
-            {selectedTab=="CAM"?
-             <>
-              <div className={`${styles.unit} ml-auto mt-n4 d-flex align-items-center`}>
-              <h5 className={`${styles.unit_label} mb-0 accordion_Text`}>Unit :</h5>
-              <div className="d-flex align-items-center position-relative">
-              <select className={`${styles.select} ${styles.customSelect} accordion_body form-select`} aria-label="Default select example">
-              <option selected value="Crores">Crores</option>
-              </select>
-              <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg"
-              alt="Search" />
-              </div>
-              </div>
-            </>
-            :null  
-          }
+            {selectedTab == "CAM" ?
+              <>
+                <div className={`${styles.unit} ml-auto mt-n4 d-flex align-items-center`}>
+                  <h5 className={`${styles.unit_label} mb-0 accordion_Text`}>Unit :</h5>
+                  <div className="d-flex align-items-center position-relative">
+                    <select className={`${styles.select} ${styles.customSelect} accordion_body form-select`} aria-label="Default select example">
+                      <option selected value="Crores">Crores</option>
+                    </select>
+                    <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg"
+                      alt="Search" />
+                  </div>
+                </div>
+              </>
+              : null
+            }
             {uploadBtn ? (
               <div className="ml-auto">
                 {uploadButton(dispatch, orderList, companyData)}{' '}
@@ -1510,7 +1612,7 @@ const [totalCourt,setTotalCourt]=useState({
                                           <div
                                             className={`${styles.compliance_content} Compliance ml-1`}
                                           >
-                                            {alert.alert}
+                                            {alertObj[alert.alert]}
                                           </div>
                                         </div>
                                       )
@@ -1547,7 +1649,7 @@ const [totalCourt,setTotalCourt]=useState({
                                           <div
                                             className={`${styles.compliance_content} Compliance ml-1`}
                                           >
-                                            {alert.alert}
+                                             {alertObj[alert.alert]}
                                           </div>
                                         </div>
                                       )
@@ -1586,7 +1688,7 @@ const [totalCourt,setTotalCourt]=useState({
                                           <div
                                             className={`${styles.compliance_content} Compliance ml-1`}
                                           >
-                                            {alert.alert}
+                                             {alertObj[alert.alert]}
                                           </div>
                                         </div>
                                       )
@@ -1625,7 +1727,7 @@ const [totalCourt,setTotalCourt]=useState({
                                           <div
                                             className={`${styles.compliance_content} Compliance ml-1`}
                                           >
-                                            {alert.alert}
+                                             {alertObj[alert.alert]}
                                           </div>
                                         </div>
                                       )
@@ -1667,7 +1769,7 @@ const [totalCourt,setTotalCourt]=useState({
                       <div
                         className={` ${styles.cardBody_details} card-body border_color`}
                       >
-                        {table2(complienceStatutoryFilter, complienceBalanceFilter,complienceFilter)}
+                        {table2(complienceStatutoryFilter, complienceBalanceFilter, complienceFilter)}
                       </div>
                     </div>
                   </div>
@@ -1721,9 +1823,9 @@ const [totalCourt,setTotalCourt]=useState({
                                     type="checkbox"
                                     value=""
                                     id="flexCheckDefault"
-                                    onChange={()=>{
-                                      filterType.filterBy.pending=!filterType.filterBy.pending
-                                      setFilterType({...filterType})
+                                    onChange={() => {
+                                      filterType.filterBy.pending = !filterType.filterBy.pending
+                                      setFilterType({ ...filterType })
                                     }}
                                   />
                                   <label
@@ -1743,15 +1845,15 @@ const [totalCourt,setTotalCourt]=useState({
                                     type="checkbox"
                                     value=""
                                     id="flexCheckDefault1"
-                                    onChange={()=>{
-                                      filterType.filterBy.disposed=!filterType.filterBy.disposed
-                                      setFilterType({...filterType})
+                                    onChange={() => {
+                                      filterType.filterBy.disposed = !filterType.filterBy.disposed
+                                      setFilterType({ ...filterType })
                                     }}
                                   />
                                   <label
                                     className="form-check-label"
                                     htmlFor="flexCheckDefault1"
-                                   
+
                                   >
                                     Disposed (
                                     {
@@ -1766,9 +1868,9 @@ const [totalCourt,setTotalCourt]=useState({
                                     type="checkbox"
                                     value=""
                                     id="flexCheckDefault3"
-                                     onChange={()=>{
-                                      filterType.filterBy.total=!filterType.filterBy.total
-                                      setFilterType({...filterType})
+                                    onChange={() => {
+                                      filterType.filterBy.total = !filterType.filterBy.total
+                                      setFilterType({ ...filterType })
                                     }}
                                   />
                                   <label
@@ -1777,7 +1879,7 @@ const [totalCourt,setTotalCourt]=useState({
                                   >
                                     Total Cases (
                                     {
-                                       totalCourt.total
+                                      totalCourt.total
                                     }
                                     )
                                   </label>
@@ -1792,8 +1894,8 @@ const [totalCourt,setTotalCourt]=useState({
                                 <div className="form-check">
                                   <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
                                   <label className="form-check-label" htmlFor="flexRadioDefault1"
-                                  onChange={()=>{
-                                      setFilterType({...filterType,party:"Respondent"})
+                                    onChange={() => {
+                                      setFilterType({ ...filterType, party: "Respondent" })
                                     }}
                                   >
                                     Respondent
@@ -1802,8 +1904,8 @@ const [totalCourt,setTotalCourt]=useState({
                                 <div className="form-check ml-4">
                                   <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked />
                                   <label className="form-check-label" htmlFor="flexRadioDefault2"
-                                  onChange={()=>{
-                                      setFilterType({...filterType,party:"Petitioner"})
+                                    onChange={() => {
+                                      setFilterType({ ...filterType, party: "Petitioner" })
                                     }}
                                   >
                                     Petitioner
@@ -1820,23 +1922,23 @@ const [totalCourt,setTotalCourt]=useState({
                                 <div className="form-check">
                                   <input className="form-check-input" type="radio" name="flexRadio" id="flexRadioDefault3"
 
-                                  onChange={()=>{
-                                    
-                                      setFilterType({...filterType,class:"Civil"})
+                                    onChange={() => {
+
+                                      setFilterType({ ...filterType, class: "Civil" })
                                     }} />
                                   <label className="form-check-label" htmlFor="flexRadioDefault3"
-                                   
+
                                   >
                                     Civil
                                   </label>
                                 </div>
                                 <div className="form-check ml-3">
-                                  <input className="form-check-input" type="radio" name="flexRadio" id="flexRadioDefault4" checked 
-                                   onChange={()=>{
-                                      setFilterType({...filterType,class:"Criminal"})
-                                    }}/>
+                                  <input className="form-check-input" type="radio" name="flexRadio" id="flexRadioDefault4" checked
+                                    onChange={() => {
+                                      setFilterType({ ...filterType, class: "Criminal" })
+                                    }} />
                                   <label className="form-check-label" htmlFor="flexRadioDefault4"
-                                  
+
                                   >
                                     Criminal
                                   </label>
@@ -1858,15 +1960,15 @@ const [totalCourt,setTotalCourt]=useState({
                                 name="topics"
                                 value={'high'}
                                 id={'high'}
-                                 onChange={()=>{
-                                      setFilterType({...filterType,risk:"high"})
+                                onChange={() => {
+                                  setFilterType({ ...filterType, risk: "high" })
                                 }}
                               />
                               <span className={styles.control__content}>
                                 <span>High Risk</span>
-                               <span>({totalCourt.high})</span>
-                              </span>  
-                             
+                                <span>({totalCourt.high})</span>
+                              </span>
+
                             </label>
 
                             <label
@@ -1879,13 +1981,13 @@ const [totalCourt,setTotalCourt]=useState({
                                 name="topics"
                                 value={'medium'}
                                 id={'medium'}
-                                 onChange={()=>{
-                                      setFilterType({...filterType,risk:"medium"})
+                                onChange={() => {
+                                  setFilterType({ ...filterType, risk: "medium" })
                                 }}
                               />
                               <span className={styles.control__content}>
                                 <span>Medium Risk</span>
-                              <span>({totalCourt.medium})</span>
+                                <span>({totalCourt.medium})</span>
                               </span>
                             </label>
                             <label
@@ -1898,13 +2000,13 @@ const [totalCourt,setTotalCourt]=useState({
                                 name="topics"
                                 value={'Relevance'}
                                 id={'Relevance'}
-                                onChange={()=>{
-                                      setFilterType({...filterType,risk:"relevence"})
+                                onChange={() => {
+                                  setFilterType({ ...filterType, risk: "relevence" })
                                 }}
                               />
                               <span className={styles.control__content}>
                                 <span>High Relevence</span>
-                                 <span>({totalCourt.relevence})</span>
+                                <span>({totalCourt.relevence})</span>
                               </span>
                             </label>
                           </div>
@@ -1939,7 +2041,7 @@ const [totalCourt,setTotalCourt]=useState({
                           /> */}
                         </div>
 
-                        <div>{ligitations(Supreme,District,High,Tribunal,companyData)}</div>
+                        <div>{ligitations(Supreme, District, High, Tribunal, companyData)}</div>
                       </div>
                     </div>
                   </div>
@@ -2003,7 +2105,7 @@ const [totalCourt,setTotalCourt]=useState({
                 </div>
                 <div className="tab-pane fade" id="cam" role="tabpanel">
                   <CAM
-                  fetchingKarzaGst={fetchingKarzaGst}
+                    fetchingKarzaGst={fetchingKarzaGst}
                     gstData={gstData}
                     camData={orderList}
                     companyData={companyData}
@@ -2021,7 +2123,7 @@ const [totalCourt,setTotalCourt]=useState({
                   role="tabpanel"
                 >
                   <div className="accordion" id="profileAccordion">
-                  <UploadOther module='LeadOnboarding&OrderApproval' orderid={id} />
+                    <UploadOther module='LeadOnboarding&OrderApproval' orderid={id} />
 
                   </div>
                 </div>
@@ -2044,7 +2146,7 @@ const [totalCourt,setTotalCourt]=useState({
           leftButtonName={``}
           rightButtonName={`Next`}
           handleApprove={onNext}
-          handleReject={()=>{console.log("download pdf")}}
+          handleReject={() => { console.log("download pdf") }}
         />
       ) : null}
       {selectedTab == 'GST' ? (
@@ -2086,9 +2188,9 @@ const uploadButton = (dispatch, orderList, companyData) => {
   )
 }
 
-const ligitations = (Supreme,District,High,Tribunal,companyData) => {
-  console.log(District,"District")
-  
+const ligitations = (Supreme, District, High, Tribunal, companyData) => {
+  console.log(District, "District")
+
 
   return (
     <>
@@ -2120,10 +2222,10 @@ const ligitations = (Supreme,District,High,Tribunal,companyData) => {
   )
 }
 
-const table2 = (sat,balance, complienceFilter) => {
- 
-   console.log(sat,balance,"oi")
-  let length=complienceFilter=="StatutoryCompliance"?sat.length:balance.length
+const table2 = (sat, balance, complienceFilter) => {
+
+  console.log(sat, balance, "oi")
+  let length = complienceFilter == "StatutoryCompliance" ? sat.length : balance.length
   return (
     <table
       className={`${styles.table_details} table border-color`}
@@ -2144,7 +2246,7 @@ const table2 = (sat,balance, complienceFilter) => {
       <tbody>
         <tr>
           <td className={styles.firstCell} rowSpan={length + 1}>
-            {complienceFilter=="StatutoryCompliance"?`Statutory Compliance`:`Banking Defaults`}
+            {complienceFilter == "StatutoryCompliance" ? `Statutory Compliance` : `Banking Defaults`}
           </td>
           {/* <td></td>
           <td></td>
@@ -2152,33 +2254,33 @@ const table2 = (sat,balance, complienceFilter) => {
           <td></td>
           <td></td> */}
         </tr>
-        {complienceFilter=="StatutoryCompliance"
-        ?
-         sat.length && sat?.map((alert, index) => {
-            return(
-            <tr key={index}>
-            <td> {alert.alert}</td>
-            <td> {alert.severity}</td>
-            <td> {alert.source}</td>
-            <td> {alert.idType}</td>
-            <td> {alert.value}</td>
-          </tr>
+        {complienceFilter == "StatutoryCompliance"
+          ?
+          sat.length && sat?.map((alert, index) => {
+            return (
+              <tr key={index}>
+                <td> {alert.alert}</td>
+                <td> {alert.severity}</td>
+                <td> {alert.source}</td>
+                <td> {alert.idType}</td>
+                <td> {alert.value}</td>
+              </tr>
             )
           })
-        :
-          balance.length>0 && balance?.map((alert, index) => {
-            return(
-            <tr key={index}>
-            <td> {alert.alert}</td>
-            <td> {alert.severity}</td>
-            <td> {alert.source}</td>
-            <td> {alert.idType}</td>
-            <td> {alert.value}</td>
-          </tr>
+          :
+          balance.length > 0 && balance?.map((alert, index) => {
+            return (
+              <tr key={index}>
+                <td> {alert.alert}</td>
+                <td> {alert.severity}</td>
+                <td> {alert.source}</td>
+                <td> {alert.idType}</td>
+                <td> {alert.value}</td>
+              </tr>
             )
           })
         }
-      
+
 
 
       </tbody>

@@ -61,11 +61,11 @@ function Index({
     }
   }, [dispatch, fetchingKarzaGst])
   useEffect(() => {
-  
-      let id1 = sessionStorage.getItem('orderID')
-      dispatch(GetDocuments(`?order=${id1}`))
 
-    
+    let id1 = sessionStorage.getItem('orderID')
+    dispatch(GetDocuments(`?order=${id1}`))
+
+
   }, [dispatch])
 
   console.log(camData, 'THIS IS CAM DATA')
@@ -76,9 +76,9 @@ function Index({
       return camData?._id === rating.order
     })
 
-    const { documentsFetched } = useSelector((state) => state.review)
+  const { documentsFetched } = useSelector((state) => state.review)
 
-    console.log(documentsFetched, 'THIS IS DOCUMENTS FETCHED')
+  console.log(documentsFetched, 'THIS IS DOCUMENTS FETCHED')
 
   const onApprove = (name, value) => {
     // if (gettingPercentageCredit()) {
@@ -631,73 +631,83 @@ const groupExposure = (camData) => {
         >
           <div className={`${styles.info_wrapper} card-body border_color`}>
             {camData &&
-              camData?.company?.groupExposureDetail?.map((exp, index) => (
-                <Row key={index} className={`${styles.row}`}>
-                  <Col md={4}>
-                    <div className={`${styles.exposureCard}`}>
-                      <Row>
-                        <Col
-                          sm={12}
-                          className={`d-flex justify-content-start align-content-center  mb-5`}
-                        >
-                          <div className={`${styles.icon} `}>
-                            <span
-                              className={`d-flex justify-content-center align-content-center`}
-                            >
-                              ET
-                            </span>
-                          </div>
+              camData?.company?.groupExposureDetail?.map((exp, index) => {
+                let name = exp?.name?.split(' ') ?? 'NA'
+                console.log(name, 'thirdkjdfbh')
+                return (
+                  <Row key={index} className={`${styles.row}`}>
+                    <Col md={4}>
+                      <div className={`${styles.exposureCard}`}>
+                        <Row>
+                          <Col
+                            sm={12}
+                            className={`d-flex justify-content-start align-content-center  mb-5`}
+                          >
+                            <div className={`${styles.icon} `}>
 
-                          <span className={` ${styles.name} ml-3  `}>
-                            {exp.name}
-                          </span>
-                        </Col>
-                        <Col sm={12} className={`${styles.limit}   mb-5`}>
-                          <div
-                            className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
-                          >
-                            <div className={`${styles.limit_box} `}>
-                              <span className={`${styles.limit_label} `}>
-                                LIMIT
+                              <span
+                                className={`d-flex justify-content-center align-content-center`}
+                              >
+                                {name?.map((item, index) => {
+                                  if (index < 2) {
+                                    return item?.charAt(0).toUpperCase()
+                                  }
+
+
+                                })}
                               </span>
                             </div>
-                            <span>{exp.limit}</span>
-                          </div>
-                          <div className={`${styles.bar}`}>
-                            <div className={`${styles.fill}`}></div>
-                          </div>
-                        </Col>
-                        <Col sm={12} className={`${styles.limit}   mb-5`}>
-                          <div
-                            className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
-                          >
-                            <div className={`${styles.limit_box} `}>
-                              <span className={`${styles.limit_label} `}>
-                                O/S BALANCE
-                              </span>
+
+                            <span className={` ${styles.name} ml-3  `}>
+                              {exp.name}
+                            </span>
+                          </Col>
+                          <Col sm={12} className={`${styles.limit}   mb-5`}>
+                            <div
+                              className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
+                            >
+                              <div className={`${styles.limit_box} `}>
+                                <span className={`${styles.limit_label} `}>
+                                  LIMIT
+                                </span>
+                              </div>
+                              <span>{exp.limit}</span>
                             </div>
-                            <span>{exp.outstandingLimit}</span>
-                          </div>
-                          <div className={`${styles.bar}`}>
-                            <div className={`${styles.fill}`}></div>
-                          </div>
-                        </Col>
-                        <Col sm={12} className={`${styles.limit}   mb-5`}>
-                          <div
-                            className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
-                          >
-                            <div className={`${styles.limit_box} `}>
-                              <span className={`${styles.limit_label} `}>
-                                CONDUCT
-                              </span>
+                            <div className={`${styles.bar}`}>
+                              <div className={`${styles.fill}`}></div>
                             </div>
-                          </div>
-                          <p>{exp.accountConduct}</p>
-                        </Col>
-                      </Row>
-                    </div>
-                  </Col>
-                  {/* <Col md={4}>
+                          </Col>
+                          <Col sm={12} className={`${styles.limit}   mb-5`}>
+                            <div
+                              className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
+                            >
+                              <div className={`${styles.limit_box} `}>
+                                <span className={`${styles.limit_label} `}>
+                                  O/S BALANCE
+                                </span>
+                              </div>
+                              <span>{exp.outstandingLimit}</span>
+                            </div>
+                            <div className={`${styles.bar}`}>
+                              <div className={`${styles.fill}`}></div>
+                            </div>
+                          </Col>
+                          <Col sm={12} className={`${styles.limit}   mb-5`}>
+                            <div
+                              className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
+                            >
+                              <div className={`${styles.limit_box} `}>
+                                <span className={`${styles.limit_label} `}>
+                                  CONDUCT
+                                </span>
+                              </div>
+                            </div>
+                            <p>{exp.accountConduct}</p>
+                          </Col>
+                        </Row>
+                      </div>
+                    </Col>
+                    {/* <Col md={4}>
                 <div className={`${styles.exposureCard}`}>
                   <Row>
                     <Col
@@ -835,8 +845,9 @@ const groupExposure = (camData) => {
                   </Row>
                 </div>
               </Col> */}
-                </Row>
-              ))}
+                  </Row>
+                )
+              })}
           </div>
         </div>
       </div>
@@ -1142,7 +1153,7 @@ const shareHolding = (data, options, tempArr, camData) => {
                   {camData &&
                     camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern?.map(
                       (share, index) => {
-                        
+
                         let name = share?.fullName ?? 'N A'
                         let [fName, lName] = name?.split(' ')
 
@@ -1306,28 +1317,29 @@ const chargeDetails = (data, options, tempArr, camData) => {
                           secondary: "#FF9D00"
                         }]
                         let randColor = colors[Math.floor(Math.random() * colors.length)];
-                        return(
-                        <tr key={index}>
-                          <td
-                            className={`d-flex justify-content-start align-content-center`}
-                          >
-                            <div  style={{ background: `${randColor.primary}` }}  className={`${styles.icon} `}>
-                              <span  style={{ color: `${randColor.secondary}` }} 
-                                className={`d-flex justify-content-center align-content-center`}
-                              >
-                                {fName?.charAt(0) ? fName?.charAt(0) : 'N'}{lName?.charAt(0) ? lName?.charAt(0) : 'A'}
+                        return (
+                          <tr key={index}>
+                            <td
+                              className={`d-flex justify-content-start align-content-center`}
+                            >
+                              <div style={{ background: `${randColor.primary}` }} className={`${styles.icon} `}>
+                                <span style={{ color: `${randColor.secondary}` }}
+                                  className={`d-flex justify-content-center align-content-center`}
+                                >
+                                  {fName?.charAt(0) ? fName?.charAt(0) : 'N'}{lName?.charAt(0) ? lName?.charAt(0) : 'A'}
+                                </span>
+                              </div>
+
+                              <span className={` ${styles.name} ml-3  `}>
+                                {charge?.nameOfChargeHolder1}
                               </span>
-                            </div>
+                            </td>
+                            <td>{charge?.finalAmountSecured}</td>
 
-                            <span className={` ${styles.name} ml-3  `}>
-                              {charge?.nameOfChargeHolder1}
-                            </span>
-                          </td>
-                          <td>{charge?.finalAmountSecured}</td>
-
-                          <td>{charge?.dateOfCreationOfCharge}</td>
-                        </tr>
-                      )},
+                            <td>{charge?.dateOfCreationOfCharge}</td>
+                          </tr>
+                        )
+                      },
                     )}
                   {/* <tr>
                     <td
@@ -2759,16 +2771,17 @@ const Documents = (documentsFetched) => {
         >
           <div className={`${styles.terms_wrapper} card-body border_color`}>
             <Row className={`${styles.row}`}>
-              { documentsFetched && documentsFetched?.documents?.map((doc, index) => ( <Col md={3} key={index} className={`mb-3`}>
+              {documentsFetched && documentsFetched?.documents?.map((doc, index) => (<Col md={3} key={index} className={`mb-3`}>
                 <div
                   className={`${styles.doc_container} p-2  d-flex align-items-center justify-content-start`}
                 >
                   <img src="./static/icon file copy.svg"></img>
                   <div className={`${styles.view} ml-4`}>
                     <span>{doc.name}</span>
-                    <span onClick={()=> dispatch(ViewDocument({path: doc.path,
-                      orderId : documentsFetched._id
-                    })) } className={`${styles.highlight} mt-2`}>VIEW</span>
+                    <span onClick={() => dispatch(ViewDocument({
+                      path: doc.path,
+                      orderId: documentsFetched._id
+                    }))} className={`${styles.highlight} mt-2`}>VIEW</span>
                   </div>
                 </div>
               </Col>))}
