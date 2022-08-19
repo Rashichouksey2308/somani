@@ -30,16 +30,16 @@ function Index() {
       //   data-parent="#profileAccordion"
       >
 
-        {fields("Company Name", buyerList?.companyName)}
-        {fields("Company PAN", buyerList?.company.companyPan)}
-        {fields("Type Of Business", buyerList?.company.typeOfBusiness)}
-        {fields("Transaction Type", buyerList?.transactionType?.originalValue)}
-        {fields("Turn-Over (in Cr)", buyerList?.company.turnOver)}
-        {fields("Email ID", buyerList?.company.email)}
+        {fields("Company Name", buyerList?.companyName??'')}
+        {fields("Company PAN", buyerList?.company?.companyPan??'')}
+        {fields("Type Of Business", buyerList?.company?.typeOfBusiness??'')}
+        {fields("Transaction Type", buyerList?.transactionType?.originalValue??'')}
+        {fields("Turn-Over (in Cr)", buyerList?.company?.turnOver??'')}
+        {fields("Email ID", buyerList?.company?.email??'')}
 
-        {fields("Phone Number", buyerList?.company.mobile.primary.number, buyerList?.company.mobile.primary.callingCode)}
-        {fields("Whatsapp Number", buyerList?.company.mobile.whatsapp.number, buyerList?.company.mobile.whatsapp.callingCode)}
-        {fields("Communication Mode", buyerList?.company.communicationMode?.toString())}
+        {fields("Phone Number", buyerList?.company?.mobile?.primary?.number??'', buyerList?.company?.mobile?.primary?.callingCode??'')}
+        {fields("Whatsapp Number", buyerList?.company?.mobile?.whatsapp?.number??'', buyerList?.company?.mobile?.whatsapp?.callingCode??'')}
+        {fields("Communication Mode", buyerList?.company?.communicationMode?.toString()??'')}
 
       </div>
     </div>

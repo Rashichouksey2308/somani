@@ -29,7 +29,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
             </h5>
             <select className={`${styles.options} accordion_DropDown`} name='unitOfQuantity' 
             onChange={(e)=>{saveOrderData(e.target.name, e.target.value)}}>
-              <option>{orderDetail?.unitOfQuantity.toUpperCase()}</option>
+              <option>{orderDetail?.unitOfQuantity?.toUpperCase()}</option>
               {/* <option selected>MT</option> */}
             </select>
           </div>
@@ -113,7 +113,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   required
                   type="text"
                   name="quantity"
-                  defaultValue={addPrefixOrSuffix(orderDetail?.quantity,orderDetail.unitOfQuantity.toUpperCase())}
+                  value={addPrefixOrSuffix(orderDetail?.quantity,orderDetail?.unitOfQuantity?.toUpperCase())}
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
                   }}
