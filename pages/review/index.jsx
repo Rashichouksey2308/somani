@@ -546,6 +546,15 @@ const { fetchingKarzaGst } = useSelector((state) => state.review)
     },
   ])
 
+  const [groupExposureData, setGroupExposureData] = useState([
+    {
+      accountConduct: orderList?.company?.groupExposureDetail?.accountConduct,
+      limit: orderList?.company?.groupExposureDetail?.limit,
+      name: orderList?.company?.groupExposureDetail?.name,
+      outstandingLimit:
+        orderList?.company?.groupExposureDetail?.outstandingLimit,
+    },
+  ])
 
 
   useEffect(() => {
@@ -609,15 +618,6 @@ const { fetchingKarzaGst } = useSelector((state) => state.review)
     setWeaknessComment(weaknessArr)
   }, [orderList, orderList?.company])
 
-  const [groupExposureData, setGroupExposureData] = useState([
-    {
-      accountConduct: orderList?.company?.groupExposureDetail?.accountConduct,
-      limit: orderList?.company?.groupExposureDetail?.limit,
-      name: orderList?.company?.groupExposureDetail?.name,
-      outstandingLimit:
-        orderList?.company?.groupExposureDetail?.outstandingLimit,
-    },
-  ])
 
   const [suggestedCredit, setSuggestedCredit] = useState({
     suggestedCreditLimit: orderList?.suggestedCreditLimit,
@@ -1977,6 +1977,7 @@ const [totalCourt,setTotalCourt]=useState({
                   <Recommendations
                     creditDetail={orderList}
                     groupExposureData={groupExposureData}
+                    setGroupExposureData={setGroupExposureData}
                     saveSuggestedCreditData={saveSuggestedCreditData}
                     addGroupExpArr={addGroupExpArr}
                     financialsComment={financialsComment}
