@@ -178,6 +178,7 @@ export default function Index({
                         onChange={(e) => onChangeVessel(e, index)}
                         className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                       >
+                         <option>Select an option</option>
                         {shipmentTypeBulk
                           ? _get(
                               TransitDetails,
@@ -296,6 +297,7 @@ export default function Index({
                       <select
                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       >
+                         <option>Select an option</option>
                         <option value={list.paymentBy}>{list.paymentBy}</option>
                         <option>N/A</option>
                       </select>

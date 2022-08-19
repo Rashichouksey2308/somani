@@ -340,7 +340,8 @@ return(
                   required
                 >
                   {' '}
-                  <option key={'0'}></option>
+                   <option>Select an option</option>
+                 
                   {gstList &&
                     gstList?.data?.gstList?.map((gstId, index) => (
                       <option key={index + 1} value={gstId}>
@@ -375,6 +376,7 @@ return(
                   className={`${styles.input_field}   ${styles.customSelect} input form-control`}
                   required
                 >
+                   <option>Select an option</option>
                   <option value="" selected></option>
                   <option value="Manufacturer">Manufacturer</option>
                   <option value="Retailer">Retailer</option>
@@ -404,6 +406,7 @@ return(
                   onChange={(e) => mobileCallingCodeFunction(e)}
                   className={`${styles.code_phone} input border-right-0`}
                 >
+                  <option>Select an option</option>
                   <option>+91</option>
                   <option>+1</option>
                   <option>+92</option>
@@ -573,6 +576,7 @@ return(
                   onChange={(e) => whatsappCallingCodeFunction(e)}
                   className={`${styles.code_phone} input border-right-0`}
                 >
+                   <option>Select an option</option>
                   <option>+91</option>
                   <option>+1</option>
                   <option>+92</option>

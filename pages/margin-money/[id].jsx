@@ -604,6 +604,9 @@ const [active,setActive]=useState("Margin Money")
                           className={`${styles.options} mr-4 accordion_DropDown`}
                         >
                           <option>
+                                Select an option
+                              </option>
+                          <option>
                             {' '}
                             {marginData?.order?.unitOfValue == 'Cr'
                               ? 'Crores'
@@ -1370,6 +1373,9 @@ const [active,setActive]=useState("Margin Money")
                                   }
                                   defaultValue={marginData?.invoiceDetail?.buyerGSTIN}
                                 >
+                                  <option>
+                                Select an option
+                              </option>
                                   <option value={marginData?.invoiceDetail?.buyerGSTIN}>
                                     {marginData?.invoiceDetail?.buyerGSTIN}
                                   </option>
@@ -1508,9 +1514,9 @@ const [active,setActive]=useState("Margin Money")
                                   }
                                   value={invoiceData?.consigneeGSTIN}
                                 >
-                                  <option >
-                                   
-                                  </option>
+                                  <option>
+                                Select an option
+                              </option>
                                   <option value="GTSDT789652JKH">
                                     GTSDT789652JKH
                                   </option>
@@ -1573,6 +1579,9 @@ const [active,setActive]=useState("Margin Money")
                                     )
                                   }
                                 >
+                                  <option>
+                                Select an option
+                              </option>
                                   <option value="Ramakrishna Traders">
                                     Ramakrishna Traders
                                   </option>
@@ -1612,6 +1621,9 @@ const [active,setActive]=useState("Margin Money")
                                     )
                                   }
                                 >
+                                  <option>
+                                Select an option
+                              </option>
                                   <option value="Visakhapatnam, India">
                                     {'Visakhapatnam, India'}
                                   </option>
@@ -1699,6 +1711,9 @@ const [active,setActive]=useState("Margin Money")
                                     )
                                   }
                                 >
+                                  <option>
+                                Select an option
+                              </option>
                                   <option value="HDFC">HDFC</option>
                                   <option value="SBI">SBI</option>
                                 </select>
@@ -1734,6 +1749,9 @@ const [active,setActive]=useState("Margin Money")
                                     )
                                   }
                                 >
+                                  <option>
+                                Select an option
+                              </option>
                                   <option value="DELHI, INDIA">
                                     DELHI, INDIA
                                   </option>
