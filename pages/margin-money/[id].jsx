@@ -1364,14 +1364,12 @@ const [active,setActive]=useState("Margin Money")
                                       e.target.value,
                                     )
                                   }
-                                  value={marginData?.invoiceDetail?.buyerGSTIN}
+                                  defaultValue={marginData?.invoiceDetail?.buyerGSTIN}
                                 >
-                                  {/* <option value="GTSDT789652JKH">
+                                  <option value={marginData?.invoiceDetail?.buyerGSTIN}>
                                     {marginData?.invoiceDetail?.buyerGSTIN}
-                                  </option> */}
-                                  <option value="GTSDT789652JKH">
-                                    GTSDT789652JKH
                                   </option>
+                                  
                                   <option value="GTSDT789652JKH">
                                     GTSDT789652JKH
                                   </option>
@@ -1506,8 +1504,8 @@ const [active,setActive]=useState("Margin Money")
                                   }
                                   value={invoiceData?.consigneeGSTIN}
                                 >
-                                  <option value="GTSDT789652JKH">
-                                    GTSDT789652JKH
+                                  <option >
+                                   
                                   </option>
                                   <option value="GTSDT789652JKH">
                                     GTSDT789652JKH

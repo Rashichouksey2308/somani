@@ -481,6 +481,7 @@ return(
                 <input className={`${styles.input_container} form-control input`} 
                 type="number"
                 value={slider}
+                name="turnOver"
                 onChange={(e)=>{
                     
                   setSlider(Number(e.target.value))
@@ -499,6 +500,10 @@ return(
                     setHighlight3(high)
                     setSliderType(3)
                   }
+                  saveCompanyData(
+                      e.target.name,
+                      Number(e.target.value),
+                    )
                     getSlider()
                   }}
                 />

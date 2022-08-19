@@ -733,7 +733,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body onHide={() => console.log("modal Closed")} className={`${styles.card_body} card-body`}>
-          <p className="card-text">Reference site about Lorem Ipsum, giving information on its origins, as well as a random Lipsum generator. OTP</p>
+          <p className="card-text">Please verify your email to verify you GST</p>
           <ul className={`${styles.nav_tabs} nav nav-tabs`} id="verifyGST" role="tablist">
             <li className={`${styles.nav_item} nav-item`}>
               <a className={`${styles.nav_link} nav-link active`} id="via-email" data-toggle="tab" href="#viaEmail" role="tab" aria-controls="viaEmail" aria-selected="true"><img src="/static/email-icon.png" className='img-fluid' alt='Via Email' />Via Email</a>

@@ -6,7 +6,7 @@ import { DropdownButton, Dropdown, Form } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import moment from 'moment'
 function Index({ handleChange, reviewedProfile }) {
-  console.log("🚀 ~ file: index.jsx ~ line 9 ~ Index ~ reviewedProfile", reviewedProfile)
+  console.log("🚀 ~ file: index.jsx ~ line 9 ~ Index ~ reviewedProfile", reviewedProfile?.orderValues?.apiResponse)
   const transactionTypeDropdown = ['Import', 'Domestic']
   const commodityDropdown = ['Iron', 'Crude', 'Steel']
   const countryOfOriginDropdown = ['America', 'India', 'Russia']
@@ -272,7 +272,7 @@ function Index({ handleChange, reviewedProfile }) {
                     <div className={styles.tick}>
                       <img
                         src={
-                          reviewedProfile?.orderValues?.apiResponse
+                          reviewedProfile?.orderValue?.apiResponse
                             ? '/static/check.svg'
                             : '/static/close-b.svg'
                         }
@@ -282,7 +282,7 @@ function Index({ handleChange, reviewedProfile }) {
                     </div>
                   </td>
                   <td>
-                     {!reviewedProfile?.orderValues?.apiResponse?
+                     {!reviewedProfile?.orderValue?.apiResponse?
                     <input
                      onChange={(e) => handleCheckBox(5)}
                       className={styles.checkBox}
@@ -291,7 +291,7 @@ function Index({ handleChange, reviewedProfile }) {
                    :null}
                   </td>
                   <td>
-                    {!reviewedProfile?.orderValues?.apiResponse && (
+                    {!reviewedProfile?.orderValue?.apiResponse && (
                       <Form.Control
                         type="number"
                         name="orderValue"
