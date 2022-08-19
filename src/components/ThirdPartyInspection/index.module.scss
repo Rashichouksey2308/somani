@@ -427,7 +427,16 @@
               line-height: 24px;
               width: 210px;
               height: 49px;
+              box-shadow: none;
               background-color: transparent;
+              img {
+                &::after {
+                  top: 50%;
+                  right: 18px;
+                  position: absolute;
+                  transform: translateY(-50%);
+                }
+              }
             }
             .hold_field {
               background: #ff9d00;
@@ -470,6 +479,40 @@
               line-height: 24px;
               opacity: 0.7;
               font-weight: 500;
+            }
+            .dropdown_menu {
+              padding: 0;
+              border: none;
+              text-align: center;
+              .dropdown_item {
+                width: 210px;
+                height: 49px;
+                font-size: 19px;
+                color: #ffffff;
+                line-height: 24px;
+                font-weight: 500;
+                border: none;
+                padding: 10px 20px;
+                &:first-child {
+                  border-radius: 6px 6px 0 0;
+                }
+                &:last-child {
+                  border-radius: 0 0 6px 6px;
+                }
+                &.hold_field {
+                  background: #ff9d00;
+                }
+                &.rejected_field {
+                  background: #ea3f3f;
+                }
+                &.approved_field {
+                  background: green;
+                  img {
+                    width: 20px;
+                    filter:  brightness(0) invert(1);
+                  }
+                }
+              }
             }
           }
         }
