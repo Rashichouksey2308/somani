@@ -1288,7 +1288,8 @@ const index = ({
                       </label>
                     </div>
 
-                    <div className={`${styles.btn_container} col-md-4`}>
+                    <div className="d-flex justify-center-center align-item-center col-md-4">
+                      <div className={`${styles.btn_container} `}>
                       <button className={`${styles.gst_btn}`}>
                         {' '}
                         <input
@@ -1307,14 +1308,16 @@ const index = ({
                         />
                         GST Doc
                       </button>
-                      <button
+                   
+                   
+
+                    </div>
+                     <button
                     className={`${styles.add_btn}`}
                     onClick={() => handleClick()}
                   >
                     Add
                   </button>
-
-
                     </div>
                   </div> 
                 </div>
