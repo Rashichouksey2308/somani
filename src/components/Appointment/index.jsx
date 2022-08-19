@@ -99,7 +99,7 @@ export default function Index({ inspectionData }) {
         className={`${styles.backgroundMain} container-fluid p-0 background2`}
       >
         <div className={`${styles.vessel_card}`}>
-          <div className={`${styles.main} vessel_card card border-color`}>
+          <div className={`${styles.main} vessel_card card`}>
             <div
               className={`${styles.head_container} border_color card-header head_container justify-content-between d-flex bg-transparent`}
             >
@@ -172,7 +172,7 @@ export default function Index({ inspectionData }) {
                   </label>
 
                   <div
-                    className={`${styles.comment_field} w-100 d-flex justify-content-between mt-2 form-control`}
+                    className={`${styles.comment_field} border_color w-100 bg-transparent d-flex justify-content-between mt-2 form-control`}
                   >
                     <div className="m-3">
                       <div className={`${styles.address_type}`}>
@@ -207,8 +207,8 @@ export default function Index({ inspectionData }) {
 
 const editData = (handleEditCancel, handleEditInput, handleOnAdd) => {
   return (
-    <div className={`${styles.newAddressContainer} mt-3`}>
-      <div className={`${styles.newAddressHead}`}>
+    <div className={`${styles.newAddressContainer} border_color mt-3`}>
+      <div className={`${styles.newAddressHead} border_color`}>
         <span>Add a new address</span>
       </div>
       <div className={`${styles.newAddressContent} row`}>
