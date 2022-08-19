@@ -16,6 +16,7 @@ const Index = () => {
   const dispatch = useDispatch()
 
   const { buyerList } = useSelector((state) => state.buyer)
+  console.log("🚀 ~ file: [profile].jsx ~ line 19 ~ Index ~ buyerList", buyerList)
 
   const [payloadData, setPayloadData] = useState({
     action: 'APPROVE',
