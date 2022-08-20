@@ -450,7 +450,7 @@ const Index = () => {
                           onChange={(e) => {
                             saveQuotationData(e.target.name, e.target.value)
                           }}
-                          className={`${styles.remark_field} form-control`}
+                          className={`${styles.remark_field} input form-control`}
                           as
                           rows={3}
                         />
@@ -559,35 +559,42 @@ const Index = () => {
                             </div>
                           </Col>
                           <Col className="mb-4 mt-4" md={4}>
-                            <select
-                              name="lossPayee"
-                              onChange={(e) => {
-                                saveQuotationData(e.target.name, e.target.value)
-                              }}
-                              className={`${styles.input_field} input form-control`}
-                            >
-                              <option selected>
-                                {insuranceData?.quotationRequest?.lossPayee}
-                              </option>
-                              <option
-                                value={
-                                  insuranceData?.order?.lc?.lcApplication
-                                    ?.lcIssuingBank
-                                }
+                            <div className='d-flex'>
+                              <select
+                                name="lossPayee"
+                                onChange={(e) => {
+                                  saveQuotationData(e.target.name, e.target.value)
+                                }}
+                                className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               >
-                                {
-                                  insuranceData?.order?.lc?.lcApplication
-                                    ?.lcIssuingBank
-                                }
-                              </option>
-                              <option value="SBI BANK">SBI BANK</option>
-                            </select>
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
-                              Loss Payee
-                              <strong className="text-danger">*</strong>
-                            </label>
+                                <option selected>
+                                  {insuranceData?.quotationRequest?.lossPayee}
+                                </option>
+                                <option
+                                  value={
+                                    insuranceData?.order?.lc?.lcApplication
+                                      ?.lcIssuingBank
+                                  }
+                                >
+                                  {
+                                    insuranceData?.order?.lc?.lcApplication
+                                      ?.lcIssuingBank
+                                  }
+                                </option>
+                                <option value="SBI BANK">SBI BANK</option>
+                              </select>
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                              >
+                                Loss Payee
+                                <strong className="text-danger">*</strong>
+                              </label>
+                              <img
+                                className={`${styles.arrow} image_arrow img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                              />
+                            </div>
                           </Col>
                           <Col className="mt-4" lg={2} md={4}>
                             <div className="d-flex">
@@ -801,7 +808,7 @@ const Index = () => {
                           onChange={(e) => {
                             saveQuotationData(e.target.name, e.target.value)
                           }}
-                          className={`${styles.remark_field} text form-control`}
+                          className={`${styles.remark_field} input form-control`}
                           as
                           rows={3}
                         />
