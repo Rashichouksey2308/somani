@@ -30,7 +30,7 @@ const index = ({
   supplierCred,
   setEditRow,
 }) => {
-  console.log(creditDetail, 'this is credit detail')
+  console.log(personData, 'person')
   console.log(debtData, 'debtData')
   const dispatch = useDispatch()
 
