@@ -1,9 +1,18 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React ,{useState}from 'react'
+import React ,{useState,useEffect}from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
-function Index() {
+
+  let associate={
+    "branchName": "",
+    "shortNAme": "",
+    "gstin": "",
+
+        
+ }
+function Index(props) {
+  const[associateData,setAssociateData]=useState(associate)
   const [addressList,setAddressList]=useState([])
   const [newAddress,setNewAddress]=useState(
           {
@@ -37,7 +46,40 @@ function Index() {
      actions:"false"}
   
   ])
+useEffect(() => {
+if(props.saveData==true && props.active=="Associate Buyer"){
+  let data={
+  associate:associateData,
+  address:addressList
 
+  
+  
+  }
+  props.sendData("Associate Buyer",data)
+}
+if(props.submitData==true && props.active=="Associate Buyer"){
+console.log("this12")
+let data={
+  associate:associateData,
+  list:addressList
+
+  
+  }
+
+props.updateData("Associate Buyer",data)
+
+}
+},[props])
+  const handleInput=(name,value,key)=>{
+  
+
+  const newInput = { ...associateData }
+
+  newInput[name] = value
+  setAssociateData(newInput)
+
+  }
+  console.log()
   const onEdit=(index)=>{
     let tempArr=list;
     // tempArr[index].actions.edit="false"
@@ -235,7 +277,10 @@ setEditAddress(
                 className={`${styles.input_field} input form-control`}
                 required
                 type="text"
-                name="commodity"
+                name="branchName"
+                onChange={(e)=>{
+                  handleInput(e.target.name,e.target.value)
+                }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
                Branch Name
@@ -245,16 +290,15 @@ setEditAddress(
               <div className='d-flex'>
                 <select
                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                  name="countryOfOrigin"
+                  name="gstin"
                   onChange={(e) => {
-                    saveOrderData(e.target.name, e.target.value)
+                    handleInput(e.target.name,e.target.value)
                   }}
                 >  
                 <option>Select an option</option>
+                
                   <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
-                  <option value="India">India</option>
-                  <option value="America">America</option>
-                  <option value="Russia">Russia</option>
+                  
                 </select>
                 <Form.Label
                   className={`${styles.label_heading} ${styles.select}  label_heading`}
@@ -273,8 +317,12 @@ setEditAddress(
                 className={`${styles.input_field} input form-control`}
                 required
                 type="text"
-                name="commodity"
-              />
+                
+                name="shortName"
+                onChange={(e) => {
+                handleInput(e.target.name,e.target.value)
+                }}
+                />
               <Form.Label className={`${styles.label_heading} label_heading`}>
                 Short Name
               </Form.Label>
