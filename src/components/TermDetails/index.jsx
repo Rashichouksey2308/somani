@@ -29,9 +29,11 @@ const Index = ({
 
   const payementchangeFunc = (value) => {
     if (value === 'DaysfromBLDate') {
-      setIsBlSelected(false)
+      setIsBlSelected("DaysfromBLDate")
     } else if (value === 'DaysfromVesselDischargeDate') {
-      setIsBlSelected(true)
+      setIsBlSelected("DaysfromVesselDischargeDate")
+    }else{
+      setIsBlSelected(value)
     }
   }
 
@@ -41,7 +43,7 @@ const Index = ({
     termsheetDetails?.commodityDetails?.unitOfQuantity,
   )
 
-  // console.log(termsheetDetails?.transactionDetails?.incoTerms,termsheetDetails,'dkfgdfhjgdjfhgdkjfgdkjg')
+  console.log(termsheetDetails?.transactionDetails?.incoTerms,'dkfgdfhjgdjfhgdkjfgdkjg')
   return (
     <div className={`${styles.main} vessel_card main`}>
       <div
@@ -188,25 +190,25 @@ const Index = ({
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div className="d-flex">
-                <select
+                <input
                   id="tolerance"
-                  value={termsheetDetails?.commodityDetails?.tolerance}
+                  value={addPrefixOrSuffix(termsheetDetails?.commodityDetails?.tolerance,"%")}
                   className={`${styles.value} ${styles.customSelect} input form-control`}
                   onChange={onChangeCommodityDetails}
                   required
-                >
-                  <option value="10">±10%</option>
+                />
+                  {/* <option value="10">±10%</option>
                   <option value="20">±20%</option>
-                </select>
+                </select> */}
                 <label className={`${styles.label} label_heading`}>
                   Tolerance (+/-) Percentage
                   <strong className="text-danger">*</strong>
                 </label>
-                <img
+                {/* <img
                   className={`${styles.arrow} image_arrow img-fluid`}
                   src="/static/inputDropDown.svg"
                   alt="Search"
-                />
+                /> */}
               </div>
             </div>
           </div>
@@ -288,6 +290,7 @@ const Index = ({
                   required
                 >
                   {/* <option value={termsheetDetails?.transactionDetails?.incoTerm}>{termsheetDetails?.transactionDetails?.incoTerm} </option> */}
+                  <option>Select an option</option>
                   <option
                     selected={
                       termsheetDetails?.transactionDetails?.incoTerms === 'CFR'
@@ -614,7 +617,7 @@ const Index = ({
                 type="number"
                 defaultValue={termsheetDetails?.paymentDueDate?.daysFromBlDate}
                 onChange={onChangePaymentDueDate}
-                disabled={IsBlSelected}
+                disabled={IsBlSelected=="DaysfromBLDate"?false:IsBlSelected=="Whicheverisearlier"?false:true}
                 required
               />
               <label className={`${styles.label} label_heading`}>
@@ -631,7 +634,8 @@ const Index = ({
                   termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate
                 }
                 onChange={onChangePaymentDueDate}
-                disabled={!IsBlSelected}
+                disabled={IsBlSelected=="DaysfromVesselDischargeDate"?false:IsBlSelected=="Whicheverisearlier"?false:true}
+               
                 required
               />
               <label className={`${styles.label} label_heading`}>

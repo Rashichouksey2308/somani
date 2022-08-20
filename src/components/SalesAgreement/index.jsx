@@ -68,7 +68,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
-         data={props.genericData.buyer}
+        data={props?.genericData?.buyer}
         />
       )
     }
@@ -80,7 +80,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
-         data={props.genericData.supplier}
+         data={props?.genericData?.supplier}
         
         />
       )
@@ -93,7 +93,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
-        data={props.genericData.seller}
+        data={props?.genericData?.seller}
 
         />
       )
@@ -106,7 +106,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
-         data={props.genericData.supplier}
+         data={props?.genericData?.supplier}
         />
 
 
@@ -120,7 +120,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
-         data={props.genericData.cma}
+         data={props?.genericData?.cma}
         />
       )
     }
@@ -146,7 +146,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
-         data={props.genericData.shipping}
+         data={props?.genericData?.shipping}
         />
       )
     }
@@ -158,7 +158,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
-         data={props.genericData.supplier}
+         data={props?.genericData?.supplier}
         />
       )
     }
@@ -169,7 +169,7 @@ function Index(props) {
         sendData={sendData} 
         submitData={submitData} 
         updateData={updateData}
-         data={props.genericData.supplier}
+         data={props?.genericData?.supplier}
         />
       )
     }
@@ -181,7 +181,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
          active={active}
-         data={props.genericData.deliveryTerms}
+         data={props?.genericData?.deliveryTerms}
         />
       )
     }
@@ -193,7 +193,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
          active={active}
-         data={props.genericData.productSpecifications}
+         data={props?.genericData?.productSpecifications}
         
         />
       )
