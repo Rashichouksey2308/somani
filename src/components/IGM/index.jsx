@@ -256,7 +256,7 @@ export default function Index({
                   </div>
                   <span className={styles.value}>
                     {CovertvaluefromtoCR(_get(TransitDetails, 'data[0].order.orderValue', ''))}{' '}
-                    {_get(TransitDetails, 'data[0].order.unitOfValue', '')}
+                    {_get(TransitDetails, 'data[0].order.unitOfValue', '')=="Crores"?"Cr":_get(TransitDetails, 'data[0].order.unitOfValue', '')}
                   </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
@@ -299,7 +299,7 @@ export default function Index({
                     <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {_get(TransitDetails, 'data[0].order.countryOfOrigin', '')}
+                    {_get(TransitDetails, 'data[0].order.vessel.vessels[0].transitDetails.countryOfOrigin', '')}
                   </span>
                 </div>
                 <div className="col-lg-4 col-md-6 col-sm-6">
