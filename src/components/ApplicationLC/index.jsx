@@ -508,12 +508,12 @@ function Index() {
                     </ul>
                     <div className={`${styles.tab_content} tab-content`} id="shareVia">
                       <div className="tab-pane fade show active" id="emailAddress" role="tabpanel" aria-labelledby="email-address">
-                        <div className={`${styles.labelFloat} form-group`}>
+                        <div className={`${styles.each_input} form-group`}>
                           <div className="d-flex">
                             <select id='email' name="email" className={`${styles.formControl} ${styles.customSelect} input form-control`} selected>
                               <option value="javanika.seth@hdfcbank.com">javanika.seth@hdfcbank.com</option>
                             </select>
-                            <label className={`label_heading_login label_heading bg-transparent`} htmlFor='email'>Email</label>
+                            <label className={`${styles.label_heading} label_heading_login label_heading bg-transparent`} htmlFor='email'>Email</label>
                             <img
                               className={`${styles.arrow} image_arrow img-fluid`}
                               src="/static/inputDropDown.svg"
@@ -532,10 +532,24 @@ function Index() {
                         </div>
                       </div>
                       <div className="tab-pane fade" id="whatsApp" role="tabpanel" aria-labelledby="whatsapp">
-                        <div className={`${styles.labelFloat} form-group`}>
+                        <div className={`${styles.each_input} ${styles.phone} form-group`}>
+                          <div className={styles.phone_card}>
+                            <select name="callingCode" id="Code" className={`${styles.code_phone} input border-right-0 bg-transparent`}>
+                              <option>+91</option>
+                              <option>+1</option>
+                              <option>+92</option>
+                              <option>+95</option>
+                              <option>+24</option>
+                            </select>
+                            <input type="tel" id="textNumber" name="primary" className={`${styles.formControl} input form-control border-left-0`} required/>
+                            <label className={`${styles.label_heading} label_heading`} id="textNumber"
+                            >Phone Number<strong className="text-danger">*</strong></label>
+                          </div>
+                        </div>
+                        {/* <div className={`${styles.labelFloat} form-group`}>
                           <input type='text' id='phone' name="phone" className={`${styles.formControl} ${styles.input} input form-control`} required />
                           <label className={`label_heading_login`} htmlFor='phone'>Phone Number</label>
-                        </div>
+                        </div> */}
                         <div className={`${styles.addMoreRows}`} onClick={(e)=>{
                           addMoreRows()
                           }}>
