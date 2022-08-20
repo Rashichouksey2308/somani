@@ -23,18 +23,18 @@ export default function Home() {
   let id1 = sessionStorage.getItem('VesselCompany')
   const orderID = sessionStorage.getItem('orderID')
   let id = sessionStorage.getItem('VesselId')
-  useEffect(async () => {
-    await fetchInitialData()
-   
+  useEffect(() => {
+    fetchInitialData()
+
 
 
   }, [])
-  const fetchInitialData = async ()=> {
+  const fetchInitialData = async () => {
     let id = sessionStorage.getItem('VesselId')
-    const data= await  dispatch(GetVessel(`?vesselId=${id}`))
+    const data = await dispatch(GetVessel(`?vesselId=${id}`))
     setData(data)
   }
- 
+
   const [list, setList] = useState()
   const [containerExcel, setContainerExcel] = useState({})
   const [vesselCertificate, setVesselCertificate] = useState({})
@@ -47,16 +47,16 @@ export default function Home() {
 
 
   // useEffect(() => {
-  
+
   //    console.log("check 2")
   // }, [Vessel])
-const[partShipment,setPartshipment]=useState()
-const setData=(Vessel)=>{
-   setPartshipment(_get(
-    Vessel,
-    "data[0].partShipmentAllowed",
-    false
-  ))
+  const [partShipment, setPartshipment] = useState()
+  const setData = (Vessel) => {
+    setPartshipment(_get(
+      Vessel,
+      "data[0].partShipmentAllowed",
+      false
+    ))
 
     setCompanyName(_get(Vessel, "data[0].company.companyName", ''))
     if (_get(
@@ -113,7 +113,7 @@ const setData=(Vessel)=>{
       "data[0].vessels",
       []
     ))
-}
+  }
   const onAddVessel = () => {
     setList([
       ...list,
@@ -258,13 +258,13 @@ const setData=(Vessel)=>{
     if (name === 'yearOfBuilt' && value.length === 4) {
       value = new Date(e.target.value)
       console.log(value, 'fghfhf')
-    } 
+    }
     console.log(name, value, 'arrayvesselbulk')
     if (name.trim() === 'yearOfBuilt' && !value.length === 4) {
       let toastMessage = 'provide a valid year'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-         return
+        return
       }
     }
     let array = { ...list[index].vesselInformation[0], [name]: value }
@@ -289,23 +289,23 @@ const setData=(Vessel)=>{
     let value = e.target.value
     if (name === 'yearOfBuilt' && value.length === 4) {
       value = new Date(e.target.value)
-   
-     
+
+
     }
-    
-    
-    let tempArr=[...list]
+
+
+    let tempArr = [...list]
     tempArr[0].vesselInformation.forEach((val, i) => {
       if (i == index) {
         val[name] = value
       }
     })
-      setList(tempArr)
-    console.log(tempArr,"tempArr")
+    setList(tempArr)
+    console.log(tempArr, "tempArr")
     // console.log(tempArr,"list",tempState[0].vesselInformation)
     // tempState[0].vesselInformation = [...tempArr]
-  
-    
+
+
     // setList(prevState => {
     //   const newState = prevState.map((obj, i) => {
     //     let tempArr = obj.vesselInformation
@@ -326,7 +326,7 @@ const setData=(Vessel)=>{
     // })
     console.log("check 1")
   }
-  
+
   console.log(list, 'arrayvessel')
 
   // const onVesselInfoChangeHandlerForLiner = (e, index) => {
@@ -375,7 +375,8 @@ const setData=(Vessel)=>{
         } else {
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
         }
       })
     } catch (error) {
@@ -407,7 +408,7 @@ const setData=(Vessel)=>{
     })
   }
 
-  const onSaveHandler = async() => {
+  const onSaveHandler = async () => {
     const payload = {
       vesselId: id,
       partShipmentAllowed: partShipmentAllowed,
@@ -431,15 +432,15 @@ const setData=(Vessel)=>{
   console.log(containerExcel, ' containerExcel')
 
 
-const onDeleteVessel=(index)=>{
- setList([...list.slice(0, index), ...list.slice(index + 1)])
-}
-const OnAddvesselInformationDelete=(index)=>{
-let tempArr=[...list]
-tempArr[0].vesselInformation.splice(index, 1);
-console.log(tempArr,"tempArr")
-setList(tempArr)
-}
+  const onDeleteVessel = (index) => {
+    setList([...list.slice(0, index), ...list.slice(index + 1)])
+  }
+  const OnAddvesselInformationDelete = (index) => {
+    let tempArr = [...list]
+    tempArr[0].vesselInformation.splice(index, 1);
+    console.log(tempArr, "tempArr")
+    setList(tempArr)
+  }
 
 
   return (

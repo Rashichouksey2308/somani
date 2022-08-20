@@ -5,6 +5,8 @@ import styles from './index.module.scss'
 import { DropdownButton, Dropdown, Form } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import moment from 'moment'
+import {CovertvaluefromtoCR} from '../../utils/helper'
+
 function Index({ handleChange, reviewedProfile }) {
   console.log(
     '🚀 ~ file: index.jsx ~ line 9 ~ Index ~ reviewedProfile',
@@ -206,7 +208,7 @@ function Index({ handleChange, reviewedProfile }) {
 
                 <tr className={`${styles.table_row} border_color table_row`}>
                   <td>Turnover (Cr)</td>
-                  <td>{reviewedProfile?.turnOver?.originalValue}</td>
+                  <td>{CovertvaluefromtoCR(reviewedProfile?.turnOver?.originalValue)}</td>
                   <td>
                     <div className={styles.tick}>
                       <img
@@ -281,8 +283,8 @@ function Index({ handleChange, reviewedProfile }) {
                 </tr>
 
                 <tr className={`${styles.table_row} border_color table_row`}>
-                  <td>Order Value</td>
-                  <td>{reviewedProfile?.orderValue?.originalValue}</td>
+                  <td>Order Value(cr)</td>
+                  <td>{CovertvaluefromtoCR(reviewedProfile?.orderValue?.originalValue)}</td>
                   <td>
                     <div className={styles.tick}>
                       <img
