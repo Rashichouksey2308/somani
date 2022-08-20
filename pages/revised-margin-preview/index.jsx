@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Row, Col, Container, Card } from 'react-bootstrap'
-import Paginatebar from '../Paginatebar'
-import TermsheetPopUp from '../TermsheetPopUp'
-import { Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPageName } from 'redux/userData/action'
 import { setDynamicName } from 'redux/userData/action'
@@ -60,7 +57,7 @@ function Index() {
               alt="Arrow"
             />
             <h1 className={`${styles.heading} heading`}>
-              Margin Money Preview
+              Revised Margin Money Preview
             </h1>
           </div>
         </div>
@@ -81,7 +78,7 @@ function Index() {
               </div>
             </Col>
             <Col md={4} className="text-center">
-              <span>MARGIN MONEY</span>
+              <span>REVISED MARGIN MONEY</span>
             </Col>
             <Col md={4} className={`${styles.left} ${styles.right}`}>
               <div>
@@ -105,6 +102,7 @@ function Index() {
               >
                 <tr>
                   <th>Commodity Details</th>
+                  <th>Revised Margin Money</th>
                   <th>Margin Money</th>
                 </tr>
                 <tbody>
@@ -113,7 +111,9 @@ function Index() {
                       <span className={`${styles.sno}`}>A</span>
                       <span className={`ml-2`}>Quantity</span>
                     </td>
-
+                    <td className={`${styles.good} good`}>
+                      {marginData?.order?.quantity} MT
+                    </td>
                     <td>{marginData?.order?.quantity} MT</td>
                   </tr>
                   <tr>
@@ -121,7 +121,9 @@ function Index() {
                       <span className={`${styles.sno}`}>B</span>
                       <span className={`ml-2`}>Unit Price</span>
                     </td>
-
+                    <td className={`${styles.good} good`}>
+                      {marginData?.calculation?.provisionalUnitPricePerTon}
+                    </td>
                     <td>
                       {marginData?.calculation?.provisionalUnitPricePerTon}
                     </td>
@@ -134,6 +136,7 @@ function Index() {
                     <td className={`${styles.highlight} satisfactory`}>
                       {marginData?.additionalPDC}
                     </td>
+                    <td>-</td>
                   </tr>
                 </tbody>
               </table>
@@ -161,12 +164,19 @@ function Index() {
                     <td>
                       {marginData?.order?.orderValue?.toLocaleString() ?? 0}
                     </td>
+                    <td>
+                      {marginData?.order?.orderValue?.toLocaleString() ?? 0}
+                    </td>
                   </tr>
                   <tr>
                     <td>
                       <span className={`${styles.sno}`}>M</span>
                       <span className={`ml-2`}>Trade Margin (INR)</span>{' '}
                       <span>(K*E)</span>
+                    </td>
+                    <td>
+                      {marginData?.calculation?.tradeMargin?.toLocaleString() ??
+                        0}
                     </td>
                     <td>
                       {marginData?.calculation?.tradeMargin?.toLocaleString() ??
@@ -185,6 +195,10 @@ function Index() {
                       {marginData?.calculation?.grossOrderValue?.toLocaleString() ??
                         0}
                     </td>
+                    <td>
+                      {marginData?.calculation?.grossOrderValue?.toLocaleString() ??
+                        0}
+                    </td>
                   </tr>
                   <tr className={`${styles.bordertop} border_color`}>
                     <td>
@@ -198,6 +212,10 @@ function Index() {
                       className={`${styles.good} ${styles.highlight2} satisfactory`}
                     >
                       {marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC?.toLocaleString() ??
+                        0}
+                    </td>
+                    <td>
+                      {marginData?.calculation?.amountPerSPDC?.toLocaleString() ??
                         0}
                     </td>
                   </tr>
