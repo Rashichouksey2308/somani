@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
-import { GetLcModule } from 'redux/lcModule/action'
+// import { GetLcModule } from 'redux/lcModule/action'
 import Filter from '../Filter'
 import _get from 'lodash/get'
 import SavePreviewBar from '../LetterIndermity/SavePreviewBar'
@@ -13,32 +13,53 @@ import {
 } from '../../redux/TransitDetails/action'
 
 function Index({ TransitDetails }) {
+  let transId = _get(TransitDetails, `data[0]`, '')
   const [billsofLanding, setBillsofLanding] = useState([
     {
       blnumber: '',
       loadingPort: '',
     },
   ])
+  const [loi, setLOI] = useState({
+    loiIssueDate: new Date(),
+    blSurrenderDate: null,
+    billOfLanding: billsofLanding,
+    document: null,
+    authorizedSignatory: {
+      name: '',
+      designation: '',
+
+    }
+  })
   const bolArray = _get(TransitDetails, `data[0].BL.billOfLanding`, [])
-  console.log(TransitDetails, bolArray, 'bolArray')
+  console.log(loi, bolArray, 'bolArray')
+
+
 
   const handleRoute = () => {
     Router.push('/loi-preview')
   }
   const [designation, setDesignation] = useState('')
-  const SetDesignationHanlder = (e) => {
-    if (e.target.value === 'Bhawana Jain') {
-      setDesignation('Vice President (Finance & Accounts)')
+  const SetAuthorisedSignatoryHanlder = (e) => {
+
+    let tempArray = { ...loi }
+    if (e.target.value === 'BhawanaJain') {
+      tempArray.authorizedSignatory = { name: 'Bhawana Jain', designation: 'Vice President Finance & Accounts' }
     }
-    if (e.target.value === 'Vipin Kumar') {
-      setDesignation('Manager Accounts ')
+    if (e.target.value === 'VipinKumar') {
+      tempArray.authorizedSignatory = { name: 'Vipin Kumar', designation: 'Manager Accounts ' }
     }
-    if (e.target.value === 'Devesh Jain') {
-      setDesignation('Director')
+    if (e.target.value === 'DeveshJain') {
+      tempArray.authorizedSignatory = { name: 'Devesh Jain', designation: 'Director' }
     }
-    if (e.target.value === 'Fatima Yannoulis') {
-      setDesignation('Chief Financial Officer')
+    if (e.target.value === 'FatimaYannoulis') {
+      tempArray.authorizedSignatory = { name: 'Fatima Yannoulis', designation: 'Chief Financial Officer' }
     }
+    else {
+      tempArray.authorizedSignatory = { name: '', designation: '' }
+    }
+    console.log(e.target.value, tempArray, "billsofLanding")
+    setLOI(tempArray)
   }
 
   const BolDropDown = (e) => {
@@ -58,14 +79,14 @@ function Index({ TransitDetails }) {
   console.log(billsofLanding, 'billsofLanding')
 
   const saveData = () => {
-    // // const billOfLanding = [...bolList]
-    // const bol = { billOfLanding: bolList }
+    // const billOfLanding = [...bolList]
+    const LOI = { ...loi }
 
-    // let fd = new FormData()
-    // fd.append('bl', JSON.stringify(bol))
-    // fd.append('transitId', transId._id)
-    // dispatch(UpdateTransitDetails(fd))
-    // console.log(fd, bol, 'filteredVessel')
+    let fd = new FormData()
+    fd.append('LOI', JSON.stringify(LOI))
+    fd.append('transitId', transId._id)
+    dispatch(UpdateTransitDetails(fd))
+    //console.log(fd, bol, 'filteredVessel')
   }
 
 
@@ -96,7 +117,7 @@ function Index({ TransitDetails }) {
             </div>
           </div>
           <div>
-            <span>DATE:</span> {new Date().toJSON().slice(0, 10).replace(/-/g, '/')}
+            <span>DATE:</span> {loi.loiIssueDate.toJSON().slice(0, 10).replace(/-/g, '/')}
           </div>
         </div>
         <span>Dear Sir, </span>
@@ -258,14 +279,14 @@ function Index({ TransitDetails }) {
             <p>
               Name:{' '}
               <select
-                onChange={(e) => SetDesignationHanlder(e)}
+                onChange={(e) => SetAuthorisedSignatoryHanlder(e)}
                 className={`${styles.input_field} ${styles.customSelect} input mt-4 pl-3`}
               >
                 <option value=""></option>
-                <option value="Bhawana Jain">Bhawana Jain </option>
-                <option value="Vipin Kumar">Vipin Kumar </option>
-                <option value="Devesh Jain">Devesh Jain </option>
-                <option value="Fatima Yannoulis">Fatima Yannoulis </option>
+                <option value="BhawanaJain">Bhawana Jain </option>
+                <option value="VipinKumar">Vipin Kumar </option>
+                <option value="DeveshJain">Devesh Jain </option>
+                <option value="FatimaYannoulis">Fatima Yannoulis </option>
               </select>
               <img
                 className={`${styles.arrow} image_arrow img-fluid`}
@@ -276,7 +297,7 @@ function Index({ TransitDetails }) {
 
             <div>
               Designation:{' '}
-              <input className="mt-4 pl-3" value={designation}></input>
+              <input className="mt-4 pl-3" value={loi.authorizedSignatory.designation}></input>
             </div>
           </div>
         </div>
