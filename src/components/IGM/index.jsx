@@ -405,7 +405,7 @@ export default function Index({
                             [],
                           ).map((vessel, index) => (
                             <option
-                              value={vessel?.vesselInformation?.name}
+                              value={vessel?.vesselInformation[0]?.name}
                               key={index}
                             >
                               {vessel?.vesselInformation?.name}
