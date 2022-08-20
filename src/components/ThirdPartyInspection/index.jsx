@@ -85,6 +85,22 @@ export default function Index({ addButton, inspectionData }) {
     setDocuments(newUploadDoc1)
   }
 
+  const handleCloseW = () => {
+    setDocuments(doc => {
+      return {...doc, certificateOfWeight: null}
+    })
+  }
+  const handleCloseQ = () => {
+    setDocuments(doc => {
+      return {...doc, certificateOfQuality: null}
+    })
+  }
+  const handleCloseO = () => {
+    setDocuments(doc => {
+      return {...doc, certificateOfOrigin: null}
+    })
+  }
+
   const saveInspectionDetails = (name, value) => {
     const newInput = { ...inspectionDetails }
     const namesplit = name.split('.')
@@ -498,7 +514,7 @@ export default function Index({ addButton, inspectionData }) {
                               </div>
                             </td>
                             <td>
-                              {false ? (
+                              {documents && documents.certificateOfOrigin == null ? (
                                 <>
                                   <div className={styles.uploadBtnWrapper}>
                                     <input
@@ -527,10 +543,11 @@ export default function Index({ addButton, inspectionData }) {
                                 </>
                               ) : (
                                 <div className={styles.certificate}>
-                                  {/* {lcDoc?.lcDraftDoc?.name} */}
+                                   {documents?.certificateOfOrigin?.name}
                                   <img
                                     className={`${styles.close_image} float-right m-2 img-fluid`}
                                     src="/static/close.svg"
+                                    onClick={()=>handleCloseO()}
                                     alt="Close"
                                   />{' '}
                                 </div>
@@ -607,7 +624,7 @@ export default function Index({ addButton, inspectionData }) {
                               </div>
                             </td>
                             <td>
-                              {false ? (
+                              {documents && documents.certificateOfQuality == null ? (
                                 <>
                                   <div className={styles.uploadBtnWrapper}>
                                     <input
@@ -636,10 +653,11 @@ export default function Index({ addButton, inspectionData }) {
                                 </>
                               ) : (
                                 <div className={styles.certificate}>
-                                  {/* {lcDoc?.lcDraftDoc?.name} */}
+                                  {documents?.certificateOfQuality?.name}
                                   <img
                                     className={`${styles.close_image} float-right m-2 img-fluid`}
                                     src="/static/close.svg"
+                                    onClick={()=>handleCloseQ()}
                                     alt="Close"
                                   />{' '}
                                 </div>
@@ -717,14 +735,14 @@ export default function Index({ addButton, inspectionData }) {
                               </div>
                             </td>
                             <td>
-                              {false ? (
+                              {documents && documents.certificateOfWeight == null ? (
                                 <>
                                   <div className={styles.uploadBtnWrapper}>
                                     <input
                                       type="file"
                                       name="myfile"
                                       accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                      onChange={(e) => uploadDocument1(e)}
+                                      onChange={(e) => uploadDocument2(e)}
                                     />
                                     <button
                                       className={`${styles.button_upload} btn`}
@@ -746,10 +764,11 @@ export default function Index({ addButton, inspectionData }) {
                                 </>
                               ) : (
                                 <div className={styles.certificate}>
-                                  {/* {lcDoc?.lcDraftDoc?.name} */}
+                                   {documents?.certificateOfWeight?.name}
                                   <img
                                     className={`${styles.close_image} float-right m-2 img-fluid`}
                                     src="/static/close.svg"
+                                    onClick={()=>handleCloseW()}
                                     alt="Close"
                                   />{' '}
                                 </div>
