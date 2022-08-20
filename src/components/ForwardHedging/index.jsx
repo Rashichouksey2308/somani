@@ -339,7 +339,7 @@ export default function Index() {
                       <div className="d-flex">
                         <DateCalender
                           name="validityTo"
-                          // defaultDate={list?.validityTo?.split('T')[0]}
+                          // defaultDate={list?.validityTo}
                           saveDate={saveDate}
                           labelName="Validity to"
                         />
