@@ -58,8 +58,8 @@ const Index = ({
                           addTypeOfDoc(e.target.value, index)
                         }}
                       >
-                        <option selected></option>
-                        <option value="GST Certification" selected>
+                          <option >Select an option</option>
+                        <option value="GST Certification" >
                           GST Certification
                         </option>
                         <option value="Incorporation Certification">

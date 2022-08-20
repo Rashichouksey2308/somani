@@ -123,7 +123,7 @@ const Index = ({ saveOrderData, darkMode,orderDetails }) => {
                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
                 required
               >
-                <option value="" selected></option>
+                  <option >Select an option</option>
                 
                 <option value="India">India</option>
                 <option value="America">Australia</option>
@@ -156,7 +156,7 @@ const Index = ({ saveOrderData, darkMode,orderDetails }) => {
                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
                 required
               >
-                <option value="" selected></option>
+                 <option >Select an option</option>
                 <option value="VishakaPatnam, India">
                   Visakhapatnam, India
                 </option>
