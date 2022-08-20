@@ -36,6 +36,8 @@ function Index({
   id1,
   onDeleteVessel,
   OnAddvesselInformationDelete,
+  vesselCertificate,
+  setVesselCertificate
 }) {
   const dispatch = useDispatch()
   // useEffect(() => {
@@ -49,6 +51,10 @@ function Index({
 
   const uploadDocHandler1 = (e) => {
     console.log(uploadDocHandler(e), 'vesselDocUpload')
+  }
+
+  const handleClose = () => {
+    setVesselCertificate(null)
   }
 
   return (
@@ -862,7 +868,7 @@ function Index({
                 )
               })}
 
-            <UploadDocument />
+            <UploadDocument vesselCertificate={vesselCertificate} handleClose={handleClose} uploadDocument1={uploadDocHandler} />
             <UploadOther
               module="Agreements,Insurance,LcOpening"
               orderid={id1}

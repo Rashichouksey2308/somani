@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import styles from './index.module.scss'
 import { Card } from 'react-bootstrap'
-import { useSelector, useDispatch} from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import moment from 'moment'
 import { ViewDocument } from 'redux/ViewDoc/action'
 // import {GetBuyer} from '../../redux/registerBuyer/action'
+import { CovertvaluefromtoCR } from '../../utils/helper'
 
 
 function Index() {
@@ -45,7 +46,7 @@ function Index() {
 
         {fields("Commodity", buyerList?.order?.commodity)}
         {fields("Quantity", buyerList?.order?.quantity, false, buyerList?.order?.unitOfQuantity.toUpperCase())}
-        {fields("Order values", (buyerList?.order?.orderValue)?.toLocaleString(), false)}
+        {fields("Order value", (CovertvaluefromtoCR(buyerList?.order?.orderValue))?.toLocaleString(), false, buyerList?.order?.unitOfValue.toUpperCase())}
         {fields("Supplier Name", buyerList?.order?.supplierName, false)}
         {fields("Country Of Origin", buyerList?.order?.countryOfOrigin, false)}
         {fields("INCO Terms", buyerList?.order?.incoTerm, false)}
@@ -53,11 +54,11 @@ function Index() {
         {fields("Port Of Discharge", buyerList?.order?.portOfDischarge, false)}
         {fields("Expected Date Of Shipment", moment(buyerList?.order?.ExpectedDateOfShipment?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY"), false)}
         {
-          buyerList?.company?.documents.map((val,index)=>{
-            return(
-            <>
-            {fields("Document Type", val?.typeOfDocument, true,null , val?.path)}
-            </>)
+          buyerList?.company?.documents.map((val, index) => {
+            return (
+              <>
+                {fields("Document Type", val?.typeOfDocument, true, null, val?.path)}
+              </>)
           })
         }
 
@@ -79,7 +80,7 @@ const fields = (head, value, isButton, value2, value3) => {
           <span className={`${styles.value} value `}>
             {value}      {value2 ? value2 : ''}
           </span>
-          {isButton ? <a onClick={() => dispatch(ViewDocument({"path":value3}))} className={styles.button}>View</a> : null}
+          {isButton ? <a onClick={() => dispatch(ViewDocument({ "path": value3 }))} className={styles.button}>View</a> : null}
         </div>
       </div>
     </>

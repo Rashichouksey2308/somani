@@ -3,6 +3,7 @@ import React from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 import DateCalender from '../DateCalender'
+import { addPrefixOrSuffix } from 'utils/helper'
 
 const Index = ({ saveOrderData, orderData }) => {
   const saveDate = (value, name) => {
@@ -31,9 +32,7 @@ const Index = ({ saveOrderData, orderData }) => {
                 saveOrderData(e.target.name, e.target.value)
               }}
             >
-              {/* <option selected></option> */}
-              <option value='KG'>KG</option>
-              <option value='L'>L</option>
+              <option selected></option>
               <option value='MT'>MT</option>
             </select>
           </div>
@@ -127,6 +126,7 @@ const Index = ({ saveOrderData, orderData }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  value={addPrefixOrSuffix( orderData.quantity ? orderData.quantity : 0, 'MT', '')}
                   name="quantity"
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
@@ -142,6 +142,7 @@ const Index = ({ saveOrderData, orderData }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  value={addPrefixOrSuffix(orderData.orderValue ? orderData.orderValue : 0, 'Cr', '')}
                   name="orderValue"
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
@@ -177,7 +178,7 @@ const Index = ({ saveOrderData, orderData }) => {
                       saveOrderData(e.target.name, e.target.value)
                     }}
                   >
-                    <option selected></option>
+                    <option selected>Select an option</option>
                     <option value="India">India</option>
                     <option value="America">America</option>
                     <option value="Russia">Russia</option>
@@ -201,6 +202,7 @@ const Index = ({ saveOrderData, orderData }) => {
                   required
                   type="text"
                   name="tolerance"
+                  value={addPrefixOrSuffix(orderData.tolerance, '%', '')}
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
                   }}
@@ -213,29 +215,25 @@ const Index = ({ saveOrderData, orderData }) => {
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
-                  <select
-                    className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                    name="supplierName"
-                    required
-                    onChange={(e) => {
-                      saveOrderData(e.target.name, e.target.value)
-                    }}
-                  >
-                    <option selected></option>
-                    <option value="TATA">TATA</option>
-                    <option value="Mittal">Mittal</option>
-                    <option value="Reliance">Reliance</option>
-                  </select>
+                <Form.Control
+                  className={`${styles.input_field} input form-control`}
+                  required
+                  type="text"
+                  name="supplierName"
+                  onChange={(e) => {
+                    saveOrderData(e.target.name, e.target.value)
+                  }}
+                />
                   <Form.Label
                     className={`${styles.label_heading} label_heading`}
                   >
                     Supplier Name<strong className="text-danger">*</strong>
                   </Form.Label>
-                  <img
+                  {/* <img
                     className={`${styles.arrow}  image_arrow img-fluid`}
                     src="/static/inputDropDown.svg"
                     alt="Search"
-                  />
+                  /> */}
                 </div>
               </Form.Group>
 
@@ -249,7 +247,7 @@ const Index = ({ saveOrderData, orderData }) => {
                       saveOrderData(e.target.name, e.target.value)
                     }}
                   >
-                    <option selected></option>
+                    <option selected>Select an option</option>
                     <option value="CBX">CBX</option>
                     <option value="ABX">ABX</option>
                   </select>
@@ -277,7 +275,7 @@ const Index = ({ saveOrderData, orderData }) => {
                       saveOrderData(e.target.name, e.target.value)
                     }}
                   >
-                    <option selected></option>
+                    <option selected>Select an option</option>
                     <option value="Mumbai, India">Mumbai, India</option>
                     <option value="Vizag, India">Vizag, India</option>
                   </select>
@@ -304,7 +302,7 @@ const Index = ({ saveOrderData, orderData }) => {
                       saveOrderData(e.target.name, e.target.value)
                     }}
                   >
-                    <option selected></option>
+                    <option selected>Select an option</option>
                     <option value="CFR">CFR</option>
                     <option value="CIF">CIF</option>
                     <option value="FOB">FOB</option>

@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './index.module.scss'
 import { Card } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
+import {CovertvaluefromtoCR} from '../../utils/helper'
 
 function Index() {
   const { buyerList } = useSelector((state) => state.buyer)
@@ -34,7 +35,7 @@ function Index() {
         {fields("Company PAN", buyerList?.company?.companyPan??'')}
         {fields("Type Of Business", buyerList?.company?.typeOfBusiness??'')}
         {fields("Transaction Type", buyerList?.transactionType?.originalValue??'')}
-        {fields("Turn-Over (in Cr)", buyerList?.company?.turnOver??'')}
+        {fields("Turn-Over (in Cr)", CovertvaluefromtoCR(buyerList?.company?.turnOver??''))}
         {fields("Email ID", buyerList?.company?.email??'')}
  
         {fields("Phone Number", buyerList?.company?.mobile?.primary?.number??'',`+${buyerList?.company?.mobile?.primary?.callingCode??''}`)}

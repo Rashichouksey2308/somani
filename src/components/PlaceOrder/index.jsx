@@ -7,7 +7,8 @@ import CommonSave from '../CommonSave'
 import { toast } from 'react-toastify'
 import { useSelector, useDispatch } from 'react-redux'
 import { PlaceNewOrder } from 'redux/newOrder/action'
-import { handleCurrencyOrder } from 'utils/helper'
+import { handleCurrencyOrder, removePrefixOrSuffix } from 'utils/helper'
+import _get from 'lodash/get'
 
 
 const Index = () => {
@@ -16,7 +17,8 @@ const Index = () => {
 
   const {singleOrder} = useSelector((state)=>state.buyer)
   const {creditData} = useSelector((state)=>state.companyDetails)
-  console.log(creditData, "THIS IS CREDIT DATA")
+
+  let singleOrderId = _get(singleOrder, 'data[0].company._id', '')
 
   const [orderData, setOrderData] = useState({
     transactionType: '',
@@ -178,11 +180,15 @@ const Index = () => {
       }
       return
     } else {
+      let orderDataNew = {...orderData}
+      orderDataNew.quantity = removePrefixOrSuffix(orderData.quantity)
+      orderDataNew.orderValue = removePrefixOrSuffix(orderData.orderValue)
+      orderDataNew.tolerance = removePrefixOrSuffix(orderData.tolerance)
       
         const obj = {
-          orderDetails:{...orderData},
+          orderDetails:{...orderDataNew},
           shipmentDetail: { ...shipment },
-          company: singleOrder?.data[0]?.company?._id,
+          company: singleOrderId,
         }
         dispatch(PlaceNewOrder(obj))
       
