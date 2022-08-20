@@ -4,7 +4,7 @@ import styles from './index.module.scss'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 // import { GetLcModule } from 'redux/lcModule/action'
-import Filter from '../Filter'
+// import Filter from '../Filter'
 import _get from 'lodash/get'
 import SavePreviewBar from '../LetterIndermity/SavePreviewBar'
 import {

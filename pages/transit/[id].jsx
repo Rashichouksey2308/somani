@@ -21,7 +21,7 @@ function Index() {
   const [isShipmentTypeBULK, setIsShipmentTypeBulk] = useState(false)
   const [darkMode, setDarkMode] = useState(false)
   const [TransitDetails, setTransitDetails] = useState({})
-  console.log(TransitDetails,'TransitDetails')
+  console.log(TransitDetails, 'TransitDetails')
 
 
   const dispatch = useDispatch()
@@ -32,21 +32,26 @@ function Index() {
 
   let objID = sessionStorage.getItem('ObjId')
   let transID = sessionStorage.getItem('transId')
-  useEffect(() => {
-    let Value = vesselData.partShipmentAllowed
-    setIsShipmentTypeBulk(Value)
-  }, [vesselData])
+
+  // useEffect(() => {
+  //   let Value = vesselData.partShipmentAllowed
+  //   setIsShipmentTypeBulk(Value)
+  // }, [vesselData])
 
   // useEffect(() => {
   //   dispatch(GetTransitDetails(`?transitId=${transID}`))
   // }, [dispatch])
-  
-  useEffect(async () => {
-    await fetchInitialData()
+
+  useEffect( () => {
+    if (transID) {
+       fetchInitialData()
+    }
+    console.log(transID,'dsfgk,dhgf')
 
 
+  }, [transID])
 
-  }, [])
+
   const fetchInitialData = async () => {
     const data = await dispatch(GetTransitDetails(`?transitId=${transID}`))
     setTransitDetails(data)

@@ -68,6 +68,7 @@ export default function Index({
       ? initialStateForBulk
       : initialStateForLiner
   // console.log(existingBlData,'existingBlData')
+
   useEffect(() => {
     if (existingBlData.length > 0) {
       setBolList(existingBlData)
