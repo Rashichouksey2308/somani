@@ -20,18 +20,18 @@
         border: none;
         border-radius: 8px;
         margin-top: -48px;
-        background: #FFFFFF;
-        box-shadow: 0px 11px 12px #BBBBBB;
+        // background: #FFFFFF;
+        // box-shadow: 0px 11px 12px #BBBBBB;
         .dropdown_header {
             padding: 13px 24px 15px;
-            border-bottom: 2px solid #F2F5F9;
+            // color: #111111;
+            // border-bottom: 2px solid #F2F5F9;
             .filter_icon {
                 height: 19px;
                 margin-right: 6px;
             }
             h3 {
                 font-size: 18px;
-                color: #111111;
                 font-weight: bold;
                 line-height: 23px;
                 margin: 0;
@@ -48,7 +48,7 @@
             }
             label {
                 font-size: 20px;
-                color: #111111;
+                // color: #111111;
                 line-height: 25px;
                 margin: 0 0 0 34px;
                 letter-spacing: 0.19px;

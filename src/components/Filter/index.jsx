@@ -3,7 +3,7 @@ import styles from './index.module.scss'
 
 export default function index() {
   return (
-    <div className={`${styles.dropdown} dropdown`}>
+    <div className={`${styles.dropdown} filter dropdown`}>
       <a
         className={`${styles.filterIcon}`}
         id="dropdownMenu2"
@@ -14,11 +14,11 @@ export default function index() {
         <img src="/static/filter.svg" className="img-fluid" alt="Filter" />
       </a>
       <div
-        className={`${styles.dropdown_menu} dropdown-menu`}
+        className={`${styles.dropdown_menu} dropdown_menu dropdown-menu`}
         aria-labelledby="dropdownMenu2"
       >
         <div
-          className={`${styles.dropdown_header} dropdown-header d-flex align-items-center`}
+          className={`${styles.dropdown_header} dropdown_header dropdown-header d-flex align-items-center`}
         >
           <img
             src="/static/filter_alt.svg"
