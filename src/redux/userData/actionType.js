@@ -6,3 +6,5 @@ export const PAGE_NAME = 'PAGE_NAME'
 export const DYNAMIC_PAGE = 'DYNAMIC_PAGE'
 
 export const DYNAMIC_ORDER = 'DYNAMIC_ORDER'
+
+export const CHANGE_CURRENCY = 'CHANGE_CURRENCY'

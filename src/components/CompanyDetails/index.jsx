@@ -3,8 +3,9 @@ import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
 import { emailValidation, panValidation, phoneValidation } from 'utils/helper'
-import { useSelector } from 'react-redux'
+import { useSelector,useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
+import { ChangeCurrency } from '../../redux/userData/action'
 
 const Index = ({
   saveCompanyData,
@@ -17,7 +18,7 @@ const Index = ({
   handleCommunication,
 }) => {
   const { gstList } = useSelector((state) => state.buyer)
-
+  const dispatch = useDispatch()
   // console.log(gstList?.data, "THIS IS GST LIST")
   const [slider, setSlider] = useState(50)
   const [typeOfSlider, setSliderType] = useState(1)
@@ -234,6 +235,7 @@ return(
                   name="unitOfQuantity"
                   onChange={(e) => saveOrderData(e.target.name, e.target.value)}
                 >
+                  <option>Select an option</option>
                   <option>MT</option>
                 </select>
               </div>
@@ -247,8 +249,13 @@ return(
                 <select
                   className={`${styles.options} accordion_DropDown input`}
                   name="unitOfValue"
-                  onChange={(e) => saveOrderData(e.target.name, e.target.value)}
+                  onChange={(e) =>{
+                     saveOrderData(e.target.name, e.target.value)
+                     dispatch(ChangeCurrency(e.target.value.toUpperCase()))
+                     
+                  }}
                 >
+                  <option>Select an option</option>
                   <option>Crores</option>
                   <option>Millions</option>
                 </select>
@@ -340,7 +347,7 @@ return(
                   required
                 >
                   {' '}
-                   <option>Select an option</option>
+                   
                  
                   {gstList &&
                     gstList?.data?.gstList?.map((gstId, index) => (
@@ -376,7 +383,7 @@ return(
                   className={`${styles.input_field}   ${styles.customSelect} input form-control`}
                   required
                 >
-                   <option>Select an option</option>
+                   
                   <option value="" selected></option>
                   <option value="Manufacturer">Manufacturer</option>
                   <option value="Retailer">Retailer</option>
@@ -406,7 +413,7 @@ return(
                   onChange={(e) => mobileCallingCodeFunction(e)}
                   className={`${styles.code_phone} input border-right-0`}
                 >
-                  <option>Select an option</option>
+                 
                   <option>+91</option>
                   <option>+1</option>
                   <option>+92</option>
@@ -576,7 +583,7 @@ return(
                   onChange={(e) => whatsappCallingCodeFunction(e)}
                   className={`${styles.code_phone} input border-right-0`}
                 >
-                   <option>Select an option</option>
+                   
                   <option>+91</option>
                   <option>+1</option>
                   <option>+92</option>

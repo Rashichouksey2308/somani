@@ -54,7 +54,15 @@ export default function Index({isQuery}) {
   const pageName = useSelector((state) => state?.user.pageName)
   const id = useSelector((state) => state?.user.id)
   const order = useSelector((state) => state?.user.order)
- console.log(id,"pageName",pageName)
+  const currency = useSelector((state) => state?.user)
+
+ console.log(id,"pageName",pageName,currency)
+//  const [currency,setCurrency]=useState("CRORES")
+//  useEffect(() => {
+//   if(window){
+//    setCurrency(sessionStorage.getItem("unitOfValue").toUpperCase())
+//   }
+//  })
   useEffect(() => {
 
     if ("dashboard" == pageName) {
@@ -235,19 +243,24 @@ console.log( router.route," router.route")
              <h5 className={`${styles.unit_label} accordion_Text`}>
               Unit :
             </h5>
-            <select className={`${styles.options} accordion_DropDown`}>
-              <option>Crores</option>
+            <select className={`${styles.options} accordion_DropDown`}
+            // value={currency}
+            >
+              <option selected={currency=="CRORES"?"selected":"false"}>CRORES</option>
+              <option selected={currency!=="CRORES"?"selected":"false"}>MILLIONS</option>
             </select>
            </div>:null}
            {show.currency? <div>
              <h5 className={`${styles.unit_label} accordion_Text`}>
               Currency :
             </h5>
-            <select className={`${styles.options} bg-transparent px-0 accordion_DropDown`}>
-              <option>Euro</option>
-              <option>USD</option>
-              <option>INR</option>
-              <option>British Pound</option>
+            <select className={`${styles.options} bg-transparent px-0 accordion_DropDown`}
+            
+            >
+              <option>EURO</option>
+              <option selected={currency!=="CRORES"?"selected":"false"}>USD</option>
+              <option selected={currency=="CRORES"?"selected":"false"}>INR</option>
+              <option>BRITISH POUND</option>
             </select>
            </div>:null}
           </div>
