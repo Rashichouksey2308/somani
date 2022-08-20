@@ -122,7 +122,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
                       <option value="">Please select a vessel</option>
-                      <option value=""></option>
+                      
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Vessel Name<strong className="text-danger">*</strong>

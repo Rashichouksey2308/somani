@@ -2194,6 +2194,7 @@ console.log(product,"productData")
           downLoadButtonName={`MCA Report`}
           isPrevious={false}
           leftButtonName={``}
+          isApprove={true}
           rightButtonName={`Next`}
           handleApprove={onNext}
           handleReject={() => { console.log("download pdf") }}
