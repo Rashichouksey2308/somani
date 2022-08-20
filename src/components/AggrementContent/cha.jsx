@@ -98,22 +98,22 @@ useEffect(() => {
  ]
   console.log(chaState,"chaState")
   useEffect(() => {
-    if(props.saveData==true && props.active=="Supplier"){
+    if(props.saveData==true && props.active=="CHA"){
        let data={
         chaState:chaState,
         list:list,
         addressList:addressList,
        }
-       props.sendData("Supplier",data)
+       props.sendData("CHA",data)
     }
-    if(props.submitData==true && props.active=="Supplier"){
+    if(props.submitData==true && props.active=="CHA"){
       let data={
         chaState:chaState,
         list:list,
         addressList:addressList,
        }
 
-      props.updateData("Supplier",data)
+      props.updateData("CHA",data)
 
     }
 

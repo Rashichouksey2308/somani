@@ -97,22 +97,22 @@ function Index(props) {
     }
   }, [])
   useEffect(() => {
-    if (props.saveData == true && props.active == "Cma") {
+    if (props.saveData == true && props.active == "CMA") {
       let data = {
         cmaData: cmaState,
         list: list,
         addressList: addressList,
       }
-      props.sendData("Cma", data)
+      props.sendData("CMA", data)
     }
-    if (props.submitData == true && props.active == "Cma") {
+    if (props.submitData == true && props.active == "CMA") {
       let data = {
         cmaData: cmaState,
         list: list,
         addressList: addressList,
       }
 
-      props.updateData("Cma", data)
+      props.updateData("CMA", data)
 
     }
 

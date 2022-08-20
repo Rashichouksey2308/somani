@@ -13,7 +13,7 @@ function Index(props) {
         
         addressList:addressList,
        }
-       props.sendData("Comments",data)
+       props.sendData("Additional Comments",data)
     }
     if(props.submitData==true && props.active=="Additional Comments"){
       let data={
@@ -21,7 +21,7 @@ function Index(props) {
         addressList:addressList,
        }
 
-      props.updateData("Comments",data)
+      props.updateData("Additional Comments",data)
 
     }
 

@@ -32,8 +32,7 @@ function Index({chargesData}) {
   return (
     <>
       <div className={`${styles.card} card mb-6`}>
-        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#openCharges"
-          aria-expanded="true" aria-controls="openCharges">
+        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`}>
           <h2 className="mb-0">Charges</h2>
           <div className={`${styles.charges} form-group`}>
             <input type="radio" id="all" onClick={()=>{handleRadioSelect('all')}} name="charges" value="All" />
@@ -48,7 +47,7 @@ function Index({chargesData}) {
             <select className={`${styles.options} accordion_DropDown`}>
               <option>Crores</option>
             </select>
-            <span>+</span>
+            <span data-toggle="collapse" data-target="#openCharges" aria-expanded="true" aria-controls="openCharges">+</span>
           </div>
         </div>
         <div id="openCharges" className="collapse" aria-labelledby="openCharges" data-parent="#FinancialsAccordion">

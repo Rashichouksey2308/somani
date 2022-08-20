@@ -10,15 +10,14 @@ function Index({peerData}) {
 
     <>
       <div className={`${styles.card} card`}>
-        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#peerComparison"
-          aria-expanded="true" aria-controls="peerComparison">
+        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`}>
           <h2 className="mb-0">Peer Comparison</h2>
           <div className={`${styles.unit_container} d-flex align-items-center`}>
             <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
             <select className={`${styles.options} accordion_DropDown`}>
               <option>Crores</option>
             </select>
-            <span>+</span>
+            <span data-toggle="collapse" data-target="#peerComparison" aria-expanded="true" aria-controls="peerComparison">+</span>
           </div>
         </div>
         <div id="peerComparison" className="collapse" aria-labelledby="peerComparison" data-parent="#FinancialsAccordion">
