@@ -8,6 +8,7 @@ import { setDynamicOrder } from 'redux/userData/action'
 import { GetMarginMoney } from 'redux/marginMoney/action'
 import _get from 'lodash/get'
 import moment from 'moment'
+import MarginBar from '../../src/components/MarginBar'
 
 function Index() {
   const dispatch = useDispatch()
@@ -453,6 +454,11 @@ function Index() {
           </div>
         </Card>
       </div>
+
+      <MarginBar
+        leftButtonTitle={'Margin Money'}
+        rightButtonTitle={'Send to Buyer'}
+      />
     </>
   )
 }
