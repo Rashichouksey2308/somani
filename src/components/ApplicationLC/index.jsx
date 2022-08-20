@@ -488,12 +488,12 @@ function Index() {
                     <h3>Share as</h3>
                     <div className='d-flex align-items-center justify-content-between'>
                       <div className={`${styles.lc_document} ${styles.box} d-flex align-items-center`}>
-                        <img src="/static/icons8-email-open-48 2.png" width={`55px`} alt="PDF" className='img-fluid' />
+                        <img src="/static/pdf-icon.png" width={`55px`} alt="PDF" className='img-fluid' />
                         <label for="lc_document">LC Document.pdf<span>128kb</span></label>
                         <input type="checkbox" className='ml-auto' id="lc_document" value="LC Document" />
                       </div>
                       <div className={`${styles.word_document} ${styles.box} d-flex align-items-center`}>
-                        <img src="/static/icons8-email-open-48 2.png" width={`55px`} alt="DOC" className='img-fluid' />
+                        <img src="/static/doc-icon.png" width={`55px`} alt="DOC" className='img-fluid' />
                         <label for="word_document">word document.doc<span>128kb</span></label>
                         <input type="checkbox" className='ml-auto' id="word_document" value="word document" />
                       </div>
@@ -566,12 +566,12 @@ function Index() {
                     <h3>Download as</h3>
                     <div className='d-flex align-items-center justify-content-between'>
                       <div className={`${styles.lc_document} ${styles.box} d-flex align-items-center`}>
-                        <img src="/static/icons8-email-open-48 2.png" width={`55px`} alt="PDF" className='img-fluid' />
+                        <img src="/static/pdf-icon.png" width={`55px`} alt="PDF" className='img-fluid' />
                         <label for="lc_document">LC Document.pdf<span>128kb</span></label>
                         <input type="checkbox" className='ml-auto' id="lc_document" value="LC Document" />
                       </div>
                       <div className={`${styles.word_document} ${styles.box} d-flex align-items-center`}>
-                        <img src="/static/icons8-email-open-48 2.png" width={`55px`} alt="DOC" className='img-fluid' />
+                        <img src="/static/doc-icon.png" width={`55px`} alt="DOC" className='img-fluid' />
                         <label for="word_document">word document.doc<span>128kb</span></label>
                         <input type="checkbox" className='ml-auto' id="word_document" value="word document" />
                       </div>
