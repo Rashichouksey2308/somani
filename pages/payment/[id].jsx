@@ -29,6 +29,8 @@ function Index() {
 
   useEffect(() => {
     let id = sessionStorage.getItem('ROrderID')
+    let orderid = _get(ReleaseOrderData, 'data[0].order._id', '')
+    sessionStorage.setItem('orderid', orderid)
     dispatch(GetDelivery(`?deliveryId=${id}`))
     dispatch(GetAllLifting())
   }, [dispatch])

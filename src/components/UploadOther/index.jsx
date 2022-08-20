@@ -35,7 +35,7 @@ const Index = ({ orderid, module }) => {
   useEffect(() => {
     sessionStorage.setItem('docFetchID', orderid)
     const tempArray = documentsFetched?.documents?.filter((doc) => {
-      return doc.module === moduleSelected
+      return doc.module.toLowerCase() === moduleSelected.toLowerCase()
     })
     // console.log(tempArray, filteredDoc, moduleSelected, 'moduleSelected')
     setFilteredDoc(tempArray)
@@ -161,7 +161,7 @@ const Index = ({ orderid, module }) => {
                       {module === 'LeadOnboarding&OrderApproval' ? (
                         <>
                           {' '}
-                           <option>Select an option</option>
+                          <option>Select an option</option>
                           <option value="CertificateofIncorporation">
                             Certificate of Incorporation
                           </option>
@@ -223,7 +223,7 @@ const Index = ({ orderid, module }) => {
                           </option>{' '}
                           <option value="IGMCopy "> IGM Copy</option>{' '}
                         </>
-                      ) : (
+                      ) : module === 'Agreements&Insurance&LC&Opening' ? (
                         <>
                           <option value="LcDraft">LC Draft </option>
 
@@ -256,7 +256,68 @@ const Index = ({ orderid, module }) => {
                             Policy Document - Storage
                           </option>
                         </>
-                      )}
+                      ) : module === 'CustomClearanceAndWarehousing' ? <>
+                        <option value="BOEProvisional">
+                          {' '}
+                          BOE Provisional
+                        </option>
+                        <option value="BOE Final - in case of final assessment.">
+                          {' '}
+                          BOE Final - in case of final assessment.
+                        </option>
+                        <option value="Duty Paid Challan ">
+                          {' '}
+                          Duty Paid Challan
+                        </option>
+                        <option value="PD Bond">
+                          {' '}
+                          PD Bond
+                        </option>
+                        <option value="BOE Final">
+                          {' '}
+                          BOE Final
+                        </option>
+                        <option value="BOE Provisional ">
+                          {' '}
+                          BOE Provisional
+                        </option>
+                        <option value="BOE Final - in case of final assessment. ">
+                          {' '}
+                          BOE Final - in case of final assessment.
+                        </option>
+                        <option value="PD Bond">
+                          {' '}
+                          PD Bond
+                        </option>
+                        <option value="Duty Paid Challan ">
+                          {' '}
+                          Duty Paid Challan
+                        </option>
+                        <option value="Statements of Facts">
+                          {' '}
+                          Statements of Facts
+                        </option>
+                        <option value="Discharge Confirmation">
+                          {' '}
+                          Discharge Confirmation
+                        </option>
+                        <option value="BOE Final">
+                          {' '}
+                          BOE Final
+                        </option>
+
+                      </> :
+
+                        <>
+                          <option value="RR">
+                            {' '}
+                            RR
+                          </option>
+                          <option value="eWay Bill">
+                            {' '}
+                            eWay Bill
+                          </option>
+                        </>}
                       <option value="others">Other</option>
                     </select>
                     <Form.Label className={`${styles.label} label_heading`}>
@@ -306,7 +367,7 @@ const Index = ({ orderid, module }) => {
                     onChange={(e) => setModuleSelected(e.target.value)}
                     className={`${styles.dropDown} ${styles.customSelect} statusBox input form-control`}
                   >
-                     <option>Select an option</option>
+                    <option>Select an option</option>
                     <option value="LeadOnboarding&OrderApproval">
                       Lead Onboarding &amp; Order Approval
                     </option>
@@ -316,9 +377,11 @@ const Index = ({ orderid, module }) => {
                     <option value="Loading-Transit-Unloading">
                       Loading-Transit-Unloading
                     </option>
-                    <option value="CustomClearanceAndWarehousing">
+                    <option value="customClearanceAndWarehousing">
                       Custom Clearance And Warehousing
                     </option>
+                    <option value='PaymentsInvoicing&Delivery'
+                    >Payments Invoicing & Delivery</option>
                     <option value="Others">Others</option>
                   </select>
                   <img

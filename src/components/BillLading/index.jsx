@@ -50,9 +50,9 @@ export default function Index({
     blDate: '',
     blQuantity: '',
     blQuantityUnit: '',
-    etaAtDischargePortFrom: '',
-    etaAtDischargePortTo: '',
-    blSurrenderDate: '',
+    etaAtDischargePortFrom: null,
+    etaAtDischargePortTo: null,
+    blSurrenderDate: null,
     documentName: null,
     blSurrenderDoc: null,
     document1: null,
@@ -106,14 +106,21 @@ export default function Index({
     } else {
       setBolList([...bolList, initialStateForLiner])
     }
+    console.log("here")
   }
+console.log(bolList,"bol")
 
-  const uploadDoc = async (e) => {
-    let index = e.target.name
-    let name = e.target.id
+  const uploadDoc = async (e,index) => {
+    let name = e.target.name
+    let id = e.target.id
     let docs = await docUploadFunction(e)
-
-    let newInput = { ...bolList }
+   console.log(name,"name")
+    let newInput = [...bolList ]
+    newInput.forEach((val,i)=>{
+     if(i==index){
+      val[name]=docs
+     }
+    })
     // newInput[index].[name] = docs
 
     console.log(newInput, 'response data123')
@@ -169,8 +176,8 @@ export default function Index({
     const newArray = [...bolList]
     newArray[index].vesselName = _get(filteredVessel, 'vesselInformation[0].name', '')
     newArray[index].imoNumber = _get(filteredVessel, 'vesselInformation[0].IMONumber', '')
-    newArray[index].etaAtDischargePortFrom = _get(filteredVessel, 'vesselInformation[0].EDTatLoadPort', null)
-    newArray[index].etaAtDischargePortTo = _get(filteredVessel, 'vesselInformation[0].ETAatDischargePort', null)
+    newArray[index].etaAtDischargePortFrom = _get(filteredVessel, 'transitDetails.EDTatLoadPort', null)
+    newArray[index].etaAtDischargePortTo = _get(filteredVessel, 'transitDetails.ETAatDischargePort', null)
 
 
     setBolList(newArray)
@@ -237,7 +244,7 @@ export default function Index({
     dispatch(UpdateTransitDetails(fd))
     console.log(fd, bol, 'filteredVessel')
   }
-  console.log(bolList, 'filteredVessel')
+  console.log(bolList, 'filteredVessel',startetaAtDischargePortFrom)
   // console.log(TransitDetails, 'TransitDetails')
   return (
     <>
@@ -358,10 +365,14 @@ export default function Index({
                   </h3>
                   {!partShipmentAllowed && (
                     <button
-                      onClick={() => console.log('addClicked')}
+                     onClick={()=>{
+                        onBolAdd()
+                      }}
                       className={styles.add_btn}
                     >
-                      <span className={styles.add_sign}>+</span>Add
+                      <span className={styles.add_sign}
+                      
+                      >+</span>Add
                     </button>
                   )}
                 </div>
@@ -479,7 +490,7 @@ export default function Index({
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                         >
                           <input
-                          value={bol?.blQuantity}
+                         
                             onChange={(e) => onChangeBol(e, index)}
                             id="blQuantity"
                             className={`${styles.input_field} input form-control`}
@@ -504,10 +515,12 @@ export default function Index({
                           <div className="d-flex">
                             {/* //<DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                             <DatePicker
-                              value={moment((bol?.etaAtDischargePortFrom), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
+                              // value={moment((bol?.etaAtDischargePortFrom), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
+                              // value={moment(bol?.etaAtDischargePortFrom).toDate()}
                               defaultDate={startetaAtDischargePortFrom}
                               name="ETAatDischargePort"
-                              selected={startetaAtDischargePortFrom}
+                              selected={bol?.etaAtDischargePortFrom==null?"":moment(bol?.etaAtDischargePortFrom).toDate()}
+                              // selected={moment(bol?.etaAtDischargePortFrom==null?" ":bol?.etaAtDischargePortFrom).toDate()}
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startetaAtDischargePortFrom) => {
@@ -543,8 +556,9 @@ export default function Index({
                           <div className="d-flex">
                             <DatePicker
                               // value={moment((bol?.startetaAtDischargePortFrom), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
-                              defaultDate={bol?.etaAtDischargePortTo}
-                              selected={startetaAtDischargePortTo}
+                              
+                               selected={bol?.etaAtDischargePortTo==null?"":moment(bol?.etaAtDischargePortTo).toDate()}
+                             
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startetaAtDischargePortTo) => {
@@ -635,7 +649,7 @@ export default function Index({
                             >
                               <div className="d-flex justify-content-start">
                                 <div className={styles.uploadBtnWrapper}>
-                                  <input name={`${index}`} id='documentName' onChange={(e) => uploadDoc(e)} type="file" name="myfile" />
+                                  <input name={`document1`} id='documentName' onChange={(e) => uploadDoc(e,index)} type="file"  />
                                   <button
                                     className={`${styles.upload_btn} btn`}
                                   >
@@ -709,7 +723,7 @@ export default function Index({
                               </td>
                               <td>
                                 <div className={styles.uploadBtnWrapper}>
-                                  <input name={`${index}`} id='document1' onChange={(e) => uploadDoc(e)} type="file" name="myfile" />
+                                  <input name={`blSurrenderDoc`} id='document1' onChange={(e) => uploadDoc(e,index)} type="file" />
                                   <button
                                     className={`${styles.upload_btn} btn`}
                                   >
@@ -739,7 +753,7 @@ export default function Index({
                                   </td>
                                   <td>
                                     <div className={styles.uploadBtnWrapper}>
-                                      <input name={`${index}`} id='document1' onChange={(e) => uploadDoc(e)} type="file" name="myfile" />
+                                      <input name={`document2`} id='document1' onChange={(e) => uploadDoc(e,index)} type="file"  />
                                       <button
                                         className={`${styles.upload_btn} btn`}
                                       >
@@ -767,7 +781,7 @@ export default function Index({
                                   </td>
                                   <td>
                                     <div className={styles.uploadBtnWrapper}>
-                                      <input name={`${index}`} id='document2' onChange={(e) => uploadDoc(e)} type="file" name="myfile" />
+                                      <input name={`documentName`} id='document2' onChange={(e) => uploadDoc(e,index)} type="file"  />
                                       <button
                                         className={`${styles.upload_btn} btn`}
                                       >
@@ -794,9 +808,9 @@ export default function Index({
                         >
                           <div className="d-flex">
                             <DatePicker
-                              value={moment((bol?.blSurrenderDate), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
-                              defaultDate=""
-                              selected={startblSurrenderDate}
+                            
+                               selected={bol?.blSurrenderDate==null?"":moment(bol?.blSurrenderDate).toDate()}
+                              
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startblSurrenderDate) => {
