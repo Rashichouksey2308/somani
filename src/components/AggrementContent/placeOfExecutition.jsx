@@ -53,7 +53,7 @@ function Index(props) {
         list: list,
    
       }
-      props.sendData("execution", data)
+      props.sendData("Place of Execution", data)
     }
     if (props.submitData == true && props.active == "Place of Execution") {
       let data = {
@@ -62,7 +62,7 @@ function Index(props) {
        
       }
 
-      props.updateData("execution", data)
+      props.updateData("Place of Execution", data)
 
     }
 

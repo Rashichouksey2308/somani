@@ -472,7 +472,7 @@ export default function Home() {
         OnAddvesselInformationDelete={OnAddvesselInformationDelete}
       />
       <div className="mt-5">
-        <VesselSaveBar handleSave={onSaveHandler} rightBtn="Submit" />
+        <VesselSaveBar handleSave={onSaveHandler} rightBtn="Submit" rightBtnClick={onSaveHandler} />
       </div>
     </>
   )
