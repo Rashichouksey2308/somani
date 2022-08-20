@@ -15,6 +15,7 @@ import { number } from 'prop-types'
 import { useEffect } from 'react'
 import 'react-datepicker/dist/react-datepicker.css'
 import DatePicker from 'react-datepicker'
+import {CovertvaluefromtoCR} from '../../utils/helper'
 
 export default function Index({
   isShipmentTypeBULK,
@@ -254,7 +255,7 @@ export default function Index({
                     Order Value <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
                   <span className={styles.value}>
-                    {_get(TransitDetails, 'data[0].order.orderValue', '')}{' '}
+                    {CovertvaluefromtoCR(_get(TransitDetails, 'data[0].order.orderValue', ''))}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '')}
                   </span>
                 </div>

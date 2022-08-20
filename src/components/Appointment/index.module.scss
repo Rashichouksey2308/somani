@@ -173,6 +173,7 @@
           position: relative;
           box-sizing: border-box;
           letter-spacing: 0.19px;
+          cursor: pointer;
           padding: 13px 30px 13px 17px;
           border: 1px solid #0000001f;
           &:invalid + label {

@@ -152,7 +152,7 @@ const Index = () => {
                     inline
                     label="Marine Insurance"
                     defaultChecked={
-                      insuranceData?.quotationRequest?.insuranceType ===
+                      insuranceData?.quotationRequest?.insuranceType ==
                       'Marine Insurance'
                     }
                     onChange={(e) => setInsuranceType('Marine Insurance')}
@@ -166,7 +166,7 @@ const Index = () => {
                     inline
                     label="Storage Insurance"
                     defaultChecked={
-                      insuranceData?.quotationRequest?.insuranceType ===
+                      insuranceData?.quotationRequest?.insuranceType ==
                       'Storage Insurance'
                     }
                     name="group1"
@@ -197,7 +197,7 @@ const Index = () => {
             </div>
           </div>
         </div>
-        {insuranceData?.quotationRequest?.insuranceType ===
+        {insuranceData?.quotationRequest?.insuranceType ==
         'Marine Insurance' ? (
           <>
             <div className={`${styles.wrapper} border_color mt-4 card`}>
@@ -458,9 +458,9 @@ const Index = () => {
                 </div>
               </div>
             </div>
-            <UploadDocument uploadDocument1={uploadDocument1} />
+            <UploadDocument docName='Policy Document - Marine' uploadDocument1={uploadDocument1} />
           </>
-        ) : insuranceData?.quotationRequest?.insuranceType ===
+        ) : insuranceData?.quotationRequest?.insuranceType ==
           'Storage Insurance' ? (
           <>
             <div className={`${styles.wrapper} border_color mt-4 card`}>
@@ -729,9 +729,9 @@ const Index = () => {
                 </div>
               </div>
             </div>
-            <UploadDocument uploadDocument2={uploadDocument2} />
+            <UploadDocument docName='Policy Document - Storage' uploadDocument1={uploadDocument2} />
           </>
-        ) : insuranceData?.quotationRequest?.insuranceType === 'Both' ? (
+        ) : insuranceData?.quotationRequest?.insuranceType == 'Both' ? (
           <>
             <div className={`${styles.wrapper} border_color mt-4 card`}>
               <div
@@ -1335,7 +1335,7 @@ const Index = () => {
                           <tbody>
                             <tr className="table_row">
                               <td className={styles.doc_name}>
-                                Policy Document - Marine
+                                Policy Document - Marine & Storage
                                 <strong className="text-danger">*</strong>
                               </td>
                               <td>
