@@ -101,7 +101,8 @@ export const GetAllVessel = (payload) => async (dispatch, getState, api) => {
         dispatch(getAllVesselFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
       }
     })
   } catch (error) {
@@ -121,20 +122,24 @@ export const GetVessel = (payload) => async (dispatch, getState, api) => {
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.get(`${API.corebaseUrl}${API.getVessel}${payload}`, {
-      headers: headers,
-    }).then((response) => {
-      if (response.data.code === 200) {
-        console.log('this')
+    let response = await Axios.get(
+      `${API.corebaseUrl}${API.getVessel}${payload}`,
+      {
+        headers: headers,
+      },
+    )
+    if (response.data.code === 200) {
+      console.log('this')
 
-        dispatch(getVesselSuccess(response.data.data))
-      } else {
-        dispatch(getVesselFailed(response.data.data))
-        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+      // dispatch(getVesselSuccess(response.data.data))
+      return response.data.data
+    } else {
+      dispatch(getVesselFailed(response.data.data))
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-    })
+    }
   } catch (error) {
     dispatch(getVesselFailed())
 
@@ -147,26 +152,33 @@ export const GetVessel = (payload) => async (dispatch, getState, api) => {
 
 export const UpdateVessel = (payload) => async (dispatch, getState, api) => {
   let cookie = Cookies.get('SOMANI')
+  console.log('check 4')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.put(`${API.corebaseUrl}${API.getVessel}`, payload, {
-      headers: headers,
-    }).then((response) => {
-      if (response.data.code === 200) {
-        dispatch(updateVesselSuccess(response.data.data))
-        let toastMessage = 'VESSEL UPDATED SUCCESSFULLY'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage }) }
-      } else {
-        dispatch(updateVesselFailed(response.data.data))
-        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+    let response = await Axios.put(
+      `${API.corebaseUrl}${API.getVessel}`,
+      payload,
+      {
+        headers: headers,
+      },
+    )
+    if (response.data.code === 200) {
+      console.log('check 5')
+      dispatch(updateVesselSuccess(response.data.data))
+      let toastMessage = 'VESSEL UPDATED SUCCESSFULLY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-    })
+    } else {
+      dispatch(updateVesselFailed(response.data.data))
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+    }
   } catch (error) {
     dispatch(updateVesselFailed())
 
@@ -191,12 +203,14 @@ export const UploadDocVessel = (payload) => async (dispatch, getState, api) => {
         dispatch(uploadDocVesselSuccess(response.data.data))
         let toastMessage = 'DOCUMENT UPLOADED SUCCESSFULL'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
       } else {
         dispatch(uploadDocVesselFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
       }
     })
   } catch (error) {

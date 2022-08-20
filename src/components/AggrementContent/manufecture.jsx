@@ -53,6 +53,7 @@ function Index(props) {
             }
   )
 const [addressType,setAddressType]=useState("Registered")
+const [addressEditType,setAddressEditType]=useState("Registered")
 
 //multiParty
   const [multiList,setMultiList]=useState([])
@@ -255,6 +256,7 @@ setAddressList(current => [...current, newAddress])
               "state": "",
               "city": ""
           })
+          setAddressType("Registered")
 }
 const onAddressRemove=(index)=>{
 setAddressList([...addressList.slice(0,index), ...addressList.slice(index+1)])
@@ -662,7 +664,7 @@ setEditAddress(
           </div>
         </div>
         {
-        isEdit && editData(addressType,EditAddress,setEditAddress,editNewAddress,cancelEditAddress,saveNewAddress)}
+        isEdit && editData(addressEditType,EditAddress,setEditAddress,editNewAddress,cancelEditAddress,saveNewAddress,setAddressEditType)}
         
               <div className={`${styles.newAddressContainer} m-0`}>
                   <div className={styles.newAddressHead}><span>Add a new address</span></div>
@@ -678,6 +680,7 @@ setEditAddress(
                             setAddress(e.target.name,e.target.value)
                           }}
                         >
+                           <option>Select an option</option>
                           <option value="Registered">Registered Office</option>
                           <option value="Branch">Branch </option>
                             <option value="Supplier">Supplier Address </option>
@@ -765,6 +768,7 @@ setEditAddress(
                             setAddress(e.target.name,e.target.value)
                           }}
                         >
+                           <option>Select an option</option>
                           <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
                           
                         </select>
@@ -934,6 +938,7 @@ setEditAddress(
                             onChange={(e)=>{
                               handleChangeInput(e.target.name,e.target.value,index)
                             }}>
+                               <option>Select an option</option>
                               <option value={"Bhawana Jain"}>{"Bhawana Jain"}</option>
                               <option value={"Vipin Kumar"}>{"Vipin Kumar"}</option>
                               <option value={"Devesh Jain"}>{"Devesh Jain"}</option>
@@ -1081,6 +1086,7 @@ setEditAddress(
                             setMultiAddress(e.target.name,e.target.value)
                           }}
                         >
+                           <option>Select an option</option>
                           <option value="Registered">Registered Office</option>
                           <option value="Branch">Branch </option>
                           <option value="Supplier">Supplier Address </option>
@@ -1168,6 +1174,7 @@ setEditAddress(
                             setMultiAddress(e.target.name,e.target.value)
                           }}
                         >
+                           <option>Select an option</option>
                           <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
                           
                         </select>
@@ -1295,7 +1302,7 @@ setEditAddress(
 
 export default Index
 
-const editData=(addressType,EditAddress,setEditAddress,editNewAddress,cancelEditAddress,saveNewAddress)=>{
+const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancelEditAddress,saveNewAddress,setAddressEditType)=>{
   return(
     <div className={`${styles.newAddressContainer}`}>
                   <div className={styles.newAddressHead}><span className={`mb-3`}>Add Edit address</span></div>
@@ -1307,13 +1314,14 @@ const editData=(addressType,EditAddress,setEditAddress,editNewAddress,cancelEdit
                           name="addressType"
                           
                           onChange={(e) => {
-                            setAddressType(e.target.value)
+                            setAddressEditType(e.target.value)
                             editNewAddress(e.target.name,e.target.value)
                           }}
                         >
-                          <option value="Registered">Registered Office</option>
+                           <option>Select an option</option>
+                          <option value="Registered">Registered </option>
                           <option value="Branch">Branch </option>
-                            <option value="Supplier">Supplier Address </option>
+                          <option value="Supplier">Supplier  </option>
                           
                         </select>
                         <Form.Label
@@ -1328,7 +1336,7 @@ const editData=(addressType,EditAddress,setEditAddress,editNewAddress,cancelEdit
                         />
                       </div>
                     </Form.Group>
-                {addressType=="Registered" || addressType=="Supplier"?
+                {addressEditType=="Registered" || addressEditType=="Supplier"?
                     <>
                     <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
                       <Form.Control
@@ -1398,6 +1406,7 @@ const editData=(addressType,EditAddress,setEditAddress,editNewAddress,cancelEdit
                             editNewAddress(e.target.name,e.target.value)
                           }}
                         >
+                           <option>Select an option</option>
                           <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
                           
                         </select>

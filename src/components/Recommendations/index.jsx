@@ -25,7 +25,7 @@ const Index = ({
   setGroupExposureData,
   addGroupExpArr,
   saveSuggestedCreditData,
-  deleteData
+  deleteData,
 }) => {
   const [editProfile, setEditProfile] = useState(false)
   const [editFinance, setEditFinance] = useState(false)
@@ -75,11 +75,10 @@ const Index = ({
         limit: null,
         name: '',
         outstandingLimit: null,
-        action: false
+        action: false,
       },
     ])
   }
-
 
   const handleGroupExpChange = (name, value, index) => {
     // console.log(name, value, index, 'name,value')
@@ -106,7 +105,6 @@ const Index = ({
       return newState
     })
   }
- 
 
   return (
     <>
@@ -127,7 +125,7 @@ const Index = ({
           aria-labelledby="recommendations"
           data-parent="#profileAccordion"
         >
-          <hr className={styles.line} style={{margin: "0"} }></hr>
+          <hr className={styles.line} style={{ margin: '0' }}></hr>
           <div className={`${styles.dashboard_form}`}>
             <h5 className={styles.sub_heading}>Company Profile</h5>
             {companyComment &&
@@ -154,7 +152,9 @@ const Index = ({
                       src="/static/delete 2.svg"
                       className="img-fluid"
                       alt="delete"
-                      onClick={(e)=>{deleteData(index)}}
+                      onClick={(e) => {
+                        deleteData(index)
+                      }}
                     />
                   </div>
                 </div>
@@ -164,11 +164,13 @@ const Index = ({
               <input
                 as="textarea"
                 rows={3}
-                placeholder="Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the"
+                placeholder=""
                 className={`${styles.comment_field} form-control`}
                 onChange={(e) => setCompanyComments(e.target.value)}
               />
-              <label className={`${styles.label_heading} label_heading`}>Comments</label>
+              <label className={`${styles.label_heading} label_heading`}>
+                Comments
+              </label>
 
               <img
                 className="img-fluid ml-4"
@@ -216,11 +218,13 @@ const Index = ({
               <input
                 as="textarea"
                 rows={3}
-                placeholder="Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the"
+                placeholder=""
                 className={`${styles.comment_field} form-control`}
                 onChange={(e) => setFinancialsComments(e.target.value)}
               />
-              <label className={`${styles.label_heading} label_heading`}>Comments</label>
+              <label className={`${styles.label_heading} label_heading`}>
+                Comments
+              </label>
 
               <img
                 className="img-fluid ml-4"
@@ -248,7 +252,7 @@ const Index = ({
                   <thead>
                     <tr>
                       <th>S.NO.</th>
-                      <th>NAME OF THE BUYER</th>
+                      <th>NAME OF THE COMPANY</th>
                       <th>LIMIT AMOUNT</th>
                       <th>OUTSTANDING LIMIT</th>
                       <th>ACCOUNT CONDUCT</th>
@@ -258,10 +262,23 @@ const Index = ({
                   <tbody>
                     {groupExposureData &&
                       groupExposureData?.map((profile, index) => (
-                      <tr key={index}>
-                        <td>{index + 1}</td>
-                        <td className='position-relative'>                            
-                            <select
+                        <tr key={index}>
+                          <td>{index + 1}</td>
+                          <td className="position-relative">
+                            <input
+                              className={`${styles.input}  input form-control`}
+                              name="name"
+                              disabled={!profile.actions}
+                              defaultValue={profile?.name}
+                              onChange={(e) => {
+                                handleGroupExpChange(
+                                  e.target.name,
+                                  e.target.value,
+                                  index,
+                                )
+                              }}
+                            ></input>
+                            {/* <select
                               className={`${styles.input} ${styles.customSelect} input form-control`}
                               name="name"
                               disabled={!profile.actions}
@@ -275,14 +292,16 @@ const Index = ({
                               }}
                             >
                               <option >Select an option</option>
-                              <option value='Simport Pvt. Ltd.'>Simport Pvt. Ltd.</option>
-                              <option value='Somani'>Somani</option>
-                            </select>
+                              <option value='Emerging Traders'>Emerging Traders</option>
+                              <option value='Bhutani Traders'>Krishna Taders</option>
+                              <option value='Krishna Traders'>Krishna Traders</option>
+
+                            </select> 
                             <img
                               className={`${styles.arrow} img-fluid`}
                               src="/static/inputDropDown.svg"
                               alt="Search"
-                            />
+                            />*/}
                           </td>
                           <td>
                             <input
@@ -293,11 +312,10 @@ const Index = ({
                                 handleGroupExpChange(
                                   e.target.name,
                                   e.target.value,
-                                  index
+                                  index,
                                 )
                               }}
                               className={styles.input}
-                              
                             />
                           </td>
                           <td>
@@ -309,13 +327,13 @@ const Index = ({
                                 handleGroupExpChange(
                                   e.target.name,
                                   e.target.value,
-                                  index
+                                  index,
                                 )
                               }}
                               className={styles.input}
                             />
                           </td>
-                          <td className='position-relative'>
+                          <td className="position-relative">
                             <select
                               className={`${styles.input} ${styles.customSelect} input form-control`}
                               name="accountConduct"
@@ -325,13 +343,13 @@ const Index = ({
                                 handleGroupExpChange(
                                   e.target.name,
                                   e.target.value,
-                                  index
+                                  index,
                                 )
                               }}
                             >
                               <option>Select an Option</option>
-                              <option value='Good'>Good</option>
-                              <option value='Satisfactory'>Satisfactory</option>
+                              <option value="Good">Good</option>
+                              <option value="Satisfactory">Satisfactory</option>
                             </select>
                             <img
                               className={`${styles.arrow} img-fluid`}
@@ -339,50 +357,51 @@ const Index = ({
                               alt="Search"
                             />
                           </td>
-                        <td>
-                          <div>
-                            {!profile.actions ? (
+                          <td>
+                            <div>
+                              {!profile.actions ? (
+                                <img
+                                  src="/static/mode_edit.svg"
+                                  className={`${styles.edit_image} mr-3 img-fluid`}
+                                  onClick={() => {
+                                    setActions(index, true)
+                                  }}
+                                />
+                              ) : (
+                                <img
+                                  src="/static/save-3.svg"
+                                  className={`${styles.edit_image} mr-3 img-fluid`}
+                                  alt="save"
+                                  onClick={(e) => {
+                                    setActions(index, false)
+                                  }}
+                                />
+                              )}
                               <img
-                                src="/static/mode_edit.svg"
-                                className={`${styles.edit_image} mr-3 img-fluid`}
+                                src="/static/delete 2.svg"
+                                className={`${styles.delete_image} img-fluid`}
                                 onClick={() => {
-                                  setActions(index, true)
+                                  handleRemoveRow(index)
                                 }}
+                                alt="delete"
                               />
-                            ) : (
-                              <img
-                                src="/static/save-3.svg"
-                                className={`${styles.edit_image} mr-3 img-fluid`}
-                                alt="save"
-                                onClick={(e) => {
-                                  setActions(index, false)
-                                }}
-                              />
-                            )}
-                            <img
-                              src="/static/delete 2.svg"
-                              className={`${styles.delete_image} img-fluid`}
-                              onClick={() => {
-                                handleRemoveRow(index)
-                              }}
-                              alt="delete"
-                            />
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
-                  
                 </table>
               </div>
             </div>
             <div
               className={`${styles.add_image} p-3 d-flex justify-content-end`}
             >
-              <div  onClick={(e) => {
-                //  onExpSave(exposureData)
-                addMoreExpRows()
-                  }}>
+              <div
+                onClick={(e) => {
+                  //  onExpSave(exposureData)
+                  addMoreExpRows()
+                }}
+              >
                 <span>+</span>Add More Rows
               </div>
             </div>
@@ -397,7 +416,7 @@ const Index = ({
               <input
                 as="textarea"
                 rows={3}
-                placeholder="Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the"
+                placeholder=""
                 className={`${styles.comment_field} input form-control`}
                 onChange={(e) => setStrengthsComments(e.target.value)}
               />
@@ -418,7 +437,10 @@ const Index = ({
             <div className={`${styles.strength} value`}>Strengths</div>
             {strengthsComment &&
               strengthsComment.map((strengths, index) => (
-                <div key={index} className={`${styles.textarea_main} d-flex justify-content-between`}>
+                <div
+                  key={index}
+                  className={`${styles.textarea_main} d-flex justify-content-between`}
+                >
                   <Form.Control
                     className={`${styles.paragraph} input`}
                     defaultValue={strengths}
@@ -468,14 +490,14 @@ const Index = ({
                 />
               </div>
             </div> */}
-            
-            <hr className={styles.line} style={{margin: "-1px -35px 0"} }></hr>
+
+            <hr className={styles.line} style={{ margin: '-1px -35px 0' }}></hr>
             <div className={`${styles.sub_heading} value`}>Weakness</div>
             <div className="d-flex mt-5 pb-4">
               <input
                 as="textarea"
                 rows={3}
-                placeholder="Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the"
+                placeholder=""
                 className={`${styles.comment_field} form-control`}
                 onChange={(e) => setWeaknessComments(e.target.value)}
               />
@@ -496,7 +518,10 @@ const Index = ({
             <div className={`${styles.strength} value`}>Weakness</div>
             {weaknessComment &&
               weaknessComment.map((weakness, index) => (
-                <div key={index} className={`${styles.textarea_main} d-flex justify-content-between`}>
+                <div
+                  key={index}
+                  className={`${styles.textarea_main} d-flex justify-content-between`}
+                >
                   <Form.Control
                     className={`${styles.paragraph} input`}
                     defaultValue={weakness}
@@ -550,7 +575,7 @@ const Index = ({
               </div>
             </div> */}
 
-            <hr className={styles.line} style={{margin: "-1px -35px 0"} }></hr>
+            <hr className={styles.line} style={{ margin: '-1px -35px 0' }}></hr>
             <div
               className={`${styles.sanction_terms} mt-4 d-flex justify-content-between align-items-center`}
             >
@@ -596,19 +621,31 @@ const Index = ({
                 <td>{creditDetail?.company?.creditLimit?.availableLimit}</td>
                 <td>-</td>
 
-                { filteredCreditRating ? <> {filteredCreditRating &&
-                  filteredCreditRating.length > 0 &&
-                  filteredCreditRating.map((val, index) => (
-                    <td key={index}>{val.derived.value}</td>
-                  ))} </> : <td>-</td> }
+                {filteredCreditRating ? (
+                  <>
+                    {' '}
+                    {filteredCreditRating &&
+                      filteredCreditRating.length > 0 &&
+                      filteredCreditRating.map((val, index) => (
+                        <td key={index}>{val.derived.value}</td>
+                      ))}{' '}
+                  </>
+                ) : (
+                  <td>-</td>
+                )}
 
                 <td>
                   <input
                     className={`${styles.text}`}
                     type="text"
-                    name='suggestedCreditLimit'
+                    name="suggestedCreditLimit"
                     defaultValue={creditDetail?.suggestedCreditLimit}
-                    onChange={(e)=>{saveSuggestedCreditData(e.target.name, Number(e.target.value * 10000000))}}
+                    onChange={(e) => {
+                      saveSuggestedCreditData(
+                        e.target.name,
+                        Number(e.target.value * 10000000),
+                      )
+                    }}
                   ></input>
                 </td>
               </tr>
@@ -623,9 +660,15 @@ const Index = ({
                   <input
                     className={`${styles.text}`}
                     type="number"
-                    name='suggestedOrderValue'
+                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                    name="suggestedOrderValue"
                     defaultValue={creditDetail?.suggestedOrderValue}
-                    onChange={(e)=>{saveSuggestedCreditData(e.target.name, Number(e.target.value * 10000000))}}
+                    onChange={(e) => {
+                      saveSuggestedCreditData(
+                        e.target.name,
+                        Number(e.target.value * 10000000),
+                      )
+                    }}
                   ></input>
                 </td>
               </tr>
@@ -655,7 +698,7 @@ const Index = ({
               <input
                 as="textarea"
                 rows={3}
-                placeholder="Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space without actually saying anything meaningful. It's essentially nonsense text that still gives an idea of what real words will look like in the"
+                placeholder=""
                 className={`${styles.comment_field} form-control`}
                 onChange={(e) => setSanctionComments(e.target.value)}
               />
@@ -678,7 +721,10 @@ const Index = ({
             </div>
             {sanctionComment &&
               sanctionComment.map((sanction, index) => (
-                <div key={index} className={`${styles.textarea_main} d-flex justify-content-between`}>
+                <div
+                  key={index}
+                  className={`${styles.textarea_main} d-flex justify-content-between`}
+                >
                   <Form.Control
                     className={`${styles.paragraph} input`}
                     defaultValue={sanction}

@@ -178,6 +178,7 @@ export default function Index({
                         onChange={(e) => onChangeVessel(e, index)}
                         className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                       >
+                        <option>Select an option</option>
                         {shipmentTypeBulk
                           ? _get(
                               TransitDetails,
@@ -226,6 +227,9 @@ export default function Index({
                       onChange={(e, index) => onChangeCims(e, index)}
                       className={`${styles.input_field} input form-control`}
                       type="number"
+                      onKeyDown={(evt) =>
+                        evt.key === 'e' && evt.preventDefault()
+                      }
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Quantity<strong className="text-danger">*</strong>
@@ -284,6 +288,9 @@ export default function Index({
                       defaultValue={list.cimsCharges}
                       className={`${styles.input_field} input form-control`}
                       type="number"
+                      onKeyDown={(evt) =>
+                        evt.key === 'e' && evt.preventDefault()
+                      }
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       CIMS Charges<strong className="text-danger">*</strong>
@@ -296,6 +303,7 @@ export default function Index({
                       <select
                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       >
+                        <option>Select an option</option>
                         <option value={list.paymentBy}>{list.paymentBy}</option>
                         <option>N/A</option>
                       </select>

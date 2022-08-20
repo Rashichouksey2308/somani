@@ -216,6 +216,9 @@ const index = () => {
                       className={`${styles.input_field} input form-control`}
                       required
                       type="number"
+                      onKeyDown={(evt) =>
+                        evt.key === 'e' && evt.preventDefault()
+                      }
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Period of Insurance (In days)
@@ -491,6 +494,9 @@ const index = () => {
                       className={`${styles.input_field} input form-control`}
                       required
                       type="number"
+                      onKeyDown={(evt) =>
+                        evt.key === 'e' && evt.preventDefault()
+                      }
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Period of Insurance (In days)
@@ -649,13 +655,13 @@ const index = () => {
           <div className={` ${styles.cardBody} card-body  border_color`}>
             <div className={styles.remark_field}>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad minim veniam, quis nostrud exercitation ullamco laboris
                 nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
                 in reprehenderit in voluptate velit esse cillum dolore eu fugiat
                 nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
+                sunt in culpa qui officia deserunt mollit anim id est laborum. */}
               </p>
             </div>
           </div>

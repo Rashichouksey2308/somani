@@ -34,6 +34,8 @@ function Index({
   list,
   orderID,
   id1,
+  onDeleteVessel,
+  OnAddvesselInformationDelete,
 }) {
   const dispatch = useDispatch()
   // useEffect(() => {
@@ -105,6 +107,7 @@ function Index({
                             {partShipmentAllowed ? (
                               <>
                                 {' '}
+                                <option>Select an option</option>
                                 <option value={true}>Yes</option>
                                 <option value={false}>No</option>
                               </>
@@ -124,14 +127,27 @@ function Index({
                         </div>
 
                         {list[index].shipmentType === 'Bulk' ? (
-                          <button
-                            className={styles.add_btn}
-                            onClick={(e) => {
-                              onAddVessel()
-                            }}
-                          >
-                            Add
-                          </button>
+                          <>
+                            {index > 1 ? (
+                              <button
+                                className={styles.add_btn}
+                                onClick={(e) => {
+                                  onDeleteVessel(index)
+                                }}
+                              >
+                                Delete
+                              </button>
+                            ) : (
+                              <button
+                                className={styles.add_btn}
+                                onClick={(e) => {
+                                  onAddVessel()
+                                }}
+                              >
+                                Add
+                              </button>
+                            )}
+                          </>
                         ) : null}
                       </div>
                     </div>
@@ -147,6 +163,7 @@ function Index({
                                 shipmentTypeChangeHandler(e, index)
                               }
                             >
+                              <option>Select an option</option>
                               <option value="Bulk" selected>
                                 Bulk
                               </option>
@@ -208,12 +225,16 @@ function Index({
                             style={{ color: '#3687E8' }}
                             required
                           >
+                            <option>Select an option</option>
                             <option>USD</option>
                             <option>INR</option>
                           </select>
                           <input
                             id="orderValue"
                             type="number"
+                            onKeyDown={(evt) =>
+                              evt.key === 'e' && evt.preventDefault()
+                            }
                             className={`${styles.input_field} border-left-0 input form-control`}
                             value={val.orderValue}
                             onChange={(e) =>
@@ -246,9 +267,10 @@ function Index({
                                 OnVesselTransitFieldsChangeHandler(e, index)
                               }
                             >
-                              <option value={val.countryOfOrigin}>
+                              <option>Select an option</option>
+                              {/* <option value={val.countryOfOrigin}>
                                 {val.countryOfOrigin}
-                              </option>
+                              </option> */}
                               <option value="india">India</option>
                             </select>
                             <label
@@ -275,9 +297,10 @@ function Index({
                                 OnVesselTransitFieldsChangeHandler(e, index)
                               }
                             >
-                              <option value={val.portOfLoading}>
+                              <option>Select an option</option>
+                              {/* <option value={val.portOfLoading}>
                                 {val.portOfLoading}
-                              </option>
+                              </option> */}
                               <option value="perth">Perth</option>
                             </select>
                             <label
@@ -304,9 +327,10 @@ function Index({
                                 OnVesselTransitFieldsChangeHandler(e, index)
                               }
                             >
-                              <option value={val.portOfDischarge}>
+                              <option>Select an option</option>
+                              {/* <option value={val.portOfDischarge}>
                                 {val.portOfDischarge}
-                              </option>
+                              </option> */}
                               <option value="navasheva">Navasheva</option>
                             </select>
                             <label
@@ -507,19 +531,23 @@ function Index({
                                     className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
                                   >
                                     <div className="d-flex">
-                                    <input
-                                    id="yearOfBuilt"
-                                    defaultValue={vesselInfo.yearOfBuilt}
-                                    className={`${styles.input_field} input form-control`}
-                                    type="number"
-                                    onChange={(e) =>
-                                      onVesselInfoChangeHandlerForBulk(
-                                        e,
-                                        index,
-                                      )
-                                    }
-                                    required
-                                  />
+                                      <input
+                                        id="yearOfBuilt"
+                                        defaultValue={vesselInfo.yearOfBuilt}
+                                        className={`${styles.input_field} input form-control`}
+                                        type="number"
+                                        onKeyDown={(evt) =>
+                                          evt.key === 'e' &&
+                                          evt.preventDefault()
+                                        }
+                                        onChange={(e) =>
+                                          onVesselInfoChangeHandlerForBulk(
+                                            e,
+                                            index,
+                                          )
+                                        }
+                                        required
+                                      />
                                       {/* <select
                                         id="yearOfBuilt"
                                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
@@ -630,6 +658,9 @@ function Index({
                                 }
                                 className={`${styles.input_field} input form-control`}
                                 type="number"
+                                onKeyDown={(evt) =>
+                                  evt.key === 'e' && evt.preventDefault()
+                                }
                                 onChange={(e) =>
                                   shippingInfoChangeHandler(e, index)
                                 }
@@ -652,6 +683,9 @@ function Index({
                                 }
                                 className={`${styles.input_field} input form-control`}
                                 type="number"
+                                onKeyDown={(evt) =>
+                                  evt.key === 'e' && evt.preventDefault()
+                                }
                                 onChange={(e) =>
                                   shippingInfoChangeHandler(e, index)
                                 }
@@ -678,12 +712,23 @@ function Index({
                                 <h3 className={styles.sub_heading}>
                                   Vessel Information
                                 </h3>
-                                <button
-                                  onClick={() => OnAddvesselInformation()}
-                                  className={styles.add_btn}
-                                >
-                                  Add
-                                </button>
+                                {index > 1 ? (
+                                  <button
+                                    onClick={() =>
+                                      OnAddvesselInformationDelete(index)
+                                    }
+                                    className={styles.add_btn}
+                                  >
+                                    Delete
+                                  </button>
+                                ) : (
+                                  <button
+                                    onClick={() => OnAddvesselInformation()}
+                                    className={styles.add_btn}
+                                  >
+                                    Add
+                                  </button>
+                                )}
                               </div>
                               <div className="row">
                                 <div
@@ -755,12 +800,14 @@ function Index({
                                 <div
                                   className={`${styles.form_group} col-md-4 col-sm-6`}
                                 >
-                                  
                                   <input
                                     id="yearOfBuilt"
                                     defaultValue={newVessel.yearOfBuilt}
                                     className={`${styles.input_field} input form-control`}
                                     type="number"
+                                    onKeyDown={(evt) =>
+                                      evt.key === 'e' && evt.preventDefault()
+                                    }
                                     onChange={(e) =>
                                       onVesselInfoChangeHandlerForLiner(
                                         e,
@@ -794,6 +841,7 @@ function Index({
                                 onChange={(e) => uploadDocHandler1(e)}
                                 type="file"
                                 name="myfile"
+                                accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                               />
                               <button className={`${styles.upload_btn}`}>
                                 Upload Excel

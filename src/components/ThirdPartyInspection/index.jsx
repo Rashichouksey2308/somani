@@ -275,6 +275,9 @@ export default function Index({ addButton, inspectionData }) {
                         saveInspectionDetails(e.target.name, e.target.value)
                       }
                       type="number"
+                      onKeyDown={(evt) =>
+                        evt.key === 'e' && evt.preventDefault()
+                      }
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       No of Containers<strong className="text-danger">*</strong>
@@ -455,31 +458,83 @@ export default function Index({ addButton, inspectionData }) {
                                   Please Specify
                                 </button>
                                 <div
-                                  className="dropdown-menu"
+                                  className={`${styles.dropdown_menu} dropdown-menu`}
                                   aria-labelledby="dropdownMenuButton"
                                 >
-                                  <a className="dropdown-item" href="#">
-                                    Action
+                                  <a
+                                    className={`${styles.hold_field} ${styles.dropdown_item} dropdown-item`}
+                                    href="#"
+                                  >
+                                    <img
+                                      src="/static/hold-white.svg"
+                                      className="img-fluid mr-2"
+                                      alt="On Hold"
+                                    />{' '}
+                                    On Hold
                                   </a>
-                                  <a className="dropdown-item" href="#">
-                                    Another action
+                                  <a
+                                    className={`${styles.rejected_field} ${styles.dropdown_item} dropdown-item`}
+                                    href="#"
+                                  >
+                                    <img
+                                      src="/static/close-white.svg"
+                                      className="img-fluid mr-2"
+                                      alt="Rejected"
+                                    />{' '}
+                                    Rejected
+                                  </a>
+                                  <a
+                                    className={`${styles.approved_field} ${styles.dropdown_item} dropdown-item`}
+                                    href="#"
+                                  >
+                                    <img
+                                      src="/static/check.svg"
+                                      className="img-fluid mr-2"
+                                      alt="Approved"
+                                    />{' '}
+                                    Approved
                                   </a>
                                 </div>
                               </div>
                             </td>
                             <td>
-                              <div className={styles.uploadBtnWrapper}>
-                                <input
-                                  type="file"
-                                  onChange={(e) => uploadDocument1(e)}
-                                  name="myfile"
-                                />
-                                {/* <button
-                                  name='marinePolicyDocument'   className={`${styles.upload_btn} btn`}
-                                  >
-                                    Upload
-                                  </button> */}
-                              </div>
+                              {false ? (
+                                <>
+                                  <div className={styles.uploadBtnWrapper}>
+                                    <input
+                                      type="file"
+                                      name="myfile"
+                                      accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                      onChange={(e) => uploadDocument1(e)}
+                                    />
+                                    <button
+                                      className={`${styles.button_upload} btn`}
+                                    >
+                                      Upload
+                                    </button>
+                                  </div>
+                                  {/* <div className={styles.uploadBtnWrapper}>
+                              <input
+                                type="file"
+                                accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                                onChange={(e) => uploadDocument1(e)}
+                                name="myfile"
+                              />
+                              <button  className={`${styles.uploadDoc} btn`}>
+                                Upload
+                              </button>
+                              </div> */}
+                                </>
+                              ) : (
+                                <div className={styles.certificate}>
+                                  {/* {lcDoc?.lcDraftDoc?.name} */}
+                                  <img
+                                    className={`${styles.close_image} float-right m-2 img-fluid`}
+                                    src="/static/close.svg"
+                                    alt="Close"
+                                  />{' '}
+                                </div>
+                              )}
                             </td>
                           </tr>
                           <tr className="table_row">
@@ -502,46 +557,93 @@ export default function Index({ addButton, inspectionData }) {
                               {' '}
                               <div className="dropdown">
                                 <button
-                                  className={`${styles.specify_field} ${styles.hold_field} btn btn-secondary dropdown-toggle`}
+                                  className={`${styles.specify_field} btn btn-secondary dropdown-toggle`}
                                   type="button"
                                   id="dropdownMenuButton"
                                   data-toggle="dropdown"
                                   aria-haspopup="true"
                                   aria-expanded="false"
                                 >
-                                  <img
-                                    src="/static/hold-white.svg"
-                                    className="img-fluid mr-2"
-                                    alt="close"
-                                  />{' '}
-                                  On Hold
+                                  Please Specify
                                 </button>
                                 <div
-                                  className="dropdown-menu"
+                                  className={`${styles.dropdown_menu} dropdown-menu`}
                                   aria-labelledby="dropdownMenuButton"
                                 >
-                                  <a className="dropdown-item" href="#">
-                                    Action
+                                  <a
+                                    className={`${styles.hold_field} ${styles.dropdown_item} dropdown-item`}
+                                    href="#"
+                                  >
+                                    <img
+                                      src="/static/hold-white.svg"
+                                      className="img-fluid mr-2"
+                                      alt="On Hold"
+                                    />{' '}
+                                    On Hold
                                   </a>
-                                  <a className="dropdown-item" href="#">
-                                    Another action
+                                  <a
+                                    className={`${styles.rejected_field} ${styles.dropdown_item} dropdown-item`}
+                                    href="#"
+                                  >
+                                    <img
+                                      src="/static/close-white.svg"
+                                      className="img-fluid mr-2"
+                                      alt="Rejected"
+                                    />{' '}
+                                    Rejected
+                                  </a>
+                                  <a
+                                    className={`${styles.approved_field} ${styles.dropdown_item} dropdown-item`}
+                                    href="#"
+                                  >
+                                    <img
+                                      src="/static/check.svg"
+                                      className="img-fluid mr-2"
+                                      alt="Approved"
+                                    />{' '}
+                                    Approved
                                   </a>
                                 </div>
                               </div>
                             </td>
                             <td>
-                              <div className={`${styles.uploadBtnWrapper}`}>
-                                <input
-                                  type="file"
-                                  onChange={(e) => uploadDocument2(e)}
-                                  name="myfile"
-                                />
-                                {/* <button
-                                  name='marinePolicyDocument'   className={`${styles.upload_btn} btn`}
-                                  >
-                                    Upload
-                                  </button> */}
-                              </div>
+                              {false ? (
+                                <>
+                                  <div className={styles.uploadBtnWrapper}>
+                                    <input
+                                      type="file"
+                                      name="myfile"
+                                      accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                      onChange={(e) => uploadDocument1(e)}
+                                    />
+                                    <button
+                                      className={`${styles.button_upload} btn`}
+                                    >
+                                      Upload
+                                    </button>
+                                  </div>
+                                  {/* <div className={styles.uploadBtnWrapper}>
+                              <input
+                                type="file"
+                                accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                                onChange={(e) => uploadDocument1(e)}
+                                name="myfile"
+                              />
+                              <button  className={`${styles.uploadDoc} btn`}>
+                                Upload
+                              </button>
+                              </div> */}
+                                </>
+                              ) : (
+                                <div className={styles.certificate}>
+                                  {/* {lcDoc?.lcDraftDoc?.name} */}
+                                  <img
+                                    className={`${styles.close_image} float-right m-2 img-fluid`}
+                                    src="/static/close.svg"
+                                    alt="Close"
+                                  />{' '}
+                                </div>
+                              )}
                             </td>
                           </tr>
                           <tr className="table_row">
@@ -565,46 +667,93 @@ export default function Index({ addButton, inspectionData }) {
                               {' '}
                               <div className="dropdown">
                                 <button
-                                  className={`${styles.specify_field} ${styles.rejected_field} btn btn-secondary dropdown-toggle`}
+                                  className={`${styles.specify_field} btn btn-secondary dropdown-toggle`}
                                   type="button"
                                   id="dropdownMenuButton"
                                   data-toggle="dropdown"
                                   aria-haspopup="true"
                                   aria-expanded="false"
                                 >
-                                  <img
-                                    src="/static/close-white.svg"
-                                    className="img-fluid mr-2"
-                                    alt="close"
-                                  />
-                                  Rejected
+                                  Please Specify
                                 </button>
                                 <div
-                                  className="dropdown-menu"
+                                  className={`${styles.dropdown_menu} dropdown-menu`}
                                   aria-labelledby="dropdownMenuButton"
                                 >
-                                  <a className="dropdown-item" href="#">
-                                    Action
+                                  <a
+                                    className={`${styles.hold_field} ${styles.dropdown_item} dropdown-item`}
+                                    href="#"
+                                  >
+                                    <img
+                                      src="/static/hold-white.svg"
+                                      className="img-fluid mr-2"
+                                      alt="On Hold"
+                                    />{' '}
+                                    On Hold
                                   </a>
-                                  <a className="dropdown-item" href="#">
-                                    Another action
+                                  <a
+                                    className={`${styles.rejected_field} ${styles.dropdown_item} dropdown-item`}
+                                    href="#"
+                                  >
+                                    <img
+                                      src="/static/close-white.svg"
+                                      className="img-fluid mr-2"
+                                      alt="Rejected"
+                                    />{' '}
+                                    Rejected
+                                  </a>
+                                  <a
+                                    className={`${styles.approved_field} ${styles.dropdown_item} dropdown-item`}
+                                    href="#"
+                                  >
+                                    <img
+                                      src="/static/check.svg"
+                                      className="img-fluid mr-2"
+                                      alt="Approved"
+                                    />{' '}
+                                    Approved
                                   </a>
                                 </div>
                               </div>
                             </td>
                             <td>
-                              <div className={styles.uploadBtnWrapper}>
-                                <input
-                                  type="file"
-                                  onChange={(e) => uploadDocument3(e)}
-                                  name="myfile"
-                                />
-                                {/* <button
-                                  name='marinePolicyDocument'   className={`${styles.upload_btn} btn`}
-                                  >
-                                    Upload
-                                  </button> */}
-                              </div>
+                              {false ? (
+                                <>
+                                  <div className={styles.uploadBtnWrapper}>
+                                    <input
+                                      type="file"
+                                      name="myfile"
+                                      accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                      onChange={(e) => uploadDocument1(e)}
+                                    />
+                                    <button
+                                      className={`${styles.button_upload} btn`}
+                                    >
+                                      Upload
+                                    </button>
+                                  </div>
+                                  {/* <div className={styles.uploadBtnWrapper}>
+                              <input
+                                type="file"
+                                accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                                onChange={(e) => uploadDocument1(e)}
+                                name="myfile"
+                              />
+                              <button  className={`${styles.uploadDoc} btn`}>
+                                Upload
+                              </button>
+                              </div> */}
+                                </>
+                              ) : (
+                                <div className={styles.certificate}>
+                                  {/* {lcDoc?.lcDraftDoc?.name} */}
+                                  <img
+                                    className={`${styles.close_image} float-right m-2 img-fluid`}
+                                    src="/static/close.svg"
+                                    alt="Close"
+                                  />{' '}
+                                </div>
+                              )}
                             </td>
                           </tr>
                         </tbody>
@@ -677,17 +826,17 @@ export default function Index({ addButton, inspectionData }) {
                             </div>
                           </Form.Group>
                           <Form.Group className={styles.form_group}>
-                            <Form.Label
-                              className={`${styles.label_heading} label_heading`}
-                            >
-                              Please Specify Document Name
-                            </Form.Label>
                             <Form.Control
                               className={`${styles.value} input form-control`}
                               type="text"
                               disabled={editInput}
                               required
                             />
+                            <Form.Label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              Please Specify Document Name
+                            </Form.Label>
                           </Form.Group>
 
                           <button
@@ -715,7 +864,7 @@ export default function Index({ addButton, inspectionData }) {
                                 Lead Onboarding &amp; Order Approval
                               </option>
                               <option>
-                                Agreements, Insurance & LC Opening
+                                Agreements, Insurance &amp; LC Opening
                               </option>
                               <option>Loading-Transit-Unloading</option>
                               <option>Custom Clearance And Warehousing</option>
@@ -953,6 +1102,7 @@ const Discharge = ({ inspectionData, saveInspectionDetails, saveDate }) => {
                   saveInspectionDetails(e.target.name, e.target.value)
                 }
                 type="number"
+                onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
               />
               <label className={`${styles.label_heading} label_heading`}>
                 No of Containers<strong className="text-danger">*</strong>

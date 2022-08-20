@@ -95,6 +95,9 @@ const Index = ({ setAdditionalComments, additionalComments }) => {
                                 <div className={`${styles.form_group} d-flex justify-content-between`} >
                                     <div className='d-flex' style={{ width: "460px" }}>
                                         <select className={`${styles.value} ${styles.customSelect} input form-control`} onChange={(e) => setCommentType(e.target.value)} required>
+                                            <option>
+                                            Select an option
+                                            </option>
                                             <option value="Deliveries/Due Date/Payment">Deliveries/Due Date/Payment</option>
                                             <option value="Storage of Goods">Storage of Goods</option>
                                         </select>

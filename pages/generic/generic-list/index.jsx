@@ -80,13 +80,13 @@ const getDate = async () =>{
             <div
               className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
             >
-              <h3 className="heading_card">All Orders</h3>
+              <h3 className="heading_card">Generic</h3>
               <div
                 className={`${styles.pageList} d-flex justify-content-end align-items-center`}
               >
                 <span>
                   Showing Page {currentPage + 1} out of{' '}
-                  {Math.ceil(generic?.length / 10)}
+                  {Math.ceil(genData?.totalCount??1 / 10)}
                 </span>
                 <a
                   onClick={() => {
@@ -136,7 +136,8 @@ const getDate = async () =>{
                       <th >ORDER ID <img className={`mb-1`} src="/static/icons8-sort-24.svg" /></th>
                     
                       <th>COMPANY NAME </th>
-                      <th>Customer ID</th>
+                      <th>COMMODITY </th>
+                      <th>CUSTOMER ID</th>
                     
 
                     </tr>
@@ -144,11 +145,12 @@ const getDate = async () =>{
                   {genData?.length>0 && genData?.map((term, index) => (<tbody Key={index}>
 
                     <td >
-                      {term?.company._id}
+                      {term?.order?.orderId??""}
                     </td>
                     <td className={`${styles.buyerName}`} onClick={() => handleRoute(term)} >{term?.company.companyName}</td>
-
-                    <td >{term?.company.customerId}</td>
+                    
+                     <td >{term?.order?.commodity??""}</td>
+                    <td >{term?.company?.customerId??""}</td>
                     {/* <td>{term?.order?.createdAt?.slice(0, 10)}</td> */}
                     {/* <td>
                       <span

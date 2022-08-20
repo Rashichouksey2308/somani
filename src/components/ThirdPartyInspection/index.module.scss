@@ -235,7 +235,7 @@
           letter-spacing: 0.53px;
           line-height: 17px;
           top: 22px;
-          left: 30px;
+          left: 15px;
           margin-bottom: 0;
           position: absolute;
           pointer-events: none;
@@ -427,7 +427,16 @@
               line-height: 24px;
               width: 210px;
               height: 49px;
+              box-shadow: none;
               background-color: transparent;
+              img {
+                &::after {
+                  top: 50%;
+                  right: 18px;
+                  position: absolute;
+                  transform: translateY(-50%);
+                }
+              }
             }
             .hold_field {
               background: #ff9d00;
@@ -470,6 +479,40 @@
               line-height: 24px;
               opacity: 0.7;
               font-weight: 500;
+            }
+            .dropdown_menu {
+              padding: 0;
+              border: none;
+              text-align: center;
+              .dropdown_item {
+                width: 210px;
+                height: 49px;
+                font-size: 19px;
+                color: #ffffff;
+                line-height: 24px;
+                font-weight: 500;
+                border: none;
+                padding: 10px 20px;
+                &:first-child {
+                  border-radius: 6px 6px 0 0;
+                }
+                &:last-child {
+                  border-radius: 0 0 6px 6px;
+                }
+                &.hold_field {
+                  background: #ff9d00;
+                }
+                &.rejected_field {
+                  background: #ea3f3f;
+                }
+                &.approved_field {
+                  background: green;
+                  img {
+                    width: 20px;
+                    filter:  brightness(0) invert(1);
+                  }
+                }
+              }
             }
           }
         }
@@ -702,4 +745,52 @@ img {
       }
     }
   }
+}
+.certificate {
+  font-size: 20px;
+  letter-spacing: 0.19px;
+  color: #111111;
+  background-color: #C3C3C31F;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 7px 0;
+}
+.certificate2 {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 20px;
+  letter-spacing: 0.19px;
+  color: #3687e8;
+  background-color: #C3C3C31F;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 7px 0;
+}
+.uploadBtnWrapper {
+  overflow: hidden;
+  position: relative;
+  display: block;
+  line-height: 60px; 
+  input {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0;
+      cursor: pointer;
+      position: absolute;
+  }
+} 
+.button_upload {
+  width: 106px;
+  height: 38px;
+  border: 3px solid #3687E8;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  color: #3687E8;
+  line-height: 23px;
+  text-transform: capitalize;
 }

@@ -18,7 +18,11 @@ import {
   GetMarginMoney,
   RevisedMarginMoney,
 } from '../../src/redux/marginMoney/action'
-import { setPageName, setDynamicName,setDynamicOrder } from '../../src/redux/userData/action'
+import {
+  setPageName,
+  setDynamicName,
+  setDynamicOrder,
+} from '../../src/redux/userData/action'
 import { addPrefixOrSuffix } from '../../src/utils/helper'
 // import { Row, Col } from 'react-bootstrap'
 
@@ -100,7 +104,6 @@ function Index() {
   })
   useEffect(() => {
     getData()
-
   }, [marginData])
 
   const getData = () => {
@@ -334,15 +337,18 @@ function Index() {
   }
 
   const [revisedCalc, setRevisedCalc] = useState({
-    additionalAmountPerPDC: marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC,
-    revisedNetOrderValue: marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue,
+    additionalAmountPerPDC:
+      marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC,
+    revisedNetOrderValue:
+      marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue,
     marginMoney: marginData?.revisedMarginMoney?.calculation?.marginMoney,
-    revisedMarginMoney: marginData?.revisedMarginMoney?.calculation?.revisedMarginMoney,
-    marginMoneyReceived: marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived,
-    marginMoneyPayable: marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable,
+    revisedMarginMoney:
+      marginData?.revisedMarginMoney?.calculation?.revisedMarginMoney,
+    marginMoneyReceived:
+      marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived,
+    marginMoneyPayable:
+      marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable,
   })
-
-  
 
   const [calcRevised, setCalcRevised] = useState({
     additionalAmountPerPDC: '',
@@ -353,7 +359,7 @@ function Index() {
     marginMoneyPayable: '',
   })
 
-  console.log(calcRevised, "THIS IS CALC REVISED")
+  console.log(calcRevised, 'THIS IS CALC REVISED')
 
   const [invoiceDataRevised, setInvoiceDataRevised] = useState({
     buyerName: '',
@@ -378,59 +384,85 @@ function Index() {
     getRevisedData()
   }, [marginData])
 
-
   const getRevisedData = () => {
+    setRevisedCalc({
+      additionalAmountPerPDC:
+        marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC,
+      revisedNetOrderValue:
+        marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue,
+      marginMoney: marginData?.revisedMarginMoney?.calculation?.marginMoney,
+      revisedMarginMoney:
+        marginData?.revisedMarginMoney?.calculation?.revisedMarginMoney,
+      marginMoneyReceived:
+        marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived,
+      marginMoneyPayable:
+        marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable,
+    })
 
-  setRevisedCalc({
-    additionalAmountPerPDC: marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC,
-    revisedNetOrderValue: marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue,
-    marginMoney: marginData?.revisedMarginMoney?.calculation?.marginMoney,
-    revisedMarginMoney: marginData?.revisedMarginMoney?.calculation?.revisedMarginMoney,
-    marginMoneyReceived: marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived,
-    marginMoneyPayable: marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable,
-  })
+    let additionalAmountPerPDC = parseFloat(
+      (marginData?.calculation?.totalSPDC -
+        Number(revisedCalc.additionalAmountPerPDC)) /
+        Number(forCalculation.additionalPDC),
+    ).toFixed(2)
+    console.log(additionalAmountPerPDC, 'additionalAmountPerPDC')
+    let revisedNetOrderValueNew = parseFloat(
+      marginData?.revisedMarginMoney?.totalOrderValue -
+        marginData?.revisedMarginMoney?.totalOrderValue,
+    ).toFixed(2)
+    let marginMoneyRevised = marginData?.calculation?.marginMoney
+    let revisedMarginMoneyNew = marginData?.revisedMarginMoney?.marginMoney
 
-  let additionalAmountPerPDC = parseFloat((marginData?.calculation?.totalSPDC - Number(revisedCalc.additionalAmountPerPDC))/Number(forCalculation.additionalPDC)).toFixed(2)
-  console.log(additionalAmountPerPDC, 'additionalAmountPerPDC')
-  let revisedNetOrderValueNew = parseFloat(marginData?.revisedMarginMoney?.totalOrderValue - marginData?.revisedMarginMoney?.totalOrderValue).toFixed(2)
-  let marginMoneyRevised = marginData?.calculation?.marginMoney
-  let revisedMarginMoneyNew = marginData?.revisedMarginMoney?.marginMoney
-
-  setCalcRevised({
-    additionalAmountPerPDC: additionalAmountPerPDC,
-    revisedNetOrderValue: revisedNetOrderValueNew,
-    marginMoney: marginMoneyRevised,
-    revisedMarginMoney: revisedMarginMoneyNew,
-    marginMoneyReceived: '',
-    marginMoneyPayable: '',
-  })
-
+    setCalcRevised({
+      additionalAmountPerPDC: additionalAmountPerPDC,
+      revisedNetOrderValue: revisedNetOrderValueNew,
+      marginMoney: marginMoneyRevised,
+      revisedMarginMoney: revisedMarginMoneyNew,
+      marginMoneyReceived: '',
+      marginMoneyPayable: '',
+    })
   }
 
   useEffect(() => {
     getRevisedData2()
   }, [revisedCalc])
-  
+
   const getRevisedData2 = () => {
-
-    let additionalAmountPerPDC = parseFloat((Number(marginData?.calculation?.totalSPDC) - Number(revisedCalc.additionalAmountPerPDC ? revisedCalc.additionalAmountPerPDC : 0))/Number(forCalculation.additionalPDC)).toFixed(2)
+    let additionalAmountPerPDC = parseFloat(
+      (Number(marginData?.calculation?.totalSPDC) -
+        Number(
+          revisedCalc.additionalAmountPerPDC
+            ? revisedCalc.additionalAmountPerPDC
+            : 0,
+        )) /
+        Number(forCalculation.additionalPDC),
+    ).toFixed(2)
     console.log(additionalAmountPerPDC, 'additionalAmountPerPDC')
-    let revisedNetOrderValueNew = parseFloat(Number(marginData?.revisedMarginMoney?.totalOrderValue ? marginData?.revisedMarginMoney?.totalOrderValue : 0 ) - Number(marginData?.calculation?.totalOrderValue)).toFixed(2)
-    let marginMoneyRevised = Number(marginData?.calculation?.marginMoney).toFixed(2)
-    let revisedMarginMoneyNew = Number(marginData?.revisedMarginMoney?.marginMoney ? marginData?.revisedMarginMoney?.marginMoney : 0 )
+    let revisedNetOrderValueNew = parseFloat(
+      Number(
+        marginData?.revisedMarginMoney?.totalOrderValue
+          ? marginData?.revisedMarginMoney?.totalOrderValue
+          : 0,
+      ) - Number(marginData?.calculation?.totalOrderValue),
+    ).toFixed(2)
+    let marginMoneyRevised = Number(
+      marginData?.calculation?.marginMoney,
+    ).toFixed(2)
+    let revisedMarginMoneyNew = Number(
+      marginData?.revisedMarginMoney?.marginMoney
+        ? marginData?.revisedMarginMoney?.marginMoney
+        : 0,
+    )
 
-  setCalcRevised({
-    additionalAmountPerPDC: additionalAmountPerPDC,
-    revisedNetOrderValue: revisedNetOrderValueNew,
-    marginMoney: marginMoneyRevised,
-    revisedMarginMoney: revisedMarginMoneyNew,
-    marginMoneyReceived: '',
-    marginMoneyPayable: '',
-  })
-
+    setCalcRevised({
+      additionalAmountPerPDC: additionalAmountPerPDC,
+      revisedNetOrderValue: revisedNetOrderValueNew,
+      marginMoney: marginMoneyRevised,
+      revisedMarginMoney: revisedMarginMoneyNew,
+      marginMoneyReceived: '',
+      marginMoneyPayable: '',
+    })
   }
 
- 
   const saveInvoiceDataRevisedRevised = (name, value) => {
     const newInput = { ...invoiceDataRevised }
     newInput[name] = value
@@ -458,20 +490,19 @@ function Index() {
   }
 
   const handleUpdateRevisedMarginMoney = () => {
-
     let obj = {
       marginMoneyId: marginData?._id,
       additionalPDC: forCalculation.additionalPDC,
-      revisedMarginMoney:{
-      isActive : true,
-      invoiceDetail: { ...invoiceDataRevised },
-      calculation: {...calcRevised},
-      }
+      revisedMarginMoney: {
+        isActive: true,
+        invoiceDetail: { ...invoiceDataRevised },
+        calculation: { ...calcRevised },
+      },
     }
 
     dispatch(RevisedMarginMoney(obj))
   }
-const [active,setActive]=useState("Margin Money")
+  const [active, setActive] = useState('Margin Money')
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -505,8 +536,9 @@ const [active,setActive]=useState("Margin Money")
             </div>
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
-            <li className={`${styles.navItem}  nav-item`}
-            onClick={() =>setActive("Margin Money")}
+            <li
+              className={`${styles.navItem}  nav-item`}
+              onClick={() => setActive('Margin Money')}
             >
               <a
                 className={`${styles.navLink} navLink  nav-link active`}
@@ -521,8 +553,9 @@ const [active,setActive]=useState("Margin Money")
               </a>
             </li>
             {RevisedMarginMoneyTrue ? (
-              <li className={`${styles.navItem} nav-item`}
-               onClick={() =>setActive("Revised Margin Money")}
+              <li
+                className={`${styles.navItem} nav-item`}
+                onClick={() => setActive('Revised Margin Money')}
               >
                 <a
                   className={`${styles.navLink} navLink nav-link`}
@@ -540,8 +573,9 @@ const [active,setActive]=useState("Margin Money")
                       <a className={`${styles.navLink} navLink nav-link`} data-toggle="tab" href="#gst" role="tab" aria-controls="GST" aria-selected="false">Payment</a>
                   </li> */}
 
-            <li className={`${styles.navItem} nav-item`}
-            onClick={() =>setActive("Document")}
+            <li
+              className={`${styles.navItem} nav-item`}
+              onClick={() => setActive('Document')}
             >
               <a
                 className={`${styles.navLink} navLink nav-link`}
@@ -603,6 +637,7 @@ const [active,setActive]=useState("Margin Money")
                         <select
                           className={`${styles.options} mr-4 accordion_DropDown`}
                         >
+                          <option>Select an option</option>
                           <option>
                             {' '}
                             {marginData?.order?.unitOfValue == 'Cr'
@@ -751,7 +786,7 @@ const [active,setActive]=useState("Margin Money")
                                   {addPrefixOrSuffix(
                                     marginData?.order?.perUnitPrice,
                                     '',
-                                  )}
+                                  ).toLocaleString()}
                                 </div>
                               </div>
                             </div>
@@ -765,6 +800,9 @@ const [active,setActive]=useState("Margin Money")
                               </div>
                               <input
                                 type="number"
+                                onKeyDown={(evt) =>
+                                  evt.key === 'e' && evt.preventDefault()
+                                }
                                 id="textInput"
                                 name="conversionRate"
                                 onChange={(e) =>
@@ -888,7 +926,7 @@ const [active,setActive]=useState("Margin Money")
                                       ?.tradeMarginPercentage,
                                     '%',
                                     '',
-                                  )}
+                                  )?.toLocaleString()}
                                 </div>
                               </div>
                             </div>
@@ -913,7 +951,7 @@ const [active,setActive]=useState("Margin Money")
                                     marginData?.order?.tolerance,
                                     '%',
                                     '',
-                                  )}
+                                  )?.toLocaleString()}
                                 </div>
                               </div>
                             </div>
@@ -940,7 +978,7 @@ const [active,setActive]=useState("Margin Money")
                                       ?.transactionDetails?.marginMoney,
                                     '%',
                                     '',
-                                  )}
+                                  )?.toLocaleString()}
                                 </div>
                               </div>
                             </div>
@@ -1053,7 +1091,9 @@ const [active,setActive]=useState("Margin Money")
                                   >{`(A*B)`}</span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {finalCal.orderValue}
+                                  {Number(
+                                    finalCal.orderValue,
+                                  )?.toLocaleString()}
                                 </div>
                               </div>
                             </div>
@@ -1077,7 +1117,10 @@ const [active,setActive]=useState("Margin Money")
                                   >{`(J*C)`}</span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {finalCal.orderValueInINR}
+                                  {/* {finalCal.orderValueInINR?.toLocaleString()} */}
+                                  {Number(
+                                    finalCal.orderValueInINR,
+                                  )?.toLocaleString()}
                                 </div>
                               </div>
                             </div>
@@ -1096,16 +1139,24 @@ const [active,setActive]=useState("Margin Money")
                                 >
                                   Usance Interest (%) for 90 days (INR){' '}
                                   <strong className="text-danger">*</strong>
-                                  <span
-                                    className={`${styles.blue}`}
-                                  >{`(K*D*90/365)`} </span>
+                                  <span className={`${styles.blue}`}>
+                                    {`(K*D*90/365)`}{' '}
+                                  </span>
                                   <div className={`${styles.tooltip}`}>
-                                    <img className={`ml-2 mt-n1 img-fluid`} src="/static/info-circle.svg"/>
-                                    <span className={`${styles.tooltiptext}`}>Indicative Figures</span>
+                                    <img
+                                      className={`ml-2 mt-n1 img-fluid`}
+                                      src="/static/info-circle.svg"
+                                    />
+                                    <span className={`${styles.tooltiptext}`}>
+                                      Indicative Figures
+                                    </span>
                                   </div>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {finalCal.usanceInterest}
+                                  {/* {finalCal.usanceInterest} */}
+                                  {Number(
+                                    finalCal.usanceInterest,
+                                  )?.toLocaleString()}
                                 </div>
                               </div>
                             </div>
@@ -1129,7 +1180,10 @@ const [active,setActive]=useState("Margin Money")
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {finalCal.tradeMargin}
+                                  {Number(
+                                    finalCal.tradeMargin,
+                                  )?.toLocaleString()}
+                                  {/* {finalCal.tradeMargin?.toLocaleString()} */}
                                 </div>
                               </div>
                             </div>
@@ -1153,7 +1207,10 @@ const [active,setActive]=useState("Margin Money")
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {finalCal.grossOrderValue}
+                                  {/* {finalCal.grossOrderValue?.toLocaleString()} */}
+                                  {Number(
+                                    finalCal.grossOrderValue,
+                                  )?.toLocaleString()}
                                 </div>
                               </div>
                             </div>
@@ -1177,7 +1234,10 @@ const [active,setActive]=useState("Margin Money")
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {finalCal.toleranceValue}
+                                  {/* {finalCal.toleranceValue} */}
+                                  {Number(
+                                    finalCal.toleranceValue,
+                                  )?.toLocaleString()}
                                 </div>
                               </div>
                             </div>
@@ -1201,7 +1261,10 @@ const [active,setActive]=useState("Margin Money")
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {finalCal.totalOrderValue}
+                                  {/* {finalCal.totalOrderValue} */}
+                                  {Number(
+                                    finalCal.totalOrderValue,
+                                  )?.toLocaleString()}
                                 </div>
                               </div>
                             </div>
@@ -1225,7 +1288,10 @@ const [active,setActive]=useState("Margin Money")
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {finalCal.provisionalUnitPricePerTon}
+                                  {Number(
+                                    finalCal.provisionalUnitPricePerTon,
+                                  )?.toLocaleString()}
+                                  {/* {finalCal.provisionalUnitPricePerTon} */}
                                 </div>
                               </div>
                             </div>
@@ -1249,7 +1315,10 @@ const [active,setActive]=useState("Margin Money")
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {finalCal.marginMoney}
+                                  {/* {finalCal.marginMoney} */}
+                                  {Number(
+                                    finalCal.marginMoney,
+                                  )?.toLocaleString()}
                                 </div>
                               </div>
                             </div>
@@ -1273,7 +1342,8 @@ const [active,setActive]=useState("Margin Money")
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {finalCal.totalSPDC}
+                                  {/* {finalCal.totalSPDC} */}
+                                  {Number(finalCal.totalSPDC)?.toLocaleString()}
                                 </div>
                               </div>
                             </div>
@@ -1297,7 +1367,10 @@ const [active,setActive]=useState("Margin Money")
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {finalCal.amountPerSPDC}
+                                  {Number(
+                                    finalCal.amountPerSPDC,
+                                  )?.toLocaleString()}
+                                  {/* {finalCal.amountPerSPDC} */}
                                 </div>
                               </div>
                             </div>
@@ -1368,12 +1441,19 @@ const [active,setActive]=useState("Margin Money")
                                       e.target.value,
                                     )
                                   }
-                                  defaultValue={marginData?.invoiceDetail?.buyerGSTIN}
+                                  defaultValue={
+                                    marginData?.invoiceDetail?.buyerGSTIN
+                                  }
                                 >
-                                  <option value={marginData?.invoiceDetail?.buyerGSTIN}>
+                                  <option>Select an option</option>
+                                  <option
+                                    value={
+                                      marginData?.invoiceDetail?.buyerGSTIN
+                                    }
+                                  >
                                     {marginData?.invoiceDetail?.buyerGSTIN}
                                   </option>
-                                  
+
                                   <option value="GTSDT789652JKH">
                                     GTSDT789652JKH
                                   </option>
@@ -1508,9 +1588,7 @@ const [active,setActive]=useState("Margin Money")
                                   }
                                   value={invoiceData?.consigneeGSTIN}
                                 >
-                                  <option >
-                                   
-                                  </option>
+                                  <option>Select an option</option>
                                   <option value="GTSDT789652JKH">
                                     GTSDT789652JKH
                                   </option>
@@ -1573,6 +1651,7 @@ const [active,setActive]=useState("Margin Money")
                                     )
                                   }
                                 >
+                                  <option>Select an option</option>
                                   <option value="Ramakrishna Traders">
                                     Ramakrishna Traders
                                   </option>
@@ -1612,6 +1691,7 @@ const [active,setActive]=useState("Margin Money")
                                     )
                                   }
                                 >
+                                  <option>Select an option</option>
                                   <option value="Visakhapatnam, India">
                                     {'Visakhapatnam, India'}
                                   </option>
@@ -1699,6 +1779,7 @@ const [active,setActive]=useState("Margin Money")
                                     )
                                   }
                                 >
+                                  <option>Select an option</option>
                                   <option value="HDFC">HDFC</option>
                                   <option value="SBI">SBI</option>
                                 </select>
@@ -1734,6 +1815,7 @@ const [active,setActive]=useState("Margin Money")
                                     )
                                   }
                                 >
+                                  <option>Select an option</option>
                                   <option value="DELHI, INDIA">
                                     DELHI, INDIA
                                   </option>
@@ -1832,7 +1914,7 @@ const [active,setActive]=useState("Margin Money")
                       </div>
                     </div>
                   </div>
-                
+
                   <DownloadBar
                     downLoadButtonName={`Download`}
                     isPrevious={true}
@@ -1860,7 +1942,9 @@ const [active,setActive]=useState("Margin Money")
                         invoiceDataRevised={invoiceDataRevised}
                         saveForCalculation={saveForCalculation}
                         calcRevised={calcRevised}
-                        handleUpdateRevisedMarginMoney={handleUpdateRevisedMarginMoney}
+                        handleUpdateRevisedMarginMoney={
+                          handleUpdateRevisedMarginMoney
+                        }
                       />
                     </div>
                   </div>

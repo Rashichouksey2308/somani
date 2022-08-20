@@ -4,7 +4,8 @@ const initialState = {
   isDark: false,
   pageName: 'dashboard',
   id: null,
-  order: ''
+  order: '',
+  currency: 'CRORES',
 }
 function UserReducer(state = initialState, action) {
   switch (action.type) {
@@ -29,7 +30,12 @@ function UserReducer(state = initialState, action) {
     case types.DYNAMIC_ORDER:
       return {
         ...state,
-        order: action.value
+        order: action.value,
+      }
+    case types.CHANGE_CURRENCY:
+      return {
+        ...state,
+        currency: action.value,
       }
     default:
       return state
