@@ -349,7 +349,7 @@ export default function Home() {
 
   const uploadDocHandler = (e) => {
     let uploadDocType = e.target.id
-    console.log(uploadDocType, 'containerExcel')
+    // console.log(uploadDocType, 'containerExcel')
 
     let fd = new FormData()
     fd.append('document', e.target.files[0])
