@@ -266,6 +266,7 @@ const Index = ({
                   }
                   required
                 >
+                  <option>Select an option</option>
                   <option value="First Class European Bank">
                     First Class European Bank
                   </option>
@@ -338,7 +339,7 @@ const Index = ({
                   required
                 >
                   {/* <option value={termsheetDetails?.transactionDetails?.loadPort}>{termsheetDetails?.transactionDetails?.loadPort} </option> */}
-                  <option selected></option>
+                 <option>Select an option</option>
                   <option value="Abbot Port">Abbot Port</option>
                   <option value="India Port">India Port</option>
                 </select>
@@ -361,7 +362,7 @@ const Index = ({
                   onChange={onChangeTransactionDetails}
                   required
                 >
-                  <option selected></option>
+                  <option>Select an option</option>
                   <option value="Australia">Australia</option>
                   <option value="India">India</option>
                 </select>
@@ -384,7 +385,7 @@ const Index = ({
                   onChange={onChangeTransactionDetails}
                   required
                 >
-                  <option selected></option>
+                  <option>Select an option</option>
                   <option value="Bulk">Bulk</option>
                   <option value="Liner">Liner</option>
                 </select>
@@ -444,7 +445,7 @@ const Index = ({
                   onChange={onChangeTransactionDetails}
                   required
                 >
-                  <option selected></option>
+                  <option>Select an option</option>
                   <option value="Visakhapatnam, India">
                     Visakhapatnam, India
                   </option>
@@ -470,6 +471,7 @@ const Index = ({
                   value={termsheetDetails?.transactionDetails?.billOfEntity}
                   required
                 >
+                  <option>Select an option</option>
                   <option value="Home Consumption">Home Consumption</option>
                   <option value="Intobond Warehousing">
                     Intobond Warehousing
@@ -555,6 +557,7 @@ const Index = ({
                   onChange={onChangeTransactionDetails}
                   required
                 >
+                   <option>Select an option</option>
                   <option
                     value={termsheetDetails?.transactionDetails?.storageOfGoods}
                   >
@@ -589,6 +592,7 @@ const Index = ({
                   className={`${styles.value} ${styles.customSelect}  input form-control`}
                   required
                 >
+                   <option>Select an option</option>
                   <option value="DaysfromBLDate">Days from BL Date</option>
                   <option value="DaysfromVesselDischargeDate">
                     {' '}
