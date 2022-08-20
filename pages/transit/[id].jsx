@@ -20,25 +20,42 @@ import { toast } from 'react-toastify'
 function Index() {
   const [isShipmentTypeBULK, setIsShipmentTypeBulk] = useState(false)
   const [darkMode, setDarkMode] = useState(false)
+  const [TransitDetails, setTransitDetails] = useState({})
+  console.log(TransitDetails, 'TransitDetails')
 
 
   const dispatch = useDispatch()
-  const { TransitDetails } = useSelector((state) => state.TransitDetails)
+  //const { TransitDetails1 } = useSelector((state) => state.TransitDetails)
   const vesselData = _get(TransitDetails, "data[0].order.vessel", {})
   console.log(TransitDetails, 'TransitDetails')
   const commodity = _get(TransitDetails, "data[0].order.commodity", '').trim().toLowerCase()
 
   let objID = sessionStorage.getItem('ObjId')
   let transID = sessionStorage.getItem('transId')
-  useEffect(() => {
-    let Value = vesselData.partShipmentAllowed
-    setIsShipmentTypeBulk(Value)
-  }, [vesselData])
 
-  useEffect(() => {
-    dispatch(GetTransitDetails(`?transitId=${transID}`))
-  }, [dispatch])
+  // useEffect(() => {
+  //   let Value = vesselData.partShipmentAllowed
+  //   setIsShipmentTypeBulk(Value)
+  // }, [vesselData])
 
+  // useEffect(() => {
+  //   dispatch(GetTransitDetails(`?transitId=${transID}`))
+  // }, [dispatch])
+
+  useEffect( () => {
+    if (transID) {
+       fetchInitialData()
+    }
+    console.log(transID,'dsfgk,dhgf')
+
+
+  }, [transID])
+
+
+  const fetchInitialData = async () => {
+    const data = await dispatch(GetTransitDetails(`?transitId=${transID}`))
+    setTransitDetails(data)
+  }
 
 
   const uploadDoc = async (e) => {
