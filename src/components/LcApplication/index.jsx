@@ -372,6 +372,9 @@ function Index({
                               className={`${styles.input_field} input form-control`}
                               required
                               type="number"
+                              onKeyDown={(evt) =>
+                                evt.key === 'e' && evt.preventDefault()
+                              }
                               name="numberOfDays"
                               defaultValue={lcData?.numberOfDays}
                               onChange={(e) => {

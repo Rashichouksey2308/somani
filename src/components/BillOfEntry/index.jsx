@@ -346,6 +346,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                     type="number"
                     name="boeNumber"
                     required
+                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                     onChange={(e) =>
                       saveBillOfEntryData(e.target.name, e.target.value)
                     }
@@ -508,6 +509,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                     type="number"
                     name="boeDetails.invoiceNumber"
                     required
+                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                     onChange={(e) =>
                       saveBillOfEntryData(e.target.name, e.target.value)
                     }
@@ -544,6 +546,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       saveBillOfEntryData(e.target.name, e.target.value)
                     }
                     required
+                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Invoice Quantity<strong className="text-danger">*</strong>
@@ -557,6 +560,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                     className={`${styles.input_field} input form-control`}
                     type="number"
                     required
+                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                     name="boeDetails.invoiceValue"
                     onChange={(e) =>
                       saveBillOfEntryData(e.target.name, e.target.value)
@@ -574,6 +578,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                     type="number"
                     name="boeDetails.conversionRate"
                     required
+                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                     onChange={(e) =>
                       saveBillOfEntryData(e.target.name, e.target.value)
                     }
@@ -658,9 +663,8 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                           <th>S.NO.</th>
                           <th>DUTY</th>
                           <th>AMOUNT</th>
-                          <th className="text-right" width="50%">
-                            ACTION
-                          </th>
+                          <th>PERCENTAGE</th>
+                          <th>ACTION</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -702,7 +706,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                         {dutyData.length > 0 &&
                           dutyData.map((val, index) => (
                             <tr key={index} className="table_row">
-                              <td className={styles.doc_name}>2</td>
+                              <td className={styles.doc_name}>{index + 1}</td>
                               <td>
                                 <select
                                   name="duty"
@@ -716,7 +720,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                                   disabled={!val.actions}
                                   className={`${styles.dutyDropdown}`}
                                 >
-                                   <option>Select an option</option>
+                                  <option>Select an option</option>
                                   <option>{val.duty}</option>
                                   <option value="BCD">BCD</option>
                                   <option value="IGST">IGST</option>
@@ -736,7 +740,19 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                                   }
                                 />
                               </td>
-                              <td className="text-right">
+                              <td>
+                                <input
+                                  className={`${styles.dutyDropdown}`}
+                                  onChange={(e) =>
+                                    handleDutyChange(
+                                      e.target.name,
+                                      e.target.value,
+                                      index,
+                                    )
+                                  }
+                                />
+                              </td>
+                              <td>
                                 <div>
                                   {!val.actions ? (
                                     <img
@@ -873,7 +889,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
               <hr></hr>
               <div className="text-right">
                 <div className={`${styles.total_quantity} text `}>
-                  Total: <span className="form-check-label ml-2">8,000</span>
+                  Total: <span className="form-check-label ml-2">8,000 MT</span>
                 </div>
               </div>
             </div>
@@ -930,19 +946,20 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       </td>
                       <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                       <td>
-                      { false ?  <>
-                        <div className={styles.uploadBtnWrapper}>
-                          <input
-                            type="file"
-                            name="myfile"
-                            accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                          onChange={(e) => uploadDocument1(e)}
-                          />
-                          <button className={`${styles.button_upload} btn`}>
-                            Upload
-                          </button>
-                        </div>
-                        {/* <div className={styles.uploadBtnWrapper}>
+                        {false ? (
+                          <>
+                            <div className={styles.uploadBtnWrapper}>
+                              <input
+                                type="file"
+                                name="myfile"
+                                accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                onChange={(e) => uploadDocument1(e)}
+                              />
+                              <button className={`${styles.button_upload} btn`}>
+                                Upload
+                              </button>
+                            </div>
+                            {/* <div className={styles.uploadBtnWrapper}>
                         <input
                           type="file"
                           accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
@@ -953,17 +970,17 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                           Upload
                         </button>
                         </div> */}
-                        </>:
-                        <div className={styles.certificate}>
-                        {/* {lcDoc?.lcDraftDoc?.name} */}
-                          <img
-                          className={`${styles.close_image} float-right m-2 img-fluid`}
-                          src="/static/close.svg"
-                        
-                          alt="Close"
-                          />{' '}
-                        </div>
-                      }
+                          </>
+                        ) : (
+                          <div className={styles.certificate}>
+                            {/* {lcDoc?.lcDraftDoc?.name} */}
+                            <img
+                              className={`${styles.close_image} float-right m-2 img-fluid`}
+                              src="/static/close.svg"
+                              alt="Close"
+                            />{' '}
+                          </div>
+                        )}
                       </td>
                     </tr>
                     <tr className="table_row">
@@ -980,19 +997,20 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       </td>
                       <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                       <td>
-                      { false ?  <>
-                        <div className={styles.uploadBtnWrapper}>
-                          <input
-                            type="file"
-                            name="myfile"
-                            accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                          onChange={(e) => uploadDocument1(e)}
-                          />
-                          <button className={`${styles.button_upload} btn`}>
-                            Upload
-                          </button>
-                        </div>
-                        {/* <div className={styles.uploadBtnWrapper}>
+                        {false ? (
+                          <>
+                            <div className={styles.uploadBtnWrapper}>
+                              <input
+                                type="file"
+                                name="myfile"
+                                accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                onChange={(e) => uploadDocument1(e)}
+                              />
+                              <button className={`${styles.button_upload} btn`}>
+                                Upload
+                              </button>
+                            </div>
+                            {/* <div className={styles.uploadBtnWrapper}>
                         <input
                           type="file"
                           accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
@@ -1003,17 +1021,17 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                           Upload
                         </button>
                         </div> */}
-                        </>:
-                        <div className={styles.certificate}>
-                        {/* {lcDoc?.lcDraftDoc?.name} */}
-                          <img
-                          className={`${styles.close_image} float-right m-2 img-fluid`}
-                          src="/static/close.svg"
-                        
-                          alt="Close"
-                          />{' '}
-                        </div>
-                      }
+                          </>
+                        ) : (
+                          <div className={styles.certificate}>
+                            {/* {lcDoc?.lcDraftDoc?.name} */}
+                            <img
+                              className={`${styles.close_image} float-right m-2 img-fluid`}
+                              src="/static/close.svg"
+                              alt="Close"
+                            />{' '}
+                          </div>
+                        )}
                       </td>
                     </tr>
                     <tr className="table_row">
@@ -1030,19 +1048,20 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       </td>
                       <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                       <td>
-                      { false ?  <>
-                        <div className={styles.uploadBtnWrapper}>
-                          <input
-                            type="file"
-                            name="myfile"
-                            accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                          onChange={(e) => uploadDocument1(e)}
-                          />
-                          <button className={`${styles.button_upload} btn`}>
-                            Upload
-                          </button>
-                        </div>
-                        {/* <div className={styles.uploadBtnWrapper}>
+                        {false ? (
+                          <>
+                            <div className={styles.uploadBtnWrapper}>
+                              <input
+                                type="file"
+                                name="myfile"
+                                accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                onChange={(e) => uploadDocument1(e)}
+                              />
+                              <button className={`${styles.button_upload} btn`}>
+                                Upload
+                              </button>
+                            </div>
+                            {/* <div className={styles.uploadBtnWrapper}>
                         <input
                           type="file"
                           accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
@@ -1053,17 +1072,17 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                           Upload
                         </button>
                         </div> */}
-                        </>:
-                        <div className={styles.certificate}>
-                        {/* {lcDoc?.lcDraftDoc?.name} */}
-                          <img
-                          className={`${styles.close_image} float-right m-2 img-fluid`}
-                          src="/static/close.svg"
-                        
-                          alt="Close"
-                          />{' '}
-                        </div>
-                      }
+                          </>
+                        ) : (
+                          <div className={styles.certificate}>
+                            {/* {lcDoc?.lcDraftDoc?.name} */}
+                            <img
+                              className={`${styles.close_image} float-right m-2 img-fluid`}
+                              src="/static/close.svg"
+                              alt="Close"
+                            />{' '}
+                          </div>
+                        )}
                       </td>
                     </tr>
                   </tbody>

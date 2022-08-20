@@ -278,9 +278,7 @@ const Index = () => {
                               }
                               className={`${styles.input_field} ${styles.customSelect}   input form-control`}
                             >
-                              <option>
-                                Select an option
-                              </option>
+                              <option>Select an option</option>
                               <option value="Policy Bazaar">
                                 Policy Bazaar
                               </option>
@@ -392,6 +390,9 @@ const Index = () => {
                             required
                             type="number"
                             name="periodOfInsurance"
+                            onKeyDown={(evt) =>
+                              evt.key === 'e' && evt.preventDefault()
+                            }
                             onChange={(e) =>
                               saveMarineData(e.target.name, e.target.value)
                             }
@@ -411,9 +412,7 @@ const Index = () => {
                               }
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
-                              <option>
-                                Select an option
-                              </option>
+                              <option>Select an option</option>
                               <option
                                 value={
                                   insuranceData?.quotationRequest?.lossPayee
@@ -550,9 +549,7 @@ const Index = () => {
                               }
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
-                              <option>
-                                Select an option
-                              </option>
+                              <option>Select an option</option>
                               <option value="Policy Bazaar">
                                 Policy Bazaar
                               </option>
@@ -664,6 +661,9 @@ const Index = () => {
                             required
                             type="number"
                             name="periodOfInsurance"
+                            onKeyDown={(evt) =>
+                              evt.key === 'e' && evt.preventDefault()
+                            }
                             onChange={(e) =>
                               saveStorageData(e.target.name, e.target.value)
                             }
@@ -683,9 +683,7 @@ const Index = () => {
                               }
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
-                              <option>
-                                Select an option
-                              </option>
+                              <option>Select an option</option>
                               <option
                                 value={
                                   insuranceData?.quotationRequest?.lossPayee
@@ -813,9 +811,7 @@ const Index = () => {
                               }
                               className={`${styles.input_field} ${styles.customSelect}   input form-control`}
                             >
-                              <option>
-                                Select an option
-                              </option>
+                              <option>Select an option</option>
                               <option value="Policy Bazaar">
                                 Policy Bazaar
                               </option>
@@ -927,6 +923,9 @@ const Index = () => {
                             required
                             type="number"
                             name="periodOfInsurance"
+                            onKeyDown={(evt) =>
+                              evt.key === 'e' && evt.preventDefault()
+                            }
                             onChange={(e) =>
                               saveMarineData(e.target.name, e.target.value)
                             }
@@ -946,9 +945,7 @@ const Index = () => {
                               }
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
-                              <option>
-                                Select an option
-                              </option>
+                              <option>Select an option</option>
                               <option
                                 value={
                                   insuranceData?.quotationRequest?.lossPayee
@@ -1086,9 +1083,7 @@ const Index = () => {
                               }
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
-                              <option>
-                                Select an option
-                              </option>
+                              <option>Select an option</option>
                               <option value={storageData?.nameOfInsurer}>
                                 {storageData.nameOfInsurer}
                               </option>
@@ -1208,6 +1203,9 @@ const Index = () => {
                             required
                             type="number"
                             name="periodOfInsurance"
+                            onKeyDown={(evt) =>
+                              evt.key === 'e' && evt.preventDefault()
+                            }
                             defaultValue={storageData.periodOfInsurance}
                             onChange={(e) =>
                               saveStorageData(e.target.name, e.target.value)
@@ -1228,9 +1226,7 @@ const Index = () => {
                               }
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
-                              <option>
-                                Select an option
-                              </option>
+                              <option>Select an option</option>
                               <option value={storageData?.lossPayee}>
                                 {storageData?.lossPayee}
                               </option>
