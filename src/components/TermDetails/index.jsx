@@ -789,7 +789,7 @@ const Index = ({
                   onChange={onChangeCommercialTerms}
                   required
                 >
-                  <option selected> </option>
+                  
                   <option value="yes">Yes</option>
                   <option value="No">No</option>
                 </select>
