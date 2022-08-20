@@ -36,15 +36,15 @@ function Index({ balanceData }) {
   return (
     <>
       <div className={`${styles.card} card`}>
-        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#balanceSheet1"
-          aria-expanded="true" aria-controls="balanceSheet1">
+        <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`}>
           <h2 className="mb-0">Balance Sheet</h2>
           <div className={`${styles.unit_container} d-flex align-items-center`}>
             <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
             <select className={`${styles.options} accordion_DropDown`}>
               <option>Crores</option>
             </select>
-            <span>+</span>
+            <span data-toggle="collapse" data-target="#balanceSheet1"
+          aria-expanded="true" aria-controls="balanceSheet1">+</span>
           </div>
         </div>
         <div id="balanceSheet1" className="collapse show" aria-labelledby="balanceSheet1" data-parent="#FinancialsAccordion">

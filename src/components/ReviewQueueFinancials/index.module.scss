@@ -4,7 +4,7 @@
     // box-shadow: 0 3px 6px #cad0e2;
     border-radius: 6px !important;
     .cardHeader {
-        cursor: pointer;
+        // cursor: pointer;
         border-bottom: none;
         padding: 25px 35px !important;
         @include respond(md-desktop) {
@@ -47,6 +47,7 @@
             font-weight: normal;
             line-height: 20px;
             margin-top: -7px;
+            cursor: pointer;
             @include respond(phone) {
                 font-size: 30px;
                 line-height: 20px;
