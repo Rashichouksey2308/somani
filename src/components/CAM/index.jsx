@@ -397,7 +397,7 @@ const basicInfo = (camData) => {
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label1`}>Quantity</span>
                   <span className={`${styles.value} value pr-5`}>
-                    {camData?.quantity} {camData?.unitOfQuantity}
+                    {camData?.quantity} {camData?.unitOfQuantity.toUpperCase()}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
