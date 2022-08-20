@@ -253,6 +253,9 @@ const Index = () => {
                           className={`${styles.input_field} input form-control`}
                           required
                           type="number"
+                          onKeyDown={(evt) =>
+                            evt.key === 'e' && evt.preventDefault()
+                          }
                         />
                         <label
                           className={`${styles.label_heading} label_heading`}

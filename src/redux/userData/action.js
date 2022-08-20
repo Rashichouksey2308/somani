@@ -35,7 +35,16 @@ function dynamicOrder(value = null) {
     value,
   }
 }
-
+function changeCurrency(value = null) {
+  return {
+    type: types.CHANGE_CURRENCY,
+    value,
+  }
+}
+export const ChangeCurrency = (payload) => async (dispatch, getState, api) => {
+  dispatch(changeCurrency(payload))
+  sessionStorage.setItem('unitOfValue', payload)
+}
 export const ChangeTheme = () => async (dispatch, getState, api) => {
   dispatch(changeTheme())
   let isDark = localStorage.getItem('darkMode')
@@ -56,29 +65,26 @@ export const ChangeTheme = () => async (dispatch, getState, api) => {
 export const setTheme = () => async (dispatch, getState, api) => {
   dispatch(changeTheme())
   let isDark = localStorage.getItem('darkMode')
-  
+
   if (isDark == 'true' || isDark == true) {
     document.body.classList.add('dark-mode')
     localStorage.setItem('darkMode', true)
     dispatch(changeThemeSuccess(true))
   } else {
     document.body.classList.add('light-mode')
-    
+
     localStorage.setItem('darkMode', false)
     dispatch(changeThemeSuccess(false))
   }
 }
 export const setPageName = (value) => async (dispatch, getState, api) => {
-  
   dispatch(pageName(value))
 }
 
 export const setDynamicName = (value) => async (dispatch, getState, api) => {
-
   dispatch(dynamicPage(value))
 }
 
 export const setDynamicOrder = (value) => async (dispatch, getState, api) => {
-
   dispatch(dynamicOrder(value))
 }

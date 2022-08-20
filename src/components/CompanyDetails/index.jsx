@@ -3,8 +3,9 @@ import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
 import { emailValidation, panValidation, phoneValidation } from 'utils/helper'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
+import { ChangeCurrency } from '../../redux/userData/action'
 
 const Index = ({
   saveCompanyData,
@@ -17,201 +18,165 @@ const Index = ({
   handleCommunication,
 }) => {
   const { gstList } = useSelector((state) => state.buyer)
-
+  const dispatch = useDispatch()
   // console.log(gstList?.data, "THIS IS GST LIST")
   const [slider, setSlider] = useState(50)
   const [typeOfSlider, setSliderType] = useState(1)
-  
+
   const [highlight, setHighlight] = useState(0)
   const [highlight3, setHighlight3] = useState(0)
- 
- 
-  const setSlide=(val)=>{
+
+  const setSlide = (val) => {
     setSlider(val)
     getSlider(val)
   }
- 
-  useEffect(() => {getSlider()},[slider])
 
-const getSlider =(val)=>{
-    console.log(slider,"slider8999")
-    if(typeOfSlider ==  3){
-     console.log("slider3")
-return(
-       
-            <div className={styles.slidecontainer}>
-                <input
-                  type="range"
-                  min="500"
-                  max="1000"
-                  step="100"
-                  name="turnOver"
-                  list="tickmarks"
-                  onChange={(e) => {
-                    saveCompanyData(
-                      e.target.name,
-                      Number(e.target.value),
-                    )
-                    let high=((Math.abs(Number(e.target.value)-500)/1000)*200)
-                  
-                    setHighlight3(high)
-                    if(Number(e.target.value)==500){
-                      setSliderType(2)
-                      setSlide(500)
-                    }else{
-                       setSlider(Number(e.target.value))
-                    }
-                    
-                    getSlider()
-                 
-                  }}
-                  className={`${styles.slider} px-0 input form-control`}
-                  id="myRange"
-                  style={{
-                    background: `linear-gradient(90deg, #3687E8 ${(highlight3)}%, #C3C3C31F ${
-                      highlight3
-                    }%)`,
-                  }}
-                />
-                <datalist id="tickmarks">
-                   
-                  <option value="500" label="500"></option>
-                  <option value="600" label="600"></option>
-                  <option value="700" label="700"></option>
-                  <option value="800" label="800"></option>
-                  <option value="900" label="900"></option>
-                  <option value="1000" label="1000"></option>
-                 
-                </datalist>
-               
-              </div>
-               
+  useEffect(() => {
+    getSlider()
+  }, [slider])
+
+  const getSlider = (val) => {
+    console.log(slider, 'slider8999')
+    if (typeOfSlider == 3) {
+      console.log('slider3')
+      return (
+        <div className={styles.slidecontainer}>
+          <input
+            type="range"
+            min="500"
+            max="1000"
+            step="100"
+            name="turnOver"
+            list="tickmarks"
+            onChange={(e) => {
+              saveCompanyData(e.target.name, Number(e.target.value))
+              let high = (Math.abs(Number(e.target.value) - 500) / 1000) * 200
+
+              setHighlight3(high)
+              if (Number(e.target.value) == 500) {
+                setSliderType(2)
+                setSlide(500)
+              } else {
+                setSlider(Number(e.target.value))
+              }
+
+              getSlider()
+            }}
+            className={`${styles.slider} px-0 input form-control`}
+            id="myRange"
+            style={{
+              background: `linear-gradient(90deg, #3687E8 ${highlight3}%, #C3C3C31F ${highlight3}%)`,
+            }}
+          />
+          <datalist id="tickmarks">
+            <option value="500" label="500"></option>
+            <option value="600" label="600"></option>
+            <option value="700" label="700"></option>
+            <option value="800" label="800"></option>
+            <option value="900" label="900"></option>
+            <option value="1000" label="1000"></option>
+          </datalist>
+        </div>
       )
     }
-    if(typeOfSlider == 2  ){
-     
-      return(
-       
-            <div className={styles.slidecontainer}>
-                <input
-                  type="range"
-                  min="100"
-                  max="600"
-                  step="100"
-                  name="turnOver"
-                  list="tickmarks"
-                  onChange={(e) => {
-                    saveCompanyData(
-                      e.target.name,
-                      Number(e.target.value),
-                    )
+    if (typeOfSlider == 2) {
+      return (
+        <div className={styles.slidecontainer}>
+          <input
+            type="range"
+            min="100"
+            max="600"
+            step="100"
+            name="turnOver"
+            list="tickmarks"
+            onChange={(e) => {
+              saveCompanyData(e.target.name, Number(e.target.value))
 
-                    let high=((Math.abs(Number(e.target.value)-50)/600)*100)
-                  
-                    setHighlight(high)
-                    if(Number(e.target.value) == 100){
-                      setSliderType(1)
-                      setSlider(0)
-                    }
-                    else if(Number(e.target.value) == 600){
-                      setSliderType(3)
-                      setSlide(500)
-                    }else{
-                      setSlider(Number(e.target.value))
-                    }
-                    
-                   
-                    getSlider()
-                  }}
-                  className={`${styles.slider} px-0 input form-control`}
-                  id="myRange"
-                  style={{
-                    background: `linear-gradient(90deg, #3687E8 
-                      ${(highlight)}%, #C3C3C31F ${
-                      (highlight)
-                    }%)`,
-                  }}
-                />
-                <datalist id="tickmarks">
-                   
-                  <option value="100" label="100"></option>
-                  <option value="200" label="200"></option>
-                  <option value="300" label="300"></option>
-                  <option value="400" label="400"></option>
-                  <option value="500" label="500"></option>
-                  <option value="600" label="600"></option>
-                
-                  
-                 
-                </datalist>
-              
-                <div
-                  className={`${styles.less_label} d-flex justify-content-end mr-n2`}
-                >
-                 or more
-                </div>
-              </div>
-               
+              let high = (Math.abs(Number(e.target.value) - 50) / 600) * 100
+
+              setHighlight(high)
+              if (Number(e.target.value) == 100) {
+                setSliderType(1)
+                setSlider(0)
+              } else if (Number(e.target.value) == 600) {
+                setSliderType(3)
+                setSlide(500)
+              } else {
+                setSlider(Number(e.target.value))
+              }
+
+              getSlider()
+            }}
+            className={`${styles.slider} px-0 input form-control`}
+            id="myRange"
+            style={{
+              background: `linear-gradient(90deg, #3687E8 
+                      ${highlight}%, #C3C3C31F ${highlight}%)`,
+            }}
+          />
+          <datalist id="tickmarks">
+            <option value="100" label="100"></option>
+            <option value="200" label="200"></option>
+            <option value="300" label="300"></option>
+            <option value="400" label="400"></option>
+            <option value="500" label="500"></option>
+            <option value="600" label="600"></option>
+          </datalist>
+
+          <div
+            className={`${styles.less_label} d-flex justify-content-end mr-n2`}
+          >
+            or more
+          </div>
+        </div>
       )
     }
-    if(typeOfSlider == 1 ){
-     console.log("slider1")
-      return(
-       
-            <div className={styles.slidecontainer}>
-                <input
-                  type="range"
-                  min="0"
-                  max="100"
-                  step="25"
-                  name="turnOver"
-                  list="tickmarks"
-                  onChange={(e) => {
-                    console.log(Number(e.target.value),"sadaasd")
-                    saveCompanyData(
-                      e.target.name,
-                      Number(e.target.value),
-                    )
-                    if(Number(e.target.value==100)){
-                      setSliderType(2)
-                      setSlider(200)
-                    }else{
-                       setSlider(Number(e.target.value))
-                    }
-                   
-                    getSlider()
-                  }}
-                  className={`${styles.slider} px-0 input form-control`}
-                  id="myRange"
-                  style={{
-                    background: `linear-gradient(90deg, #3687E8 ${(slider)}%, #C3C3C31F ${
-                      slider
-                    }%)`,
-                  }}
-                />
-                <datalist id="tickmarks">
-                  <option value="0" label="0"></option>
-                  <option value="25" label="25"></option>
-                  <option value="50" label="50"></option>
-                  <option value="75" label="75"></option>
-                  <option value="100" label="100"></option>
-                  {/* <option value="200" label="200"></option> */}
-                  {/* <option value="1000" label="1000"></option> */}
-                 
-                </datalist>
-                <div
-                  className={`${styles.more_label} d-flex justify-content-end mr-n2`}
-                >
-                  or more
-                </div>
-              </div>
-               
+    if (typeOfSlider == 1) {
+      console.log('slider1')
+      return (
+        <div className={styles.slidecontainer}>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            step="25"
+            name="turnOver"
+            list="tickmarks"
+            onChange={(e) => {
+              console.log(Number(e.target.value), 'sadaasd')
+              saveCompanyData(e.target.name, Number(e.target.value))
+              if (Number(e.target.value == 100)) {
+                setSliderType(2)
+                setSlider(200)
+              } else {
+                setSlider(Number(e.target.value))
+              }
+
+              getSlider()
+            }}
+            className={`${styles.slider} px-0 input form-control`}
+            id="myRange"
+            style={{
+              background: `linear-gradient(90deg, #3687E8 ${slider}%, #C3C3C31F ${slider}%)`,
+            }}
+          />
+          <datalist id="tickmarks">
+            <option value="0" label="0"></option>
+            <option value="25" label="25"></option>
+            <option value="50" label="50"></option>
+            <option value="75" label="75"></option>
+            <option value="100" label="100"></option>
+            {/* <option value="200" label="200"></option> */}
+            {/* <option value="1000" label="1000"></option> */}
+          </datalist>
+          <div
+            className={`${styles.more_label} d-flex justify-content-end mr-n2`}
+          >
+            or more
+          </div>
+        </div>
       )
-    } 
-   
-   
- 
-    
+    }
   }
 
   return (
@@ -234,6 +199,7 @@ return(
                   name="unitOfQuantity"
                   onChange={(e) => saveOrderData(e.target.name, e.target.value)}
                 >
+                  <option>Select an option</option>
                   <option>MT</option>
                 </select>
               </div>
@@ -247,8 +213,12 @@ return(
                 <select
                   className={`${styles.options} accordion_DropDown input`}
                   name="unitOfValue"
-                  onChange={(e) => saveOrderData(e.target.name, e.target.value)}
+                  onChange={(e) => {
+                    saveOrderData(e.target.name, e.target.value)
+                    dispatch(ChangeCurrency(e.target.value.toUpperCase()))
+                  }}
                 >
+                  <option>Select an option</option>
                   <option>Crores</option>
                   <option>Millions</option>
                 </select>
@@ -296,7 +266,10 @@ return(
                     //red mark
                     let toastMessage = 'Invalid Pan'
                     if (!toast.isActive(toastMessage.toUpperCase())) {
-                      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })             }
+                      toast.error(toastMessage.toUpperCase(), {
+                        toastId: toastMessage,
+                      })
+                    }
                   }
                 }}
                 className={`${styles.input_field} input form-control`}
@@ -340,8 +313,7 @@ return(
                   required
                 >
                   {' '}
-                   <option>Select an option</option>
-                 
+                  <option>Select an option</option>
                   {gstList &&
                     gstList?.data?.gstList?.map((gstId, index) => (
                       <option key={index + 1} value={gstId}>
@@ -376,7 +348,7 @@ return(
                   className={`${styles.input_field}   ${styles.customSelect} input form-control`}
                   required
                 >
-                   <option>Select an option</option>
+                  <option>Select an option</option>
                   <option value="" selected></option>
                   <option value="Manufacturer">Manufacturer</option>
                   <option value="Retailer">Retailer</option>
@@ -406,7 +378,6 @@ return(
                   onChange={(e) => mobileCallingCodeFunction(e)}
                   className={`${styles.code_phone} input border-right-0`}
                 >
-                  <option>Select an option</option>
                   <option>+91</option>
                   <option>+1</option>
                   <option>+92</option>
@@ -427,7 +398,10 @@ return(
                       //red mark
                       let toastMessage = 'Phone no. invalid'
                       if (!toast.isActive(toastMessage.toUpperCase())) {
-                        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })               }
+                        toast.error(toastMessage.toUpperCase(), {
+                          toastId: toastMessage,
+                        })
+                      }
                     }
                   }}
                   className={`${styles.input_field} input form-control border-left-0`}
@@ -454,7 +428,10 @@ return(
                     //red mark
                     let toastMessage = 'Email Invalid'
                     if (!toast.isActive(toastMessage.toUpperCase())) {
-                      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })             }
+                      toast.error(toastMessage.toUpperCase(), {
+                        toastId: toastMessage,
+                      })
+                    }
                   }
                 }}
                 name="email"
@@ -478,32 +455,33 @@ return(
                   Turn Over (in Crores)
                   <strong className="text-danger">*</strong>
                 </div>
-                <input className={`${styles.input_container} form-control input`} 
-                type="number"
-                value={slider}
-                name="turnOver"
-                onChange={(e)=>{
-                    
-                  setSlider(Number(e.target.value))
-                  if(Number(e.target.value)<= 100){
-                    setSliderType(1)
-                  }
-                  if(Number(e.target.value) > 100 && Number(e.target.value) < 500 ){
-                    let high=((Math.abs(Number(e.target.value))/600)*100)
-                    console.log(high,"high",Number(e.target.value))
-                    setHighlight(high)
-                    setSliderType(2)
-                  }
-                  if(Number(e.target.value)>=500){
-                     let high=((Math.abs(Number(e.target.value))/1000)*100)
-                    console.log(high,"high",Number(e.target.value))
-                    setHighlight3(high)
-                    setSliderType(3)
-                  }
-                  saveCompanyData(
-                      e.target.name,
-                      Number(e.target.value),
-                    )
+                <input
+                  className={`${styles.input_container} form-control input`}
+                  type="number"
+                  onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                  value={slider}
+                  name="turnOver"
+                  onChange={(e) => {
+                    setSlider(Number(e.target.value))
+                    if (Number(e.target.value) <= 100) {
+                      setSliderType(1)
+                    }
+                    if (
+                      Number(e.target.value) > 100 &&
+                      Number(e.target.value) < 500
+                    ) {
+                      let high = (Math.abs(Number(e.target.value)) / 600) * 100
+                      console.log(high, 'high', Number(e.target.value))
+                      setHighlight(high)
+                      setSliderType(2)
+                    }
+                    if (Number(e.target.value) >= 500) {
+                      let high = (Math.abs(Number(e.target.value)) / 1000) * 100
+                      console.log(high, 'high', Number(e.target.value))
+                      setHighlight3(high)
+                      setSliderType(3)
+                    }
+                    saveCompanyData(e.target.name, Number(e.target.value))
                     getSlider()
                   }}
                 />
@@ -576,7 +554,6 @@ return(
                   onChange={(e) => whatsappCallingCodeFunction(e)}
                   className={`${styles.code_phone} input border-right-0`}
                 >
-                   <option>Select an option</option>
                   <option>+91</option>
                   <option>+1</option>
                   <option>+92</option>

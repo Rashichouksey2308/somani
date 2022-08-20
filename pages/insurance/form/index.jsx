@@ -414,6 +414,9 @@ const Index = () => {
                               className={`${styles.input_field} input form-control`}
                               type="number"
                               name="sumInsured"
+                              onKeyDown={(evt) =>
+                                evt.key === 'e' && evt.preventDefault()
+                              }
                               defaultValue={
                                 insuranceData?.quotationRequest?.sumInsured
                               }
@@ -667,6 +670,9 @@ const Index = () => {
                               className={`${styles.input_field} input form-control`}
                               type="number"
                               name="sumInsured"
+                              onKeyDown={(evt) =>
+                                evt.key === 'e' && evt.preventDefault()
+                              }
                               defaultValue={
                                 insuranceData?.quotationRequest?.sumInsured
                               }
@@ -741,6 +747,9 @@ const Index = () => {
                               className={`${styles.input_field} input form-control`}
                               required
                               type="number"
+                              onKeyDown={(evt) =>
+                                evt.key === 'e' && evt.preventDefault()
+                              }
                               defaultValue={
                                 insuranceData?.quotationRequest?.storageDetails
                                   ?.periodOfInsurance

@@ -114,6 +114,9 @@ export default function Index({ OrderId, customData }) {
                       className={`${styles.input_field} input form-control`}
                       type="number"
                       required
+                      onKeyDown={(evt) =>
+                        evt.key === 'e' && evt.preventDefault()
+                      }
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Quantity<strong className="text-danger">*</strong>
