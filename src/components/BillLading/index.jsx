@@ -15,7 +15,7 @@ import { useEffect } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import UploadOther from '../UploadOther'
-import { CovertvaluefromtoCR } from '../../utils/helper'
+import { CovertvaluefromtoCR ,addPrefixOrSuffix,removePrefixOrSuffix} from '../../utils/helper'
 import moment from 'moment'
 
 export default function Index({
@@ -208,8 +208,9 @@ export default function Index({
 
   const saveData = () => {
     // const billOfLanding = [...bolList]
-    const bol = { billOfLanding: bolList }
-
+    let bol = { billOfLanding: bolList }
+    console.log(bol,"bol",bolList.billOfLanding)
+    bol.billOfLanding[0].blQuantity=removePrefixOrSuffix(bolList[0].blQuantity)
     let fd = new FormData()
     fd.append('bl', JSON.stringify(bol))
     fd.append('transitId', transId._id)
@@ -232,9 +233,9 @@ export default function Index({
                       inline
                       label="Bulk"
                       name="group1"
-                      disabled={!isShipmentTypeBULK}
+                      // disabled={!isShipmentTypeBULK}
                       type={type}
-                      checked={isShipmentTypeBULK}
+                      checked={_get(TransitDetails,"data[0].order.shipmentDetail.shipmentType","")=="Bulk"?true:false}
                       id={`inline-${type}-1`}
                     />
                     <Form.Check
@@ -242,8 +243,8 @@ export default function Index({
                       inline
                       label="Liner"
                       name="group1"
-                      disabled={isShipmentTypeBULK}
-                      checked={!isShipmentTypeBULK}
+                      // disabled={isShipmentTypeBULK}
+                      checked={_get(TransitDetails,"data[0].order.shipmentDetail.shipmentType","")=="Liner"?true:false}
                       type={type}
                       id={`inline-${type}-2`}
                     />
@@ -292,7 +293,7 @@ export default function Index({
                   </div>
                   <span className={styles.value}>
                     {CovertvaluefromtoCR(_get(TransitDetails, 'data[0].order.orderValue', ''))}{' '}
-                    {_get(TransitDetails, 'data[0].order.unitOfValue', '').toUpperCase()}
+                    {_get(TransitDetails, 'data[0].order.unitOfValue', '')=="Crores"?"Cr":_get(TransitDetails, 'data[0].order.unitOfValue', '')}
                   </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
@@ -454,12 +455,13 @@ export default function Index({
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                         >
                           <input
-                          value={bol?.blQuantity}
+                         
                             onChange={(e) => onChangeBol(e, index)}
                             id="blQuantity"
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
+                            value={addPrefixOrSuffix(bol?.blQuantity,"MT")}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}

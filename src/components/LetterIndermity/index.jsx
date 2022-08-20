@@ -37,7 +37,7 @@ function Index({ TransitDetails }) {
   console.log(loi, bolArray, 'bolArray')
 
 
-
+  console.log(loi,"LOI")
 
   const [designation, setDesignation] = useState('')
   const SetAuthorisedSignatoryHanlder = (e) => {
@@ -45,21 +45,19 @@ function Index({ TransitDetails }) {
       name: '',
       designation: '',
     }
-    if (e.target.value.toLowerCase() === 'bhawanajain') {
+    console.log(e.target.value.toLowerCase(),"w")
+    if(e.target.value==""){
+    setLOI({...loi,authorizedSignatory:{name:"",designation:""}})
+    }else{
+         if (e.target.value.toLowerCase() === 'bhawanajain') {
       console.log(e.target.value.toLowerCase(),'bhawanajain')
-      setLOI(prevState => {
-        return {
-          ...prevState, authorizedSignatory: { name: 'Bhawana Jain', designation: 'Vice President Finance & Accounts' }
-        }
-      })
+    
+      setLOI({...loi,authorizedSignatory:{name:"Bhawana Jain",designation:"Vice President Finance & Accounts"}})
     }
     if (e.target.value.toLowerCase() === 'vipinkumar') {
       console.log('vipinkumar')
-      setLOI(prevState => {
-        return {
-          ...prevState, authorizedSignatory: { name: 'Vipin Kumar', designation: 'Manager Accounts ' }
-        }
-      })
+       setLOI({...loi,authorizedSignatory:{name:"Vipin Kumar",designation:"Manager Accounts"}})
+     
     }
     if (e.target.value.toLowerCase() === 'deveshjain') {
       console.log('DeveshJain')
@@ -76,13 +74,7 @@ function Index({ TransitDetails }) {
           ...prevState, authorizedSignatory: { name: 'Fatima Yannoulis', designation: 'Chief Financial Officer' }
         }
       })
-    } else {
-      setLOI(prevState => {
-        console.log('this')
-        return {
-          ...prevState, authorizedSignatory: { name: '', designation: '' }
-        }
-      })
+    }
     }
 
 
@@ -331,7 +323,7 @@ function Index({ TransitDetails }) {
                 onChange={(e) => SetAuthorisedSignatoryHanlder(e)}
                 className={`${styles.input_field} ${styles.customSelect} input mt-4 pl-3`}
               >
-                <option value=""></option>
+                <option value="">Select an option</option>
                 <option value="bhawanajain">Bhawana Jain </option>
                 <option value="vipinkumar">Vipin Kumar </option>
                 <option value="DeveshJain">Devesh Jain </option>
