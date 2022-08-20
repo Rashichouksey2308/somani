@@ -197,7 +197,6 @@ function Index() {
       setClauseArr(newArr)
     }
   }
- 
 
   const removeFromArr = (arr) => {
     const newClause = clauseArr.filter((item) => {
@@ -218,14 +217,15 @@ function Index() {
 
   const handleRightButton = () => {
     let sendLcData = { ...lcData }
-    sendLcData.tolerancePercentage = Number(removePrefixOrSuffix(lcData.tolerancePercentage))
+    sendLcData.tolerancePercentage = Number(
+      removePrefixOrSuffix(lcData.tolerancePercentage),
+    )
     let fd = new FormData()
     fd.append('lcApplication', JSON.stringify(sendLcData))
     fd.append('lcModuleId', JSON.stringify(lcModuleData._id))
     fd.append('document1', lcDoc.lcDraftDoc)
 
     dispatch(UpdateAmendment(fd))
-
   }
 
   const handleSubmit = () => {
@@ -324,6 +324,9 @@ function Index() {
                         <input
                           className={`${styles.input_field} input form-control`}
                           type="number"
+                          onKeyDown={(evt) =>
+                            evt.key === 'e' && evt.preventDefault()
+                          }
                           required
                           name="numberOfAmendment"
                           onChange={(e) =>
@@ -354,9 +357,7 @@ function Index() {
                             onChange={(e) => dropDownChange(e)}
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           >
-                            <option>
-                                Select an option
-                              </option>
+                            <option>Select an option</option>
                             <option value="shipmentForm">
                               (44A) Shipment From
                             </option>
@@ -468,7 +469,7 @@ function Index() {
                                 name="newValue"
                                 // defaultDate={lcData?.dateOfIssue?.split('T')[0]}
                                 saveDate={saveDropDownDate}
-                              // labelName="New Value"
+                                // labelName="New Value"
                               />
                               <img
                                 className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -578,12 +579,15 @@ function Index() {
             orderId={lcModuleData?.order?._id}
             uploadDocument1={uploadDocument1}
             documentName="LC DRAFT"
-            module='Agreements&Insurance&LC&Opening'
-
+            module="Agreements&Insurance&LC&Opening"
           />
         </div>
       </div>
-      <SaveBar handleSave={handleSubmit} rightBtnClick={handleRightButton} rightBtn="Share" />
+      <SaveBar
+        handleSave={handleSubmit}
+        rightBtnClick={handleRightButton}
+        rightBtn="Share"
+      />
     </>
   )
 }
