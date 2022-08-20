@@ -97,7 +97,7 @@ function Index() {
               lcCurrency: sheet?.transactionDetails?.lcValue,
               marginMoney: sheet?.transactionDetails?.marginMoney,
               lcOpeningBank: sheet?.transactionDetails?.lcOpeningBank,
-              incoTerms: sheet?.order?.incoTerm,
+              incoTerms: sheet?.transactionDetails?.incoTerms,
               loadPort: sheet?.transactionDetails?.loadPort,
               countryOfOrigin: sheet?.transactionDetails?.countryOfOrigin,
               shipmentType: sheet?.transactionDetails?.shipmentType,

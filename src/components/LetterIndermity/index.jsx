@@ -46,6 +46,7 @@ function Index({ TransitDetails }) {
       designation: '',
     }
     if (e.target.value.toLowerCase() === 'bhawanajain') {
+      console.log(e.target.value.toLowerCase(),'bhawanajain')
       setLOI(prevState => {
         return {
           ...prevState, authorizedSignatory: { name: 'Bhawana Jain', designation: 'Vice President Finance & Accounts' }
@@ -53,13 +54,15 @@ function Index({ TransitDetails }) {
       })
     }
     if (e.target.value.toLowerCase() === 'vipinkumar') {
+      console.log('vipinkumar')
       setLOI(prevState => {
         return {
           ...prevState, authorizedSignatory: { name: 'Vipin Kumar', designation: 'Manager Accounts ' }
         }
       })
     }
-    if (e.target.value.toLowerCase() === 'Deveshjain') {
+    if (e.target.value.toLowerCase() === 'deveshjain') {
+      console.log('DeveshJain')
       setLOI(prevState => {
         return {
           ...prevState, authorizedSignatory: { name: 'Devesh Jain', designation: 'Director' }
@@ -67,6 +70,7 @@ function Index({ TransitDetails }) {
       })
     }
     if (e.target.value.toLowerCase() === 'fatimayannoulis') {
+      console.log('Fatimayannoulis')
       setLOI(prevState => {
         return {
           ...prevState, authorizedSignatory: { name: 'Fatima Yannoulis', designation: 'Chief Financial Officer' }
@@ -74,6 +78,7 @@ function Index({ TransitDetails }) {
       })
     } else {
       setLOI(prevState => {
+        console.log('this')
         return {
           ...prevState, authorizedSignatory: { name: '', designation: '' }
         }
@@ -327,10 +332,10 @@ function Index({ TransitDetails }) {
                 className={`${styles.input_field} ${styles.customSelect} input mt-4 pl-3`}
               >
                 <option value=""></option>
-                <option value="BhawanaJain">Bhawana Jain </option>
-                <option value="VipinKumar">Vipin Kumar </option>
+                <option value="bhawanajain">Bhawana Jain </option>
+                <option value="vipinkumar">Vipin Kumar </option>
                 <option value="DeveshJain">Devesh Jain </option>
-                <option value="FatimaYannoulis">Fatima Yannoulis </option>
+                <option value="fatimayannoulis">Fatima Yannoulis </option>
               </select>
               <img
                 className={`${styles.arrow} image_arrow img-fluid`}
