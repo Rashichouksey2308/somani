@@ -491,6 +491,10 @@ console.log(product,"productData")
       data.monthlyProductionCapacity=removePrefixOrSuffix(product.monthlyProductionCapacity)
       data.capacityUtilization=removePrefixOrSuffix(product.capacityUtilization)
       data.AvgMonthlyElectricityBill=removePrefixOrSuffix(product.AvgMonthlyElectricityBill)
+       data.averageStockOfCommodity=removePrefixOrSuffix(product.averageStockOfCommodity)
+      data.averageStockInTransit=removePrefixOrSuffix(product.averageStockInTransit)
+      data.availableStock=removePrefixOrSuffix(product.availableStock)
+      data.dailyConsumptionOfCommodity=removePrefixOrSuffix(product.dailyConsumptionOfCommodity)
       let obj = {
         order: orderList._id,
         productSummary: { ...data },

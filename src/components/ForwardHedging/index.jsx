@@ -343,8 +343,8 @@ export default function Index() {
                     ''
                   )}
 
-                  <div className="d-flex mt-5">
-                    <div className='position-relative'>
+                  <div className="mt-5">
+                    <div className="position-relative">
                       <input
                         as="textarea"
                         rows={3}
@@ -355,7 +355,9 @@ export default function Index() {
                         }
                         className={`${styles.comment_field} input form-control`}
                       />
-                      <label className={`${styles.label_comment} ${styles.label_heading} label_heading`}>
+                      <label
+                        className={`${styles.label_comment} ${styles.label_heading} label_heading`}
+                      >
                         Remarks
                       </label>
                     </div>

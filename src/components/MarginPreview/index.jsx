@@ -11,6 +11,7 @@ import { setDynamicOrder } from 'redux/userData/action'
 import { GetMarginMoney } from 'redux/marginMoney/action'
 import _get from 'lodash/get'
 import moment from 'moment'
+import MarginBar from '../MarginBar'
 
 function Index() {
   const dispatch = useDispatch()
@@ -19,14 +20,14 @@ function Index() {
 
   const marginData = _get(margin, 'data.data[0]', {})
 
-  useEffect(() => {
-    let id = sessionStorage.getItem('marginId')
-    dispatch(GetMarginMoney({ orderId: id }))
+  // useEffect(() => {
+  //   let id = sessionStorage.getItem('marginId')
+  //   dispatch(GetMarginMoney({ orderId: id }))
 
-    dispatch(setPageName('margin-money'))
-    dispatch(setDynamicName(marginData?.company.companyName))
-    dispatch(setDynamicOrder(marginData?.order.orderId))
-  }, [dispatch, marginData?.company?.companyName])
+  //   dispatch(setPageName('margin-money'))
+  //   dispatch(setDynamicName(marginData?.company.companyName))
+  //   dispatch(setDynamicOrder(marginData?.order.orderId))
+  // }, [dispatch, marginData?.company?.companyName])
 
   let tempArr = [
     {
@@ -113,19 +114,74 @@ function Index() {
                       <span className={`${styles.sno}`}>A</span>
                       <span className={`ml-2`}>Quantity</span>
                     </td>
-
-                    <td>{marginData?.order?.quantity} MT</td>
+                    <td className={`${styles.good} good`}>
+                      {marginData?.order?.quantity} MT
+                    </td>
                   </tr>
                   <tr>
                     <td>
                       <span className={`${styles.sno}`}>B</span>
                       <span className={`ml-2`}>Unit Price</span>
                     </td>
-
-                    <td>
+                    <td className={`${styles.good} good`}>
                       {marginData?.calculation?.provisionalUnitPricePerTon}
                     </td>
                   </tr>
+                  <tr>
+                    <td>
+                      <span className={`${styles.sno}`}>C</span>
+                      <span className={`ml-2`}>Conversion Rate</span>
+                    </td>
+                    <td className={`${styles.good} good`}>
+                      {marginData?.calculation?.provisionalUnitPricePerTon}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span className={`${styles.sno}`}>D</span>
+                      <span className={`ml-2`}>Usance Interest (%)</span>
+                    </td>
+                    <td className={`${styles.good} good`}>
+                      {marginData?.calculation?.provisionalUnitPricePerTon}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span className={`${styles.sno}`}>E</span>
+                      <span className={`ml-2`}>Trade Margin</span>
+                    </td>
+                    <td className={`${styles.good} good`}>
+                      {marginData?.calculation?.provisionalUnitPricePerTon}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span className={`${styles.sno}`}>F</span>
+                      <span className={`ml-2`}>Tolerance (+/-) Percentage</span>
+                    </td>
+                    <td className={`${styles.good} good`}>
+                      {marginData?.calculation?.provisionalUnitPricePerTon}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span className={`${styles.sno}`}>G</span>
+                      <span className={`ml-2`}>Margin Money (%)</span>
+                    </td>
+                    <td className={`${styles.good} good`}>
+                      {marginData?.calculation?.provisionalUnitPricePerTon}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span className={`${styles.sno}`}>H</span>
+                      <span className={`ml-2`}>No. of PDC's</span>
+                    </td>
+                    <td className={`${styles.good} good`}>
+                      {marginData?.calculation?.provisionalUnitPricePerTon}
+                    </td>
+                  </tr>
+
                   <tr>
                     <td>
                       <span className={`${styles.sno}`}>I</span>
@@ -134,6 +190,14 @@ function Index() {
                     <td className={`${styles.highlight} satisfactory`}>
                       {marginData?.additionalPDC}
                     </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <span className={`${styles.sno}`}></span>
+                      <span className={`ml-2`}></span>
+                    </td>
+                    <td></td>
                   </tr>
                 </tbody>
               </table>
@@ -149,7 +213,6 @@ function Index() {
                 <tr>
                   <th>Calculation</th>
                   <th></th>
-                  <th></th>
                 </tr>
                 <tbody>
                   <tr>
@@ -164,9 +227,77 @@ function Index() {
                   </tr>
                   <tr>
                     <td>
+                      <span className={`${styles.sno}`}>K</span>
+                      <span className={`ml-2`}>Order Value (INR)</span>
+                      <span className={`${styles.formula} ml-2`}>(J*C)</span>
+                    </td>
+                    <td>
+                      {marginData?.order?.orderValue?.toLocaleString() ?? 0}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span className={`${styles.sno}`}>L</span>
+                      <span className={`ml-2`}>
+                        Usance Interest (%) for 90 days (INR)
+                      </span>
+                      <span className={`${styles.formula} ml-2`}>
+                        (K*D*90)/365
+                      </span>
+                    </td>
+                    <td>
+                      {marginData?.order?.orderValue?.toLocaleString() ?? 0}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
                       <span className={`${styles.sno}`}>M</span>
-                      <span className={`ml-2`}>Trade Margin (INR)</span>{' '}
-                      <span>(K*E)</span>
+                      <span className={`ml-2`}>Trade Margin (INR)</span>
+                      <span className={`${styles.formula} ml-2`}>(K*E)</span>
+                    </td>
+                    <td>
+                      {marginData?.order?.orderValue?.toLocaleString() ?? 0}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span className={`${styles.sno}`}>N</span>
+                      <span className={`ml-2`}>Gross Order Value (INR)</span>
+                      <span className={`${styles.formula} ml-2`}>(K+L+M)</span>
+                    </td>
+                    <td>
+                      {marginData?.order?.orderValue?.toLocaleString() ?? 0}
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <span className={`${styles.sno}`}>O</span>
+                      <span className={`ml-2`}>Tolerance Value (INR)</span>
+                      <span className={`${styles.formula} ml-2`}>(N*F)</span>
+                    </td>
+                    <td>
+                      {marginData?.order?.orderValue?.toLocaleString() ?? 0}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span className={`${styles.sno}`}>P</span>
+                      <span className={`ml-2`}>Total Order Value (INR)</span>
+                      <span className={`${styles.formula} ml-2`}>(N+O)</span>
+                    </td>
+                    <td>
+                      {marginData?.order?.orderValue?.toLocaleString() ?? 0}
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <span className={`${styles.sno}`}>Q</span>
+                      <span className={`ml-2`}>
+                        Provisional Unit Price Per Ton (INR)
+                      </span>{' '}
+                      <span className={`${styles.formula} ml-2`}>(N/A)</span>
                     </td>
                     <td>
                       {marginData?.calculation?.tradeMargin?.toLocaleString() ??
@@ -175,11 +306,22 @@ function Index() {
                   </tr>
                   <tr>
                     <td>
-                      <span className={`${styles.sno}`}>N</span>
+                      <span className={`${styles.sno}`}>R</span>
+                      <span className={`ml-2`}>Margin Money (INR)</span>{' '}
+                      <span className={`${styles.formula} ml-2`}>(P*G)</span>
+                    </td>
+                    <td>
+                      {marginData?.calculation?.grossOrderValue?.toLocaleString() ??
+                        0}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span className={`${styles.sno}`}>S</span>
                       <span className={`ml-2`}>
-                        Gross Order Value (INR)
+                        Total SPDC Amount Req. (INR)
                       </span>{' '}
-                      <span>(K+L+M)</span>
+                      <span className={`${styles.formula} ml-2`}>(P-R)</span>
                     </td>
                     <td>
                       {marginData?.calculation?.grossOrderValue?.toLocaleString() ??
@@ -192,7 +334,9 @@ function Index() {
                       <span className={`ml-2`}>
                         Additional Amount Per SPDC (INR){' '}
                       </span>{' '}
-                      <span>[(S-Previous Value)/I)]</span>
+                      <span className={`${styles.formula} ml-2`}>
+                        [(S-Previous Value)/I)]
+                      </span>
                     </td>
                     <td
                       className={`${styles.good} ${styles.highlight2} satisfactory`}
@@ -201,12 +345,88 @@ function Index() {
                         0}
                     </td>
                   </tr>
+                  <tr>
+                    <td>
+                      <span className={`${styles.sno}`}>U</span>
+                      <span className={`ml-2`}>
+                        Revised Net Order Value (INR){' '}
+                      </span>
+                      <span className={`${styles.formula} ml-2`}>
+                        [(S-Previous Value)/I)]
+                      </span>
+                    </td>
+                    <td className={`${styles.good} good`}>
+                      {marginData?.order?.quantity} MT
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span className={`${styles.sno}`}>V</span>
+                      <span className={`ml-2`}>Margin Money (INR) </span>
+                    </td>
+                    <td className={`${styles.good} good`}>
+                      {marginData?.order?.quantity} MT
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <span className={`${styles.sno}`}>W</span>
+                      <span className={`ml-2`}>
+                        Revised Margin Money Calculation (INR){' '}
+                      </span>
+                      <span className={`${styles.formula} ml-2`}>(R)</span>
+                    </td>
+                    <td className={`${styles.good} good`}>
+                      {marginData?.order?.quantity} MT
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span className={`${styles.sno}`}>X</span>
+                      <span className={`ml-2`}>
+                        Margin Money Received (INR){' '}
+                      </span>
+                    </td>
+                    <td className={`${styles.good} good`}>
+                      {marginData?.order?.quantity} MT
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span className={`${styles.sno}`}>T</span>
+                      <span className={`ml-2`}>
+                        Additional Amount Per SPDC (INR){' '}
+                      </span>{' '}
+                      <span className={`${styles.formula} ml-2`}>
+                        [(S-Previous Value)/I)]
+                      </span>
+                    </td>
+                    <td
+                      className={`${styles.good} ${styles.highlight2} satisfactory`}
+                    >
+                      {marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC?.toLocaleString() ??
+                        0}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span className={`${styles.sno}`}></span>
+                      <span className={`ml-2`}></span>
+                    </td>
+                    <td></td>
+                  </tr>
                 </tbody>
               </table>
             </div>
           </div>
         </Card>
       </div>
+
+      <MarginBar
+        leftButtonTitle={'Margin Money'}
+        rightButtonTitle={'Send to Buyer'}
+      />
     </>
   )
 }
