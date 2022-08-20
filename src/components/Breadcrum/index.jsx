@@ -247,7 +247,7 @@ console.log( router.route," router.route")
             // value={currency}
             >
               <option selected={currency=="CRORES"?"selected":"false"}>CRORES</option>
-              <option selected={currency!=="CRORES"?"selected":"false"}>MILLIONS</option>
+              <option selected={currency=="MILLIONS"?"selected":"false"}>MILLIONS</option>
             </select>
            </div>:null}
            {show.currency? <div>
@@ -258,7 +258,7 @@ console.log( router.route," router.route")
             
             >
               <option>EURO</option>
-              <option selected={currency!=="CRORES"?"selected":"false"}>USD</option>
+              <option selected={currency=="MILLIONS"?"selected":"false"}>USD</option>
               <option selected={currency=="CRORES"?"selected":"false"}>INR</option>
               <option>BRITISH POUND</option>
             </select>
