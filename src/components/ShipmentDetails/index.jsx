@@ -1,8 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react'
+import React ,{useState}from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 import DateCalender from '../DateCalender'
+import moment from 'moment'
 
 const index = ({ orderDetail, saveShipmentData }) => {
   // const {shipmentDetail}= orderDetail;
@@ -12,7 +13,22 @@ const index = ({ orderDetail, saveShipmentData }) => {
     let text = d.toISOString()
     saveShipmentData(name, text)
   }
+  const [dateStartFrom,setDateStartFrom]=useState({
+    laycan:"",
+    eta:""
 
+  })
+  const setStartDate=(val,name)=>{
+      var new_date = moment(new Date(val).toISOString()).add(1, 'days').format("DD-MM-YYYY");
+      if(name=="loadPort.fromDate"){
+    
+      setDateStartFrom({...dateStartFrom,laycan:new_date})
+    }else{
+      setDateStartFrom({...dateStartFrom,eta:new_date})
+    }
+   
+  }
+  console.log(dateStartFrom.laycan,"dateStartFrom")
   return (
     <div className={`${styles.main} vessel_card border-color card`}>
       <div
@@ -72,6 +88,8 @@ const index = ({ orderDetail, saveShipmentData }) => {
                       )[0]
                     }
                     saveDate={saveDate}
+                    setStartDateFrom={setStartDate}
+                    
                     labelName="Laycan at Load Port from"
                   />
                   <img
@@ -80,15 +98,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
                     alt="Search"
                   />
                 </div>
-                {/* <div className="d-flex">
-                    <Form.Control className={`${styles.input_field}  ${styles.customSelect}  input form-control`} name="ETAofDischarge.fromDate" type="date" defaultValue={orderDetail?.shipmentDetail?.ETAofDischarge?.fromDate.split('T')[0]} onChange={(e)=>{saveDate(e)}} />
-                    <Form.Label className={`${styles.label_heading} label_heading`}> Laycan at Load Port from<strong className="text-danger">*</strong></Form.Label>
-                     <img
-                   className={`${styles.calanderIcon} img-fluid`}
-                   src="/static/caldericon.svg"
-                   alt="Search"
-                   />
-                   </div> */}
+               
               </Form.Group>
 
               <Form.Group
@@ -103,6 +113,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
                       )[0]
                     }
                     saveDate={saveDate}
+                    startFrom={dateStartFrom.laycan}
                     labelName="Laycan at Load Port to"
                   />
                   <img
@@ -111,15 +122,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
                     alt="Search"
                   />
                 </div>
-                {/* <div className="d-flex">
-                    <Form.Control className={`${styles.input_field}  ${styles.customSelect} input form-control`} name='ETAofDischarge.toDate' type="date"  defaultValue={orderDetail?.shipmentDetail?.ETAofDischarge?.toDate.split('T')[0]} onChange={(e)=>{saveDate(e)}}/>
-                    <Form.Label className={`${styles.label_heading} label_heading`}>Laycan at Load Port to<strong className="text-danger">*</strong></Form.Label>
-                 <img
-                   className={`${styles.calanderIcon} img-fluid`}
-                   src="/static/caldericon.svg"
-                   alt="Search"
-                   />
-                      </div> */}
+              
               </Form.Group>
               <Form.Group
                 className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
@@ -164,6 +167,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
                         'T',
                       )[0]
                     }
+                    setStartDateFrom={setStartDate}
                     saveDate={saveDate}
                     labelName="ETA at Discharge Port from"
                   />
@@ -195,6 +199,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
                       )[0]
                     }
                     saveDate={saveDate}
+                     startFrom={dateStartFrom.eta}
                     labelName="ETA at Discharge Port to"
                   />
                   <img
