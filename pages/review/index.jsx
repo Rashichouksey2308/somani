@@ -54,6 +54,7 @@ import { toast } from 'react-toastify'
 import UploadOther from '../../src/components/UploadOther'
 
 
+
 let alertObj = {
   "isShell": "Shell",
   "isCompanyUnderLiquidation": "Company Under Liquidation",
@@ -433,7 +434,7 @@ function Index() {
     // console.log(newInput, "prod")
     setProduct(newInput)
   }
-
+console.log(product,"productData")
   const [supplierCred, setSupplierCred] = useState()
 
   useEffect(() => {
@@ -486,9 +487,13 @@ function Index() {
         toast.error(toastMessage, { toastId: toastMessage })
       }
     } else {
+      let data= {...product}
+      data.monthlyProductionCapacity=removePrefixOrSuffix(product.monthlyProductionCapacity)
+      data.capacityUtilization=removePrefixOrSuffix(product.capacityUtilization)
+      data.AvgMonthlyElectricityBill=removePrefixOrSuffix(product.AvgMonthlyElectricityBill)
       let obj = {
         order: orderList._id,
-        productSummary: { ...product },
+        productSummary: { ...data },
         gstin: gstData.gstin
       }
       dispatch(UpdateCreditCalculate(obj))
@@ -830,7 +835,17 @@ function Index() {
       designation: '',
       email: '',
       name: '',
+      isEdit:false
     }])
+  }
+  const setEditRow=(index)=>{
+    let tempArr =[...personData]
+    tempArr.forEach((val,i)=>{
+      if(i==index)[
+        val.isEdit=!val.isEdit
+      ]
+    })
+    setPersonData(tempArr)
   }
 
   const onCreditSave = () => {
@@ -2070,7 +2085,7 @@ function Index() {
                 </div>
                 <div className="tab-pane fade" id="Credit" role="tabpanel">
                   <Credit
-                    creditDetail={orderList}
+                    creditDetail={product}
                     keyAddDataArr={keyAddDataArr}
                     addDebtArr={addDebtArr}
                     addPersonArr={addPersonArr}
@@ -2084,6 +2099,9 @@ function Index() {
                     deleteComponent={deleteComponent}
                     updateKeyAddDataArr={updateKeyAddDataArr}
                     deleteAddress={deleteAddress}
+                    supplierCred={supplierCred}
+                    setEditRow={setEditRow}
+                    
 
 
                   />

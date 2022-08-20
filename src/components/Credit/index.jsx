@@ -10,6 +10,7 @@ import styles from './index.module.scss'
 import DateCalender from '../DateCalender'
 import { Form, Row, Col } from 'react-bootstrap'
 import AddressComponent from './addressComponent'
+import { addPrefixOrSuffix,removePrefixOrSuffix } from 'utils/helper'
 
 const index = ({
   creditDetail,
@@ -25,9 +26,11 @@ const index = ({
   addPersonArr,
   deleteComponent,
   updateKeyAddDataArr,
-  deleteAddress
+  deleteAddress,
+  supplierCred,
+  setEditRow,
 }) => {
-  // console.log(creditDetail, 'this is credit detail')
+  console.log(creditDetail, 'this is credit detail')
   console.log(debtData, 'debtData')
   const dispatch = useDispatch()
 
@@ -136,14 +139,14 @@ const index = ({
   // console.log(keyPersonData[0]['contact']['number'], "kksksksk")
 
   const handlePersonChange = (e, key) => {
-    const newInput = { ...keyPersonData }
+    const newInput = [ ...keyPersonData ]
     if (e.target.name.split('.').length > 1) {
       newInput[key]['contact']['number'] = e.target.value
     } else {
       newInput[key][e.target.name] = e.target.value
     }
     setKeyPersonData(newInput)
-  }
+  } 
 
   const onKeyPersonSave = () => {
     addPersonArr(keyPersonData)
@@ -241,7 +244,7 @@ const index = ({
     setEditData(newInput)
   }
   console.log(keyAddressData, 'editData')
-
+  console.log(creditDetail,"creditDetail",creditDetail?.monthlyProductionCapacity)
   return (
     <>
       <div className={`${styles.main} vessel_card card border_color`}>
@@ -267,9 +270,13 @@ const index = ({
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="number"
-                  defaultValue={
-                    creditDetail?.productSummary?.monthlyProductionCapacity
+                  type="text"
+                 
+                    value={
+                     addPrefixOrSuffix(
+                      creditDetail?.monthlyProductionCapacity,
+                       creditDetail?.unitOfQuantity?.toUpperCase()
+                      )
                   }
                   name="monthlyProductionCapacity"
                   onChange={(e) => {
@@ -286,9 +293,12 @@ const index = ({
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="number"
-                  defaultValue={
-                    creditDetail?.productSummary?.capacityUtilization
+                  type="text"
+                  value={
+                     addPrefixOrSuffix(
+                      creditDetail?.capacityUtilization,
+                      "%"
+                      )
                   }
                   name="capacityUtilization"
                   onChange={(e) => {
@@ -306,7 +316,7 @@ const index = ({
                   required
                   type="number"
                   defaultValue={
-                    creditDetail?.productSummary?.averageStockOfCommodity
+                    creditDetail?.averageStockOfCommodity
                   }
                   name="averageStockOfCommodity"
                   onChange={(e) => {
@@ -325,7 +335,7 @@ const index = ({
                   required
                   type="number"
                   defaultValue={
-                    creditDetail?.productSummary?.averageStockInTransit
+                    creditDetail?.averageStockInTransit
                   }
                   name="averageStockInTransit"
                   onChange={(e) => {
@@ -343,7 +353,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
-                  defaultValue={creditDetail?.productSummary?.availableStock}
+                  defaultValue={creditDetail?.availableStock}
                   name="availableStock"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value)
@@ -359,7 +369,7 @@ const index = ({
                   required
                   type="number"
                   defaultValue={
-                    creditDetail?.productSummary?.dailyConsumptionOfCommodity
+                    creditDetail?.dailyConsumptionOfCommodity
                   }
                   name="dailyConsumptionOfCommodity"
                   onChange={(e) => {
@@ -376,7 +386,7 @@ const index = ({
                   <DateCalender
                     name="stockCoverageOfCommodity"
                     defaultDate={
-                      creditDetail?.productSummary?.stockCoverageOfCommodity?.split(
+                      creditDetail?.stockCoverageOfCommodity?.split(
                         'T',
                       )[0]
                     }
@@ -393,7 +403,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   type="date"
                   defaultValue={
-                    creditDetail?.productSummary?.stockCoverageOfCommodity?.split(
+                    creditDetail?.stockCoverageOfCommodity?.split(
                       'T',
                     )[0]
                   }
@@ -418,12 +428,12 @@ const index = ({
                   >
                     <option
                       value={
-                        creditDetail?.productSummary
+                        creditDetail
                           ?.existingProcurementOfCommodity
                       }
                     >
                       {
-                        creditDetail?.productSummary
+                        creditDetail
                           ?.existingProcurementOfCommodity
                       }
                     </option>
@@ -448,7 +458,7 @@ const index = ({
                     required
                     type="text"
                     name="existingSuppliers"
-                    defaultValue={creditDetail?.productSummary?.existingSuppliers.map(
+                    defaultValue={creditDetail?.existingSuppliers?.map(
                       (e) => {
                         return `${e}`
                       },
@@ -481,12 +491,12 @@ const index = ({
                   >
                     <option
                       value={
-                        creditDetail?.productSummary
+                        creditDetail
                           ?.contributionCommoditySenstivity
                       }
                     >
                       {
-                        creditDetail?.productSummary
+                        creditDetail
                           ?.contributionCommoditySenstivity
                       }
                     </option>
@@ -511,9 +521,13 @@ const index = ({
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="number"
-                  defaultValue={
-                    creditDetail?.productSummary?.AvgMonthlyElectricityBill
+                  type="text"
+                
+                   value={
+                     addPrefixOrSuffix(
+                      creditDetail?.AvgMonthlyElectricityBill,
+                       creditDetail?.typeOfCurrency?.toUpperCase()
+                      )
                   }
                   name="AvgMonthlyElectricityBill"
                   onChange={(e) => {
@@ -532,7 +546,7 @@ const index = ({
                     required
                     type="text"
                     name="existingCHA"
-                    defaultValue={creditDetail?.productSummary?.existingCHA.map(
+                    defaultValue={creditDetail?.existingCHA.map(
                       (e) => {
                         return `${e}`
                       },
@@ -592,28 +606,31 @@ const index = ({
             <div className="row">
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
-                  <select
+                  <input
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="supplierName"
                     required
+                    type="text"
+                    value={supplierCred?.supplierName}
                     onChange={(e) => {
                       saveSupplierData(e.target.name, e.target.value)
                     }}
                   >
-                    <option>
-                      {creditDetail?.supplierCredential?.supplierName}
+                    </input>
+                    {/* <option>
+                      {supplierCred?.supplierName}
                     </option>
                     <option>Bhutani Traders</option>
                     <option>Ramakrishna</option>
-                  </select>
+                  </select> */}
                   <label className={`${styles.label_heading} label_heading`}>
                     Supplier Name<strong className="text-danger">*</strong>
                   </label>
-                  <img
+                  {/* <img
                     className={`${styles.arrow} image_arrow img-fluid`}
                     src="/static/inputDropDown.svg"
                     alt="Search"
-                  />
+                  /> */}
                 </div>
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -621,8 +638,8 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  defaultValue={
-                    creditDetail?.supplierCredential?.shipmentNumber
+                  value={
+                    supplierCred?.shipmentNumber
                   }
                   name="shipmentNumber"
                   onChange={(e) => {
@@ -639,8 +656,8 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  defaultValue={
-                    creditDetail?.supplierCredential?.consigneesNumber
+                  value={
+                    supplierCred?.consigneesNumber
                   }
                   name="consigneesNumber"
                   onChange={(e) => {
@@ -657,7 +674,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  defaultValue={creditDetail?.supplierCredential?.HSCodesNumber}
+                  value={supplierCred?.HSCodesNumber}
                   name="HSCodesNumber"
                   onChange={(e) => {
                     saveSupplierData(e.target.name, e.target.value)
@@ -673,7 +690,7 @@ const index = ({
                   <select
                     className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                     defaultValue={
-                      creditDetail?.supplierCredential?.countryOfOrigin
+                      supplierCred?.countryOfOrigin
                     }
                     name="countryOfOrigin"
                     onChange={(e) => {
@@ -698,7 +715,7 @@ const index = ({
                   <select
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     defaultValue={
-                      creditDetail?.supplierCredential?.portOfDestination
+                      supplierCred?.portOfDestination
                     }
                     name="portOfDestination"
                     onChange={(e) => {
@@ -724,7 +741,7 @@ const index = ({
                   <DateCalender
                     name="oldestShipmentDate"
                     defaultDate={
-                      creditDetail?.supplierCredential?.oldestShipmentDate?.split(
+                      supplierCred?.oldestShipmentDate?.split(
                         'T',
                       )[0]
                     }
@@ -742,7 +759,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   type="date"
                   defaultValue={
-                    creditDetail?.supplierCredential?.oldestShipmentDate?.split(
+                    supplierCred?.oldestShipmentDate?.split(
                       'T',
                     )[0]
                   }
@@ -764,7 +781,7 @@ const index = ({
                   <DateCalender
                     name="latestShipmentDate"
                     defaultDate={
-                      creditDetail?.supplierCredential?.latestShipmentDate?.split(
+                      supplierCred?.latestShipmentDate?.split(
                         'T',
                       )[0]
                     }
@@ -781,7 +798,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   type="date"
                   defaultValue={
-                    creditDetail?.supplierCredential?.latestShipmentDate?.split(
+                    supplierCred?.latestShipmentDate?.split(
                       'T',
                     )[0]
                   }
@@ -798,7 +815,7 @@ const index = ({
                   required
                   type="text"
                   defaultValue={
-                    creditDetail?.supplierCredential?.commodityOfTotalTrade
+                    supplierCred?.commodityOfTotalTrade
                   }
                   name="commodityOfTotalTrade"
                   onChange={(e) => {
@@ -817,7 +834,7 @@ const index = ({
                   rows={3}
                   className={`${styles.remark_field} input form-control`}
                   name="remarks"
-                  defaultValue={creditDetail?.supplierCredential?.remarks}
+                  defaultValue={supplierCred?.remarks}
                   onChange={(e) => {
                     saveSupplierData(e.target.name, e.target.value)
                   }}
@@ -874,7 +891,7 @@ const index = ({
                               defaultValue={person.name}
                               name="name"
                               onChange={(e) => handlePersonChange(e, index)}
-                              readOnly={!saveContactTable}
+                              readOnly={person.isEdit}
                             >
                               <option>Ram Lal</option>
                               <option>Ramakrishna</option>
@@ -901,7 +918,7 @@ const index = ({
                               defaultValue={person.designation}
                               name="designation"
                               onChange={(e) => handlePersonChange(e, index)}
-                              readOnly={!saveContactTable}
+                              readOnly={!person.isEdit}
                             >
                               <option>Director</option>
                               <option>Production Manager</option>
@@ -929,7 +946,7 @@ const index = ({
                             name="department"
                             onChange={(e) => handlePersonChange(e, index)}
                             type="text"
-                            readOnly={!saveContactTable}
+                            readOnly={person.isEdit}
                           />
                         </td>
                         <td>
@@ -951,7 +968,7 @@ const index = ({
                               }
                             }}
                             type="number"
-                            readOnly={!saveContactTable}
+                            readOnly={person.isEdit}
                           />
                         </td>
                         <td>
@@ -961,17 +978,17 @@ const index = ({
                             name="email"
                             onChange={(e) => handlePersonChange(e, index)}
                             type="text"
-                            readOnly={!saveContactTable}
+                            readOnly={person.isEdit}
                           />
                         </td>
                         <td>
                           <div className="d-flex">
-                            {!saveContactTable ? (
+                            {person.isEdit ? (
                               <img
                                 src="/static/mode_edit.svg"
                                 className={`${styles.edit_image} mr-3`}
                                 onClick={(e) => {
-                                  setContactTable(true)
+                                  setEditRow(index)
                                 }}
                               />
                             ) : (
@@ -980,7 +997,7 @@ const index = ({
                                 className={`${styles.edit_image} mr-3`}
                                 alt="save"
                                 onClick={(e) => {
-                                  setContactTable(false)
+                                   setEditRow(index)
                                   //addPersonArr(keyPersonData)
                                 }}
                               />

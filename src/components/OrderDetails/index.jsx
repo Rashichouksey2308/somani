@@ -126,10 +126,10 @@ const Index = ({ saveOrderData, darkMode,orderDetails }) => {
                   <option >Select an option</option>
                 
                 <option value="India">India</option>
-                <option value="America">Australia</option>
-                <option value="America">Sri Lanka</option>
-                <option value="America">Qatar</option>
-                <option value="America">Dubai</option>
+                <option value="Australia">Australia</option>
+                <option value="Sri Lanka">Sri Lanka</option>
+                <option value="Qatar">Qatar</option>
+                <option value="Dubai">Dubai</option>
               </select>
               <label
                 className={`${styles.label_heading} label_heading`}
