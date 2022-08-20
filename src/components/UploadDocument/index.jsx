@@ -1,8 +1,20 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react'
+import React, {useState} from 'react'
 import styles from './index.module.scss'
 
-const Index = ({ uploadDocument1, uploadDocument2 }) => {
+const Index = ({ uploadDocument1, uploadDocument2, docName }) => {
+  const [vesselCertificate, setVesselCertificate] = useState()
+
+  const vesselDocFunction = (e) => {
+    console.log(e.target.files[0],  'THIS IS VESSEL CERTIFICATE')
+    setVesselCertificate(e.target.files[0])
+    uploadDocument1(e)
+  }
+
+  const handleClose = () => {
+    setVesselCertificate(null)
+  }
+
   return (
     <div className={`${styles.main} border_color card`}>
       <div
@@ -63,7 +75,7 @@ const Index = ({ uploadDocument1, uploadDocument2 }) => {
                   <tbody>
                     <tr className="table_row">
                       <td className={styles.doc_name}>
-                        Vessel Certificate
+                        {docName}
                         <strong className="text-danger">*</strong>
                       </td>
                       <td>
@@ -76,40 +88,42 @@ const Index = ({ uploadDocument1, uploadDocument2 }) => {
                       <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                       <td>
                         {' '}
-                        { false ?  <>
+                        {vesselCertificate == null ? (
+                        <>
                           <div className={styles.uploadBtnWrapper}>
                             <input
                               type="file"
                               name="myfile"
                               accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                            onChange={(e) => uploadDocument1(e)}
+                              onChange={(e) => vesselDocFunction(e)}
                             />
                             <button className={`${styles.button_upload} btn`}>
                               Upload
                             </button>
                           </div>
                           {/* <div className={styles.uploadBtnWrapper}>
-                          <input
-                            type="file"
-                            accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                            onChange={(e) => uploadDocument1(e)}
-                            name="myfile"
-                          />
-                          <button  className={`${styles.uploadDoc} btn`}>
-                            Upload
-                          </button>
-                          </div> */}
-                          </>:
-                          <div className={styles.certificate}>
-                          {/* {lcDoc?.lcDraftDoc?.name} */}
-                            <img
-                            className={`${styles.close_image} float-right m-2 img-fluid`}
+                      <input
+                        type="file"
+                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                        onChange={(e) => uploadDocument1(e)}
+                        name="myfile"
+                      />
+                       <button  className={`${styles.uploadDoc} btn`}>
+                        Upload
+                      </button>
+                    </div> */}
+                        </>
+                      ) : (
+                        <div className={styles.certificate}>
+                          {vesselCertificate?.name}
+                          <img
+                            className={`${styles.close_image} float-right ml-2 img-fluid`}
                             src="/static/close.svg"
-                          
+                            onClick={()=> handleClose()}
                             alt="Close"
-                            />{' '}
-                          </div>
-                        }
+                          />{' '}
+                        </div>
+                      )}
                       </td>
                     </tr>
                   </tbody>

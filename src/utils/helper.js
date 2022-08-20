@@ -28,6 +28,11 @@ export const phoneValidation = (phone) => {
   }
 }
 
+export const CovertvaluefromtoCR = (value, conversionValue = 10000000) => {
+  let newValue = Number(value / conversionValue)
+  return newValue
+}
+
 export const predictiveSearch = (text) => {
   var regex = /[a-zA-Z0-9]{4}/
   return regex.test(text)
@@ -113,6 +118,12 @@ export const addPrefixOrSuffix = (unitOfValue, type, where = 'null') => {
         .replaceAll('o', '')
         .replaceAll('n', '')
         .replaceAll('s', '')
+        .replaceAll('I', '')
+        .replaceAll('N', '')
+        .replaceAll('R', '')
+        .replaceAll('U', '')
+        .replaceAll('S', '')
+        .replaceAll('D', '')
         .replace(/ /g, '')
 
       console.log(removedValue, 'removedValue')
@@ -146,6 +157,12 @@ export const removePrefixOrSuffix = (unitOfValue, type) => {
       .replaceAll('n', '')
       .replaceAll('s', '')
       .replaceAll('M', '')
+      .replaceAll('I', '')
+      .replaceAll('N', '')
+      .replaceAll('R', '')
+      .replaceAll('U', '')
+      .replaceAll('S', '')
+      .replaceAll('D', '')
       .replace(/ /g, '')
     console.log(newValue, 'newValueremove')
     return Number(newValue)
