@@ -13,14 +13,14 @@ function Index(props) {
       let data = {
         addressList: addressList,
       }
-      props.sendData('Product', data)
+      props.sendData('Place of Execution', data)
     }
     if (props.submitData == true && props.active == 'Product Specifications') {
       let data = {
         addressList: addressList,
       }
 
-      props.updateData('Product', data)
+      props.updateData('Place of Execution', data)
     }
 
     // setSupplierState({...supplierState,multiParty:props.multiPart})

@@ -46,7 +46,7 @@ function Index(props) {
         
         
        }
-       props.sendData("Delivery",data)
+       props.sendData("Delivery Terms",data)
     }
     if(props.submitData==true && props.active=="Delivery Terms"){
       console.log("this12")
@@ -56,7 +56,7 @@ function Index(props) {
        
        }
 
-      props.updateData("Delivery",data)
+      props.updateData("Delivery Terms",data)
 
     }
   },[props])
