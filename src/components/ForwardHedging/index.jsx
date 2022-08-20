@@ -13,6 +13,9 @@ import {
 // import { UploadDocument } from 'redux/registerBuyer/action'
 import UploadOther from '../UploadOther'
 import _get from 'lodash/get'
+import API from '../../utils/endpoints'
+import Cookies from 'js-cookie'
+import Axios from 'axios'
 
 export default function Index() {
   const dispatch = useDispatch()
@@ -25,22 +28,43 @@ export default function Index() {
   const { allForwardHedging } = useSelector((state) => state.ForwardHedging)
 
   let hedgingData = _get(allForwardHedging, 'data[0]', '')
-  console.log(hedgingData, "THIS IS HEDGING DATA")
+  let hedgingDataDetail = _get(allForwardHedging, 'data[0].detail[0]', {})
+  // console.log(hedgingData, "THIS IS HEDGING DATA")
 
   const [list, setList] = useState({
-    bankName: ' ',
-    currency: ' ',
-    bookedRate: ' ',
-    bookedRateCurrency: ' ',
-    bookedAmount: ' ',
-    validityFrom: ' ',
-    validityTo: ' ',
-    closingDate: ' ',
-    closingRate: ' ',
-    remarks: ' ',
-    balanceAmount: ' ',
+    bankName: '',
+    currency: '',
+    bookedRate: '',
+    bookedRateCurrency: 'INR',
+    bookedAmount: '',
+    validityFrom: '',
+    validityTo: '',
+    closingDate: '',
+    closingRate: '',
+    remarks: '',
+    balanceAmount: '',
     forwardSalesContract: null,
   })
+
+  useEffect(() => {
+    setList({
+
+    bankName: hedgingDataDetail?.bankName,
+    currency: hedgingDataDetail?.currency,
+    bookedRate: hedgingDataDetail?.bookedRate,
+    bookedRateCurrency: hedgingDataDetail?.bookedRateCurrency,
+    bookedAmount:hedgingDataDetail?.bookedAmount,
+    validityFrom: hedgingDataDetail?.validityFrom,
+    validityTo: hedgingDataDetail?.validityTo,
+    closingDate: '',
+    closingRate: '',
+    remarks: hedgingDataDetail?.remarks,
+    balanceAmount: hedgingDataDetail?.balanceAmount,
+    forwardSalesContract: hedgingDataDetail?.forwardSalesContract,
+
+  })
+  }, [hedgingData])
+  
 
   const saveHedgingData = (name, value) => {
     let newInput = { ...list }
@@ -55,11 +79,48 @@ export default function Index() {
     saveHedgingData(name, text)
   }
 
-  const uploadDocument1 = (e) => {
-    const newUploadDoc1 = { ...list }
-    newUploadDoc1.forwardSalesContract = e.target.files[0]
+  const uploadDocument = async (e) => {
+    // console.log(e, "response data")
+    let fd = new FormData()
+    fd.append('document', e.target.files[0])
+    // dispatch(UploadCustomDoc(fd))
 
-    setList(newUploadDoc1)
+    let cookie = Cookies.get('SOMANI')
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    try {
+      let response = await Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, fd, {
+        headers: headers,
+      })
+      // console.log(response.data.data, 'response data123')
+      if (response.data.code === 200) {
+        // dispatch(getCustomClearanceSuccess(response.data.data))
+
+        return response.data.data;
+      } else {
+        // dispatch(getCustomClearanceFailed(response.data.data))
+        // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+        // if (!toast.isActive(toastMessage.toUpperCase())) {
+        //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
+      }
+    } catch (error) {
+      // dispatch(getCustomClearanceFailed())
+
+      // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
+      // if (!toast.isActive(toastMessage.toUpperCase())) {
+      //   toast.error(toastMessage, { toastId: toastMessage })
+      // }
+    }
+  }
+
+  const uploadDocument1 = async (e) => {
+    // console.log(uploadDocument(e), 'function call')
+    const doc = await uploadDocument(e)
+    setList(doc1=>{
+      return {...doc1, forwardSalesContract: doc}
+    })
   }
 
   const [cancel, setCancel] = useState(false)
@@ -106,12 +167,20 @@ export default function Index() {
   }
 
   const handleSave = () => {
-    let fd = new FormData()
-    fd.append('forwardHedgingId', hedgingData?._id)
-    fd.append('detail', JSON.stringify(list))
-    fd.append('forwardSalesContract', list?.forwardSalesContract)
+    let hedgingObj = {...list}
 
-    dispatch(UpdateForwardHedging(fd))
+    hedgingObj.balanceAmount = list.bookedAmount
+
+    // let fd = new FormData()
+    // fd.append('forwardHedgingId', hedgingData?._id)
+    // fd.append('detail', JSON.stringify(list))
+    // fd.append('forwardSalesContract', list?.forwardSalesContract)
+    let obj = {
+      forwardHedgingId : hedgingData?._id,
+      detail : {...hedgingObj}
+    }
+
+    dispatch(UpdateForwardHedging(obj))
   }
 
   return (
@@ -157,7 +226,7 @@ export default function Index() {
                           }
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                         >
-                          <option selected></option>
+                          <option selected>Select an option</option>
                           <option>Indo German</option>
                           <option>N/A</option>
                         </select>
@@ -185,7 +254,7 @@ export default function Index() {
                           }
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                         >
-                          <option selected></option>
+                          <option selected>Select an option</option>
                           <option value="USD">USD</option>
                           <option value="POUND">POUND</option>
                         </select>
@@ -208,7 +277,8 @@ export default function Index() {
                         className={`${styles.input_field} input form-control`}
                         required
                         type="number"
-                        name="bookedRateCurrency"
+                        name="bookedRate"
+                        defaultValue={list?.bookedRate}
                         onKeyDown={(evt) =>
                           evt.key === 'e' && evt.preventDefault()
                         }
@@ -230,6 +300,7 @@ export default function Index() {
                         type="number"
                         required
                         name="bookedAmount"
+                        defaultValue={list?.bookedAmount}
                         onKeyDown={(evt) =>
                           evt.key === 'e' && evt.preventDefault()
                         }
@@ -251,6 +322,7 @@ export default function Index() {
                       <div className="d-flex">
                         <DateCalender
                           name="validityFrom"
+                          // defaultDate={list?.validityFrom?.split('T')[0]}
                           saveDate={saveDate}
                           labelName="Validity from"
                         />
@@ -267,6 +339,7 @@ export default function Index() {
                       <div className="d-flex">
                         <DateCalender
                           name="validityTo"
+                          // defaultDate={list?.validityTo?.split('T')[0]}
                           saveDate={saveDate}
                           labelName="Validity to"
                         />
@@ -281,7 +354,7 @@ export default function Index() {
                       className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
                     >
                       <button
-                        onClick={() => handleCancel()}
+                        // onClick={() => handleCancel()}
                         className={`${styles.cancel_btn}`}
                       >
                         Cancel
@@ -349,6 +422,7 @@ export default function Index() {
                         as="textarea"
                         rows={3}
                         name="remarks"
+                        defaultValue={list?.remarks}
                         required
                         onChange={(e) =>
                           saveHedgingData(e.target.name, e.target.value)
@@ -457,7 +531,7 @@ export default function Index() {
                                 </>
                               ) : (
                                 <div className={styles.certificate}>
-                                   {list?.forwardSalesContract?.name}
+                                   {list?.forwardSalesContract?.originalName}
                                   <img
                                     className={`${styles.close_image} float-right m-2 img-fluid`}
                                     src="/static/close.svg"
