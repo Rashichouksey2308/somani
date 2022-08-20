@@ -2631,12 +2631,7 @@ const sectionTerms = (
     <>
       <div className={`${styles.card} card`}>
         <div
-          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
-          data-toggle="collapse"
-          data-target="#sectionTerms"
-          aria-expanded="true"
-          aria-controls="sectionTerms"
-        >
+          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{cursor : 'default'}}>
           <h2 className="mb-0">Sanction Terms</h2>
           <div className={`${styles.subHeadContainer} d-flex ml-5`}>
             <span
@@ -2664,7 +2659,7 @@ const sectionTerms = (
               {camData?.company?.creditLimit?.availableLimit}
             </span>
           </div>
-          <span>+</span>
+          <span data-toggle="collapse" data-target="#sectionTerms" aria-expanded="true" aria-controls="sectionTerms">+</span>
         </div>
         <div
           id="sectionTerms"
@@ -2969,12 +2964,7 @@ const trends = (
     <>
       <div className={`${styles.card} card`}>
         <div
-          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
-          data-toggle="collapse"
-          data-target="#trends"
-          aria-expanded="true"
-          aria-controls="trends"
-        >
+          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{cursor : 'default'}}>
           <h2 className="mb-0">Trends</h2>
           <div className="d-flex align-items-center">
             <h5
@@ -2991,7 +2981,7 @@ const trends = (
                 Quarterly
               </option>
             </select>
-            <span>+</span>
+            <span data-toggle="collapse" data-target="#trends" aria-expanded="true" aria-controls="trends">+</span>
           </div>
         </div>
         <div
@@ -3066,12 +3056,7 @@ const skewness = (data, options, tempArr, gstData) => {
     <>
       <div className={`${styles.card} card`}>
         <div
-          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
-          data-toggle="collapse"
-          data-target="#skewness"
-          aria-expanded="true"
-          aria-controls="skewness"
-        >
+          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{cursor : 'default'}}>
           <h2 className="mb-0">Skewness</h2>
           <div className="d-flex align-items-center">
             <h5
@@ -3088,7 +3073,7 @@ const skewness = (data, options, tempArr, gstData) => {
                 Quarterly
               </option>
             </select>
-            <span>+</span>
+            <span data-toggle="collapse" data-target="#skewness" aria-expanded="true" aria-controls="skewness">+</span>
           </div>
         </div>
         <div

@@ -11,6 +11,7 @@ function Index({
   isStatus,
   dateHeading,
   handleRoute,
+
   handleEditRoute,
 }) {
   const dispatch = useDispatch()
@@ -150,9 +151,9 @@ function Index({
                     </td>
                     <td>
                       <span
-                        className={`${styles.status} ${styles.review}`}
-                      ></span>
-                      On-Hold
+                        className={`${styles.status} ${styles.approved}`}
+                      ></span>{' '}
+                      Active
                     </td>
                     <td onClick={() => handleEditRoute(insured)}>
                       <img

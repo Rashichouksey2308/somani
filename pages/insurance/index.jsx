@@ -11,7 +11,7 @@ import { SearchLeads } from '../../src/redux/buyerProfile/action'
 function Index() {
   const dispatch = useDispatch()
 
-  let d =  new Date()
+  let d = new Date()
 
   const [searchTerm, setSearchTerm] = useState('')
 
@@ -34,19 +34,17 @@ function Index() {
   const changeRoute = (insured) => {
     sessionStorage.setItem('quotationId', insured._id)
     dispatch(GettingAllInsurance(`?insuranceId=${insured?._id}`))
-    
+
     Router.push('/insurance/form')
   }
 
   const handleEditRoute = (insured) => {
-    if(insured?.marineInsurance?.insuranceTo?.toDate() < d ){
+    if (insured?.marineInsurance?.insuranceTo?.toDate() < d) {
       Router.push('/insurance-renew/id')
-  }
-    else if(insured?.quotationRequest?.quotationRequestSubmitted === true) {
+    } else if (insured?.quotationRequest?.quotationRequestSubmitted === true) {
       Router.push('/insurance/form/both')
     }
   }
-
 
   return (
     <div className="container-fluid p-0 border-0">

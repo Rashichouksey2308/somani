@@ -13,7 +13,7 @@ function Index(props) {
         
         addressList:addressList,
        }
-       props.sendData("Comments",data)
+       props.sendData("Additional Comments",data)
     }
     if(props.submitData==true && props.active=="Additional Comments"){
       let data={
@@ -21,7 +21,7 @@ function Index(props) {
         addressList:addressList,
        }
 
-      props.updateData("Comments",data)
+      props.updateData("Additional Comments",data)
 
     }
 
@@ -101,7 +101,7 @@ function Index(props) {
                     handleEditAddressInput(index)
             }}
          ></img> */}
-         {/* <img className={`${styles.image}`} src="/static/mode_edit.svg" alt="edit"/> */}
+         <img className={`${styles.image}`} src="/static/mode_edit.svg" alt="edit"/>
          <img src="/static/delete 2.svg" className="img-fluid ml-3" alt="delete"
          onClick={()=>{
                     onAddressRemove(index)

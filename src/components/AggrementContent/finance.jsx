@@ -39,23 +39,23 @@ const[financeData,setFinanceData]=useState(finance)
    }
   },[props])
   useEffect(() => {
-    if(props.saveData==true && props.active=="Finance"){
+    if(props.saveData==true && props.active=="Financing Bank"){
        let data={
         financeData:financeData,
       
         
         
        }
-       props.sendData("Finance",data)
+       props.sendData("Financing Bank",data)
     }
-    if(props.submitData==true && props.active=="Finance"){
+    if(props.submitData==true && props.active=="Financing Bank"){
       let data={
       financeData:financeData,
       
        
        }
 
-      props.updateData("Finance",data)
+      props.updateData("Financing Bank",data)
 
     }
   },[props])

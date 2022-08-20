@@ -49,7 +49,7 @@ function Index(props) {
         
         
        }
-       props.sendData("Shipping",data)
+       props.sendData("Shipping Line",data)
     }
     if(props.submitData==true && props.active=="Shipping Line"){
       console.log("this12")
@@ -59,7 +59,7 @@ function Index(props) {
        
        }
 
-      props.updateData("Shipping",data)
+      props.updateData("Shipping Line",data)
 
     }
   },[props])

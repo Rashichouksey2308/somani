@@ -49,11 +49,17 @@ function Index() {
 
   const handlePreviewRoute = (margin) => {
     // console.log(margin, "THIS IS MARGIN MONEY")
-
+    if(margin.revisedMarginMoney.isActive !== true) {
     sessionStorage.setItem('marginId', margin?.order?._id )
     dispatch(GetMarginMoney({ orderId: margin?.order?._id }))
     
     Router.push('/margin-preview')
+    }else{
+      sessionStorage.setItem('marginId', margin?.order?._id )
+    dispatch(GetMarginMoney({ orderId: margin?.order?._id }))
+    
+    Router.push('/revised-margin-preview')
+    }
     
   }
 

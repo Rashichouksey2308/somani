@@ -257,9 +257,10 @@ console.log( router.route," router.route")
             <select className={`${styles.options} bg-transparent px-0 accordion_DropDown`}
             
             >
+              <option selected={currency=="CRORES"?"selected":"false"}>INR</option>
               <option>EURO</option>
               <option selected={currency=="MILLIONS"?"selected":"false"}>USD</option>
-              <option selected={currency=="CRORES"?"selected":"false"}>INR</option>
+              
               <option>BRITISH POUND</option>
             </select>
            </div>:null}
