@@ -1588,12 +1588,7 @@ console.log(product,"productData")
                 <div className="tab-pane fade" id="Compliance" role="tabpanel">
                   <div className={`${styles.card} card`}>
                     <div
-                      className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
-                      data-toggle="collapse"
-                      data-target="#compliance"
-                      aria-expanded="true"
-                      aria-controls="compliance"
-                    >
+                      className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{cursor : 'default'}}>
                       <div
                         className={`${styles.detail_head_container}  d-flex align-items-center justify-content-between w-100`}
                       >
@@ -1611,7 +1606,7 @@ console.log(product,"productData")
                           </div>
                         </div>
                       </div>
-                      <span>+</span>
+                      <span data-toggle="collapse" data-target="#compliance" aria-expanded="true" aria-controls="compliance">+</span>
                     </div>
                     <div
                       id="compliance"
@@ -1786,12 +1781,7 @@ console.log(product,"productData")
                   {/* details */}
                   <div className={`${styles.card} card`}>
                     <div
-                      className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
-                      data-toggle="collapse"
-                      data-target="#details"
-                      aria-expanded="true"
-                      aria-controls="details"
-                    >
+                      className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{cursor : 'default'}}>
                       <h2 className="mb-0 ">Details</h2>
                       <div className={`${styles.categories} mb-0 d-flex align-items-center`}>
                         <label className={styles.label}>Categories:</label>
@@ -1802,7 +1792,7 @@ console.log(product,"productData")
                           <option value="StatutoryCompliance">Statutory Compliance</option>
                           <option value="BankingDefaults">Banking Defaults</option>
                         </select>
-                        <span>+</span>
+                        <span data-toggle="collapse" data-target="#details" aria-expanded="true" aria-controls="details">+</span>
                       </div>
                     </div>
                     <div
@@ -1819,8 +1809,7 @@ console.log(product,"productData")
                     </div>
                   </div>
                   <div className={`${styles.card} card`}>
-                    <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#litigations" aria-expanded="true" aria-controls="litigations"
-                    >
+                    <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{cursor : 'default'}}>
                       <div className={`${styles.detail_head_container} d-flex align-items-center justify-content-between w-100`}>
                         <h2 className="mb-0">Litigations</h2>
                         <div className={`${styles.categories}  d-flex align-items-center`}>
@@ -1845,7 +1834,7 @@ console.log(product,"productData")
                               </>
                             )}
                           </select>
-                          <span>+</span>
+                          <span data-toggle="collapse" data-target="#litigations" aria-expanded="true" aria-controls="litigations">+</span>
                         </div>
                       </div>
                     </div>

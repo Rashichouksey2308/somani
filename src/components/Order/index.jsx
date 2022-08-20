@@ -16,12 +16,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
   return (
     <div className={`${styles.main} vessel_card card border-color`}>
       <div
-        className={`${styles.head_container} card-header border_color head_container d-flex justify-content-between bg-transparent`}
-        data-toggle="collapse"
-        data-target="#orderSummary"
-        aria-expanded="true"
-        aria-controls="orderSummary"
-      >
+        className={`${styles.head_container} card-header border_color head_container d-flex justify-content-between bg-transparent`}>
         <h3 className={`${styles.heading} mb-0`}>Order Summary</h3>
         <div className="d-flex">
           <div className={`${styles.unit_container} d-flex align-items-center`}>
@@ -43,7 +38,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
               {/* <option selected>Crores</option> */}
               <option>Million</option>
             </select>
-            <span>+</span>
+            <span data-toggle="collapse" data-target="#orderSummary" aria-expanded="true" aria-controls="orderSummary">+</span>
           </div>
         </div>
       </div>

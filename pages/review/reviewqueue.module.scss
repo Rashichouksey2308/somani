@@ -175,6 +175,7 @@
                     font-weight: normal;
                     line-height: 20px;
                     margin-top: -7px;
+                    cursor: pointer;
                     @include respond(phone) {
                         font-size: 30px;
                         line-height: 20px;                    
@@ -215,6 +216,7 @@
                         background: #C3C3C31F;
                         border: 1px solid #0000001F;
                         margin-right: 67px;
+                        box-shadow: none;
                     }
                     .label {
                         margin-right: 1rem;

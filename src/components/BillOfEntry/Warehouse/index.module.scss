@@ -8,6 +8,7 @@
       color: #3687e8;
       font-weight: bold;
       line-height: 27px;
+      margin-bottom: 0;
       @include respond(md-desktop) {
         font-size: 22px;
       }
@@ -48,6 +49,8 @@
         }
       }
       .head_container {
+        cursor: pointer;
+        min-height: 80px;
         padding: 25px 35px !important;
         border-bottom: 2px solid #cad6e6;
 

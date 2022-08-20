@@ -603,12 +603,7 @@ function Index() {
                     className={`${styles.card} vessel_card accordionMargin card`}
                   >
                     <div
-                      className={`${styles.cardHeader} d-flex align-items-center justify-content-between`}
-                      data-toggle="collapse"
-                      data-target="#commodityAccordion"
-                      aria-expanded="true"
-                      aria-controls="commodityAccordion"
-                    >
+                      className={`${styles.cardHeader} d-flex align-items-center justify-content-between`} style={{cursor : 'default'}}>
                       <div className={`${styles.commodity}`}>
                         <span
                           className={`${styles.comm_head} sub_heading mb-2`}
@@ -646,7 +641,7 @@ function Index() {
                           </option>
                           <option>Million</option>
                         </select>
-                        <span>+</span>
+                        <span data-toggle="collapse" data-target="#commodityAccordion" aria-expanded="true" aria-controls="commodityAccordion">+</span>
                       </div>
                     </div>
                     <div
