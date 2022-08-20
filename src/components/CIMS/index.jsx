@@ -76,11 +76,11 @@ export default function Index({
       })
     }
     console.log(filteredVessel, 'filteredVessel')
-    const newArray = [...bolList]
+    const newArray = [...cimsDetails]
     newArray[index].vesselName = filteredVessel.vesselInformation[0].name
     newArray[index].quantity = filteredVessel.vesselInformation[0].IMONumber
 
-    setBolList(newArray)
+    setCimsDetails(newArray)
   }
 
   const onChangeCims = (e, index) => {

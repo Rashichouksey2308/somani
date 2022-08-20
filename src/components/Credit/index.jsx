@@ -314,11 +314,15 @@ const index = ({
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="number"
+                  type="text"
                   onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
-                  defaultValue={
-                    creditDetail?.averageStockOfCommodity
-                  }
+                 
+                    value={
+                      addPrefixOrSuffix(
+                      creditDetail?.averageStockOfCommodity,
+                      creditDetail?.unitOfQuantity?.toUpperCase()
+                      )
+                    }
                   name="averageStockOfCommodity"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value)
@@ -334,11 +338,15 @@ const index = ({
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="number"
+                  type="text"
                   onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
-                  defaultValue={
-                    creditDetail?.averageStockInTransit
-                  }
+                
+                  value={
+                      addPrefixOrSuffix(
+                      creditDetail?.averageStockInTransit,
+                      creditDetail?.unitOfQuantity?.toUpperCase()
+                      )
+                    }
                   name="averageStockInTransit"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value)
@@ -354,8 +362,14 @@ const index = ({
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="number"
-                  defaultValue={creditDetail?.availableStock}
+                  type="text"
+                  
+                   value={
+                      addPrefixOrSuffix(
+                      creditDetail?.availableStock,
+                      creditDetail?.unitOfQuantity?.toUpperCase()
+                      )
+                    }
                   name="availableStock"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value)
@@ -369,11 +383,15 @@ const index = ({
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="number"
+                  type="text"
                   onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
-                  defaultValue={
-                    creditDetail?.dailyConsumptionOfCommodity
-                  }
+                 
+                  value={
+                      addPrefixOrSuffix(
+                      creditDetail?.dailyConsumptionOfCommodity,
+                      creditDetail?.unitOfQuantity?.toUpperCase()
+                      )
+                    }
                   name="dailyConsumptionOfCommodity"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value)
@@ -549,7 +567,7 @@ const index = ({
                     required
                     type="text"
                     name="existingCHA"
-                    defaultValue={creditDetail?.existingCHA.map(
+                    defaultValue={creditDetail?.existingCHA?.map(
                       (e) => {
                         return `${e}`
                       },
@@ -1959,7 +1977,7 @@ const index = ({
                             className={`${styles.dropDown} font-weight-bold heading`}
                           >
                             <option>{!profile.actions}</option>
-                            <option value="SBI">SBI</option>
+                            <option value="ICICI"> ICICI</option>
                             <option value="HDFC">HDFC</option>
                           </select>
                         </td>

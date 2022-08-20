@@ -349,8 +349,7 @@ const Index = ({
                   required
                 >
                   <option>Select an option</option>
-                  <option value="" selected></option>
-                  <option value="Manufacturer">Manufacturer</option>
+                 <option value="Manufacturer">Manufacturer</option>
                   <option value="Retailer">Retailer</option>
                   <option value="Trading">Trading</option>
                 </select>

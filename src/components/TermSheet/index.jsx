@@ -61,7 +61,7 @@ const Index = () => {
               // lcValue: sheet?.transactionDetails?.lcValue ? sheet?.transactionDetails?.lcValue : Number(sheet?.order?.quantity * sheet?.order?.perUnitPrice),
               lcValue: newLcVal,
               lcCurrency: sheet?.transactionDetails?.lcCurrency,
-              marginMoney: sheet?.transactionDetails?.marginMoney,
+              marginMoney: sheet?.transactionDetails?.marginMoney?sheet?.transactionDetails?.marginMoney:"10",
               lcOpeningBank: sheet?.transactionDetails?.lcOpeningBank,
               incoTerms: sheet?.transactionDetails?.incoTerms ? sheet?.transactionDetails?.incoTerms : sheet?.order?.incoTerm,
               loadPort: sheet?.transactionDetails?.loadPort,
@@ -321,7 +321,7 @@ const Index = () => {
       insurance: { ...prev.insurance, [Key]: value },
     }))
   }
-  // console.log(termsheetDetails, "tempSheet")
+  console.log(termsheetDetails, "tempSheet")
   const handleSave = () => {
     // console.log(termsheetDetails.commercials.overDueInterestPerMont, "tempSheet2")
     let tempSheet = termsheetDetails
@@ -334,6 +334,7 @@ const Index = () => {
     tempSheet.commercials.overDueInterestPerMonth = removePrefixOrSuffix(termsheetDetails.commercials.overDueInterestPerMonth)
     tempSheet.commercials.lcOpeningChargesPercentage = removePrefixOrSuffix(termsheetDetails.commercials.lcOpeningChargesPercentage)
     tempSheet.commercials.usanceInterestPercetage = removePrefixOrSuffix(termsheetDetails.commercials.usanceInterestPercetage)
+    tempSheet.commodityDetails.tolerance = removePrefixOrSuffix(termsheetDetails.commodityDetails.tolerance)
     //  tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
     // console.log(termsheetDetails, "tempSheet1")
 
@@ -463,6 +464,7 @@ const Index = () => {
             <AdditionalComment
               setAdditionalComments={setAdditionalComments}
               additionalComments={additionalComments}
+              termsheetDetails={termsheetDetails}
             />
             <OtherTerms
               onChangeDropDown={onChangeDropDown}

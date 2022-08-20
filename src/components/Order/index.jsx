@@ -4,6 +4,7 @@ import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 import DateCalender from '../DateCalender'
 import { addPrefixOrSuffix } from 'utils/helper'
+import {CovertvaluefromtoCR} from '../../utils/helper'
 
 const Index = ({ orderDetail, saveOrderData }) => {
   const saveDate = (value, name) => {
@@ -129,7 +130,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   required
                   type="text"
                   name="orderValue"
-                  defaultValue={addPrefixOrSuffix(orderDetail?.orderValue,orderDetail.unitOfValue)}
+                  defaultValue={addPrefixOrSuffix(CovertvaluefromtoCR(orderDetail?.orderValue),orderDetail.unitOfValue)}
                  
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)

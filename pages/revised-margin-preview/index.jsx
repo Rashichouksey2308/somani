@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Row, Col, Container, Card } from 'react-bootstrap'
-import Paginatebar from '../Paginatebar'
-import TermsheetPopUp from '../TermsheetPopUp'
-import { Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPageName } from 'redux/userData/action'
 import { setDynamicName } from 'redux/userData/action'
@@ -11,7 +8,7 @@ import { setDynamicOrder } from 'redux/userData/action'
 import { GetMarginMoney } from 'redux/marginMoney/action'
 import _get from 'lodash/get'
 import moment from 'moment'
-import MarginBar from '../MarginBar'
+import MarginBar from '../../src/components/MarginBar'
 
 function Index() {
   const dispatch = useDispatch()
@@ -19,26 +16,6 @@ function Index() {
   const { margin } = useSelector((state) => state.marginMoney)
 
   const marginData = _get(margin, 'data.data[0]', {})
-
-  // useEffect(() => {
-  //   let id = sessionStorage.getItem('marginId')
-  //   dispatch(GetMarginMoney({ orderId: id }))
-
-  //   dispatch(setPageName('margin-money'))
-  //   dispatch(setDynamicName(marginData?.company.companyName))
-  //   dispatch(setDynamicOrder(marginData?.order.orderId))
-  // }, [dispatch, marginData?.company?.companyName])
-
-  let tempArr = [
-    {
-      head: 'Commodity Details',
-      details: [
-        { subhead: '1. Commodity Name', val: 'Chrome Ore' },
-        { subhead: '2. Quantity', val: '5000 MT (± 10%)' },
-        { subhead: '3. Unit Price', val: 'USD 243/MT' },
-      ],
-    },
-  ]
 
   const [open, setOpen] = useState(false)
 
@@ -61,7 +38,7 @@ function Index() {
               alt="Arrow"
             />
             <h1 className={`${styles.heading} heading`}>
-              Margin Money Preview
+              Revised Margin Money Preview
             </h1>
           </div>
         </div>
@@ -82,7 +59,7 @@ function Index() {
               </div>
             </Col>
             <Col md={4} className="text-center">
-              <span>MARGIN MONEY</span>
+              <span>REVISED MARGIN MONEY</span>
             </Col>
             <Col md={4} className={`${styles.left} ${styles.right}`}>
               <div>
@@ -106,6 +83,7 @@ function Index() {
               >
                 <tr>
                   <th>Commodity Details</th>
+                  <th>Revised Margin Money</th>
                   <th>Margin Money</th>
                 </tr>
                 <tbody>
@@ -117,6 +95,7 @@ function Index() {
                     <td className={`${styles.good} good`}>
                       {marginData?.order?.quantity} MT
                     </td>
+                    <td>{marginData?.order?.quantity} MT</td>
                   </tr>
                   <tr>
                     <td>
@@ -124,6 +103,9 @@ function Index() {
                       <span className={`ml-2`}>Unit Price</span>
                     </td>
                     <td className={`${styles.good} good`}>
+                      {marginData?.calculation?.provisionalUnitPricePerTon}
+                    </td>
+                    <td>
                       {marginData?.calculation?.provisionalUnitPricePerTon}
                     </td>
                   </tr>
@@ -135,6 +117,9 @@ function Index() {
                     <td className={`${styles.good} good`}>
                       {marginData?.calculation?.provisionalUnitPricePerTon}
                     </td>
+                    <td>
+                      {marginData?.calculation?.provisionalUnitPricePerTon}
+                    </td>
                   </tr>
                   <tr>
                     <td>
@@ -142,6 +127,9 @@ function Index() {
                       <span className={`ml-2`}>Usance Interest (%)</span>
                     </td>
                     <td className={`${styles.good} good`}>
+                      {marginData?.calculation?.provisionalUnitPricePerTon}
+                    </td>
+                    <td>
                       {marginData?.calculation?.provisionalUnitPricePerTon}
                     </td>
                   </tr>
@@ -153,6 +141,9 @@ function Index() {
                     <td className={`${styles.good} good`}>
                       {marginData?.calculation?.provisionalUnitPricePerTon}
                     </td>
+                    <td>
+                      {marginData?.calculation?.provisionalUnitPricePerTon}
+                    </td>
                   </tr>
                   <tr>
                     <td>
@@ -160,6 +151,9 @@ function Index() {
                       <span className={`ml-2`}>Tolerance (+/-) Percentage</span>
                     </td>
                     <td className={`${styles.good} good`}>
+                      {marginData?.calculation?.provisionalUnitPricePerTon}
+                    </td>
+                    <td>
                       {marginData?.calculation?.provisionalUnitPricePerTon}
                     </td>
                   </tr>
@@ -171,6 +165,9 @@ function Index() {
                     <td className={`${styles.good} good`}>
                       {marginData?.calculation?.provisionalUnitPricePerTon}
                     </td>
+                    <td>
+                      {marginData?.calculation?.provisionalUnitPricePerTon}
+                    </td>
                   </tr>
                   <tr>
                     <td>
@@ -178,6 +175,9 @@ function Index() {
                       <span className={`ml-2`}>No. of PDC's</span>
                     </td>
                     <td className={`${styles.good} good`}>
+                      {marginData?.calculation?.provisionalUnitPricePerTon}
+                    </td>
+                    <td>
                       {marginData?.calculation?.provisionalUnitPricePerTon}
                     </td>
                   </tr>
@@ -190,14 +190,7 @@ function Index() {
                     <td className={`${styles.highlight} satisfactory`}>
                       {marginData?.additionalPDC}
                     </td>
-                  </tr>
-
-                  <tr>
-                    <td>
-                      <span className={`${styles.sno}`}></span>
-                      <span className={`ml-2`}></span>
-                    </td>
-                    <td></td>
+                    <td>-</td>
                   </tr>
                 </tbody>
               </table>
@@ -206,12 +199,13 @@ function Index() {
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
               <table
-                className={`${styles.table} table`}
+                className={`${styles.table} mb-5 table`}
                 cellPadding="0"
                 cellSpacing="0"
               >
                 <tr>
                   <th>Calculation</th>
+                  <th></th>
                   <th></th>
                 </tr>
                 <tbody>
@@ -224,12 +218,18 @@ function Index() {
                     <td>
                       {marginData?.order?.orderValue?.toLocaleString() ?? 0}
                     </td>
+                    <td>
+                      {marginData?.order?.orderValue?.toLocaleString() ?? 0}
+                    </td>
                   </tr>
                   <tr>
                     <td>
                       <span className={`${styles.sno}`}>K</span>
                       <span className={`ml-2`}>Order Value (INR)</span>
                       <span className={`${styles.formula} ml-2`}>(J*C)</span>
+                    </td>
+                    <td>
+                      {marginData?.order?.orderValue?.toLocaleString() ?? 0}
                     </td>
                     <td>
                       {marginData?.order?.orderValue?.toLocaleString() ?? 0}
@@ -248,6 +248,9 @@ function Index() {
                     <td>
                       {marginData?.order?.orderValue?.toLocaleString() ?? 0}
                     </td>
+                    <td>
+                      {marginData?.order?.orderValue?.toLocaleString() ?? 0}
+                    </td>
                   </tr>
                   <tr>
                     <td>
@@ -258,12 +261,18 @@ function Index() {
                     <td>
                       {marginData?.order?.orderValue?.toLocaleString() ?? 0}
                     </td>
+                    <td>
+                      {marginData?.order?.orderValue?.toLocaleString() ?? 0}
+                    </td>
                   </tr>
                   <tr>
                     <td>
                       <span className={`${styles.sno}`}>N</span>
                       <span className={`ml-2`}>Gross Order Value (INR)</span>
                       <span className={`${styles.formula} ml-2`}>(K+L+M)</span>
+                    </td>
+                    <td>
+                      {marginData?.order?.orderValue?.toLocaleString() ?? 0}
                     </td>
                     <td>
                       {marginData?.order?.orderValue?.toLocaleString() ?? 0}
@@ -279,12 +288,18 @@ function Index() {
                     <td>
                       {marginData?.order?.orderValue?.toLocaleString() ?? 0}
                     </td>
+                    <td>
+                      {marginData?.order?.orderValue?.toLocaleString() ?? 0}
+                    </td>
                   </tr>
                   <tr>
                     <td>
                       <span className={`${styles.sno}`}>P</span>
                       <span className={`ml-2`}>Total Order Value (INR)</span>
                       <span className={`${styles.formula} ml-2`}>(N+O)</span>
+                    </td>
+                    <td>
+                      {marginData?.order?.orderValue?.toLocaleString() ?? 0}
                     </td>
                     <td>
                       {marginData?.order?.orderValue?.toLocaleString() ?? 0}
@@ -303,12 +318,20 @@ function Index() {
                       {marginData?.calculation?.tradeMargin?.toLocaleString() ??
                         0}
                     </td>
+                    <td>
+                      {marginData?.calculation?.tradeMargin?.toLocaleString() ??
+                        0}
+                    </td>
                   </tr>
                   <tr>
                     <td>
                       <span className={`${styles.sno}`}>R</span>
                       <span className={`ml-2`}>Margin Money (INR)</span>{' '}
                       <span className={`${styles.formula} ml-2`}>(P*G)</span>
+                    </td>
+                    <td>
+                      {marginData?.calculation?.grossOrderValue?.toLocaleString() ??
+                        0}
                     </td>
                     <td>
                       {marginData?.calculation?.grossOrderValue?.toLocaleString() ??
@@ -322,6 +345,10 @@ function Index() {
                         Total SPDC Amount Req. (INR)
                       </span>{' '}
                       <span className={`${styles.formula} ml-2`}>(P-R)</span>
+                    </td>
+                    <td>
+                      {marginData?.calculation?.grossOrderValue?.toLocaleString() ??
+                        0}
                     </td>
                     <td>
                       {marginData?.calculation?.grossOrderValue?.toLocaleString() ??
@@ -344,6 +371,10 @@ function Index() {
                       {marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC?.toLocaleString() ??
                         0}
                     </td>
+                    <td>
+                      {marginData?.calculation?.amountPerSPDC?.toLocaleString() ??
+                        0}
+                    </td>
                   </tr>
                   <tr>
                     <td>
@@ -358,6 +389,7 @@ function Index() {
                     <td className={`${styles.good} good`}>
                       {marginData?.order?.quantity} MT
                     </td>
+                    <td>{marginData?.order?.quantity} MT</td>
                   </tr>
                   <tr>
                     <td>
@@ -367,6 +399,7 @@ function Index() {
                     <td className={`${styles.good} good`}>
                       {marginData?.order?.quantity} MT
                     </td>
+                    <td>{marginData?.order?.quantity} MT</td>
                   </tr>
 
                   <tr>
@@ -380,6 +413,7 @@ function Index() {
                     <td className={`${styles.good} good`}>
                       {marginData?.order?.quantity} MT
                     </td>
+                    <td>{marginData?.order?.quantity} MT</td>
                   </tr>
                   <tr>
                     <td>
@@ -391,6 +425,7 @@ function Index() {
                     <td className={`${styles.good} good`}>
                       {marginData?.order?.quantity} MT
                     </td>
+                    <td>{marginData?.order?.quantity} MT</td>
                   </tr>
                   <tr>
                     <td>
@@ -408,13 +443,10 @@ function Index() {
                       {marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC?.toLocaleString() ??
                         0}
                     </td>
-                  </tr>
-                  <tr>
                     <td>
-                      <span className={`${styles.sno}`}></span>
-                      <span className={`ml-2`}></span>
+                      {marginData?.calculation?.amountPerSPDC?.toLocaleString() ??
+                        0}
                     </td>
-                    <td></td>
                   </tr>
                 </tbody>
               </table>
