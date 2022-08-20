@@ -114,7 +114,7 @@ export default function Index({
     let docs = await docUploadFunction(e)
 
     let newInput = { ...bolList }
-    newInput[index].[name] = docs
+    // newInput[index].[name] = docs
 
     console.log(newInput, 'response data123')
     setBolList(newInput)
@@ -388,7 +388,7 @@ export default function Index({
                                     value={vessel?.vesselInformation?.name}
                                     key={index}
                                   >
-                                    {vessel?.vesselInformation?.name}
+                                    {vessel?.vesselInformation[0]?.name}
                                   </option>
                                 ))
                                 : _get(
