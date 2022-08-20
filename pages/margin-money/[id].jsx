@@ -673,7 +673,7 @@ function Index() {
                                   {addPrefixOrSuffix(
                                     marginData?.order?.quantity?.toLocaleString(),
                                     '',
-                                  )}
+                                  )} {marginData?.order?.unitOfQuantity.toUpperCase()}
                                 </div>
                               </div>
                             </div>
@@ -781,7 +781,8 @@ function Index() {
                                   {addPrefixOrSuffix(
                                     marginData?.order?.perUnitPrice,
                                     '',
-                                  ).toLocaleString()}
+                                  ).toLocaleString()} 
+                                  {marginData?.order?.orderCurrency}
                                 </div>
                               </div>
                             </div>
