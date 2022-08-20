@@ -549,7 +549,7 @@ const index = ({
                     required
                     type="text"
                     name="existingCHA"
-                    defaultValue={creditDetail?.existingCHA.map(
+                    defaultValue={creditDetail?.existingCHA?.map(
                       (e) => {
                         return `${e}`
                       },
