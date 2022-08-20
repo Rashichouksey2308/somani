@@ -101,7 +101,7 @@ function Index(props) {
                     handleEditAddressInput(index)
             }}
          ></img> */}
-         {/* <img className={`${styles.image}`} src="/static/mode_edit.svg" alt="edit"/> */}
+         <img className={`${styles.image}`} src="/static/mode_edit.svg" alt="edit"/>
          <img src="/static/delete 2.svg" className="img-fluid ml-3" alt="delete"
          onClick={()=>{
                     onAddressRemove(index)
