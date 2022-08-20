@@ -17,24 +17,24 @@ import { toast } from 'react-toastify'
 
 export default function Home() {
   const dispatch = useDispatch()
-  const { Vessel } = useSelector(state => state.vessel)
-  console.log(Vessel, 'vessels1')
+  const { Vessel1 } = useSelector(state => state.vessel)
+  console.log(Vessel1, 'vessels1')
 
   let id1 = sessionStorage.getItem('VesselCompany')
   const orderID = sessionStorage.getItem('orderID')
   let id = sessionStorage.getItem('VesselId')
-  useEffect(() => {
-    let id = sessionStorage.getItem('VesselId')
-    dispatch(GetVessel(`?vesselId=${id}`))
+  useEffect(async () => {
+    await fetchInitialData()
+   
 
 
   }, [])
-  const partShipment = _get(
-    Vessel,
-    "data[0].partShipmentAllowed",
-    false
-  )
-
+  const fetchInitialData = async ()=> {
+    let id = sessionStorage.getItem('VesselId')
+    const data= await  dispatch(GetVessel(`?vesselId=${id}`))
+    setData(data)
+  }
+ 
   const [list, setList] = useState()
   const [containerExcel, setContainerExcel] = useState({})
   const [vesselCertificate, setVesselCertificate] = useState({})
@@ -46,7 +46,18 @@ export default function Home() {
 
 
 
-  useEffect(() => {
+  // useEffect(() => {
+  
+  //    console.log("check 2")
+  // }, [Vessel])
+const[partShipment,setPartshipment]=useState()
+const setData=(Vessel)=>{
+   setPartshipment(_get(
+    Vessel,
+    "data[0].partShipmentAllowed",
+    false
+  ))
+
     setCompanyName(_get(Vessel, "data[0].company.companyName", ''))
     if (_get(
       Vessel,
@@ -102,9 +113,7 @@ export default function Home() {
       "data[0].vessels",
       []
     ))
-     console.log("check 2")
-  }, [Vessel])
-
+}
   const onAddVessel = () => {
     setList([
       ...list,
@@ -285,15 +294,17 @@ export default function Home() {
     }
     
     
-    
-    list[0].vesselInformation.forEach((val, i) => {
+    let tempArr=[...list]
+    tempArr[0].vesselInformation.forEach((val, i) => {
       if (i == index) {
         val[name] = value
       }
     })
+      setList(tempArr)
+    console.log(tempArr,"tempArr")
     // console.log(tempArr,"list",tempState[0].vesselInformation)
     // tempState[0].vesselInformation = [...tempArr]
-    setList([...list])
+  
     
     // setList(prevState => {
     //   const newState = prevState.map((obj, i) => {
@@ -396,7 +407,7 @@ export default function Home() {
     })
   }
 
-  const onSaveHandler =  () => {
+  const onSaveHandler = async() => {
     const payload = {
       vesselId: id,
       partShipmentAllowed: partShipmentAllowed,
@@ -413,9 +424,10 @@ export default function Home() {
     }
     console.log(payload, 'vessels123456')
     console.log("check 3")
-    dispatch(UpdateVessel(payload))
+    await dispatch(UpdateVessel(payload))
+    fetchInitialData()
   }
-  console.log(Vessel, "Vessel")
+  // console.log(Vessel, "Vessel")
   console.log(containerExcel, ' containerExcel')
 
 
