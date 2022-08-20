@@ -505,7 +505,7 @@ export default function Index({ addButton, inspectionData }) {
                                       type="file"
                                       name="myfile"
                                       accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                      onChange={(e) => uploadDocument1(e)}
+                                      onChange={(e) => uploadDocument3(e)}
                                     />
                                     <button
                                       className={`${styles.button_upload} btn`}
