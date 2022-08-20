@@ -8,7 +8,7 @@ import _get from "lodash/get";
 function Index({ directorData }) {
   const [darkMode, setDarkMode] = useState(false)
 
-  const [otherAssociates, setOtherAssociates] = useState('')
+  const [otherAssociates, setOtherAssociates] = useState('Current')
   console.log(directorData, "directorDetails")
 
 
@@ -301,7 +301,7 @@ function Index({ directorData }) {
 
                                   />
                                   <label
-                                    className="form-check-label"
+                                   // className="form-check-label"
                                     htmlFor="flexRadioDefault5"
                                   >
                                     Nominated

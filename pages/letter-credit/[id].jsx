@@ -242,7 +242,7 @@ function Index() {
     <>
       {' '}
       <div className="container-fluid p-0 border-0">
-        <div className={styles.container_fluid}>
+        <div className={`${styles.container_fluid}`}>
           <div className={styles.head_header}>
             <img
               className={`${styles.arrow} mr-2 img-fluid`}
@@ -252,7 +252,7 @@ function Index() {
             <h1 className={`${styles.heading}`}>Letter of Credit </h1>
           </div>
 
-          <div className={`${styles.wrapper} card upload_main`}>
+          <div className={`${styles.wrapper} vessel_card card upload_main`}>
             <div
               className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
               data-toggle="collapse"
@@ -269,7 +269,9 @@ function Index() {
               aria-labelledby="lcApplication"
               data-parent="#lcApplication"
             >
-              <div className={` ${styles.cardBody} card-body  border_color`}>
+              <div
+                className={` ${styles.cardBody} vessel_card card-body  border_color`}
+              >
                 <div className={` ${styles.content}`}>
                   <div className={` ${styles.body}`}>
                     <Row>

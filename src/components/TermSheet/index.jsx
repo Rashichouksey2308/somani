@@ -464,6 +464,7 @@ const Index = () => {
             <AdditionalComment
               setAdditionalComments={setAdditionalComments}
               additionalComments={additionalComments}
+              termsheetDetails={termsheetDetails}
             />
             <OtherTerms
               onChangeDropDown={onChangeDropDown}
