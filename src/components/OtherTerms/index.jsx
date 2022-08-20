@@ -210,7 +210,7 @@ const Index = ({ termsheetDetails, onChangeDropDown, termsheet, otherTermConditi
                                             <label className={`${styles.checkbox_label} termsheet_Text`}>CIMS Charges (incase Commodity is Coal)</label>
                                         </div>
                                         <div className='pt-4 d-flex align-items-center'>
-                                            <input id="taxCollectedatSource" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.dutyAndTaxes?.taxCollectedatSource} onChange={onChangeDutyAndTaxes} />
+                                            <input id="taxCollectedatSource" className={styles.checkbox}  type="checkbox" checked={true} onChange={onChangeDutyAndTaxes} />
                                             <label className={`${styles.checkbox_label} termsheet_Text`}>Tax Collected at Source ( if applicable )</label>
                                         </div>
                                     </div>
