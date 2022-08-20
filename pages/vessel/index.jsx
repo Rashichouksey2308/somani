@@ -446,6 +446,8 @@ export default function Home() {
   return (
     <>
       <Vessels
+        vesselCertificate={vesselCertificate}
+        setVesselCertificate={setVesselCertificate}
         partShipmentAllowed={partShipmentAllowed}
         setPartShipmentAllowed={setPartShipmentAllowed}
         id1={id1}
