@@ -868,7 +868,7 @@ function Index({
                 )
               })}
 
-            <UploadDocument vesselCertificate={vesselCertificate} handleClose={handleClose} uploadDocument1={uploadDocHandler} />
+            <UploadDocument docName='Vessel Certificate' vesselCertificate={vesselCertificate} handleClose={handleClose} uploadDocument1={uploadDocHandler} />
             <UploadOther
               module="Agreements,Insurance,LcOpening"
               orderid={id1}

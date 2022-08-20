@@ -67,7 +67,7 @@ function Index(props) {
         <div className={`${styles.paymet} card-body`}>
           <div className={`d-flex justify-content-between align-items-between`}>
             <input
-              placeholder={`5000 Wet Metric Tons (Wmt) +/- 10Pct Of Mmd: Manganeseore Of Gabon Origin (44,50Pct Mn Typical - 5Pct Moisture), Ciffo Visakhapatnam Port Packing In Bulk.`}
+              placeholder={``}
               onChange={(e) => {
                 setValue(e.target.value)
               }}

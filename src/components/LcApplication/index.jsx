@@ -742,7 +742,7 @@ function Index({
                       </div>
                     </div>
                   </div>
-                  <div className={`${styles.datatable} mb-5 ml-5 datatable `}>
+                  {/* <div className={`${styles.datatable} mb-5 ml-5 datatable `}>
                     <div className={styles.table_scroll_outer}>
                       <div className={styles.table_scroll_inner}>
                         <table
@@ -798,7 +798,7 @@ function Index({
                         </table>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 <div
                   className={`${styles.dashboard_form} border_color`}
