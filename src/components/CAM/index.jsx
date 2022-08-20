@@ -219,6 +219,7 @@ function Index({
       },
     ],
   }
+  console.log(camData,"camdata")
 
   return (
     <>
