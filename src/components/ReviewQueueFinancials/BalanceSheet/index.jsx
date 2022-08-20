@@ -187,21 +187,21 @@ function Index({ balanceData }) {
                       </td>
                       <td className="text-center">
                         <strong>
-                          {latestYearData?.equityLiabilities?.borrowingsCurrent?.toLocaleString(undefined, { minimumFractionDigits: 2 }) +
-                            latestYearData?.equityLiabilities?.borrowingsNonCurrent?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                          {(latestYearData?.equityLiabilities?.borrowingsCurrent +
+                            latestYearData?.equityLiabilities?.borrowingsNonCurrent)?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                         </strong>
                       </td>
                       <td className="text-center">
                         <strong>
-                          {previousYearData?.equityLiabilities?.borrowingsCurrent?.toLocaleString(undefined, { minimumFractionDigits: 2 }) +
+                          {(previousYearData?.equityLiabilities?.borrowingsCurrent +
                             previousYearData?.equityLiabilities
-                              ?.borrowingsNonCurrent?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                              ?.borrowingsNonCurrent)?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                         </strong>
                       </td>
                       <td className="text-center">
                         <strong>
-                          {lastYearData?.equityLiabilities?.borrowingsCurrent?.toLocaleString(undefined, { minimumFractionDigits: 2 }) +
-                            lastYearData?.equityLiabilities?.borrowingsNonCurrent?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                          {(lastYearData?.equityLiabilities?.borrowingsCurrent +
+                            lastYearData?.equityLiabilities?.borrowingsNonCurrent)?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                         </strong>
                       </td>
                       <td className="text-center">
