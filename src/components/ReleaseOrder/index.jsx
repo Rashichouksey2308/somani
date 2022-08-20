@@ -430,7 +430,7 @@ export default function Index({ ReleaseOrderData }) {
           </div>
 
           <div className="mt-4">
-            <UploadOther orderid={orderid} module="Loading-Transit-Unloading" />
+            <UploadOther orderid={orderid} module="PaymentsInvoicing&Delivery" />
           </div>
         </div>
 
