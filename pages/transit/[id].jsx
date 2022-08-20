@@ -20,10 +20,12 @@ import { toast } from 'react-toastify'
 function Index() {
   const [isShipmentTypeBULK, setIsShipmentTypeBulk] = useState(false)
   const [darkMode, setDarkMode] = useState(false)
+  const [TransitDetails, setTransitDetails] = useState({})
+  console.log(TransitDetails,'TransitDetails')
 
 
   const dispatch = useDispatch()
-  const { TransitDetails } = useSelector((state) => state.TransitDetails)
+  //const { TransitDetails1 } = useSelector((state) => state.TransitDetails)
   const vesselData = _get(TransitDetails, "data[0].order.vessel", {})
   console.log(TransitDetails, 'TransitDetails')
   const commodity = _get(TransitDetails, "data[0].order.commodity", '').trim().toLowerCase()
@@ -35,10 +37,20 @@ function Index() {
     setIsShipmentTypeBulk(Value)
   }, [vesselData])
 
-  useEffect(() => {
-    dispatch(GetTransitDetails(`?transitId=${transID}`))
-  }, [dispatch])
+  // useEffect(() => {
+  //   dispatch(GetTransitDetails(`?transitId=${transID}`))
+  // }, [dispatch])
+  
+  useEffect(async () => {
+    await fetchInitialData()
 
+
+
+  }, [])
+  const fetchInitialData = async () => {
+    const data = await dispatch(GetTransitDetails(`?transitId=${transID}`))
+    setTransitDetails(data)
+  }
 
 
   const uploadDoc = async (e) => {

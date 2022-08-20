@@ -28,6 +28,11 @@ export const phoneValidation = (phone) => {
   }
 }
 
+export const CovertvaluefromtoCR = (value, conversionValue = 10000000) => {
+  let newValue = Number(value / conversionValue)
+  return newValue
+}
+
 export const predictiveSearch = (text) => {
   var regex = /[a-zA-Z0-9]{4}/
   return regex.test(text)

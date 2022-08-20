@@ -93,7 +93,8 @@ export const GetAllTransitDetails = (payload) => async (dispatch, getState, api)
                 dispatch(getAllTransitDetailsFailed(response.data.data))
                 let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
                 if (!toast.isActive(toastMessage.toUpperCase())) {
-                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })         }
+                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+                }
             }
         })
     } catch (error) {
@@ -101,7 +102,8 @@ export const GetAllTransitDetails = (payload) => async (dispatch, getState, api)
 
         let toastMessage = 'COULD NOT GET TRANSIT DETAILS AT THIS TIME'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
     }
 }
 
@@ -114,24 +116,31 @@ export const GetTransitDetails = (payload) => async (dispatch, getState, api) =>
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
-        Axios.get(`${API.corebaseUrl}${API.getTransitDetails}${payload}`, {
-            headers: headers,
-        }).then((response) => {
-            if (response.data.code === 200) {
-                dispatch(getTransitDetailsSuccess(response.data.data))
-            } else {
-                dispatch(getTransitDetailsFailed(response.data.data))
-                let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-                if (!toast.isActive(toastMessage.toUpperCase())) {
-                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })         }
+        let response = await Axios.get(
+            `${API.corebaseUrl}${API.getTransitDetails}${payload}`,
+            {
+                headers: headers,
+            },
+        )
+        if (response.data.code === 200) {
+            console.log('this')
+
+            // dispatch(getVesselSuccess(response.data.data))
+            return response.data.data
+        } else {
+            dispatch(getTransitDetailsFailed(response.data.data))
+            let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+                toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
             }
-        })
+        }
     } catch (error) {
         dispatch(getTransitDetailsFailed())
 
         let toastMessage = 'COULD NOT GET   TRANSIT DATA AT THIS TIME'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
     }
 }
 
@@ -146,15 +155,18 @@ export const UpdateTransitDetails = (payload) => async (dispatch, getState, api)
             headers: headers,
         }).then((response) => {
             if (response.data.code === 200) {
+
                 dispatch(updateTransitDetailsSuccess(response.data.data))
                 let toastMessage = 'UPDATE SUCCESSFULL'
                 if (!toast.isActive(toastMessage.toUpperCase())) {
-                    toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })         }
+                    toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+                }
             } else {
                 dispatch(updateTransitDetailsFailed(response.data.data))
                 let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
                 if (!toast.isActive(toastMessage.toUpperCase())) {
-                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })         }
+                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+                }
             }
         })
     } catch (error) {
@@ -162,7 +174,8 @@ export const UpdateTransitDetails = (payload) => async (dispatch, getState, api)
 
         let toastMessage = 'COULD NOT UPDATE TRANSIT DATA AT THIS TIME'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
     }
 }
 
@@ -181,7 +194,8 @@ export const GetAdditionalData = (payload) => async (dispatch, getState, api) =>
                 dispatch(getAdditionalDataFailed(response.data.data))
                 let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
                 if (!toast.isActive(toastMessage.toUpperCase())) {
-                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })         }
+                    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+                }
             }
         })
     } catch (error) {
@@ -189,6 +203,7 @@ export const GetAdditionalData = (payload) => async (dispatch, getState, api) =>
 
         let toastMessage = 'COULD NOT GET TRANSIT DETAILS AT THIS TIME'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
     }
 }
