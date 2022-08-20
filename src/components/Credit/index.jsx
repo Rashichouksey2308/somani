@@ -549,7 +549,7 @@ const index = ({
                     required
                     type="text"
                     name="existingCHA"
-                    defaultValue={creditDetail?.existingCHA.map(
+                    defaultValue={creditDetail?.existingCHA?.map(
                       (e) => {
                         return `${e}`
                       },
@@ -1959,7 +1959,7 @@ const index = ({
                             className={`${styles.dropDown} font-weight-bold heading`}
                           >
                             <option>{!profile.actions}</option>
-                            <option value="SBI">SBI</option>
+                            <option value="ICICI"> ICICI</option>
                             <option value="HDFC">HDFC</option>
                           </select>
                         </td>

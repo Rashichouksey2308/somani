@@ -337,18 +337,21 @@ export default function Index() {
                   )}
 
                   <div className="d-flex mt-5">
-                    <input
-                      as="textarea"
-                      rows={3}
-                      name="remarks"
-                      onChange={(e) =>
-                        saveHedgingData(e.target.name, e.target.value)
-                      }
-                      className={`${styles.comment_field} form-control`}
-                    />
-                    <label className={`${styles.label_comment} label_heading`}>
-                      Remarks
-                    </label>
+                    <div className='position-relative'>
+                      <input
+                        as="textarea"
+                        rows={3}
+                        name="remarks"
+                        required
+                        onChange={(e) =>
+                          saveHedgingData(e.target.name, e.target.value)
+                        }
+                        className={`${styles.comment_field} input form-control`}
+                      />
+                      <label className={`${styles.label_comment} ${styles.label_heading} label_heading`}>
+                        Remarks
+                      </label>
+                    </div>
                   </div>
                 </div>
                 <div className={`${styles.table_container} mt-4`}>

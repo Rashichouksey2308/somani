@@ -4,6 +4,7 @@ import styles from '../profile.module.scss'
 import CommonSave from '../../CommonSave'
 import { useDispatch } from 'react-redux'
 import { UpdateCompanyDetails } from '../../../redux/companyDetail/action'
+import {CovertvaluefromtoCR} from '../../../utils/helper'
 
 function Index({ order, companyDetail }) {
   console.log(companyDetail, 'companyDetail')
@@ -173,7 +174,7 @@ function Index({ order, companyDetail }) {
                   Paid-Up Capital (Cr)
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
-                  {companyDetail?.profile?.companyDetail?.paidUpCapital}
+                  {CovertvaluefromtoCR(companyDetail?.profile?.companyDetail?.paidUpCapital)}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
