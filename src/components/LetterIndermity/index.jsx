@@ -282,7 +282,7 @@ function Index({ TransitDetails }) {
                 onChange={(e) => SetAuthorisedSignatoryHanlder(e)}
                 className={`${styles.input_field} ${styles.customSelect} input mt-4 pl-3`}
               >
-                <option value=""></option>
+                <option value="">Select an option</option>
                 <option value="BhawanaJain">Bhawana Jain </option>
                 <option value="VipinKumar">Vipin Kumar </option>
                 <option value="DeveshJain">Devesh Jain </option>

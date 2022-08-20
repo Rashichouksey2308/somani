@@ -6,7 +6,7 @@ import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 import { toast } from 'react-toastify'
 
-const Index = ({ setAdditionalComments, additionalComments }) => {
+const Index = ({ setAdditionalComments, additionalComments , termsheetDetails }) => {
     const [commentType, setCommentType] = useState("Deliveries/Due Date/Payment")
     const [comment, setComment] = useState([
 
@@ -17,8 +17,14 @@ const Index = ({ setAdditionalComments, additionalComments }) => {
 
     const [days, setDays] = useState({ day1: "", day2: "" })
     const [inputs, setInputs] = useState({ input1: "", input2: "", input3: "" })
+    useEffect(() => {
+        setDays({ day1: termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate, day2: termsheetDetails?.paymentDueDate?.daysFromBlDate })
+        setInputs({ input1: termsheetDetails?.transactionDetails?.portOfDischarge, input2: "Dr. Amin", input3: "IGM" })
+    },[termsheetDetails])
     console.log(comment, 'comment')
-    const allcomment = []
+    const allcomment = [
+        
+    ]
     useEffect(() => {
         additionalComments.map((comment, index) => {
             setIsCommentEditable(prev => ({ ...prev, [index]: false }))
@@ -30,7 +36,7 @@ const Index = ({ setAdditionalComments, additionalComments }) => {
     }
 
 
-
+console.log(termsheetDetails,"termsheetDetails")
 
     const getInputValue = (name, value) => {
         console.log(name, value, "name,value")
@@ -94,10 +100,12 @@ const Index = ({ setAdditionalComments, additionalComments }) => {
                             <div>
                                 <div className={`${styles.form_group} d-flex justify-content-between`} >
                                     <div className='d-flex' style={{ width: "460px" }}>
-                                        <select className={`${styles.value} ${styles.customSelect} input form-control`} onChange={(e) => setCommentType(e.target.value)} required>
-                                            <option>
-                                            Select an option
-                                            </option>
+                                        <select className={`${styles.value} ${styles.customSelect} input form-control`}
+                                         onChange={(e) => {setCommentType(e.target.value)
+                                        setDays({ day1: termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate, day2: termsheetDetails?.paymentDueDate?.daysFromBlDate })
+                                          setInputs({ input1: termsheetDetails?.transactionDetails?.portOfDischarge, input2: "Dr. Amin", input3: "IGM" })}
+                                         } required>
+                                            
                                             <option value="Deliveries/Due Date/Payment">Deliveries/Due Date/Payment</option>
                                             <option value="Storage of Goods">Storage of Goods</option>
                                         </select>
@@ -119,11 +127,24 @@ const Index = ({ setAdditionalComments, additionalComments }) => {
 
                                 <div className={`${styles.form_group}  `}>
                                     {commentType == "Deliveries/Due Date/Payment" ?
-                                        <p><GrowInput name={"day1"} getValue={getInputValue} className={styles.grow_input} type="text" /> days from the vessel/container(s) at discharge date at discharge port or <GrowInput name={"day2"} getValue={getInputValue} className={styles.grow_input} type="text" /> days  from the BL date, whichever is earlier, through TT or LC (in case of LC all Bank charges to be borne by the Buyer).  </p>
+                                        <p><GrowInput name={"day1"} getValue={getInputValue} 
+                                        className={styles.grow_input} 
+                                        type="text" 
+                                        defaultValue={days.day1}
+                                        /> days from the vessel/container(s) at discharge date at discharge port or <GrowInput 
+                                        name={"day2"} getValue={getInputValue} 
+                                        defaultValue={days.day2}
+                                        className={styles.grow_input} type="text" /> days  from the BL date, whichever is earlier, through TT or LC (in case of LC all Bank charges to be borne by the Buyer).  </p>
                                         :
                                         <p>Cargo to be stored in Custom Bonded Warehouse at port of Discharge (
-                                            <GrowInput name={"input1"} getValue={getInputValue} className={styles.grow_input} type="text" />
-                                            ) under CMA with <GrowInput name={"input2"} getValue={getInputValue} className={styles.grow_input} type="text" />. “<GrowInput name={"input3"} getValue={getInputValue} className={styles.grow_input} type="text" /> and Into Bond Bill of Entry” shall be filled by the lndo’s nominated party and all expenses/charges to be born and paid by the Buyer.</p>
+                                            <GrowInput name={"input1"}
+                                            defaultValue={inputs.input1}
+                                            getValue={getInputValue} className={styles.grow_input} type="text" />
+                                            ) under CMA with <GrowInput name={"input2"}
+                                            defaultValue={inputs.input2}
+                                            getValue={getInputValue} className={styles.grow_input} type="text" />. “<GrowInput 
+                                            defaultValue={inputs.input3}
+                                            name={"input3"} getValue={getInputValue} className={styles.grow_input} type="text" /> and Into Bond Bill of Entry” shall be filled by the lndo’s nominated party and all expenses/charges to be born and paid by the Buyer.</p>
                                     }
 
                                 </div>
