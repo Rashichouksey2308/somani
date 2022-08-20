@@ -136,7 +136,7 @@ const Index = ({
                     as="textarea"
                     defaultValue={comment}
                     rows={3}
-                    readOnly={editProfile}
+                    readOnly={!editProfile}
                   />
 
                   <div className="ml-3">
@@ -194,7 +194,7 @@ const Index = ({
                     defaultValue={comment}
                     as="textarea"
                     rows={3}
-                    readOnly={editFinance}
+                    readOnly={!editFinance}
                   />
                   <div className="ml-3">
                     <img
@@ -446,7 +446,7 @@ const Index = ({
                     defaultValue={strengths}
                     as="textarea"
                     rows={3}
-                    readOnly={editStren}
+                    readOnly={!editStren}
                   />
                   <div className="mt-3">
                     <img
@@ -527,7 +527,7 @@ const Index = ({
                     defaultValue={weakness}
                     as="textarea"
                     rows={3}
-                    readOnly={editWeak}
+                    readOnly={!editWeak}
                   />
                   <div className="mt-3">
                     <img

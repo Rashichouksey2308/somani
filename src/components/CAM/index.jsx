@@ -24,6 +24,7 @@ import { GetDocuments } from 'redux/creditQueueUpdate/action'
 import { ViewDocument } from 'redux/ViewDoc/action'
 import { toast } from 'react-toastify'
 import _get from 'lodash/get'
+import {CovertvaluefromtoCR} from '../../utils/helper'
 
 Chart.register(
   ArcElement,
@@ -218,6 +219,7 @@ function Index({
       },
     ],
   }
+  console.log(camData,"camdata")
 
   return (
     <>
@@ -377,7 +379,7 @@ const basicInfo = (camData) => {
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label1`}>Order Value</span>
                   <span className={`${styles.value} value pr-5`}>
-                    {camData?.orderValue} {camData?.unitOfValue}
+                    {CovertvaluefromtoCR(camData?.orderValue)} {camData?.unitOfValue}
                   </span>
                 </Col>
                 <Col
@@ -396,7 +398,7 @@ const basicInfo = (camData) => {
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label1`}>Quantity</span>
                   <span className={`${styles.value} value pr-5`}>
-                    {camData?.quantity} {camData?.unitOfQuantity}
+                    {camData?.quantity} {camData?.unitOfQuantity.toUpperCase()}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
@@ -656,13 +658,13 @@ const groupExposure = (camData) => {
           data-parent="#profileAccordion"
         >
           <div className={`${styles.info_wrapper} card-body border_color`}>
-            {camData &&
-              camData?.company?.groupExposureDetail?.map((exp, index) => {
-                let name = exp?.name?.split(' ') ?? 'NA'
-                console.log(name, 'thirdkjdfbh')
-                return (
-                  <Row key={index} className={`${styles.row}`}>
-                    <Col md={4}>
+            <Row  className={`${styles.row}`}>
+              {camData &&
+                camData?.company?.groupExposureDetail?.map((exp, index) => {
+                  let name = exp?.name?.split(' ') ?? 'NA'
+                  console.log(name, 'thirdkjdfbh')
+                  return (
+                    <Col key={index} md={4}>
                       <div className={`${styles.exposureCard}`}>
                         <Row>
                           <Col
@@ -730,147 +732,147 @@ const groupExposure = (camData) => {
                         </Row>
                       </div>
                     </Col>
-                    {/* <Col md={4}>
-                <div className={`${styles.exposureCard}`}>
-                  <Row>
-                    <Col
-                      sm={12}
-                      className={`d-flex justify-content-start align-content-center  mb-5`}
-                    >
-                      <div className={`${styles.icon} `}>
-                        <span
-                          className={`d-flex justify-content-center align-content-center`}
-                        >
-                          ET
-                        </span>
-                      </div>
+                    //       {/* <Col md={4}>
+                    //   <div className={`${styles.exposureCard}`}>
+                    //     <Row>
+                    //       <Col
+                    //         sm={12}
+                    //         className={`d-flex justify-content-start align-content-center  mb-5`}
+                    //       >
+                    //         <div className={`${styles.icon} `}>
+                    //           <span
+                    //             className={`d-flex justify-content-center align-content-center`}
+                    //           >
+                    //             ET
+                    //           </span>
+                    //         </div>
 
-                      <span className={` ${styles.name} ml-3  `}>
-                        Emerging Traders
-                      </span>
-                    </Col>
-                    <Col sm={12} className={`${styles.limit}   mb-5`}>
-                      <div
-                        className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
-                      >
-                        <div className={`${styles.limit_box} `}>
-                          <span className={`${styles.limit_label} `}>
-                            LIMIT
-                          </span>
-                        </div>
-                        <span>1,900.00</span>
-                      </div>
-                      <div className={`${styles.bar}`}>
-                        <div className={`${styles.fill}`}></div>
-                      </div>
-                    </Col>
-                    <Col sm={12} className={`${styles.limit}   mb-5`}>
-                      <div
-                        className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
-                      >
-                        <div className={`${styles.limit_box} `}>
-                          <span className={`${styles.limit_label} `}>
-                            O/S BALANCE
-                          </span>
-                        </div>
-                        <span>1,900.00</span>
-                      </div>
-                      <div className={`${styles.bar}`}>
-                        <div className={`${styles.fill}`}></div>
-                      </div>
-                    </Col>
-                    <Col sm={12} className={`${styles.limit}   mb-5`}>
-                      <div
-                        className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
-                      >
-                        <div className={`${styles.limit_box} `}>
-                          <span className={`${styles.limit_label} `}>
-                            CONDUCT
-                          </span>
-                        </div>
-                      </div>
-                      <p>
-                        {' '}
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                        sed diam nonumy eirmod tempor invidunt ut labore et
-                        dolore magna aliquyam erat, sed diam
-                      </p>
-                    </Col>
-                  </Row>
-                </div>
-              </Col>
-              <Col md={4}>
-                <div className={`${styles.exposureCard}`}>
-                  <Row>
-                    <Col
-                      sm={12}
-                      className={`d-flex justify-content-start align-content-center  mb-5`}
-                    >
-                      <div className={`${styles.icon} `}>
-                        <span
-                          className={`d-flex justify-content-center align-content-center`}
-                        >
-                          ET
-                        </span>
-                      </div>
+                    //         <span className={` ${styles.name} ml-3  `}>
+                    //           Emerging Traders
+                    //         </span>
+                    //       </Col>
+                    //       <Col sm={12} className={`${styles.limit}   mb-5`}>
+                    //         <div
+                    //           className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
+                    //         >
+                    //           <div className={`${styles.limit_box} `}>
+                    //             <span className={`${styles.limit_label} `}>
+                    //               LIMIT
+                    //             </span>
+                    //           </div>
+                    //           <span>1,900.00</span>
+                    //         </div>
+                    //         <div className={`${styles.bar}`}>
+                    //           <div className={`${styles.fill}`}></div>
+                    //         </div>
+                    //       </Col>
+                    //       <Col sm={12} className={`${styles.limit}   mb-5`}>
+                    //         <div
+                    //           className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
+                    //         >
+                    //           <div className={`${styles.limit_box} `}>
+                    //             <span className={`${styles.limit_label} `}>
+                    //               O/S BALANCE
+                    //             </span>
+                    //           </div>
+                    //           <span>1,900.00</span>
+                    //         </div>
+                    //         <div className={`${styles.bar}`}>
+                    //           <div className={`${styles.fill}`}></div>
+                    //         </div>
+                    //       </Col>
+                    //       <Col sm={12} className={`${styles.limit}   mb-5`}>
+                    //         <div
+                    //           className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
+                    //         >
+                    //           <div className={`${styles.limit_box} `}>
+                    //             <span className={`${styles.limit_label} `}>
+                    //               CONDUCT
+                    //             </span>
+                    //           </div>
+                    //         </div>
+                    //         <p>
+                    //           {' '}
+                    //           Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                    //           sed diam nonumy eirmod tempor invidunt ut labore et
+                    //           dolore magna aliquyam erat, sed diam
+                    //         </p>
+                    //       </Col>
+                    //     </Row>
+                    //   </div>
+                    // </Col>
+                    // <Col md={4}>
+                    //   <div className={`${styles.exposureCard}`}>
+                    //     <Row>
+                    //       <Col
+                    //         sm={12}
+                    //         className={`d-flex justify-content-start align-content-center  mb-5`}
+                    //       >
+                    //         <div className={`${styles.icon} `}>
+                    //           <span
+                    //             className={`d-flex justify-content-center align-content-center`}
+                    //           >
+                    //             ET
+                    //           </span>
+                    //         </div>
 
-                      <span className={` ${styles.name} ml-3  `}>
-                        Emerging Traders
-                      </span>
-                    </Col>
-                    <Col sm={12} className={`${styles.limit}   mb-5`}>
-                      <div
-                        className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
-                      >
-                        <div className={`${styles.limit_box} `}>
-                          <span className={`${styles.limit_label} `}>
-                            LIMIT
-                          </span>
-                        </div>
-                        <span>1,900.00</span>
-                      </div>
-                      <div className={`${styles.bar}`}>
-                        <div className={`${styles.fill}`}></div>
-                      </div>
-                    </Col>
-                    <Col sm={12} className={`${styles.limit}   mb-5`}>
-                      <div
-                        className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
-                      >
-                        <div className={`${styles.limit_box} `}>
-                          <span className={`${styles.limit_label} `}>
-                            O/S BALANCE
-                          </span>
-                        </div>
-                        <span>1,900.00</span>
-                      </div>
-                      <div className={`${styles.bar}`}>
-                        <div className={`${styles.fill}`}></div>
-                      </div>
-                    </Col>
-                    <Col sm={12} className={`${styles.limit}   mb-5`}>
-                      <div
-                        className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
-                      >
-                        <div className={`${styles.limit_box} `}>
-                          <span className={`${styles.limit_label} `}>
-                            CONDUCT
-                          </span>
-                        </div>
-                      </div>
-                      <p>
-                        {' '}
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                        sed diam nonumy eirmod tempor invidunt ut labore et
-                        dolore magna aliquyam erat, sed diam
-                      </p>
-                    </Col>
-                  </Row>
-                </div>
-              </Col> */}
-                  </Row>
-                )
-              })}
+                    //         <span className={` ${styles.name} ml-3  `}>
+                    //           Emerging Traders
+                    //         </span>
+                    //       </Col>
+                    //       <Col sm={12} className={`${styles.limit}   mb-5`}>
+                    //         <div
+                    //           className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
+                    //         >
+                    //           <div className={`${styles.limit_box} `}>
+                    //             <span className={`${styles.limit_label} `}>
+                    //               LIMIT
+                    //             </span>
+                    //           </div>
+                    //           <span>1,900.00</span>
+                    //         </div>
+                    //         <div className={`${styles.bar}`}>
+                    //           <div className={`${styles.fill}`}></div>
+                    //         </div>
+                    //       </Col>
+                    //       <Col sm={12} className={`${styles.limit}   mb-5`}>
+                    //         <div
+                    //           className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
+                    //         >
+                    //           <div className={`${styles.limit_box} `}>
+                    //             <span className={`${styles.limit_label} `}>
+                    //               O/S BALANCE
+                    //             </span>
+                    //           </div>
+                    //           <span>1,900.00</span>
+                    //         </div>
+                    //         <div className={`${styles.bar}`}>
+                    //           <div className={`${styles.fill}`}></div>
+                    //         </div>
+                    //       </Col>
+                    //       <Col sm={12} className={`${styles.limit}   mb-5`}>
+                    //         <div
+                    //           className={`${styles.label} d-flex justify-content-between align-content-center  mb-3`}
+                    //         >
+                    //           <div className={`${styles.limit_box} `}>
+                    //             <span className={`${styles.limit_label} `}>
+                    //               CONDUCT
+                    //             </span>
+                    //           </div>
+                    //         </div>
+                    //         <p>
+                    //           {' '}
+                    //           Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                    //           sed diam nonumy eirmod tempor invidunt ut labore et
+                    //           dolore magna aliquyam erat, sed diam
+                    //         </p>
+                    //       </Col>
+                    //     </Row>
+                    //   </div>
+                    // </Col> */}
+
+                  )
+                })} </Row>
           </div>
         </div>
       </div>
@@ -936,7 +938,7 @@ const orderSummary = (camData) => {
                   </span>
                 </td>
                 <td>{camData?.orderId}</td>
-                <td>{camData?.orderValue}</td>
+                <td>{CovertvaluefromtoCR(camData?.orderValue)}</td>
                 <td>{camData?.commodity}</td>
                 <td>In Process</td>
 
@@ -1025,7 +1027,7 @@ const creditProfile = (
                   </span>
                   <span className={`${styles.value} value `}>
                     {latestAuditorData?.nameOfAuditor ===
-                    previousAuditorData?.nameOfAuditor
+                      previousAuditorData?.nameOfAuditor
                       ? ' No'
                       : 'Yes'}
                   </span>

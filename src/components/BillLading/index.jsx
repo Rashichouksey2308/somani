@@ -15,6 +15,8 @@ import { useEffect } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import UploadOther from '../UploadOther'
+import { CovertvaluefromtoCR } from '../../utils/helper'
+import moment from 'moment'
 
 export default function Index({
   isShipmentTypeBULK,
@@ -62,11 +64,17 @@ export default function Index({
     'Bulk'
   const existingBlData = _get(TransitDetails, `data[0].BL.billOfLanding`, [])
   const initalState =
-    !existingBlData.length === 0
-      ? [...existingBlData]
-      : shipmentTypeBulk
+    shipmentTypeBulk
       ? initialStateForBulk
       : initialStateForLiner
+  // console.log(existingBlData,'existingBlData')
+
+  useEffect(() => {
+    if (existingBlData.length > 0) {
+      setBolList(existingBlData)
+    }
+  }, [existingBlData])
+  
 
   const [editInput, setEditInput] = useState(true)
   const [shipmentType, setShipmentType] = useState(true)
@@ -78,6 +86,7 @@ export default function Index({
     useState(null)
 
   const [lastDate, setlastDate] = useState(new Date())
+  // console.log(bolList, existingBlData, 'existingBlData')
   console.log(bolList, existingBlData, 'existingBlData')
 
   // useEffect(() => {
@@ -89,7 +98,7 @@ export default function Index({
     'data[0].order.vessel.partShipmentAllowed',
     false,
   )
-  console.log(TransitDetails, 'bolList')
+
 
   const onBolAdd = () => {
     if (shipmentTypeBulk) {
@@ -274,7 +283,7 @@ export default function Index({
                   </div>
                   <span className={styles.value}>
                     {_get(TransitDetails, 'data[0].order.quantity', '')}{' '}
-                    {_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}{' '}
+                    {_get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()}{' '}
                   </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
@@ -282,8 +291,8 @@ export default function Index({
                     Order Value <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
                   <span className={styles.value}>
-                    {_get(TransitDetails, 'data[0].order.orderValue', '')}{' '}
-                    {_get(TransitDetails, 'data[0].order.unitOfValue', '')}
+                    {CovertvaluefromtoCR(_get(TransitDetails, 'data[0].order.orderValue', ''))}{' '}
+                    {_get(TransitDetails, 'data[0].order.unitOfValue', '').toUpperCase()}
                   </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
@@ -313,6 +322,7 @@ export default function Index({
             </div>
           </div>
           {bolList.map((bol, index) => {
+            console.log(bol,'existingBlDataindi')
             return (
               <div
                 key={index}
@@ -348,26 +358,26 @@ export default function Index({
                               <option>Select an option</option>
                               {shipmentTypeBulk
                                 ? _get(
-                                    TransitDetails,
-                                    'data[0].order.vessel.vessels',
-                                    [],
-                                  ).map((vessel, index) => (
-                                    <option
-                                      value={vessel?.vesselInformation?.name}
-                                      key={index}
-                                    >
-                                      {vessel?.vesselInformation?.name}
-                                    </option>
-                                  ))
+                                  TransitDetails,
+                                  'data[0].order.vessel.vessels',
+                                  [],
+                                ).map((vessel, index) => (
+                                  <option
+                                    value={vessel?.vesselInformation?.name}
+                                    key={index}
+                                  >
+                                    {vessel?.vesselInformation?.name}
+                                  </option>
+                                ))
                                 : _get(
-                                    TransitDetails,
-                                    'data[0].order.vessel.vessels[0].vesselInformation',
-                                    [],
-                                  ).map((vessel, index) => (
-                                    <option value={vessel?.name} key={index}>
-                                      {vessel?.name}
-                                    </option>
-                                  ))}
+                                  TransitDetails,
+                                  'data[0].order.vessel.vessels[0].vesselInformation',
+                                  [],
+                                ).map((vessel, index) => (
+                                  <option value={vessel?.name} key={index}>
+                                    {vessel?.name}
+                                  </option>
+                                ))}
                               <option value="option">option</option>
                             </select>
                             <label
@@ -389,12 +399,13 @@ export default function Index({
                           <p className={` label_heading`}>
                             IMO Number<strong className="text-danger">*</strong>
                           </p>
-                          <span>{bol.imoNumber}</span>
+                          <span>{bol?.imoNumber}</span>
                         </div>
                         <div
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                         >
                           <input
+                          value={bol?.blNumber}
                             onChange={(e) => onChangeBol(e, index)}
                             id="blNumber"
                             className={`${styles.input_field} input form-control`}
@@ -416,7 +427,7 @@ export default function Index({
                           <div className="d-flex">
                             {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                             <DatePicker
-                              defaultDate={bol.blDate}
+                              defaultDate={bol?.blDate}
                               selected={startBlDate}
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
@@ -443,6 +454,7 @@ export default function Index({
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                         >
                           <input
+                          value={bol?.blQuantity}
                             onChange={(e) => onChangeBol(e, index)}
                             id="blQuantity"
                             className={`${styles.input_field} input form-control`}
@@ -464,9 +476,9 @@ export default function Index({
                           className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`}
                         >
                           <div className="d-flex">
-                            {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
-                            <DatePicker
-                              defaultDate={bol.etaAtDischargePortFrom}
+                            <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} />
+                            {/* <DatePicker
+                              defaultDate={moment((bol?.etaAtDischargePortFrom)?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
                               name="ETAatDischargePort"
                               selected={startetaAtDischargePortFrom}
                               dateFormat="dd-MM-yyyy"
@@ -482,7 +494,7 @@ export default function Index({
                                 )
                               }}
                               minDate={lastDate}
-                            />
+                            /> */}
 
                             <img
                               className={`${styles.calanderIcon} image_arrow img-fluid`}
