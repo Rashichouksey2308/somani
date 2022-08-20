@@ -652,6 +652,23 @@ console.log(product,"productData")
     },
   ])
 
+  useEffect(() => {
+    if(orderList?.company?.keyContactPerson.length>0){
+      setPersonData([
+        
+        {
+      contact: {
+        callingCode: orderList?.company?.keyContactPerson?.contact?.callingCode,
+        number: orderList?.company?.keyContactPerson?.contact?.number,
+      },
+      department: orderList?.company?.keyContactPerson?.department,
+      designation: orderList?.company?.keyContactPerson?.designation,
+      email: orderList?.company?.keyContactPerson?.email,
+      name: orderList?.company?.keyContactPerson?.name,
+      isEdit:false
+    }])
+    }
+  },[orderList])
 
 
   useEffect(() => {
@@ -849,11 +866,17 @@ console.log(product,"productData")
   }
 
   const onCreditSave = () => {
+    let tempPerson=[...personData]
+    tempPerson.forEach((val,index)=>{
+        delete val.isEdit
+    })
+  
+
     const obj = {
       productSummary: { ...product },
       supplierCredential: { ...supplierCred },
       order: orderList._id,
-      keyContactPerson: [...personData],
+      keyContactPerson: [...tempPerson],
       keyAddress: [...keyAddData],
       recommendation: {
         companyProfile: [...companyComment],

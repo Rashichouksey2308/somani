@@ -26,9 +26,11 @@ const index = ({
   addPersonArr,
   deleteComponent,
   updateKeyAddDataArr,
-  deleteAddress
+  deleteAddress,
+  supplierCred,
+  setEditRow,
 }) => {
-  console.log(creditDetail, 'this is credit detail')
+  console.log(personData, 'person')
   console.log(debtData, 'debtData')
   const dispatch = useDispatch()
 
@@ -268,9 +270,13 @@ const index = ({
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="number"
-                  defaultValue={
-                    creditDetail?.productSummary?.monthlyProductionCapacity
+                  type="text"
+                 
+                    value={
+                     addPrefixOrSuffix(
+                      creditDetail?.monthlyProductionCapacity,
+                       creditDetail?.unitOfQuantity?.toUpperCase()
+                      )
                   }
                   name="monthlyProductionCapacity"
                   onChange={(e) => {
@@ -287,9 +293,12 @@ const index = ({
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="number"
-                  defaultValue={
-                    creditDetail?.productSummary?.capacityUtilization
+                  type="text"
+                  value={
+                     addPrefixOrSuffix(
+                      creditDetail?.capacityUtilization,
+                      "%"
+                      )
                   }
                   name="capacityUtilization"
                   onChange={(e) => {
@@ -346,8 +355,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
-                  onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
-                  defaultValue={creditDetail?.productSummary?.availableStock}
+                  defaultValue={creditDetail?.availableStock}
                   name="availableStock"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value)
@@ -516,14 +524,14 @@ const index = ({
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                  onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
-                  type="number"
-                  value={
-                    addPrefixOrSuffix(
-                     creditDetail?.AvgMonthlyElectricityBill,
-                      creditDetail?.typeOfCurrency?.toUpperCase()
-                     )
-                 }
+                  type="text"
+                
+                   value={
+                     addPrefixOrSuffix(
+                      creditDetail?.AvgMonthlyElectricityBill,
+                       creditDetail?.typeOfCurrency?.toUpperCase()
+                      )
+                  }
                   name="AvgMonthlyElectricityBill"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value)
@@ -965,10 +973,7 @@ const index = ({
                               }
                             }}
                             type="number"
-                            onKeyDown={(evt) =>
-                              evt.key === 'e' && evt.preventDefault()
-                            }
-                            readOnly={!saveContactTable}
+                            readOnly={person.isEdit}
                           />
                         </td>
                         <td>
