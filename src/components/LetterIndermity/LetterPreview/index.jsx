@@ -2,8 +2,18 @@
 import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import SavePreviewBar from '../SavePreviewBar'
+import { useDispatch, useSelector } from 'react-redux'
+import { UpdateTransitDetails, GetTransitDetails } from '../../../redux/TransitDetails/action'
 
-function Index({ TransitDetails }) {
+function Index() {
+  const dispatch = useDispatch()
+  const id = sessionStorage.getItem('transitPId')
+  const { TransitDetails1 } = useSelector((state) => state.TransitDetails)
+
+  useEffect(() => {
+    dispatch(GetTransitDetails(`?transitId=${id}`))
+  }, [id])
+
   return (
     <div className={`${styles.root} card container-fluid  border-0`}>
       <div className={`${styles.content_container}`}>
