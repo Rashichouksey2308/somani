@@ -25,6 +25,7 @@ export default function Index() {
   const { allForwardHedging } = useSelector((state) => state.ForwardHedging)
 
   let hedgingData = _get(allForwardHedging, 'data[0]', '')
+  console.log(hedgingData, "THIS IS HEDGING DATA")
 
   const [list, setList] = useState({
     bankName: ' ',
@@ -65,6 +66,12 @@ export default function Index() {
 
   const handleCancel = () => {
     setCancel(true)
+  }
+
+  const handleClose = () => {
+    setList(doc => {
+      return {...doc, forwardSalesContract: null}
+    })
   }
 
   // const onAddClick = () => {
@@ -336,8 +343,8 @@ export default function Index() {
                     ''
                   )}
 
-                  <div className="d-flex mt-5">
-                    <div className='position-relative'>
+                  <div className="mt-5">
+                    <div className="position-relative">
                       <input
                         as="textarea"
                         rows={3}
@@ -348,7 +355,9 @@ export default function Index() {
                         }
                         className={`${styles.comment_field} input form-control`}
                       />
-                      <label className={`${styles.label_comment} ${styles.label_heading} label_heading`}>
+                      <label
+                        className={`${styles.label_comment} ${styles.label_heading} label_heading`}
+                      >
                         Remarks
                       </label>
                     </div>
@@ -419,7 +428,7 @@ export default function Index() {
                                   name="myfile"
                                 />
                               </div> */}
-                              {false ? (
+                              {list && list?.forwardSalesContract == null ? (
                                 <>
                                   <div className={styles.uploadBtnWrapper}>
                                     <input
@@ -448,10 +457,11 @@ export default function Index() {
                                 </>
                               ) : (
                                 <div className={styles.certificate}>
-                                  {/* {lcDoc?.lcDraftDoc?.name} */}
+                                   {list?.forwardSalesContract?.name}
                                   <img
                                     className={`${styles.close_image} float-right m-2 img-fluid`}
                                     src="/static/close.svg"
+                                    onClick={()=>handleClose()}
                                     alt="Close"
                                   />{' '}
                                 </div>
@@ -467,7 +477,8 @@ export default function Index() {
             </div>
 
             <div className="mt-4">
-              <UploadOther orderid={hedgingData?.order} />
+              <UploadOther  module="Loading-Transit-Unloading"
+               orderid={hedgingData?.order?._id} />
             </div>
           </div>
         </div>

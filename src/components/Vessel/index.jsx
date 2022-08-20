@@ -870,7 +870,7 @@ function Index({
 
             <UploadDocument docName='Vessel Certificate' vesselCertificate={vesselCertificate} handleClose={handleClose} uploadDocument1={uploadDocHandler} />
             <UploadOther
-              module="Agreements,Insurance,LcOpening"
+              module="Agreements&Insurance&LC&Opening"
               orderid={id1}
             />
           </div>

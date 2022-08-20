@@ -911,3 +911,26 @@ body.light-mode .directorDetails .collapsed .image_arrow {
 body.dark-mode .directorDetails .collapsed .image_arrow {
   transform: rotate(-90deg);
 }
+body.light-mode .filter .dropdown_menu {
+  background: #FFFFFF;
+  box-shadow: 0 11px 12px #BBBBBB;
+}
+body.dark-mode .filter .dropdown_menu {
+  background: #293141;
+  box-shadow: 0 0 10px #000000;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+body.light-mode .filter .dropdown_header {
+  color: #111111;
+  border-bottom: 2px solid #F2F5F9;
+}
+body.dark-mode .filter .dropdown_header {
+  color: rgba(255, 255, 255, 0.8);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+}
+body.light-mode .filter label {
+  color: #111111;
+}
+body.dark-mode .filter label {
+  color: rgba(255, 255, 255, 0.8);
+}

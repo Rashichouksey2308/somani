@@ -778,12 +778,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
 
       <div className={`${styles.wrapper} card`}>
         <div
-          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
-          data-toggle="collapse"
-          data-target="#summaryCharts"
-          aria-expanded="true"
-          aria-controls="summaryCharts"
-        >
+          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{cursor : 'default'}}>
           <h2 className="mb-0">Summary Chart</h2>
           <div className="d-flex align-items-center">
             <h5 className={`${styles.light} accordion_Text`}>Filter By: </h5>
@@ -791,13 +786,12 @@ function Index({ companyData, orderList, GstDataHandler }) {
             >
               <option selected value="Quarterly">Quarterly</option>
             </select>
-            <span>+</span>
+            <span data-toggle="collapse" data-target="#summaryCharts" aria-expanded="true" aria-controls="summaryCharts">+</span>
           </div>
         </div>
         <div
           id="summaryCharts"
-          className="collapse"
-          aria-labelledby="summaryCharts"
+          className="collapse" aria-labelledby="summaryCharts"
           data-parent="#profileAccordion"
         >
           <div className={` ${styles.cardBody} card-body border-top-0 border_color`}>
@@ -805,7 +799,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
               <Col md={6} sm={12} className={styles.col}>
                 <div className={`${styles.chart_container} ${styles.noBorder}`}>
                   <div
-                    className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}
+                    className={` ${styles.header} card_sub_header d-flex align-items-center justify-content-start`}
                   >
                     <span>Revenue Summary</span>
                     <span className={styles.light}>(Cr)</span>
@@ -909,12 +903,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
 
       <div className={`${styles.wrapper} card`}>
         <div
-          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
-          data-toggle="collapse"
-          data-target="#salesDetails"
-          aria-expanded="true"
-          aria-controls="salesDetails"
-        >
+          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{cursor : 'default'}}>
           <h2 className="mb-0">Sales Details</h2>
           <div className="d-flex align-items-center">
             <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
@@ -922,7 +911,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
             >
               <option selected value="1">Crores</option>
             </select>
-            <span>+</span>
+            <span data-toggle="collapse" data-target="#salesDetails" aria-expanded="true" aria-controls="salesDetails">+</span>
           </div>
         </div>
         <div
@@ -1146,12 +1135,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
 
       <div className={`${styles.wrapper} card`}>
         <div
-          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
-          data-toggle="collapse"
-          data-target="#purchaseDetails"
-          aria-expanded="true"
-          aria-controls="purchaseDetails"
-        >
+          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{cursor : 'default'}}>
           <h2 className="mb-0">Purchase Details</h2>
           <div className="d-flex align-items-center">
             <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
@@ -1159,7 +1143,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
             >
               <option selected value="1">Crores</option>
             </select>
-            <span>+</span>
+            <span data-toggle="collapse" data-target="#purchaseDetails" aria-expanded="true" aria-controls="purchaseDetails">+</span>
           </div>
         </div>
         <div
@@ -1387,12 +1371,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
 
       <div className={`${styles.wrapper} card`}>
         <div
-          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
-          data-toggle="collapse"
-          data-target="#Compliance"
-          aria-expanded="true"
-          aria-controls="Compliance"
-        >
+          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{cursor : 'default'}}>
           <h2 className="mb-0">Compliance</h2>
           <div className={`${styles.subHeadContainer} d-flex mr-4 ml-auto`}>
             <div className={` ${styles.complaintExtra} d-flex align-items-center`}>
@@ -1405,7 +1384,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
               <div className={`${styles.lightCompliance} ml-4 mr-2`}>Financial Period:</div>{gstFilteredData?.detail?.complianceDetail?.financialPeriod?.toLocaleString()}
             </div>
           </div>
-          <span>+</span>
+          <span data-toggle="collapse" data-target="#Compliance" aria-expanded="true" aria-controls="Compliance">+</span>
         </div>
         <div
           id="Compliance"
@@ -1481,12 +1460,7 @@ const gstCustomerDetail = (gstFilteredData, supplierDetailsUnit, setSupplierDeta
     <>
       <div className={`${styles.wrapper} card  `}>
         <div
-          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
-          data-toggle="collapse"
-          data-target="#gstCustomerDetail"
-          aria-expanded="true"
-          aria-controls="gstCustomerDetail"
-        >
+          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{cursor : 'default'}}>
           <h2 className="mb-0">Customer Details</h2>
           <div className="d-flex align-items-center">
             <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
@@ -1494,7 +1468,7 @@ const gstCustomerDetail = (gstFilteredData, supplierDetailsUnit, setSupplierDeta
             >
               <option selected value="1">Crores</option>
             </select>
-            <span>+</span>
+            <span data-toggle="collapse" data-target="#gstCustomerDetail" aria-expanded="true" aria-controls="gstCustomerDetail">+</span>
           </div>
         </div>
         <div
@@ -1667,19 +1641,14 @@ const gstSupplierDetail = (gstFilteredData, customerDetailsUnit, setCustomerDeta
     <>
       <div className={`${styles.wrapper} card`}>
         <div
-          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
-          data-toggle="collapse"
-          data-target="#gstSupplierDetail"
-          aria-expanded="true"
-          aria-controls="gstSupplierDetail"
-        >
+          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{cursor : 'default'}}>
           <h2 className="mb-0">Suppliers Details</h2>
           <div className="d-flex align-items-center">
             <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
             <select onChange={(e) => setCustomerDetailsUnit(e.target.value)} className={`${styles.selectHead} accordion_DropDown form-select`} aria-label="Default select example">
               <option selected value="10000000">Crores</option>
             </select>
-            <span>+</span>
+            <span data-toggle="collapse" data-target="#gstSupplierDetail" aria-expanded="true" aria-controls="gstSupplierDetail">+</span>
           </div>
         </div>
         <div
@@ -1855,19 +1824,14 @@ const gstSales = (head, gstFilteredData) => {
     <>
       <div className={`${styles.wrapper} card`}>
         <div
-          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
-          data-toggle="collapse"
-          data-target="#gstSalesAndPurchase"
-          aria-expanded="true"
-          aria-controls="gstSalesAndPurchase"
-        >
+          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{cursor : 'default'}}>
           <h2 className="mb-0">{head}</h2>
           <div className="d-flex align-items-center">
             <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
             <select className={`${styles.selectHead} accordion_DropDown form-select`} aria-label="Default select example">
               <option selected value="1">Crores</option>
             </select>
-            <span>+</span>
+            <span data-toggle="collapse" data-target="#gstSalesAndPurchase" aria-expanded="true" aria-controls="gstSalesAndPurchase">+</span>
           </div>
         </div>
         <div
@@ -2064,19 +2028,14 @@ const gstPurchase = (head, gstFilteredData) => {
     <>
       <div className={`${styles.wrapper} ${styles.lastComponent} card`}>
         <div
-          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
-          data-toggle="collapse"
-          data-target="#purchase"
-          aria-expanded="true"
-          aria-controls="purchase"
-        >
+          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{cursor : 'default'}}>
           <h2 className="mb-0">{head}</h2>
           <div className="d-flex align-items-center">
             <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
             <select className={`${styles.selectHead} accordion_DropDown form-select`} aria-label="Default select example">
               <option selected value="1">Crores</option>
             </select>
-            <span>+</span>
+            <span data-toggle="collapse" data-target="#purchase" aria-expanded="true" aria-controls="purchase">+</span>
           </div>
         </div>
         <div
