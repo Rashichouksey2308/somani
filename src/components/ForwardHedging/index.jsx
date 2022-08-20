@@ -202,6 +202,9 @@ export default function Index() {
                         required
                         type="number"
                         name="bookedRateCurrency"
+                        onKeyDown={(evt) =>
+                          evt.key === 'e' && evt.preventDefault()
+                        }
                         onChange={(e) =>
                           saveHedgingData(e.target.name, e.target.value)
                         }
@@ -220,6 +223,9 @@ export default function Index() {
                         type="number"
                         required
                         name="bookedAmount"
+                        onKeyDown={(evt) =>
+                          evt.key === 'e' && evt.preventDefault()
+                        }
                         onChange={(e) =>
                           saveHedgingData(e.target.name, e.target.value)
                         }
@@ -295,6 +301,9 @@ export default function Index() {
                           type="number"
                           required
                           name="closingRate"
+                          onKeyDown={(evt) =>
+                            evt.key === 'e' && evt.preventDefault()
+                          }
                           onChange={(e) =>
                             saveHedgingData(e.target.name, e.target.value)
                           }
@@ -327,7 +336,7 @@ export default function Index() {
                     ''
                   )}
 
-                  <div className="d-flex mt-5 mb-">
+                  <div className="d-flex mt-5">
                     <input
                       as="textarea"
                       rows={3}
@@ -407,19 +416,22 @@ export default function Index() {
                                   name="myfile"
                                 />
                               </div> */}
-                              { false ?  <>
-                                <div className={styles.uploadBtnWrapper}>
-                                  <input
-                                    type="file"
-                                    name="myfile"
-                                    accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                  onChange={(e) => uploadDocument1(e)}
-                                  />
-                                  <button className={`${styles.button_upload} btn`}>
-                                    Upload
-                                  </button>
-                                </div>
-                                {/* <div className={styles.uploadBtnWrapper}>
+                              {false ? (
+                                <>
+                                  <div className={styles.uploadBtnWrapper}>
+                                    <input
+                                      type="file"
+                                      name="myfile"
+                                      accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                      onChange={(e) => uploadDocument1(e)}
+                                    />
+                                    <button
+                                      className={`${styles.button_upload} btn`}
+                                    >
+                                      Upload
+                                    </button>
+                                  </div>
+                                  {/* <div className={styles.uploadBtnWrapper}>
                                 <input
                                   type="file"
                                   accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
@@ -430,17 +442,17 @@ export default function Index() {
                                   Upload
                                 </button>
                                 </div> */}
-                                </>:
+                                </>
+                              ) : (
                                 <div className={styles.certificate}>
-                                {/* {lcDoc?.lcDraftDoc?.name} */}
+                                  {/* {lcDoc?.lcDraftDoc?.name} */}
                                   <img
-                                  className={`${styles.close_image} float-right m-2 img-fluid`}
-                                  src="/static/close.svg"
-                                
-                                  alt="Close"
+                                    className={`${styles.close_image} float-right m-2 img-fluid`}
+                                    src="/static/close.svg"
+                                    alt="Close"
                                   />{' '}
                                 </div>
-                              }
+                              )}
                             </td>
                           </tr>
                         </tbody>
