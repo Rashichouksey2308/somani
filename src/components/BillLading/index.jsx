@@ -345,7 +345,7 @@ export default function Index({
                               onChange={(e) => onChangeVessel(e, index)}
                               className={`${styles.input_field} ${styles.customSelect}   input form-control`}
                             >
-                               <option>Select an option</option>
+                              <option>Select an option</option>
                               {shipmentTypeBulk
                                 ? _get(
                                     TransitDetails,
@@ -400,6 +400,9 @@ export default function Index({
                             className={`${styles.input_field} input form-control`}
                             required
                             type="number"
+                            onKeyDown={(evt) =>
+                              evt.key === 'e' && evt.preventDefault()
+                            }
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -546,6 +549,9 @@ export default function Index({
                                 className={`${styles.input_field} input form-control`}
                                 required
                                 type="number"
+                                onKeyDown={(evt) =>
+                                  evt.key === 'e' && evt.preventDefault()
+                                }
                               />
                               <label
                                 className={`${styles.label_heading} label_heading`}
@@ -561,6 +567,9 @@ export default function Index({
                                 className={`${styles.input_field} input form-control`}
                                 required
                                 type="number"
+                                onKeyDown={(evt) =>
+                                  evt.key === 'e' && evt.preventDefault()
+                                }
                               />
                               <label
                                 className={`${styles.label_heading} label_heading`}

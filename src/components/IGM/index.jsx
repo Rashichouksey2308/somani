@@ -438,6 +438,7 @@ export default function Index({
                     onChange={(e) => onChangeIgm(e.target.id, e.target.value)}
                     className={`${styles.input_field} input form-control`}
                     type="number"
+                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     IGM No./Rotation No.
@@ -467,6 +468,7 @@ export default function Index({
                   <input
                     className={`${styles.input_field} input form-control`}
                     type="number"
+                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                     required
                   />
                   <label className={`${styles.label_heading} label_heading`}>
@@ -572,6 +574,7 @@ export default function Index({
                     onChange={(e) => onChangeBlNumberEntry(e)}
                     className={`${styles.input_field} input form-control`}
                     type="number"
+                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                     required
                   />
                   <label className={`${styles.label_heading} label_heading`}>

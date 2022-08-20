@@ -25,7 +25,7 @@ const Index = ({
   setGroupExposureData,
   addGroupExpArr,
   saveSuggestedCreditData,
-  deleteData
+  deleteData,
 }) => {
   const [editProfile, setEditProfile] = useState(false)
   const [editFinance, setEditFinance] = useState(false)
@@ -75,11 +75,10 @@ const Index = ({
         limit: null,
         name: '',
         outstandingLimit: null,
-        action: false
+        action: false,
       },
     ])
   }
-
 
   const handleGroupExpChange = (name, value, index) => {
     // console.log(name, value, index, 'name,value')
@@ -107,7 +106,6 @@ const Index = ({
     })
   }
 
-
   return (
     <>
       <div className={`${styles.main} vessel_card card border_color `}>
@@ -127,7 +125,7 @@ const Index = ({
           aria-labelledby="recommendations"
           data-parent="#profileAccordion"
         >
-          <hr className={styles.line} style={{ margin: "0" }}></hr>
+          <hr className={styles.line} style={{ margin: '0' }}></hr>
           <div className={`${styles.dashboard_form}`}>
             <h5 className={styles.sub_heading}>Company Profile</h5>
             {companyComment &&
@@ -154,7 +152,9 @@ const Index = ({
                       src="/static/delete 2.svg"
                       className="img-fluid"
                       alt="delete"
-                      onClick={(e) => { deleteData(index) }}
+                      onClick={(e) => {
+                        deleteData(index)
+                      }}
                     />
                   </div>
                 </div>
@@ -168,7 +168,9 @@ const Index = ({
                 className={`${styles.comment_field} form-control`}
                 onChange={(e) => setCompanyComments(e.target.value)}
               />
-              <label className={`${styles.label_heading} label_heading`}>Comments</label>
+              <label className={`${styles.label_heading} label_heading`}>
+                Comments
+              </label>
 
               <img
                 className="img-fluid ml-4"
@@ -220,7 +222,9 @@ const Index = ({
                 className={`${styles.comment_field} form-control`}
                 onChange={(e) => setFinancialsComments(e.target.value)}
               />
-              <label className={`${styles.label_heading} label_heading`}>Comments</label>
+              <label className={`${styles.label_heading} label_heading`}>
+                Comments
+              </label>
 
               <img
                 className="img-fluid ml-4"
@@ -260,8 +264,9 @@ const Index = ({
                       groupExposureData?.map((profile, index) => (
                         <tr key={index}>
                           <td>{index + 1}</td>
-                          <td className='position-relative'>
-                            <input className={`${styles.input}  input form-control`}
+                          <td className="position-relative">
+                            <input
+                              className={`${styles.input}  input form-control`}
                               name="name"
                               disabled={!profile.actions}
                               defaultValue={profile?.name}
@@ -269,7 +274,7 @@ const Index = ({
                                 handleGroupExpChange(
                                   e.target.name,
                                   e.target.value,
-                                  index
+                                  index,
                                 )
                               }}
                             ></input>
@@ -307,11 +312,10 @@ const Index = ({
                                 handleGroupExpChange(
                                   e.target.name,
                                   e.target.value,
-                                  index
+                                  index,
                                 )
                               }}
                               className={styles.input}
-
                             />
                           </td>
                           <td>
@@ -323,13 +327,13 @@ const Index = ({
                                 handleGroupExpChange(
                                   e.target.name,
                                   e.target.value,
-                                  index
+                                  index,
                                 )
                               }}
                               className={styles.input}
                             />
                           </td>
-                          <td className='position-relative'>
+                          <td className="position-relative">
                             <select
                               className={`${styles.input} ${styles.customSelect} input form-control`}
                               name="accountConduct"
@@ -339,13 +343,13 @@ const Index = ({
                                 handleGroupExpChange(
                                   e.target.name,
                                   e.target.value,
-                                  index
+                                  index,
                                 )
                               }}
                             >
                               <option>Select an Option</option>
-                              <option value='Good'>Good</option>
-                              <option value='Satisfactory'>Satisfactory</option>
+                              <option value="Good">Good</option>
+                              <option value="Satisfactory">Satisfactory</option>
                             </select>
                             <img
                               className={`${styles.arrow} img-fluid`}
@@ -386,17 +390,18 @@ const Index = ({
                         </tr>
                       ))}
                   </tbody>
-
                 </table>
               </div>
             </div>
             <div
               className={`${styles.add_image} p-3 d-flex justify-content-end`}
             >
-              <div onClick={(e) => {
-                //  onExpSave(exposureData)
-                addMoreExpRows()
-              }}>
+              <div
+                onClick={(e) => {
+                  //  onExpSave(exposureData)
+                  addMoreExpRows()
+                }}
+              >
                 <span>+</span>Add More Rows
               </div>
             </div>
@@ -432,7 +437,10 @@ const Index = ({
             <div className={`${styles.strength} value`}>Strengths</div>
             {strengthsComment &&
               strengthsComment.map((strengths, index) => (
-                <div key={index} className={`${styles.textarea_main} d-flex justify-content-between`}>
+                <div
+                  key={index}
+                  className={`${styles.textarea_main} d-flex justify-content-between`}
+                >
                   <Form.Control
                     className={`${styles.paragraph} input`}
                     defaultValue={strengths}
@@ -483,7 +491,7 @@ const Index = ({
               </div>
             </div> */}
 
-            <hr className={styles.line} style={{ margin: "-1px -35px 0" }}></hr>
+            <hr className={styles.line} style={{ margin: '-1px -35px 0' }}></hr>
             <div className={`${styles.sub_heading} value`}>Weakness</div>
             <div className="d-flex mt-5 pb-4">
               <input
@@ -510,7 +518,10 @@ const Index = ({
             <div className={`${styles.strength} value`}>Weakness</div>
             {weaknessComment &&
               weaknessComment.map((weakness, index) => (
-                <div key={index} className={`${styles.textarea_main} d-flex justify-content-between`}>
+                <div
+                  key={index}
+                  className={`${styles.textarea_main} d-flex justify-content-between`}
+                >
                   <Form.Control
                     className={`${styles.paragraph} input`}
                     defaultValue={weakness}
@@ -564,7 +575,7 @@ const Index = ({
               </div>
             </div> */}
 
-            <hr className={styles.line} style={{ margin: "-1px -35px 0" }}></hr>
+            <hr className={styles.line} style={{ margin: '-1px -35px 0' }}></hr>
             <div
               className={`${styles.sanction_terms} mt-4 d-flex justify-content-between align-items-center`}
             >
@@ -610,19 +621,31 @@ const Index = ({
                 <td>{creditDetail?.company?.creditLimit?.availableLimit}</td>
                 <td>-</td>
 
-                {filteredCreditRating ? <> {filteredCreditRating &&
-                  filteredCreditRating.length > 0 &&
-                  filteredCreditRating.map((val, index) => (
-                    <td key={index}>{val.derived.value}</td>
-                  ))} </> : <td>-</td>}
+                {filteredCreditRating ? (
+                  <>
+                    {' '}
+                    {filteredCreditRating &&
+                      filteredCreditRating.length > 0 &&
+                      filteredCreditRating.map((val, index) => (
+                        <td key={index}>{val.derived.value}</td>
+                      ))}{' '}
+                  </>
+                ) : (
+                  <td>-</td>
+                )}
 
                 <td>
                   <input
                     className={`${styles.text}`}
                     type="text"
-                    name='suggestedCreditLimit'
+                    name="suggestedCreditLimit"
                     defaultValue={creditDetail?.suggestedCreditLimit}
-                    onChange={(e) => { saveSuggestedCreditData(e.target.name, Number(e.target.value * 10000000)) }}
+                    onChange={(e) => {
+                      saveSuggestedCreditData(
+                        e.target.name,
+                        Number(e.target.value * 10000000),
+                      )
+                    }}
                   ></input>
                 </td>
               </tr>
@@ -637,9 +660,15 @@ const Index = ({
                   <input
                     className={`${styles.text}`}
                     type="number"
-                    name='suggestedOrderValue'
+                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                    name="suggestedOrderValue"
                     defaultValue={creditDetail?.suggestedOrderValue}
-                    onChange={(e) => { saveSuggestedCreditData(e.target.name, Number(e.target.value * 10000000)) }}
+                    onChange={(e) => {
+                      saveSuggestedCreditData(
+                        e.target.name,
+                        Number(e.target.value * 10000000),
+                      )
+                    }}
                   ></input>
                 </td>
               </tr>
@@ -692,7 +721,10 @@ const Index = ({
             </div>
             {sanctionComment &&
               sanctionComment.map((sanction, index) => (
-                <div key={index} className={`${styles.textarea_main} d-flex justify-content-between`}>
+                <div
+                  key={index}
+                  className={`${styles.textarea_main} d-flex justify-content-between`}
+                >
                   <Form.Control
                     className={`${styles.paragraph} input`}
                     defaultValue={sanction}

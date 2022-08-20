@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Row, Col, Form } from 'react-bootstrap'
+import Modal from 'react-bootstrap/Modal'
 import DateCalender from '../DateCalender'
 import PreviewBar from '../PreviewBar'
 import Router from 'next/router'
@@ -45,6 +46,9 @@ function Index({
     let a = index
     return `${a + 1}.`
   }
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
     <>
@@ -372,6 +376,9 @@ function Index({
                               className={`${styles.input_field} input form-control`}
                               required
                               type="number"
+                              onKeyDown={(evt) =>
+                                evt.key === 'e' && evt.preventDefault()
+                              }
                               name="numberOfDays"
                               defaultValue={lcData?.numberOfDays}
                               onChange={(e) => {
@@ -1008,6 +1015,109 @@ function Index({
                 </div>
               </div>
             </div>
+            <Modal show={show} className={`${styles.share_lc} vessel_card card share_lc`}>
+              <Modal.Body className={`${styles.card_body} card-body`}>
+                <form>
+                  <ul className={`${styles.nav_tabs} ${styles.LC_draft_tabs} LC_draft_tabs nav nav-tabs`} id="LCDraft" role="tablist">
+                    <li className={`${styles.nav_item} nav-item`}>
+                      <a className={`${styles.nav_link} nav-link active`} id="share-LC-draft" data-toggle="tab" href="#shareLCDraft" role="tab" aria-controls="shareLCDraft" aria-selected="true">Share LC Draft</a>
+                    </li>
+                    <li className={`${styles.nav_item} nav-item`}>
+                      <a className={`${styles.nav_link} nav-link`} id="download-LC-draft" data-toggle="tab" href="#downloadLCDraft" role="tab" aria-controls="downloadLCDraft" aria-selected="false">Download LC Draft</a>
+                    </li>
+                  </ul>
+                  <div className={`${styles.tab_content} tab-content`} id="LCDraft">
+                    <div className="tab-pane fade show active" id="shareLCDraft" role="tabpanel" aria-labelledby="share-LC-draft">
+                      <h3>Share as</h3>
+                      <div className='d-flex align-items-center justify-content-between'>
+                        <div className={`${styles.lc_document} ${styles.box} d-flex align-items-center`}>
+                          <img src="/static/icons8-email-open-48 2.png" width={`55px`} alt="PDF" className='img-fluid' />
+                          <label for="lc_document">LC Document.pdf<span>128kb</span></label>
+                          <input type="checkbox" className='ml-auto' id="lc_document" value="LC Document" />
+                        </div>
+                        <div className={`${styles.word_document} ${styles.box} d-flex align-items-center`}>
+                          <img src="/static/icons8-email-open-48 2.png" width={`55px`} alt="DOC" className='img-fluid' />
+                          <label for="word_document">word document.doc<span>128kb</span></label>
+                          <input type="checkbox" className='ml-auto' id="word_document" value="word document" />
+                        </div>
+                      </div>
+                      <ul className={`${styles.nav_tabs} ${styles.share_via} share_via nav nav-tabs`} id="shareVia" role="tablist">
+                        <li className={`${styles.nav_item} nav-item`}>
+                          <a className={`${styles.nav_link} nav-link active`} id="email-address" data-toggle="tab" href="#emailAddress" role="tab" aria-controls="emailAddress" aria-selected="true"><img src="/static/email-icon.png" width={`32px`} className='img-fluid' alt='Email Address' />Email Address</a>
+                        </li>
+                        <li className={`${styles.nav_item} nav-item`}>
+                          <a className={`${styles.nav_link} nav-link`} id="whatsapp" data-toggle="tab" href="#whatsApp" role="tab" aria-controls="whatsApp" aria-selected="false"><img src="/static/icons8-whatsapp.svg" width={`27px`} className='img-fluid' alt='WhatsApp' />WhatsApp</a>
+                        </li>
+                      </ul>
+                      <div className={`${styles.tab_content} tab-content`} id="shareVia">
+                        <div className="tab-pane fade show active" id="emailAddress" role="tabpanel" aria-labelledby="email-address">
+                          <div className={`${styles.labelFloat} form-group`}>
+                            <div className="d-flex">
+                              <select id='email' name="email" className={`${styles.formControl} ${styles.customSelect} input form-control`} selected>
+                                <option value="javanika.seth@hdfcbank.com">javanika.seth@hdfcbank.com</option>
+                              </select>
+                              <label className={`label_heading_login label_heading bg-transparent`} htmlFor='email'>Email</label>
+                              <img
+                                className={`${styles.arrow} image_arrow img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                              />
+                            </div>
+                          </div>
+                          <div className={`${styles.addMoreRows}`} onClick={(e)=>{
+                            addMoreRows()
+                            }}>
+                            <span style={{fontSize:"2rem"}} className={`mr-2`}>+</span>  Add more rows
+                          </div>
+                          <div className='d-flex justify-content-between'>
+                            <button onClick={handleClose} type='button' className={`${styles.close} ${styles.btn} btn w-50`}>Close</button>
+                            <button type='button' className={`${styles.submit} ${styles.btn} btn w-50`}>Share</button>
+                          </div>
+                        </div>
+                        <div className="tab-pane fade" id="whatsApp" role="tabpanel" aria-labelledby="whatsapp">
+                          <div className={`${styles.labelFloat} form-group`}>
+                            <input type='text' id='phone' name="phone" className={`${styles.formControl} ${styles.input} input form-control`} required />
+                            <label className={`label_heading_login`} htmlFor='phone'>Phone Number</label>
+                          </div>
+                          <div className={`${styles.addMoreRows}`} onClick={(e)=>{
+                            addMoreRows()
+                            }}>
+                            <span style={{fontSize:"2rem"}} className={`mr-2`}>+</span>  Add more rows
+                          </div>
+                          <div className='d-flex justify-content-between'>
+                            <button onClick={handleClose} type='button' className={`${styles.close} ${styles.btn} btn w-50`}>Close</button>
+                            <button onClick={handleClose} type='button' className={`${styles.submit} ${styles.btn} btn w-50`}>Share</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="tab-pane fade" id="downloadLCDraft" role="tabpanel" aria-labelledby="download-LC-draft">
+                      <h3>Download as</h3>
+                      <div className='d-flex align-items-center justify-content-between'>
+                        <div className={`${styles.lc_document} ${styles.box} d-flex align-items-center`}>
+                          <img src="/static/icons8-email-open-48 2.png" width={`55px`} alt="PDF" className='img-fluid' />
+                          <label for="lc_document">LC Document.pdf<span>128kb</span></label>
+                          <input type="checkbox" className='ml-auto' id="lc_document" value="LC Document" />
+                        </div>
+                        <div className={`${styles.word_document} ${styles.box} d-flex align-items-center`}>
+                          <img src="/static/icons8-email-open-48 2.png" width={`55px`} alt="DOC" className='img-fluid' />
+                          <label for="word_document">word document.doc<span>128kb</span></label>
+                          <input type="checkbox" className='ml-auto' id="word_document" value="word document" />
+                        </div>
+                      </div>
+                      <div className='d-flex justify-content-between'>
+                        <button onClick={handleClose} type='button' className={`${styles.close} ${styles.btn} btn w-50`}>Close</button>
+                        <button onClick={handleClose} type='button' className={`${styles.submit} ${styles.btn} btn w-50`}>Download</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </Modal.Body>
+            </Modal>
+            <button
+                onClick={handleShow}
+                className={styles.product_btn}
+                type="button">Show Modal</button>
           </div>
         </div>
       </div>

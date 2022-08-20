@@ -315,6 +315,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
+                  onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   defaultValue={
                     creditDetail?.averageStockOfCommodity
                   }
@@ -334,6 +335,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
+                  onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   defaultValue={
                     creditDetail?.averageStockInTransit
                   }
@@ -368,6 +370,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
+                  onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   defaultValue={
                     creditDetail?.dailyConsumptionOfCommodity
                   }
@@ -885,7 +888,7 @@ const index = ({
                     <tbody key={index}>
                       <tr className="table_credit shadow-none">
                         <td>
-                          <div className='d-flex mr-4'>
+                          <div className="d-flex mr-4">
                             <select
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               defaultValue={person.name}
@@ -912,7 +915,7 @@ const index = ({
                           /> */}
                         </td>
                         <td>
-                          <div className='d-flex mr-4'>
+                          <div className="d-flex mr-4">
                             <select
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               defaultValue={person.designation}
@@ -960,7 +963,9 @@ const index = ({
                                 handlePersonChange(e, index)
                               } else {
                                 let toastMessage = 'Enter a valid Phone Number'
-                                if (!toast.isActive(toastMessage.toUpperCase())) {
+                                if (
+                                  !toast.isActive(toastMessage.toUpperCase())
+                                ) {
                                   toast.error(toastMessage, {
                                     toastId: toastMessage,
                                   })
@@ -1214,7 +1219,9 @@ const index = ({
                         Email ID<strong className="text-danger">*</strong>
                       </label>
                     </div>
-                    <div className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}>
+                    <div
+                      className={`${styles.form_group} ${styles.phone} col-md-4 col-sm-6`}
+                    >
                       <div className={`${styles.phone_card} d-flex pr-4`}>
                         <select
                           name="callingCode"
@@ -1307,61 +1314,65 @@ const index = ({
 
                     <div className="d-flex justify-center-center align-item-center col-md-4">
                       <div className={`${styles.btn_container} `}>
-                      <button className={`${styles.gst_btn}`}>
-                        {' '}
-                        <input
-                          type="file"
-                          name={keyAddressData.GSTIN}
-                          // name="myfile"
-                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                          onChange={(e) => {
-                            uploadDocument(e)
-                          }}
-                        />
-                        <img
-                          className="img-fluid mr-2 mb-1"
-                          src="/static/file_upload.svg"
-                          alt="file upload"
-                        />
-                        GST Doc
+                        <button className={`${styles.gst_btn}`}>
+                          {' '}
+                          <input
+                            type="file"
+                            name={keyAddressData.GSTIN}
+                            // name="myfile"
+                            accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                            onChange={(e) => {
+                              uploadDocument(e)
+                            }}
+                          />
+                          <img
+                            className="img-fluid mr-2 mb-1"
+                            src="/static/file_upload.svg"
+                            alt="file upload"
+                          />
+                          GST Doc
+                        </button>
+                      </div>
+                      <button
+                        className={`${styles.add_btn}`}
+                        onClick={() => handleClick()}
+                      >
+                        Add
                       </button>
-                   
-                   
-
                     </div>
-                     <button
-                    className={`${styles.add_btn}`}
-                    onClick={() => handleClick()}
-                  >
-                    Add
-                  </button>
-                    </div>
-                  </div> 
+                  </div>
                 </div>
               </div>
             ) : null}
-            {showEditAddress ?
-              (<div
+            {showEditAddress ? (
+              <div
                 className={`${styles.main} card border_color`}
                 style={{ margin: '10px 35px 32px 32px' }}
               >
                 <div
                   className={`${styles.head_container} mb-n3 card-header d-flex justify-content-between bg-transparent`}
-
                 >
                   <h3 className={`${styles.heading}`}>Edit address</h3>
-                  <img onClick={() => {
-                    setShowEditAddress(false)
-                  }} src="/static/accordion_close_black.svg" />
+                  <img
+                    onClick={() => {
+                      setShowEditAddress(false)
+                    }}
+                    src="/static/accordion_close_black.svg"
+                  />
                 </div>
-                <div className={`${styles.dashboard_form} card-body border_color`}>
+                <div
+                  className={`${styles.dashboard_form} card-body border_color`}
+                >
                   <div className="d-flex">
                     <div className={`${styles.sub_heading} heading_card`}>
                       Communication Address
                     </div>
                     <div className={styles.radio_form}>
                       {['checkbox'].map((type) => (
-                        <div key={`inline-${type}`} className={styles.radio_group}>
+                        <div
+                          key={`inline-${type}`}
+                          className={styles.radio_group}
+                        >
                           <Form.Check
                             className={styles.radio}
                             inline
@@ -1393,11 +1404,15 @@ const index = ({
                             changeData(e.target.name, e.target.value)
                           }}
                         >
-                          <option value='Factory'>Factory</option>
-                          <option value='Warehouse'>Warehouse</option>
-                          <option value='Corporate Office'>Corporate Office</option>
+                          <option value="Factory">Factory</option>
+                          <option value="Warehouse">Warehouse</option>
+                          <option value="Corporate Office">
+                            Corporate Office
+                          </option>
                         </select>
-                        <label className={`${styles.label_heading} label_heading`}>
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
                           Address Type<strong className="text-danger">*</strong>
                         </label>
                         <img
@@ -1419,7 +1434,9 @@ const index = ({
                             changeData(e.target.name, e.target.value)
                           }}
                         />
-                        <label className={`${styles.label_heading} label_heading`}>
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
                           Pin Code<strong className="text-danger">*</strong>
                         </label>
                         <img
@@ -1436,13 +1453,14 @@ const index = ({
                         required
                         type="text"
                         name="state"
-
                         defaultValue={editData.state}
                         onChange={(e) => {
                           changeData(e.target.name, e.target.value)
                         }}
                       />
-                      <label className={`${styles.label_heading} label_heading`}>
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
                         State<strong className="text-danger">*</strong>
                       </label>
                     </div>
@@ -1673,7 +1691,7 @@ const index = ({
                   Update
                 </button>
               </div>
-              ) : null}
+            ) : null}
             <div
               className={`${styles.add_row} pr-3 d-flex justify-content-end`}
               onClick={() => {
@@ -1977,7 +1995,7 @@ const index = ({
                               )
                             }
                             defaultValue={profile.limit}
-                          // readOnly={!saveTable}
+                            // readOnly={!saveTable}
                           />
                         </td>
 

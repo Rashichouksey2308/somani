@@ -36,7 +36,6 @@ Chart.register(
   Filler,
 )
 
-
 function Index({
   fetchingKarzaGst,
   gstData,
@@ -57,15 +56,11 @@ function Index({
       dispatch(GetAllOrders({ orderId: id1 }))
       dispatch(GetCompanyDetails({ company: id2 }))
       // dispatch(GetDocuments(`?order=${id1}`))
-
     }
   }, [dispatch, fetchingKarzaGst])
   useEffect(() => {
-
     let id1 = sessionStorage.getItem('orderID')
     dispatch(GetDocuments(`?order=${id1}`))
-
-
   }, [dispatch])
 
   console.log(camData, 'THIS IS CAM DATA')
@@ -100,7 +95,11 @@ function Index({
   const previousBalanceData = _get(companyData, 'financial.balanceSheet[1]', [])
 
   const latestIncomeData = _get(companyData, 'financial.incomeStatement[0]', [])
-  const previousIncomeData = _get(companyData, 'financial.incomeStatement[1]', [])
+  const previousIncomeData = _get(
+    companyData,
+    'financial.incomeStatement[1]',
+    [],
+  )
 
   const latestYearData = _get(companyData, 'financial.ratioAnalysis[0]', [])
   const previousYearData = _get(companyData, 'financial.ratioAnalysis[1]', [])
@@ -125,8 +124,16 @@ function Index({
     return length
   }
 
-  const latestAuditorData = _get(camData, 'company.detailedCompanyInfo.profile.auditorDetail[0]', [])
-  const previousAuditorData = _get(camData, 'company.detailedCompanyInfo.profile.auditorDetail[1]', [])
+  const latestAuditorData = _get(
+    camData,
+    'company.detailedCompanyInfo.profile.auditorDetail[0]',
+    [],
+  )
+  const previousAuditorData = _get(
+    camData,
+    'company.detailedCompanyInfo.profile.auditorDetail[1]',
+    [],
+  )
 
   let tempArr = [
     { name: 'Sagar Sinha', value: '21', color: '#9675CE' },
@@ -320,9 +327,7 @@ const basicInfo = (camData) => {
                   className={` col-md-offset-2 d-flex justify-content-between`}
                   md={5}
                 >
-                  <span className={`${styles.key} label1 ml-5 pl-5`}>
-                    City
-                  </span>
+                  <span className={`${styles.key} label1 ml-5 pl-5`}>City</span>
                   <span className={`${styles.value} value`}>
                     {_get(camData, 'company.keyAddress[0].city', '')}
                     {/* {camData?.company?.keyAddress[0]?.city} */}
@@ -379,7 +384,9 @@ const basicInfo = (camData) => {
                   className={` col-md-offset-2 d-flex justify-content-between`}
                   md={5}
                 >
-                  <span className={`${styles.key} label1 ml-5 pl-5`}>Commodity</span>
+                  <span className={`${styles.key} label1 ml-5 pl-5`}>
+                    Commodity
+                  </span>
                   <span className={`${styles.value} value`}>
                     {camData?.commodity}
                   </span>
@@ -393,7 +400,9 @@ const basicInfo = (camData) => {
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
-                  <span className={`${styles.key} label1 ml-5 pl-5`}>Supplier</span>
+                  <span className={`${styles.key} label1 ml-5 pl-5`}>
+                    Supplier
+                  </span>
                   <span className={`${styles.value} value`}>
                     {camData?.supplierName}
                   </span>
@@ -401,7 +410,9 @@ const basicInfo = (camData) => {
               </Row>
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={5}>
-                  <span className={`${styles.key} label1`}>Country of Origin</span>
+                  <span className={`${styles.key} label1`}>
+                    Country of Origin
+                  </span>
                   <span className={`${styles.value} value pr-5`}>
                     {camData?.countryOfOrigin}
                   </span>
@@ -445,7 +456,11 @@ const basicInfo = (camData) => {
                   </span>
                   <span className={`${styles.value} value pr-5`}>
                     {/* {camData?.ExpectedDateOfShipment.split('T')[0]} */}
-                    {moment((camData?.ExpectedDateOfShipment)?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
+                    {moment(
+                      camData?.ExpectedDateOfShipment?.slice(0, 10),
+                      'YYYY-MM-DD',
+                      true,
+                    ).format('DD-MM-YYYY')}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
@@ -458,19 +473,27 @@ const basicInfo = (camData) => {
                         'T',
                       )[0]
                     } */}
-                    {moment((camData?.shipmentDetail?.ETAofDischarge?.fromDate)?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
-
+                    {moment(
+                      camData?.shipmentDetail?.ETAofDischarge?.fromDate?.slice(
+                        0,
+                        10,
+                      ),
+                      'YYYY-MM-DD',
+                      true,
+                    ).format('DD-MM-YYYY')}
                   </span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={5}>
-                  <span className={`${styles.key} label1`}>
-                    Laycan from
-                  </span>
+                  <span className={`${styles.key} label1`}>Laycan from</span>
                   <span className={`${styles.value} value pr-5`}>
                     {/* {camData?.shipmentDetail?.loadPort?.fromDate?.split('T')[0]} */}
-                    {moment((camData?.shipmentDetail?.loadPort?.fromDate)?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
+                    {moment(
+                      camData?.shipmentDetail?.loadPort?.fromDate?.slice(0, 10),
+                      'YYYY-MM-DD',
+                      true,
+                    ).format('DD-MM-YYYY')}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
@@ -479,8 +502,11 @@ const basicInfo = (camData) => {
                   </span>
                   <span className={`${styles.value} value`}>
                     {/* {camData?.shipmentDetail?.loadPort?.toDate?.split('T')[0]} */}
-                    {moment((camData?.shipmentDetail?.loadPort?.toDate)?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
-
+                    {moment(
+                      camData?.shipmentDetail?.loadPort?.toDate?.slice(0, 10),
+                      'YYYY-MM-DD',
+                      true,
+                    ).format('DD-MM-YYYY')}
                   </span>
                 </Col>
               </Row>
@@ -644,7 +670,6 @@ const groupExposure = (camData) => {
                             className={`d-flex justify-content-start align-content-center  mb-5`}
                           >
                             <div className={`${styles.icon} `}>
-
                               <span
                                 className={`d-flex justify-content-center align-content-center`}
                               >
@@ -652,8 +677,6 @@ const groupExposure = (camData) => {
                                   if (index < 2) {
                                     return item?.charAt(0).toUpperCase()
                                   }
-
-
                                 })}
                               </span>
                             </div>
@@ -956,9 +979,7 @@ const creditProfile = (
             <div className={`${styles.content} mb-4`}>
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1`}>
-                    Main Banker
-                  </span>
+                  <span className={`${styles.key} label1`}>Main Banker</span>
                   <span className={`${styles.value} value pr-5`}>
                     {primaryBankName()}
                   </span>
@@ -975,9 +996,7 @@ const creditProfile = (
               </Row>
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1`}>
-                    Open Charges
-                  </span>
+                  <span className={`${styles.key} label1`}>Open Charges</span>
                   <span className={`${styles.value} value pr-5`}>
                     {openChargesLength()}
                   </span>
@@ -986,7 +1005,9 @@ const creditProfile = (
                   <span className={`${styles.key} label1 pl-5`}>
                     Credit Rating Agency
                   </span>
-                  <span className={`${styles.value} value`}>American First</span>
+                  <span className={`${styles.value} value`}>
+                    American First
+                  </span>
                 </Col>
               </Row>
               <Row className={`mb-3`}>
@@ -995,9 +1016,7 @@ const creditProfile = (
                     Name of Auditor
                   </span>
                   <span className={`${styles.value} value pr-5`}>
-                    {
-                      latestAuditorData?.nameOfAuditor
-                    }
+                    {latestAuditorData?.nameOfAuditor}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
@@ -1006,7 +1025,7 @@ const creditProfile = (
                   </span>
                   <span className={`${styles.value} value `}>
                     {latestAuditorData?.nameOfAuditor ===
-                      previousAuditorData?.nameOfAuditor
+                    previousAuditorData?.nameOfAuditor
                       ? ' No'
                       : 'Yes'}
                   </span>
@@ -1067,7 +1086,8 @@ const directorDetails = (camData) => {
                           <span
                             className={`d-flex justify-content-center align-content-center`}
                           >
-                            {fName.charAt(0)}{lName.charAt(0)}
+                            {fName.charAt(0)}
+                            {lName.charAt(0)}
                           </span>
                         </div>
 
@@ -1153,31 +1173,40 @@ const shareHolding = (data, options, tempArr, camData) => {
                   {camData &&
                     camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern?.map(
                       (share, index) => {
-
                         let name = share?.fullName ?? 'N A'
                         let [fName, lName] = name?.split(' ')
 
-                        let colors = [{
-                          primary: "rgba(54, 135, 232, 0.1)",
-                          secondary: "#3687E8"
-                        }, {
-                          primary: "rgba(67, 195, 77, 0.1)",
-                          secondary: "#43C34D"
-                        }, {
-                          primary: "#FFECCF",
-                          secondary: "#FF9D00"
-                        }]
-                        let randColor = colors[Math.floor(Math.random() * colors.length)];
+                        let colors = [
+                          {
+                            primary: 'rgba(54, 135, 232, 0.1)',
+                            secondary: '#3687E8',
+                          },
+                          {
+                            primary: 'rgba(67, 195, 77, 0.1)',
+                            secondary: '#43C34D',
+                          },
+                          {
+                            primary: '#FFECCF',
+                            secondary: '#FF9D00',
+                          },
+                        ]
+                        let randColor =
+                          colors[Math.floor(Math.random() * colors.length)]
                         return (
                           <tr key={index}>
                             <td
                               className={`d-flex justify-content-start align-content-center`}
                             >
-                              <div style={{ background: `${randColor.primary}` }} className={`${styles.icon}   `}>
-                                <span style={{ color: `${randColor.secondary}` }}
+                              <div
+                                style={{ background: `${randColor.primary}` }}
+                                className={`${styles.icon}   `}
+                              >
+                                <span
+                                  style={{ color: `${randColor.secondary}` }}
                                   className={`d-flex justify-content-center align-content-center`}
                                 >
-                                  {fName?.charAt(0) ? fName?.charAt(0) : 'N'}{lName?.charAt(0) ? lName?.charAt(0) : 'A'}
+                                  {fName?.charAt(0) ? fName?.charAt(0) : 'N'}
+                                  {lName?.charAt(0) ? lName?.charAt(0) : 'A'}
                                 </span>
                               </div>
 
@@ -1306,27 +1335,37 @@ const chargeDetails = (data, options, tempArr, camData) => {
                         let name = charge?.nameOfChargeHolder1
                         let [fName, lName] = name?.split(' ')
 
-                        let colors = [{
-                          primary: "rgba(54, 135, 232, 0.1)",
-                          secondary: "#3687E8"
-                        }, {
-                          primary: "rgba(67, 195, 77, 0.1)",
-                          secondary: "#43C34D"
-                        }, {
-                          primary: "#FFECCF",
-                          secondary: "#FF9D00"
-                        }]
-                        let randColor = colors[Math.floor(Math.random() * colors.length)];
+                        let colors = [
+                          {
+                            primary: 'rgba(54, 135, 232, 0.1)',
+                            secondary: '#3687E8',
+                          },
+                          {
+                            primary: 'rgba(67, 195, 77, 0.1)',
+                            secondary: '#43C34D',
+                          },
+                          {
+                            primary: '#FFECCF',
+                            secondary: '#FF9D00',
+                          },
+                        ]
+                        let randColor =
+                          colors[Math.floor(Math.random() * colors.length)]
                         return (
                           <tr key={index}>
                             <td
                               className={`d-flex justify-content-start align-content-center`}
                             >
-                              <div style={{ background: `${randColor.primary}` }} className={`${styles.icon} `}>
-                                <span style={{ color: `${randColor.secondary}` }}
+                              <div
+                                style={{ background: `${randColor.primary}` }}
+                                className={`${styles.icon} `}
+                              >
+                                <span
+                                  style={{ color: `${randColor.secondary}` }}
                                   className={`d-flex justify-content-center align-content-center`}
                                 >
-                                  {fName?.charAt(0) ? fName?.charAt(0) : 'N'}{lName?.charAt(0) ? lName?.charAt(0) : 'A'}
+                                  {fName?.charAt(0) ? fName?.charAt(0) : 'N'}
+                                  {lName?.charAt(0) ? lName?.charAt(0) : 'A'}
                                 </span>
                               </div>
 
@@ -1580,7 +1619,9 @@ const operationalDetails = (camData) => {
               </Row>
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1`}>Capacity Utilization</span>
+                  <span className={`${styles.key} label1`}>
+                    Capacity Utilization
+                  </span>
                   <span className={`${styles.value} value pr-5`}>
                     {camData?.productSummary?.capacityUtilization}
                   </span>
@@ -1689,16 +1730,22 @@ const revenuDetails = (gstData) => {
                   />
                 </td>
                 <td>
-                  {RevenueDetails?.grossTurnover?.current?.value.toFixed(2)?.toLocaleString()}
+                  {RevenueDetails?.grossTurnover?.current?.value
+                    .toFixed(2)
+                    ?.toLocaleString()}
                 </td>
                 <td>
-                  {RevenueDetails?.grossTurnover?.previous?.value.toFixed(2)?.toLocaleString()}
+                  {RevenueDetails?.grossTurnover?.previous?.value
+                    .toFixed(2)
+                    ?.toLocaleString()}
                 </td>
                 <td>
                   {calcPc(
                     RevenueDetails?.grossTurnover?.previous?.value,
                     RevenueDetails?.grossTurnover?.current?.value,
-                  ).toFixed(2)?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
+                  )
+                    .toFixed(2)
+                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
                     '%'}
                 </td>
               </tr>
@@ -1719,16 +1766,22 @@ const revenuDetails = (gstData) => {
                   />
                 </td>
                 <td>
-                  {RevenueDetails?.relatedPartySales?.current?.value.toFixed(2)?.toLocaleString()}
+                  {RevenueDetails?.relatedPartySales?.current?.value
+                    .toFixed(2)
+                    ?.toLocaleString()}
                 </td>
                 <td>
-                  {RevenueDetails?.relatedPartySales?.previous?.value.toFixed(2)?.toLocaleString()}
+                  {RevenueDetails?.relatedPartySales?.previous?.value
+                    .toFixed(2)
+                    ?.toLocaleString()}
                 </td>
                 <td>
                   {calcPc(
                     RevenueDetails?.relatedPartySales?.previous?.value,
                     RevenueDetails?.relatedPartySales?.current?.value,
-                  ).toFixed(2)?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
+                  )
+                    .toFixed(2)
+                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
                     '%'}
                 </td>
               </tr>
@@ -1749,16 +1802,22 @@ const revenuDetails = (gstData) => {
                   />
                 </td>
                 <td>
-                  {RevenueDetails?.intraOrgSalesPercent?.current?.value.toFixed(2)?.toLocaleString()}
+                  {RevenueDetails?.intraOrgSalesPercent?.current?.value
+                    .toFixed(2)
+                    ?.toLocaleString()}
                 </td>
                 <td>
-                  {RevenueDetails?.intraOrgSalesPercent?.previous?.value.toFixed(2)?.toLocaleString()}
+                  {RevenueDetails?.intraOrgSalesPercent?.previous?.value
+                    .toFixed(2)
+                    ?.toLocaleString()}
                 </td>
                 <td>
                   {calcPc(
                     RevenueDetails?.intraOrgSalesPercent?.previous?.value,
                     RevenueDetails?.intraOrgSalesPercent?.current?.value,
-                  ).toFixed(2)?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
+                  )
+                    .toFixed(2)
+                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
                     '%'}
                 </td>
               </tr>
@@ -1779,16 +1838,22 @@ const revenuDetails = (gstData) => {
                   />
                 </td>
                 <td>
-                  {RevenueDetails?.B2BSales?.current?.value.toFixed(2)?.toLocaleString()}
+                  {RevenueDetails?.B2BSales?.current?.value
+                    .toFixed(2)
+                    ?.toLocaleString()}
                 </td>
                 <td>
-                  {RevenueDetails?.B2BSales?.previous?.value.toFixed(2)?.toLocaleString()}
+                  {RevenueDetails?.B2BSales?.previous?.value
+                    .toFixed(2)
+                    ?.toLocaleString()}
                 </td>
                 <td>
                   {calcPc(
                     RevenueDetails?.B2BSales?.previous?.value,
                     RevenueDetails?.B2BSales?.current?.value,
-                  ).toFixed(2)?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
+                  )
+                    .toFixed(2)
+                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
                     '%'}
                 </td>
               </tr>
@@ -1809,16 +1874,22 @@ const revenuDetails = (gstData) => {
                   />
                 </td>
                 <td>
-                  {RevenueDetails?.B2CSales?.current?.value.toFixed(2)?.toLocaleString()}
+                  {RevenueDetails?.B2CSales?.current?.value
+                    .toFixed(2)
+                    ?.toLocaleString()}
                 </td>
                 <td>
-                  {RevenueDetails?.B2CSales?.previous?.value.toFixed(2)?.toLocaleString()}
+                  {RevenueDetails?.B2CSales?.previous?.value
+                    .toFixed(2)
+                    ?.toLocaleString()}
                 </td>
                 <td>
                   {calcPc(
                     RevenueDetails?.B2CSales?.previous?.value,
                     RevenueDetails?.B2CSales?.current?.value,
-                  ).toFixed(2)?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
+                  )
+                    .toFixed(2)
+                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
                     '%'}
                 </td>
               </tr>
@@ -1839,16 +1910,22 @@ const revenuDetails = (gstData) => {
                   />
                 </td>
                 <td>
-                  {RevenueDetails?.exportSales?.current?.value.toFixed(2)?.toLocaleString()}
+                  {RevenueDetails?.exportSales?.current?.value
+                    .toFixed(2)
+                    ?.toLocaleString()}
                 </td>
                 <td>
-                  {RevenueDetails?.exportSales?.previous?.value.toFixed(2)?.toLocaleString()}
+                  {RevenueDetails?.exportSales?.previous?.value
+                    .toFixed(2)
+                    ?.toLocaleString()}
                 </td>
                 <td>
                   {calcPc(
                     RevenueDetails?.exportSales?.previous?.value,
                     RevenueDetails?.exportSales?.current?.value,
-                  ).toFixed(2)?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
+                  )
+                    .toFixed(2)
+                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
                     '%'}
                 </td>
               </tr>
@@ -1869,16 +1946,22 @@ const revenuDetails = (gstData) => {
                   />
                 </td>
                 <td>
-                  {RevenueDetails?.ttlCustomer?.current?.value.toFixed(2)?.toLocaleString()}
+                  {RevenueDetails?.ttlCustomer?.current?.value
+                    .toFixed(2)
+                    ?.toLocaleString()}
                 </td>
                 <td>
-                  {RevenueDetails?.ttlCustomer?.previous?.value.toFixed(2)?.toLocaleString()}
+                  {RevenueDetails?.ttlCustomer?.previous?.value
+                    .toFixed(2)
+                    ?.toLocaleString()}
                 </td>
                 <td>
                   {calcPc(
                     RevenueDetails?.ttlCustomer?.previous?.value,
                     RevenueDetails?.ttlCustomer?.current?.value,
-                  ).toFixed(2)?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
+                  )
+                    .toFixed(2)
+                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
                     '%'}
                 </td>
               </tr>
@@ -1899,16 +1982,22 @@ const revenuDetails = (gstData) => {
                   />
                 </td>
                 <td>
-                  {RevenueDetails?.ttlInv?.current?.value.toFixed(2)?.toLocaleString()}
+                  {RevenueDetails?.ttlInv?.current?.value
+                    .toFixed(2)
+                    ?.toLocaleString()}
                 </td>
                 <td>
-                  {RevenueDetails?.ttlInv?.previous?.value.toFixed(2)?.toLocaleString()}
+                  {RevenueDetails?.ttlInv?.previous?.value
+                    .toFixed(2)
+                    ?.toLocaleString()}
                 </td>
                 <td>
                   {calcPc(
                     RevenueDetails?.ttlInv?.previous?.value,
                     RevenueDetails?.ttlInv?.current?.value,
-                  ).toFixed(2)?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
+                  )
+                    .toFixed(2)
+                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
                     '%'}
                 </td>
               </tr>
@@ -1962,7 +2051,7 @@ const financeDetails = (
           data-parent="#profileAccordion"
         >
           <div className={`${styles.order_wrapper2} card-body`}>
-            <Row className='no-gutters'>
+            <Row className="no-gutters">
               <Col className={`${styles.leftCol} p-0 border_color`} md={6}>
                 <table
                   className={`${styles.table} table  border_color `}
@@ -1970,7 +2059,9 @@ const financeDetails = (
                   cellSpacing="0"
                 >
                   <tr>
-                    <th className={`${styles.bold_heading} value`}>Liabilities</th>
+                    <th className={`${styles.bold_heading} value`}>
+                      Liabilities
+                    </th>
                     <th>
                       {moment(latestBalanceData?.date)
                         .format('MMM-YY')
@@ -1985,64 +2076,50 @@ const financeDetails = (
                   <tr>
                     <td>Net Worth</td>
                     <td>
-                      {
-                        latestBalanceData?.equityLiabilities?.totalEquity?.toLocaleString()
-                      }
+                      {latestBalanceData?.equityLiabilities?.totalEquity?.toLocaleString()}
                     </td>
                     <td>
-                      {
-                        previousBalanceData?.equityLiabilities?.totalEquity?.toLocaleString()
-                      }
+                      {previousBalanceData?.equityLiabilities?.totalEquity?.toLocaleString()}
                     </td>
                   </tr>
                   <tr>
                     <td>Total Borrowings</td>
                     <td>
-                      {latestBalanceData
-                        ?.equityLiabilities?.borrowingsCurrent +
-                        latestBalanceData
-                          ?.equityLiabilities?.borrowingsNonCurrent?.toLocaleString()}
+                      {latestBalanceData?.equityLiabilities?.borrowingsCurrent +
+                        latestBalanceData?.equityLiabilities?.borrowingsNonCurrent?.toLocaleString()}
                     </td>
                     <td>
-                      {previousBalanceData
-                        ?.equityLiabilities?.borrowingsCurrent +
-                        previousBalanceData
-                          ?.equityLiabilities?.borrowingsNonCurrent?.toLocaleString()}
+                      {previousBalanceData?.equityLiabilities
+                        ?.borrowingsCurrent +
+                        previousBalanceData?.equityLiabilities?.borrowingsNonCurrent?.toLocaleString()}
                     </td>
                   </tr>
                   <tr>
                     <td>Creditors</td>
                     <td>
-                      {latestBalanceData
-                        ?.equityLiabilities?.tradePay +
-                        latestBalanceData
-                          ?.equityLiabilities?.tradePayablesNoncurrent?.toLocaleString()}
+                      {latestBalanceData?.equityLiabilities?.tradePay +
+                        latestBalanceData?.equityLiabilities?.tradePayablesNoncurrent?.toLocaleString()}
                     </td>
                     <td>
-                      {previousBalanceData
-                        ?.equityLiabilities?.tradePay +
-                        previousBalanceData
-                          ?.equityLiabilities?.tradePayablesNoncurrent?.toLocaleString()}
+                      {previousBalanceData?.equityLiabilities?.tradePay +
+                        previousBalanceData?.equityLiabilities?.tradePayablesNoncurrent?.toLocaleString()}
                     </td>
                   </tr>
                   <tr>
                     <td>Other Current Liabilities</td>
                     <td>
-                      {
-                        latestBalanceData
-                          ?.equityLiabilities?.otherCurrentLiabilities?.toLocaleString()
-                      }
+                      {latestBalanceData?.equityLiabilities?.otherCurrentLiabilities?.toLocaleString()}
                     </td>
                     <td>
-                      {
-                        previousBalanceData
-                          ?.equityLiabilities?.otherCurrentLiabilities?.toLocaleString()
-                      }
+                      {previousBalanceData?.equityLiabilities?.otherCurrentLiabilities?.toLocaleString()}
                     </td>
                   </tr>
 
                   <tr>
-                    <th colSpan={3} className={`${styles.bold_heading} ${styles.Border} value`}>
+                    <th
+                      colSpan={3}
+                      className={`${styles.bold_heading} ${styles.Border} value`}
+                    >
                       Assets
                     </th>
                   </tr>
@@ -2050,65 +2127,48 @@ const financeDetails = (
                   <tr>
                     <td>Working Capital Turnover ratio</td>
                     <td>
-                      {
-                        latestYearData
-                          ?.workingCapitalTurnover?.toFixed(2)
-                      }
+                      {latestYearData?.workingCapitalTurnover?.toFixed(2)}
                     </td>
                     <td>
-                      {
-                        previousYearData
-                          ?.workingCapitalTurnover?.toFixed(2).toLocaleString()
-                      }
+                      {previousYearData?.workingCapitalTurnover
+                        ?.toFixed(2)
+                        .toLocaleString()}
                     </td>
                   </tr>
                   <tr>
                     <td>Debtors period</td>
                     <td>
-                      {
-                        latestYearData
-                          ?.daysOfSalesOutstanding?.toFixed(2).toLocaleString()
-                      }
+                      {latestYearData?.daysOfSalesOutstanding
+                        ?.toFixed(2)
+                        .toLocaleString()}
                     </td>
                     <td>
-                      {
-                        previousYearData
-                          ?.daysOfSalesOutstanding?.toFixed(2).toLocaleString()
-                      }
+                      {previousYearData?.daysOfSalesOutstanding
+                        ?.toFixed(2)
+                        .toLocaleString()}
                     </td>
                   </tr>
                   <tr>
                     <td>Creditors Period</td>
                     <td>
-                      {
-                        latestYearData
-                          ?.daysOfPayablesOutstanding?.toFixed(2).toLocaleString()
-                      }
+                      {latestYearData?.daysOfPayablesOutstanding
+                        ?.toFixed(2)
+                        .toLocaleString()}
                     </td>
                     <td>
-                      {
-                        previousYearData
-                          ?.daysOfPayablesOutstanding?.toFixed(2)
-                      }
+                      {previousYearData?.daysOfPayablesOutstanding?.toFixed(2)}
                     </td>
                   </tr>
                   <tr>
                     <td>Inventory Period</td>
-                    <td>
-                      {
-                        latestYearData
-                          ?.daysOfInventoryOutstanding
-                      }
-                    </td>
-                    <td>
-                      {
-                        previousYearData
-                          ?.daysOfInventoryOutstanding
-                      }
-                    </td>
+                    <td>{latestYearData?.daysOfInventoryOutstanding}</td>
+                    <td>{previousYearData?.daysOfInventoryOutstanding}</td>
                   </tr>
                   <tr>
-                    <th colSpan={3} className={`${styles.Border} ${styles.bold_heading} value`}>
+                    <th
+                      colSpan={3}
+                      className={`${styles.Border} ${styles.bold_heading} value`}
+                    >
                       P/L
                     </th>
                   </tr>
@@ -2116,25 +2176,27 @@ const financeDetails = (
                   <tr>
                     <td>Interest Coverage</td>
                     <td>
-                      {
-                        latestYearData
-                          ?.interestCoverage?.toFixed(2).toLocaleString()
-                      }
+                      {latestYearData?.interestCoverage
+                        ?.toFixed(2)
+                        .toLocaleString()}
                     </td>
                     <td>
-                      {
-                        previousYearData
-                          ?.interestCoverage?.toFixed(2).toLocaleString()
-                      }
+                      {previousYearData?.interestCoverage
+                        ?.toFixed(2)
+                        .toLocaleString()}
                     </td>
                   </tr>
                   <tr>
                     <td>Current Ratio</td>
                     <td>
-                      {latestYearData?.currentRatio?.toFixed(2).toLocaleString()}
+                      {latestYearData?.currentRatio
+                        ?.toFixed(2)
+                        .toLocaleString()}
                     </td>
                     <td>
-                      {previousYearData?.currentRatio?.toFixed(2).toLocaleString()}
+                      {previousYearData?.currentRatio
+                        ?.toFixed(2)
+                        .toLocaleString()}
                     </td>
                   </tr>
                   <tr>
@@ -2143,7 +2205,9 @@ const financeDetails = (
                       {latestYearData?.debtEquity?.toFixed(2).toLocaleString()}
                     </td>
                     <td>
-                      {previousYearData?.debtEquity?.toFixed(2).toLocaleString()}
+                      {previousYearData?.debtEquity
+                        ?.toFixed(2)
+                        .toLocaleString()}
                     </td>
                   </tr>
                 </table>
@@ -2158,19 +2222,13 @@ const financeDetails = (
                     <th className={`${styles.bold_heading} value`}>Ratios</th>
                     <th>
                       {' '}
-                      {moment(
-                        latestYearData
-                          ?.financialEndDate,
-                      )
+                      {moment(latestYearData?.financialEndDate)
                         .format('MMM-YY')
                         .toUpperCase()}
                     </th>
                     <th>
                       {' '}
-                      {moment(
-                        previousYearData
-                          ?.financialEndDate,
-                      )
+                      {moment(previousYearData?.financialEndDate)
                         .format('MMM-YY')
                         .toUpperCase()}
                     </th>
@@ -2178,40 +2236,52 @@ const financeDetails = (
                   <tr>
                     <td>Cash from Operations</td>
                     <td>
-                      {
-                        _get(companyData, 'financial.cashFlowStatement[0].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities', '').toLocaleString(undefined, { minimumFractionDigits: 2 })
-                      }
+                      {_get(
+                        companyData,
+                        'financial.cashFlowStatement[0].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
+                        '',
+                      ).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td>
-                      {
-                        _get(companyData, 'financial.cashFlowStatement[1].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities', '').toLocaleString(undefined, { minimumFractionDigits: 2 })
-                      }
+                      {_get(
+                        companyData,
+                        'financial.cashFlowStatement[1].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
+                        '',
+                      ).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
                   <tr>
                     <td>Cash from Financing</td>
                     <td>
-                      {
-                        _get(companyData, 'financial?.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities', '').toLocaleString(undefined, { minimumFractionDigits: 2 })
-                      }
+                      {_get(
+                        companyData,
+                        'financial?.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
+                        '',
+                      ).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td>
-                      {
-                        _get(companyData, 'financial?.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities', '').toLocaleString(undefined, { minimumFractionDigits: 2 })
-                      }
+                      {_get(
+                        companyData,
+                        'financial?.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
+                        '',
+                      ).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
                   <tr>
                     <td>Cash from Investing</td>
                     <td>
-                      {
-                        _get(companyData, 'financial?.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities', '').toLocaleString(undefined, { minimumFractionDigits: 2 })
-                      }
+                      {_get(
+                        companyData,
+                        'financial?.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
+                        '',
+                      ).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td>
-                      {
-                        _get(companyData, 'financial?.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities', '').toLocaleString(undefined, { minimumFractionDigits: 2 })
-                      }
+                      {_get(
+                        companyData,
+                        'financial?.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
+                        '',
+                      ).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
 
@@ -2224,61 +2294,53 @@ const financeDetails = (
                   <tr>
                     <td>Working Capital Turnover ratio</td>
                     <td>
-                      {
-                        latestYearData
-                          ?.workingCapitalTurnover?.toFixed(2).toLocaleString()
-                      }
+                      {latestYearData?.workingCapitalTurnover
+                        ?.toFixed(2)
+                        .toLocaleString()}
                     </td>
                     <td>
-                      {
-                        previousYearData
-                          ?.workingCapitalTurnover?.toFixed(2).toLocaleString()
-                      }
+                      {previousYearData?.workingCapitalTurnover
+                        ?.toFixed(2)
+                        .toLocaleString()}
                     </td>
                   </tr>
                   <tr>
                     <td>Debtors period</td>
                     <td>
-                      {
-                        latestYearData
-                          ?.daysOfSalesOutstanding?.toFixed(2).toLocaleString()
-                      }
+                      {latestYearData?.daysOfSalesOutstanding
+                        ?.toFixed(2)
+                        .toLocaleString()}
                     </td>
                     <td>
-                      {
-                        previousYearData
-                          ?.daysOfSalesOutstanding?.toFixed(2).toLocaleString()
-                      }
+                      {previousYearData?.daysOfSalesOutstanding
+                        ?.toFixed(2)
+                        .toLocaleString()}
                     </td>
                   </tr>
                   <tr>
                     <td>Creditors Period</td>
                     <td>
-                      {
-                        latestYearData
-                          ?.daysOfPayablesOutstanding?.toFixed(2).toLocaleString()
-                      }
+                      {latestYearData?.daysOfPayablesOutstanding
+                        ?.toFixed(2)
+                        .toLocaleString()}
                     </td>
                     <td>
-                      {
-                        previousYearData
-                          ?.daysOfPayablesOutstanding?.toFixed(2).toLocaleString()
-                      }
+                      {previousYearData?.daysOfPayablesOutstanding
+                        ?.toFixed(2)
+                        .toLocaleString()}
                     </td>
                   </tr>
                   <tr>
                     <td>Inventory Period</td>
                     <td>
-                      {
-                        latestYearData
-                          ?.daysOfInventoryOutstanding?.toFixed(2).toLocaleString()
-                      }
+                      {latestYearData?.daysOfInventoryOutstanding
+                        ?.toFixed(2)
+                        .toLocaleString()}
                     </td>
                     <td>
-                      {
-                        previousYearData
-                          ?.daysOfInventoryOutstanding?.toFixed(2).toLocaleString()
-                      }
+                      {previousYearData?.daysOfInventoryOutstanding
+                        ?.toFixed(2)
+                        .toLocaleString()}
                     </td>
                   </tr>
                   <tr>
@@ -2290,25 +2352,27 @@ const financeDetails = (
                   <tr>
                     <td>Interest Coverage</td>
                     <td>
-                      {
-                        latestYearData
-                          ?.interestCoverage?.toFixed(2).toLocaleString()
-                      }
+                      {latestYearData?.interestCoverage
+                        ?.toFixed(2)
+                        .toLocaleString()}
                     </td>
                     <td>
-                      {
-                        previousYearData
-                          ?.interestCoverage?.toFixed(2).toLocaleString()
-                      }
+                      {previousYearData?.interestCoverage
+                        ?.toFixed(2)
+                        .toLocaleString()}
                     </td>
                   </tr>
                   <tr>
                     <td>Current Ratio</td>
                     <td>
-                      {latestYearData?.currentRatio?.toFixed(2).toLocaleString()}
+                      {latestYearData?.currentRatio
+                        ?.toFixed(2)
+                        .toLocaleString()}
                     </td>
                     <td>
-                      {previousYearData?.currentRatio?.toFixed(2).toLocaleString()}
+                      {previousYearData?.currentRatio
+                        ?.toFixed(2)
+                        .toLocaleString()}
                     </td>
                   </tr>
                   <tr>
@@ -2317,7 +2381,9 @@ const financeDetails = (
                       {latestYearData?.debtEquity?.toFixed(2).toLocaleString()}
                     </td>
                     <td>
-                      {previousYearData?.debtEquity?.toFixed(2).toLocaleString()}
+                      {previousYearData?.debtEquity
+                        ?.toFixed(2)
+                        .toLocaleString()}
                     </td>
                   </tr>
                 </table>
@@ -2353,7 +2419,9 @@ const compilanceStatus = (companyData, camData) => {
             <div className={`${styles.content} mb-4`}>
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1`}>GST Return Filing</span>
+                  <span className={`${styles.key} label1`}>
+                    GST Return Filing
+                  </span>
                   <span
                     className={`${styles.value} value pr-5`}
                     style={{ color: '#EA3F3F' }}
@@ -2390,7 +2458,9 @@ const compilanceStatus = (companyData, camData) => {
               </Row>
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1`}>Litigation Status</span>
+                  <span className={`${styles.key} label1`}>
+                    Litigation Status
+                  </span>
                   <span className={`${styles.value} value pr-5`}>
                     {camData?.company?.litigationStatus}
                   </span>
@@ -2411,10 +2481,14 @@ const compilanceStatus = (companyData, camData) => {
                   <span className={`${styles.key} label1`}>
                     Last Balance Sheet Dates
                   </span>
-                  <span className={`${styles.value} value pr-5`}>14-05-2022</span>
+                  <span className={`${styles.value} value pr-5`}>
+                    14-05-2022
+                  </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
-                  <span className={`${styles.key} label1 pl-5`}>Active Directors</span>
+                  <span className={`${styles.key} label1 pl-5`}>
+                    Active Directors
+                  </span>
                   <span className={`${styles.value} value`}>4,320</span>
                 </Col>
               </Row>
@@ -2650,6 +2724,7 @@ const sectionTerms = (
                     type="number"
                     defaultValue={camData?.cam?.approvedCreditValue}
                     name="approvedCreditValue"
+                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                     onChange={(e) => {
                       onApprove(
                         e.target.name,
@@ -2672,6 +2747,7 @@ const sectionTerms = (
                   <input
                     className={`${styles.text}`}
                     type="number"
+                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                     name="approvedOrderValue"
                     defaultValue={camData?.cam?.approvedOrderValue}
                     onChange={(e) => {
@@ -2771,20 +2847,32 @@ const Documents = (documentsFetched) => {
         >
           <div className={`${styles.terms_wrapper} card-body border_color`}>
             <Row className={`${styles.row}`}>
-              {documentsFetched && documentsFetched?.documents?.map((doc, index) => (<Col md={3} key={index} className={`mb-3`}>
-                <div
-                  className={`${styles.doc_container} p-2  d-flex align-items-center justify-content-start`}
-                >
-                  <img src="./static/icon file copy.svg"></img>
-                  <div className={`${styles.view} ml-4`}>
-                    <span>{doc.name}</span>
-                    <span onClick={() => dispatch(ViewDocument({
-                      path: doc.path,
-                      orderId: documentsFetched._id
-                    }))} className={`${styles.highlight} mt-2`}>VIEW</span>
-                  </div>
-                </div>
-              </Col>))}
+              {documentsFetched &&
+                documentsFetched?.documents?.map((doc, index) => (
+                  <Col md={3} key={index} className={`mb-3`}>
+                    <div
+                      className={`${styles.doc_container} p-2  d-flex align-items-center justify-content-start`}
+                    >
+                      <img src="./static/icon file copy.svg"></img>
+                      <div className={`${styles.view} ml-4`}>
+                        <span>{doc.name}</span>
+                        <span
+                          onClick={() =>
+                            dispatch(
+                              ViewDocument({
+                                path: doc.path,
+                                orderId: documentsFetched._id,
+                              }),
+                            )
+                          }
+                          className={`${styles.highlight} mt-2`}
+                        >
+                          VIEW
+                        </span>
+                      </div>
+                    </div>
+                  </Col>
+                ))}
               {/* <Col md={3}>
                 <div
                   className={`${styles.doc_container} p-2  d-flex align-items-center justify-content-start`}
@@ -2896,7 +2984,7 @@ const trends = (
               className={`${styles.select} accordion_body form-select`}
               aria-label="Default select example"
             >
-               <option>Select an option</option>
+              <option>Select an option</option>
               <option selected value="1">
                 Quarterly
               </option>
@@ -2927,8 +3015,13 @@ const trends = (
                   <Line data={TotalRevenueDataLine} options={lineOption} />
                 </div>
                 <div className={`${styles.name}`}>
-                  <div className={`${styles.name_wrapper} d-flex justify-content-center align-item-center`}>
-                    <div className={styles.round} style={{ backgroundColor: `red` }}></div>
+                  <div
+                    className={`${styles.name_wrapper} d-flex justify-content-center align-item-center`}
+                  >
+                    <div
+                      className={styles.round}
+                      style={{ backgroundColor: `red` }}
+                    ></div>
                     <span className={` heading ml-2`}>Gross Revenue</span>
                   </div>
                 </div>
@@ -2948,8 +3041,13 @@ const trends = (
                   <Line data={TotalPurchasesDataLine} options={lineOption} />
                 </div>
                 <div className={`${styles.name}`}>
-                  <div className={`${styles.name_wrapper} d-flex justify-content-center align-item-center`}>
-                    <div className={styles.round} style={{ backgroundColor: `red` }}></div>
+                  <div
+                    className={`${styles.name_wrapper} d-flex justify-content-center align-item-center`}
+                  >
+                    <div
+                      className={styles.round}
+                      style={{ backgroundColor: `red` }}
+                    ></div>
                     <span className={` heading ml-2`}>Gross Purchases</span>
                   </div>
                 </div>
@@ -2983,7 +3081,7 @@ const skewness = (data, options, tempArr, gstData) => {
               className={`${styles.select} accordion_body form-select`}
               aria-label="Default select example"
             >
-               <option>Select an option</option>
+              <option>Select an option</option>
               <option selected value="1">
                 Quarterly
               </option>
