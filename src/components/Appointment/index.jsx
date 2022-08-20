@@ -147,7 +147,7 @@ export default function Index({ inspectionData }) {
                       name="dateOfAppointment"
                       selected={startDate}
                       //min={moment().format('YYYY-MM-DD')}
-                      dateFormat="dd/MM/yyyy"
+                      dateFormat="dd-MM-yyyy"
                       className={`${styles.input_field} ${styles.cursor_none} input form-control`}
                       onChange={(startDate) => {
                         setStartDate(startDate)
@@ -222,7 +222,7 @@ const editData = (handleEditCancel, handleEditInput, handleOnAdd) => {
                 setAddress(e.target.name, e.target.value)
               }}
             >
-               <option>Select an option</option>
+              <option>Select an option</option>
               <option value="Registered">Registered Office</option>
               <option value="Branch">Branch </option>
               <option value="Supplier">Supplier Address </option>

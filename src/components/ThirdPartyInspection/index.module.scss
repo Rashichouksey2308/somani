@@ -235,7 +235,8 @@
           letter-spacing: 0.53px;
           line-height: 17px;
           top: 22px;
-          left: 15px;
+          left: 30px;
+
           margin-bottom: 0;
           position: absolute;
           pointer-events: none;
@@ -509,7 +510,7 @@
                   background: green;
                   img {
                     width: 20px;
-                    filter:  brightness(0) invert(1);
+                    filter: brightness(0) invert(1);
                   }
                 }
               }
@@ -750,7 +751,7 @@ img {
   font-size: 20px;
   letter-spacing: 0.19px;
   color: #111111;
-  background-color: #C3C3C31F;
+  background-color: #c3c3c31f;
   border-radius: 4px;
   padding: 8px;
   margin: 7px 0;
@@ -762,7 +763,7 @@ img {
   font-size: 20px;
   letter-spacing: 0.19px;
   color: #3687e8;
-  background-color: #C3C3C31F;
+  background-color: #c3c3c31f;
   border-radius: 4px;
   padding: 8px;
   margin: 7px 0;
@@ -771,26 +772,26 @@ img {
   overflow: hidden;
   position: relative;
   display: block;
-  line-height: 60px; 
+  line-height: 60px;
   input {
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      opacity: 0;
-      cursor: pointer;
-      position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    cursor: pointer;
+    position: absolute;
   }
-} 
+}
 .button_upload {
   width: 106px;
   height: 38px;
-  border: 3px solid #3687E8;
+  border: 3px solid #3687e8;
   border-radius: 5px;
   text-align: center;
   font-weight: bold;
   font-size: 18px;
-  color: #3687E8;
+  color: #3687e8;
   line-height: 23px;
   text-transform: capitalize;
 }

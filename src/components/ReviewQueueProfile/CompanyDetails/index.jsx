@@ -4,7 +4,7 @@ import styles from '../profile.module.scss'
 import CommonSave from '../../CommonSave'
 import { useDispatch } from 'react-redux'
 import { UpdateCompanyDetails } from '../../../redux/companyDetail/action'
-import {CovertvaluefromtoCR} from '../../../utils/helper'
+import { CovertvaluefromtoCR } from '../../../utils/helper'
 
 function Index({ order, companyDetail }) {
   console.log(companyDetail, 'companyDetail')
@@ -123,11 +123,10 @@ function Index({ order, companyDetail }) {
                   Active Compliant
                 </div>
                 <div
-                  className={`${`${styles.value} accordion_Text`} ${
-                    companyDetail?.profile?.companyDetail?.activeCompliance
-                      ? styles.success
-                      : styles.warning
-                  }`}
+                  className={`${`${styles.value} accordion_Text`} ${companyDetail?.profile?.companyDetail?.activeCompliance
+                    ? styles.success
+                    : styles.warning
+                    }`}
                 >
                   {companyDetail?.activeCompliance ? 'Yes' : 'No'}
                 </div>
@@ -137,7 +136,7 @@ function Index({ order, companyDetail }) {
                   Contact Number
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
-                 +91 {companyDetail?.profile?.companyDetail?.contactNumber}
+                  +91 {companyDetail?.profile?.companyDetail?.contactNumber}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -182,11 +181,10 @@ function Index({ order, companyDetail }) {
                   Last Balance Sheet
                 </div>
                 <div
-                  className={`${`${styles.value} accordion_Text`} ${
-                    companyDetail?.profile?.companyDetail?.lastBalanceSheet
-                      ? styles.success
-                      : styles.warning
-                  }`}
+                  className={`${`${styles.value} accordion_Text`} ${companyDetail?.profile?.companyDetail?.lastBalanceSheet
+                    ? styles.success
+                    : styles.warning
+                    }`}
                 >
                   {companyDetail?.lastBalanceSheet}
                 </div>
@@ -243,6 +241,7 @@ function Index({ order, companyDetail }) {
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="Sourcing"
                   >
+                    <option value=''>Please select an Option</option>
                     <option value="SocialMedia">{order?.sourceChanel}</option>
                     <option value="Website">Website</option>
                   </select>
@@ -268,8 +267,9 @@ function Index({ order, companyDetail }) {
                     name="Sourcing"
                     value={order?.referedBy}
                   >
+                    <option value=''>Please select an Option</option>
                     <option value="CHA">{'CHA'}</option>
-                    <option value="Not CHA">Not CHA</option>
+                    <option value="CMA">CMA</option>
                   </select>
                   <label className={`${styles.label_heading} label_heading`}>
                     Referred By
@@ -292,7 +292,8 @@ function Index({ order, companyDetail }) {
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="Sourcing"
                   >
-                    <option value="">Bhutani Traders</option>
+                    <option value=''>Please select an Option</option>
+                    <option value="Bhutani Traders">Bhutani Traders</option>
                   </select>
                   <label className={`${styles.label_heading} label_heading`}>
                     Referral Name
