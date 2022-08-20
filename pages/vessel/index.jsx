@@ -445,6 +445,8 @@ setList(tempArr)
   return (
     <>
       <Vessels
+        vesselCertificate={vesselCertificate}
+        setVesselCertificate={setVesselCertificate}
         partShipmentAllowed={partShipmentAllowed}
         setPartShipmentAllowed={setPartShipmentAllowed}
         id1={id1}

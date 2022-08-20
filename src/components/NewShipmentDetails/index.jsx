@@ -217,9 +217,15 @@ const index = ({ saveShipmentData, shipment }) => {
                       saveShipmentData(e.target.name, e.target.value)
                     }}
                   >
-                    {/* <option selected></option> */}
-                    <option value="Calcutta Port" selected>
+                    <option selected>Select an option</option>
+                    <option value="Calcutta Port">
                       Calcutta Port
+                    </option>
+                    <option value="Mumabai, India">
+                    Mumbai, India
+                    </option>
+                    <option value="Vizag, India">
+                    Vizag, India
                     </option>
                   </select>
                   <Form.Label
