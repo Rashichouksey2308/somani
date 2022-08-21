@@ -63,7 +63,7 @@ function Index(props) {
     if(active=="Buyer"){
       return(
         <Buyer
-         saveData={saveData} 
+        saveData={saveData} 
         sendData={sendData} 
         submitData={submitData} 
         updateData={updateData}
@@ -218,8 +218,8 @@ function Index(props) {
         sendData={sendData} 
         submitData={submitData} 
         updateData={updateData}
-         active={active}
-         data={props?.genericData?.placeOfExecution}
+        active={active}
+        data={props?.genericData?.placeOfExecution}
         
         />
       )
