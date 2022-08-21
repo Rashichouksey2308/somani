@@ -674,15 +674,16 @@ setEditAddress(
                         <select
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           name="addressType"
-                          
+                          value={addressType}
                           onChange={(e) => {
-                            setMultiAddressType(e.target.value)
+                            // setMultiAddressType(e.target.value)
+                            setAddressType(e.target.value)
                             setAddress(e.target.name,e.target.value)
                           }}
                         >
-                           <option>Select an option</option>
-                          <option value="Registered">Registered Office</option>
-                          <option value="Branch">Branch </option>
+                            <option>Select an option</option>
+                            <option value="Registered">Registered Office</option>
+                            <option value="Branch">Branch </option>
                             <option value="Supplier">Supplier Address </option>
                           
                         </select>
@@ -698,7 +699,7 @@ setEditAddress(
                         />
                       </div>
                     </Form.Group>
-                {addressType=="Registered" || addressType=="Supplier"?
+                {addressType==  "Registered" || addressType=="Supplier"?
                     <>
                     <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
                       <Form.Control
@@ -953,12 +954,14 @@ setEditAddress(
                           <td><input type="text" 
                           placeholder={val.designation}
                           name= "designation"
+                          readOnly={true}
                           // onChange={(e)=>{
                           //   handleChangeInput(e.target.name,e.target.value,index)
                           // }}
                           ></input></td>
                           <td><input type="text" placeholder={val.email}
                           name= "email"
+                          readOnly={true}
                           // onChange={(e)=>{
                           //   handleChangeInput(e.target.name,e.target.value,index)
                           // }}

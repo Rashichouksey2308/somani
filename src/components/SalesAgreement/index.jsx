@@ -19,7 +19,8 @@ import Stevedore from '../AggrementContent/stevedore'
 import Thirdparty from '../AggrementContent/thirdparty'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateGenericData } from '../../redux/generic/actionsType'
-
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import { cssNumber } from 'jquery'
 
 
@@ -63,7 +64,7 @@ function Index(props) {
     if(active=="Buyer"){
       return(
         <Buyer
-         saveData={saveData} 
+        saveData={saveData} 
         sendData={sendData} 
         submitData={submitData} 
         updateData={updateData}
@@ -218,8 +219,8 @@ function Index(props) {
         sendData={sendData} 
         submitData={submitData} 
         updateData={updateData}
-         active={active}
-         data={props?.genericData?.placeOfExecution}
+        active={active}
+        data={props?.genericData?.placeOfExecution}
         
         />
       )
@@ -642,18 +643,9 @@ const sendData=(key,data)=>{
 
   }
 
-//       setSidebar(prevState => {
-//       const newState = prevState.map((obj ,i)=> {
-        
-//         if (obj.value == key) {
-//           return {...obj, state: 'pending',image:"/static/pending2.svg"};
-//         }
-// // 👇️ otherwise return object as is
-//         return obj;
-//       });
+ 
+      
 
-//       return newState;
-//     });
     let tempArr=sideBar;
     sideBar.forEach((val,index)=>{
       if(val.value==key){
@@ -663,6 +655,9 @@ const sendData=(key,data)=>{
      setSidebar(tempArr)
     })
    
+     let toastMessage = 'SAVEd'
+        
+  toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
     
 
 
