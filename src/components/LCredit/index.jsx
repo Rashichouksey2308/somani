@@ -202,7 +202,10 @@ function Index() {
   const [fieldType, setFieldType] = useState(false)
 
   const dropDownChange = (e) => {
-    inputRef.current.value = ''
+    console.log(inputRef.current,"ref",e.target.value)
+    //  if(inputRef !== null){
+    //    inputRef.current.value = ''
+    //  }
     if (
       e.target.value == 'latestDateOfShipment' ||
       e.target.value == 'dateOfExpiry'
@@ -490,11 +493,13 @@ console.log(clauseArr,"clauseArr")
                           className={`${styles.input_field} input form-control`}
                           disabled
                           type="text"
-                          value={
-                            editInput
-                              ? editCurrent.existingValue
-                              : clauseObj?.existingValue
-                          }
+                          // value={
+                            
+                          // clauseObj?.existingValue
+                          // }
+                          onChange={(e)=>{
+
+                          }}
                         />
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -510,6 +515,7 @@ console.log(clauseArr,"clauseArr")
                               required
                               type="text"
                               ref={inputRef}
+                              
                               defaultValue={
                                 editInput ? editCurrent?.newValue : ''
                               }
@@ -523,8 +529,8 @@ console.log(clauseArr,"clauseArr")
                               <DateCalender
                                 name="newValue"
                                 // defaultDate={lcData?.dateOfIssue?.split('T')[0]}
-                                saveDate={saveDropDownDate}
-                              // labelName="New Value"
+                              saveDate={saveDropDownDate}
+                              labelName="New Value"
                               />
                               <img
                                 className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -533,11 +539,11 @@ console.log(clauseArr,"clauseArr")
                               />
                             </>
                           )}
-                          <label
+                          {/* <label
                             className={`${styles.label_heading} label_heading`}
                           >
                             New Value<strong className="text-danger">*</strong>
-                          </label>
+                          </label> */}
                           <img
                             className="img-fluid ml-4"
                             src="/static/add-btn.svg"
@@ -690,7 +696,7 @@ console.log(clauseArr,"clauseArr")
                                             editInput ? editCurrent?.newValue : ''
                                             }
                                             onChange={(e) => {
-                                            // inputRef.current.value = ''
+                                            inputRef.current.value = ''
                                             arrChange('newValue', e.target.value)
                                             }}
                                             />

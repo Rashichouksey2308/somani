@@ -276,6 +276,21 @@ setEditAddress(
 
 
 }
+const handleAddressInput=()=>{
+
+setAddressList(current => [...current, newAddress])
+  
+  setNewAddress({
+              "addressType": "Registered",
+              "fullAddress": "",
+              "pinCode": "",
+              "country": "",
+              "gstin": "",
+              "state": "",
+              "city": ""
+          })
+    setAddressType("Registered")
+}
   return (
     <>
       <div className={`${styles.container} vessel_card`}>
