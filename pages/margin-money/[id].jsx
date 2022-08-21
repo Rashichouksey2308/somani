@@ -629,7 +629,9 @@ function Index() {
                         <h5 className={`${styles.unit_label} accordion_Text`}>
                           Unit :
                         </h5>
-                        <select
+                        <>{marginData?.order?.orderCurrency}</>
+                        {/* <input >{marginData?.order?.unitOfValue}</input> */}
+                        {/* <select
                           className={`${styles.options} mr-4 accordion_DropDown`}
                         >
                           <option>Select an option</option>
@@ -640,7 +642,7 @@ function Index() {
                               : null}
                           </option>
                           <option>Million</option>
-                        </select>
+                        </select> */}
                         <span data-toggle="collapse" data-target="#commodityAccordion" aria-expanded="true" aria-controls="commodityAccordion">+</span>
                       </div>
                     </div>
@@ -842,7 +844,7 @@ function Index() {
                                   {
                                     marginData?.order?.termsheet?.commercials
                                       ?.usanceInterestPercetage
-                                  }
+                                  }%
                                   <div className={` d-flex align-items-center`}>
                                     <label
                                       className={`${styles.label_heading} ${styles.subHeading} ml-3 label_heading mb-0`}
@@ -1087,9 +1089,11 @@ function Index() {
                                   >{`(A*B)`}</span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {Number(
+                                 
+                                {marginData?.order?.orderCurrency} {Number(
                                     finalCal.orderValue,
                                   )?.toLocaleString()}
+                                  
                                 </div>
                               </div>
                             </div>
@@ -1149,7 +1153,7 @@ function Index() {
                                   </div>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {/* {finalCal.usanceInterest} */}
+                                ₹ {/* {finalCal.usanceInterest} */}
                                   {Number(
                                     finalCal.usanceInterest,
                                   )?.toLocaleString()}
@@ -1176,7 +1180,7 @@ function Index() {
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {Number(
+                                ₹ {Number(
                                     finalCal.tradeMargin,
                                   )?.toLocaleString()}
                                   {/* {finalCal.tradeMargin?.toLocaleString()} */}
@@ -1204,7 +1208,7 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.grossOrderValue?.toLocaleString()} */}
-                                  {Number(
+                                  ₹  {Number(
                                     finalCal.grossOrderValue,
                                   )?.toLocaleString()}
                                 </div>
@@ -1231,7 +1235,7 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.toleranceValue} */}
-                                  {Number(
+                                  ₹  {Number(
                                     finalCal.toleranceValue,
                                   )?.toLocaleString()}
                                 </div>
@@ -1258,7 +1262,7 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.totalOrderValue} */}
-                                  {Number(
+                                  ₹  {Number(
                                     finalCal.totalOrderValue,
                                   )?.toLocaleString()}
                                 </div>
@@ -1284,7 +1288,7 @@ function Index() {
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {Number(
+                                ₹  {Number(
                                     finalCal.provisionalUnitPricePerTon,
                                   )?.toLocaleString()}
                                   {/* {finalCal.provisionalUnitPricePerTon} */}
@@ -1312,7 +1316,7 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.marginMoney} */}
-                                  {Number(
+                                  ₹ {Number(
                                     finalCal.marginMoney,
                                   )?.toLocaleString()}
                                 </div>
@@ -1339,7 +1343,7 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.totalSPDC} */}
-                                  {Number(finalCal.totalSPDC)?.toLocaleString()}
+                                  ₹ {Number(finalCal.totalSPDC)?.toLocaleString()}
                                 </div>
                               </div>
                             </div>
@@ -1363,7 +1367,7 @@ function Index() {
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {Number(
+                                ₹  {Number(
                                     finalCal.amountPerSPDC,
                                   )?.toLocaleString()}
                                   {/* {finalCal.amountPerSPDC} */}
