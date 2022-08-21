@@ -11,6 +11,7 @@ import {
   UpdateTransitDetails,
   GetTransitDetails,
 } from '../../redux/TransitDetails/action'
+import { toast } from 'react-toastify'
 
 
 function Index({ TransitDetails }) {
@@ -113,6 +114,14 @@ function Index({ TransitDetails }) {
   console.log(loi, 'billsofLanding')
 
   const saveData = () => {
+    if (loi.authorizedSignatory.name === '') {
+      let toastMessage = 'PLEase selcet authorised signatory'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+
     sessionStorage.setItem('transitPId', transId._id)
     // const billOfLanding = [...bolList]
     const LOI = { ...loi }
