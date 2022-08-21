@@ -2,7 +2,7 @@
 import React, {useState} from 'react'
 import styles from './index.module.scss'
 
-const Index = ({ uploadDocument1, uploadDocument2, docName }) => {
+const Index = ({ uploadDocument1, uploadDocument2, docName,docName2 }) => {
   const [vesselCertificate, setVesselCertificate] = useState()
 
   const vesselDocFunction = (e) => {
@@ -76,6 +76,59 @@ const Index = ({ uploadDocument1, uploadDocument2, docName }) => {
                     <tr className="table_row">
                       <td className={styles.doc_name}>
                         {docName}
+                        <strong className="text-danger">*</strong>
+                      </td>
+                      <td>
+                        <img
+                          src="/static/pdf.svg"
+                          className={`${styles.pdfImage} img-fluid`}
+                          alt="Pdf"
+                        />
+                      </td>
+                      <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                      <td>
+                        {' '}
+                        {vesselCertificate == null ? (
+                        <>
+                          <div className={styles.uploadBtnWrapper}>
+                            <input
+                              type="file"
+                              name="myfile"
+                              accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                              onChange={(e) => vesselDocFunction(e)}
+                            />
+                            <button className={`${styles.button_upload} btn`}>
+                              Upload
+                            </button>
+                          </div>
+                          {/* <div className={styles.uploadBtnWrapper}>
+                      <input
+                        type="file"
+                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                        onChange={(e) => uploadDocument1(e)}
+                        name="myfile"
+                      />
+                       <button  className={`${styles.uploadDoc} btn`}>
+                        Upload
+                      </button>
+                    </div> */}
+                        </>
+                      ) : (
+                        <div className={styles.certificate}>
+                          {vesselCertificate?.name}
+                          <img
+                            className={`${styles.close_image} float-right ml-2 img-fluid`}
+                            src="/static/close.svg"
+                            onClick={()=> handleClose()}
+                            alt="Close"
+                          />{' '}
+                        </div>
+                      )}
+                      </td>
+                    </tr>
+                     <tr className="table_row">
+                      <td className={styles.doc_name}>
+                        {docName2}
                         <strong className="text-danger">*</strong>
                       </td>
                       <td>
