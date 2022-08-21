@@ -452,7 +452,7 @@ setEditAddress(
                         <select
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           name="addressType"
-                          
+                           value={addressType}
                           onChange={(e) => {
                             setAddressType(e.target.value)
                             setAddress(e.target.name,e.target.value)

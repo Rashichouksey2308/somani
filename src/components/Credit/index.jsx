@@ -31,7 +31,7 @@ const index = ({
   setEditRow,
 }) => {
   console.log(personData, 'person')
-  console.log(debtData, 'debtData')
+  console.log(creditDetail, 'debtData')
   const dispatch = useDispatch()
 
   const [saveTable, setSaveTable] = useState(false)

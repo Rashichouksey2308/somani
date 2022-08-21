@@ -436,33 +436,33 @@ function Index() {
   }
 console.log(product,"productData")
   const [supplierCred, setSupplierCred] = useState()
-
+ console.log("orderList",  orderList)
   useEffect(() => {
-    //console.log("this is order list", orderList)
+   
     setProduct({
       AvgMonthlyElectricityBill:
-        orderList?.productSummary?.AvgMonthlyElectricityBill,
-      availableStock: orderList?.productSummary?.availableStock,
-      averageStockInTransit: orderList?.productSummary?.averageStockInTransit,
+        orderList?.productSummary?.AvgMonthlyElectricityBill?orderList?.productSummary?.AvgMonthlyElectricityBill:"",
+      availableStock: orderList?.productSummary?.availableStock?orderList?.productSummary?.availableStock:"",
+      averageStockInTransit: orderList?.productSummary?.averageStockInTransit? orderList?.productSummary?.averageStockInTransit:"",
       averageStockOfCommodity:
-        orderList?.productSummary?.averageStockOfCommodity,
-      capacityUtilization: orderList?.productSummary?.capacityUtilization,
+        orderList?.productSummary?.averageStockOfCommodity?orderList?.productSummary?.averageStockOfCommodity:"",
+      capacityUtilization: orderList?.productSummary?.capacityUtilization?orderList?.productSummary?.capacityUtilization:"",
       contributionCommoditySenstivity:
-        orderList?.productSummary?.contributionCommoditySenstivity,
+        orderList?.productSummary?.contributionCommoditySenstivity?orderList?.productSummary?.contributionCommoditySenstivity:"",
       dailyConsumptionOfCommodity:
-        orderList?.productSummary?.dailyConsumptionOfCommodity,
-      existingCHA: orderList?.productSummary?.existingCHA,
+        orderList?.productSummary?.dailyConsumptionOfCommodity?orderList?.productSummary?.dailyConsumptionOfCommodity:"",
+      existingCHA: orderList?.productSummary?.existingCHA?orderList?.productSummary?.existingCHA:"",
       existingProcurementOfCommodity:
-        orderList?.productSummary?.existingProcurementOfCommodity,
-      existingSuppliers: orderList?.productSummary?.existingSuppliers,
+        orderList?.productSummary?.existingProcurementOfCommodity?orderList?.productSummary?.existingProcurementOfCommodity:"",
+      existingSuppliers: orderList?.productSummary?.existingSuppliers?orderList?.productSummary?.existingSuppliers:"",
       monthlyProductionCapacity:
-        orderList?.productSummary?.monthlyProductionCapacity,
+        orderList?.productSummary?.monthlyProductionCapacity? orderList?.productSummary?.monthlyProductionCapacity:"",
       paymentStatusForElectricityBills:
-        orderList?.productSummary?.paymentStatusForElectricityBills,
+        orderList?.productSummary?.paymentStatusForElectricityBills?orderList?.productSummary?.paymentStatusForElectricityBills:"",
       stockCoverageOfCommodity:
-        orderList?.productSummary?.stockCoverageOfCommodity,
-      typeOfCurrency: orderList?.productSummary?.typeOfCurrency,
-      unitOfQuantity: orderList?.productSummary?.unitOfQuantity,
+        orderList?.productSummary?.stockCoverageOfCommodity?orderList?.productSummary?.stockCoverageOfCommodity:undefined,
+      typeOfCurrency: orderList?.productSummary?.typeOfCurrency?orderList?.productSummary?.typeOfCurrency:orderList?.orderCurrency,
+      unitOfQuantity: orderList?.productSummary?.unitOfQuantity?orderList?.productSummary?.unitOfQuantity:orderList?.unitOfQuantity,
     })
     setSupplierCred({
       HSCodesNumber: orderList?.supplierCredential?.HSCodesNumber,
