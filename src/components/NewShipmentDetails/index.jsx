@@ -43,7 +43,7 @@ const index = ({ saveShipmentData, shipment }) => {
                       saveShipmentData(e.target.name, e.target.value)
                     }}
                   >
-                    <option selected></option>
+                    <option >Select an option</option>
                     <option value="Liner">Liner</option>
                     <option value="Bulk">Bulk</option>
                   </select>
