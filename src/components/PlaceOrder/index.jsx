@@ -24,10 +24,10 @@ const Index = () => {
     transactionType: '',
     commodity: '',
     quantity: null,
-    unitOfQuantity: 'KG',
+    unitOfQuantity: 'MT',
     orderValue: null,
     orderCurrency: '',
-    unitOfValue: 'INR',
+    unitOfValue: 'Crores',
     supplierName: '',
     countryOfOrigin: '',
     portOfDischarge: '',
@@ -56,9 +56,10 @@ const Index = () => {
   const saveOrderData = (name, value) => {
     const newInput = { ...orderData }
     newInput[name] = value
-    // console.log(newInput)
+   
     setOrderData(newInput)
   }
+   console.log(orderData,"stat")
 
   const handleCurr = () => {
     const newInput = {...orderData}
@@ -182,7 +183,7 @@ const Index = () => {
     } else {
       let orderDataNew = {...orderData}
       orderDataNew.quantity = removePrefixOrSuffix(orderData.quantity)
-      orderDataNew.orderValue = removePrefixOrSuffix(orderData.orderValue)
+      orderDataNew.orderValue = removePrefixOrSuffix(orderData.orderValue) *10000000
       orderDataNew.tolerance = removePrefixOrSuffix(orderData.tolerance)
       
         const obj = {

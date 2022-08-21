@@ -439,41 +439,6 @@ const Index = ({ orderid, module, isDocumentName }) => {
                 <tbody>
                   <tr></tr>
 
-                  {/* <tr className="uploadRowTable">
-                    <td className={styles.doc_name}>Container No. List</td>
-                    <td>
-                      <img
-                        src="/static/pdf.svg"
-                        className={`${styles.pdfImage} img-fluid`}
-                        alt="Pdf"
-                      />
-                    </td>
-                    <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                    <td className={styles.doc_row}>Buyer</td>
-                    <td>
-                      <span
-                        className={`${styles.status} ${styles.approved}`}
-                      ></span>
-                      Verified
-                    </td>
-                    <td colSpan="2">
-                      <img
-                        src="/static/delete.svg"
-                        className={`${styles.delete_image} img-fluid mr-3`}
-                        alt="Bin"
-                      />
-                      <img
-                        src="/static/upload.svg"
-                        className={`${styles.drive_image} img-fluid mr-3`}
-                        alt="Share"
-                      />
-                      <img
-                        src="/static/drive_file.svg"
-                        className={`${styles.edit_image} img-fluid mr-3`}
-                        alt="Share"
-                      />
-                    </td>
-                  </tr> */}
                   {documentsFetched &&
                     filteredDoc?.map((document, index) => {
                       if (document.deleted) {

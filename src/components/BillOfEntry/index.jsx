@@ -89,12 +89,13 @@ export default function Index({ customData, OrderId, uploadDoc }) {
     setBillOfEntryData(newInput)
   }
 
-  const [pfCheckBox, setPfCheckBox] = useState(false)
+  const [pfCheckBox, setPfCheckBox] = useState(true)
 
   const handlePfCheckBox = (e) => {
-    setPfCheckBox(e.target.checked)
+    setPfCheckBox(!pfCheckBox)
     saveBillOfEntryData('pdBond', pfCheckBox)
   }
+  console.log(pfCheckBox,"pfCheckBox")
 
   const [dutyData, setDutyData] = useState([])
 
@@ -283,9 +284,10 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                     </div>
                     <label className={styles.switch}>
                       <input
-                        defaultChecked={pfCheckBox}
+                       
                         onChange={(e) => handlePfCheckBox(e)}
                         type="checkbox"
+                        checked={pfCheckBox?"checked":""}
                       />
                       <span
                         className={`${styles.slider} ${styles.round}`}
@@ -299,6 +301,9 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                   </div>
                 </div>
 
+               {
+               !pfCheckBox ?
+                <>
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
@@ -359,6 +364,9 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                     />
                   </div>
                 </div>
+                </>
+                :null
+               }
               </div>
             </div>
             <hr className={styles.line}></hr>
@@ -782,9 +790,9 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                         >
                           Total Custom Duty:
                         </div>
-                        <div className={`${styles.value} ml-2 mt-n1`}>
+                        {/* <div className={`${styles.value} ml-2 mt-n1`}>
                           4,000
-                        </div>
+                        </div> */}
                       </div>
                       <div
                         className={`${styles.add_row} mr-3 mt-n2 d-flex `}
@@ -808,7 +816,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                   <div className={`${styles.label} text ml-4`}>
                     BL Number <strong className="text-danger ml-n1">*</strong>
                   </div>
-                  <span className={`${styles.value} ml-4`}>2345678</span>
+                  {/* <span className={`${styles.value} ml-4`}>2345678</span> */}
                 </div>
                 <div
                   className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
@@ -816,7 +824,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                   <div className={`${styles.label} text`}>
                     BL Date <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
-                  <span className={styles.value}>22-02-2022</span>
+                  {/* <span className={styles.value}>22-02-2022</span> */}
                 </div>
 
                 <div
@@ -825,7 +833,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                   <div className={`${styles.label} text`}>
                     BL Quantity <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
-                  <span className={styles.value}>4,000 MT</span>
+                  {/* <span className={styles.value}>4,000 MT</span> */}
                 </div>
                 <div
                   className="col-lg-3 col-md-4 col-sm-6 text-center"
@@ -844,7 +852,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                   <div className={`${styles.label} text ml-4`}>
                     BL Number <strong className="text-danger ml-n1">*</strong>
                   </div>
-                  <span className={`${styles.value} ml-4`}>2345678</span>
+                  {/* <span className={`${styles.value} ml-4`}>2345678</span> */}
                 </div>
                 <div
                   className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
@@ -852,7 +860,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                   <div className={`${styles.label} text`}>
                     BL Date <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
-                  <span className={styles.value}>22-02-2022</span>
+                  {/* <span className={styles.value}>22-02-2022</span> */}
                 </div>
 
                 <div
@@ -861,7 +869,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                   <div className={`${styles.label} text`}>
                     BL Quantity <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
-                  <span className={styles.value}>4,000 MT</span>
+                  {/* <span className={styles.value}>4,000 MT</span> */}
                 </div>
                 <div
                   className="col-lg-3 col-md-4 col-sm-6 text-center"
@@ -877,7 +885,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
               <hr></hr>
               <div className="text-right">
                 <div className={`${styles.total_quantity} text `}>
-                  Total: <span className="form-check-label ml-2">8,000 MT</span>
+                  Total: <span className="form-check-label ml-2"></span>
                 </div>
               </div>
             </div>
@@ -932,9 +940,9 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                           alt="Pdf"
                         />
                       </td>
-                      <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                      {/* <td className={styles.doc_row}>28-02-2022,5:30 PM</td> */}
                       <td>
-                        {false ? (
+                        {true ? (
                           <>
                             <div className={styles.uploadBtnWrapper}>
                               <input
@@ -983,9 +991,9 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                           alt="Pdf"
                         />
                       </td>
-                      <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                      {/* <td className={styles.doc_row}>28-02-2022,5:30 PM</td> */}
                       <td>
-                        {false ? (
+                        {true ? (
                           <>
                             <div className={styles.uploadBtnWrapper}>
                               <input
@@ -1034,9 +1042,9 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                           alt="Pdf"
                         />
                       </td>
-                      <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                      {/* <td className={styles.doc_row}>28-02-2022,5:30 PM</td> */}
                       <td>
-                        {false ? (
+                        {true ? (
                           <>
                             <div className={styles.uploadBtnWrapper}>
                               <input
