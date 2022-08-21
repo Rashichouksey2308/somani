@@ -24,7 +24,7 @@ import { GetDocuments } from 'redux/creditQueueUpdate/action'
 import { ViewDocument } from 'redux/ViewDoc/action'
 import { toast } from 'react-toastify'
 import _get from 'lodash/get'
-import {CovertvaluefromtoCR} from '../../utils/helper'
+import { CovertvaluefromtoCR } from '../../utils/helper'
 
 Chart.register(
   ArcElement,
@@ -136,11 +136,96 @@ function Index({
     [],
   )
 
-  let tempArr = [
-    { name: '', value: '21', color: '#9675CE' },
-    { name: '', value: '23', color: '#4CAF50' },
-    { name: '', value: '23', color: '#EA3F3F' },
+  const [tempArr, setTempArr] = useState([
+    {
+      name: "Bindu Singh",
+      value: 66705,
+      color: "#3687E8"
+    },
+    {
+      name: "Bindu Singh",
+      value: 66705,
+      color: "#43C34D"
+    },
+    {
+      name: "Bidu Singh",
+      value: 66705,
+      color: "#FF9D00"
+    },])
+
+  let colors = [
+    {
+      primary: 'rgba(54, 135, 232, 0.1)',
+      secondary: '#3687E8',
+    },
+    {
+      primary: 'rgba(67, 195, 77, 0.1)',
+      secondary: '#43C34D',
+    },
+    {
+      primary: '#FFECCF',
+      secondary: '#FF9D00',
+    },
   ]
+  let randColor =
+    colors[Math.floor(Math.random() * colors.length)]
+
+
+  useEffect(() => {
+    const data = camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern.forEach((element, index) => {
+      if (element.fullName === '') {
+      } else {
+        if (index < 2) {
+          setTempArr(prevState => {
+            return [...prevState, {
+              ...prevState[index],
+              name: element.fullName,
+              value: element.numberOfShares
+            }]
+          })
+        }
+      }
+    })
+    console.log(data, 'dhjj')
+  }, [])
+  // let tempArr = [
+
+  // {
+  //   name: "Bindu Singh",
+  //   value: 66705,
+  //   color: "#3687E8"
+  // },
+  // {
+  //   name: "Bindu Singh",
+  //   value: 66705,
+  //   color: "#43C34D"
+  // },
+  // {
+  //   name: "Bidu Singh",
+  //   value: 66705,
+  //   color: "#FF9D00"
+  // },
+
+
+  // ]
+
+  camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern.forEach((element, index) => {
+    let randColor = colors[Math.floor(Math.random() * colors.length)]
+    if (element.fullName === '') {
+    } else {
+      if (index <= 2) {
+        tempArr.forEach((el, index2) => {
+          if (index = index2) {
+            el.name = element.fullName
+            el.value = element.numberOfShares
+          }
+        })
+      }
+    }
+  })
+  // console.log(tempArr, 'tempArr')
+
+
   let data = {
     labels: ['Sail', 'Jindal Grou', 'SR Steel'],
     datasets: [
@@ -219,7 +304,7 @@ function Index({
       },
     ],
   }
-  console.log(camData,"camdata")
+  console.log(camData, "camdata")
 
   return (
     <>
@@ -658,7 +743,7 @@ const groupExposure = (camData) => {
           data-parent="#profileAccordion"
         >
           <div className={`${styles.info_wrapper} card-body border_color`}>
-            <Row  className={`${styles.row}`}>
+            <Row className={`${styles.row}`}>
               {camData &&
                 camData?.company?.groupExposureDetail?.map((exp, index) => {
                   let name = exp?.name?.split(' ') ?? 'NA'
@@ -2631,7 +2716,7 @@ const sectionTerms = (
     <>
       <div className={`${styles.card} card`}>
         <div
-          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{cursor : 'default'}}>
+          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{ cursor: 'default' }}>
           <h2 className="mb-0">Sanction Terms</h2>
           <div className={`${styles.subHeadContainer} d-flex ml-5`}>
             <span
@@ -2964,7 +3049,7 @@ const trends = (
     <>
       <div className={`${styles.card} card`}>
         <div
-          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{cursor : 'default'}}>
+          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{ cursor: 'default' }}>
           <h2 className="mb-0">Trends</h2>
           <div className="d-flex align-items-center">
             <h5
@@ -3056,7 +3141,7 @@ const skewness = (data, options, tempArr, gstData) => {
     <>
       <div className={`${styles.card} card`}>
         <div
-          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{cursor : 'default'}}>
+          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{ cursor: 'default' }}>
           <h2 className="mb-0">Skewness</h2>
           <div className="d-flex align-items-center">
             <h5
@@ -3148,6 +3233,44 @@ const skewness = (data, options, tempArr, gstData) => {
                 <div className={`${styles.chart}`}>
                   {/* <Line data={dataline} options={lineOption} /> */}
                 </div>
+                <Row
+                  className={`d-flex  d-flex align-items-center justify-content-evenly`}
+                >
+                  <Col md={6} className={`${styles.col}`}>
+                    <div className={styles.chart2}>
+                      <Doughnut data={data} options={options} />
+                      <div className={styles.total_value}>
+                        <span>Sagar Sinha</span>
+                        <span className={styles.highlight}>83.80%</span>
+                      </div>
+                    </div>
+                  </Col>
+                  <Col md={6}>
+                    <div className={`${styles.name} `}>
+                      {tempArr.map((val, index) => {
+                        return (
+                          <div
+                            key={index}
+                            className={`${styles.name_wrapper} d-flex justify-content-start align-item-start`}
+                          >
+                            <div
+                              className={styles.round}
+                              style={{ backgroundColor: `${val.color}` }}
+                            ></div>
+                            <div
+                              className={`d-flex justify-content-between align-item-start w-100`}
+                            >
+                              <span className={` heading ml-2`}>
+                                {val.name}
+                              </span>
+                              <span className={` heading mr-4`}>51.23%</span>
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </Col>
+                </Row>
               </Col>
             </Row>
           </div>
