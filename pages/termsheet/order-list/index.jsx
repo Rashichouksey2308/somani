@@ -31,21 +31,24 @@ function Index() {
   }, [dispatch])
 
   useEffect(() => {
-    dispatch(setPageName(_get(
-                  termsheet,
-                  "data[0].company.companyName",
-                  "All Termsheet Order"
-                )))
+dispatch(setPageName(_get(
+    termsheet,
+    "data[0].company.companyName",
+    "All Termsheet Order"
+  )))
     
   }, [dispatch, singleOrder, termsheet])
 
+useEffect(() => {
+dispatch(setPageName('termsheet'))
+dispatch(setDynamicName(_get(
+    termsheet,
+    "data[0].company.companyName",
+    "All Termsheet Order"
+  )))
+},[dispatch, singleOrder, termsheet])
   console.log(termsheet,"termsheet")
-   useEffect(() => {
-    if(termsheet){
-      dispatch(setDynamicName(termsheet?.data?.order?.orderId))
-    }
 
-   },[termsheet,singleOrder])
   const handleRoute = (term,index) => {
     console.log("here",term)
    // console.log(term?.order._id, "termtrem")

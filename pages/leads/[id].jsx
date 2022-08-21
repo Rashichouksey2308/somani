@@ -5,11 +5,11 @@ import Footer from '../../src/components/Footer'
 import { setPageName ,setDynamicName} from '../../src/redux/userData/action'
 import { useDispatch, useSelector } from 'react-redux'
 const Index = () => {
-   const dispatch = useDispatch()
-    useEffect(() => {
-    dispatch(setPageName('leads/'))
-     dispatch(setDynamicName(null))
-  },[])
+const dispatch = useDispatch()
+useEffect(() => {
+dispatch(setPageName('leads/'))
+dispatch(setDynamicName(null))
+},[])
   return (
     <div className={styles.root_Container}>
       <Register />

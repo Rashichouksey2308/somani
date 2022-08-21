@@ -34,7 +34,8 @@ const Index = ({ orderDetail, saveOrderData }) => {
             <h5 className={`${styles.unit_label} accordion_Text`}>Units :</h5>
             <select className={`${styles.options} accordion_DropDown `} name='unitOfValue' 
             onChange={(e)=>saveOrderData(e.target.name, e.target.value)}>
-              <option>{orderDetail?.unitOfValue=="Cr"?"Crores":null}</option>
+              <option>Crores</option>
+            
               {/* <option selected>Crores</option> */}
               <option>Million</option>
             </select>
@@ -125,7 +126,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   required
                   type="text"
                   name="orderValue"
-                  defaultValue={addPrefixOrSuffix(CovertvaluefromtoCR(orderDetail?.orderValue),orderDetail.unitOfValue)}
+                  value={addPrefixOrSuffix(CovertvaluefromtoCR(orderDetail?.orderValue),orderDetail?.unitOfValue=="Crores"?"Cr":orderDetail?.unitOfValue)}
                  
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
