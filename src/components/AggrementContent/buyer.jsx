@@ -225,7 +225,7 @@ setAddressList(current => [...current, newAddress])
               "state": "",
               "city": ""
           })
-          setAddressType("Registered")
+    setAddressType("Registered")
 }
 const onAddressRemove=(index)=>{
 setAddressList([...addressList.slice(0,index), ...addressList.slice(index+1)])

@@ -239,7 +239,7 @@ function Index() {
                     Laycan
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {moment(insuranceData?.quotationRequest.laycanFrom?.split('T')[0]).format('DD MMM')} - {moment(insuranceData?.quotationRequest.laycanTo?.split('T')[0]).format('DD MMMM,  YYYY')} 
+                    {moment(insuranceData?.quotationRequest?.laycanFrom?.split('T')[0]).format('DD MMM')} - {moment(insuranceData?.quotationRequest?.laycanTo?.split('T')[0]).format('DD MMMM,  YYYY')} 
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>

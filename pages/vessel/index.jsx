@@ -51,6 +51,7 @@ export default function Home() {
   //    console.log("check 2")
   // }, [Vessel])
   const [partShipment, setPartshipment] = useState()
+  const [VesselToAdd, serVesselDataToAdd] = useState()
   const setData = (Vessel) => {
     setPartshipment(_get(
       Vessel,
@@ -113,35 +114,36 @@ export default function Home() {
       "data[0].vessels",
       []
     ))
+    serVesselDataToAdd(Vessel)
   }
-  const onAddVessel = () => {
+  const onAddVessel = (VesselToAdd) => {
     setList([
       ...list,
       {
         shipmentType: 'Bulk',
         commodity: _get(
-          Vessel,
+          VesselToAdd,
           "data[0].order.commodity",
           ""
         ),
         quantity: _get(
-          Vessel,
+          VesselToAdd,
           "data[0].order.quantity",
           ""
         ),
         orderValue: _get(
-          Vessel,
+          VesselToAdd,
           "data[0].order.orderValue",
           ""
         ), transitDetails: {
           countryOfOrigin: _get(
-            Vessel,
+            VesselToAdd,
             "data[0].order.countryOfOrigin",
             ""
           ),
           portOfLoading: "",
           portOfDischarge: _get(
-            Vessel,
+            VesselToAdd,
             "data[0].order.portOfDischarge",
             ""
           ),
