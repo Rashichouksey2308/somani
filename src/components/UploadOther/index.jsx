@@ -11,9 +11,8 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { ViewDocument } from 'redux/ViewDoc/action'
 
-const Index = ({ orderid, module }) => {
+const Index = ({ orderid, module, isDocumentName }) => {
   const dispatch = useDispatch()
-
 
   // console.log(orderid, 'orderid')
   const { documentsFetched } = useSelector((state) => state.review)
@@ -42,7 +41,6 @@ const Index = ({ orderid, module }) => {
     dispatch(GetDocuments(`?order=${orderid}`))
   }, [dispatch, orderid, moduleSelected])
 
-
   useEffect(() => {
     const tempArray = documentsFetched?.documents?.filter((doc) => {
       return doc.module === moduleSelected
@@ -50,7 +48,6 @@ const Index = ({ orderid, module }) => {
     // console.log(tempArray, filteredDoc, moduleSelected, 'moduleSelected')
     setFilteredDoc(tempArray)
   }, [orderid, documentsFetched])
-
 
   // console.log(documentsFetched, filteredDoc, moduleSelected, 'moduleSelected')
 
@@ -114,7 +111,11 @@ const Index = ({ orderid, module }) => {
         aria-expanded="true"
         aria-controls="uploadOther"
       >
-        <h3 className={styles.heading}>Upload Other Documents</h3>
+        {!isDocumentName ? (
+          <h3 className={styles.heading}>Upload Other Documents</h3>
+        ) : (
+          <h3 className={styles.heading}>Document</h3>
+        )}
         <span>+</span>
       </div>
       <div
@@ -256,68 +257,51 @@ const Index = ({ orderid, module }) => {
                             Policy Document - Storage
                           </option>
                         </>
-                      ) : module === 'CustomClearanceAndWarehousing' ? <>
-                        <option value="BOEProvisional">
-                          {' '}
-                          BOE Provisional
-                        </option>
-                        <option value="BOE Final - in case of final assessment.">
-                          {' '}
-                          BOE Final - in case of final assessment.
-                        </option>
-                        <option value="Duty Paid Challan ">
-                          {' '}
-                          Duty Paid Challan
-                        </option>
-                        <option value="PD Bond">
-                          {' '}
-                          PD Bond
-                        </option>
-                        <option value="BOE Final">
-                          {' '}
-                          BOE Final
-                        </option>
-                        <option value="BOE Provisional ">
-                          {' '}
-                          BOE Provisional
-                        </option>
-                        <option value="BOE Final - in case of final assessment. ">
-                          {' '}
-                          BOE Final - in case of final assessment.
-                        </option>
-                        <option value="PD Bond">
-                          {' '}
-                          PD Bond
-                        </option>
-                        <option value="Duty Paid Challan ">
-                          {' '}
-                          Duty Paid Challan
-                        </option>
-                        <option value="Statements of Facts">
-                          {' '}
-                          Statements of Facts
-                        </option>
-                        <option value="Discharge Confirmation">
-                          {' '}
-                          Discharge Confirmation
-                        </option>
-                        <option value="BOE Final">
-                          {' '}
-                          BOE Final
-                        </option>
-
-                      </> :
-
+                      ) : module === 'CustomClearanceAndWarehousing' ? (
                         <>
-                          <option value="RR">
+                          <option value="BOEProvisional">
                             {' '}
-                            RR
+                            BOE Provisional
                           </option>
-                          <option value="eWay Bill">
+                          <option value="BOE Final - in case of final assessment.">
                             {' '}
-                            eWay Bill
+                            BOE Final - in case of final assessment.
                           </option>
-                        </>}
+                          <option value="Duty Paid Challan ">
+                            {' '}
+                            Duty Paid Challan
+                          </option>
+                          <option value="PD Bond"> PD Bond</option>
+                          <option value="BOE Final"> BOE Final</option>
+                          <option value="BOE Provisional ">
+                            {' '}
+                            BOE Provisional
+                          </option>
+                          <option value="BOE Final - in case of final assessment. ">
+                            {' '}
+                            BOE Final - in case of final assessment.
+                          </option>
+                          <option value="PD Bond"> PD Bond</option>
+                          <option value="Duty Paid Challan ">
+                            {' '}
+                            Duty Paid Challan
+                          </option>
+                          <option value="Statements of Facts">
+                            {' '}
+                            Statements of Facts
+                          </option>
+                          <option value="Discharge Confirmation">
+                            {' '}
+                            Discharge Confirmation
+                          </option>
+                          <option value="BOE Final"> BOE Final</option>
+                        </>
+                      ) : (
+                        <>
+                          <option value="RR"> RR</option>
+                          <option value="eWay Bill"> eWay Bill</option>
+                        </>
+                      )}
                       <option value="others">Other</option>
                     </select>
                     <Form.Label className={`${styles.label} label_heading`}>
@@ -380,8 +364,9 @@ const Index = ({ orderid, module }) => {
                     <option value="customClearanceAndWarehousing">
                       Custom Clearance And Warehousing
                     </option>
-                    <option value='PaymentsInvoicing&Delivery'
-                    >Payments Invoicing & Delivery</option>
+                    <option value="PaymentsInvoicing&Delivery">
+                      Payments Invoicing & Delivery
+                    </option>
                     <option value="Others">Others</option>
                   </select>
                   <img

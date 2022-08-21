@@ -13,11 +13,8 @@ import { useSelector } from 'react-redux'
 import _get from 'lodash/get'
 
 export default function Index({ customData, OrderId, uploadDoc }) {
-  const isShipmentTypeBULK = _get(
-    customData,
-    'order.vessel.vessels[0].shipmentType',
-    '',
-  ) == 'Bulk'
+  const isShipmentTypeBULK =
+    _get(customData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk'
   const dispatch = useDispatch()
 
   const [saveContactTable, setContactTable] = useState(false)
@@ -202,7 +199,6 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       label="Bulk"
                       checked={isShipmentTypeBULK}
                       disabled={!isShipmentTypeBULK}
-
                       name="group1"
                       type={type}
                       id={`inline-${type}-1`}
