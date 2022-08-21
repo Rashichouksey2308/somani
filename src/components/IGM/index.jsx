@@ -15,7 +15,7 @@ import { number } from 'prop-types'
 import { useEffect } from 'react'
 import 'react-datepicker/dist/react-datepicker.css'
 import DatePicker from 'react-datepicker'
-import {CovertvaluefromtoCR} from '../../utils/helper'
+import { CovertvaluefromtoCR } from '../../utils/helper'
 
 export default function Index({
   isShipmentTypeBULK,
@@ -170,15 +170,19 @@ export default function Index({
           '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016',
       })
     } else {
-      setConsigneeInfo({ branch: '', address: '' })
+      setConsigneeInfo({ name: '', branch: '', address: '' })
     }
   }
 
-  const onChangeBlNumberEntry = (e) => {}
+  const onChangeBlNumberEntry = (e) => { }
 
-  const onDocumentSelect = (e) => {
+  const onDocumentSelect = (e, index) => {
     const docData = docUploadFunction(e.target.files[0])
-    console.log(docData, 'docData')
+    const name = e.target.id
+    setIgmList(prevState => {
+      return [...igmList, { ...igmList[index], [name]: docData }]
+    })
+
   }
 
   const handleSave = () => {
@@ -191,9 +195,9 @@ export default function Index({
 
   return (
     <>
-      <div className={`${styles.backgroundMain} container-fluid`}>
-        <div className={`${styles.vessel_card} mt-3 border_color`}>
-          <div className={`${styles.wrapper}  border_color card`}>
+      <div className={`${styles.backgroundMain} p-0 container-fluid`}>
+        <div className={`${styles.vessel_card} border_color`}>
+          <div className={`${styles.wrapper} border_color card`}>
             <div className="d-lg-flex align-items-center d-inline-block  pl-4">
               <h2 className="mb-0">Shipment Type</h2>
               <div className={`${styles.radio_form} ml-lg-5 ml-n4`}>
@@ -225,7 +229,7 @@ export default function Index({
             </div>
           </div>
 
-          <div className={`${styles.main} vessel_card border_color mt-4 card `}>
+          <div className={`${styles.main} vessel_card border_color card `}>
             <div
               className={`${styles.head_container} border_color card-header head_container d-flex bg-transparent`}
             >
@@ -256,7 +260,7 @@ export default function Index({
                   </div>
                   <span className={styles.value}>
                     {CovertvaluefromtoCR(_get(TransitDetails, 'data[0].order.orderValue', ''))}{' '}
-                    {_get(TransitDetails, 'data[0].order.unitOfValue', '')=="Crores"?"Cr":_get(TransitDetails, 'data[0].order.unitOfValue', '')}
+                    {_get(TransitDetails, 'data[0].order.unitOfValue', '') == "Crores" ? "Cr" : _get(TransitDetails, 'data[0].order.unitOfValue', '')}
                   </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
@@ -285,7 +289,7 @@ export default function Index({
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card mt-4 card border_color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} card-header border_color head_container d-flex bg-transparent`}
             >
@@ -374,7 +378,7 @@ export default function Index({
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card mt-4 card border_color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
             >
@@ -400,26 +404,26 @@ export default function Index({
                     >
                       {shipmentTypeBulk
                         ? _get(
-                            TransitDetails,
-                            'data[0].order.vessel.vessels',
-                            [],
-                          ).map((vessel, index) => (
-                            <option
-                              value={vessel?.vesselInformation[0]?.name}
-                              key={index}
-                            >
-                              {vessel?.vesselInformation?.name}
-                            </option>
-                          ))
+                          TransitDetails,
+                          'data[0].order.vessel.vessels',
+                          [],
+                        ).map((vessel, index) => (
+                          <option
+                            value={vessel?.vesselInformation[0]?.name}
+                            key={index}
+                          >
+                            {vessel?.vesselInformation?.name}
+                          </option>
+                        ))
                         : _get(
-                            TransitDetails,
-                            'data[0].order.vessel.vessels[0].vesselInformation',
-                            [],
-                          ).map((vessel, index) => (
-                            <option value={vessel?.name} key={index}>
-                              {vessel?.name}
-                            </option>
-                          ))}
+                          TransitDetails,
+                          'data[0].order.vessel.vessels[0].vesselInformation',
+                          [],
+                        ).map((vessel, index) => (
+                          <option value={vessel?.name} key={index}>
+                            {vessel?.name}
+                          </option>
+                        ))}
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Vessel Name
@@ -754,7 +758,7 @@ export default function Index({
               </div>
             </div>
           </div>
-          <div className="mt-4 mb-5">
+          <div className="">
             <InspectionDocument
               module="Loading-Transit-Unloading"
               orderId={orderId}

@@ -1,38 +1,40 @@
 @import '../../src/components/styles/Core/config';
 .container_inner {
   margin: 28px;
-  margin-bottom: 70px;
+  margin-bottom: 68px;
   @include respond(sm-desktop) {
     margin: 20px;
+    margin-bottom: 60px;
   }
   @include respond(phone) {
     margin: 15px;
-    margin-bottom: 70px;
+    margin-bottom: 71px;
   }
 }
 
 .filter {
-  margin-bottom: 15px;
+  min-height: 48px;
+  margin: 0 0 27px 10px;
   @include respond(sm-desktop) {
     display: block !important;
   }
 
   .head_header {
     display: flex;
-    margin: 15px 20px 0px 10px;
+    margin: 0 20px 0 0;
 
     .arrow {
       width: 13px;
       height: 21px;
       background: transparent;
-      margin-top: 10px;
     }
     .heading {
-      padding-left: 18px;
+      font-size: 34px;
       font-weight: bold;
-      font-size: 30px;
+      line-height: 41px;
+      margin: 0;
+      padding-left: 18px;
       text-transform: capitalize;
-      margin-top: 0;
       @include respond(md-desktop) {
         font-size: 28px;
       }
@@ -346,6 +348,7 @@
   border-radius: 6px;
   border: 1px solid #d2d7e5;
   .tableFilter {
+    min-height: 80px;
     padding: 0 15px 0 35px;
     @include respond(md-desktop) {
       padding: 0 15px 0 15px;
@@ -354,7 +357,7 @@
       font-size: 22px !important;
       font-weight: bold;
       line-height: 27px;
-      margin: 24px 0;
+      margin: 0;
       text-transform: capitalize;
       @include respond(sm-desktop) {
         font-size: 18px !important;

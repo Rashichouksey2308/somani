@@ -138,7 +138,7 @@ export default function Index({ addButton, inspectionData }) {
         className={`${styles.backgroundMain} container-fluid p-0 background2`}
       >
         <div className={`${styles.vessel_card}`}>
-          <div className={`${styles.main} card border-color`}>
+          <div className={`${styles.main} vessel_card card border-color`}>
             <div
               className={`${styles.head_container} border_color align-items-center card-header head_container justify-content-between d-flex bg-transparent`}
             >
@@ -249,7 +249,7 @@ export default function Index({ addButton, inspectionData }) {
               </div>
             </div>
           </div>
-          <div className={`${styles.main} card border-color`}>
+          <div className={`${styles.main} vessel_card card border-color`}>
             <div
               className={`${styles.head_container} border_color card-header align-items-center head_container justify-content-between d-flex bg-transparent`}
             >
@@ -832,7 +832,7 @@ export default function Index({ addButton, inspectionData }) {
                                 </option>
                                 <option value="Others">Others</option>
                               </select>
-                              <Form.Label
+                              <Form.Label style={{left:'15px'}}
                                 className={`${styles.label_heading} label_heading`}
                               >
                                 Document Type
@@ -851,7 +851,7 @@ export default function Index({ addButton, inspectionData }) {
                               disabled={editInput}
                               required
                             />
-                            <Form.Label
+                            <Form.Label style={{left:'15px'}}
                               className={`${styles.label_heading} label_heading`}
                             >
                               Please Specify Document Name

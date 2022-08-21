@@ -64,6 +64,7 @@
     }
     .main {
       border-radius: 6px;
+      margin-bottom: 26px;
       .add_btn {
         color: #3687e8;
         text-transform: capitalize;
@@ -366,7 +367,7 @@
           transform: translateY(-30px);
           transition: 0.3s all ease-in-out;
           z-index: 1;
-          max-width: 86%;
+          max-width: 77%;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -449,7 +450,7 @@
     }
   }
   .wrapper {
-    margin-bottom: 1rem;
+    margin-bottom: 26px;
     border-radius: 6px !important;
   }
 }

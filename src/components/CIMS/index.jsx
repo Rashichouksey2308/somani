@@ -43,6 +43,7 @@ export default function Index({
     let VesselName = e.target.value
     let filteredVessel = {}
 
+
     // let vesselData = _get(TransitDetails, `data[0].order.vessel.vessels[0]`, {})
     if (
       _get(
@@ -174,34 +175,34 @@ export default function Index({
                     className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                   >
                     <div className="d-flex">
-                      <select
+                      {<select
                         onChange={(e) => onChangeVessel(e, index)}
                         className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                       >
                         <option>Select an option</option>
                         {shipmentTypeBulk
                           ? _get(
-                              TransitDetails,
-                              'data[0].order.vessel.vessels',
-                              [],
-                            ).map((vessel, index) => (
-                              <option
-                                value={vessel?.vesselInformation?.name}
-                                key={index}
-                              >
-                                {vessel?.vesselInformation?.name}
-                              </option>
-                            ))
+                            TransitDetails,
+                            'data[0].order.vessel.vessels',
+                            [],
+                          ).map((vessel, index) => (
+                            <option
+                              value={vessel?.vesselInformation?.name}
+                              key={index}
+                            >
+                              {vessel?.vesselInformation?.name}
+                            </option>
+                          ))
                           : _get(
-                              TransitDetails,
-                              'data[0].order.vessel.vessels[0].vesselInformation',
-                              [],
-                            ).map((vessel, index) => (
-                              <option value={vessel?.name} key={index}>
-                                {vessel?.name}
-                              </option>
-                            ))}
-                      </select>
+                            TransitDetails,
+                            'data[0].order.vessel.vessels[0].vesselInformation',
+                            [],
+                          ).map((vessel, index) => (
+                            <option value={vessel?.name} key={index}>
+                              {vessel?.name}
+                            </option>
+                          ))}
+                      </select>}
                       <label
                         className={`${styles.label_heading} label_heading`}
                       >
@@ -219,12 +220,12 @@ export default function Index({
                   >
                     <input
                       id="quantity"
-                      defaultValue={_get(
+                      defaultValue={list.quantity ? list.quantity : _get(
                         TransitDetails,
                         'data[0].order.quantity',
                         '',
                       )}
-                      onChange={(e, index) => onChangeCims(e, index)}
+                      onChange={(e) => onChangeCims(e, index)}
                       className={`${styles.input_field} input form-control`}
                       type="number"
                       onKeyDown={(evt) =>
@@ -240,11 +241,12 @@ export default function Index({
                   >
                     <input
                       id="circNumber"
-                      onChange={(e, index) => onChangeCims(e, index)}
+                      type="number"
+                      onChange={(e) => onChangeCims(e, index)}
                       defaultValue={list.circNumber}
                       className={`${styles.input_field} input form-control`}
                       required
-                      type="text"
+
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       CIRC Number<strong className="text-danger">*</strong>
@@ -256,13 +258,14 @@ export default function Index({
                     <div className="d-flex">
                       {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                       <DatePicker
-                        defaultDate=""
+                        value={list?.circDate}
+                        defaultDate={list?.circDate}
                         selected={startBlDate}
                         dateFormat="dd-MM-yyyy"
                         className={`${styles.input_field} ${styles.cursor} input form-control`}
                         onChange={(startBlDate) => {
                           setBlDate(startBlDate)
-                          saveDate(startBlDate, 'blDate', index)
+                          saveDate(startBlDate, 'circDate', index)
                         }}
                         minDate={lastDate}
                       />
@@ -284,7 +287,7 @@ export default function Index({
                   >
                     <input
                       id="cimsCharges"
-                      onChange={(e, index) => onChangeCims(e, index)}
+                      onChange={(e) => onChangeCims(e, index)}
                       defaultValue={list.cimsCharges}
                       className={`${styles.input_field} input form-control`}
                       type="number"
@@ -301,10 +304,13 @@ export default function Index({
                   >
                     <div className="d-flex">
                       <select
+                        id='paymentBy'
+                        onChange={(e) => onChangeCims(e, index)}
                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       >
                         <option>Select an option</option>
                         <option value={list.paymentBy}>{list.paymentBy}</option>
+                        <option value='1'>1</option>
                         <option>N/A</option>
                       </select>
                       <label
