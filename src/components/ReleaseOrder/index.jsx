@@ -356,6 +356,15 @@ export default function Index({ ReleaseOrderData }) {
                               Upload
                             </button>
                           </div>
+                          {Number(netBalanceQuantity) > 0 && (
+                            <img
+                              onClick={() => addMorereleaseDetailDataRows(index)}
+                              src="/static/add-btn.svg"
+                              className={`${styles.delete_image} mt-n4 img-fluid`}
+                              alt="Add button"
+                            />
+                          )}
+
                           {/* <div className={styles.uploadBtnWrapper}>
                         <input
                           type="file"
@@ -369,14 +378,23 @@ export default function Index({ ReleaseOrderData }) {
                         </div> */}
                         </>
                       ) : (
-                        <div className={styles.certificate}>
-                          {/* {lcDoc?.lcDraftDoc?.name} */}
-                          <img
-                            className={`${styles.close_image} float-right m-2 img-fluid`}
-                            src="/static/close.svg"
-                            alt="Close"
-                          />{' '}
-                        </div>
+                        <>
+                          <div className={styles.certificate}>
+                            {/* {lcDoc?.lcDraftDoc?.name} */}
+                            <img
+                              className={`${styles.close_image} float-right m-2 img-fluid`}
+                              src="/static/close.svg"
+                              alt="Close"
+                            />{' '}
+                          </div>
+                          {Number(netBalanceQuantity) > 0 && (
+                            <img
+                              onClick={() => addMorereleaseDetailDataRows(index)}
+                              src="/static/add-btn.svg"
+                              className={`${styles.delete_image} mt-n4 img-fluid`}
+                              alt="Add button"
+                            />
+                          )}</>
                       )}
                       {/* {releaseDetail.length > 1 && (
                         <img
@@ -412,7 +430,7 @@ export default function Index({ ReleaseOrderData }) {
           </div>
 
           <div className="mt-4">
-            <UploadOther orderid={orderid} module="Loading-Transit-Unloading" />
+            <UploadOther orderid={orderid} module="PaymentsInvoicing&Delivery" />
           </div>
         </div>
 

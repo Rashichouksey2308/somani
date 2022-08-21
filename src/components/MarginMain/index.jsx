@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { GetAllMarginMoney, GetMarginMoney } from 'redux/marginMoney/action'
 import { SearchLeads } from 'redux/buyerProfile/action'
 import Filter from '../Filter'
+import moment from 'moment'
 
 function Index() {
 
@@ -49,11 +50,17 @@ function Index() {
 
   const handlePreviewRoute = (margin) => {
     // console.log(margin, "THIS IS MARGIN MONEY")
-
+    if(margin.revisedMarginMoney.isActive !== true) {
     sessionStorage.setItem('marginId', margin?.order?._id )
     dispatch(GetMarginMoney({ orderId: margin?.order?._id }))
     
     Router.push('/margin-preview')
+    }else{
+      sessionStorage.setItem('marginId', margin?.order?._id )
+    dispatch(GetMarginMoney({ orderId: margin?.order?._id }))
+    
+    Router.push('/revised-margin-preview')
+    }
     
   }
 
@@ -188,7 +195,7 @@ function Index() {
                           {margin?.company?.companyName}
                         </td>
                         <td>{margin?.order?.existingCustomer ? 'Yes' : 'No'}</td>
-                        <td>{margin?.createdAt?.split('T')[0]}</td>
+                        <td> {moment(margin?.createdAt?.split('T')[0]).format('DD-MM-yyyy')}</td>
                         <td>
                           <span
                             className={`${styles.status} ${margin.status === 'Pending'

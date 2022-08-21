@@ -198,7 +198,7 @@ function Index() {
   // const [manualDocModule, setManualDocModule] = useState(true)
   // const [filteredDoc, setFilteredDoc] = useState([])
   const [gstData, setGstData] = useState({})
-  // console.log(newDoc, "newDoc")
+  // console.log(gstData, "CREDIT CALCULATE")
 
   // const { documentsFetched } = useSelector((state) => state.review)
   //console.log(documentsFetched, 'documentsFetched')

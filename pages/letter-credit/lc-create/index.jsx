@@ -4,6 +4,7 @@ import PreviewBar from '../../../src/components/PreviewBar'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetLcModule, UpdateLcModule } from '../../../src/redux/lcModule/action'
+import {removePrefixOrSuffix} from '../../../src/utils/helper'
 
 function Index() {
   const dispatch = useDispatch()
@@ -143,8 +144,10 @@ function Index() {
   }, [lcModuleData])
 
   const handleLcSave = () => {
+    let lcObj={ ...lcData }
+    lcObj.currecyCodeAndAmountValue= removePrefixOrSuffix(lcData?.currecyCodeAndAmountValue)
     let obj = {
-      lcApplication: { ...lcData },
+      lcApplication: { ...lcObj },
       additionalConditions: [...lcComments],
       documentRequired: [...lcDocuments],
       lcModuleId: lcModuleData._id,

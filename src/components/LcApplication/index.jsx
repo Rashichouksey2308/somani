@@ -240,7 +240,8 @@ function Index({
                           className={`${styles.input_field} input form-control`}
                           required
                           type="text"
-                          defaultValue={lcData?.currecyCodeAndAmountValue}
+                          // defaultValue={lcData?.currecyCodeAndAmountValue}
+                          value={addPrefixOrSuffix(lcData?.currecyCodeAndAmountValue,"USD")}
                           name="currecyCodeAndAmountValue"
                           onChange={(e) => {
                             saveLcData(e.target.name, e.target.value)

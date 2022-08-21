@@ -13,6 +13,11 @@ import { useSelector } from 'react-redux'
 import _get from 'lodash/get'
 
 export default function Index({ customData, OrderId, uploadDoc }) {
+  const isShipmentTypeBULK = _get(
+    customData,
+    'order.vessel.vessels[0].shipmentType',
+    '',
+  ) == 'Bulk'
   const dispatch = useDispatch()
 
   const [saveContactTable, setContactTable] = useState(false)
@@ -194,15 +199,9 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       className={styles.radio}
                       inline
                       label="Bulk"
-                      checked={
-                        _get(
-                          customData,
-                          'order.vessel.vessels[0].shipmentType',
-                          '',
-                        ) == 'Bulk'
-                        // customData?.order?.vessel?.vessels[0]?.shipmentType ==
-                        // 'Bulk'
-                      }
+                      checked={isShipmentTypeBULK}
+                      disabled={!isShipmentTypeBULK}
+
                       name="group1"
                       type={type}
                       id={`inline-${type}-1`}
@@ -211,15 +210,8 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       className={styles.radio}
                       inline
                       label="Liner"
-                      checked={
-                        _get(
-                          customData,
-                          'order.vessel.vessels[0].shipmentType',
-                          '',
-                        ) == 'Liner'
-                        // customData?.order?.vessel?.vessels[0]?.shipmentType ==
-                        // 'Liner'
-                      }
+                      disabled={isShipmentTypeBULK}
+                      checked={!isShipmentTypeBULK}
                       name="group1"
                       type={type}
                       id={`inline-${type}-2`}
@@ -1093,7 +1085,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
           <div className="mt-4 mb-5">
             <UploadOther
               orderid={OrderId}
-              module="customClearanceAndWarehousing"
+              module="CustomClearanceAndWarehousing"
             />
           </div>
         </div>

@@ -15,7 +15,7 @@ import { useEffect } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import UploadOther from '../UploadOther'
-import { CovertvaluefromtoCR } from '../../utils/helper'
+import { CovertvaluefromtoCR ,addPrefixOrSuffix,removePrefixOrSuffix} from '../../utils/helper'
 import moment from 'moment'
 
 export default function Index({
@@ -50,9 +50,9 @@ export default function Index({
     blDate: '',
     blQuantity: '',
     blQuantityUnit: '',
-    etaAtDischargePortFrom: '',
-    etaAtDischargePortTo: '',
-    blSurrenderDate: '',
+    etaAtDischargePortFrom: null,
+    etaAtDischargePortTo: null,
+    blSurrenderDate: null,
     documentName: null,
     blSurrenderDoc: null,
     document1: null,
@@ -74,7 +74,7 @@ export default function Index({
       setBolList(existingBlData)
     }
   }, [existingBlData])
-  
+
 
   const [editInput, setEditInput] = useState(true)
   const [shipmentType, setShipmentType] = useState(true)
@@ -106,16 +106,27 @@ export default function Index({
     } else {
       setBolList([...bolList, initialStateForLiner])
     }
+    console.log("here")
   }
+console.log(bolList,"bol")
 
-  const uploadDoc1 = async (e) => {
-    let name = e.target.id
+  const uploadDoc = async (e,index) => {
+    let name = e.target.name
+    let id = e.target.id
     let docs = await docUploadFunction(e)
+   console.log(name,"name")
+    let newInput = [...bolList ]
+    newInput.forEach((val,i)=>{
+     if(i==index){
+      val[name]=docs
+     }
+    })
+    // newInput[index].[name] = docs
 
-    let newInput = { ...billOfEntryData }
-    newInput[name] = docs
-    setBillOfEntryData(newInput)
+    console.log(newInput, 'response data123')
+    setBolList(newInput)
   }
+  console.log(bolList, 'bollist')
 
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
@@ -163,12 +174,11 @@ export default function Index({
     }
     console.log(filteredVessel, 'filteredVessel')
     const newArray = [...bolList]
-    newArray[index].vesselName = filteredVessel.vesselInformation[0].name
-    newArray[index].imoNumber = filteredVessel.vesselInformation[0].IMONumber
-    newArray[index].etaAtDischargePortFrom =
-      filteredVessel.transitDetails.EDTatLoadPort
-    newArray[index].etaAtDischargePortTo =
-      filteredVessel.transitDetails.ETAatDischargePort
+    newArray[index].vesselName = _get(filteredVessel, 'vesselInformation[0].name', '')
+    newArray[index].imoNumber = _get(filteredVessel, 'vesselInformation[0].IMONumber', '')
+    newArray[index].etaAtDischargePortFrom = _get(filteredVessel, 'transitDetails.EDTatLoadPort', null)
+    newArray[index].etaAtDischargePortTo = _get(filteredVessel, 'transitDetails.ETAatDischargePort', null)
+
 
     setBolList(newArray)
   }
@@ -182,6 +192,23 @@ export default function Index({
           return {
             ...obj,
             [name]: value,
+          }
+        }
+        return obj
+      })
+      return newState
+    })
+  }
+  const onChangeContainerDetailsHandler = (e, index) => {
+    const name = e.target.id
+    const value = e.target.value
+    setBolList(prevState => {
+      const newState = prevState.map((obj, i) => {
+        if (i == index) {
+          return {
+            ...prevState, containerDetails: {
+              ...prevState.containerDetails, [name]: value
+            }
           }
         }
         return obj
@@ -208,15 +235,17 @@ export default function Index({
 
   const saveData = () => {
     // const billOfLanding = [...bolList]
-    const bol = { billOfLanding: bolList }
-
+    let bol = { billOfLanding: bolList }
+    console.log(bol,"bol",bolList.billOfLanding)
+    bol.billOfLanding[0].blQuantity=removePrefixOrSuffix(bolList[0].blQuantity)
     let fd = new FormData()
     fd.append('bl', JSON.stringify(bol))
     fd.append('transitId', transId._id)
     dispatch(UpdateTransitDetails(fd))
     console.log(fd, bol, 'filteredVessel')
   }
-  console.log(TransitDetails, 'TransitDetails')
+  console.log(bolList, 'filteredVessel',startetaAtDischargePortFrom)
+  // console.log(TransitDetails, 'TransitDetails')
   return (
     <>
       <div className={`${styles.backgroundMain} p-0 container-fluid`}>
@@ -232,9 +261,9 @@ export default function Index({
                       inline
                       label="Bulk"
                       name="group1"
-                      disabled={!isShipmentTypeBULK}
+                      // disabled={!isShipmentTypeBULK}
                       type={type}
-                      checked={isShipmentTypeBULK}
+                      checked={_get(TransitDetails,"data[0].order.shipmentDetail.shipmentType","")=="Bulk"?true:false}
                       id={`inline-${type}-1`}
                     />
                     <Form.Check
@@ -242,8 +271,8 @@ export default function Index({
                       inline
                       label="Liner"
                       name="group1"
-                      disabled={isShipmentTypeBULK}
-                      checked={!isShipmentTypeBULK}
+                      // disabled={isShipmentTypeBULK}
+                      checked={_get(TransitDetails,"data[0].order.shipmentDetail.shipmentType","")=="Liner"?true:false}
                       type={type}
                       id={`inline-${type}-2`}
                     />
@@ -292,7 +321,7 @@ export default function Index({
                   </div>
                   <span className={styles.value}>
                     {CovertvaluefromtoCR(_get(TransitDetails, 'data[0].order.orderValue', ''))}{' '}
-                    {_get(TransitDetails, 'data[0].order.unitOfValue', '').toUpperCase()}
+                    {_get(TransitDetails, 'data[0].order.unitOfValue', '')=="Crores"?"Cr":_get(TransitDetails, 'data[0].order.unitOfValue', '')}
                   </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
@@ -321,8 +350,8 @@ export default function Index({
               </div>
             </div>
           </div>
-          {bolList.map((bol, index) => {
-            console.log(bol,'existingBlDataindi')
+          {bolList?.map((bol, index) => {
+            console.log(bol, 'existingBlDataindi')
             return (
               <div
                 key={index}
@@ -336,10 +365,14 @@ export default function Index({
                   </h3>
                   {!partShipmentAllowed && (
                     <button
-                      onClick={() => console.log('addClicked')}
+                     onClick={()=>{
+                        onBolAdd()
+                      }}
                       className={styles.add_btn}
                     >
-                      <span className={styles.add_sign}>+</span>Add
+                      <span className={styles.add_sign}
+                      
+                      >+</span>Add
                     </button>
                   )}
                 </div>
@@ -366,7 +399,7 @@ export default function Index({
                                     value={vessel?.vesselInformation?.name}
                                     key={index}
                                   >
-                                    {vessel?.vesselInformation?.name}
+                                    {vessel?.vesselInformation[0]?.name}
                                   </option>
                                 ))
                                 : _get(
@@ -405,7 +438,7 @@ export default function Index({
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                         >
                           <input
-                          value={bol?.blNumber}
+                            value={bol?.blNumber}
                             onChange={(e) => onChangeBol(e, index)}
                             id="blNumber"
                             className={`${styles.input_field} input form-control`}
@@ -427,6 +460,7 @@ export default function Index({
                           <div className="d-flex">
                             {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                             <DatePicker
+                              // value={moment((bol?.blDate), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
                               defaultDate={bol?.blDate}
                               selected={startBlDate}
                               dateFormat="dd-MM-yyyy"
@@ -437,6 +471,8 @@ export default function Index({
                               }}
                               minDate={lastDate}
                             />
+                            {/* <DateCalender name='blDate'  defaultDate={bol?.blDate?.split('T')[0]} saveDate={saveDate} labelName=''/> */}
+
 
                             <img
                               className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -454,12 +490,13 @@ export default function Index({
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                         >
                           <input
-                          value={bol?.blQuantity}
+                         
                             onChange={(e) => onChangeBol(e, index)}
                             id="blQuantity"
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
+                            value={addPrefixOrSuffix(bol?.blQuantity,"MT")}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -476,11 +513,14 @@ export default function Index({
                           className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`}
                         >
                           <div className="d-flex">
-                            <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} />
-                            {/* <DatePicker
-                              defaultDate={moment((bol?.etaAtDischargePortFrom)?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
+                            {/* //<DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
+                            <DatePicker
+                              // value={moment((bol?.etaAtDischargePortFrom), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
+                              // value={moment(bol?.etaAtDischargePortFrom).toDate()}
+                              defaultDate={startetaAtDischargePortFrom}
                               name="ETAatDischargePort"
-                              selected={startetaAtDischargePortFrom}
+                              selected={bol?.etaAtDischargePortFrom==null?"":moment(bol?.etaAtDischargePortFrom).toDate()}
+                              // selected={moment(bol?.etaAtDischargePortFrom==null?" ":bol?.etaAtDischargePortFrom).toDate()}
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startetaAtDischargePortFrom) => {
@@ -494,7 +534,9 @@ export default function Index({
                                 )
                               }}
                               minDate={lastDate}
-                            /> */}
+                            />
+                            {/* <DateCalender name='etaAtDischargePortFrom'  defaultDate={bol?.etaAtDischargePortFrom?.split('T')[0]} saveDate={saveDate} labelName=''/> */}
+
 
                             <img
                               className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -513,8 +555,10 @@ export default function Index({
                         >
                           <div className="d-flex">
                             <DatePicker
-                              defaultDate=""
-                              selected={startetaAtDischargePortTo}
+                              // value={moment((bol?.startetaAtDischargePortFrom), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
+                              
+                               selected={bol?.etaAtDischargePortTo==null?"":moment(bol?.etaAtDischargePortTo).toDate()}
+                             
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startetaAtDischargePortTo) => {
@@ -528,6 +572,12 @@ export default function Index({
                                 )
                               }}
                               minDate={lastDate}
+                            />
+                            {/* <DateCalender name='etaAtDischargePortTo'  defaultDate={bol?.etaAtDischargePortTo?.split('T')[0]} saveDate={saveDate} labelName=''/> */}
+                            <img
+                              className={`${styles.calanderIcon} img-fluid`}
+                              src="/static/caldericon.svg"
+                              alt="Search"
                             />
 
                             <img
@@ -558,6 +608,8 @@ export default function Index({
                               className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                             >
                               <input
+                                onChange={(e) => onChangeContainerDetailsHandler(e, index)}
+                                value={bol?.containerDetails?.numberOfContainers}
                                 className={`${styles.input_field} input form-control`}
                                 required
                                 type="number"
@@ -576,6 +628,8 @@ export default function Index({
                               className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                             >
                               <input
+                                onChange={(e) => onChangeContainerDetailsHandler(e, index)}
+                                value={bol?.containerDetails?.freeDetentionPeriod}
                                 className={`${styles.input_field} input form-control`}
                                 required
                                 type="number"
@@ -595,7 +649,7 @@ export default function Index({
                             >
                               <div className="d-flex justify-content-start">
                                 <div className={styles.uploadBtnWrapper}>
-                                  <input type="file" name="myfile" />
+                                  <input name={`document1`} id='documentName' onChange={(e) => uploadDoc(e,index)} type="file"  />
                                   <button
                                     className={`${styles.upload_btn} btn`}
                                   >
@@ -669,7 +723,7 @@ export default function Index({
                               </td>
                               <td>
                                 <div className={styles.uploadBtnWrapper}>
-                                  <input type="file" name="myfile" />
+                                  <input name={`blSurrenderDoc`} id='document1' onChange={(e) => uploadDoc(e,index)} type="file" />
                                   <button
                                     className={`${styles.upload_btn} btn`}
                                   >
@@ -699,7 +753,7 @@ export default function Index({
                                   </td>
                                   <td>
                                     <div className={styles.uploadBtnWrapper}>
-                                      <input type="file" name="myfile" />
+                                      <input name={`document2`} id='document1' onChange={(e) => uploadDoc(e,index)} type="file"  />
                                       <button
                                         className={`${styles.upload_btn} btn`}
                                       >
@@ -727,7 +781,7 @@ export default function Index({
                                   </td>
                                   <td>
                                     <div className={styles.uploadBtnWrapper}>
-                                      <input type="file" name="myfile" />
+                                      <input name={`documentName`} id='document2' onChange={(e) => uploadDoc(e,index)} type="file"  />
                                       <button
                                         className={`${styles.upload_btn} btn`}
                                       >
@@ -754,8 +808,9 @@ export default function Index({
                         >
                           <div className="d-flex">
                             <DatePicker
-                              defaultDate=""
-                              selected={startblSurrenderDate}
+                            
+                               selected={bol?.blSurrenderDate==null?"":moment(bol?.blSurrenderDate).toDate()}
+                              
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startblSurrenderDate) => {
@@ -768,6 +823,8 @@ export default function Index({
                               }}
                               minDate={lastDate}
                             />
+                            {/* <DateCalender name='blSurrenderDate'  defaultDate={bol?.blSurrenderDate?.split('T')[0]} saveDate={saveDate} labelName=''/> */}
+
 
                             <img
                               className={`${styles.calanderIcon} image_arrow img-fluid`}

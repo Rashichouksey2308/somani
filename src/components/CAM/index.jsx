@@ -137,9 +137,9 @@ function Index({
   )
 
   let tempArr = [
-    { name: 'Sagar Sinha', value: '21', color: '#9675CE' },
-    { name: 'Radhe Singh', value: '23', color: '#4CAF50' },
-    { name: 'Arv Jay', value: '23', color: '#EA3F3F' },
+    { name: '', value: '21', color: '#9675CE' },
+    { name: '', value: '23', color: '#4CAF50' },
+    { name: '', value: '23', color: '#EA3F3F' },
   ]
   let data = {
     labels: ['Sail', 'Jindal Grou', 'SR Steel'],
@@ -1138,8 +1138,8 @@ const shareHolding = (data, options, tempArr, camData) => {
                 <div className={styles.chart}>
                   <Doughnut data={data} options={options} />
                   <div className={styles.total_value}>
-                    <span>Sagar Sinha</span>
-                    <span className={styles.highlight}>83.80%</span>
+                    <span></span>
+                    <span className={styles.highlight}></span>
                   </div>
                 </div>
                 <div className={`${styles.name} `}>

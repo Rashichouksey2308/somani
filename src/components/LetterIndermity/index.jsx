@@ -37,52 +37,40 @@ function Index({ TransitDetails }) {
   console.log(loi, bolArray, 'bolArray')
 
 
+  console.log(loi, "LOI")
 
-
-  const [designation, setDesignation] = useState('')
   const SetAuthorisedSignatoryHanlder = (e) => {
-    let obj = {
-      name: '',
-      designation: '',
-    }
-    if (e.target.value.toLowerCase() === 'bhawanajain') {
-      console.log(e.target.value.toLowerCase(),'bhawanajain')
-      setLOI(prevState => {
-        return {
-          ...prevState, authorizedSignatory: { name: 'Bhawana Jain', designation: 'Vice President Finance & Accounts' }
-        }
-      })
-    }
-    if (e.target.value.toLowerCase() === 'vipinkumar') {
-      console.log('vipinkumar')
-      setLOI(prevState => {
-        return {
-          ...prevState, authorizedSignatory: { name: 'Vipin Kumar', designation: 'Manager Accounts ' }
-        }
-      })
-    }
-    if (e.target.value.toLowerCase() === 'deveshjain') {
-      console.log('DeveshJain')
-      setLOI(prevState => {
-        return {
-          ...prevState, authorizedSignatory: { name: 'Devesh Jain', designation: 'Director' }
-        }
-      })
-    }
-    if (e.target.value.toLowerCase() === 'fatimayannoulis') {
-      console.log('Fatimayannoulis')
-      setLOI(prevState => {
-        return {
-          ...prevState, authorizedSignatory: { name: 'Fatima Yannoulis', designation: 'Chief Financial Officer' }
-        }
-      })
+
+    console.log(e.target.value.toLowerCase(), "w")
+    if (e.target.value == "") {
+      setLOI({ ...loi, authorizedSignatory: { name: "", designation: "" } })
     } else {
-      setLOI(prevState => {
-        console.log('this')
-        return {
-          ...prevState, authorizedSignatory: { name: '', designation: '' }
-        }
-      })
+      if (e.target.value.toLowerCase() === 'bhawanajain') {
+        console.log(e.target.value.toLowerCase(), 'bhawanajain')
+
+        setLOI({ ...loi, authorizedSignatory: { name: "Bhawana Jain", designation: "Vice President Finance & Accounts" } })
+      }
+      if (e.target.value.toLowerCase() === 'vipinkumar') {
+        console.log('vipinkumar')
+        setLOI({ ...loi, authorizedSignatory: { name: "Vipin Kumar", designation: "Manager Accounts" } })
+
+      }
+      if (e.target.value.toLowerCase() === 'deveshjain') {
+        console.log('DeveshJain')
+        setLOI(prevState => {
+          return {
+            ...prevState, authorizedSignatory: { name: 'Devesh Jain', designation: 'Director' }
+          }
+        })
+      }
+      if (e.target.value.toLowerCase() === 'fatimayannoulis') {
+        console.log('Fatimayannoulis')
+        setLOI(prevState => {
+          return {
+            ...prevState, authorizedSignatory: { name: 'Fatima Yannoulis', designation: 'Chief Financial Officer' }
+          }
+        })
+      }
     }
 
 
@@ -125,6 +113,7 @@ function Index({ TransitDetails }) {
   console.log(loi, 'billsofLanding')
 
   const saveData = () => {
+    sessionStorage.setItem('transitPId', transId._id)
     // const billOfLanding = [...bolList]
     const LOI = { ...loi }
 
@@ -198,8 +187,8 @@ function Index({ TransitDetails }) {
             >
               <select onChange={(e) => BolDropDown(e)}>
                 {bolArray.map((element, index2) => (
-                  <option key={`${index1}-${index2}`} value={index2}>
-                    BL-{index1 + 1}
+                  <option key={index2} value={`${index1}-${index2}`}>
+                    BL-{index2 + 1}
                   </option>
                 ))}
               </select>
@@ -331,7 +320,7 @@ function Index({ TransitDetails }) {
                 onChange={(e) => SetAuthorisedSignatoryHanlder(e)}
                 className={`${styles.input_field} ${styles.customSelect} input mt-4 pl-3`}
               >
-                <option value=""></option>
+                <option value="">Select an option</option>
                 <option value="bhawanajain">Bhawana Jain </option>
                 <option value="vipinkumar">Vipin Kumar </option>
                 <option value="DeveshJain">Devesh Jain </option>

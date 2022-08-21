@@ -16,7 +16,7 @@ const Index = ({
 }) => {
   const [startDate, setStartDate] = useState(null)
   const [lastDate, setlastDate] = useState()
-  console.log(moment(defaultDate).toDate(), 'momentDate')
+  // console.log(moment(defaultDate).toDate(), 'momentDate')
   useEffect(() => {
     if(startFrom){
       console.log("in start DAte")
@@ -26,7 +26,7 @@ const Index = ({
     }
    
   }, [startFrom])
-  console.log(lastDate,"lastDate",startFrom,)
+  // console.log(lastDate,"lastDate",startFrom,)
   return (
     <>
       <div className="vessel_card w-100">
