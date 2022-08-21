@@ -219,9 +219,9 @@ export default function Index({
   console.log(TransitDetails, 'TransitDetails')
   return (
     <>
-      <div className={`${styles.backgroundMain} container-fluid`}>
+      <div className={`${styles.backgroundMain} p-0 container-fluid`}>
         <div className={`${styles.vessel_card} mt-3 border_color`}>
-          <div className={`${styles.wrapper} border_color p-2 card`}>
+          <div className={`${styles.wrapper} border_color card`}>
             <div className="d-lg-flex align-items-center d-inline-block  pl-4">
               <h2 className="mb-0">Shipment Type</h2>
               <div className={`${styles.radio_form} ml-lg-5 ml-n4`}>
@@ -253,7 +253,7 @@ export default function Index({
             </div>
           </div>
 
-          <div className={`${styles.main} border_color mt-4 card `}>
+          <div className={`${styles.main} border_color card `}>
             <div
               className={`${styles.head_container} border_color card-header head_container justify-content-between d-flex bg-transparent`}
             >
@@ -326,7 +326,7 @@ export default function Index({
             return (
               <div
                 key={index}
-                className={`${styles.main} vessel_card mt-4 card border_color`}
+                className={`${styles.main} vessel_card card border_color`}
               >
                 <div
                   className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
@@ -857,7 +857,7 @@ export default function Index({
             )
           })}
 
-          <div className="mt-4">
+          <div className="0">
             <UploadOther orderid={orderid} module="Loading-Transit-Unloading" />
           </div>
         </div>
