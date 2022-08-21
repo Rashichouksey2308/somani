@@ -9,7 +9,7 @@ function Index({ directorData }) {
   const [darkMode, setDarkMode] = useState(false)
 
   const [otherAssociates, setOtherAssociates] = useState('Current')
-  console.log(directorData, "directorDetails")
+ 
 
 
   useEffect(() => {
@@ -58,7 +58,7 @@ function Index({ directorData }) {
                           className={`${styles.cardHeader} ${styles.collapsed}  card-header row no-gutters bg-transparent collapsed`}
                           data-toggle="collapse"
                           data-target={`#director${index}`}
-                          aria-expanded={index==0?"true":"false"}
+                          aria-expanded={index == 0 ? "true" : "false"}
                           aria-controls={`director${index}`}
                         >
                           <div className={`${styles.detailsBox}  col-md-2`}>
@@ -80,7 +80,7 @@ function Index({ directorData }) {
                           </div>
                           <div className={`${styles.detailsBox}   col-md-2`}>
                             <label className={`accordion_Text`}>DIN</label>
-                            <span className={`${moment(director?.dscStatus).format('DD MM YYYY') < moment(new Date).format('DD MM YYYY')  ? styles.success : styles.danger}`}>
+                            <span className={`${moment(director?.dscStatus).format('DD MM YYYY') < moment(new Date).format('DD MM YYYY') ? styles.success : styles.danger}`}>
                               {director?.din}
                             </span>
                           </div>
@@ -301,7 +301,7 @@ function Index({ directorData }) {
 
                                   />
                                   <label
-                                   // className="form-check-label"
+                                    // className="form-check-label"
                                     htmlFor="flexRadioDefault5"
                                   >
                                     Nominated
@@ -334,8 +334,8 @@ function Index({ directorData }) {
                                         <tr key={index}>
                                           <td>{associates?.entityId}</td>
                                           <td>{associates?.entityName}</td>
-                                          <td>{fromDate?.slice(0, 10)}</td>
-                                          <td>{toDate?.slice(0, 10)}</td>
+                                          <td> {fromDate ? moment((fromDate)?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY") : ''}</td>
+                                          <td>{ toDate ? moment((toDate)?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY") : ''}</td>
                                         </tr>
                                       )
                                     })}
