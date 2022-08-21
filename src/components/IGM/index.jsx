@@ -15,7 +15,7 @@ import { number } from 'prop-types'
 import { useEffect } from 'react'
 import 'react-datepicker/dist/react-datepicker.css'
 import DatePicker from 'react-datepicker'
-import {CovertvaluefromtoCR} from '../../utils/helper'
+import { CovertvaluefromtoCR } from '../../utils/helper'
 
 export default function Index({
   isShipmentTypeBULK,
@@ -170,15 +170,19 @@ export default function Index({
           '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016',
       })
     } else {
-      setConsigneeInfo({ branch: '', address: '' })
+      setConsigneeInfo({ name: '', branch: '', address: '' })
     }
   }
 
-  const onChangeBlNumberEntry = (e) => {}
+  const onChangeBlNumberEntry = (e) => { }
 
-  const onDocumentSelect = (e) => {
+  const onDocumentSelect = (e, index) => {
     const docData = docUploadFunction(e.target.files[0])
-    console.log(docData, 'docData')
+    const name = e.target.id
+    setIgmList(prevState => {
+      return [...igmList, { ...igmList[index], [name]: docData }]
+    })
+
   }
 
   const handleSave = () => {
@@ -256,7 +260,7 @@ export default function Index({
                   </div>
                   <span className={styles.value}>
                     {CovertvaluefromtoCR(_get(TransitDetails, 'data[0].order.orderValue', ''))}{' '}
-                    {_get(TransitDetails, 'data[0].order.unitOfValue', '')=="Crores"?"Cr":_get(TransitDetails, 'data[0].order.unitOfValue', '')}
+                    {_get(TransitDetails, 'data[0].order.unitOfValue', '') == "Crores" ? "Cr" : _get(TransitDetails, 'data[0].order.unitOfValue', '')}
                   </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
@@ -400,26 +404,26 @@ export default function Index({
                     >
                       {shipmentTypeBulk
                         ? _get(
-                            TransitDetails,
-                            'data[0].order.vessel.vessels',
-                            [],
-                          ).map((vessel, index) => (
-                            <option
-                              value={vessel?.vesselInformation[0]?.name}
-                              key={index}
-                            >
-                              {vessel?.vesselInformation?.name}
-                            </option>
-                          ))
+                          TransitDetails,
+                          'data[0].order.vessel.vessels',
+                          [],
+                        ).map((vessel, index) => (
+                          <option
+                            value={vessel?.vesselInformation[0]?.name}
+                            key={index}
+                          >
+                            {vessel?.vesselInformation?.name}
+                          </option>
+                        ))
                         : _get(
-                            TransitDetails,
-                            'data[0].order.vessel.vessels[0].vesselInformation',
-                            [],
-                          ).map((vessel, index) => (
-                            <option value={vessel?.name} key={index}>
-                              {vessel?.name}
-                            </option>
-                          ))}
+                          TransitDetails,
+                          'data[0].order.vessel.vessels[0].vesselInformation',
+                          [],
+                        ).map((vessel, index) => (
+                          <option value={vessel?.name} key={index}>
+                            {vessel?.name}
+                          </option>
+                        ))}
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Vessel Name

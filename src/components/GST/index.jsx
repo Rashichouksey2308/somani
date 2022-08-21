@@ -32,6 +32,7 @@ Chart.register(
   BarController,
   BarElement,
 )
+import {CovertvaluefromtoCR} from '../../utils/helper'
 // Chart.register(linear);
 function Index({ companyData, orderList, GstDataHandler }) {
   const dispatch = useDispatch()
@@ -41,7 +42,15 @@ function Index({ companyData, orderList, GstDataHandler }) {
 
   console.log(GstData, "GSTDATA")
   const chartRef = useRef(null)
+  const chartRef2 = useRef(null)
+  const chartRef3 = useRef(null)
   const [chartData, setChartData] = useState({
+    datasets: [],
+  })
+   const [chartData2, setChartData2] = useState({
+    datasets: [],
+  })
+   const [chartData3, setChartData3] = useState({
     datasets: [],
   })
   const [gstFilteredData, SetGstFilteredData] = useState(orderList?.company?.gstList)
@@ -103,7 +112,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
 
 
 
-  function createGradient(ctx, area) {
+  function createGradient(ctx, area,color,color2) {
     // const colorStart = faker.random.arrayElement(colors);
     // const colorMid = faker.random.arrayElement(
     //   colors.filter(color => color !== colorStart)
@@ -111,11 +120,11 @@ function Index({ companyData, orderList, GstDataHandler }) {
     // const colorEnd = faker.random.arrayElement(
     //   colors.filter(color => color !== colorStart && color !== colorMid)
     // );
-    console.log(ctx, area, 'cts')
+    console.log( 'cts',color2,color)
 
     var gradient = ctx.createLinearGradient(0, 0, 0, 300);
-    // gradient.addColorStop(0, 'rgba(224, 195, 155, 0.5)');
-    // gradient.addColorStop(1, 'rgba(100, 100, 0,0)');
+    gradient.addColorStop(0, color2);
+    gradient.addColorStop(1, color);
 
     console.log(gradient, "gradient")
     return gradient;
@@ -130,210 +139,324 @@ function Index({ companyData, orderList, GstDataHandler }) {
     return CovertedMonts
   }
 
+const getdata=(data)=>{
+let temArr=[]
+if(data){
+data.forEach((val,index)=>{
+temArr.push(CovertvaluefromtoCR(val))
+
+})
+ console.log(temArr,"slaes")
+return temArr
+}else{
+  return []
+}
+
+}
+       
 
   useEffect(() => {
-
-    const chart = chartRef.current;
+  
+    
+      const chart = chartRef.current;
+      const chart2 = chartRef2.current;
+      const chart3 = chartRef3.current;
     console.log("here", chart.ctx)
     if (!chart) {
       return
     }
 
-    let color = createGradient(chart.ctx, chart.chartArea)
-    console.log(color, "color")
+    // let color = createGradient(chart.ctx, chart.chartArea)
+    
     const data = {
-      labels: covertMonths(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months),
-      datasets: [
-        {
-          label: "First dataset",
-          data: gstFilteredData?.detail?.summaryCharts?.revenueSummary?.totalSales,
-          fill: true,
+    labels: covertMonths(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months),
+    datasets: [
+    {
+      label: "First dataset",
+      data: getdata(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.totalSales),
+      // fill: true,
 
 
-          backgroundColor: color,
-          borderColor: "#2979F2"
-        },
-        {
-          label: "First dataset",
-          data: gstFilteredData?.detail?.summaryCharts?.revenueSummary?.thirdPartySales,
-          fill: true,
+      // backgroundColor: color,
+      borderColor: "#2979F2"
+    },
+    {
+      label: "First dataset",
+      data: getdata(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.thirdPartySales),
+      // fill: true,
 
 
-          backgroundColor: color,
-          borderColor: "#FA5F1C"
-        },
-        {
-          label: "First dataset",
-          data: gstFilteredData?.detail?.summaryCharts?.revenueSummary?.relatedPartySales,
-          fill: true,
+      // backgroundColor: color,
+      borderColor: "#FA5F1C"
+    },
+    {
+      label: "First dataset",
+      data: getdata(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.relatedPartySales),
+      // fill: true,
 
 
-          backgroundColor: color,
-          borderColor: "#FFD950"
-        },
-        {
-          label: "First dataset",
-          data: gstFilteredData?.detail?.summaryCharts?.revenueSummary?.intraOrgSales,
-          fill: true,
+      // backgroundColor: color,
+      borderColor: "#FFD950"
+    },
+    {
+      label: "First dataset",
+      data: getdata(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.intraOrgSales),
+      // fill: true,
 
 
-          backgroundColor: color,
-          borderColor: "#02BC77"
-        },
+      // backgroundColor: color,
+      borderColor: "#02BC77"
+    },
 
 
-      ]
+    ]
+    };
+    if (!chart2) {
+      return
+    }
+
+     
+   
+    const data2 = {
+    labels: covertMonths(gstFilteredData?.detail?.summaryCharts?.grossPurchaseVsSale?.month),
+    datasets: [
+    {
+    label: "First dataset",
+    data: getdata(gstFilteredData?.detail?.summaryCharts?.grossPurchaseVsSale?.sale),
+    fill: true,
+    backgroundColor: createGradient(chart2.ctx, chart2.chartArea,"rgb(71, 145, 255,0.1)","rgb(71, 145, 255,0.2)"),
+    borderColor: "rgb(71, 145, 255)"
+    },
+    {
+    label: "First dataset",
+     data:getdata(gstFilteredData?.detail?.summaryCharts?.grossPurchaseVsSale?.purchase),
+    
+    fill: true,
+    borderColor: "rgb(250, 95, 28,1)",
+    backgroundColor: createGradient(chart2.ctx, chart2.chartArea,"rgb(250, 95, 28,0.1)","rgb(250, 95, 28,0.1)"),
+    }
+
+    ]
+    };
+     if (!chart3) {
+      return
+    }
+    // let color3 = createGradient(chart3.ctx, chart3.chartArea)
+    const data3 = {
+    labels: covertMonths(gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.months),
+    datasets: [
+    {
+    label: "First dataset",
+    data: getdata(gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.customers) ,
+    fill: true,
+    backgroundColor: createGradient(chart2.ctx, chart2.chartArea,"rgb(41, 121, 242,0.1)","rgb(41, 121, 242,0.2)"),
+    borderColor: "rgb(41, 121, 242,1)"
+    },
+    {
+    label: "First dataset",
+    data: getdata(gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.invoices),
+    fill: true,
+    backgroundColor: createGradient(chart2.ctx, chart2.chartArea,"rgb(250, 95, 28,0.1)","rgb(250, 95, 28,0.2)"),
+    borderColor: "rgb(250, 95, 28,1)"
+    },
+    {
+    label: "First dataset",
+    data: getdata(gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.avgMonthlySales),
+    fill: true,
+   backgroundColor: createGradient(chart2.ctx, chart2.chartArea,"rgb(67, 195, 77,0.0)","rgb(67, 195, 77,0.0)"),
+    borderColor: "rgb(67, 195, 77)",
+     borderDash: [10,5]
+    }
+
+    ]
     };
 
     setChartData(data);
-  }, [chartRef.current]);
-  const getOrCreateTooltip = (chart) => {
-    let tooltipEl = chart.canvas.parentNode.querySelector('div');
+    setChartData2(data2);
+    setChartData3(data3);
+  }, [chartRef.current,chartRef2.current,chartRef3.current]);
 
-    if (!tooltipEl) {
-      tooltipEl = document.createElement('div');
-      tooltipEl.style.background = 'rgba(0, 0, 0, 0.7)';
-      tooltipEl.style.borderRadius = '3px';
-      tooltipEl.style.color = 'white';
-      tooltipEl.style.opacity = 1;
-      tooltipEl.style.pointerEvents = 'none';
-      tooltipEl.style.position = 'absolute';
-      tooltipEl.style.transform = 'translate(-50%, 0)';
-      tooltipEl.style.transition = 'all .1s ease';
 
-      const table = document.createElement('table');
-      table.style.margin = '0px';
 
-      tooltipEl.appendChild(table);
-      chart.canvas.parentNode.appendChild(tooltipEl);
-    }
+  
+  // const getOrCreateTooltip = (chart) => {
+  //   let tooltipEl = chart.canvas.parentNode.querySelector('div');
 
-    return tooltipEl;
-  };
+  //   if (!tooltipEl) {
+  //     tooltipEl = document.createElement('div');
+  //     tooltipEl.style.background = 'rgba(0, 0, 0, 0.7)';
+  //     tooltipEl.style.borderRadius = '3px';
+  //     tooltipEl.style.color = 'white';
+  //     tooltipEl.style.opacity = 1;
+  //     tooltipEl.style.pointerEvents = 'none';
+  //     tooltipEl.style.position = 'absolute';
+  //     tooltipEl.style.transform = 'translate(-50%, 0)';
+  //     tooltipEl.style.transition = 'all .1s ease';
 
-  const externalTooltipHandler = (context) => {
-    // Tooltip Element
-    const { chart, tooltip } = context;
-    const tooltipEl = getOrCreateTooltip(chart);
+  //     const table = document.createElement('table');
+  //     table.style.margin = '0px';
 
-    // Hide if no tooltip
-    if (tooltip.opacity === 0) {
-      tooltipEl.style.opacity = 0;
-      return;
-    }
+  //     tooltipEl.appendChild(table);
+  //     chart.canvas.parentNode.appendChild(tooltipEl);
+  //   }
 
-    // Set Text
-    if (tooltip.body) {
-      const titleLines = tooltip.title || [];
-      const bodyLines = tooltip.body.map(b => b.lines);
+  //   return tooltipEl;
+  // };
 
-      const tableHead = document.createElement('thead');
+  // const externalTooltipHandler = (context) => {
+  //   // Tooltip Element
+  //   const { chart, tooltip } = context;
+  //   const tooltipEl = getOrCreateTooltip(chart);
 
-      titleLines.forEach(title => {
-        const tr = document.createElement('tr');
-        tr.style.borderWidth = 0;
+  //   // Hide if no tooltip
+  //   if (tooltip.opacity === 0) {
+  //     tooltipEl.style.opacity = 0;
+  //     return;
+  //   }
 
-        const th = document.createElement('th');
-        th.style.borderWidth = 0;
-        const text = document.createTextNode(title);
+  //   // Set Text
+  //   if (tooltip.body) {
+  //     const titleLines = tooltip.title || [];
+  //     const bodyLines = tooltip.body.map(b => b.lines);
 
-        th.appendChild(text);
-        tr.appendChild(th);
-        tableHead.appendChild(tr);
-      });
+  //     const tableHead = document.createElement('thead');
 
-      const tableBody = document.createElement('tbody');
-      bodyLines.forEach((body, i) => {
-        const colors = tooltip.labelColors[i];
+  //     titleLines.forEach(title => {
+  //       const tr = document.createElement('tr');
+  //       tr.style.borderWidth = 0;
 
-        const span = document.createElement('span');
-        span.style.background = colors.backgroundColor;
-        span.style.borderColor = colors.borderColor;
-        span.style.borderWidth = '2px';
-        span.style.marginRight = '10px';
-        span.style.height = '10px';
-        span.style.width = '10px';
-        span.style.display = 'inline-block';
+  //       const th = document.createElement('th');
+  //       th.style.borderWidth = 0;
+  //       const text = document.createTextNode(title);
 
-        const tr = document.createElement('tr');
-        tr.style.backgroundColor = 'inherit';
-        tr.style.borderWidth = 0;
+  //       th.appendChild(text);
+  //       tr.appendChild(th);
+  //       tableHead.appendChild(tr);
+  //     });
 
-        const td = document.createElement('td');
-        td.style.borderWidth = 0;
+  //     const tableBody = document.createElement('tbody');
+  //     bodyLines.forEach((body, i) => {
+  //       const colors = tooltip.labelColors[i];
 
-        const text = document.createTextNode(body);
+  //       const span = document.createElement('span');
+  //       span.style.background = colors.backgroundColor;
+  //       span.style.borderColor = colors.borderColor;
+  //       span.style.borderWidth = '2px';
+  //       span.style.marginRight = '10px';
+  //       span.style.height = '10px';
+  //       span.style.width = '10px';
+  //       span.style.display = 'inline-block';
 
-        td.appendChild(span);
-        td.appendChild(text);
-        tr.appendChild(td);
-        tableBody.appendChild(tr);
-      });
+  //       const tr = document.createElement('tr');
+  //       tr.style.backgroundColor = 'inherit';
+  //       tr.style.borderWidth = 0;
 
-      const tableRoot = tooltipEl.querySelector('table');
+  //       const td = document.createElement('td');
+  //       td.style.borderWidth = 0;
 
-      // Remove old children
-      while (tableRoot.firstChild) {
-        tableRoot.firstChild.remove();
-      }
+  //       const text = document.createTextNode(body);
 
-      // Add new children
-      tableRoot.appendChild(tableHead);
-      tableRoot.appendChild(tableBody);
-    }
+  //       td.appendChild(span);
+  //       td.appendChild(text);
+  //       tr.appendChild(td);
+  //       tableBody.appendChild(tr);
+  //     });
 
-    const { offsetLeft: positionX, offsetTop: positionY } = chart.canvas;
+  //     const tableRoot = tooltipEl.querySelector('table');
 
-    // Display, position, and set styles for font
-    tooltipEl.style.opacity = 1;
-    tooltipEl.style.left = positionX + tooltip.caretX + 'px';
-    tooltipEl.style.top = positionY + tooltip.caretY + 'px';
-    tooltipEl.style.font = tooltip.options.bodyFont.string;
-    tooltipEl.style.padding = tooltip.options.padding + 'px ' + tooltip.options.padding + 'px';
-  };
+  //     // Remove old children
+  //     while (tableRoot.firstChild) {
+  //       tableRoot.firstChild.remove();
+  //     }
+
+  //     // Add new children
+  //     tableRoot.appendChild(tableHead);
+  //     tableRoot.appendChild(tableBody);
+  //   }
+
+  //   const { offsetLeft: positionX, offsetTop: positionY } = chart.canvas;
+
+  //   // Display, position, and set styles for font
+  //   tooltipEl.style.opacity = 1;
+  //   tooltipEl.style.left = positionX + tooltip.caretX + 'px';
+  //   tooltipEl.style.top = positionY + tooltip.caretY + 'px';
+  //   tooltipEl.style.font = tooltip.options.bodyFont.string;
+  //   tooltipEl.style.padding = tooltip.options.padding + 'px ' + tooltip.options.padding + 'px';
+  // };
 
   const DATA_COUNT = 7;
   const NUMBER_CFG = { count: DATA_COUNT, min: -100, max: 100, decimals: 0 };
 
-  const lineOption = {
-    tension: 0.2,
+const lineOption = {
+tension: 0.2,
 
-    fill: true,
-    //  elements: {
-    //                   point:{
-    //                       radius: 2
-    //                   }
-    //               },
-    scales: {
-      x: {
-        grid: {
-          color: '#ff000000',
-          borderColor: '#ff000000',
-          tickColor: '#ff000000'
-        }
-      },
-      y: {
-        grid: {
+// fill: true,
 
-          borderColor: '#ff000000',
-          tickColor: '#ff000000'
-        }
-      }
-    },
-    interaction: {
-      mode: 'index',
-      intersect: false,
-    },
-    plugins: {
-
-      tooltip: {
-        enabled: false,
-        position: 'nearest',
-        external: externalTooltipHandler
-      }
-    }
-
+scales: {
+x: {
+  grid: {
+    color: '#ff000000',
+    borderColor: '#ff000000',
+    tickColor: '#ff000000'
   }
+},
+y: {
+  grid: {
+
+    borderColor: '#ff000000',
+    tickColor: '#ff000000'
+  }
+}
+},
+interaction: {
+mode: 'index',
+intersect: false,
+},
+plugins: {
+
+tooltip: {
+  enabled: false,
+  position: 'nearest',
+  // external: externalTooltipHandler
+}
+}
+
+}
+const lineOption2 = {
+tension: 0.2,
+
+fill: true,
+
+scales: {
+x: {
+  grid: {
+    color: '#ff000000',
+    borderColor: '#ff000000',
+    tickColor: '#ff000000'
+  }
+},
+y: {
+  grid: {
+
+    borderColor: '#ff000000',
+    tickColor: '#ff000000'
+  }
+}
+},
+interaction: {
+mode: 'index',
+intersect: false,
+},
+plugins: {
+
+tooltip: {
+  enabled: false,
+  position: 'nearest',
+  // external: externalTooltipHandler
+}
+}
+
+}
   let turOverdataAndPurchases = {
     labels: covertMonths(gstFilteredData?.detail?.summaryCharts?.grossPurchaseVsSale?.month),
     datasets: [
@@ -373,10 +496,11 @@ function Index({ companyData, orderList, GstDataHandler }) {
     datasets: [
       {
         label: "First dataset",
-        data: gstFilteredData?.detail?.summaryCharts?.top10Cus?.values,
+        data:getdata( gstFilteredData?.detail?.summaryCharts?.top10Cus?.values),
         fill: true,
-        backgroundColor: 'rgba(75,192,192,1)',
-        borderColor: "rgba(75,192,192,1)"
+        backgroundColor: '#4791FF',
+        borderColor: "#4791FF",
+         maxBarThickness:50
       }
 
     ]
@@ -386,10 +510,11 @@ function Index({ companyData, orderList, GstDataHandler }) {
     datasets: [
       {
         label: "First dataset",
-        data: gstFilteredData?.detail?.summaryCharts?.statewiseSales?.values,
+        data: getdata(gstFilteredData?.detail?.summaryCharts?.statewiseSales?.values),
         fill: true,
-        backgroundColor: 'rgba(75,192,192,1)',
-        borderColor: "rgba(75,192,192,1)"
+        backgroundColor: '#4791FF',
+        borderColor: "#4791FF",
+        maxBarThickness:50
       }
 
     ]
@@ -400,13 +525,36 @@ function Index({ companyData, orderList, GstDataHandler }) {
     datasets: [
       {
         label: "First dataset",
-        data: gstFilteredData?.detail?.summaryCharts?.statewiseSales?.values,
+        data: getdata(gstFilteredData?.detail?.summaryCharts?.statewiseSales?.values),
         fill: true,
-        backgroundColor: 'rgba(75,192,192,1)',
-        borderColor: "rgba(75,192,192,1)"
+        backgroundColor: '#FA5F1C',
+        borderColor: "#FA5F1C",
+        maxBarThickness:50
       }
 
     ]
+  }
+ const barOptions = {
+   
+
+    scales: {
+      x: {
+        grid: {
+          color: '#ff000000',
+          borderColor: '#ff000000',
+          tickColor: '#ff000000'
+        }
+      },
+      y: {
+        grid: {
+
+          borderColor: '#ff000000',
+          tickColor: '#ff000000'
+        }
+      }
+    },
+
+
   }
 
   let averageRate = {
@@ -778,7 +926,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
 
       <div className={`${styles.wrapper} card`}>
         <div
-          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{cursor : 'default'}}>
+          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{ cursor: 'default' }}>
           <h2 className="mb-0">Summary Chart</h2>
           <div className="d-flex align-items-center">
             <h5 className={`${styles.light} accordion_Text`}>Filter By: </h5>
@@ -828,7 +976,12 @@ function Index({ companyData, orderList, GstDataHandler }) {
                     <span className={styles.light}>(Cr)</span>
                   </div>
                   <div className={styles.chart}>
-                    <Line data={turOverdataAndPurchases} />
+                    <Line
+                       ref={chartRef2}
+                      data={chartData2}
+                      options={lineOption2}
+                    />
+                   
                     <div className={`${styles.legend_box} text-center`}>
                       <span className={`${styles.blue_legend} ${styles.legend}`}>Gross Turnover</span>
                       <span className={`${styles.red_legend} ${styles.legend}`}>Gross Purchases</span>
@@ -845,7 +998,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
                     <span className={styles.light}>(Cr)</span>
                   </div>
                   <div className={styles.chart}>
-                    <Bar data={top10Customers} />
+                    <Bar data={top10Customers} options={barOptions} />
                   </div>
                 </div>
               </Col>
@@ -858,7 +1011,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
                     <span className={styles.light}>(Cr)</span>
                   </div>
                   <div className={styles.chart}>
-                    <Bar data={top10Supplier} />
+                    <Bar data={top10Supplier} options={barOptions} />
                   </div>
                 </div>
               </Col>
@@ -871,7 +1024,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
                     <span className={styles.light}>(Cr)</span>
                   </div>
                   <div className={styles.chart}>
-                    <Bar data={stateWiseSales} />
+                    <Bar data={stateWiseSales} options={barOptions} />
                     <div className={`${styles.legend_box} text-center`}>
                       <span className={`${styles.legend}`}>Financial Period 07-2018 to 06-2029</span>
                     </div>
@@ -887,7 +1040,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
                     <span className={styles.light}>(Cr)</span>
                   </div>
                   <div className={styles.chart}>
-                    <Line data={averageRate} />
+                    <Line ref={chartRef3}  data={chartData3} options={lineOption2} />
                     <div className={`${styles.legend_box} text-center`}>
                       <span className={`${styles.blue_legend} ${styles.legend}`}>No. of Customers</span>
                       <span className={`${styles.red_legend} ${styles.legend}`}>No. of Invoices</span>
@@ -903,7 +1056,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
 
       <div className={`${styles.wrapper} card`}>
         <div
-          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{cursor : 'default'}}>
+          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{ cursor: 'default' }}>
           <h2 className="mb-0">Sales Details</h2>
           <div className="d-flex align-items-center">
             <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
@@ -1135,7 +1288,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
 
       <div className={`${styles.wrapper} card`}>
         <div
-          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{cursor : 'default'}}>
+          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{ cursor: 'default' }}>
           <h2 className="mb-0">Purchase Details</h2>
           <div className="d-flex align-items-center">
             <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
@@ -1371,7 +1524,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
 
       <div className={`${styles.wrapper} card`}>
         <div
-          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{cursor : 'default'}}>
+          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{ cursor: 'default' }}>
           <h2 className="mb-0">Compliance</h2>
           <div className={`${styles.subHeadContainer} d-flex mr-4 ml-auto`}>
             <div className={` ${styles.complaintExtra} d-flex align-items-center`}>
@@ -1460,7 +1613,7 @@ const gstCustomerDetail = (gstFilteredData, supplierDetailsUnit, setSupplierDeta
     <>
       <div className={`${styles.wrapper} card  `}>
         <div
-          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{cursor : 'default'}}>
+          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{ cursor: 'default' }}>
           <h2 className="mb-0">Customer Details</h2>
           <div className="d-flex align-items-center">
             <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
@@ -1641,7 +1794,7 @@ const gstSupplierDetail = (gstFilteredData, customerDetailsUnit, setCustomerDeta
     <>
       <div className={`${styles.wrapper} card`}>
         <div
-          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{cursor : 'default'}}>
+          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{ cursor: 'default' }}>
           <h2 className="mb-0">Suppliers Details</h2>
           <div className="d-flex align-items-center">
             <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
@@ -1824,7 +1977,7 @@ const gstSales = (head, gstFilteredData) => {
     <>
       <div className={`${styles.wrapper} card`}>
         <div
-          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{cursor : 'default'}}>
+          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{ cursor: 'default' }}>
           <h2 className="mb-0">{head}</h2>
           <div className="d-flex align-items-center">
             <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
@@ -2028,7 +2181,7 @@ const gstPurchase = (head, gstFilteredData) => {
     <>
       <div className={`${styles.wrapper} ${styles.lastComponent} card`}>
         <div
-          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{cursor : 'default'}}>
+          className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{ cursor: 'default' }}>
           <h2 className="mb-0">{head}</h2>
           <div className="d-flex align-items-center">
             <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
@@ -2124,6 +2277,7 @@ const gstPurchase = (head, gstFilteredData) => {
                           ))}
                         </tr>
                         <tr>
+                          <td>Recurring Suppliers</td>
                           {gstFilteredData?.detail?.purchaseDetail?.purchasesPercentage?.map((sales, index) => (
                             <td key={index}>{sales?.recurringSuppliers?.toLocaleString()}</td>
                           ))}
