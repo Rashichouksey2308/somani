@@ -48,7 +48,7 @@ function Index({
   approvedCredit,
 }) {
   const dispatch = useDispatch()
-  // console.log(gstData, 'gstData')
+  console.log(camData, 'camData')
   // console.log(fetchingKarzaGst, 'fetchingKarzaGst')
   useEffect(() => {
     if (window) {
@@ -1543,32 +1543,47 @@ const debtProfile = (data, options, tempArr, camData) => {
                   className={`${styles.label} d-flex justify-content-between align-content-center  `}
                 >
                   <div className={`${styles.limit_box} `}>
-                    <span className={`${styles.limit_label} `}>LIMIT</span>
+                    <span className={`${styles.limit_label} `}>Total Limit</span>
                   </div>
                   <span>1,900.00</span>
                 </div>
                 <div className={`${styles.bar}`}>
-                  <div className={`${styles.fill}`}></div>
+                  <div className={`${styles.fill}`}
+                  style={{width:"100%"}}
+                  ></div>
                 </div>
 
-                <div className={`mt-4 mb-4`}>
+                 {camData &&
+                    camData?.company?.debtProfile?.map((debt, index) => (
+                   <>
+                   <div className={`mt-4 mb-4`} key={index}>
                   <div
                     className={`${styles.label} d-flex justify-content-between align-content-center  `}
                   >
                     <div className={`${styles.limit_box} `}>
-                      <span className={`${styles.limit_label} `}>LIMIT</span>
+                      <span className={`${styles.limit_label} `}>{val.bankName}</span>
                     </div>
-                    <span>1,900.00</span>
+                    <span>{val.limit}</span>
                   </div>
                   <div className={`${styles.bar} ${styles.small_bar}`}>
-                    <span style={{ color: '#EA3F3F' }}>dis</span>
+                    <span className={`${styles.conduct}  ${debt.conduct=="Good"?"#43C34D":
+                      debt.conduct=="Satisfactory"?"#F9D00":debt.conduct=="Average"?"average":"#EA3F3F"
+                      }`}>{val.limitType}</span>
                     <div
-                      style={{ backgroundColor: '#EA3F3F' }}
-                      className={`${styles.fill}`}
+                      style={{ backgroundColor:`${debt.conduct=="Good"?"good":
+                      debt.conduct=="Satisfactory"?"satisfactory":debt.conduct=="Average"?"average":"#EA3F3F"
+                      }`,
+                    width:`${(Number(val.limit)/1900)*100}%`
+                    }}
+                      className={`${styles.fill}`
+                      
+                    }
                     ></div>
                   </div>
                 </div>
-                <div className={`mt-4 mb-4`}>
+                   </>
+                    ))}
+                {/* <div className={`mt-4 mb-4`}>
                   <div
                     className={`${styles.label} d-flex justify-content-between align-content-center  `}
                   >
@@ -1601,7 +1616,7 @@ const debtProfile = (data, options, tempArr, camData) => {
                       className={`${styles.fill}`}
                     ></div>
                   </div>
-                </div>
+                </div> */}
               </Col>
               <Col md={8} className={`px-0`}>
                 <table
@@ -1623,7 +1638,12 @@ const debtProfile = (data, options, tempArr, camData) => {
                         <td> {debt?.limitType} </td>
 
                         <td>{debt?.limit}</td>
-                        <td className={`${styles.conduct} danger`}>
+                        <td 
+                        className={`${styles.conduct}  ${debt.conduct=="Good"?"good":
+                      debt.conduct=="Satisfactory"?"satisfactory":debt.conduct=="Average"?"average":"danger"
+                      }`
+                      
+                      }>
                           {debt?.conduct}
                         </td>
                       </tr>
