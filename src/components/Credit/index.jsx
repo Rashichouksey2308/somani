@@ -1350,13 +1350,13 @@ const index = ({
                           />
                           GST Doc
                         </button>
+                        <button
+                          className={`${styles.add_btn}`}
+                          onClick={() => handleClick()}
+                        >
+                          Add
+                        </button>
                       </div>
-                      <button
-                        className={`${styles.add_btn}`}
-                        onClick={() => handleClick()}
-                      >
-                        Add
-                      </button>
                     </div>
                   </div>
                 </div>
