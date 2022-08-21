@@ -46,7 +46,7 @@ function Index() {
 
         {fields("Commodity", buyerList?.order?.commodity)}
         {fields("Quantity", buyerList?.order?.quantity, false, buyerList?.order?.unitOfQuantity.toUpperCase())}
-        {fields("Order value", (CovertvaluefromtoCR(buyerList?.order?.orderValue))?.toLocaleString(), false, buyerList?.order?.unitOfValue.toUpperCase())}
+        {fields("Order value", (CovertvaluefromtoCR(buyerList?.order?.orderValue))?.toLocaleString(), false, buyerList?.order?.unitOfValue=="Crores"?"Cr":buyerList?.order?.unitOfValue=="Million"?"Mn":buyerList?.order?.unitOfValue)}
         {fields("Supplier Name", buyerList?.order?.supplierName, false)}
         {fields("Country Of Origin", buyerList?.order?.countryOfOrigin, false)}
         {fields("INCO Terms", buyerList?.order?.incoTerm, false)}

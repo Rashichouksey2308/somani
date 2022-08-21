@@ -22,6 +22,7 @@ function Index({ handleChange, reviewedProfile }) {
   ]
   const typeOfBusinessDropdown = ['Manufacturer', 'Trader', 'Retail']
 
+  console.log(reviewedProfile?.orderValue?.originalValue,"reviewedProfile?.orderValue?.originalValue")
   const DropDown = (values, name, disabled) => {
     return (
       <td>
@@ -283,7 +284,7 @@ function Index({ handleChange, reviewedProfile }) {
                 </tr>
 
                 <tr className={`${styles.table_row} border_color table_row`}>
-                  <td>Order Value(cr)</td>
+                  <td>Order Value(Cr)</td>
                   <td>{CovertvaluefromtoCR(reviewedProfile?.orderValue?.originalValue)}</td>
                   <td>
                     <div className={styles.tick}>
