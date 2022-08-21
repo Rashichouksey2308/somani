@@ -14,6 +14,7 @@ import { setPageName, setDynamicName } from '../../redux/userData/action'
 //import { set } from 'immer/dist/internal'
 
 function Index({
+  vesselUpdatedAt,
   partShipmentAllowed,
   setPartShipmentAllowed,
   shippingInfoChangeHandler,
@@ -72,7 +73,7 @@ function Index({
             <h1 className={`${styles.title} heading`}>{companyName}</h1>
             <div className="ml-auto">
               <div className={`${styles.lastModified} text `}>
-                <div>Last Modified:</div> 28 Jan,11:34am
+                <div>Last Modified:</div> {moment((vesselUpdatedAt).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}    
               </div>
             </div>
           </div>
