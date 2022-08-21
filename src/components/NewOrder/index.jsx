@@ -32,8 +32,9 @@ const Index = ({ saveOrderData, orderData }) => {
                 saveOrderData(e.target.name, e.target.value)
               }}
             >
-              <option selected></option>
-              <option value='MT'>MT</option>
+              <option>Select</option>
+              <option selected value='MT'>MT</option>
+              <option value='KG'>KG</option>
             </select>
           </div>
 
@@ -46,13 +47,12 @@ const Index = ({ saveOrderData, orderData }) => {
               name="unitOfValue"
               onChange={(e) => saveOrderData(e.target.name, e.target.value)}
             >
-              {/* <option ></option> */}
-              <option value="INR" selected>
-                INR
+                <option>Select </option>
+              <option value="Crores" selected>
+                Crores
               </option>
-              <option value="USD">USD</option>
-              <option value="EURO">EURO</option>
-              <option value="BRITISH POUND">BRITISH POUND</option>
+              <option value="Million">Million</option>
+              
             </select>
           </div>
           <span>+</span>
@@ -126,7 +126,7 @@ const Index = ({ saveOrderData, orderData }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  value={addPrefixOrSuffix( orderData.quantity ? orderData.quantity : 0, 'MT', '')}
+                  value={addPrefixOrSuffix( orderData.quantity ? orderData.quantity : 0, orderData.unitOfQuantity, '')}
                   name="quantity"
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
@@ -142,7 +142,7 @@ const Index = ({ saveOrderData, orderData }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  value={addPrefixOrSuffix(orderData.orderValue ? orderData.orderValue : 0, 'Cr', '')}
+                  value={addPrefixOrSuffix(orderData.orderValue ? orderData.orderValue : 0,orderData.unitOfValue=="Crores"?"Cr": orderData.unitOfValue=="Million"?"Mn":orderData.unitOfValue, '')}
                   name="orderValue"
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
@@ -180,8 +180,10 @@ const Index = ({ saveOrderData, orderData }) => {
                   >
                     <option selected>Select an option</option>
                     <option value="India">India</option>
-                    <option value="America">America</option>
-                    <option value="Russia">Russia</option>
+                    <option value="Dubai">Dubai</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Sri Lanka">Sri Lanka</option>
+                    
                   </select>
                   <Form.Label
                     className={`${styles.label_heading} label_heading`}
