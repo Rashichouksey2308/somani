@@ -454,7 +454,7 @@ setEditAddress(
                         <select
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           name="addressType"
-                          
+                           value={addressType}
                           onChange={(e) => {
                             setAddressType(e.target.value)
                             setAddress(e.target.name,e.target.value)
@@ -733,12 +733,14 @@ setEditAddress(
                               <td><input type="text"
                                 placeholder={val.designation}
                                 name="designation"
+                                readOnly={true}
                                 // onChange={(e) => {
                                 //   handleChangeInput(e.target.name, e.target.value, index)
                                 // }}
                               ></input></td>
                               <td><input type="text" placeholder={val.email}
                                 name="email"
+                                readOnly={true}
                                 // onChange={(e) => {
                                 //   handleChangeInput(e.target.name, e.target.value, index)
                                 // }}

@@ -37,9 +37,9 @@ function Index() {
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
         <div className={`${styles.filter} d-flex align-items-center`}>
-          <div className={styles.head_header}>
+          <div className={`${styles.head_header} align-items-center`}>
             <img
-              className={`${styles.arrow} image_arrow img-fluid`}
+              className={`${styles.arrow} mr-2 image_arrow img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
             />
@@ -137,7 +137,7 @@ function Index() {
         </div>
         <div className={`${styles.datatable} datatable card border_color `}>
           <div
-            className={`${styles.tableFilter} d-flex justify-content-between`}
+            className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
           >
             <h3 className="heading_card">Transit Details</h3>
             <div

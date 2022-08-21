@@ -11,6 +11,7 @@ import {
   UpdateTransitDetails,
   GetTransitDetails,
 } from '../../redux/TransitDetails/action'
+import { toast } from 'react-toastify'
 
 
 function Index({ TransitDetails }) {
@@ -37,44 +38,40 @@ function Index({ TransitDetails }) {
   console.log(loi, bolArray, 'bolArray')
 
 
-  console.log(loi,"LOI")
+  console.log(loi, "LOI")
 
-  const [designation, setDesignation] = useState('')
   const SetAuthorisedSignatoryHanlder = (e) => {
-    let obj = {
-      name: '',
-      designation: '',
-    }
-    console.log(e.target.value.toLowerCase(),"w")
-    if(e.target.value==""){
-    setLOI({...loi,authorizedSignatory:{name:"",designation:""}})
-    }else{
-         if (e.target.value.toLowerCase() === 'bhawanajain') {
-      console.log(e.target.value.toLowerCase(),'bhawanajain')
-    
-      setLOI({...loi,authorizedSignatory:{name:"Bhawana Jain",designation:"Vice President Finance & Accounts"}})
-    }
-    if (e.target.value.toLowerCase() === 'vipinkumar') {
-      console.log('vipinkumar')
-       setLOI({...loi,authorizedSignatory:{name:"Vipin Kumar",designation:"Manager Accounts"}})
-     
-    }
-    if (e.target.value.toLowerCase() === 'deveshjain') {
-      console.log('DeveshJain')
-      setLOI(prevState => {
-        return {
-          ...prevState, authorizedSignatory: { name: 'Devesh Jain', designation: 'Director' }
-        }
-      })
-    }
-    if (e.target.value.toLowerCase() === 'fatimayannoulis') {
-      console.log('Fatimayannoulis')
-      setLOI(prevState => {
-        return {
-          ...prevState, authorizedSignatory: { name: 'Fatima Yannoulis', designation: 'Chief Financial Officer' }
-        }
-      })
-    }
+
+    console.log(e.target.value.toLowerCase(), "w")
+    if (e.target.value == "") {
+      setLOI({ ...loi, authorizedSignatory: { name: "", designation: "" } })
+    } else {
+      if (e.target.value.toLowerCase() === 'bhawanajain') {
+        console.log(e.target.value.toLowerCase(), 'bhawanajain')
+
+        setLOI({ ...loi, authorizedSignatory: { name: "Bhawana Jain", designation: "Vice President Finance & Accounts" } })
+      }
+      if (e.target.value.toLowerCase() === 'vipinkumar') {
+        console.log('vipinkumar')
+        setLOI({ ...loi, authorizedSignatory: { name: "Vipin Kumar", designation: "Manager Accounts" } })
+
+      }
+      if (e.target.value.toLowerCase() === 'deveshjain') {
+        console.log('DeveshJain')
+        setLOI(prevState => {
+          return {
+            ...prevState, authorizedSignatory: { name: 'Devesh Jain', designation: 'Director' }
+          }
+        })
+      }
+      if (e.target.value.toLowerCase() === 'fatimayannoulis') {
+        console.log('Fatimayannoulis')
+        setLOI(prevState => {
+          return {
+            ...prevState, authorizedSignatory: { name: 'Fatima Yannoulis', designation: 'Chief Financial Officer' }
+          }
+        })
+      }
     }
 
 
@@ -117,6 +114,15 @@ function Index({ TransitDetails }) {
   console.log(loi, 'billsofLanding')
 
   const saveData = () => {
+    if (loi.authorizedSignatory.name === '') {
+      let toastMessage = 'PLEase selcet authorised signatory'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+
+    sessionStorage.setItem('transitPId', transId._id)
     // const billOfLanding = [...bolList]
     const LOI = { ...loi }
 
@@ -190,8 +196,8 @@ function Index({ TransitDetails }) {
             >
               <select onChange={(e) => BolDropDown(e)}>
                 {bolArray.map((element, index2) => (
-                  <option key={`${index1}-${index2}`} value={index2}>
-                    BL-{index1 + 1}
+                  <option key={index2} value={`${index1}-${index2}`}>
+                    BL-{index2 + 1}
                   </option>
                 ))}
               </select>

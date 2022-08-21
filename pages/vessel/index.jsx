@@ -41,6 +41,8 @@ export default function Home() {
   const [containerListDocument, setContainerListDocument] = useState({})
   const [partShipmentAllowed, setPartShipmentAllowed] = useState(partShipment)
   const [companyName, setCompanyName] = useState("")
+  const [vesselUpdatedAt, setVesselUpdatedAt] = useState("")
+
 
   console.log(containerExcel, 'containerExcel')
 
@@ -50,8 +52,14 @@ export default function Home() {
 
   //    console.log("check 2")
   // }, [Vessel])
+
   const [partShipment, setPartshipment] = useState()
   const setData = (Vessel) => {
+    setVesselUpdatedAt(_get(
+      Vessel,
+      "data[0].updatedAt",
+      false
+    ))
     setPartshipment(_get(
       Vessel,
       "data[0].partShipmentAllowed",
@@ -441,11 +449,13 @@ export default function Home() {
     console.log(tempArr, "tempArr")
     setList(tempArr)
   }
+  console.log(vesselUpdatedAt, 'vesselUpdatedAt')
 
 
   return (
     <>
       <Vessels
+        vesselUpdatedAt={vesselUpdatedAt}
         vesselCertificate={vesselCertificate}
         setVesselCertificate={setVesselCertificate}
         partShipmentAllowed={partShipmentAllowed}

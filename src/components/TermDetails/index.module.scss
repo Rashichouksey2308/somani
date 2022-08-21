@@ -86,22 +86,7 @@
                 transform: translateY(-30px);
                 transition: 0.3s all ease-in-out;
                 z-index: 1;
-                max-width: 86%;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                &::before {
-                    top: 51%;
-                    left: 0;
-                    width: 100%;
-                    height: 2px;
-                    content: "";
-                    z-index: -1;
-                    position: absolute;
-                    transform: translateY(-50%);
-                }
-                z-index: 1;
-                max-width: 86%;
+                max-width: 77%;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;

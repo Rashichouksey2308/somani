@@ -101,16 +101,13 @@ function Index() {
     <>
       <div className={`${styles.dashboardTab} bg-transparent w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
-          <div className="d-flex align-items-center">
+          <div className={`${styles.tab_header_inner} d-flex align-items-center`}>
+            <img
+              className={`${styles.arrow} mr-2 image_arrow img-fluid`}
+              src="/static/keyboard_arrow_right-3.svg"
+              alt="ArrowRight"
+            />
             <h1 className={`${styles.title} heading`}>
-              <img
-                src={`${darkMode
-                  ? `/static/white-arrow.svg`
-                  : `/static/arrow-right.svg`
-                  }`}
-                alt="arrow right"
-                className="img-fluid image_arrow"
-              />
               <span>{_get(TransitDetails, "data[0].company.companyName", 'Company Name')}</span>
             </h1>
           </div>
@@ -168,7 +165,7 @@ function Index() {
 
         <div className={`${styles.mainCard} container-fluid`}>
           <div className="row">
-            <div className="col-md-12 accordion_body">
+            <div className="col-md-12 p-0 accordion_body">
               <div className={`${styles.tabContent} tab-content`}>
                 <div
                   className="tab-pane show active fade"

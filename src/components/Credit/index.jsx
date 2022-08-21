@@ -10,7 +10,7 @@ import styles from './index.module.scss'
 import DateCalender from '../DateCalender'
 import { Form, Row, Col } from 'react-bootstrap'
 import AddressComponent from './addressComponent'
-import { addPrefixOrSuffix,removePrefixOrSuffix } from 'utils/helper'
+import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper'
 
 const index = ({
   creditDetail,
@@ -31,7 +31,7 @@ const index = ({
   setEditRow,
 }) => {
   console.log(personData, 'person')
-  console.log(debtData, 'debtData')
+  console.log(creditDetail, 'debtData')
   const dispatch = useDispatch()
 
   const [saveTable, setSaveTable] = useState(false)
@@ -139,14 +139,14 @@ const index = ({
   // console.log(keyPersonData[0]['contact']['number'], "kksksksk")
 
   const handlePersonChange = (e, key) => {
-    const newInput = [ ...keyPersonData ]
+    const newInput = [...keyPersonData]
     if (e.target.name.split('.').length > 1) {
       newInput[key]['contact']['number'] = e.target.value
     } else {
       newInput[key][e.target.name] = e.target.value
     }
     setKeyPersonData(newInput)
-  } 
+  }
 
   const onKeyPersonSave = () => {
     addPersonArr(keyPersonData)
@@ -244,7 +244,7 @@ const index = ({
     setEditData(newInput)
   }
   console.log(keyAddressData, 'editData')
-  console.log(creditDetail,"creditDetail",creditDetail?.monthlyProductionCapacity)
+  console.log(creditDetail, "creditDetail", creditDetail?.monthlyProductionCapacity)
   return (
     <>
       <div className={`${styles.main} vessel_card card border_color`}>
@@ -271,12 +271,12 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                 
-                    value={
-                     addPrefixOrSuffix(
+
+                  value={
+                    addPrefixOrSuffix(
                       creditDetail?.monthlyProductionCapacity,
-                       creditDetail?.unitOfQuantity?.toUpperCase()
-                      )
+                      creditDetail?.unitOfQuantity?.toUpperCase()
+                    )
                   }
                   name="monthlyProductionCapacity"
                   onChange={(e) => {
@@ -295,10 +295,10 @@ const index = ({
                   required
                   type="text"
                   value={
-                     addPrefixOrSuffix(
+                    addPrefixOrSuffix(
                       creditDetail?.capacityUtilization,
                       "%"
-                      )
+                    )
                   }
                   name="capacityUtilization"
                   onChange={(e) => {
@@ -316,13 +316,13 @@ const index = ({
                   required
                   type="text"
                   onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
-                 
-                    value={
-                      addPrefixOrSuffix(
+
+                  value={
+                    addPrefixOrSuffix(
                       creditDetail?.averageStockOfCommodity,
                       creditDetail?.unitOfQuantity?.toUpperCase()
-                      )
-                    }
+                    )
+                  }
                   name="averageStockOfCommodity"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value)
@@ -340,13 +340,13 @@ const index = ({
                   required
                   type="text"
                   onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
-                
+
                   value={
-                      addPrefixOrSuffix(
+                    addPrefixOrSuffix(
                       creditDetail?.averageStockInTransit,
                       creditDetail?.unitOfQuantity?.toUpperCase()
-                      )
-                    }
+                    )
+                  }
                   name="averageStockInTransit"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value)
@@ -363,13 +363,13 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  
-                   value={
-                      addPrefixOrSuffix(
+
+                  value={
+                    addPrefixOrSuffix(
                       creditDetail?.availableStock,
                       creditDetail?.unitOfQuantity?.toUpperCase()
-                      )
-                    }
+                    )
+                  }
                   name="availableStock"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value)
@@ -385,13 +385,13 @@ const index = ({
                   required
                   type="text"
                   onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
-                 
+
                   value={
-                      addPrefixOrSuffix(
+                    addPrefixOrSuffix(
                       creditDetail?.dailyConsumptionOfCommodity,
                       creditDetail?.unitOfQuantity?.toUpperCase()
-                      )
-                    }
+                    )
+                  }
                   name="dailyConsumptionOfCommodity"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value)
@@ -479,11 +479,12 @@ const index = ({
                     required
                     type="text"
                     name="existingSuppliers"
-                    defaultValue={creditDetail?.existingSuppliers?.map(
+                    defaultValue={creditDetail?
+                      creditDetail?.existingSuppliers?.map(
                       (e) => {
                         return `${e}`
                       },
-                    )}
+                    ):""}
                     onBlur={(e) => {
                       saveProductData(e.target.name, e.target.value.split(','))
                     }}
@@ -543,12 +544,12 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                
-                   value={
-                     addPrefixOrSuffix(
+
+                  value={
+                    addPrefixOrSuffix(
                       creditDetail?.AvgMonthlyElectricityBill,
-                       creditDetail?.typeOfCurrency?.toUpperCase()
-                      )
+                      creditDetail?.typeOfCurrency?.toUpperCase()
+                    )
                   }
                   name="AvgMonthlyElectricityBill"
                   onChange={(e) => {
@@ -637,8 +638,8 @@ const index = ({
                       saveSupplierData(e.target.name, e.target.value)
                     }}
                   >
-                    </input>
-                    {/* <option>
+                  </input>
+                  {/* <option>
                       {supplierCred?.supplierName}
                     </option>
                     <option>Bhutani Traders</option>
@@ -718,8 +719,8 @@ const index = ({
                       saveSupplierData(e.target.name, e.target.value)
                     }}
                   >
-                    <option>India</option>
-                    <option>USA</option>
+                    <option value='Sri Lanka'>Sri Lanka</option>
+                    <option value='USA'>USA</option>
                   </select>
                   <label className={`${styles.label_heading} label_heading`}>
                     Country of Origin<strong className="text-danger">*</strong>
@@ -743,8 +744,8 @@ const index = ({
                       saveSupplierData(e.target.name, e.target.value)
                     }}
                   >
-                    <option>India</option>
-                    <option>USA</option>
+                    <option value='Gujrat, India'>Gujrat, India</option>
+                    <option value='Mumbai, India'>Mumbai,India</option>
                   </select>
                   <label className={`${styles.label_heading} label_heading`}>
                     Port of Destination
@@ -1020,7 +1021,7 @@ const index = ({
                                 className={`${styles.edit_image} mr-3`}
                                 alt="save"
                                 onClick={(e) => {
-                                   setEditRow(index)
+                                  setEditRow(index)
                                   //addPersonArr(keyPersonData)
                                 }}
                               />
@@ -1350,13 +1351,13 @@ const index = ({
                           />
                           GST Doc
                         </button>
+                        <button
+                          className={`${styles.add_btn}`}
+                          onClick={() => handleClick()}
+                        >
+                          Add
+                        </button>
                       </div>
-                      <button
-                        className={`${styles.add_btn}`}
-                        onClick={() => handleClick()}
-                      >
-                        Add
-                      </button>
                     </div>
                   </div>
                 </div>
@@ -2013,7 +2014,7 @@ const index = ({
                               )
                             }
                             defaultValue={profile.limit}
-                            // readOnly={!saveTable}
+                          // readOnly={!saveTable}
                           />
                         </td>
 

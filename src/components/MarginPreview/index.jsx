@@ -21,14 +21,15 @@ function Index() {
 
   const marginData = _get(margin, 'data.data[0]', {})
 
-  // useEffect(() => {
-  //   let id = sessionStorage.getItem('marginId')
-  //   dispatch(GetMarginMoney({ orderId: id }))
+  useEffect(() => {
+    let id = sessionStorage.getItem('marginId')
+    dispatch(GetMarginMoney({ orderId: id }))
 
-  //   dispatch(setPageName('margin-money'))
-  //   dispatch(setDynamicName(marginData?.company.companyName))
-  //   dispatch(setDynamicOrder(marginData?.order.orderId))
-  // }, [dispatch, marginData?.company?.companyName])
+    dispatch(setPageName('margin-money'))
+    dispatch(setDynamicName(marginData?.company?.companyName))
+    dispatch(setDynamicOrder(marginData?.order?.orderId))
+  }, [dispatch])
+
 
   let tempArr = [
     {

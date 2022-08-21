@@ -4,13 +4,15 @@
     margin-bottom: 68px;
     @include respond(sm-desktop) {
         margin: 20px;
+        margin-bottom: 60px;
     }
     @include respond(phone) {
         margin: 15px;
-        margin-bottom: 72px;
+        margin-bottom: 71px;
     }
 }
 .filter {
+    min-height: 48px;
     margin-bottom: 27px;
     @include respond(sm-desktop) {
         display: block !important;

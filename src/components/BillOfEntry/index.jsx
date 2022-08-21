@@ -1085,7 +1085,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
           <div className="mt-4 mb-5">
             <UploadOther
               orderid={OrderId}
-              module="customClearanceAndWarehousing"
+              module="CustomClearanceAndWarehousing"
             />
           </div>
         </div>

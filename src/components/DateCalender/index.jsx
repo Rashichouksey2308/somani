@@ -16,7 +16,7 @@ const Index = ({
 }) => {
   const [startDate, setStartDate] = useState(null)
   const [lastDate, setlastDate] = useState()
-  console.log(moment(defaultDate).toDate(), 'momentDate')
+  // console.log(moment(defaultDate).toDate(), 'momentDate')
   useEffect(() => {
     if(startFrom){
       console.log("in start DAte")
@@ -26,13 +26,14 @@ const Index = ({
     }
    
   }, [startFrom])
-  console.log(lastDate,"lastDate",startFrom,)
+  // console.log(lastDate,"lastDate",startFrom,)
+  console.log(startDate == null ?defaultDate==undefined?null:moment(defaultDate).toDate()  : startDate ,"llll")
   return (
     <>
       <div className="vessel_card w-100">
         <DatePicker
           selected={
-            startDate == null ? moment(defaultDate).toDate() : startDate
+            startDate == null ? defaultDate==undefined? "" :moment(defaultDate).toDate()  : startDate 
           }
           dateFormat={dateFormat ? dateFormat : 'dd-MM-yyyy'}
           name={name}
