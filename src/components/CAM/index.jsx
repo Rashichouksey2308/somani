@@ -1561,19 +1561,25 @@ const debtProfile = (data, options, tempArr, camData) => {
                     className={`${styles.label} d-flex justify-content-between align-content-center  `}
                   >
                     <div className={`${styles.limit_box} `}>
-                      <span className={`${styles.limit_label} `}>{val.bankName}</span>
+                      <span className={`${styles.limit_label} `}>{debt.bankName}</span>
                     </div>
-                    <span>{val.limit}</span>
+                    <span>{debt.limit}</span>
                   </div>
                   <div className={`${styles.bar} ${styles.small_bar}`}>
-                    <span className={`${styles.conduct}  ${debt.conduct=="Good"?"#43C34D":
-                      debt.conduct=="Satisfactory"?"#F9D00":debt.conduct=="Average"?"average":"#EA3F3F"
-                      }`}>{val.limitType}</span>
+                    <span className={`${styles.conduct}  
+                   `}
+                    style={{
+                      color:` 
+                      ${debt.conduct=="Good"?"#43C34D":
+                      debt.conduct=="Satisfactory"?"#FF9D00":debt.conduct=="Average"?"average":"#EA3F3F"
+                      }`
+                    }}
+                      >{debt.limitType}</span>
                     <div
-                      style={{ backgroundColor:`${debt.conduct=="Good"?"good":
-                      debt.conduct=="Satisfactory"?"satisfactory":debt.conduct=="Average"?"average":"#EA3F3F"
+                      style={{ backgroundColor:`${debt.conduct=="Good"?"#43C34D":
+                      debt.conduct=="Satisfactory"?"#FF9D00":debt.conduct=="Average"?"average":"#EA3F3F"
                       }`,
-                    width:`${(Number(val.limit)/1900)*100}%`
+                    width:`${((Number(debt.limit)/1900>100?1:Number(debt.limit)/1900))*100}%`
                     }}
                       className={`${styles.fill}`
                       
