@@ -479,11 +479,12 @@ const index = ({
                     required
                     type="text"
                     name="existingSuppliers"
-                    defaultValue={creditDetail?.existingSuppliers?.map(
+                    defaultValue={creditDetail?
+                      creditDetail?.existingSuppliers?.map(
                       (e) => {
                         return `${e}`
                       },
-                    )}
+                    ):""}
                     onBlur={(e) => {
                       saveProductData(e.target.name, e.target.value.split(','))
                     }}

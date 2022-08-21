@@ -11,6 +11,7 @@ import Router from 'next/router';
 
 
 
+
 function Index(props) {
   const [genericData,setGenericData]=useState()
   const dispatch = useDispatch()

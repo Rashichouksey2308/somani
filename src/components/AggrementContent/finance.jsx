@@ -129,7 +129,7 @@ const[financeData,setFinanceData]=useState(finance)
 
               <div className={` ${styles.info} col-md-4 col-sm-6`}>
               <span>Country</span>
-              <p>Amsterdam</p>
+              <p>India</p>
             </div>
               <div className={` ${styles.info} col-md-4 col-sm-6`}>
               <span>Swift Code</span>

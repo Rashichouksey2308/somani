@@ -451,10 +451,10 @@ console.log(product,"productData")
         orderList?.productSummary?.contributionCommoditySenstivity?orderList?.productSummary?.contributionCommoditySenstivity:"",
       dailyConsumptionOfCommodity:
         orderList?.productSummary?.dailyConsumptionOfCommodity?orderList?.productSummary?.dailyConsumptionOfCommodity:"",
-      existingCHA: orderList?.productSummary?.existingCHA?orderList?.productSummary?.existingCHA:"",
+      existingCHA: orderList?.productSummary?.existingCHA?orderList?.productSummary?.existingCHA:[],
       existingProcurementOfCommodity:
         orderList?.productSummary?.existingProcurementOfCommodity?orderList?.productSummary?.existingProcurementOfCommodity:"",
-      existingSuppliers: orderList?.productSummary?.existingSuppliers?orderList?.productSummary?.existingSuppliers:"",
+      existingSuppliers: orderList?.productSummary?.existingSuppliers?orderList?.productSummary?.existingSuppliers:[],
       monthlyProductionCapacity:
         orderList?.productSummary?.monthlyProductionCapacity? orderList?.productSummary?.monthlyProductionCapacity:"",
       paymentStatusForElectricityBills:
