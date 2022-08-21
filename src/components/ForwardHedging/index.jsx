@@ -49,7 +49,7 @@ export default function Index() {
   useEffect(() => {
     setList({
 
-    bankName: hedgingDataDetail?.bankName,
+    bankName: hedgingDataDetail?.bankName?? 'Bank of America',
     currency: hedgingDataDetail?.currency,
     bookedRate: hedgingDataDetail?.bookedRate,
     bookedRateCurrency: hedgingDataDetail?.bookedRateCurrency,

@@ -1652,11 +1652,11 @@ function Index() {
                                   }
                                 >
                                   <option>Select an option</option>
-                                  <option value="Ramakrishna Traders">
-                                    Ramakrishna Traders
+                                  <option value="INDO GERMAN INTERNATIONAL PRIVATE LIMITED">
+                                  INDO GERMAN INTERNATIONAL PRIVATE LIMITED
                                   </option>
-                                  <option value="Balaji Traders">
-                                    Balaji Traders
+                                  <option value="EMERGENT INDUSTRIAL SOLUTIONS LIMITED">
+                                    EMERGENT INDUSTRIAL SOLUTIONS LIMITED
                                   </option>
                                 </select>
                                 <label
@@ -1695,8 +1695,8 @@ function Index() {
                                   <option value="Visakhapatnam, India">
                                     {'Visakhapatnam, India'}
                                   </option>
-                                  <option value="Mumbai, India">
-                                    Mumbai, India
+                                  <option value="Delhi, India">
+                                    Delhi, India
                                   </option>
                                 </select>
                                 <label
@@ -1719,7 +1719,7 @@ function Index() {
                               <input
                                 type="text"
                                 id="textInput"
-                                name="companyAddres"
+                                name="companyAddress"
                                 onChange={(e) =>
                                   saveInvoiceData(e.target.name, e.target.value)
                                 }
@@ -1781,7 +1781,7 @@ function Index() {
                                 >
                                   <option>Select an option</option>
                                   <option value="HDFC">HDFC</option>
-                                  <option value="SBI">SBI</option>
+                                  <option value="ICICI">ICICI</option>
                                 </select>
                                 <label
                                   className={`${styles.label_heading} label_heading`}

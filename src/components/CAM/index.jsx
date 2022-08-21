@@ -148,7 +148,7 @@ function Index({
       color: "#43C34D"
     },
     {
-      name: "Bidu Singh",
+      name: "Bindu Singh",
       value: 66705,
       color: "#FF9D00"
     },])
