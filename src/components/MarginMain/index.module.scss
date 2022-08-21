@@ -2,6 +2,7 @@
 .container_inner {
     margin: 28px;
     min-height: 74vh;
+    margin-bottom: 68px;
     @include respond(sm-desktop) {
         margin: 20px;
         margin-bottom: 60px;
@@ -418,18 +419,18 @@
         }
     }
 }
-.container{
-    height: calc(100vh - 159px);
-    @include respond(lg-desktop) {
-        height: calc(100vh - 155px);
-    }
-    @include respond(md-desktop) {
-        height: calc(100vh - 151px);
-    }
-    @include respond(sm-desktop) {
-        height: calc(100vh - 150px);
-    }    
-    @include respond(phone) {
-        height: calc(100vh - 165px);
-    }    
-}
+// .container{
+//     height: calc(100vh - 159px);
+//     @include respond(lg-desktop) {
+//         height: calc(100vh - 155px);
+//     }
+//     @include respond(md-desktop) {
+//         height: calc(100vh - 151px);
+//     }
+//     @include respond(sm-desktop) {
+//         height: calc(100vh - 150px);
+//     }    
+//     @include respond(phone) {
+//         height: calc(100vh - 165px);
+//     }    
+// }

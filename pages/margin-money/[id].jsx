@@ -618,7 +618,7 @@ function Index() {
                         className={`${styles.unit_container} d-flex align-items-center`}
                       >
                         <div className={`${styles.pay} mr-5`}>
-                          <strong className={`mr-2`}>Status</strong>
+                          <strong className={`mr-2`}>Status:</strong>
                           <div
                             className={`d-flex align-items-center justify-content-between`}
                           >

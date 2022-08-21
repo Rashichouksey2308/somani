@@ -38,17 +38,15 @@ function Index() {
   return (
     <div className={`${styles.dashboardTab} w-100`}>
       <div className={`${styles.tabHeader} tabHeader `}>
-        <div className="d-flex align-items-center">
+        <div className={`${styles.tab_header_inner} d-flex align-items-center`}>
           <img
-            src={`${
-              darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`
-            }`}
-            alt="arrow right"
-            className="img-fluid mr-2 image_arrow"
+            className={`${styles.arrow} img-fluid image_arrow mr-2`}
+            src="/static/keyboard_arrow_right-3.svg"
+            alt="arrow"
           />
           <h1 className={`${styles.title} heading`}>Name</h1>
           <div className={'ml-auto d-flex'}>
-            <div className="ml-auto  mr-2">
+            <div className="ml-auto mr-2">
               <button
                 type="button"
                 className={`${styles.btnPrimary} btn btn-primary`}
