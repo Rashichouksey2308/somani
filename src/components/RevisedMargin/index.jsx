@@ -15,6 +15,7 @@ const Index = ({
   handleUpdateRevisedMarginMoney
 
 }) => {
+  console.log(marginData,"marginData")
   return (
     <>
       <div className={`${styles.card}  accordionMargin card`}>
@@ -749,7 +750,7 @@ const Index = ({
                       {/* <option value="GTSDT789652JKH">
                                     {marginData?.invoiceDetail?.buyerGSTIN}
                                   </option> */}
-                      <option value="GTSDT789652JKH">GTSDT789652JKH</option>
+                      <option>Select an option</option>
                       <option value="GTSDT789652JKH">GTSDT789652JKH</option>
                     </select>
                     <label
@@ -876,6 +877,7 @@ const Index = ({
                       }
                       value={invoiceDataRevised?.consigneeGSTIN}
                     >
+                       <option>Select an option</option>
                       <option value="GTSDT789652JKH">GTSDT789652JKH</option>
                       <option value="GTSDT789652JKH">GTSDT789652JKH</option>
                     </select>
