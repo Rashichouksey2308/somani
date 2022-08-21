@@ -1,9 +1,10 @@
 @import "../../src/components/styles/Core/config";
 /*-----Dashboard Tab------*/
 .dashboardTab {
-    margin-bottom: 126px;
+    // margin-bottom: 126px;
     .tabHeader {
         padding: 28px 28px 0;
+        margin-bottom: 10px;
         .title_header {
             height: 48px;
             margin: 0 0 27px 10px;
@@ -131,12 +132,15 @@
         }
     }    
     .tabContent {
-        margin: 26px 28px 28px;
+        margin: 18px 28px 28px;
+        margin-bottom: 152px;
         @include respond(md-desktop) {
-            margin: 20px;
+            margin: 10px 20px 20px;
+            margin-bottom: 144px;
         }
         @include respond(phone) {
-            margin: 15px;
+            margin: 5px 15px 15px;
+            margin-bottom: 121px;
         }
         .card {
             margin-bottom: 26px;         
