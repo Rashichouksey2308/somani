@@ -122,7 +122,6 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
                       <option value="">Please select a vessel</option>
-                      
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Vessel Name<strong className="text-danger">*</strong>
@@ -369,6 +368,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
           </div>
           <div className="mt-4 mb-5">
             <UploadOther
+              isDocumentName={true}
               orderid={OrderId}
               module="CustomClearanceAndWarehousing"
             />
@@ -398,7 +398,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
               src="/static/close.svg"
               alt="close"
               onClick={handleClose}
-              className="img-fluid"
+              className="img-fluid mt-1 mr-2"
             ></img>
           </Modal.Title>
         </Modal.Header>
@@ -415,27 +415,27 @@ export default function Index({ OrderId, customData, uploadDoc }) {
               <th width="33%">BL QUANTITY</th>
             </tr>
             <tr className={`border_color`}>
-              <td>2345678</td>
+              <td className="font-weight-bold">2345678</td>
               <td>22-02-2022</td>
               <td>5,000 MT</td>
             </tr>
             <tr className={`border_color`}>
-              <td>2345678</td>
+              <td className="font-weight-bold">2345678</td>
               <td>22-02-2022</td>
               <td>5,000 MT</td>
             </tr>
             <tr className={`border_color`}>
-              <td>2345678</td>
+              <td className="font-weight-bold">2345678</td>
               <td>22-02-2022</td>
               <td>5,000 MT</td>
             </tr>
             <tr className={`border_color`}>
-              <td>2345678</td>
+              <td className="font-weight-bold">2345678</td>
               <td>22-02-2022</td>
               <td>5,000 MT</td>
             </tr>
             <tr className={`border_color`}>
-              <td>2345678</td>
+              <td className="font-weight-bold">2345678</td>
               <td>22-02-2022</td>
               <td>5,000 MT</td>
             </tr>
