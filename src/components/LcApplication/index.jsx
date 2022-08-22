@@ -461,6 +461,7 @@ function Index({
                             value={lcData?.transhipments}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
+                            <option>Select an option</option>
                             <option value="Prohibited">Prohibited</option>
                             <option value="Not Prohibited">
                               Not Prohibited
