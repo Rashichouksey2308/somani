@@ -22,6 +22,7 @@ function Index() {
 
   let insuranceData = _get(insuranceResponse, 'data[0]', {})
 
+  console.log(insuranceData, 'insuranceData')
   return (
     <>
       <div className="container-fluid p-0">
@@ -81,7 +82,7 @@ function Index() {
                     Vessel
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    MV Miss Simon
+                    {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].name', '')}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -94,7 +95,7 @@ function Index() {
                     IMO Number
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    4987233
+                    {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].IMONumber', '')}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -107,7 +108,8 @@ function Index() {
                     Year of Built
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    2019
+                    {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt', '')?.slice(0, 4)}
+
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -146,7 +148,8 @@ function Index() {
                     Origin
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {insuranceData?.order?.countryOfOrigin}
+                  {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.countryOfOrigin', '')}
+
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -172,7 +175,7 @@ function Index() {
                     Port of Loading
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    Durban, South Africa
+                  {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfLoading', '')}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -185,7 +188,7 @@ function Index() {
                     Port of Discharges
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {insuranceData?.order?.portOfDischarge}
+                  {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -198,7 +201,7 @@ function Index() {
                     Laycan
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {moment(insuranceData?.quotationRequest.laycanFrom?.split('T')[0]).format('DD MMM')} - {moment(insuranceData?.quotationRequest.laycanTo?.split('T')[0]).format('DD MMM, YYYY')}
+                    {moment(insuranceData?.quotationRequest?.laycanFrom?.split('T')[0]).format('DD MMM')} - {moment(insuranceData?.quotationRequest?.laycanTo?.split('T')[0]).format('DD MMM, YYYY')}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -211,7 +214,7 @@ function Index() {
                     ETD
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    15 December, 2021
+                  {moment(insuranceData?.quotationRequest?.expectedTimeOfDispatch?.split('T')[0]).format('DD MMMM , YYYY')}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -263,7 +266,7 @@ function Index() {
                     Loss Payee
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {insuranceData?.quotationRequest?.lossPayee}
+                    {insuranceData?.quotationRequest?.lossPayee }
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
