@@ -304,7 +304,7 @@ const Index = () => {
                                 }}
                                 className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                               >
-                                <option selected>
+                                {/* <option selected>
                                   {insuranceData?.quotationRequest?.lossPayee}
                                 </option>
                                 <option
@@ -317,8 +317,9 @@ const Index = () => {
                                     insuranceData?.order?.lc?.lcApplication
                                       ?.lcIssuingBank
                                   }
-                                </option>
-                                <option value="SBI BANK">SBI BANK</option>
+                                </option> */}
+                                <option selected={insuranceData?.quotationRequest?.lossPayee === "Reserve Bank of Spain"} value="Reserve Bank of Spain">Reserve Bank of Spain</option>
+                                <option selected={insuranceData?.quotationRequest?.lossPayee === "Zurcher Kantonal Bank,Zurich"} value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
                               </select>
                               <label
                                 className={`${styles.label_heading} label_heading`}
