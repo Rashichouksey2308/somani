@@ -709,7 +709,7 @@ const Index = ({
                     type="text"
                     id="textInput"
                     name="buyerName"
-                    defaultValue={marginData?.invoiceDetail?.buyerName}
+                    defaultValue={marginData?.company?.companyName}
                     className={`${styles.input_field} input form-control`}
                     required
                     onChange={(e) =>
@@ -740,10 +740,10 @@ const Index = ({
                           e.target.value,
                         )
                       }
-                      value={marginData?.invoiceDetail?.buyerGSTIN}
+                      defaultValue={marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN}
                     >
                       {/* <option value="GTSDT789652JKH">
-                                    {marginData?.invoiceDetail?.buyerGSTIN}
+                                    {marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN}
                                   </option> */}
                       <option>Select an option</option>
                       <option value="GTSDT789652JKH">GTSDT789652JKH</option>
@@ -766,7 +766,7 @@ const Index = ({
                     type="text"
                     id="textInput"
                     name="buyerAddress"
-                    defaultValue={marginData?.invoiceDetail?.buyerAddress}
+                    defaultValue={marginData?.revisedMarginMoney?.invoiceDetail?.buyerAddress}
                     className={`${styles.input_field} input form-control`}
                     required
                     onChange={(e) =>
@@ -923,7 +923,7 @@ const Index = ({
                       name="importerName"
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       required
-                      defaultValue={marginData?.invoiceDetail?.importerName}
+                      defaultValue={marginData?.revisedMarginMoney?.invoiceDetail?.importerName}
                       onChange={(e) =>
                         saveInvoiceDataRevisedRevised(
                           e.target.name,
@@ -956,7 +956,7 @@ const Index = ({
                       name="branchOffice"
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       required
-                      defaultValue={marginData?.invoiceDetail?.importerName}
+                      defaultValue={marginData?.revisedMarginMoney?.invoiceDetail?.branch}
                       onChange={(e) =>
                         saveInvoiceDataRevisedRevised(
                           e.target.name,
@@ -987,14 +987,15 @@ const Index = ({
                   <input
                     type="text"
                     id="textInput"
-                    name="companyAddres"
+                    name="companyAddress"
+                    defaultValue={marginData?.revisedMarginMoney?.invoiceDetail?.companyAddress}
+
                     onChange={(e) =>
                       saveInvoiceDataRevisedRevised(
                         e.target.name,
                         e.target.value,
                       )
                     }
-                    defaultValue={'Address'}
                     className={`${styles.input_field} input form-control`}
                     required
                   />
@@ -1017,7 +1018,7 @@ const Index = ({
                         e.target.value,
                       )
                     }
-                    defaultValue={marginData?.invoiceDetail?.importerGSTIN}
+                    defaultValue={marginData?.revisedMarginMoney?.invoiceDetail?.importerGSTIN}
                     className={`${styles.input_field} input form-control`}
                     required
                   />
@@ -1037,7 +1038,7 @@ const Index = ({
                       name="bankName"
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       required
-                      defaultValue={marginData?.invoiceDetail?.importerName}
+                      defaultValue={marginData?.revisedMarginMoney?.invoiceDetail?.bankName}
                       onChange={(e) =>
                         saveInvoiceDataRevisedRevised(
                           e.target.name,
@@ -1068,7 +1069,7 @@ const Index = ({
                       name="branch"
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       required
-                      defaultValue={marginData?.invoiceDetail?.branch}
+                      defaultValue={marginData?.revisedMarginMoney?.invoiceDetail?.branch}
                       onChange={(e) =>
                         saveInvoiceDataRevisedRevised(
                           e.target.name,
@@ -1104,7 +1105,7 @@ const Index = ({
                         e.target.value,
                       )
                     }
-                    defaultValue={marginData?.invoiceDetail?.branchAddress}
+                    defaultValue={marginData?.revisedMarginMoney?.invoiceDetail?.branchAddress}
                     className={`${styles.input_field} input form-control`}
                     required
                   />
@@ -1127,7 +1128,7 @@ const Index = ({
                         e.target.value,
                       )
                     }
-                    defaultValue={marginData?.invoiceDetail?.IFSCcode}
+                    defaultValue={marginData?.revisedMarginMoney?.invoiceDetail?.IFSCcode}
                     className={`${styles.input_field} input form-control`}
                     required
                   />
@@ -1150,7 +1151,7 @@ const Index = ({
                         e.target.value,
                       )
                     }
-                    defaultValue={marginData?.invoiceDetail?.accountNo}
+                    defaultValue={marginData?.revisedMarginMoney?.invoiceDetail?.accountNo}
                     className={`${styles.input_field} input form-control`}
                     required
                   />
