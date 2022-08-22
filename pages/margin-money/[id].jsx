@@ -250,7 +250,7 @@ function Index() {
   }
 
   const [invoiceData, setInvoiceData] = useState({
-    buyerName: marginData?.invoiceDetail?.buyerName || '',
+    buyerName: marginData?.company?.companyName || '',
     buyerGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
     buyerAddress: marginData?.invoiceDetail?.buyerAddress || '',
     isConsigneeSameAsBuyer: marginData?.invoiceDetail?.isConsigneeSameAsBuyer,
@@ -362,22 +362,22 @@ function Index() {
   console.log(calcRevised, 'THIS IS CALC REVISED')
 
   const [invoiceDataRevised, setInvoiceDataRevised] = useState({
-    buyerName: '',
-    buyerGSTIN: '',
-    buyerAddress: '',
-    isConsigneeSameAsBuyer: false,
-    consigneeName: '',
-    consigneeGSTIN: '',
-    consigneeAddress: '',
-    importerName: '',
-    branchOffice: '',
-    companyAddress: '',
-    importerGSTIN: '',
-    bankName: '',
-    branch: '',
-    branchAddress: '',
-    IFSCcode: '',
-    accountNo: '',
+    buyerName: marginData?.company?.companyName || '',
+    buyerGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN || '',
+    buyerAddress: marginData?.revisedMarginMoney?.invoiceDetail?.buyerAddress || '',
+    isConsigneeSameAsBuyer: marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer,
+    consigneeName: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeName || '',
+    consigneeGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeGSTIN || '',
+    consigneeAddress: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeAddress || '',
+    importerName: marginData?.revisedMarginMoney?.invoiceDetail?.importerName || '',
+    branchOffice: marginData?.revisedMarginMoney?.invoiceDetail?.branchOffice || '',
+    companyAddress: marginData?.revisedMarginMoney?.invoiceDetail?.companyAddress || '',
+    importerGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.importerGSTIN || '',
+    bankName: marginData?.revisedMarginMoney?.invoiceDetail?.bankName || '',
+    branch: marginData?.revisedMarginMoney?.invoiceDetail?.branch || '',
+    branchAddress: marginData?.revisedMarginMoney?.invoiceDetail?.branchAddress || '',
+    IFSCcode: marginData?.revisedMarginMoney?.invoiceDetail?.IFSCcode || '',
+    accountNo: marginData?.revisedMarginMoney?.invoiceDetail?.accountNo || '',
   })
 
   useEffect(() => {
@@ -1410,7 +1410,7 @@ function Index() {
                                 id="textInput"
                                 name="buyerName"
                                 defaultValue={
-                                  marginData?.invoiceDetail?.buyerName
+                                  marginData?.company?.companyName
                                 }
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -1719,11 +1719,11 @@ function Index() {
                               <input
                                 type="text"
                                 id="textInput"
+                                defaultValue={marginData?.invoiceDetail?.companyAddress}
                                 name="companyAddress"
                                 onChange={(e) =>
                                   saveInvoiceData(e.target.name, e.target.value)
                                 }
-                                defaultValue={'Address'}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />

@@ -8,9 +8,11 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { useDispatch } from 'react-redux'
 import { UpdateInspection } from 'redux/Inspections/action'
+import moment from 'moment'
 
 export default function Index({ inspectionData }) {
   const dispatch = useDispatch()
+  const [lastDate, setlastDate] = useState(new Date())
 
   const [startDate, setStartDate] = useState(new Date())
 
@@ -26,6 +28,10 @@ export default function Index({ inspectionData }) {
       address: {
         fullAddress:
           inspectionData?.thirdPartyAppointment?.address?.fullAddress,
+        addressType:
+          inspectionData?.thirdPartyAppointment?.address?.addressType,
+        pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode,
+        country: inspectionData?.thirdPartyAppointment?.address?.country,
       },
     })
     setAddressData({
@@ -35,15 +41,24 @@ export default function Index({ inspectionData }) {
       address: {
         fullAddress:
           inspectionData?.thirdPartyAppointment?.address?.fullAddress,
+        addressType:
+          inspectionData?.thirdPartyAppointment?.address?.addressType,
+        pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode,
+        country: inspectionData?.thirdPartyAppointment?.address?.country,
       },
     })
   }, [inspectionData])
   console.log(appointmentData, 'appointmentData')
 
+  console.log(
+    moment(appointmentData?.dateOfAppointment?.split('T')[0]).toDate(),
+    'THIS IS APPOINTMENTD ',
+  )
+
   const [addressData, setAddressData] = useState({
     name: '',
     dateOfAppointment: '',
-    address: { fullAddress: '' },
+    address: { fullAddress: '', addressType: '', pinCode: '', country: '' },
   })
 
   const saveAppointmentData = (name, value) => {
@@ -118,6 +133,7 @@ export default function Index({ inspectionData }) {
                       className={`${styles.input_field} input form-control`}
                       type="text"
                       name="name"
+                      defaultValue={appointmentData?.name}
                       onChange={(e) =>
                         saveAppointmentData(e.target.name, e.target.value)
                       }
@@ -145,7 +161,18 @@ export default function Index({ inspectionData }) {
                       /> */}
                     <DatePicker
                       name="dateOfAppointment"
-                      selected={startDate}
+                      selected={
+                        moment(
+                          appointmentData?.dateOfAppointment?.split('T')[0],
+                        ).toDate()
+                          ? moment(
+                              appointmentData?.dateOfAppointment?.split('T')[0],
+                            ).toDate()
+                          : startDate
+                      }
+                      defaultDate={moment(
+                        appointmentData?.dateOfAppointment?.split('T')[0],
+                      ).toDate()}
                       //min={moment().format('YYYY-MM-DD')}
                       dateFormat="dd-MM-yyyy"
                       className={`${styles.input_field} ${styles.cursor_none} input form-control`}
@@ -153,6 +180,7 @@ export default function Index({ inspectionData }) {
                         setStartDate(startDate)
                         saveDate(startDate, 'dateOfAppointment')
                       }}
+                      minDate={lastDate}
                     />
                     <img
                       className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -176,10 +204,12 @@ export default function Index({ inspectionData }) {
                   >
                     <div className="m-3">
                       <div className={`${styles.address_type}`}>
-                        Registered Address
+                        {appointmentData?.address?.addressType}
                       </div>
                       <div className={`${styles.address_detail} mt-3`}>
-                        {appointmentData?.address?.fullAddress}
+                        {appointmentData?.address?.fullAddress},{' '}
+                        {appointmentData?.address?.pinCode},{' '}
+                        {appointmentData?.address?.country}
                       </div>
                     </div>
                     <img
@@ -195,7 +225,12 @@ export default function Index({ inspectionData }) {
               </div>
 
               {isEdit &&
-                editData(handleEditCancel, handleEditInput, handleOnAdd)}
+                editData(
+                  handleEditCancel,
+                  handleEditInput,
+                  handleOnAdd,
+                  appointmentData,
+                )}
             </div>
           </div>
         </div>
@@ -205,7 +240,12 @@ export default function Index({ inspectionData }) {
   )
 }
 
-const editData = (handleEditCancel, handleEditInput, handleOnAdd) => {
+const editData = (
+  handleEditCancel,
+  handleEditInput,
+  handleOnAdd,
+  appointmentData,
+) => {
   return (
     <div className={`${styles.newAddressContainer} border_color mt-3`}>
       <div className={`${styles.newAddressHead} border_color`}>
@@ -216,16 +256,16 @@ const editData = (handleEditCancel, handleEditInput, handleOnAdd) => {
           <div className="d-flex">
             <select
               className={`${styles.input_field} ${styles.customSelect} input form-control`}
-              name="addressType"
+              name="address.addressType"
               onChange={(e) => {
-                setAddressType(e.target.value)
-                setAddress(e.target.name, e.target.value)
+                // setAddressType(e.target.value)
+                handleEditInput(e.target.name, e.target.value)
               }}
             >
               <option>Select an option</option>
-              <option value="Registered">Registered Office</option>
+              <option value="Registered Office">Registered Office</option>
               <option value="Branch">Branch </option>
-              <option value="Supplier">Supplier Address </option>
+              <option value="Supplier Address">Supplier Address </option>
             </select>
             <Form.Label
               className={`${styles.label_heading} ${styles.select}  label_heading`}
@@ -245,6 +285,7 @@ const editData = (handleEditCancel, handleEditInput, handleOnAdd) => {
             required
             type="text"
             name="address.fullAddress"
+            defaultValue={appointmentData?.address?.fullAddress}
             onChange={(e) => {
               handleEditInput(e.target.name, e.target.value)
             }}
@@ -260,9 +301,10 @@ const editData = (handleEditCancel, handleEditInput, handleOnAdd) => {
             className={`${styles.input_field} input form-control`}
             required
             type="text"
-            name="pinCode"
+            name="address.pinCode"
+            defaultValue={appointmentData?.address?.pinCode}
             onChange={(e) => {
-              setAddress(e.target.name, e.target.value)
+              handleEditInput(e.target.name, e.target.value)
             }}
           />
           <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -281,9 +323,10 @@ const editData = (handleEditCancel, handleEditInput, handleOnAdd) => {
             className={`${styles.input_field} input form-control`}
             required
             type="text"
-            name="country"
+            name="address.country"
+            defaultValue={appointmentData?.address?.country}
             onChange={(e) => {
-              setAddress(e.target.name, e.target.value)
+              handleEditInput(e.target.name, e.target.value)
             }}
           />
           <Form.Label className={`${styles.label_heading} label_heading`}>

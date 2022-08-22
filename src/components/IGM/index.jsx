@@ -38,22 +38,22 @@ export default function Index({
     address: '',
   })
   const [igmList, setIgmList] = useState({
-    shipmentType: _get(
-      TransitDetails,
-      `data[0].order.vessel.vessels[0].shipmentType`,
-      '',
-    ),
+    shipmentType: '',
     shipmentDetails: {
-      consigneeName: consigneeInfo.name,
-      consigneeBranch: consigneeInfo.branch,
-      consigneeAddress: consigneeInfo.address,
+      consigneeName: '',
+      consigneeBranch: '',
+      consigneeAddress: '',
     },
     igmDetails: [
       {
         vesselName: '',
         igmNumber: '',
         igmFiling: null,
-        blNumber: [],
+        blNumber: [{
+          blNumber: number,
+          BlDate: new Date(),
+          quantity: '',
+        }],
       },
     ],
     document: null,
@@ -78,13 +78,20 @@ export default function Index({
     false,
   )
 
-  // const onigmAdd = () => {
-  //   if (shipmentTypeBulk) {
-  //     setIgmList([...igmList, initialStateForBulk])
-  //   } else {
-  //     setIgmList([...igmList, initialStateForLiner])
-  //   }
-  // }
+  const onigmAdd = () => {
+    let tempArray = { ...igmList }
+    tempArray.igmDetails.push({
+      vesselName: '',
+      igmNumber: '',
+      igmFiling: null,
+      blNumber: [{
+        blNumber: number,
+        BlDate: new Date(),
+        quantity: '',
+      }],
+    })
+
+  }
 
   const onChangeIgm = (name, text) => {
     let newData = { ...igmList }
@@ -145,14 +152,19 @@ export default function Index({
 
     setIgmList(newArray)
   }
-  const onAddBlNumber = () => {
+  const onAddBlNumber = (index) => {
     let newIgmList = { ...igmList }
-    newIgmList.igmDetails[0].blNumber.push({
+    newIgmList.igmDetails[index].blNumber.push({
       blNumber: number,
       BlDate: new Date(),
       quantity: '',
     })
     setIgmList(newIgmList)
+  }
+  const onRemoveBlNumber = (index, index2) => {
+    let tempArray = { ...igmList }
+    tempArray.igmDetails[index].blNumber.pop(index2)
+    setIgmList(tempArray)
   }
 
   const onChangeConsignee = (e) => {
@@ -179,18 +191,28 @@ export default function Index({
   const onDocumentSelect = (e, index) => {
     const docData = docUploadFunction(e.target.files[0])
     const name = e.target.id
-    setIgmList(prevState => {
-      return [...igmList, { ...igmList[index], [name]: docData }]
+    setIgmList((prevState) => {
+      return [...prevState, { ...igmList[index], [name]: docData }]
     })
-
   }
 
   const handleSave = () => {
-    const igmDetails = igmList
+    const igmDetails = { ...igmList }
+    igmDetails.shipmentType = _get(
+      TransitDetails,
+      `data[0].order.vessel.vessels[0].shipmentType`,
+      '',
+    )
+    igmDetails.shipmentDetails = {
+      consigneeName: consigneeInfo.name,
+      consigneeBranch: consigneeInfo.branch,
+      consigneeAddress: consigneeInfo.address,
+    }
+    console.log(igmDetails, 'igmPayload')
     let fd = new FormData()
     fd.append('igm', JSON.stringify(igmDetails))
     fd.append('transitId', transId._id)
-    dispatch(UpdateTransitDetails(fd))
+    // dispatch(UpdateTransitDetails(fd))
   }
 
   return (
@@ -259,8 +281,13 @@ export default function Index({
                     Order Value <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
                   <span className={styles.value}>
-                    {CovertvaluefromtoCR(_get(TransitDetails, 'data[0].order.orderValue', ''))}{' '}
-                    {_get(TransitDetails, 'data[0].order.unitOfValue', '') == "Crores" ? "Cr" : _get(TransitDetails, 'data[0].order.unitOfValue', '')}
+                    {CovertvaluefromtoCR(
+                      _get(TransitDetails, 'data[0].order.orderValue', ''),
+                    )}{' '}
+                    {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
+                      'Crores'
+                      ? 'Cr'
+                      : _get(TransitDetails, 'data[0].order.unitOfValue', '')}
                   </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
@@ -303,7 +330,11 @@ export default function Index({
                     <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {_get(TransitDetails, 'data[0].order.vessel.vessels[0].transitDetails.countryOfOrigin', '')}
+                    {_get(
+                      TransitDetails,
+                      'data[0].order.vessel.vessels[0].transitDetails.countryOfOrigin',
+                      '',
+                    )}
                   </span>
                 </div>
                 <div className="col-lg-4 col-md-6 col-sm-6">
@@ -378,386 +409,293 @@ export default function Index({
               </div>
             </div>
           </div>
-          <div className={`${styles.main} vessel_card card border_color`}>
-            <div
-              className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
-            >
-              <h3 className={`${styles.heading}`}>IGM</h3>
-              <div className="d-flex align-items-center">
-                <div className={`${styles.label} text`}>Balance Quantity:</div>
-                <div className={`${styles.value} ml-2 mr-4`}>4,500</div>
-                <button className={styles.add_btn}>
-                  <span className={styles.add_sign}>+</span>Add
-                </button>
-              </div>
-            </div>
-            <div className={`${styles.dashboard_form} mt-3 card-body`}>
-              <div className="row">
+          {igmList.igmDetails.map((item, index) => {
+            return (
+              <div key={index} className={`${styles.main} vessel_card card border_color`}>
                 <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                  className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
                 >
-                  <div className="d-flex">
-                    <select
-                      id="vesselName"
-                      onChange={(e) => onChangeIgm(e.target.id, e.target.value)}
-                      className={`${styles.input_field} ${styles.customSelect}  input form-control`}
-                    >
-                      {shipmentTypeBulk
-                        ? _get(
-                          TransitDetails,
-                          'data[0].order.vessel.vessels',
-                          [],
-                        ).map((vessel, index) => (
-                          <option
-                            value={vessel?.vesselInformation[0]?.name}
-                            key={index}
-                          >
-                            {vessel?.vesselInformation?.name}
-                          </option>
-                        ))
-                        : _get(
-                          TransitDetails,
-                          'data[0].order.vessel.vessels[0].vesselInformation',
-                          [],
-                        ).map((vessel, index) => (
-                          <option value={vessel?.name} key={index}>
-                            {vessel?.name}
-                          </option>
-                        ))}
-                    </select>
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Vessel Name
-                    </label>
-                    <img
-                      className={`${styles.arrow} image_arrow img-fluid`}
-                      src="/static/inputDropDown.svg"
-                      alt="Search"
-                    />
+                  <h3 className={`${styles.heading}`}>IGM</h3>
+                  <div className="d-flex align-items-center">
+                    <div className={`${styles.label} text`}>Balance Quantity:</div>
+                    <div className={`${styles.value} ml-2 mr-4`}>4,500</div>
+                    <button onClick={() => onigmAdd()} className={styles.add_btn}>
+                      <span className={styles.add_sign}>+</span>Add
+                    </button>
                   </div>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
-                  <input
-                    id="igmNumber"
-                    onChange={(e) => onChangeIgm(e.target.id, e.target.value)}
-                    className={`${styles.input_field} input form-control`}
-                    type="number"
-                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    IGM No./Rotation No.
-                    <strong className="text-danger">*</strong>
-                  </label>
-                </div>
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
-                  <div className="d-flex">
-                    <DateCalender
-                      name="igmFiling"
-                      saveDate={saveDate}
-                      labelName="IGM Filing Date"
-                    />
-                    <img
-                      className={`${styles.calanderIcon} image_arrow img-fluid`}
-                      src="/static/caldericon.svg"
-                      alt="Search"
-                    />
-                  </div>
-                </div>
-                <hr></hr>
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    type="number"
-                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
-                    required
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    BL Number<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-
-                {shipmentType ? (
-                  <>
+                <div className={`${styles.dashboard_form} mt-3 card-body`}>
+                  <div className="row">
                     <div
-                      className="col-lg-4 col-md-6 col-sm-6"
-                      style={{ top: '35px' }}
+                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                     >
-                      <div className={`${styles.label} text`}>
-                        BL Date <strong className="text-danger ml-n1">*</strong>
+                      <div className="d-flex">
+                        <select
+                          id="vesselName"
+                          onChange={(e) => onChangeIgm(e.target.id, e.target.value)}
+                          className={`${styles.input_field} ${styles.customSelect}  input form-control`}
+                        >
+                          {shipmentTypeBulk
+                            ? _get(
+                              TransitDetails,
+                              'data[0].order.vessel.vessels',
+                              [],
+                            ).map((vessel, index) => (
+                              <option
+                                value={vessel?.vesselInformation[0]?.name}
+                                key={index}
+                              >
+                                {vessel?.vesselInformation[0]?.name}
+                              </option>
+                            ))
+                            : _get(
+                              TransitDetails,
+                              'data[0].order.vessel.vessels[0].vesselInformation',
+                              [],
+                            ).map((vessel, index) => (
+                              <option value={vessel?.name} key={index}>
+                                {vessel?.name}
+                              </option>
+                            ))}
+                        </select>
+                        <label className={`${styles.label_heading} label_heading`}>
+                          Vessel Name
+                        </label>
+                        <img
+                          className={`${styles.arrow} image_arrow img-fluid`}
+                          src="/static/inputDropDown.svg"
+                          alt="Search"
+                        />
                       </div>
-                      <span className={styles.value}>22-02-2022</span>
                     </div>
                     <div
-                      className="col-lg-2 col-md-4 col-sm-6"
-                      style={{ top: '35px' }}
+                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                     >
-                      <div className={`${styles.label} text`}>
-                        BL Quantity{' '}
-                        <strong className="text-danger ml-n1">*</strong>
-                      </div>
-                      <span className={styles.value}>4,000 MT</span>
-                    </div>
-                    <div
-                      className="col-lg-2 col-md-4 col-sm-6"
-                      style={{ top: '35px' }}
-                    >
-                      <img
-                        src="/static/preview.svg"
-                        className={`${styles.previewImg} img-fluid ml-n4`}
-                        alt="Preview"
+                      <input
+                        id="igmNumber"
+                        onChange={(e) => onChangeIgm(e.target.id, e.target.value)}
+                        className={`${styles.input_field} input form-control`}
+                        type="number"
+                        onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                       />
-                      <img
-                        src="/static/add-btn.svg"
-                        className="img-fluid ml-5"
-                        alt="Add"
-                      />
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div
-                      className="col-lg-4 col-md-6 col-sm-6"
-                      style={{ top: '35px' }}
-                    >
-                      <div className="row">
-                        <div className="col-md-6">
-                          <div className={`${styles.label} text`}>
-                            BL Date{' '}
-                            <strong className="text-danger ml-n1">*</strong>
-                          </div>
-                          <span className={styles.value}>22-02-2022</span>
-                        </div>
-                        <div className="col-md-6">
-                          <div className={`${styles.label} text`}>
-                            No. of Containers{' '}
-                            <strong className="text-danger ml-n1">*</strong>
-                          </div>
-                          <span className={styles.value}>4,000 MT</span>
-                        </div>
-                      </div>
+                      <label className={`${styles.label_heading} label_heading`}>
+                        IGM No./Rotation No.
+                        <strong className="text-danger">*</strong>
+                      </label>
                     </div>
                     <div
-                      className="col-lg-4 col-md-4 col-sm-6"
-                      style={{ top: '35px' }}
+                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                     >
-                      <div className="row align-items-center">
-                        <div className="col-md-6">
-                          <div className={`${styles.label} text`}>
-                            BL Quantity{' '}
-                            <strong className="text-danger ml-n1">*</strong>
-                          </div>
-                          <span className={styles.value}>4,000 MT</span>
-                        </div>
-                        <div className="col-md-6">
-                          <div className="d-flex align-items-center">
-                            <img
-                              src="/static/preview.svg"
-                              className={`${styles.previewImg} img-fluid ml-n4`}
-                              alt="Preview"
-                            />
-                            <img
-                              src="/static/add-btn.svg"
-                              className="img-fluid ml-5"
-                              alt="Add"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </>
-                )}
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
-                  <input
-                    id="blNumber"
-                    onChange={(e) => onChangeBlNumberEntry(e)}
-                    className={`${styles.input_field} input form-control`}
-                    type="number"
-                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
-                    required
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    BL Number<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-
-                {shipmentType ? (
-                  <>
-                    <div
-                      className="col-lg-4 col-md-6 col-sm-6"
-                      style={{ top: '35px' }}
-                    >
-                      <div className={`${styles.label} text`}>
-                        BL Date <strong className="text-danger ml-n1">*</strong>
-                      </div>
-                      <span className={styles.value}>22-02-2022</span>
-                    </div>
-                    <div
-                      className="col-lg-2 col-md-4 col-sm-6"
-                      style={{ top: '35px' }}
-                    >
-                      <div className={`${styles.label} text`}>
-                        BL Quantity{' '}
-                        <strong className="text-danger ml-n1">*</strong>
-                      </div>
-                      <span className={styles.value}>4,000 MT</span>
-                    </div>
-                    <div
-                      className="col-lg-2 col-md-4 col-sm-6"
-                      style={{ top: '35px' }}
-                    >
-                      <div className="d-flex align-items-center">
-                        <img
-                          src="/static/preview.svg"
-                          className={`${styles.previewImg} img-fluid ml-n4`}
-                          alt="Preview"
+                      <div className="d-flex">
+                        <DateCalender
+                          name="igmFiling"
+                          saveDate={saveDate}
+                          labelName="IGM Filing Date"
                         />
                         <img
-                          src="/static/add-btn.svg"
-                          className="img-fluid ml-5"
-                          alt="Add"
-                        />
-                        <img
-                          src="/static/delete 2.svg"
-                          className="img-fluid ml-5"
-                          alt="delete"
+                          className={`${styles.calanderIcon} image_arrow img-fluid`}
+                          src="/static/caldericon.svg"
+                          alt="Search"
                         />
                       </div>
                     </div>
-                  </>
-                ) : (
-                  <>
-                    <div
-                      className="col-lg-4 col-md-6 col-sm-6"
-                      style={{ top: '35px' }}
-                    >
-                      <div className="row">
-                        <div className="col-md-6">
-                          <div className={`${styles.label} text`}>
-                            BL Date{' '}
-                            <strong className="text-danger ml-n1">*</strong>
-                          </div>
-                          <span className={styles.value}>22-02-2022</span>
-                        </div>
-                        <div className="col-md-6">
-                          <div className={`${styles.label} text`}>
-                            No. of Containers{' '}
-                            <strong className="text-danger ml-n1">*</strong>
-                          </div>
-                          <span className={styles.value}>4,000 MT</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      className="col-lg-4 col-md-4 col-sm-6"
-                      style={{ top: '35px' }}
-                    >
-                      <div className="row align-items-center">
-                        <div className="col-md-6">
-                          <div className={`${styles.label} text`}>
-                            BL Quantity{' '}
-                            <strong className="text-danger ml-n1">*</strong>
-                          </div>
-                          <span className={styles.value}>4,000 MT</span>
-                        </div>
-                        <div className="col-md-6">
-                          <img
-                            src="/static/preview.svg"
-                            className={`${styles.previewImg} img-fluid ml-n4`}
-                            alt="Preview"
-                          />
-                          <img
-                            src="/static/add-btn.svg"
-                            className="img-fluid ml-5"
-                            alt="Add"
-                          />
-                          <img
-                            src="/static/delete 2.svg"
-                            className="img-fluid ml-5"
-                            alt="delete"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
-            <div className={styles.table_scroll_outer}>
-              <div className={styles.table_scroll_inner}>
-                <table
-                  className={`${styles.table} table mt-3`}
-                  cellPadding="0"
-                  cellSpacing="0"
-                  border="0"
-                >
-                  <thead>
-                    <tr>
-                      <th>
-                        DOCUMENT NAME{' '}
-                        <img
-                          className={`${styles.sort_img} mb-1`}
-                          src="/static/icons8-sort-24.svg"
-                          alt="Sort icon"
-                        />
-                      </th>
-                      <th>
-                        FORMAT{' '}
-                        <img
-                          className={`${styles.sort_img} mb-1`}
-                          src="/static/icons8-sort-24.svg"
-                          alt="Sort icon"
-                        />
-                      </th>
-                      <th>
-                        DOCUMENT DATE
-                        <img
-                          className={`${styles.sort_img} mb-1 ml-2`}
-                          src="/static/icons8-sort-24.svg"
-                          alt="Sort icon"
-                        />
-                      </th>
-                      <th>ACTION</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="table_row">
-                      <td className={styles.doc_name}>
-                        IGM Copy
-                        <strong className="text-danger ml-0">*</strong>
-                      </td>
-                      <td>
-                        <img
-                          src="/static/pdf.svg"
-                          className="img-fluid"
-                          alt="Pdf"
-                        />
-                      </td>
-                      <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
-                      <td>
-                        <div className={styles.uploadBtnWrapper}>
+                    <hr></hr>
+                    {item.blNumber.map((blEntry, index2) => {
+                      return (<>
+                        <div
+                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                        >
                           <input
-                            onChange={(e) => onDocumentSelect(e)}
-                            type="file"
-                            name="myfile"
+                            id="blNumber"
+                            onChange={(e) => onChangeBlNumberEntry(e)}
+                            className={`${styles.input_field} input form-control`}
+                            type="number"
+                            onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                            required
                           />
-                          <button className={`${styles.upload_btn} btn`}>
-                            Upload
-                          </button>
+                          <label className={`${styles.label_heading} label_heading`}>
+                            BL Number<strong className="text-danger">*</strong>
+                          </label>
                         </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+
+                        {shipmentTypeBulk ? (
+                          <>
+                            <div
+                              className="col-lg-4 col-md-6 col-sm-6"
+                              style={{ top: '35px' }}
+                            >
+                              <div className={`${styles.label} text`}>
+                                BL Date <strong className="text-danger ml-n1">*</strong>
+                              </div>
+                              <span className={styles.value}>22-02-2022</span>
+                            </div>
+                            <div
+                              className="col-lg-2 col-md-4 col-sm-6"
+                              style={{ top: '35px' }}
+                            >
+                              <div className={`${styles.label} text`}>
+                                BL Quantity{' '}
+                                <strong className="text-danger ml-n1">*</strong>
+                              </div>
+                              <span className={styles.value}>4,000 MT</span>
+                            </div>
+                            <div
+                              className="col-lg-2 col-md-4 col-sm-6"
+                              style={{ top: '35px' }}
+                            >
+                              <div className="d-flex align-items-center">
+                                <img
+                                  src="/static/preview.svg"
+                                  className={`${styles.previewImg} img-fluid ml-n4`}
+                                  alt="Preview"
+                                />
+                                {item.blNumber.length >= index2 ? <img
+                                  onClick={() => onAddBlNumber(index2)}
+                                  src="/static/add-btn.svg"
+                                  className="img-fluid ml-5"
+                                  alt="Add"
+                                /> : null}
+                                {item.blNumber.length >= 1 ? <img
+                                  onClick={() => onRemoveBlNumber(index, index2)}
+                                  src="/static/delete 2.svg"
+                                  className="img-fluid ml-5"
+                                  alt="delete"
+                                /> : null}
+                              </div>
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div
+                              className="col-lg-4 col-md-6 col-sm-6"
+                              style={{ top: '35px' }}
+                            >
+                              <div className="row">
+                                <div className="col-md-6">
+                                  <div className={`${styles.label} text`}>
+                                    BL Date{' '}
+                                    <strong className="text-danger ml-n1">*</strong>
+                                  </div>
+                                  <span className={styles.value}>22-02-2022</span>
+                                </div>
+                                <div className="col-md-6">
+                                  <div className={`${styles.label} text`}>
+                                    No. of Containers{' '}
+                                    <strong className="text-danger ml-n1">*</strong>
+                                  </div>
+                                  <span className={styles.value}>4,000 MT</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              className="col-lg-4 col-md-4 col-sm-6"
+                              style={{ top: '35px' }}
+                            >
+                              <div className="row align-items-center">
+                                <div className="col-md-6">
+                                  <div className={`${styles.label} text`}>
+                                    BL Quantity{' '}
+                                    <strong className="text-danger ml-n1">*</strong>
+                                  </div>
+                                  <span className={styles.value}>4,000 MT</span>
+                                </div>
+                                <div className="col-md-6">
+                                  <img
+                                    src="/static/preview.svg"
+                                    className={`${styles.previewImg} img-fluid ml-n4`}
+                                    alt="Preview"
+                                  />
+                                  {item.blNumber.length >= index2 ? <img
+                                    onClick={() => onAddBlNumber(index2)}
+                                    src="/static/add-btn.svg"
+                                    className="img-fluid ml-5"
+                                    alt="Add"
+                                  /> : null}
+                                  {item.blNumber.length >= 1 ? <img
+                                    onClick={() => onRemoveBlNumber(index, index2)}
+                                    src="/static/delete 2.svg"
+                                    className="img-fluid ml-5"
+                                    alt="delete"
+                                  /> : null}
+                                </div>
+                              </div>
+                            </div>
+                          </>
+                        )}</>)
+                    })}
+
+                  </div>
+                </div>
+                <div className={styles.table_scroll_outer}>
+                  <div className={styles.table_scroll_inner}>
+                    <table
+                      className={`${styles.table} table mt-3`}
+                      cellPadding="0"
+                      cellSpacing="0"
+                      border="0"
+                    >
+                      <thead>
+                        <tr>
+                          <th>
+                            DOCUMENT NAME{' '}
+                            <img
+                              className={`${styles.sort_img} mb-1`}
+                              src="/static/icons8-sort-24.svg"
+                              alt="Sort icon"
+                            />
+                          </th>
+                          <th>
+                            FORMAT{' '}
+                            <img
+                              className={`${styles.sort_img} mb-1`}
+                              src="/static/icons8-sort-24.svg"
+                              alt="Sort icon"
+                            />
+                          </th>
+                          <th>
+                            DOCUMENT DATE
+                            <img
+                              className={`${styles.sort_img} mb-1 ml-2`}
+                              src="/static/icons8-sort-24.svg"
+                              alt="Sort icon"
+                            />
+                          </th>
+                          <th>ACTION</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="table_row">
+                          <td className={styles.doc_name}>
+                            IGM Copy
+                            <strong className="text-danger ml-0">*</strong>
+                          </td>
+                          <td>
+                            <img
+                              src="/static/pdf.svg"
+                              className="img-fluid"
+                              alt="Pdf"
+                            />
+                          </td>
+                          <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                          <td>
+                            <div className={styles.uploadBtnWrapper}>
+                              <input
+                                onChange={(e) => onDocumentSelect(e)}
+                                type="file"
+                                name="myfile"
+                              />
+                              <button className={`${styles.upload_btn} btn`}>
+                                Upload
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>)
+          })}
           <div className="">
             <InspectionDocument
               module="Loading-Transit-Unloading"

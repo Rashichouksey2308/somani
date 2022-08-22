@@ -2,7 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
-import { Form, Row, Col } from 'react-bootstrap'
+import { Form, Row, Col, Modal } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
 import UploadOther from '../UploadOther'
 import DateCalender from '../DateCalender'
@@ -16,7 +16,10 @@ export default function Index({ customData, OrderId, uploadDoc }) {
   const isShipmentTypeBULK =
     _get(customData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk'
   const dispatch = useDispatch()
+  const [show, setShow] = useState(false)
 
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
   const [saveContactTable, setContactTable] = useState(false)
 
   const { customClearance } = useSelector((state) => state.Custom)
@@ -1093,11 +1096,82 @@ export default function Index({ customData, OrderId, uploadDoc }) {
             <UploadOther
               orderid={OrderId}
               module="CustomClearanceAndWarehousing"
+              isDocumentName={true}
             />
           </div>
         </div>
         <SaveBar handleSave={handleSave} rightBtn="Submit" />
       </div>
+
+      <Modal
+        show={show}
+        size="lg"
+        onHide={handleClose}
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        className={styles.wrapper}
+        backdropClassName={styles.backdrop}
+      >
+        <Modal.Header className={styles.head}>
+          <Modal.Title
+            id="contained-modal-title-vcenter"
+            className={`${styles.title}  d-flex justify-content-between align-items-center`}
+          >
+            <div className={`${styles.blue} ml-3`}>BL Details </div>
+            <div>
+              <span>Commodity: </span>Iron{' '}
+            </div>
+            <img
+              src="/static/close.svg"
+              alt="close"
+              onClick={handleClose}
+              className="img-fluid mt-1 mr-2"
+            ></img>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className={`${styles.body} container-fluid`}>
+          <table
+            className={`${styles.table} table `}
+            cellPadding="0"
+            cellSpacing="0"
+            border="0"
+          >
+            <tr className={`border_color`}>
+              <th width="33%">BL NUMBER</th>
+              <th width="33%">BL DATE</th>
+              <th width="33%">BL QUANTITY</th>
+            </tr>
+            <tr className={`border_color`}>
+              <td className="font-weight-bold">2345678</td>
+              <td>22-02-2022</td>
+              <td>5,000 MT</td>
+            </tr>
+            <tr className={`border_color`}>
+              <td className="font-weight-bold">2345678</td>
+              <td>22-02-2022</td>
+              <td>5,000 MT</td>
+            </tr>
+            <tr className={`border_color`}>
+              <td className="font-weight-bold">2345678</td>
+              <td>22-02-2022</td>
+              <td>5,000 MT</td>
+            </tr>
+            <tr className={`border_color`}>
+              <td className="font-weight-bold">2345678</td>
+              <td>22-02-2022</td>
+              <td>5,000 MT</td>
+            </tr>
+            <tr className={`border_color`}>
+              <td className="font-weight-bold">2345678</td>
+              <td>22-02-2022</td>
+              <td>5,000 MT</td>
+            </tr>
+          </table>
+          <div>
+            <span>Total Quantity: </span> &nbsp; 8,000 MT{' '}
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   )
 }
