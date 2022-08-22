@@ -47,7 +47,7 @@ function Index() {
               alt="ArrowRight"
             />
             <h1 className={`${styles.title} heading`}>
-              <span>Ramakrishna Traders</span>
+              <span>{inspectionData?.company.companyName??""}</span>
             </h1>
             <div className="ml-auto">
               <div className={`${styles.lastModified} text `}>
@@ -108,7 +108,7 @@ function Index() {
                     <Appointment inspectionData={inspectionData} />
                   </div>
                 </div>
-                {addTPI.map((e, index) => (
+                {addTPI?.map((e, index) => (
                   <div
                     key={index}
                     className="tab-pane fade"
