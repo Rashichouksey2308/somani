@@ -467,7 +467,7 @@ function Index() {
                       aria-selected="true"
                     >
                       <img
-                        src="/static/email-icon.png"
+                        src="/static/Group 3256.svg"
                         width={`32px`}
                         className="img-fluid"
                         alt="Email Address"
