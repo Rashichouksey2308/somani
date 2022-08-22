@@ -277,44 +277,22 @@ function Index() {
     setOpen(false)
   }
   const exportPDF = () => {
+  //  let margins = [
+  //    10,
+  //    10,
+  //    10,
+  //    10
+   
+  //  ];
     let element = (
-      <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          backgroundColor: 'red',
-          width: '50rem',
-          height: '50rem',
-        }}
-      >
-        <span>Sample Text</span>
-      </div>
-    )
-    const doc = new jsPDF('p', 'pt', 'letter')
-    doc.html(ReactDOMServer.renderToString(element), {
-      callback: function (doc) {
-        doc.save('sample.pdf')
-      },
-    })
-  }
-  return (
-    <>
-      <div className={`${styles.root_container}  `} ref={toPrint}>
-        {/* <div  className={styles.head_container}>
-        <div className={styles.head_header}>
-          <img className={styles.arrow}
-            src="/static/keyboard_arrow_right-3.svg" alt="Arrow" />
-          <h1 className={`${styles.heading} heading`}>Termsheet Preview</h1>
-        </div>
-      </div> */}
-        <table width='100%' cellPadding='0' cellSpacing='0' border='0'>
+       <table width='600px' cellPadding='0' cellSpacing='0' border='0'>
           <tr>
             <td valign='top'>
               <table width='100%' bgColor='#D8EAFF' style={{fontFamily:'Arial, Helvetica, sans-serif', marginBottom:'26px', border:'1px solid #D2D7E5', borderRadius:'6px', height:'126px'}} cellPadding='10' cellSpacing='0' border='0'>
                 <tr>
                   <td valign='top' align='left' width='33%'>
-                    <p style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', padding:'10px 0 0 25px'}}>Order ID: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>2FCH6589</span></p>
-                    <p style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingLeft:'25px'}}>Buyer: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>M/s Vishnu Chemicals Limited</span></p>
+                    <p style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', padding:'10px 0 0 25px'}}>Order ID: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>{termsheet?.data[0].order.orderId}</span></p>
+                    <p style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingLeft:'25px'}}>Buyer: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>{termsheet?.data[0].company.companyName}</span></p>
                   </td>
                   <td valign='top' align='center' width='34%'><h2 style={{fontSize:'34px', color:'#3687E8', lineHeight:'41px', fontWeight:'bold', textTransform:'uppercase'}}>TERMSHEET</h2></td>
                   <td valign='top' align='right' width='33%'>
@@ -828,8 +806,34 @@ function Index() {
               </table>
             </td>
           </tr>
-        </table>
-        {/* <div className={`${styles.term_container} container-fluid`}>
+     </table>
+    )
+    const doc = new jsPDF('p', 'pt', 'a4')
+    doc.html(ReactDOMServer.renderToString(element), {
+      callback: function (doc) {
+        doc.save('sample.pdf')
+      },
+    // margin:margins,
+    autoPaging:"text",
+    
+
+    },
+   
+    
+    )
+  }
+  return (
+    <>
+      <div className={`${styles.root_container}  `} ref={toPrint}>
+        <div  className={styles.head_container}>
+        <div className={styles.head_header}>
+          <img className={styles.arrow}
+            src="/static/keyboard_arrow_right-3.svg" alt="Arrow" />
+          <h1 className={`${styles.heading} heading`}>Termsheet Preview</h1>
+        </div>
+      </div>
+       
+         <div className={`${styles.term_container} container-fluid`}>
           <Row className={`h-50`}>
             <Col
               md={4}
@@ -862,19 +866,19 @@ function Index() {
             <Col
               md={4}
               className={`d-flex justify-content-end  align-items-end`}
-            > */}
-              {/* <div><span className={styles.termSub_head}>Date:</span> <span className={styles.termValue}>{moment((new Date()).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</span></div> */}
+            > 
+             <div><span className={styles.termSub_head}>Date:</span> <span className={styles.termValue}>{moment((new Date()), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</span></div>
               {/* <div>
                 <span className={styles.termSub_head}>Date:</span>{' '}
                 <span className={styles.termValue}>
                   {moment(date, 'YYYY-MM-DD', true).format('DD-MM-YYYY')}
                 </span>
-              </div>
+              </div> */}
             </Col>
           </Row>
-        </div> */}
+        </div> 
 
-        {/* <Card className={`${styles.content} ${styles.customCard}`}>
+         <Card className={`${styles.content} ${styles.customCard}`}>
           <div>
             <Row className={`${styles.row_head} row_head`}>
               <Col
@@ -990,9 +994,9 @@ function Index() {
                 </ul>
               </Col>
             </Row>
-          </div> */}
+          </div> 
 
-          {/* <div>
+          <div>
         <Row className={`${styles.row_head} row_head`}>
             <Col md={4}  sm={6} xs={6}  className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
              
@@ -1017,8 +1021,8 @@ function Index() {
              </ul>
             </Col>
         </Row>
-       </div> */}
-          {/* <div>
+       </div> 
+          <div>
             <Row className={`${styles.row_head} row_head`}>
               <Col
                 md={4}
@@ -1202,8 +1206,8 @@ function Index() {
                 </ul>
               </Col>
             </Row>
-          </div> */}
-          {/* <div>
+          </div> 
+           <div>
         <Row className={`${styles.row_head} row_head`}>
             <Col md={4}   sm={6} xs={6} className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
              
@@ -1230,8 +1234,8 @@ function Index() {
              </ul>
             </Col>
         </Row>
-       </div> */}
-          {/* <div>
+       </div> 
+         <div>
             <Row className={`${styles.row_head} row_head`}>
               <Col
                 md={4}
@@ -1253,9 +1257,9 @@ function Index() {
                 will provide proof of all expenses to the Buyer.
               </Col>
             </Row>
-          </div> */}
+          </div> 
 
-          {/* <div className={styles.dashboard_form}>
+           <div className={styles.dashboard_form}>
             <Form>
               <div className="row">
                 <div
@@ -1960,7 +1964,7 @@ function Index() {
               wherever applicable
             </p>
           </div>
-        </Card> */}
+        </Card> 
       </div>
 
       <Paginatebar
@@ -1975,3 +1979,9 @@ function Index() {
 }
 
 export default Index
+
+// const toPrintData=(data)=>{
+//   return(
+   
+//   )
+// }
