@@ -105,7 +105,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
   return (
     <div className={`${styles.upload_main} vessel_card border_color card`}>
       <div
-        className={`${styles.head_container} border_color d-flex justify-content-between`}
+        className={`${styles.head_container} border_color d-flex  align-items-center justify-content-between`}
         data-toggle="collapse"
         data-target="#uploadOther"
         aria-expanded="true"

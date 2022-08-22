@@ -436,7 +436,7 @@
         font-size: 20px;
         letter-spacing: 0.19px;
         text-transform: capitalize;
-        border: 1px solid #0000001f;
+        // border: 1px solid #0000001f;
         border-radius: 4px;
         height: 60px;
         @include respond(md-desktop) {
