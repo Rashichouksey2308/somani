@@ -17,13 +17,14 @@ export default function Index({ addButton, inspectionData }) {
   const [editInput, setEditInput] = useState(true)
   const [bothField, setBothField] = useState(false)
   const [portType, setPortType] = useState({
-    load: '',
-    discharge: '',
+    load: false,
+    discharge: false,
   })
 
   const handlePortType = (name, value) => {
     let newInput = { ...portType }
-    newInput[name] = value
+    newInput[name] = !value
+    console.log(name,value,"cak")
     setPortType(newInput)
   }
 
@@ -131,7 +132,19 @@ export default function Index({ addButton, inspectionData }) {
 
     dispatch(UpdateInspection(fd))
   }
-
+  console.log(portType,"portType")
+useEffect(() => {
+  if(inspectionData){
+    if(inspectionData.order.termsheet.transactionDetails.typeOfPort=="Lord Port"){
+      setPortType({...portType,lord:true})
+    }else if(inspectionData.order.termsheet.transactionDetails.typeOfPort=="Both"){
+      setPortType({...portType,lord:true,discharge:true})
+    }else{
+      setPortType({...portType,discharge:true})
+    }
+  }
+},
+[inspectionData])
   return (
     <>
       <div
@@ -186,10 +199,11 @@ export default function Index({ addButton, inspectionData }) {
                     name="load"
                     type={type}
                     onChange={(e) => {
-                      handlePortType(e.target.name, e.target.value)
+                      handlePortType(e.target.name, portType.load)
 
                       // setBothField(!bothField)
                     }}
+                    checked={portType.load?"checked":""}
                     id={`inline-${type}-1`}
                   />
                   <Form.Check
@@ -199,9 +213,10 @@ export default function Index({ addButton, inspectionData }) {
                     name="discharge"
                     value="Discharge"
                     onChange={(e) => {
-                      handlePortType(e.target.name, e.target.value)
+                      handlePortType(e.target.name,  portType.discharge)
                       // setBothField(!bothField)
                     }}
+                    checked={portType.discharge?"checked":""}
                     type={type}
                     id={`inline-${type}-2`}
                   />
@@ -225,7 +240,7 @@ export default function Index({ addButton, inspectionData }) {
                     Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {inspectionData?.order?.quantity} Mt
+                    {inspectionData?.order?.quantity} MT
                   </span>
                 </div>
                 <div className="col-md-3 col-sm-6">
@@ -249,6 +264,8 @@ export default function Index({ addButton, inspectionData }) {
               </div>
             </div>
           </div>
+          {portType.load?
+          <>
           <div className={`${styles.main} vessel_card card border-color`}>
             <div
               className={`${styles.head_container} border_color card-header align-items-center head_container justify-content-between d-flex bg-transparent`}
@@ -269,15 +286,7 @@ export default function Index({ addButton, inspectionData }) {
               </button>
             </div>
             <div className={`${styles.dashboard_form} card-body`}>
-              {portType.load == 'Load' ? (
-                <h5 className={styles.sub_heading}>Inspection at Load Port</h5>
-              ) : portType.load == 'Discharge' ? (
-                <h5 className={styles.sub_heading}>
-                  Inspection at Discharge Port
-                </h5>
-              ) : (
-                <h5 className={styles.sub_heading}>Inspection at Load Port</h5>
-              )}
+              <h5 className={styles.sub_heading}>Inspection at Load Port</h5>
 
               <div className="row">
                 {inspectionData?.order?.shipmentDetail?.shipmentType ===
@@ -382,7 +391,9 @@ export default function Index({ addButton, inspectionData }) {
               </Row>
             </div>
           </div>
-          {portType.load == 'Load' && portType.discharge == 'Discharge'
+          </>
+          :null}
+          {portType.discharge 
             ? Discharge(inspectionData, saveInspectionDetails, saveDate)
             : ''}
 

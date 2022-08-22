@@ -522,7 +522,10 @@ const Index = ({
                     onChange={onChangeTransactionDetails}
                     className={`${styles.value} ${styles.customSelect} input form-control`}
                     required
+                   
+                    id={"typeOfPort"}
                   >
+                    <option value="">Select an option</option>
                     <option value="Load Port">Load Port</option>
                     <option value="Discharge Port">Discharge Port</option>
                     <option value="Both">Both</option>
@@ -558,11 +561,7 @@ const Index = ({
                   required
                 >
                    <option>Select an option</option>
-                  <option
-                    value={termsheetDetails?.transactionDetails?.storageOfGoods}
-                  >
-                    {termsheetDetails?.transactionDetails?.storageOfGoods}{' '}
-                  </option>
+                 
 
                   <option value="Mumbai Port, Mumbai">
                     Mumbai Port, Mumbai
