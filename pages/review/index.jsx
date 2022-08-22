@@ -1636,7 +1636,7 @@ console.log(product,"productData")
                                 {companyData?.compliance?.alerts?.map(
                                   (alert, index) => {
                                     if (
-                                      alert.severity.trim().toLowerCase() ===
+                                      alert?.severity?.trim().toLowerCase() ===
                                       'severe'
                                     ) {
                                       return (
