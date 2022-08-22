@@ -292,10 +292,7 @@ const Index = () => {
                               Year of Built
                             </div>
                             <div className={styles.col_body}>
-                              {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt', '').slice(
-                                0,
-                                4,
-                              )}
+                              {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt', '')?.slice( 0, 4,)}
                             </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
@@ -370,7 +367,7 @@ const Index = () => {
                                 name="laycanFrom"
                                 saveDate={saveDate}
                                 defaultDate={
-                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanFrom', '').split(
+                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanFrom', '')?.split(
                                     'T',
                                   )[0]
                                 }
@@ -388,7 +385,7 @@ const Index = () => {
                               <DateCalender
                                 name="laycanTo"
                                 defaultDate={
-                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanTo', '').split(
+                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanTo', '')?.split(
                                     'T',
                                   )[0]
                                 }
@@ -407,7 +404,7 @@ const Index = () => {
                               <DateCalender
                                 name="expectedTimeOfDispatch"
                                 defaultDate={
-                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.EDTatLoadPort', '').split(
+                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.EDTatLoadPort', '')?.split(
                                     'T',
                                   )[0]
                                 }
@@ -426,7 +423,7 @@ const Index = () => {
                               <DateCalender
                                 name="expectedTimeOfArrival"
                                 defaultDate={
-                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.ETAatDischargePort','').split(
+                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.ETAatDischargePort','')?.split(
                                     'T',
                                   )[0]
                                 }
@@ -555,7 +552,7 @@ const Index = () => {
                               Year of Built
                             </div>
                             <div className={styles.col_body}>
-                              {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt', '').slice(
+                              {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt', '')?.slice(
                                 0,
                                 4,
                               )}
@@ -629,7 +626,7 @@ const Index = () => {
                               <DateCalender
                                 name="laycanFrom"
                                 defaultDate={
-                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanFrom', '').split(
+                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanFrom', '')?.split(
                                     'T',
                                   )[0]
                                 }
@@ -648,7 +645,7 @@ const Index = () => {
                               <DateCalender
                                 name="laycanTo"
                                 defaultDate={
-                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanTo', '').split(
+                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanTo', '')?.split(
                                     'T',
                                   )[0]
                                 }
@@ -667,7 +664,7 @@ const Index = () => {
                               <DateCalender
                                 name="expectedTimeOfDispatch"
                                 defaultDate={
-                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.EDTatLoadPort', '').split(
+                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.EDTatLoadPort', '')?.split(
                                     'T',
                                   )[0]
                                 }
@@ -686,7 +683,7 @@ const Index = () => {
                               <DateCalender
                                 name="expectedTimeOfArrival"
                                 defaultDate={
-                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.ETAatDischargePort', '').split(
+                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.ETAatDischargePort', '')?.split(
                                     'T',
                                   )[0]
                                 }

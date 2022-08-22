@@ -34,7 +34,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
   useEffect(() => {
     sessionStorage.setItem('docFetchID', orderid)
     const tempArray = documentsFetched?.documents?.filter((doc) => {
-      return doc.module.toLowerCase() === moduleSelected.toLowerCase()
+      return doc?.module?.toLowerCase() === moduleSelected?.toLowerCase()
     })
     // console.log(tempArray, filteredDoc, moduleSelected, 'moduleSelected')
     setFilteredDoc(tempArray)
