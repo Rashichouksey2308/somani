@@ -628,8 +628,8 @@ function Index() {
                         </div>
                         <h5 className={`${styles.unit_label} accordion_Text`}>
                           Unit :
+                          <span>{marginData?.order?.orderCurrency}</span>
                         </h5>
-                        <>{marginData?.order?.orderCurrency}</>
                         {/* <input >{marginData?.order?.unitOfValue}</input> */}
                         {/* <select
                           className={`${styles.options} mr-4 accordion_DropDown`}
