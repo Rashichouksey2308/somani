@@ -37,7 +37,7 @@ dispatch(setDynamicName(ReleaseOrderData?.data[0]?.company.companyName))
     dispatch(GetDelivery(`?deliveryId=${id}`))
     dispatch(GetAllLifting())
   }, [dispatch])
-  console.log(ReleaseOrderData.data[0].company.companyName,"ReleaseOrderData")
+  
 
   //console.log(allLiftingData, "allLiftingData")
   const liftingData = _get(allLiftingData, 'data[0]', '')
