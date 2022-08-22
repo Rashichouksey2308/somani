@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react'
+import React ,{useEffect}from 'react'
 import styles from './index.module.scss'
 import BillOfEntryTableMain from '../../src/components/BillOfEntryTableMain'
 import Router from 'next/router'
@@ -7,6 +7,7 @@ import Filter from '../../src/components/Filter'
 import { useDispatch } from 'react-redux'
 import {GetAllCustomClearance} from  '../../src/redux/CustomClearance&Warehousing/action'
 import _get from 'lodash/get'
+import { setPageName,setDynamicName } from '../../src/redux/userData/action'
 
 
 function Index() {
@@ -18,7 +19,11 @@ function Index() {
     dispatch(GetAllCustomClearance(`?customClearanceId=${insured._id}`))
     Router.push('/bill-of-entry/id')
   }
-  
+   useEffect(() => {
+    dispatch(setPageName('custom'))
+    dispatch(setDynamicName(null))
+  })
+
 
   return (
     <div className="container-fluid p-0 border-0">

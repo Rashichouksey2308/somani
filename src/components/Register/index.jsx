@@ -190,9 +190,10 @@ function Index() {
   }
 
   const submitData = () => {
-
+ console.log("submit1")
     // handleCurrOrder()
     if (companyDetails.companyName === '') {
+       console.log("submit2")
       let toastMessage = 'Please Fill The Company Name'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
@@ -295,6 +296,7 @@ function Index() {
     //   }
     // }
     else {
+       console.log("submit3")
       let docTypeArr = []
       documents.forEach((val, index) => {
         docTypeArr.push(val.typeDocument)

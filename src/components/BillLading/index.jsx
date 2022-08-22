@@ -801,12 +801,12 @@ console.log(bolList,"bol")
                   </div>
 
                   <div className={`${styles.bill_landing}  border_color mt-4`}>
-                    <div className={`${styles.vessel_card} mt-3`}>
+                    {/* <div className={`${styles.vessel_card} mt-3`}>
                       <div className="row">
                         <div
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                         >
-                          <div className="d-flex">
+                          {/* <div className="d-flex">
                             <DatePicker
                             
                                selected={bol?.blSurrenderDate==null?"":moment(bol?.blSurrenderDate).toDate()}
@@ -823,7 +823,7 @@ console.log(bolList,"bol")
                               }}
                               minDate={lastDate}
                             />
-                            {/* <DateCalender name='blSurrenderDate'  defaultDate={bol?.blSurrenderDate?.split('T')[0]} saveDate={saveDate} labelName=''/> */}
+                           
 
 
                             <img
@@ -836,10 +836,10 @@ console.log(bolList,"bol")
                             >
                               BL Surrendor Date
                             </label>
-                          </div>
-                        </div>
+                          </div> */}
+                        {/* </div>
                       </div>
-                    </div>
+                    </div> */} 
                     <div className={styles.table_scroll_outer}>
                       <div className={styles.table_scroll_inner}>
                         <table
