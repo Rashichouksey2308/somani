@@ -3,7 +3,10 @@ import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import SavePreviewBar from '../SavePreviewBar'
 import { useDispatch, useSelector } from 'react-redux'
-import { UpdateTransitDetails, GetTransitDetails } from '../../../redux/TransitDetails/action'
+import {
+  UpdateTransitDetails,
+  GetTransitDetails,
+} from '../../../redux/TransitDetails/action'
 
 function Index() {
   const dispatch = useDispatch()
