@@ -425,7 +425,7 @@ const Index = () => {
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              Loss Payee Bank
+                              Loss Payee
                               <strong className="text-danger">*</strong>
                             </label>
                             <img
@@ -699,7 +699,7 @@ const Index = () => {
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              Loss Payee Bank
+                              Loss Payee
                               <strong className="text-danger">*</strong>
                             </label>
                             <img
@@ -966,7 +966,7 @@ const Index = () => {
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              Loss Payee Bank
+                              Loss Payee
                               <strong className="text-danger">*</strong>
                             </label>
                             <img
@@ -1020,7 +1020,7 @@ const Index = () => {
                   </span>
                 </div>
                 <div className="d-flex justify-content-between align-items-center">
-                  <div className={`${styles.radio_label} mr-5`}>
+                  <div className={`${styles.radio_label}  mr-5`}>
                     Is the Insurer same as Marine Insurance?
                   </div>
                   <div className={`${styles.theme} d-flex align-items-center`}>
@@ -1252,7 +1252,7 @@ const Index = () => {
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              Loss Payee Bank
+                              Loss Payee
                               <strong className="text-danger">*</strong>
                             </label>
                             <img
