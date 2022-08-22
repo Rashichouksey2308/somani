@@ -407,6 +407,7 @@ function Index() {
       let orderToSend = { ...orderDetails }
       orderToSend.quantity = removePrefixOrSuffix(orderDetails.quantity)
       orderToSend.orderValue = removePrefixOrSuffix(orderDetails.orderValue) * 10000000
+      orderToSend.tolerance=removePrefixOrSuffix(orderDetails.tolerance)
       if (orderDetails.unitOfValue === 'Cr' || 'Crores') {
         const obj = {
           ...orderToSend,

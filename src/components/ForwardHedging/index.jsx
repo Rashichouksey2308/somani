@@ -185,23 +185,23 @@ export default function Index() {
 
   return (
     <>
-      <div className={`${styles.backgroundMain} mt-3 container-fluid`}>
-        <div className="pl-3 pr-3 mb-5">
-          <div className={`${styles.head_header} ml-5`}>
+      <div className={`${styles.backgroundMain} p-0 container-fluid`}>
+        <div className={styles.main_page}>
+          <div className={`${styles.head_header} align-items-center`}>
             <img
-              className={`${styles.arrow} image_arrow img-fluid`}
+              className={`${styles.arrow} image_arrow mr-2 img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
             />
             <h1 className={`${styles.heading}`}>Ramkrishanan Traders </h1>
           </div>
           <div
-            className={`${styles.vessel_card} vessel_card mt-3 border_color`}
+            className={`${styles.vessel_card} vessel_card border_color`}
           >
             <div className={`${styles.main}  border_color card `}>
               <>
                 <div
-                  className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
+                  className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
                 >
                   <h3 className={`${styles.heading}`}>Forward Hedging</h3>
                   <button

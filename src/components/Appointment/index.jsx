@@ -200,7 +200,7 @@ export default function Index({ inspectionData }) {
                   </label>
 
                   <div
-                    className={`${styles.comment_field} border_color w-100 bg-transparent d-flex justify-content-between mt-2 form-control`}
+                    className={`${styles.comment_field} border_color bg-transparent input w-100 d-flex justify-content-between mt-2 form-control`}
                   >
                     <div className="m-3">
                       <div className={`${styles.address_type}`}>

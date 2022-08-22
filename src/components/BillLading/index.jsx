@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './index.module.scss'
-import { Form, Row, Col } from 'react-bootstrap'
+import { Form, Row, Col, Modal } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
 import { useState } from 'react'
 import DateCalender from '../DateCalender'
@@ -15,7 +15,11 @@ import { useEffect } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import UploadOther from '../UploadOther'
-import { CovertvaluefromtoCR ,addPrefixOrSuffix,removePrefixOrSuffix} from '../../utils/helper'
+import {
+  CovertvaluefromtoCR,
+  addPrefixOrSuffix,
+  removePrefixOrSuffix,
+} from '../../utils/helper'
 import moment from 'moment'
 
 export default function Index({
@@ -63,18 +67,19 @@ export default function Index({
     _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') ===
     'Bulk'
   const existingBlData = _get(TransitDetails, `data[0].BL.billOfLanding`, [])
-  const initalState =
-    shipmentTypeBulk
-      ? initialStateForBulk
-      : initialStateForLiner
+  const initalState = shipmentTypeBulk
+    ? initialStateForBulk
+    : initialStateForLiner
   // console.log(existingBlData,'existingBlData')
+  const [show, setShow] = useState(false)
 
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
   useEffect(() => {
     if (existingBlData.length > 0) {
       setBolList(existingBlData)
     }
   }, [existingBlData])
-
 
   const [editInput, setEditInput] = useState(true)
   const [shipmentType, setShipmentType] = useState(true)
@@ -99,27 +104,26 @@ export default function Index({
     false,
   )
 
-
   const onBolAdd = () => {
     if (shipmentTypeBulk) {
       setBolList([...bolList, initialStateForBulk])
     } else {
       setBolList([...bolList, initialStateForLiner])
     }
-    console.log("here")
+    console.log('here')
   }
-console.log(bolList,"bol")
+  console.log(bolList, 'bol')
 
-  const uploadDoc = async (e,index) => {
+  const uploadDoc = async (e, index) => {
     let name = e.target.name
     let id = e.target.id
     let docs = await docUploadFunction(e)
-   console.log(name,"name")
-    let newInput = [...bolList ]
-    newInput.forEach((val,i)=>{
-     if(i==index){
-      val[name]=docs
-     }
+    console.log(name, 'name')
+    let newInput = [...bolList]
+    newInput.forEach((val, i) => {
+      if (i == index) {
+        val[name] = docs
+      }
     })
     // newInput[index].[name] = docs
 
@@ -174,11 +178,26 @@ console.log(bolList,"bol")
     }
     console.log(filteredVessel, 'filteredVessel')
     const newArray = [...bolList]
-    newArray[index].vesselName = _get(filteredVessel, 'vesselInformation[0].name', '')
-    newArray[index].imoNumber = _get(filteredVessel, 'vesselInformation[0].IMONumber', '')
-    newArray[index].etaAtDischargePortFrom = _get(filteredVessel, 'transitDetails.EDTatLoadPort', null)
-    newArray[index].etaAtDischargePortTo = _get(filteredVessel, 'transitDetails.ETAatDischargePort', null)
-
+    newArray[index].vesselName = _get(
+      filteredVessel,
+      'vesselInformation[0].name',
+      '',
+    )
+    newArray[index].imoNumber = _get(
+      filteredVessel,
+      'vesselInformation[0].IMONumber',
+      '',
+    )
+    newArray[index].etaAtDischargePortFrom = _get(
+      filteredVessel,
+      'transitDetails.EDTatLoadPort',
+      null,
+    )
+    newArray[index].etaAtDischargePortTo = _get(
+      filteredVessel,
+      'transitDetails.ETAatDischargePort',
+      null,
+    )
 
     setBolList(newArray)
   }
@@ -202,13 +221,15 @@ console.log(bolList,"bol")
   const onChangeContainerDetailsHandler = (e, index) => {
     const name = e.target.id
     const value = e.target.value
-    setBolList(prevState => {
+    setBolList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
           return {
-            ...prevState, containerDetails: {
-              ...prevState.containerDetails, [name]: value
-            }
+            ...prevState,
+            containerDetails: {
+              ...prevState.containerDetails,
+              [name]: value,
+            },
           }
         }
         return obj
@@ -236,23 +257,25 @@ console.log(bolList,"bol")
   const saveData = () => {
     // const billOfLanding = [...bolList]
     let bol = { billOfLanding: bolList }
-    console.log(bol,"bol",bolList.billOfLanding)
-    bol.billOfLanding[0].blQuantity=removePrefixOrSuffix(bolList[0].blQuantity)
+    console.log(bol, 'bol', bolList.billOfLanding)
+    bol.billOfLanding[0].blQuantity = removePrefixOrSuffix(
+      bolList[0].blQuantity,
+    )
     let fd = new FormData()
     fd.append('bl', JSON.stringify(bol))
     fd.append('transitId', transId._id)
     dispatch(UpdateTransitDetails(fd))
     console.log(fd, bol, 'filteredVessel')
   }
-  console.log(bolList, 'filteredVessel',startetaAtDischargePortFrom)
+  console.log(bolList, 'filteredVessel', startetaAtDischargePortFrom)
   // console.log(TransitDetails, 'TransitDetails')
   return (
     <>
       <div className={`${styles.backgroundMain} p-0 container-fluid`}>
-        <div className={`${styles.vessel_card} mt-3 border_color`}>
+        <div className={`${styles.vessel_card} border_color`}>
           <div className={`${styles.wrapper} border_color card`}>
-            <div className="d-lg-flex align-items-center d-inline-block  pl-4">
-              <h2 className="mb-0">Shipment Type</h2>
+            <div className="d-lg-flex align-items-center d-inline-block">
+              <h2 className="">Shipment Type</h2>
               <div className={`${styles.radio_form} ml-lg-5 ml-n4`}>
                 {['radio'].map((type) => (
                   <div key={`inline-${type}`} className={styles.radio_group}>
@@ -263,7 +286,15 @@ console.log(bolList,"bol")
                       name="group1"
                       // disabled={!isShipmentTypeBULK}
                       type={type}
-                      checked={_get(TransitDetails,"data[0].order.shipmentDetail.shipmentType","")=="Bulk"?true:false}
+                      checked={
+                        _get(
+                          TransitDetails,
+                          'data[0].order.shipmentDetail.shipmentType',
+                          '',
+                        ) == 'Bulk'
+                          ? true
+                          : false
+                      }
                       id={`inline-${type}-1`}
                     />
                     <Form.Check
@@ -272,7 +303,15 @@ console.log(bolList,"bol")
                       label="Liner"
                       name="group1"
                       // disabled={isShipmentTypeBULK}
-                      checked={_get(TransitDetails,"data[0].order.shipmentDetail.shipmentType","")=="Liner"?true:false}
+                      checked={
+                        _get(
+                          TransitDetails,
+                          'data[0].order.shipmentDetail.shipmentType',
+                          '',
+                        ) == 'Liner'
+                          ? true
+                          : false
+                      }
                       type={type}
                       id={`inline-${type}-2`}
                     />
@@ -284,7 +323,7 @@ console.log(bolList,"bol")
 
           <div className={`${styles.main} border_color card `}>
             <div
-              className={`${styles.head_container} border_color card-header head_container justify-content-between d-flex bg-transparent`}
+              className={`${styles.head_container} border_color align-items-center card-header head_container justify-content-between d-flex bg-transparent`}
             >
               <h3 className={`${styles.heading}`}>Commodity Details</h3>
               <div className="d-flex align-items-center">
@@ -312,7 +351,11 @@ console.log(bolList,"bol")
                   </div>
                   <span className={styles.value}>
                     {_get(TransitDetails, 'data[0].order.quantity', '')}{' '}
-                    {_get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()}{' '}
+                    {_get(
+                      TransitDetails,
+                      'data[0].order.unitOfQuantity',
+                      '',
+                    ).toUpperCase()}{' '}
                   </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
@@ -320,8 +363,13 @@ console.log(bolList,"bol")
                     Order Value <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
                   <span className={styles.value}>
-                    {CovertvaluefromtoCR(_get(TransitDetails, 'data[0].order.orderValue', ''))}{' '}
-                    {_get(TransitDetails, 'data[0].order.unitOfValue', '')=="Crores"?"Cr":_get(TransitDetails, 'data[0].order.unitOfValue', '')}
+                    {CovertvaluefromtoCR(
+                      _get(TransitDetails, 'data[0].order.orderValue', ''),
+                    )}{' '}
+                    {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
+                    'Crores'
+                      ? 'Cr'
+                      : _get(TransitDetails, 'data[0].order.unitOfValue', '')}
                   </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
@@ -358,21 +406,19 @@ console.log(bolList,"bol")
                 className={`${styles.main} vessel_card card border_color`}
               >
                 <div
-                  className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
+                  className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
                 >
                   <h3 className={`${styles.heading}`}>
                     Bill of Lading {index + 1}
                   </h3>
                   {!partShipmentAllowed && (
                     <button
-                     onClick={()=>{
+                      onClick={() => {
                         onBolAdd()
                       }}
                       className={styles.add_btn}
                     >
-                      <span className={styles.add_sign}
-                      
-                      >+</span>Add
+                      <span className={styles.add_sign}>+</span>Add
                     </button>
                   )}
                 </div>
@@ -391,26 +437,26 @@ console.log(bolList,"bol")
                               <option>Select an option</option>
                               {shipmentTypeBulk
                                 ? _get(
-                                  TransitDetails,
-                                  'data[0].order.vessel.vessels',
-                                  [],
-                                ).map((vessel, index) => (
-                                  <option
-                                    value={vessel?.vesselInformation?.name}
-                                    key={index}
-                                  >
-                                    {vessel?.vesselInformation[0]?.name}
-                                  </option>
-                                ))
+                                    TransitDetails,
+                                    'data[0].order.vessel.vessels',
+                                    [],
+                                  ).map((vessel, index) => (
+                                    <option
+                                      value={vessel?.vesselInformation?.name}
+                                      key={index}
+                                    >
+                                      {vessel?.vesselInformation[0]?.name}
+                                    </option>
+                                  ))
                                 : _get(
-                                  TransitDetails,
-                                  'data[0].order.vessel.vessels[0].vesselInformation',
-                                  [],
-                                ).map((vessel, index) => (
-                                  <option value={vessel?.name} key={index}>
-                                    {vessel?.name}
-                                  </option>
-                                ))}
+                                    TransitDetails,
+                                    'data[0].order.vessel.vessels[0].vesselInformation',
+                                    [],
+                                  ).map((vessel, index) => (
+                                    <option value={vessel?.name} key={index}>
+                                      {vessel?.name}
+                                    </option>
+                                  ))}
                               <option value="option">option</option>
                             </select>
                             <label
@@ -473,7 +519,6 @@ console.log(bolList,"bol")
                             />
                             {/* <DateCalender name='blDate'  defaultDate={bol?.blDate?.split('T')[0]} saveDate={saveDate} labelName=''/> */}
 
-
                             <img
                               className={`${styles.calanderIcon} image_arrow img-fluid`}
                               src="/static/caldericon.svg"
@@ -490,13 +535,12 @@ console.log(bolList,"bol")
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                         >
                           <input
-                         
                             onChange={(e) => onChangeBol(e, index)}
                             id="blQuantity"
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
-                            value={addPrefixOrSuffix(bol?.blQuantity,"MT")}
+                            value={addPrefixOrSuffix(bol?.blQuantity, 'MT')}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -519,7 +563,11 @@ console.log(bolList,"bol")
                               // value={moment(bol?.etaAtDischargePortFrom).toDate()}
                               defaultDate={startetaAtDischargePortFrom}
                               name="ETAatDischargePort"
-                              selected={bol?.etaAtDischargePortFrom==null?"":moment(bol?.etaAtDischargePortFrom).toDate()}
+                              selected={
+                                bol?.etaAtDischargePortFrom == null
+                                  ? ''
+                                  : moment(bol?.etaAtDischargePortFrom).toDate()
+                              }
                               // selected={moment(bol?.etaAtDischargePortFrom==null?" ":bol?.etaAtDischargePortFrom).toDate()}
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
@@ -536,7 +584,6 @@ console.log(bolList,"bol")
                               minDate={lastDate}
                             />
                             {/* <DateCalender name='etaAtDischargePortFrom'  defaultDate={bol?.etaAtDischargePortFrom?.split('T')[0]} saveDate={saveDate} labelName=''/> */}
-
 
                             <img
                               className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -556,9 +603,12 @@ console.log(bolList,"bol")
                           <div className="d-flex">
                             <DatePicker
                               // value={moment((bol?.startetaAtDischargePortFrom), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
-                              
-                               selected={bol?.etaAtDischargePortTo==null?"":moment(bol?.etaAtDischargePortTo).toDate()}
-                             
+
+                              selected={
+                                bol?.etaAtDischargePortTo == null
+                                  ? ''
+                                  : moment(bol?.etaAtDischargePortTo).toDate()
+                              }
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startetaAtDischargePortTo) => {
@@ -602,8 +652,12 @@ console.log(bolList,"bol")
                               className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                             >
                               <input
-                                onChange={(e) => onChangeContainerDetailsHandler(e, index)}
-                                value={bol?.containerDetails?.numberOfContainers}
+                                onChange={(e) =>
+                                  onChangeContainerDetailsHandler(e, index)
+                                }
+                                value={
+                                  bol?.containerDetails?.numberOfContainers
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                                 type="number"
@@ -622,8 +676,12 @@ console.log(bolList,"bol")
                               className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                             >
                               <input
-                                onChange={(e) => onChangeContainerDetailsHandler(e, index)}
-                                value={bol?.containerDetails?.freeDetentionPeriod}
+                                onChange={(e) =>
+                                  onChangeContainerDetailsHandler(e, index)
+                                }
+                                value={
+                                  bol?.containerDetails?.freeDetentionPeriod
+                                }
                                 className={`${styles.input_field} input form-control`}
                                 required
                                 type="number"
@@ -643,7 +701,12 @@ console.log(bolList,"bol")
                             >
                               <div className="d-flex justify-content-start">
                                 <div className={styles.uploadBtnWrapper}>
-                                  <input name={`document1`} id='documentName' onChange={(e) => uploadDoc(e,index)} type="file"  />
+                                  <input
+                                    name={`document1`}
+                                    id="documentName"
+                                    onChange={(e) => uploadDoc(e, index)}
+                                    type="file"
+                                  />
                                   <button
                                     className={`${styles.upload_btn} btn`}
                                   >
@@ -717,7 +780,12 @@ console.log(bolList,"bol")
                               </td>
                               <td>
                                 <div className={styles.uploadBtnWrapper}>
-                                  <input name={`blSurrenderDoc`} id='document1' onChange={(e) => uploadDoc(e,index)} type="file" />
+                                  <input
+                                    name={`blSurrenderDoc`}
+                                    id="document1"
+                                    onChange={(e) => uploadDoc(e, index)}
+                                    type="file"
+                                  />
                                   <button
                                     className={`${styles.upload_btn} btn`}
                                   >
@@ -747,7 +815,12 @@ console.log(bolList,"bol")
                                   </td>
                                   <td>
                                     <div className={styles.uploadBtnWrapper}>
-                                      <input name={`document2`} id='document1' onChange={(e) => uploadDoc(e,index)} type="file"  />
+                                      <input
+                                        name={`document2`}
+                                        id="document1"
+                                        onChange={(e) => uploadDoc(e, index)}
+                                        type="file"
+                                      />
                                       <button
                                         className={`${styles.upload_btn} btn`}
                                       >
@@ -775,7 +848,12 @@ console.log(bolList,"bol")
                                   </td>
                                   <td>
                                     <div className={styles.uploadBtnWrapper}>
-                                      <input name={`documentName`} id='document2' onChange={(e) => uploadDoc(e,index)} type="file"  />
+                                      <input
+                                        name={`documentName`}
+                                        id="document2"
+                                        onChange={(e) => uploadDoc(e, index)}
+                                        type="file"
+                                      />
                                       <button
                                         className={`${styles.upload_btn} btn`}
                                       >
@@ -831,9 +909,9 @@ console.log(bolList,"bol")
                               BL Surrendor Date
                             </label>
                           </div> */}
-                        {/* </div>
+                    {/* </div>
                       </div>
-                    </div> */} 
+                    </div> */}
                     <div className={styles.table_scroll_outer}>
                       <div className={styles.table_scroll_inner}>
                         <table
@@ -912,8 +990,56 @@ console.log(bolList,"bol")
             <UploadOther orderid={orderid} module="Loading-Transit-Unloading" />
           </div>
         </div>
-        <SaveBar handleSave={saveData} rightBtn="Submit" />
+        <SaveBar
+          handleSave={saveData}
+          rightBtn="Submit"
+          rightBtnClick={handleShow}
+        />
       </div>
+
+      <Modal
+        show={show}
+        size="lg"
+        onHide={handleClose}
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        className={styles.wrapper}
+        backdropClassName={styles.backdrop}
+      >
+        <Modal.Header className={styles.head}>
+          <Modal.Title
+            className={`${styles.updated_successfully} ${styles.card} card p-0`}
+          >
+            <div className={`${styles.card_header} card-header bg-transparent`}>
+              <h3>Updated Successfully</h3>
+            </div>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className={`${styles.card_body} card-body container-fluid`}>
+          <img
+            src="/static/updated-successfully.svg"
+            alt="Updated Successfully"
+            className="img-fluid"
+          />
+          <h4>Success</h4>
+          <p>The bill of lading is successfully updated.</p>
+          <div className="d-flex align-items-center justify-content-between">
+            <button
+              type="button"
+              className={`${styles.card_button} ${styles.close} btn`}
+              onClick={handleClose}
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              className={`${styles.card_button} ${styles.track_view} btn`}
+            >
+              Track &amp; View
+            </button>
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   )
 }

@@ -186,7 +186,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   required
                   type="text"
                   name="tolerance"
-                  defaultValue={orderDetail?.tolerance}
+                  value={addPrefixOrSuffix(orderDetail?.tolerance,"%")}
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
                   }}
@@ -200,7 +200,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                  <div className="d-flex">
                 <select className={`${styles.input_field} ${styles.customSelect} input form-control`} name='supplierName'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} required>
-                  <option value="volvo">{orderDetail?.supplierName}</option>
+                  
                   <option value="TATA">TATA</option>
                   <option value="Mittal">Mittal</option>
                   <option value="Reliance">Reliance</option>
@@ -219,8 +219,8 @@ const Index = ({ orderDetail, saveOrderData }) => {
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
-                <select className={`${styles.input_field} ${styles.customSelect} input form-control`} name='manufacturerName'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} >
-                  <option value="volvo">{orderDetail?.manufacturerName}</option>
+                <select className={`${styles.input_field} ${styles.customSelect} input form-control`} value={orderDetail?.manufacturerName} name='manufacturerName'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} >
+                  
                   <option value="CBX">CBX</option>
                   <option value="ABX">ABX</option>
                 </select>
@@ -238,8 +238,8 @@ const Index = ({ orderDetail, saveOrderData }) => {
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                  <div className="d-flex">
-                <select className={`${styles.input_field} ${styles.customSelect} input form-control`} name='portOfDischarge'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} required>
-                  <option value="volvo">{orderDetail?.portOfDischarge}</option>
+                <select className={`${styles.input_field} ${styles.customSelect} input form-control`} value={orderDetail?.portOfDischarge} name='portOfDischarge'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} required>
+                 
                   <option value="Mumbai">Mumbai</option>
                   <option value="Vizag">Vizag</option>
                 </select>

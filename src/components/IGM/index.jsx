@@ -250,8 +250,8 @@ export default function Index({
       <div className={`${styles.backgroundMain} p-0 container-fluid`}>
         <div className={`${styles.vessel_card} border_color`}>
           <div className={`${styles.wrapper} border_color card`}>
-            <div className="d-lg-flex align-items-center d-inline-block  pl-4">
-              <h2 className="mb-0">Shipment Type</h2>
+            <div className="d-lg-flex align-items-center d-inline-block">
+              <h2 className="">Shipment Type</h2>
               <div className={`${styles.radio_form} ml-lg-5 ml-n4`}>
                 {['radio'].map((type) => (
                   <div key={`inline-${type}`} className={styles.radio_group}>
