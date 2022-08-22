@@ -312,7 +312,7 @@ const Index = () => {
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              GST of Insured
+                              GST of Insurer
                             </label>
                             <img
                               className={`${styles.checked_image} img-fluid`}
@@ -352,7 +352,7 @@ const Index = () => {
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            GST of Insurer
+                            GST of Insured
                             <strong className="text-danger">*</strong>
                           </label>
                         </Col>
@@ -425,7 +425,7 @@ const Index = () => {
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              Loss Payee Bank
+                              Loss Payee
                               <strong className="text-danger">*</strong>
                             </label>
                             <img
@@ -458,7 +458,10 @@ const Index = () => {
                 </div>
               </div>
             </div>
-            <UploadDocument docName='Policy Document - Marine' uploadDocument1={uploadDocument1} />
+            <UploadDocument
+              docName="Policy Document - Marine"
+              uploadDocument1={uploadDocument1}
+            />
           </>
         ) : insuranceData?.quotationRequest?.insuranceType ==
           'Storage Insurance' ? (
@@ -583,7 +586,7 @@ const Index = () => {
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              GST of Insured
+                              GST of Insurer
                             </label>
                             <img
                               className={`${styles.checked_image} img-fluid`}
@@ -623,7 +626,7 @@ const Index = () => {
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            GST of Insurer
+                            GST of Insured
                             <strong className="text-danger">*</strong>
                           </label>
                         </Col>
@@ -696,7 +699,7 @@ const Index = () => {
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              Loss Payee Bank
+                              Loss Payee
                               <strong className="text-danger">*</strong>
                             </label>
                             <img
@@ -729,7 +732,10 @@ const Index = () => {
                 </div>
               </div>
             </div>
-            <UploadDocument docName='Policy Document - Storage' uploadDocument1={uploadDocument2} />
+            <UploadDocument
+              docName="Policy Document - Storage"
+              uploadDocument1={uploadDocument2}
+            />
           </>
         ) : insuranceData?.quotationRequest?.insuranceType == 'Both' ? (
           <>
@@ -781,7 +787,9 @@ const Index = () => {
                 className="collapse"
                 aria-labelledby="marineInsurance"
               >
-                <div className={` ${styles.cardBody} card-body  border_color`}>
+                <div
+                  className={` ${styles.cardBody} vessel_card card-body  border_color`}
+                >
                   <div className={` ${styles.content}`}>
                     <div className={` ${styles.body}`}>
                       <Row>
@@ -958,7 +966,7 @@ const Index = () => {
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              Loss Payee Bank
+                              Loss Payee
                               <strong className="text-danger">*</strong>
                             </label>
                             <img
@@ -991,7 +999,9 @@ const Index = () => {
                 </div>
               </div>
             </div>
-            <div className={`${styles.wrapper} border_color mt-4 card`}>
+            <div
+              className={`${styles.wrapper} vessel_card border_color mt-4 card`}
+            >
               <div
                 className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
                 data-toggle="collapse"
@@ -1010,12 +1020,12 @@ const Index = () => {
                   </span>
                 </div>
                 <div className="d-flex justify-content-between align-items-center">
-                  <div className={`${styles.radio_label} mr-5`}>
+                  <div className={`${styles.radio_label}  mr-5`}>
                     Is the Insurer same as Marine Insurance?
                   </div>
                   <div className={`${styles.theme} d-flex align-items-center`}>
                     <div
-                      className={`${styles.toggle_label} form-check-label mr-2`}
+                      className={`${styles.toggle_label} form-check-label mr-3`}
                     >
                       Yes
                     </div>
@@ -1030,7 +1040,7 @@ const Index = () => {
                       ></span>
                     </label>
                     <div
-                      className={`${styles.toggle_label} form-check-label ml-2 mr-3`}
+                      className={`${styles.toggle_label} form-check-label ml-3 mr-3`}
                     >
                       No
                     </div>
@@ -1163,7 +1173,7 @@ const Index = () => {
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            GST of Insurer
+                            GST of Insured
                             <strong className="text-danger">*</strong>
                           </label>
                         </Col>
@@ -1242,7 +1252,7 @@ const Index = () => {
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              Loss Payee Bank
+                              Loss Payee
                               <strong className="text-danger">*</strong>
                             </label>
                             <img
