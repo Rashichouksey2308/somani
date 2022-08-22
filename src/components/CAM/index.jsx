@@ -1848,13 +1848,11 @@ const revenuDetails = (gstData) => {
                   />
                 </td>
                 <td>
-                  {RevenueDetails?.grossTurnover?.current?.value
-                    .toFixed(2)
+                  {RevenueDetails?.grossTurnover?.current?.value?.toFixed(2)
                     ?.toLocaleString()}
                 </td>
                 <td>
-                  {RevenueDetails?.grossTurnover?.previous?.value
-                    .toFixed(2)
+                  {RevenueDetails?.grossTurnover?.previous?.value?.toFixed(2)
                     ?.toLocaleString()}
                 </td>
                 <td>
@@ -2064,13 +2062,11 @@ const revenuDetails = (gstData) => {
                   />
                 </td>
                 <td>
-                  {RevenueDetails?.ttlCustomer?.current?.value
-                    .toFixed(2)
+                  {RevenueDetails?.ttlCustomer?.current?.value?.toFixed(2)
                     ?.toLocaleString()}
                 </td>
                 <td>
-                  {RevenueDetails?.ttlCustomer?.previous?.value
-                    .toFixed(2)
+                  {RevenueDetails?.ttlCustomer?.previous?.value?.toFixed(2)
                     ?.toLocaleString()}
                 </td>
                 <td>
@@ -2100,13 +2096,11 @@ const revenuDetails = (gstData) => {
                   />
                 </td>
                 <td>
-                  {RevenueDetails?.ttlInv?.current?.value
-                    .toFixed(2)
+                  {RevenueDetails?.ttlInv?.current?.value?.toFixed(2)
                     ?.toLocaleString()}
                 </td>
                 <td>
-                  {RevenueDetails?.ttlInv?.previous?.value
-                    .toFixed(2)
+                  {RevenueDetails?.ttlInv?.previous?.value?.toFixed(2)
                     ?.toLocaleString()}
                 </td>
                 <td>
