@@ -13,7 +13,6 @@ import {
 } from '../../redux/TransitDetails/action'
 import { toast } from 'react-toastify'
 
-
 function Index({ TransitDetails }) {
   const dispatch = useDispatch()
   let transId = _get(TransitDetails, `data[0]`, '')
@@ -31,51 +30,64 @@ function Index({ TransitDetails }) {
     authorizedSignatory: {
       name: '',
       designation: '',
-
-    }
+    },
   })
   const bolArray = _get(TransitDetails, `data[0].BL.billOfLanding`, [])
   console.log(loi, bolArray, 'bolArray')
 
-
-  console.log(loi, "LOI")
+  console.log(loi, 'LOI')
 
   const SetAuthorisedSignatoryHanlder = (e) => {
-
-    console.log(e.target.value.toLowerCase(), "w")
-    if (e.target.value == "") {
-      setLOI({ ...loi, authorizedSignatory: { name: "", designation: "" } })
+    console.log(e.target.value.toLowerCase(), 'w')
+    if (e.target.value == '') {
+      setLOI({ ...loi, authorizedSignatory: { name: '', designation: '' } })
     } else {
       if (e.target.value.toLowerCase() === 'bhawanajain') {
         console.log(e.target.value.toLowerCase(), 'bhawanajain')
 
-        setLOI({ ...loi, authorizedSignatory: { name: "Bhawana Jain", designation: "Vice President Finance & Accounts" } })
+        setLOI({
+          ...loi,
+          authorizedSignatory: {
+            name: 'Bhawana Jain',
+            designation: 'Vice President Finance & Accounts',
+          },
+        })
       }
       if (e.target.value.toLowerCase() === 'vipinkumar') {
         console.log('vipinkumar')
-        setLOI({ ...loi, authorizedSignatory: { name: "Vipin Kumar", designation: "Manager Accounts" } })
-
+        setLOI({
+          ...loi,
+          authorizedSignatory: {
+            name: 'Vipin Kumar',
+            designation: 'Manager Accounts',
+          },
+        })
       }
       if (e.target.value.toLowerCase() === 'deveshjain') {
         console.log('DeveshJain')
-        setLOI(prevState => {
+        setLOI((prevState) => {
           return {
-            ...prevState, authorizedSignatory: { name: 'Devesh Jain', designation: 'Director' }
+            ...prevState,
+            authorizedSignatory: {
+              name: 'Devesh Jain',
+              designation: 'Director',
+            },
           }
         })
       }
       if (e.target.value.toLowerCase() === 'fatimayannoulis') {
         console.log('Fatimayannoulis')
-        setLOI(prevState => {
+        setLOI((prevState) => {
           return {
-            ...prevState, authorizedSignatory: { name: 'Fatima Yannoulis', designation: 'Chief Financial Officer' }
+            ...prevState,
+            authorizedSignatory: {
+              name: 'Fatima Yannoulis',
+              designation: 'Chief Financial Officer',
+            },
           }
         })
       }
     }
-
-
-
 
     // let tempArray = { ...loi }
     // if (e.target.value === 'BhawanaJain') {
@@ -127,15 +139,13 @@ function Index({ TransitDetails }) {
     const LOI = { ...loi }
 
     let fd = new FormData()
-    fd.append('LOI', JSON.stringify(LOI))
+    fd.append('loi', JSON.stringify(LOI))
     fd.append('transitId', transId._id)
     dispatch(UpdateTransitDetails(fd))
     //console.log(fd, bol, 'filteredVessel')
 
     Router.push('/loi-preview')
-
   }
-
 
   return (
     <div className={`${styles.root} card container-fluid  border-0`}>
@@ -164,34 +174,58 @@ function Index({ TransitDetails }) {
             </div>
           </div>
           <div>
-            <span>DATE:</span> {loi.loiIssueDate.toJSON().slice(0, 10).replace(/-/g, '/')}
+            <span>DATE:</span>{' '}
+            {loi.loiIssueDate.toJSON().slice(0, 10).replace(/-/g, '/')}
           </div>
         </div>
         <span>Dear Sir, </span>
         <div className={`d-flex ${styles.salutations}`}>
           <span>Ship:</span>
           {'  '}
-          <div className={`ml-3`}>{_get(TransitDetails, 'data[0].BL.billOfLanding[0].vesselName', '').toUpperCase()}</div>
+          <div className={`ml-3`}>
+            {_get(
+              TransitDetails,
+              'data[0].BL.billOfLanding[0].vesselName',
+              '',
+            ).toUpperCase()}
+          </div>
         </div>
         <div className={`d-flex ${styles.salutations}`}>
           <span>Voyage:</span>
           {'  '}
           <div className={`ml-3`}>
-            FROM {_get(TransitDetails, 'data[0].order.portOfDischarge', '').toUpperCase()} TO ANY PORT(S) IN INDIA
+            FROM{' '}
+            {_get(
+              TransitDetails,
+              'data[0].order.portOfDischarge',
+              '',
+            ).toUpperCase()}{' '}
+            TO ANY PORT(S) IN INDIA
           </div>
         </div>
         <div className={`d-flex ${styles.salutations}`}>
           <span>Cargo:</span>
           {'  '}
           <div className={`ml-3`}>
-            {_get(TransitDetails, 'data[0].order.quantity', '').toLocaleString()} {_get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()} {_get(TransitDetails, 'data[0].order.commodity', '').toUpperCase()}
+            {_get(
+              TransitDetails,
+              'data[0].order.quantity',
+              '',
+            ).toLocaleString()}{' '}
+            {_get(
+              TransitDetails,
+              'data[0].order.unitOfQuantity',
+              '',
+            ).toUpperCase()}{' '}
+            {_get(TransitDetails, 'data[0].order.commodity', '').toUpperCase()}
           </div>
         </div>
         <div className={`d-flex ${styles.salutations}`}>
           <span>Bill(s) of Lading:</span>
           {'  '}
           {billsofLanding.map((bills, index1) => (
-            <div key={index1}
+            <div
+              key={index1}
               className={`ml-3 d-flex justify-content-start align-items-center ${styles.salutationFeatures} `}
             >
               <select onChange={(e) => BolDropDown(e)}>
@@ -201,7 +235,13 @@ function Index({ TransitDetails }) {
                   </option>
                 ))}
               </select>
-              Dated 18TH MARCH 2021, ISSUE AT {_get(TransitDetails, 'data[0].order.portOfDischarge', '').toUpperCase()} {index1}
+              Dated 18TH MARCH 2021, ISSUE AT{' '}
+              {_get(
+                TransitDetails,
+                'data[0].order.portOfDischarge',
+                '',
+              ).toUpperCase()}{' '}
+              {index1}
               <button onClick={() => OnAddHandler()} className={styles.add_btn}>
                 <span className={styles.add_sign}>+</span>Add
               </button>
@@ -344,7 +384,10 @@ function Index({ TransitDetails }) {
 
             <div>
               Designation:{' '}
-              <input className="mt-4 pl-3" value={loi.authorizedSignatory.designation}></input>
+              <input
+                className="mt-4 pl-3 input"
+                value={loi.authorizedSignatory.designation}
+              ></input>
             </div>
           </div>
         </div>

@@ -1,9 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './index.module.scss'
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col, Form } from 'react-bootstrap'
 import PaginateBar from '../../../src/components/Paginatebar'
 import _get from 'lodash/get'
+import Modal from 'react-bootstrap/Modal'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { GettingAllInsurance } from '../../../src/redux/insurance/action'
 import moment from 'moment'
@@ -16,6 +18,12 @@ function Index() {
     dispatch(GettingAllInsurance(`?insuranceId=${id}`))
   }, [dispatch])
 
+  const [show, setShow] = useState(false)
+  const handleClose = () => setShow(false)
+
+  const handlePopup = () => {
+    setShow(true)
+  }
   const { insuranceResponse } = useSelector((state) => state.insurance)
 
   let insuranceData = _get(insuranceResponse, 'data[0]', {})
@@ -26,7 +34,7 @@ function Index() {
         <div
           className={`${styles.card} tabHeader border-0 shadow-none bg-transparent card2`}
         >
-          <div className={`${styles.head_header} align-items-center`}>
+          <div className={`${styles.head_header} ml-5 align-items-center`}>
             <img
               className={`${styles.arrow} img-fluid image_arrow mr-2`}
               src="/static/keyboard_arrow_right-3.svg"
@@ -60,9 +68,7 @@ function Index() {
                   Type of Insurance:
                 </span>
                 <span className={`${styles.details_val} label_heading" ml-1`}>
-                  {insuranceData?.quotationRequest?.insuranceType == 'Both'
-                    ? 'Marine & Storage Insurance'
-                    : ''}
+                {insuranceData?.quotationRequest?.insuranceType}
                 </span>
               </div>
               <br></br>
@@ -83,7 +89,8 @@ function Index() {
                     Vessel
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    MV Miss Simon
+                  {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].name', '')}
+
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -96,7 +103,8 @@ function Index() {
                     IMO Number
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    4987233
+                  {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].IMONumber', '')}
+
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -109,7 +117,8 @@ function Index() {
                     Year of Built
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    2019
+                  {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt', '')?.slice(0, 4)}
+
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -149,7 +158,8 @@ function Index() {
                     Origin
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {insuranceData?.order?.countryOfOrigin}
+                  {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.countryOfOrigin', '')}
+
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -175,7 +185,8 @@ function Index() {
                     Port of Loading
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    Durban, South Africa
+                  {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfLoading', '')}
+
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -188,7 +199,8 @@ function Index() {
                     Port of Discharges
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {insuranceData?.order?.portOfDischarge}
+                  {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
+
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -251,11 +263,11 @@ function Index() {
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
                     {moment(
-                      insuranceData?.quotationRequest.laycanFrom?.split('T')[0],
+                      insuranceData?.quotationRequest?.laycanFrom?.split('T')[0],
                     ).format('DD MMM')}{' '}
                     -{' '}
                     {moment(
-                      insuranceData?.quotationRequest.laycanTo?.split('T')[0],
+                      insuranceData?.quotationRequest?.laycanTo?.split('T')[0],
                     ).format('DD MMM, YYYY')}
                   </Col>
                 </Row>
@@ -269,7 +281,8 @@ function Index() {
                     ETD
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    15 December, 2021
+                  {moment(insuranceData?.quotationRequest?.expectedTimeOfDispatch?.split('T')[0]).format('DD MMMM , YYYY')}
+
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -386,7 +399,322 @@ function Index() {
       <PaginateBar
         leftButtonTitle={'Request letter'}
         rightButtonTitle={'Share'}
+        openbar={handlePopup}
       />
+
+      <Modal
+        show={show}
+        className={`${styles.share_lc} vessel_card card share_lc`}
+      >
+        <Modal.Body className={`${styles.card_body} card-body`}>
+          <form>
+            <div className={`${styles.tab_content} tab-content`} id="LCDraft">
+              <div
+                className="tab-pane fade show active"
+                id="shareLCDraft"
+                role="tabpanel"
+                aria-labelledby="share-LC-draft"
+              >
+                <h3>Share as</h3>
+                <div className="d-flex align-items-center justify-content-between">
+                  <div
+                    className={`${styles.lc_document} ${styles.box} d-flex align-items-center`}
+                  >
+                    <img
+                      src="/static/pdf-icon.png"
+                      width={`55px`}
+                      alt="PDF"
+                      className="img-fluid"
+                    />
+                    <label for="lc_document">
+                      Requestletter.pdf<span>128kb</span>
+                    </label>
+                    <input
+                      type="checkbox"
+                      className="ml-auto"
+                      id="lc_document"
+                      value="LC Document"
+                    />
+                  </div>
+                  <div
+                    className={`${styles.word_document} ${styles.box} d-flex align-items-center`}
+                  >
+                    <img
+                      src="/static/doc-icon.png"
+                      width={`55px`}
+                      alt="DOC"
+                      className="img-fluid"
+                    />
+                    <label for="word_document">
+                      Requestletter.doc<span>128kb</span>
+                    </label>
+                    <input
+                      type="checkbox"
+                      className="ml-auto"
+                      id="word_document"
+                      value="word document"
+                    />
+                  </div>
+                </div>
+                <ul
+                  className={`${styles.nav_tabs} ${styles.share_via} share_via nav nav-tabs`}
+                  id="shareVia"
+                  role="tablist"
+                >
+                  <li className={`${styles.nav_item} nav-item`}>
+                    <a
+                      className={`${styles.nav_link} nav-link active`}
+                      id="email-address"
+                      data-toggle="tab"
+                      href="#emailAddress"
+                      role="tab"
+                      aria-controls="emailAddress"
+                      aria-selected="true"
+                    >
+                      <img
+                        src="/static/Group 3256.svg"
+                        width={`32px`}
+                        className="img-fluid"
+                        alt="Email Address"
+                      />
+                      Insurance Company
+                    </a>
+                  </li>
+                  <li className={`${styles.nav_item} nav-item`}>
+                    <a
+                      className={`${styles.nav_link} nav-link`}
+                      id="whatsapp"
+                      data-toggle="tab"
+                      href="#whatsApp"
+                      role="tab"
+                      aria-controls="whatsApp"
+                      aria-selected="false"
+                    >
+                      <img
+                        src="/static/icons8-whatsapp.svg"
+                        width={`27px`}
+                        className="img-fluid"
+                        alt="WhatsApp"
+                      />
+                      Email Address
+                    </a>
+                  </li>
+                </ul>
+                <div
+                  className={`${styles.tab_content} tab-content`}
+                  id="shareVia"
+                >
+                  <div
+                    className="tab-pane fade show active"
+                    id="emailAddress"
+                    role="tabpanel"
+                    aria-labelledby="email-address"
+                  >
+                    <div className={`${styles.each_input} form-group`}>
+                      <div className="d-flex">
+                        <select
+                          id="email"
+                          name="email"
+                          className={`${styles.formControl} ${styles.customSelect} input form-control`}
+                          selected
+                        >
+                          <option value="javanika.seth@hdfcbank.com">
+                            New India Assurance
+                          </option>
+                        </select>
+
+                        <img
+                          className={`${styles.arrow} image_arrow img-fluid`}
+                          src="/static/inputDropDown.svg"
+                          alt="Search"
+                        />
+                      </div>
+                    </div>
+
+                    <div className={`${styles.radio_form} ml-1`}>
+                      {['radio'].map((type) => (
+                        <div
+                          key={`inline-${type}`}
+                          className={styles.radio_group}
+                        >
+                          <Form.Check
+                            className={styles.radio}
+                            inline
+                            label="abcz@email.com"
+                            name="group1"
+                            id={`inline-${type}-1`}
+                          />
+                          <Form.Check
+                            className={styles.radio}
+                            inline
+                            label="abcz@email.com"
+                            name="group1"
+                            id={`inline-${type}-2`}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                    <hr></hr>
+                    <div
+                      className={`${styles.addMoreRows}`}
+                      onClick={(e) => {
+                        addMoreRows()
+                      }}
+                    >
+                      <span style={{ fontSize: '2rem' }} className={`mr-2`}>
+                        +
+                      </span>{' '}
+                      add another
+                    </div>
+                    <div className="d-flex justify-content-between">
+                      <button
+                        onClick={handleClose}
+                        type="button"
+                        className={`${styles.close} ${styles.btn} btn w-50`}
+                      >
+                        Close
+                      </button>
+                      <button
+                        type="button"
+                        className={`${styles.submit} ${styles.btn} btn w-50`}
+                      >
+                        Share
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    className="tab-pane fade"
+                    id="whatsApp"
+                    role="tabpanel"
+                    aria-labelledby="whatsapp"
+                  >
+                    <div className={`${styles.each_input} form-group`}>
+                      <div className="d-flex">
+                        <select
+                          id="email"
+                          name="email"
+                          className={`${styles.formControl} ${styles.customSelect} input form-control`}
+                          selected
+                        >
+                          <option value="javanika.seth@hdfcbank.com">
+                            javanika.seth@hdfcbank.com
+                          </option>
+                        </select>
+                        <label
+                          className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
+                          htmlFor="email"
+                        >
+                          Email
+                        </label>
+                        <img
+                          className={`${styles.arrow} image_arrow img-fluid`}
+                          src="/static/inputDropDown.svg"
+                          alt="Search"
+                        />
+                      </div>
+                    </div>
+                    {/* <div className={`${styles.labelFloat} form-group`}>
+                          <input type='text' id='phone' name="phone" className={`${styles.formControl} ${styles.input} input form-control`} required />
+                          <label className={`label_heading_login`} htmlFor='phone'>Phone Number</label>
+                        </div> */}
+                    <div
+                      className={`${styles.addMoreRows}`}
+                      onClick={(e) => {
+                        addMoreRows()
+                      }}
+                    >
+                      <span style={{ fontSize: '2rem' }} className={`mr-2`}>
+                        +
+                      </span>{' '}
+                      add another
+                    </div>
+                    <div className="d-flex justify-content-between">
+                      <button
+                        onClick={handleClose}
+                        type="button"
+                        className={`${styles.close} ${styles.btn} btn w-50`}
+                      >
+                        Close
+                      </button>
+                      <button
+                        onClick={handleClose}
+                        type="button"
+                        className={`${styles.submit} ${styles.btn} btn w-50`}
+                      >
+                        Share
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="tab-pane fade"
+                id="downloadLCDraft"
+                role="tabpanel"
+                aria-labelledby="download-LC-draft"
+              >
+                <h3>Download as</h3>
+                <div className="d-flex align-items-center justify-content-between">
+                  <div
+                    className={`${styles.lc_document} ${styles.box} d-flex align-items-center`}
+                  >
+                    <img
+                      src="/static/pdf-icon.png"
+                      width={`55px`}
+                      alt="PDF"
+                      className="img-fluid"
+                    />
+                    <label for="lc_document">
+                      LC Document.pdf<span>128kb</span>
+                    </label>
+                    <input
+                      type="checkbox"
+                      className="ml-auto"
+                      id="lc_document"
+                      value="LC Document"
+                    />
+                  </div>
+                  <div
+                    className={`${styles.word_document} ${styles.box} d-flex align-items-center`}
+                  >
+                    <img
+                      src="/static/doc-icon.png"
+                      width={`55px`}
+                      alt="DOC"
+                      className="img-fluid"
+                    />
+                    <label for="word_document">
+                      word document.doc<span>128kb</span>
+                    </label>
+                    <input
+                      type="checkbox"
+                      className="ml-auto"
+                      id="word_document"
+                      value="word document"
+                    />
+                  </div>
+                </div>
+                <div className="d-flex justify-content-between">
+                  <button
+                    onClick={handleClose}
+                    type="button"
+                    className={`${styles.close} ${styles.btn} btn w-50`}
+                  >
+                    Close
+                  </button>
+                  <button
+                    onClick={handleClose}
+                    type="button"
+                    className={`${styles.submit} ${styles.btn} btn w-50`}
+                  >
+                    Download
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </Modal.Body>
+      </Modal>
     </>
   )
 }

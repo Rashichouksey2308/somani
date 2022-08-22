@@ -6,12 +6,14 @@ import SaveBar from '../SaveBar'
 import DateCalender from '../DateCalender'
 import _get from 'lodash/get'
 import Router from 'next/router'
+import Modal from 'react-bootstrap/Modal'
 
 export default function Index(props) {
   const handleRoute = () => {
     Router.push('/delivery-preview')
   }
   console.log(props, 'props')
+
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
