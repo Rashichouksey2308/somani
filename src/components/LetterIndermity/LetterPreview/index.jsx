@@ -7,15 +7,28 @@ import {
   UpdateTransitDetails,
   GetTransitDetails,
 } from '../../../redux/TransitDetails/action'
+import _get from 'lodash/get'
 
 function Index() {
+  const [transitDetails, setTransitDetails] = useState()
   const dispatch = useDispatch()
   const id = sessionStorage.getItem('transitPId')
-  const { TransitDetails1 } = useSelector((state) => state.TransitDetails)
+  // const { TransitDetails } = useSelector((state) => state.TransitDetails)
+
 
   useEffect(() => {
-    dispatch(GetTransitDetails(`?transitId=${id}`))
+    if (id) {
+      fetchInitialData()
+    }
   }, [id])
+
+
+  const fetchInitialData = async () => {
+    const data = await dispatch(GetTransitDetails(`?transitId=${id}`))
+    setTransitDetails(data)
+  }
+
+  console.log(transitDetails, 'transitDetails')
 
   return (
     <div className={`${styles.root} card container-fluid  border-0`}>
@@ -44,27 +57,43 @@ function Index() {
             </div>
           </div>
           <div>
-            <span>DATE:</span> 05 APRIL 2021
+            <span>DATE:</span>{_get(transitDetails,'data[0].LOI.loiIssueDate','').slice(0, 10).replace(/-/g, '/')}
           </div>
         </div>
         <span>Dear Sir, </span>
         <div className={`d-flex ${styles.salutations}`}>
           <span>Ship:</span>
           {'  '}
-          <div className={`ml-3`}>MV CRIMSON ARK</div>
+          <div className={`ml-3`}>{_get(transitDetails,'data[0].BL.billOfLanding[0].vesselName',
+              '',
+            ).toUpperCase()}</div>
         </div>
         <div className={`d-flex ${styles.salutations}`}>
           <span>Voyage:</span>
           {'  '}
           <div className={`ml-3`}>
-            FROM ABBOT POINT, AUSTRALIA TO ANY PORT(S) IN INDIA
+            FROM  {_get(
+              transitDetails,
+              'data[0].order.portOfDischarge',
+              '',
+            ).toUpperCase()} TO ANY PORT(S) IN INDIA
           </div>
         </div>
         <div className={`d-flex ${styles.salutations}`}>
           <span>Cargo:</span>
           {'  '}
           <div className={`ml-3`}>
-            36,750 MT LAKE VERMONT PREMIUM HARD COKING COAL
+          {_get(
+              transitDetails,
+              'data[0].order.quantity',
+              '',
+            ).toLocaleString()}{' '}
+            {_get(
+              transitDetails,
+              'data[0].order.unitOfQuantity',
+              '',
+            ).toUpperCase()}{' '}
+            {_get(transitDetails, 'data[0].order.commodity', '').toUpperCase()}
           </div>
         </div>
         <div className={`d-flex ${styles.salutations}`}>
@@ -73,7 +102,11 @@ function Index() {
           <div
             className={`ml-3 d-flex justify-content-start align-items-center ${styles.salutationFeatures} `}
           >
-            BL,1 Dated 18TH MARCH 2021, ISSUE AT ABBOT POINT
+            BL,1 Dated 18TH MARCH 2021, ISSUE AT  {_get(
+                transitDetails,
+                'data[0].order.portOfDischarge',
+                '',
+              ).toUpperCase()}
           </div>
         </div>
 
@@ -191,11 +224,11 @@ function Index() {
           <div className={`${styles.athorised} ml-n3`}>
             <p>Authorised Signatory</p>
             <p>
-              Name: <span className={styles.bold}>Vikash Rawal</span>{' '}
+              Name: <span className={styles.bold}>{_get(transitDetails, 'data[0].LOI.authorizedSignatory.name', '')}</span>{' '}
             </p>
             <p>
               Designation:{' '}
-              <span className={styles.bold}>Chief Financial Officer</span>
+              <span className={styles.bold}>{_get(transitDetails, 'data[0].LOI.authorizedSignatory.designation', '')}</span>
             </p>
           </div>
         </div>

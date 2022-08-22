@@ -11,11 +11,12 @@ import {
   UpdateTransitDetails,
   GetTransitDetails,
 } from '../../redux/TransitDetails/action'
-import { number } from 'prop-types'
+import { element, number } from 'prop-types'
 import { useEffect } from 'react'
 import 'react-datepicker/dist/react-datepicker.css'
 import DatePicker from 'react-datepicker'
 import { CovertvaluefromtoCR } from '../../utils/helper'
+import moment from 'moment'
 
 export default function Index({
   isShipmentTypeBULK,
@@ -25,6 +26,7 @@ export default function Index({
 }) {
   let transId = _get(TransitDetails, `data[0]`, '')
   const dispatch = useDispatch()
+  console.log(TransitDetails, 'TransitDetails')
   let shipmentTypeBulk =
     _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') ===
     'Bulk'
@@ -51,8 +53,8 @@ export default function Index({
         igmFiling: null,
         blNumber: [{
           blNumber: number,
-          BlDate: new Date(),
-          quantity: '',
+          blDate: new Date(),
+          blQuantity: '',
         }],
       },
     ],
@@ -86,8 +88,9 @@ export default function Index({
       igmFiling: null,
       blNumber: [{
         blNumber: number,
-        BlDate: new Date(),
+        BlDate: '',
         quantity: '',
+        noOfConatiners: 0
       }],
     })
 
@@ -186,7 +189,34 @@ export default function Index({
     }
   }
 
-  const onChangeBlNumberEntry = (e) => { }
+  const onChangeBlDropDown = (e) => {
+    const text = e.target.value
+    let [value, index, index2] = text.split('-')
+    if (value) {
+      const filterData = _get(TransitDetails, 'data[0].BL.billOfLanding', []).filter((item) => {
+        return item.blNumber === value
+      })
+
+      console.log(filterData, 'igmListfil')
+      //     setIgmList(prevState => {
+      //       return {
+      //         ...prevState, [
+      //         ...prevState.igmDetails, {
+      //           ...prevState.igmDetails[index], [
+      //       ...prevState.igmDetails[index].blNumber, {
+      //         ...prevState.igmDetails[index].blNumber[index2]}, blNumber:'' ,BlDate:'' ,quantity: '',
+      //     ] }]
+      // }
+      // })
+      let tempArray = { ...igmList }
+      tempArray.igmDetails[index].blNumber[index2].blDate = filterData[0].blDate
+      tempArray.igmDetails[index].blNumber[index2].blNumber = filterData[0].blNumber
+      tempArray.igmDetails[index].blNumber[index2].blQuantity = filterData[0].blQuantity
+      setIgmList(tempArray)
+    }
+
+  }
+  console.log(igmList, 'igmList')
 
   const onDocumentSelect = (e, index) => {
     const docData = docUploadFunction(e.target.files[0])
@@ -501,18 +531,33 @@ export default function Index({
                     </div>
                     <hr></hr>
                     {item.blNumber.map((blEntry, index2) => {
+                      console.log(blEntry, '[igmListblmap]')
                       return (<>
                         <div
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                         >
-                          <input
+                          <select
+                            id="vesselName"
+                            onChange={(e) => onChangeBlDropDown(e)}
+                            className={`${styles.input_field} ${styles.customSelect}  input form-control`}
+                          >
+                            <option>please select an option</option>
+                            {_get(TransitDetails, 'data[0].BL.billOfLanding', []).map((bl, index3) => (
+                              <option key={index3} value={`${bl.blNumber}-${index}-${index2}`}>
+                                {bl.blNumber}
+                              </option>
+                            ))}
+
+                          </select>
+
+                          {/* <input
                             id="blNumber"
                             onChange={(e) => onChangeBlNumberEntry(e)}
                             className={`${styles.input_field} input form-control`}
                             type="number"
                             onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                             required
-                          />
+                          /> */}
                           <label className={`${styles.label_heading} label_heading`}>
                             BL Number<strong className="text-danger">*</strong>
                           </label>
@@ -527,7 +572,7 @@ export default function Index({
                               <div className={`${styles.label} text`}>
                                 BL Date <strong className="text-danger ml-n1">*</strong>
                               </div>
-                              <span className={styles.value}>22-02-2022</span>
+                              <span className={styles.value}>{moment((blEntry?.blDate), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</span>
                             </div>
                             <div
                               className="col-lg-2 col-md-4 col-sm-6"
@@ -537,7 +582,7 @@ export default function Index({
                                 BL Quantity{' '}
                                 <strong className="text-danger ml-n1">*</strong>
                               </div>
-                              <span className={styles.value}>4,000 MT</span>
+                              <span className={styles.value}>{blEntry?.blQuantity} {_get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()} </span>
                             </div>
                             <div
                               className="col-lg-2 col-md-4 col-sm-6"
@@ -576,7 +621,7 @@ export default function Index({
                                     BL Date{' '}
                                     <strong className="text-danger ml-n1">*</strong>
                                   </div>
-                                  <span className={styles.value}>22-02-2022</span>
+                                  <span className={styles.value}>{moment((blEntry?.blDate), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</span>
                                 </div>
                                 <div className="col-md-6">
                                   <div className={`${styles.label} text`}>
