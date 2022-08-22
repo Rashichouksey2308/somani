@@ -170,10 +170,8 @@ function Index({
                             value={lcData?.lcIssuingBank}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
-                            <option value="First Class European Bank">
-                              First Class European Bank
-                            </option>
-                            <option value="Swiss Bank">Swiss Bank</option>
+                            <option value="Reserve Bank of Spain">Reserve Bank of Spain</option>
+                            <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
                           </select>
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -241,7 +239,7 @@ function Index({
                           required
                           type="text"
                           // defaultValue={lcData?.currecyCodeAndAmountValue}
-                          value={addPrefixOrSuffix(lcData?.currecyCodeAndAmountValue,"USD")}
+                          value={addPrefixOrSuffix(lcData?.currecyCodeAndAmountValue, "USD")}
                           name="currecyCodeAndAmountValue"
                           onChange={(e) => {
                             saveLcData(e.target.name, e.target.value)
@@ -461,6 +459,7 @@ function Index({
                             value={lcData?.transhipments}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
+                            <option>Select an option</option>
                             <option value="Prohibited">Prohibited</option>
                             <option value="Not Prohibited">
                               Not Prohibited

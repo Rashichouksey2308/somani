@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { GetLcModule } from 'redux/lcModule/action'
 import moment from 'moment'
 import { addPrefixOrSuffix } from 'utils/helper'
+import _get from 'lodash/get'
 
 function Index() {
   const dispatch = useDispatch()
@@ -24,7 +25,7 @@ function Index() {
 
   //console.log(lcModule.data[0].documentRequired, 'LC MODULE')
 
-  const lcModuleData = lcModule?.data[0]
+  const lcModuleData = _get(lcModule, 'data[0]', {})
 
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
@@ -69,7 +70,7 @@ function Index() {
                 <div className={`${styles.sub_heading} term_para`}>
                   Buyer:{' '}
                   <span className="label1">
-                    {lcModuleData?.company.companyName}
+                    {lcModuleData?.company?.companyName}
                   </span>
                 </div>
               </div>
@@ -181,7 +182,7 @@ function Index() {
                           <span>CURRENCY CODE &amp; AMOUNT</span>
                         </td>
                         <td className="term_para">
-                          {lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase()}
+                          { addPrefixOrSuffix(lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase() ? lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase() : 0, 'USD', '')}
                         </td>
                       </tr>
                       <tr className="table_row">
@@ -207,12 +208,23 @@ function Index() {
                           </span>
                           <span>
                             CREDIT AVAILABLE WITH
-                            <wbr />
-                            BY
                           </span>
                         </td>
                         <td className="term_para">
                           {lcModuleData?.lcApplication?.creditAvailablewith?.toUpperCase()}
+                        </td>
+                      </tr>
+                      <tr className="table_row">
+                        <td width="40%">
+                          <span className={`${styles.serial_no} term_para`}>
+                            41B{' '}
+                          </span>
+                          <span>
+                            CREDIT AVAILABLE BY
+                          </span>
+                        </td>
+                        <td className="term_para">
+                          {lcModuleData?.lcApplication?.creditAvailableBy?.toUpperCase()}
                         </td>
                       </tr>
                       <tr className="table_row">
@@ -389,14 +401,14 @@ function Index() {
                           ),
                         )}
                       <tr className="table_row">
-                        <td width="40%">2</td>
+                        {/* <td width="40%">2</td> */}
                         <td>
                           <div
                             className={`${styles.element_datatable} m-2 datatable `}
                           >
                             <div className={styles.table_scroll_outer}>
                               <div className={styles.table_scroll_inner}>
-                                <table
+                                {/* <table
                                   className={`${styles.table} table`}
                                   cellPadding="0"
                                   cellSpacing="0"
@@ -432,7 +444,7 @@ function Index() {
                                       <td>43.0</td>
                                     </tr>
                                   </tbody>
-                                </table>
+                                </table> */}
                               </div>
                             </div>
                           </div>

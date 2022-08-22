@@ -146,6 +146,7 @@ function Index() {
   const handleLcSave = () => {
     let lcObj={ ...lcData }
     lcObj.currecyCodeAndAmountValue= removePrefixOrSuffix(lcData?.currecyCodeAndAmountValue)
+    lcObj.tolerancePercentage = removePrefixOrSuffix(lcData?.tolerancePercentage)
     let obj = {
       lcApplication: { ...lcObj },
       additionalConditions: [...lcComments],

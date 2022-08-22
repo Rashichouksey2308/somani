@@ -95,7 +95,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
     setPfCheckBox(!pfCheckBox)
     saveBillOfEntryData('pdBond', pfCheckBox)
   }
-  console.log(pfCheckBox,"pfCheckBox")
+  console.log(pfCheckBox, 'pfCheckBox')
 
   const [dutyData, setDutyData] = useState([])
 
@@ -284,10 +284,9 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                     </div>
                     <label className={styles.switch}>
                       <input
-                       
                         onChange={(e) => handlePfCheckBox(e)}
                         type="checkbox"
-                        checked={pfCheckBox?"checked":""}
+                        checked={pfCheckBox ? 'checked' : ''}
                       />
                       <span
                         className={`${styles.slider} ${styles.round}`}
@@ -301,72 +300,76 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                   </div>
                 </div>
 
-               {
-               !pfCheckBox ?
-                <>
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
-                  <div className="d-flex">
-                    <select
-                      name="billOfEntryFor"
-                      onChange={(e) =>
-                        saveBillOfEntryData(e.target.name, e.target.value)
-                      }
-                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                {!pfCheckBox ? (
+                  <>
+                    <div
+                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                     >
-                      <option selected>Select Bill Of Entry For</option>
-                      <option value="Into Bond(Warehousing)">
-                        Into Bond(Warehousing)
-                      </option>
-                      <option value="Bond">Bond</option>
-                    </select>
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Bill of Entry for
-                    </label>
-                    <img
-                      className={`${styles.arrow} image_arrow img-fluid`}
-                      src="/static/inputDropDown.svg"
-                      alt="Search"
-                    />
-                  </div>
-                </div>
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    type="number"
-                    name="boeNumber"
-                    required
-                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
-                    onChange={(e) =>
-                      saveBillOfEntryData(e.target.name, e.target.value)
-                    }
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    BOE Number<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
-                  <div className="d-flex">
-                    <DateCalender
-                      name="boeDate"
-                      saveDate={saveDate}
-                      labelName="BOE Date"
-                    />
-                    <img
-                      className={`${styles.calanderIcon} image_arrow img-fluid`}
-                      src="/static/caldericon.svg"
-                      alt="Search"
-                    />
-                  </div>
-                </div>
-                </>
-                :null
-               }
+                      <div className="d-flex">
+                        <select
+                          name="billOfEntryFor"
+                          onChange={(e) =>
+                            saveBillOfEntryData(e.target.name, e.target.value)
+                          }
+                          className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                        >
+                          <option selected>Select Bill Of Entry For</option>
+                          <option value="Into Bond(Warehousing)">
+                            Into Bond(Warehousing)
+                          </option>
+                          <option value="Bond">Bond</option>
+                        </select>
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          Bill of Entry for
+                        </label>
+                        <img
+                          className={`${styles.arrow} image_arrow img-fluid`}
+                          src="/static/inputDropDown.svg"
+                          alt="Search"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                    >
+                      <input
+                        className={`${styles.input_field} input form-control`}
+                        type="number"
+                        name="boeNumber"
+                        required
+                        onKeyDown={(evt) =>
+                          evt.key === 'e' && evt.preventDefault()
+                        }
+                        onChange={(e) =>
+                          saveBillOfEntryData(e.target.name, e.target.value)
+                        }
+                      />
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        BOE Number<strong className="text-danger">*</strong>
+                      </label>
+                    </div>
+                    <div
+                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                    >
+                      <div className="d-flex">
+                        <DateCalender
+                          name="boeDate"
+                          saveDate={saveDate}
+                          labelName="BOE Date"
+                        />
+                        <img
+                          className={`${styles.calanderIcon} image_arrow img-fluid`}
+                          src="/static/caldericon.svg"
+                          alt="Search"
+                        />
+                      </div>
+                    </div>
+                  </>
+                ) : null}
               </div>
             </div>
             <hr className={styles.line}></hr>
@@ -781,7 +784,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                           ))}
                       </tbody>
                     </table>
-                    <hr></hr>
+                    <hr className="mt-0" />
                     <div className="d-flex justify-content-between align-items-center">
                       <div className="d-flex mt-2">
                         <div
@@ -1090,6 +1093,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
             <UploadOther
               orderid={OrderId}
               module="CustomClearanceAndWarehousing"
+              isDocumentName={true}
             />
           </div>
         </div>
