@@ -135,7 +135,7 @@ export default function Index({ addButton, inspectionData }) {
   console.log(portType,"portType")
 useEffect(() => {
   if(inspectionData){
-    if(inspectionData.order.termsheet.transactionDetails.typeOfPort=="Lord Port"){
+    if(inspectionData.order.termsheet.transactionDetails.typeOfPort=="Load Port"){
       setPortType({...portType,lord:true})
     }else if(inspectionData.order.termsheet.transactionDetails.typeOfPort=="Both"){
       setPortType({...portType,lord:true,discharge:true})
