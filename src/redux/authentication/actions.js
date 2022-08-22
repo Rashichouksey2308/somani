@@ -338,16 +338,12 @@ export const fetchCurrentUserProfile =
 //       },
 //     })
 
-
 //     if (response.data.code === 200)
 //        dispatch(validatingTokenSuccess(response.data.data))
 
 //     if (response.code === 401 || response.code === 402){
 //        dispatch(generateToken())
 //     }
-
-
-
 
 //     dispatch(validatingTokenFailed(response.data))
 //   } catch (error) {
@@ -363,12 +359,9 @@ export const validateToken = (payload) => async (dispatch, getState, api) => {
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    let response = await Axios.get(
-      `${API.authbaseUrl}${API.verifyToken}`,
-      {
-        headers: headers,
-      },
-    )
+    let response = await Axios.get(`${API.authbaseUrl}${API.verifyToken}`, {
+      headers: headers,
+    })
     if (response.data.code === 200) {
       console.log(response.data.code, 'dfgfdg')
 
@@ -427,7 +420,6 @@ export const generateToken = () => async (dispatch, getState, api) => {
   } catch (error) {
     dispatch(generatingTokenFailed(error))
     dispatch(logoutUser())
-
   }
 }
 
@@ -449,11 +441,11 @@ export const logoutUser = () => async (dispatch, getState, api) => {
 
     dispatch(loggingoutUser())
     setTimeout(() => {
+      Router.push('/')
       window.location.reload()
     }, 1000)
-  }
-  catch (error) {
-    console.log(error, "LOGOUT API FAILED")
+  } catch (error) {
+    console.log(error, 'LOGOUT API FAILED')
   }
 }
 

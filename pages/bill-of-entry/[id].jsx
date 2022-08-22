@@ -17,6 +17,7 @@ import API from '../../src/utils/endpoints'
 import toast from 'react-toastify'
 import Cookies from 'js-cookie'
 import Axios from 'axios'
+import { setPageName,setDynamicName } from '../../src/redux/userData/action'
 
 function Index() {
   const dispatch = useDispatch()
@@ -27,7 +28,10 @@ function Index() {
     let id = sessionStorage.getItem('customId')
     dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
   }, [dispatch])
-
+useEffect(() => {
+dispatch(setPageName('custom'))
+dispatch(setDynamicName(customData?.company?.companyName))
+},[customData])
   const { allCustomClearance } = useSelector((state) => state.Custom)
 
   let customData = _get(allCustomClearance, 'data[0]', {})
