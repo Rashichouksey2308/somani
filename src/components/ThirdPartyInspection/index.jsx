@@ -25,7 +25,7 @@ export default function Index({ addButton, inspectionData }) {
   const handlePortType = (name, value) => {
     let newInput = { ...portType }
     newInput[name] = !value
-    console.log(name,value,"cak")
+    console.log(name, value, 'cak')
     setPortType(newInput)
   }
 
@@ -88,18 +88,18 @@ export default function Index({ addButton, inspectionData }) {
   }
 
   const handleCloseW = () => {
-    setDocuments(doc => {
-      return {...doc, certificateOfWeight: null}
+    setDocuments((doc) => {
+      return { ...doc, certificateOfWeight: null }
     })
   }
   const handleCloseQ = () => {
-    setDocuments(doc => {
-      return {...doc, certificateOfQuality: null}
+    setDocuments((doc) => {
+      return { ...doc, certificateOfQuality: null }
     })
   }
   const handleCloseO = () => {
-    setDocuments(doc => {
-      return {...doc, certificateOfOrigin: null}
+    setDocuments((doc) => {
+      return { ...doc, certificateOfOrigin: null }
     })
   }
 
@@ -133,19 +133,23 @@ export default function Index({ addButton, inspectionData }) {
 
     dispatch(UpdateInspection(fd))
   }
-  console.log(portType,"portType")
-useEffect(() => {
-  if(inspectionData){
-    if(inspectionData.order.termsheet.transactionDetails.typeOfPort=="Load Port"){
-      setPortType({...portType,lord:true})
-    }else if(inspectionData.order.termsheet.transactionDetails.typeOfPort=="Both"){
-      setPortType({...portType,lord:true,discharge:true})
-    }else{
-      setPortType({...portType,discharge:true})
+  console.log(portType, 'portType')
+  useEffect(() => {
+    if (inspectionData) {
+      if (
+        inspectionData.order.termsheet.transactionDetails.typeOfPort ==
+        'Load Port'
+      ) {
+        setPortType({ ...portType, lord: true })
+      } else if (
+        inspectionData.order.termsheet.transactionDetails.typeOfPort == 'Both'
+      ) {
+        setPortType({ ...portType, lord: true, discharge: true })
+      } else {
+        setPortType({ ...portType, discharge: true })
+      }
     }
-  }
-},
-[inspectionData])
+  }, [inspectionData])
   return (
     <>
       <div
@@ -204,7 +208,7 @@ useEffect(() => {
 
                       // setBothField(!bothField)
                     }}
-                    checked={portType.load?"checked":""}
+                    checked={portType.load ? 'checked' : ''}
                     id={`inline-${type}-1`}
                   />
                   <Form.Check
@@ -214,10 +218,10 @@ useEffect(() => {
                     name="discharge"
                     value="Discharge"
                     onChange={(e) => {
-                      handlePortType(e.target.name,  portType.discharge)
+                      handlePortType(e.target.name, portType.discharge)
                       // setBothField(!bothField)
                     }}
-                    checked={portType.discharge?"checked":""}
+                    checked={portType.discharge ? 'checked' : ''}
                     type={type}
                     id={`inline-${type}-2`}
                   />
@@ -264,136 +268,147 @@ useEffect(() => {
               </div>
             </div>
           </div>
-          {portType.load?
-          <>
-          <div className={`${styles.main} vessel_card card border-color`}>
-            <div
-              className={`${styles.head_container} border_color card-header align-items-center head_container justify-content-between d-flex bg-transparent`}
-            >
-              <h3 className={`${styles.heading}`}>Inspection Details</h3>
-              <button
-                onClick={handleShow}
-                className={styles.product_btn}
-                type="button"
-              >
-                {' '}
-                Product Specification
-                <img
-                  className="img-fluid ml-2"
-                  src="/static/blue-eye.svg"
-                  alt="blue-eye"
-                />
-              </button>
-            </div>
-            <div className={`${styles.dashboard_form} card-body`}>
-              <h5 className={styles.sub_heading}>Inspection at Load Port</h5>
+          {portType.load ? (
+            <>
+              <div className={`${styles.main} vessel_card card border-color`}>
+                <div
+                  className={`${styles.head_container} border_color card-header align-items-center head_container justify-content-between d-flex bg-transparent`}
+                >
+                  <h3 className={`${styles.heading}`}>Inspection Details</h3>
+                  <button
+                    onClick={handleShow}
+                    className={styles.product_btn}
+                    type="button"
+                  >
+                    {' '}
+                    Product Specification
+                    <img
+                      className="img-fluid ml-2"
+                      src="/static/blue-eye.svg"
+                      alt="blue-eye"
+                    />
+                  </button>
+                </div>
+                <div
+                  className={`${styles.dashboard_form} vessel_card card-body`}
+                >
+                  <h5 className={styles.sub_heading}>
+                    Inspection at Load Port
+                  </h5>
 
-              <div className="row">
-                {inspectionData?.order?.shipmentDetail?.shipmentType ===
-                'Liner' ? (
-                  <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      name="loadPortInspectionDetails.noOfContainers"
-                      onChange={(e) =>
-                        saveInspectionDetails(e.target.name, e.target.value)
-                      }
-                      type="number"
-                      onKeyDown={(evt) =>
-                        evt.key === 'e' && evt.preventDefault()
-                      }
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      No of Containers<strong className="text-danger">*</strong>
-                    </label>
-                  </div>
-                ) : (
-                  ''
-                )}
-                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                  <div className="d-flex">
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      required
-                      type="text"
-                      name="loadPortInspectionDetails.inspectionPort"
-                      onChange={(e) =>
-                        saveInspectionDetails(e.target.name, e.target.value)
-                      }
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Inspection Port
-                      <strong className="text-danger">*</strong>
-                    </label>
-                    <img
-                      className={`${styles.search_image} img-fluid`}
-                      src="/static/search-grey.svg"
-                      alt="Search"
-                    />
+                  <div className="row">
+                    {inspectionData?.order?.shipmentDetail?.shipmentType ===
+                    'Liner' ? (
+                      <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                        <input
+                          className={`${styles.input_field} input form-control`}
+                          required
+                          name="loadPortInspectionDetails.noOfContainers"
+                          onChange={(e) =>
+                            saveInspectionDetails(e.target.name, e.target.value)
+                          }
+                          type="number"
+                          onKeyDown={(evt) =>
+                            evt.key === 'e' && evt.preventDefault()
+                          }
+                        />
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          No of Containers
+                          <strong className="text-danger">*</strong>
+                        </label>
+                      </div>
+                    ) : (
+                      ''
+                    )}
+                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                      <div className="d-flex">
+                        <input
+                          className={`${styles.input_field} input form-control`}
+                          required
+                          type="text"
+                          name="loadPortInspectionDetails.inspectionPort"
+                          onChange={(e) =>
+                            saveInspectionDetails(e.target.name, e.target.value)
+                          }
+                        />
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          Inspection Port
+                          <strong className="text-danger">*</strong>
+                        </label>
+                        <img
+                          className={`${styles.search_image} img-fluid`}
+                          src="/static/search-grey.svg"
+                          alt="Search"
+                        />
+                      </div>
+                    </div>
+                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                      <input
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        name="loadPortInspectionDetails.inspectedBy"
+                        onChange={(e) =>
+                          saveInspectionDetails(e.target.name, e.target.value)
+                        }
+                        type="text"
+                      />
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Inspected By<strong className="text-danger">*</strong>
+                      </label>
+                    </div>
+                    <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                      <div className="d-flex">
+                        <DateCalender
+                          saveDate={saveDate}
+                          name="loadPortInspectionDetails.inspectionDate"
+                          labelName="Inspection Date"
+                          dateFormat={`dd-MM-yyyy`}
+                        />
+                        <img
+                          className={`${styles.calanderIcon} image_arrow img-fluid`}
+                          src="/static/caldericon.svg"
+                          alt="Search"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    name="loadPortInspectionDetails.inspectedBy"
-                    onChange={(e) =>
-                      saveInspectionDetails(e.target.name, e.target.value)
-                    }
-                    type="text"
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    Inspected By<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                  <div className="d-flex">
-                    <DateCalender
-                      saveDate={saveDate}
-                      name="loadPortInspectionDetails.inspectionDate"
-                      labelName="Inspection Date"
-                      dateFormat={`dd-MM-yyyy`}
-                    />
-                    <img
-                      className={`${styles.calanderIcon} image_arrow img-fluid`}
-                      src="/static/caldericon.svg"
-                      alt="Search"
-                    />
-                  </div>
+                <hr></hr>
+                <div className={`${styles.dashboard_form} mb-3 card-body`}>
+                  <h5 className={styles.sub_heading}>Special Mention</h5>
+                  <Row>
+                    <Col lg={12}>
+                      <div className="mt-4">
+                        <input
+                          as="textarea"
+                          name="loadPortInspectionDetails.specialMention"
+                          onChange={(e) =>
+                            saveInspectionDetails(e.target.name, e.target.value)
+                          }
+                          rows={3}
+                          required
+                          className={`${styles.comment_field} ${styles.input_field} input form-control`}
+                          // style={{ backgroundColor: 'none' }}
+                        />
+                        <label
+                          className={`${styles.comment_heading} ${styles.label_heading} label_heading`}
+                        >
+                          Special Mention
+                        </label>
+                      </div>
+                    </Col>
+                  </Row>
                 </div>
               </div>
-            </div>
-            <hr></hr>
-            <div className={`${styles.dashboard_form} mb-3 card-body`}>
-              <h5 className={styles.sub_heading}>Special Mention</h5>
-              <Row>
-                <Col lg={12}>
-                  <div className="mt-4">
-                    <input
-                      as="textarea"
-                      name="loadPortInspectionDetails.specialMention"
-                      onChange={(e) =>
-                        saveInspectionDetails(e.target.name, e.target.value)
-                      }
-                      rows={3}
-                      required
-                      className={`${styles.comment_field} ${styles.input_field} input form-control`}
-                      // style={{ backgroundColor: 'none' }}
-                    />
-                    <label
-                      className={`${styles.comment_heading} ${styles.label_heading} label_heading`}
-                    >
-                      Special Mention
-                    </label>
-                  </div>
-                </Col>
-              </Row>
-            </div>
-          </div>
-          </>
-          :null}
-          {portType.discharge 
+            </>
+          ) : null}
+          {portType.discharge
             ? Discharge(inspectionData, saveInspectionDetails, saveDate)
             : ''}
 
@@ -525,7 +540,8 @@ useEffect(() => {
                               </div>
                             </td>
                             <td>
-                              {documents && documents.certificateOfOrigin == null ? (
+                              {documents &&
+                              documents.certificateOfOrigin == null ? (
                                 <>
                                   <div className={styles.uploadBtnWrapper}>
                                     <input
@@ -554,11 +570,11 @@ useEffect(() => {
                                 </>
                               ) : (
                                 <div className={styles.certificate}>
-                                   {documents?.certificateOfOrigin?.name}
+                                  {documents?.certificateOfOrigin?.name}
                                   <img
                                     className={`${styles.close_image} float-right m-2 img-fluid`}
                                     src="/static/close.svg"
-                                    onClick={()=>handleCloseO()}
+                                    onClick={() => handleCloseO()}
                                     alt="Close"
                                   />{' '}
                                 </div>
@@ -635,7 +651,8 @@ useEffect(() => {
                               </div>
                             </td>
                             <td>
-                              {documents && documents.certificateOfQuality == null ? (
+                              {documents &&
+                              documents.certificateOfQuality == null ? (
                                 <>
                                   <div className={styles.uploadBtnWrapper}>
                                     <input
@@ -668,7 +685,7 @@ useEffect(() => {
                                   <img
                                     className={`${styles.close_image} float-right m-2 img-fluid`}
                                     src="/static/close.svg"
-                                    onClick={()=>handleCloseQ()}
+                                    onClick={() => handleCloseQ()}
                                     alt="Close"
                                   />{' '}
                                 </div>
@@ -746,7 +763,8 @@ useEffect(() => {
                               </div>
                             </td>
                             <td>
-                              {documents && documents.certificateOfWeight == null ? (
+                              {documents &&
+                              documents.certificateOfWeight == null ? (
                                 <>
                                   <div className={styles.uploadBtnWrapper}>
                                     <input
@@ -775,11 +793,11 @@ useEffect(() => {
                                 </>
                               ) : (
                                 <div className={styles.certificate}>
-                                   {documents?.certificateOfWeight?.name}
+                                  {documents?.certificateOfWeight?.name}
                                   <img
                                     className={`${styles.close_image} float-right m-2 img-fluid`}
                                     src="/static/close.svg"
-                                    onClick={()=>handleCloseW()}
+                                    onClick={() => handleCloseW()}
                                     alt="Close"
                                   />{' '}
                                 </div>
@@ -843,7 +861,8 @@ useEffect(() => {
                                 </option>
                                 <option value="Others">Others</option>
                               </select>
-                              <Form.Label style={{left:'15px'}}
+                              <Form.Label
+                                style={{ left: '15px' }}
                                 className={`${styles.label_heading} label_heading`}
                               >
                                 Document Type
@@ -862,7 +881,8 @@ useEffect(() => {
                               disabled={editInput}
                               required
                             />
-                            <Form.Label style={{left:'15px'}}
+                            <Form.Label
+                              style={{ left: '15px' }}
                               className={`${styles.label_heading} label_heading`}
                             >
                               Please Specify Document Name

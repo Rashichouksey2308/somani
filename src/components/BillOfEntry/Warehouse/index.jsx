@@ -175,6 +175,7 @@ export default function Index({ OrderId, customData }) {
             <UploadOther
               orderid={OrderId}
               module="CustomClearanceAndWarehousing"
+              isDocumentName={true}
             />
           </div>
         </div>
