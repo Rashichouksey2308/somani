@@ -7,23 +7,23 @@ import _get from 'lodash/get'
 function Index({ cashData }) {
   // console.log(cashData?.financial.cashFlowStatement[0], 'THIS IS CASH DATA')
 
-  const latestYearData =  _get(cashData, 'financial.cashFlowStatement[0]', [])
+  const latestYearData =  _get(cashData, 'financial.cashFlowStatement[0]', {})
 
-  const previousYearData = _get(cashData, 'financial.cashFlowStatement[1]', [])
+  const previousYearData = _get(cashData, 'financial.cashFlowStatement[1]', {})
 
-  const lastYearData = _get(cashData, 'financial.cashFlowStatement[2]', [])
+  const lastYearData = _get(cashData, 'financial.cashFlowStatement[2]', {})
 
-  const latestBalanceData = _get(cashData, 'financial.balanceSheet[0]', [])
+  const latestBalanceData = _get(cashData, 'financial.balanceSheet[0]', {})
 
-  const previousBalanceData = _get(cashData, 'financial.balanceSheet[1]', [])
+  const previousBalanceData = _get(cashData, 'financial.balanceSheet[1]', {})
 
-  const lastYearBalanceData = _get(cashData, 'financial.balanceSheet[2]', [])
+  const lastYearBalanceData = _get(cashData, 'financial.balanceSheet[2]', {})
 
-  const latestIncomeStatement = _get(cashData, 'financial.incomeStatement[0]', [])
+  const latestIncomeStatement = _get(cashData, 'financial.incomeStatement[0]', {})
 
-  const previousIncomeStatement = _get(cashData, 'financial.incomeStatement[1]', [])
+  const previousIncomeStatement = _get(cashData, 'financial.incomeStatement[1]', {})
 
-  const lastYearIncomeStatement = _get(cashData, 'financial.incomeStatement[2]', [])
+  const lastYearIncomeStatement = _get(cashData, 'financial.incomeStatement[2]', {})
 
   console.log(cashData, 'lastYearData')
 

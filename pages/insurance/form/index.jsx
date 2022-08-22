@@ -268,8 +268,7 @@ const Index = () => {
                             </div>
                             <div className={styles.col_body}>
                               {
-                                insuranceData?.order?.vessel?.vessels[0]
-                                  ?.vesselInformation[0]?.name
+                                _get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].name', '')
                               }
                             </div>
                           </Col>
@@ -282,8 +281,7 @@ const Index = () => {
                             </div>
                             <div className={styles.col_body}>
                               {
-                                insuranceData?.order?.vessel?.vessels[0]
-                                  ?.vesselInformation[0]?.IMONumber
+                                _get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].IMONumber', '')
                               }
                             </div>
                           </Col>
@@ -294,7 +292,7 @@ const Index = () => {
                               Year of Built
                             </div>
                             <div className={styles.col_body}>
-                              {insuranceData?.order?.vessel?.vessels[0]?.vesselInformation[0]?.yearOfBuilt?.slice(
+                              {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt', '').slice(
                                 0,
                                 4,
                               )}
@@ -308,8 +306,7 @@ const Index = () => {
                             </div>
                             <div className={styles.col_body}>
                               {
-                                insuranceData?.order?.vessel?.vessels[0]
-                                  ?.transitDetails?.portOfLoading
+                                _get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfLoading', '')
                               }
                             </div>
                           </Col>
@@ -321,8 +318,7 @@ const Index = () => {
                             </div>
                             <div className={styles.col_body}>
                               {
-                                insuranceData?.order?.vessel?.vessels[0]
-                                  ?.transitDetails?.portOfDischarge
+                                _get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')
                               }
                             </div>
                           </Col>
@@ -374,7 +370,7 @@ const Index = () => {
                                 name="laycanFrom"
                                 saveDate={saveDate}
                                 defaultDate={
-                                  insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.laycanFrom?.split(
+                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanFrom', '').split(
                                     'T',
                                   )[0]
                                 }
@@ -392,7 +388,7 @@ const Index = () => {
                               <DateCalender
                                 name="laycanTo"
                                 defaultDate={
-                                  insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.laycanTo?.split(
+                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanTo', '').split(
                                     'T',
                                   )[0]
                                 }
@@ -411,7 +407,7 @@ const Index = () => {
                               <DateCalender
                                 name="expectedTimeOfDispatch"
                                 defaultDate={
-                                  insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.EDTatLoadPort?.split(
+                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.EDTatLoadPort', '').split(
                                     'T',
                                   )[0]
                                 }
@@ -430,7 +426,7 @@ const Index = () => {
                               <DateCalender
                                 name="expectedTimeOfArrival"
                                 defaultDate={
-                                  insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.ETAatDischargePort?.split(
+                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.ETAatDischargePort','').split(
                                     'T',
                                   )[0]
                                 }
@@ -535,8 +531,7 @@ const Index = () => {
                             </div>
                             <div className={styles.col_body}>
                               {
-                                insuranceData?.order?.vessel?.vessels[0]
-                                  ?.vesselInformation[0]?.name
+                                _get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].name', '')
                               }
                             </div>
                           </Col>
@@ -549,8 +544,7 @@ const Index = () => {
                             </div>
                             <div className={styles.col_body}>
                               {
-                                insuranceData?.order?.vessel?.vessels[0]
-                                  ?.vesselInformation[0]?.IMONumber
+                                _get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].IMONumber', '')
                               }
                             </div>
                           </Col>
@@ -561,7 +555,7 @@ const Index = () => {
                               Year of Built
                             </div>
                             <div className={styles.col_body}>
-                              {insuranceData?.order?.vessel?.vessels[0]?.vesselInformation[0]?.yearOfBuilt?.slice(
+                              {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt', '').slice(
                                 0,
                                 4,
                               )}
@@ -575,8 +569,7 @@ const Index = () => {
                             </div>
                             <div className={styles.col_body}>
                               {
-                                insuranceData?.order?.vessel?.vessels[0]
-                                  ?.transitDetails?.portOfLoading
+                                _get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfLoading', '')
                               }
                             </div>
                           </Col>
@@ -588,8 +581,7 @@ const Index = () => {
                             </div>
                             <div className={styles.col_body}>
                               {
-                                insuranceData?.order?.vessel?.vessels[0]
-                                  ?.transitDetails?.portOfDischarge
+                                _get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')
                               }
                             </div>
                           </Col>
@@ -637,7 +629,7 @@ const Index = () => {
                               <DateCalender
                                 name="laycanFrom"
                                 defaultDate={
-                                  insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.laycanFrom?.split(
+                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanFrom', '').split(
                                     'T',
                                   )[0]
                                 }
@@ -656,7 +648,7 @@ const Index = () => {
                               <DateCalender
                                 name="laycanTo"
                                 defaultDate={
-                                  insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.laycanTo?.split(
+                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanTo', '').split(
                                     'T',
                                   )[0]
                                 }
@@ -675,7 +667,7 @@ const Index = () => {
                               <DateCalender
                                 name="expectedTimeOfDispatch"
                                 defaultDate={
-                                  insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.EDTatLoadPort?.split(
+                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.EDTatLoadPort', '').split(
                                     'T',
                                   )[0]
                                 }
@@ -694,7 +686,7 @@ const Index = () => {
                               <DateCalender
                                 name="expectedTimeOfArrival"
                                 defaultDate={
-                                  insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.ETAatDischargePort?.split(
+                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.ETAatDischargePort', '').split(
                                     'T',
                                   )[0]
                                 }

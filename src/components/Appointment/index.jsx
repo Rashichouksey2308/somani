@@ -48,12 +48,12 @@ export default function Index({ inspectionData }) {
       },
     })
   }, [inspectionData])
-  console.log(appointmentData, 'appointmentData')
+  // console.log(appointmentData, 'appointmentData')
 
-  console.log(
-    moment(appointmentData?.dateOfAppointment?.split('T')[0]).toDate(),
-    'THIS IS APPOINTMENTD ',
-  )
+  // console.log(
+  //   moment(appointmentData?.dateOfAppointment?.split('T')[0]).toDate(),
+  //   'THIS IS APPOINTMENTD ',
+  // )
 
   const [addressData, setAddressData] = useState({
     name: '',

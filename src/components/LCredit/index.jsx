@@ -9,6 +9,7 @@ import SaveBar from '../SaveBar'
 import Router from 'next/router'
 import InspectionDocument from '../InspectionDocument'
 import { toast } from 'react-toastify'
+import _get from 'lodash/get'
 
 function Index() {
   const dispatch = useDispatch()
@@ -37,7 +38,7 @@ function Index() {
 
   const { lcModule } = useSelector((state) => state.lc)
 
-  let lcModuleData = lcModule?.data[0]
+  let lcModuleData = _get(lcModule, 'data[0]', {})
 
   useEffect(() => {
     let id = sessionStorage.getItem('lcAmmend')

@@ -5,13 +5,14 @@ import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetLcModule, UpdateLcModule } from '../../../src/redux/lcModule/action'
 import {removePrefixOrSuffix} from '../../../src/utils/helper'
+import _get from 'lodash/get'
 
 function Index() {
   const dispatch = useDispatch()
 
   const { lcModule } = useSelector((state) => state.lc)
 
-  const lcModuleData = lcModule?.data[0]
+  const lcModuleData = _get(lcModule, 'data[0]', {})
 
 
   useEffect(() => {
