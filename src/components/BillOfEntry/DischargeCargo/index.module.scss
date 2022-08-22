@@ -477,23 +477,30 @@
     .table {
       overflow-y: auto;
       height: 400px;
-      font-size: 19px;
-      font-weight: 24px;
-      font-weight: 500;
+
       tr {
         height: 67px;
-        border-bottom: 2px solid red;
+        border-bottom: 2px solid #f2f5f9;
+        &:first-child {
+          border-bottom: none !important;
+        }
         th {
           vertical-align: revert;
+          font-weight: bold;
+          font-size: 15px;
+          line-height: 18px;
+          color: #8492a6;
+
           &:first-child {
-            font-weight: bold;
             padding-left: 35px;
           }
         }
         td {
           vertical-align: revert;
+          font-weight: 500;
+          font-size: 19px;
+          line-height: 24px;
           &:first-child {
-            font-weight: bold;
             padding-left: 35px;
           }
         }

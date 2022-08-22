@@ -18,7 +18,7 @@ import { toast } from 'react-toastify'
 export default function Home() {
   const dispatch = useDispatch()
   const { Vessel1 } = useSelector(state => state.vessel)
-  console.log(Vessel1, 'vessels1')
+  // console.log(Vessel1, 'vessels1')
 
   let id1 = sessionStorage.getItem('VesselCompany')
   const orderID = sessionStorage.getItem('orderID')
@@ -33,6 +33,7 @@ export default function Home() {
     let id = sessionStorage.getItem('VesselId')
     const data = await dispatch(GetVessel(`?vesselId=${id}`))
     setData(data)
+    serVesselDataToAdd(data)
   }
 
   const [list, setList] = useState()
@@ -44,18 +45,20 @@ export default function Home() {
   const [vesselUpdatedAt, setVesselUpdatedAt] = useState("")
 
 
-  console.log(containerExcel, 'containerExcel')
+  // console.log(containerExcel, 'containerExcel')
 
 
 
   // useEffect(() => {
 
-  //    console.log("check 2")
+  //    // console.log("check 2")
   // }, [Vessel])
 
   const [partShipment, setPartshipment] = useState()
   const [VesselToAdd, serVesselDataToAdd] = useState()
+  console.log(VesselToAdd, "THIS IS VESSEL TO")
   const setData = (Vessel) => {
+    console.log(Vessel, "THIS IS VESSEL")
     setVesselUpdatedAt(_get(
       Vessel,
       "data[0].updatedAt",
@@ -122,9 +125,11 @@ export default function Home() {
       "data[0].vessels",
       []
     ))
-    serVesselDataToAdd(Vessel)
+    // serVesselDataToAdd(Vessel)
   }
-  const onAddVessel = (VesselToAdd) => {
+
+  const onAddVessel = () => {
+    console.log(VesselToAdd, "THIS IS VESSEL TO ADD")
     setList([
       ...list,
       {
@@ -181,11 +186,11 @@ export default function Home() {
       flag: '',
       yearOfBuilt: '',
     })
-    console.log(newArr.vesselInformation, 'vesselsnew')
+    // console.log(newArr.vesselInformation, 'vesselsnew')
     setList(newArr)
   }
 
-  // console.log(list, 'vessels123')
+  // // console.log(list, 'vessels123')
   //const [shipmentType, setShipmentType] = useState('Bulk')
 
   const [startDate, setStartDate] = useState(null)
@@ -207,7 +212,7 @@ export default function Home() {
       return newState;
     })
   }
-  console.log(list, 'Vessels')
+  // console.log(list, 'Vessels')
 
   const OnVesselBasicFieldsChangeHandler = (e, index) => {
     const name = e.target.id
@@ -225,10 +230,10 @@ export default function Home() {
   const OnVesselTransitFieldsChangeHandler = (e, index) => {
     const name = e.target.id
     const value = e.target.value
-    console.log(name, value, 'Vessels')
+    // console.log(name, value, 'Vessels')
     setList(prevState => {
       const newState = prevState.map((obj, i) => {
-        console.log(i, index, 'Vessels')
+        // console.log(i, index, 'Vessels')
         if (i == index) {
           return {
             ...obj,
@@ -245,7 +250,7 @@ export default function Home() {
   }
 
   const saveDate = (startDate, name, index) => {
-    console.log(startDate, name, 'Event1')
+    // console.log(startDate, name, 'Event1')
     setList(prevState => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -267,9 +272,9 @@ export default function Home() {
     let value = e.target.value
     if (name === 'yearOfBuilt' && value.length === 4) {
       value = new Date(e.target.value)
-      console.log(value, 'fghfhf')
+      // console.log(value, 'fghfhf')
     }
-    console.log(name, value, 'arrayvesselbulk')
+    // console.log(name, value, 'arrayvesselbulk')
     if (name.trim() === 'yearOfBuilt' && !value.length === 4) {
       let toastMessage = 'provide a valid year'
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -278,7 +283,7 @@ export default function Home() {
       }
     }
     let array = { ...list[index].vesselInformation[0], [name]: value }
-    console.log(array, 'arrayvessel')
+    // console.log(array, 'arrayvessel')
     setList(prevState => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -292,7 +297,7 @@ export default function Home() {
       return newState;
     })
   }
-  console.log(list, 'vessel liner state')
+  // console.log(list, 'vessel liner state')
 
   const onVesselInfoChangeHandlerForLiner = (e, index) => {
     const name = e.target.id
@@ -311,8 +316,8 @@ export default function Home() {
       }
     })
     setList(tempArr)
-    console.log(tempArr, "tempArr")
-    // console.log(tempArr,"list",tempState[0].vesselInformation)
+    // console.log(tempArr, "tempArr")
+    // // console.log(tempArr,"list",tempState[0].vesselInformation)
     // tempState[0].vesselInformation = [...tempArr]
 
 
@@ -334,10 +339,10 @@ export default function Home() {
     //   });
     //   return newState;
     // })
-    console.log("check 1")
+    // console.log("check 1")
   }
 
-  console.log(list, 'arrayvessel')
+  // console.log(list, 'arrayvessel')
 
   // const onVesselInfoChangeHandlerForLiner = (e, index) => {
 
@@ -359,7 +364,7 @@ export default function Home() {
 
   const uploadDocHandler = (e) => {
     let uploadDocType = e.target.id
-    // console.log(uploadDocType, 'containerExcel')
+    // // console.log(uploadDocType, 'containerExcel')
 
     let fd = new FormData()
     fd.append('document', e.target.files[0])
@@ -433,13 +438,13 @@ export default function Home() {
     if (containerExcel) {
       payload.containerExcel = containerExcel
     }
-    console.log(payload, 'vessels123456')
-    console.log("check 3")
+    // console.log(payload, 'vessels123456')
+    // console.log("check 3")
     await dispatch(UpdateVessel(payload))
     fetchInitialData()
   }
-  // console.log(Vessel, "Vessel")
-  console.log(containerExcel, ' containerExcel')
+  // // console.log(Vessel, "Vessel")
+  // console.log(containerExcel, ' containerExcel')
 
 
   const onDeleteVessel = (index) => {
@@ -448,10 +453,10 @@ export default function Home() {
   const OnAddvesselInformationDelete = (index) => {
     let tempArr = [...list]
     tempArr[0].vesselInformation.splice(index, 1);
-    console.log(tempArr, "tempArr")
+    // console.log(tempArr, "tempArr")
     setList(tempArr)
   }
-  console.log(vesselUpdatedAt, 'vesselUpdatedAt')
+  // console.log(vesselUpdatedAt, 'vesselUpdatedAt')
 
 
   return (

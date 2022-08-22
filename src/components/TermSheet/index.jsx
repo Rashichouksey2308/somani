@@ -59,6 +59,7 @@ const Index = () => {
             },
             transactionDetails: {
               // lcValue: sheet?.transactionDetails?.lcValue ? sheet?.transactionDetails?.lcValue : Number(sheet?.order?.quantity * sheet?.order?.perUnitPrice),
+              typeOfPort: sheet?.transactionDetails?.typeOfPort??"",
               lcValue: newLcVal,
               lcCurrency: sheet?.transactionDetails?.lcCurrency,
               marginMoney: sheet?.transactionDetails?.marginMoney?sheet?.transactionDetails?.marginMoney:"10",
@@ -238,6 +239,7 @@ const Index = () => {
   }, [termsheet])
 
   const onChangeCommodityDetails = (e) => {
+   
     const Key = e.target.id
     const value = e.target.value
     // console.log(Key, ":", value)
@@ -248,8 +250,10 @@ const Index = () => {
   }
 
   const onChangeTransactionDetails = (e) => {
+    
     const Key = e.target.id
     const value = e.target.value
+     console.log(Key,value,"val")
     setTermsheetDetails((prev) => ({
       ...prev,
       transactionDetails: { ...prev.transactionDetails, [Key]: value },

@@ -202,10 +202,19 @@
             text-transform: capitalize;
             font-weight: bold;
             margin-top: 10px;
-            padding-right: 10px;
             line-height: 23px;
+            margin: 0 50px 0 0;
             @include respond(phone) {
               font-size: 10px;
+            }
+            span {
+              font-size: 20px;
+              letter-spacing: 0px;
+              color: #111111;
+              padding-left: 10px;
+              @include respond(phone) {
+                font-size: 15px;
+              }
             }
           }
           .options {

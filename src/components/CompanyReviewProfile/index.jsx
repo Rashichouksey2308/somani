@@ -56,6 +56,19 @@ function Index() {
           'Communication Mode',
           buyerList?.company?.communicationMode?.toString() ?? '',
         )}
+
+        {fields(
+          'Limit Value',
+          buyerList?.company?.communicationMode?.toString() ?? '',
+        )}
+        {fields(
+          'Order Value',
+          buyerList?.company?.communicationMode?.toString() ?? '',
+        )}
+        {fields(
+          'Previous Successful Orders',
+          buyerList?.company?.communicationMode?.toString() ?? '',
+        )}
       </div>
     </div>
   )
