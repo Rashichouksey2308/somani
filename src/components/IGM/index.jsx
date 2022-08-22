@@ -242,7 +242,7 @@ export default function Index({
     let fd = new FormData()
     fd.append('igm', JSON.stringify(igmDetails))
     fd.append('transitId', transId._id)
-    // dispatch(UpdateTransitDetails(fd))
+     dispatch(UpdateTransitDetails(fd))
   }
 
   return (
