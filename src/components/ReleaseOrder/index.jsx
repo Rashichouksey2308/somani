@@ -249,7 +249,8 @@ export default function Index({ ReleaseOrderData }) {
                         'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
                         '',
                       )}
-                      Mt
+                      
+                      MT
                     </span>
                   </div>
                   <div

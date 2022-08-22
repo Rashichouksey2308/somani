@@ -19,14 +19,17 @@ import {
 } from '../../src/redux/Lifting/action'
 import _get from 'lodash/get'
 import { toast } from 'react-toastify'
-
+import { setPageName,setDynamicName } from '../../src/redux/userData/action'
 function Index() {
   const dispatch = useDispatch()
   const { allLiftingData } = useSelector((state) => state.Lifting)
   const { ReleaseOrderData } = useSelector((state) => state.Release)
   //console.log(ReleaseOrderData, 'ReleaseOrderData')
   const [darkMode, setDarkMode] = useState(false)
-
+useEffect(() => {
+dispatch(setPageName('payment'))
+dispatch(setDynamicName(ReleaseOrderData?.data[0]?.company.companyName))
+},[ReleaseOrderData])
   useEffect(() => {
     let id = sessionStorage.getItem('ROrderID')
     let orderid = _get(ReleaseOrderData, 'data[0].order._id', '')
@@ -34,6 +37,7 @@ function Index() {
     dispatch(GetDelivery(`?deliveryId=${id}`))
     dispatch(GetAllLifting())
   }, [dispatch])
+  console.log(ReleaseOrderData.data[0].company.companyName,"ReleaseOrderData")
 
   //console.log(allLiftingData, "allLiftingData")
   const liftingData = _get(allLiftingData, 'data[0]', '')
@@ -324,7 +328,7 @@ function Index() {
                 alt="arrow right"
                 className="img-fluid image_arrow"
               />
-              <span>Ramakrishna Traders - Ramal001-00002</span>
+              <span>{ReleaseOrderData?.data[0]?.company?.companyName} - Ramal001-00002</span>
             </h1>
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
