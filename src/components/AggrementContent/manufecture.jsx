@@ -97,6 +97,7 @@ useEffect(() => {
   setAddressList(tempArr2)
   let tempArr3=supplierState?.multiPartyAddresses
   setMultiList(tempArr3)
+  setSupplierState({...supplierState,name:props?.order?.supplierName})
 },[])
  
 
@@ -123,6 +124,57 @@ useEffect(() => {
 
  
     setSupplierState({...supplierState,multiParty:props.multiPart})
+  },[props])
+   useEffect(() => {
+   if(window){
+    
+    
+      if(sessionStorage.getItem("Supplier")){
+      console.log("herer23123")
+      
+      let savedData=JSON.parse(sessionStorage.getItem("Supplier"))
+      let supplier={
+       "name": props?.order?.supplierName,
+        "shortName": savedData.shortName,
+        "bankDetails": {
+            "bankName": savedData.bankDetails.bankName,
+            "accountNo": savedData.bankDetails.accountNo,
+            "swiftCode": savedData.bankDetails.swiftCode,
+            "city": savedData.bankDetails.city
+        },
+        "addresses": savedData.addresses,
+        "authorisedSignatoryDetails": savedData.authorisedSignatoryDetails,
+        "multiParty": savedData.multiParty,
+        "savedData": savedData.multiPartyAddresses
+        
+       }
+       setList(savedData.authorisedSignatoryDetails)
+       setAddressList(savedData.addresses)
+       setMultiList(savedData.authorisedSignatoryDetails)
+       setSupplierState(supplier)
+    }else{
+       let supplier={
+       "name": props?.order?.supplierName,
+        "shortName": props.data?.shortName,
+        "bankDetails": {
+            "bankName": props.data?.bankDetails?.bankName,
+            "accountNo": props.data?.bankDetails?.accountNo,
+            "swiftCode": props.data?.bankDetails?.swiftCode,
+            "city": props.data?.bankDetails?.city
+        },
+        "addresses": props.data?.addresses,
+        "authorisedSignatoryDetails": props.data?.authorisedSignatoryDetails,
+        "multiParty": props.data?.multiParty,
+        "multiPartyAddresses": props.data?.multiPartyAddresses
+        
+       }
+       setList(props.data?.authorisedSignatoryDetails)
+       setAddressList(props.data?.addresses)
+       setMultiList(props.data?.authorisedSignatoryDetails)
+       setSupplierState(supplier)
+    }
+   
+   }
   },[props])
   console.log(props,"props")
   const onEdit=(index)=>{
@@ -449,57 +501,7 @@ setEditAddress(
 
 
   }
-  useEffect(() => {
-   if(window){
-    
-    
-      if(sessionStorage.getItem("Supplier")){
-      console.log("herer23123")
-      
-      let savedData=JSON.parse(sessionStorage.getItem("Supplier"))
-      let supplier={
-       "name": savedData.name,
-        "shortName": savedData.shortName,
-        "bankDetails": {
-            "bankName": savedData.bankDetails.bankName,
-            "accountNo": savedData.bankDetails.accountNo,
-            "swiftCode": savedData.bankDetails.swiftCode,
-            "city": savedData.bankDetails.city
-        },
-        "addresses": savedData.addresses,
-        "authorisedSignatoryDetails": savedData.authorisedSignatoryDetails,
-        "multiParty": savedData.multiParty,
-        "savedData": savedData.multiPartyAddresses
-        
-       }
-       setList(savedData.authorisedSignatoryDetails)
-       setAddressList(savedData.addresses)
-       setMultiList(savedData.authorisedSignatoryDetails)
-       setSupplierState(supplier)
-    }else{
-       let supplier={
-       "name": props.data?.name,
-        "shortName": props.data?.shortName,
-        "bankDetails": {
-            "bankName": props.data?.bankDetails?.bankName,
-            "accountNo": props.data?.bankDetails?.accountNo,
-            "swiftCode": props.data?.bankDetails?.swiftCode,
-            "city": props.data?.bankDetails?.city
-        },
-        "addresses": props.data?.addresses,
-        "authorisedSignatoryDetails": props.data?.authorisedSignatoryDetails,
-        "multiParty": props.data?.multiParty,
-        "multiPartyAddresses": props.data?.multiPartyAddresses
-        
-       }
-       setList(props.data?.authorisedSignatoryDetails)
-       setAddressList(props.data?.addresses)
-       setMultiList(props.data?.authorisedSignatoryDetails)
-       setSupplierState(supplier)
-    }
-   
-   }
-  },[props])
+ 
   return (
     <>
       <div className={`${styles.container} vessel_card`}>
@@ -514,7 +516,7 @@ setEditAddress(
                 name="name"
                 value={supplierState.name}
                 onChange={(e) => {
-                  handleInput(e.target.name,e.target.value)
+                  // handleInput(e.target.name,e.target.value)
                 }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>

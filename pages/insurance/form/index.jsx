@@ -12,6 +12,8 @@ import {
 } from '../../../src/redux/insurance/action'
 import { useSelector } from 'react-redux'
 import _get from 'lodash/get'
+import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../../src/utils/helper'
+import { toast } from 'react-toastify'
 
 const Index = () => {
   const dispatch = useDispatch()
@@ -19,12 +21,13 @@ const Index = () => {
   useEffect(() => {
     let id = sessionStorage.getItem('quotationId')
     dispatch(GettingAllInsurance(`?insuranceId=${id}`))
-  }, [dispatch])
+  }, [dispatch, sumInsuredCalc])
 
   const { insuranceResponse } = useSelector((state) => state.insurance)
 
   let insuranceData = _get(insuranceResponse, 'data[0]', {})
   console.log(insuranceData, 'This is InsuranceData')
+
 
   const [quotationData, setQuotationData] = useState({
     additionalInfo: '',
@@ -39,8 +42,30 @@ const Index = () => {
       periodOfInsurance: null,
       storagePlotAddress: '',
     },
-    sumInsured: '',
+    sumInsured: sumInsuredCalc,
   })
+
+  let sumInsuredCalc = parseFloat((Number(insuranceData?.order?.orderValue) * 110)/100)
+  // console.log(sumInsuredCalc, "THIS IS SUM INSURED CAL")
+
+  useEffect(() => {
+    setQuotationData({
+      additionalInfo: insuranceData?.quotationRequest?.additionalInfo,
+    expectedTimeOfArrival: insuranceData?.quotationRequest?.expectedTimeOfArrival,
+    expectedTimeOfDispatch: insuranceData?.quotationRequest?.expectedTimeOfDispatch,
+    insuranceType: insuranceData?.quotationRequest?.insuranceType,
+    laycanFrom: insuranceData?.quotationRequest?.laycanFrom,
+    laycanTo: insuranceData?.quotationRequest?.laycanTo,
+    lossPayee: insuranceData?.quotationRequest?.lossPayee,
+    storageDetails: {
+      placeOfStorage: insuranceData?.quotationRequest?.storageDetails?.placeOfStorage,
+      periodOfInsurance: insuranceData?.quotationRequest?.storageDetails?.periodOfInsurance,
+      storagePlotAddress: insuranceData?.quotationRequest?.storageDetails?.storagePlotAddress,
+    },
+    sumInsured: insuranceData?.quotationRequest?.sumInsured,
+    })
+  }, [insuranceData])
+  
 
   const saveQuotationData = (name, value) => {
     const newInput = { ...quotationData }
@@ -59,11 +84,20 @@ const Index = () => {
   }
 
   const handleSave = () => {
+    if(quotationData?.insuranceType !== ''){
+    let insuranceObj = {...quotationData}
+    insuranceObj.sumInsured = removePrefixOrSuffix(quotationData.sumInsured)
     let obj = {
-      quotationRequest: { ...quotationData },
+      quotationRequest: { ...insuranceObj },
       insuranceId: insuranceData?._id,
     }
     dispatch(UpdateQuotation(obj))
+    }else{
+      let toastMessage = 'Insurance type is mandatory'
+      if(!toast.isActive(toastMessage)){
+        toast.error(toastMessage, {toastId: toastMessage})
+      }
+    }
   }
 
   const changeRoute = () => {
@@ -412,18 +446,18 @@ const Index = () => {
                           <Col className="mt-5" lg={4} md={6} sm={6}>
                             <input
                               className={`${styles.input_field} input form-control`}
-                              type="number"
+                              type="text"
                               name="sumInsured"
                               onKeyDown={(evt) =>
                                 evt.key === 'e' && evt.preventDefault()
                               }
                               defaultValue={
-                                insuranceData?.quotationRequest?.sumInsured
+                                addPrefixOrSuffix(sumInsuredCalc ? sumInsuredCalc : 0, 'Cr', '')
                               }
                               onChange={(e) => {
                                 saveQuotationData(
                                   e.target.name,
-                                  Number(e.target.value * 10000000),
+                                  e.target.value,
                                 )
                               }}
                               required
@@ -567,9 +601,10 @@ const Index = () => {
                                 }}
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               >
-                                <option selected>
+                                <option>Select an option</option>
+                                {/* <option selected>
                                   {insuranceData?.quotationRequest?.lossPayee}
-                                </option>
+                                </option> */}
                                 <option
                                   value={
                                     insuranceData?.order?.lc?.lcApplication

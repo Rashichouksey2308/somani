@@ -181,6 +181,23 @@ export default function Index({isQuery}) {
         router.route = "/Loading, Transit & Unloading" + "/Transit Details";
       }
     }
+         if ("custom" == pageName) {
+      if(id!==null) {
+        router.route = "/Custom Clearance & Warehouse"   +`/${id}` + "/Bill of Entry" + "/Ramal001-00002";
+        console.log("router123",router.route)
+      }else{
+        router.route = "/Custom Clearance & Warehouse" ;
+      }
+    }
+    if ("payment" == pageName) {
+      if(id!==null) {
+        router.route = "/Payment, Invoicing & Delivery"   +`/${id}` + "/Bill of Entry" + "/Ramal001-00002";
+        console.log("router123",router.route)
+      }else{
+        router.route = "/Payment, Invoicing & Delivery" ;
+      }
+    }
+  
   
 console.log( router.route," router.route")
 
@@ -213,7 +230,7 @@ console.log( router.route," router.route")
     <div className={`${styles.main_container} d-sm-flex d-block justify-content-between background1`}>
       <div>
         <img src="/static/home.svg"></img>
-        {pageName=="generic" || pageName=="vessel"?
+        {pageName=="generic" || pageName=="vessel"||pageName=="custom" || pageName=="payment"?
         <div className={`${styles.breadcrumItem}`}>
           {myUrl.map((val,index)=>{
             {console.log(myUrl.length-1==index,"val")}

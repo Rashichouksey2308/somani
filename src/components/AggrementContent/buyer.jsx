@@ -18,6 +18,9 @@ let buyer = {
 }
 function Index(props) {
   const [buyerData, setBuyerData] = useState(buyer)
+  useEffect(() => {
+    setBuyerData({...buyer,name:props?.order?.company?.companyName})
+  },[props.order])
   const [list, setList] = useState([])
   const [addressList,setAddressList]=useState([])
   const [newAddress,setNewAddress]=useState(
@@ -333,7 +336,7 @@ setEditAddress(
                   }}
                 >
                  <option>Select an option</option>
-                  <option value="Indo German International">Indo German International</option>
+                  <option selected value={props?.order?.company?.companyName}>{props?.order?.company?.companyName}</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Name<strong className="text-danger">*</strong>
