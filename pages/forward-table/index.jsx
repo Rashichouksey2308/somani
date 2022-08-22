@@ -152,12 +152,23 @@ function Index() {
                         </td>
                         <td>{list?.order?.commodity} </td>
                         <td></td>
-                        <td>
-                          <span
-                            className={`${styles.status} ${styles.expired}`}
-                          ></span>
-                          Expired
-                        </td>
+                           <td>
+                            <span
+                              className={`${styles.status} ${
+                              list.order.queue === 'Rejected' ? styles.rejected :  list.order.queue === 'ReviewQueue'
+                                  ? styles.review
+                                  : list.order.queue === 'CreditQueue'
+                                  ? styles.approved
+                                  : styles.rejected
+                              }`}
+                            ></span>
+                            
+                          {list.order.queue === 'Rejected' ? 'Rejected' : list.order.queue === 'ReviewQueue'
+                              ? 'Review'
+                              : list.order.queue === 'CreditQueue'
+                              ? 'Approved'
+                              : 'Rejected'}
+                          </td>
                         <td>
                           <img
                             className={`${styles.edit_image} img-fluid mr-3`}
