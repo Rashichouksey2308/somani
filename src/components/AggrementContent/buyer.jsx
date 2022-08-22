@@ -225,7 +225,7 @@ setAddressList(current => [...current, newAddress])
               "state": "",
               "city": ""
           })
-          setAddressType("Registered")
+    setAddressType("Registered")
 }
 const onAddressRemove=(index)=>{
 setAddressList([...addressList.slice(0,index), ...addressList.slice(index+1)])
@@ -364,7 +364,7 @@ setEditAddress(
                   }}
                   >
                      <option>Select an option</option>
-                    <option value="Paris" selected>Paris</option>
+                    
                     <option value="Delhi">Delhi</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -718,12 +718,14 @@ setEditAddress(
                           <td><input type="text" 
                           placeholder={val.designation}
                           name= "designation"
+                            readOnly={true}
                           // onChange={(e)=>{
                           //   handleChangeInput(e.target.name,e.target.value,index)
                           // }}
                           ></input></td>
                           <td><input type="text" placeholder={val.email}
                           name= "email"
+                            readOnly={true}
                           // onChange={(e)=>{
                           //   handleChangeInput(e.target.name,e.target.value,index)
                           // }}

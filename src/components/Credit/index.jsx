@@ -479,11 +479,12 @@ const index = ({
                     required
                     type="text"
                     name="existingSuppliers"
-                    defaultValue={creditDetail?.existingSuppliers?.map(
+                    defaultValue={creditDetail?
+                      creditDetail?.existingSuppliers?.map(
                       (e) => {
                         return `${e}`
                       },
-                    )}
+                    ):""}
                     onBlur={(e) => {
                       saveProductData(e.target.name, e.target.value.split(','))
                     }}
@@ -1948,7 +1949,7 @@ const index = ({
                     {debtData?.map((profile, index) => (
                       <tr key={index}>
                         <td>{index + 1}</td>
-                        <td>
+                        <td className="d-flex justify-content-center align-items-end">
                           <input
                             name="primaryBank"
                             onChange={(e) =>
@@ -1961,11 +1962,13 @@ const index = ({
                             className={`${styles.checkBox}`}
                             type="checkbox"
                             disabled={!profile.actions}
+                            style={{marginTop:"12px"}}
                           />
                         </td>
-                        <td>
-                          <select
+                        <td >
+                          <input
                             name="bankName"
+                            className="input"
                             disabled={!profile.actions}
                             onChange={(e) =>
                               handleDebtChange(
@@ -1974,12 +1977,13 @@ const index = ({
                                 index,
                               )
                             }
-                            className={`${styles.dropDown} font-weight-bold heading`}
-                          >
-                            <option>{!profile.actions}</option>
+                            
+                           
+                          />
+                            {/* <option>{!profile.actions}</option>
                             <option value="ICICI"> ICICI</option>
                             <option value="HDFC">HDFC</option>
-                          </select>
+                          </select> */}
                         </td>
                         <td>
                           <select
@@ -1995,8 +1999,9 @@ const index = ({
                             disabled={!profile.actions}
                           >
                             <option>{profile.limitType}</option>
-                            <option value="Cash Deposit">Cash Deposit</option>
-                            <option value="Net Banking">Net Banking</option>
+                            <option value="Cash Credit">Cash Credit</option>
+                            <option value="Bank Guarantee">Bank Guarantee</option>
+                            <option value="Post Ship Credit">Post Ship Credit</option>
                           </select>
                         </td>
 

@@ -358,7 +358,9 @@ export default function Index({ ReleaseOrderData }) {
                           </div>
                           {Number(netBalanceQuantity) > 0 && (
                             <img
-                              onClick={() => addMorereleaseDetailDataRows(index)}
+                              onClick={() =>
+                                addMorereleaseDetailDataRows(index)
+                              }
                               src="/static/add-btn.svg"
                               className={`${styles.delete_image} mt-n4 img-fluid`}
                               alt="Add button"
@@ -389,12 +391,15 @@ export default function Index({ ReleaseOrderData }) {
                           </div>
                           {Number(netBalanceQuantity) > 0 && (
                             <img
-                              onClick={() => addMorereleaseDetailDataRows(index)}
+                              onClick={() =>
+                                addMorereleaseDetailDataRows(index)
+                              }
                               src="/static/add-btn.svg"
                               className={`${styles.delete_image} mt-n4 img-fluid`}
                               alt="Add button"
                             />
-                          )}</>
+                          )}
+                        </>
                       )}
                       {/* {releaseDetail.length > 1 && (
                         <img
@@ -430,7 +435,10 @@ export default function Index({ ReleaseOrderData }) {
           </div>
 
           <div className="mt-4">
-            <UploadOther orderid={orderid} module="PaymentsInvoicing&Delivery" />
+            <UploadOther
+              orderid={orderid}
+              module="PaymentsInvoicing&Delivery"
+            />
           </div>
         </div>
 

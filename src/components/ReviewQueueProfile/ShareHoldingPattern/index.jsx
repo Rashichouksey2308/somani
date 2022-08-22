@@ -10,7 +10,7 @@ import { Chart, ArcElement, registerables} from 'chart.js'
 function Index({ shareHolding }) {
  const chartRef = useRef(null)
 
- // console.log(shareHolding, "shareholding")
+ console.log(shareHolding, "shareholding")
   Chart.register(ArcElement)
   let tempArr = [
     { name: 'Sail', value: '21', color: '#9675CE' },
@@ -191,8 +191,8 @@ function Index({ shareHolding }) {
                             }}
                           />
                             <div className={`${styles.total_value} `}>
-                              <span className={styles.headSpan}>{shareHolding.length>0?shareHolding[0]?.fullName??"Name":""}</span>
-                              <span className={styles.subSpan}>{`${shareHolding[0]?.percentageShareHolding??"0"}%`}</span>
+                              <span className={styles.headSpan}>{shareHolding?shareHolding[0]?.fullName??"Name":""}</span>
+                              <span className={styles.subSpan}>{`${shareHolding?shareHolding[0]?.percentageShareHolding??"0":""}%`}</span>
                             </div>
                           </div>
                         </th>
@@ -248,8 +248,8 @@ function Index({ shareHolding }) {
                              
                                           />
                             <div className={`${styles.total_value} `}>
-                              <span className={styles.headSpan}>{shareHolding[0]?.fullName??"Name"}</span>
-                              <span className={styles.subSpan}>{`${shareHolding[0]?.percentageShareHolding??"0"}%`}</span>
+                              <span className={styles.headSpan}>{shareHolding?shareHolding[0]?.fullName??"Name":""}</span>
+                              <span className={styles.subSpan}>{`${shareHolding?shareHolding[0]?.percentageShareHolding??"0":""}%`}</span>
                             </div>
                           </div>
                         </th>

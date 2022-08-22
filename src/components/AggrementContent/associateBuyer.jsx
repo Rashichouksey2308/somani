@@ -46,6 +46,13 @@ function Index(props) {
      actions:"false"}
   
   ])
+
+  let masterList=[
+{name:"Bhawana Jain",designation:"Vice President (Finance & Accounts)",email:"bhawanajain@somanigroup.com",phoneNo:""},
+{name:"Vipin Kumar",designation:"Manager Accounts",email:"vipinrajput@somanigroup.com",phoneNo:""},
+{name:"Devesh Jain",designation:"Director",email:"devesh@indointertrade.ch",phoneNo:""},
+{name:"Fatima Yannoulis ",designation:"Chief Financial Officer",email:"fatima@indointertrade.ch",phoneNo:""}
+]
 useEffect(() => {
 if(props.saveData==true && props.active=="Associate Buyer"){
   let data={
@@ -153,21 +160,35 @@ const handleChangeInput2=(name,value,index)=>{
 
   }
    //address 
-const handleAddressInput=()=>{
+const handleChangeInput = (name, value, index) => {
+  let arrayToSave={
+     name:"",designation:"",email:"",phoneNo:"",
+      actions:"false"
+   }
+     masterList.forEach((val,index)=>{
+    if(val.name==value){
+      arrayToSave.name=val.name
+      arrayToSave.designation=val.designation
+      arrayToSave.email=val.email
+      arrayToSave.phoneNo=val.phoneNo
+    }
+   })
+    setList(prevState => {
+      const newState = prevState.map((obj ,i)=> {
+       
+        if (i == index) {
+          return arrayToSave;
+        }
 
-setAddressList(current => [...current, newAddress])
-  
-  setNewAddress({
-              "addressType": "Registered",
-              "fullAddress": "",
-              "pinCode": "",
-              "country": "",
-              "gstin": "",
-              "state": "",
-              "city": ""
-          })
-          setAddressType("Registered")
-}
+        
+        return obj;
+      });
+
+      return newState;
+    });
+ 
+
+  }
 const onAddressRemove=(index)=>{
 setAddressList([...addressList.slice(0,index), ...addressList.slice(index+1)])
 
@@ -254,6 +275,21 @@ setEditAddress(
 
 
 
+}
+const handleAddressInput=()=>{
+
+setAddressList(current => [...current, newAddress])
+  
+  setNewAddress({
+              "addressType": "Registered",
+              "fullAddress": "",
+              "pinCode": "",
+              "country": "",
+              "gstin": "",
+              "state": "",
+              "city": ""
+          })
+    setAddressType("Registered")
 }
   return (
     <>
@@ -626,18 +662,26 @@ setEditAddress(
                           <td>{val.name}</td>
                           <td>{val.designation}</td>
                           <td>{val.email}</td>
-                          <td>{val.phone}</td>
+                          <td>{val.phoneNo}</td>
                           <td className={`d-flex`}>
-                            <img className={`${styles.image} img-fluid mr-3`} onClick={()=>(onEdit(index))} src="/static/mode_edit.svg" alt="edit"/>
-                            <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg" alt="delete"/>
+                          <img className={`${styles.image} mr-2`} onClick={()=>(onEdit(index))} src="/static/mode_edit.svg" alt="edit"/>
+                          <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg" alt="delete"/>
                           </td>
 
                         </tr>
                         :<tr key={index} className='table_row'>
                           <td>
-                            <select className={`${styles.customSelect}`}>
+                            <select 
+                            value={val.name}
+                            className={`${styles.customSelect}`}
+                            onChange={(e)=>{
+                              handleChangeInput(e.target.name,e.target.value,index)
+                            }}>
                                <option>Select an option</option>
-                              <option>{val.name}</option>
+                              <option value={"Bhawana Jain"}>{"Bhawana Jain"}</option>
+                              <option value={"Vipin Kumar"}>{"Vipin Kumar"}</option>
+                              <option value={"Devesh Jain"}>{"Devesh Jain"}</option>
+                              <option value={"Fatima Yannoulis"}>{"Fatima Yannoulis"}</option>
                             </select>
                             <img
                               className={`${styles.arrow2} image_arrow img-fluid`}
@@ -645,12 +689,46 @@ setEditAddress(
                               alt="Search"
                             />
                           </td>
-                          <td><input type="text" placeholder={val.designation}></input></td>
-                          <td><input type="text" placeholder={val.email}></input></td>
-                          <td><input type="text" placeholder={val.phone}></input></td>
+                          <td><input type="text" 
+                          placeholder={val.designation}
+                          name= "designation"
+                          readOnly={true}
+                          // onChange={(e)=>{
+                          //   handleChangeInput(e.target.name,e.target.value,index)
+                          // }}
+                          ></input></td>
+                          <td><input type="text" placeholder={val.email}
+                          name= "email"
+                          readOnly={true}
+                          // onChange={(e)=>{
+                          //   handleChangeInput(e.target.name,e.target.value,index)
+                          // }}
+                          ></input></td>
+                          <td><input type="text" placeholder={val.phoneNo}
+                          name= "phoneNo"
+                          onChange={(e)=>{
+                            handleChangeInput2(e.target.name,e.target.value,index)
+                          }}
+                          ></input></td>
                           <td className={`d-flex`}>
-                            <img className={`${styles.image} img-fluid mr-3`} onClick={()=>(onEditRemove(index))}src="/static/mode_edit.svg" alt="edit"/>
-                            <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg" alt="delete"/>
+                            <div
+                              className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
+                              onClick={()=>{
+                              onEditRemove(index)
+                              }}
+                            >
+                              <img className={`${styles.image} img-fluid mr-3`} src="/static/save-3.svg" alt="save"/>
+                            </div>
+                            <div
+                              className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center`}
+                              onClick={()=>{
+                              handleRemove(index)
+                              }}
+                            >
+                              <img src="/static/delete 2.svg" />
+                            </div>
+                            {/* <img  onClick={()=>(onEditRemove(index))}src="/static/save-3.svg"  />
+                            <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img> */}
                           </td>
 
                         </tr>}

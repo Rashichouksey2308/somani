@@ -1,26 +1,27 @@
+
+
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React ,{useState,useEffect}from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
-let seller={
-       "name": "",
-        "shortName": "",
-         "addresses": [
+let buyer = {
+ "name": "",
+    "shortName": "",
+    "addresses": [
 
-        ],
-        "authorisedSignatoryDetails": [
+      ],
+      "authorisedSignatoryDetails": [
 
-        ],
+      ],
 
-        
+
 }
 function Index(props) {
-  console.log(props.data,"1234")
-    const[sellerData,setSellerData]=useState(seller)
-    const [list,setList]=useState([])
-      const [addressList,setAddressList]=useState([])
-    const [newAddress,setNewAddress]=useState(
+  const [buyerData, setBuyerData] = useState(buyer)
+  const [list, setList] = useState([])
+  const [addressList,setAddressList]=useState([])
+  const [newAddress,setNewAddress]=useState(
           {
           "addressType": "Registered",
           "fullAddress": "",
@@ -43,173 +44,174 @@ function Index(props) {
       }
   )
   const [addressType,setAddressType]=useState("Registered")
-   const [addressEditType,setAddressEditType]=useState("Registered")
-    let masterList=[
-    {name:"Bhawana Jain",designation:"Vice President (Finance & Accounts)",email:"bhawanajain@somanigroup.com",phoneNo:""},
-    {name:"Vipin Kumar",designation:"Manager Accounts",email:"vipinrajput@somanigroup.com",phoneNo:""},
-    {name:"Devesh Jain",designation:"Director",email:"devesh@indointertrade.ch",phoneNo:""},
-    {name:"Fatima Yannoulis ",designation:"Chief Financial Officer",email:"fatima@indointertrade.ch",phoneNo:""}
-    ]
-useEffect(() => {
-   if(window){
-    if(sessionStorage.getItem("Seller")){
-      let savedData=JSON.parse(sessionStorage.getItem("Seller"))
-      let seller={
-        "name": savedData.name,
-        "shortName": savedData.shortName,
-        
-        // "addresses": savedData.addresses,
-        // "authorisedSignatoryDetails": savedData.authorisedSignatoryDetails,
-        
-        
-       }
-           setAddressList(savedData?.addresses)
-       setList(savedData.authorisedSignatoryDetails)
-       
-       setSellerData(seller)
-    }else{
-         let seller={
-        "name": props?.data?.name,
-        "shortName": props?.data?.shortName,
-        
-        
-       
-        
-        
-       }
-       setList(props?.data?.authorisedSignatoryDetails)
-       setAddressList(props.data?.addresses)
-       setSellerData(seller)
-    }
-   }
-  },[props])
+  const [addressEditType,setAddressEditType]=useState("Registered")
   useEffect(() => {
-    if(props.saveData==true && props.active=="Seller"){
-       let data={
-        sellerData:sellerData,
-        list:list,
-        
-       }
-       props.sendData("Seller",data)
+    if (window) {
+      if (sessionStorage.getItem("Seller")) {
+        let savedData = JSON.parse(sessionStorage.getItem("Seller"))
+        let buyer = {
+          "name": savedData.name,
+          "shortName": savedData.shortName,
+
+          "addresses": savedData.addresses,
+          "authorisedSignatoryDetails": savedData.authorisedSignatoryDetails,
+
+
+        }
+        setList(savedData.authorisedSignatoryDetails)
+
+        setBuyerData(buyer)
+      }else{
+        let buyer = {
+          "name": props?.data?.name,
+          "shortName": props?.data?.shortName,
+
+          "addresses": props?.data?.addresses,
+          "authorisedSignatoryDetails": props?.data?.authorisedSignatoryDetails,
+
+
+        }
+        setList(props?.data?.authorisedSignatoryDetails)
+
+        setBuyerData(buyer)
+      }
     }
-    if(props.submitData==true && props.active=="Seller"){
-      let data={
-        sellerData:sellerData,
-        list:list,
-       
-       }
+  }, [])
+let masterList=[
+{name:"Bhawana Jain",designation:"Vice President (Finance & Accounts)",email:"bhawanajain@somanigroup.com",phoneNo:""},
+{name:"Vipin Kumar",designation:"Manager Accounts",email:"vipinrajput@somanigroup.com",phoneNo:""},
+{name:"Devesh Jain",designation:"Director",email:"devesh@indointertrade.ch",phoneNo:""},
+{name:"Fatima Yannoulis ",designation:"Chief Financial Officer",email:"fatima@indointertrade.ch",phoneNo:""}
+]
+  useEffect(() => {
+    if (props.saveData == true && props.active == "Seller") {
+      let data = {
+        sellerData: buyerData,
+        list: list,
+        addresses: addressList
 
-      props.updateData("Seller",data)
-
+      }
+      props.sendData("Seller", data)
     }
-  },[props])
-  console.log(props,"props")
-const onEdit=(index)=>{
-  let tempArr=list;
-  // tempArr[index].actions.edit="false"
+    if (props.submitData == true && props.active == "Seller") {
+      let data = {
+        sellerData: buyerData,
+        list: list,
+        addresses: addressList
 
-      setList(prevState => {
-    const newState = prevState.map((obj ,i)=> {
-      // 👇️ if id equals 2, update country property
-      if (i == index) {
-        return {...obj, actions: 'false'};
       }
 
-      // 👇️ otherwise return object as is
-      return obj;
+      props.updateData("Seller", data)
+
+    }
+  }, [props])
+  const onEdit = (index) => {
+    let tempArr = list;
+    // tempArr[index].actions.edit="false"
+
+    setList(prevState => {
+      const newState = prevState.map((obj, i) => {
+        // 👇️ if id equals 2, update country property
+        if (i == index) {
+          return { ...obj, actions: 'false' };
+        }
+
+        // 👇️ otherwise return object as is
+        return obj;
+      });
+
+      return newState;
     });
 
-    return newState;
-  });
+  }
+  const onEditRemove = (index) => {
+    let tempArr = list;
+    // tempArr[index].actions.edit="false"
 
-}
-const onEditRemove=(index)=>{
-  let tempArr=list;
-  // tempArr[index].actions.edit="false"
+    setList(prevState => {
+      const newState = prevState.map((obj, i) => {
+        // 👇️ if id equals 2, update country property
+        if (i == index) {
+          return { ...obj, actions: 'true' };
+        }
 
-      setList(prevState => {
-    const newState = prevState.map((obj ,i)=> {
-      // 👇️ if id equals 2, update country property
-      if (i == index) {
-        return {...obj, actions: 'true'};
-      }
+        // 👇️ otherwise return object as is
+        return obj;
+      });
 
-      // 👇️ otherwise return object as is
-      return obj;
+      return newState;
     });
 
-    return newState;
-  });
+  }
+  const addMoreRows = () => {
+    setList([...list, {
+      name: "", designation: "", email: "", phoneNo: "",
+      actions: "false"
+    }])
+  }
+  const handleRemove = (index) => {
+    setList([...list.slice(0, index), ...list.slice(index + 1)])
+  }
+  const handleInput = (name, value, key) => {
 
-}
-const addMoreRows=()=>{
-    setList([...list,{
-    name:"",designation:"",email:"",phoneNo:"",
-    actions:"false"
-  }])
-}
-const handleRemove=(index)=>{
-    setList([...list.slice(0,index), ...list.slice(index+1)])
-}
-const handleInput=(name,value,key)=>{
-  
-const newInput = { ...sellerData }
+    const newInput = { ...buyerData }
 
     newInput[name] = value
-    setSellerData(newInput)
+    setBuyerData(newInput)
 
-}
-const handleChangeInput=(name,value,index)=>{
-let arrayToSave={
-    name:"",designation:"",email:"",phoneNo:"",
-    actions:"false"
   }
-    masterList.forEach((val,index)=>{
-  if(val.name==value){
-    arrayToSave.name=val.name
-    arrayToSave.designation=val.designation
-    arrayToSave.email=val.email
-    arrayToSave.phoneNo=val.phoneNo
-  }
-  })
-setList(prevState => {
-    const newState = prevState.map((obj ,i)=> {
-      
-      if (i == index) {
-        return arrayToSave;
-      }
+  const handleChangeInput = (name, value, index) => {
+  let arrayToSave={
+     name:"",designation:"",email:"",phoneNo:"",
+      actions:"false"
+   }
+     masterList.forEach((val,index)=>{
+    if(val.name==value){
+      arrayToSave.name=val.name
+      arrayToSave.designation=val.designation
+      arrayToSave.email=val.email
+      arrayToSave.phoneNo=val.phoneNo
+    }
+   })
+    setList(prevState => {
+      const newState = prevState.map((obj ,i)=> {
+       
+        if (i == index) {
+          return arrayToSave;
+        }
 
-      
-      return obj;
+        
+        return obj;
+      });
+
+      return newState;
+    });
+ 
+
+  }
+  const handleChangeInput2=(name,value,index)=>{
+   
+ 
+ 
+
+    setList(prevState => {
+      const newState = prevState.map((obj ,i)=> {
+       
+        if (i == index) {
+          return {...obj,phoneNo:value};
+        }
+
+        
+        return obj;
+      });
+
+      return newState;
     });
 
-    return newState;
-  });
+    
 
-}
-const handleChangeInput2=(name,value,index)=>{
-  
+  }
 
-
-
-  setList(prevState => {
-    const newState = prevState.map((obj ,i)=> {
-      
-      if (i == index) {
-        return {...obj,phoneNo:value};
-      }
-
-      
-      return obj;
-    });
-
-    return newState;
-  });
-
-  
-
-}
-  
  //address 
 const handleAddressInput=()=>{
 
@@ -224,7 +226,7 @@ setAddressList(current => [...current, newAddress])
               "state": "",
               "city": ""
           })
-          setAddressType("Registered")
+    setAddressType("Registered")
 }
 const onAddressRemove=(index)=>{
 setAddressList([...addressList.slice(0,index), ...addressList.slice(index+1)])
@@ -313,9 +315,8 @@ setEditAddress(
 
 
 }
-
   return (
-    <>      
+    <>
       <div className={`${styles.container} vessel_card`}>
         <Form className={`${styles.form}`}>
           <div className="row  ">
@@ -327,7 +328,7 @@ setEditAddress(
                   required
                   type="text"
                   name="name"
-                  value={sellerData.name}
+                  value={buyerData.name}
                   onChange={(e) => {
                     handleInput(e.target.name,e.target.value)
                   }}
@@ -357,7 +358,7 @@ setEditAddress(
                 required
                 type="text"
                 name="shortName"
-                value={sellerData.shortName}
+                value={buyerData.shortName}
                 onChange={(e) => {
                   handleInput(e.target.name,e.target.value)
                 }}
@@ -369,7 +370,7 @@ setEditAddress(
 
           </div>
         </Form>
-        <div className={`${styles.addressContainer}`}>
+       <div className={`${styles.addressContainer}`}>
           <span className={`mb-3`}>Addresses</span>
           <div className={`${styles.containerChild} d-flex justify-content-between flex-wrap  `}>
            {addressList?.map((val,index)=>{
@@ -407,37 +408,8 @@ setEditAddress(
            }) }
 
           </div>
-          {/* <div
-            className={`${styles.registeredAddress} d-flex justify-content-between border-color`}
-          >
-            <div className={`${styles.registeredAddressHeading}`}>
-              <span>Registered Address</span>
-              <div className={`${styles.address_text}`}>
-                511/1, 512/2, Urla Industrial Complex, Raipur, Chhattisgarh,
-              </div>
-            </div>
-            <div className={`d-flex ${styles.actions} `}>
-              <div
-                className={`${styles.addressEdit} d-flex justify-content-center align-items-center mt-n2`}
-                onClick={()=>{
-                  handleEditAddressInput(index)
-                }}
-              >
-                <img className={`${styles.image} img-fluid`} src="/static/mode_edit.svg" alt="edit" />
-              </div>
-              <div
-                className={`${styles.addressEdit} ml-3 d-flex justify-content-center align-items-center mr-n3 mt-n2`}
-                onClick={()=>{
-                  onAddressRemove(index)
-                }}
-                >
-                  <img className={`${styles.image} img-fluid`} src="/static/delete 2.svg" alt="delete" />
-              </div>
-            </div>
-
-          </div> */}
         </div>
-          {isEdit && editData(addressEditType,EditAddress,setEditAddress,editNewAddress,cancelEditAddress,saveNewAddress,setAddressEditType)}
+        {isEdit && editData(addressEditType,EditAddress,setEditAddress,editNewAddress,cancelEditAddress,saveNewAddress,setAddressEditType)}
          <div className={`${styles.newAddressContainer} m-0`}>
                   <div className={styles.newAddressHead}><span>Add a new address</span></div>
                     <div className={`${styles.newAddressContent} row`}>
@@ -446,7 +418,7 @@ setEditAddress(
                         <select
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           name="addressType"
-                           value={addressType}
+                          value={addressType}
                           onChange={(e) => {
                             setAddressType(e.target.value)
                             setAddress(e.target.name,e.target.value)
@@ -653,7 +625,7 @@ setEditAddress(
                     </div>
                   </div>
          </div>
-        <div className={`${styles.tableContainer} border-color card p-0`}>
+         <div className={`${styles.tableContainer} border-color card p-0`}>
           <div
             className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
             data-toggle="collapse"
@@ -710,7 +682,7 @@ setEditAddress(
                               handleChangeInput(e.target.name,e.target.value,index)
                             }}>
                                <option>Select an option</option>
-                            <option value={"Bhawana Jain"}>{"Bhawana Jain"}</option>
+                              <option value={"Bhawana Jain"}>{"Bhawana Jain"}</option>
                               <option value={"Vipin Kumar"}>{"Vipin Kumar"}</option>
                               <option value={"Devesh Jain"}>{"Devesh Jain"}</option>
                               <option value={"Fatima Yannoulis"}>{"Fatima Yannoulis"}</option>
@@ -724,12 +696,14 @@ setEditAddress(
                           <td><input type="text" 
                           placeholder={val.designation}
                           name= "designation"
+                            readOnly={true}
                           // onChange={(e)=>{
                           //   handleChangeInput(e.target.name,e.target.value,index)
                           // }}
                           ></input></td>
                           <td><input type="text" placeholder={val.email}
                           name= "email"
+                            readOnly={true}
                           // onChange={(e)=>{
                           //   handleChangeInput(e.target.name,e.target.value,index)
                           // }}

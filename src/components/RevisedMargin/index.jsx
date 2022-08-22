@@ -468,7 +468,7 @@ const Index = ({
                       <span className={`${styles.blue}`}>{`(N+O)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      {finalCal.totalOrderValue}
+                    ₹ {finalCal.totalOrderValue}
                     </div>
                   </div>
                 </div>
@@ -490,7 +490,7 @@ const Index = ({
                       <span className={`${styles.blue}`}>{`(N/A)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      {finalCal.provisionalUnitPricePerTon}
+                    ₹ {finalCal.provisionalUnitPricePerTon}
                     </div>
                   </div>
                 </div>
@@ -512,7 +512,7 @@ const Index = ({
                       <span className={`${styles.blue}`}>{`(P*G)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      {finalCal.marginMoney}
+                    ₹ {finalCal.marginMoney}
                     </div>
                   </div>
                 </div>
@@ -534,7 +534,7 @@ const Index = ({
                       <span className={`${styles.blue}`}>{`(P-R)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      {finalCal.totalSPDC}
+                    ₹ {finalCal.totalSPDC}
                     </div>
                   </div>
                 </div>
@@ -564,7 +564,7 @@ const Index = ({
                       </div>
                     </label>
                     <div className={`${styles.val} ${styles.green} heading`}>
-                      {calcRevised.additionalAmountPerPDC}
+                    ₹ {calcRevised.additionalAmountPerPDC}
                     </div>
                   </div>
                 </div>
@@ -590,7 +590,7 @@ const Index = ({
                       </div>
                     </label>
                     <div className={`${styles.val} ${styles.green} heading`}>
-                      {calcRevised.revisedNetOrderValue}
+                    ₹ {calcRevised.revisedNetOrderValue}
                     </div>
                   </div>
                 </div>
@@ -611,7 +611,7 @@ const Index = ({
                       <strong className="text-danger">*</strong>
                     </label>
                     <div className={`${styles.val} ${styles.green} heading`}>
-                      {calcRevised.marginMoney}
+                    ₹ {calcRevised.marginMoney}
                     </div>
                   </div>
                 </div>
@@ -633,7 +633,7 @@ const Index = ({
                       <span className={`${styles.blue}`}>{`(R)`}</span>
                     </label>
                     <div className={`${styles.val} ${styles.green} heading`}>
-                      {calcRevised.revisedMarginMoney}
+                    ₹ {finalCal.marginMoney}
                     </div>
                   </div>
                 </div>
@@ -654,7 +654,7 @@ const Index = ({
                       <strong className="text-danger">*</strong>
                     </label>
                     <div className={`${styles.val} ${styles.green} heading`}>
-                      USD 38,50,000.00
+                    ₹ 38,50,000.00
                     </div>
                   </div>
                 </div>
@@ -676,7 +676,7 @@ const Index = ({
                       <span className={`${styles.blue}`}>{`(W-X)`}</span>
                     </label>
                     <div className={`${styles.val} ${styles.green} heading`}>
-                      USD 38,50,000.00
+                    ₹  38,50,000.00
                     </div>
                   </div>
                 </div>
