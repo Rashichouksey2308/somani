@@ -171,8 +171,10 @@ function Index({
     colors[Math.floor(Math.random() * colors.length)]
 
 
-  useEffect(() => {
-    const data = camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern.forEach((element, index) => {
+   useEffect(() => {
+    let data;
+    if(camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern){
+  data = camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern.forEach((element, index) => {
       if (element.fullName === '') {
       } else {
         if (index < 2) {
@@ -186,6 +188,22 @@ function Index({
         }
       }
     })
+     camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern.forEach((element, index) => {
+    let randColor = colors[Math.floor(Math.random() * colors.length)]
+    if (element.fullName === '') {
+    } else {
+      if (index <= 2) {
+        tempArr.forEach((el, index2) => {
+          if (index = index2) {
+            el.name = element.fullName
+            el.value = element.numberOfShares
+          }
+        })
+      }
+    }
+  })
+    }
+   
     console.log(data, 'dhjj')
   }, [])
   // let tempArr = [
@@ -209,20 +227,7 @@ function Index({
 
   // ]
 
-  camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern.forEach((element, index) => {
-    let randColor = colors[Math.floor(Math.random() * colors.length)]
-    if (element.fullName === '') {
-    } else {
-      if (index <= 2) {
-        tempArr.forEach((el, index2) => {
-          if (index = index2) {
-            el.name = element.fullName
-            el.value = element.numberOfShares
-          }
-        })
-      }
-    }
-  })
+ 
   // console.log(tempArr, 'tempArr')
 
 
