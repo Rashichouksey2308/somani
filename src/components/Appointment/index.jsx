@@ -12,6 +12,7 @@ import moment from 'moment'
 
 export default function Index({ inspectionData }) {
   const dispatch = useDispatch()
+  const [lastDate, setlastDate] = useState(new Date())
 
   const [startDate, setStartDate] = useState(new Date())
 
@@ -27,7 +28,7 @@ export default function Index({ inspectionData }) {
       address: {
         fullAddress:
           inspectionData?.thirdPartyAppointment?.address?.fullAddress,
-          addressType:
+        addressType:
           inspectionData?.thirdPartyAppointment?.address?.addressType,
         pinCode: inspectionData?.thirdPartyAppointment?.address?.pinCode,
         country: inspectionData?.thirdPartyAppointment?.address?.country,
@@ -49,7 +50,10 @@ export default function Index({ inspectionData }) {
   }, [inspectionData])
   console.log(appointmentData, 'appointmentData')
 
-  console.log(moment(appointmentData?.dateOfAppointment?.split('T')[0]).toDate(), 'THIS IS APPOINTMENTD ')
+  console.log(
+    moment(appointmentData?.dateOfAppointment?.split('T')[0]).toDate(),
+    'THIS IS APPOINTMENTD ',
+  )
 
   const [addressData, setAddressData] = useState({
     name: '',
@@ -156,10 +160,19 @@ export default function Index({ inspectionData }) {
                           alt="Search"
                       /> */}
                     <DatePicker
-                    
                       name="dateOfAppointment"
-                      selected={moment(appointmentData?.dateOfAppointment?.split('T')[0]).toDate() ? moment(appointmentData?.dateOfAppointment?.split('T')[0]).toDate() :  startDate}
-                      defaultDate={moment(appointmentData?.dateOfAppointment?.split('T')[0]).toDate()}
+                      selected={
+                        moment(
+                          appointmentData?.dateOfAppointment?.split('T')[0],
+                        ).toDate()
+                          ? moment(
+                              appointmentData?.dateOfAppointment?.split('T')[0],
+                            ).toDate()
+                          : startDate
+                      }
+                      defaultDate={moment(
+                        appointmentData?.dateOfAppointment?.split('T')[0],
+                      ).toDate()}
                       //min={moment().format('YYYY-MM-DD')}
                       dateFormat="dd-MM-yyyy"
                       className={`${styles.input_field} ${styles.cursor_none} input form-control`}
@@ -167,6 +180,7 @@ export default function Index({ inspectionData }) {
                         setStartDate(startDate)
                         saveDate(startDate, 'dateOfAppointment')
                       }}
+                      minDate={lastDate}
                     />
                     <img
                       className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -193,7 +207,9 @@ export default function Index({ inspectionData }) {
                         {appointmentData?.address?.addressType}
                       </div>
                       <div className={`${styles.address_detail} mt-3`}>
-                        {appointmentData?.address?.fullAddress}, {appointmentData?.address?.pinCode}, {appointmentData?.address?.country} 
+                        {appointmentData?.address?.fullAddress},{' '}
+                        {appointmentData?.address?.pinCode},{' '}
+                        {appointmentData?.address?.country}
                       </div>
                     </div>
                     <img
@@ -209,7 +225,12 @@ export default function Index({ inspectionData }) {
               </div>
 
               {isEdit &&
-                editData(handleEditCancel, handleEditInput, handleOnAdd, appointmentData)}
+                editData(
+                  handleEditCancel,
+                  handleEditInput,
+                  handleOnAdd,
+                  appointmentData,
+                )}
             </div>
           </div>
         </div>
@@ -219,7 +240,12 @@ export default function Index({ inspectionData }) {
   )
 }
 
-const editData = (handleEditCancel, handleEditInput, handleOnAdd, appointmentData) => {
+const editData = (
+  handleEditCancel,
+  handleEditInput,
+  handleOnAdd,
+  appointmentData,
+) => {
   return (
     <div className={`${styles.newAddressContainer} border_color mt-3`}>
       <div className={`${styles.newAddressHead} border_color`}>

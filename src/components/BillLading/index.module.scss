@@ -230,7 +230,6 @@
                     font-size: 14px;
                     padding: 10px;
                   }
-                  
                 }
               }
               span {
@@ -366,7 +365,7 @@
           box-sizing: border-box;
           transform: translateY(-30px);
           transition: 0.3s all ease-in-out;
-          z-index: 1;
+          z-index: 0;
           max-width: 77%;
           white-space: nowrap;
           overflow: hidden;
@@ -593,33 +592,33 @@
       }
     }
     .uploadBtnWrapper {
-    overflow: hidden;
-    position: relative;
-    display: block;
-    line-height: 60px;
+      overflow: hidden;
+      position: relative;
+      display: block;
+      line-height: 60px;
 
-    input {
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      opacity: 0;
-      cursor: pointer;
-      position: absolute;
-    }
+      input {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0;
+        cursor: pointer;
+        position: absolute;
+      }
     }
 
     .upload_btn {
-    width: 106px;
-    height: 38px;
-    border: 3px solid #3687E8;
-    border-radius: 5px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 18px;
-    color: #3687E8;
-    line-height: 23px;
-    text-transform: capitalize;
+      width: 106px;
+      height: 38px;
+      border: 3px solid #3687e8;
+      border-radius: 5px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
+      color: #3687e8;
+      line-height: 23px;
+      text-transform: capitalize;
     }
   }
   .table_container {
