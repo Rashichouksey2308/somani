@@ -170,15 +170,14 @@ export default function Index({
     }
   }
 
-  const onChangeBlNumberEntry = (e) => { }
+  const onChangeBlNumberEntry = (e) => {}
 
   const onDocumentSelect = (e, index) => {
     const docData = docUploadFunction(e.target.files[0])
     const name = e.target.id
-    setIgmList(prevState => {
+    setIgmList((prevState) => {
       return [...igmList, { ...igmList[index], [name]: docData }]
     })
-
   }
 
   const handleSave = () => {
@@ -266,8 +265,13 @@ export default function Index({
                     Order Value <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
                   <span className={styles.value}>
-                    {CovertvaluefromtoCR(_get(TransitDetails, 'data[0].order.orderValue', ''))}{' '}
-                    {_get(TransitDetails, 'data[0].order.unitOfValue', '') == "Crores" ? "Cr" : _get(TransitDetails, 'data[0].order.unitOfValue', '')}
+                    {CovertvaluefromtoCR(
+                      _get(TransitDetails, 'data[0].order.orderValue', ''),
+                    )}{' '}
+                    {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
+                    'Crores'
+                      ? 'Cr'
+                      : _get(TransitDetails, 'data[0].order.unitOfValue', '')}
                   </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
@@ -310,7 +314,11 @@ export default function Index({
                     <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {_get(TransitDetails, 'data[0].order.vessel.vessels[0].transitDetails.countryOfOrigin', '')}
+                    {_get(
+                      TransitDetails,
+                      'data[0].order.vessel.vessels[0].transitDetails.countryOfOrigin',
+                      '',
+                    )}
                   </span>
                 </div>
                 <div className="col-lg-4 col-md-6 col-sm-6">
@@ -423,14 +431,14 @@ export default function Index({
                           </option>
                         ))
                         : _get(
-                          TransitDetails,
-                          'data[0].order.vessel.vessels[0].vesselInformation',
-                          [],
-                        ).map((vessel, index) => (
-                          <option value={vessel?.name} key={index}>
-                            {vessel?.name}
-                          </option>
-                        ))}
+                            TransitDetails,
+                            'data[0].order.vessel.vessels[0].vesselInformation',
+                            [],
+                          ).map((vessel, index) => (
+                            <option value={vessel?.name} key={index}>
+                              {vessel?.name}
+                            </option>
+                          ))}
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Vessel Name
@@ -474,110 +482,7 @@ export default function Index({
                   </div>
                 </div>
                 <hr></hr>
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    type="number"
-                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
-                    required
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    BL Number<strong className="text-danger">*</strong>
-                  </label>
-                </div>
 
-                {shipmentType ? (
-                  <>
-                    <div
-                      className="col-lg-4 col-md-6 col-sm-6"
-                      style={{ top: '35px' }}
-                    >
-                      <div className={`${styles.label} text`}>
-                        BL Date <strong className="text-danger ml-n1">*</strong>
-                      </div>
-                      <span className={styles.value}>22-02-2022</span>
-                    </div>
-                    <div
-                      className="col-lg-2 col-md-4 col-sm-6"
-                      style={{ top: '35px' }}
-                    >
-                      <div className={`${styles.label} text`}>
-                        BL Quantity{' '}
-                        <strong className="text-danger ml-n1">*</strong>
-                      </div>
-                      <span className={styles.value}>4,000 MT</span>
-                    </div>
-                    <div
-                      className="col-lg-2 col-md-4 col-sm-6"
-                      style={{ top: '35px' }}
-                    >
-                      <img
-                        src="/static/preview.svg"
-                        className={`${styles.previewImg} img-fluid ml-n4`}
-                        alt="Preview"
-                      />
-                      <img
-                        src="/static/add-btn.svg"
-                        className="img-fluid ml-5"
-                        alt="Add"
-                      />
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div
-                      className="col-lg-4 col-md-6 col-sm-6"
-                      style={{ top: '35px' }}
-                    >
-                      <div className="row">
-                        <div className="col-md-6">
-                          <div className={`${styles.label} text`}>
-                            BL Date{' '}
-                            <strong className="text-danger ml-n1">*</strong>
-                          </div>
-                          <span className={styles.value}>22-02-2022</span>
-                        </div>
-                        <div className="col-md-6">
-                          <div className={`${styles.label} text`}>
-                            No. of Containers{' '}
-                            <strong className="text-danger ml-n1">*</strong>
-                          </div>
-                          <span className={styles.value}>4,000 MT</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      className="col-lg-4 col-md-4 col-sm-6"
-                      style={{ top: '35px' }}
-                    >
-                      <div className="row align-items-center">
-                        <div className="col-md-6">
-                          <div className={`${styles.label} text`}>
-                            BL Quantity{' '}
-                            <strong className="text-danger ml-n1">*</strong>
-                          </div>
-                          <span className={styles.value}>4,000 MT</span>
-                        </div>
-                        <div className="col-md-6">
-                          <div className="d-flex align-items-center">
-                            <img
-                              src="/static/preview.svg"
-                              className={`${styles.previewImg} img-fluid ml-n4`}
-                              alt="Preview"
-                            />
-                            <img
-                              src="/static/add-btn.svg"
-                              className="img-fluid ml-5"
-                              alt="Add"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </>
-                )}
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >

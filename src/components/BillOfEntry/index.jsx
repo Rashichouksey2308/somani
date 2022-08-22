@@ -1093,6 +1093,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
             <UploadOther
               orderid={OrderId}
               module="CustomClearanceAndWarehousing"
+              isDocumentName={true}
             />
           </div>
         </div>

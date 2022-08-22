@@ -575,12 +575,6 @@ console.log(bolList,"bol")
                             />
                             {/* <DateCalender name='etaAtDischargePortTo'  defaultDate={bol?.etaAtDischargePortTo?.split('T')[0]} saveDate={saveDate} labelName=''/> */}
                             <img
-                              className={`${styles.calanderIcon} img-fluid`}
-                              src="/static/caldericon.svg"
-                              alt="Search"
-                            />
-
-                            <img
                               className={`${styles.calanderIcon} image_arrow img-fluid`}
                               src="/static/caldericon.svg"
                               alt="Search"
