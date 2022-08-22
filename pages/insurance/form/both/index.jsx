@@ -853,7 +853,7 @@ const Index = () => {
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              GST of Insured
+                              GST of Insurer
                             </label>
                             <img
                               className={`${styles.checked_image} img-fluid`}
@@ -893,7 +893,7 @@ const Index = () => {
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            GST of Insurer
+                            GST of Insured
                             <strong className="text-danger">*</strong>
                           </label>
                         </Col>
@@ -1131,7 +1131,7 @@ const Index = () => {
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              GST of Insured
+                              GST of Insurer
                             </label>
                             <img
                               className={`${styles.checked_image} img-fluid`}
