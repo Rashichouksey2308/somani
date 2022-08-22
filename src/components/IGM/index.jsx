@@ -38,15 +38,11 @@ export default function Index({
     address: '',
   })
   const [igmList, setIgmList] = useState({
-    shipmentType: _get(
-      TransitDetails,
-      `data[0].order.vessel.vessels[0].shipmentType`,
-      '',
-    ),
+    shipmentType: '',
     shipmentDetails: {
-      consigneeName: consigneeInfo.name,
-      consigneeBranch: consigneeInfo.branch,
-      consigneeAddress: consigneeInfo.address,
+      consigneeName: '',
+      consigneeBranch: '',
+      consigneeAddress: '',
     },
     igmDetails: [
       {
@@ -186,11 +182,22 @@ export default function Index({
   }
 
   const handleSave = () => {
-    const igmDetails = igmList
+    const igmDetails = { ...igmList }
+    igmDetails.shipmentType = _get(
+      TransitDetails,
+      `data[0].order.vessel.vessels[0].shipmentType`,
+      '',
+    )
+    igmDetails.shipmentDetails = {
+      consigneeName: consigneeInfo.name,
+      consigneeBranch: consigneeInfo.branch,
+      consigneeAddress: consigneeInfo.address,
+    }
+    console.log(igmDetails, 'igmPayload')
     let fd = new FormData()
     fd.append('igm', JSON.stringify(igmDetails))
     fd.append('transitId', transId._id)
-    dispatch(UpdateTransitDetails(fd))
+    // dispatch(UpdateTransitDetails(fd))
   }
 
   return (
@@ -412,7 +419,7 @@ export default function Index({
                             value={vessel?.vesselInformation[0]?.name}
                             key={index}
                           >
-                            {vessel?.vesselInformation?.name}
+                            {vessel?.vesselInformation[0]?.name}
                           </option>
                         ))
                         : _get(
