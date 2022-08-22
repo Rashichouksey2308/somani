@@ -68,7 +68,7 @@ function Index() {
                   Type of Insurance:
                 </span>
                 <span className={`${styles.details_val} label_heading" ml-1`}>
-                {insuranceData?.quotationRequest?.insuranceType}
+                  {insuranceData?.quotationRequest?.insuranceType}
                 </span>
               </div>
               <br></br>
@@ -89,8 +89,11 @@ function Index() {
                     Vessel
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                  {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].name', '')}
-
+                    {_get(
+                      insuranceData,
+                      'order.vessel.vessels[0].vesselInformation[0].name',
+                      '',
+                    )}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -103,8 +106,11 @@ function Index() {
                     IMO Number
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                  {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].IMONumber', '')}
-
+                    {_get(
+                      insuranceData,
+                      'order.vessel.vessels[0].vesselInformation[0].IMONumber',
+                      '',
+                    )}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -117,8 +123,11 @@ function Index() {
                     Year of Built
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                  {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt', '')?.slice(0, 4)}
-
+                    {_get(
+                      insuranceData,
+                      'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt',
+                      '',
+                    )?.slice(0, 4)}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -158,8 +167,11 @@ function Index() {
                     Origin
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                  {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.countryOfOrigin', '')}
-
+                    {_get(
+                      insuranceData,
+                      'order.vessel.vessels[0].transitDetails.countryOfOrigin',
+                      '',
+                    )}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -185,8 +197,11 @@ function Index() {
                     Port of Loading
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                  {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfLoading', '')}
-
+                    {_get(
+                      insuranceData,
+                      'order.vessel.vessels[0].transitDetails.portOfLoading',
+                      '',
+                    )}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -199,8 +214,11 @@ function Index() {
                     Port of Discharges
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                  {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
-
+                    {_get(
+                      insuranceData,
+                      'order.vessel.vessels[0].transitDetails.portOfDischarge',
+                      '',
+                    )}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -263,7 +281,9 @@ function Index() {
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
                     {moment(
-                      insuranceData?.quotationRequest?.laycanFrom?.split('T')[0],
+                      insuranceData?.quotationRequest?.laycanFrom?.split(
+                        'T',
+                      )[0],
                     ).format('DD MMM')}{' '}
                     -{' '}
                     {moment(
@@ -281,8 +301,11 @@ function Index() {
                     ETD
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                  {moment(insuranceData?.quotationRequest?.expectedTimeOfDispatch?.split('T')[0]).format('DD MMMM , YYYY')}
-
+                    {moment(
+                      insuranceData?.quotationRequest?.expectedTimeOfDispatch?.split(
+                        'T',
+                      )[0],
+                    ).format('DD MMMM , YYYY')}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -472,10 +495,10 @@ function Index() {
                       aria-selected="true"
                     >
                       <img
-                        src="/static/Group 3256.svg"
+                        src="/static/groups.svg"
                         width={`32px`}
                         className="img-fluid"
-                        alt="Email Address"
+                        alt="group"
                       />
                       Insurance Company
                     </a>

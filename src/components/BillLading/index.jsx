@@ -1015,7 +1015,7 @@ export default function Index({
             </div>
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className={`${styles.body} card-body container-fluid`}>
+        <Modal.Body className={`${styles.card_body} card-body container-fluid`}>
           <img
             src="/static/updated-successfully.svg"
             alt="Updated Successfully"
@@ -1027,6 +1027,7 @@ export default function Index({
             <button
               type="button"
               className={`${styles.card_button} ${styles.close} btn`}
+              onClick={handleClose}
             >
               Close
             </button>
