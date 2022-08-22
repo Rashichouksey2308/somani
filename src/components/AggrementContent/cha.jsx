@@ -90,12 +90,11 @@ useEffect(() => {
     }
    }
   },[])
-   let masterList=[
-  {name:"Bhawana Jain",designation:"Vice President (Finance & Accounts)",email:"bhawanajain@somanigroup.com",phoneNo:""},
-   {name:"Vipin Kumar",designation:"Manager Accounts",email:"vipinrajput@somanigroup.com",phoneNo:""},
-    {name:"Devesh Jain",designation:"Director",email:"devesh@indointertrade.ch",phoneNo:""},
-     {name:"Fatima Yannoulis ",designation:"Chief Financial Officer",email:"fatima@indointertrade.ch",phoneNo:""}
- ]
+  let masterList=[
+  {name:"Dr. Amin Controllers Private Limited",address:"Embassy Chambers, 6th Floor, Plot No. 5, Road No. 3, Khar (West) Mumbai, Maharashtra - 400 05227AAACA3912A2ZE"},
+  {name:"Integral Trading and Logistics",address:"Flat No. 303, 3rd Floor, Tirumala Plaza, Dabagarden, Visakhapatnam, Andhra Pradesh - 53002037AABFI9574L2ZP"},
+ 
+  ]
   console.log(chaState,"chaState")
   useEffect(() => {
     if(props.saveData==true && props.active=="CHA"){
@@ -158,7 +157,7 @@ useEffect(() => {
 
    
   setList([...list,{
-      name:"",designation:"",email:"",phoneNo:"",
+      name:"",address:"",
       actions:"false"
     }])
 
@@ -180,15 +179,15 @@ useEffect(() => {
   
  const handleChangeInput=(name,value,index)=>{
    let arrayToSave={
-     name:"",designation:"",email:"",phoneNo:"",
+     name:"",address:"",
       actions:"false"
    }
    masterList.forEach((val,index)=>{
     if(val.name==value){
       arrayToSave.name=val.name
-      arrayToSave.designation=val.designation
-      arrayToSave.email=val.email
-      arrayToSave.phoneNo=val.phoneNo
+      arrayToSave.address=val.address
+      // arrayToSave.email=val.email
+      // arrayToSave.phoneNo=val.phoneNo
     }
    })
  
@@ -687,8 +686,7 @@ setEditAddress(
                   <tr>
                     <th>NAME</th>
                     <th>DESIGNATION</th>
-                    <th>EMAIL</th>
-                    <th>PHONE NO.</th>
+                    
                     <th>ACTION</th>
                   </tr>
                   <tbody>
@@ -698,9 +696,9 @@ setEditAddress(
                         {val.actions=="true"?
                         <tr key={index}>
                           <td>{val.name}</td>
-                          <td>{val.designation}</td>
-                          <td>{val.email}</td>
-                          <td>{val.phone}</td>
+                          <td>{val.address}</td>
+                          {/* <td>{val.email}</td>
+                          <td>{val.phone}</td> */}
                           <td className={`d-flex`}>
                             <img onClick={()=>(onEdit(index))} className={`${styles.image} img-fluid mr-3`} src="/static/mode_edit.svg" alt="edit"/>
                             <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img>
@@ -716,10 +714,8 @@ setEditAddress(
                               handleChangeInput(e.target.name,e.target.value,index)
                             }}>
                                <option>Select an option</option>
-                              <option value={"Bhawana Jain"}>{"Bhawana Jain"}</option>
-                              <option value={"Vipin Kumar"}>{"Vipin Kumar"}</option>
-                              <option value={"Devesh Jain"}>{"Devesh Jain"}</option>
-                              <option value={"Fatima Yannoulis"}>{"Fatima Yannoulis"}</option>
+                              <option value={"Dr. Amin Controllers Private Limited"}>{"Dr. Amin Controllers Private Limited"}</option>
+                              <option value={"Integral Trading and Logistics"}>{"Integral Trading and Logistics"}</option>
                             </select>
                             <img
                               className={`${styles.arrow2} image_arrow img-fluid`}
@@ -728,26 +724,24 @@ setEditAddress(
                             />
                           </td>
                           <td><input type="text" 
-                          placeholder={val.designation}
+                          placeholder={val.address}
                           name= "designation"
                           readOnly={true}
                           // onChange={(e)=>{
                           //   handleChangeInput(e.target.name,e.target.value,index)
                           // }}
                           ></input></td>
-                          <td><input type="text" placeholder={val.email}
+                          {/* <td><input type="text" placeholder={val.email}
                           name= "email"
                           readOnly={true}
-                          // onChange={(e)=>{
-                          //   handleChangeInput(e.target.name,e.target.value,index)
-                          // }}
+                         
                           ></input></td>
                           <td><input type="text" placeholder={val.phoneNo}
                           name= "phoneNo"
                           onChange={(e)=>{
                             handleChangeInput2(e.target.name,e.target.value,index)
                           }}
-                          ></input></td>
+                          ></input></td> */}
                           <td className={`d-flex`}>
                             <img onClick={()=>(onEditRemove(index))} className={`${styles.image} img-fluid mr-3`} src="/static/mode_edit.svg" alt="edit"/>
                             <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img>

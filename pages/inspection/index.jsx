@@ -171,7 +171,7 @@ function Index() {
         </div>
         <div className={`${styles.datatable} datatable card border_color `}>
           <div
-            className={`${styles.tableFilter} d-flex justify-content-between`}
+            className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
           >
             <h3 className="heading_card">Inspection Details</h3>
             <div
