@@ -70,6 +70,7 @@ function Index() {
           ).format('DD-MM-YYYY'),
           false,
         )}
+        {fields('Document Name', 'Insurance Certificate', true)}
 
         {buyerList?.company?.documents.map((val, index) => {
           return (
