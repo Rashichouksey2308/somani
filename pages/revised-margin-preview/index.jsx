@@ -53,8 +53,8 @@ function Index() {
           </div>
         </div>
         <div className={`${styles.term_container} container-fluid`}>
-          <Row>
-            <Col md={4} className={`${styles.left}`}>
+          <Row className={styles.row}>
+            <Col md={4} className={`${styles.left} align-self-end`} >
               <div>
                 <span className={styles.termSub_head}>Order ID:</span>
                 <span className={styles.termValue}>
@@ -71,7 +71,7 @@ function Index() {
             <Col md={4} className="text-center">
               <span>REVISED MARGIN MONEY</span>
             </Col>
-            <Col md={4} className={`${styles.left} ${styles.right}`}>
+            <Col md={4} className={`${styles.left} ${styles.right} align-self-center`}>
               <div>
                 <span className={styles.termSub_head}>Date:</span>{' '}
                 <span className={styles.termValue}>
