@@ -70,6 +70,7 @@ function Index(props) {
         updateData={updateData}
         active={active}
         data={props?.genericData?.buyer}
+        order={props?.genericData}
         />
       )
     }
@@ -81,7 +82,8 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
-         data={props?.genericData?.supplier}
+        data={props?.genericData?.supplier}
+        
         
         />
       )
@@ -136,6 +138,7 @@ function Index(props) {
         active={active}
         multiPartValue={multiPartValue}
         data={props?.genericData?.supplier}
+        order={props?.genericData?.order}
         />
       )
     }
@@ -328,7 +331,7 @@ const onSave=()=>{
     dataToSend={
     genericId:props.genericData?._id,
     seller:{
-    "name": data.sellerData.name,
+    "name": "Indo German International",
     "shortName": data.sellerData.shortName,
 
     "addresses": data.addresses,
@@ -348,7 +351,7 @@ const onSave=()=>{
     dataToSend={
     genericId:props.genericData?._id,
     buyer:{
-    "name": data.buyerData.name,
+    "name":props.genericData.company.companyName,
     "branchName": data.buyerData.branchName,
 
     "addresses": data.addresses,
@@ -555,7 +558,7 @@ const sendData=(key,data)=>{
     dataToSend={
      
     
-        "name": data.sellerData.name,
+        "name": "Indo German International",
         "shortName": data.sellerData.shortName,
         "addresses": data.addresses,
         "authorisedSignatoryDetails": data.list,
@@ -569,7 +572,7 @@ const sendData=(key,data)=>{
     dataToSend={
      
     
-        "name": data.buyerData.name,
+        "name": props.genericData.company.companyName,
         "branchName": data.buyerData.branchName,
         "addresses": data.addresses,
         "authorisedSignatoryDetails": data.list,

@@ -5,9 +5,9 @@ import styles from './index.module.scss'
 import { DropdownButton, Dropdown, Form } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import moment from 'moment'
-import {CovertvaluefromtoCR} from '../../utils/helper'
+import { CovertvaluefromtoCR } from '../../utils/helper'
 
-function Index({ handleChange, reviewedProfile }) {
+function Index({ handleChange, reviewedProfile, isAddedRow }) {
   console.log(
     '🚀 ~ file: index.jsx ~ line 9 ~ Index ~ reviewedProfile',
     reviewedProfile?.orderValues?.apiResponse,
@@ -22,7 +22,10 @@ function Index({ handleChange, reviewedProfile }) {
   ]
   const typeOfBusinessDropdown = ['Manufacturer', 'Trader', 'Retail']
 
-  console.log(reviewedProfile?.orderValue?.originalValue,"reviewedProfile?.orderValue?.originalValue")
+  console.log(
+    reviewedProfile?.orderValue?.originalValue,
+    'reviewedProfile?.orderValue?.originalValue',
+  )
   const DropDown = (values, name, disabled) => {
     return (
       <td>
@@ -209,7 +212,11 @@ function Index({ handleChange, reviewedProfile }) {
 
                 <tr className={`${styles.table_row} border_color table_row`}>
                   <td>Turnover (Cr)</td>
-                  <td>{CovertvaluefromtoCR(reviewedProfile?.turnOver?.originalValue)}</td>
+                  <td>
+                    {CovertvaluefromtoCR(
+                      reviewedProfile?.turnOver?.originalValue,
+                    )}
+                  </td>
                   <td>
                     <div className={styles.tick}>
                       <img
@@ -284,8 +291,12 @@ function Index({ handleChange, reviewedProfile }) {
                 </tr>
 
                 <tr className={`${styles.table_row} border_color table_row`}>
-                  <td>Order Value(Cr)</td>
-                  <td>{CovertvaluefromtoCR(reviewedProfile?.orderValue?.originalValue)}</td>
+                  <td>Order Value (Cr)</td>
+                  <td>
+                    {CovertvaluefromtoCR(
+                      reviewedProfile?.orderValue?.originalValue,
+                    )}
+                  </td>
                   <td>
                     <div className={styles.tick}>
                       <img
@@ -442,6 +453,54 @@ function Index({ handleChange, reviewedProfile }) {
                     )}
                   </td>
                 </tr>
+                {isAddedRow ? (
+                  <tr className={`${styles.table_row} border_color table_row`}>
+                    <td>
+                      Delinquency in Past Orders{' '}
+                      <span className={styles.view_btn}>View</span>
+                    </td>
+                    <td>Yes</td>
+                    <td>
+                      <div className={styles.tick}>
+                        <img
+                          src={
+                            reviewedProfile?.ExpectedDateOfShipment?.apiResponse
+                              ? '/static/check.svg'
+                              : '/static/close-b.svg'
+                          }
+                          alt="Check"
+                          className="img-fluid"
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      {!reviewedProfile?.ExpectedDateOfShipment?.apiResponse ? (
+                        <input
+                          onChange={(e) => handleCheckBox(8)}
+                          className={styles.checkBox}
+                          type="checkbox"
+                        />
+                      ) : null}
+                    </td>
+                    <td>
+                      {!reviewedProfile?.ExpectedDateOfShipment
+                        ?.apiResponse && (
+                        <Form.Control
+                          type="date"
+                          name="ExpectedDateOfShipment"
+                          id="textDate"
+                          className={`${styles.input}`}
+                          onBlur={(e) =>
+                            handleChange(e.target.name, e.target.value)
+                          }
+                          disabled={fields[8]?.isEdit}
+                        />
+                      )}
+                    </td>
+                  </tr>
+                ) : (
+                  ''
+                )}
               </tbody>
             </table>
           </form>

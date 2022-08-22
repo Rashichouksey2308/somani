@@ -333,8 +333,9 @@ setEditAddress(
                     handleInput(e.target.name,e.target.value)
                   }}
                 >
-                    <option>Select an option</option>
-                  <option value="Indo German International">Indo German International</option>
+                 
+                  <option selected value="Indo German International">Indo German International</option>
+                   <option>Select an option</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                 Name<strong className="text-danger">*</strong>

@@ -1,11 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react'
+import React ,{useEffect}from 'react'
 import styles from './index.module.scss'
 import PaymentTableMain from '../../src/components/PaymentTableMain'
 import Filter from '../../src/components/Filter'
 import Router from 'next/router'
-
+import { useDispatch } from 'react-redux'
+import { setPageName,setDynamicName } from '../../src/redux/userData/action'
 function Index() {
+    const dispatch = useDispatch()
+   useEffect(() => {
+    dispatch(setPageName('payment'))
+    dispatch(setDynamicName(null))
+  })
 
   return (
     <div className="container-fluid p-0 border-0">
