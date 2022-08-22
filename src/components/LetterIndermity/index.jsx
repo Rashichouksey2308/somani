@@ -139,7 +139,7 @@ function Index({ TransitDetails }) {
     const LOI = { ...loi }
 
     let fd = new FormData()
-    fd.append('LOI', JSON.stringify(LOI))
+    fd.append('loi', JSON.stringify(LOI))
     fd.append('transitId', transId._id)
     dispatch(UpdateTransitDetails(fd))
     //console.log(fd, bol, 'filteredVessel')
