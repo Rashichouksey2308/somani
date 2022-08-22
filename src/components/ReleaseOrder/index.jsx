@@ -249,7 +249,6 @@ export default function Index({ ReleaseOrderData }) {
                         'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
                         '',
                       )}
-                      
                       MT
                     </span>
                   </div>
@@ -439,6 +438,7 @@ export default function Index({ ReleaseOrderData }) {
             <UploadOther
               orderid={orderid}
               module="PaymentsInvoicing&Delivery"
+              isDocumentName={true}
             />
           </div>
         </div>
