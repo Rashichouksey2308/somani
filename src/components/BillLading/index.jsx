@@ -249,10 +249,10 @@ console.log(bolList,"bol")
   return (
     <>
       <div className={`${styles.backgroundMain} p-0 container-fluid`}>
-        <div className={`${styles.vessel_card} mt-3 border_color`}>
+        <div className={`${styles.vessel_card} border_color`}>
           <div className={`${styles.wrapper} border_color card`}>
-            <div className="d-lg-flex align-items-center d-inline-block  pl-4">
-              <h2 className="mb-0">Shipment Type</h2>
+            <div className="d-lg-flex align-items-center d-inline-block">
+              <h2 className="">Shipment Type</h2>
               <div className={`${styles.radio_form} ml-lg-5 ml-n4`}>
                 {['radio'].map((type) => (
                   <div key={`inline-${type}`} className={styles.radio_group}>
@@ -284,7 +284,7 @@ console.log(bolList,"bol")
 
           <div className={`${styles.main} border_color card `}>
             <div
-              className={`${styles.head_container} border_color card-header head_container justify-content-between d-flex bg-transparent`}
+              className={`${styles.head_container} border_color align-items-center card-header head_container justify-content-between d-flex bg-transparent`}
             >
               <h3 className={`${styles.heading}`}>Commodity Details</h3>
               <div className="d-flex align-items-center">
@@ -358,7 +358,7 @@ console.log(bolList,"bol")
                 className={`${styles.main} vessel_card card border_color`}
               >
                 <div
-                  className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
+                  className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
                 >
                   <h3 className={`${styles.heading}`}>
                     Bill of Lading {index + 1}
