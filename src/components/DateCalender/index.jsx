@@ -12,7 +12,9 @@ const Index = ({
   index,
   dateFormat,
   setStartDateFrom,
-  startFrom
+  startFrom,
+  disabled,
+  small
 }) => {
   const [startDate, setStartDate] = useState(null)
   const [lastDate, setlastDate] = useState()
@@ -40,7 +42,7 @@ const Index = ({
           onKeyDown={(e) => {
             e.preventDefault()
           }}
-          className={`${styles.input_field} input form-control`}
+          className={`${styles.input_field} input form-control ${small?styles.input_small:""}`}
           onChange={(startDate) => {
             setStartDate(startDate)
             saveDate(startDate, name, index)
@@ -50,6 +52,8 @@ const Index = ({
             console.log(startDate, name, 'Event')
           }}
            minDate={lastDate}
+           disabled={disabled?disabled:false}
+           
         />
         <label className={`${styles.label_heading} label_heading`}>
           {labelName}

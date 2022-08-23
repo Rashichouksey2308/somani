@@ -125,7 +125,7 @@ function Index() {
                       <span className={`${styles.sno}`}>B</span>
                       <span className={`ml-2`}>Unit Price</span>
                     </td>
-                    <td className={`${styles.good} good`}>
+                    <td className={`${styles.good} `}>
                       {(marginData?.order?.perUnitPrice).toLocaleString() ?? 0}
                     </td>
                   </tr>
@@ -134,7 +134,7 @@ function Index() {
                       <span className={`${styles.sno}`}>C</span>
                       <span className={`ml-2`}>Conversion Rate</span>
                     </td>
-                    <td className={`${styles.good} good`}>
+                    <td className={`${styles.good} `}>
                       {marginData?.conversionRate}
                     </td>
                   </tr>
@@ -143,7 +143,7 @@ function Index() {
                       <span className={`${styles.sno}`}>D</span>
                       <span className={`ml-2`}>Usance Interest (%)</span>
                     </td>
-                    <td className={`${styles.good} good`}>
+                    <td className={`${styles.good} `}>
                       { addPrefixOrSuffix(marginData?.order?.termsheet?.commercials?.usanceInterestPercetage, '%', '')}
                     </td>
                   </tr>
@@ -152,7 +152,7 @@ function Index() {
                       <span className={`${styles.sno}`}>E</span>
                       <span className={`ml-2`}>Trade Margin</span>
                     </td>
-                    <td className={`${styles.good} good`}>
+                    <td className={`${styles.good} `}>
                     { addPrefixOrSuffix(marginData?.order?.termsheet?.commercials?.tradeMarginPercentage, '%', '')}
 
                     </td>
@@ -162,7 +162,7 @@ function Index() {
                       <span className={`${styles.sno}`}>F</span>
                       <span className={`ml-2`}>Tolerance (+/-) Percentage</span>
                     </td>
-                    <td className={`${styles.good} good`}>
+                    <td className={`${styles.good} `}>
                       { addPrefixOrSuffix(marginData?.order?.tolerance ? marginData?.order?.tolerance : 0, '%', '')}
                     </td>
                   </tr>
@@ -171,7 +171,7 @@ function Index() {
                       <span className={`${styles.sno}`}>G</span>
                       <span className={`ml-2`}>Margin Money (%)</span>
                     </td>
-                    <td className={`${styles.good} good`}>
+                    <td className={`${styles.good} `}>
                       {addPrefixOrSuffix(marginData?.order?.termsheet?.transactionDetails?.marginMoney ? marginData?.order?.termsheet?.transactionDetails?.marginMoney : 0, '%', '')}
                     </td>
                   </tr>
@@ -180,7 +180,7 @@ function Index() {
                       <span className={`${styles.sno}`}>H</span>
                       <span className={`ml-2`}>No. of PDC's</span>
                     </td>
-                    <td className={`${styles.good} good`}>
+                    <td className={`${styles.good} `}>
                       {marginData?.additionalPDC?.toLocaleString() ?? 0}
                     </td>
                   </tr>

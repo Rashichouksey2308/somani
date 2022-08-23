@@ -107,7 +107,7 @@ function Index() {
   }, [companyDetails.companyPan])
 
   const [orderDetails, setOrderDetails] = useState({
-    transactionType: 'Import',
+    transactionType: '',
     commodity: '',
     quantity: null,
     unitOfQuantity: 'mt',
@@ -188,10 +188,17 @@ function Index() {
   const chanegTermsCheck = () => {
     setTermsCheck(!termsCheck)
   }
-
+console.log(companyDetails.transactionType,"trans")
   const submitData = () => {
  console.log("submit1")
-    // handleCurrOrder()
+    // handleCurrOrder()  
+      if (companyDetails.transactionType === null) {
+      let toastMessage = 'Please Select a valid transaction Type'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage, { toastId: toastMessage })
+      }
+      return
+      }
     if (companyDetails.companyName === '') {
        console.log("submit2")
       let toastMessage = 'Please Fill The Company Name'
@@ -201,12 +208,6 @@ function Index() {
       return
     } else if (companyDetails.companyPan.trim().length !== 10) {
       let toastMessage = 'Please Fill A valid Company Pan'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
-      }
-      return
-    } else if (companyDetails.transactionType === null) {
-      let toastMessage = 'Please Select a valid transaction Type'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }

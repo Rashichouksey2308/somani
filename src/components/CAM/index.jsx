@@ -1611,7 +1611,7 @@ const chargeDetails = (data, options, tempArr, camData) => {
                             </td>
                             <td>{charge?.finalAmountSecured}</td>
 
-                            <td>{charge?.dateOfCreationOfCharge}</td>
+                            <td>{charge?.dateOfCreationOfCharge?moment(charge?.dateOfCreationOfCharge).format("DD-MM-YYYY"):""}</td>
                           </tr>
                         )
                       },
