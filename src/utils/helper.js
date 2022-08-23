@@ -58,20 +58,25 @@ export const handleCurrencyOrder = (unitOfValue, value) => {
   }
 }
 
-export const addPrefixOrSuffix = (unitOfValue, type, where = 'null', showINR = 'false') => {
+export const addPrefixOrSuffix = (
+  unitOfValue,
+  type,
+  where = 'null',
+  showINR = 'false',
+) => {
   console.log(unitOfValue, type, 'type')
   if (where == 'front') {
     if (type != undefined) {
       if (unitOfValue == '') {
         return ''
       }
-      let allSymbols = ['₹', '$', '€', '£']
+
       let symbol = type
-       if (type == 'INR' || 'RUPEE') {
+      if (type == 'INR' || 'RUPEE') {
         symbol = 'INR'
         console.log(symbol, 'symbol')
       }
-     else if (type == 'USD') {
+      if (type == 'USD') {
         symbol = 'USD'
         console.log(symbol, 'symbol')
       }
@@ -86,10 +91,21 @@ export const addPrefixOrSuffix = (unitOfValue, type, where = 'null', showINR = '
 
       removedValue = unitOfValue
         ?.toString()
-        ?.replaceAll('₹', '')
-        .replaceAll('$', '')
-        .replaceAll('€', '')
-        .replaceAll('£', '')
+        ?.replaceAll('E', '')
+        .replaceAll('U', '')
+        .replaceAll('R', '')
+        .replaceAll('O', '')
+        .replaceAll('I', '')
+        .replaceAll('N', '')
+        .replaceAll('R', '')
+        .replaceAll('U', '')
+        .replaceAll('S', '')
+        .replaceAll('D', '')
+        .replaceAll('P', '')
+        .replaceAll('O', '')
+        .replaceAll('U', '')
+        .replaceAll('U', '')
+        .replaceAll('D', '')
         .replace(/ /g, '')
 
       let newValue = symbol + '  ' + removedValue?.toString()
@@ -164,6 +180,22 @@ export const removePrefixOrSuffix = (unitOfValue, type) => {
       .replaceAll('U', '')
       .replaceAll('S', '')
       .replaceAll('D', '')
+      .replaceAll('E', '')
+      .replaceAll('U', '')
+      .replaceAll('R', '')
+      .replaceAll('O', '')
+      .replaceAll('I', '')
+      .replaceAll('N', '')
+      .replaceAll('R', '')
+      .replaceAll('U', '')
+      .replaceAll('S', '')
+      .replaceAll('D', '')
+      .replaceAll('P', '')
+      .replaceAll('O', '')
+      .replaceAll('U', '')
+      .replaceAll('U', '')
+      .replaceAll('D', '')
+      .replace(/ /g, '')
       .replace(/ /g, '')
     console.log(newValue, 'newValueremove')
     return Number(newValue)
