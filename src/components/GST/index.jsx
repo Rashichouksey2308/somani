@@ -587,7 +587,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
   }
 
   const finacialYear = (text) => {
-    let [start, end] = text.split('-')
+    let [start, end] = text?.split('-')
     return ''
   }
   console.log(gstFilteredData?.detail?.summaryInformation?.businessProfile, "busis")
