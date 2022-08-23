@@ -339,8 +339,9 @@ function Index({
       setRating(`rotate(250deg)`)
     }
     if(r==7){
-      setRating(`rotate(280deg)`)
-  
+      setRating(`rotate(270deg)`)
+    }
+    
     if(r==8){
       setRating(`rotate(310deg)`)
     }
