@@ -35,7 +35,7 @@ Chart.register(
 import { CovertvaluefromtoCR } from '../../utils/helper'
 import _get from 'lodash/get'
 // Chart.register(linear);
-function Index({ companyData, orderList, GstDataHandler }) {
+function Index({ companyData, orderList, GstDataHandler, alertObj }) {
   const dispatch = useDispatch()
   const GstData = companyData?.GST
   console.log(companyData, 'companyData')
@@ -97,7 +97,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
   const handleChangeGstin = (e) => {
     const filteredgstin = GstData?.filter((GstinData) => GstinData.gstin === e.target.value)
     // console.log(filteredgstin.length, 'filteredgstin')
-    if (filteredgstin.length === 1) {
+    if (filteredgstin?.length === 1) {
       filteredgstin?.map((gstData) => {
         const data = { ...gstData }
         SetGstFilteredData(data)
@@ -587,8 +587,9 @@ function Index({ companyData, orderList, GstDataHandler }) {
   }
 
   const finacialYear = (text) => {
-    let [start, end] = text.split('-')
-    return ''
+    let [startYear, endYear] = (text ? text : '').split('-')
+    let finacialYear = `MAR ${startYear ? startYear : ''} - APR ${endYear ? endYear : ''}`
+    return finacialYear
   }
   console.log(gstFilteredData?.detail?.summaryInformation?.businessProfile, "busis")
   return (
@@ -695,11 +696,19 @@ function Index({ companyData, orderList, GstDataHandler }) {
                     sm={12}
                     className={`${styles.gst_cancelled}  d-flex align-items-center justify-content-start`}
                   >
-                    <div className={styles.dot}></div>
+
                     {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map((alert, index) => {
-                      return (
-                        <span>GST cancelled</span>
-                      )
+                      if (alert.severity === 'severe') {
+                        console.log(alert.alert, 'gst severity')
+                        return (
+                          <>    <div
+                            className={styles.dot}
+                            style={{ backgroundColor: '#EA3FD6' }}
+                          ></div>
+                            <span>{alertObj[alert.alert]}</span></>
+                        )
+                      }
+
                     })}
                   </Col>
                 </Row>
@@ -709,33 +718,60 @@ function Index({ companyData, orderList, GstDataHandler }) {
                     sm={12}
                     className={`${styles.gst_cancelled} gst_profile_alerts  d-flex align-items-center justify-content-start`}
                   >
-                    <div
-                      className={styles.dot}
-                      style={{ backgroundColor: '#28BE39' }}
-                    ></div>
-                    <span>GST Transaction default</span>
+
+                    {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map((alert, index) => {
+                      if (alert.severity === 'high') {
+                        console.log(alert.alert, 'gst severity')
+                        return (
+                          <>    <div
+                            className={styles.dot}
+                            style={{ backgroundColor: '#EA3FD6' }}
+                          ></div>
+                            <span>{alert.alert}</span></>
+                        )
+                      }
+
+                    })}
                   </Col>
                   <Col
                     md={3}
                     sm={12}
                     className={`${styles.gst_cancelled}  gst_profile_alerts  d-flex align-items-center justify-content-start`}
                   >
-                    <div
-                      className={styles.dot}
-                      style={{ backgroundColor: '#3F66EA' }}
-                    ></div>
-                    <span>GST Provisional</span>
+
+                    {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map((alert, index) => {
+                      if (alert.severity === 'medium') {
+                        console.log(alert.alert, 'gst severity')
+                        return (
+                          <>    <div
+                            className={styles.dot}
+                            style={{ backgroundColor: '#EA3FD6' }}
+                          ></div>
+                            <span>{alert.alert}</span></>
+                        )
+                      }
+
+                    })}
                   </Col>
                   <Col
                     md={3}
                     sm={12}
                     className={`${styles.gst_cancelled}  gst_profile_alerts  d-flex align-items-center justify-content-start`}
                   >
-                    <div
-                      className={styles.dot}
-                      style={{ backgroundColor: '#EA3FD6' }}
-                    ></div>
-                    <span>GST Transaction delay</span>
+
+                    {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map((alert, index) => {
+                      if (alert.severity === 'low') {
+                        console.log(alert.alert, 'gst severity')
+                        return (
+                          <>    <div
+                            className={styles.dot}
+                            style={{ backgroundColor: '#EA3FD6' }}
+                          ></div>
+                            <span>{alert.alert}</span></>
+                        )
+                      }
+
+                    })}
                   </Col>
                   <Col
                     md={3}
@@ -1096,8 +1132,8 @@ function Index({ companyData, orderList, GstDataHandler }) {
                     <th className={`${styles.first}`} colSpan={2}>
                       Annual Summary
                     </th>
-                    <th colSpan={2}>MAR 2020 - APR 2021</th>
-                    <th colSpan={2}>MAR 2021 - APR 2022</th>
+                    <th colSpan={2}>{finacialYear(gstFilteredData?.detail.salesDetailAnnual.saleSummary.B2BSales.current.financialYear)}</th>
+                    <th colSpan={2}>{finacialYear(gstFilteredData?.detail.salesDetailAnnual.saleSummary.B2BSales.previous.financialYear)}</th>
                   </tr>
                   <tr className={styles.second_head}>
                     <td colSpan={2}></td>
@@ -1214,8 +1250,8 @@ function Index({ companyData, orderList, GstDataHandler }) {
                 >
                   <tr>
                     <th className={`${styles.first}`} >Averages</th>
-                    <th>MAR 2020 - APR 2021</th>
-                    <th>MAR 2021 - APR 2022</th>
+                    <th >{finacialYear(gstFilteredData?.detail.salesDetailAnnual.saleSummary.B2BSales.current.financialYear)}</th>
+                    <th >{finacialYear(gstFilteredData?.detail.salesDetailAnnual.saleSummary.B2BSales.previous.financialYear)}</th>
                   </tr>
 
                   <tr className={styles.second_head}>
@@ -1261,7 +1297,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
                 >
                   <tr>
                     <th className={`${styles.first}`}>Principal/ HSN Wise Sales</th>
-                    <th colSpan={6}><span style={{ color: "#2837566A" }}>Financial Period:</span> MAR 2020 - APR 2021</th>
+                    <th colSpan={6}><span style={{ color: "#2837566A" }}>Financial Period:</span>{finacialYear(gstFilteredData?.detail.salesDetailAnnual.saleSummary.B2BSales.current.financialYear)}</th>
                   </tr>
                   <tr className={`${styles.second_head}`}>
                     <td>
@@ -1329,8 +1365,8 @@ function Index({ companyData, orderList, GstDataHandler }) {
                     <th className={`${styles.first}`} colSpan={2}>
                       Annual Summary
                     </th>
-                    <th colSpan={2}>MAR 2020 - APR 2021</th>
-                    <th colSpan={2}>MAR 2021 - APR 2022</th>
+                    <th colSpan={2}>{finacialYear(gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.current?.financialYear)}</th>
+                    <th colSpan={2}>{finacialYear(gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.previous?.financialYear)}</th>
                   </tr>
                   <tr className={styles.second_head}>
                     <td colSpan={2}></td>
@@ -1450,8 +1486,8 @@ function Index({ companyData, orderList, GstDataHandler }) {
                 >
                   <tr>
                     <th className={`${styles.first}`}>Averages</th>
-                    <th>MAR 2020 - APR 2021</th>
-                    <th>MAR 2021 - APR 2022</th>
+                    <th >{finacialYear(gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.current?.financialYear)}</th>
+                    <th >{finacialYear(gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.previous?.financialYear)}</th>
                   </tr>
 
                   <tr className={styles.second_head}>
@@ -1499,7 +1535,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
                 >
                   <tr>
                     <th className={`${styles.first}`}>Principal/ HSN Wise Sales</th>
-                    <th colSpan={6}><span style={{ color: "#2837566A" }}>Financial Period:</span> MAR 2020 - APR 2021</th>
+                    <th colSpan={6}><span style={{ color: "#2837566A" }}>Financial Period:</span> {finacialYear(gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.current?.financialYear)}</th>
                   </tr>
                   <tr className={`${styles.second_head}`}>
                     <td>
@@ -2015,7 +2051,7 @@ const gstSales = (head, gstFilteredData) => {
                       cellSpacing="0"
                     >
                       <tr>
-                        <th className={`${styles.first}`} colSpan={13}>Financial Period 2020- 2021</th>
+                        <th className={`${styles.first}`} colSpan={13}>Financial Period {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.current?.financialYear}</th>
                       </tr>
                       <tr className={styles.second_head}>
                         <td>REVENUE BREAKUP</td>
@@ -2219,7 +2255,7 @@ const gstPurchase = (head, gstFilteredData) => {
                       cellSpacing="0"
                     >
                       <tr>
-                        <th className={`${styles.first}`} colSpan={13}>Financial Period 2020- 2021</th>
+                        <th className={`${styles.first}`} colSpan={13}>Financial Period  {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.current?.financialYear}</th>
                       </tr>
                       <tr className={styles.second_head}>
                         <td>PURCHASES</td>

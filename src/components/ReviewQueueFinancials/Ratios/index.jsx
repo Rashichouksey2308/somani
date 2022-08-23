@@ -133,7 +133,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         {lastYearData?.daysWorkingCapital?.toFixed(2)?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                       {rtrnChartIndiaction(latestYearData?.daysWorkingCapital,previousYearData?.daysWorkingCapital,lastYearData?.daysWorkingCapital)}
+                        {rtrnChartIndiaction(latestYearData?.daysWorkingCapital, previousYearData?.daysWorkingCapital, lastYearData?.daysWorkingCapital)}
                       </td>
                     </tr>
 
@@ -149,11 +149,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         {lastYearData?.daysOfSalesOutstanding?.toFixed(2)?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/profit.svg"
-                          alt="Profit"
-                          className="img-fluid"
-                        />
+                        {rtrnChartIndiaction(latestYearData?.daysOfSalesOutstanding, previousYearData?.daysOfSalesOutstanding, lastYearData?.daysOfSalesOutstanding)}
                       </td>
                     </tr>
                     <tr>
@@ -168,11 +164,8 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         {lastYearData?.daysOfInventoryOutstanding?.toFixed(2)?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/profit.svg"
-                          alt="Profit"
-                          className="img-fluid"
-                        />
+                        {rtrnChartIndiaction(latestYearData?.daysOfInventoryOutstanding, previousYearData?.daysOfInventoryOutstanding, lastYearData?.daysOfInventoryOutstanding)}
+
                       </td>
                     </tr>
                     <tr>
@@ -187,11 +180,8 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         {lastYearData?.daysOfPayablesOutstanding?.toFixed(2).toLocaleString()}
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/profit.svg"
-                          alt="Profit"
-                          className="img-fluid"
-                        />
+                        {rtrnChartIndiaction(latestYearData?.daysOfPayablesOutstanding, previousYearData?.daysOfPayablesOutstanding, lastYearData?.daysOfPayablesOutstanding)}
+
                       </td>
                     </tr>
                     <tr>
@@ -223,11 +213,17 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                           lastYearData?.ebitdaMargin)?.toFixed(2).toLocaleString()}
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/profit.svg"
-                          alt="Profit"
-                          className="img-fluid"
-                        />
+                        {rtrnChartIndiaction(((latestIncomeData?.revenue?.revenueFromOperations -
+                          latestIncomeData?.expenses?.totExp +
+                          latestIncomeData?.expenses?.finCost) /
+                          latestYearData?.ebitdaMargin), (previousIncomeData?.revenue?.revenueFromOperations -
+                            previousIncomeData?.expenses?.totExp +
+                            previousIncomeData?.expenses?.finCost) /
+                        previousYearData?.ebitdaMargin, ((lastIncomeData?.revenue?.revenueFromOperations -
+                          lastIncomeData?.expenses?.totExp +
+                          lastIncomeData?.expenses?.finCost) /
+                          lastYearData?.ebitdaMargin))}
+
                       </td>
                     </tr>
                     <tr>
@@ -242,11 +238,8 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         {lastYearData?.returnOnEquity?.toFixed(2).toLocaleString()}%
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/profit.svg"
-                          alt="Profit"
-                          className="img-fluid"
-                        />
+                      {rtrnChartIndiaction(latestYearData?.returnOnEquity, previousYearData?.returnOnEquity, lastYearData?.returnOnEquity)}
+
                       </td>
                     </tr>
                     <tr>
@@ -261,11 +254,8 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         {lastYearData?.returnOnAssets?.toFixed(2).toLocaleString()}%
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/profit.svg"
-                          alt="Profit"
-                          className="img-fluid"
-                        />
+                        {rtrnChartIndiaction(latestYearData?.returnOnAssets, previousYearData?.returnOnAssets, lastYearData?.returnOnAssets)}
+
                       </td>
                     </tr>
                     <tr>
@@ -317,11 +307,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                       </td>
                       <td className="text-center">{lastYearData?.debtEquity?.toFixed(2).toLocaleString()}</td>
                       <td className="text-center">
-                        <img
-                          src="/static/profit.svg"
-                          alt="Profit"
-                          className="img-fluid"
-                        />
+                       {rtrnChartIndiaction(latestYearData?.debtEquity,previousYearData?.debtEquity,lastYearData?.debtEquity)}
                       </td>
                     </tr>
                     <tr>
@@ -334,11 +320,8 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                       </td>
                       <td className="text-center">{lastYearData?.debtToEbitda?.toFixed(2).toLocaleString()}</td>
                       <td className="text-center">
-                        <img
-                          src="/static/average.svg"
-                          alt="Average"
-                          className="img-fluid"
-                        />
+                      {rtrnChartIndiaction(latestYearData?.debtToEbitda,previousYearData?.debtToEbitda,lastYearData?.debtToEbitda)}
+
                       </td>
                     </tr>
                     <tr>
@@ -353,11 +336,8 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         {lastYearData?.interestCoverage?.toFixed(2).toLocaleString()}
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/loss.svg"
-                          alt="Loss"
-                          className="img-fluid"
-                        />
+                      {rtrnChartIndiaction(latestYearData?.interestCoverage,previousYearData?.interestCoverage,lastYearData?.interestCoverage)}
+
                       </td>
                     </tr>
 
@@ -373,11 +353,8 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         {lastYearData?.longTermDebtCoverage?.toFixed(2).toLocaleString()}
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/profit.svg"
-                          alt="Profit"
-                          className="img-fluid"
-                        />
+                      {rtrnChartIndiaction(latestYearData?.longTermDebtCoverage,previousYearData?.longTermDebtCoverage,lastYearData?.longTermDebtCoverage)}
+
                       </td>
                     </tr>
 
@@ -400,11 +377,8 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                       </td>
                       <td className="text-center">{lastYearData?.currentRatio?.toFixed(2).toLocaleString()}</td>
                       <td className="text-center">
-                        <img
-                          src="/static/profit.svg"
-                          alt="Profit"
-                          className="img-fluid"
-                        />
+                      {rtrnChartIndiaction(latestYearData?.currentRatio,previousYearData?.currentRatio,lastYearData?.currentRatio)}
+
                       </td>
                     </tr>
                     <tr>
@@ -415,11 +389,8 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                       </td>
                       <td className="text-center">{lastYearData?.quickRatio?.toFixed(2).toLocaleString()}</td>
                       <td className="text-center">
-                        <img
-                          src="/static/average.svg"
-                          alt="Average"
-                          className="img-fluid"
-                        />
+                      {rtrnChartIndiaction(latestYearData?.quickRatio,previousYearData?.quickRatio,lastYearData?.quickRatio)}
+
                       </td>
                     </tr>
                     <tr>
@@ -442,11 +413,8 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         {lastYearData?.totalAssetsGrowth?.toFixed(2).toLocaleString()}%
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/profit.svg"
-                          alt="Profit"
-                          className="img-fluid"
-                        />
+                      {rtrnChartIndiaction(latestYearData?.totalAssetsGrowth,previousYearData?.totalAssetsGrowth,lastYearData?.totalAssetsGrowth)}
+
                       </td>
                     </tr>
                     <tr>
@@ -461,11 +429,8 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         {lastYearData?.netWorthGrowth?.toFixed(2).toLocaleString()}%
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/average.svg"
-                          alt="Average"
-                          className="img-fluid"
-                        />
+                      {rtrnChartIndiaction(latestYearData?.netWorthGrowth,previousYearData?.netWorthGrowth,lastYearData?.netWorthGrowth)}
+
                       </td>
                     </tr>
                     <tr>
@@ -480,11 +445,8 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         {lastYearData?.netSalesGrowth?.toFixed(2).toLocaleString()}%
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/average.svg"
-                          alt="Average"
-                          className="img-fluid"
-                        />
+                      {rtrnChartIndiaction(latestYearData?.netSalesGrowth,previousYearData?.netSalesGrowth,lastYearData?.netSalesGrowth)}
+
                       </td>
                     </tr>
                   </tbody>

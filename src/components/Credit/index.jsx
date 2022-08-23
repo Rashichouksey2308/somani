@@ -839,7 +839,7 @@ const index = ({
               </div>
               <div className="col-12 mt-4">
                 <label className={`${styles.label_heading}`}>Remarks</label>
-                <input
+                <textarea
                   as="textarea"
                   rows={3}
                   className={`${styles.remark_field} input form-control`}
@@ -956,7 +956,7 @@ const index = ({
                             name="department"
                             onChange={(e) => handlePersonChange(e, index)}
                             type="text"
-                            readOnly={person.isEdit}
+                            readOnly={!person.isEdit}
                           />
                         </td>
                         <td>

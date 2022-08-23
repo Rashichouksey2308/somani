@@ -1227,8 +1227,8 @@ const creditProfile = (
                   </span>
                 </Col>
                 <Col
-                  className={` col-md-offset-2 d-flex justify-content-between`}
-                  md={5}
+                  className={`  d-flex justify-content-between`}
+                  md={6}
                 >
                   <span className={`${styles.key} label1 pl-5`}>
                     External Credit rating
