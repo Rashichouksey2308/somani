@@ -587,8 +587,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
   }
 
   const finacialYear = (text) => {
-    let [startYear, endYear] = text.split('-')
-    let finacialYear = `MAR ${startYear} - APR ${endYear}`
+    let [startYear, endYear] = (text ? text : '').split('-')
+    let finacialYear = `MAR ${startYear ? startYear : ''} - APR ${endYear ? endYear : ''}`
     return finacialYear
   }
   console.log(gstFilteredData?.detail?.summaryInformation?.businessProfile, "busis")
