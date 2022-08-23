@@ -117,13 +117,16 @@ function Index({
   }
 
   const primaryBankName = () => {
-    const filteredData = camData?.company?.debtProfile?.filter(
+    let filteredData = []
+     filteredData = camData?.company?.debtProfile?.filter(
       (data) => data.primaryBank,
-    )
-    const length = filteredData?.bankName
+    ) || [] 
+    
+    const length = _get(filteredData[0], 'bankName', '')
 
     return length
   }
+
 
   const latestAuditorData = _get(
     camData,
@@ -421,8 +424,8 @@ const basicInfo = (camData) => {
                 >
                   <span className={`${styles.key} label1 ml-5 pl-5`}>City</span>
                   <span className={`${styles.value} value`}>
-                    {_get(camData, 'company.keyAddress[0].city', '')}
-                    {/* {camData?.company?.keyAddress[0]?.city} */}
+                  {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.city}
+
                   </span>
                 </Col>
               </Row>
@@ -438,8 +441,8 @@ const basicInfo = (camData) => {
                     State
                   </span>
                   <span className={`${styles.value} value`}>
-                    {_get(camData, 'company.keyAddress[0].state', '')}
-                    {/* {camData?.company?.keyAddress[0]?.state} */}
+                  {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.state}
+
                   </span>
                 </Col>
               </Row>
@@ -2197,13 +2200,13 @@ const financeDetails = (
                   <tr>
                     <td>Total Borrowings</td>
                     <td>
-                      {latestBalanceData?.equityLiabilities?.borrowingsCurrent +
-                        latestBalanceData?.equityLiabilities?.borrowingsNonCurrent?.toLocaleString()}
+                      {Number(latestBalanceData?.equityLiabilities?.borrowingsCurrent +
+                        latestBalanceData?.equityLiabilities?.borrowingsNonCurrent)?.toLocaleString()}
                     </td>
                     <td>
-                      {previousBalanceData?.equityLiabilities
+                      {Number(previousBalanceData?.equityLiabilities
                         ?.borrowingsCurrent +
-                        previousBalanceData?.equityLiabilities?.borrowingsNonCurrent?.toLocaleString()}
+                        previousBalanceData?.equityLiabilities?.borrowingsNonCurrent)?.toLocaleString()}
                     </td>
                   </tr>
                   <tr>
