@@ -1446,14 +1446,7 @@ function Index() {
                                   }
                                 >
                                   <option>Select an option</option>
-                                  <option
-                                    value={
-                                      marginData?.invoiceDetail?.buyerGSTIN
-                                    }
-                                  >
-                                    {marginData?.invoiceDetail?.buyerGSTIN}
-                                  </option>
-
+                                
                                   <option value="GTSDT789652JKH">
                                     GTSDT789652JKH
                                   </option>
@@ -1575,24 +1568,17 @@ function Index() {
                               className={`${styles.each_input} col-md-4 col-sm-6`}
                             >
                               <div className="d-flex">
-                                <select
-                                  id="Code"
-                                  name="consigneeGSTIN"
-                                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                  required
-                                  onChange={(e) =>
-                                    saveInvoiceData(
-                                      e.target.name,
-                                      e.target.value,
-                                    )
-                                  }
-                                  value={invoiceData?.consigneeGSTIN}
-                                >
-                                  <option>Select an option</option>
-                                  <option value="GTSDT789652JKH">
-                                    GTSDT789652JKH
-                                  </option>
-                                </select>
+                                <input
+                                type="text"
+                                id="textInput"
+                                name="consigneeName"
+                                value={invoiceData?.consigneeGSTIN}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
+                                className={`${styles.input_field} input form-control`}
+                                required
+                              />
                                 <label
                                   className={`${styles.label_heading} label_heading`}
                                   id="textInput"
@@ -1600,10 +1586,6 @@ function Index() {
                                   Consignee GSTIN
                                   <strong className="text-danger">*</strong>
                                 </label>
-                                <img
-                                  className={`img-fluid image_arrow ${styles.arrow}`}
-                                  src="/static/inputDropDown.svg"
-                                ></img>
                               </div>
                             </div>
                             <div
