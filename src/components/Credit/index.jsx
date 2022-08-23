@@ -968,7 +968,7 @@ const index = ({
                             name="department"
                             onChange={(e) => handlePersonChange(e, index)}
                             type="text"
-                            readOnly={person.isEdit}
+                            readOnly={!person.isEdit}
                           />
                         </td>
                         <td>
