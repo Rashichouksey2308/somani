@@ -93,11 +93,11 @@ const Index = () => {
               usanceInterestPercetage:
                 sheet?.commercials?.usanceInterestPercetage || 4,
               overDueInterestPerMonth:
-                sheet?.commercials?.overDueInterestPerMonth,
+                sheet?.commercials?.overDueInterestPerMonth||1.5,
               exchangeFluctuation: sheet?.commercials?.exchangeFluctuation,
               forexHedging: sheet?.commercials?.forexHedging,
               otherTermsAndConditions:
-                sheet?.commercials?.otherTermsAndConditions,
+                sheet?.commercials?.otherTermsAndConditions || "As Per Sales Contract",
               version: sheet?.commercials?.version,
             },
           }),
@@ -360,6 +360,9 @@ const Index = () => {
     )
     tempSheet.commodityDetails.tolerance = removePrefixOrSuffix(
       termsheetDetails.commodityDetails.tolerance,
+    )
+    tempSheet.commercials.lcOpeningChargesUnit = removePrefixOrSuffix(
+      termsheetDetails.commercials.lcOpeningChargesUnit,
     )
     //  tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
     // console.log(termsheetDetails, "tempSheet1")
