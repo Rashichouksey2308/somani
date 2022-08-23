@@ -1132,8 +1132,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <th className={`${styles.first}`} colSpan={2}>
                       Annual Summary
                     </th>
-                    <th colSpan={2}>{finacialYear(gstFilteredData?.detail.salesDetailAnnual.saleSummary.B2BSales.current.financialYear)}</th>
-                    <th colSpan={2}>{finacialYear(gstFilteredData?.detail.salesDetailAnnual.saleSummary.B2BSales.previous.financialYear)}</th>
+                    <th colSpan={2}>{finacialYear(gstFilteredData?.detail?.salesDetailAnnual?.saleSummary.B2BSales.current.financialYear)}</th>
+                    <th colSpan={2}>{finacialYear(gstFilteredData?.detail?.salesDetailAnnual?.saleSummary.B2BSales.previous.financialYear)}</th>
                   </tr>
                   <tr className={styles.second_head}>
                     <td colSpan={2}></td>
@@ -1250,8 +1250,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                 >
                   <tr>
                     <th className={`${styles.first}`} >Averages</th>
-                    <th >{finacialYear(gstFilteredData?.detail.salesDetailAnnual.saleSummary.B2BSales.current.financialYear)}</th>
-                    <th >{finacialYear(gstFilteredData?.detail.salesDetailAnnual.saleSummary.B2BSales.previous.financialYear)}</th>
+                    <th >{finacialYear(gstFilteredData?.detail?.salesDetailAnnual?.saleSummary.B2BSales.current.financialYear)}</th>
+                    <th >{finacialYear(gstFilteredData?.detail?.salesDetailAnnual?.saleSummary.B2BSales.previous.financialYear)}</th>
                   </tr>
 
                   <tr className={styles.second_head}>
@@ -1297,7 +1297,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                 >
                   <tr>
                     <th className={`${styles.first}`}>Principal/ HSN Wise Sales</th>
-                    <th colSpan={6}><span style={{ color: "#2837566A" }}>Financial Period:</span>{finacialYear(gstFilteredData?.detail.salesDetailAnnual.saleSummary.B2BSales.current.financialYear)}</th>
+                    <th colSpan={6}><span style={{ color: "#2837566A" }}>Financial Period:</span>{finacialYear(gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales.current.financialYear)}</th>
                   </tr>
                   <tr className={`${styles.second_head}`}>
                     <td>
