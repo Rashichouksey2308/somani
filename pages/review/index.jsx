@@ -900,11 +900,22 @@ function Index() {
     tempPerson.forEach((val, index) => {
       delete val.isEdit
     })
+    let data = { ...product }
+      data.monthlyProductionCapacity = removePrefixOrSuffix(product.monthlyProductionCapacity)
+      data.capacityUtilization = removePrefixOrSuffix(product.capacityUtilization)
+      data.AvgMonthlyElectricityBill = removePrefixOrSuffix(product.AvgMonthlyElectricityBill)
+      data.averageStockOfCommodity = removePrefixOrSuffix(product.averageStockOfCommodity)
+      data.averageStockInTransit = removePrefixOrSuffix(product.averageStockInTransit)
+      data.availableStock = removePrefixOrSuffix(product.availableStock)
+      data.dailyConsumptionOfCommodity = removePrefixOrSuffix(product.dailyConsumptionOfCommodity)
+     
+    let supplierData = {...supplierCred}
+    supplierData.commodityOfTotalTrade = removePrefixOrSuffix(supplierCred.commodityOfTotalTrade)  
 
 
-    const obj = {
-      productSummary: { ...product },
-      supplierCredential: { ...supplierCred },
+    let obj = {
+      productSummary: { ...data },
+      supplierCredential: { ...supplierData },
       order: orderList._id,
       keyContactPerson: [...tempPerson],
       keyAddress: [...keyAddData],

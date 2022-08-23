@@ -548,8 +548,7 @@ const index = ({
 
                   value={
                     addPrefixOrSuffix(
-                      creditDetail?.AvgMonthlyElectricityBill,
-                      creditDetail?.typeOfCurrency?.toUpperCase()
+                      creditDetail?.AvgMonthlyElectricityBill,'INR', 'front', true
                     )
                   }
                   name="AvgMonthlyElectricityBill"
@@ -710,53 +709,41 @@ const index = ({
 
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
-                  <select
-                    className={`${styles.input_field} ${styles.customSelect}  input form-control`}
-                    defaultValue={
-                      supplierCred?.countryOfOrigin
-                    }
-                    name="countryOfOrigin"
-                    onChange={(e) => {
-                      saveSupplierData(e.target.name, e.target.value)
-                    }}
-                  >
-                    <option value='Sri Lanka'>Sri Lanka</option>
-                    <option value='USA'>USA</option>
-                  </select>
+                  <input
+                  className={`${styles.input_field} input form-control`}
+                  required
+                  type="number"
+                  defaultValue={
+                    supplierCred?.countryOfOrigin
+                  }
+                  name="countryOfOrigin"
+                  onChange={(e) => {
+                    saveSupplierData(e.target.name, e.target.value)
+                  }}
+                />
                   <label className={`${styles.label_heading} label_heading`}>
                     Country of Origin<strong className="text-danger">*</strong>
                   </label>
-                  <img
-                    className={`${styles.arrow} image_arrow img-fluid`}
-                    src="/static/inputDropDown.svg"
-                    alt="Search"
-                  />
                 </div>
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
-                  <select
-                    className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                    defaultValue={
-                      supplierCred?.portOfDestination
-                    }
-                    name="portOfDestination"
-                    onChange={(e) => {
-                      saveSupplierData(e.target.name, e.target.value)
-                    }}
-                  >
-                    <option value='Gujrat, India'>Gujrat, India</option>
-                    <option value='Mumbai, India'>Mumbai,India</option>
-                  </select>
+                  <input
+                  className={`${styles.input_field} input form-control`}
+                  required
+                  type="number"
+                  defaultValue={
+                    supplierCred?.portOfDestination
+                  }
+                  name="portOfDestination"
+                  onChange={(e) => {
+                    saveSupplierData(e.target.name, e.target.value)
+                  }}
+                />
                   <label className={`${styles.label_heading} label_heading`}>
                     Port of Destination
                     <strong className="text-danger">*</strong>
                   </label>
-                  <img
-                    className={`${styles.arrow} image_arrow img-fluid`}
-                    src="/static/inputDropDown.svg"
-                    alt="Search"
-                  />
                 </div>
               </div>
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -838,7 +825,7 @@ const index = ({
                   required
                   type="text"
                   defaultValue={
-                    supplierCred?.commodityOfTotalTrade
+                    addPrefixOrSuffix(supplierCred?.commodityOfTotalTrade, '%', '')
                   }
                   name="commodityOfTotalTrade"
                   onChange={(e) => {
@@ -1782,6 +1769,7 @@ const index = ({
                             }
                             className={`${styles.checkBox}`}
                             type="checkbox"
+                            defaultChecked={profile?.primaryBank ? true : false}
                             disabled={!profile.actions}
                             style={{marginTop:"12px"}}
                           />
@@ -1791,6 +1779,7 @@ const index = ({
                             name="bankName"
                             className="input"
                             disabled={!profile.actions}
+                            defaultValue={profile?.bankName}
                             onChange={(e) =>
                               handleDebtChange(
                                 e.target.name,
@@ -1801,10 +1790,6 @@ const index = ({
                             
                            
                           />
-                            {/* <option>{!profile.actions}</option>
-                            <option value="ICICI"> ICICI</option>
-                            <option value="HDFC">HDFC</option>
-                          </select> */}
                         </td>
                         <td>
                           <select

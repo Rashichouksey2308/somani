@@ -221,7 +221,7 @@ const Index = ({
               {/* <input id='lcValue' value={termsheetDetails?.transactionDetails?.lcValue ? termsheetDetails?.transactionDetails?.lcValue : null} className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required /> */}
               <input
                 id="lcValue"
-                value={newLcVal}
+                value={addPrefixOrSuffix(newLcVal ? newLcVal : 0, 'USD', 'front')}
                 className={`${styles.value} input form-control`}
                 onChange={onChangeTransactionDetails}
                 required
@@ -363,7 +363,7 @@ const Index = ({
                   required
                 >
                   <option>Select an option</option>
-                  <option value="Australia">Australia</option>
+                  <option value="Australia" >Australia</option>
                   <option value="India">India</option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
@@ -446,10 +446,12 @@ const Index = ({
                   required
                 >
                   <option>Select an option</option>
+                  <option value='Gujrat, India'>Gujrat, India</option>
                   <option value="Visakhapatnam, India">
                     Visakhapatnam, India
                   </option>
                   <option value="Vizag, India">Vizag, India</option>
+                  <option value="Mumbai, India">Mumbai, India</option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   Port Of Discharge<strong className="text-danger">*</strong>
@@ -473,8 +475,8 @@ const Index = ({
                 >
                   <option>Select an option</option>
                   <option value="Home Consumption">Home Consumption</option>
-                  <option value="Intobond Warehousing">
-                    Intobond Warehousing
+                  <option value="Intobond">
+                    Intobond 
                   </option>
                   <option value="Exbond">Exbond </option>
                 </select>
@@ -676,10 +678,10 @@ const Index = ({
               <input
                 id="lcOpeningChargesUnit"
                 className={`${styles.value} input form-control`}
-                type="number"
+                type="text"
                 onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
-                defaultValue={
-                  termsheetDetails?.commercials?.lcOpeningChargesUnit
+                value={
+                  addPrefixOrSuffix(termsheetDetails?.commercials?.lcOpeningChargesUnit ? termsheetDetails?.commercials?.lcOpeningChargesUnit : 0, 'USD', 'front')
                 }
                 onChange={onChangeCommercialTerms}
                 required

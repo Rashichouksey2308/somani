@@ -3262,8 +3262,8 @@ const trends = (
                   <span className={`${styles.child} ml-2`}>
                     :{' '}
                     {
-                      gstData?.detail?.salesDetailAnnual?.saleSummary
-                        ?.grossTurnover?.current?.value
+                      Number(gstData?.detail?.salesDetailAnnual?.saleSummary
+                        ?.grossTurnover?.current?.value)?.toLocaleString('fullWide', { minimumFractionDigits: 2 })
                     }
                   </span>
                 </div>
@@ -3288,8 +3288,8 @@ const trends = (
                   <span className={`${styles.child} ml-2`}>
                     :{' '}
                     {
-                      gstData?.detail?.purchaseDetailAnnual?.saleSummary
-                        ?.grossPurchases?.current?.value
+                      Number(gstData?.detail?.purchaseDetailAnnual?.saleSummary
+                        ?.grossPurchases?.current?.value)?.toLocaleString('fullWide', { minimumFractionDigits: 2 })
                     }
                   </span>
                 </div>
@@ -3354,8 +3354,8 @@ const skewness = (data, options, tempArr, gstData) => {
                   <span className={`${styles.child} ml-2`}>
                     :{' '}
                     {
-                      gstData?.detail?.salesDetailAnnual?.saleSummary
-                        ?.grossTurnover?.current?.value
+                      Number(gstData?.detail?.salesDetailAnnual?.saleSummary
+                        ?.grossTurnover?.current?.value)?.toLocaleString('fullWide', { minimumFractionDigits: 2 })
                     }
                   </span>
                 </div>
@@ -3404,8 +3404,8 @@ const skewness = (data, options, tempArr, gstData) => {
                   <span className={`${styles.child} ml-2`}>
                     :{' '}
                     {
-                      gstData?.detail?.purchaseDetailAnnual?.saleSummary
-                        ?.grossPurchases?.current?.value
+                      Number(gstData?.detail?.purchaseDetailAnnual?.saleSummary
+                        ?.grossPurchases?.current?.value)?.toLocaleString('fullWide', { minimumFractionDigits: 2 })
                     }
                   </span>
                 </div>

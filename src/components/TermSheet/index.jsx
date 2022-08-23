@@ -12,7 +12,7 @@ import { setPageName } from '../../redux/userData/action'
 import { GetTermsheet, updateTermsheet } from 'redux/buyerProfile/action'
 import { useRouter } from 'next/router'
 import { data } from 'jquery'
-import _get from "lodash/get";
+import _get from 'lodash/get'
 import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../utils/helper'
 import moment from 'moment'
 
@@ -25,20 +25,18 @@ const Index = () => {
   const [otherTermsAndConditions, setOtherTermConditions] = useState({})
   const [additionalComments, setAdditionalComments] = useState([])
   const [order, setOrder] = useState('')
-  console.log(termsheetDetails, 'termsheetDetails')
-  console.log(additionalComments, 'additionalCommentType')
-
-
-
+  // console.log(termsheetDetails, 'termsheetDetails')
+  // console.log(additionalComments, 'additionalCommentType')
 
   useEffect(() => {
-
     let Id = sessionStorage.getItem('termID')
     dispatch(GetTermsheet(`?termsheetId=${Id}`))
     dispatch(setPageName('termsheet'))
   }, [dispatch])
   let OrdID = sessionStorage.getItem('termOrdID')
-  let newLcVal = removePrefixOrSuffix(termsheetDetails?.commodityDetails?.quantity) * removePrefixOrSuffix(termsheetDetails?.commodityDetails?.perUnitPrice)
+  let newLcVal =
+    removePrefixOrSuffix(termsheetDetails?.commodityDetails?.quantity) *
+    removePrefixOrSuffix(termsheetDetails?.commodityDetails?.perUnitPrice)
 
   // console.log(newLcVal, 'THIS IS NEW LC VAL')
 
@@ -46,7 +44,6 @@ const Index = () => {
     {
       termsheet &&
         termsheet?.data?.map((sheet) =>
-
           setTermsheetDetails({
             termsheetId: sheet._id,
             commodityDetails: {
@@ -59,19 +56,25 @@ const Index = () => {
             },
             transactionDetails: {
               // lcValue: sheet?.transactionDetails?.lcValue ? sheet?.transactionDetails?.lcValue : Number(sheet?.order?.quantity * sheet?.order?.perUnitPrice),
-              typeOfPort: sheet?.transactionDetails?.typeOfPort??"",
+              typeOfPort: sheet?.transactionDetails?.typeOfPort ?? '',
               lcValue: newLcVal,
               lcCurrency: sheet?.transactionDetails?.lcCurrency,
-              marginMoney: sheet?.transactionDetails?.marginMoney?sheet?.transactionDetails?.marginMoney:"10",
+              marginMoney: sheet?.transactionDetails?.marginMoney
+                ? sheet?.transactionDetails?.marginMoney
+                : 10,
               lcOpeningBank: sheet?.transactionDetails?.lcOpeningBank,
-              incoTerms: sheet?.transactionDetails?.incoTerms ? sheet?.transactionDetails?.incoTerms : sheet?.order?.incoTerm,
+              incoTerms: sheet?.transactionDetails?.incoTerms
+                ? sheet?.transactionDetails?.incoTerms
+                : sheet?.order?.incoTerm,
               loadPort: sheet?.transactionDetails?.loadPort,
-              countryOfOrigin: sheet?.transactionDetails?.countryOfOrigin,
-              shipmentType: sheet?.transactionDetails?.shipmentType,
-              partShipmentAllowed: sheet?.transactionDetails?.partShipmentAllowed,
-              portOfDischarge: sheet?.transactionDetails?.portOfDischarge,
+              countryOfOrigin: sheet?.transactionDetails?.countryOfOrigin ? sheet?.transactionDetails?.countryOfOrigin : sheet?.order?.countryOfOrigin,
+              shipmentType: sheet?.transactionDetails?.shipmentType ? sheet?.transactionDetails?.shipmentType : sheet?.order?.shipmentDetail?.shipmentType,
+              partShipmentAllowed:
+                sheet?.transactionDetails?.partShipmentAllowed,
+              portOfDischarge: sheet?.transactionDetails?.portOfDischarge ? sheet?.transactionDetails?.portOfDischarge : sheet?.order?.portOfDischarge,
               billOfEntity: sheet?.transactionDetails?.billOfEntity,
-              thirdPartyInspectionReq: sheet?.transactionDetails?.thirdPartyInspectionReq,
+              thirdPartyInspectionReq:
+                sheet?.transactionDetails?.thirdPartyInspectionReq,
               storageOfGoods: sheet?.transactionDetails?.storageOfGoods,
             },
             paymentDueDate: {
@@ -85,12 +88,16 @@ const Index = () => {
               lcOpeningValue: sheet?.commercials?.lcOpeningValue,
               lcOpeningCurrency: sheet?.commercials?.lcOpeningCurrency,
               lcOpeningChargesUnit: sheet?.commercials?.lcOpeningChargesUnit,
-              lcOpeningChargesPercentage: sheet?.commercials?.lcOpeningChargesPercentage,
-              usanceInterestPercetage: sheet?.commercials?.usanceInterestPercetage,
-              overDueInterestPerMonth: sheet?.commercials?.overDueInterestPerMonth,
+              lcOpeningChargesPercentage:
+                sheet?.commercials?.lcOpeningChargesPercentage,
+              usanceInterestPercetage:
+                sheet?.commercials?.usanceInterestPercetage || 4,
+              overDueInterestPerMonth:
+                sheet?.commercials?.overDueInterestPerMonth,
               exchangeFluctuation: sheet?.commercials?.exchangeFluctuation,
               forexHedging: sheet?.commercials?.forexHedging,
-              otherTermsAndConditions: sheet?.commercials?.otherTermsAndConditions,
+              otherTermsAndConditions:
+                sheet?.commercials?.otherTermsAndConditions,
               version: sheet?.commercials?.version,
             },
           }),
@@ -217,7 +224,8 @@ const Index = () => {
               cimsCharges:
                 sheet?.otherTermsAndConditions?.dutyAndTaxes?.cimsCharges,
               taxCollectedatSource:
-               sheet?.otherTermsAndConditions?.dutyAndTaxes?.taxCollectedatSource,
+                sheet?.otherTermsAndConditions?.dutyAndTaxes
+                  ?.taxCollectedatSource,
             },
             insurance: {
               marineInsurance:
@@ -239,7 +247,6 @@ const Index = () => {
   }, [termsheet])
 
   const onChangeCommodityDetails = (e) => {
-   
     const Key = e.target.id
     const value = e.target.value
     // console.log(Key, ":", value)
@@ -250,10 +257,9 @@ const Index = () => {
   }
 
   const onChangeTransactionDetails = (e) => {
-    
     const Key = e.target.id
     const value = e.target.value
-     console.log(Key,value,"val")
+    console.log(Key, value, 'val')
     setTermsheetDetails((prev) => ({
       ...prev,
       transactionDetails: { ...prev.transactionDetails, [Key]: value },
@@ -325,20 +331,36 @@ const Index = () => {
       insurance: { ...prev.insurance, [Key]: value },
     }))
   }
-  console.log(termsheetDetails, "tempSheet")
+  console.log(termsheetDetails, 'tempSheet')
   const handleSave = () => {
     // console.log(termsheetDetails.commercials.overDueInterestPerMont, "tempSheet2")
     let tempSheet = termsheetDetails
 
     tempSheet.transactionDetails.lcValue = newLcVal
-    tempSheet.commodityDetails.perUnitPrice = removePrefixOrSuffix(termsheetDetails.commodityDetails.perUnitPrice)
-    tempSheet.commodityDetails.quantity = removePrefixOrSuffix(termsheetDetails.commodityDetails.quantity)
-    tempSheet.transactionDetails.marginMoney = removePrefixOrSuffix(termsheetDetails.transactionDetails.marginMoney)
-    tempSheet.commercials.tradeMarginPercentage = removePrefixOrSuffix(termsheetDetails.commercials.tradeMarginPercentage)
-    tempSheet.commercials.overDueInterestPerMonth = removePrefixOrSuffix(termsheetDetails.commercials.overDueInterestPerMonth)
-    tempSheet.commercials.lcOpeningChargesPercentage = removePrefixOrSuffix(termsheetDetails.commercials.lcOpeningChargesPercentage)
-    tempSheet.commercials.usanceInterestPercetage = removePrefixOrSuffix(termsheetDetails.commercials.usanceInterestPercetage)
-    tempSheet.commodityDetails.tolerance = removePrefixOrSuffix(termsheetDetails.commodityDetails.tolerance)
+    tempSheet.commodityDetails.perUnitPrice = removePrefixOrSuffix(
+      termsheetDetails.commodityDetails.perUnitPrice,
+    )
+    tempSheet.commodityDetails.quantity = removePrefixOrSuffix(
+      termsheetDetails.commodityDetails.quantity,
+    )
+    tempSheet.transactionDetails.marginMoney = removePrefixOrSuffix(
+      termsheetDetails.transactionDetails.marginMoney,
+    )
+    tempSheet.commercials.tradeMarginPercentage = removePrefixOrSuffix(
+      termsheetDetails.commercials.tradeMarginPercentage,
+    )
+    tempSheet.commercials.overDueInterestPerMonth = removePrefixOrSuffix(
+      termsheetDetails.commercials.overDueInterestPerMonth,
+    )
+    tempSheet.commercials.lcOpeningChargesPercentage = removePrefixOrSuffix(
+      termsheetDetails.commercials.lcOpeningChargesPercentage,
+    )
+    tempSheet.commercials.usanceInterestPercetage = removePrefixOrSuffix(
+      termsheetDetails.commercials.usanceInterestPercetage,
+    )
+    tempSheet.commodityDetails.tolerance = removePrefixOrSuffix(
+      termsheetDetails.commodityDetails.tolerance,
+    )
     //  tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
     // console.log(termsheetDetails, "tempSheet1")
 
@@ -383,7 +405,7 @@ const Index = () => {
 
   return (
     <>
-      <div className='container-fluid px-0'>
+      <div className="container-fluid px-0">
         <div className={`${styles.card} tabHeader border-bottom-0 shadow-none`}>
           <div className={`${styles.head_header} align-items-center`}>
             <img
@@ -422,8 +444,11 @@ const Index = () => {
                         Created On
                       </h3>
                       <p className={`${styles.value} accordion_Text`}>
-                        {moment((sheet?.company?.createdAt).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
-
+                        {moment(
+                          (sheet?.company?.createdAt).slice(0, 10),
+                          'YYYY-MM-DD',
+                          true,
+                        ).format('DD-MM-YYYY')}
                       </p>
                     </div>
                     <div className={`${styles.form_group} col-md-2 col-sm-4`}>
@@ -431,8 +456,11 @@ const Index = () => {
                         Last Modified
                       </h3>
                       <p className={`${styles.value} accordion_Text`}>
-
-                        {moment((sheet?.company?.updatedAt).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
+                        {moment(
+                          (sheet?.company?.updatedAt).slice(0, 10),
+                          'YYYY-MM-DD',
+                          true,
+                        ).format('DD-MM-YYYY')}
                       </p>
                     </div>
                     <div className={`${styles.form_group} col-md-2 col-sm-4`}>
@@ -440,12 +468,19 @@ const Index = () => {
                         Approved Date
                       </h3>
                       <p className={`${styles.value} accordion_Text`}>
-
-                        {sheet?.order?.cam?.approvedAt ? moment(sheet?.order?.cam?.approvedAt?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY") : ''}
+                        {sheet?.order?.cam?.approvedAt
+                          ? moment(
+                              sheet?.order?.cam?.approvedAt?.slice(0, 10),
+                              'YYYY-MM-DD',
+                              true,
+                            ).format('DD-MM-YYYY')
+                          : ''}
                       </p>
                     </div>
                     <div className={`${styles.form_group} col-md-2 col-sm-4`}>
-                      <h3 className={`${styles.label} label_heading`}>Status </h3>
+                      <h3 className={`${styles.label} label_heading`}>
+                        Status{' '}
+                      </h3>
                       <p className={`${styles.value} accordion_Text`}>
                         <span className={`${styles.status}`}></span>
                         {sheet?.order?.cam?.status}
@@ -455,7 +490,6 @@ const Index = () => {
                 </div>
               ))}
             <TermDetails
-
               onChangeTransactionDetails={onChangeTransactionDetails}
               onChangeCommodityDetails={onChangeCommodityDetails}
               onChangeCommercialTerms={onChangeCommercialTerms}
@@ -481,7 +515,10 @@ const Index = () => {
               termsheet={termsheet}
               termsheetDetails={termsheetDetails}
             />
-            <UploadOther module='LeadOnboarding&OrderApproval' orderid={OrdID} />
+            <UploadOther
+              module="LeadOnboarding&OrderApproval"
+              orderid={OrdID}
+            />
           </div>
         </div>
       </div>

@@ -58,7 +58,7 @@ export const handleCurrencyOrder = (unitOfValue, value) => {
   }
 }
 
-export const addPrefixOrSuffix = (unitOfValue, type, where = 'null') => {
+export const addPrefixOrSuffix = (unitOfValue, type, where = 'null', showINR = 'false') => {
   console.log(unitOfValue, type, 'type')
   if (where == 'front') {
     if (type != undefined) {
@@ -67,19 +67,20 @@ export const addPrefixOrSuffix = (unitOfValue, type, where = 'null') => {
       }
       let allSymbols = ['₹', '$', '€', '£']
       let symbol = type
-      if (type == 'INR' || 'RUPEE') {
-        symbol = '₹'
+       if (type == 'INR' || 'RUPEE') {
+        symbol = 'INR'
         console.log(symbol, 'symbol')
       }
-      if (type == 'USD') {
-        symbol = '$'
+     else if (type == 'USD') {
+        symbol = 'USD'
         console.log(symbol, 'symbol')
       }
+
       if (type == 'EURO') {
-        symbol = '€'
+        symbol = 'EURO'
       }
       if (type == 'BRITISHPOUND') {
-        symbol = '£'
+        symbol = 'POUND'
       }
       let removedValue
 
