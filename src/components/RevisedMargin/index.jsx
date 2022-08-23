@@ -275,7 +275,7 @@ const Index = ({
                       {` No. of PDC's`}
                       <strong className="text-danger">*</strong>
                     </label>
-                    <div className={`${styles.val} heading`}>75</div>
+                    <div className={`${styles.val} heading`}>{marginData?.numberOfPDC}</div>
                   </div>
                 </div>
                 <div
