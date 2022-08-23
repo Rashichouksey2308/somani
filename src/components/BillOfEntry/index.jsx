@@ -650,7 +650,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
               </div>
 
               <div className={`${styles.bill_landing} card border_color mt-4`}>
-                <div className={`${styles.vessel_card}`}>
+                <div className={`${styles.vessel_card} d-flex align-items-center`}>
                   <div className={`${styles.card_sub_heading}`}>Duty</div>
                 </div>
                 <div className={styles.table_scroll_outer}>
@@ -787,7 +787,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                             </tr>
                           ))}
                       </tbody>
-                    </table>
+                    </table>                    
                     <hr className="mt-0" />
                     <div className="d-flex justify-content-between align-items-center">
                       <div className="d-flex mt-2">
