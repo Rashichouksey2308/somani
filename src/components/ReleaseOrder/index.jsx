@@ -481,32 +481,32 @@ export default function Index({ ReleaseOrderData }) {
             cellSpacing="0"
             border="0"
           >
-            <tr className={`border_color`}>
+            <tr className="table_row">
               <th width="33%">RELEASE ORDER NO.</th>
               <th width="33%">RELEASE ORDER DATE</th>
               <th width="33%">QUANTITY RELEASED</th>
             </tr>
-            <tr className={`border_color`}>
+            <tr className="table_row">
               <td>01</td>
               <td>22-02-2022</td>
               <td>5,000 MT</td>
             </tr>
-            <tr className={`border_color`}>
+            <tr className="table_row">
               <td>02</td>
               <td>22-02-2022</td>
               <td>5,000 MT</td>
             </tr>
-            <tr className={`border_color`}>
+            <tr className="table_row">
               <td>03</td>
               <td>22-02-2022</td>
               <td>5,000 MT</td>
             </tr>
-            <tr className={`border_color`}>
+            <tr className="table_row">
               <td>04</td>
               <td>22-02-2022</td>
               <td>5,000 MT</td>
             </tr>
-            <tr className={`border_color`}>
+            <tr className="table_row">
               <td>05</td>
               <td>22-02-2022</td>
               <td>5,000 MT</td>

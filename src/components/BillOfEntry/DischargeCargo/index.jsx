@@ -402,39 +402,39 @@ export default function Index({ OrderId, customData, uploadDoc }) {
             ></img>
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className={`${styles.body} container-fluid`}>
+        <Modal.Body className={`${styles.body}  container-fluid`}>
           <table
             className={`${styles.table} table `}
             cellPadding="0"
             cellSpacing="0"
             border="0"
           >
-            <tr className={`border_color`}>
+            <tr className="table_row">
               <th width="33%">BL NUMBER</th>
               <th width="33%">BL DATE</th>
               <th width="33%">BL QUANTITY</th>
             </tr>
-            <tr className={`border_color`}>
+            <tr className="table_row">
               <td className="font-weight-bold">2345678</td>
               <td>22-02-2022</td>
               <td>5,000 MT</td>
             </tr>
-            <tr className={`border_color`}>
+            <tr className="table_row">
               <td className="font-weight-bold">2345678</td>
               <td>22-02-2022</td>
               <td>5,000 MT</td>
             </tr>
-            <tr className={`border_color`}>
+            <tr className="table_row">
               <td className="font-weight-bold">2345678</td>
               <td>22-02-2022</td>
               <td>5,000 MT</td>
             </tr>
-            <tr className={`border_color`}>
+            <tr className="table_row">
               <td className="font-weight-bold">2345678</td>
               <td>22-02-2022</td>
               <td>5,000 MT</td>
             </tr>
-            <tr className={`border_color`}>
+            <tr className="table_row">
               <td className="font-weight-bold">2345678</td>
               <td>22-02-2022</td>
               <td>5,000 MT</td>

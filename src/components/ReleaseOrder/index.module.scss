@@ -996,6 +996,11 @@
 }
 .wrapper {
   border-radius: 6px;
+  & > div {
+    & > div {
+      background: none;
+    }
+  }
 
   .title {
     position: relative;
@@ -1037,24 +1042,36 @@
     .table {
       overflow-y: auto;
       height: 400px;
-      font-size: 19px;
-      font-weight: 24px;
-      font-weight: 500;
+
       tr {
         height: 67px;
-        border-bottom: 2px solid red;
+
         th {
           vertical-align: revert;
+          font-weight: bold;
+          font-size: 15px;
+          line-height: 18px;
+          color: #8492a6;
+          border-top: 2px solid #f2f5f9 !important;
+          border-bottom: 2px solid #f2f5f9 !important;
+
           &:first-child {
-            font-weight: bold;
             padding-left: 35px;
           }
         }
         td {
+          border-bottom: 2px solid #f2f5f9 !important;
           vertical-align: revert;
+          font-weight: 500;
+          font-size: 19px;
+          line-height: 24px;
           &:first-child {
-            font-weight: bold;
             padding-left: 35px;
+          }
+        }
+        &:first-child {
+          td {
+            border-bottom: none !important;
           }
         }
       }
@@ -1299,7 +1316,7 @@ input:checked + .slider:before {
   font-size: 20px;
   letter-spacing: 0.19px;
   color: #111111;
-  background-color: #C3C3C31F;
+  background-color: #c3c3c31f;
   border-radius: 4px;
   padding: 8px;
   margin: 7px 0;
@@ -1311,7 +1328,7 @@ input:checked + .slider:before {
   font-size: 20px;
   letter-spacing: 0.19px;
   color: #3687e8;
-  background-color: #C3C3C31F;
+  background-color: #c3c3c31f;
   border-radius: 4px;
   padding: 8px;
   margin: 7px 0;
@@ -1320,26 +1337,26 @@ input:checked + .slider:before {
   overflow: hidden;
   position: relative;
   display: block;
-  line-height: 60px; 
+  line-height: 60px;
   input {
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      opacity: 0;
-      cursor: pointer;
-      position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    cursor: pointer;
+    position: absolute;
   }
-} 
+}
 .button_upload {
   width: 106px;
   height: 38px;
-  border: 3px solid #3687E8;
+  border: 3px solid #3687e8;
   border-radius: 5px;
   text-align: center;
   font-weight: bold;
   font-size: 18px;
-  color: #3687E8;
+  color: #3687e8;
   line-height: 23px;
   text-transform: capitalize;
 }
