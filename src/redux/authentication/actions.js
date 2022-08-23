@@ -383,7 +383,7 @@ export const validateToken = (payload) => async (dispatch, getState, api) => {
     dispatch(generateToken())
     let toastMessage = 'cound not Process YOur Request '
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }

@@ -250,7 +250,7 @@ function Index() {
     if (clauseObj.existingValue === '' || clauseObj.newValue === '') {
       let toastMessage = 'CANNOT ADD A CLOUSE WITH EMPTY VALUES'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage, { toastId: toastMessage })
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
     } else {
       const newArr = [...clauseArr]
@@ -259,7 +259,7 @@ function Index() {
       ) {
         let toastMessage = 'Please select a different Clause from drop down'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage, { toastId: toastMessage })
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
       } else {
 

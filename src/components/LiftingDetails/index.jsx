@@ -67,7 +67,7 @@ export default function Index(props) {
       // dispatch(getCustomClearanceFailed())
       // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
       // if (!toast.isActive(toastMessage.toUpperCase())) {
-      //   toast.error(toastMessage, { toastId: toastMessage })
+      //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       // }
     }
   }

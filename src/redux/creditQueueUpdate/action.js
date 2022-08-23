@@ -127,7 +127,7 @@ export const UpdateCam = (payload) => async (dispatch, getState, api) => {
     dispatch(updatingCamFailed())
     let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }
@@ -157,7 +157,7 @@ export const GetDocuments = (payload) => async (dispatch, getState, api) => {
     dispatch(gettingDocumentsFailed())
     let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }
@@ -189,7 +189,7 @@ export const VerifyGstKarza = (payload) => async (dispatch, getState, api) => {
     dispatch(VerifyingGstFailed())
     let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }
@@ -230,7 +230,7 @@ export const AddingDocument = (payload) => async (dispatch, getState, api) => {
     dispatch(addingDocumentsFailed())
     let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }
@@ -263,7 +263,7 @@ export const DeleteDocument = (payload) => async (dispatch, getState, api) => {
     dispatch(deleteDocumentsFailed())
     let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }
