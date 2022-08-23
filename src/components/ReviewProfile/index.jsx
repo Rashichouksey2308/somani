@@ -216,7 +216,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                   <td>
                     {CovertvaluefromtoCR(
                       reviewedProfile?.turnOver?.originalValue,
-                    )}
+                    )}{" "}Cr
                   </td>
                   <td>
                     <div className={styles.tick}>
@@ -296,7 +296,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                   <td>
                     {CovertvaluefromtoCR(
                       reviewedProfile?.orderValue?.originalValue,
-                    )}
+                    )}{" "}Cr
                   </td>
                   <td>
                     <div className={styles.tick}>
