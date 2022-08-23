@@ -436,6 +436,11 @@
 }
 .wrapper {
   border-radius: 6px;
+  & > div {
+    & > div {
+      background: none;
+    }
+  }
 
   .title {
     position: relative;
@@ -480,28 +485,33 @@
 
       tr {
         height: 67px;
-        border-bottom: 2px solid #f2f5f9;
-        &:first-child {
-          border-bottom: none !important;
-        }
+
         th {
           vertical-align: revert;
           font-weight: bold;
           font-size: 15px;
           line-height: 18px;
           color: #8492a6;
+          border-top: 2px solid #f2f5f9 !important;
+          border-bottom: 2px solid #f2f5f9 !important;
 
           &:first-child {
             padding-left: 35px;
           }
         }
         td {
+          border-bottom: 2px solid #f2f5f9 !important;
           vertical-align: revert;
           font-weight: 500;
           font-size: 19px;
           line-height: 24px;
           &:first-child {
             padding-left: 35px;
+          }
+        }
+        &:first-child {
+          td {
+            border-bottom: none !important;
           }
         }
       }

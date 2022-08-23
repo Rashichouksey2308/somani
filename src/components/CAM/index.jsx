@@ -2690,7 +2690,7 @@ const compilanceStatus = (companyData, camData) => {
                 </Col>
                 <Col
                   className={` col-md-offset-2 d-flex justify-content-between`}
-                  md={5}
+                  md={6}
                 >
                   <span className={`${styles.key} label1 pl-5`}>NCLT</span>
                   <span className={`${styles.value} value`}>
@@ -3407,9 +3407,9 @@ const skewness = (data, options, tempArr, gstData) => {
                     }
                   </span>
                 </div>
-                <div className={`${styles.chart}`}>
-                  {/* <Line data={dataline} options={lineOption} /> */}
-                </div>
+                {/* <div className={`${styles.chart}`}>
+                  <Line data={dataline} options={lineOption} />
+                </div> */}
                 <Row
                   className={`d-flex  d-flex align-items-center justify-content-evenly`}
                 >
