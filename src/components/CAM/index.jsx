@@ -24,8 +24,7 @@ import { GetDocuments } from 'redux/creditQueueUpdate/action'
 import { ViewDocument } from 'redux/ViewDoc/action'
 import { toast } from 'react-toastify'
 import _get from 'lodash/get'
-import { CovertvaluefromtoCR ,checkNan} from '../../utils/helper'
-import { check } from 'prettier'
+import { CovertvaluefromtoCR } from '../../utils/helper'
 
 Chart.register(
   ArcElement,
@@ -1999,24 +1998,21 @@ const revenuDetails = (gstData) => {
                   />
                 </td>
                 <td>
-                  {
-                  checkNan(RevenueDetails?.grossTurnover?.current?.value?.toFixed(2)
-                    ?.toLocaleString())
-                    }
+                  {RevenueDetails?.grossTurnover?.current?.value?.toFixed(2)
+                    ?.toLocaleString()}
                 </td>
                 <td>
-                  {
-                  RevenueDetails?.grossTurnover?.previous?.value?.toFixed(2)
-                    ?.toLocaleString()
-                    }
+                  {RevenueDetails?.grossTurnover?.previous?.value?.toFixed(2)
+                    ?.toLocaleString()}
                 </td>
                 <td>
-                  {checkNan(calcPc(
+                  {calcPc(
                     RevenueDetails?.grossTurnover?.previous?.value,
                     RevenueDetails?.grossTurnover?.current?.value,
-                  ).toFixed(2)
-                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 })) +
-                    '%' }
+                  )
+                    .toFixed(2)
+                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
+                    '%'}
                 </td>
               </tr>
               <tr>
@@ -2046,12 +2042,12 @@ const revenuDetails = (gstData) => {
                     ?.toLocaleString()}
                 </td>
                 <td>
-                  {checkNan(calcPc(
+                  {calcPc(
                     RevenueDetails?.relatedPartySales?.previous?.value,
                     RevenueDetails?.relatedPartySales?.current?.value,
                   )
                     .toFixed(2)
-                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 })) +
+                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
                     '%'}
                 </td>
               </tr>
@@ -2082,12 +2078,12 @@ const revenuDetails = (gstData) => {
                     ?.toLocaleString()}
                 </td>
                 <td>
-                  {checkNan(calcPc(
+                  {calcPc(
                     RevenueDetails?.intraOrgSalesPercent?.previous?.value,
                     RevenueDetails?.intraOrgSalesPercent?.current?.value,
                   )
                     .toFixed(2)
-                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 })) +
+                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
                     '%'}
                 </td>
               </tr>
@@ -2118,14 +2114,12 @@ const revenuDetails = (gstData) => {
                     ?.toLocaleString()}
                 </td>
                 <td>
-                  {checkNan(
-                    calcPc(
+                  {calcPc(
                     RevenueDetails?.B2BSales?.previous?.value,
                     RevenueDetails?.B2BSales?.current?.value,
                   )
                     .toFixed(2)
-                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 })
-                  ) +
+                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
                     '%'}
                 </td>
               </tr>
@@ -2156,12 +2150,12 @@ const revenuDetails = (gstData) => {
                     ?.toLocaleString()}
                 </td>
                 <td>
-                  {checkNan(calcPc(
+                  {calcPc(
                     RevenueDetails?.B2CSales?.previous?.value,
                     RevenueDetails?.B2CSales?.current?.value,
                   )
                     .toFixed(2)
-                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 })) +
+                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
                     '%'}
                 </td>
               </tr>
@@ -2192,14 +2186,12 @@ const revenuDetails = (gstData) => {
                     ?.toLocaleString()}
                 </td>
                 <td>
-                  {checkNan(
-                    calcPc(
+                  {calcPc(
                     RevenueDetails?.exportSales?.previous?.value,
                     RevenueDetails?.exportSales?.current?.value,
                   )
                     .toFixed(2)
-                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 })
-                  ) +
+                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
                     '%'}
                 </td>
               </tr>
@@ -2228,12 +2220,12 @@ const revenuDetails = (gstData) => {
                     ?.toLocaleString()}
                 </td>
                 <td>
-                  {checkNan(calcPc(
+                  {calcPc(
                     RevenueDetails?.ttlCustomer?.previous?.value,
                     RevenueDetails?.ttlCustomer?.current?.value,
                   )
                     .toFixed(2)
-                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 })) +
+                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
                     '%'}
                 </td>
               </tr>
@@ -2262,12 +2254,12 @@ const revenuDetails = (gstData) => {
                     ?.toLocaleString()}
                 </td>
                 <td>
-                  {checkNan(calcPc(
+                  {calcPc(
                     RevenueDetails?.ttlInv?.previous?.value,
                     RevenueDetails?.ttlInv?.current?.value,
                   )
                     .toFixed(2)
-                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 })) +
+                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
                     '%'}
                 </td>
               </tr>
