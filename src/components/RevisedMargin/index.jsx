@@ -41,10 +41,15 @@ const Index = ({
               </div>
             </div>
             <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
-            <select className={`${styles.options} accordion_DropDown`}>
+            <select className={`${styles.options} accordion_DropDown`} 
+            value={marginData?.order?.unitOfValue == 'Cr' ? 'Crores' : "Million"}>
               <option>
                 {' '}
-                {marginData?.order?.unitOfValue == 'Cr' ? 'Crores' : null}
+                {"Crores"}
+              </option>
+              <option>
+                {' '}
+                {"Million"}
               </option>
             </select>
             <span data-toggle="collapse" data-target="#commodityAccordion" aria-expanded="true" aria-controls="commodityAccordion">+</span>
