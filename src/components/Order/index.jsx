@@ -31,7 +31,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
           </div>
 
           <div className={`${styles.unit_container} d-flex align-items-center`}>
-            <h5 className={`${styles.unit_label} accordion_Text`}>Units :</h5>
+            <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
             <select className={`${styles.options} accordion_DropDown `} name='unitOfValue' 
             onChange={(e)=>saveOrderData(e.target.name, e.target.value)}>
               <option>Crores</option>
@@ -126,7 +126,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   required
                   type="text"
                   name="orderValue"
-                  value={addPrefixOrSuffix(CovertvaluefromtoCR(orderDetail?.orderValue),orderDetail?.unitOfValue=="Crores"?"Cr":orderDetail?.unitOfValue)}
+                  value={addPrefixOrSuffix(orderDetail?.orderValue,orderDetail?.unitOfValue=="Crores"?"Cr":orderDetail?.unitOfValue)}
                  
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
@@ -277,7 +277,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                  <div className="d-flex">
-                    <DateCalender name='ExpectedDateOfShipment'  defaultDate={orderDetail?.ExpectedDateOfShipment?.split('T')[0]} saveDate={saveDate} labelName='Laycan at Load Port from'/>
+                    <DateCalender name='ExpectedDateOfShipment'  defaultDate={orderDetail?.ExpectedDateOfShipment?.split('T')[0]} saveDate={saveDate} labelName='Expected Date Of Shipment'/>
                      <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
@@ -311,7 +311,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                 <Form.Control
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="text"
+                  type="number"
                   defaultValue={orderDetail?.transactionPeriodDays}
                   name="transactionPeriodDays"
                   onChange={(e) => {

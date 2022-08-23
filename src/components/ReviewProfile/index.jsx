@@ -6,6 +6,7 @@ import { DropdownButton, Dropdown, Form } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import moment from 'moment'
 import { CovertvaluefromtoCR } from '../../utils/helper'
+
 import DateCalender from '../DateCalender'
 function Index({ handleChange, reviewedProfile, isAddedRow }) {
   console.log(
@@ -452,8 +453,8 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                       // />
                 <DateCalender
                         name="ExpectedDateOfShipment"
-                        saveDate={(e)=>{ 
-                          handleChange(e.target.name, e.target.value)
+                        saveDate={(name,value)=>{ 
+                        handleChange(name, value)
                         }}
 
                         disabled={fields[7]?.isEdit}
