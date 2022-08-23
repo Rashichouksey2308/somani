@@ -201,3 +201,10 @@ export const removePrefixOrSuffix = (unitOfValue, type) => {
     return Number(newValue)
   }
 }
+export const checkNan = (unitOfValue) => {
+  if (isNaN(unitOfValue)) {
+    return ''
+  } else {
+    return unitOfValue
+  }
+}

@@ -2009,10 +2009,9 @@ const revenuDetails = (gstData) => {
                   {calcPc(
                     RevenueDetails?.grossTurnover?.previous?.value,
                     RevenueDetails?.grossTurnover?.current?.value,
-                  )
-                    .toFixed(2)
+                  ).toFixed(2)
                     ?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
-                    '%'}
+                    '%' }
                 </td>
               </tr>
               <tr>

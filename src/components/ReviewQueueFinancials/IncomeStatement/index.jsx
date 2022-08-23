@@ -3,6 +3,7 @@ import React from 'react'
 import styles from '../index.module.scss'
 import moment from 'moment'
 import _get from 'lodash/get'
+import {checkNan} from '../../../utils/helper'
 
 function Index({ incomeData, rtrnChartIndiaction }) {
   // console.log(incomeData?.financial?.incomeStatement[0], 'THIS IS INCOME DATA')
@@ -59,13 +60,13 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Revenue From Operation</td>
                       <td className="text-center">
-                        {latestYearData?.revenue?.revenueFromOperations?.toLocaleString()}
+                        {checkNan(latestYearData?.revenue?.revenueFromOperations?.toLocaleString())}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.revenue?.revenueFromOperations?.toLocaleString()}
+                        {checkNan(previousYearData?.revenue?.revenueFromOperations?.toLocaleString())}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.revenue?.revenueFromOperations?.toLocaleString()}
+                        {checkNan(lastYearData?.revenue?.revenueFromOperations?.toLocaleString())}
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.revenue?.revenueFromOperations, previousYearData?.revenue?.revenueFromOperations, lastYearData?.revenue?.revenueFromOperations)}
@@ -75,13 +76,13 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Other Income</td>
                       <td className="text-center">
-                        {latestYearData?.revenue?.otherIncome?.toLocaleString()}
+                        {checkNan(latestYearData?.revenue?.otherIncome?.toLocaleString())}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.revenue?.otherIncome?.toLocaleString()}
+                        {checkNan(previousYearData?.revenue?.otherIncome?.toLocaleString())}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.revenue?.otherIncome?.toLocaleString()}
+                        {checkNan(lastYearData?.revenue?.otherIncome?.toLocaleString())}
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.revenue?.otherIncome, previousYearData?.revenue?.otherIncome, lastYearData?.revenue?.otherIncome)}
@@ -93,13 +94,13 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                         <strong>Total Income</strong>
                       </td>
                       <td className="text-center">
-                        <strong>{latestYearData?.revenue?.totalRev?.toLocaleString()}</strong>
+                        <strong>{checkNan(latestYearData?.revenue?.totalRev?.toLocaleString())}</strong>
                       </td>
                       <td className="text-center">
-                        <strong>{previousYearData?.revenue?.totalRev?.toLocaleString()}</strong>
+                        <strong>{checkNan(previousYearData?.revenue?.totalRev?.toLocaleString())}</strong>
                       </td>
                       <td className="text-center">
-                        <strong>{lastYearData?.revenue?.totalRev?.toLocaleString()}</strong>
+                        <strong>{checkNan(lastYearData?.revenue?.totalRev?.toLocaleString())}</strong>
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.revenue?.totalRev, previousYearData?.revenue?.totalRev, lastYearData?.revenue?.totalRev)}
@@ -110,13 +111,13 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Purchases</td>
                       <td className="text-center">
-                        {latestYearData?.expenses?.purchaseStock?.toLocaleString()}
+                        {checkNan(latestYearData?.expenses?.purchaseStock?.toLocaleString())}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.expenses?.purchaseStock?.toLocaleString()}
+                        {checkNan(previousYearData?.expenses?.purchaseStock?.toLocaleString())}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.expenses?.purchaseStock?.toLocaleString()}
+                        {checkNan(lastYearData?.expenses?.purchaseStock?.toLocaleString())}
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.expenses?.purchaseStock, previousYearData?.expenses?.purchaseStock, lastYearData?.expenses?.purchaseStock)}
@@ -126,13 +127,13 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Other Expenses (Ex Dep, Int, Tax)</td>
                       <td className="text-center">
-                        {latestYearData?.expenses?.othExp?.toLocaleString()}
+                        {checkNan(latestYearData?.expenses?.othExp?.toLocaleString())}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.expenses?.othExp?.toLocaleString()}
+                        {checkNan(previousYearData?.expenses?.othExp?.toLocaleString())}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.expenses?.othExp?.toLocaleString()}
+                        {checkNan(lastYearData?.expenses?.othExp?.toLocaleString())}
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.expenses?.othExp, previousYearData?.expenses?.othExp, lastYearData?.expenses?.othExp)}
@@ -144,13 +145,13 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                         <strong>Total Expenses</strong>
                       </td>
                       <td className="text-center">
-                        <strong>{latestYearData?.expenses?.totExp?.toLocaleString()}</strong>
+                        <strong>{checkNan(latestYearData?.expenses?.totExp?.toLocaleString())}</strong>
                       </td>
                       <td className="text-center">
-                        <strong>{previousYearData?.expenses?.totExp?.toLocaleString()}</strong>
+                        <strong>{checkNan(previousYearData?.expenses?.totExp?.toLocaleString())}</strong>
                       </td>
                       <td className="text-center">
-                        <strong>{lastYearData?.expenses?.totExp?.toLocaleString()}</strong>
+                        <strong>{checkNan(lastYearData?.expenses?.totExp?.toLocaleString())}</strong>
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.expenses?.othExp, previousYearData?.expenses?.othExp, lastYearData?.expenses?.othExp)}
@@ -163,22 +164,30 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                         <strong>EBITA</strong>
                       </td>
                       <td className="text-center">
-                        {(latestYearData?.revenue?.revenueFromOperations -
+                        {
+                         checkNan((latestYearData?.revenue?.revenueFromOperations -
                           latestYearData?.expenses?.totExp +
                           latestYearData?.expenses?.finCost +
-                          latestYearData?.expenses?.deprcnAmort)?.toLocaleString()}
+                          latestYearData?.expenses?.deprcnAmort)?.toLocaleString())
+                          }
                       </td>
                       <td className="text-center">
-                        {(previousYearData?.revenue?.revenueFromOperations -
+                        {
+                         checkNan( (previousYearData?.revenue?.revenueFromOperations -
                           previousYearData?.expenses?.totExp +
                           previousYearData?.expenses?.finCost +
-                          previousYearData?.expenses?.deprcnAmort)?.toLocaleString()}
+                          previousYearData?.expenses?.deprcnAmort)?.toLocaleString())
+                          }
                       </td>
                       <td className="text-center">
-                        {(lastYearData?.revenue?.revenueFromOperations -
+                        {
+                        checkNan(
+                          (lastYearData?.revenue?.revenueFromOperations -
                           lastYearData?.expenses?.totExp +
                           lastYearData?.expenses?.finCost +
-                          lastYearData?.expenses?.deprcnAmort)?.toLocaleString()}
+                          lastYearData?.expenses?.deprcnAmort)?.toLocaleString()
+                        )
+                          }
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction((latestYearData?.revenue?.revenueFromOperations -
@@ -197,13 +206,13 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Depreciation</td>
                       <td className="text-center">
-                        {(latestYearData?.expenses?.deprcnAmort)?.toLocaleString()}
+                        {checkNan((latestYearData?.expenses?.deprcnAmort)?.toLocaleString())}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.expenses?.deprcnAmort?.toLocaleString()}
+                        {checkNan(previousYearData?.expenses?.deprcnAmort?.toLocaleString())}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.expenses?.deprcnAmort?.toLocaleString()}
+                        {checkNan(lastYearData?.expenses?.deprcnAmort?.toLocaleString())}
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.expenses?.deprcnAmort, previousYearData?.expenses?.deprcnAmort, lastYearData?.expenses?.deprcnAmort)}
@@ -215,19 +224,25 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                         <strong>EBIT</strong>
                       </td>
                       <td className="text-center">
-                        {(latestYearData?.revenue?.revenueFromOperations -
+                        {
+                        checkNan((latestYearData?.revenue?.revenueFromOperations -
                           latestYearData?.expenses?.totExp +
-                          latestYearData?.expenses?.finCost)?.toLocaleString()}
+                          latestYearData?.expenses?.finCost)?.toLocaleString())
+                          }
                       </td>
                       <td className="text-center">
-                        {(previousYearData?.revenue?.revenueFromOperations -
+                        {
+                          checkNan((previousYearData?.revenue?.revenueFromOperations -
                           previousYearData?.expenses?.totExp +
-                          previousYearData?.expenses?.finCost)?.toLocaleString()}
+                          previousYearData?.expenses?.finCost)?.toLocaleString())
+                        }
                       </td>
                       <td className="text-center">
-                        {(lastYearData?.revenue?.revenueFromOperations -
+                        {
+                         checkNan((lastYearData?.revenue?.revenueFromOperations -
                           lastYearData?.expenses?.totExp +
-                          lastYearData?.expenses?.finCost)?.toLocaleString()}
+                          lastYearData?.expenses?.finCost)?.toLocaleString())
+                          }
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction((latestYearData?.revenue?.revenueFromOperations -
@@ -243,13 +258,13 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Interest Cost</td>
                       <td className="text-center">
-                        {latestYearData?.expenses?.finCost?.toLocaleString()}
+                        {checkNan(latestYearData?.expenses?.finCost?.toLocaleString())}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.expenses?.finCost?.toLocaleString()}
+                        {checkNan(previousYearData?.expenses?.finCost?.toLocaleString())}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.expenses?.finCost?.toLocaleString()}
+                        {checkNan(lastYearData?.expenses?.finCost?.toLocaleString())}
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.expenses?.finCost, previousYearData?.expenses?.finCost, lastYearData?.expenses?.finCost)}
@@ -261,13 +276,13 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                         <strong>PBT</strong>
                       </td>
                       <td className="text-center">
-                        {latestYearData?.profLossBefTax?.toLocaleString()}
+                        {checkNan(latestYearData?.profLossBefTax?.toLocaleString())}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.profLossBefTax?.toLocaleString()}
+                        {checkNan(previousYearData?.profLossBefTax?.toLocaleString())}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.profLossBefTax?.toLocaleString()}
+                        {checkNan(lastYearData?.profLossBefTax?.toLocaleString())}
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.profLossBefTax, previousYearData?.profLossBefTax, lastYearData?.profLossBefTax)}
@@ -277,13 +292,13 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Less: Tax</td>
                       <td className="text-center">
-                        {latestYearData?.totalTaxExpense?.toLocaleString()}
+                        {checkNan(latestYearData?.totalTaxExpense?.toLocaleString())}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.totalTaxExpense?.toLocaleString()}
+                        {checkNan(previousYearData?.totalTaxExpense?.toLocaleString())}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.totalTaxExpense?.toLocaleString()}
+                        {checkNan(lastYearData?.totalTaxExpense?.toLocaleString())}
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.totalTaxExpense, previousYearData?.totalTaxExpense, lastYearData?.totalTaxExpense)}
@@ -294,11 +309,11 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                       <td>
                         <strong>PAT</strong>
                       </td>
-                      <td className="text-center">{latestYearData?.profitLoss?.toLocaleString()}</td>
+                      <td className="text-center">{checkNan(latestYearData?.profitLoss?.toLocaleString())}</td>
                       <td className="text-center">
                         {previousYearData?.profitLoss}
                       </td>
-                      <td className="text-center">{lastYearData?.profitLoss?.toLocaleString()}</td>
+                      <td className="text-center">{checkNan(lastYearData?.profitLoss?.toLocaleString())}</td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.profitLoss, previousYearData?.profitLoss, lastYearData?.profitLoss)}
 
@@ -307,19 +322,25 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Effective Tax Rate %</td>
                       <td className="text-center">
-                        {(latestYearData?.totalTaxExpense /
+                        {
+                        checkNan((latestYearData?.totalTaxExpense /
                           latestYearData?.profLossBefTax)?.toLocaleString() *
-                          100}
+                          100)
+                          }
                       </td>
                       <td className="text-center">
-                        {(previousYearData?.totalTaxExpense /
+                        {
+                        checkNan((previousYearData?.totalTaxExpense /
                           previousYearData?.profLossBefTax)?.toLocaleString() *
-                          100}
+                          100)
+                          }
                       </td>
                       <td className="text-center">
-                        {(lastYearData?.totalTaxExpense /
+                        {
+                        checkNan((lastYearData?.totalTaxExpense /
                           lastYearData?.profLossBefTax)?.toLocaleString() *
-                          100}
+                          100)
+                          }
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction((latestYearData?.totalTaxExpense /
