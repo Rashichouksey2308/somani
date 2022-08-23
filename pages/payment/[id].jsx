@@ -218,7 +218,7 @@ dispatch(setDynamicName(ReleaseOrderData?.data[0]?.company.companyName))
       let toastMessage =
         'Delivery Order Quantity Cannot Be Greater than Realese Quantity'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     }
   }, [filteredDOArray, deliveryOrder])

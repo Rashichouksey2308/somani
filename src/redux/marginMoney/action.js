@@ -102,7 +102,7 @@ export const GetAllMarginMoney =
 
       let toastMessage = 'GET MARGIN MONEY API FAILED'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     }
   }
@@ -134,7 +134,7 @@ export const GetMarginMoney = (payload) => async (dispatch, getState, api) => {
 
     let toastMessage = 'GET MARGIN MONEY API FAILED'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }
@@ -167,7 +167,7 @@ export const UpdateMarginMoney =
       dispatch(updateMarginMoneyFailed())
       let toastMessage = 'UPDATE MARGIN MONEY REQUEST FAILED'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     }
   }
@@ -200,7 +200,7 @@ export const RevisedMarginMoney =
       dispatch(updatingRevisedMarginMoneyFailed())
       let toastMessage = 'REVISE MARGIN MONEY REQUEST FAILED'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     }
   }

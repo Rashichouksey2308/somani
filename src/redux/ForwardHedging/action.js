@@ -83,7 +83,7 @@ export const GetAllForwardHedging =
 
       let toastMessage = 'COULD NOT GET FORWARD HEDGING AT THIS TIME'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     }
   }
@@ -113,7 +113,7 @@ export const GetForwardHedging =
 
       let toastMessage = 'COULD NOT GET   FORWARD HEDGING AT THIS TIME'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     }
   }
@@ -147,7 +147,7 @@ export const UpdateForwardHedging =
 
       let toastMessage = 'COULD NOT UPDATE FORWARDHEDGING AT THIS TIME'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     }
   }

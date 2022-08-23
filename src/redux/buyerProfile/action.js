@@ -160,7 +160,7 @@ export const SearchLeads = (payload) => async (dispatch, getState, api) => {
     dispatch(searchLeadsFailed())
     const toastMessage = 'Search Leads request Failed'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }
@@ -196,7 +196,7 @@ export const UpdateCredit = (payload) => async (dispatch, getState, api) => {
     dispatch(updateCreditFailed())
     const toastMessage = 'UPDATE CREDIT REQUEST FAILED'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }
@@ -232,7 +232,7 @@ export const UpdateCreditCalculate = (payload) => async (dispatch, getState, api
     dispatch(updateCreditCalFailed())
     const toastMessage = 'UPDATE CREDIT CALCULATE REQUEST FAILED'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }
@@ -270,7 +270,7 @@ export const UpdateOrderShipment =
       dispatch(updateOrderFailed())
       const toastMessage = 'UPDATE ORDER REQUEST FAILED'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     }
   }
@@ -303,7 +303,7 @@ export const GetTermsheet = (payload) => async (dispatch, getState, api) => {
 
     let toastMessage = 'Get Termsheet API Failed'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }
@@ -334,7 +334,7 @@ export const getAllTermsheet = (payload) => async (dispatch, getState, api) => {
     dispatch(gettermsheetfailed())
     let toastMessage = 'Get Termsheet API Failed'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }
@@ -367,7 +367,7 @@ export const updateTermsheet = (payload) => async (dispatch, getState, api) => {
     dispatch(updatetermsheetfailed())
     let toastMessage = 'UPDATE TERMSHEET REQUEST FAILED'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }
