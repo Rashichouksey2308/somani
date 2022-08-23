@@ -16,7 +16,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
   const [dateStartFrom,setDateStartFrom]=useState({
     laycan:"",
     eta:""
-
+ 
   })
   const setStartDate=(val,name)=>{
       var new_date = moment(new Date(val).toISOString()).add(1, 'days').format("DD-MM-YYYY");

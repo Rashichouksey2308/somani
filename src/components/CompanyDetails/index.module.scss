@@ -89,6 +89,9 @@
         letter-spacing: 0.19px;
         line-height: 25px;
         padding-right: 38px;
+        @include respond(lg-desktop) {
+          padding-right: 15px;
+        }
         input {
           width: 15px;
           height: 15px;

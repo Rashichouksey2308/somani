@@ -21,6 +21,8 @@
             display: flex;
             justify-content: flex-start;
             align-items: center;
+            min-height: 48px;
+            margin: 0 0 27px 10px;
             @include respond(phone) {
                 align-items: center;
                 padding: 0.75rem 0rem;
@@ -34,16 +36,13 @@
                 }
             }
             .heading {
-                padding: 12px 0 12px 12px;
+                font-size: 34px;
                 font-weight: bold;
-                font-size: 30px;
-                text-transform: capitalize;
+                line-height: 41px;
+                padding-left: 18px;
                 margin: 0;
                 @include respond(phone) {
-                    padding: 12px 0 12px 12px;
                     font-size: 20px;
-                    margin: 0px;
-                    padding-left: 10px;
                 }
             }
         }
