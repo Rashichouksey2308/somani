@@ -2144,7 +2144,7 @@ function Index() {
                     deleteAddress={deleteAddress}
                     supplierCred={supplierCred}
                     setEditRow={setEditRow}
-
+                    orderDetail={orderList}
 
 
                   />

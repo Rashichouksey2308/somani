@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { ViewDocument } from 'redux/ViewDoc/action'
 import styles from './index.module.scss'
 
 function AddressComponent({
@@ -13,7 +15,11 @@ function AddressComponent({
   deleteComponent,
   index,
   editAddress,
+  orderDetail,
+  path
 }) {
+  const dispatch = useDispatch()
+
   return (
     <div className={`${styles.address_card} value background1`}>
       <div className="d-flex justify-content-between w-100">
@@ -63,7 +69,15 @@ function AddressComponent({
                 <span>GSTIN: </span>
                 {gstIn}
               </p>
-              <span className={styles.view_btn}>View</span>
+              <span
+                onClick={() =>
+                  dispatch(ViewDocument({ order: orderDetail?._id, path: path }))
+                }
+                className={styles.view_btn}
+                style={{cursor: 'pointer'}}
+              >
+                View
+              </span>
             </div>
           </div>
         </div>
