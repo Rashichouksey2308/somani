@@ -5,7 +5,7 @@
         padding: 28px 28px 0;
         margin-bottom: 10px;
         .tab_header_inner {
-            height: 48px;
+            min-height: 48px;
             margin: 0 0 27px 10px;
             .title {
                 font-size: 34px;
@@ -69,9 +69,10 @@
     }
     .tabContent {
         margin: 18px 28px 28px;
-        margin-bottom: 66px;
+        margin-bottom: 68px;
         @include respond(sm-desktop) {
             margin: 10px 20px 20px;
+            margin-bottom: 60px;
         }
         @include respond(phone) {
             margin: 5px 15px 15px;
