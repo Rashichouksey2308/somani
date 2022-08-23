@@ -1089,8 +1089,8 @@ const index = ({
             </div>
             {showAddress ? (
               <div
-                className={`${styles.main} card border_color`}
-                style={{ margin: '10px 35px 32px 32px' }}
+                className={`${styles.main} ${styles.add_address} card border_color`}
+                
               >
                 <div
                   className={`${styles.head_container} mb-n3 card-header d-flex justify-content-between bg-transparent`}
@@ -1137,10 +1137,10 @@ const index = ({
                     </div>
                   </div>
                   <div className="row">
-                    <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                    <div className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-4`}>
                       <div className="d-flex">
                         <select
-                          className={`${styles.input_field} ${styles.customSelect}  input form-control`}
+                          className={`${styles.input_field} ${styles.small_input} ${styles.customSelect}  input form-control`}
                           name="addressType"
                           onChange={(e) => {
                             handleChange(e.target.name, e.target.value)
@@ -1164,7 +1164,7 @@ const index = ({
                         />
                       </div>
                     </div>
-                    <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                    <div className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-4`}>
                       <div className="d-flex">
                         <input
                           className={`${styles.input_field} input form-control`}
@@ -1188,7 +1188,7 @@ const index = ({
                       </div>
                     </div>
 
-                    <div className={`${styles.form_group} col-md-2 col-sm-4`}>
+                    <div className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-4`}>
                       <input
                         className={`${styles.input_field} input form-control`}
                         required
@@ -1205,7 +1205,7 @@ const index = ({
                       </label>
                     </div>
 
-                    <div className={`${styles.form_group} col-md-2 col-sm-6`}>
+                    <div className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-4`}>
                       <input
                         className={`${styles.input_field} input form-control`}
                         required
@@ -1331,8 +1331,8 @@ const index = ({
                       </label>
                     </div>
 
-                    <div className="d-flex justify-center-center align-item-center col-md-4">
-                      <div className={`${styles.btn_container} `}>
+                    <div className={`${styles.btn_outer} d-flex justify-center-center align-items-center col-md-4`}>
+                      <div className={`${styles.btn_container}`}>
                         <button className={`${styles.gst_btn}`}>
                           {' '}
                           <input

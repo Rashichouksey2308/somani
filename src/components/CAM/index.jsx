@@ -92,6 +92,7 @@ function Index({
   const [sanctionComments, setSanctionComments] = useState('')
 
   const latestBalanceData = _get(companyData, 'financial.balanceSheet[0]', {})
+  console.log(latestBalanceData.equityLiabilities.totalEquity, 'THIS IS LATEST BALANCE DATA')
 
   const previousBalanceData = _get(companyData, 'financial.balanceSheet[1]', {})
 
@@ -117,13 +118,16 @@ function Index({
   }
 
   const primaryBankName = () => {
-    const filteredData = camData?.company?.debtProfile?.filter(
+    let filteredData = []
+     filteredData = camData?.company?.debtProfile?.filter(
       (data) => data.primaryBank,
-    )
-    const length = filteredData?.bankName
+    ) || [] 
+    
+    const length = _get(filteredData[0], 'bankName', '')
 
     return length
   }
+
 
   const latestAuditorData = _get(
     camData,
@@ -565,8 +569,8 @@ const basicInfo = (camData) => {
                 >
                   <span className={`${styles.key} label1 ml-5 pl-5`}>City</span>
                   <span className={`${styles.value} value`}>
-                    {_get(camData, 'company.keyAddress[0].city', '')}
-                    {/* {camData?.company?.keyAddress[0]?.city} */}
+                  {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.city}
+
                   </span>
                 </Col>
               </Row>
@@ -582,8 +586,8 @@ const basicInfo = (camData) => {
                     State
                   </span>
                   <span className={`${styles.value} value`}>
-                    {_get(camData, 'company.keyAddress[0].state', '')}
-                    {/* {camData?.company?.keyAddress[0]?.state} */}
+                  {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.state}
+
                   </span>
                 </Col>
               </Row>
@@ -2319,12 +2323,12 @@ const financeDetails = (
                       Liabilities
                     </th>
                     <th>
-                      {moment(latestBalanceData?.date)
+                      {moment(_get(companyData, 'financial.balanceSheet[0].date', ''))
                         .format('MMM-YY')
                         .toUpperCase()}
                     </th>
                     <th>
-                      {moment(previousBalanceData?.date)
+                    {moment(_get(companyData, 'financial.balanceSheet[1].date', ''))
                         .format('MMM-YY')
                         .toUpperCase()}
                     </th>
@@ -2332,42 +2336,41 @@ const financeDetails = (
                   <tr>
                     <td>Net Worth</td>
                     <td>
-                      {latestBalanceData?.equityLiabilities?.totalEquity?.toLocaleString()}
+                      {_get(companyData, 'financial.balanceSheet[0].equityLiabilities.totalEquity', '')?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td>
-                      {previousBalanceData?.equityLiabilities?.totalEquity?.toLocaleString()}
+                    {_get(companyData, 'financial.balanceSheet[1].equityLiabilities.totalEquity', '')?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
                   <tr>
                     <td>Total Borrowings</td>
                     <td>
-                      {latestBalanceData?.equityLiabilities?.borrowingsCurrent +
-                        latestBalanceData?.equityLiabilities?.borrowingsNonCurrent?.toLocaleString()}
+                      {Number(_get(companyData, 'financial.balanceSheet[0].equityLiabilities.borrowingsCurrent', '') +
+                        _get(companyData, 'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent', ''))?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td>
-                      {previousBalanceData?.equityLiabilities
-                        ?.borrowingsCurrent +
-                        previousBalanceData?.equityLiabilities?.borrowingsNonCurrent?.toLocaleString()}
+                    {Number(_get(companyData, 'financial.balanceSheet[1].equityLiabilities.borrowingsCurrent', '') +
+                        _get(companyData, 'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent', ''))?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
                   <tr>
                     <td>Creditors</td>
                     <td>
-                      {latestBalanceData?.equityLiabilities?.tradePay +
-                        latestBalanceData?.equityLiabilities?.tradePayablesNoncurrent?.toLocaleString()}
+                    {Number(_get(companyData, 'financial.balanceSheet[0].equityLiabilities.tradePay', '') +
+                        _get(companyData, 'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent', ''))?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td>
-                      {previousBalanceData?.equityLiabilities?.tradePay +
-                        previousBalanceData?.equityLiabilities?.tradePayablesNoncurrent?.toLocaleString()}
+                    {Number(_get(companyData, 'financial.balanceSheet[1].equityLiabilities.tradePay', '') +
+                        _get(companyData, 'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent', ''))?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
                   <tr>
                     <td>Other Current Liabilities</td>
                     <td>
-                      {latestBalanceData?.equityLiabilities?.otherCurrentLiabilities?.toLocaleString()}
+                      {_get(companyData, 'financial.balanceSheet[0].equityLiabilities.otherCurrentLiabilities', '')?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td>
-                      {previousBalanceData?.equityLiabilities?.otherCurrentLiabilities?.toLocaleString()}
+                    {_get(companyData, 'financial.balanceSheet[1].equityLiabilities.otherCurrentLiabilities', '')?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
 
@@ -2511,14 +2514,14 @@ const financeDetails = (
                     <td>
                       {_get(
                         companyData,
-                        'financial?.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
+                        'financial.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
                         '',
                       ).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td>
                       {_get(
                         companyData,
-                        'financial?.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
+                        'financial.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
                         '',
                       ).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
@@ -2528,14 +2531,14 @@ const financeDetails = (
                     <td>
                       {_get(
                         companyData,
-                        'financial?.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
+                        'financial.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
                         '',
                       ).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td>
                       {_get(
                         companyData,
-                        'financial?.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
+                        'financial.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
                         '',
                       ).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
@@ -2682,12 +2685,12 @@ const compilanceStatus = (companyData, camData) => {
                     className={`${styles.value} value pr-5`}
                     style={{ color: '#EA3F3F' }}
                   >
-                    {_get(companyData,"GST[0]?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr1","")}
+                    {moment(_get(companyData,"GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1",""), 'MMyyyy').format('MM-yyyy')}
                   </span>
                 </Col>
                 <Col
                   className={` col-md-offset-2 d-flex justify-content-between`}
-                  md={5}
+                  md={6}
                 >
                   <span className={`${styles.key} label1 pl-5`}>NCLT</span>
                   <span className={`${styles.value} value`}>
@@ -3404,9 +3407,9 @@ const skewness = (data, options, tempArr, gstData) => {
                     }
                   </span>
                 </div>
-                <div className={`${styles.chart}`}>
-                  {/* <Line data={dataline} options={lineOption} /> */}
-                </div>
+                {/* <div className={`${styles.chart}`}>
+                  <Line data={dataline} options={lineOption} />
+                </div> */}
                 <Row
                   className={`d-flex  d-flex align-items-center justify-content-evenly`}
                 >

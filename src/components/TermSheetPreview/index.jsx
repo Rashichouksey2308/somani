@@ -827,7 +827,7 @@ function Index() {
       <div className={`${styles.root_container}  `} ref={toPrint}>
         <div  className={styles.head_container}>
         <div className={styles.head_header}>
-          <img className={styles.arrow}
+          <img className={`${styles.arrow} image_arrow mr-2 img-fluid`}
             src="/static/keyboard_arrow_right-3.svg" alt="Arrow" />
           <h1 className={`${styles.heading} heading`}>Termsheet Preview</h1>
         </div>

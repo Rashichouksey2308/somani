@@ -187,7 +187,7 @@ function Index({ order, companyDetail }) {
                     : styles.warning
                     }`}
                 >
-                  {companyDetail?.lastBalanceSheet}
+                  {companyDetail?.profile?.companyDetail?.lastBalanceSheet}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
