@@ -1606,7 +1606,8 @@ function Index() {
                 </div>
                 <div className="tab-pane fade" id="gst" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <GST GstDataHandler={GstDataHandler}
+                    <GST alertObj={alertObj} 
+                    GstDataHandler={GstDataHandler}
                       orderList={orderList}
                       companyData={companyData}
                     />
