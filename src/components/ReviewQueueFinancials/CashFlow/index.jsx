@@ -4,10 +4,10 @@ import styles from '../index.module.scss'
 import moment from 'moment'
 import _get from 'lodash/get'
 
-function Index({ cashData }) {
+function Index({ cashData, rtrnChartIndiaction }) {
   // console.log(cashData?.financial.cashFlowStatement[0], 'THIS IS CASH DATA')
 
-  const latestYearData =  _get(cashData, 'financial.cashFlowStatement[0]', {})
+  const latestYearData = _get(cashData, 'financial.cashFlowStatement[0]', {})
 
   const previousYearData = _get(cashData, 'financial.cashFlowStatement[1]', {})
 
@@ -90,11 +90,11 @@ function Index({ cashData }) {
                         }
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/profit.svg"
-                          alt="Profit"
-                          className="img-fluid"
-                        />
+                        {rtrnChartIndiaction(latestYearData?.cashFlowsFromUsedInOperatingActivities
+                          ?.cashFlowsFromUsedInOperatingActivities, previousBalanceData?.cashFlowsFromUsedInOperatingActivities
+                          ?.cashFlowsFromUsedInOperatingActivities, lastYearData?.cashFlowsFromUsedInOperatingActivities
+                          ?.cashFlowsFromUsedInOperatingActivities)}
+
                       </td>
                     </tr>
                     <tr>
@@ -118,11 +118,10 @@ function Index({ cashData }) {
                         }
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/average.svg"
-                          alt="Average"
-                          className="img-fluid"
-                        />
+                        {rtrnChartIndiaction(latestYearData?.cashFlowsFromUsedInInvestingActivities
+                          ?.cashFlowsFromUsedInInvestingActivities, previousBalanceData?.cashFlowsFromUsedInInvestingActivities
+                          ?.cashFlowsFromUsedInInvestingActivities, lastYearData?.cashFlowsFromUsedInInvestingActivities
+                          ?.cashFlowsFromUsedInInvestingActivities)}
                       </td>
                     </tr>
 
@@ -147,11 +146,10 @@ function Index({ cashData }) {
                         }
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/loss.svg"
-                          alt="Loss"
-                          className="img-fluid"
-                        />
+                        {rtrnChartIndiaction(latestYearData?.cashFlowsFromUsedInFinancingActivities
+                          ?.cashFlowsFromUsedInFinancingActivities, previousBalanceData?.cashFlowsFromUsedInFinancingActivities
+                          ?.cashFlowsFromUsedInFinancingActivities, lastYearData?.cashFlowsFromUsedInFinancingActivities
+                          ?.cashFlowsFromUsedInFinancingActivities)}
                       </td>
                     </tr>
                     <tr>
@@ -178,24 +176,38 @@ function Index({ cashData }) {
                         }
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/loss.svg"
-                          alt="Loss"
-                          className="img-fluid"
-                        />
+                        {rtrnChartIndiaction(latestYearData?.effectOfExchangeRateChangesOnCashAndCashEquivalents
+                          ?.increaseDecreaseInCashAndCashEquivalents, previousBalanceData?.effectOfExchangeRateChangesOnCashAndCashEquivalents
+                          ?.increaseDecreaseInCashAndCashEquivalents, lastYearData?.effectOfExchangeRateChangesOnCashAndCashEquivalents
+                          ?.increaseDecreaseInCashAndCashEquivalents)}
                       </td>
                     </tr>
                     <tr>
                       <td>Free Cash Flow</td>
-                      <td className="text-center">{((latestYearData?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities - latestBalanceData?.assets?.propertyPlantAndEquipment - latestYearData?.previous?.propertyPlantAndEquipment) + latestIncomeStatement?.expenses?.deprcnAmort).toLocaleString()}</td>
-                      <td className="text-center">{((previousYearData?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities - previousBalanceData?.assets?.propertyPlantAndEquipment - previousYearData?.previous?.propertyPlantAndEquipment) + previousIncomeStatement?.expenses?.deprcnAmort).toLocaleString()}</td>
-                      <td className="text-center">{((lastYearData?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities - lastYearBalanceData?.assets?.propertyPlantAndEquipment - lastYearData?.previous?.propertyPlantAndEquipment) + lastYearIncomeStatement?.expenses?.deprcnAmort).toLocaleString()}</td>
+                      <td className="text-center">{((latestYearData?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities -
+                        latestBalanceData?.assets?.propertyPlantAndEquipment -
+                        latestYearData?.previous?.propertyPlantAndEquipment) +
+                        latestIncomeStatement?.expenses?.deprcnAmort).toLocaleString()}</td>
+                      <td className="text-center">{((previousYearData?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities -
+                        previousBalanceData?.assets?.propertyPlantAndEquipment -
+                        previousYearData?.previous?.propertyPlantAndEquipment) +
+                        previousIncomeStatement?.expenses?.deprcnAmort).toLocaleString()}</td>
+                      <td className="text-center">{((lastYearData?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities -
+                        lastYearBalanceData?.assets?.propertyPlantAndEquipment -
+                        lastYearData?.previous?.propertyPlantAndEquipment) +
+                        lastYearIncomeStatement?.expenses?.deprcnAmort).toLocaleString()}</td>
                       <td className="text-center">
-                        <img
-                          src="/static/loss.svg"
-                          alt="Loss"
-                          className="img-fluid"
-                        />
+
+                        {rtrnChartIndiaction(((latestYearData?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities -
+                          latestBalanceData?.assets?.propertyPlantAndEquipment -
+                          latestYearData?.previous?.propertyPlantAndEquipment) +
+                          latestIncomeStatement?.expenses?.deprcnAmort), ((previousYearData?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities -
+                            previousBalanceData?.assets?.propertyPlantAndEquipment -
+                            previousYearData?.previous?.propertyPlantAndEquipment) +
+                            previousIncomeStatement?.expenses?.deprcnAmort), ((lastYearData?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities -
+                              lastYearBalanceData?.assets?.propertyPlantAndEquipment -
+                              lastYearData?.previous?.propertyPlantAndEquipment) +
+                              lastYearIncomeStatement?.expenses?.deprcnAmort))}
                       </td>
                     </tr>
                     <tr>
@@ -204,11 +216,7 @@ function Index({ cashData }) {
                       <td className="text-center">{((previousBalanceData?.assets?.propertyPlantAndEquipment - previousYearData?.previous?.propertyPlantAndEquipment) + previousIncomeStatement?.expenses?.deprcnAmort).toLocaleString()}</td>
                       <td className="text-center">{((lastYearBalanceData?.assets?.propertyPlantAndEquipment - lastYearData?.previous?.propertyPlantAndEquipment) + lastYearIncomeStatement?.expenses?.deprcnAmort).toLocaleString()}</td>
                       <td className="text-center">
-                        <img
-                          src="/static/loss.svg"
-                          alt="Loss"
-                          className="img-fluid"
-                        />
+                        {rtrnChartIndiaction(((latestBalanceData?.assets?.propertyPlantAndEquipment - latestYearData?.previous?.propertyPlantAndEquipment) + latestIncomeStatement?.expenses?.deprcnAmort), ((previousBalanceData?.assets?.propertyPlantAndEquipment - previousYearData?.previous?.propertyPlantAndEquipment) + previousIncomeStatement?.expenses?.deprcnAmort), ((lastYearBalanceData?.assets?.propertyPlantAndEquipment - lastYearData?.previous?.propertyPlantAndEquipment) + lastYearIncomeStatement?.expenses?.deprcnAmort))}
                       </td>
                     </tr>
                   </tbody>
