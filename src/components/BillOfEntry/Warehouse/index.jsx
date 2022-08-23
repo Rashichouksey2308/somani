@@ -61,10 +61,10 @@ export default function Index({ OrderId, customData }) {
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
-        <div className={`${styles.vessel_card} mt-3 border_color`}>
-          <div className={`${styles.main} mt-4 card border_color`}>
+        <div className={`${styles.vessel_card} border_color`}>
+          <div className={`${styles.main} card border_color`}>
             <div
-              className={`${styles.head_container} card-header border_color head_container align-items-center justify-content-between d-flex bg-transparent`}
+              className={`${styles.head_container} card-header align-items-center border_color head_container align-items-center justify-content-between d-flex bg-transparent`}
               data-toggle="collapse"
               data-target="#lcApplication"
               aria-expanded="true"
@@ -171,7 +171,7 @@ export default function Index({ OrderId, customData }) {
             </div>
           </div>
 
-          <div className="mt-4 mb-5">
+          <div className="">
             <UploadOther
               orderid={OrderId}
               module="CustomClearanceAndWarehousing"

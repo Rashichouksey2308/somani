@@ -718,7 +718,7 @@ const onShowSideBar=()=>{
       <div className={`${styles.content} ${isSideBarOpen?null:styles.fullScreen} card p-0 card-body`}>
       <div className={`${styles.cardHeader} border_color card-header d-flex align-items-center justify-content-between p-3 bg-transparent`} data-toggle="collapse" data-target="#cashFlowStatement" aria-expanded="true" aria-controls="cashFlowStatement">
          
-        <h2 className="mb-0d-flex">
+        <h2 className="mb-0 d-flex">
           {!isSideBarOpen? <a href="#" className={`${styles.arrow} ${`rightArrow`}`}
           onClick={()=>{
             onShowSideBar()
