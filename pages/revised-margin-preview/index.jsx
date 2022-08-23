@@ -1876,7 +1876,7 @@ function Index() {
                       <span className={`${styles.sno}`}>B</span>
                       <span className={`ml-2`}>Unit Price</span>
                     </td>
-                    <td className={`${styles.good} good`}>
+                    <td className={`${styles.good} `}>
                       {marginData?.order?.perUnitPrice?.toLocaleString() ?? 0}
                     </td>
                     <td>
@@ -1888,7 +1888,7 @@ function Index() {
                       <span className={`${styles.sno}`}>C</span>
                       <span className={`ml-2`}>Conversion Rate</span>
                     </td>
-                    <td className={`${styles.good} good`}>
+                    <td className={`${styles.good} `}>
                       {marginData?.conversionRate}
                     </td>
                     <td>{marginData?.conversionRate}</td>
@@ -1898,7 +1898,7 @@ function Index() {
                       <span className={`${styles.sno}`}>D</span>
                       <span className={`ml-2`}>Usance Interest (%)</span>
                     </td>
-                    <td className={`${styles.good} good`}>
+                    <td className={`${styles.good} `}>
                       {addPrefixOrSuffix(
                         marginData?.order?.termsheet?.commercials
                           ?.usanceInterestPercetage,
@@ -1920,7 +1920,7 @@ function Index() {
                       <span className={`${styles.sno}`}>E</span>
                       <span className={`ml-2`}>Trade Margin</span>
                     </td>
-                    <td className={`${styles.good} good`}>
+                    <td className={`${styles.good} `}>
                       {addPrefixOrSuffix(
                         marginData?.order?.termsheet?.commercials
                           ?.tradeMarginPercentage,
@@ -1942,7 +1942,7 @@ function Index() {
                       <span className={`${styles.sno}`}>F</span>
                       <span className={`ml-2`}>Tolerance (+/-) Percentage</span>
                     </td>
-                    <td className={`${styles.good} good`}>
+                    <td className={`${styles.good} `}>
                       {addPrefixOrSuffix(
                         marginData?.order?.tolerance
                           ? marginData?.order?.tolerance

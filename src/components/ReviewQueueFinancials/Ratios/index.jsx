@@ -4,7 +4,7 @@ import styles from '../index.module.scss'
 import moment from 'moment'
 import _get from 'lodash/get'
 
-function Index({ ratioData }) {
+function Index({ ratioData, rtrnChartIndiaction }) {
   const latestYearData = _get(ratioData, 'financial.ratioAnalysis[0]', {})
 
   const previousYearData = _get(ratioData, 'financial.ratioAnalysis[1]', {})
@@ -85,11 +85,7 @@ function Index({ ratioData }) {
                         {lastYearData?.workingCapitalTurnover?.toFixed(2)?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/profit.svg"
-                          alt="Profit"
-                          className="img-fluid"
-                        />
+                        {rtrnChartIndiaction(latestYearData?.workingCapitalTurnover, previousYearData?.workingCapitalTurnover, lastYearData?.workingCapitalTurnover)}
                       </td>
                     </tr>
                     <tr>
@@ -98,13 +94,13 @@ function Index({ ratioData }) {
                         {(latestIncomeData?.revenue?.revenueFromOperations /
                           (latestBalanceData?.assets?.propertyPlantAndEquipment +
                             latestBalanceData?.assets?.propertyPlantAndEquipment /
-                              2))?.toFixed(2)?.toLocaleString()}
+                            2))?.toFixed(2)?.toLocaleString()}
                       </td>
                       <td className="text-center">
                         {(previousIncomeData?.revenue?.revenueFromOperations /
                           (previousBalanceData?.assets?.propertyPlantAndEquipment +
                             previousBalanceData?.assets?.propertyPlantAndEquipment /
-                              2))?.toFixed(2)?.toLocaleString()}
+                            2))?.toFixed(2)?.toLocaleString()}
                       </td>
                       <td className="text-center">
                         {(lastIncomeData?.revenue?.revenueFromOperations /
@@ -112,11 +108,17 @@ function Index({ ratioData }) {
                             lastBalanceData?.assets?.propertyPlantAndEquipment / 2))?.toFixed(2)?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/average.svg"
-                          alt="Average"
-                          className="img-fluid"
-                        />
+                        {rtrnChartIndiaction((latestIncomeData?.revenue?.revenueFromOperations /
+                          (latestBalanceData?.assets?.propertyPlantAndEquipment +
+                            latestBalanceData?.assets?.propertyPlantAndEquipment /
+                            2)), (previousIncomeData?.revenue?.revenueFromOperations /
+                              (previousBalanceData?.assets?.propertyPlantAndEquipment +
+                                previousBalanceData?.assets?.propertyPlantAndEquipment /
+                                2)), (lastIncomeData?.revenue?.revenueFromOperations /
+                                  (lastBalanceData?.assets?.propertyPlantAndEquipment +
+                                    lastBalanceData?.assets?.propertyPlantAndEquipment /
+                                    2)))}
+
                       </td>
                     </tr>
                     <tr>
@@ -131,11 +133,7 @@ function Index({ ratioData }) {
                         {lastYearData?.daysWorkingCapital?.toFixed(2)?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/loss.svg"
-                          alt="Loss"
-                          className="img-fluid"
-                        />
+                       {rtrnChartIndiaction(latestYearData?.daysWorkingCapital,previousYearData?.daysWorkingCapital,lastYearData?.daysWorkingCapital)}
                       </td>
                     </tr>
 

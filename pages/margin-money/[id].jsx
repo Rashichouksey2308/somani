@@ -46,9 +46,9 @@ function Index() {
     dispatch(GetMarginMoney({ orderId: id }))
 
     dispatch(setPageName('margin-money'))
-    dispatch(setDynamicName(marginData?.company.companyName))
-    dispatch(setDynamicOrder(marginData?.order.orderId))
-  }, [dispatch, marginData?.company.companyName])
+    dispatch(setDynamicName(marginData?.company?.companyName))
+    dispatch(setDynamicOrder(marginData?.order?.orderId))
+  }, [dispatch, marginData?.company?.companyName])
 
   useEffect(() => {
     if (

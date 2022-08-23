@@ -403,9 +403,11 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                     Vessel Name <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
                   <span className={styles.value}>
-                    {
-                      _get(customData, 'order.vessel.vessels[0].vesselInformation[0].name', '')
-                    }
+                    {_get(
+                      customData,
+                      'order.vessel.vessels[0].vesselInformation[0].name',
+                      '',
+                    )}
                   </span>
                 </div>
                 <div
@@ -415,9 +417,11 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                     Country of origin<strong className="text-danger">*</strong>{' '}
                   </div>
                   <span className={styles.value}>
-                    {
-                      _get(customData, 'order.vessel.vessels[0].transitDetails.countryOfOrigin', '')
-                    }
+                    {_get(
+                      customData,
+                      'order.vessel.vessels[0].transitDetails.countryOfOrigin',
+                      '',
+                    )}
                   </span>
                 </div>
                 <div
@@ -427,9 +431,11 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                     Port Of Discharge
                   </div>
                   <span className={styles.value}>
-                    {
-                      _get(customData, 'order.vessel.vessels[0].transitDetails.countryOfOrigin', '')
-                    }
+                    {_get(
+                      customData,
+                      'order.vessel.vessels[0].transitDetails.countryOfOrigin',
+                      '',
+                    )}
                   </span>
                 </div>
 
@@ -454,9 +460,11 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                 >
                   <div className={`${styles.label} text`}>CIRC Number</div>
                   <span className={styles.value}>
-                    {
-                      _get(customData, 'order.transit.CIMS.cimsDetails[0].circNumber', '')
-                    }
+                    {_get(
+                      customData,
+                      'order.transit.CIMS.cimsDetails[0].circNumber',
+                      '',
+                    )}
                   </span>
                 </div>
 

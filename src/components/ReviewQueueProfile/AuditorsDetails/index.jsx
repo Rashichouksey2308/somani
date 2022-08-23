@@ -53,8 +53,13 @@ function Index({ auditorsDetails }) {
                                     <tr>
                                         <td>Change in Auditor</td>
                                         <td className={`${latestYearData?.nameOfAuditor === previousYearData?.nameOfAuditor ? null : styles.danger}`}>
-                                            {latestYearData?.nameOfAuditor === previousYearData?.nameOfAuditor ? "" : "Yes"} {`${latestYearData?.nameOfAuditor !== previousYearData?.nameOfAuditor ? moment(latestYearData?.financialEndDate).format("YYYY") : ""}`}</td>
-                                        <td className={`${!previousYearData?.nameOfAuditor === previousYearData?.nameOfAuditor ? null : styles.danger}`}>{previousYearData?.nameOfAuditor === lastYearData?.regstrnNum ? "" : "Yes"}{`/ ${previousYearData?.nameOfAuditor !== lastYearData?.regstrnNum ? moment(previousYearData?.financialEndDate).format("YYYY") : null}`}</td>
+                                            {latestYearData?.nameOfAuditor?.trim() === previousYearData?.nameOfAuditor?.trim() ? "" : "Yes"}
+                                            {`${latestYearData?.nameOfAuditor !== previousYearData?.nameOfAuditor ? moment(latestYearData?.financialEndDate).format("YYYY") : ""}`}
+                                        </td>
+                                        <td className={`${!previousYearData?.nameOfAuditor === previousYearData?.nameOfAuditor ? null : styles.danger}`}>
+                                            {previousYearData?.nameOfAuditor === lastYearData?.nameOfAuditor ? "" : "Yes"}
+                                            {` ${previousYearData?.nameOfAuditor !== lastYearData?.nameOfAuditor ?`/${ moment(previousYearData?.financialEndDate).format("YYYY")}` : ""}`}
+                                        </td>
                                         <td className={`${previousYearData?.nameOfAuditor === previousYearData?.nameOfAuditor ? null : styles.danger}`}>
                                             {previousYearData?.nameOfAuditor === previousYearData?.nameOfAuditor ? "" : "Yes"}
                                             {`${previousYearData?.nameOfAuditor !== previousYearData?.nameOfAuditor ? moment(lastYearData?.financialEndDate).format("YYYY") : ""}`}

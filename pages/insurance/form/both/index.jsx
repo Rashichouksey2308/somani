@@ -1079,7 +1079,7 @@ const Index = () => {
                             </label>
                             <img
                               className={`${styles.checked_image} img-fluid`}
-                              src="/static/approved.svg"
+                              src="/static/info-circle-red.svg"
                               alt="Info circle"
                             />
                           </div>
