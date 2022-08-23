@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react'
+import React,{useState} from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 import DateCalender from '../DateCalender'
-
+import moment from 'moment'
 const index = ({ saveShipmentData, shipment }) => {
   // const {shipmentDetail}= orderDetail;
 
@@ -12,7 +12,21 @@ const index = ({ saveShipmentData, shipment }) => {
     let text = d.toISOString()
     saveShipmentData(name, text)
   }
-
+ const [dateStartFrom,setDateStartFrom]=useState({
+    laycan:"",
+    eta:""
+ 
+  })
+   const setStartDate=(val,name)=>{
+      var new_date = moment(new Date(val).toISOString()).add(1, 'days').format("DD-MM-YYYY");
+      if(name=="loadPort.fromDate"){
+    
+      setDateStartFrom({...dateStartFrom,laycan:new_date})
+    }else{
+      setDateStartFrom({...dateStartFrom,eta:new_date})
+    }
+   
+  }
   return (
     <div className={`${styles.main} vessel_card border-color card`}>
       <div
@@ -67,6 +81,7 @@ const index = ({ saveShipmentData, shipment }) => {
                     value={shipment.ETAofDischarge.fromDate}
                     name="ETAofDischarge.fromDate"
                     saveDate={saveDate}
+                    setStartDateFrom={setStartDate}
                     labelName="Laycan at Load Port from"
                   />
                   <img
@@ -96,6 +111,7 @@ const index = ({ saveShipmentData, shipment }) => {
                     value={shipment.ETAofDischarge.toDate}
                     name="ETAofDischarge.toDate"
                     saveDate={saveDate}
+                     startFrom={dateStartFrom.eta}
                     labelName="Laycan at Load Port to"
                   />
                   <img
@@ -124,6 +140,7 @@ const index = ({ saveShipmentData, shipment }) => {
                     name="lastDateOfShipment"
                     saveDate={saveDate}
                     labelName="Last date of shipment"
+                     startFrom={dateStartFrom.eta}
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -152,6 +169,7 @@ const index = ({ saveShipmentData, shipment }) => {
                     name="loadPort.fromDate"
                     dateFormat={'dd-MM-yyyy'}
                     saveDate={saveDate}
+                    setStartDateFrom={setStartDate}
                     labelName="ETA at Discharge Port from"
                   />
                   <img
@@ -184,6 +202,7 @@ const index = ({ saveShipmentData, shipment }) => {
                     dateFormat={'dd-MM-yyyy'}
                     saveDate={saveDate}
                     labelName="ETA at Discharge Port to"
+                    startFrom={dateStartFrom.laycan}
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}

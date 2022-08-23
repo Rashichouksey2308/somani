@@ -11,7 +11,7 @@ import { UpdateBuyer } from '../../src/redux/registerBuyer/action'
 import router from 'next/router'
 import { setPageName, setDynamicName } from '../../src/redux/userData/action'
 import { GetBuyer } from '../../src/redux/registerBuyer/action'
-
+import { toast } from 'react-toastify'
 const Index = () => {
   const dispatch = useDispatch()
 
@@ -37,6 +37,88 @@ const Index = () => {
     dispatch(setDynamicName(buyerList?.companyName))
   }, [buyerList, dispatch])
   const handleApprove = () => {
+    if(!buyerList?.commodity?.apiResponse){
+      
+      if(!payloadData.hasOwnProperty("commodity")){
+            let toastMessage = 'Please select commodity'
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage, { toastId: toastMessage })
+            }
+            return
+      }
+         
+    }
+     if(!buyerList?.countryOfOrigin?.apiResponse){
+      
+      if(!payloadData.hasOwnProperty("countryOfOrigin")){
+            let toastMessage = 'Please select country'
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage, { toastId: toastMessage })
+            }
+             return
+      }
+         
+    }
+     if(!buyerList?.orderValue?.apiResponse){
+      
+      if(!payloadData.hasOwnProperty("orderValue")){
+            let toastMessage = 'Please add order value'
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage, { toastId: toastMessage })
+            }
+             return
+      }
+         
+    }
+       if(!buyerList?.portOfDischarge?.apiResponse){
+      
+      if(!payloadData.hasOwnProperty("portOfDischarge")){
+            let toastMessage = 'Please add port of discharge'
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage, { toastId: toastMessage })
+            }
+             return
+      }
+         
+    }
+    
+      if(!buyerList?.transactionType?.apiResponse){
+
+      if(!payloadData.hasOwnProperty("transactionType")){
+          let toastMessage = 'Please select transaction type'
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage, { toastId: toastMessage })
+          }
+           return
+      }
+        
+      }
+       if(!buyerList?.turnOver?.apiResponse){
+
+      if(!payloadData.hasOwnProperty("turnOver")){
+          let toastMessage = 'Please add turnOver'
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage, { toastId: toastMessage })
+          }
+           return
+      }
+        
+      }
+       if(!buyerList?.typeOfBusiness?.apiResponse){
+
+      if(!payloadData.hasOwnProperty("typeOfBusiness")){
+          let toastMessage = 'Please select type of business'
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage, { toastId: toastMessage })
+          }
+           return
+      }
+        
+      }
+    
+    
+ 
+
     const payload = { ...payloadData, orderReviewId: buyerList._id }
 
     dispatch(UpdateBuyer(payload))

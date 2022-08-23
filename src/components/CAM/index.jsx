@@ -182,6 +182,7 @@ function Index({
       if (element.fullName === '') {
       } else {
         if (index < 2) {
+
           setTempArr(prevState => {
             return [...prevState, {
               ...prevState[index],
@@ -192,8 +193,8 @@ function Index({
         }
       }
     })
-     camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern.forEach((element, index) => {
-    let randColor = colors[Math.floor(Math.random() * colors.length)]
+  camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern.forEach((element, index) => {
+
     if (element.fullName === '') {
     } else {
       if (index <= 2) {
@@ -208,8 +209,8 @@ function Index({
   })
     }
    
-    console.log(data, 'dhjj')
-  }, [])
+    console.log(camData, 'dhjj')
+  }, [camData])
   // let tempArr = [
 
   // {
