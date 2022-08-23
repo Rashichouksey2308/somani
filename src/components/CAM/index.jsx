@@ -332,18 +332,15 @@ function Index({
     if(r==4){
       setRating(`rotate(205deg)`)
     }
-    if(r==0){
+    if(r==5){
       setRating(`rotate(225deg)`)
     }
-    if(r==0){
+    if(r==6){
       setRating(`rotate(250deg)`)
     }
-    if(r==0){
-      setRating(`rotate(270deg)`)
-    }
-    if(r==0){
+    if(r==7){
       setRating(`rotate(280deg)`)
-    }
+  
     if(r==8){
       setRating(`rotate(310deg)`)
     }
