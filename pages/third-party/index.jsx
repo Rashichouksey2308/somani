@@ -31,7 +31,7 @@ function Index() {
 
   let inspectionData = _get(allInspection, 'data[0]', {})
 
-  console.log(inspectionData, 'THIS IS INSPECTION DATA')
+  // console.log(inspectionData, 'THIS IS INSPECTION DATA')
 
   const [addTPI, setAddTPI] = useState([{}])
 
@@ -47,7 +47,7 @@ function Index() {
               alt="ArrowRight"
             />
             <h1 className={`${styles.title} heading`}>
-              <span>{inspectionData?.company.companyName??""}</span>
+              <span>{_get(inspectionData, 'comapany.companyName', '')}</span>
             </h1>
             <div className="ml-auto">
               <div className={`${styles.lastModified} text `}>
