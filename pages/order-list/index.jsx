@@ -40,9 +40,11 @@ function Index() {
       , " ")))
   }, [dispatch, singleOrder])
 
+  let compId = _get(singleOrder,'data[0].company._id','')
+
   const handleRouteNewOrder = () => {
-    dispatch(GetOrders(`?company=${singleOrder?.data[0]?.company?._id}`))
-    dispatch(GetCreditLimit({ companyId: singleOrder?.data[0]?.company?._id }))
+    dispatch(GetOrders(`?company=${compId}`))
+    dispatch(GetCreditLimit({ companyId: compId }))
     setTimeout(() => {
       Router.push('/new-order')
     }, 1000);

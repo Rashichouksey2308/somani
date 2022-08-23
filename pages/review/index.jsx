@@ -843,7 +843,7 @@ console.log(product,"productData")
   }, [companyData?.compliance?.alerts])
 
 
-  console.log(companyData?.compliance?.litigations[0]?.highPriority, "sddssds")
+  // console.log(companyData?.compliance?.litigations[0]?.highPriority, "sddssds")
   const addPersonArr = (keyPersonData) => {
     // let newArr = [...personData]
     // newArr.push(keyPersonData)

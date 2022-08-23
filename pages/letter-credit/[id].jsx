@@ -9,13 +9,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { GetLcModule, UpdateAmendment } from '../../src/redux/lcModule/action'
 import Router from 'next/router'
 import { removePrefixOrSuffix } from '../../src/utils/helper'
+import _get from 'lodash/get'
 
 function Index() {
   const dispatch = useDispatch()
 
   const { lcModule } = useSelector((state) => state.lc)
 
-  let lcModuleData = lcModule?.data[0]
+  let lcModuleData = _get(lcModule, 'data[0]', {})
 
   const [editInput, setEditInput] = useState(false)
   const [editCurrent, setEditCurrent] = useState()

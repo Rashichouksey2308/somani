@@ -404,8 +404,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                   </div>
                   <span className={styles.value}>
                     {
-                      customData?.order?.vessel?.vessels[0]
-                        ?.vesselInformation[0]?.name
+                      _get(customData, 'order.vessel.vessels[0].vesselInformation[0].name', '')
                     }
                   </span>
                 </div>
@@ -417,8 +416,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                   </div>
                   <span className={styles.value}>
                     {
-                      customData?.order?.vessel?.vessels[0]?.transitDetails
-                        ?.countryOfOrigin
+                      _get(customData, 'order.vessel.vessels[0].transitDetails.countryOfOrigin', '')
                     }
                   </span>
                 </div>
@@ -430,8 +428,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                   </div>
                   <span className={styles.value}>
                     {
-                      customData?.order?.vessel?.vessels[0]?.transitDetails
-                        ?.countryOfOrigin
+                      _get(customData, 'order.vessel.vessels[0].transitDetails.countryOfOrigin', '')
                     }
                   </span>
                 </div>
@@ -458,8 +455,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                   <div className={`${styles.label} text`}>CIRC Number</div>
                   <span className={styles.value}>
                     {
-                      customData?.order?.transit?.CIMS?.cimsDetails[0]
-                        ?.circNumber
+                      _get(customData, 'order.transit.CIMS.cimsDetails[0].circNumber', '')
                     }
                   </span>
                 </div>

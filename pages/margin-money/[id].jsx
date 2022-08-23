@@ -33,7 +33,7 @@ function Index() {
 
   const { margin } = useSelector((state) => state.marginMoney)
 
-  const marginData = margin?.data?.data[0]
+  const marginData = _get(margin, 'data.data[0]', '')
   let id = sessionStorage.getItem('marginId')
   const RevisedMarginMoneyTrue = _get(
     margin,

@@ -67,7 +67,7 @@ function Index({ directorData }) {
                           </div>
                           <div className={`${styles.detailsBox}  col-md-2`}>
                             <label className={`accordion_Text`}>PAN</label>
-                            {director?.pan[0]}{' '}
+                            {_get(director, 'pan[0]', '')}{' '}
                             <img
                               src="/static/approved.svg"
                               alt="Approved"

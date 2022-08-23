@@ -6,7 +6,7 @@ const Index = ({ uploadDocument1, uploadDocument2, docName,docName2 }) => {
   const [vesselCertificate, setVesselCertificate] = useState()
 
   const vesselDocFunction = (e) => {
-    console.log(e.target.files[0],  'THIS IS VESSEL CERTIFICATE')
+    // console.log(e.target.files[0],  'THIS IS VESSEL CERTIFICATE')
     setVesselCertificate(e.target.files[0])
     uploadDocument1(e)
   }

@@ -25,6 +25,7 @@ const IndexPage = () => {
   useEffect(() => {
     dispatch(setPageName('dashboard'))
   })
+  console.log("BUILD TEST *******************")
   return (
     <>
       <Popup />

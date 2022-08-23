@@ -33,6 +33,7 @@ Chart.register(
   BarElement,
 )
 import {CovertvaluefromtoCR} from '../../utils/helper'
+import _get from 'lodash/get'
 // Chart.register(linear);
 function Index({ companyData, orderList, GstDataHandler }) {
   const dispatch = useDispatch()
@@ -584,7 +585,7 @@ tooltip: {
 
     ]
   }
-
+console.log(gstFilteredData?.detail?.summaryInformation?.businessProfile,"busis")
   return (
     <>
       <div className={`${styles.wrapper} card`}>
@@ -628,7 +629,7 @@ tooltip: {
                       Business Activity
                     </div>
                     <div className={styles.col_body}>
-                      {gstFilteredData?.detail?.summaryInformation?.businessProfile?.businessActivity[0]}</div>
+                      {_get(gstFilteredData, 'detail.summaryInformation.businessProfile.businessActivity[0]', '')}</div>
                   </Col>
                   <Col md={3} sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
@@ -1118,9 +1119,9 @@ tooltip: {
                       Recurring Sales
                     </td>
                     <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.current?.value?.toFixed(2)}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.current?.percentage.toFixed(2)}%</td>
-                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.previous?.value.toFixed(2)}</td>
-                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.previous?.percentage.toFixed(2)}%</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.current?.percentage?.toFixed(2)}%</td>
+                    <td>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.previous?.value?.toFixed(2)}</td>
+                    <td className='border-left-0'>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.previous?.percentage?.toFixed(2)}%</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>

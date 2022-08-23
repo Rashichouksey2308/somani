@@ -7,11 +7,11 @@ import _get from 'lodash/get'
 function Index({ incomeData }) {
   // console.log(incomeData?.financial?.incomeStatement[0], 'THIS IS INCOME DATA')
 
-  const latestYearData = _get(incomeData, 'financial.incomeStatement[0]', [])
+  const latestYearData = _get(incomeData, 'financial.incomeStatement[0]', {})
 
-  const previousYearData = _get(incomeData, 'financial.incomeStatement[1]', [])
+  const previousYearData = _get(incomeData, 'financial.incomeStatement[1]', {})
 
-  const lastYearData = _get(incomeData, 'financial.incomeStatement[2]', [])
+  const lastYearData = _get(incomeData, 'financial.incomeStatement[2]', {})
 
   return (
     <>

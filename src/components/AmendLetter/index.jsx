@@ -14,7 +14,7 @@ function Index() {
 
   const { lcModule } = useSelector((state) => state.lc)
 
-  let lcModuleData = _get(lcModule,  'data[0]', [])
+  let lcModuleData = _get(lcModule,  'data[0]', {})
 
   // console.log(lcModuleData, 'THIS IS LC MODULE DATA')
 

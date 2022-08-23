@@ -5,6 +5,7 @@ import CommonSave from '../../CommonSave'
 import { useDispatch } from 'react-redux'
 import { UpdateCompanyDetails } from '../../../redux/companyDetail/action'
 import { CovertvaluefromtoCR } from '../../../utils/helper'
+import _get from 'lodash/get'
 
 function Index({ order, companyDetail }) {
   console.log(companyDetail, 'companyDetail')
@@ -70,7 +71,7 @@ function Index({ order, companyDetail }) {
                   Company PAN
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
-                  {companyDetail?.profile?.companyDetail?.pans[0]}{' '}
+                  {_get(companyDetail, 'profile.companyDetail.pans[0]', '')}{' '}
                   <img
                     src="/static/approved.svg"
                     alt="Approved"

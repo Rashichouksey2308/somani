@@ -5,23 +5,23 @@ import moment from 'moment'
 import _get from 'lodash/get'
 
 function Index({ ratioData }) {
-  const latestYearData = _get(ratioData, 'financial.ratioAnalysis[0]', [])
+  const latestYearData = _get(ratioData, 'financial.ratioAnalysis[0]', {})
 
-  const previousYearData = _get(ratioData, 'financial.ratioAnalysis[1]', [])
+  const previousYearData = _get(ratioData, 'financial.ratioAnalysis[1]', {})
 
-  const lastYearData = _get(ratioData, 'financial.ratioAnalysis[2]', [])
+  const lastYearData = _get(ratioData, 'financial.ratioAnalysis[2]', {})
 
-  const latestBalanceData = _get(ratioData, 'financial.balanceSheet[0]', [])
+  const latestBalanceData = _get(ratioData, 'financial.balanceSheet[0]', {})
 
-  const previousBalanceData = _get(ratioData, 'financial.balanceSheet[1]', [])
+  const previousBalanceData = _get(ratioData, 'financial.balanceSheet[1]', {})
 
-  const lastBalanceData = _get(ratioData, 'financial.balanceSheet[2]', [])
+  const lastBalanceData = _get(ratioData, 'financial.balanceSheet[2]', {})
 
-  const latestIncomeData = _get(ratioData, 'financial.incomeStatement[0]', [])
+  const latestIncomeData = _get(ratioData, 'financial.incomeStatement[0]', {})
 
-  const previousIncomeData = _get(ratioData, 'financial.incomeStatement[1]', [])
+  const previousIncomeData = _get(ratioData, 'financial.incomeStatement[1]', {})
 
-  const lastIncomeData = _get(ratioData, 'financial.incomeStatement[2]', [])
+  const lastIncomeData = _get(ratioData, 'financial.incomeStatement[2]', {})
 
   return (
     <>

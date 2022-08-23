@@ -9,6 +9,7 @@ import Modal from 'react-bootstrap/Modal'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { UpdateInspection } from 'redux/Inspections/action'
+import _get from 'lodash/get'
 // import ThirdPartyPopUp from './ThirdPartyPopUp'
 
 export default function Index({ addButton, inspectionData }) {
@@ -260,8 +261,7 @@ export default function Index({ addButton, inspectionData }) {
                   <div className={`${styles.label} text`}>Vessel Name</div>
                   <span className={styles.value}>
                     {
-                      inspectionData?.order?.vessel?.vessels[0]
-                        ?.vesselInformation[0]?.name
+                      _get(inspectionData, 'order.vessel.vessels[0].vesselInformation[0].name', '')
                     }
                   </span>
                 </div>

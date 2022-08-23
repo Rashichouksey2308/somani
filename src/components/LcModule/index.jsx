@@ -6,6 +6,7 @@ import Router from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
 import { GetLcModule } from 'redux/lcModule/action'
 import Filter from '../Filter'
+import _get from 'lodash/get'
 
 function Index() {
   const [edit, setEdit] = useState(false)
@@ -86,7 +87,7 @@ console.log(lcModule,"lcModule")
             className={`${styles.tableFilter} align-items-center d-flex justify-content-between`}
           >
             <h3 className="heading_card">
-              {lcModule?.data[0]?.company?.companyName}
+              {_get(lcModule, 'data[0].company.companyName', '')}
             </h3>
           </div>
           <div className={styles.table_scroll_outer}>

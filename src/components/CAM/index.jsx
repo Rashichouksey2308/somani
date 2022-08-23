@@ -91,19 +91,19 @@ function Index({
 
   const [sanctionComments, setSanctionComments] = useState('')
 
-  const latestBalanceData = _get(companyData, 'financial.balanceSheet[0]', [])
+  const latestBalanceData = _get(companyData, 'financial.balanceSheet[0]', {})
 
-  const previousBalanceData = _get(companyData, 'financial.balanceSheet[1]', [])
+  const previousBalanceData = _get(companyData, 'financial.balanceSheet[1]', {})
 
-  const latestIncomeData = _get(companyData, 'financial.incomeStatement[0]', [])
+  const latestIncomeData = _get(companyData, 'financial.incomeStatement[0]', {})
   const previousIncomeData = _get(
     companyData,
     'financial.incomeStatement[1]',
-    [],
+    {},
   )
 
-  const latestYearData = _get(companyData, 'financial.ratioAnalysis[0]', [])
-  const previousYearData = _get(companyData, 'financial.ratioAnalysis[1]', [])
+  const latestYearData = _get(companyData, 'financial.ratioAnalysis[0]', {})
+  const previousYearData = _get(companyData, 'financial.ratioAnalysis[1]', {})
 
   const openChargesLength = () => {
     const filteredData =
@@ -128,12 +128,12 @@ function Index({
   const latestAuditorData = _get(
     camData,
     'company.detailedCompanyInfo.profile.auditorDetail[0]',
-    [],
+    {},
   )
   const previousAuditorData = _get(
     camData,
     'company.detailedCompanyInfo.profile.auditorDetail[1]',
-    [],
+    {},
   )
 
   const [tempArr, setTempArr] = useState([
@@ -1848,13 +1848,11 @@ const revenuDetails = (gstData) => {
                   />
                 </td>
                 <td>
-                  {RevenueDetails?.grossTurnover?.current?.value
-                    .toFixed(2)
+                  {RevenueDetails?.grossTurnover?.current?.value?.toFixed(2)
                     ?.toLocaleString()}
                 </td>
                 <td>
-                  {RevenueDetails?.grossTurnover?.previous?.value
-                    .toFixed(2)
+                  {RevenueDetails?.grossTurnover?.previous?.value?.toFixed(2)
                     ?.toLocaleString()}
                 </td>
                 <td>
@@ -2064,13 +2062,11 @@ const revenuDetails = (gstData) => {
                   />
                 </td>
                 <td>
-                  {RevenueDetails?.ttlCustomer?.current?.value
-                    .toFixed(2)
+                  {RevenueDetails?.ttlCustomer?.current?.value?.toFixed(2)
                     ?.toLocaleString()}
                 </td>
                 <td>
-                  {RevenueDetails?.ttlCustomer?.previous?.value
-                    .toFixed(2)
+                  {RevenueDetails?.ttlCustomer?.previous?.value?.toFixed(2)
                     ?.toLocaleString()}
                 </td>
                 <td>
@@ -2100,13 +2096,11 @@ const revenuDetails = (gstData) => {
                   />
                 </td>
                 <td>
-                  {RevenueDetails?.ttlInv?.current?.value
-                    .toFixed(2)
+                  {RevenueDetails?.ttlInv?.current?.value?.toFixed(2)
                     ?.toLocaleString()}
                 </td>
                 <td>
-                  {RevenueDetails?.ttlInv?.previous?.value
-                    .toFixed(2)
+                  {RevenueDetails?.ttlInv?.previous?.value?.toFixed(2)
                     ?.toLocaleString()}
                 </td>
                 <td>
