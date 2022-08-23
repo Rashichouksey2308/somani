@@ -34,7 +34,9 @@ function Index() {
   const { margin } = useSelector((state) => state.marginMoney)
 
   const marginData = _get(margin, 'data.data[0]', '')
+
   let id = sessionStorage.getItem('marginId')
+
   const RevisedMarginMoneyTrue = _get(
     margin,
     'data.data[0].revisedMarginMoney.isActive',
@@ -60,6 +62,7 @@ function Index() {
       setDarkMode(false)
     }
   }, [])
+
 
   const [forCalculation, setForCalculation] = useState({
     isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || '',
@@ -102,6 +105,7 @@ function Index() {
     totalSPDC: '',
     amountPerSPDC: '',
   })
+
   useEffect(() => {
     getData()
   }, [marginData])
@@ -270,6 +274,7 @@ function Index() {
   // console.log(invoiceData, 'invoiceData')
 
   const saveInvoiceData = (name, value) => {
+    console.log(value, 'invoice data value', name)
     const newInput = { ...invoiceData }
     newInput[name] = value
     // console.log(newInput, 'nnto', name, value)
@@ -277,7 +282,59 @@ function Index() {
     setInvoiceData({ ...newInput })
   }
 
-  console.log(invoiceData, 'INVOICE DATA')
+  console.log(invoiceData, 'invoice data value')
+
+  let emergent =  {
+    companyName: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
+    branch: 'DELHI',
+    state: 'DELHI',
+    address : '8B, SAGAR, 6 TILAK MARG, NEW DELHI - 110001',
+    GSTIN : '07AAACS8253L1Z0' 
+ }
+
+ let indoGerman = {
+    companyName: 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED',
+    branch: 'SURAT',
+    state: 'GUJARAT',
+    address : 'PLOT NO-A 54, GANGA NAGAR SOCIETY, NEAR PALANPUR PATIA, RANDAR ROAD, SURAT-395009',
+    GSTIN : '24AAACI3028D1Z8' 
+ }
+
+ const [changeImporterData, setChangeImporterData] = useState()
+
+ const dropDownChange = (name, value) => {
+  if(value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
+  
+    setChangeImporterData({...emergent})
+    const newInput = { ...invoiceData }
+    newInput['branchOffice'] = emergent.branch
+    newInput['importerGSTIN'] = emergent.GSTIN
+    newInput['companyAddress'] = emergent.address
+      // saveInvoiceData('branchOffice', emergent.branch)
+      // saveInvoiceData('importerGSTIN', emergent.GSTIN)
+      // saveInvoiceData('companyAddress', emergent.address)
+      setInvoiceData({ ...newInput })
+
+   
+ }else if(value === 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED'){
+ 
+  setChangeImporterData({...indoGerman })
+  const newInput = { ...invoiceData }
+  newInput['branchOffice'] = indoGerman.branch
+  newInput['importerGSTIN'] = indoGerman.GSTIN
+  newInput['companyAddress'] = indoGerman.address
+    // saveInvoiceData('branchOffice', emergent.branch)
+    // saveInvoiceData('importerGSTIN', emergent.GSTIN)
+    // saveInvoiceData('companyAddress', emergent.address)
+    setInvoiceData({ ...newInput })
+  
+ 
+ }
+ saveInvoiceData(name, value)
+
+ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
+}
+
 
   const setSame = (val) => {
     if (val == true) {
@@ -1627,7 +1684,7 @@ function Index() {
                                     marginData?.invoiceDetail?.importerName
                                   }
                                   onChange={(e) =>
-                                    saveInvoiceData(
+                                    dropDownChange(
                                       e.target.name,
                                       e.target.value,
                                     )
@@ -1663,22 +1720,22 @@ function Index() {
                                   name="branchOffice"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   required
-                                  defaultValue={
-                                    marginData?.invoiceDetail?.importerName
+                                  value={
+                                    changeImporterData?.branch ? changeImporterData?.branch : marginData?.invoiceDetail?.branchOffice
                                   }
-                                  onChange={(e) =>
-                                    saveInvoiceData(
-                                      e.target.name,
-                                      e.target.value,
-                                    )
-                                  }
+                                  // onChange={(e) =>
+                                  //   saveInvoiceData(
+                                  //     e.target.name,
+                                  //     e.target.value,
+                                  //   )
+                                  // }
                                 >
                                   <option>Select an option</option>
-                                  <option value="Visakhapatnam, India">
-                                    {'Visakhapatnam, India'}
+                                  <option value="SURAT">
+                                    {'SURAT'}
                                   </option>
-                                  <option value="Delhi, India">
-                                    Delhi, India
+                                  <option value="DELHI">
+                                    DELHI
                                   </option>
                                 </select>
                                 <label
@@ -1701,11 +1758,11 @@ function Index() {
                               <input
                                 type="text"
                                 id="textInput"
-                                defaultValue={marginData?.invoiceDetail?.companyAddress}
+                                value={ changeImporterData?.address  ? changeImporterData?.address : marginData?.invoiceDetail?.companyAddress}
                                 name="companyAddress"
-                                onChange={(e) =>
-                                  saveInvoiceData(e.target.name, e.target.value)
-                                }
+                                // onChange={(e) =>
+                                //   saveInvoiceData(e.target.name, e.target.value)
+                                // }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1724,11 +1781,11 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="importerGSTIN"
-                                onChange={(e) =>
-                                  saveInvoiceData(e.target.name, e.target.value)
-                                }
-                                defaultValue={
-                                  marginData?.invoiceDetail?.importerGSTIN
+                                // onChange={(e) =>
+                                //   saveInvoiceData(e.target.name, e.target.value)
+                                // }
+                                value={
+                                changeImporterData?.GSTIN ? changeImporterData?.GSTIN : marginData?.invoiceDetail?.importerGSTIN
                                 }
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -1752,7 +1809,7 @@ function Index() {
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   required
                                   defaultValue={
-                                    marginData?.invoiceDetail?.importerName
+                                    marginData?.invoiceDetail?.bankName
                                   }
                                   onChange={(e) =>
                                     saveInvoiceData(
