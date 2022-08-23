@@ -4,7 +4,7 @@ import styles from '../profile.module.scss'
 import CommonSave from '../../CommonSave'
 import { useDispatch } from 'react-redux'
 import { UpdateCompanyDetails } from '../../../redux/companyDetail/action'
-import { CovertvaluefromtoCR } from '../../../utils/helper'
+import { CovertvaluefromtoCR ,checkNan} from '../../../utils/helper'
 import _get from 'lodash/get'
 
 function Index({ order, companyDetail }) {
@@ -174,7 +174,12 @@ function Index({ order, companyDetail }) {
                   Paid-Up Capital (Cr)
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
-                  {CovertvaluefromtoCR(companyDetail?.profile?.companyDetail?.paidUpCapital)}
+                  {checkNan(
+                    CovertvaluefromtoCR(companyDetail?.profile?.companyDetail?.paidUpCapital)
+                    
+                    )}
+                  
+                 
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
