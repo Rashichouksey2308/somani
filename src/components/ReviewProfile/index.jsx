@@ -453,8 +453,8 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                       // />
                 <DateCalender
                         name="ExpectedDateOfShipment"
-                        saveDate={(name,valeu)=>{ 
-                          handleChange(name, valeu)
+                        saveDate={(name,value)=>{ 
+                        handleChange(name, value)
                         }}
 
                         disabled={fields[7]?.isEdit}
