@@ -202,6 +202,7 @@ export const removePrefixOrSuffix = (unitOfValue, type) => {
   }
 }
 export const checkNan = (unitOfValue) => {
+  console.log(unitOfValue, 'nana')
   if (isNaN(unitOfValue)) {
     return ''
   } else {
