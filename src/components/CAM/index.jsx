@@ -92,6 +92,7 @@ function Index({
   const [sanctionComments, setSanctionComments] = useState('')
 
   const latestBalanceData = _get(companyData, 'financial.balanceSheet[0]', {})
+  console.log(latestBalanceData.equityLiabilities.totalEquity, 'THIS IS LATEST BALANCE DATA')
 
   const previousBalanceData = _get(companyData, 'financial.balanceSheet[1]', {})
 
@@ -2334,7 +2335,7 @@ const financeDetails = (
                   <tr>
                     <td>Net Worth</td>
                     <td>
-                      {latestBalanceData?.equityLiabilities?.totalEquity?.toLocaleString()}
+                      {latestBalanceData?.equityLiabilities?.totalEquity}
                     </td>
                     <td>
                       {previousBalanceData?.equityLiabilities?.totalEquity?.toLocaleString()}
@@ -2684,7 +2685,7 @@ const compilanceStatus = (companyData, camData) => {
                     className={`${styles.value} value pr-5`}
                     style={{ color: '#EA3F3F' }}
                   >
-                    {_get(companyData,"GST[0]?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr1","")}
+                    {moment(_get(companyData,"GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1",""), 'MMyyyy').format('MM-yyyy')}
                   </span>
                 </Col>
                 <Col
