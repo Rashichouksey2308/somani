@@ -31,7 +31,7 @@ import OpenCharges from '../../src/components/ReviewQueueFinancials/OpenCharges'
 import Peer from '../../src/components/ReviewQueueFinancials/Peer'
 import Ratios from '../../src/components/ReviewQueueFinancials/Ratios'
 
-import { removePrefixOrSuffix } from '../../src/utils/helper'
+import { removePrefixOrSuffix ,CovertvaluefromtoCR} from '../../src/utils/helper'
 //redux
 import { UpdateCompanyDetails } from '../../src/redux/companyDetail/action'
 
@@ -264,7 +264,7 @@ function Index() {
     commodity: orderList?.commodity,
     quantity: orderList?.quantity,
     unitOfQuantity: orderList?.unitOfQuantity,
-    orderValue: orderList?.orderValue,
+    orderValue: CovertvaluefromtoCR(orderList?.orderValue),
     orderCurrency: orderList?.orderCurrency,
     unitOfValue: orderList?.unitOfValue,
     supplierName: orderList?.supplierName,
@@ -283,7 +283,7 @@ function Index() {
       commodity: orderList?.commodity,
       quantity: orderList?.quantity,
       unitOfQuantity: orderList?.unitOfQuantity,
-      orderValue: orderList?.orderValue,
+      orderValue: CovertvaluefromtoCR(orderList?.orderValue),
       orderCurrency: orderList?.orderCurrency,
       unitOfValue: orderList?.unitOfValue,
       supplierName: orderList?.supplierName,
@@ -309,6 +309,7 @@ function Index() {
       toDate: orderList?.shipmentDetail?.loadPort?.toDate,
     },
     shipmentType: orderList?.shipmentDetail?.shipmentType,
+    portOfLoading : orderList?.shipmentDetail?.portOfLoading
   })
 
   const saveOrderData = (name, value) => {
@@ -1605,7 +1606,8 @@ function Index() {
                 </div>
                 <div className="tab-pane fade" id="gst" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <GST GstDataHandler={GstDataHandler}
+                    <GST alertObj={alertObj} 
+                    GstDataHandler={GstDataHandler}
                       orderList={orderList}
                       companyData={companyData}
                     />
@@ -2143,7 +2145,7 @@ function Index() {
                     deleteAddress={deleteAddress}
                     supplierCred={supplierCred}
                     setEditRow={setEditRow}
-
+                    orderDetail={orderList}
 
 
                   />

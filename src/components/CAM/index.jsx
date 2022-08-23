@@ -92,7 +92,7 @@ function Index({
   const [sanctionComments, setSanctionComments] = useState('')
 
   const latestBalanceData = _get(companyData, 'financial.balanceSheet[0]', {})
-  // console.log(latestBalanceData.equityLiabilities.totalEquity, 'THIS IS LATEST BALANCE DATA')
+
 
   const previousBalanceData = _get(companyData, 'financial.balanceSheet[1]', {})
 
@@ -424,7 +424,9 @@ return
 
   const getRotate=(rat=1)=>{
     let r=Math.round(rat)
-   
+    if(r==0){
+      setRating(`rotate(90deg)`)
+    }
     if(r==1){
       setRating(`rotate(90deg)`)
     }
@@ -1225,8 +1227,8 @@ const creditProfile = (
                   </span>
                 </Col>
                 <Col
-                  className={` col-md-offset-2 d-flex justify-content-between`}
-                  md={5}
+                  className={`  d-flex justify-content-between`}
+                  md={6}
                 >
                   <span className={`${styles.key} label1 pl-5`}>
                     External Credit rating
