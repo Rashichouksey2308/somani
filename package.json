@@ -65,7 +65,7 @@
     "standard": "^13.0.1"
   },
   "scripts": {
-    "dev":"next dev",
+    "dev": "next dev",
     "lint-staged": "lint-staged",
     "build": "NODE_ENV=development next build",
     "test:ci": "jest --maxWorkers=2 --ci",

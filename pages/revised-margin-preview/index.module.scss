@@ -1,19 +1,21 @@
 @import '../../src/components/styles/Core/config';
 .root_container {
-  padding: 28px;
-  width: 100%;
-  margin-bottom: 120px;
+  margin: 28px;
+  // width: 100%;
+  margin-bottom: 152px;
   @include respond(sm-desktop) {
-    padding: 20px;
+    margin: 20px;
+    margin-bottom: 144px;
   }
   @include respond(phone) {
-    padding: 15px;
-    margin-bottom: 56px;
+    margin: 15px;
+    margin-bottom: 121px;
   }
   .head_container {
     width: 100%;
-    margin-bottom: 32px;
     .head_header {
+      min-height: 48px;
+      margin: 0 0 27px 10px;
       display: flex;
       justify-content: flex-start;
       align-items: center;

@@ -39,11 +39,11 @@ function Index() {
 
   return (
     <>
-      <div className={`${styles.root_container} tabHeader bg-transparent`}>
+      <div className={`${styles.root_container} bg-transparent`}>
         <div className={styles.head_container}>
           <div className={styles.head_header}>
             <img
-              className={styles.arrow}
+              className={`${styles.arrow} image_arrow mr-2 img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="Arrow"
             />
