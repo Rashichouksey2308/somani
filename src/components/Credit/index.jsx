@@ -660,7 +660,7 @@ const index = ({
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="text"
+                  type="number"
                   value={
                     supplierCred?.shipmentNumber
                   }
@@ -678,7 +678,7 @@ const index = ({
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="text"
+                  type="number"
                   value={
                     supplierCred?.consigneesNumber
                   }
@@ -696,7 +696,7 @@ const index = ({
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="text"
+                  type="number"
                   value={supplierCred?.HSCodesNumber}
                   name="HSCodesNumber"
                   onChange={(e) => {
