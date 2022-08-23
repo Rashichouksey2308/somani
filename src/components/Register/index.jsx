@@ -303,12 +303,14 @@ console.log(companyDetails.transactionType,"trans")
         docTypeArr.push(val.typeDocument)
       })
       let sendOrder = { ...orderDetails }
+       let sendOrder1 = { ...companyDetails }
       sendOrder.quantity = Number(removePrefixOrSuffix(orderDetails.quantity))
       sendOrder.orderValue = Number(removePrefixOrSuffix(orderDetails.orderValue) * 10000000)
+      sendOrder1.turnOver = Number(removePrefixOrSuffix(companyDetails.turnOver) * 10000000)
 
       console.log(sendOrder.quantity, "orderDetails12",)
       const fd = new FormData()
-      fd.append('companyProfile', JSON.stringify(companyDetails))
+      fd.append('companyProfile', JSON.stringify(sendOrder1))
       fd.append('orderDetails', JSON.stringify(sendOrder))
       fd.append('documentType', JSON.stringify(docTypeArr))
      
@@ -326,7 +328,7 @@ console.log(companyDetails.transactionType,"trans")
        dispatch(CreateBuyer(fd))
     }
   }
-  console.log(orderDetails, 'this is payload2')
+  console.log(companyDetails, 'this is payload2')
   const clearData = () => {
     document.getElementById('CompanyDetailsForm').reset()
     document.getElementById('OrderDetailsForm').reset()
