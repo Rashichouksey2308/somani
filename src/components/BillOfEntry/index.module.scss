@@ -363,7 +363,8 @@
         border: 1px solid #D2D7E5;
         border-radius: 9px;
         .vessel_card {
-          padding: 0px 35px 0px 35px;
+          padding: 0 35px;
+          min-height: 78px;
           .add_btn {
             color: #3687e8;
             text-transform: capitalize;
@@ -695,7 +696,8 @@
         .table {
           margin-bottom: 0px;
 
-          border-top: 3px solid #d9dde8;
+          border-top: 2px solid #CAD6E6;
+
           th {
             font-size: 15px;
             color: #8492a6;
