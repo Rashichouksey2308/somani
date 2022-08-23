@@ -200,7 +200,8 @@ const Index = ({
                   onChange={(e) => saveOrderData(e.target.name, e.target.value)}
                 >
                   <option>Select an option</option>
-                  <option>MT</option>
+                  <option value="MT" selected>MT</option>
+                  <option value="KG">KG</option>
                 </select>
               </div>
 
@@ -219,8 +220,8 @@ const Index = ({
                   }}
                 >
                   <option>Select an option</option>
-                  <option>Crores</option>
-                  <option>Millions</option>
+                  <option value="Crores" selected>Crores</option>
+                  <option value="Million">Millions</option>
                 </select>
               </div>
             </div>

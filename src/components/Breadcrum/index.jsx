@@ -225,7 +225,7 @@ console.log( router.route," router.route")
     });
   }, [pageName,id]);
   console.log(myUrl,"url")
-  console.log(pageName,"pageName")
+  console.log(currency,"pageName")
   return (
     <div className={`${styles.main_container} d-sm-flex d-block justify-content-between background1`}>
       <div>
@@ -261,10 +261,10 @@ console.log( router.route," router.route")
               Unit :
             </h5>
             <select className={`${styles.options} accordion_DropDown`}
-            // value={currency}
+            value={currency.currency}
             >
-              <option selected={currency=="CRORES"?"selected":"false"}>CRORES</option>
-              <option selected={currency=="MILLIONS"?"selected":"false"}>MILLIONS</option>
+              <option selected>CRORES</option>
+              <option>MILLIONS</option>
             </select>
            </div>:null}
            {show.currency? <div>
@@ -272,11 +272,11 @@ console.log( router.route," router.route")
               Currency :
             </h5>
             <select className={`${styles.options} bg-transparent px-0 accordion_DropDown`}
-            
+            value={currency.currency}
             >
-              <option selected={currency=="CRORES"?"selected":"false"}>INR</option>
+              <option selected>INR</option>
               <option>EURO</option>
-              <option selected={currency=="MILLIONS"?"selected":"false"}>USD</option>
+              <option >USD</option>
               
               <option>BRITISH POUND</option>
             </select>
