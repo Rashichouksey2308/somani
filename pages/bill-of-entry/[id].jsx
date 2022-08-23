@@ -81,19 +81,13 @@ dispatch(setDynamicName(customData?.company?.companyName))
 
   return (
     <>
-      <div className={`${styles.dashboardTab}  w-100`}>
+      <div className={`${styles.dashboardTab} w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
-          <div className="d-flex align-items-center ml-4">
+          <div className={`${styles.tab_header_inner} d-flex align-items-center`}>
+            <img
+              src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid mr-2 image_arrow"
+            />
             <h1 className={`${styles.title} heading`}>
-              <img
-                src={`${
-                  darkMode
-                    ? `/static/white-arrow.svg`
-                    : `/static/arrow-right.svg`
-                }`}
-                alt="arrow right"
-                className="img-fluid image_arrow"
-              />
               <span>{customData?.company?.companyName} - Ramal001-00002</span>
             </h1>
           </div>
@@ -137,37 +131,39 @@ dispatch(setDynamicName(customData?.company?.companyName))
           </ul>
         </div>
 
-        <div className={`${styles.mainCard} container-fluid`}>
-          <div className="row">
-            <div className="col-md-12 accordion_body">
-              <div className={`${styles.tabContent} tab-content`}>
-                <div
-                  className="tab-pane show active fade"
-                  id="billEntry"
-                  role="tabpanel"
-                >
-                  <div className={`${styles.card}  accordion_body`}>
-                    <BillOfEntry
-                      uploadDoc={uploadDoc}
-                      OrderId={OrderId}
-                      customData={customData}
-                    />
+        <div className="container-fluid p-0">
+          <div className={`${styles.mainCard}`}>
+            <div className="row">
+              <div className="col-md-12 p-0 accordion_body">
+                <div className={`${styles.tabContent} tab-content`}>
+                  <div
+                    className="tab-pane show active fade"
+                    id="billEntry"
+                    role="tabpanel"
+                  >
+                    <div className={`${styles.card}  accordion_body`}>
+                      <BillOfEntry
+                        uploadDoc={uploadDoc}
+                        OrderId={OrderId}
+                        customData={customData}
+                      />
+                    </div>
                   </div>
-                </div>
 
-                <div
-                  className="tab-pane fade"
-                  id="dischargeCargo"
-                  role="tabpanel"
-                >
-                  <div className={`${styles.card}  accordion_body`}>
-                    <DischargeCargo OrderId={OrderId} customData={customData} />
+                  <div
+                    className="tab-pane fade"
+                    id="dischargeCargo"
+                    role="tabpanel"
+                  >
+                    <div className={`${styles.card}  accordion_body`}>
+                      <DischargeCargo OrderId={OrderId} customData={customData} />
+                    </div>
                   </div>
-                </div>
 
-                <div className="tab-pane fade" id="warehouse" role="tabpanel">
-                  <div className={`${styles.card}  accordion_body`}>
-                    <Warehouse OrderId={OrderId} customData={customData} />
+                  <div className="tab-pane fade" id="warehouse" role="tabpanel">
+                    <div className={`${styles.card}  accordion_body`}>
+                      <Warehouse OrderId={OrderId} customData={customData} />
+                    </div>
                   </div>
                 </div>
               </div>

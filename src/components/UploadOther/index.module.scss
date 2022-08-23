@@ -29,6 +29,7 @@
       color: #3687e8;
       font-weight: normal;
       line-height: 20px;
+      margin-top: -7px;
       @include respond(md-desktop) {
         font-size: 42px;
       }

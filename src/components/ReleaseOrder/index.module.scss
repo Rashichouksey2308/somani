@@ -64,10 +64,10 @@
       }
 
       .head_container {
-        padding: 25px 35px !important;
+        padding: 0 35px !important;
         border-bottom: 2px solid #cad6e6;
         cursor: pointer;
-        height: 80px;
+        min-height: 80px;
 
         .heading {
           color: #3687e8;
@@ -75,6 +75,7 @@
           font-size: 22px;
           text-transform: capitalize;
           line-height: 27px;
+          margin: 0;
         }
 
         span {

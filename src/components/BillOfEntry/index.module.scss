@@ -66,6 +66,7 @@
 
     .main {
       border-radius: 6px;
+      margin-bottom: 26px;
       .add_btn {
         color: #3687e8;
         text-transform: capitalize;
@@ -99,7 +100,8 @@
         }
       }
       .head_container {
-        padding: 25px 35px !important;
+        min-height: 80px;
+        padding: 0 35px !important;
         border-bottom: 2px solid #cad6e6;
 
         .heading {
@@ -108,6 +110,7 @@
           font-size: 22px;
           text-transform: capitalize;
           line-height: 27px;
+          margin: 0;
         }
         span {
           font-size: 45px;
@@ -356,10 +359,12 @@
       }
       .bill_landing {
         //background: #FFFFFF;
-        border: 2px solid #cad6e6;
+        // border: 2px solid #cad6e6;
+        border: 1px solid #D2D7E5;
         border-radius: 9px;
         .vessel_card {
-          padding: 0px 35px 0px 35px;
+          padding: 0 35px;
+          min-height: 78px;
           .add_btn {
             color: #3687e8;
             text-transform: capitalize;
@@ -691,7 +696,8 @@
         .table {
           margin-bottom: 0px;
 
-          border-top: 3px solid #d9dde8;
+          border-top: 2px solid #CAD6E6;
+
           th {
             font-size: 15px;
             color: #8492a6;

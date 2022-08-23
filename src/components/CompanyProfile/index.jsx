@@ -17,7 +17,7 @@ function Index() {
         aria-controls="customerDetail"
       >
         <div className={styles.header}>
-          <h2 className={`mb-0`}>Customer Details</h2>
+          <h2 className={`mb-0`}>Company Profile</h2>
           <span className=" d-flex align-items-center justify-content-between">
             +
           </span>
