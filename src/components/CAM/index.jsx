@@ -48,7 +48,7 @@ function Index({
   approvedCredit,
 }) {
   const dispatch = useDispatch()
-  console.log(camData, 'camData')
+  console.log(companyData, 'companyData')
   // console.log(fetchingKarzaGst, 'fetchingKarzaGst')
   useEffect(() => {
     if (window) {
@@ -309,13 +309,56 @@ function Index({
       },
     ],
   }
-  console.log(camData, "camdata")
+  const [rating,setRating]=useState(`rotate(0deg)`);
+  useEffect(() => {
+   if(filteredCreditRating){
+    getRotate(filteredCreditRating[0]?.totalRating)
+    //  getRotate(2)
+   }
+  },[filteredCreditRating])
 
+  const getRotate=(rat=1)=>{
+    let r=Math.round(rat)
+   
+    if(r==1){
+      setRating(`rotate(90deg)`)
+    }
+    if(r==2){
+      setRating(`rotate(130deg)`)
+    }
+    if(r==3){
+      setRating(`rotate(180deg)`)
+    }
+    if(r==4){
+      setRating(`rotate(205deg)`)
+    }
+    if(r==0){
+      setRating(`rotate(225deg)`)
+    }
+    if(r==0){
+      setRating(`rotate(250deg)`)
+    }
+    if(r==0){
+      setRating(`rotate(270deg)`)
+    }
+    if(r==0){
+      setRating(`rotate(280deg)`)
+    }
+    if(r==8){
+      setRating(`rotate(310deg)`)
+    }
+    if(r==9){
+      setRating(`rotate(330deg)`)
+    }
+    if(r==10){
+      setRating(`rotate(2deg)`)
+    }
+  }
   return (
     <>
       {basicInfo(camData)}
       {supplierInfo(camData)}
-      {customerRating()}
+      {customerRating(camData,filteredCreditRating,rating)}
       {groupExposure(camData)}
       {orderSummary(camData)}
       {creditProfile(
@@ -2538,7 +2581,7 @@ const compilanceStatus = (companyData, camData) => {
                     className={`${styles.value} value pr-5`}
                     style={{ color: '#EA3F3F' }}
                   >
-                    Text
+                    {_get(companyData,"GST[0]?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr1","")}
                   </span>
                 </Col>
                 <Col
@@ -2594,14 +2637,16 @@ const compilanceStatus = (companyData, camData) => {
                     Last Balance Sheet Dates
                   </span>
                   <span className={`${styles.value} value pr-5`}>
-                    14-05-2022
+                   {companyData?.profile?.companyDetail?.lastBalanceSheet}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1 pl-5`}>
                     Active Directors
                   </span>
-                  <span className={`${styles.value} value`}>4,320</span>
+                  <span className={`${styles.value} value`}>
+                    {companyData?.profile?.directorDetail?.length??0}
+                  </span>
                 </Col>
               </Row>
             </div>
@@ -2737,6 +2782,7 @@ const sectionTerms = (
   onApprove,
   onApproveOrder,
 ) => {
+ 
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -3304,7 +3350,8 @@ const skewness = (data, options, tempArr, gstData) => {
     </>
   )
 }
-const customerRating = (dataline, lineOption) => {
+const customerRating = (data,filteredCreditRating,rating) => {
+  console.log(filteredCreditRating,"filteredCreditRating22")
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -3480,14 +3527,15 @@ const customerRating = (dataline, lineOption) => {
                     <img
                       src={`/static/needle.svg`}
                       className={`${styles.arrow}`}
+                      style={{transform:`${rating}`}}
                     ></img>
-                    <div className={`${styles.score}`}>9.0</div>
+                    <div className={`${styles.score}`}>{Math.round(filteredCreditRating?filteredCreditRating[0]?.totalRating:0)}.0</div>
                   </div>
                 </div>
 
                 <div className={`${styles.score} `}>
                   <div className={`${styles.excellent}`}>
-                    <span>EXCELLENT</span>
+                    <span>{filteredCreditRating?filteredCreditRating[0]?.creditResult?.toUpperCase():""}</span>
                   </div>
                   <div className={`${styles.creditScore}`}>
                     <div className={`${styles.tickContainer}`}>
@@ -3498,7 +3546,7 @@ const customerRating = (dataline, lineOption) => {
                         CREDIT SCORE
                       </span>
                       <div>
-                        <span className={`${styles.score}`}>9.0</span>
+                        <span className={`${styles.score}`}>{Math.round(filteredCreditRating?filteredCreditRating[0]?.totalRating:0)}.0</span>
                         <span className={`${styles.outOF}`}>/10</span>
                       </div>
                     </div>
@@ -3512,7 +3560,7 @@ const customerRating = (dataline, lineOption) => {
                         RATING
                       </span>
                       <div>
-                        <span className={`${styles.score}`}>A</span>
+                        <span className={`${styles.score}`}>{filteredCreditRating?filteredCreditRating[0]?.creditGrade:""}</span>
                       </div>
                     </div>
                   </div>
