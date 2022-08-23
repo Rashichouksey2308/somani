@@ -309,6 +309,7 @@ function Index() {
       toDate: orderList?.shipmentDetail?.loadPort?.toDate,
     },
     shipmentType: orderList?.shipmentDetail?.shipmentType,
+    portOfLoading : orderList?.shipmentDetail?.portOfLoading
   })
 
   const saveOrderData = (name, value) => {
