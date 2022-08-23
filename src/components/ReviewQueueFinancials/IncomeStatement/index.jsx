@@ -4,7 +4,7 @@ import styles from '../index.module.scss'
 import moment from 'moment'
 import _get from 'lodash/get'
 
-function Index({ incomeData }) {
+function Index({ incomeData, rtrnChartIndiaction }) {
   // console.log(incomeData?.financial?.incomeStatement[0], 'THIS IS INCOME DATA')
 
   const latestYearData = _get(incomeData, 'financial.incomeStatement[0]', {})
@@ -68,11 +68,8 @@ function Index({ incomeData }) {
                         {lastYearData?.revenue?.revenueFromOperations?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/profit.svg"
-                          alt="Profit"
-                          className="img-fluid"
-                        />
+                        {rtrnChartIndiaction(latestYearData?.revenue?.revenueFromOperations, previousYearData?.revenue?.revenueFromOperations, lastYearData?.revenue?.revenueFromOperations)}
+
                       </td>
                     </tr>
                     <tr>
@@ -87,11 +84,8 @@ function Index({ incomeData }) {
                         {lastYearData?.revenue?.otherIncome?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/average.svg"
-                          alt="Average"
-                          className="img-fluid"
-                        />
+                        {rtrnChartIndiaction(latestYearData?.revenue?.otherIncome, previousYearData?.revenue?.otherIncome, lastYearData?.revenue?.otherIncome)}
+
                       </td>
                     </tr>
                     <tr>
@@ -108,11 +102,8 @@ function Index({ incomeData }) {
                         <strong>{lastYearData?.revenue?.totalRev?.toLocaleString()}</strong>
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/loss.svg"
-                          alt="Loss"
-                          className="img-fluid"
-                        />
+                        {rtrnChartIndiaction(latestYearData?.revenue?.totalRev, previousYearData?.revenue?.totalRev, lastYearData?.revenue?.totalRev)}
+
                       </td>
                     </tr>
 
@@ -128,11 +119,8 @@ function Index({ incomeData }) {
                         {lastYearData?.expenses?.purchaseStock?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/profit.svg"
-                          alt="Profit"
-                          className="img-fluid"
-                        />
+                        {rtrnChartIndiaction(latestYearData?.expenses?.purchaseStock, previousYearData?.expenses?.purchaseStock, lastYearData?.expenses?.purchaseStock)}
+
                       </td>
                     </tr>
                     <tr>
@@ -147,11 +135,8 @@ function Index({ incomeData }) {
                         {lastYearData?.expenses?.othExp?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/profit.svg"
-                          alt="Profit"
-                          className="img-fluid"
-                        />
+                        {rtrnChartIndiaction(latestYearData?.expenses?.othExp, previousYearData?.expenses?.othExp, lastYearData?.expenses?.othExp)}
+
                       </td>
                     </tr>
                     <tr>
@@ -168,11 +153,8 @@ function Index({ incomeData }) {
                         <strong>{lastYearData?.expenses?.totExp?.toLocaleString()}</strong>
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/profit.svg"
-                          alt="Profit"
-                          className="img-fluid"
-                        />
+                        {rtrnChartIndiaction(latestYearData?.expenses?.othExp, previousYearData?.expenses?.othExp, lastYearData?.expenses?.othExp)}
+
                       </td>
                     </tr>
 
@@ -199,11 +181,17 @@ function Index({ incomeData }) {
                           lastYearData?.expenses?.deprcnAmort)?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/profit.svg"
-                          alt="Profit"
-                          className="img-fluid"
-                        />
+                        {rtrnChartIndiaction((latestYearData?.revenue?.revenueFromOperations -
+                          latestYearData?.expenses?.totExp +
+                          latestYearData?.expenses?.finCost +
+                          latestYearData?.expenses?.deprcnAmort), (previousYearData?.revenue?.revenueFromOperations -
+                            previousYearData?.expenses?.totExp +
+                            previousYearData?.expenses?.finCost +
+                            previousYearData?.expenses?.deprcnAmort), (lastYearData?.revenue?.revenueFromOperations -
+                              lastYearData?.expenses?.totExp +
+                              lastYearData?.expenses?.finCost +
+                              lastYearData?.expenses?.deprcnAmort))}
+
                       </td>
                     </tr>
                     <tr>
@@ -218,11 +206,8 @@ function Index({ incomeData }) {
                         {lastYearData?.expenses?.deprcnAmort?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/profit.svg"
-                          alt="Profit"
-                          className="img-fluid"
-                        />
+                        {rtrnChartIndiaction(latestYearData?.expenses?.deprcnAmort, previousYearData?.expenses?.deprcnAmort, lastYearData?.expenses?.deprcnAmort)}
+
                       </td>
                     </tr>
                     <tr>
@@ -245,11 +230,14 @@ function Index({ incomeData }) {
                           lastYearData?.expenses?.finCost)?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/profit.svg"
-                          alt="Profit"
-                          className="img-fluid"
-                        />
+                        {rtrnChartIndiaction((latestYearData?.revenue?.revenueFromOperations -
+                          latestYearData?.expenses?.totExp +
+                          latestYearData?.expenses?.finCost), (previousYearData?.revenue?.revenueFromOperations -
+                            previousYearData?.expenses?.totExp +
+                            previousYearData?.expenses?.finCost), (lastYearData?.revenue?.revenueFromOperations -
+                              lastYearData?.expenses?.totExp +
+                              lastYearData?.expenses?.finCost))}
+
                       </td>
                     </tr>
                     <tr>
@@ -264,11 +252,8 @@ function Index({ incomeData }) {
                         {lastYearData?.expenses?.finCost?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/profit.svg"
-                          alt="Profit"
-                          className="img-fluid"
-                        />
+                        {rtrnChartIndiaction(latestYearData?.expenses?.finCost, previousYearData?.expenses?.finCost, lastYearData?.expenses?.finCost)}
+
                       </td>
                     </tr>
                     <tr>
@@ -285,11 +270,8 @@ function Index({ incomeData }) {
                         {lastYearData?.profLossBefTax?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/profit.svg"
-                          alt="Profit"
-                          className="img-fluid"
-                        />
+                        {rtrnChartIndiaction(latestYearData?.profLossBefTax, previousYearData?.profLossBefTax, lastYearData?.profLossBefTax)}
+
                       </td>
                     </tr>
                     <tr>
@@ -304,11 +286,8 @@ function Index({ incomeData }) {
                         {lastYearData?.totalTaxExpense?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/profit.svg"
-                          alt="Profit"
-                          className="img-fluid"
-                        />
+                        {rtrnChartIndiaction(latestYearData?.totalTaxExpense, previousYearData?.totalTaxExpense, lastYearData?.totalTaxExpense)}
+
                       </td>
                     </tr>
                     <tr>
@@ -321,11 +300,8 @@ function Index({ incomeData }) {
                       </td>
                       <td className="text-center">{lastYearData?.profitLoss?.toLocaleString()}</td>
                       <td className="text-center">
-                        <img
-                          src="/static/profit.svg"
-                          alt="Profit"
-                          className="img-fluid"
-                        />
+                        {rtrnChartIndiaction(latestYearData?.profitLoss, previousYearData?.profitLoss, lastYearData?.profitLoss)}
+
                       </td>
                     </tr>
                     <tr>
@@ -346,11 +322,14 @@ function Index({ incomeData }) {
                           100}
                       </td>
                       <td className="text-center">
-                        <img
-                          src="/static/profit.svg"
-                          alt="Profit"
-                          className="img-fluid"
-                        />
+                        {rtrnChartIndiaction((latestYearData?.totalTaxExpense /
+                          latestYearData?.profLossBefTax)?.toLocaleString() *
+                          100, (previousYearData?.totalTaxExpense /
+                            previousYearData?.profLossBefTax)?.toLocaleString() *
+                        100, (lastYearData?.totalTaxExpense /
+                          lastYearData?.profLossBefTax)?.toLocaleString() *
+                        100)}
+
                       </td>
                     </tr>
                   </tbody>

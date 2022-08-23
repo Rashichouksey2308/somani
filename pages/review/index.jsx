@@ -216,7 +216,31 @@ function Index() {
 
   // },[documentsFetched])
 
+  const rtrnChartIndiaction = (latest, previous, last) => {
+    if (latest > previous && previous > last) {
+      return (<img
+        src="/static/profit.svg"
+        alt="Profit"
+        className="img-fluid"
+      />)
+    }
+    else if (latest < previous && previous < last) {
+      return (
+        <img
+          src="/static/loss.svg"
+          alt="Loss"
+          className="img-fluid"
+        />
+      )
+    }
+    else
+      return (<img
+        src="/static/average.svg"
+        alt="Average"
+        className="img-fluid"
+      />)
 
+  }
 
 
   useEffect(() => {
@@ -407,7 +431,7 @@ function Index() {
       let orderToSend = { ...orderDetails }
       orderToSend.quantity = removePrefixOrSuffix(orderDetails.quantity)
       orderToSend.orderValue = removePrefixOrSuffix(orderDetails.orderValue) * 10000000
-      orderToSend.tolerance=removePrefixOrSuffix(orderDetails.tolerance)
+      orderToSend.tolerance = removePrefixOrSuffix(orderDetails.tolerance)
       if (orderDetails.unitOfValue === 'Cr' || 'Crores') {
         const obj = {
           ...orderToSend,
@@ -435,35 +459,35 @@ function Index() {
     // console.log(newInput, "prod")
     setProduct(newInput)
   }
-console.log(product,"productData")
+  console.log(product, "productData")
   const [supplierCred, setSupplierCred] = useState()
- console.log("orderList",  orderList)
+  console.log("orderList", orderList)
   useEffect(() => {
-   
+
     setProduct({
       AvgMonthlyElectricityBill:
-        orderList?.productSummary?.AvgMonthlyElectricityBill?orderList?.productSummary?.AvgMonthlyElectricityBill:"",
-      availableStock: orderList?.productSummary?.availableStock?orderList?.productSummary?.availableStock:"",
-      averageStockInTransit: orderList?.productSummary?.averageStockInTransit? orderList?.productSummary?.averageStockInTransit:"",
+        orderList?.productSummary?.AvgMonthlyElectricityBill ? orderList?.productSummary?.AvgMonthlyElectricityBill : "",
+      availableStock: orderList?.productSummary?.availableStock ? orderList?.productSummary?.availableStock : "",
+      averageStockInTransit: orderList?.productSummary?.averageStockInTransit ? orderList?.productSummary?.averageStockInTransit : "",
       averageStockOfCommodity:
-        orderList?.productSummary?.averageStockOfCommodity?orderList?.productSummary?.averageStockOfCommodity:"",
-      capacityUtilization: orderList?.productSummary?.capacityUtilization?orderList?.productSummary?.capacityUtilization:"",
+        orderList?.productSummary?.averageStockOfCommodity ? orderList?.productSummary?.averageStockOfCommodity : "",
+      capacityUtilization: orderList?.productSummary?.capacityUtilization ? orderList?.productSummary?.capacityUtilization : "",
       contributionCommoditySenstivity:
-        orderList?.productSummary?.contributionCommoditySenstivity?orderList?.productSummary?.contributionCommoditySenstivity:"",
+        orderList?.productSummary?.contributionCommoditySenstivity ? orderList?.productSummary?.contributionCommoditySenstivity : "",
       dailyConsumptionOfCommodity:
-        orderList?.productSummary?.dailyConsumptionOfCommodity?orderList?.productSummary?.dailyConsumptionOfCommodity:"",
-      existingCHA: orderList?.productSummary?.existingCHA?orderList?.productSummary?.existingCHA:[],
+        orderList?.productSummary?.dailyConsumptionOfCommodity ? orderList?.productSummary?.dailyConsumptionOfCommodity : "",
+      existingCHA: orderList?.productSummary?.existingCHA ? orderList?.productSummary?.existingCHA : [],
       existingProcurementOfCommodity:
-        orderList?.productSummary?.existingProcurementOfCommodity?orderList?.productSummary?.existingProcurementOfCommodity:"",
-      existingSuppliers: orderList?.productSummary?.existingSuppliers?orderList?.productSummary?.existingSuppliers:[],
+        orderList?.productSummary?.existingProcurementOfCommodity ? orderList?.productSummary?.existingProcurementOfCommodity : "",
+      existingSuppliers: orderList?.productSummary?.existingSuppliers ? orderList?.productSummary?.existingSuppliers : [],
       monthlyProductionCapacity:
-        orderList?.productSummary?.monthlyProductionCapacity? orderList?.productSummary?.monthlyProductionCapacity:"",
+        orderList?.productSummary?.monthlyProductionCapacity ? orderList?.productSummary?.monthlyProductionCapacity : "",
       paymentStatusForElectricityBills:
-        orderList?.productSummary?.paymentStatusForElectricityBills?orderList?.productSummary?.paymentStatusForElectricityBills:"",
+        orderList?.productSummary?.paymentStatusForElectricityBills ? orderList?.productSummary?.paymentStatusForElectricityBills : "",
       stockCoverageOfCommodity:
-        orderList?.productSummary?.stockCoverageOfCommodity?orderList?.productSummary?.stockCoverageOfCommodity:undefined,
-      typeOfCurrency: orderList?.productSummary?.typeOfCurrency?orderList?.productSummary?.typeOfCurrency:orderList?.orderCurrency,
-      unitOfQuantity: orderList?.productSummary?.unitOfQuantity?orderList?.productSummary?.unitOfQuantity:orderList?.unitOfQuantity,
+        orderList?.productSummary?.stockCoverageOfCommodity ? orderList?.productSummary?.stockCoverageOfCommodity : undefined,
+      typeOfCurrency: orderList?.productSummary?.typeOfCurrency ? orderList?.productSummary?.typeOfCurrency : orderList?.orderCurrency,
+      unitOfQuantity: orderList?.productSummary?.unitOfQuantity ? orderList?.productSummary?.unitOfQuantity : orderList?.unitOfQuantity,
     })
     setSupplierCred({
       HSCodesNumber: orderList?.supplierCredential?.HSCodesNumber,
@@ -488,14 +512,14 @@ console.log(product,"productData")
         toast.error(toastMessage, { toastId: toastMessage })
       }
     } else {
-      let data= {...product}
-      data.monthlyProductionCapacity=removePrefixOrSuffix(product.monthlyProductionCapacity)
-      data.capacityUtilization=removePrefixOrSuffix(product.capacityUtilization)
-      data.AvgMonthlyElectricityBill=removePrefixOrSuffix(product.AvgMonthlyElectricityBill)
-       data.averageStockOfCommodity=removePrefixOrSuffix(product.averageStockOfCommodity)
-      data.averageStockInTransit=removePrefixOrSuffix(product.averageStockInTransit)
-      data.availableStock=removePrefixOrSuffix(product.availableStock)
-      data.dailyConsumptionOfCommodity=removePrefixOrSuffix(product.dailyConsumptionOfCommodity)
+      let data = { ...product }
+      data.monthlyProductionCapacity = removePrefixOrSuffix(product.monthlyProductionCapacity)
+      data.capacityUtilization = removePrefixOrSuffix(product.capacityUtilization)
+      data.AvgMonthlyElectricityBill = removePrefixOrSuffix(product.AvgMonthlyElectricityBill)
+      data.averageStockOfCommodity = removePrefixOrSuffix(product.averageStockOfCommodity)
+      data.averageStockInTransit = removePrefixOrSuffix(product.averageStockInTransit)
+      data.availableStock = removePrefixOrSuffix(product.availableStock)
+      data.dailyConsumptionOfCommodity = removePrefixOrSuffix(product.dailyConsumptionOfCommodity)
       let obj = {
         order: orderList._id,
         productSummary: { ...data },
@@ -658,22 +682,22 @@ console.log(product,"productData")
   ])
 
   useEffect(() => {
-    if(orderList?.company?.keyContactPerson.length>0){
+    if (orderList?.company?.keyContactPerson.length > 0) {
       setPersonData([
-        
+
         {
-      contact: {
-        callingCode: orderList?.company?.keyContactPerson?.contact?.callingCode,
-        number: orderList?.company?.keyContactPerson?.contact?.number,
-      },
-      department: orderList?.company?.keyContactPerson?.department,
-      designation: orderList?.company?.keyContactPerson?.designation,
-      email: orderList?.company?.keyContactPerson?.email,
-      name: orderList?.company?.keyContactPerson?.name,
-      isEdit:false
-    }])
+          contact: {
+            callingCode: orderList?.company?.keyContactPerson?.contact?.callingCode,
+            number: orderList?.company?.keyContactPerson?.contact?.number,
+          },
+          department: orderList?.company?.keyContactPerson?.department,
+          designation: orderList?.company?.keyContactPerson?.designation,
+          email: orderList?.company?.keyContactPerson?.email,
+          name: orderList?.company?.keyContactPerson?.name,
+          isEdit: false
+        }])
     }
-  },[orderList])
+  }, [orderList])
 
 
   useEffect(() => {
@@ -857,25 +881,25 @@ console.log(product,"productData")
       designation: '',
       email: '',
       name: '',
-      isEdit:false
+      isEdit: false
     }])
   }
-  const setEditRow=(index)=>{
-    let tempArr =[...personData]
-    tempArr.forEach((val,i)=>{
-      if(i==index)[
-        val.isEdit=!val.isEdit
+  const setEditRow = (index) => {
+    let tempArr = [...personData]
+    tempArr.forEach((val, i) => {
+      if (i == index) [
+        val.isEdit = !val.isEdit
       ]
     })
     setPersonData(tempArr)
   }
 
   const onCreditSave = () => {
-    let tempPerson=[...personData]
-    tempPerson.forEach((val,index)=>{
-        delete val.isEdit
+    let tempPerson = [...personData]
+    tempPerson.forEach((val, index) => {
+      delete val.isEdit
     })
-  
+
 
     const obj = {
       productSummary: { ...product },
@@ -1368,6 +1392,7 @@ console.log(product,"productData")
     })
     console.log(districtCourt, "districtCourt99")
 
+
     setSupreme(supremeCourt)
     setTribunal(tribunalCourts)
     setHigh(highCourt)
@@ -1565,13 +1590,13 @@ console.log(product,"productData")
                 </div>
                 <div className="tab-pane fade" id="Financials" role="tabpanel">
                   <div className="accordion shadow-none" id="FinancialsAccordion">
-                    <BalanceSheet balanceData={companyData} />
+                    <BalanceSheet rtrnChartIndiaction={rtrnChartIndiaction} balanceData={companyData} />
 
-                    <IncomeStatement incomeData={companyData} />
+                    <IncomeStatement rtrnChartIndiaction={rtrnChartIndiaction} incomeData={companyData} />
 
-                    <CashFlow cashData={companyData} />
+                    <CashFlow rtrnChartIndiaction={rtrnChartIndiaction} cashData={companyData} />
 
-                    <Ratios ratioData={companyData} />
+                    <Ratios rtrnChartIndiaction={rtrnChartIndiaction} ratioData={companyData} />
 
                     <Peer peerData={companyData} />
 
@@ -1589,7 +1614,7 @@ console.log(product,"productData")
                 <div className="tab-pane fade" id="Compliance" role="tabpanel">
                   <div className={`${styles.card} card`}>
                     <div
-                      className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{cursor : 'default'}}>
+                      className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{ cursor: 'default' }}>
                       <div
                         className={`${styles.detail_head_container}  d-flex align-items-center justify-content-between w-100`}
                       >
@@ -1687,7 +1712,7 @@ console.log(product,"productData")
                                           <div
                                             className={`${styles.compliance_content} Compliance ml-1`}
                                           >
-                                             {alertObj[alert.alert]}
+                                            {alertObj[alert.alert]}
                                           </div>
                                         </div>
                                       )
@@ -1726,7 +1751,7 @@ console.log(product,"productData")
                                           <div
                                             className={`${styles.compliance_content} Compliance ml-1`}
                                           >
-                                             {alertObj[alert.alert]}
+                                            {alertObj[alert.alert]}
                                           </div>
                                         </div>
                                       )
@@ -1765,7 +1790,7 @@ console.log(product,"productData")
                                           <div
                                             className={`${styles.compliance_content} Compliance ml-1`}
                                           >
-                                             {alertObj[alert.alert]}
+                                            {alertObj[alert.alert]}
                                           </div>
                                         </div>
                                       )
@@ -1782,14 +1807,14 @@ console.log(product,"productData")
                   {/* details */}
                   <div className={`${styles.card} card`}>
                     <div
-                      className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{cursor : 'default'}}>
+                      className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{ cursor: 'default' }}>
                       <h2 className="mb-0 ">Details</h2>
                       <div className={`${styles.categories} mb-0 d-flex align-items-center`}>
                         <label className={styles.label}>Categories:</label>
                         <select onChange={(e) => setComplienceFilter(e.target.value)} className={`${styles.form_control} form-control`}>
                           <option>
-                                Select an option
-                              </option>
+                            Select an option
+                          </option>
                           <option value="StatutoryCompliance">Statutory Compliance</option>
                           <option value="BankingDefaults">Banking Defaults</option>
                         </select>
@@ -1810,7 +1835,7 @@ console.log(product,"productData")
                     </div>
                   </div>
                   <div className={`${styles.card} card`}>
-                    <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{cursor : 'default'}}>
+                    <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{ cursor: 'default' }}>
                       <div className={`${styles.detail_head_container} d-flex align-items-center justify-content-between w-100`}>
                         <h2 className="mb-0">Litigations</h2>
                         <div className={`${styles.categories}  d-flex align-items-center`}>
@@ -1819,17 +1844,17 @@ console.log(product,"productData")
                             {orderList?.company?.litigationStatus !==
                               'Active' ? (
                               <>
-                              <option>
-                                Select an option
-                              </option>
+                                <option>
+                                  Select an option
+                                </option>
                                 <option value="Pending">Pending</option>
                                 <option value="Active">Active</option>
                               </>
                             ) : (
                               <>
-                              <option>
-                                Select an option
-                              </option>
+                                <option>
+                                  Select an option
+                                </option>
                                 <option value="Active">Active</option>
                                 <option value="Pending">Pending</option>
                               </>
@@ -2118,7 +2143,7 @@ console.log(product,"productData")
                     deleteAddress={deleteAddress}
                     supplierCred={supplierCred}
                     setEditRow={setEditRow}
-                    
+
 
 
                   />
