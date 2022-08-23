@@ -28,7 +28,7 @@ export default function Index({
   orderid,
   docUploadFunction,
 }) {
-  let transId = _get(TransitDetails, `data[0]`, '')
+  let transId = _get(TransitDetails, 'data[0]', '')
   const initialStateForLiner = {
     vesselName: '',
     imoNumber: '',
@@ -39,13 +39,15 @@ export default function Index({
     etaAtDischargePortTo: null,
     blSurrenderDate: null,
     documentName: null,
+    blDoc: null,
     blSurrenderDoc: null,
-    document1: null,
-    document2: null,
+    containerNumberListDoc: null,
+    packingListDoc: null,
     containerDetails: {
       numberOfContainers: '',
       freeDetentionPeriod: '',
       blSurrenderDate: '',
+      containerDoc: null,
     },
   }
   const initialStateForBulk = {
@@ -58,9 +60,10 @@ export default function Index({
     etaAtDischargePortTo: null,
     blSurrenderDate: null,
     documentName: null,
+    blDoc: null,
     blSurrenderDoc: null,
-    document1: null,
-    document2: null,
+    containerNumberListDoc: null,
+    packingListDoc: null,
   }
   const dispatch = useDispatch()
   let shipmentTypeBulk =
@@ -138,6 +141,12 @@ export default function Index({
     } else {
       setEditInput(true)
     }
+  }
+
+  const handleCloseDoc = () => {
+    // setBolList(doc => {
+    //   return [...doc, {...doc[0], blSurrenderDoc: null}]
+    // })
   }
 
   const onChangeVessel = (e, index) => {
@@ -702,7 +711,7 @@ export default function Index({
                               <div className="d-flex justify-content-start">
                                 <div className={styles.uploadBtnWrapper}>
                                   <input
-                                    name={`document1`}
+                                    name={`containerDoc`}
                                     id="documentName"
                                     onChange={(e) => uploadDoc(e, index)}
                                     type="file"
@@ -779,7 +788,7 @@ export default function Index({
                                 28-02-2022,5:30 PM
                               </td>
                               <td>
-                                <div className={styles.uploadBtnWrapper}>
+                                {/* <div className={styles.uploadBtnWrapper}>
                                   <input
                                     name={`blSurrenderDoc`}
                                     id="document1"
@@ -791,7 +800,34 @@ export default function Index({
                                   >
                                     Upload
                                   </button>
-                                </div>
+                                </div> */}
+                                {bolList && bolList[0]?.blDoc == null ? (
+                                  <>
+                                    <div className={styles.uploadBtnWrapper}>
+                                      <input
+                                        type="file"
+                                        name={`blDoc`}
+                                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                        onChange={(e) => uploadDoc(e, index)}
+                                      />
+                                      <button
+                                        className={`${styles.button_upload} btn`}
+                                      >
+                                        Upload
+                                      </button>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <div className={styles.certificate}>
+                                    {bolList[0]?.blDoc?.originalName}
+                                    <img
+                                      className={`${styles.close_image} float-right ml-2 img-fluid`}
+                                      src="/static/close.svg"
+                                      onClick={() => handleCloseDoc()}
+                                      alt="Close"
+                                    />{' '}
+                                  </div>
+                                )}
                               </td>
                             </tr>
                             {!isShipmentTypeBULK ? (
@@ -814,7 +850,7 @@ export default function Index({
                                     28-02-2022,5:30 PM
                                   </td>
                                   <td>
-                                    <div className={styles.uploadBtnWrapper}>
+                                    {/* <div className={styles.uploadBtnWrapper}>
                                       <input
                                         name={`document2`}
                                         id="document1"
@@ -826,7 +862,43 @@ export default function Index({
                                       >
                                         Upload
                                       </button>
-                                    </div>
+                                    </div> */}
+                                    {bolList &&
+                                    bolList[0]?.containerNumberListDoc ==
+                                      null ? (
+                                      <>
+                                        <div
+                                          className={styles.uploadBtnWrapper}
+                                        >
+                                          <input
+                                            type="file"
+                                            name={`containerNumberListDoc`}
+                                            accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                            onChange={(e) =>
+                                              uploadDoc(e, index)
+                                            }
+                                          />
+                                          <button
+                                            className={`${styles.button_upload} btn`}
+                                          >
+                                            Upload
+                                          </button>
+                                        </div>
+                                      </>
+                                    ) : (
+                                      <div className={styles.certificate}>
+                                        {
+                                          bolList[0]?.containerNumberListDoc
+                                            ?.originalName
+                                        }
+                                        <img
+                                          className={`${styles.close_image} float-right ml-2 img-fluid`}
+                                          src="/static/close.svg"
+                                          onClick={() => handleCloseDoc()}
+                                          alt="Close"
+                                        />{' '}
+                                      </div>
+                                    )}
                                   </td>
                                 </tr>
                                 <tr className="table_row">
@@ -847,7 +919,7 @@ export default function Index({
                                     28-02-2022,5:30 PM
                                   </td>
                                   <td>
-                                    <div className={styles.uploadBtnWrapper}>
+                                    {/* <div className={styles.uploadBtnWrapper}>
                                       <input
                                         name={`documentName`}
                                         id="document2"
@@ -859,7 +931,42 @@ export default function Index({
                                       >
                                         Upload
                                       </button>
-                                    </div>
+                                    </div> */}
+                                    {bolList &&
+                                    bolList[0]?.packingListDoc == null ? (
+                                      <>
+                                        <div
+                                          className={styles.uploadBtnWrapper}
+                                        >
+                                          <input
+                                            type="file"
+                                            name={`packingListDoc`}
+                                            accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                            onChange={(e) =>
+                                              uploadDoc(e, index)
+                                            }
+                                          />
+                                          <button
+                                            className={`${styles.button_upload} btn`}
+                                          >
+                                            Upload
+                                          </button>
+                                        </div>
+                                      </>
+                                    ) : (
+                                      <div className={styles.certificate}>
+                                        {
+                                          bolList[0]?.packingListDoc
+                                            ?.originalName
+                                        }
+                                        <img
+                                          className={`${styles.close_image} float-right ml-2 img-fluid`}
+                                          src="/static/close.svg"
+                                          onClick={() => handleCloseDoc()}
+                                          alt="Close"
+                                        />{' '}
+                                      </div>
+                                    )}
                                   </td>
                                 </tr>
                               </>
@@ -966,14 +1073,41 @@ export default function Index({
                                 28-02-2022,5:30 PM
                               </td>
                               <td>
-                                <div className={styles.uploadBtnWrapper}>
-                                  <input type="file" name="myfile" />
-                                  <button
-                                    className={`${styles.upload_btn} btn`}
-                                  >
-                                    Upload
-                                  </button>
-                                </div>
+                              {bolList &&
+                                    bolList[0]?.blSurrenderDoc == null ? (
+                                      <>
+                                        <div
+                                          className={styles.uploadBtnWrapper}
+                                        >
+                                          <input
+                                            type="file"
+                                            name={`blSurrenderDoc`}
+                                            accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                            onChange={(e) =>
+                                              uploadDoc(e, index)
+                                            }
+                                          />
+                                          <button
+                                            className={`${styles.button_upload} btn`}
+                                          >
+                                            Upload
+                                          </button>
+                                        </div>
+                                      </>
+                                    ) : (
+                                      <div className={styles.certificate}>
+                                        {
+                                          bolList[0]?.blSurrenderDoc
+                                            ?.originalName
+                                        }
+                                        <img
+                                          className={`${styles.close_image} float-right ml-2 img-fluid`}
+                                          src="/static/close.svg"
+                                          onClick={() => handleCloseDoc()}
+                                          alt="Close"
+                                        />{' '}
+                                      </div>
+                                    )}
                               </td>
                             </tr>
                           </tbody>
