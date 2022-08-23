@@ -363,7 +363,7 @@ const Index = () => {
     )
     tempSheet.commercials.lcOpeningChargesUnit = removePrefixOrSuffix(
       termsheetDetails.commercials.lcOpeningChargesUnit,
-    )
+    ).toString()
     //  tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
     // console.log(termsheetDetails, "tempSheet1")
 
