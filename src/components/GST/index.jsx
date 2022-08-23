@@ -32,7 +32,7 @@ Chart.register(
   BarController,
   BarElement,
 )
-import {CovertvaluefromtoCR} from '../../utils/helper'
+import { CovertvaluefromtoCR } from '../../utils/helper'
 import _get from 'lodash/get'
 // Chart.register(linear);
 function Index({ companyData, orderList, GstDataHandler }) {
@@ -48,10 +48,10 @@ function Index({ companyData, orderList, GstDataHandler }) {
   const [chartData, setChartData] = useState({
     datasets: [],
   })
-   const [chartData2, setChartData2] = useState({
+  const [chartData2, setChartData2] = useState({
     datasets: [],
   })
-   const [chartData3, setChartData3] = useState({
+  const [chartData3, setChartData3] = useState({
     datasets: [],
   })
   const [gstFilteredData, SetGstFilteredData] = useState(orderList?.company?.gstList)
@@ -113,7 +113,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
 
 
 
-  function createGradient(ctx, area,color,color2) {
+  function createGradient(ctx, area, color, color2) {
     // const colorStart = faker.random.arrayElement(colors);
     // const colorMid = faker.random.arrayElement(
     //   colors.filter(color => color !== colorStart)
@@ -121,7 +121,7 @@ function Index({ companyData, orderList, GstDataHandler }) {
     // const colorEnd = faker.random.arrayElement(
     //   colors.filter(color => color !== colorStart && color !== colorMid)
     // );
-    console.log( 'cts',color2,color)
+    console.log('cts', color2, color)
 
     var gradient = ctx.createLinearGradient(0, 0, 0, 300);
     gradient.addColorStop(0, color2);
@@ -140,146 +140,146 @@ function Index({ companyData, orderList, GstDataHandler }) {
     return CovertedMonts
   }
 
-const getdata=(data)=>{
-let temArr=[]
-if(data){
-data.forEach((val,index)=>{
-temArr.push(CovertvaluefromtoCR(val))
+  const getdata = (data) => {
+    let temArr = []
+    if (data) {
+      data.forEach((val, index) => {
+        temArr.push(CovertvaluefromtoCR(val))
 
-})
- console.log(temArr,"slaes")
-return temArr
-}else{
-  return []
-}
+      })
+      console.log(temArr, "slaes")
+      return temArr
+    } else {
+      return []
+    }
 
-}
-       
+  }
+
 
   useEffect(() => {
-  
-    
-      const chart = chartRef.current;
-      const chart2 = chartRef2.current;
-      const chart3 = chartRef3.current;
+
+
+    const chart = chartRef.current;
+    const chart2 = chartRef2.current;
+    const chart3 = chartRef3.current;
     console.log("here", chart.ctx)
     if (!chart) {
       return
     }
 
     // let color = createGradient(chart.ctx, chart.chartArea)
-    
+
     const data = {
-    labels: covertMonths(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months),
-    datasets: [
-    {
-      label: "First dataset",
-      data: getdata(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.totalSales),
-      // fill: true,
+      labels: covertMonths(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months),
+      datasets: [
+        {
+          label: "First dataset",
+          data: getdata(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.totalSales),
+          // fill: true,
 
 
-      // backgroundColor: color,
-      borderColor: "#2979F2"
-    },
-    {
-      label: "First dataset",
-      data: getdata(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.thirdPartySales),
-      // fill: true,
+          // backgroundColor: color,
+          borderColor: "#2979F2"
+        },
+        {
+          label: "First dataset",
+          data: getdata(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.thirdPartySales),
+          // fill: true,
 
 
-      // backgroundColor: color,
-      borderColor: "#FA5F1C"
-    },
-    {
-      label: "First dataset",
-      data: getdata(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.relatedPartySales),
-      // fill: true,
+          // backgroundColor: color,
+          borderColor: "#FA5F1C"
+        },
+        {
+          label: "First dataset",
+          data: getdata(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.relatedPartySales),
+          // fill: true,
 
 
-      // backgroundColor: color,
-      borderColor: "#FFD950"
-    },
-    {
-      label: "First dataset",
-      data: getdata(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.intraOrgSales),
-      // fill: true,
+          // backgroundColor: color,
+          borderColor: "#FFD950"
+        },
+        {
+          label: "First dataset",
+          data: getdata(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.intraOrgSales),
+          // fill: true,
 
 
-      // backgroundColor: color,
-      borderColor: "#02BC77"
-    },
+          // backgroundColor: color,
+          borderColor: "#02BC77"
+        },
 
 
-    ]
+      ]
     };
     if (!chart2) {
       return
     }
 
-     
-   
-    const data2 = {
-    labels: covertMonths(gstFilteredData?.detail?.summaryCharts?.grossPurchaseVsSale?.month),
-    datasets: [
-    {
-    label: "First dataset",
-    data: getdata(gstFilteredData?.detail?.summaryCharts?.grossPurchaseVsSale?.sale),
-    fill: true,
-    backgroundColor: createGradient(chart2.ctx, chart2.chartArea,"rgb(71, 145, 255,0.1)","rgb(71, 145, 255,0.2)"),
-    borderColor: "rgb(71, 145, 255)"
-    },
-    {
-    label: "First dataset",
-     data:getdata(gstFilteredData?.detail?.summaryCharts?.grossPurchaseVsSale?.purchase),
-    
-    fill: true,
-    borderColor: "rgb(250, 95, 28,1)",
-    backgroundColor: createGradient(chart2.ctx, chart2.chartArea,"rgb(250, 95, 28,0.1)","rgb(250, 95, 28,0.1)"),
-    }
 
-    ]
+
+    const data2 = {
+      labels: covertMonths(gstFilteredData?.detail?.summaryCharts?.grossPurchaseVsSale?.month),
+      datasets: [
+        {
+          label: "First dataset",
+          data: getdata(gstFilteredData?.detail?.summaryCharts?.grossPurchaseVsSale?.sale),
+          fill: true,
+          backgroundColor: createGradient(chart2.ctx, chart2.chartArea, "rgb(71, 145, 255,0.1)", "rgb(71, 145, 255,0.2)"),
+          borderColor: "rgb(71, 145, 255)"
+        },
+        {
+          label: "First dataset",
+          data: getdata(gstFilteredData?.detail?.summaryCharts?.grossPurchaseVsSale?.purchase),
+
+          fill: true,
+          borderColor: "rgb(250, 95, 28,1)",
+          backgroundColor: createGradient(chart2.ctx, chart2.chartArea, "rgb(250, 95, 28,0.1)", "rgb(250, 95, 28,0.1)"),
+        }
+
+      ]
     };
-     if (!chart3) {
+    if (!chart3) {
       return
     }
     // let color3 = createGradient(chart3.ctx, chart3.chartArea)
     const data3 = {
-    labels: covertMonths(gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.months),
-    datasets: [
-    {
-    label: "First dataset",
-    data: getdata(gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.customers) ,
-    fill: true,
-    backgroundColor: createGradient(chart2.ctx, chart2.chartArea,"rgb(41, 121, 242,0.1)","rgb(41, 121, 242,0.2)"),
-    borderColor: "rgb(41, 121, 242,1)"
-    },
-    {
-    label: "First dataset",
-    data: getdata(gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.invoices),
-    fill: true,
-    backgroundColor: createGradient(chart2.ctx, chart2.chartArea,"rgb(250, 95, 28,0.1)","rgb(250, 95, 28,0.2)"),
-    borderColor: "rgb(250, 95, 28,1)"
-    },
-    {
-    label: "First dataset",
-    data: getdata(gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.avgMonthlySales),
-    fill: true,
-   backgroundColor: createGradient(chart2.ctx, chart2.chartArea,"rgb(67, 195, 77,0.0)","rgb(67, 195, 77,0.0)"),
-    borderColor: "rgb(67, 195, 77)",
-     borderDash: [10,5]
-    }
+      labels: covertMonths(gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.months),
+      datasets: [
+        {
+          label: "First dataset",
+          data: getdata(gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.customers),
+          fill: true,
+          backgroundColor: createGradient(chart2.ctx, chart2.chartArea, "rgb(41, 121, 242,0.1)", "rgb(41, 121, 242,0.2)"),
+          borderColor: "rgb(41, 121, 242,1)"
+        },
+        {
+          label: "First dataset",
+          data: getdata(gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.invoices),
+          fill: true,
+          backgroundColor: createGradient(chart2.ctx, chart2.chartArea, "rgb(250, 95, 28,0.1)", "rgb(250, 95, 28,0.2)"),
+          borderColor: "rgb(250, 95, 28,1)"
+        },
+        {
+          label: "First dataset",
+          data: getdata(gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.avgMonthlySales),
+          fill: true,
+          backgroundColor: createGradient(chart2.ctx, chart2.chartArea, "rgb(67, 195, 77,0.0)", "rgb(67, 195, 77,0.0)"),
+          borderColor: "rgb(67, 195, 77)",
+          borderDash: [10, 5]
+        }
 
-    ]
+      ]
     };
 
     setChartData(data);
     setChartData2(data2);
     setChartData3(data3);
-  }, [chartRef.current,chartRef2.current,chartRef3.current]);
+  }, [chartRef.current, chartRef2.current, chartRef3.current]);
 
 
 
-  
+
   // const getOrCreateTooltip = (chart) => {
   //   let tooltipEl = chart.canvas.parentNode.querySelector('div');
 
@@ -388,76 +388,76 @@ return temArr
   const DATA_COUNT = 7;
   const NUMBER_CFG = { count: DATA_COUNT, min: -100, max: 100, decimals: 0 };
 
-const lineOption = {
-tension: 0.2,
+  const lineOption = {
+    tension: 0.2,
 
-// fill: true,
+    // fill: true,
 
-scales: {
-x: {
-  grid: {
-    color: '#ff000000',
-    borderColor: '#ff000000',
-    tickColor: '#ff000000'
+    scales: {
+      x: {
+        grid: {
+          color: '#ff000000',
+          borderColor: '#ff000000',
+          tickColor: '#ff000000'
+        }
+      },
+      y: {
+        grid: {
+
+          borderColor: '#ff000000',
+          tickColor: '#ff000000'
+        }
+      }
+    },
+    interaction: {
+      mode: 'index',
+      intersect: false,
+    },
+    plugins: {
+
+      tooltip: {
+        enabled: false,
+        position: 'nearest',
+        // external: externalTooltipHandler
+      }
+    }
+
   }
-},
-y: {
-  grid: {
+  const lineOption2 = {
+    tension: 0.2,
 
-    borderColor: '#ff000000',
-    tickColor: '#ff000000'
+    fill: true,
+
+    scales: {
+      x: {
+        grid: {
+          color: '#ff000000',
+          borderColor: '#ff000000',
+          tickColor: '#ff000000'
+        }
+      },
+      y: {
+        grid: {
+
+          borderColor: '#ff000000',
+          tickColor: '#ff000000'
+        }
+      }
+    },
+    interaction: {
+      mode: 'index',
+      intersect: false,
+    },
+    plugins: {
+
+      tooltip: {
+        enabled: false,
+        position: 'nearest',
+        // external: externalTooltipHandler
+      }
+    }
+
   }
-}
-},
-interaction: {
-mode: 'index',
-intersect: false,
-},
-plugins: {
-
-tooltip: {
-  enabled: false,
-  position: 'nearest',
-  // external: externalTooltipHandler
-}
-}
-
-}
-const lineOption2 = {
-tension: 0.2,
-
-fill: true,
-
-scales: {
-x: {
-  grid: {
-    color: '#ff000000',
-    borderColor: '#ff000000',
-    tickColor: '#ff000000'
-  }
-},
-y: {
-  grid: {
-
-    borderColor: '#ff000000',
-    tickColor: '#ff000000'
-  }
-}
-},
-interaction: {
-mode: 'index',
-intersect: false,
-},
-plugins: {
-
-tooltip: {
-  enabled: false,
-  position: 'nearest',
-  // external: externalTooltipHandler
-}
-}
-
-}
   let turOverdataAndPurchases = {
     labels: covertMonths(gstFilteredData?.detail?.summaryCharts?.grossPurchaseVsSale?.month),
     datasets: [
@@ -497,11 +497,11 @@ tooltip: {
     datasets: [
       {
         label: "First dataset",
-        data:getdata( gstFilteredData?.detail?.summaryCharts?.top10Cus?.values),
+        data: getdata(gstFilteredData?.detail?.summaryCharts?.top10Cus?.values),
         fill: true,
         backgroundColor: '#4791FF',
         borderColor: "#4791FF",
-         maxBarThickness:50
+        maxBarThickness: 50
       }
 
     ]
@@ -515,7 +515,7 @@ tooltip: {
         fill: true,
         backgroundColor: '#4791FF',
         borderColor: "#4791FF",
-        maxBarThickness:50
+        maxBarThickness: 50
       }
 
     ]
@@ -530,13 +530,13 @@ tooltip: {
         fill: true,
         backgroundColor: '#FA5F1C',
         borderColor: "#FA5F1C",
-        maxBarThickness:50
+        maxBarThickness: 50
       }
 
     ]
   }
- const barOptions = {
-   
+  const barOptions = {
+
 
     scales: {
       x: {
@@ -585,7 +585,12 @@ tooltip: {
 
     ]
   }
-console.log(gstFilteredData?.detail?.summaryInformation?.businessProfile,"busis")
+
+  const finacialYear = (text) => {
+    let [start, end] = text.split('-')
+    return ''
+  }
+  console.log(gstFilteredData?.detail?.summaryInformation?.businessProfile, "busis")
   return (
     <>
       <div className={`${styles.wrapper} card`}>
@@ -691,7 +696,11 @@ console.log(gstFilteredData?.detail?.summaryInformation?.businessProfile,"busis"
                     className={`${styles.gst_cancelled}  d-flex align-items-center justify-content-start`}
                   >
                     <div className={styles.dot}></div>
-                    <span>GST cancelled</span>
+                    {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map((alert, index) => {
+                      return (
+                        <span>GST cancelled</span>
+                      )
+                    })}
                   </Col>
                 </Row>
                 <Row className={` ${styles.row}`}>
@@ -978,11 +987,11 @@ console.log(gstFilteredData?.detail?.summaryInformation?.businessProfile,"busis"
                   </div>
                   <div className={styles.chart}>
                     <Line
-                       ref={chartRef2}
+                      ref={chartRef2}
                       data={chartData2}
                       options={lineOption2}
                     />
-                   
+
                     <div className={`${styles.legend_box} text-center`}>
                       <span className={`${styles.blue_legend} ${styles.legend}`}>Gross Turnover</span>
                       <span className={`${styles.red_legend} ${styles.legend}`}>Gross Purchases</span>
@@ -1041,7 +1050,7 @@ console.log(gstFilteredData?.detail?.summaryInformation?.businessProfile,"busis"
                     <span className={styles.light}>(Cr)</span>
                   </div>
                   <div className={styles.chart}>
-                    <Line ref={chartRef3}  data={chartData3} options={lineOption2} />
+                    <Line ref={chartRef3} data={chartData3} options={lineOption2} />
                     <div className={`${styles.legend_box} text-center`}>
                       <span className={`${styles.blue_legend} ${styles.legend}`}>No. of Customers</span>
                       <span className={`${styles.red_legend} ${styles.legend}`}>No. of Invoices</span>
@@ -1182,7 +1191,7 @@ console.log(gstFilteredData?.detail?.summaryInformation?.businessProfile,"busis"
                       <strong>Sales Growth Rate</strong>
                     </td>
                     <td></td>
-                    <td className='border-left-0'><strong>-47.73%</strong></td>
+                    <td className='border-left-0'><strong>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.salesGrowthRate?.current?.value?.toFixed(2).toLocaleString()}%</strong></td>
                     <td></td>
                     <td className='border-left-0'></td>
                   </tr>
@@ -1191,7 +1200,8 @@ console.log(gstFilteredData?.detail?.summaryInformation?.businessProfile,"busis"
                       <strong>Quarterly Growth Rate</strong>
                     </td>
                     <td></td>
-                    <td className='border-left-0'><strong>50%</strong></td>
+                    <td className='border-left-0'><strong>{gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.quaterlyGrowthRate?.current?.value?.toFixed(2).toLocaleString()}%</strong></td>
+
                     <td></td>
                     <td className='border-left-0'></td>
                   </tr>
@@ -1680,7 +1690,7 @@ const gstCustomerDetail = (gstFilteredData, supplierDetailsUnit, setSupplierDeta
                       cellSpacing="0"
                     >
                       <tr>
-                        <th className={`${styles.first}`} colSpan={6}>Related Party Sales In Last 12 Monthss</th>
+                        <th className={`${styles.first}`} colSpan={6}>Related Party Sales In Last 12 Months</th>
                       </tr>
                       <tr className={styles.second_head}>
                         <td>CUSTOMER NAME</td>
@@ -1860,7 +1870,7 @@ const gstSupplierDetail = (gstFilteredData, customerDetailsUnit, setCustomerDeta
                       cellSpacing="0"
                     >
                       <tr>
-                        <th className={`${styles.first}`} colSpan={6}>Related Party Sales In Last 12 Monthss</th>
+                        <th className={`${styles.first}`} colSpan={6}>Related Party Sales In Last 12 Months</th>
                       </tr>
                       <tr className={styles.second_head}>
                         <td>CUSTOMER NAME</td>
