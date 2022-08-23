@@ -198,19 +198,19 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         {((latestIncomeData?.revenue?.revenueFromOperations -
                           latestIncomeData?.expenses?.totExp +
                           latestIncomeData?.expenses?.finCost) /
-                          latestYearData?.ebitdaMargin)?.toFixed(2).toLocaleString()}
+                          latestYearData?.ebitdaMargin)?.toLocaleString(undefined, {minimumFractionDigits: 2})}
                       </td>
                       <td className="text-center">
-                        {(previousIncomeData?.revenue?.revenueFromOperations -
+                        {((previousIncomeData?.revenue?.revenueFromOperations -
                           previousIncomeData?.expenses?.totExp +
                           previousIncomeData?.expenses?.finCost) /
-                          previousYearData?.ebitdaMargin}
+                          previousYearData?.ebitdaMargin).toLocaleString(undefined, {minimumFractionDigits: 2})}
                       </td>
                       <td className="text-center">
                         {((lastIncomeData?.revenue?.revenueFromOperations -
                           lastIncomeData?.expenses?.totExp +
                           lastIncomeData?.expenses?.finCost) /
-                          lastYearData?.ebitdaMargin)?.toFixed(2).toLocaleString()}
+                          lastYearData?.ebitdaMargin)?.toLocaleString(undefined, {minimumFractionDigits: 2})}
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(((latestIncomeData?.revenue?.revenueFromOperations -
