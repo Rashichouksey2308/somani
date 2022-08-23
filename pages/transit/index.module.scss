@@ -468,6 +468,9 @@
           }
         }
         tr {
+          &:first-child {
+            border-top: 2px solid #f2f5f9;
+          }
           &:last-child {
             //border-bottom: none;
           }

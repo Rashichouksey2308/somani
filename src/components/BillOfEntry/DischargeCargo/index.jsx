@@ -88,10 +88,10 @@ export default function Index({ OrderId, customData, uploadDoc }) {
       <div className={`${styles.backgroundMain} container-fluid`}>
         <div className={`${styles.vessel_card} border_color`}>
           <div
-            className={`${styles.main}  vessel_card  mt-4 card border_color`}
+            className={`${styles.main} vessel_card card border_color`}
           >
             <div
-              className={`${styles.head_container} card-header border_color head_container align-items-center justify-content-between d-flex bg-transparent`}
+              className={`${styles.head_container} card-header align-items-center border_color head_container align-items-center justify-content-between d-flex bg-transparent`}
             >
               <h3 className={`${styles.heading}`}>Discharge of Cargo</h3>
 
@@ -104,7 +104,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                     Bulk
                   </div>
                 </div>
-                <div className="d-flex">
+                <div className="d-flex align-items-center">
                   <button className={styles.add_btn} onClick={handleShow}>
                     Show BL Details
                   </button>
@@ -366,7 +366,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
               </div>
             </div>
           </div>
-          <div className="mt-4 mb-5">
+          <div className="">
             <UploadOther
               isDocumentName={true}
               orderid={OrderId}

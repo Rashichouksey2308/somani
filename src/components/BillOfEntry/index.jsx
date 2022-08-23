@@ -186,7 +186,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
-        <div className={`${styles.vessel_card} mt-3 border_color`}>
+        <div className={`${styles.vessel_card} border_color`}>
           <div className={`${styles.wrapper} border_color p-2 card`}>
             <div className="d-lg-flex align-items-center d-inline-block  pl-4">
               <h2 className="mb-0">Shipment Type</h2>
@@ -219,10 +219,10 @@ export default function Index({ customData, OrderId, uploadDoc }) {
             </div>
           </div>
           <div
-            className={`${styles.main}  vessel_card  mt-4 card border_color`}
+            className={`${styles.main} vessel_card card border_color`}
           >
             <div
-              className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
+              className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
             >
               <h3 className={`${styles.heading}`}>Bill of Entry</h3>
 
@@ -403,9 +403,11 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                     Vessel Name <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
                   <span className={styles.value}>
-                    {
-                      _get(customData, 'order.vessel.vessels[0].vesselInformation[0].name', '')
-                    }
+                    {_get(
+                      customData,
+                      'order.vessel.vessels[0].vesselInformation[0].name',
+                      '',
+                    )}
                   </span>
                 </div>
                 <div
@@ -415,9 +417,11 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                     Country of origin<strong className="text-danger">*</strong>{' '}
                   </div>
                   <span className={styles.value}>
-                    {
-                      _get(customData, 'order.vessel.vessels[0].transitDetails.countryOfOrigin', '')
-                    }
+                    {_get(
+                      customData,
+                      'order.vessel.vessels[0].transitDetails.countryOfOrigin',
+                      '',
+                    )}
                   </span>
                 </div>
                 <div
@@ -427,9 +431,11 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                     Port Of Discharge
                   </div>
                   <span className={styles.value}>
-                    {
-                      _get(customData, 'order.vessel.vessels[0].transitDetails.countryOfOrigin', '')
-                    }
+                    {_get(
+                      customData,
+                      'order.vessel.vessels[0].transitDetails.countryOfOrigin',
+                      '',
+                    )}
                   </span>
                 </div>
 
@@ -454,9 +460,11 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                 >
                   <div className={`${styles.label} text`}>CIRC Number</div>
                   <span className={styles.value}>
-                    {
-                      _get(customData, 'order.transit.CIMS.cimsDetails[0].circNumber', '')
-                    }
+                    {_get(
+                      customData,
+                      'order.transit.CIMS.cimsDetails[0].circNumber',
+                      '',
+                    )}
                   </span>
                 </div>
 
@@ -642,13 +650,13 @@ export default function Index({ customData, OrderId, uploadDoc }) {
               </div>
 
               <div className={`${styles.bill_landing} card border_color mt-4`}>
-                <div className={`${styles.vessel_card} mt-3`}>
+                <div className={`${styles.vessel_card}`}>
                   <div className={`${styles.card_sub_heading}`}>Duty</div>
                 </div>
                 <div className={styles.table_scroll_outer}>
                   <div className={styles.table_scroll_inner}>
                     <table
-                      className={`${styles.table} table mt-5`}
+                      className={`${styles.table} table`}
                       cellPadding="0"
                       cellSpacing="0"
                       border="0"
@@ -1085,7 +1093,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
               </div>
             </div>
           </div>
-          <div className="mt-4 mb-5">
+          <div className="">
             <UploadOther
               orderid={OrderId}
               module="CustomClearanceAndWarehousing"

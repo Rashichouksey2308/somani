@@ -84,8 +84,8 @@ function index({data,Heading, val,totalData }) {
                   <td className="">{courtCase.caseNumber}</td>
                   <td className="">{courtCase.caseType}</td>
                   <td className="">{courtCase.section}</td>
-                  <td className="">{courtCase.petitioner}</td>
-                  <td className="">{courtCase.cin}</td>
+                  <td className="">{courtCase.petitioner[0]}</td>
+                  <td className="">{courtCase.respondent[0]}</td>
                   <td className="text-center">
                     <img src="./static/blue-eye.svg"
                     className='img-fluid'
