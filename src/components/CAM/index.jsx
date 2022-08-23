@@ -2323,12 +2323,12 @@ const financeDetails = (
                       Liabilities
                     </th>
                     <th>
-                      {moment(latestBalanceData?.date)
+                      {moment(_get(companyData, 'financial.balanceSheet[0].date', ''))
                         .format('MMM-YY')
                         .toUpperCase()}
                     </th>
                     <th>
-                      {moment(previousBalanceData?.date)
+                    {moment(_get(companyData, 'financial.balanceSheet[1].date', ''))
                         .format('MMM-YY')
                         .toUpperCase()}
                     </th>
@@ -2336,42 +2336,41 @@ const financeDetails = (
                   <tr>
                     <td>Net Worth</td>
                     <td>
-                      {latestBalanceData?.equityLiabilities?.totalEquity}
+                      {_get(companyData, 'financial.balanceSheet[0].equityLiabilities.totalEquity', '')?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td>
-                      {previousBalanceData?.equityLiabilities?.totalEquity?.toLocaleString()}
+                    {_get(companyData, 'financial.balanceSheet[1].equityLiabilities.totalEquity', '')?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
                   <tr>
                     <td>Total Borrowings</td>
                     <td>
-                      {Number(latestBalanceData?.equityLiabilities?.borrowingsCurrent +
-                        latestBalanceData?.equityLiabilities?.borrowingsNonCurrent)?.toLocaleString()}
+                      {Number(_get(companyData, 'financial.balanceSheet[0].equityLiabilities.borrowingsCurrent', '') +
+                        _get(companyData, 'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent', ''))?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td>
-                      {Number(previousBalanceData?.equityLiabilities
-                        ?.borrowingsCurrent +
-                        previousBalanceData?.equityLiabilities?.borrowingsNonCurrent)?.toLocaleString()}
+                    {Number(_get(companyData, 'financial.balanceSheet[1].equityLiabilities.borrowingsCurrent', '') +
+                        _get(companyData, 'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent', ''))?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
                   <tr>
                     <td>Creditors</td>
                     <td>
-                      {latestBalanceData?.equityLiabilities?.tradePay +
-                        latestBalanceData?.equityLiabilities?.tradePayablesNoncurrent?.toLocaleString()}
+                    {Number(_get(companyData, 'financial.balanceSheet[0].equityLiabilities.tradePay', '') +
+                        _get(companyData, 'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent', ''))?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td>
-                      {previousBalanceData?.equityLiabilities?.tradePay +
-                        previousBalanceData?.equityLiabilities?.tradePayablesNoncurrent?.toLocaleString()}
+                    {Number(_get(companyData, 'financial.balanceSheet[1].equityLiabilities.tradePay', '') +
+                        _get(companyData, 'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent', ''))?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
                   <tr>
                     <td>Other Current Liabilities</td>
                     <td>
-                      {latestBalanceData?.equityLiabilities?.otherCurrentLiabilities?.toLocaleString()}
+                      {_get(companyData, 'financial.balanceSheet[0].equityLiabilities.otherCurrentLiabilities', '')?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td>
-                      {previousBalanceData?.equityLiabilities?.otherCurrentLiabilities?.toLocaleString()}
+                    {_get(companyData, 'financial.balanceSheet[1].equityLiabilities.otherCurrentLiabilities', '')?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
 
@@ -2515,14 +2514,14 @@ const financeDetails = (
                     <td>
                       {_get(
                         companyData,
-                        'financial?.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
+                        'financial.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
                         '',
                       ).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td>
                       {_get(
                         companyData,
-                        'financial?.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
+                        'financial.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
                         '',
                       ).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
@@ -2532,14 +2531,14 @@ const financeDetails = (
                     <td>
                       {_get(
                         companyData,
-                        'financial?.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
+                        'financial.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
                         '',
                       ).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td>
                       {_get(
                         companyData,
-                        'financial?.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
+                        'financial.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
                         '',
                       ).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
