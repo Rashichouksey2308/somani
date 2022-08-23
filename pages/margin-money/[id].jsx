@@ -23,7 +23,7 @@ import {
   setDynamicName,
   setDynamicOrder,
 } from '../../src/redux/userData/action'
-import { addPrefixOrSuffix } from '../../src/utils/helper'
+import { addPrefixOrSuffix ,checkNan} from '../../src/utils/helper'
 // import { Row, Col } from 'react-bootstrap'
 
 function Index() {
@@ -1090,9 +1090,12 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                  
-                                {marginData?.order?.orderCurrency} {Number(
+                                {
+                                marginData?.order?.orderCurrency} {
+                                  checkNan(Number(
                                     finalCal.orderValue,
-                                  )?.toLocaleString()}
+                                  )?.toLocaleString())
+                                  }
                                   
                                 </div>
                               </div>
@@ -1118,9 +1121,9 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.orderValueInINR?.toLocaleString()} */}
-                                  {Number(
+                                  {checkNan(Number(
                                     finalCal.orderValueInINR,
-                                  )?.toLocaleString()}
+                                  )?.toLocaleString())}
                                 </div>
                               </div>
                             </div>
@@ -1154,9 +1157,9 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                 ₹ {/* {finalCal.usanceInterest} */}
-                                  {Number(
+                                  {checkNan(Number(
                                     finalCal.usanceInterest,
-                                  )?.toLocaleString()}
+                                  )?.toLocaleString())}
                                 </div>
                               </div>
                             </div>
@@ -1180,9 +1183,9 @@ function Index() {
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                ₹ {Number(
+                                ₹ {checkNan(Number(
                                     finalCal.tradeMargin,
-                                  )?.toLocaleString()}
+                                  )?.toLocaleString())}
                                   {/* {finalCal.tradeMargin?.toLocaleString()} */}
                                 </div>
                               </div>
@@ -1208,9 +1211,9 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.grossOrderValue?.toLocaleString()} */}
-                                  ₹  {Number(
+                                  ₹  {checkNan(Number(
                                     finalCal.grossOrderValue,
-                                  )?.toLocaleString()}
+                                  )?.toLocaleString())}
                                 </div>
                               </div>
                             </div>
@@ -1235,9 +1238,9 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.toleranceValue} */}
-                                  ₹  {Number(
+                                  ₹  {checkNan(Number(
                                     finalCal.toleranceValue,
-                                  )?.toLocaleString()}
+                                  )?.toLocaleString())}
                                 </div>
                               </div>
                             </div>
@@ -1262,9 +1265,9 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.totalOrderValue} */}
-                                  ₹  {Number(
+                                  ₹  {checkNan(Number(
                                     finalCal.totalOrderValue,
-                                  )?.toLocaleString()}
+                                  )?.toLocaleString())}
                                 </div>
                               </div>
                             </div>
@@ -1288,9 +1291,9 @@ function Index() {
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                ₹  {Number(
+                                ₹  {checkNan(Number(
                                     finalCal.provisionalUnitPricePerTon,
-                                  )?.toLocaleString()}
+                                  )?.toLocaleString())}
                                   {/* {finalCal.provisionalUnitPricePerTon} */}
                                 </div>
                               </div>
@@ -1316,9 +1319,9 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.marginMoney} */}
-                                  ₹ {Number(
+                                  ₹ {checkNan(Number(
                                     finalCal.marginMoney,
-                                  )?.toLocaleString()}
+                                  )?.toLocaleString())}
                                 </div>
                               </div>
                             </div>
@@ -1343,7 +1346,7 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.totalSPDC} */}
-                                  ₹ {Number(finalCal.totalSPDC)?.toLocaleString()}
+                                  ₹ {checkNan(Number(finalCal.totalSPDC)?.toLocaleString())}
                                 </div>
                               </div>
                             </div>
@@ -1367,9 +1370,9 @@ function Index() {
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                ₹  {Number(
+                                ₹  {checkNan(Number(
                                     finalCal.amountPerSPDC,
-                                  )?.toLocaleString()}
+                                  )?.toLocaleString())}
                                   {/* {finalCal.amountPerSPDC} */}
                                 </div>
                               </div>
