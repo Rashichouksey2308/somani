@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useRef  } from 'react'
 import styles from './index.module.scss'
 import moment from 'moment'
 import { Row, Col } from 'react-bootstrap'
@@ -238,7 +238,7 @@ function Index({
         label: '',
         data: [25, 20, 55],
 
-        backgroundColor: ['#4CAF50', '#EA3F3F', '#2884DE'],
+        backgroundColor: ['#4CAF50', '#FF9D00', '#2884DE'],
       },
     ],
   }
@@ -275,40 +275,140 @@ function Index({
     return CovertedMonts
   }
 
-  const lineOption = {
-    tension: 0.1,
-    fill: true,
-    elements: {
-      point: {
-        radius: 0,
-      },
-    },
+const lineOption = {
+tension: 0.2,
+
+fill: true,
+
+scales: {
+x: {
+  grid: {
+    color: '#ff000000',
+    borderColor: '#ff000000',
+    tickColor: '#ff000000'
   }
-  let TotalRevenueDataLine = {
-    labels: covertMonths(gstData?.detail?.summaryCharts?.grossRevenue?.month),
+},
+y: {
+  grid: {
+
+    borderColor: '#ff000000',
+    tickColor: '#ff000000'
+  }
+}
+},
+interaction: {
+mode: 'index',
+intersect: false,
+},
+plugins: {
+
+tooltip: {
+  enabled: false,
+  position: 'nearest',
+  // external: externalTooltipHandler
+}
+}
+
+}
+  function createGradient(ctx, area,color,color2) {
+    // const colorStart = faker.random.arrayElement(colors);
+    // const colorMid = faker.random.arrayElement(
+    //   colors.filter(color => color !== colorStart)
+    // );
+    // const colorEnd = faker.random.arrayElement(
+    //   colors.filter(color => color !== colorStart && color !== colorMid)
+    // );
+    console.log( 'cts',color2,color)
+
+    var gradient = ctx.createLinearGradient(0, 0, 0, 300);
+    gradient.addColorStop(0, color2);
+    gradient.addColorStop(1, color);
+
+    console.log(gradient, "gradient")
+    return gradient;
+  }
+const chartRef = useRef(null)
+const chartRef2 = useRef(null)
+const [chartData, setChartData] = useState({
+datasets: [],
+})
+const [chartData2, setChartData2] = useState({
+datasets: [],
+})
+  useEffect(() => {
+  
+
+const chart = chartRef.current;
+const chart2 = chartRef2.current;
+
+
+if (!chart) {
+return
+}
+
+   
+    
+  const data = {
+     labels: covertMonths(gstData?.detail?.summaryCharts?.grossRevenue?.month),
     datasets: [
       {
         label: 'First dataset',
         data: gstData?.detail?.summaryCharts?.grossRevenue?.month,
         fill: true,
-        backgroundColor: 'rgba(75,192,192,1)',
-        borderColor: 'rgba(75,192,192,1)',
+        backgroundColor: createGradient(chart.ctx, chart.chartArea,"rgb(71, 145, 255,0.1)","rgb(71, 145, 255,0.2)"),
+        borderColor: '#2979F2',
       },
     ],
-  }
+    };
+    if (!chart2) {
+      return
+    }
 
-  let TotalPurchasesDataLine = {
+     
+   
+    const data2 = {
     labels: covertMonths(gstData?.detail?.summaryCharts?.grossPurchases?.month),
     datasets: [
-      {
-        label: 'First dataset',
-        data: gstData?.detail?.summaryCharts?.grossPurchases?.month,
-        fill: true,
-        backgroundColor: 'rgba(75,192,192,1)',
-        borderColor: 'rgba(75,192,192,1)',
-      },
+    {
+    label: 'First dataset',
+    data: gstData?.detail?.summaryCharts?.grossPurchases?.month,
+    fill: true,
+    backgroundColor:createGradient(chart2.ctx, chart2.chartArea,"rgb(250, 95, 28,0.1)","rgb(250, 95, 28,0.2)"),
+    borderColor: '#FA5F1C',
+    },
     ],
-  }
+    };
+   
+
+    setChartData(data);
+    setChartData2(data2);
+   
+  }, [chartRef.current,chartRef2.current,]);
+  // let TotalRevenueDataLine = {
+  //   labels: covertMonths(gstData?.detail?.summaryCharts?.grossRevenue?.month),
+  //   datasets: [
+  //     {
+  //       label: 'First dataset',
+  //       data: gstData?.detail?.summaryCharts?.grossRevenue?.month,
+  //       fill: true,
+  //       backgroundColor: createGradient(chart2.ctx, chart2.chartArea,"rgb(71, 145, 255,0.1)","rgb(71, 145, 255,0.2)"),
+  //       borderColor: '#2979F2',
+  //     },
+  //   ],
+  // }
+
+  // let TotalPurchasesDataLine = {
+  //   labels: covertMonths(gstData?.detail?.summaryCharts?.grossPurchases?.month),
+  //   datasets: [
+  //     {
+  //       label: 'First dataset',
+  //       data: gstData?.detail?.summaryCharts?.grossPurchases?.month,
+  //       fill: true,
+  //       backgroundColor: 'rgba(75,192,192,1)',
+  //       borderColor: 'rgba(75,192,192,1)',
+  //     },
+  //   ],
+  // }
   const [rating,setRating]=useState(`rotate(0deg)`);
   useEffect(() => {
    if(filteredCreditRating){
@@ -373,8 +473,10 @@ function Index({
       {operationalDetails(camData)}
       {revenuDetails(gstData)}
       {trends(
-        TotalRevenueDataLine,
-        TotalPurchasesDataLine,
+        chartData,
+        chartRef,
+        chartRef2,
+        chartData2,
         lineOption,
         gstData,
       )}
@@ -1625,7 +1727,7 @@ const debtProfile = (data, options, tempArr, camData) => {
                       style={{ backgroundColor:`${debt.conduct=="Good"?"#43C34D":
                       debt.conduct=="Satisfactory"?"#FF9D00":debt.conduct=="Average"?"average":"#EA3F3F"
                       }`,
-                    width:`${((Number(debt.limit)/1900>100?1:Number(debt.limit)/1900))*100}%`
+                    width:`${((Number(debt.limit)/1900>1?1:Number(debt.limit)/1900))*100}%`
                     }}
                       className={`${styles.fill}`
                       
@@ -3109,8 +3211,10 @@ const Documents = (documentsFetched) => {
   )
 }
 const trends = (
-  TotalRevenueDataLine,
-  TotalPurchasesDataLine,
+  chartData,
+  chartRef,
+  chartRef2,
+  chartData2,
   lineOption,
   gstData,
 ) => {
@@ -3158,7 +3262,7 @@ const trends = (
                   </span>
                 </div>
                 <div className={`${styles.chart}`}>
-                  <Line data={TotalRevenueDataLine} options={lineOption} />
+                  <Line data={chartData} ref={chartRef} options={lineOption} />
                 </div>
                 <div className={`${styles.name}`}>
                   <div
@@ -3166,7 +3270,7 @@ const trends = (
                   >
                     <div
                       className={styles.round}
-                      style={{ backgroundColor: `red` }}
+                      style={{ backgroundColor: `#2979F2` }}
                     ></div>
                     <span className={` heading ml-2`}>Gross Revenue</span>
                   </div>
@@ -3184,7 +3288,7 @@ const trends = (
                   </span>
                 </div>
                 <div className={`${styles.chart}`}>
-                  <Line data={TotalPurchasesDataLine} options={lineOption} />
+                  <Line data={chartData2} ref={chartRef2}  options={lineOption} />
                 </div>
                 <div className={`${styles.name}`}>
                   <div
@@ -3192,7 +3296,7 @@ const trends = (
                   >
                     <div
                       className={styles.round}
-                      style={{ backgroundColor: `red` }}
+                      style={{ backgroundColor: `#FA5F1C` }}
                     ></div>
                     <span className={` heading ml-2`}>Gross Purchases</span>
                   </div>
