@@ -502,10 +502,16 @@ body.light-mode .table_row {
   color: rgba(17, 17, 17, 0.7);
   border-bottom: 2px solid #f2f5f9;
 }
+body.light-mode .table_row:first-child {
+  border-top: 2px solid #f2f5f9;
+}
 body.dark-mode .table_row {
   color: #ffffff80;
   background: #232936;
   border-bottom: 2px solid #434e61 !important;
+}
+body.dark-mode .table_row:first-child {
+  border-top: 2px solid #434e61 !important;
 }
 body.light-mode .uploadRowTable {
   background: #ffffff;

@@ -8,6 +8,8 @@ import moment from 'moment'
 const index = ({ orderDetail, saveShipmentData }) => {
   // const {shipmentDetail}= orderDetail;
 
+  console.log(orderDetail, 'THIS IS ORDER DETAIL')
+
   const saveDate = (value, name) => {
     const d = new Date(value)
     let text = d.toISOString()
@@ -223,6 +225,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
                 <div className="d-flex">
                   <select
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                    defaultValue={orderDetail?.shipmentDetail?.portOfLoading}
                     name="portOfLoading"
                     onChange={(e) => {
                       saveShipmentData(e.target.name, e.target.value)
@@ -231,7 +234,10 @@ const index = ({ orderDetail, saveShipmentData }) => {
                     {/* <option value="volvo">
                       {orderDetail?.shipmentDetail?.shipmentType}
                     </option> */}
-                    <option value="Visakhapatnam">Visakhapatnam</option>
+                    <option disabled selected>Select an option</option>
+                    <option value="Visakhapatnam, India">Visakhapatnam, India</option>
+                    <option value="Mumbai, India">Mumbai, India</option>
+                    <option value="Port Blair, India">Port Blair, India</option>
                     {/* <option value="Bulk">Bulk</option> */}
                   </select>
                   <Form.Label

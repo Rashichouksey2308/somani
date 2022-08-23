@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux'
 import moment from 'moment'
 import { CovertvaluefromtoCR } from '../../utils/helper'
 
+import DateCalender from '../DateCalender'
 function Index({ handleChange, reviewedProfile, isAddedRow }) {
   console.log(
     '🚀 ~ file: index.jsx ~ line 9 ~ Index ~ reviewedProfile',
@@ -233,7 +234,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                   <td>
                     {!reviewedProfile?.turnOver?.apiResponse ? (
                       <input
-                        onChange={(e) => handleCheckBox(3)}
+                        onChange={(e) => handleCheckBox(2)}
                         className={styles.checkBox}
                         type="checkbox"
                       />
@@ -255,7 +256,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                             Number(e.target.value * 10000000),
                           )
                         }
-                        disabled={fields[3]?.isEdit}
+                        disabled={fields[2]?.isEdit}
                       />
                     )}
                   </td>
@@ -280,14 +281,14 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                   <td>
                     {!reviewedProfile?.commodity?.apiResponse ? (
                       <input
-                        onChange={(e) => handleCheckBox(4)}
+                        onChange={(e) => handleCheckBox(3)}
                         className={styles.checkBox}
                         type="checkbox"
                       />
                     ) : null}
                   </td>
                   {!reviewedProfile?.commodity?.apiResponse &&
-                    DropDown(commodityDropdown, 'commodity', fields[4].isEdit)}
+                    DropDown(commodityDropdown, 'commodity', fields[3].isEdit)}
                 </tr>
 
                 <tr className={`${styles.table_row} border_color table_row`}>
@@ -313,7 +314,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                   <td>
                     {!reviewedProfile?.orderValue?.apiResponse ? (
                       <input
-                        onChange={(e) => handleCheckBox(5)}
+                        onChange={(e) => handleCheckBox(4)}
                         className={styles.checkBox}
                         type="checkbox"
                       />
@@ -335,7 +336,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                             Number(e.target.value * 10000000),
                           )
                         }
-                        disabled={fields[5]?.isEdit}
+                        disabled={fields[4]?.isEdit}
                       />
                     )}
                   </td>
@@ -360,7 +361,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                   <td>
                     {!reviewedProfile?.countryOfOrigin?.apiResponse ? (
                       <input
-                        onChange={(e) => handleCheckBox(6)}
+                        onChange={(e) => handleCheckBox(5)}
                         className={styles.checkBox}
                         type="checkbox"
                       />
@@ -370,7 +371,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                     DropDown(
                       countryOfOriginDropdown,
                       'countryOfOrigin',
-                      fields[6].isEdit,
+                      fields[5].isEdit,
                     )}
                 </tr>
 
@@ -393,7 +394,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                   <td>
                     {!reviewedProfile?.portOfDischarge?.apiResponse ? (
                       <input
-                        onChange={(e) => handleCheckBox(7)}
+                        onChange={(e) => handleCheckBox(6)}
                         className={styles.checkBox}
                         type="checkbox"
                       />
@@ -403,7 +404,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                     DropDown(
                       portOfDischargeDropdown,
                       'portOfDischarge',
-                      fields[7]?.isEdit,
+                      fields[6]?.isEdit,
                     )}
                 </tr>
 
@@ -432,7 +433,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                   <td>
                     {!reviewedProfile?.ExpectedDateOfShipment?.apiResponse ? (
                       <input
-                        onChange={(e) => handleCheckBox(8)}
+                        onChange={(e) => handleCheckBox(7)}
                         className={styles.checkBox}
                         type="checkbox"
                       />
@@ -440,15 +441,25 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                   </td>
                   <td>
                     {!reviewedProfile?.ExpectedDateOfShipment?.apiResponse && (
-                      <Form.Control
-                        type="date"
+                      // <Form.Control
+                      //   type="date"
+                      //   name="ExpectedDateOfShipment"
+                      //   id="textDate"
+                      //   className={`${styles.input}`}
+                      //   onBlur={(e) =>
+                      //     handleChange(e.target.name, e.target.value)
+                      //   }
+                      //   disabled={fields[8]?.isEdit}
+                      // />
+                <DateCalender
                         name="ExpectedDateOfShipment"
-                        id="textDate"
-                        className={`${styles.input}`}
-                        onBlur={(e) =>
-                          handleChange(e.target.name, e.target.value)
-                        }
-                        disabled={fields[8]?.isEdit}
+                        saveDate={(name,value)=>{ 
+                        handleChange(name, value)
+                        }}
+
+                        disabled={fields[7]?.isEdit}
+                        labelName=""
+                        small={true}
                       />
                     )}
                   </td>

@@ -1119,7 +1119,7 @@ export default function Index({ addButton, inspectionData }) {
 
 const Discharge = ({ inspectionData, saveInspectionDetails, saveDate }) => {
   return (
-    <div className={`${styles.main} card border-color`}>
+    <div className={`${styles.main} vessel_card card border-color`}>
       <div
         className={`${styles.head_container} border_color card-header align-items-center head_container justify-content-between d-flex bg-transparent`}
       >

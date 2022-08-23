@@ -107,7 +107,7 @@ function Index() {
   }, [companyDetails.companyPan])
 
   const [orderDetails, setOrderDetails] = useState({
-    transactionType: 'Import',
+    transactionType: '',
     commodity: '',
     quantity: null,
     unitOfQuantity: 'mt',
@@ -188,10 +188,17 @@ function Index() {
   const chanegTermsCheck = () => {
     setTermsCheck(!termsCheck)
   }
-
+console.log(companyDetails.transactionType,"trans")
   const submitData = () => {
  console.log("submit1")
-    // handleCurrOrder()
+    // handleCurrOrder()  
+      if (companyDetails.transactionType === null) {
+      let toastMessage = 'Please Select a valid transaction Type'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage, { toastId: toastMessage })
+      }
+      return
+      }
     if (companyDetails.companyName === '') {
        console.log("submit2")
       let toastMessage = 'Please Fill The Company Name'
@@ -201,12 +208,6 @@ function Index() {
       return
     } else if (companyDetails.companyPan.trim().length !== 10) {
       let toastMessage = 'Please Fill A valid Company Pan'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
-      }
-      return
-    } else if (companyDetails.transactionType === null) {
-      let toastMessage = 'Please Select a valid transaction Type'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
@@ -302,12 +303,14 @@ function Index() {
         docTypeArr.push(val.typeDocument)
       })
       let sendOrder = { ...orderDetails }
+       let sendOrder1 = { ...companyDetails }
       sendOrder.quantity = Number(removePrefixOrSuffix(orderDetails.quantity))
       sendOrder.orderValue = Number(removePrefixOrSuffix(orderDetails.orderValue) * 10000000)
+      sendOrder1.turnOver = Number(removePrefixOrSuffix(companyDetails.turnOver) * 10000000)
 
       console.log(sendOrder.quantity, "orderDetails12",)
       const fd = new FormData()
-      fd.append('companyProfile', JSON.stringify(companyDetails))
+      fd.append('companyProfile', JSON.stringify(sendOrder1))
       fd.append('orderDetails', JSON.stringify(sendOrder))
       fd.append('documentType', JSON.stringify(docTypeArr))
      
@@ -325,7 +328,7 @@ function Index() {
        dispatch(CreateBuyer(fd))
     }
   }
-  console.log(orderDetails, 'this is payload2')
+  console.log(companyDetails, 'this is payload2')
   const clearData = () => {
     document.getElementById('CompanyDetailsForm').reset()
     document.getElementById('OrderDetailsForm').reset()

@@ -37,7 +37,10 @@ function Index({ directorData }) {
           <h2 className="mb-0">Director Details</h2>
           <span>+</span>
         </div>
-
+        {directorData?.profile?.directorDetail?.length==0?
+        <p>Nothing to show</p>
+        :null
+        }
         {
           directorData?.profile?.directorDetail?.map((director, index) => {
             return (
@@ -109,7 +112,7 @@ function Index({ directorData }) {
                       </div>
                       <div
                         id={`director${index}`}
-                        className="collapse show"
+                        className={`collapse ${index==0?"show":""} `}
                         aria-labelledby={`director${index}`}
                         data-parent="#directorDetails"
                       >

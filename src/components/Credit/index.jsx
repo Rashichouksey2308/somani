@@ -29,8 +29,9 @@ const index = ({
   deleteAddress,
   supplierCred,
   setEditRow,
+  orderDetail,
 }) => {
-  console.log(personData, 'person')
+  console.log(keyAddData, 'person')
   console.log(creditDetail, 'debtData')
   const dispatch = useDispatch()
 
@@ -659,7 +660,7 @@ const index = ({
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="text"
+                  type="number"
                   value={
                     supplierCred?.shipmentNumber
                   }
@@ -677,7 +678,7 @@ const index = ({
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="text"
+                  type="number"
                   value={
                     supplierCred?.consigneesNumber
                   }
@@ -695,7 +696,7 @@ const index = ({
                 <input
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="text"
+                  type="number"
                   value={supplierCred?.HSCodesNumber}
                   name="HSCodesNumber"
                   onChange={(e) => {
@@ -1073,15 +1074,17 @@ const index = ({
                   <>
                     <AddressComponent
                       index={index}
-                      Title={address.addressType}
-                      address={address.completeAddress}
-                      number={address.contact?.number}
-                      callingCode={address.contact?.callingCode}
-                      branch={address.branch}
-                      gstIn={address.GSTIN}
-                      email={address.email}
+                      Title={address?.addressType}
+                      address={address?.completeAddress}
+                      number={address?.contact?.number}
+                      callingCode={address?.contact?.callingCode}
+                      branch={address?.branch}
+                      gstIn={address?.GSTIN}
+                      email={address?.email}
                       deleteComponent={deleteComponent}
                       editAddress={editAddress}
+                      orderDetail={orderDetail}
+                      path={address?.GSTIN_document?.path}
                     />
                   </>
                 )
@@ -1351,13 +1354,14 @@ const index = ({
                           />
                           GST Doc
                         </button>
-                        <button
+                      
+                      </div>
+                      <button
                           className={`${styles.add_btn}`}
                           onClick={() => handleClick()}
                         >
                           Add
                         </button>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -1722,189 +1726,6 @@ const index = ({
             </div>
             {/* ))} */}
           </div>
-          {/* <div key={index} className={`${styles.dashboard_form} card-body`}>
-              <div className="d-flex justify-content-between">
-                <div className={`${styles.address_card} value background1`}>
-                  <div className="d-flex justify-content-between">
-                    <div>
-                      <input type="checkbox" />
-                      <label className={styles.label}>
-                        {address.addressType}
-                      </label>
-                      <div className={styles.address_values}>
-                        <p>{address.completeAddress}</p>
-                        <p className="pt-3">
-                          <span>Email: </span>
-                          {address.email}
-                        </p>
-                        <p>
-                          <span>Phone Number:</span>
-                          {address.contact?.number}
-                        </p>
-                        <p>
-                          <span>Branch: </span>
-                          {address.branch}
-                        </p>
-                        <div className="d-flex">
-                          <p>
-                            {' '}
-                            <span>GSTIN: </span>
-                            {address.GSTIN}
-                          </p>
-                          <span className={styles.button}>View</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <img
-                        className={`${styles.edit_image} img-fluid`}
-                        src="/static/mode_edit.svg"
-                        alt="Edit"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                
-                <div className={`${styles.address_card} value background1`}>
-                <div className="d-flex justify-content-between">
-                  <div>
-                    <div className={styles.address_values}>
-                      <h5>Corporate Office Address</h5>
-                      <p>N-11, 29 Tilak Marg, New Delhi</p>
-                      <p className="pt-3">
-                        <span>Email: </span>skapoor@gmail.com
-                      </p>
-                      <p>
-                        <span>Phone Number:</span>+91 9876543210, +91 9876543210
-                      </p>
-                    </div>
-                  </div>
-                  <div>
-                    <img
-                      className={`${styles.edit_image} img-fluid`}
-                      src="/static/mode_edit.svg"
-                      alt="Edit"
-                    />
-                  </div>
-                </div>
-              </div> */}
-
-          {/* <div className={`${styles.dashboard_form} card-body`}> */}
-          {/* <div className="d-flex justify-content-between">
-              <div className={`${styles.address_card} value background1`}>
-                <div className="d-flex justify-content-between">
-                  <div>
-                    <input type="checkbox" />
-                    <label className={styles.label}>
-                      Registered Office Address
-                    </label>
-                    <div className={styles.address_values}>
-                      <p>N-11, 29 Tilak Marg, New Delhi</p>
-                      <p className="pt-3">
-                        <span>Email: </span>
-                        skapoor@gmail
-                      </p>
-                      <p>
-                        <span>Phone Number:</span>
-                        +91 987665443332
-                      </p>
-                    </div>
-                  </div>
-                  <div>
-                    <img
-                      className={`${styles.edit_image} img-fluid`}
-                      src="/static/mode_edit.svg"
-                      alt="Edit"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className={`${styles.address_card} value background1`}>
-                <div className="d-flex justify-content-between">
-                  <div>
-                    <div className={styles.address_values}>
-                      <h5>Corporate Office Address</h5>
-                      <p>N-11, 29 Tilak Marg, New Delhi</p>
-                      <p className="pt-3">
-                        <span>Email: </span>skapoor@gmail.com
-                      </p>
-                      <p>
-                        <span>Phone Number:</span>+91 9876543210, +91 9876543210
-                      </p>
-                    </div>
-                  </div>
-                  <div>
-                    <img
-                      className={`${styles.edit_image} img-fluid`}
-                      src="/static/mode_edit.svg"
-                      alt="Edit"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="d-flex justify-content-between">
-              <div className={`${styles.address_card} value background1`}>
-                <div
-                  className={`${styles.address_values} d-flex justify-content-between`}
-                >
-                  <h5>Factory Address</h5>
-                  <div>
-                    <img
-                      className={`${styles.edit_image} img-fluid mr-3`}
-                      src="/static/mode_edit.svg"
-                      alt="edit"
-                    />
-                    <img
-                      src="/static/delete 2.svg"
-                      className="img-fluid"
-                      alt="delete"
-                    />
-                  </div>
-                </div>
-                <div className={styles.address_values}>
-                  <p className="pt-3">
-                    A-44, Sagar Apartments, Tilak Marg, Agra, Uttar Pradesh
-                    11008
-                  </p>
-                  <p className="pt-3">
-                    <span>Email: </span>skapoor@gmail.com
-                  </p>
-                  <p>
-                    <span>Phone Number:</span>+91 9876543210, +91 9876543210
-                  </p>
-                  <p>
-                    <span>Branch: </span>Delhi
-                  </p>
-                  <div className="d-flex">
-                    <p>
-                      {' '}
-                      <span>GSTIN: </span>Gstdt789652Jkv
-                    </p>
-                    <span className={styles.view_btn}>View</span>
-                  </div>
-                </div>
-              </div>
-              <AddressComponent
-                Title
-                address
-                number
-                callingCode
-                branch
-                gstIn
-                email
-              />
-            </div> */}
-          {/* <div
-              className={`${styles.add_row} pr-3 d-flex justify-content-end`}
-            >
-              <span>+</span>
-              <div>Add More Rows</div>
-            </div>
-          
-          </div> */}
         </div>
       </div>
 

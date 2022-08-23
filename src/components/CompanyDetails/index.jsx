@@ -6,6 +6,7 @@ import { emailValidation, panValidation, phoneValidation } from 'utils/helper'
 import { useSelector, useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { ChangeCurrency } from '../../redux/userData/action'
+import { addPrefixOrSuffix ,removePrefixOrSuffix} from 'utils/helper'
 
 const Index = ({
   saveCompanyData,
@@ -25,7 +26,7 @@ const Index = ({
 
   const [highlight, setHighlight] = useState(0)
   const [highlight3, setHighlight3] = useState(0)
-
+console.log(slider,"slider16513")
   const setSlide = (val) => {
     setSlider(val)
     getSlider(val)
@@ -457,9 +458,9 @@ const Index = ({
                 </div>
                 <input
                   className={`${styles.input_container} form-control input`}
-                  type="number"
+                  type="text"
                   onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
-                  value={slider}
+                  value={addPrefixOrSuffix(slider,"Cr")}
                   name="turnOver"
                   onChange={(e) => {
                     setSlider(Number(e.target.value))

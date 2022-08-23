@@ -92,7 +92,7 @@ function Index({
   const [sanctionComments, setSanctionComments] = useState('')
 
   const latestBalanceData = _get(companyData, 'financial.balanceSheet[0]', {})
-  // console.log(latestBalanceData.equityLiabilities.totalEquity, 'THIS IS LATEST BALANCE DATA')
+
 
   const previousBalanceData = _get(companyData, 'financial.balanceSheet[1]', {})
 
@@ -424,7 +424,9 @@ return
 
   const getRotate=(rat=1)=>{
     let r=Math.round(rat)
-   
+    if(r==0){
+      setRating(`rotate(90deg)`)
+    }
     if(r==1){
       setRating(`rotate(90deg)`)
     }
@@ -1615,7 +1617,7 @@ const chargeDetails = (data, options, tempArr, camData) => {
                             </td>
                             <td>{charge?.finalAmountSecured}</td>
 
-                            <td>{charge?.dateOfCreationOfCharge}</td>
+                            <td>{charge?.dateOfCreationOfCharge?moment(charge?.dateOfCreationOfCharge).format("DD-MM-YYYY"):""}</td>
                           </tr>
                         )
                       },

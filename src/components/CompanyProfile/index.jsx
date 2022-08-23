@@ -17,7 +17,7 @@ function Index() {
         aria-controls="customerDetail"
       >
         <div className={styles.header}>
-          <h2 className={`mb-0`}>Customer Details</h2>
+          <h2 className={`mb-0`}>Company Profile</h2>
           <span className=" d-flex align-items-center justify-content-between">
             +
           </span>
@@ -36,9 +36,19 @@ function Index() {
           'Transaction Type',
           buyerList?.transactionType?.originalValue ?? '',
         )}
-        {fields(
+        {/* {fields(
           'Turn-Over (in Cr)',
           CovertvaluefromtoCR(buyerList?.company?.turnOver ?? ''),
+        )} */}
+         {fields(
+          'Turn-Over (in Cr)',
+          CovertvaluefromtoCR(buyerList?.order?.orderValue)?.toLocaleString(),
+          false,
+          buyerList?.order?.unitOfValue == 'Crores'
+            ? 'Cr'
+            : buyerList?.order?.unitOfValue == 'Million'
+            ? 'Mn'
+            : buyerList?.order?.unitOfValue,
         )}
         {fields('Email ID', buyerList?.company?.email ?? '')}
 
@@ -62,7 +72,7 @@ function Index() {
 }
 
 export default Index
-const fields = (head, value, countryCode) => {
+const fields = (head, value, countryCode,value3="") => {
   return (
     <>
       <div
@@ -71,7 +81,7 @@ const fields = (head, value, countryCode) => {
         <span className={`${styles.top} label`}>{head}</span>
         <div>
           <span className={`${styles.value} value `}>
-            {countryCode ? countryCode : ''} {value}
+            {countryCode ? countryCode : ''} {value} {value3}
           </span>
         </div>
       </div>
