@@ -137,12 +137,12 @@ export default function Index({ addButton, inspectionData }) {
   useEffect(() => {
     if (inspectionData) {
       if (
-        inspectionData.order.termsheet.transactionDetails.typeOfPort ==
+        inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort ==
         'Load Port'
       ) {
         setPortType({ ...portType, lord: true })
       } else if (
-        inspectionData.order.termsheet.transactionDetails.typeOfPort == 'Both'
+        inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort == 'Both'
       ) {
         setPortType({ ...portType, lord: true, discharge: true })
       } else {
@@ -541,7 +541,7 @@ export default function Index({ addButton, inspectionData }) {
                             </td>
                             <td>
                               {documents &&
-                              documents.certificateOfOrigin == null ? (
+                              documents?.certificateOfOrigin == null ? (
                                 <>
                                   <div className={styles.uploadBtnWrapper}>
                                     <input
@@ -652,7 +652,7 @@ export default function Index({ addButton, inspectionData }) {
                             </td>
                             <td>
                               {documents &&
-                              documents.certificateOfQuality == null ? (
+                              documents?.certificateOfQuality == null ? (
                                 <>
                                   <div className={styles.uploadBtnWrapper}>
                                     <input
@@ -764,7 +764,7 @@ export default function Index({ addButton, inspectionData }) {
                             </td>
                             <td>
                               {documents &&
-                              documents.certificateOfWeight == null ? (
+                              documents?.certificateOfWeight == null ? (
                                 <>
                                   <div className={styles.uploadBtnWrapper}>
                                     <input

@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useRef  } from 'react'
 import styles from './index.module.scss'
 import moment from 'moment'
 import { Row, Col } from 'react-bootstrap'
@@ -48,7 +48,7 @@ function Index({
   approvedCredit,
 }) {
   const dispatch = useDispatch()
-  console.log(camData, 'camData')
+  console.log(companyData, 'companyData')
   // console.log(fetchingKarzaGst, 'fetchingKarzaGst')
   useEffect(() => {
     if (window) {
@@ -92,6 +92,7 @@ function Index({
   const [sanctionComments, setSanctionComments] = useState('')
 
   const latestBalanceData = _get(companyData, 'financial.balanceSheet[0]', {})
+  console.log(latestBalanceData.equityLiabilities.totalEquity, 'THIS IS LATEST BALANCE DATA')
 
   const previousBalanceData = _get(companyData, 'financial.balanceSheet[1]', {})
 
@@ -117,13 +118,16 @@ function Index({
   }
 
   const primaryBankName = () => {
-    const filteredData = camData?.company?.debtProfile?.filter(
+    let filteredData = []
+     filteredData = camData?.company?.debtProfile?.filter(
       (data) => data.primaryBank,
-    )
-    const length = filteredData?.bankName
+    ) || [] 
+    
+    const length = _get(filteredData[0], 'bankName', '')
 
     return length
   }
+
 
   const latestAuditorData = _get(
     camData,
@@ -178,6 +182,7 @@ function Index({
       if (element.fullName === '') {
       } else {
         if (index < 2) {
+
           setTempArr(prevState => {
             return [...prevState, {
               ...prevState[index],
@@ -188,8 +193,8 @@ function Index({
         }
       }
     })
-     camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern.forEach((element, index) => {
-    let randColor = colors[Math.floor(Math.random() * colors.length)]
+  camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern.forEach((element, index) => {
+
     if (element.fullName === '') {
     } else {
       if (index <= 2) {
@@ -204,8 +209,8 @@ function Index({
   })
     }
    
-    console.log(data, 'dhjj')
-  }, [])
+    console.log(camData, 'dhjj')
+  }, [camData])
   // let tempArr = [
 
   // {
@@ -238,7 +243,7 @@ function Index({
         label: '',
         data: [25, 20, 55],
 
-        backgroundColor: ['#4CAF50', '#EA3F3F', '#2884DE'],
+        backgroundColor: ['#4CAF50', '#FF9D00', '#2884DE'],
       },
     ],
   }
@@ -275,47 +280,188 @@ function Index({
     return CovertedMonts
   }
 
-  const lineOption = {
-    tension: 0.1,
-    fill: true,
-    elements: {
-      point: {
-        radius: 0,
-      },
-    },
+const lineOption = {
+tension: 0.2,
+
+fill: true,
+
+scales: {
+x: {
+  grid: {
+    color: '#ff000000',
+    borderColor: '#ff000000',
+    tickColor: '#ff000000'
   }
-  let TotalRevenueDataLine = {
-    labels: covertMonths(gstData?.detail?.summaryCharts?.grossRevenue?.month),
+},
+y: {
+  grid: {
+
+    borderColor: '#ff000000',
+    tickColor: '#ff000000'
+  }
+}
+},
+interaction: {
+mode: 'index',
+intersect: false,
+},
+plugins: {
+
+tooltip: {
+  enabled: false,
+  position: 'nearest',
+  // external: externalTooltipHandler
+}
+}
+
+}
+  function createGradient(ctx, area,color,color2) {
+    // const colorStart = faker.random.arrayElement(colors);
+    // const colorMid = faker.random.arrayElement(
+    //   colors.filter(color => color !== colorStart)
+    // );
+    // const colorEnd = faker.random.arrayElement(
+    //   colors.filter(color => color !== colorStart && color !== colorMid)
+    // );
+    console.log( 'cts',color2,color)
+
+    var gradient = ctx.createLinearGradient(0, 0, 0, 300);
+    gradient.addColorStop(0, color2);
+    gradient.addColorStop(1, color);
+
+    console.log(gradient, "gradient")
+    return gradient;
+  }
+const chartRef = useRef(null)
+const chartRef2 = useRef(null)
+const [chartData, setChartData] = useState({
+datasets: [],
+})
+const [chartData2, setChartData2] = useState({
+datasets: [],
+})
+  useEffect(() => {
+  
+
+const chart = chartRef.current;
+const chart2 = chartRef2.current;
+
+
+if (!chart) {
+return
+}
+
+   
+    
+  const data = {
+     labels: covertMonths(gstData?.detail?.summaryCharts?.grossRevenue?.month),
     datasets: [
       {
         label: 'First dataset',
         data: gstData?.detail?.summaryCharts?.grossRevenue?.month,
         fill: true,
-        backgroundColor: 'rgba(75,192,192,1)',
-        borderColor: 'rgba(75,192,192,1)',
+        backgroundColor: createGradient(chart.ctx, chart.chartArea,"rgb(71, 145, 255,0.1)","rgb(71, 145, 255,0.2)"),
+        borderColor: '#2979F2',
       },
     ],
-  }
+    };
+    if (!chart2) {
+      return
+    }
 
-  let TotalPurchasesDataLine = {
+     
+   
+    const data2 = {
     labels: covertMonths(gstData?.detail?.summaryCharts?.grossPurchases?.month),
     datasets: [
-      {
-        label: 'First dataset',
-        data: gstData?.detail?.summaryCharts?.grossPurchases?.month,
-        fill: true,
-        backgroundColor: 'rgba(75,192,192,1)',
-        borderColor: 'rgba(75,192,192,1)',
-      },
+    {
+    label: 'First dataset',
+    data: gstData?.detail?.summaryCharts?.grossPurchases?.month,
+    fill: true,
+    backgroundColor:createGradient(chart2.ctx, chart2.chartArea,"rgb(250, 95, 28,0.1)","rgb(250, 95, 28,0.2)"),
+    borderColor: '#FA5F1C',
+    },
     ],
-  }
-  console.log(camData, "camdata")
+    };
+   
 
+    setChartData(data);
+    setChartData2(data2);
+   
+  }, [chartRef.current,chartRef2.current,]);
+  // let TotalRevenueDataLine = {
+  //   labels: covertMonths(gstData?.detail?.summaryCharts?.grossRevenue?.month),
+  //   datasets: [
+  //     {
+  //       label: 'First dataset',
+  //       data: gstData?.detail?.summaryCharts?.grossRevenue?.month,
+  //       fill: true,
+  //       backgroundColor: createGradient(chart2.ctx, chart2.chartArea,"rgb(71, 145, 255,0.1)","rgb(71, 145, 255,0.2)"),
+  //       borderColor: '#2979F2',
+  //     },
+  //   ],
+  // }
+
+  // let TotalPurchasesDataLine = {
+  //   labels: covertMonths(gstData?.detail?.summaryCharts?.grossPurchases?.month),
+  //   datasets: [
+  //     {
+  //       label: 'First dataset',
+  //       data: gstData?.detail?.summaryCharts?.grossPurchases?.month,
+  //       fill: true,
+  //       backgroundColor: 'rgba(75,192,192,1)',
+  //       borderColor: 'rgba(75,192,192,1)',
+  //     },
+  //   ],
+  // }
+  const [rating,setRating]=useState(`rotate(0deg)`);
+  useEffect(() => {
+   if(filteredCreditRating){
+    getRotate(filteredCreditRating[0]?.totalRating)
+    //  getRotate(2)
+   }
+  },[filteredCreditRating])
+
+  const getRotate=(rat=1)=>{
+    let r=Math.round(rat)
+   
+    if(r==1){
+      setRating(`rotate(90deg)`)
+    }
+    if(r==2){
+      setRating(`rotate(130deg)`)
+    }
+    if(r==3){
+      setRating(`rotate(180deg)`)
+    }
+    if(r==4){
+      setRating(`rotate(205deg)`)
+    }
+    if(r==5){
+      setRating(`rotate(225deg)`)
+    }
+    if(r==6){
+      setRating(`rotate(250deg)`)
+    }
+    if(r==7){
+      setRating(`rotate(270deg)`)
+    }
+    
+    if(r==8){
+      setRating(`rotate(310deg)`)
+    }
+    if(r==9){
+      setRating(`rotate(330deg)`)
+    }
+    if(r==10){
+      setRating(`rotate(2deg)`)
+    }
+  }
   return (
     <>
       {basicInfo(camData)}
       {supplierInfo(camData)}
-      {customerRating()}
+      {customerRating(camData,filteredCreditRating,rating)}
       {groupExposure(camData)}
       {orderSummary(camData)}
       {creditProfile(
@@ -332,8 +478,10 @@ function Index({
       {operationalDetails(camData)}
       {revenuDetails(gstData)}
       {trends(
-        TotalRevenueDataLine,
-        TotalPurchasesDataLine,
+        chartData,
+        chartRef,
+        chartRef2,
+        chartData2,
         lineOption,
         gstData,
       )}
@@ -421,8 +569,8 @@ const basicInfo = (camData) => {
                 >
                   <span className={`${styles.key} label1 ml-5 pl-5`}>City</span>
                   <span className={`${styles.value} value`}>
-                    {_get(camData, 'company.keyAddress[0].city', '')}
-                    {/* {camData?.company?.keyAddress[0]?.city} */}
+                  {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.city}
+
                   </span>
                 </Col>
               </Row>
@@ -438,8 +586,8 @@ const basicInfo = (camData) => {
                     State
                   </span>
                   <span className={`${styles.value} value`}>
-                    {_get(camData, 'company.keyAddress[0].state', '')}
-                    {/* {camData?.company?.keyAddress[0]?.state} */}
+                  {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.state}
+
                   </span>
                 </Col>
               </Row>
@@ -1584,7 +1732,7 @@ const debtProfile = (data, options, tempArr, camData) => {
                       style={{ backgroundColor:`${debt.conduct=="Good"?"#43C34D":
                       debt.conduct=="Satisfactory"?"#FF9D00":debt.conduct=="Average"?"average":"#EA3F3F"
                       }`,
-                    width:`${((Number(debt.limit)/1900>100?1:Number(debt.limit)/1900))*100}%`
+                    width:`${((Number(debt.limit)/1900>1?1:Number(debt.limit)/1900))*100}%`
                     }}
                       className={`${styles.fill}`
                       
@@ -2175,12 +2323,12 @@ const financeDetails = (
                       Liabilities
                     </th>
                     <th>
-                      {moment(latestBalanceData?.date)
+                      {moment(_get(companyData, 'financial.balanceSheet[0].date', ''))
                         .format('MMM-YY')
                         .toUpperCase()}
                     </th>
                     <th>
-                      {moment(previousBalanceData?.date)
+                    {moment(_get(companyData, 'financial.balanceSheet[1].date', ''))
                         .format('MMM-YY')
                         .toUpperCase()}
                     </th>
@@ -2188,42 +2336,41 @@ const financeDetails = (
                   <tr>
                     <td>Net Worth</td>
                     <td>
-                      {latestBalanceData?.equityLiabilities?.totalEquity?.toLocaleString()}
+                      {_get(companyData, 'financial.balanceSheet[0].equityLiabilities.totalEquity', '')?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td>
-                      {previousBalanceData?.equityLiabilities?.totalEquity?.toLocaleString()}
+                    {_get(companyData, 'financial.balanceSheet[1].equityLiabilities.totalEquity', '')?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
                   <tr>
                     <td>Total Borrowings</td>
                     <td>
-                      {latestBalanceData?.equityLiabilities?.borrowingsCurrent +
-                        latestBalanceData?.equityLiabilities?.borrowingsNonCurrent?.toLocaleString()}
+                      {Number(_get(companyData, 'financial.balanceSheet[0].equityLiabilities.borrowingsCurrent', '') +
+                        _get(companyData, 'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent', ''))?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td>
-                      {previousBalanceData?.equityLiabilities
-                        ?.borrowingsCurrent +
-                        previousBalanceData?.equityLiabilities?.borrowingsNonCurrent?.toLocaleString()}
+                    {Number(_get(companyData, 'financial.balanceSheet[1].equityLiabilities.borrowingsCurrent', '') +
+                        _get(companyData, 'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent', ''))?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
                   <tr>
                     <td>Creditors</td>
                     <td>
-                      {latestBalanceData?.equityLiabilities?.tradePay +
-                        latestBalanceData?.equityLiabilities?.tradePayablesNoncurrent?.toLocaleString()}
+                    {Number(_get(companyData, 'financial.balanceSheet[0].equityLiabilities.tradePay', '') +
+                        _get(companyData, 'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent', ''))?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td>
-                      {previousBalanceData?.equityLiabilities?.tradePay +
-                        previousBalanceData?.equityLiabilities?.tradePayablesNoncurrent?.toLocaleString()}
+                    {Number(_get(companyData, 'financial.balanceSheet[1].equityLiabilities.tradePay', '') +
+                        _get(companyData, 'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent', ''))?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
                   <tr>
                     <td>Other Current Liabilities</td>
                     <td>
-                      {latestBalanceData?.equityLiabilities?.otherCurrentLiabilities?.toLocaleString()}
+                      {_get(companyData, 'financial.balanceSheet[0].equityLiabilities.otherCurrentLiabilities', '')?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td>
-                      {previousBalanceData?.equityLiabilities?.otherCurrentLiabilities?.toLocaleString()}
+                    {_get(companyData, 'financial.balanceSheet[1].equityLiabilities.otherCurrentLiabilities', '')?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
 
@@ -2367,14 +2514,14 @@ const financeDetails = (
                     <td>
                       {_get(
                         companyData,
-                        'financial?.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
+                        'financial.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
                         '',
                       ).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td>
                       {_get(
                         companyData,
-                        'financial?.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
+                        'financial.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
                         '',
                       ).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
@@ -2384,14 +2531,14 @@ const financeDetails = (
                     <td>
                       {_get(
                         companyData,
-                        'financial?.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
+                        'financial.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
                         '',
                       ).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td>
                       {_get(
                         companyData,
-                        'financial?.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
+                        'financial.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
                         '',
                       ).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
@@ -2538,12 +2685,12 @@ const compilanceStatus = (companyData, camData) => {
                     className={`${styles.value} value pr-5`}
                     style={{ color: '#EA3F3F' }}
                   >
-                    Text
+                    {moment(_get(companyData,"GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1",""), 'MMyyyy').format('MM-yyyy')}
                   </span>
                 </Col>
                 <Col
                   className={` col-md-offset-2 d-flex justify-content-between`}
-                  md={5}
+                  md={6}
                 >
                   <span className={`${styles.key} label1 pl-5`}>NCLT</span>
                   <span className={`${styles.value} value`}>
@@ -2594,14 +2741,16 @@ const compilanceStatus = (companyData, camData) => {
                     Last Balance Sheet Dates
                   </span>
                   <span className={`${styles.value} value pr-5`}>
-                    14-05-2022
+                   {companyData?.profile?.companyDetail?.lastBalanceSheet}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1 pl-5`}>
                     Active Directors
                   </span>
-                  <span className={`${styles.value} value`}>4,320</span>
+                  <span className={`${styles.value} value`}>
+                    {companyData?.profile?.directorDetail?.length??0}
+                  </span>
                 </Col>
               </Row>
             </div>
@@ -2737,6 +2886,7 @@ const sectionTerms = (
   onApprove,
   onApproveOrder,
 ) => {
+ 
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -3065,8 +3215,10 @@ const Documents = (documentsFetched) => {
   )
 }
 const trends = (
-  TotalRevenueDataLine,
-  TotalPurchasesDataLine,
+  chartData,
+  chartRef,
+  chartRef2,
+  chartData2,
   lineOption,
   gstData,
 ) => {
@@ -3114,7 +3266,7 @@ const trends = (
                   </span>
                 </div>
                 <div className={`${styles.chart}`}>
-                  <Line data={TotalRevenueDataLine} options={lineOption} />
+                  <Line data={chartData} ref={chartRef} options={lineOption} />
                 </div>
                 <div className={`${styles.name}`}>
                   <div
@@ -3122,7 +3274,7 @@ const trends = (
                   >
                     <div
                       className={styles.round}
-                      style={{ backgroundColor: `red` }}
+                      style={{ backgroundColor: `#2979F2` }}
                     ></div>
                     <span className={` heading ml-2`}>Gross Revenue</span>
                   </div>
@@ -3140,7 +3292,7 @@ const trends = (
                   </span>
                 </div>
                 <div className={`${styles.chart}`}>
-                  <Line data={TotalPurchasesDataLine} options={lineOption} />
+                  <Line data={chartData2} ref={chartRef2}  options={lineOption} />
                 </div>
                 <div className={`${styles.name}`}>
                   <div
@@ -3148,7 +3300,7 @@ const trends = (
                   >
                     <div
                       className={styles.round}
-                      style={{ backgroundColor: `red` }}
+                      style={{ backgroundColor: `#FA5F1C` }}
                     ></div>
                     <span className={` heading ml-2`}>Gross Purchases</span>
                   </div>
@@ -3255,9 +3407,9 @@ const skewness = (data, options, tempArr, gstData) => {
                     }
                   </span>
                 </div>
-                <div className={`${styles.chart}`}>
-                  {/* <Line data={dataline} options={lineOption} /> */}
-                </div>
+                {/* <div className={`${styles.chart}`}>
+                  <Line data={dataline} options={lineOption} />
+                </div> */}
                 <Row
                   className={`d-flex  d-flex align-items-center justify-content-evenly`}
                 >
@@ -3304,7 +3456,8 @@ const skewness = (data, options, tempArr, gstData) => {
     </>
   )
 }
-const customerRating = (dataline, lineOption) => {
+const customerRating = (data,filteredCreditRating,rating) => {
+  console.log(filteredCreditRating,"filteredCreditRating22")
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -3480,14 +3633,15 @@ const customerRating = (dataline, lineOption) => {
                     <img
                       src={`/static/needle.svg`}
                       className={`${styles.arrow}`}
+                      style={{transform:`${rating}`}}
                     ></img>
-                    <div className={`${styles.score}`}>9.0</div>
+                    <div className={`${styles.score}`}>{Math.round(filteredCreditRating?filteredCreditRating[0]?.totalRating:0)}.0</div>
                   </div>
                 </div>
 
                 <div className={`${styles.score} `}>
                   <div className={`${styles.excellent}`}>
-                    <span>EXCELLENT</span>
+                    <span>{filteredCreditRating?filteredCreditRating[0]?.creditResult?.toUpperCase():""}</span>
                   </div>
                   <div className={`${styles.creditScore}`}>
                     <div className={`${styles.tickContainer}`}>
@@ -3498,7 +3652,7 @@ const customerRating = (dataline, lineOption) => {
                         CREDIT SCORE
                       </span>
                       <div>
-                        <span className={`${styles.score}`}>9.0</span>
+                        <span className={`${styles.score}`}>{Math.round(filteredCreditRating?filteredCreditRating[0]?.totalRating:0)}.0</span>
                         <span className={`${styles.outOF}`}>/10</span>
                       </div>
                     </div>
@@ -3512,7 +3666,7 @@ const customerRating = (dataline, lineOption) => {
                         RATING
                       </span>
                       <div>
-                        <span className={`${styles.score}`}>A</span>
+                        <span className={`${styles.score}`}>{filteredCreditRating?filteredCreditRating[0]?.creditGrade:""}</span>
                       </div>
                     </div>
                   </div>
