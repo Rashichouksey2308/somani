@@ -3,6 +3,7 @@ import React from 'react'
 import styles from '../index.module.scss'
 import moment from 'moment'
 import _get from 'lodash/get'
+import {checkNan} from '../../../utils/helper'
 
 function Index({ incomeData, rtrnChartIndiaction }) {
   // console.log(incomeData?.financial?.incomeStatement[0], 'THIS IS INCOME DATA')
@@ -163,22 +164,31 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                         <strong>EBITA</strong>
                       </td>
                       <td className="text-center">
-                        {(latestYearData?.revenue?.revenueFromOperations -
+                        {checkNan(
+                            (latestYearData?.revenue?.revenueFromOperations -
                           latestYearData?.expenses?.totExp +
                           latestYearData?.expenses?.finCost +
-                          latestYearData?.expenses?.deprcnAmort)?.toLocaleString()}
+                          latestYearData?.expenses?.deprcnAmort),true
+                            )}
+                        
                       </td>
                       <td className="text-center">
-                        {(previousYearData?.revenue?.revenueFromOperations -
+                        {checkNan(
+                            (previousYearData?.revenue?.revenueFromOperations -
                           previousYearData?.expenses?.totExp +
                           previousYearData?.expenses?.finCost +
-                          previousYearData?.expenses?.deprcnAmort)?.toLocaleString()}
+                          previousYearData?.expenses?.deprcnAmort),true
+                            )}
+                        
                       </td>
                       <td className="text-center">
-                        {(lastYearData?.revenue?.revenueFromOperations -
+                          {checkNan(
+                            (lastYearData?.revenue?.revenueFromOperations -
                           lastYearData?.expenses?.totExp +
                           lastYearData?.expenses?.finCost +
-                          lastYearData?.expenses?.deprcnAmort)?.toLocaleString()}
+                          lastYearData?.expenses?.deprcnAmort),true
+                            )}
+                        
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction((latestYearData?.revenue?.revenueFromOperations -
@@ -215,19 +225,29 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                         <strong>EBIT</strong>
                       </td>
                       <td className="text-center">
-                        {(latestYearData?.revenue?.revenueFromOperations -
+                          {checkNan(
+                            (latestYearData?.revenue?.revenueFromOperations -
                           latestYearData?.expenses?.totExp +
-                          latestYearData?.expenses?.finCost)?.toLocaleString()}
+                          latestYearData?.expenses?.finCost),true
+                            )}
+                        
                       </td>
                       <td className="text-center">
-                        {(previousYearData?.revenue?.revenueFromOperations -
+                         {checkNan(
+                            (previousYearData?.revenue?.revenueFromOperations -
                           previousYearData?.expenses?.totExp +
-                          previousYearData?.expenses?.finCost)?.toLocaleString()}
+                          previousYearData?.expenses?.finCost),true
+                            )}
+                        
                       </td>
                       <td className="text-center">
-                        {(lastYearData?.revenue?.revenueFromOperations -
+                        {checkNan(
+                            (lastYearData?.revenue?.revenueFromOperations -
                           lastYearData?.expenses?.totExp +
-                          lastYearData?.expenses?.finCost)?.toLocaleString()}
+                          lastYearData?.expenses?.finCost),true
+                            )}
+                        
+                        
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction((latestYearData?.revenue?.revenueFromOperations -
@@ -307,19 +327,25 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Effective Tax Rate %</td>
                       <td className="text-center">
-                        {(latestYearData?.totalTaxExpense /
-                          latestYearData?.profLossBefTax)?.toLocaleString() *
-                          100}
+                         {checkNan(
+                            (latestYearData?.totalTaxExpense /
+                          latestYearData?.profLossBefTax),true
+                            )*100}%
+                        
                       </td>
                       <td className="text-center">
-                        {(previousYearData?.totalTaxExpense /
-                          previousYearData?.profLossBefTax)?.toLocaleString() *
-                          100}
+                        {checkNan(
+                            (previousYearData?.totalTaxExpense /
+                          previousYearData?.profLossBefTax),true
+                            )*100}%
+                       
                       </td>
                       <td className="text-center">
-                        {(lastYearData?.totalTaxExpense /
-                          lastYearData?.profLossBefTax)?.toLocaleString() *
-                          100}
+                          {checkNan(
+                            (lastYearData?.totalTaxExpense /
+                          lastYearData?.profLossBefTax),true
+                            )*100}%
+                        
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction((latestYearData?.totalTaxExpense /

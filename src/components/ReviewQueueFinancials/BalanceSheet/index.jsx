@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 import styles from '../index.module.scss'
 import _get from 'lodash/get'
-
+import {checkNan} from '../../../utils/helper'
 function Index({ balanceData,rtrnChartIndiaction }) {
   // console.log(balanceData, 'THIS IS BALANCE ARRAY')
 
@@ -196,21 +196,29 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                       </td>
                       <td className="text-center">
                         <strong>
-                          {(latestYearData?.equityLiabilities?.borrowingsCurrent +
-                            latestYearData?.equityLiabilities?.borrowingsNonCurrent)?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                          {checkNan(
+                            (latestYearData?.equityLiabilities?.borrowingsCurrent +
+                            latestYearData?.equityLiabilities?.borrowingsNonCurrent),true
+                            )}
+                          
                         </strong>
                       </td>
                       <td className="text-center">
                         <strong>
-                          {(previousYearData?.equityLiabilities?.borrowingsCurrent +
+                          {checkNan(
+                            (previousYearData?.equityLiabilities?.borrowingsCurrent +
                             previousYearData?.equityLiabilities
-                              ?.borrowingsNonCurrent)?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                              ?.borrowingsNonCurrent),true
+                            )}
                         </strong>
                       </td>
                       <td className="text-center">
                         <strong>
-                          {(lastYearData?.equityLiabilities?.borrowingsCurrent +
-                            lastYearData?.equityLiabilities?.borrowingsNonCurrent)?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                          {checkNan(
+                            (lastYearData?.equityLiabilities?.borrowingsCurrent +
+                            lastYearData?.equityLiabilities?.borrowingsNonCurrent),true
+                            )}
+                         
                         </strong>
                       </td>
                       <td className="text-center">
@@ -227,18 +235,36 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                     <tr>
                       <td>Creditors</td>
                       <td className="text-center">
-                        {(latestYearData?.equityLiabilities?.tradePay +
+                        {
+                        checkNan(
+                        latestYearData?.equityLiabilities?.tradePay +
                           latestYearData?.equityLiabilities
-                            ?.tradePayablesNoncurrent)?.toLocaleString()}
+                            ?.tradePayablesNoncurrent,
+                          true,
+                        )
+                      }
+                       
                       </td>
                       <td className="text-center">
-                        {(previousYearData?.equityLiabilities?.tradePay +
+                           {
+                      checkNan(
+                       (previousYearData?.equityLiabilities?.tradePay +
                           previousYearData?.equityLiabilities
-                            ?.tradePayablesNoncurrent)?.toLocaleString()}
+                            ?.tradePayablesNoncurrent),
+                          true,
+                        )
+                      }
+                    
                       </td>
                       <td className="text-center">
-                        {(lastYearData?.equityLiabilities?.tradePay +
-                          lastYearData?.equityLiabilities?.tradePayablesNoncurrent)?.toLocaleString()}
+                      {
+                      checkNan(
+                       (lastYearData?.equityLiabilities?.tradePay +
+                          lastYearData?.equityLiabilities?.tradePayablesNoncurrent),
+                          true,
+                        )
+                      }
+                      
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction((latestYearData?.equityLiabilities?.tradePay +
@@ -254,16 +280,23 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                     <tr>
                       <td>Other Current Liabilities</td>
                       <td className="text-center">
-                        {latestYearData?.equityLiabilities?.otherCurrentLiabilities?.toLocaleString()}
+                        {checkNan(
+                            (latestYearData?.equityLiabilities?.otherCurrentLiabilities),true
+                            )}
+                        
                       </td>
                       <td className="text-center">
-                        {
-                          previousYearData?.equityLiabilities
-                            ?.otherCurrentLiabilities?.toLocaleString()
-                        }
+                        {checkNan(
+                            (previousYearData?.equityLiabilities
+                            ?.otherCurrentLiabilities),true
+                            )}
+     
                       </td>
                       <td className="text-center">
-                        {lastYearData?.equityLiabilities?.otherCurrentLiabilities?.toLocaleString()}
+                        {checkNan(
+                            (lastYearData?.equityLiabilities?.otherCurrentLiabilities),true
+                            )}
+                        
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.borrowingsCurrent?.totalEquity, previousYearData?.borrowingsCurrent?.totalEquity, lastYearData?.borrowingsCurrent?.totalEquity)}
@@ -345,28 +378,46 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                     <tr>
                       <td>Net Block (Other Assets)</td>
                       <td className="text-center">
-                        {(latestYearData?.assets
+                         {
+                      checkNan(
+                       (latestYearData?.assets
                           ?.biologicalAssetsOtherThanBearerPlants +
                           latestYearData?.assets?.goodwill +
                           latestYearData?.assets?.intangAsset +
                           latestYearData?.assets?.intangAssetAud +
-                          latestYearData?.assets?.investmentProperty)?.toLocaleString()}
+                          latestYearData?.assets?.investmentProperty),
+                          true,
+                      )
+                      }
+                       
                       </td>
                       <td className="text-center">
-                        {(previousYearData?.assets
+                          {
+                      checkNan(
+                       (previousYearData?.assets
                           ?.biologicalAssetsOtherThanBearerPlants +
                           previousYearData?.assets?.goodwill +
                           previousYearData?.assets?.intangAsset +
                           previousYearData?.assets?.intangAssetAud +
-                          previousYearData?.assets?.investmentProperty)?.toLocaleString()}
+                          previousYearData?.assets?.investmentProperty),
+                          true,
+                      )
+                      }
+                       
                       </td>
                       <td className="text-center">
-                        {(lastYearData?.assets
+                           {
+                      checkNan(
+                       (lastYearData?.assets
                           ?.biologicalAssetsOtherThanBearerPlants +
                           lastYearData?.assets?.goodwill +
                           lastYearData?.assets?.intangAsset +
                           lastYearData?.assets?.intangAssetAud +
-                          lastYearData?.assets?.investmentProperty)?.toLocaleString()}
+                          lastYearData?.assets?.investmentProperty),
+                          true,
+                      )
+                      }
+                     
                       </td>
                       <td className="text-center">
 
@@ -408,16 +459,34 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                     <tr>
                       <td>Investment</td>
                       <td className="text-center">
-                        {(latestYearData?.assets?.currInv +
-                          latestYearData?.assets?.nonCurrInv)?.toLocaleString()}
+                              {
+                                  checkNan(
+                              (latestYearData?.assets?.currInv +
+                                  latestYearData?.assets?.nonCurrInv),
+                                  true,
+                              )
+                              }
+                       
                       </td>
                       <td className="text-center">
-                        {(previousYearData?.assets?.currInv +
-                          previousYearData?.assets?.nonCurrInv)?.toLocaleString()}
+                          {
+                          checkNan(
+                          (previousYearData?.assets?.currInv +
+                          previousYearData?.assets?.nonCurrInv),
+                           true,
+                            )
+                          }
+                        
                       </td>
                       <td className="text-center">
-                        {(lastYearData?.assets?.currInv +
-                          lastYearData?.assets?.nonCurrInv)?.toLocaleString()}
+                        {
+                          checkNan(
+                          (lastYearData?.assets?.currInv +
+                          lastYearData?.assets?.nonCurrInv),
+                           true,
+                            )
+                          }
+                      
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction((latestYearData?.assets?.currInv +
@@ -466,9 +535,36 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                     </tr>
                     <tr>
                       <td>Trade Receivables (Debtors)</td>
-                      <td className="text-center">{(latestYearData?.assets?.tradeRec + latestYearData?.assets?.tradeReceivablesNonCurrent)?.toLocaleString()}</td>
-                      <td className="text-center">{(previousYearData?.assets?.tradeRec + previousYearData?.assets?.tradeReceivablesNonCurrent)?.toLocaleString()}</td>
-                      <td className="text-center">{(lastYearData?.assets?.tradeRec + lastYearData?.assets?.tradeReceivablesNonCurrent)?.toLocaleString()}</td>
+                      <td className="text-center">
+                        {
+                          checkNan(
+                         (latestYearData?.assets?.tradeRec + latestYearData?.assets?.tradeReceivablesNonCurrent),
+                           true,
+                            )
+                          }
+                       
+                        
+                        </td>
+                      <td className="text-center">
+                        {
+                          checkNan(
+                         (previousYearData?.assets?.tradeRec + previousYearData?.assets?.tradeReceivablesNonCurrent),
+                           true,
+                            )
+                          }
+                        
+                        
+                        </td>
+                      <td className="text-center">
+                         {
+                          checkNan(
+                         (lastYearData?.assets?.tradeRec + lastYearData?.assets?.tradeReceivablesNonCurrent),
+                           true,
+                            )
+                          }
+                        
+                        
+                        </td>
                       <td className="text-center">
                         {rtrnChartIndiaction((latestYearData?.assets?.tradeRec + latestYearData?.assets?.tradeReceivablesNonCurrent), (previousYearData?.assets?.tradeRec + previousYearData?.assets?.tradeReceivablesNonCurrent), (lastYearData?.assets?.tradeRec + lastYearData?.assets?.tradeReceivablesNonCurrent))}
 
@@ -476,9 +572,32 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                     </tr>
                     <tr>
                       <td>Cash &amp; Bank Balance</td>
-                      <td className="text-center">{(latestYearData?.assets?.cashEqui + latestYearData?.assets?.bankBalanceOtherThanCashAndCashEquivalents)?.toLocaleString()}</td>
-                      <td className="text-center">{(previousYearData?.assets?.cashEqui + previousYearData?.assets?.bankBalanceOtherThanCashAndCashEquivalents)?.toLocaleString()}</td>
-                      <td className="text-center">{(lastYearData?.assets?.cashEqui + lastYearData?.assets?.bankBalanceOtherThanCashAndCashEquivalents)?.toLocaleString()}</td>
+                      <td className="text-center">
+                        {
+                          checkNan(
+                       (latestYearData?.assets?.cashEqui + latestYearData?.assets?.bankBalanceOtherThanCashAndCashEquivalents),
+                           true,
+                            )
+                          }
+                        </td>
+                      <td className="text-center">
+                         {
+                        checkNan(
+                       (previousYearData?.assets?.cashEqui + previousYearData?.assets?.bankBalanceOtherThanCashAndCashEquivalents),
+                        true,
+                        )
+                        }
+                      </td>
+                      <td className="text-center">
+                          {
+                        checkNan(
+                       (lastYearData?.assets?.cashEqui + lastYearData?.assets?.bankBalanceOtherThanCashAndCashEquivalents),
+                        true,
+                        )
+                        }
+                        
+                        
+                        </td>
                       <td className="text-center">
                         {rtrnChartIndiaction((latestYearData?.assets?.cashEqui + latestYearData?.assets?.bankBalanceOtherThanCashAndCashEquivalents), (previousYearData?.assets?.cashEqui + previousYearData?.assets?.bankBalanceOtherThanCashAndCashEquivalents), (lastYearData?.assets?.cashEqui + lastYearData?.assets?.bankBalanceOtherThanCashAndCashEquivalents))}
 
@@ -486,9 +605,26 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                     </tr>
                     <tr>
                       <td>Loans &amp; Advances</td>
-                      <td className="text-center">{(latestYearData?.assets?.loansCurrent + latestYearData?.assets?.loansNonCurrent)?.toLocaleString()}</td>
-                      <td className="text-center">{(previousYearData?.assets?.loansCurrent + previousYearData?.assets?.loansNonCurrent)?.toLocaleString()}</td>
-                      <td className="text-center">{(lastYearData?.assets?.loansCurrent + lastYearData?.assets?.loansNonCurrent)?.toLocaleString()}</td>
+                      <td className="text-center">
+                          {
+                        checkNan(
+                       (latestYearData?.assets?.loansCurrent + latestYearData?.assets?.loansNonCurrent),
+                        true,
+                        )}
+                        </td>
+                      <td className="text-center">
+                          {
+                        checkNan(
+                       (previousYearData?.assets?.loansCurrent + previousYearData?.assets?.loansNonCurrent),
+                        true,
+                        )}
+                        </td>
+                      <td className="text-center">
+                       { checkNan(
+                       (lastYearData?.assets?.loansCurrent + lastYearData?.assets?.loansNonCurrent),
+                        true,
+                        )}
+                        </td>
                       <td className="text-center">
                         {rtrnChartIndiaction((latestYearData?.assets?.loansCurrent + latestYearData?.assets?.loansNonCurrent), (previousYearData?.assets?.loansCurrent + previousYearData?.assets?.loansNonCurrent), (lastYearData?.assets?.loansCurrent + lastYearData?.assets?.loansNonCurrent))}
 
