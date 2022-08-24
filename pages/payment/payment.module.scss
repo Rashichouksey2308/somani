@@ -9,9 +9,23 @@
     .tab_header_inner {
       min-height: 48px;
       margin: 0 0 27px 10px;
+      @include respond(sm-desktop) {
+        margin: -5px 0;
+      }
+      @include respond(phone) {
+        margin-top: -20px;
+      }
       img {
         width: 13px;
         height: 21px;
+        @include respond(sm-desktop) {
+          width: 11px;
+          height: 17px;
+        }
+        @include respond(phone) {
+          width: 10px;
+          height: 14px;
+        }
       }
       .title {
         font-size: 34px;
@@ -19,13 +33,17 @@
         line-height: 41px;
         margin: 0;
         padding-left: 18px;
-
-        span {
-          @include respond(phone) {
-            font-size: 13px;
-            margin: 0px;
-            padding-left: 0px;
-          }
+        @include respond(md-desktop) {
+          font-size: 28px;
+        }
+        @include respond(sm-desktop) {
+          font-size: 24px;
+          padding-left: 5px;
+        }
+        @include respond(phone) {
+          font-size: 22px;
+          margin: 0px;
+          padding-left: 5px;
         }
       }
 
@@ -72,9 +90,14 @@
           border-radius: 0;
           border-bottom: 6px solid transparent;
 
+          @include respond(sm-desktop) {
+            font-size: 19px;
+            margin-top: 10px;
+          }
           @include respond(phone) {
-            font-size: 10px;
+            font-size: 17px;
             margin: 0 10px;
+            padding-left: 0px;
           }
 
           &.active {

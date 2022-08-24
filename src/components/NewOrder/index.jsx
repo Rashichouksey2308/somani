@@ -33,8 +33,10 @@ const Index = ({ saveOrderData, orderData }) => {
               }}
             >
               <option>Select</option>
-              <option selected value='MT'>MT</option>
-              <option value='KG'>KG</option>
+              <option selected value="MT">
+                MT
+              </option>
+              <option value="KG">KG</option>
             </select>
           </div>
 
@@ -47,12 +49,11 @@ const Index = ({ saveOrderData, orderData }) => {
               name="unitOfValue"
               onChange={(e) => saveOrderData(e.target.name, e.target.value)}
             >
-                <option>Select </option>
+              <option>Select </option>
               <option value="Crores" selected>
                 Crores
               </option>
               <option value="Million">Million</option>
-              
             </select>
           </div>
           <span>+</span>
@@ -126,7 +127,11 @@ const Index = ({ saveOrderData, orderData }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  value={addPrefixOrSuffix( orderData.quantity ? orderData.quantity : 0, orderData.unitOfQuantity, '')}
+                  value={addPrefixOrSuffix(
+                    orderData.quantity ? orderData.quantity : 0,
+                    orderData.unitOfQuantity,
+                    '',
+                  )}
                   name="quantity"
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
@@ -142,7 +147,15 @@ const Index = ({ saveOrderData, orderData }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  value={addPrefixOrSuffix(orderData.orderValue ? orderData.orderValue : 0,orderData.unitOfValue=="Crores"?"Cr": orderData.unitOfValue=="Million"?"Mn":orderData.unitOfValue, '')}
+                  value={addPrefixOrSuffix(
+                    orderData.orderValue ? orderData.orderValue : 0,
+                    orderData.unitOfValue == 'Crores'
+                      ? 'Cr'
+                      : orderData.unitOfValue == 'Million'
+                      ? 'Mn'
+                      : orderData.unitOfValue,
+                    '',
+                  )}
                   name="orderValue"
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
@@ -183,7 +196,6 @@ const Index = ({ saveOrderData, orderData }) => {
                     <option value="Dubai">Dubai</option>
                     <option value="Australia">Australia</option>
                     <option value="Sri Lanka">Sri Lanka</option>
-                    
                   </select>
                   <Form.Label
                     className={`${styles.label_heading} label_heading`}
@@ -217,15 +229,15 @@ const Index = ({ saveOrderData, orderData }) => {
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
-                <Form.Control
-                  className={`${styles.input_field} input form-control`}
-                  required
-                  type="text"
-                  name="supplierName"
-                  onChange={(e) => {
-                    saveOrderData(e.target.name, e.target.value)
-                  }}
-                />
+                  <Form.Control
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    type="text"
+                    name="supplierName"
+                    onChange={(e) => {
+                      saveOrderData(e.target.name, e.target.value)
+                    }}
+                  />
                   <Form.Label
                     className={`${styles.label_heading} label_heading`}
                   >
@@ -280,6 +292,9 @@ const Index = ({ saveOrderData, orderData }) => {
                     <option selected>Select an option</option>
                     <option value="Mumbai, India">Mumbai, India</option>
                     <option value="Vizag, India">Vizag, India</option>
+                    <option value="Vishakapatnam, India">
+                      Visakhapatnam, India
+                    </option>
                   </select>
                   <Form.Label
                     className={`${styles.label_heading} label_heading`}
