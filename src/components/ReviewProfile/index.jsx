@@ -19,7 +19,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
   const portOfDischargeDropdown = [
     'Mumbai, India',
     'Gujrat, India',
-    'VisakhaPatnam, India',
+    'Vishakapatnam, India',
   ]
   const typeOfBusinessDropdown = ['Manufacturer', 'Trader', 'Retail']
 
