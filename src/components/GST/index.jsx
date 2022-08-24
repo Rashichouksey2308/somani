@@ -699,7 +699,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
 
                     {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map((alert, index) => {
                       if (alert.severity === 'severe') {
-                        console.log(alert.alert, 'gst severity')
+                        console.log(alertObj[alert.alert], 'gst severity')
                         return (
                           <>    <div
                             className={styles.dot}
@@ -721,13 +721,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
 
                     {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map((alert, index) => {
                       if (alert.severity === 'high') {
-                        console.log(alert.alert, 'gst severity')
+                        console.log(alertObj[alert.alert], 'gst severity')
                         return (
                           <>    <div
                             className={styles.dot}
                             style={{ backgroundColor: '#EA3FD6' }}
                           ></div>
-                            <span>{alert.alert}</span></>
+                            <span>{alertObj[alert.alert]}</span></>
                         )
                       }
 
@@ -741,13 +741,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
 
                     {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map((alert, index) => {
                       if (alert.severity === 'medium') {
-                        console.log(alert.alert, 'gst severity')
+                        console.log(alertObj[alert.alert], 'gst severity')
                         return (
                           <>    <div
                             className={styles.dot}
                             style={{ backgroundColor: '#EA3FD6' }}
                           ></div>
-                            <span>{alert.alert}</span></>
+                            <span>{alertObj[alert.alert]}</span></>
                         )
                       }
 
@@ -761,13 +761,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
 
                     {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map((alert, index) => {
                       if (alert.severity === 'low') {
-                        console.log(alert.alert, 'gst severity')
+                        console.log(alertObj[alert.alert], 'gst severity')
                         return (
                           <>    <div
                             className={styles.dot}
                             style={{ backgroundColor: '#EA3FD6' }}
                           ></div>
-                            <span>{alert.alert}</span></>
+                            <span>{alertObj[alert.alert]}</span></>
                         )
                       }
 

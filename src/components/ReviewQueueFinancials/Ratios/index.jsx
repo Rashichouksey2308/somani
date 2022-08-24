@@ -214,7 +214,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                           (((previousIncomeData?.revenue?.revenueFromOperations -
                           previousIncomeData?.expenses?.totExp +
                           previousIncomeData?.expenses?.finCost) /
-                          previousYearData?.ebitdaMargin))}
+                          previousYearData?.ebitdaMargin)))}
                         {/* {(previousIncomeData?.revenue?.revenueFromOperations -
                           previousIncomeData?.expenses?.totExp +
                           previousIncomeData?.expenses?.finCost) /
