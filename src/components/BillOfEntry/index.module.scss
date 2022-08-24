@@ -111,6 +111,15 @@
           text-transform: capitalize;
           line-height: 27px;
           margin: 0;
+          @include respond(md-desktop) {
+            font-size: 20px;
+          }
+          @include respond(sm-desktop) {
+            font-size: 19px;
+          }
+          @include respond(phone) {
+            font-size: 17px;
+          }
         }
         span {
           font-size: 45px;
@@ -304,6 +313,12 @@
                 border: none;
                 padding: 5px 0 5px 15px;
                 width: 299px;
+                @include respond(sm-desktop) {
+                  font-size: 18px;
+                }
+                @include respond(phone) {
+                  font-size: 16px;
+                }
               }
               .doc_name {
                 font-weight: bold;
@@ -360,7 +375,7 @@
       .bill_landing {
         //background: #FFFFFF;
         // border: 2px solid #cad6e6;
-        border: 1px solid #D2D7E5;
+        border: 1px solid #d2d7e5;
         border-radius: 9px;
         .vessel_card {
           padding: 0 35px;
@@ -504,6 +519,12 @@
                 border: none;
                 padding: 5px 0px 5px 15px;
                 width: 299px;
+                @include respond(sm-desktop) {
+                  font-size: 18px;
+                }
+                @include respond(phone) {
+                  font-size: 16px;
+                }
               }
 
               .doc_name {
@@ -545,12 +566,24 @@
         left: 30px;
         margin-bottom: 15px;
         //color: #00000080;
+        @include respond(sm-desktop) {
+          font-size: 15px;
+        }
+        @include respond(phone) {
+          font-size: 13px;
+        }
       }
       .value {
         font-size: 20px;
         height: 60px;
         line-height: 25px;
         font-weight: 500;
+        @include respond(sm-desktop) {
+          font-size: 18px;
+        }
+        @include respond(phone) {
+          font-size: 16px;
+        }
       }
 
       .upload_button {
@@ -656,6 +689,13 @@
             position: absolute;
             transform: translateY(-50%);
           }
+
+          @include respond(sm-desktop) {
+            font-size: 15px;
+          }
+          @include respond(phone) {
+            font-size: 13px;
+          }
         }
 
         .line {
@@ -683,6 +723,13 @@
               transform: translateY(-30px);
             }
           }
+
+          @include respond(sm-desktop) {
+            font-size: 18px;
+          }
+          @include respond(phone) {
+            font-size: 16px;
+          }
         }
       }
     }
@@ -696,7 +743,7 @@
         .table {
           margin-bottom: 0px;
 
-          border-top: 2px solid #CAD6E6;
+          border-top: 2px solid #cad6e6;
 
           th {
             font-size: 15px;
@@ -796,6 +843,12 @@
             border: none;
             padding: 5px 0 5px 15px;
             width: 299px;
+            @include respond(sm-desktop) {
+              font-size: 18px;
+            }
+            @include respond(phone) {
+              font-size: 16px;
+            }
           }
           .doc_name {
             font-weight: bold;
