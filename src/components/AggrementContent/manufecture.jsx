@@ -968,7 +968,7 @@ setEditAddress(
                           //   handleChangeInput(e.target.name,e.target.value,index)
                           // }}
                           ></input></td>
-                          <td><input type="text" placeholder={val.phoneNo}
+                          <td><input type="tel" maxlength="10" placeholder={val.phoneNo}
                           name= "phoneNo"
                           onChange={(e)=>{
                             handleChangeInput2(e.target.name,e.target.value,index)

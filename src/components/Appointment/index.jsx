@@ -125,9 +125,7 @@ export default function Index({ inspectionData }) {
 
             <div className={`${styles.dashboard_form} mt-2 mb-4 card-body`}>
               <div className="row">
-                <div
-                  className={`${styles.form_group} col-lg-6 col-md-6 col-sm-6`}
-                >
+                <div className={`${styles.form_group} col-lg-6 col-md-6 `}>
                   <div className="d-flex">
                     <input
                       className={`${styles.input_field} input form-control`}
@@ -149,9 +147,7 @@ export default function Index({ inspectionData }) {
                     />
                   </div>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-6 col-md-6 col-md-6`}
-                >
+                <div className={`${styles.form_group} col-lg-6 col-md-6 `}>
                   <div className="d-flex">
                     {/* <DateCalender labelName='ETA at Discharge Port'/>
                       <img
@@ -192,9 +188,7 @@ export default function Index({ inspectionData }) {
                     </label>
                   </div>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-12 col-md-12 col-sm-12`}
-                >
+                <div className={`${styles.form_group} col-12 `}>
                   <label className={`${styles.comment_heading} `}>
                     Address
                   </label>
