@@ -104,7 +104,7 @@ export const GettingAllInsurance =
 
       let toastMessage = 'GET INSURANCE API FAILED'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     }
   }
@@ -139,7 +139,7 @@ export const CreateInsurance = (payload) => async (dispatch, getState, api) => {
 
     let toastMessage = 'COULD NOT CREATE INSURANCE AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }
@@ -172,7 +172,7 @@ export const UpdateInsurance =
       dispatch(updateInsuranceFailed())
       let toastMessage = 'UPDATE INSURANCE REQUEST FAILED'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     }
   }
@@ -204,7 +204,7 @@ export const UpdateQuotation =
       dispatch(updateQuotationFailed())
       let toastMessage = 'UPDATE QUOTATION REQUEST FAILED'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     }
   }

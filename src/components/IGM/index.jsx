@@ -191,7 +191,7 @@ export default function Index({
 
   const onChangeBlDropDown = (e) => {
     const text = e.target.value
-    let [value, index, index2] = text.split('-')
+    let [value, index, index2] = text?.split('-')
     if (value) {
       const filterData = _get(TransitDetails, 'data[0].BL.billOfLanding', []).filter((item) => {
         return item.blNumber === value

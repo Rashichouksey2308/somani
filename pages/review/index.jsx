@@ -333,99 +333,99 @@ function Index() {
     if (orderDetails?.transactionType?.trim() === '') {
       let toastMessage = 'Invalid Transaction Type'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     } else if (orderDetails?.commodity?.trim() === '') {
       let toastMessage = 'the Commodity can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     } else if (orderDetails?.quantity === '') {
       let toastMessage = 'Quantity can not be Empty '
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     } else if (orderDetails?.unitOfQuantity?.trim() === '') {
       let toastMessage = 'Please Provide a unit Of Quantity  '
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     } else if (orderDetails?.orderValue === '') {
       let toastMessage = 'Please Check the orderValue  '
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     }
     // else if (orderDetails?.orderCurrency?.trim() === '') {
     //   let toastMessage = 'the orderCurrency can not be Empty'
     //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage, { toastId: toastMessage })
+    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     //   }
     //   return
     // } 
     else if (orderDetails?.unitOfValue?.trim() === '') {
       let toastMessage = 'Please Set the unit of value'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     } else if (orderDetails?.supplierName?.trim() === '') {
       let toastMessage = 'the supplier Name can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     } else if (orderDetails?.countryOfOrigin?.trim() === '') {
       let toastMessage = 'the country Of Origin can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     } else if (orderDetails?.portOfDischarge?.trim() === '') {
       let toastMessage = 'the port Of Discharge can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     } else if (orderDetails?.ExpectedDateOfShipment?.trim() === '') {
       let toastMessage = 'the Expected Date Of Shipment can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     } else if (orderDetails?.incoTerm?.trim() === '') {
       let toastMessage = 'the incoTerm can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     } else if (orderDetails?.grade?.trim() === '') {
       let toastMessage = 'the grade can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     } else if (orderDetails?.tolerance === '') {
       let toastMessage = 'the tolerance can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     } else if (orderDetails?.transactionPeriodDays === '') {
       let toastMessage = 'the transaction Period Days can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     } else if (orderDetails?.manufacturerName?.trim() === '') {
       let toastMessage = 'the manufacturer Name can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     } else {
@@ -510,7 +510,7 @@ function Index() {
     if (product.capacityUtilization === '' || product.contributionCommoditySenstivity === '') {
       let toastMessage = 'Please fill the required fields'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     } else {
       let data = { ...product }
@@ -900,11 +900,22 @@ function Index() {
     tempPerson.forEach((val, index) => {
       delete val.isEdit
     })
+    let data = { ...product }
+      data.monthlyProductionCapacity = removePrefixOrSuffix(product.monthlyProductionCapacity)
+      data.capacityUtilization = removePrefixOrSuffix(product.capacityUtilization)
+      data.AvgMonthlyElectricityBill = removePrefixOrSuffix(product.AvgMonthlyElectricityBill)
+      data.averageStockOfCommodity = removePrefixOrSuffix(product.averageStockOfCommodity)
+      data.averageStockInTransit = removePrefixOrSuffix(product.averageStockInTransit)
+      data.availableStock = removePrefixOrSuffix(product.availableStock)
+      data.dailyConsumptionOfCommodity = removePrefixOrSuffix(product.dailyConsumptionOfCommodity)
+     
+    let supplierData = {...supplierCred}
+    supplierData.commodityOfTotalTrade = removePrefixOrSuffix(supplierCred.commodityOfTotalTrade)  
 
 
-    const obj = {
-      productSummary: { ...product },
-      supplierCredential: { ...supplierCred },
+    let obj = {
+      productSummary: { ...data },
+      supplierCredential: { ...supplierData },
       order: orderList._id,
       keyContactPerson: [...tempPerson],
       keyAddress: [...keyAddData],

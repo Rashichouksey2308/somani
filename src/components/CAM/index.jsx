@@ -24,7 +24,7 @@ import { GetDocuments } from 'redux/creditQueueUpdate/action'
 import { ViewDocument } from 'redux/ViewDoc/action'
 import { toast } from 'react-toastify'
 import _get from 'lodash/get'
-import { CovertvaluefromtoCR } from '../../utils/helper'
+import { CovertvaluefromtoCR,checkNan} from '../../utils/helper'
 
 Chart.register(
   ArcElement,
@@ -1538,7 +1538,7 @@ const chargeDetails = (data, options, tempArr, camData) => {
                 <div className={styles.chart}>
                   <Doughnut data={data} options={options} />
                   <div className={styles.total_value}>
-                    <span>Sagar Sinha</span>
+                    <span>Bindu Singh</span>
                     <span className={styles.highlight}>83.80%</span>
                   </div>
                 </div>
@@ -1998,20 +1998,23 @@ const revenuDetails = (gstData) => {
                   />
                 </td>
                 <td>
-                  {RevenueDetails?.grossTurnover?.current?.value?.toFixed(2)
-                    ?.toLocaleString()}
+                  {checkNan(RevenueDetails?.grossTurnover?.current?.value)}
                 </td>
                 <td>
-                  {RevenueDetails?.grossTurnover?.previous?.value?.toFixed(2)
-                    ?.toLocaleString()}
+                  {checkNan(
+                    RevenueDetails?.grossTurnover?.previous?.value
+                  )}
                 </td>
                 <td>
-                  {calcPc(
+                  {
+                  checkNan(
+                    calcPc(
                     RevenueDetails?.grossTurnover?.previous?.value,
                     RevenueDetails?.grossTurnover?.current?.value,
                   )
-                    .toFixed(2)
-                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
+                  )
+                  
+                     +
                     '%'}
                 </td>
               </tr>
@@ -2042,13 +2045,14 @@ const revenuDetails = (gstData) => {
                     ?.toLocaleString()}
                 </td>
                 <td>
-                  {calcPc(
+                  {
+                    checkNan(calcPc(
                     RevenueDetails?.relatedPartySales?.previous?.value,
                     RevenueDetails?.relatedPartySales?.current?.value,
-                  )
-                    .toFixed(2)
-                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
-                    '%'}
+                  ))
+                  +  '%'
+                  }
+                  
                 </td>
               </tr>
               <tr>
@@ -2078,13 +2082,16 @@ const revenuDetails = (gstData) => {
                     ?.toLocaleString()}
                 </td>
                 <td>
-                  {calcPc(
+                  {
+                    checkNan(
+                      calcPc(
                     RevenueDetails?.intraOrgSalesPercent?.previous?.value,
                     RevenueDetails?.intraOrgSalesPercent?.current?.value,
                   )
-                    .toFixed(2)
-                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
-                    '%'}
+                    )+
+                    '%'
+                  }
+                  
                 </td>
               </tr>
               <tr>
@@ -2114,13 +2121,17 @@ const revenuDetails = (gstData) => {
                     ?.toLocaleString()}
                 </td>
                 <td>
-                  {calcPc(
+                   {
+                    checkNan(
+                    calcPc(
                     RevenueDetails?.B2BSales?.previous?.value,
                     RevenueDetails?.B2BSales?.current?.value,
+                  
                   )
-                    .toFixed(2)
-                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
-                    '%'}
+                    )+
+                    '%'
+                  }
+                 
                 </td>
               </tr>
               <tr>
@@ -2150,13 +2161,17 @@ const revenuDetails = (gstData) => {
                     ?.toLocaleString()}
                 </td>
                 <td>
-                  {calcPc(
-                    RevenueDetails?.B2CSales?.previous?.value,
+                    {
+                    checkNan(
+                    calcPc(
+                     RevenueDetails?.B2CSales?.previous?.value,
                     RevenueDetails?.B2CSales?.current?.value,
+                  
                   )
-                    .toFixed(2)
-                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
-                    '%'}
+                    )+
+                    '%'
+                  }
+                 
                 </td>
               </tr>
               <tr>
@@ -2186,13 +2201,17 @@ const revenuDetails = (gstData) => {
                     ?.toLocaleString()}
                 </td>
                 <td>
-                  {calcPc(
+                   {
+                    checkNan(
+                    calcPc(
                     RevenueDetails?.exportSales?.previous?.value,
                     RevenueDetails?.exportSales?.current?.value,
+                  
                   )
-                    .toFixed(2)
-                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
-                    '%'}
+                    )+
+                    '%'
+                  }
+                  
                 </td>
               </tr>
               <tr>
@@ -2220,13 +2239,17 @@ const revenuDetails = (gstData) => {
                     ?.toLocaleString()}
                 </td>
                 <td>
-                  {calcPc(
+                    {
+                    checkNan(
+                    calcPc(
                     RevenueDetails?.ttlCustomer?.previous?.value,
                     RevenueDetails?.ttlCustomer?.current?.value,
+                  
                   )
-                    .toFixed(2)
-                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
-                    '%'}
+                    )+
+                    '%'
+                  }
+                  
                 </td>
               </tr>
               <tr>
@@ -2254,13 +2277,17 @@ const revenuDetails = (gstData) => {
                     ?.toLocaleString()}
                 </td>
                 <td>
-                  {calcPc(
+                     {
+                    checkNan(
+                    calcPc(
                     RevenueDetails?.ttlInv?.previous?.value,
                     RevenueDetails?.ttlInv?.current?.value,
+                  
                   )
-                    .toFixed(2)
-                    ?.toLocaleString('fullwide', { maximumFractionDigits: 2 }) +
-                    '%'}
+                    )+
+                    '%'
+                  }
+                 
                 </td>
               </tr>
               <tr>
@@ -3262,8 +3289,10 @@ const trends = (
                   <span className={`${styles.child} ml-2`}>
                     :{' '}
                     {
-                      gstData?.detail?.salesDetailAnnual?.saleSummary
-                        ?.grossTurnover?.current?.value
+                      checkNan(
+                        Number(gstData?.detail?.salesDetailAnnual?.saleSummary
+                        ?.grossTurnover?.current?.value),true
+                      )
                     }
                   </span>
                 </div>
@@ -3288,9 +3317,12 @@ const trends = (
                   <span className={`${styles.child} ml-2`}>
                     :{' '}
                     {
-                      gstData?.detail?.purchaseDetailAnnual?.saleSummary
-                        ?.grossPurchases?.current?.value
+                      checkNan(
+                      Number(gstData?.detail?.purchaseDetailAnnual?.saleSummary
+                        ?.grossPurchases?.current?.value),true
+                      )
                     }
+                  
                   </span>
                 </div>
                 <div className={`${styles.chart}`}>
@@ -3354,8 +3386,11 @@ const skewness = (data, options, tempArr, gstData) => {
                   <span className={`${styles.child} ml-2`}>
                     :{' '}
                     {
-                      gstData?.detail?.salesDetailAnnual?.saleSummary
-                        ?.grossTurnover?.current?.value
+                      checkNan(
+                        Number(gstData?.detail?.salesDetailAnnual?.saleSummary
+                        ?.grossTurnover?.current?.value),true
+                      )
+                      
                     }
                   </span>
                 </div>
@@ -3366,7 +3401,7 @@ const skewness = (data, options, tempArr, gstData) => {
                     <div className={styles.chart2}>
                       <Doughnut data={data} options={options} />
                       <div className={styles.total_value}>
-                        <span>Sagar Sinha</span>
+                        <span>Bindu Singh</span>
                         <span className={styles.highlight}>83.80%</span>
                       </div>
                     </div>
@@ -3404,9 +3439,13 @@ const skewness = (data, options, tempArr, gstData) => {
                   <span className={`${styles.child} ml-2`}>
                     :{' '}
                     {
-                      gstData?.detail?.purchaseDetailAnnual?.saleSummary
-                        ?.grossPurchases?.current?.value
+                      checkNan(
+                        Number(gstData?.detail?.purchaseDetailAnnual?.saleSummary
+                        ?.grossPurchases?.current?.value),true
+                      )
+                      
                     }
+                   
                   </span>
                 </div>
                 {/* <div className={`${styles.chart}`}>
@@ -3419,7 +3458,7 @@ const skewness = (data, options, tempArr, gstData) => {
                     <div className={styles.chart2}>
                       <Doughnut data={data} options={options} />
                       <div className={styles.total_value}>
-                        <span>Sagar Sinha</span>
+                        <span>Bindu Singh</span>
                         <span className={styles.highlight}>83.80%</span>
                       </div>
                     </div>
@@ -3637,7 +3676,7 @@ const customerRating = (data,filteredCreditRating,rating) => {
                       className={`${styles.arrow}`}
                       style={{transform:`${rating}`}}
                     ></img>
-                    <div className={`${styles.score}`}>{Math.round(filteredCreditRating?filteredCreditRating[0]?.totalRating:0)}.0</div>
+                    <div className={`${styles.score}`}>{checkNan(Math.round(filteredCreditRating?filteredCreditRating[0]?.totalRating:0),false,1)}</div>
                   </div>
                 </div>
 
@@ -3654,7 +3693,7 @@ const customerRating = (data,filteredCreditRating,rating) => {
                         CREDIT SCORE
                       </span>
                       <div>
-                        <span className={`${styles.score}`}>{Math.round(filteredCreditRating?filteredCreditRating[0]?.totalRating:0)}.0</span>
+                        <span className={`${styles.score}`}>{checkNan(Math.round(filteredCreditRating?filteredCreditRating[0]?.totalRating:0),false,1)}</span>
                         <span className={`${styles.outOF}`}>/10</span>
                       </div>
                     </div>

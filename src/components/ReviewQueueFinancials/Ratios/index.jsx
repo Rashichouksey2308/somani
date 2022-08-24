@@ -3,6 +3,7 @@ import React from 'react'
 import styles from '../index.module.scss'
 import moment from 'moment'
 import _get from 'lodash/get'
+import {checkNan} from '../../../utils/helper'
 
 function Index({ ratioData, rtrnChartIndiaction }) {
   const latestYearData = _get(ratioData, 'financial.ratioAnalysis[0]', {})
@@ -91,21 +92,27 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Fixed Assets Turnover Ratio</td>
                       <td className="text-center">
-                        {(latestIncomeData?.revenue?.revenueFromOperations /
+                        {checkNan(
+                           (latestIncomeData?.revenue?.revenueFromOperations /
                           (latestBalanceData?.assets?.propertyPlantAndEquipment +
                             latestBalanceData?.assets?.propertyPlantAndEquipment /
-                            2))?.toFixed(2)?.toLocaleString()}
+                            2)))}
+                   
                       </td>
                       <td className="text-center">
-                        {(previousIncomeData?.revenue?.revenueFromOperations /
+                        {checkNan(
+                           (previousIncomeData?.revenue?.revenueFromOperations /
                           (previousBalanceData?.assets?.propertyPlantAndEquipment +
                             previousBalanceData?.assets?.propertyPlantAndEquipment /
-                            2))?.toFixed(2)?.toLocaleString()}
+                            2)))}
+                        
                       </td>
                       <td className="text-center">
-                        {(lastIncomeData?.revenue?.revenueFromOperations /
+                          {checkNan(
+                           (lastIncomeData?.revenue?.revenueFromOperations /
                           (lastBalanceData?.assets?.propertyPlantAndEquipment +
-                            lastBalanceData?.assets?.propertyPlantAndEquipment / 2))?.toFixed(2)?.toLocaleString()}
+                            lastBalanceData?.assets?.propertyPlantAndEquipment / 2)))}
+                      
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction((latestIncomeData?.revenue?.revenueFromOperations /
@@ -195,22 +202,31 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Operating Profit Margin (EBITDA Margin)</td>
                       <td className="text-center">
-                        {((latestIncomeData?.revenue?.revenueFromOperations -
+                        {checkNan(
+                          ((latestIncomeData?.revenue?.revenueFromOperations -
                           latestIncomeData?.expenses?.totExp +
                           latestIncomeData?.expenses?.finCost) /
-                          latestYearData?.ebitdaMargin)?.toFixed(2).toLocaleString()}
+                          latestYearData?.ebitdaMargin))}
+                        
                       </td>
                       <td className="text-center">
-                        {(previousIncomeData?.revenue?.revenueFromOperations -
+                        {checkNan(
+                          ((previousIncomeData?.revenue?.revenueFromOperations -
                           previousIncomeData?.expenses?.totExp +
                           previousIncomeData?.expenses?.finCost) /
-                          previousYearData?.ebitdaMargin}
+                          previousYearData?.ebitdaMargin))}
+                        {/* {(previousIncomeData?.revenue?.revenueFromOperations -
+                          previousIncomeData?.expenses?.totExp +
+                          previousIncomeData?.expenses?.finCost) /
+                          previousYearData?.ebitdaMargin} */}
                       </td>
                       <td className="text-center">
-                        {((lastIncomeData?.revenue?.revenueFromOperations -
+                        {checkNan(
+                          (lastIncomeData?.revenue?.revenueFromOperations -
                           lastIncomeData?.expenses?.totExp +
                           lastIncomeData?.expenses?.finCost) /
-                          lastYearData?.ebitdaMargin)?.toFixed(2).toLocaleString()}
+                          lastYearData?.ebitdaMargin)}
+                       
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(((latestIncomeData?.revenue?.revenueFromOperations -
