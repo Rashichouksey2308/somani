@@ -379,8 +379,10 @@
             line-height: 25px;
             height: 48px;
             cursor: pointer;
+            width: 49%;
             max-width: 239px;
             border-radius: 5px;
+            box-shadow: none;
             @include respond(md-desktop) {
                 font-size: 16px;
             }

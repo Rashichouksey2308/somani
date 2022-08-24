@@ -580,11 +580,11 @@ const index = ({
                   <label className={`${styles.label_heading} label_heading`}>
                     Existing CHA(s)<strong className="text-danger">*</strong>
                   </label>
-                  <img
+                  {/* <img
                     className={`${styles.search_image} img-fluid`}
                     src="/static/search-grey.svg"
                     alt="Search"
-                  />
+                  /> */}
                 </div>
               </div>
             </div>
