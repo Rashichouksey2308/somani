@@ -21,7 +21,7 @@
 }
 @font-face {
     font-family: "Helvetica Neue";
-    src: url("../../../../public/fonts/HelveticaNeue.svg") format("svg"),
+    src: url("../../../../public/fonts/HelveticaNeue_new.svg") format("svg"),
          url("../../../../public/fonts/HelveticaNeue_new.ttf") format("true type"),
          url("../../../../public/fonts/HelveticaNeue_new.woff") format("woff"),
          url("../../../../public/fonts/HelveticaNeue_new.woff2") format("woff2");
@@ -46,7 +46,7 @@
 @font-face {
     font-family: "Helvetica Neue";
     src: url("../../../../public/fonts/HelveticaNeue-Medium_new.eot") format("eot");
-    font-weight: normal;
+    font-weight: 500;
     font-style: normal;
 }
 @font-face {
@@ -55,7 +55,7 @@
          url("../../../../public/fonts/HelveticaNeue-Medium_new.ttf") format("true type"),
          url("../../../../public/fonts/HelveticaNeue-Medium_new.woff") format("woff"),
          url("../../../../public/fonts/HelveticaNeue-Medium_new.woff2") format("woff2");
-    font-weight: normal;
+    font-weight: 500;
     font-style: normal;
 }
 // @font-face {
