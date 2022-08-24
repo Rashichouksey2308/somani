@@ -49,6 +49,12 @@
           text-transform: capitalize;
           line-height: 27px;
           margin: 0;
+          @include respond(sm-desktop) {
+            font-size: 20px;
+          }
+          @include respond(phone) {
+            font-size: 18px;
+          }
         }
         span {
           font-size: 45px;
@@ -116,6 +122,14 @@
             color: #111111;
             letter-spacing: 0.22px;
             padding-right: 50px;
+            @include respond(sm-desktop) {
+              font-size: 19px;
+              margin: -10px 0;
+            }
+            @include respond(phone) {
+              font-size: 17px;
+              margin: -15px 0;
+            }
             label {
               padding-left: 15px;
             }
