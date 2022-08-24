@@ -19,17 +19,17 @@ import {
 } from '../../src/redux/Lifting/action'
 import _get from 'lodash/get'
 import { toast } from 'react-toastify'
-import { setPageName,setDynamicName } from '../../src/redux/userData/action'
+import { setPageName, setDynamicName } from '../../src/redux/userData/action'
 function Index() {
   const dispatch = useDispatch()
   const { allLiftingData } = useSelector((state) => state.Lifting)
   const { ReleaseOrderData } = useSelector((state) => state.Release)
   //console.log(ReleaseOrderData, 'ReleaseOrderData')
   const [darkMode, setDarkMode] = useState(false)
-useEffect(() => {
-dispatch(setPageName('payment'))
-dispatch(setDynamicName(ReleaseOrderData?.data[0]?.company.companyName))
-},[ReleaseOrderData])
+  useEffect(() => {
+    dispatch(setPageName('payment'))
+    dispatch(setDynamicName(ReleaseOrderData?.data[0]?.company.companyName))
+  }, [ReleaseOrderData])
   useEffect(() => {
     let id = sessionStorage.getItem('ROrderID')
     let orderid = _get(ReleaseOrderData, 'data[0].order._id', '')
@@ -37,28 +37,29 @@ dispatch(setDynamicName(ReleaseOrderData?.data[0]?.company.companyName))
     dispatch(GetDelivery(`?deliveryId=${id}`))
     dispatch(GetAllLifting())
   }, [dispatch])
-  
 
   //console.log(allLiftingData, "allLiftingData")
   const liftingData = _get(allLiftingData, 'data[0]', '')
   const [lifting, setLifting] = useState([])
   const addNewLifting = (value) => {
-    setLifting([...lifting, {
-      deliveryOrder: value,
-      detail: [
-        {
-          dateOfLifting: "",
-          liftingQuant: "",
-          modeOfTransportation: "RR",
-          eWayBill: "",
-          LRorRRDoc: "",
-          eWayBillDoc: ""
-        }
-      ]
-
-    }])
+    setLifting([
+      ...lifting,
+      {
+        deliveryOrder: value,
+        detail: [
+          {
+            dateOfLifting: '',
+            liftingQuant: '',
+            modeOfTransportation: 'RR',
+            eWayBill: '',
+            LRorRRDoc: '',
+            eWayBillDoc: '',
+          },
+        ],
+      },
+    ])
   }
-  console.log(lifting,"listting to send")
+  console.log(lifting, 'listting to send')
   const addNewSubLifting = (index) => {
     let tempArr = lifting
     tempArr.forEach((val, i) => {
@@ -93,72 +94,52 @@ dispatch(setDynamicName(ReleaseOrderData?.data[0]?.company.companyName))
     setLifting([...tempArr])
   }
   const handleLiftingSubmit = () => {
-   
-    let tempArr=[]
-    let temp2=[]
-    lifting.forEach((val,index)=>{
-      console.log(val,"val88")
-      if(val.detail.modeOfTransportation=="RR"){
-         val.detail.map((val2,index2)=>{
-         temp2.push(  {
-            dateOfLifting:val2.dateOfLifting,
-            liftingQuantity:val2.liftingQuant,
-            unitOfQuantity:val2.unitOfQuantity,
-            modeOfTransport:val2.modeOfTransportation,
-            ewayBillNo:val2.eWayBill,
-            ewayBillDocument:val2.eWayBillDoc,
-            RRDocument:val2.LRorRRDoc
-
-
-
-
-           })
+    let tempArr = []
+    let temp2 = []
+    lifting.forEach((val, index) => {
+      console.log(val, 'val88')
+      if (val.detail.modeOfTransportation == 'RR') {
+        val.detail.map((val2, index2) => {
+          temp2.push({
+            dateOfLifting: val2.dateOfLifting,
+            liftingQuantity: val2.liftingQuant,
+            unitOfQuantity: val2.unitOfQuantity,
+            modeOfTransport: val2.modeOfTransportation,
+            ewayBillNo: val2.eWayBill,
+            ewayBillDocument: val2.eWayBillDoc,
+            RRDocument: val2.LRorRRDoc,
+          })
         })
-         tempArr.push(
-         {
-          deliveryOrder:val.deliveryOrder,
-          deliveryOrderDetail:temp2
-           
-         }
-        
-         )
-      }else{
-         val.detail.map((val2,index2)=>{
-         temp2.push(  {
-            dateOfLifting:val2.dateOfLifting,
-            liftingQuantity:val2.liftingQuant,
-            unitOfQuantity:val2.unitOfQuantity,
-            modeOfTransport:val2.modeOfTransportation,
-            ewayBillNo:val2.eWayBill,
-            ewayBillDocument:val2.eWayBillDoc,
-            LRDocument:val2.LRorRRDoc
-
-
-
-
-           })
+        tempArr.push({
+          deliveryOrder: val.deliveryOrder,
+          deliveryOrderDetail: temp2,
         })
-        tempArr.push(
-          {
-            deliveryOrder: val.deliveryOrder,
-            deliveryOrderDetail: temp2
-
-          }
-
-        )
+      } else {
+        val.detail.map((val2, index2) => {
+          temp2.push({
+            dateOfLifting: val2.dateOfLifting,
+            liftingQuantity: val2.liftingQuant,
+            unitOfQuantity: val2.unitOfQuantity,
+            modeOfTransport: val2.modeOfTransportation,
+            ewayBillNo: val2.eWayBill,
+            ewayBillDocument: val2.eWayBillDoc,
+            LRDocument: val2.LRorRRDoc,
+          })
+        })
+        tempArr.push({
+          deliveryOrder: val.deliveryOrder,
+          deliveryOrderDetail: temp2,
+        })
       }
-
-
     })
 
-
-        let data = {
-          liftingId: _get(ReleaseOrderData,"data[0].order.lifting",""),
-          liftingOrders:tempArr
-        }
-        console.log(data, "datatoSend")
-        dispatch(UpdateLiftingData(data))
-      }
+    let data = {
+      liftingId: _get(ReleaseOrderData, 'data[0].order.lifting', ''),
+      liftingOrders: tempArr,
+    }
+    console.log(data, 'datatoSend')
+    dispatch(UpdateLiftingData(data))
+  }
   //console.log(lifting, "newLift")
 
   const [deliveryOrder, setDeliveryOrder] = useState([
@@ -235,13 +216,10 @@ dispatch(setDynamicName(ReleaseOrderData?.data[0]?.company.companyName))
   console.log(quantity, DOlimit, filteredDOArray, 'deliveryOrder')
 
   const generateDoNumber = (index) => {
-
     let orderDONumber = index < 10 ? `0${index}` : index
     let orderId = _get(ReleaseOrderData, 'data[0].order.orderId', '')
-    let string = `${orderId.slice(0,7)}-${orderId.slice(7)}`
+    let string = `${orderId.slice(0, 7)}-${orderId.slice(7)}`
     return `${string}/${orderDONumber}`
-
-
   }
 
   const deliverChange = (name, value, index) => {
@@ -317,14 +295,19 @@ dispatch(setDynamicName(ReleaseOrderData?.data[0]?.company.companyName))
     <>
       <div className={`${styles.dashboardTab}  w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
-          <div className={`${styles.tab_header_inner} d-flex align-items-center`}>
+          <div
+            className={`${styles.tab_header_inner} d-flex align-items-center`}
+          >
             <img
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow right"
               className="img-fluid mr-2 image_arrow"
             />
             <h1 className={`${styles.title} heading`}>
-              <span>{ReleaseOrderData?.data[0]?.company?.companyName} - Ramal001-00002</span>
+              <span>
+                {ReleaseOrderData?.data[0]?.company?.companyName} -
+                Ramal001-00002
+              </span>
             </h1>
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
@@ -352,22 +335,22 @@ dispatch(setDynamicName(ReleaseOrderData?.data[0]?.company.companyName))
                 Delivery Order
               </a>
             </li>
-             {_get(ReleaseOrderData,"data[0].lastMileDelivery",false)?
-             <>
-               <li className={`${styles.navItem} nav-item`}>
-              <a
-                className={`${styles.navLink} navLink nav-link `}
-                data-toggle="tab"
-                href="#liftingDetails"
-                role="tab"
-                aria-controls="liftingDetails"
-                aria-selected="false"
-              >
-                Lifting Details
-              </a>
-            </li>
-             </>
-             :null}
+            {_get(ReleaseOrderData, 'data[0].lastMileDelivery', false) ? (
+              <>
+                <li className={`${styles.navItem} nav-item`}>
+                  <a
+                    className={`${styles.navLink} navLink nav-link `}
+                    data-toggle="tab"
+                    href="#liftingDetails"
+                    role="tab"
+                    aria-controls="liftingDetails"
+                    aria-selected="false"
+                  >
+                    Lifting Details
+                  </a>
+                </li>
+              </>
+            ) : null}
           </ul>
         </div>
 
