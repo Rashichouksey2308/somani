@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect,useRef  } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import styles from './index.module.scss'
 import moment from 'moment'
 import { Row, Col } from 'react-bootstrap'
@@ -24,7 +24,7 @@ import { GetDocuments } from 'redux/creditQueueUpdate/action'
 import { ViewDocument } from 'redux/ViewDoc/action'
 import { toast } from 'react-toastify'
 import _get from 'lodash/get'
-import { CovertvaluefromtoCR,checkNan} from '../../utils/helper'
+import { CovertvaluefromtoCR, checkNan } from '../../utils/helper'
 
 Chart.register(
   ArcElement,
@@ -119,10 +119,10 @@ function Index({
 
   const primaryBankName = () => {
     let filteredData = []
-     filteredData = camData?.company?.debtProfile?.filter(
+    filteredData = camData?.company?.debtProfile?.filter(
       (data) => data.primaryBank,
-    ) || [] 
-    
+    ) || []
+
     const length = _get(filteredData[0], 'bankName', '')
 
     return length
@@ -175,40 +175,40 @@ function Index({
     colors[Math.floor(Math.random() * colors.length)]
 
 
-   useEffect(() => {
+  useEffect(() => {
     let data;
-    if(camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern){
-  data = camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern.forEach((element, index) => {
-      if (element.fullName === '') {
-      } else {
-        if (index < 2) {
+    if (camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern) {
+      data = camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern.forEach((element, index) => {
+        if (element.fullName === '') {
+        } else {
+          if (index < 2) {
 
-          setTempArr(prevState => {
-            return [...prevState, {
-              ...prevState[index],
-              name: element.fullName,
-              value: element.numberOfShares
-            }]
-          })
-        }
-      }
-    })
-  camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern.forEach((element, index) => {
-
-    if (element.fullName === '') {
-    } else {
-      if (index <= 2) {
-        tempArr.forEach((el, index2) => {
-          if (index = index2) {
-            el.name = element.fullName
-            el.value = element.numberOfShares
+            setTempArr(prevState => {
+              return [...prevState, {
+                ...prevState[index],
+                name: element.fullName,
+                value: element.numberOfShares
+              }]
+            })
           }
-        })
-      }
+        }
+      })
+      camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern.forEach((element, index) => {
+
+        if (element.fullName === '') {
+        } else {
+          if (index <= 2) {
+            tempArr.forEach((el, index2) => {
+              if (index = index2) {
+                el.name = element.fullName
+                el.value = element.numberOfShares
+              }
+            })
+          }
+        }
+      })
     }
-  })
-    }
-   
+
     console.log(camData, 'dhjj')
   }, [camData])
   // let tempArr = [
@@ -232,7 +232,7 @@ function Index({
 
   // ]
 
- 
+
   // console.log(tempArr, 'tempArr')
 
 
@@ -280,42 +280,42 @@ function Index({
     return CovertedMonts
   }
 
-const lineOption = {
-tension: 0.2,
+  const lineOption = {
+    tension: 0.2,
 
-fill: true,
+    fill: true,
 
-scales: {
-x: {
-  grid: {
-    color: '#ff000000',
-    borderColor: '#ff000000',
-    tickColor: '#ff000000'
+    scales: {
+      x: {
+        grid: {
+          color: '#ff000000',
+          borderColor: '#ff000000',
+          tickColor: '#ff000000'
+        }
+      },
+      y: {
+        grid: {
+
+          borderColor: '#ff000000',
+          tickColor: '#ff000000'
+        }
+      }
+    },
+    interaction: {
+      mode: 'index',
+      intersect: false,
+    },
+    plugins: {
+
+      tooltip: {
+        enabled: false,
+        position: 'nearest',
+        // external: externalTooltipHandler
+      }
+    }
+
   }
-},
-y: {
-  grid: {
-
-    borderColor: '#ff000000',
-    tickColor: '#ff000000'
-  }
-}
-},
-interaction: {
-mode: 'index',
-intersect: false,
-},
-plugins: {
-
-tooltip: {
-  enabled: false,
-  position: 'nearest',
-  // external: externalTooltipHandler
-}
-}
-
-}
-  function createGradient(ctx, area,color,color2) {
+  function createGradient(ctx, area, color, color2) {
     // const colorStart = faker.random.arrayElement(colors);
     // const colorMid = faker.random.arrayElement(
     //   colors.filter(color => color !== colorStart)
@@ -323,7 +323,7 @@ tooltip: {
     // const colorEnd = faker.random.arrayElement(
     //   colors.filter(color => color !== colorStart && color !== colorMid)
     // );
-    console.log( 'cts',color2,color)
+    console.log('cts', color2, color)
 
     var gradient = ctx.createLinearGradient(0, 0, 0, 300);
     gradient.addColorStop(0, color2);
@@ -332,63 +332,63 @@ tooltip: {
     console.log(gradient, "gradient")
     return gradient;
   }
-const chartRef = useRef(null)
-const chartRef2 = useRef(null)
-const [chartData, setChartData] = useState({
-datasets: [],
-})
-const [chartData2, setChartData2] = useState({
-datasets: [],
-})
+  const chartRef = useRef(null)
+  const chartRef2 = useRef(null)
+  const [chartData, setChartData] = useState({
+    datasets: [],
+  })
+  const [chartData2, setChartData2] = useState({
+    datasets: [],
+  })
   useEffect(() => {
-  
-
-const chart = chartRef.current;
-const chart2 = chartRef2.current;
 
 
-if (!chart) {
-return
-}
+    const chart = chartRef.current;
+    const chart2 = chartRef2.current;
 
-   
-    
-  const data = {
-     labels: covertMonths(gstData?.detail?.summaryCharts?.grossRevenue?.month),
-    datasets: [
-      {
-        label: 'First dataset',
-        data: gstData?.detail?.summaryCharts?.grossRevenue?.month,
-        fill: true,
-        backgroundColor: createGradient(chart.ctx, chart.chartArea,"rgb(71, 145, 255,0.1)","rgb(71, 145, 255,0.2)"),
-        borderColor: '#2979F2',
-      },
-    ],
+
+    if (!chart) {
+      return
+    }
+
+
+
+    const data = {
+      labels: covertMonths(gstData?.detail?.summaryCharts?.grossRevenue?.month),
+      datasets: [
+        {
+          label: 'First dataset',
+          data: gstData?.detail?.summaryCharts?.grossRevenue?.month,
+          fill: true,
+          backgroundColor: createGradient(chart.ctx, chart.chartArea, "rgb(71, 145, 255,0.1)", "rgb(71, 145, 255,0.2)"),
+          borderColor: '#2979F2',
+        },
+      ],
     };
     if (!chart2) {
       return
     }
 
-     
-   
+
+
     const data2 = {
-    labels: covertMonths(gstData?.detail?.summaryCharts?.grossPurchases?.month),
-    datasets: [
-    {
-    label: 'First dataset',
-    data: gstData?.detail?.summaryCharts?.grossPurchases?.month,
-    fill: true,
-    backgroundColor:createGradient(chart2.ctx, chart2.chartArea,"rgb(250, 95, 28,0.1)","rgb(250, 95, 28,0.2)"),
-    borderColor: '#FA5F1C',
-    },
-    ],
+      labels: covertMonths(gstData?.detail?.summaryCharts?.grossPurchases?.month),
+      datasets: [
+        {
+          label: 'First dataset',
+          data: gstData?.detail?.summaryCharts?.grossPurchases?.month,
+          fill: true,
+          backgroundColor: createGradient(chart2.ctx, chart2.chartArea, "rgb(250, 95, 28,0.1)", "rgb(250, 95, 28,0.2)"),
+          borderColor: '#FA5F1C',
+        },
+      ],
     };
-   
+
 
     setChartData(data);
     setChartData2(data2);
-   
-  }, [chartRef.current,chartRef2.current,]);
+
+  }, [chartRef.current, chartRef2.current,]);
   // let TotalRevenueDataLine = {
   //   labels: covertMonths(gstData?.detail?.summaryCharts?.grossRevenue?.month),
   //   datasets: [
@@ -414,48 +414,48 @@ return
   //     },
   //   ],
   // }
-  const [rating,setRating]=useState(`rotate(0deg)`);
+  const [rating, setRating] = useState(`rotate(0deg)`);
   useEffect(() => {
-   if(filteredCreditRating){
-    getRotate(filteredCreditRating[0]?.totalRating)
-    //  getRotate(2)
-   }
-  },[filteredCreditRating])
+    if (filteredCreditRating) {
+      getRotate(filteredCreditRating[0]?.totalRating)
+      //  getRotate(2)
+    }
+  }, [filteredCreditRating])
 
-  const getRotate=(rat=1)=>{
-    let r=Math.round(rat)
-    if(r==0){
+  const getRotate = (rat = 1) => {
+    let r = Math.round(rat)
+    if (r == 0) {
       setRating(`rotate(90deg)`)
     }
-    if(r==1){
+    if (r == 1) {
       setRating(`rotate(90deg)`)
     }
-    if(r==2){
+    if (r == 2) {
       setRating(`rotate(130deg)`)
     }
-    if(r==3){
+    if (r == 3) {
       setRating(`rotate(180deg)`)
     }
-    if(r==4){
+    if (r == 4) {
       setRating(`rotate(205deg)`)
     }
-    if(r==5){
+    if (r == 5) {
       setRating(`rotate(225deg)`)
     }
-    if(r==6){
+    if (r == 6) {
       setRating(`rotate(250deg)`)
     }
-    if(r==7){
+    if (r == 7) {
       setRating(`rotate(270deg)`)
     }
-    
-    if(r==8){
+
+    if (r == 8) {
       setRating(`rotate(310deg)`)
     }
-    if(r==9){
+    if (r == 9) {
       setRating(`rotate(330deg)`)
     }
-    if(r==10){
+    if (r == 10) {
       setRating(`rotate(2deg)`)
     }
   }
@@ -463,7 +463,7 @@ return
     <>
       {basicInfo(camData)}
       {supplierInfo(camData)}
-      {customerRating(camData,filteredCreditRating,rating)}
+      {customerRating(camData, filteredCreditRating, rating)}
       {groupExposure(camData)}
       {orderSummary(camData)}
       {creditProfile(
@@ -571,7 +571,7 @@ const basicInfo = (camData) => {
                 >
                   <span className={`${styles.key} label1 ml-5 pl-5`}>City</span>
                   <span className={`${styles.value} value`}>
-                  {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.city}
+                    {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.city}
 
                   </span>
                 </Col>
@@ -588,7 +588,7 @@ const basicInfo = (camData) => {
                     State
                   </span>
                   <span className={`${styles.value} value`}>
-                  {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.state}
+                    {camData?.company?.detailedCompanyInfo?.profile?.companyDetail?.state}
 
                   </span>
                 </Col>
@@ -1617,7 +1617,7 @@ const chargeDetails = (data, options, tempArr, camData) => {
                             </td>
                             <td>{charge?.finalAmountSecured}</td>
 
-                            <td>{charge?.dateOfCreationOfCharge?moment(charge?.dateOfCreationOfCharge).format("DD-MM-YYYY"):""}</td>
+                            <td>{charge?.dateOfCreationOfCharge ? moment(charge?.dateOfCreationOfCharge).format("DD-MM-YYYY") : ""}</td>
                           </tr>
                         )
                       },
@@ -1704,46 +1704,47 @@ const debtProfile = (data, options, tempArr, camData) => {
                 </div>
                 <div className={`${styles.bar}`}>
                   <div className={`${styles.fill}`}
-                  style={{width:"100%"}}
+                    style={{ width: "100%" }}
                   ></div>
                 </div>
 
-                 {camData &&
-                    camData?.company?.debtProfile?.map((debt, index) => (
-                   <>
-                   <div className={`mt-4 mb-4`} key={index}>
-                  <div
-                    className={`${styles.label} d-flex justify-content-between align-content-center  `}
-                  >
-                    <div className={`${styles.limit_box} `}>
-                      <span className={`${styles.limit_label} `}>{debt.bankName}</span>
-                    </div>
-                    <span>{debt.limit}</span>
-                  </div>
-                  <div className={`${styles.bar} ${styles.small_bar}`}>
-                    <span className={`${styles.conduct}  
+                {camData &&
+                  camData?.company?.debtProfile?.map((debt, index) => (
+                    <>
+                      <div className={`mt-4 mb-4`} key={index}>
+                        <div
+                          className={`${styles.label} d-flex justify-content-between align-content-center  `}
+                        >
+                          <div className={`${styles.limit_box} `}>
+                            <span className={`${styles.limit_label} `}>{debt.bankName}</span>
+                          </div>
+                          <span>{debt.limit}</span>
+                        </div>
+                        <div className={`${styles.bar} ${styles.small_bar}`}>
+                          <span className={`${styles.conduct}  
                    `}
-                    style={{
-                      color:` 
-                      ${debt.conduct=="Good"?"#43C34D":
-                      debt.conduct=="Satisfactory"?"#FF9D00":debt.conduct=="Average"?"average":"#EA3F3F"
-                      }`
-                    }}
-                      >{debt.limitType}</span>
-                    <div
-                      style={{ backgroundColor:`${debt.conduct=="Good"?"#43C34D":
-                      debt.conduct=="Satisfactory"?"#FF9D00":debt.conduct=="Average"?"average":"#EA3F3F"
-                      }`,
-                    width:`${((Number(debt.limit)/1900>1?1:Number(debt.limit)/1900))*100}%`
-                    }}
-                      className={`${styles.fill}`
-                      
-                    }
-                    ></div>
-                  </div>
-                </div>
-                   </>
-                    ))}
+                            style={{
+                              color: ` 
+                      ${debt.conduct == "Good" ? "#43C34D" :
+                                  debt.conduct == "Satisfactory" ? "#FF9D00" : debt.conduct == "Average" ? "average" : "#EA3F3F"
+                                }`
+                            }}
+                          >{debt.limitType}</span>
+                          <div
+                            style={{
+                              backgroundColor: `${debt.conduct == "Good" ? "#43C34D" :
+                                debt.conduct == "Satisfactory" ? "#FF9D00" : debt.conduct == "Average" ? "average" : "#EA3F3F"
+                                }`,
+                              width: `${((Number(debt.limit) / 1900 > 1 ? 1 : Number(debt.limit) / 1900)) * 100}%`
+                            }}
+                            className={`${styles.fill}`
+
+                            }
+                          ></div>
+                        </div>
+                      </div>
+                    </>
+                  ))}
                 {/* <div className={`mt-4 mb-4`}>
                   <div
                     className={`${styles.label} d-flex justify-content-between align-content-center  `}
@@ -1799,12 +1800,12 @@ const debtProfile = (data, options, tempArr, camData) => {
                         <td> {debt?.limitType} </td>
 
                         <td>{debt?.limit}</td>
-                        <td 
-                        className={`${styles.conduct}  ${debt.conduct=="Good"?"good":
-                      debt.conduct=="Satisfactory"?"satisfactory":debt.conduct=="Average"?"average":"danger"
-                      }`
-                      
-                      }>
+                        <td
+                          className={`${styles.conduct}  ${debt.conduct == "Good" ? "good" :
+                            debt.conduct == "Satisfactory" ? "satisfactory" : debt.conduct == "Average" ? "average" : "danger"
+                            }`
+
+                          }>
                           {debt?.conduct}
                         </td>
                       </tr>
@@ -1984,7 +1985,8 @@ const revenuDetails = (gstData) => {
               <tr>
                 <td>Gross Revenue</td>
                 <td>
-                  <img
+
+                  {RevenueDetails?.grossTurnover?.previous?.value || RevenueDetails?.grossTurnover?.current?.value ? <img
                     src={
                       calcPc(
                         RevenueDetails?.grossTurnover?.previous?.value,
@@ -1995,7 +1997,7 @@ const revenuDetails = (gstData) => {
                     }
                     alt="Arrow Green"
                     className="img-fluid"
-                  />
+                  /> : null}
                 </td>
                 <td>
                   {checkNan(RevenueDetails?.grossTurnover?.current?.value)}
@@ -2007,21 +2009,21 @@ const revenuDetails = (gstData) => {
                 </td>
                 <td>
                   {
-                  checkNan(
-                    calcPc(
-                    RevenueDetails?.grossTurnover?.previous?.value,
-                    RevenueDetails?.grossTurnover?.current?.value,
-                  )
-                  )
-                  
-                     +
+                    checkNan(
+                      calcPc(
+                        RevenueDetails?.grossTurnover?.previous?.value,
+                        RevenueDetails?.grossTurnover?.current?.value,
+                      )
+                    )
+
+                    +
                     '%'}
                 </td>
               </tr>
               <tr>
                 <td>Related Party Sales</td>
                 <td>
-                  <img
+                  {RevenueDetails?.relatedPartySales?.previous?.value || RevenueDetails?.relatedPartySales?.current?.value ? <img
                     src={
                       calcPc(
                         RevenueDetails?.relatedPartySales?.previous?.value,
@@ -2032,7 +2034,7 @@ const revenuDetails = (gstData) => {
                     }
                     alt="Arrow Green"
                     className="img-fluid"
-                  />
+                  /> : null}
                 </td>
                 <td>
                   {RevenueDetails?.relatedPartySales?.current?.value
@@ -2047,29 +2049,31 @@ const revenuDetails = (gstData) => {
                 <td>
                   {
                     checkNan(calcPc(
-                    RevenueDetails?.relatedPartySales?.previous?.value,
-                    RevenueDetails?.relatedPartySales?.current?.value,
-                  ))
-                  +  '%'
+                      RevenueDetails?.relatedPartySales?.previous?.value,
+                      RevenueDetails?.relatedPartySales?.current?.value,
+                    ))
+                    + '%'
                   }
-                  
+
                 </td>
               </tr>
               <tr>
                 <td>Intra Organization Sales</td>
                 <td>
-                  <img
-                    src={
-                      calcPc(
-                        RevenueDetails?.intraOrgSalesPercent?.previous?.value,
-                        RevenueDetails?.intraOrgSalesPercent?.current?.value,
-                      ) > 0
-                        ? '/static/arrow-up-green.svg'
-                        : '/static/arrow-down-red.svg'
-                    }
-                    alt="Arrow Green"
-                    className="img-fluid"
-                  />
+
+                  {RevenueDetails?.intraOrgSalesPercent?.previous?.value || RevenueDetails?.intraOrgSalesPercent?.current?.value ?
+                    <img
+                      src={
+                        calcPc(
+                          RevenueDetails?.intraOrgSalesPercent?.previous?.value,
+                          RevenueDetails?.intraOrgSalesPercent?.current?.value,
+                        ) > 0
+                          ? '/static/arrow-up-green.svg'
+                          : '/static/arrow-down-red.svg'
+                      }
+                      alt="Arrow Green"
+                      className="img-fluid"
+                    /> : null}
                 </td>
                 <td>
                   {RevenueDetails?.intraOrgSalesPercent?.current?.value
@@ -2085,30 +2089,32 @@ const revenuDetails = (gstData) => {
                   {
                     checkNan(
                       calcPc(
-                    RevenueDetails?.intraOrgSalesPercent?.previous?.value,
-                    RevenueDetails?.intraOrgSalesPercent?.current?.value,
-                  )
-                    )+
+                        RevenueDetails?.intraOrgSalesPercent?.previous?.value,
+                        RevenueDetails?.intraOrgSalesPercent?.current?.value,
+                      )
+                    ) +
                     '%'
                   }
-                  
+
                 </td>
               </tr>
               <tr>
                 <td>B2B Sales</td>
                 <td>
-                  <img
-                    src={
-                      calcPc(
-                        RevenueDetails?.B2BSales?.previous?.value,
-                        RevenueDetails?.B2BSales?.current?.value,
-                      ) > 0
-                        ? '/static/arrow-up-green.svg'
-                        : '/static/arrow-down-red.svg'
-                    }
-                    alt="Arrow Green"
-                    className="img-fluid"
-                  />
+                  {RevenueDetails?.B2BSales?.previous?.value || RevenueDetails?.B2BSales?.current?.value ?
+
+                    <img
+                      src={
+                        calcPc(
+                          RevenueDetails?.B2BSales?.previous?.value,
+                          RevenueDetails?.B2BSales?.current?.value,
+                        ) > 0
+                          ? '/static/arrow-up-green.svg'
+                          : '/static/arrow-down-red.svg'
+                      }
+                      alt="Arrow Green"
+                      className="img-fluid"
+                    /> : null}
                 </td>
                 <td>
                   {RevenueDetails?.B2BSales?.current?.value
@@ -2121,23 +2127,24 @@ const revenuDetails = (gstData) => {
                     ?.toLocaleString()}
                 </td>
                 <td>
-                   {
+                  {
                     checkNan(
-                    calcPc(
-                    RevenueDetails?.B2BSales?.previous?.value,
-                    RevenueDetails?.B2BSales?.current?.value,
-                  
-                  )
-                    )+
+                      calcPc(
+                        RevenueDetails?.B2BSales?.previous?.value,
+                        RevenueDetails?.B2BSales?.current?.value,
+
+                      )
+                    ) +
                     '%'
                   }
-                 
+
                 </td>
               </tr>
               <tr>
                 <td>B2C Sales</td>
                 <td>
-                  <img
+                  {RevenueDetails?.B2CSales?.previous?.value ||
+                    RevenueDetails?.B2CSales?.current?.value ? <img
                     src={
                       calcPc(
                         RevenueDetails?.B2CSales?.previous?.value,
@@ -2148,7 +2155,7 @@ const revenuDetails = (gstData) => {
                     }
                     alt="Arrow Green"
                     className="img-fluid"
-                  />
+                  /> : null}
                 </td>
                 <td>
                   {RevenueDetails?.B2CSales?.current?.value
@@ -2161,23 +2168,24 @@ const revenuDetails = (gstData) => {
                     ?.toLocaleString()}
                 </td>
                 <td>
-                    {
+                  {
                     checkNan(
-                    calcPc(
-                     RevenueDetails?.B2CSales?.previous?.value,
-                    RevenueDetails?.B2CSales?.current?.value,
-                  
-                  )
-                    )+
+                      calcPc(
+                        RevenueDetails?.B2CSales?.previous?.value,
+                        RevenueDetails?.B2CSales?.current?.value,
+
+                      )
+                    ) +
                     '%'
                   }
-                 
+
                 </td>
               </tr>
               <tr>
                 <td>Export Sales</td>
                 <td>
-                  <img
+                  {RevenueDetails?.exportSales?.previous?.value ||
+                    RevenueDetails?.exportSales?.current?.value ? <img
                     src={
                       calcPc(
                         RevenueDetails?.exportSales?.previous?.value,
@@ -2188,7 +2196,7 @@ const revenuDetails = (gstData) => {
                     }
                     alt="Arrow Green"
                     className="img-fluid"
-                  />
+                  /> : null}
                 </td>
                 <td>
                   {RevenueDetails?.exportSales?.current?.value
@@ -2201,23 +2209,24 @@ const revenuDetails = (gstData) => {
                     ?.toLocaleString()}
                 </td>
                 <td>
-                   {
+                  {
                     checkNan(
-                    calcPc(
-                    RevenueDetails?.exportSales?.previous?.value,
-                    RevenueDetails?.exportSales?.current?.value,
-                  
-                  )
-                    )+
+                      calcPc(
+                        RevenueDetails?.exportSales?.previous?.value,
+                        RevenueDetails?.exportSales?.current?.value,
+
+                      )
+                    ) +
                     '%'
                   }
-                  
+
                 </td>
               </tr>
               <tr>
                 <td>Total Customers</td>
                 <td>
-                  <img
+                  {RevenueDetails?.ttlCustomer?.previous?.value ||
+                    RevenueDetails?.ttlCustomer?.current?.value ? <img
                     src={
                       calcPc(
                         RevenueDetails?.ttlCustomer?.previous?.value,
@@ -2228,7 +2237,7 @@ const revenuDetails = (gstData) => {
                     }
                     alt="Arrow Green"
                     className="img-fluid"
-                  />
+                  /> : null}
                 </td>
                 <td>
                   {RevenueDetails?.ttlCustomer?.current?.value?.toFixed(2)
@@ -2239,23 +2248,24 @@ const revenuDetails = (gstData) => {
                     ?.toLocaleString()}
                 </td>
                 <td>
-                    {
+                  {
                     checkNan(
-                    calcPc(
-                    RevenueDetails?.ttlCustomer?.previous?.value,
-                    RevenueDetails?.ttlCustomer?.current?.value,
-                  
-                  )
-                    )+
+                      calcPc(
+                        RevenueDetails?.ttlCustomer?.previous?.value,
+                        RevenueDetails?.ttlCustomer?.current?.value,
+
+                      )
+                    ) +
                     '%'
                   }
-                  
+
                 </td>
               </tr>
               <tr>
                 <td>Total Invoices</td>
                 <td>
-                  <img
+                  {RevenueDetails?.ttlInv?.previous?.value ||
+                    RevenueDetails?.ttlInv?.current?.value ? <img
                     src={
                       calcPc(
                         RevenueDetails?.ttlInv?.previous?.value,
@@ -2266,7 +2276,7 @@ const revenuDetails = (gstData) => {
                     }
                     alt="Arrow Green"
                     className="img-fluid"
-                  />
+                  /> : null}
                 </td>
                 <td>
                   {RevenueDetails?.ttlInv?.current?.value?.toFixed(2)
@@ -2277,17 +2287,17 @@ const revenuDetails = (gstData) => {
                     ?.toLocaleString()}
                 </td>
                 <td>
-                     {
+                  {
                     checkNan(
-                    calcPc(
-                    RevenueDetails?.ttlInv?.previous?.value,
-                    RevenueDetails?.ttlInv?.current?.value,
-                  
-                  )
-                    )+
+                      calcPc(
+                        RevenueDetails?.ttlInv?.previous?.value,
+                        RevenueDetails?.ttlInv?.current?.value,
+
+                      )
+                    ) +
                     '%'
                   }
-                 
+
                 </td>
               </tr>
               <tr>
@@ -2357,7 +2367,7 @@ const financeDetails = (
                         .toUpperCase()}
                     </th>
                     <th>
-                    {moment(_get(companyData, 'financial.balanceSheet[1].date', ''))
+                      {moment(_get(companyData, 'financial.balanceSheet[1].date', ''))
                         .format('MMM-YY')
                         .toUpperCase()}
                     </th>
@@ -2368,7 +2378,7 @@ const financeDetails = (
                       {_get(companyData, 'financial.balanceSheet[0].equityLiabilities.totalEquity', '')?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td>
-                    {_get(companyData, 'financial.balanceSheet[1].equityLiabilities.totalEquity', '')?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                      {_get(companyData, 'financial.balanceSheet[1].equityLiabilities.totalEquity', '')?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
                   <tr>
@@ -2378,18 +2388,18 @@ const financeDetails = (
                         _get(companyData, 'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent', ''))?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td>
-                    {Number(_get(companyData, 'financial.balanceSheet[1].equityLiabilities.borrowingsCurrent', '') +
+                      {Number(_get(companyData, 'financial.balanceSheet[1].equityLiabilities.borrowingsCurrent', '') +
                         _get(companyData, 'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent', ''))?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
                   <tr>
                     <td>Creditors</td>
                     <td>
-                    {Number(_get(companyData, 'financial.balanceSheet[0].equityLiabilities.tradePay', '') +
+                      {Number(_get(companyData, 'financial.balanceSheet[0].equityLiabilities.tradePay', '') +
                         _get(companyData, 'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent', ''))?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td>
-                    {Number(_get(companyData, 'financial.balanceSheet[1].equityLiabilities.tradePay', '') +
+                      {Number(_get(companyData, 'financial.balanceSheet[1].equityLiabilities.tradePay', '') +
                         _get(companyData, 'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent', ''))?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
@@ -2399,7 +2409,7 @@ const financeDetails = (
                       {_get(companyData, 'financial.balanceSheet[0].equityLiabilities.otherCurrentLiabilities', '')?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td>
-                    {_get(companyData, 'financial.balanceSheet[1].equityLiabilities.otherCurrentLiabilities', '')?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                      {_get(companyData, 'financial.balanceSheet[1].equityLiabilities.otherCurrentLiabilities', '')?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
 
@@ -2714,7 +2724,7 @@ const compilanceStatus = (companyData, camData) => {
                     className={`${styles.value} value pr-5`}
                     style={{ color: '#EA3F3F' }}
                   >
-                    {moment(_get(companyData,"GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1",""), 'MMyyyy').format('MM-yyyy')}
+                    {moment(_get(companyData, "GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1", ""), 'MMyyyy').format('MM-yyyy')}
                   </span>
                 </Col>
                 <Col
@@ -2770,7 +2780,7 @@ const compilanceStatus = (companyData, camData) => {
                     Last Balance Sheet Dates
                   </span>
                   <span className={`${styles.value} value pr-5`}>
-                   {companyData?.profile?.companyDetail?.lastBalanceSheet}
+                    {companyData?.profile?.companyDetail?.lastBalanceSheet}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
@@ -2778,7 +2788,7 @@ const compilanceStatus = (companyData, camData) => {
                     Active Directors
                   </span>
                   <span className={`${styles.value} value`}>
-                    {companyData?.profile?.directorDetail?.length??0}
+                    {companyData?.profile?.directorDetail?.length ?? 0}
                   </span>
                 </Col>
               </Row>
@@ -2915,7 +2925,7 @@ const sectionTerms = (
   onApprove,
   onApproveOrder,
 ) => {
- 
+
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -3291,7 +3301,7 @@ const trends = (
                     {
                       checkNan(
                         Number(gstData?.detail?.salesDetailAnnual?.saleSummary
-                        ?.grossTurnover?.current?.value),true
+                          ?.grossTurnover?.current?.value), true
                       )
                     }
                   </span>
@@ -3318,15 +3328,15 @@ const trends = (
                     :{' '}
                     {
                       checkNan(
-                      Number(gstData?.detail?.purchaseDetailAnnual?.saleSummary
-                        ?.grossPurchases?.current?.value),true
+                        Number(gstData?.detail?.purchaseDetailAnnual?.saleSummary
+                          ?.grossPurchases?.current?.value), true
                       )
                     }
-                  
+
                   </span>
                 </div>
                 <div className={`${styles.chart}`}>
-                  <Line data={chartData2} ref={chartRef2}  options={lineOption} />
+                  <Line data={chartData2} ref={chartRef2} options={lineOption} />
                 </div>
                 <div className={`${styles.name}`}>
                   <div
@@ -3388,9 +3398,9 @@ const skewness = (data, options, tempArr, gstData) => {
                     {
                       checkNan(
                         Number(gstData?.detail?.salesDetailAnnual?.saleSummary
-                        ?.grossTurnover?.current?.value),true
+                          ?.grossTurnover?.current?.value), true
                       )
-                      
+
                     }
                   </span>
                 </div>
@@ -3441,11 +3451,11 @@ const skewness = (data, options, tempArr, gstData) => {
                     {
                       checkNan(
                         Number(gstData?.detail?.purchaseDetailAnnual?.saleSummary
-                        ?.grossPurchases?.current?.value),true
+                          ?.grossPurchases?.current?.value), true
                       )
-                      
+
                     }
-                   
+
                   </span>
                 </div>
                 {/* <div className={`${styles.chart}`}>
@@ -3497,8 +3507,8 @@ const skewness = (data, options, tempArr, gstData) => {
     </>
   )
 }
-const customerRating = (data,filteredCreditRating,rating) => {
-  console.log(filteredCreditRating,"filteredCreditRating22")
+const customerRating = (data, filteredCreditRating, rating) => {
+  console.log(filteredCreditRating, "filteredCreditRating22")
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -3674,15 +3684,15 @@ const customerRating = (data,filteredCreditRating,rating) => {
                     <img
                       src={`/static/needle.svg`}
                       className={`${styles.arrow}`}
-                      style={{transform:`${rating}`}}
+                      style={{ transform: `${rating}` }}
                     ></img>
-                    <div className={`${styles.score}`}>{checkNan(Math.round(filteredCreditRating?filteredCreditRating[0]?.totalRating:0),false,1)}</div>
+                    <div className={`${styles.score}`}>{checkNan(Math.round(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0), false, 1)}</div>
                   </div>
                 </div>
 
                 <div className={`${styles.score} `}>
                   <div className={`${styles.excellent}`}>
-                    <span>{filteredCreditRating?filteredCreditRating[0]?.creditResult?.toUpperCase():""}</span>
+                    <span>{filteredCreditRating ? filteredCreditRating[0]?.creditResult?.toUpperCase() : ""}</span>
                   </div>
                   <div className={`${styles.creditScore}`}>
                     <div className={`${styles.tickContainer}`}>
@@ -3693,7 +3703,7 @@ const customerRating = (data,filteredCreditRating,rating) => {
                         CREDIT SCORE
                       </span>
                       <div>
-                        <span className={`${styles.score}`}>{checkNan(Math.round(filteredCreditRating?filteredCreditRating[0]?.totalRating:0),false,1)}</span>
+                        <span className={`${styles.score}`}>{checkNan(Math.round(filteredCreditRating ? filteredCreditRating[0]?.totalRating : 0), false, 1)}</span>
                         <span className={`${styles.outOF}`}>/10</span>
                       </div>
                     </div>
@@ -3707,7 +3717,7 @@ const customerRating = (data,filteredCreditRating,rating) => {
                         RATING
                       </span>
                       <div>
-                        <span className={`${styles.score}`}>{filteredCreditRating?filteredCreditRating[0]?.creditGrade:""}</span>
+                        <span className={`${styles.score}`}>{filteredCreditRating ? filteredCreditRating[0]?.creditGrade : ""}</span>
                       </div>
                     </div>
                   </div>
