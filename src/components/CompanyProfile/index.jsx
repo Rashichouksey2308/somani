@@ -42,7 +42,7 @@ function Index() {
         )} */}
          {fields(
           'Turn-Over (in Cr)',
-          CovertvaluefromtoCR(buyerList?.order?.orderValue)?.toLocaleString(),
+          CovertvaluefromtoCR(buyerList?.turnOver?.originalValue)?.toLocaleString(),
           false,
           buyerList?.order?.unitOfValue == 'Crores'
             ? 'Cr'
