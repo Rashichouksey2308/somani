@@ -195,7 +195,7 @@ console.log(companyDetails.transactionType,"trans")
       if (companyDetails.transactionType === null) {
       let toastMessage = 'Please Select a valid transaction Type'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
       }
@@ -203,19 +203,19 @@ console.log(companyDetails.transactionType,"trans")
        console.log("submit2")
       let toastMessage = 'Please Fill The Company Name'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     } else if (companyDetails.companyPan.trim().length !== 10) {
       let toastMessage = 'Please Fill A valid Company Pan'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     } else if (companyDetails.mobile.primary.number.trim().length !== 10) {
       let toastMessage = 'Please Provide a Valid Phone Number '
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     } else if (
@@ -227,33 +227,33 @@ console.log(companyDetails.transactionType,"trans")
     ) {
       let toastMessage = 'Please Fill A valid Email Id'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     } else if (orderDetails.commodity.trim() === '') {
       let toastMessage = 'Please Fill A valid Commodity'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     } else if (Number(removePrefixOrSuffix(orderDetails.quantity)) <=0 || orderDetails.quantity === null || isNaN(Number(removePrefixOrSuffix(orderDetails.quantity)))) {
       let toastMessage = 'Please Fill A valid quantity'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     }
     // else if (isNaN(orderDetails.quantity)) {
     //   let toastMessage = 'Please Fill A valid quantity'
     //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage, { toastId: toastMessage })
+    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     //   }
     //   return
     // }
     else if (Number(removePrefixOrSuffix(orderDetails.orderValue)) <=0 || orderDetails.orderValue === null || isNaN(Number(removePrefixOrSuffix(orderDetails.orderValue)))) {
       let toastMessage = 'Please Fill A valid order value'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     }
@@ -261,39 +261,39 @@ console.log(companyDetails.transactionType,"trans")
     // else if (orderDetails.supplierName.trim() === '') {
     //   let toastMessage = 'Please Fill A valid Supplier Name'
     //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage, { toastId: toastMessage })
+    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     //   }
     //   return
     // }
     else if (orderDetails.countryOfOrigin.trim() === '') {
       let toastMessage = 'Please Fill A valid Country Of origin'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     } else if (orderDetails.portOfDischarge.trim() === '') {
       let toastMessage = 'Please Fill A valid Port Of Discharge'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     } else if (!orderDetails.ExpectedDateOfShipment) {
       let toastMessage = 'Please Fill A Expected date of Shipment'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     } else if (orderDetails.incoTerm === '') {
       let toastMessage = 'Please Select A INCO Term'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     }
     //  else if (!documents.document1 && !documents.document1) {
     //   let toastMessage = 'Please Check Document Upload'
     //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage, { toastId: toastMessage })
+    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     //   }
     // }
     else {
@@ -303,12 +303,14 @@ console.log(companyDetails.transactionType,"trans")
         docTypeArr.push(val.typeDocument)
       })
       let sendOrder = { ...orderDetails }
+       let sendOrder1 = { ...companyDetails }
       sendOrder.quantity = Number(removePrefixOrSuffix(orderDetails.quantity))
       sendOrder.orderValue = Number(removePrefixOrSuffix(orderDetails.orderValue) * 10000000)
+      sendOrder1.turnOver = Number(removePrefixOrSuffix(companyDetails.turnOver) * 10000000)
 
       console.log(sendOrder.quantity, "orderDetails12",)
       const fd = new FormData()
-      fd.append('companyProfile', JSON.stringify(companyDetails))
+      fd.append('companyProfile', JSON.stringify(sendOrder1))
       fd.append('orderDetails', JSON.stringify(sendOrder))
       fd.append('documentType', JSON.stringify(docTypeArr))
      
@@ -326,7 +328,7 @@ console.log(companyDetails.transactionType,"trans")
        dispatch(CreateBuyer(fd))
     }
   }
-  console.log(orderDetails, 'this is payload2')
+  console.log(companyDetails, 'this is payload2')
   const clearData = () => {
     document.getElementById('CompanyDetailsForm').reset()
     document.getElementById('OrderDetailsForm').reset()

@@ -183,6 +183,7 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
         dispatch(createBuyerSuccess(response.data.data))
         // document.getElementById('CompanyDetailsForm').reset()
         // document.getElementById('OrderDetailsForm').reset()
+        // console.log(response.data.data, "THIS IS CREATE BUYER")
         let toastMessage = 'Lead Created Successfully'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage }) }
@@ -201,7 +202,7 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
     dispatch(createBuyerFailed())
     let toastMessage = error.message
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }

@@ -82,7 +82,7 @@ export const GetAllCustomClearance =
 
       let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     }
   }
@@ -112,7 +112,7 @@ export const GetCustomClearance =
 
       let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     }
   }
@@ -146,7 +146,7 @@ export const UpdateCustomClearance =
 
       let toastMessage = 'COULD NOT SUBMIT YOUR REQUEST'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     }
   }
@@ -178,7 +178,7 @@ export const UploadCustomDoc = (payload) => async (dispatch, getState, api) => {
 
     let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }

@@ -3,6 +3,8 @@ import React from 'react'
 import styles from '../index.module.scss'
 import moment from 'moment'
 import _get from 'lodash/get'
+import {checkNan} from '../../../utils/helper'
+
 
 function Index({ cashData, rtrnChartIndiaction }) {
   // console.log(cashData?.financial.cashFlowStatement[0], 'THIS IS CASH DATA')
@@ -184,18 +186,36 @@ function Index({ cashData, rtrnChartIndiaction }) {
                     </tr>
                     <tr>
                       <td>Free Cash Flow</td>
-                      <td className="text-center">{((latestYearData?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities -
+                      <td className="text-center">
+                         {checkNan(
+                            ((latestYearData?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities -
                         latestBalanceData?.assets?.propertyPlantAndEquipment -
                         latestYearData?.previous?.propertyPlantAndEquipment) +
-                        latestIncomeStatement?.expenses?.deprcnAmort).toLocaleString()}</td>
-                      <td className="text-center">{((previousYearData?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities -
+                        latestIncomeStatement?.expenses?.deprcnAmortt)
+                        
+                            )}
+                        
+                        
+                        </td>
+                      <td className="text-center">
+                          {checkNan(
+                            ((previousYearData?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities -
                         previousBalanceData?.assets?.propertyPlantAndEquipment -
                         previousYearData?.previous?.propertyPlantAndEquipment) +
-                        previousIncomeStatement?.expenses?.deprcnAmort).toLocaleString()}</td>
-                      <td className="text-center">{((lastYearData?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities -
+                        previousIncomeStatement?.expenses?.deprcnAmort)
+                      
+                            )}
+                       
+                        
+                        </td>
+                      <td className="text-center">
+                          {checkNan(
+                            ((lastYearData?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities -
                         lastYearBalanceData?.assets?.propertyPlantAndEquipment -
                         lastYearData?.previous?.propertyPlantAndEquipment) +
-                        lastYearIncomeStatement?.expenses?.deprcnAmort).toLocaleString()}</td>
+                        previousIncomeStatement?.expenses?.deprcnAmort)
+                            )}
+                        </td>
                       <td className="text-center">
 
                         {rtrnChartIndiaction(((latestYearData?.cashFlowsFromUsedInOperatingActivities?.cashFlowsFromUsedInOperatingActivities -
@@ -212,9 +232,24 @@ function Index({ cashData, rtrnChartIndiaction }) {
                     </tr>
                     <tr>
                       <td>Capex</td>
-                      <td className="text-center">{((latestBalanceData?.assets?.propertyPlantAndEquipment - latestYearData?.previous?.propertyPlantAndEquipment) + latestIncomeStatement?.expenses?.deprcnAmort).toLocaleString()}</td>
-                      <td className="text-center">{((previousBalanceData?.assets?.propertyPlantAndEquipment - previousYearData?.previous?.propertyPlantAndEquipment) + previousIncomeStatement?.expenses?.deprcnAmort).toLocaleString()}</td>
-                      <td className="text-center">{((lastYearBalanceData?.assets?.propertyPlantAndEquipment - lastYearData?.previous?.propertyPlantAndEquipment) + lastYearIncomeStatement?.expenses?.deprcnAmort).toLocaleString()}</td>
+                      <td className="text-center">
+                          {checkNan(
+                            ((latestBalanceData?.assets?.propertyPlantAndEquipment - latestYearData?.previous?.propertyPlantAndEquipment) + latestIncomeStatement?.expenses?.deprcnAmort),true
+                            )}
+                        
+                       
+                        </td>
+                      <td className="text-center">
+                        {checkNan(
+                            ((previousBalanceData?.assets?.propertyPlantAndEquipment - previousYearData?.previous?.propertyPlantAndEquipment) + previousIncomeStatement?.expenses?.deprcnAmort),true
+                            )}
+                       </td>
+                      <td className="text-center">
+                        {checkNan(
+                            ((lastYearBalanceData?.assets?.propertyPlantAndEquipment - lastYearData?.previous?.propertyPlantAndEquipment) + lastYearIncomeStatement?.expenses?.deprcnAmort),true
+                            )}
+   
+                        </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(((latestBalanceData?.assets?.propertyPlantAndEquipment - latestYearData?.previous?.propertyPlantAndEquipment) + latestIncomeStatement?.expenses?.deprcnAmort), ((previousBalanceData?.assets?.propertyPlantAndEquipment - previousYearData?.previous?.propertyPlantAndEquipment) + previousIncomeStatement?.expenses?.deprcnAmort), ((lastYearBalanceData?.assets?.propertyPlantAndEquipment - lastYearData?.previous?.propertyPlantAndEquipment) + lastYearIncomeStatement?.expenses?.deprcnAmort))}
                       </td>

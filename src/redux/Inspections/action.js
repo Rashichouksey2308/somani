@@ -88,7 +88,7 @@ export const GetAllInspection =
 
       let toastMessage = 'COULD NOT GET INSPECTION DATA AT THIS TIME'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     }
   }
@@ -117,7 +117,7 @@ export const GetInspection = (payload) => async (dispatch, getState, api) => {
 
     let toastMessage = 'COULD NOT GET   INSPECTION DATA AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }
@@ -150,7 +150,7 @@ export const UpdateInspection =
 
       let toastMessage = 'COULD NOT UPDATE INSPECTION DATA AT THIS TIME'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     }
   }

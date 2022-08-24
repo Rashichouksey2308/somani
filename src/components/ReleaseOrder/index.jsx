@@ -104,7 +104,7 @@ export default function Index({ ReleaseOrderData }) {
       // dispatch(getCustomClearanceFailed())
       // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
       // if (!toast.isActive(toastMessage.toUpperCase())) {
-      //   toast.error(toastMessage, { toastId: toastMessage })
+      //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       // }
     }
   }
@@ -169,7 +169,7 @@ export default function Index({ ReleaseOrderData }) {
       const toastMessage =
         'Net Quantity Realesed cannot be Greater than net bALance Quantity'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     } else {
     }
@@ -208,10 +208,10 @@ export default function Index({ ReleaseOrderData }) {
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
-        <div className={`${styles.vessel_card} mt-3 border_color`}>
-          <div className={`${styles.main} vessel_card mt-4 card border_color`}>
+        <div className={`${styles.vessel_card} border_color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
-              className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
+              className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
               data-toggle="collapse"
               data-target="#lcApplication"
               aria-expanded="true"

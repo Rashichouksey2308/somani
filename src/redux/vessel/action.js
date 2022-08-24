@@ -110,7 +110,7 @@ export const GetAllVessel = (payload) => async (dispatch, getState, api) => {
 
     let toastMessage = 'COULD NOT GET Vessel Data AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }
@@ -145,7 +145,7 @@ export const GetVessel = (payload) => async (dispatch, getState, api) => {
 
     let toastMessage = 'COULD NOT GET Vessel Data AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }
@@ -184,7 +184,7 @@ export const UpdateVessel = (payload) => async (dispatch, getState, api) => {
 
     let toastMessage = 'COULD NOT GET Vessel Data AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }
@@ -218,7 +218,7 @@ export const UploadDocVessel = (payload) => async (dispatch, getState, api) => {
 
     let toastMessage = 'COULD NOT UPLOAD Vessel Data AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }

@@ -31,7 +31,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
           </div>
 
           <div className={`${styles.unit_container} d-flex align-items-center`}>
-            <h5 className={`${styles.unit_label} accordion_Text`}>Units :</h5>
+            <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
             <select className={`${styles.options} accordion_DropDown `} name='unitOfValue' 
             onChange={(e)=>saveOrderData(e.target.name, e.target.value)}>
               <option>Crores</option>
@@ -126,7 +126,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   required
                   type="text"
                   name="orderValue"
-                  value={addPrefixOrSuffix(CovertvaluefromtoCR(orderDetail?.orderValue),orderDetail?.unitOfValue=="Crores"?"Cr":orderDetail?.unitOfValue)}
+                  value={addPrefixOrSuffix(orderDetail?.orderValue,orderDetail?.unitOfValue=="Crores"?"Cr":orderDetail?.unitOfValue)}
                  
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
@@ -160,12 +160,12 @@ const Index = ({ orderDetail, saveOrderData }) => {
                    value={orderDetail?.countryOfOrigin}
                    required>
                   
-                 
+                 <option disabled>Select an option</option>
                   <option value="India">India</option>
-                  <option value="America">Australia</option>
-                  <option value="Russia"> Sri Lanka</option>
-                  <option value="Russia"> Qatar</option>
-                  <option value="Russia"> Dubai</option>
+                  <option value="Australia">Australia</option>
+                  <option value="Sri Lanka"> Sri Lanka</option>
+                  <option value="Qatar"> Qatar</option>
+                  <option value="Dubai"> Dubai</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Country Of Origin<strong className="text-danger">*</strong>
@@ -199,20 +199,20 @@ const Index = ({ orderDetail, saveOrderData }) => {
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                  <div className="d-flex">
-                <select className={`${styles.input_field} ${styles.customSelect} input form-control`} name='supplierName'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} required>
-                  
-                  <option value="TATA">TATA</option>
-                  <option value="Mittal">Mittal</option>
-                  <option value="Reliance">Reliance</option>
-                </select>
+                 <Form.Control
+                  className={`${styles.input_field} input form-control`}
+                  required
+                  type="text"
+                  name="supplierName"
+                  defaultValue={orderDetail?.supplierName}
+                  onChange={(e) => {
+                    saveOrderData(e.target.name, e.target.value)
+                  }}
+                />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Supplier Name<strong className="text-danger">*</strong>
                 </Form.Label>
-                <img
-                    className={`${styles.arrow} image_arrow img-fluid`}
-                    src="/static/inputDropDown.svg"
-                    alt="Search"
-                  />
+                
                  </div>
 
               </Form.Group>
@@ -220,7 +220,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
                 <select className={`${styles.input_field} ${styles.customSelect} input form-control`} value={orderDetail?.manufacturerName} name='manufacturerName'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} >
-                  
+                  <option disabled>Select an option</option>
                   <option value="CBX">CBX</option>
                   <option value="ABX">ABX</option>
                 </select>
@@ -239,9 +239,9 @@ const Index = ({ orderDetail, saveOrderData }) => {
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                  <div className="d-flex">
                 <select className={`${styles.input_field} ${styles.customSelect} input form-control`} value={orderDetail?.portOfDischarge} name='portOfDischarge'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} required>
-                 
-                  <option value="Mumbai">Mumbai</option>
-                  <option value="Vizag">Vizag</option>
+                 <option disabled>Select an option</option>
+                  <option value="Mumbai, India">Mumbai, India</option>
+                  <option value="Vizag, India">Vizag, India</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Port Of Discharge<strong className="text-danger">*</strong>
@@ -257,8 +257,8 @@ const Index = ({ orderDetail, saveOrderData }) => {
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
-                <select className={`${styles.input_field}  ${styles.customSelect} input form-control`} name='incoTerm' onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} required>
-                  <option value="volvo">{orderDetail?.incoTerm}</option>
+                <select defaultValue={orderDetail?.incoTerm} className={`${styles.input_field}  ${styles.customSelect} input form-control`} name='incoTerm' onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} required>
+                  <option disabled>Select an option</option>
                   <option value="CFR">CFR</option>
                   <option value="CIF">CIF</option>
                   <option value="FOB">FOB</option>
@@ -277,7 +277,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                  <div className="d-flex">
-                    <DateCalender name='ExpectedDateOfShipment'  defaultDate={orderDetail?.ExpectedDateOfShipment?.split('T')[0]} saveDate={saveDate} labelName='Laycan at Load Port from'/>
+                    <DateCalender name='ExpectedDateOfShipment'  defaultDate={orderDetail?.ExpectedDateOfShipment?.split('T')[0]} saveDate={saveDate} labelName='Expected Date Of Shipment'/>
                      <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"
@@ -311,7 +311,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                 <Form.Control
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="text"
+                  type="number"
                   defaultValue={orderDetail?.transactionPeriodDays}
                   name="transactionPeriodDays"
                   onChange={(e) => {

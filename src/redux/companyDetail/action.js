@@ -105,7 +105,7 @@ export const GetCompanyDetails = (payload) => (dispatch, getState, api) => {
 
     let toastMessage = 'COULD NOT FETCH COMPANY DETAILS'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }
@@ -139,7 +139,7 @@ export const GetCreditLimit = (payload) => (dispatch, getState, api) => {
 
     let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }
@@ -173,7 +173,7 @@ export const UpdateCompanyDetails = (payload) => (dispatch, getState, api) => {
 
     let toastMessage = 'COULD NOT UPDATE COMPANY DETAILS'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }
@@ -203,7 +203,7 @@ export const RefetchCombineKarza = (payload) => (dispatch, getState, api) => {
 
     let toastMessage = 'COULD NOT FETCH DATA FROM KARZA'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }

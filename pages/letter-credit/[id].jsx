@@ -190,7 +190,7 @@ function Index() {
     ) {
       let toastMessage = 'Please select a different Clause from drop down'
       if (!toast.isActive(toastMessage.toUpperCase()).toUpperCase()) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     } else {
       newArr.push(clauseObj)

@@ -23,7 +23,7 @@ import {
   setDynamicName,
   setDynamicOrder,
 } from '../../src/redux/userData/action'
-import { addPrefixOrSuffix } from '../../src/utils/helper'
+import { addPrefixOrSuffix ,checkNan} from '../../src/utils/helper'
 // import { Row, Col } from 'react-bootstrap'
 
 function Index() {
@@ -34,7 +34,9 @@ function Index() {
   const { margin } = useSelector((state) => state.marginMoney)
 
   const marginData = _get(margin, 'data.data[0]', '')
+
   let id = sessionStorage.getItem('marginId')
+
   const RevisedMarginMoneyTrue = _get(
     margin,
     'data.data[0].revisedMarginMoney.isActive',
@@ -60,6 +62,7 @@ function Index() {
       setDarkMode(false)
     }
   }, [])
+
 
   const [forCalculation, setForCalculation] = useState({
     isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || '',
@@ -102,6 +105,7 @@ function Index() {
     totalSPDC: '',
     amountPerSPDC: '',
   })
+
   useEffect(() => {
     getData()
   }, [marginData])
@@ -270,6 +274,7 @@ function Index() {
   // console.log(invoiceData, 'invoiceData')
 
   const saveInvoiceData = (name, value) => {
+    console.log(value, 'invoice data value', name)
     const newInput = { ...invoiceData }
     newInput[name] = value
     // console.log(newInput, 'nnto', name, value)
@@ -277,7 +282,59 @@ function Index() {
     setInvoiceData({ ...newInput })
   }
 
-  console.log(invoiceData, 'INVOICE DATA')
+  console.log(invoiceData, 'invoice data value')
+
+  let emergent =  {
+    companyName: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
+    branch: 'DELHI',
+    state: 'DELHI',
+    address : '8B, SAGAR, 6 TILAK MARG, NEW DELHI - 110001',
+    GSTIN : '07AAACS8253L1Z0' 
+ }
+
+ let indoGerman = {
+    companyName: 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED',
+    branch: 'SURAT',
+    state: 'GUJARAT',
+    address : 'PLOT NO-A 54, GANGA NAGAR SOCIETY, NEAR PALANPUR PATIA, RANDAR ROAD, SURAT-395009',
+    GSTIN : '24AAACI3028D1Z8' 
+ }
+
+ const [changeImporterData, setChangeImporterData] = useState()
+
+ const dropDownChange = (name, value) => {
+  if(value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
+  
+    setChangeImporterData({...emergent})
+    const newInput = { ...invoiceData }
+    newInput['branchOffice'] = emergent.branch
+    newInput['importerGSTIN'] = emergent.GSTIN
+    newInput['companyAddress'] = emergent.address
+      // saveInvoiceData('branchOffice', emergent.branch)
+      // saveInvoiceData('importerGSTIN', emergent.GSTIN)
+      // saveInvoiceData('companyAddress', emergent.address)
+      setInvoiceData({ ...newInput })
+
+   
+ }else if(value === 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED'){
+ 
+  setChangeImporterData({...indoGerman })
+  const newInput = { ...invoiceData }
+  newInput['branchOffice'] = indoGerman.branch
+  newInput['importerGSTIN'] = indoGerman.GSTIN
+  newInput['companyAddress'] = indoGerman.address
+    // saveInvoiceData('branchOffice', emergent.branch)
+    // saveInvoiceData('importerGSTIN', emergent.GSTIN)
+    // saveInvoiceData('companyAddress', emergent.address)
+    setInvoiceData({ ...newInput })
+  
+ 
+ }
+ saveInvoiceData(name, value)
+
+ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
+}
+
 
   const setSame = (val) => {
     if (val == true) {
@@ -1090,9 +1147,12 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                  
-                                {marginData?.order?.orderCurrency} {Number(
+                                {
+                                marginData?.order?.orderCurrency} {
+                                  checkNan(Number(
                                     finalCal.orderValue,
-                                  )?.toLocaleString()}
+                                  ))
+                                  }
                                   
                                 </div>
                               </div>
@@ -1118,9 +1178,9 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.orderValueInINR?.toLocaleString()} */}
-                                  {Number(
+                                  {checkNan(Number(
                                     finalCal.orderValueInINR,
-                                  )?.toLocaleString()}
+                                  ))}
                                 </div>
                               </div>
                             </div>
@@ -1154,9 +1214,9 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                 ₹ {/* {finalCal.usanceInterest} */}
-                                  {Number(
+                                  {checkNan(Number(
                                     finalCal.usanceInterest,
-                                  )?.toLocaleString()}
+                                  ))}
                                 </div>
                               </div>
                             </div>
@@ -1180,9 +1240,9 @@ function Index() {
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                ₹ {Number(
+                                ₹ {checkNan(Number(
                                     finalCal.tradeMargin,
-                                  )?.toLocaleString()}
+                                  ))}
                                   {/* {finalCal.tradeMargin?.toLocaleString()} */}
                                 </div>
                               </div>
@@ -1208,9 +1268,9 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.grossOrderValue?.toLocaleString()} */}
-                                  ₹  {Number(
+                                  ₹  {checkNan(Number(
                                     finalCal.grossOrderValue,
-                                  )?.toLocaleString()}
+                                  ))}
                                 </div>
                               </div>
                             </div>
@@ -1235,9 +1295,9 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.toleranceValue} */}
-                                  ₹  {Number(
+                                  ₹  {checkNan(Number(
                                     finalCal.toleranceValue,
-                                  )?.toLocaleString()}
+                                  ))}
                                 </div>
                               </div>
                             </div>
@@ -1262,9 +1322,9 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.totalOrderValue} */}
-                                  ₹  {Number(
+                                  ₹  {checkNan(Number(
                                     finalCal.totalOrderValue,
-                                  )?.toLocaleString()}
+                                  ))}
                                 </div>
                               </div>
                             </div>
@@ -1288,9 +1348,9 @@ function Index() {
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                ₹  {Number(
+                                ₹  {checkNan(Number(
                                     finalCal.provisionalUnitPricePerTon,
-                                  )?.toLocaleString()}
+                                  ))}
                                   {/* {finalCal.provisionalUnitPricePerTon} */}
                                 </div>
                               </div>
@@ -1316,9 +1376,9 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.marginMoney} */}
-                                  ₹ {Number(
+                                  ₹ {checkNan(Number(
                                     finalCal.marginMoney,
-                                  )?.toLocaleString()}
+                                  ))}
                                 </div>
                               </div>
                             </div>
@@ -1343,7 +1403,7 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.totalSPDC} */}
-                                  ₹ {Number(finalCal.totalSPDC)?.toLocaleString()}
+                                  ₹ {checkNan(Number(finalCal.totalSPDC))}
                                 </div>
                               </div>
                             </div>
@@ -1367,9 +1427,9 @@ function Index() {
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                ₹  {Number(
+                                ₹  {checkNan(Number(
                                     finalCal.amountPerSPDC,
-                                  )?.toLocaleString()}
+                                  ))}
                                   {/* {finalCal.amountPerSPDC} */}
                                 </div>
                               </div>
@@ -1446,14 +1506,7 @@ function Index() {
                                   }
                                 >
                                   <option>Select an option</option>
-                                  <option
-                                    value={
-                                      marginData?.invoiceDetail?.buyerGSTIN
-                                    }
-                                  >
-                                    {marginData?.invoiceDetail?.buyerGSTIN}
-                                  </option>
-
+                                
                                   <option value="GTSDT789652JKH">
                                     GTSDT789652JKH
                                   </option>
@@ -1575,24 +1628,17 @@ function Index() {
                               className={`${styles.each_input} col-md-4 col-sm-6`}
                             >
                               <div className="d-flex">
-                                <select
-                                  id="Code"
-                                  name="consigneeGSTIN"
-                                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                  required
-                                  onChange={(e) =>
-                                    saveInvoiceData(
-                                      e.target.name,
-                                      e.target.value,
-                                    )
-                                  }
-                                  value={invoiceData?.consigneeGSTIN}
-                                >
-                                  <option>Select an option</option>
-                                  <option value="GTSDT789652JKH">
-                                    GTSDT789652JKH
-                                  </option>
-                                </select>
+                                <input
+                                type="text"
+                                id="textInput"
+                                name="consigneeName"
+                                value={invoiceData?.consigneeGSTIN}
+                                onChange={(e) =>
+                                  saveInvoiceData(e.target.name, e.target.value)
+                                }
+                                className={`${styles.input_field} input form-control`}
+                                required
+                              />
                                 <label
                                   className={`${styles.label_heading} label_heading`}
                                   id="textInput"
@@ -1600,10 +1646,6 @@ function Index() {
                                   Consignee GSTIN
                                   <strong className="text-danger">*</strong>
                                 </label>
-                                <img
-                                  className={`img-fluid image_arrow ${styles.arrow}`}
-                                  src="/static/inputDropDown.svg"
-                                ></img>
                               </div>
                             </div>
                             <div
@@ -1645,7 +1687,7 @@ function Index() {
                                     marginData?.invoiceDetail?.importerName
                                   }
                                   onChange={(e) =>
-                                    saveInvoiceData(
+                                    dropDownChange(
                                       e.target.name,
                                       e.target.value,
                                     )
@@ -1681,22 +1723,22 @@ function Index() {
                                   name="branchOffice"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   required
-                                  defaultValue={
-                                    marginData?.invoiceDetail?.importerName
+                                  value={
+                                    changeImporterData?.branch ? changeImporterData?.branch : marginData?.invoiceDetail?.branchOffice
                                   }
-                                  onChange={(e) =>
-                                    saveInvoiceData(
-                                      e.target.name,
-                                      e.target.value,
-                                    )
-                                  }
+                                  // onChange={(e) =>
+                                  //   saveInvoiceData(
+                                  //     e.target.name,
+                                  //     e.target.value,
+                                  //   )
+                                  // }
                                 >
                                   <option>Select an option</option>
-                                  <option value="Visakhapatnam, India">
-                                    {'Visakhapatnam, India'}
+                                  <option value="SURAT">
+                                    {'SURAT'}
                                   </option>
-                                  <option value="Delhi, India">
-                                    Delhi, India
+                                  <option value="DELHI">
+                                    DELHI
                                   </option>
                                 </select>
                                 <label
@@ -1719,11 +1761,11 @@ function Index() {
                               <input
                                 type="text"
                                 id="textInput"
-                                defaultValue={marginData?.invoiceDetail?.companyAddress}
+                                value={ changeImporterData?.address  ? changeImporterData?.address : marginData?.invoiceDetail?.companyAddress}
                                 name="companyAddress"
-                                onChange={(e) =>
-                                  saveInvoiceData(e.target.name, e.target.value)
-                                }
+                                // onChange={(e) =>
+                                //   saveInvoiceData(e.target.name, e.target.value)
+                                // }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1742,11 +1784,11 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="importerGSTIN"
-                                onChange={(e) =>
-                                  saveInvoiceData(e.target.name, e.target.value)
-                                }
-                                defaultValue={
-                                  marginData?.invoiceDetail?.importerGSTIN
+                                // onChange={(e) =>
+                                //   saveInvoiceData(e.target.name, e.target.value)
+                                // }
+                                value={
+                                changeImporterData?.GSTIN ? changeImporterData?.GSTIN : marginData?.invoiceDetail?.importerGSTIN
                                 }
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -1770,7 +1812,7 @@ function Index() {
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   required
                                   defaultValue={
-                                    marginData?.invoiceDetail?.importerName
+                                    marginData?.invoiceDetail?.bankName
                                   }
                                   onChange={(e) =>
                                     saveInvoiceData(

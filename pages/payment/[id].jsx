@@ -218,7 +218,7 @@ dispatch(setDynamicName(ReleaseOrderData?.data[0]?.company.companyName))
       let toastMessage =
         'Delivery Order Quantity Cannot Be Greater than Realese Quantity'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     }
   }, [filteredDOArray, deliveryOrder])
@@ -317,17 +317,13 @@ dispatch(setDynamicName(ReleaseOrderData?.data[0]?.company.companyName))
     <>
       <div className={`${styles.dashboardTab}  w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
-          <div className="d-flex align-items-center">
+          <div className={`${styles.tab_header_inner} d-flex align-items-center`}>
+            <img
+              src="/static/keyboard_arrow_right-3.svg"
+              alt="arrow right"
+              className="img-fluid mr-2 image_arrow"
+            />
             <h1 className={`${styles.title} heading`}>
-              <img
-                src={`${
-                  darkMode
-                    ? `/static/white-arrow.svg`
-                    : `/static/arrow-right.svg`
-                }`}
-                alt="arrow right"
-                className="img-fluid image_arrow"
-              />
               <span>{ReleaseOrderData?.data[0]?.company?.companyName} - Ramal001-00002</span>
             </h1>
           </div>
@@ -375,9 +371,9 @@ dispatch(setDynamicName(ReleaseOrderData?.data[0]?.company.companyName))
           </ul>
         </div>
 
-        <div className="container-fluid">
+        <div className="p-0 container-fluid">
           <div className="row">
-            <div className="col-md-12 accordion_body">
+            <div className="col-md-12 p-0 accordion_body">
               <div className={`${styles.tabContent} tab-content`}>
                 <div
                   className="tab-pane show active fade"

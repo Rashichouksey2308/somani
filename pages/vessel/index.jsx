@@ -351,7 +351,7 @@ export default function Home() {
   //   if (name.trim() === 'yearOfBuilt' && !value.length === 4) {
   //     let toastMessage = 'Provide a Valid Year'
   //     if (!toast.isActive(toastMessage.toUpperCase())) {
-  //       toast.error(toastMessage, { toastId: toastMessage })
+  //       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
   //       return
   //     }
   //   }
@@ -397,7 +397,7 @@ export default function Home() {
     } catch (error) {
       let toastMessage = 'COULD NOT UPLOAD Vessel Data AT THIS TIME'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage, { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     }
   }
