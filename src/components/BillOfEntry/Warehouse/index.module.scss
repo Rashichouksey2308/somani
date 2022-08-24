@@ -62,6 +62,15 @@
           text-transform: capitalize;
           line-height: 27px;
           margin: 0;
+          @include respond(md-desktop) {
+            font-size: 20px;
+          }
+          @include respond(sm-desktop) {
+            font-size: 19px;
+          }
+          @include respond(phone) {
+            font-size: 17px;
+          }
         }
         span {
           font-size: 45px;
@@ -211,6 +220,12 @@
                 border: none;
                 padding: 5px 0px 5px 15px;
                 width: 299px;
+                @include respond(sm-desktop) {
+                  font-size: 18px;
+                }
+                @include respond(phone) {
+                  font-size: 16px;
+                }
               }
 
               .doc_name {
@@ -258,6 +273,12 @@
         height: 60px;
         line-height: 25px;
         font-weight: 500;
+        @include respond(sm-desktop) {
+          font-size: 18px;
+        }
+        @include respond(phone) {
+          font-size: 16px;
+        }
       }
 
       .form_group {
@@ -385,6 +406,12 @@
             position: absolute;
             transform: translateY(-50%);
           }
+          @include respond(sm-desktop) {
+            font-size: 18px;
+          }
+          @include respond(phone) {
+            font-size: 16px;
+          }
         }
 
         .line {
@@ -411,6 +438,12 @@
             & + label {
               transform: translateY(-30px);
             }
+          }
+          @include respond(sm-desktop) {
+            font-size: 18px;
+          }
+          @include respond(phone) {
+            font-size: 16px;
           }
         }
       }
@@ -614,14 +647,13 @@
         left: 30px;
         top: -8px;
 
-        @include respond(phone) {
-          font-size: $font_size_mobile_text;
-          margin-top: 5px !important;
-        }
-
         @include respond(sm-desktop) {
           margin-top: 5px !important;
           font-size: $font_size_mobile_input_label;
+        }
+        @include respond(phone) {
+          font-size: $font_size_mobile_text;
+          margin-top: 5px !important;
         }
       }
 

@@ -109,6 +109,15 @@
           margin: 0;
           text-transform: capitalize;
           line-height: 27px;
+          @include respond(md-desktop) {
+            font-size: 20px;
+          }
+          @include respond(sm-desktop) {
+            font-size: 19px;
+          }
+          @include respond(phone) {
+            font-size: 17px;
+          }
         }
         span {
           font-size: 45px;

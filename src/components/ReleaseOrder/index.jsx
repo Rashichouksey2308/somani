@@ -289,7 +289,7 @@ export default function Index({ ReleaseOrderData }) {
                 </div>
 
                 {releaseDetail.map((item, index) => (
-                  <div key={index} className="row ml-auto">
+                  <div key={index} className="row ml-lg-auto">
                     <div
                       className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                     >
