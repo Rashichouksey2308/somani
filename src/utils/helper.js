@@ -152,7 +152,7 @@ export const addPrefixOrSuffix = (
     }
   }
 }
-export const removePrefixOrSuffix = (unitOfValue, type) => {
+export const removePrefixOrSuffix = (unitOfValue) => {
   console.log(unitOfValue, 'unitOfValueremove')
   if (unitOfValue !== undefined || unitOfValue !== 'undefined') {
     let newValue = unitOfValue
@@ -201,11 +201,17 @@ export const removePrefixOrSuffix = (unitOfValue, type) => {
     return Number(newValue)
   }
 }
-export const checkNan = (unitOfValue) => {
+export const checkNan = (unitOfValue, type = false, number = 2) => {
   console.log(unitOfValue, 'nana')
   if (isNaN(unitOfValue)) {
     return ''
   } else {
-    return unitOfValue
+    if (!type) {
+      return unitOfValue?.toFixed(number)?.toLocaleString()
+    } else {
+      return unitOfValue?.toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+      })
+    }
   }
 }

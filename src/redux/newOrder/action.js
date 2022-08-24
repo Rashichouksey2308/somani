@@ -53,7 +53,7 @@ export const PlaceNewOrder = (payload) => async (dispatch, getState, api) => {
     dispatch(placeNewOrderFailed())
     let toastMessage = error.message
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }

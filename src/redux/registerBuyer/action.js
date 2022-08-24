@@ -202,7 +202,7 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
     dispatch(createBuyerFailed())
     let toastMessage = error.message
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }

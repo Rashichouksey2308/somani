@@ -97,7 +97,7 @@ export const GetLcModule = (payload) => async (dispatch, getState, api) => {
 
     let toastMessage = 'COULD NOT GET LC AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }
@@ -129,7 +129,7 @@ export const UpdateLcModule = (payload) => async (dispatch, getState, api) => {
     dispatch(updateLcModuleFailed())
     let toastMessage = 'COULD NOT UPDATE LC AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }
@@ -161,7 +161,7 @@ export const UpdateLcAmendment = (payload) => async (dispatch, getState, api) =>
     dispatch(updatingLcAmendmentFailed())
     let toastMessage = 'COULD NOT UPDATE LC AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }
@@ -193,7 +193,7 @@ export const UpdateAmendment = (payload) => async (dispatch, getState, api) => {
     dispatch(updatingAmendmentFailed())
     let toastMessage = 'COULD NOT UPDATE LC AT THIS TIME'
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage, { toastId: toastMessage })
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
 }
