@@ -594,19 +594,21 @@
                             display: none;
                         }                
                         .control__content {
-                            display: inline-flex;
+                            display: flex;
                             align-items: center;
-                            width: 197px;
+                            min-width: 197px;
                             height: 61px;
                             background: #F8F8F8;
                             border: 2px solid #CCCCCC;
                             border-radius: 31px;
+                            justify-content: center;
                             span{
-                                width:100%; 
+                                // width:100%; 
                                 text-align: center;
                                 font-size: 19px;
                                 line-height: 24px;
                                 font-weight:500;
+                                margin: 0 3px;
                             }
                             &:hover {
                                 background-color: #3687E8;

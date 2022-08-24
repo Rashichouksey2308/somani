@@ -163,7 +163,7 @@
             padding: 15px !important;
         }
         .col_header {
-            font-weight: medium;
+            font-weight: 500;
             font-size: 16px;
             line-height: 17px;
             margin-top: 1.5rem;
@@ -379,8 +379,10 @@
             line-height: 25px;
             height: 48px;
             cursor: pointer;
+            width: 49%;
             max-width: 239px;
             border-radius: 5px;
+            box-shadow: none;
             @include respond(md-desktop) {
                 font-size: 16px;
             }
@@ -419,7 +421,7 @@
         opacity: 1;
     }
     span {
-        font-weight: medium;
+        font-weight: 500;
         font-size: 19px;
         line-height: 24px;
         opacity: 1;

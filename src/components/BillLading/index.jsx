@@ -1131,22 +1131,10 @@ export default function Index({
         />
       </div>
 
-      <Modal
-        show={show}
-        size="lg"
-        onHide={handleClose}
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-        className={styles.wrapper}
-        backdropClassName={styles.backdrop}
-      >
-        <Modal.Header className={styles.head}>
-          <Modal.Title
-            className={`${styles.updated_successfully} ${styles.card} card p-0`}
-          >
-            <div className={`${styles.card_header} card-header bg-transparent`}>
-              <h3>Updated Successfully</h3>
-            </div>
+      <Modal show={show} size="lg" onHide={handleClose} className={styles.updated_successfully} backdropClassName={styles.backdrop}>
+        <Modal.Header className={`${styles.card_header} card-header bg-transparent`}>
+          <Modal.Title>
+            <h3>Updated Successfully</h3>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className={`${styles.card_body} card-body container-fluid`}>

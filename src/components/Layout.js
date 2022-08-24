@@ -10,6 +10,7 @@ import Login from '../components/Login'
 import { useSelector, useDispatch } from 'react-redux'
 import Cookies from 'js-cookie'
 import { validateToken } from '../redux/authentication/actions'
+import { ErrorBoundary } from '../components/ErrorBoundary'
 // import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 // import 'react-pro-sidebar/dist/css/styles.css';
 import router from 'next/router'
@@ -83,9 +84,11 @@ function Layout({ children }) {
               ${isMobile ? styles.no_sidebar_mobile : null}
               `}
             >
-              <Breadcrum isQuery={isQuery} />
-              {children}
-              <Footer />
+              <ErrorBoundary>
+                <Breadcrum isQuery={isQuery} />
+                {children}
+                <Footer />
+              </ErrorBoundary>
               {/* <TermSheetPreview /> */}
               {/* <TermsheetPopUp /> */}
             </div>

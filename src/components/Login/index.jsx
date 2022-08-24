@@ -66,7 +66,7 @@ function Index(props) {
 
   return (
         <>
-        <div className={`${styles.login} vessel_card`}>
+        <div className={`${styles.login}`}>
             <div className='row no-gutters'>
                 <div className={`${styles.loginBanner} col-sm-4 col-md-5`}>
                     <img src='/static/login.png' alt='Login Banner' className='img-fluid'/>
@@ -97,7 +97,7 @@ function Index(props) {
                         <div className={`${styles.remember} form-group`}>
                             <div className='input-group align-items-center'>
                                 <input type="checkbox" id="remember" name="remember" value="Remember for 30 days" />
-                                <label htmlFor="remember" className='mb-0 ml-2 para'>Remember for 30 days</label>
+                                <label htmlFor="remember" className='mb-0 para'>Remember for 30 days</label>
                                 <a href='#' className={`${styles.forgotPassword} ml-auto`}>Forgot Password</a>
                             </div>
                         </div>

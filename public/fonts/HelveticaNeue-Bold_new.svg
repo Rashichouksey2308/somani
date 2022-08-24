@@ -2,8 +2,8 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
 <metadata>
-Created by FontForge 20201107 at Tue Mar 27 23:57:08 2012
- By Unknown
+Created by FontForge 20201107 at Wed Mar 28 01:57:08 2012
+ By Jimmy Wärting
 Copyright (c) 1981, 1982, 1983, 1989 and 1993, Linotype Library GmbH or its affiliated Linotype-Hell companies. All rights reserved.
 
 The digitally encoded machine readable software for producing the Typefaces licensed to you is now the property of Heidelberger Druckmaschinen AG and its licensors, and may not be reproduced, used, displayed, modified, disclosed or transferred without the express written approval of Heidelberger Druckmaschinen AG.
@@ -37,6 +37,8 @@ d="M85 422v-422h142v422h98v95h-98v31c0 21.333 4.16699 36.5 12.5 45.5s22.166 13.5
 c-28.667 -29.334 -43 -67.001 -43 -113v-40h-85v-95h85zM411 714v-714h142v714h-142z" />
     <glyph glyph-name=".notdef" horiz-adv-x="500" 
 d="M391 607h-280v-512h280v512zM482 698v-695h-465v695h465z" />
+    <glyph glyph-name=".null" horiz-adv-x="0" 
+ />
     <glyph glyph-name=".null" horiz-adv-x="0" 
  />
     <glyph glyph-name="controlHT" horiz-adv-x="0" 

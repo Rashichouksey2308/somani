@@ -41,7 +41,7 @@ function Index({ directorData }) {
           <p>Nothing to show</p>
           : null
         }
-        {_get(directorData, 'profile.direcorDeail', [{}]).map((director, index) => {
+        {_get(directorData, 'profile.directorDetail', [{}]).map((director, index) => {
           return (
             <div
               key={index}
