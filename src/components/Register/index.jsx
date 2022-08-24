@@ -126,7 +126,7 @@ function Index() {
     const newInput = { ...companyDetails }
     
     if(name=="turnOver"){
-       let tempValue=Number(value)*10000000
+       let tempValue=Number(value)
        newInput[name] = tempValue   
        console.log(tempValue, "turn",name)
     }else{
