@@ -1538,7 +1538,7 @@ const chargeDetails = (data, options, tempArr, camData) => {
                 <div className={styles.chart}>
                   <Doughnut data={data} options={options} />
                   <div className={styles.total_value}>
-                    <span>Sagar Sinha</span>
+                    <span>Bindu Singh</span>
                     <span className={styles.highlight}>83.80%</span>
                   </div>
                 </div>
@@ -3401,7 +3401,7 @@ const skewness = (data, options, tempArr, gstData) => {
                     <div className={styles.chart2}>
                       <Doughnut data={data} options={options} />
                       <div className={styles.total_value}>
-                        <span>Sagar Sinha</span>
+                        <span>Bindu Singh</span>
                         <span className={styles.highlight}>83.80%</span>
                       </div>
                     </div>
@@ -3458,7 +3458,7 @@ const skewness = (data, options, tempArr, gstData) => {
                     <div className={styles.chart2}>
                       <Doughnut data={data} options={options} />
                       <div className={styles.total_value}>
-                        <span>Sagar Sinha</span>
+                        <span>Bindu Singh</span>
                         <span className={styles.highlight}>83.80%</span>
                       </div>
                     </div>

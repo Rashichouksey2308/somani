@@ -78,7 +78,7 @@ const getDate = async () =>{
             <div
               className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
             >
-              <h3 className="heading_card">All Orders</h3>
+              <h3 className="heading_card">Agreements</h3>
               <div
                 className={`${styles.pageList} d-flex justify-content-end align-items-center`}
               >
