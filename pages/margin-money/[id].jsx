@@ -1201,16 +1201,16 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                   <span className={`${styles.blue}`}>
                                     {`(K*D*90/365)`}{' '}
+                                    <div className={`${styles.tooltip}`}>
+                                      <img
+                                        className={`ml-2 mt-n1 img-fluid`}
+                                        src="/static/info-circle.svg"
+                                      />
+                                      <span className={`${styles.tooltiptext}`}>
+                                        Indicative Figures
+                                      </span>
+                                    </div>
                                   </span>
-                                  <div className={`${styles.tooltip}`}>
-                                    <img
-                                      className={`ml-2 mt-n1 img-fluid`}
-                                      src="/static/info-circle.svg"
-                                    />
-                                    <span className={`${styles.tooltiptext}`}>
-                                      Indicative Figures
-                                    </span>
-                                  </div>
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                 ₹ {/* {finalCal.usanceInterest} */}
