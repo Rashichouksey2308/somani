@@ -47,7 +47,7 @@ function Index() {
 
     //  ];
     let element = (
-      <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+      <table width="600px" cellPadding="0" cellSpacing="0" border="0">
         <tr>
           <td valign="top">
             <table
