@@ -211,10 +211,10 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                       </td>
                       <td className="text-center">
                         {checkNan(
-                          ((previousIncomeData?.revenue?.revenueFromOperations -
+                          (((previousIncomeData?.revenue?.revenueFromOperations -
                           previousIncomeData?.expenses?.totExp +
                           previousIncomeData?.expenses?.finCost) /
-                          previousYearData?.ebitdaMargin))}
+                          previousYearData?.ebitdaMargin)))}
                         {/* {(previousIncomeData?.revenue?.revenueFromOperations -
                           previousIncomeData?.expenses?.totExp +
                           previousIncomeData?.expenses?.finCost) /
