@@ -141,6 +141,10 @@
           font-weight: 500;
           padding: 10px 0 15px;
           letter-spacing: 0.53px;
+
+          @include respond(phone) {
+            font-size: 18px;
+          }
         }
       }
     }
@@ -223,6 +227,10 @@
         font-weight: bold;
         text-transform: capitalize;
         line-height: 25px;
+
+        @include respond(phone) {
+          font-size: 18px;
+        }
       }
       .upload_button {
         border: 3px solid #3687e8;
