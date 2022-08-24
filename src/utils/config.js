@@ -2,11 +2,11 @@
 //Stage
 export default {
   authServerUrl:
-    'https://yaua25mlee.execute-api.ap-south-1.amazonaws.com/uat/auth',
+    'ac28f8eec78724f91a29a7396ffb6d94-1944199995.ap-south-1.elb.amazonaws.com:3001',
   userServerUrl:
-    'https://yaua25mlee.execute-api.ap-south-1.amazonaws.com/uat/core',
+    'a09b213b032a34abb9085ae2492a3ea0-742790725.ap-south-1.elb.amazonaws.com:3002',
   coreServerUrl:
-    'https://yaua25mlee.execute-api.ap-south-1.amazonaws.com/uat/user',
+    'a7f61f121ede1413fb179c2d4d51763b-321841070.ap-south-1.elb.amazonaws.com:3003',
 }
 
 //local
