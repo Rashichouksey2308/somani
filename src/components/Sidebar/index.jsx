@@ -139,14 +139,25 @@ function Index() {
   const [category, setcategory] = useState('Dashboard')
   const [subCategory, setsubCategory] = useState(null)
   const [index12, setIndex] = useState('')
+  const [isOpen,setIsOpen]=useState(false)
   useEffect(() => {
     if (window) {
-      sessionStorage.setItem('sideBarMain', 'Dashboard')
-      sessionStorage.setItem('subsideBarMain', null)
+      sessionStorage.setItem('sideBarMain', sessionStorage.getItem("loadedPage")? sessionStorage.getItem("loadedPage"):"Dashboard")
+      sessionStorage.setItem('subsideBarMain', sessionStorage.getItem("loadedSubPage")?sessionStorage.getItem("loadedSubPage"):null)
       setcategory(sessionStorage.getItem('sideBarMain'))
       setsubCategory(sessionStorage.getItem('subsideBarMain'))
+     if(sessionStorage.getItem('openList')){
+      setIsOpen(true)
+      setClassName(`${styles.openlist}`)
+     }else{
+      setIsOpen(false)
+      setClassName(``)
+     }
+      
+      
     }
   }, [])
+  console.log(sessionStorage.getItem("openList"),"opne",className)
   const handleOpen = (val, index, from) => {
     console.log(val, 'val233')
     if (from == 'main') {
@@ -163,8 +174,24 @@ function Index() {
       setsubCategory(sessionStorage.getItem('subsideBarMain'))
     }
   }
-  console.log('ioooooo', category, subCategory)
+  const checkOpen = () => {
+   
+    if (sessionStorage.getItem("loadedPage")) {
+      sessionStorage.setItem('sideBarMain', sessionStorage.getItem("loadedPage"))
+      sessionStorage.setItem('subsideBarMain', sessionStorage.getItem("loadedSubPage"))
+      setsubCategory(sessionStorage.getItem("loadedSubPage"))
+      setcategory(sessionStorage.getItem("loadedPage"))
+     
+      
+      // setIndex(index)
+      // return index
+    } 
+  }
+  console.log(category,subCategory,"sub")
+
   const sidebar = useSelector((state) => state.sidebar.show_sidebar)
+  const openList = useSelector((state) => state.sidebar.openList)
+  
   const isMobile = useSelector((state) => state.sidebar.isMobile)
   //   console.log(isMobile,"isMobile123")
   //   console.log("sidebar",)
@@ -209,13 +236,13 @@ function Index() {
                   </div>
                   <div
                     className={`${styles.sub_wrapper} ${
-                      index12 == index ? className : null
+                     index12  == index || isOpen  ? className : null
                     }`}
                   >
                     {val.Other.length > 0
                       ? val.Other.map((other, index2) => {
                           const className12 =
-                            index12 == index
+                            index12 == index|| subCategory==other.main
                               ? `${styles.openlist} sidebar-selected`
                               : null
                           return (
