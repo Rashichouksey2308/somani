@@ -50,7 +50,7 @@ function Index() {
       },
     },
     email: '',
-    turnOver: 500000000,
+    turnOver: 50,
     communicationMode: [],
 
     turnOverUnit: 'Cr',
