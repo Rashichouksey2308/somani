@@ -146,7 +146,7 @@ const Index = ({
                       {
                         marginData?.order?.termsheet?.commercials
                           ?.usanceInterestPercetage
-                      }
+                      }%
                       <div className={` d-flex align-items-center`}>
                         <label
                           className={`${styles.label_heading} ml-3 text-nowrap label_heading mb-0`}
@@ -209,7 +209,7 @@ const Index = ({
                       {
                         marginData?.order?.termsheet?.commercials
                           ?.tradeMarginPercentage
-                      }
+                      } %
                     </div>
                   </div>
                 </div>
@@ -230,7 +230,7 @@ const Index = ({
                       <strong className="text-danger">*</strong>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      {marginData?.order?.tolerance}
+                    (+/-)  {marginData?.order?.tolerance}
                     </div>
                   </div>
                 </div>
@@ -254,7 +254,7 @@ const Index = ({
                       {
                         marginData?.order?.termsheet?.transactionDetails
                           ?.marginMoney
-                      }
+                      }%
                     </div>
                   </div>
                 </div>
