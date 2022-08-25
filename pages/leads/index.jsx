@@ -30,7 +30,7 @@ function Index() {
   if(window){
     sessionStorage.setItem('loadedPage',"Leads")
     sessionStorage.setItem('loadedSubPage',null)
-    sessionStorage.setItem('openList',true)
+    sessionStorage.setItem('openList',1)
   }
   },[])
 
