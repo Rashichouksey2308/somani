@@ -145,9 +145,9 @@ function Index() {
   const inputRef = useRef(null)
 
   const dropDownChange = (e) => {
-    if(inputRef?.current?.value !== null){
-    inputRef.current.value = ''
-    }
+    // if(inputRef?.current?.value != ''){
+    // inputRef.current.value = ''
+    // }
     if (
       e.target.value == 'latestDateOfShipment' ||
       e.target.value == 'dateOfExpiry'
