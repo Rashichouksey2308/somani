@@ -194,7 +194,12 @@ export default function Index({ customData, OrderId, uploadDoc }) {
   // }
 
   const handleSave = () => {
-    // [{ id: 'conversionRate', value: 'CONVERSION RATE' }, { id: 'invoiceDate', value: ' INVOICE DATE' }, { id: 'invoiceValue', value: 'INVOICE VALUE' }, { id: 'invoiceQuantity', value: 'INVOICE QUANTITY' }, { id: 'invoiceNumber', value: 'INVOICE NUMBER' }, { id: 'currency', value: 'CURRENCY' }].forEach((val) => {
+    // [{ id: 'conversionRate', value: 'CONVERSION RATE' },
+    //  { id: 'invoiceDate', value: ' INVOICE DATE' },
+    //   { id: 'invoiceValue', value: 'INVOICE VALUE' },
+    //    { id: 'invoiceQuantity', value: 'INVOICE QUANTITY' },
+    //     { id: 'invoiceNumber', value: 'INVOICE NUMBER' },
+    //      { id: 'currency', value: 'CURRENCY' }].forEach((val) => {
     //   console.log(val, 'boeValidation')
     //   if (billOfEntryData.boeDetails[val.id] === '') {
     //     let toastMessage = `${val.value} CANNOT BE AN EMPTY FIELD`
@@ -205,12 +210,65 @@ export default function Index({ customData, OrderId, uploadDoc }) {
     //   }
 
     // })
-    const billOfEntry = { billOfEntry: [billOfEntryData]}
-    const fd = new FormData()
-    fd.append('customClearanceId', customData?._id)
-    fd.append('billOfEntry', JSON.stringify(billOfEntry))
+    if (billOfEntryData.boeDetails.currency === '') {
 
-    dispatch(UpdateCustomClearance(fd))
+      let toastMessage = 'CURRENCY CANNOT BE EMPTY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    else if (billOfEntryData.boeDetails.invoiceNumber === '') {
+
+      let toastMessage = 'INVOICE NUMBER CANNOT BE EMPTY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    else if (billOfEntryData.boeDetails.invoiceDate === '') {
+
+      let toastMessage = 'INVOICE DATE CANNOT BE EMPTY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    else if (billOfEntryData.boeDetails.invoiceQuantity === '') {
+
+      let toastMessage = 'INVOICE QUANTITY CANNOT BE EMPTY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    } else if (billOfEntryData.boeDetails.invoiceValue === '') {
+
+      let toastMessage = 'INVOICE VALUE CANNOT BE EMPTY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    else if (billOfEntryData.boeDetails.conversionRate === '') {
+
+      let toastMessage = 'COVERSION RATE CANNOT BE EMPTY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+
+
+
+    else {
+      const billOfEntry = { billOfEntry: [billOfEntryData] }
+      const fd = new FormData()
+      fd.append('customClearanceId', customData?._id)
+      fd.append('billOfEntry', JSON.stringify(billOfEntry))
+
+      dispatch(UpdateCustomClearance(fd))
+    }
+
 
   }
 
