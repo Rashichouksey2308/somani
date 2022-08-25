@@ -16,6 +16,13 @@ function Index() {
   const [currentPage, setCurrentPage] = useState(0)
 
   const { allForwardHedging } = useSelector((state) => state.ForwardHedging)
+useEffect(() => {
+if(window){
+    sessionStorage.setItem('loadedPage',"Loading, Transit & Unloadinge")
+    sessionStorage.setItem('loadedSubPage',`Forward Hedging`)
+    sessionStorage.setItem('openList',3)
+    }
+},[])
 
   console.log(allForwardHedging, 'allForwardHedging')
   useEffect(() => {

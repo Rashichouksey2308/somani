@@ -1,10 +1,17 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import styles from './index.module.scss'
 import Image from 'next/image'
 import DownloadBar from '../../src/components/DownloadBar'
 import Filter from '../../src/components/Filter'
 
 function Index() {
+  useEffect(() => {
+if(window){
+    sessionStorage.setItem('loadedPage',"Loading, Transit & Unloadinge")
+    sessionStorage.setItem('loadedSubPage',`Track Shipments`)
+    sessionStorage.setItem('openList',3)
+    }
+},[])
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>

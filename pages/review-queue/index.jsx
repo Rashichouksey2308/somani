@@ -25,7 +25,13 @@ function Index() {
   const { searchedLeads } = useSelector((state) => state.order)
   // console.log(searchedLeads, 'searched items')
 
-
+  useEffect(() => {
+  if(window){
+    sessionStorage.setItem('loadedPage',"Leads")
+    sessionStorage.setItem('loadedSubPage',`Review Queue`)
+    sessionStorage.setItem('openList',1)
+  }
+  },[])
 
   useEffect(() => {
     dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'ReviewQueue'}&limit=${7}`))
