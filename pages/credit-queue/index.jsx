@@ -29,7 +29,13 @@ function Index() {
   console.log(allBuyerList,"allBuyerListallBuyerList")
 
   // console.log(currentPage)
-
+  useEffect(() => {
+  if(window){
+    sessionStorage.setItem('loadedPage',"Leads")
+    sessionStorage.setItem('loadedSubPage',`Credit Queue`)
+    sessionStorage.setItem('openList',1)
+  }
+  },[])
 
 
   useEffect(() => {

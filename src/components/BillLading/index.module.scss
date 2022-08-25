@@ -109,6 +109,15 @@
           margin: 0;
           text-transform: capitalize;
           line-height: 27px;
+          @include respond(md-desktop) {
+            font-size: 20px;
+          }
+          @include respond(sm-desktop) {
+            font-size: 19px;
+          }
+          @include respond(phone) {
+            font-size: 17px;
+          }
         }
         span {
           font-size: 45px;
@@ -259,12 +268,30 @@
                 font-size: 20px;
                 //text-transform: capitalize;
                 padding-left: 35px;
+                @include respond(md-desktop) {
+                  font-size: 18px;
+                }
+                @include respond(sm-desktop) {
+                  font-size: 16px;
+                }
+                @include respond(phone) {
+                  font-size: 14px;
+                }
               }
               .doc_row {
                 font-size: 19px;
                 line-height: 24px;
                 opacity: 0.7;
                 font-weight: 500;
+                @include respond(md-desktop) {
+                  font-size: 17px;
+                }
+                @include respond(sm-desktop) {
+                  font-size: 15px;
+                }
+                @include respond(phone) {
+                  font-size: 12px;
+                }
               }
             }
           }
@@ -804,7 +831,7 @@
     }
   }
 }
-.updated_successfully {  
+.updated_successfully {
   top: 50%;
   left: 50%;
   width: 100%;
@@ -818,11 +845,11 @@
   padding-right: 0 !important;
   transform: translate(-50%, -50%);
   & > div {
-      margin: 0;
-      max-width: none;
-      & > div {
-          border: none;
-      }
+    margin: 0;
+    max-width: none;
+    & > div {
+      border: none;
+    }
   }
   .card_header {
     padding: 22px 34px;

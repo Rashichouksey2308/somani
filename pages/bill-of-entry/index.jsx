@@ -11,7 +11,13 @@ import { setPageName,setDynamicName } from '../../src/redux/userData/action'
 
 
 function Index() {
-
+  useEffect(() => {
+if(window){
+    sessionStorage.setItem('loadedPage',"Custom Clearance & WareHouse")
+    sessionStorage.setItem('loadedSubPage',null)
+    sessionStorage.setItem('openList',4)
+    }
+},[])
   const dispatch = useDispatch()
 
   const routeChange = (insured) => {

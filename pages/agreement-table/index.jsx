@@ -26,6 +26,14 @@ function Index(props) {
    getDate()
   },[])
 
+useEffect(() => {
+if(window){
+    sessionStorage.setItem('loadedPage',"Agreement & Lc Module")
+    sessionStorage.setItem('loadedSubPage',`Agreement`)
+    sessionStorage.setItem('openList',2)
+    }
+},[])
+
 const getDate = async () =>{
 
  let data = await dispatch(getGenericData())

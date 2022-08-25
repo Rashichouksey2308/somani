@@ -289,7 +289,7 @@ export default function Index({ ReleaseOrderData }) {
                 </div>
 
                 {releaseDetail.map((item, index) => (
-                  <div key={index} className="row ml-auto">
+                  <div key={index} className="row ml-lg-auto">
                     <div
                       className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                     >
@@ -459,7 +459,7 @@ export default function Index({ ReleaseOrderData }) {
         className={styles.wrapper}
         backdropClassName={styles.backdrop}
       >
-        <Modal.Header className={styles.head}>
+        <Modal.Header className={`${styles.head} background1`}>
           <Modal.Title
             id="contained-modal-title-vcenter"
             className={`${styles.title}  d-flex justify-content-between align-items-center`}
@@ -474,14 +474,14 @@ export default function Index({ ReleaseOrderData }) {
             ></img>
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className={`${styles.body} container-fluid`}>
+        <Modal.Body className={`${styles.body} background1 container-fluid`}>
           <table
-            className={`${styles.table} table `}
+            className={`${styles.table} table`}
             cellPadding="0"
             cellSpacing="0"
             border="0"
           >
-            <tr className="table_row">
+            <tr className="table_row ">
               <th width="33%">RELEASE ORDER NO.</th>
               <th width="33%">RELEASE ORDER DATE</th>
               <th width="33%">QUANTITY RELEASED</th>
@@ -513,7 +513,7 @@ export default function Index({ ReleaseOrderData }) {
             </tr>
           </table>
           <div>
-            <span>Balance Quantity: </span> &nbsp; 15,000 MT{' '}
+            <span className="text">Balance Quantity: </span> &nbsp; 15,000 MT{' '}
           </div>
         </Modal.Body>
       </Modal>

@@ -13,6 +13,14 @@ function Index() {
     dispatch(setDynamicName(null))
   })
 
+useEffect(() => {
+if(window){
+    sessionStorage.setItem('loadedPage',"Payments, Invoicing & Delivery")
+    sessionStorage.setItem('loadedSubPage',null)
+    sessionStorage.setItem('openList',5)
+    }
+},[])
+
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>

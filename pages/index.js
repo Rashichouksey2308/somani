@@ -25,7 +25,14 @@ const IndexPage = () => {
   useEffect(() => {
     dispatch(setPageName('dashboard'))
   })
-  console.log("BUILD TEST *******************")
+  useEffect(() => {
+    if (window) {
+      sessionStorage.setItem('loadedPage', 'Dashboard')
+      sessionStorage.setItem('loadedSubPage', null)
+      sessionStorage.setItem('openList', ``)
+    }
+  }, [])
+  console.log('BUILD TEST *******************')
   return (
     <>
       <Popup />

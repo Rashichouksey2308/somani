@@ -16,7 +16,13 @@ function Index() {
     (state) => state.TransitDetails,
   )
   //console.log(allTransitDetails,'allTransitDetails')
-
+  useEffect(() => {
+if(window){
+    sessionStorage.setItem('loadedPage',"Loading, Transit & Unloadinge")
+    sessionStorage.setItem('loadedSubPage',`Transit Details`)
+    sessionStorage.setItem('openList',3)
+    }
+},[])
   useEffect(() => {
     dispatch(GetAllTransitDetails())
   }, [dispatch])
