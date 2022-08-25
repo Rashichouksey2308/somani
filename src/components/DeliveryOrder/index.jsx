@@ -88,7 +88,7 @@ export default function Index(props) {
                 {' '}
                 <div className={styles.table_scroll_outer}>
                   <div className={styles.table_scroll_inner}>
-                    <div className="row">
+                    <div className="row mb-3">
                       {props.releaseOrderData.map((val, index) => {
                         return (
                           <>

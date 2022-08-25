@@ -127,14 +127,14 @@
         overflow: hidden;
         text-overflow: ellipsis;
         &::before {
-            top: 51%;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            content: "";
-            z-index: -1;
-            position: absolute;
-            transform: translateY(-50%);
+          top: 51%;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          content: '';
+          z-index: -1;
+          position: absolute;
+          transform: translateY(-50%);
         }
         @include respond(phone) {
           font-size: $font_size_mobile_text;
@@ -290,7 +290,6 @@
               border-top: none;
               vertical-align: middle;
               border-bottom: 2px solid #f2f5f9;
-              white-space: nowrap;
               white-space: nowrap;
               &:first-child {
                 padding-left: 35px;
@@ -465,19 +464,20 @@
   }
 }
 img {
-    &.arrow2 {
-        width: 13px !important;
-        margin-left: -25px;
-        // position: absolute;
-        pointer-events: none;
-        filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg) brightness(103%) contrast(82%);
-        input[type='date']::-webkit-inner-spin-button,
-        input[type='date']::-webkit-calendar-picker-indicator {
-            display: none;
-            -webkit-appearance: none;
-        }
+  &.arrow2 {
+    width: 13px !important;
+    margin-left: -25px;
+    // position: absolute;
+    pointer-events: none;
+    filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg)
+      brightness(103%) contrast(82%);
+    input[type='date']::-webkit-inner-spin-button,
+    input[type='date']::-webkit-calendar-picker-indicator {
+      display: none;
+      -webkit-appearance: none;
     }
-} 
+  }
+}
 .customSelect {
   appearance: none;
   // position: relative;
