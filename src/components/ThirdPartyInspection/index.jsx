@@ -11,10 +11,13 @@ import { useDispatch } from 'react-redux'
 import { UpdateInspection } from 'redux/Inspections/action'
 import _get from 'lodash/get'
 import { toast } from 'react-toastify'
+import UploadOther from '../UploadOther/index'
 // import ThirdPartyPopUp from './ThirdPartyPopUp'
 
 export default function Index({ addButton, inspectionData }) {
   const dispatch = useDispatch()
+
+  let orderid = _get(inspectionData, 'order._id', '')
 
   const [editInput, setEditInput] = useState(true)
   const [bothField, setBothField] = useState(false)
@@ -1184,7 +1187,8 @@ export default function Index({ addButton, inspectionData }) {
                     Any one document is mandatory
                   </div>
 
-                  <div
+
+                  {/* <div
                     className={`${styles.dashboard_form}  border_color card-body`}
                     style={{ borderTop: '2px solid #CAD6E6' }}
                   >
@@ -1397,10 +1401,14 @@ export default function Index({ addButton, inspectionData }) {
                         </table>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
+          </div>
+          
+                  <div className="0">
+            <UploadOther orderid={orderid} module="Loading-Transit-Unloading" />
           </div>
         </div>
         <SaveBar handleSave={handleSave} rightBtn="Submit" />
