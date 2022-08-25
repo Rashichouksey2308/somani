@@ -132,6 +132,7 @@
                         padding: 21px 15px;
                         border-top: none;
                         white-space: nowrap;
+                        vertical-align: middle;
                         &:first-child {
                             padding-left: 35px;
                             @include respond(md-desktop) {
