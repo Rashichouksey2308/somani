@@ -1,18 +1,20 @@
 @import '../../src/components/styles/Core/config';
 .container_inner {
-  margin-bottom: 70px;
   margin: 28px;
+  margin-bottom: 68px;
   @include respond(sm-desktop) {
     margin: 20px;
+    margin-bottom: 60px;
   }
   @include respond(phone) {
     margin: 15px;
-    margin-bottom: 70px;
+    margin-bottom: 71px;
   }
 }
 
 .filter {
-  margin-bottom: 15px;
+  min-height: 48px;
+  margin: 0 0 27px;
   @include respond(sm-desktop) {
     display: block !important;
   }
@@ -236,12 +238,12 @@
   }
 }
 .statusBox {
-  margin: 20px 0;
+  margin-bottom: 26px;
   border-radius: 8px;
   border: 1px solid #d2d7e5;
   box-shadow: 0 3px 12px #e5e7ed;
   .boxInner {
-    width: 20%;
+    width: 25%;
     padding: 21px 24px;
     border-right: 1px solid #d2d7e5;
     &:last-child {

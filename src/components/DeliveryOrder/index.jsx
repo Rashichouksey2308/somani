@@ -17,8 +17,8 @@ export default function Index(props) {
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
-        <div className={`${styles.vessel_card} mt-3 border_color`}>
-          <div className={`${styles.main} vessel_card mt-4 card border_color`}>
+        <div className={`${styles.vessel_card} border_color`}>
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
               data-toggle="collapse"
@@ -88,7 +88,7 @@ export default function Index(props) {
                 {' '}
                 <div className={styles.table_scroll_outer}>
                   <div className={styles.table_scroll_inner}>
-                    <div className="row">
+                    <div className="row mb-3">
                       {props.releaseOrderData.map((val, index) => {
                         return (
                           <>

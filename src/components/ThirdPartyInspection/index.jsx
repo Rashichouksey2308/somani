@@ -847,7 +847,7 @@ export default function Index({ addButton, inspectionData }) {
                             <td>
                               <img
                                 src="/static/pdf.svg"
-                                className="img-fluid"
+                                className={`${styles.pdfImage} img-fluid`}
                                 alt="Pdf"
                               />
                             </td>
@@ -958,7 +958,7 @@ export default function Index({ addButton, inspectionData }) {
                             <td>
                               <img
                                 src="/static/pdf.svg"
-                                className="img-fluid"
+                                className={`${styles.pdfImage} img-fluid`}
                                 alt="Pdf"
                               />
                             </td>
@@ -1069,7 +1069,7 @@ export default function Index({ addButton, inspectionData }) {
                             <td>
                               <img
                                 src="/static/pdf.svg"
-                                className="img-fluid"
+                                className={`${styles.pdfImage} img-fluid`}
                                 alt="Pdf"
                               />
                             </td>
@@ -1361,7 +1361,7 @@ export default function Index({ addButton, inspectionData }) {
                               <td>
                                 <img
                                   src="/static/pdf.svg"
-                                  className="img-fluid"
+                                  className={`${styles.pdfImage} img-fluid`}
                                   alt="Pdf"
                                 />
                               </td>

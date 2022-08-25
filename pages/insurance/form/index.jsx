@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux'
 import _get from 'lodash/get'
 import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../../src/utils/helper'
 import { toast } from 'react-toastify'
+import moment from 'moment'
 
 const Index = () => {
   const dispatch = useDispatch()
@@ -47,10 +48,10 @@ const Index = () => {
 
   let sumInsuredCalc = parseFloat((Number(insuranceData?.order?.orderValue) * 110)/100)
   // console.log(sumInsuredCalc, "THIS IS SUM INSURED CAL")
-
+console.log(quotationData,"quotationData")
   useEffect(() => {
     setQuotationData({
-      additionalInfo: insuranceData?.quotationRequest?.additionalInfo,
+    additionalInfo: insuranceData?.quotationRequest?.additionalInfo,
     expectedTimeOfArrival: insuranceData?.quotationRequest?.expectedTimeOfArrival,
     expectedTimeOfDispatch: insuranceData?.quotationRequest?.expectedTimeOfDispatch,
     insuranceType: insuranceData?.quotationRequest?.insuranceType,
@@ -83,15 +84,87 @@ const Index = () => {
     saveQuotationData(name, text)
   }
 
-  const handleSave = () => {
-    if(quotationData?.insuranceType !== ''){
-    let insuranceObj = {...quotationData}
-    insuranceObj.sumInsured = removePrefixOrSuffix(quotationData.sumInsured)
-    let obj = {
-      quotationRequest: { ...insuranceObj },
-      insuranceId: insuranceData?._id,
+  const validation=()=>{
+   let  toastMessage=""
+  if (quotationData.lossPayee == "" || quotationData.lossPayee == undefined) {
+      toastMessage = 'Please Select loss Payee'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      return false 
     }
-    dispatch(UpdateQuotation(obj))
+  }
+    if (quotationData.laycanFrom == "" || quotationData.laycanFrom == undefined) {
+      toastMessage = 'Please add laycan From'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      return false 
+    }
+  }
+    if (quotationData.laycanTo == "" || quotationData.laycanTo == undefined) {
+      toastMessage = 'Please add laycan to'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      return false 
+    }
+  }
+     if (quotationData.expectedTimeOfDispatch == "" || quotationData.expectedTimeOfDispatch == undefined) {
+      toastMessage = 'Please add expected Time Of Dispatch '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      return false 
+    }
+  }
+      if (quotationData.expectedTimeOfArrival == "" || quotationData.expectedTimeOfArrival == undefined) {
+      toastMessage = 'Please add expected Time Of Arrival '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      return false 
+    }
+  }
+    if (quotationData.sumInsured == "" || quotationData.sumInsured == undefined ||  quotationData.sumInsured == null) {
+      toastMessage = 'Please add sum Insured '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      return false 
+    }
+  }
+  if(quotationData?.insuranceType !=="Marine Insurance"){
+ if (quotationData.storageDetails.placeOfStorage == "" || quotationData.storageDetails.placeOfStorage == undefined ||  quotationData.storageDetails.placeOfStorage == null) {
+      toastMessage = 'Please select place Of Storage '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      return false 
+    }
+  }
+   if (quotationData.storageDetails.periodOfInsurance == "" || quotationData.storageDetails.periodOfInsurance == undefined ||  quotationData.storageDetails.periodOfInsurance == null) {
+      toastMessage = 'Please add period Of Insurance   '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      return false 
+    }
+  }
+    if (quotationData.storageDetails.storagePlotAddress == "" || quotationData.storageDetails.storagePlotAddress == undefined ||  quotationData.storageDetails.storagePlotAddress == null) {
+      toastMessage = 'Please add storage Plot Address  '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      return false 
+    }
+  }
+  }
+  return true
+  }
+  const handleSave = () => {
+
+    if(quotationData?.insuranceType !== ''){
+    if(validation()){
+    let insuranceObj = {...quotationData}
+        insuranceObj.sumInsured = removePrefixOrSuffix(quotationData.sumInsured)
+        let obj = {
+          quotationRequest: { ...insuranceObj },
+          insuranceId: insuranceData?._id,
+        }
+        dispatch(UpdateQuotation(obj))
+    }
     }else{
       let toastMessage = 'Insurance type is mandatory'
       if(!toast.isActive(toastMessage)){
@@ -345,6 +418,7 @@ const Index = () => {
                                       ?.lcIssuingBank
                                   }
                                 </option> */}
+                                <option>Select an  option</option>
                                 <option selected={insuranceData?.quotationRequest?.lossPayee === "Reserve Bank of Spain"} value="Reserve Bank of Spain">Reserve Bank of Spain</option>
                                 <option selected={insuranceData?.quotationRequest?.lossPayee === "Zurcher Kantonal Bank,Zurich"} value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
                               </select>
@@ -367,9 +441,11 @@ const Index = () => {
                                 name="laycanFrom"
                                 saveDate={saveDate}
                                 defaultDate={
-                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanFrom', '')?.split(
+                                 
+                                    _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanFrom', '')?.split(
                                     'T',
                                   )[0]
+                                  
                                 }
                                 labelName="Laycan from"
                               />
@@ -385,7 +461,7 @@ const Index = () => {
                               <DateCalender
                                 name="laycanTo"
                                 defaultDate={
-                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanTo', '')?.split(
+                                 _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanTo', '')?.split(
                                     'T',
                                   )[0]
                                 }
@@ -404,9 +480,9 @@ const Index = () => {
                               <DateCalender
                                 name="expectedTimeOfDispatch"
                                 defaultDate={
-                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.EDTatLoadPort', '')?.split(
+                                  moment(_get(insuranceData, 'order.vessel.vessels[0].transitDetails.EDTatLoadPort', '')?.split(
                                     'T',
-                                  )[0]
+                                  )[0]).toDate
                                 }
                                 saveDate={saveDate}
                                 labelName="Expected time of Dispatch"
@@ -741,19 +817,16 @@ const Index = () => {
                                     e.target.value,
                                   )
                                 }
+                                value={
+                                    insuranceData?.quotationRequest
+                                      ?.storageDetails?.placeOfStorage
+                                  }
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               >
-                                <option
-                                  value={
-                                    insuranceData?.quotationRequest
-                                      ?.storageDetails?.placeOfStorage
-                                  }
-                                >
-                                  {
-                                    insuranceData?.quotationRequest
-                                      ?.storageDetails?.placeOfStorage
-                                  }
+                                <option>
+                                 Select an option
                                 </option>
+                                
                                 <option value="Visakhapatnam, AP, India">
                                   Visakhapatnam, AP, India
                                 </option>

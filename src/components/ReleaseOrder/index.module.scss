@@ -1012,11 +1012,6 @@
 }
 .wrapper {
   border-radius: 6px;
-  & > div {
-    & > div {
-      background: none;
-    }
-  }
 
   .title {
     position: relative;
