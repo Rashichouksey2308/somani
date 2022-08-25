@@ -315,6 +315,7 @@ function Index({
     }
 
   }
+  console.log( _get(companyData, "GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1",""),"651645")
   function createGradient(ctx, area, color, color2) {
     // const colorStart = faker.random.arrayElement(colors);
     // const colorMid = faker.random.arrayElement(
@@ -2724,7 +2725,11 @@ const compilanceStatus = (companyData, camData) => {
                     className={`${styles.value} value pr-5`}
                     style={{ color: '#EA3F3F' }}
                   >
-                    {moment(_get(companyData, "GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1", ""), 'MMyyyy').format('MM-yyyy')}
+                    {
+                    _get(companyData, "GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1","") !=""?
+                    moment(_get(companyData, "GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1", ""), 'MMyyyy').format('MM-yyyy')
+                  :""
+                  }
                   </span>
                 </Col>
                 <Col
