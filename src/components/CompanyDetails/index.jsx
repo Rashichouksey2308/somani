@@ -292,7 +292,7 @@ console.log(slider,"slider16513")
                 value={gstList?.data?.companyData?.companyName}
                 id="companyInput"
                 name="companyName"
-                className={`${styles.input_field} input form-control`}
+                className={`${styles.input_field} ${styles.company_name} input form-control`}
                 required
               />
               <label

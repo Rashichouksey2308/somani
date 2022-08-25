@@ -1,10 +1,9 @@
 @import "../styles/Core/config";
-
 .datatable {
     border-radius: 6px;
     border: 1px solid #d2d7e5;
     .tableFilter {
-        height: 80px;
+        min-height: 80px;
         padding: 0 15px 0 35px;
         @include respond(md-desktop) {
             padding: 0 15px 0 15px;
