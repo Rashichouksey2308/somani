@@ -36,7 +36,7 @@ export default function Home() {
     serVesselDataToAdd(data)
   }
 
-  const [list, setList] = useState()
+  const [list, setList] = useState([])
   const [containerExcel, setContainerExcel] = useState({})
   const [vesselCertificate, setVesselCertificate] = useState({})
   const [containerListDocument, setContainerListDocument] = useState({})
@@ -45,7 +45,7 @@ export default function Home() {
   const [vesselUpdatedAt, setVesselUpdatedAt] = useState("")
 
 
-  // console.log(containerExcel, 'containerExcel')
+  console.log(containerExcel,list, 'containerExcel')
 
 
 
@@ -190,8 +190,7 @@ export default function Home() {
     setList(newArr)
   }
 
-  // // console.log(list, 'vessels123')
-  //const [shipmentType, setShipmentType] = useState('Bulk')
+
 
   const [startDate, setStartDate] = useState(null)
   const [lastDate, setlastDate] = useState(new Date())
@@ -342,25 +341,7 @@ export default function Home() {
     // console.log("check 1")
   }
 
-  // console.log(list, 'arrayvessel')
 
-  // const onVesselInfoChangeHandlerForLiner = (e, index) => {
-
-  //   const name = e.target.id
-  //   const value = e.target.value
-  //   if (name.trim() === 'yearOfBuilt' && !value.length === 4) {
-  //     let toastMessage = 'Provide a Valid Year'
-  //     if (!toast.isActive(toastMessage.toUpperCase())) {
-  //       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-  //       return
-  //     }
-  //   }
-  //   let array = [...list]
-  //   let vesselArray = { ...array[0].vesselInformation[index], [name]: value }
-  //   array[0].vesselInformation[index] = vesselArray
-
-  //   setList(array)
-  // }
 
   const uploadDocHandler = (e) => {
     let uploadDocType = e.target.id
@@ -422,8 +403,172 @@ export default function Home() {
       return newState;
     })
   }
+ const validation =()=>{
+   let isOk = true
+   let  toastMessage= ""
+   
+   list.forEach((val,index)=>{
+     if (val.shipmentType == "" || val.shipmentType == undefined) {
+      toastMessage = `Please Select shipment Type of Vessel Information ${index}  `
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      isOk =  false 
+    }
+    
+  }
+    if (val.commodity == "" || val.commodity == undefined) {
+      toastMessage = `Please add commodity of Vessel Information ${index}  `
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      isOk =  false 
+    }
+    
+  }
+    if (val.quantity == "" || val.quantity == undefined) {
+      toastMessage = `Please add quantity of Vessel Information ${index}  `
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      isOk =  false 
+    }
+    
+  }
+  if (val.orderValue == "" || val.orderValue == undefined) {
+  toastMessage = `Please add order Value of Vessel Information ${index}  `
+  if (!toast.isActive(toastMessage.toUpperCase())) {
+  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+  isOk =  false 
+  }
 
+  }
+  if (val.transitDetails.countryOfOrigin == "" || val.transitDetails.countryOfOrigin == undefined) {
+  toastMessage = `Please select country Of Origin of Vessel Information ${index}  `
+  if (!toast.isActive(toastMessage.toUpperCase())) {
+  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+  isOk =  false 
+  }
+
+  }
+  if (val.transitDetails.portOfLoading == "" || val.transitDetails.portOfLoading == undefined) {
+  toastMessage = `Please select port Of Loading of Vessel Information ${index}  `
+  if (!toast.isActive(toastMessage.toUpperCase())) {
+  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+  isOk =  false 
+  }
+
+  }
+    if (val.transitDetails.portOfDischarge == "" || val.transitDetails.portOfDischarge == undefined) {
+  toastMessage = `Please select port Of Discharge of Vessel Information ${index}  `
+  if (!toast.isActive(toastMessage.toUpperCase())) {
+  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+  isOk =  false 
+  }
+
+  }
+  if (val.transitDetails.portOfDischarge == "" || val.transitDetails.portOfDischarge == undefined) {
+  toastMessage = `Please select port Of Discharge of Vessel Information ${index}  `
+  if (!toast.isActive(toastMessage.toUpperCase())) {
+  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+  isOk =  false 
+  }
+
+  }
+    if (val.transitDetails.laycanFrom == "" || val.transitDetails.laycanFrom == undefined) {
+  toastMessage = `Please add laycan From of Vessel Information ${index}  `
+  if (!toast.isActive(toastMessage.toUpperCase())) {
+  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+  isOk =  false 
+  }
+
+  }
+  if (val.transitDetails.laycanTo == "" || val.transitDetails.laycanTo == undefined) {
+  toastMessage = `Please add laycan to of Vessel Information ${index}  `
+  if (!toast.isActive(toastMessage.toUpperCase())) {
+  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+  isOk =  false 
+  }
+
+  }
+  if (val.transitDetails.EDTatLoadPort == "" || val.transitDetails.EDTatLoadPort == undefined) {
+  toastMessage = `Please add EDT at Load Port to of Vessel Information ${index}  `
+  if (!toast.isActive(toastMessage.toUpperCase())) {
+  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+  isOk =  false 
+  }
+
+  }
+  if (val.transitDetails.ETAatDischargePort == "" || val.transitDetails.ETAatDischargePort == undefined) {
+  toastMessage = `Please add EDT at dischargePort to of Vessel Information ${index}  `
+  if (!toast.isActive(toastMessage.toUpperCase())) {
+  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+  isOk =  false 
+  }
+
+  }
+  if(val.shipmentType=="Bulk"){
+  if (val.vesselInformation[0].name == "" || val.vesselInformation[0].name == undefined) {
+  toastMessage = `Please add vessel name  of Vessel Information ${index}  `
+  if (!toast.isActive(toastMessage.toUpperCase())) {
+  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+  isOk =  false 
+  }
+
+  } 
+
+ if (val.vesselInformation[0].IMONumber == "" || val.vesselInformation[0].IMONumber == undefined) {
+  toastMessage = `Please add IMO Number  of Vessel Information ${index}  `
+  if (!toast.isActive(toastMessage.toUpperCase())) {
+  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+  isOk =  false 
+  }
+
+  }
+
+  if (val.vesselInformation[0].flag == "" || val.vesselInformation[0].flag == undefined) {
+  toastMessage = `Please add IMO Number  of Vessel Information ${index}  `
+  if (!toast.isActive(toastMessage.toUpperCase())) {
+  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+  isOk =  false 
+  }
+
+  }
+
+  if (val.vesselInformation[0].yearOfBuilt == "" || val.vesselInformation[0].yearOfBuilt == undefined || val.vesselInformation[0].yearOfBuilt == null) {
+  toastMessage = `Please add yea Of Built  of Vessel Information ${index}  `
+  if (!toast.isActive(toastMessage.toUpperCase())) {
+  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+  isOk =  false 
+  }
+
+  }
+
+  }else{
+  if (val.shippingInformation.shippingLineOrCharter == "" || val.shippingInformation.shippingLineOrCharter == undefined) {
+  toastMessage = `Please add shipping Line Or Charter  of Vessel Information ${index}  `
+  if (!toast.isActive(toastMessage.toUpperCase())) {
+  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+  isOk =  false 
+  }
+
+  }
+   if (val.shippingInformation.numberOfContainers == "" || val.shippingInformation.numberOfContainers == undefined) {
+  toastMessage = `Please add number Of Containers  of Vessel Information ${index}  `
+  if (!toast.isActive(toastMessage.toUpperCase())) {
+  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+  isOk =  false 
+  }
+
+  }
+  }
+
+
+   })
+  
+   return isOk
+ }
   const onSaveHandler = async () => {
+    if(validation()){
+
+  
     const payload = {
       vesselId: id,
       partShipmentAllowed: partShipmentAllowed,
@@ -443,6 +588,7 @@ export default function Home() {
     await dispatch(UpdateVessel(payload))
     fetchInitialData()
   }
+    }
   // // console.log(Vessel, "Vessel")
   // console.log(containerExcel, ' containerExcel')
 
