@@ -87,9 +87,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
         <div className={`${styles.vessel_card} border_color`}>
-          <div
-            className={`${styles.main} vessel_card card border_color`}
-          >
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} card-header align-items-center border_color head_container align-items-center justify-content-between d-flex bg-transparent`}
             >
@@ -382,17 +380,17 @@ export default function Index({ OrderId, customData, uploadDoc }) {
         onHide={handleClose}
         aria-labelledby="contained-modal-title-vcenter"
         centered
-        className={styles.wrapper}
+        className={`${styles.wrapper}`}
         backdropClassName={styles.backdrop}
       >
-        <Modal.Header className={styles.head}>
+        <Modal.Header className={`${styles.head} background1`}>
           <Modal.Title
             id="contained-modal-title-vcenter"
             className={`${styles.title}  d-flex justify-content-between align-items-center`}
           >
             <div className={`${styles.blue} ml-3`}>BL Details </div>
             <div>
-              <span>Commodity: </span>Iron{' '}
+              <span className="text">Commodity: </span>Iron{' '}
             </div>
             <img
               src="/static/close.svg"
@@ -402,7 +400,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
             ></img>
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className={`${styles.body}  container-fluid`}>
+        <Modal.Body className={`${styles.body} background1  container-fluid`}>
           <table
             className={`${styles.table} table `}
             cellPadding="0"
@@ -441,7 +439,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
             </tr>
           </table>
           <div>
-            <span>Total Quantity: </span> &nbsp; 8,000 MT{' '}
+            <span className="text">Total Quantity: </span> &nbsp; 8,000 MT{' '}
           </div>
         </Modal.Body>
       </Modal>
