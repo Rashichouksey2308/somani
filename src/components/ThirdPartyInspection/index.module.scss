@@ -441,6 +441,15 @@
               font-weight: bold;
               line-height: 25px;
               font-size: 20px;
+              @include respond(md-desktop) {
+                font-size: 17px;
+              }
+              @include respond(sm-desktop) {
+                font-size: 15px;
+              }
+              @include respond(phone) {
+                font-size: 14px;
+              }
             }
             .specify_field {
               padding: 10px 20px 10px 20px;
@@ -837,4 +846,17 @@ img {
   color: #3687e8;
   line-height: 23px;
   text-transform: capitalize;
+}
+.pdfImage {
+  width: 57px;
+  height: 25px;
+  @include respond(sm-desktop) {
+    width: 50px;
+    height: 22px;
+  }
+  @include respond(phone) {
+    width: 35px;
+    height: 15px;
+    margin-left: 8px;
+  }
 }
