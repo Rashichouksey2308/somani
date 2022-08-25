@@ -71,7 +71,7 @@ useEffect(() => {
        
         
        }
-       setList(savedData.authorisedSignatoryDetails)
+       setList(savedData.authorisedSignatoryDetails?savedData.authorisedSignatoryDetails:[])
        setAddressList(savedData.addresses)
        setChaState(supplier)
     }else{
@@ -84,7 +84,7 @@ useEffect(() => {
        
         
        }
-       setList(props.data?.authorisedSignatoryDetails)
+       setList(props.data?.authorisedSignatoryDetails?props.data?.authorisedSignatoryDetails:[])
        setAddressList(props.data?.addresses)
        setChaState(supplier)
     }
