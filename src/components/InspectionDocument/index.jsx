@@ -153,7 +153,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
                     <td>
                       <img
                         src="/static/pdf.svg"
-                        className="img-fluid"
+                        className={`${styles.pdfImage} img-fluid`}
                         alt="Pdf"
                       />
                     </td>
@@ -466,7 +466,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
                             <td>
                               <img
                                 src="/static/pdf.svg"
-                                className="img-fluid"
+                                className={`${styles.pdfImage} img-fluid`}
                                 alt="Pdf"
                               />
                             </td>
