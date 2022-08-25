@@ -15,6 +15,13 @@ function Index() {
 
   const [searchTerm, setSearchTerm] = useState('')
 
+  useEffect(() => {
+if(window){
+    sessionStorage.setItem('loadedPage',"Loading, Transit & Unloadinge")
+    sessionStorage.setItem('loadedSubPage',`Inspection`)
+    sessionStorage.setItem('openList',3)
+    }
+},[])
   const handleSearch = (e) => {
     const query = `${e.target.value}`
     setSearchTerm(query)

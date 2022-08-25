@@ -76,6 +76,15 @@
           text-transform: capitalize;
           line-height: 27px;
           margin: 0;
+          @include respond(md-desktop) {
+            font-size: 20px;
+          }
+          @include respond(sm-desktop) {
+            font-size: 19px;
+          }
+          @include respond(phone) {
+            font-size: 17px;
+          }
         }
 
         span {
@@ -403,6 +412,12 @@
             & + label {
               transform: translateY(-30px);
             }
+          }
+          @include respond(sm-desktop) {
+            font-size: 18px;
+          }
+          @include respond(phone) {
+            font-size: 16px;
           }
         }
       }

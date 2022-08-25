@@ -19,6 +19,13 @@ const Index = () => {
     dispatch(setPageName('termsheet'))
     dispatch(setDynamicName(''))
   })
+useEffect(() => {
+  if(window){
+    sessionStorage.setItem('loadedPage',"Leads")
+    sessionStorage.setItem('loadedSubPage',`Termsheet`)
+    sessionStorage.setItem('openList',1)
+  }
+  },[])
   return (
     <TermSheetMain/>
   )

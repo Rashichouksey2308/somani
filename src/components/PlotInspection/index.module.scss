@@ -29,10 +29,10 @@
             font-size: 20px;
           }
           @include respond(sm-desktop) {
-            font-size: 18px;
+            font-size: 19px;
           }
           @include respond(phone) {
-            font-size: 15px;
+            font-size: 17px;
           }
         }
         span {
