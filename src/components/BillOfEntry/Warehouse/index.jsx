@@ -7,6 +7,8 @@ import UploadOther from '../../UploadOther'
 import _get from 'lodash/get'
 import { UpdateCustomClearance } from '../../../redux/CustomClearance&Warehousing/action'
 import { useDispatch } from 'react-redux'
+import { toast } from 'react-toastify'
+
 
 export default function Index({ OrderId, customData }) {
   console.log(customData, 'customData')
@@ -42,12 +44,32 @@ export default function Index({ OrderId, customData }) {
   }
 
   const onSaveDischarge = () => {
+
+
     let warehouseDetailpayload = warehouseDetails.wareHouseDetails
-    let fd = new FormData()
-    fd.append('wareHouseDetails', JSON.stringify(warehouseDetailpayload))
-    fd.append('customClearanceId', customData._id)
-    fd.append('document', warehouseDetails.document)
-    dispatch(UpdateCustomClearance(fd))
+    if (warehouseDetailpayload.quantity === '') {
+
+      let toastMessage = 'quantity CANNOT BE EMPTY  '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    } else if (warehouseDetailpayload.dateOfStorage === null) {
+
+      let toastMessage = 'DATE OF STORAGE  CANNOT BE EMPTY  '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    } else {
+      console.log(warehouseDetailpayload, 'warehouseDetailpayload')
+      let fd = new FormData()
+      fd.append('wareHouseDetails', JSON.stringify(warehouseDetailpayload))
+      fd.append('customClearanceId', customData._id)
+      fd.append('document', warehouseDetails.document)
+      dispatch(UpdateCustomClearance(fd))
+    }
+
   }
 
   const handleDropdown = (e) => {
@@ -93,7 +115,7 @@ export default function Index({ OrderId, customData }) {
                     <div className={`${styles.label} text`}>
                       CMA Name<strong className="text-danger">*</strong>
                     </div>
-                    <span className={styles.value}>Abcz</span>
+                    <span className={styles.value}>Dr. Amin Controllers Private Limited</span>
                   </div>
                   <div className="col-lg-4 col-md-6 col-sm-6">
                     <div className={`${styles.label} text`}>

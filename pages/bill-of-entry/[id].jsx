@@ -56,7 +56,7 @@ dispatch(setDynamicName(customData?.company?.companyName))
           headers: headers,
         },
       )
-      console.log(response.data.data, 'response data123')
+      console.log(response.data.data, 'dischargeOfCargo2')
       if (response.data.code === 200) {
         // dispatch(getCustomClearanceSuccess(response.data.data))
 
@@ -156,7 +156,7 @@ dispatch(setDynamicName(customData?.company?.companyName))
                     role="tabpanel"
                   >
                     <div className={`${styles.card}  accordion_body`}>
-                      <DischargeCargo OrderId={OrderId} customData={customData} />
+                      <DischargeCargo uploadDoc={uploadDoc} OrderId={OrderId} customData={customData} />
                     </div>
                   </div>
 

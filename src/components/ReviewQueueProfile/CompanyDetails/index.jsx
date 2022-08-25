@@ -4,7 +4,7 @@ import styles from '../profile.module.scss'
 import CommonSave from '../../CommonSave'
 import { useDispatch } from 'react-redux'
 import { UpdateCompanyDetails } from '../../../redux/companyDetail/action'
-import { CovertvaluefromtoCR ,checkNan} from '../../../utils/helper'
+import { CovertvaluefromtoCR, checkNan } from '../../../utils/helper'
 import _get from 'lodash/get'
 
 function Index({ order, companyDetail }) {
@@ -92,7 +92,7 @@ function Index({ order, companyDetail }) {
                   Type of Business
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
-                  {companyDetail?.profile?.companyDetail?.typeOfBusiness[0]}
+                  {_get(companyDetail, 'profile.companyDetail.typeOfBusiness[0]', '')}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -166,7 +166,7 @@ function Index({ order, companyDetail }) {
                   Shell/ Hawala Score
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
-                  {companyDetail?.profile?.companyDetail?.hawalaScore}
+                  {companyDetail?.compliance?.other?.hawalaScore ? 'Yes' : 'No'}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -176,10 +176,10 @@ function Index({ order, companyDetail }) {
                 <div className={`${styles.value} accordion_Text`}>
                   {checkNan(
                     CovertvaluefromtoCR(companyDetail?.profile?.companyDetail?.paidUpCapital)
-                    
-                    )}
-                  
-                 
+
+                  )}
+
+
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -200,7 +200,7 @@ function Index({ order, companyDetail }) {
                   Employee Count
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
-                  {companyDetail?.profile?.companyDetail?.employeeCount}
+                  {companyDetail?.financial?.other?.employeeCount}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
