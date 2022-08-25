@@ -29,7 +29,7 @@ const IndexPage = () => {
     if (window) {
       sessionStorage.setItem('loadedPage', 'Dashboard')
       sessionStorage.setItem('loadedSubPage', null)
-      sessionStorage.setItem('openList', false)
+      sessionStorage.setItem('openList', ``)
     }
   }, [])
   console.log('BUILD TEST *******************')

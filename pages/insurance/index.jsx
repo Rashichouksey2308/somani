@@ -45,7 +45,13 @@ function Index() {
       Router.push('/insurance/form/both')
     }
   }
-
+useEffect(() => {
+if(window){
+    sessionStorage.setItem('loadedPage',"Agreement & Lc Module")
+    sessionStorage.setItem('loadedSubPage',`Insurance`)
+    sessionStorage.setItem('openList',2)
+    }
+},[])
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>

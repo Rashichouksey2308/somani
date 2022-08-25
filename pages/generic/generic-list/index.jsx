@@ -18,7 +18,13 @@ function Index(props) {
   
   const { generic } = useSelector((state) => state?.generic?.allGeneric)
   console.log(genData,"generic22131")
-
+  useEffect(() => {
+  if(window){
+    sessionStorage.setItem('loadedPage',"Agreement & Lc Module")
+    sessionStorage.setItem('loadedSubPage',`Generic`)
+    sessionStorage.setItem('openList',2)
+  }
+  },[])
  useEffect(() => {
     dispatch(setPageName('generic'))
     dispatch(setDynamicName(null))

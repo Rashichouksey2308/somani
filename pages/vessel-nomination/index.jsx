@@ -11,7 +11,13 @@ function Index() {
   const [currentPage, setCurrentPage] = useState(0);
   const { allVessel, Vessel } = useSelector((state) => state.vessel)
   console.log(allVessel, Vessel, 'allVessel')
-
+useEffect(() => {
+if(window){
+    sessionStorage.setItem('loadedPage',"Agreement & Lc Module")
+    sessionStorage.setItem('loadedSubPage',`Vessel Nomination`)
+    sessionStorage.setItem('openList',2)
+    }
+},[])
   useEffect(() => {
     dispatch(GetAllVessel(`?page=${currentPage}&limit=7`))
   }, [])
