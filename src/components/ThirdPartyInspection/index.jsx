@@ -142,7 +142,8 @@ export default function Index({ addButton, inspectionData }) {
       ) {
         setPortType({ ...portType, lord: true })
       } else if (
-        inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort == 'Both'
+        inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort ==
+        'Both'
       ) {
         setPortType({ ...portType, lord: true, discharge: true })
       } else {
@@ -260,9 +261,11 @@ export default function Index({ addButton, inspectionData }) {
                 <div className="col-md-3 col-sm-6">
                   <div className={`${styles.label} text`}>Vessel Name</div>
                   <span className={styles.value}>
-                    {
-                      _get(inspectionData, 'order.vessel.vessels[0].vesselInformation[0].name', '')
-                    }
+                    {_get(
+                      inspectionData,
+                      'order.vessel.vessels[0].vesselInformation[0].name',
+                      '',
+                    )}
                   </span>
                 </div>
               </div>
@@ -479,7 +482,7 @@ export default function Index({ addButton, inspectionData }) {
                             <td>
                               <img
                                 src="/static/pdf.svg"
-                                className="img-fluid"
+                                className={`${styles.pdfImage} img-fluid`}
                                 alt="Pdf"
                               />
                             </td>
@@ -590,7 +593,7 @@ export default function Index({ addButton, inspectionData }) {
                             <td>
                               <img
                                 src="/static/pdf.svg"
-                                className="img-fluid"
+                                className={`${styles.pdfImage} img-fluid`}
                                 alt="Pdf"
                               />
                             </td>
@@ -701,7 +704,7 @@ export default function Index({ addButton, inspectionData }) {
                             <td>
                               <img
                                 src="/static/pdf.svg"
-                                className="img-fluid"
+                                className={`${styles.pdfImage} img-fluid`}
                                 alt="Pdf"
                               />
                             </td>
@@ -993,7 +996,7 @@ export default function Index({ addButton, inspectionData }) {
                               <td>
                                 <img
                                   src="/static/pdf.svg"
-                                  className="img-fluid"
+                                  className={`${styles.pdfImage} img-fluid`}
                                   alt="Pdf"
                                 />
                               </td>

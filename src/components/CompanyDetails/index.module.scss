@@ -250,6 +250,11 @@
             transform: translateY(-30px);
           }
         }
+        // &.company_name {
+        //   &:valid([value=""]) {
+        //     pointer-events: none;
+        //   }
+        // }
       }
       .slidecontainer {
         width: 100%;

@@ -780,7 +780,7 @@ export default function Index({
                               <td>
                                 <img
                                   src="/static/pdf.svg"
-                                  className="img-fluid"
+                                  className={`${styles.pdfImage} img-fluid`}
                                   alt="Pdf"
                                 />
                               </td>
@@ -842,7 +842,7 @@ export default function Index({
                                   <td>
                                     <img
                                       src="/static/pdf.svg"
-                                      className="img-fluid"
+                                      className={`${styles.pdfImage} img-fluid`}
                                       alt="Pdf"
                                     />
                                   </td>
@@ -911,7 +911,7 @@ export default function Index({
                                   <td>
                                     <img
                                       src="/static/pdf.svg"
-                                      className="img-fluid"
+                                      className={`${styles.pdfImage} img-fluid`}
                                       alt="Pdf"
                                     />
                                   </td>
@@ -1065,7 +1065,7 @@ export default function Index({
                               <td>
                                 <img
                                   src="/static/pdf.svg"
-                                  className="img-fluid"
+                                  className={`${styles.pdfImage} img-fluid`}
                                   alt="Pdf"
                                 />
                               </td>
@@ -1073,41 +1073,34 @@ export default function Index({
                                 28-02-2022,5:30 PM
                               </td>
                               <td>
-                              {bolList &&
-                                    bolList[0]?.blSurrenderDoc == null ? (
-                                      <>
-                                        <div
-                                          className={styles.uploadBtnWrapper}
-                                        >
-                                          <input
-                                            type="file"
-                                            name={`blSurrenderDoc`}
-                                            accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                            onChange={(e) =>
-                                              uploadDoc(e, index)
-                                            }
-                                          />
-                                          <button
-                                            className={`${styles.button_upload} btn`}
-                                          >
-                                            Upload
-                                          </button>
-                                        </div>
-                                      </>
-                                    ) : (
-                                      <div className={styles.certificate}>
-                                        {
-                                          bolList[0]?.blSurrenderDoc
-                                            ?.originalName
-                                        }
-                                        <img
-                                          className={`${styles.close_image} float-right ml-2 img-fluid`}
-                                          src="/static/close.svg"
-                                          onClick={() => handleCloseDoc()}
-                                          alt="Close"
-                                        />{' '}
-                                      </div>
-                                    )}
+                                {bolList &&
+                                bolList[0]?.blSurrenderDoc == null ? (
+                                  <>
+                                    <div className={styles.uploadBtnWrapper}>
+                                      <input
+                                        type="file"
+                                        name={`blSurrenderDoc`}
+                                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                        onChange={(e) => uploadDoc(e, index)}
+                                      />
+                                      <button
+                                        className={`${styles.button_upload} btn`}
+                                      >
+                                        Upload
+                                      </button>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <div className={styles.certificate}>
+                                    {bolList[0]?.blSurrenderDoc?.originalName}
+                                    <img
+                                      className={`${styles.close_image} float-right ml-2 img-fluid`}
+                                      src="/static/close.svg"
+                                      onClick={() => handleCloseDoc()}
+                                      alt="Close"
+                                    />{' '}
+                                  </div>
+                                )}
                               </td>
                             </tr>
                           </tbody>
@@ -1131,8 +1124,16 @@ export default function Index({
         />
       </div>
 
-      <Modal show={show} size="lg" onHide={handleClose} className={styles.updated_successfully} backdropClassName={styles.backdrop}>
-        <Modal.Header className={`${styles.card_header} card-header bg-transparent`}>
+      <Modal
+        show={show}
+        size="lg"
+        onHide={handleClose}
+        className={styles.updated_successfully}
+        backdropClassName={styles.backdrop}
+      >
+        <Modal.Header
+          className={`${styles.card_header} card-header bg-transparent`}
+        >
           <Modal.Title>
             <h3>Updated Successfully</h3>
           </Modal.Title>
