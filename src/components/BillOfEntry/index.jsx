@@ -205,7 +205,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
     //   }
 
     // })
-    const billOfEntry = { billOfEntry: [billOfEntryData] }
+    const billOfEntry = { billOfEntry: [billOfEntryData]}
     const fd = new FormData()
     fd.append('customClearanceId', customData?._id)
     fd.append('billOfEntry', JSON.stringify(billOfEntry))
