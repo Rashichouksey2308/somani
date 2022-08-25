@@ -10,6 +10,7 @@ import { GetLcModule, UpdateAmendment } from '../../src/redux/lcModule/action'
 import Router from 'next/router'
 import { removePrefixOrSuffix } from '../../src/utils/helper'
 import _get from 'lodash/get'
+import {toast} from 'react-toastify'
 
 function Index() {
   const dispatch = useDispatch()
@@ -144,7 +145,9 @@ function Index() {
   const inputRef = useRef(null)
 
   const dropDownChange = (e) => {
-    inputRef.current.value = ''
+    // if(inputRef?.current?.value != ''){
+    // inputRef.current.value = ''
+    // }
     if (
       e.target.value == 'latestDateOfShipment' ||
       e.target.value == 'dateOfExpiry'
@@ -188,9 +191,9 @@ function Index() {
     if (
       clauseArr.map((e) => e.dropDownValue).includes(clauseObj.dropDownValue)
     ) {
-      let toastMessage = 'Please select a different Clause from drop down'
-      if (!toast.isActive(toastMessage.toUpperCase()).toUpperCase()) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      let toastMessage = 'CLAUSE ALREADY ADDED'
+      if (!toast.isActive(toastMessage).toUpperCase()) {
+        toast.error(toastMessage, { toastId: toastMessage })
       }
     } else {
       newArr.push(clauseObj)
