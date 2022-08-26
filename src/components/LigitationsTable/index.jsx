@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './index.module.scss'
 import { Row, Col } from 'react-bootstrap'
+import _get from 'lodash/get'
 
 function index({data,Heading, val,totalData }) {
   console.log(data,"dati")
@@ -80,12 +81,12 @@ function index({data,Heading, val,totalData }) {
                {data && data?.map((courtCase, index)=> (
                  <tr key={index}>
                   <td>{index+1}</td>
-                  <td className="">{courtCase.cin}</td>
-                  <td className="">{courtCase.caseNumber}</td>
-                  <td className="">{courtCase.caseType}</td>
-                  <td className="">{courtCase.section}</td>
-                  <td className="">{courtCase.petitioner[0]}</td>
-                  <td className="">{courtCase.respondent[0]}</td>
+                  <td className="">{courtCase?.cin}</td>
+                  <td className="">{courtCase?.caseNumber}</td>
+                  <td className="">{courtCase?.caseType}</td>
+                  <td className="">{courtCase?.section}</td>
+                  <td className="">{_get(courtCase,"petitioner[0]","")}</td>
+                  <td className="">{_get(courtCase,"respondent[0]","")}</td>
                   <td className="text-center">
                     <img src="./static/blue-eye.svg"
                     className='img-fluid'

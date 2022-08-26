@@ -38,7 +38,16 @@ function Index({ directorData }) {
           <span>+</span>
         </div>
         {directorData?.profile?.directorDetail?.length == 0 ?
-          <p>Nothing to show</p>
+         <div
+              key={index}
+              id={`directorDetails`}
+              className="collapse show"
+              aria-labelledby="directorDetails3"
+              data-parent="#profileAccordion"
+            >
+              <p className={`${styles.cardBody} bg-transparent card-body border_color`}>Nothing to show</p>
+            </div>
+          
           : null
         }
         {_get(directorData, 'profile.directorDetail', [{}]).map((director, index) => {
