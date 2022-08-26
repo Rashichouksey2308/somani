@@ -2726,6 +2726,11 @@ const compilanceStatus = (companyData, camData) => {
                     style={{ color: '#EA3F3F' }}
                   >
                     {
+                      [].forEach((l,index2)=>{
+                        
+                      })
+                    }
+                    {
                     _get(companyData, "GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1","") !=""?
                     moment(_get(companyData, "GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1", ""), 'MMyyyy').format('MM-yyyy')
                   :""
