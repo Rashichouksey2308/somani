@@ -327,12 +327,30 @@
                 text-transform: capitalize;
                 padding-left: 35px;
                 color: #3687e8;
+                @include respond(md-desktop) {
+                  font-size: 18px;
+                }
+                @include respond(sm-desktop) {
+                  font-size: 16px;
+                }
+                @include respond(phone) {
+                  font-size: 14px;
+                }
               }
               .doc_row {
                 font-size: 19px;
                 line-height: 24px;
                 opacity: 0.7;
                 font-weight: 500;
+                @include respond(md-desktop) {
+                  font-size: 17px;
+                }
+                @include respond(sm-desktop) {
+                  font-size: 15px;
+                }
+                @include respond(phone) {
+                  font-size: 12px;
+                }
               }
             }
           }
@@ -533,12 +551,30 @@
                 font-size: 20px;
                 text-transform: capitalize;
                 padding-left: 35px;
+                @include respond(md-desktop) {
+                  font-size: 18px;
+                }
+                @include respond(sm-desktop) {
+                  font-size: 16px;
+                }
+                @include respond(phone) {
+                  font-size: 14px;
+                }
               }
               .doc_row {
                 font-size: 19px;
                 line-height: 24px;
                 opacity: 0.7;
                 font-weight: 500;
+                @include respond(md-desktop) {
+                  font-size: 17px;
+                }
+                @include respond(sm-desktop) {
+                  font-size: 15px;
+                }
+                @include respond(phone) {
+                  font-size: 12px;
+                }
               }
             }
           }
@@ -856,12 +892,30 @@
             font-size: 20px;
             text-transform: capitalize;
             padding-left: 35px;
+            @include respond(md-desktop) {
+              font-size: 18px;
+            }
+            @include respond(sm-desktop) {
+              font-size: 16px;
+            }
+            @include respond(phone) {
+              font-size: 14px;
+            }
           }
           .doc_row {
             font-size: 19px;
             line-height: 24px;
             opacity: 0.7;
             font-weight: 500;
+            @include respond(md-desktop) {
+              font-size: 17px;
+            }
+            @include respond(sm-desktop) {
+              font-size: 15px;
+            }
+            @include respond(phone) {
+              font-size: 12px;
+            }
           }
         }
       }
