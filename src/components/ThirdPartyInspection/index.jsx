@@ -12,6 +12,7 @@ import { UpdateInspection } from 'redux/Inspections/action'
 import _get from 'lodash/get'
 import { toast } from 'react-toastify'
 import UploadOther from '../UploadOther/index'
+import { ViewDocument } from 'redux/ViewDoc/action'
 // import ThirdPartyPopUp from './ThirdPartyPopUp'
 
 export default function Index({ addButton, inspectionData }) {
@@ -50,25 +51,25 @@ export default function Index({ addButton, inspectionData }) {
 
   const [inspectionDetails, setInspectionDetails] = useState({
     loadPortInspectionDetails: {
-      noOfContainers: '',
-      inspectionPort: '',
-      inspectedBy: '',
-      inspectionDate: '',
-      specialMention: '',
+      numberOfContainer: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.numberOfContainer,
+      inspectionPort: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectionPort,
+      inspectedBy: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectedBy,
+      startDate: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.startDate,
+      specialMention: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.specialMention,
     },
     dischargePortInspectionDetails: {
-      noOfContainers: '',
-      inspectionPort: '',
-      inspectedBy: '',
-      inspectionDate: '',
-      specialMention: '',
+      numberOfContainer: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.numberOfContainer,
+      inspectionPort: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectionPort,
+      inspectedBy: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectedBy,
+      startDate: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.startDate,
+      specialMention: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.specialMention,
     },
   })
 
   const [documents, setDocuments] = useState({
-    certificateOfQuality: null,
-    certificateOfWeight: null,
-    certificateOfOrigin: null,
+    certificateOfQuality: inspectionData?.thirdPartyInspection?.certificateOfQuality || null,
+    certificateOfWeight: inspectionData?.thirdPartyInspection?.certificateOfWeight || null,
+    certificateOfOrigin: inspectionData?.thirdPartyInspection?.certificateOfOrigin || null,
   })
 
   const uploadDocument1 = (e) => {
@@ -127,6 +128,27 @@ export default function Index({ addButton, inspectionData }) {
     saveInspectionDetails(name, text)
   }
 
+  // const saveDate = (value, name) => {
+  //   const d = new Date(value)
+  //   let text = d.toISOString()
+  //   saveShipmentData(name, text)
+  // }
+  const [dateStartFrom,setDateStartFrom]=useState({
+    inspectionDateAtLoad:"",
+    inspectionDateAtDischarge:""
+ 
+  })
+  const setStartDate=(val,name)=>{
+      var new_date = moment(new Date(val).toISOString()).add(1, 'days').format("DD-MM-YYYY");
+      if(name=="loadPortInspectionDetails.startDate"){
+    
+      setDateStartFrom({...dateStartFrom,inspectionDateAtLoad:new_date})
+    }else{
+      setDateStartFrom({...dateStartFrom,inspectionDateAtDischarge:new_date})
+    }
+   
+  }
+
   const handleSave = () => {
     if (inspectionData?.order?.shipmentDetail?.shipmentType == 'Liner') {
       if (
@@ -134,7 +156,7 @@ export default function Index({ addButton, inspectionData }) {
         portType.dischargePortInspection == false
       ) {
         if (
-          inspectionDetails?.loadPortInspectionDetails?.noOfContainers === ''
+          inspectionDetails?.loadPortInspectionDetails?.numberOfContainer === ''
         ) {
           let toastMessage = 'NUMBER OF CONTAINERS CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
@@ -148,7 +170,7 @@ export default function Index({ addButton, inspectionData }) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          inspectionDetails?.loadPortInspectionDetails?.inspectionDate === ''
+          inspectionDetails?.loadPortInspectionDetails?.startDate === ''
         ) {
           let toastMessage = 'PLEASE SELECT INSPECTION DATE'
           if (!toast.isActive(toastMessage)) {
@@ -186,7 +208,7 @@ export default function Index({ addButton, inspectionData }) {
         portType.loadPortInspection == false
       ) {
         if (
-          inspectionDetails?.dischargePortInspectionDetails?.noOfContainers ===
+          inspectionDetails?.dischargePortInspectionDetails?.numberOfContainer ===
           ''
         ) {
           let toastMessage = 'NUMBER OF CONTAINERS CANNOT BE EMPTY'
@@ -201,7 +223,7 @@ export default function Index({ addButton, inspectionData }) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          inspectionDetails?.dischargePortInspectionDetails?.inspectionDate ===
+          inspectionDetails?.dischargePortInspectionDetails?.startDate ===
           ''
         ) {
           let toastMessage = 'PLEASE SELECT INSPECTION DATE'
@@ -238,7 +260,7 @@ export default function Index({ addButton, inspectionData }) {
         }
       } else {
         if (
-          inspectionDetails?.loadPortInspectionDetails?.noOfContainers === ''
+          inspectionDetails?.loadPortInspectionDetails?.numberOfContainer === ''
         ) {
           let toastMessage = 'NUMBER OF CONTAINERS CANNOT BE EMPTY'
           if (!toast.isActive(toastMessage)) {
@@ -252,7 +274,7 @@ export default function Index({ addButton, inspectionData }) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          inspectionDetails?.loadPortInspectionDetails?.inspectionDate === ''
+          inspectionDetails?.loadPortInspectionDetails?.startDate === ''
         ) {
           let toastMessage = 'PLEASE SELECT INSPECTION DATE'
           if (!toast.isActive(toastMessage)) {
@@ -275,7 +297,7 @@ export default function Index({ addButton, inspectionData }) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          inspectionDetails?.dischargePortInspectionDetails?.noOfContainers ===
+          inspectionDetails?.dischargePortInspectionDetails?.numberOfContainer ===
           ''
         ) {
           let toastMessage = 'DISCHARGEN NUMBER OF CONTAINERS CANNOT BE EMPTY'
@@ -290,7 +312,7 @@ export default function Index({ addButton, inspectionData }) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          inspectionDetails?.dischargePortInspectionDetails?.inspectionDate ===
+          inspectionDetails?.dischargePortInspectionDetails?.startDate ===
           ''
         ) {
           let toastMessage = 'PLEASE SELECT DISCHARGE PORT INSPECTION DATE'
@@ -338,7 +360,7 @@ export default function Index({ addButton, inspectionData }) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          inspectionDetails?.loadPortInspectionDetails?.inspectionDate === ''
+          inspectionDetails?.loadPortInspectionDetails?.startDate === ''
         ) {
           let toastMessage = 'PLEASE SELECT INSPECTION DATE'
           if (!toast.isActive(toastMessage)) {
@@ -383,7 +405,7 @@ export default function Index({ addButton, inspectionData }) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          inspectionDetails?.dischargePortInspectionDetails?.inspectionDate ===
+          inspectionDetails?.dischargePortInspectionDetails?.startDate ===
           ''
         ) {
           let toastMessage = 'PLEASE SELECT INSPECTION DATE'
@@ -425,7 +447,7 @@ export default function Index({ addButton, inspectionData }) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          inspectionDetails?.loadPortInspectionDetails?.inspectionDate === ''
+          inspectionDetails?.loadPortInspectionDetails?.startDate === ''
         ) {
           let toastMessage = 'PLEASE SELECT INSPECTION DATE'
           if (!toast.isActive(toastMessage)) {
@@ -455,7 +477,7 @@ export default function Index({ addButton, inspectionData }) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          inspectionDetails?.dischargePortInspectionDetails?.inspectionDate ===
+          inspectionDetails?.dischargePortInspectionDetails?.startDate ===
           ''
         ) {
           let toastMessage = 'PLEASE SELECT DISCHARGE PORT INSPECTION DATE'
@@ -674,7 +696,8 @@ export default function Index({ addButton, inspectionData }) {
                         <input
                           className={`${styles.input_field} input form-control`}
                           required
-                          name="loadPortInspectionDetails.noOfContainers"
+                          name="loadPortInspectionDetails.numberOfContainer"
+                          defaultValue={inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.numberOfContainer}
                           onChange={(e) =>
                             saveInspectionDetails(e.target.name, e.target.value)
                           }
@@ -700,6 +723,8 @@ export default function Index({ addButton, inspectionData }) {
                           required
                           type="text"
                           name="loadPortInspectionDetails.inspectionPort"
+                          defaultValue={inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectionPort}
+
                           onChange={(e) =>
                             saveInspectionDetails(e.target.name, e.target.value)
                           }
@@ -722,6 +747,8 @@ export default function Index({ addButton, inspectionData }) {
                         className={`${styles.input_field} input form-control`}
                         required
                         name="loadPortInspectionDetails.inspectedBy"
+                        defaultValue={inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectedBy}
+
                         onChange={(e) =>
                           saveInspectionDetails(e.target.name, e.target.value)
                         }
@@ -737,8 +764,10 @@ export default function Index({ addButton, inspectionData }) {
                       <div className="d-flex">
                         <DateCalender
                           saveDate={saveDate}
-                          name="loadPortInspectionDetails.inspectionDate"
+                          name="loadPortInspectionDetails.startDate"
+                          defaultDate={inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.startDate}
                           labelName="Inspection Date"
+                          startFrom={dateStartFrom.inspectionDateAtLoad}
                           dateFormat={`dd-MM-yyyy`}
                         />
                         <img
@@ -759,6 +788,7 @@ export default function Index({ addButton, inspectionData }) {
                         <input
                           as="textarea"
                           name="loadPortInspectionDetails.specialMention"
+                          defaultValue={inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.specialMention}
                           onChange={(e) =>
                             saveInspectionDetails(e.target.name, e.target.value)
                           }
@@ -780,7 +810,7 @@ export default function Index({ addButton, inspectionData }) {
             </>
           ) : null}
           {portType.dischargePortInspection
-            ? Discharge(inspectionData, saveInspectionDetails, saveDate)
+            ? Discharge(inspectionData, saveInspectionDetails, saveDate, setStartDate, setDateStartFrom)
             : ''}
 
           <div className={`${styles.main} vessel_card card border-color`}>
@@ -845,7 +875,8 @@ export default function Index({ addButton, inspectionData }) {
                             <td className={styles.doc_name}>
                               Certificate of Origin
                               <strong className="text-danger ml-1">*</strong>
-                              <span>View</span>
+                              <span onClick={()=>dispatch(ViewDocument({path: inspectionData?.thirdPartyInspection?.certificateOfOrigin?.path,
+                              order: inspectionData?.order?._id}))}>View</span>
                             </td>
                             <td>
                               <img
@@ -956,7 +987,8 @@ export default function Index({ addButton, inspectionData }) {
                             <td className={styles.doc_name}>
                               Certificate of Quality
                               <strong className="text-danger ml-1">*</strong>
-                              <span>View</span>
+                              <span onClick={()=>dispatch(ViewDocument({path: inspectionData?.thirdPartyInspection?.certificateOfQuality?.path,
+                              order: inspectionData?.order?._id}))}>View</span>
                             </td>
                             <td>
                               <img
@@ -1067,7 +1099,8 @@ export default function Index({ addButton, inspectionData }) {
                             <td className={styles.doc_name}>
                               Certificate of Weight
                               <strong className="text-danger ml-1">*</strong>
-                              <span>View</span>
+                              <span onClick={()=>dispatch(ViewDocument({path: inspectionData?.thirdPartyInspection?.certificateOfWeight?.path,
+                              order: inspectionData?.order?._id}))}>View</span>
                             </td>
                             <td>
                               <img
@@ -1493,7 +1526,7 @@ export default function Index({ addButton, inspectionData }) {
   )
 }
 
-const Discharge = (inspectionData, saveInspectionDetails, saveDate) => {
+const Discharge = (inspectionData, saveInspectionDetails, saveDate, setDateStartFrom, setStartDate) => {
   return (
     <div className={`${styles.main} vessel_card card border-color`}>
       <div
@@ -1523,7 +1556,8 @@ const Discharge = (inspectionData, saveInspectionDetails, saveDate) => {
               <input
                 className={`${styles.input_field} input form-control`}
                 required
-                name="dischargePortInspectionDetails.noOfContainers"
+                name="dischargePortInspectionDetails.numberOfContainer"
+                defaultValue={inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.numberOfContainer}
                 onChange={(e) =>
                   saveInspectionDetails(e.target.name, e.target.value)
                 }
@@ -1545,6 +1579,7 @@ const Discharge = (inspectionData, saveInspectionDetails, saveDate) => {
                 required
                 type="text"
                 name="dischargePortInspectionDetails.inspectionPort"
+                defaultValue={inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectionPort}
                 onChange={(e) =>
                   saveInspectionDetails(e.target.name, e.target.value)
                 }
@@ -1566,6 +1601,7 @@ const Discharge = (inspectionData, saveInspectionDetails, saveDate) => {
               required
               type="text"
               name="dischargePortInspectionDetails.inspectedBy"
+              defaultValue={inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectedBy}
               onChange={(e) =>
                 saveInspectionDetails(e.target.name, e.target.value)
               }
@@ -1577,8 +1613,10 @@ const Discharge = (inspectionData, saveInspectionDetails, saveDate) => {
           <div className={`${styles.form_group} col-md-4 col-sm-6`}>
             <div className="d-flex">
               <DateCalender
-                name="dischargePortInspectionDetails.inspectionDate"
+                name="dischargePortInspectionDetails.startDate"
+                defaultDate={inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.startDate}
                 saveDate={saveDate}
+                setDateStartFrom={setStartDate}
                 labelName="Inspection Date"
                 dateFormat={`dd-MM-yyyy`}
               />
@@ -1601,6 +1639,8 @@ const Discharge = (inspectionData, saveInspectionDetails, saveDate) => {
                 as="textarea"
                 rows={3}
                 name="dischargePortInspectionDetails.specialMention"
+                defaultValue={inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.specialMention}
+
                 onChange={(e) =>
                   saveInspectionDetails(e.target.name, e.target.value)
                 }
