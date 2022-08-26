@@ -291,9 +291,9 @@ export default function Index({
 
           <div className={`${styles.main} vessel_card border_color card `}>
             <div
-              className={`${styles.head_container} border_color card-header head_container d-flex bg-transparent`}
+              className={`${styles.head_container} border_color card-header head_container align-items-center d-flex bg-transparent`}
             >
-              <h3 className={`${styles.heading}`}>Commodity Details</h3>
+              <h3 className={`${styles.heading} mb-0`}>Commodity Details</h3>
             </div>
             <div className={`${styles.dashboard_form} mt-2 mb-4 card-body`}>
               <div className="row">
@@ -356,9 +356,9 @@ export default function Index({
           </div>
           <div className={`${styles.main} vessel_card card border_color`}>
             <div
-              className={`${styles.head_container} card-header border_color head_container d-flex bg-transparent`}
+              className={`${styles.head_container} card-header align-items-center border_color head_container d-flex bg-transparent`}
             >
-              <h3 className={`${styles.heading}`}>Shipment Details</h3>
+              <h3 className={`${styles.heading} mb-0`}>Shipment Details</h3>
             </div>
             <div className={`${styles.dashboard_form} mt-3 card-body`}>
               <div className="row">
@@ -454,9 +454,9 @@ export default function Index({
                 className={`${styles.main} vessel_card card border_color`}
               >
                 <div
-                  className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
+                  className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
                 >
-                  <h3 className={`${styles.heading}`}>IGM</h3>
+                  <h3 className={`${styles.heading} mb-0`}>IGM</h3>
                   <div className="d-flex align-items-center">
                     <div className={`${styles.label} text`}>
                       Balance Quantity:

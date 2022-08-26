@@ -27,6 +27,7 @@ const Index = ({
   addGroupExpArr,
   saveSuggestedCreditData,
   deleteData,
+  
 }) => {
   const [editProfile, setEditProfile] = useState(false)
   const [editFinance, setEditFinance] = useState(false)
@@ -92,6 +93,10 @@ const Index = ({
     // console.log(tempArr, 'tempArr')
     setGroupExposureData(tempArr)
   }
+const handleRemoveRowEx=(index)=>{
+  
+  setGroupExposureData([...groupExposureData.slice(0,index), ...groupExposureData.slice(index+1)])
+ }
 
   const setActions = (index, val) => {
     setGroupExposureData((prevState) => {
@@ -168,6 +173,7 @@ const Index = ({
                 placeholder=""
                 className={`${styles.comment_field} form-control`}
                 onChange={(e) => setCompanyComments(e.target.value)}
+                value={companyComments}
               />
               <label className={`${styles.label_heading} label_heading`}>
                 Comments
@@ -178,8 +184,11 @@ const Index = ({
                 src="/static/add-btn.svg"
                 alt="add button"
                 onClick={() =>
+                  {
                   companyComments.length > 0 &&
                   addCompanyCommentArr(companyComments)
+                  setCompanyComments("")  
+                }
                 }
               />
             </div>
@@ -222,6 +231,7 @@ const Index = ({
                 placeholder=""
                 className={`${styles.comment_field} form-control`}
                 onChange={(e) => setFinancialsComments(e.target.value)}
+                value={financialsComments}
               />
               <label className={`${styles.label_heading} label_heading`}>
                 Comments
@@ -232,8 +242,12 @@ const Index = ({
                 src="/static/add-btn.svg"
                 alt="add button"
                 onClick={() =>
-                  financialsComments.length > 0 &&
-                  addFinancialsCommentArr(financialsComments)
+                 {
+                   financialsComments.length > 0 &&
+                   addFinancialsCommentArr(financialsComments)
+                
+                   setFinancialsComments("")
+                  }
                 }
               />
             </div>
@@ -387,7 +401,7 @@ const Index = ({
                                 src="/static/delete 2.svg"
                                 className={`${styles.delete_image} img-fluid`}
                                 onClick={() => {
-                                  handleRemoveRow(index)
+                                  handleRemoveRowEx(index)
                                 }}
                                 alt="delete"
                               />
@@ -555,31 +569,7 @@ const Index = ({
                   </div>
                 </div>
               ))}
-            {/* <hr></hr> */}
 
-            {/* <div className="d-flex justify-content-between">
-              <Form.Control
-                className={`${styles.paragraph}`}
-                as="textarea"
-                rows={3}
-                readOnly={editWeak1}
-              />
-              <div className="mt-3">
-                <img
-                  src="/static/delete 2.svg"
-                  className="img-fluid mr-4"
-                  alt="delete"
-                />
-                <img
-                  src="/static/mode_edit.svg"
-                  className={`${styles.edit_image} img-fluid`}
-                  alt="edit"
-                  onClick={(e) => {
-                    setEditWeak1(!editWeak1)
-                  }}
-                />
-              </div>
-            </div> */}
 
             <hr className={styles.line} style={{ margin: '-1px -35px 0' }}></hr>
             <div
@@ -682,25 +672,7 @@ const Index = ({
               </tr>
             </table>
             <div className="d-flex justify-content-start align-items-center pt-5 pl-5">
-              {/* <div className={`${styles.form_group} mr-5`}>
-                <div className={`${styles.label_sanction}`}>Limit Value</div>
-                <div>100 CR</div>
-              </div>
-              <div className={`${styles.form_group} ml-5 mr-5`}>
-                <div className={`${styles.label_sanction}`}>Order Value</div>
-                <div>100 Lakhs</div>
-              </div>
 
-              <div className={`${styles.form_group} mt-4`}>
-                <input
-                  className={`${styles.input_field} input form-control`}
-                  required
-                  type="text"
-                />
-                <label className={`${styles.label_heading} label_heading`}>
-                  Recommended Order Value
-                </label>
-              </div> */}
             </div>
             <div className="d-flex mt-5 pb-4">
               <input
@@ -758,31 +730,7 @@ const Index = ({
                   </div>
                 </div>
               ))}
-            {/* <hr></hr> */}
 
-            {/* <div className="d-flex justify-content-between">
-              <Form.Control
-                className={`${styles.paragraph}`}
-                as="textarea"
-                rows={3}
-                readOnly={editSanc1}
-              />
-              <div className="mt-3">
-                <img
-                  src="/static/delete 2.svg"
-                  className="img-fluid mr-4"
-                  alt="delete"
-                />
-                <img
-                  src="/static/mode_edit.svg"
-                  className={`${styles.edit_image} img-fluid`}
-                  alt="edit"
-                  onClick={(e) => {
-                    setEditSanc1(!editSanc1)
-                  }}
-                />
-              </div>
-            </div> */}
           </div>
         </div>
       </div>

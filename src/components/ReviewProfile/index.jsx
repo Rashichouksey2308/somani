@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/jsx-key */
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import styles from './index.module.scss'
 import { DropdownButton, Dropdown, Form } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
@@ -13,7 +13,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
     '🚀 ~ file: index.jsx ~ line 9 ~ Index ~ reviewedProfile',
     reviewedProfile?.orderValues?.apiResponse,
   )
-  const transactionTypeDropdown = ['Import', 'Domestic']
+  const [transactionTypeDropdown,settransactionTypeDropdown] = useState(['Import', 'Domestic'])
   const commodityDropdown = ['Iron', 'Crude', 'Steel']
   const countryOfOriginDropdown = ['America', 'India', 'Russia']
   const portOfDischargeDropdown = [
@@ -21,8 +21,19 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
     'Gujrat, India',
     'Vishakapatnam, India',
   ]
+  useEffect(() => {
+   if(reviewedProfile){
+     if(reviewedProfile?.transactionType?.originalValue=="Domestic"){
+      settransactionTypeDropdown(["Import"])
+     }else if(reviewedProfile?.transactionType?.originalValue=="Import"){
+       settransactionTypeDropdown(["Domestic"])
+     }else{
+      settransactionTypeDropdown(['Import', 'Domestic'])
+     }
+   }
+  },[reviewedProfile])
   const typeOfBusinessDropdown = ['Manufacturer', 'Trader', 'Retail']
-
+  
   console.log(
     reviewedProfile?.orderValue?.originalValue,
     'reviewedProfile?.orderValue?.originalValue',
