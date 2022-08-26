@@ -131,7 +131,7 @@ export default function Index({ inspectionData }) {
                       className={`${styles.input_field} input form-control`}
                       type="text"
                       name="name"
-                      defaultValue={appointmentData?.name}
+                      defaultValue={inspectionData?.thirdPartyAppointment?.name}
                       onChange={(e) =>
                         saveAppointmentData(e.target.name, e.target.value)
                       }
@@ -167,7 +167,7 @@ export default function Index({ inspectionData }) {
                           : startDate
                       }
                       defaultDate={moment(
-                        appointmentData?.dateOfAppointment?.split('T')[0],
+                        inspectionData?.dateOfAppointment?.split('T')[0],
                       ).toDate()}
                       //min={moment().format('YYYY-MM-DD')}
                       dateFormat="dd-MM-yyyy"
