@@ -55,7 +55,7 @@ export default function Index({ OrderId, customData }) {
     tempData[name] = doc
     setWarehouseDetails(tempData)
   }
-
+// console.log(warehouseDetails,'warehouseDetails')
   const onSaveDischarge = () => {
     let warehouseDetailpayload = warehouseDetails.wareHouseDetails
     if (warehouseDetailpayload.quantity === '') {
@@ -174,30 +174,31 @@ export default function Index({ OrderId, customData }) {
                   <div
                     className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 mt-5`}
                   >
-                    {/* {showButton === null ? ( */}
-                    <div className={styles.uploadBtnWrapper}>
-                      <input
-                        id="document"
-                        onChange={(e) => {
-                          onSaveDocument(e), uploadDocument1(e)
-                        }}
-                        type="file"
-                        name="myfile"
-                      />
-                      <button className={`${styles.upload_btn} btn`}>
-                        Upload
-                      </button>
-                    </div>
-                    {/* ) : ( */}
-                    <div className={styles.certificate}>
-                      <img
-                        className={`${styles.close_image} float-right m-2 img-fluid`}
-                        src="/static/close.svg"
-                        onClick={() => handleClose()}
-                        alt="Close"
-                      />{' '}
-                    </div>
-                    {/* )} */}
+                    {warehouseDetails?.document === null ? (
+                      <div className={styles.uploadBtnWrapper}>
+                        <input
+                          id="document"
+                          onChange={(e) => {
+                            onSaveDocument(e)
+                          }}
+                          type="file"
+                          name="myfile"
+                        />
+                        <button className={`${styles.upload_btn} btn`}>
+                          Upload
+                        </button>
+                      </div>
+                    ) : (
+                      <div className={styles.certificate}>
+                         {warehouseDetails?.document?.name}
+                        <img
+                          className={`${styles.close_image} float-right m-2 img-fluid`}
+                          src="/static/close.svg"
+                          onClick={() => handleClose()}
+                          alt="Close"
+                        />{' '}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
