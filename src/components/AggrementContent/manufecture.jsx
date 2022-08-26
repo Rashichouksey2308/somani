@@ -222,9 +222,14 @@ const addMoreRows=()=>{
     }])
 
   }
-  const handleRemove=(index)=>{
-    setList([...list.slice(0,index), ...list.slice(index+1)])
-  }
+const handleRemove = (index) => {
+docList.forEach((val,i)=>{
+    if(index==val.index){
+    setDocList([...docList.slice(0,i), ...docList.slice(i+1)])
+    }
+  })
+setList([...list.slice(0, index), ...list.slice(index + 1)])
+}
   const handleInput=(name,value,key)=>{
    
   const newInput = { ...supplierState }
@@ -242,67 +247,67 @@ const addMoreRows=()=>{
   const removeDocArr=(index)=>{
    setDocList([...docList.slice(0,index), ...docList.slice(index+1)])
 }
-  const handleChangeInput = (name, value, index) => {
-  let arrayToSave={
-     name:"",designation:"",email:"",phoneNo:"",
-      actions:"false",addnew:"false"
-   }
-   if(value=="addnew"){
-   arrayToSave={
-     name:"",designation:"",email:"",phoneNo:"",
-      actions:"false",addnew:"true"
-   }
-   setDocList([...docList,{attachDoc:""}])
-   }else{
-      masterList.forEach((val,index)=>{
-    if(val.name==value){
-      arrayToSave.name=val.name
-      arrayToSave.designation=val.designation
-      arrayToSave.email=val.email
-      arrayToSave.phoneNo=val.phoneNo
-     
-    }
-   })
-   }
-   
-    setList(prevState => {
-      const newState = prevState.map((obj ,i)=> {
-       
-        if (i == index) {
-          return arrayToSave;
-        }
+const handleChangeInput = (name, value, index) => {
+let arrayToSave={
+    name:"",designation:"",email:"",phoneNo:"",
+    actions:"false",addnew:"false"
+  }
+  if(value=="addnew"){
+  arrayToSave={
+    name:"",designation:"",email:"",phoneNo:"",
+    actions:"false",addnew:"true"
+  }
+    setDocList([...docList,{attachDoc:"",index:index}])
+  }else{
+    masterList.forEach((val,index)=>{
+  if(val.name==value){
+    arrayToSave.name=val.name
+    arrayToSave.designation=val.designation
+    arrayToSave.email=val.email
+    arrayToSave.phoneNo=val.phoneNo
+    
+  }
+  })
+  }
+  
+  setList(prevState => {
+    const newState = prevState.map((obj ,i)=> {
+      
+      if (i == index) {
+        return arrayToSave;
+      }
 
-        
-        return obj;
-      });
-
-      return newState;
+      
+      return obj;
     });
- 
+
+    return newState;
+  });
+
 
 }
- const handleChangeInput2=(name2,value,index)=>{
-   
- 
-  
+const handleChangeInput2=(name2,value,index)=>{
 
-    setList(prevState => {
-      const newState = prevState.map((obj ,i)=> {
-       
-        if (i == index) {
-          return {...obj,[name2]:value};
-        }
 
-        
-        return obj;
-      });
 
-      return newState;
-    });
+
+setList(prevState => {
+  const newState = prevState.map((obj ,i)=> {
+    
+    if (i == index) {
+      return {...obj,[name2]:value};
+    }
 
     
+    return obj;
+  });
 
-  }
+  return newState;
+});
+
+
+
+}
 
 const handleAddressInput=()=>{
 
@@ -1128,7 +1133,7 @@ setEditAddress(
                     )}
                       </td>
                       <td className={`d-flex`}>
-                        <img onClick={()=>removeDocArr(index)} className={`img-fluid mr-3`} src="/static/delete 2.svg" alt="delete"/>
+                        {/* <img onClick={()=>removeDocArr(index)} className={`img-fluid mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
                         <img src="/static/upload.svg" alt="upload"/>
                       </td>
 
