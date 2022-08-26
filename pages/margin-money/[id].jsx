@@ -307,6 +307,7 @@ function Index() {
   
     setChangeImporterData({...emergent})
     const newInput = { ...invoiceData }
+    newInput['importerName'] = emergent.companyName
     newInput['branchOffice'] = emergent.branch
     newInput['importerGSTIN'] = emergent.GSTIN
     newInput['companyAddress'] = emergent.address
@@ -320,6 +321,7 @@ function Index() {
  
   setChangeImporterData({...indoGerman })
   const newInput = { ...invoiceData }
+  newInput['importerName'] = indoGerman.companyName
   newInput['branchOffice'] = indoGerman.branch
   newInput['importerGSTIN'] = indoGerman.GSTIN
   newInput['companyAddress'] = indoGerman.address
@@ -330,10 +332,25 @@ function Index() {
   
  
  }
- saveInvoiceData(name, value)
 
- console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
+
+ 
 }
+const changeImporter=(e)=>{
+  if(e.target.name=="branchOffice" ){
+  changeImporterData.branch=e.target.value
+  setChangeImporterData({...changeImporterData})
+  }
+  if(e.target.name=="companyAddress" ){
+  changeImporterData.address=e.target.value
+  setChangeImporterData({...changeImporterData})
+  }
+  if(e.target.name=="importerGSTIN" ){
+  changeImporterData.GSTIN=e.target.value
+  setChangeImporterData({...changeImporterData})
+  }
+}
+console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
 
 
   const setSame = (val) => {
@@ -1201,16 +1218,16 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                   <span className={`${styles.blue}`}>
                                     {`(K*D*90/365)`}{' '}
+                                    <div className={`${styles.tooltip}`}>
+                                      <img
+                                        className={`ml-2 mt-n1 img-fluid`}
+                                        src="/static/info-circle.svg"
+                                      />
+                                      <span className={`${styles.tooltiptext}`}>
+                                        Indicative Figures
+                                      </span>
+                                    </div>
                                   </span>
-                                  <div className={`${styles.tooltip}`}>
-                                    <img
-                                      className={`ml-2 mt-n1 img-fluid`}
-                                      src="/static/info-circle.svg"
-                                    />
-                                    <span className={`${styles.tooltiptext}`}>
-                                      Indicative Figures
-                                    </span>
-                                  </div>
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                 ₹ {/* {finalCal.usanceInterest} */}
@@ -1723,15 +1740,13 @@ function Index() {
                                   name="branchOffice"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   required
+                                  
                                   value={
                                     changeImporterData?.branch ? changeImporterData?.branch : marginData?.invoiceDetail?.branchOffice
                                   }
-                                  // onChange={(e) =>
-                                  //   saveInvoiceData(
-                                  //     e.target.name,
-                                  //     e.target.value,
-                                  //   )
-                                  // }
+                                  onChange={(e) =>
+                                    changeImporter(e)
+                                  }
                                 >
                                   <option>Select an option</option>
                                   <option value="SURAT">
@@ -1763,9 +1778,9 @@ function Index() {
                                 id="textInput"
                                 value={ changeImporterData?.address  ? changeImporterData?.address : marginData?.invoiceDetail?.companyAddress}
                                 name="companyAddress"
-                                // onChange={(e) =>
-                                //   saveInvoiceData(e.target.name, e.target.value)
-                                // }
+                                 onChange={(e) =>
+                                    changeImporter(e)
+                                  }
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1784,9 +1799,9 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="importerGSTIN"
-                                // onChange={(e) =>
-                                //   saveInvoiceData(e.target.name, e.target.value)
-                                // }
+                                 onChange={(e) =>
+                                    changeImporter(e)
+                                  }
                                 value={
                                 changeImporterData?.GSTIN ? changeImporterData?.GSTIN : marginData?.invoiceDetail?.importerGSTIN
                                 }
@@ -1982,6 +1997,7 @@ function Index() {
                         }
                         setSameRevised={setSameRevised}
                         invoiceDataRevised={invoiceDataRevised}
+                        setInvoiceDataRevised={setInvoiceDataRevised}
                         saveForCalculation={saveForCalculation}
                         calcRevised={calcRevised}
                         handleUpdateRevisedMarginMoney={

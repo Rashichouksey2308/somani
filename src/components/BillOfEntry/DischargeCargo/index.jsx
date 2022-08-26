@@ -7,6 +7,9 @@ import DateCalender from '../../DateCalender'
 import _get from 'lodash/get'
 import { UpdateCustomClearance } from '../../../redux/CustomClearance&Warehousing/action'
 import { useDispatch } from 'react-redux'
+import moment from 'moment'
+import { toast } from 'react-toastify'
+
 
 export default function Index({ OrderId, customData, uploadDoc }) {
   console.log(customData, 'customData')
@@ -29,7 +32,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
         'dischargeOfCargo.dischargeOfCargo.dischargeQuantity',
         '',
       ),
-      dischargeQuantityUnit: '',
+      dischargeQuantity: '',
       vesselArrivaldate: '',
       dischargeStartDate: '',
       dischargeEndDate: '',
@@ -56,30 +59,87 @@ export default function Index({ OrderId, customData, uploadDoc }) {
     newData.dischargeOfCargo[name] = text
     setDischargeOfCargo(newData)
   }
-  const uploadDoc1 = async (e) => {
-    let name = e.target.id
-    let docs = await uploadDoc(e)
+  // const uploadDoc1 = async (e) => {
+  //   let name = e.target.id
+  //   let docs = await uploadDoc(e)
 
-    let newInput = { ...dischargeOfCargo }
-    newInput[name] = docs
-    setBillOfEntryData(newInput)
-  }
+  //   let newInput = { ...dischargeOfCargo }
+  //   newInput[name] = docs
+  //   setBillOfEntryData(newInput)
+  // }
 
-  const onSaveDocument = (e) => {
-    let name = e.target.id
-    let doc = e.target.files[0]
+  const onSaveDocument = async (e) => {
+    let name = e.target.name
+    let doc = await uploadDoc(e)
+    console.log(doc, 'dischargeOfCargo1')
     let tempData = { ...dischargeOfCargo }
     tempData[name] = doc
     setDischargeOfCargo(tempData)
   }
-
+  console.log(dischargeOfCargo, 'dischargeOfCargo3')
   const onSaveDischarge = () => {
-    let fd = new FormData()
-    fd.append('dischargeOfCargo', JSON.stringify(dischargeOfCargo))
-    fd.append('customClearanceId', customData._id)
-    fd.append('document1', dischargeOfCargo.document1)
-    fd.append('document2', dischargeOfCargo.document2)
-    dispatch(UpdateCustomClearance(fd))
+    if (dischargeOfCargo.dischargeOfCargo.dischargeQuantity === '') {
+
+      let toastMessage = 'DISCHRGE QUANTITY CANNOT BE EMPTY  '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    // else if (dischargeOfCargo.dischargeOfCargo.vesselName === '') {
+
+    //   let toastMessage = 'PLEASE SELCT A VESSEL  '
+    //   if (!toast.isActive(toastMessage.toUpperCase())) {
+    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    //   }
+    //   return
+    // }
+    else if (dischargeOfCargo.dischargeOfCargo.vesselArrivaldate === '') {
+
+      let toastMessage = 'vessel Arrival date CANNOT BE EMPTY  '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    else if (dischargeOfCargo.dischargeOfCargo.dischargeStartDate === '') {
+
+      let toastMessage = 'discharge Start Date CANNOT BE EMPTY  '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    else if (dischargeOfCargo.dischargeOfCargo.dischargeEndDate === '') {
+
+      let toastMessage = 'discharge End Date CANNOT BE EMPTY  '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    } else if (dischargeOfCargo.document1 === null) {
+
+      let toastMessage = 'Statement Of Facts must be uploaded'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    } else if (dischargeOfCargo.document2 === null) {
+
+      let toastMessage = 'Draft Survey Report must be uploaded '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    else {
+      let fd = new FormData()
+      fd.append('dischargeOfCargo', JSON.stringify(dischargeOfCargo))
+      fd.append('customClearanceId', customData._id)
+      fd.append('document1', dischargeOfCargo.document1)
+      fd.append('document2', dischargeOfCargo.document2)
+      dispatch(UpdateCustomClearance(fd))
+    }
   }
   console.log(dischargeOfCargo, 'dischargeOfCargo')
 
@@ -87,9 +147,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
         <div className={`${styles.vessel_card} border_color`}>
-          <div
-            className={`${styles.main} vessel_card card border_color`}
-          >
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} card-header align-items-center border_color head_container align-items-center justify-content-between d-flex bg-transparent`}
             >
@@ -267,14 +325,14 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                         </td>
                         <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                         <td>
-                          {false ? (
+                          {dischargeOfCargo && dischargeOfCargo.document1 === null ? (
                             <>
                               <div className={styles.uploadBtnWrapper}>
                                 <input
                                   type="file"
-                                  name="myfile"
+                                  name="document1"
                                   accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                  onChange={(e) => uploadDocument1(e)}
+                                  onChange={(e) => onSaveDocument(e)}
                                 />
                                 <button
                                   className={`${styles.button_upload} btn`}
@@ -282,21 +340,11 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                                   Upload
                                 </button>
                               </div>
-                              {/* <div className={styles.uploadBtnWrapper}>
-                          <input
-                            type="file"
-                            accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                            onChange={(e) => uploadDocument1(e)}
-                            name="myfile"
-                          />
-                          <button  className={`${styles.uploadDoc} btn`}>
-                            Upload
-                          </button>
-                          </div> */}
+
                             </>
                           ) : (
                             <div className={styles.certificate}>
-                              {/* {lcDoc?.lcDraftDoc?.name} */}
+                              {dischargeOfCargo.document1?.originalName}
                               <img
                                 className={`${styles.close_image} float-right m-2 img-fluid`}
                                 src="/static/close.svg"
@@ -321,14 +369,14 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                         </td>
                         <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                         <td>
-                          {false ? (
+                          {dischargeOfCargo && dischargeOfCargo.document2 === null ? (
                             <>
                               <div className={styles.uploadBtnWrapper}>
                                 <input
                                   type="file"
-                                  name="myfile"
+                                  name="document2"
                                   accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                  onChange={(e) => uploadDocument1(e)}
+                                  onChange={(e) => onSaveDocument(e)}
                                 />
                                 <button
                                   className={`${styles.button_upload} btn`}
@@ -350,7 +398,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                             </>
                           ) : (
                             <div className={styles.certificate}>
-                              {/* {lcDoc?.lcDraftDoc?.name} */}
+                              {dischargeOfCargo.document2?.originalName}
                               <img
                                 className={`${styles.close_image} float-right m-2 img-fluid`}
                                 src="/static/close.svg"
@@ -382,17 +430,17 @@ export default function Index({ OrderId, customData, uploadDoc }) {
         onHide={handleClose}
         aria-labelledby="contained-modal-title-vcenter"
         centered
-        className={styles.wrapper}
+        className={`${styles.wrapper}`}
         backdropClassName={styles.backdrop}
       >
-        <Modal.Header className={styles.head}>
+        <Modal.Header className={`${styles.head} background1`}>
           <Modal.Title
             id="contained-modal-title-vcenter"
             className={`${styles.title}  d-flex justify-content-between align-items-center`}
           >
             <div className={`${styles.blue} ml-3`}>BL Details </div>
             <div>
-              <span>Commodity: </span>Iron{' '}
+              <span className="text">Commodity: </span>Iron{' '}
             </div>
             <img
               src="/static/close.svg"
@@ -402,7 +450,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
             ></img>
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className={`${styles.body}  container-fluid`}>
+        <Modal.Body className={`${styles.body} background1  container-fluid`}>
           <table
             className={`${styles.table} table `}
             cellPadding="0"
@@ -414,34 +462,14 @@ export default function Index({ OrderId, customData, uploadDoc }) {
               <th width="33%">BL DATE</th>
               <th width="33%">BL QUANTITY</th>
             </tr>
-            <tr className="table_row">
-              <td className="font-weight-bold">2345678</td>
-              <td>22-02-2022</td>
-              <td>5,000 MT</td>
-            </tr>
-            <tr className="table_row">
-              <td className="font-weight-bold">2345678</td>
-              <td>22-02-2022</td>
-              <td>5,000 MT</td>
-            </tr>
-            <tr className="table_row">
-              <td className="font-weight-bold">2345678</td>
-              <td>22-02-2022</td>
-              <td>5,000 MT</td>
-            </tr>
-            <tr className="table_row">
-              <td className="font-weight-bold">2345678</td>
-              <td>22-02-2022</td>
-              <td>5,000 MT</td>
-            </tr>
-            <tr className="table_row">
-              <td className="font-weight-bold">2345678</td>
-              <td>22-02-2022</td>
-              <td>5,000 MT</td>
-            </tr>
+            {_get(customData, 'order.transit.BL.billOfLanding', [{}]).map((bl, indexbl) => (<tr className="table_row">
+              <td className="font-weight-bold">{bl?.blNumber}</td>
+              <td>{moment((bl?.blDate)?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</td>
+              <td>{bl?.blQuantity} {customData?.order?.unitOfQuantity}</td>
+            </tr>))}
           </table>
           <div>
-            <span>Total Quantity: </span> &nbsp; 8,000 MT{' '}
+            <span className="text">Total Quantity: </span> &nbsp; 8,000 MT{' '}
           </div>
         </Modal.Body>
       </Modal>

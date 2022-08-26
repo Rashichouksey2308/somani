@@ -42,22 +42,20 @@ export default function MyApp(props) {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Provider store={store}>
-          <ErrorBoundary>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-            <ToastContainer
-              position="bottom-right"
-              autoClose={5000}
-              hideProgressBar
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-            />
-          </ErrorBoundary>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+          <ToastContainer
+            position="bottom-right"
+            autoClose={5000}
+            hideProgressBar
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
         </Provider>
       </ThemeProvider>
     </>

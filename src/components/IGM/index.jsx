@@ -51,11 +51,13 @@ export default function Index({
         vesselName: '',
         igmNumber: '',
         igmFiling: null,
-        blNumber: [{
-          blNumber: number,
-          blDate: new Date(),
-          blQuantity: '',
-        }],
+        blNumber: [
+          {
+            blNumber: number,
+            blDate: new Date(),
+            blQuantity: '',
+          },
+        ],
       },
     ],
     document: null,
@@ -86,14 +88,15 @@ export default function Index({
       vesselName: '',
       igmNumber: '',
       igmFiling: null,
-      blNumber: [{
-        blNumber: number,
-        BlDate: '',
-        quantity: '',
-        noOfConatiners: 0
-      }],
+      blNumber: [
+        {
+          blNumber: number,
+          BlDate: '',
+          quantity: '',
+          noOfConatiners: 0,
+        },
+      ],
     })
-
   }
 
   const onChangeIgm = (name, text) => {
@@ -193,7 +196,11 @@ export default function Index({
     const text = e.target.value
     let [value, index, index2] = text?.split('-')
     if (value) {
-      const filterData = _get(TransitDetails, 'data[0].BL.billOfLanding', []).filter((item) => {
+      const filterData = _get(
+        TransitDetails,
+        'data[0].BL.billOfLanding',
+        [],
+      ).filter((item) => {
         return item.blNumber === value
       })
 
@@ -210,11 +217,12 @@ export default function Index({
       // })
       let tempArray = { ...igmList }
       tempArray.igmDetails[index].blNumber[index2].blDate = filterData[0].blDate
-      tempArray.igmDetails[index].blNumber[index2].blNumber = filterData[0].blNumber
-      tempArray.igmDetails[index].blNumber[index2].blQuantity = filterData[0].blQuantity
+      tempArray.igmDetails[index].blNumber[index2].blNumber =
+        filterData[0].blNumber
+      tempArray.igmDetails[index].blNumber[index2].blQuantity =
+        filterData[0].blQuantity
       setIgmList(tempArray)
     }
-
   }
   console.log(igmList, 'igmList')
 
@@ -242,7 +250,7 @@ export default function Index({
     let fd = new FormData()
     fd.append('igm', JSON.stringify(igmDetails))
     fd.append('transitId', transId._id)
-     dispatch(UpdateTransitDetails(fd))
+    dispatch(UpdateTransitDetails(fd))
   }
 
   return (
@@ -315,7 +323,7 @@ export default function Index({
                       _get(TransitDetails, 'data[0].order.orderValue', ''),
                     )}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
-                      'Crores'
+                    'Crores'
                       ? 'Cr'
                       : _get(TransitDetails, 'data[0].order.unitOfValue', '')}
                   </span>
@@ -441,15 +449,23 @@ export default function Index({
           </div>
           {igmList.igmDetails.map((item, index) => {
             return (
-              <div key={index} className={`${styles.main} vessel_card card border_color`}>
+              <div
+                key={index}
+                className={`${styles.main} vessel_card card border_color`}
+              >
                 <div
                   className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
                 >
                   <h3 className={`${styles.heading}`}>IGM</h3>
                   <div className="d-flex align-items-center">
-                    <div className={`${styles.label} text`}>Balance Quantity:</div>
+                    <div className={`${styles.label} text`}>
+                      Balance Quantity:
+                    </div>
                     <div className={`${styles.value} ml-2 mr-4`}>4,500</div>
-                    <button onClick={() => onigmAdd()} className={styles.add_btn}>
+                    <button
+                      onClick={() => onigmAdd()}
+                      className={styles.add_btn}
+                    >
                       <span className={styles.add_sign}>+</span>Add
                     </button>
                   </div>
@@ -462,33 +478,37 @@ export default function Index({
                       <div className="d-flex">
                         <select
                           id="vesselName"
-                          onChange={(e) => onChangeIgm(e.target.id, e.target.value)}
+                          onChange={(e) =>
+                            onChangeIgm(e.target.id, e.target.value)
+                          }
                           className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                         >
                           {shipmentTypeBulk
                             ? _get(
-                              TransitDetails,
-                              'data[0].order.vessel.vessels',
-                              [],
-                            ).map((vessel, index) => (
-                              <option
-                                value={vessel?.vesselInformation[0]?.name}
-                                key={index}
-                              >
-                                {vessel?.vesselInformation[0]?.name}
-                              </option>
-                            ))
+                                TransitDetails,
+                                'data[0].order.vessel.vessels',
+                                [],
+                              ).map((vessel, index) => (
+                                <option
+                                  value={vessel?.vesselInformation[0]?.name}
+                                  key={index}
+                                >
+                                  {vessel?.vesselInformation[0]?.name}
+                                </option>
+                              ))
                             : _get(
-                              TransitDetails,
-                              'data[0].order.vessel.vessels[0].vesselInformation',
-                              [],
-                            ).map((vessel, index) => (
-                              <option value={vessel?.name} key={index}>
-                                {vessel?.name}
-                              </option>
-                            ))}
+                                TransitDetails,
+                                'data[0].order.vessel.vessels[0].vesselInformation',
+                                [],
+                              ).map((vessel, index) => (
+                                <option value={vessel?.name} key={index}>
+                                  {vessel?.name}
+                                </option>
+                              ))}
                         </select>
-                        <label className={`${styles.label_heading} label_heading`}>
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
                           Vessel Name
                         </label>
                         <img
@@ -503,12 +523,18 @@ export default function Index({
                     >
                       <input
                         id="igmNumber"
-                        onChange={(e) => onChangeIgm(e.target.id, e.target.value)}
+                        onChange={(e) =>
+                          onChangeIgm(e.target.id, e.target.value)
+                        }
                         className={`${styles.input_field} input form-control`}
                         type="number"
-                        onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                        onKeyDown={(evt) =>
+                          evt.key === 'e' && evt.preventDefault()
+                        }
                       />
-                      <label className={`${styles.label_heading} label_heading`}>
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
                         IGM No./Rotation No.
                         <strong className="text-danger">*</strong>
                       </label>
@@ -532,25 +558,32 @@ export default function Index({
                     <hr></hr>
                     {item.blNumber.map((blEntry, index2) => {
                       console.log(blEntry, '[igmListblmap]')
-                      return (<>
-                        <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                        >
-                          <select
-                            id="vesselName"
-                            onChange={(e) => onChangeBlDropDown(e)}
-                            className={`${styles.input_field} ${styles.customSelect}  input form-control`}
+                      return (
+                        <>
+                          <div
+                            className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                           >
-                            <option>please select an option</option>
-                            {_get(TransitDetails, 'data[0].BL.billOfLanding', []).map((bl, index3) => (
-                              <option key={index3} value={`${bl.blNumber}-${index}-${index2}`}>
-                                {bl.blNumber}
-                              </option>
-                            ))}
+                            <select
+                              id="vesselName"
+                              onChange={(e) => onChangeBlDropDown(e)}
+                              className={`${styles.input_field} ${styles.customSelect}  input form-control`}
+                            >
+                              <option>Select an option</option>
+                              {_get(
+                                TransitDetails,
+                                'data[0].BL.billOfLanding',
+                                [],
+                              ).map((bl, index3) => (
+                                <option
+                                  key={index3}
+                                  value={`${bl.blNumber}-${index}-${index2}`}
+                                >
+                                  {bl.blNumber}
+                                </option>
+                              ))}
+                            </select>
 
-                          </select>
-
-                          {/* <input
+                            {/* <input
                             id="blNumber"
                             onChange={(e) => onChangeBlNumberEntry(e)}
                             className={`${styles.input_field} input form-control`}
@@ -558,117 +591,167 @@ export default function Index({
                             onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                             required
                           /> */}
-                          <label className={`${styles.label_heading} label_heading`}>
-                            BL Number<strong className="text-danger">*</strong>
-                          </label>
-                        </div>
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              BL Number
+                              <strong className="text-danger">*</strong>
+                            </label>
+                          </div>
 
-                        {shipmentTypeBulk ? (
-                          <>
-                            <div
-                              className="col-lg-4 col-md-6 col-sm-6"
-                              style={{ top: '35px' }}
-                            >
-                              <div className={`${styles.label} text`}>
-                                BL Date <strong className="text-danger ml-n1">*</strong>
-                              </div>
-                              <span className={styles.value}>{moment((blEntry?.blDate), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</span>
-                            </div>
-                            <div
-                              className="col-lg-2 col-md-4 col-sm-6"
-                              style={{ top: '35px' }}
-                            >
-                              <div className={`${styles.label} text`}>
-                                BL Quantity{' '}
-                                <strong className="text-danger ml-n1">*</strong>
-                              </div>
-                              <span className={styles.value}>{blEntry?.blQuantity} {_get(TransitDetails, 'data[0].order.unitOfQuantity', '').toUpperCase()} </span>
-                            </div>
-                            <div
-                              className="col-lg-2 col-md-4 col-sm-6"
-                              style={{ top: '35px' }}
-                            >
-                              <div className="d-flex align-items-center">
-                                <img
-                                  src="/static/preview.svg"
-                                  className={`${styles.previewImg} img-fluid ml-n4`}
-                                  alt="Preview"
-                                />
-                                {item.blNumber.length >= index2 ? <img
-                                  onClick={() => onAddBlNumber(index2)}
-                                  src="/static/add-btn.svg"
-                                  className="img-fluid ml-5"
-                                  alt="Add"
-                                /> : null}
-                                {item.blNumber.length >= 1 ? <img
-                                  onClick={() => onRemoveBlNumber(index, index2)}
-                                  src="/static/delete 2.svg"
-                                  className="img-fluid ml-5"
-                                  alt="delete"
-                                /> : null}
-                              </div>
-                            </div>
-                          </>
-                        ) : (
-                          <>
-                            <div
-                              className="col-lg-4 col-md-6 col-sm-6"
-                              style={{ top: '35px' }}
-                            >
-                              <div className="row">
-                                <div className="col-md-6">
-                                  <div className={`${styles.label} text`}>
-                                    BL Date{' '}
-                                    <strong className="text-danger ml-n1">*</strong>
-                                  </div>
-                                  <span className={styles.value}>{moment((blEntry?.blDate), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</span>
+                          {shipmentTypeBulk ? (
+                            <>
+                              <div
+                                className="col-lg-4 col-md-6 col-sm-6"
+                                style={{ top: '35px' }}
+                              >
+                                <div className={`${styles.label} text`}>
+                                  BL Date{' '}
+                                  <strong className="text-danger ml-n1">
+                                    *
+                                  </strong>
                                 </div>
-                                <div className="col-md-6">
-                                  <div className={`${styles.label} text`}>
-                                    No. of Containers{' '}
-                                    <strong className="text-danger ml-n1">*</strong>
-                                  </div>
-                                  <span className={styles.value}>4,000 MT</span>
-                                </div>
+                                <span className={styles.value}>
+                                  {moment(
+                                    blEntry?.blDate,
+                                    'YYYY-MM-DD',
+                                    true,
+                                  ).format('DD-MM-YYYY')}
+                                </span>
                               </div>
-                            </div>
-                            <div
-                              className="col-lg-4 col-md-4 col-sm-6"
-                              style={{ top: '35px' }}
-                            >
-                              <div className="row align-items-center">
-                                <div className="col-md-6">
-                                  <div className={`${styles.label} text`}>
-                                    BL Quantity{' '}
-                                    <strong className="text-danger ml-n1">*</strong>
-                                  </div>
-                                  <span className={styles.value}>4,000 MT</span>
+                              <div
+                                className="col-lg-2 col-md-4 col-sm-6"
+                                style={{ top: '35px' }}
+                              >
+                                <div className={`${styles.label} text`}>
+                                  BL Quantity{' '}
+                                  <strong className="text-danger ml-n1">
+                                    *
+                                  </strong>
                                 </div>
-                                <div className="col-md-6">
+                                <span className={styles.value}>
+                                  {blEntry?.blQuantity}{' '}
+                                  {_get(
+                                    TransitDetails,
+                                    'data[0].order.unitOfQuantity',
+                                    '',
+                                  ).toUpperCase()}{' '}
+                                </span>
+                              </div>
+                              <div
+                                className="col-lg-2 col-md-4 col-sm-6"
+                                style={{ top: '35px' }}
+                              >
+                                <div className="d-flex align-items-center">
                                   <img
                                     src="/static/preview.svg"
                                     className={`${styles.previewImg} img-fluid ml-n4`}
                                     alt="Preview"
                                   />
-                                  {item.blNumber.length >= index2 ? <img
-                                    onClick={() => onAddBlNumber(index2)}
-                                    src="/static/add-btn.svg"
-                                    className="img-fluid ml-5"
-                                    alt="Add"
-                                  /> : null}
-                                  {item.blNumber.length >= 1 ? <img
-                                    onClick={() => onRemoveBlNumber(index, index2)}
-                                    src="/static/delete 2.svg"
-                                    className="img-fluid ml-5"
-                                    alt="delete"
-                                  /> : null}
+                                  {item.blNumber.length >= index2 ? (
+                                    <img
+                                      onClick={() => onAddBlNumber(index2)}
+                                      src="/static/add-btn.svg"
+                                      className="img-fluid ml-5"
+                                      alt="Add"
+                                    />
+                                  ) : null}
+                                  {item.blNumber.length >= 1 ? (
+                                    <img
+                                      onClick={() =>
+                                        onRemoveBlNumber(index, index2)
+                                      }
+                                      src="/static/delete 2.svg"
+                                      className="img-fluid ml-5"
+                                      alt="delete"
+                                    />
+                                  ) : null}
                                 </div>
                               </div>
-                            </div>
-                          </>
-                        )}</>)
+                            </>
+                          ) : (
+                            <>
+                              <div
+                                className="col-lg-4 col-md-6 col-sm-6"
+                                style={{ top: '35px' }}
+                              >
+                                <div className="row">
+                                  <div className="col-md-6">
+                                    <div className={`${styles.label} text`}>
+                                      BL Date{' '}
+                                      <strong className="text-danger ml-n1">
+                                        *
+                                      </strong>
+                                    </div>
+                                    <span className={styles.value}>
+                                      {moment(
+                                        blEntry?.blDate,
+                                        'YYYY-MM-DD',
+                                        true,
+                                      ).format('DD-MM-YYYY')}
+                                    </span>
+                                  </div>
+                                  <div className="col-md-6">
+                                    <div className={`${styles.label} text`}>
+                                      No. of Containers{' '}
+                                      <strong className="text-danger ml-n1">
+                                        *
+                                      </strong>
+                                    </div>
+                                    <span className={styles.value}>
+                                      4,000 MT
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div
+                                className="col-lg-4 col-md-4 col-sm-6"
+                                style={{ top: '35px' }}
+                              >
+                                <div className="row align-items-center">
+                                  <div className="col-md-6">
+                                    <div className={`${styles.label} text`}>
+                                      BL Quantity{' '}
+                                      <strong className="text-danger ml-n1">
+                                        *
+                                      </strong>
+                                    </div>
+                                    <span className={styles.value}>
+                                      4,000 MT
+                                    </span>
+                                  </div>
+                                  <div className="col-md-6">
+                                    <img
+                                      src="/static/preview.svg"
+                                      className={`${styles.previewImg} img-fluid ml-n4`}
+                                      alt="Preview"
+                                    />
+                                    {item.blNumber.length >= index2 ? (
+                                      <img
+                                        onClick={() => onAddBlNumber(index2)}
+                                        src="/static/add-btn.svg"
+                                        className="img-fluid ml-5"
+                                        alt="Add"
+                                      />
+                                    ) : null}
+                                    {item.blNumber.length >= 1 ? (
+                                      <img
+                                        onClick={() =>
+                                          onRemoveBlNumber(index, index2)
+                                        }
+                                        src="/static/delete 2.svg"
+                                        className="img-fluid ml-5"
+                                        alt="delete"
+                                      />
+                                    ) : null}
+                                  </div>
+                                </div>
+                              </div>
+                            </>
+                          )}
+                        </>
+                      )
                     })}
-
                   </div>
                 </div>
                 <div className={styles.table_scroll_outer}>
@@ -717,7 +800,7 @@ export default function Index({
                           <td>
                             <img
                               src="/static/pdf.svg"
-                              className="img-fluid"
+                              className={`${styles.pdfImage} img-fluid`}
                               alt="Pdf"
                             />
                           </td>
@@ -739,7 +822,8 @@ export default function Index({
                     </table>
                   </div>
                 </div>
-              </div>)
+              </div>
+            )
           })}
           <div className="">
             <InspectionDocument

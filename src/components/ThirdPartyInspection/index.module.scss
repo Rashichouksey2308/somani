@@ -49,6 +49,15 @@
           text-transform: capitalize;
           line-height: 27px;
           margin: 0;
+          @include respond(md-desktop) {
+            font-size: 20px;
+          }
+          @include respond(sm-desktop) {
+            font-size: 19px;
+          }
+          @include respond(phone) {
+            font-size: 17px;
+          }
         }
         span {
           font-size: 45px;
@@ -116,6 +125,14 @@
             color: #111111;
             letter-spacing: 0.22px;
             padding-right: 50px;
+            @include respond(sm-desktop) {
+              font-size: 19px;
+              margin: -10px 0;
+            }
+            @include respond(phone) {
+              font-size: 17px;
+              margin: -15px 0;
+            }
             label {
               padding-left: 15px;
             }
@@ -127,6 +144,10 @@
           font-weight: 500;
           padding: 10px 0 15px;
           letter-spacing: 0.53px;
+
+          @include respond(phone) {
+            font-size: 18px;
+          }
         }
       }
     }
@@ -209,6 +230,10 @@
         font-weight: bold;
         text-transform: capitalize;
         line-height: 25px;
+
+        @include respond(phone) {
+          font-size: 18px;
+        }
       }
       .upload_button {
         border: 3px solid #3687e8;
@@ -416,6 +441,15 @@
               font-weight: bold;
               line-height: 25px;
               font-size: 20px;
+              @include respond(md-desktop) {
+                font-size: 17px;
+              }
+              @include respond(sm-desktop) {
+                font-size: 15px;
+              }
+              @include respond(phone) {
+                font-size: 14px;
+              }
             }
             .specify_field {
               padding: 10px 20px 10px 20px;
@@ -473,12 +507,31 @@
               font-size: 20px;
               text-transform: capitalize;
               padding-left: 35px;
+
+              @include respond(md-desktop) {
+                font-size: 18px;
+              }
+              @include respond(sm-desktop) {
+                font-size: 16px;
+              }
+              @include respond(phone) {
+                font-size: 14px;
+              }
             }
             .doc_row {
               font-size: 19px;
               line-height: 24px;
               opacity: 0.7;
               font-weight: 500;
+              @include respond(md-desktop) {
+                font-size: 17px;
+              }
+              @include respond(sm-desktop) {
+                font-size: 15px;
+              }
+              @include respond(phone) {
+                font-size: 12px;
+              }
             }
             .dropdown_menu {
               padding: 0;
@@ -793,4 +846,17 @@ img {
   color: #3687e8;
   line-height: 23px;
   text-transform: capitalize;
+}
+.pdfImage {
+  width: 57px;
+  height: 25px;
+  @include respond(sm-desktop) {
+    width: 50px;
+    height: 22px;
+  }
+  @include respond(phone) {
+    width: 35px;
+    height: 15px;
+    margin-left: 8px;
+  }
 }

@@ -580,11 +580,11 @@ const index = ({
                   <label className={`${styles.label_heading} label_heading`}>
                     Existing CHA(s)<strong className="text-danger">*</strong>
                   </label>
-                  <img
+                  {/* <img
                     className={`${styles.search_image} img-fluid`}
                     src="/static/search-grey.svg"
                     alt="Search"
-                  />
+                  /> */}
                 </div>
               </div>
             </div>
@@ -824,7 +824,7 @@ const index = ({
                   className={`${styles.input_field} ${styles.percent} input form-control`}
                   required
                   type="text"
-                  defaultValue={
+                  value={
                     addPrefixOrSuffix(supplierCred?.commodityOfTotalTrade, '%', '')
                   }
                   name="commodityOfTotalTrade"
@@ -950,14 +950,26 @@ const index = ({
                           /> */}
                         </td>
                         <td>
-                          <input
-                            className="input"
-                            defaultValue={person.department}
+                           <div className="d-flex mr-4">
+                          <select
+                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                            
+                            value={person.department}
                             name="department"
                             onChange={(e) => handlePersonChange(e, index)}
                             type="text"
                             readOnly={!person.isEdit}
-                          />
+                          >
+                             <option>Select an option</option>
+                              <option>Technology</option>
+                              
+                            </select>
+                             <img
+                              className={`${styles.arrow} ml-n4 img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                            </div>
                         </td>
                         <td>
                           <input

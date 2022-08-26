@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styles from './index.module.scss'
 import Router from 'next/router'
 import Filter from '../../src/components/Filter'
+import { SearchLeads } from '../../src/redux/buyerProfile/action.js'
 import { setPageName, setDynamicName } from '../../src/redux/userData/action'
 import {
   GetAllTransitDetails,
@@ -11,15 +12,25 @@ import { useDispatch, useSelector } from 'react-redux'
 import _get from 'lodash/get'
 
 function Index() {
+  const [serachterm, setSearchTerm] = useState('')
+  const [currentPage, setCurrentPage] = useState(0)
+  const { searchedLeads } = useSelector((state) => state.order)
+
   const dispatch = useDispatch()
   const { allTransitDetails, TransitDetails } = useSelector(
     (state) => state.TransitDetails,
   )
   //console.log(allTransitDetails,'allTransitDetails')
-
   useEffect(() => {
-    dispatch(GetAllTransitDetails())
-  }, [dispatch])
+    if (window) {
+      sessionStorage.setItem('loadedPage', 'Loading, Transit & Unloadinge')
+      sessionStorage.setItem('loadedSubPage', `Transit Details`)
+      sessionStorage.setItem('openList', 3)
+    }
+  }, [])
+  useEffect(() => {
+    dispatch(GetAllTransitDetails(`?page=${currentPage}&limit=7`))
+  }, [dispatch, currentPage])
   useEffect(() => {
     dispatch(setPageName('transit'))
     dispatch(setDynamicName(null))
@@ -31,6 +42,20 @@ function Index() {
     sessionStorage.setItem('transId', id)
     dispatch(GetTransitDetails(`?transitId=${id}`))
     Router.push('/transit/id')
+  }
+
+  const handleSearch = (e) => {
+    const query = `${e.target.value}`
+    setSearchTerm(query)
+    if (query.length >= 3) {
+      dispatch(SearchLeads(query))
+    }
+  }
+
+  const handleFilteredData = (e) => {
+    setSearchTerm('')
+    const id = `${e.target.id}`
+    dispatch(GetTransitDetails(`?company=${id}`))
   }
 
   return (
@@ -57,11 +82,28 @@ function Index() {
                 />
               </div>
               <input
+                value={serachterm}
+                onChange={handleSearch}
                 type="text"
                 className={`${styles.formControl} form-control formControl `}
                 placeholder="Search"
               />
             </div>
+            {searchedLeads && serachterm && (
+              <div className={styles.searchResults}>
+                <ul>
+                  {searchedLeads.data.data.map((results, index) => (
+                    <li
+                      onClick={handleFilteredData}
+                      id={results._id}
+                      key={index}
+                    >
+                      {results.companyName} <span>{results.customerId}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
           <Filter />
           {/* <a href="#" className={`${styles.filterList} filterList `}>
@@ -143,8 +185,18 @@ function Index() {
             <div
               className={`${styles.pageList} d-flex justify-content-end align-items-center`}
             >
-              <span>Showing Page 1 out of 10</span>
+              <span>
+                Showing Page {currentPage + 1} out of{' '}
+                {Math.ceil(allTransitDetails?.totalCount / 7)}
+              </span>
               <a
+                onClick={() => {
+                  if (currentPage === 0) {
+                    return
+                  } else {
+                    setCurrentPage((prevState) => prevState - 1)
+                  }
+                }}
                 href="#"
                 className={`${styles.arrow} ${styles.leftArrow} arrow`}
               >
@@ -156,6 +208,14 @@ function Index() {
                 />
               </a>
               <a
+                onClick={() => {
+                  if (
+                    currentPage + 1 <
+                    Math.ceil(allTransitDetails?.totalCount / 7)
+                  ) {
+                    setCurrentPage((prevState) => prevState + 1)
+                  }
+                }}
                 href="#"
                 className={`${styles.arrow} ${styles.rightArrow} arrow`}
               >
@@ -204,10 +264,11 @@ function Index() {
                     (transaction, index) => {
                       return (
                         <tr key={index} className="table_row">
-                          <td >
-                            {_get(transaction, 'order.orderId', '')}
-                          </td>
-                          <td className={`${styles.buyerName}`} onClick={() => handleRoute(transaction)}>
+                          <td>{_get(transaction, 'order.orderId', '')}</td>
+                          <td
+                            className={`${styles.buyerName}`}
+                            onClick={() => handleRoute(transaction)}
+                          >
                             {_get(transaction, 'order.commodity', '')}
                           </td>
                           <td>
@@ -232,7 +293,6 @@ function Index() {
                       )
                     },
                   )}
-                 
                 </tbody>
               </table>
             </div>

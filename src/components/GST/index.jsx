@@ -961,8 +961,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   <label className={`label_heading_login`} htmlFor='phone'>Phone Number</label>
                 </div>
                 <div className='d-flex justify-content-between'>
-                  <button onClick={handleClose} type='button' className={`${styles.close} ${styles.btn} btn w-50`}>Close</button>
-                  <button onClick={handleClose} type='button' className={`${styles.submit} ${styles.btn} btn w-50`}>Get OTP</button>
+                  <button onClick={handleClose} type='button' className={`${styles.close} ${styles.btn} btn`}>Close</button>
+                  <button onClick={handleClose} type='button' className={`${styles.submit} ${styles.btn} btn`}>Get OTP</button>
                 </div>
               </div>
             </div>

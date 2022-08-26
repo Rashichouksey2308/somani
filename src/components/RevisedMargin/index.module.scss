@@ -145,7 +145,7 @@
                         text-transform: capitalize;
                         font-size: 20px;
                         line-height: 25px;
-                        font-weight: medium;
+                        font-weight: 500;
                     }
                     .green {
                         color: #43c34d !important;
@@ -160,6 +160,7 @@
                         color: #3687e8 !important;
                         line-height: 17px;
                         font-weight: bold;
+                        white-space: nowrap;
                     }
                 }
             }

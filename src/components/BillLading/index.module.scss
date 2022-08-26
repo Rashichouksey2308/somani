@@ -109,6 +109,15 @@
           margin: 0;
           text-transform: capitalize;
           line-height: 27px;
+          @include respond(md-desktop) {
+            font-size: 20px;
+          }
+          @include respond(sm-desktop) {
+            font-size: 19px;
+          }
+          @include respond(phone) {
+            font-size: 17px;
+          }
         }
         span {
           font-size: 45px;
@@ -259,12 +268,30 @@
                 font-size: 20px;
                 //text-transform: capitalize;
                 padding-left: 35px;
+                @include respond(md-desktop) {
+                  font-size: 18px;
+                }
+                @include respond(sm-desktop) {
+                  font-size: 16px;
+                }
+                @include respond(phone) {
+                  font-size: 14px;
+                }
               }
               .doc_row {
                 font-size: 19px;
                 line-height: 24px;
                 opacity: 0.7;
                 font-weight: 500;
+                @include respond(md-desktop) {
+                  font-size: 17px;
+                }
+                @include respond(sm-desktop) {
+                  font-size: 15px;
+                }
+                @include respond(phone) {
+                  font-size: 12px;
+                }
               }
             }
           }
@@ -805,13 +832,28 @@
   }
 }
 .updated_successfully {
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  border: none;
+  margin: 0 auto;
   max-width: 562px;
-  box-shadow: none !important;
+  max-height: 463px;
   border-radius: 12px;
   background: #ffffff;
+  box-shadow: none !important;
+  padding-right: 0 !important;
+  transform: translate(-50%, -50%);
+  & > div {
+    margin: 0;
+    max-width: none;
+    & > div {
+      border: none;
+    }
+  }
   .card_header {
-    border-bottom: 2px solid #cad6e65e;
     padding: 22px 34px;
+    border-bottom: 2px solid #cad6e65e;
     h3 {
       font-size: 22px;
       color: #3687e8;
@@ -841,12 +883,14 @@
       margin-bottom: 76px;
     }
     .card_button {
-      width: 242px;
+      width: 49%;
       height: 48px;
+      max-width: 242px;
       font-size: 20px;
       font-weight: bold;
       line-height: 25px;
       border-radius: 5px;
+      box-shadow: none;
       &.close {
         color: #3687e8;
         margin-right: 14px;

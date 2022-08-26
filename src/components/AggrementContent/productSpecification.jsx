@@ -7,7 +7,7 @@ function Index(props) {
   const [addressList, setAddressList] = useState([])
   const [value, setValue] = useState('')
   const [editField, setEditField] = useState(false)
-
+  const [doc,setdoc]=useState({attachDoc:""})
   useEffect(() => {
     if (props.saveData == true && props.active == 'Product Specifications') {
       let data = {
@@ -84,11 +84,33 @@ function Index(props) {
           <div
             className={`${styles.button_container} d-flex justify-content-start  align-items-center `}
           >
-            <div
-              className={`${styles.button} d-flex justify-content-center align-items-center`}
-            >
-              <span>Upload Specifications</span>
-            </div>
+            {doc.attachDoc == '' ? (
+                      <div className={styles.uploadBtnWrapper}>
+                        <input
+                          type="file"
+                          name="myfile"
+                          accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                          onChange={(e) => {
+                            // addDoc(e.target.files[0], index)
+                            // uploadDocument2(e)
+                            setdoc({attachDoc:e.target.files[0].name})
+                          }}
+                        />
+                        <button className={`${styles.button_upload2} btn`}>
+                          Upload Specifications
+                        </button>
+                      </div>
+                    ) : (
+                      <div className={styles.certificate}>
+                        {doc.attachDoc}
+                        <img
+                          className={`${styles.close_image} float-right m-2 img-fluid`}
+                          src="/static/close.svg"
+                          onClick={() =>setdoc({attachDoc:""})}
+                          alt="Close"
+                        />{' '}
+                      </div>
+                    )}
             <div className={`${styles.file_text}`}>
               <span>
                 <span className={`${styles.danger}`}>* </span>ONLY .XLS FILES

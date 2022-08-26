@@ -11,6 +11,8 @@ import { useDispatch } from 'react-redux'
 import { UpdateCustomClearance } from 'redux/CustomClearance&Warehousing/action'
 import { useSelector } from 'react-redux'
 import _get from 'lodash/get'
+import { removePrefixOrSuffix } from 'utils/helper'
+import { toast } from 'react-toastify'
 
 export default function Index({ customData, OrderId, uploadDoc }) {
   const isShipmentTypeBULK =
@@ -22,6 +24,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
   const { customClearance } = useSelector((state) => state.Custom)
 
   console.log(customClearance, 'this is custom doc')
+  console.log(customData, 'customData')
 
   const [billOfEntryData, setBillOfEntryData] = useState({
     boeAssessment: '',
@@ -53,18 +56,30 @@ export default function Index({ customData, OrderId, uploadDoc }) {
     document2: null,
     document3: null,
   })
+  const totalCustomDuty = () => {
+    let number = 0
+    billOfEntryData.duty.forEach((val) => {
+      number += Number(val.amount)
+    })
+    //console.log(totalCustomDuty, 'totalCustomDuty')
+    if (number) {
+      return number
+    }
+  }
+
+  let totalBl = 0
 
   const uploadDoc1 = async (e) => {
     let name = e.target.id
     let docs = await uploadDoc(e)
 
-    console.log(docs, uploadDoc(e), 'this is upload response')
+    //  console.log(docs, uploadDoc(e), 'this is upload response')
     let newInput = { ...billOfEntryData }
     newInput[name] = docs
     setBillOfEntryData(newInput)
   }
 
-  console.log(billOfEntryData, 'THIS IS BILL OF ENTRY USE STATE')
+  //console.log(billOfEntryData, 'THIS IS BILL OF ENTRY USE STATE')
 
   const saveDate = (value, name) => {
     // console.log(value, name, 'save date')
@@ -74,13 +89,14 @@ export default function Index({ customData, OrderId, uploadDoc }) {
   }
   const saveBoeDetaiDate = (value, name) => {
     // console.log(value, name, 'save date')
-    const namesplit = name?.split('.')
+    // const namesplit = name?.split('.')
     const d = new Date(value)
     let text = d.toISOString()
-    saveBillOfEntryData(namesplit, text)
+    saveBillOfEntryData(name, text)
   }
 
   const saveBillOfEntryData = (name, value) => {
+    console.log(name, value, 'Event1')
     const newInput = { ...billOfEntryData }
     const namesplit = name.split('.')
     namesplit.length > 1
@@ -95,7 +111,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
     setPfCheckBox(!pfCheckBox)
     saveBillOfEntryData('pdBond', pfCheckBox)
   }
-  console.log(pfCheckBox, 'pfCheckBox')
+  //console.log(pfCheckBox, 'pfCheckBox')
 
   const [dutyData, setDutyData] = useState([])
 
@@ -175,7 +191,18 @@ export default function Index({ customData, OrderId, uploadDoc }) {
   // }
 
   const handleSave = () => {
-    const billOfEntry = { billOfEntry: [billOfEntryData] }
+    // [{ id: 'conversionRate', value: 'CONVERSION RATE' }, { id: 'invoiceDate', value: ' INVOICE DATE' }, { id: 'invoiceValue', value: 'INVOICE VALUE' }, { id: 'invoiceQuantity', value: 'INVOICE QUANTITY' }, { id: 'invoiceNumber', value: 'INVOICE NUMBER' }, { id: 'currency', value: 'CURRENCY' }].forEach((val) => {
+    //   console.log(val, 'boeValidation')
+    //   if (billOfEntryData.boeDetails[val.id] === '') {
+    //     let toastMessage = `${val.value} CANNOT BE AN EMPTY FIELD`
+    //     if (!toast.isActive(toastMessage.toUpperCase())) {
+    //       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    //     }
+    //     return
+    //   }
+
+    // })
+    const billOfEntry = { billOfEntry: [billOfEntryData]}
     const fd = new FormData()
     fd.append('customClearanceId', customData?._id)
     fd.append('billOfEntry', JSON.stringify(billOfEntry))
@@ -218,9 +245,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
               </div>
             </div>
           </div>
-          <div
-            className={`${styles.main} vessel_card card border_color`}
-          >
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
             >
@@ -393,7 +418,8 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                     Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {customData?.order?.quantity} Mt
+                    {customData?.order?.quantity}{' '}
+                    {customData?.order?.unitOfQuantity?.toUpperCase()}
                   </span>
                 </div>
                 <div
@@ -445,7 +471,13 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                   <div className={`${styles.label} text`}>
                     IGM Number<strong className="text-danger">*</strong>{' '}
                   </div>
-                  <span className={styles.value}>1E3IOH2FIUU80</span>
+                  <span className={styles.value}>
+                    {_get(
+                      customData,
+                      'order.transit.IGM.igmDetails[0].igmNumber',
+                      '',
+                    )}
+                  </span>
                 </div>
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
@@ -453,7 +485,13 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                   <div className={`${styles.label} text`}>
                     IGM Filing Date<strong className="text-danger">*</strong>{' '}
                   </div>
-                  <span className={styles.value}>22-02-2022</span>
+                  <span className={styles.value}>
+                    {_get(
+                      customData,
+                      'order.transit.IGM.igmDetails[0].igmFiling',
+                      '',
+                    )}
+                  </span>
                 </div>
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
@@ -476,7 +514,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                     {moment(
                       customData?.order?.transit?.CIMS?.cimsDetails[0]
                         ?.circNumber,
-                    ).format('dd-mm-yyyy')}
+                    ).format('DD-MM-YYYY')}
                   </span>
                 </div>
                 <div
@@ -650,7 +688,9 @@ export default function Index({ customData, OrderId, uploadDoc }) {
               </div>
 
               <div className={`${styles.bill_landing} card border_color mt-4`}>
-                <div className={`${styles.vessel_card} d-flex align-items-center`}>
+                <div
+                  className={`${styles.vessel_card} d-flex align-items-center`}
+                >
                   <div className={`${styles.card_sub_heading}`}>Duty</div>
                 </div>
                 <div className={styles.table_scroll_outer}>
@@ -787,7 +827,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                             </tr>
                           ))}
                       </tbody>
-                    </table>                    
+                    </table>
                     <hr className="mt-0" />
                     <div className="d-flex justify-content-between align-items-center">
                       <div className="d-flex mt-2">
@@ -797,9 +837,9 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                         >
                           Total Custom Duty:
                         </div>
-                        {/* <div className={`${styles.value} ml-2 mt-n1`}>
-                          4,000
-                        </div> */}
+                        <div className={`${styles.value} ml-2 mt-n1`}>
+                          {totalCustomDuty()}
+                        </div>
                       </div>
                       <div
                         className={`${styles.add_row} mr-3 mt-n2 d-flex `}
@@ -816,83 +856,73 @@ export default function Index({ customData, OrderId, uploadDoc }) {
               </div>
 
               <div className="row ml-auto">
-                <div
-                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                >
-                  <Form.Check aria-label="option 1" />
-                  <div className={`${styles.label} text ml-4`}>
-                    BL Number <strong className="text-danger ml-n1">*</strong>
-                  </div>
-                  {/* <span className={`${styles.value} ml-4`}>2345678</span> */}
-                </div>
-                <div
-                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                >
-                  <div className={`${styles.label} text`}>
-                    BL Date <strong className="text-danger ml-n1">*</strong>{' '}
-                  </div>
-                  {/* <span className={styles.value}>22-02-2022</span> */}
-                </div>
-
-                <div
-                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                >
-                  <div className={`${styles.label} text`}>
-                    BL Quantity <strong className="text-danger ml-n1">*</strong>{' '}
-                  </div>
-                  {/* <span className={styles.value}>4,000 MT</span> */}
-                </div>
-                <div
-                  className="col-lg-3 col-md-4 col-sm-6 text-center"
-                  style={{ top: '40px' }}
-                >
-                  <img
-                    src="/static/preview.svg"
-                    className={`${styles.previewImg} img-fluid ml-n4`}
-                    alt="Preview"
-                  />
-                </div>
-                <div
-                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                >
-                  <Form.Check aria-label="option 1" />
-                  <div className={`${styles.label} text ml-4`}>
-                    BL Number <strong className="text-danger ml-n1">*</strong>
-                  </div>
-                  {/* <span className={`${styles.value} ml-4`}>2345678</span> */}
-                </div>
-                <div
-                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                >
-                  <div className={`${styles.label} text`}>
-                    BL Date <strong className="text-danger ml-n1">*</strong>{' '}
-                  </div>
-                  {/* <span className={styles.value}>22-02-2022</span> */}
-                </div>
-
-                <div
-                  className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                >
-                  <div className={`${styles.label} text`}>
-                    BL Quantity <strong className="text-danger ml-n1">*</strong>{' '}
-                  </div>
-                  {/* <span className={styles.value}>4,000 MT</span> */}
-                </div>
-                <div
-                  className="col-lg-3 col-md-4 col-sm-6 text-center"
-                  style={{ top: '40px' }}
-                >
-                  <img
-                    src="/static/preview.svg"
-                    className={`${styles.previewImg} img-fluid ml-n4`}
-                    alt="Preview"
-                  />
-                </div>
+                {_get(customData, 'order.transit.BL.billOfLanding', [{}]).map(
+                  (bl, indexbl) => {
+                    totalBl += Number(removePrefixOrSuffix(bl?.blQuantity))
+                    return (
+                      <>
+                        {' '}
+                        <div
+                          key={indexbl}
+                          className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                        >
+                          <Form.Check aria-label="option 1" />
+                          <div className={`${styles.label} text ml-4`}>
+                            BL Number{' '}
+                            <strong className="text-danger ml-n1">*</strong>
+                          </div>
+                          <span className={`${styles.value} ml-4`}>
+                            {bl?.blNumber}
+                          </span>
+                        </div>
+                        <div
+                          className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                        >
+                          <div className={`${styles.label} text`}>
+                            BL Date{' '}
+                            <strong className="text-danger ml-n1">*</strong>{' '}
+                          </div>
+                          <span className={styles.value}>
+                            {moment(
+                              bl?.blDate?.slice(0, 10),
+                              'YYYY-MM-DD',
+                              true,
+                            ).format('DD-MM-YYYY')}
+                          </span>
+                        </div>
+                        <div
+                          className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                        >
+                          <div className={`${styles.label} text`}>
+                            BL Quantity{' '}
+                            <strong className="text-danger ml-n1">*</strong>{' '}
+                          </div>
+                          <span className={styles.value}>
+                            {bl?.blQuantity} {customData?.order?.unitOfQuantity}
+                          </span>
+                        </div>
+                        <div
+                          className="col-lg-3 col-md-4 col-sm-6 text-center"
+                          style={{ top: '40px' }}
+                        >
+                          <img
+                            src="/static/preview.svg"
+                            className={`${styles.previewImg} img-fluid ml-n4`}
+                            alt="Preview"
+                          />
+                        </div>
+                      </>
+                    )
+                  },
+                )}
               </div>
               <hr></hr>
               <div className="text-right">
                 <div className={`${styles.total_quantity} text `}>
-                  Total: <span className="form-check-label ml-2"></span>
+                  Total:{' '}
+                  <span className="form-check-label ml-2">
+                    {totalBl} {customData?.order?.unitOfQuantity}
+                  </span>
                 </div>
               </div>
             </div>
@@ -943,7 +973,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       <td>
                         <img
                           src="/static/pdf.svg"
-                          className="img-fluid"
+                          className={`${styles.pdfImage} img-fluid`}
                           alt="Pdf"
                         />
                       </td>
@@ -994,7 +1024,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       <td>
                         <img
                           src="/static/pdf.svg"
-                          className="img-fluid"
+                          className={`${styles.pdfImage} img-fluid`}
                           alt="Pdf"
                         />
                       </td>
@@ -1045,7 +1075,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       <td>
                         <img
                           src="/static/pdf.svg"
-                          className="img-fluid"
+                          className={`${styles.pdfImage} img-fluid`}
                           alt="Pdf"
                         />
                       </td>
