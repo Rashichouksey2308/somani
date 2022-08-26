@@ -198,41 +198,51 @@ const Index = ({ orderDetail, saveOrderData }) => {
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                 <div className="d-flex">
-                 <Form.Control
-                  className={`${styles.input_field} input form-control`}
-                  required
-                  type="text"
-                  name="supplierName"
-                  defaultValue={orderDetail?.supplierName}
-                  onChange={(e) => {
-                    saveOrderData(e.target.name, e.target.value)
-                  }}
-                />
-                <Form.Label className={`${styles.label_heading} label_heading`}>
-                  Supplier Name<strong className="text-danger">*</strong>
-                </Form.Label>
+                <div className="d-flex">
+                  <Form.Control
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    type="text"
+                    name="supplierName"
+                    defaultValue={orderDetail?.supplierName}
+                    onChange={(e) => {
+                      saveOrderData(e.target.name, e.target.value)
+                    }}
+                  />
+                  <Form.Label className={`${styles.label_heading} label_heading`}>
+                    Supplier Name<strong className="text-danger">*</strong>
+                  </Form.Label>
                 
-                 </div>
+                </div>
 
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
-                <select className={`${styles.input_field} ${styles.customSelect} input form-control`} value={orderDetail?.manufacturerName} name='manufacturerName'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} >
-                  <option disabled>Select an option</option>
-                  <option value="CBX">CBX</option>
-                  <option value="ABX">ABX</option>
-                </select>
-                <Form.Label className={`${styles.label_heading} label_heading`}>
-                  Manufacturer / Mines name
-                  <strong className="text-danger">*</strong>
-                </Form.Label>
-                    <img
+                  {/* <select className={`${styles.input_field} ${styles.customSelect} input form-control`} value={orderDetail?.manufacturerName} name='manufacturerName' onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} >
+                    <option disabled>Select an option</option>
+                    <option value="CBX">CBX</option>
+                    <option value="ABX">ABX</option>
+                  </select> */}
+                  <Form.Control
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    type="text"
+                    name="manufacturerName"
+                    defaultValue={orderDetail?.manufacturerName}
+                    onChange={(e) => {
+                      saveOrderData(e.target.name, e.target.value)
+                    }}
+                  />
+                  <Form.Label className={`${styles.label_heading} label_heading`}>
+                    Manufacturer / Mines name
+                    <strong className="text-danger">*</strong>
+                  </Form.Label>
+                  {/* <img
                     className={`${styles.arrow} image_arrow img-fluid`}
                     src="/static/inputDropDown.svg"
                     alt="Search"
-                  />
+                  /> */}
                 </div>
               </Form.Group>
 
