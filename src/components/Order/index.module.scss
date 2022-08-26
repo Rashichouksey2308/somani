@@ -9,16 +9,16 @@
         // cursor: pointer;
         min-height: 80px;
         border-bottom: none;
-        padding: 25px 35px !important;
+        padding: 0 35px !important;
         @include respond(md-desktop) {
             align-items: center !important;
             padding: 0 15px 0 15px !important;
         }
         .heading {
+            font-size: 22px;
             color: #3687e8;
             font-weight: bold;
-            font-size: 22px;
-            text-transform: capitalize;
+            line-height: 27px;
             @include respond(md-desktop) {
                 font-size: 18px !important;
                 line-height: 1.3;

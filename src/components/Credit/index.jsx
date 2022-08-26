@@ -250,7 +250,7 @@ const index = ({
     <>
       <div className={`${styles.main} vessel_card card border_color`}>
         <div
-          className={`${styles.head_container} border_color card-header d-flex justify-content-between bg-transparent`}
+          className={`${styles.head_container} border_color align-items-center card-header d-flex justify-content-between bg-transparent`}
           data-toggle="collapse"
           data-target="#productSummary"
           aria-expanded="true"
@@ -606,7 +606,7 @@ const index = ({
 
       <div className={`${styles.main} vessel_card card border_color`}>
         <div
-          className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}
+          className={`${styles.head_container} card-header align-items-center d-flex justify-content-between bg-transparent`}
           data-toggle="collapse"
           data-target="#supplierCred"
           aria-expanded="true"
@@ -857,7 +857,7 @@ const index = ({
 
       <div className={`${styles.main} card border_color`}>
         <div
-          className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}
+          className={`${styles.head_container} card-header align-items-center d-flex justify-content-between bg-transparent`}
           data-toggle="collapse"
           data-target="#keyContact"
           aria-expanded="true"
@@ -1054,7 +1054,7 @@ const index = ({
 
       <div className={`${styles.main} vessel_card card border_color`}>
         <div
-          className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}
+          className={`${styles.head_container} card-header align-items-center d-flex justify-content-between bg-transparent`}
           data-toggle="collapse"
           data-target="#keyAddress"
           aria-expanded="true"
@@ -1095,7 +1095,7 @@ const index = ({
                 
               >
                 <div
-                  className={`${styles.head_container} mb-n3 card-header d-flex justify-content-between bg-transparent`}
+                  className={`${styles.head_container} mb-n3 align-items-center card-header d-flex justify-content-between bg-transparent`}
                 >
                   <h3 className={`${styles.heading}`}>Add a new address</h3>
                   <img
@@ -1730,7 +1730,7 @@ const index = ({
 
       <div className={`${styles.main} card border_color`}>
         <div
-          className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}
+          className={`${styles.head_container} card-header align-items-center d-flex justify-content-between bg-transparent`}
           data-toggle="collapse"
           data-target="#debtProfile"
           aria-expanded="true"

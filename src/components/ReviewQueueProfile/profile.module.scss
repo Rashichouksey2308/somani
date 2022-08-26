@@ -5,8 +5,9 @@
     border-radius: 6px !important;
     .cardHeader {
         cursor: pointer;
+        min-height: 80px;
         border-bottom: none;
-        padding: 25px 35px !important;
+        padding: 0 35px !important;
         @include respond(md-desktop) {
             padding: 0 15px 0 15px !important;
         }
@@ -681,7 +682,8 @@
     line-height: 25px;
     text-transform: capitalize;
     border: none;
-    width: 260px;
+    width: 100%;
+    max-width: 260px;
     height: 48px;
   }
   .label_heading {
@@ -780,5 +782,6 @@
 }
 .customSelect {
   appearance: none;
+  padding-right: 40px;
   // position: relative;
 }

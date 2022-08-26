@@ -110,7 +110,7 @@ const Index = ({
     <>
       <div className={`${styles.main} vessel_card card border_color `}>
         <div
-          className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}
+          className={`${styles.head_container} card-header align-items-center d-flex justify-content-between bg-transparent`}
           data-toggle="collapse"
           data-target="#recommendations"
           aria-expanded="true"

@@ -24,6 +24,13 @@
                 padding-left: 18px;
                 white-space: nowrap;
                 text-overflow: ellipsis;
+                text-transform: lowercase;
+                &:first-letter {
+                    text-transform: uppercase;
+                }
+                &:first-line {
+                    text-transform: capitalize;
+                }
                 @include respond(phone) {
                     font-size: $font_size_mobile_head;
                     margin: 0px;
@@ -148,8 +155,8 @@
             .cardHeader {
                 cursor: pointer;
                 border-bottom: none;
-                max-height: 89px;
-                padding: 25px 35px !important;
+                min-height: 80px;
+                padding: 0 35px !important;
                 @include respond(md-desktop) {
                     padding: 0 15px 0 15px !important;
                 }
