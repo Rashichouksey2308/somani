@@ -38,8 +38,8 @@
       margin-bottom: 26px;
       border-radius: 6px;
       .head_container {
-        height: 80px;
-        padding: 25px 35px !important;
+        min-height: 80px;
+        padding: 0 35px !important;
         border-bottom: 2px solid #cad6e6;
         .heading {
           color: #3687e8;

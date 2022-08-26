@@ -815,7 +815,7 @@ export default function Index({ addButton, inspectionData }) {
 
           <div className={`${styles.main} vessel_card card border-color`}>
             <div
-              className={`${styles.head_container} border_color head_container d-flex justify-content-between`}
+              className={`${styles.head_container} border_color align-items-center head_container d-flex justify-content-between`}
               data-toggle="collapse"
               data-target="#upload"
               aria-expanded="true"
