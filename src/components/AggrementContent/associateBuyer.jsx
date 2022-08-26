@@ -14,6 +14,8 @@ import { Form, Row, Col } from 'react-bootstrap'
 function Index(props) {
   const[associateData,setAssociateData]=useState(associate)
   const [addressList,setAddressList]=useState([])
+  const [docList,setDocList]=useState([])
+  const [doc,setdoc]=useState({attachDoc:""})
   const [newAddress,setNewAddress]=useState(
           {
           "addressType": "Registered",
@@ -39,11 +41,7 @@ function Index(props) {
   const [addressType,setAddressType]=useState("Registered")
   const [addressEditType,setAddressEditType]=useState("Registered")
     const [list,setList]=useState([
-    {name:"Dr. Amin",designation:"Director",email:"skapoor@email.com",phone:"9876543210",
-     actions:"true"
-  },
-      {name:"Dr. Amin",designation:"Director",email:"skapoor@email.com",phone:"9876543210",
-     actions:"false"}
+   
   
   ])
 
@@ -130,23 +128,27 @@ props.updateData("Associate Buyer",data)
    
   setList([...list,{
       name:"",designation:"",email:"",phone:"",
-      actions:"false"
+      actions:"false",addnew:"false"
     }])
 
   }
   const handleRemove=(index)=>{
+    
      setList([...list.slice(0,index), ...list.slice(index+1)])
 }
-const handleChangeInput2=(name,value,index)=>{
+const removeDocArr=(index)=>{
+   setDocList([...docList.slice(0,index), ...docList.slice(index+1)])
+}
+const handleChangeInput2=(name2,value,index)=>{
    
  
- 
+  
 
     setList(prevState => {
       const newState = prevState.map((obj ,i)=> {
        
         if (i == index) {
-          return {...obj,phoneNo:value};
+          return {...obj,[name2]:value};
         }
 
         
@@ -163,16 +165,26 @@ const handleChangeInput2=(name,value,index)=>{
 const handleChangeInput = (name, value, index) => {
   let arrayToSave={
      name:"",designation:"",email:"",phoneNo:"",
-      actions:"false"
+      actions:"false",addnew:"false"
    }
-     masterList.forEach((val,index)=>{
+   if(value=="addnew"){
+   arrayToSave={
+     name:"",designation:"",email:"",phoneNo:"",
+      actions:"false",addnew:"true"
+   }
+   setDocList([...docList,{attachDoc:""}])
+   }else{
+      masterList.forEach((val,index)=>{
     if(val.name==value){
       arrayToSave.name=val.name
       arrayToSave.designation=val.designation
       arrayToSave.email=val.email
       arrayToSave.phoneNo=val.phoneNo
+     
     }
    })
+   }
+   
     setList(prevState => {
       const newState = prevState.map((obj ,i)=> {
        
@@ -188,7 +200,7 @@ const handleChangeInput = (name, value, index) => {
     });
  
 
-  }
+}
 const onAddressRemove=(index)=>{
 setAddressList([...addressList.slice(0,index), ...addressList.slice(index+1)])
 
@@ -246,7 +258,7 @@ setEditAddress(
 
 }
 const saveNewAddress=()=>{
-console.log(EditAddress,"EditAddress",toEditIndex)
+
 setAddressList(prevState => {
   const newState = prevState.map((obj ,i)=> {
     
@@ -671,39 +683,58 @@ setAddressList(current => [...current, newAddress])
                         </tr>
                         :<tr key={index} className='table_row'>
                           <td>
-                            <select 
+                        {val.addnew=="false"?
+                         <>
+                           <select 
                             value={val.name}
                             className={`${styles.customSelect}`}
                             onChange={(e)=>{
                               handleChangeInput(e.target.name,e.target.value,index)
                             }}>
-                               <option>Select an option</option>
+                              <option>Select an option</option>
                               <option value={"Bhawana Jain"}>{"Bhawana Jain"}</option>
                               <option value={"Vipin Kumar"}>{"Vipin Kumar"}</option>
                               <option value={"Devesh Jain"}>{"Devesh Jain"}</option>
                               <option value={"Fatima Yannoulis"}>{"Fatima Yannoulis"}</option>
+                              <option value={"addnew"}>{"Add New"}</option>
                             </select>
                             <img
                               className={`${styles.arrow2} image_arrow img-fluid`}
                               src="/static/inputDropDown.svg"
                               alt="Search"
                             />
+                         </>  : 
+                           
+                         <>
+                          <input type="text" 
+                              placeholder={"Add new"}
+                               name= "name"
+                               value={val.name}
+                               onChange={(e)=>{
+                                handleChangeInput2(e.target.name,e.target.value,index)
+                                }}
+                              ></input>
+                         </>
+                      }
+                            
                           </td>
-                          <td><input type="text" 
+                          <td>
+                            <input type="text" 
                           placeholder={val.designation}
                           name= "designation"
-                          readOnly={true}
-                          // onChange={(e)=>{
-                          //   handleChangeInput(e.target.name,e.target.value,index)
-                          // }}
-                          ></input></td>
+                          readOnly={val.addnew!="true"?true:false}
+                           onChange={(e)=>{
+                            handleChangeInput2(e.target.name,e.target.value,index)
+                             }}
+                          ></input>
+                          
+                          </td>
                           <td><input type="text" placeholder={val.email}
                           name= "email"
-                          readOnly={true}
-                          // onChange={(e)=>{
-                          //   handleChangeInput(e.target.name,e.target.value,index)
-                          // }}
-                          ></input></td>
+                          readOnly={val.addnew!="true"?true:false}
+                         
+                          ></input>
+                          </td>
                           <td><input type="text" placeholder={val.phoneNo}
                           name= "phoneNo"
                           onChange={(e)=>{
@@ -754,20 +785,90 @@ setAddressList(current => [...current, newAddress])
                   <th>DOCUMENT NAME <img className="mb-1" src="/static/icons8-sort-24.svg" alt="sort"/></th>
                   <th>FORMAT <img className="mb-1" src="/static/icons8-sort-24.svg" alt="sort"/></th>
                   <th>DOCUMENT DATE <img className="mb-1" src="/static/icons8-sort-24.svg" alt="sort"/></th>
+                  <th></th>
                   <th>ACTION</th>
                 </tr>
                 <tbody>
-                {list.length>0 && list.map((val,index)=>{
+                  <tr  className='table_row'>
+                      <td><strong>Board Resolution Copy<span className={`danger`}>*</span></strong></td>
+                      <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/>{/* {val.designation} */}</td>
+                      <td>{`28-02-2022,5:30 PM`}</td>
+                      <td>
+                  <td style={{padding:"0"}}>
+                    {doc.attachDoc == '' ? (
+                      <div className={styles.uploadBtnWrapper}>
+                        <input
+                          type="file"
+                          name="myfile"
+                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                          onChange={(e) => {
+                            // addDoc(e.target.files[0], index)
+                            // uploadDocument2(e)
+                            setdoc({attachDoc:e.target.files[0].name})
+                          }}
+                        />
+                        <button className={`${styles.button_upload} btn`}>
+                          Upload
+                        </button>
+                      </div>
+                    ) : (
+                      <div className={styles.certificate}>
+                        {doc.attachDoc}
+                        <img
+                          className={`${styles.close_image} float-right m-2 img-fluid`}
+                          src="/static/close.svg"
+                          onClick={() =>setdoc({attachDoc:""})}
+                          alt="Close"
+                        />{' '}
+                      </div>
+                    )}
+                      </td>
+                      </td>
+                      <td className={`d-flex`}>
+                        {/* <img  className={`img-fluid mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
+                        <img  src="/static/upload.svg" alt="upload"/>
+                      </td>
+                      </tr>
+
+                  
+                {docList.length>0 && docList.map((val,index)=>{
                   return(
                     <>
                    <tr key={index} className='table_row'>
                       <td><strong>Board Resolution Copy<span className={`danger`}>*</span></strong></td>
                       <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/>{/* {val.designation} */}</td>
                       <td>{`28-02-2022,5:30 PM`}</td>
-                      {/* <td>{val.phone}</td> */}
+                      <td>
+                    {val.attachDoc == '' ? (
+                      <div className={styles.uploadBtnWrapper}>
+                        <input
+                          type="file"
+                          name="myfile"
+                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                          onChange={(e) => {
+                            // addDoc(e.target.files[0], index)
+                            // uploadDocument2(e)
+                          }}
+                        />
+                        <button className={`${styles.button_upload} btn`}>
+                          Upload
+                        </button>
+                      </div>
+                    ) : (
+                      <div className={styles.certificate}>
+                        {val.attachDoc.name}
+                        <img
+                          className={`${styles.close_image} float-right m-2 img-fluid`}
+                          src="/static/close.svg"
+                          // onClick={() => removeDoc(index)}
+                          alt="Close"
+                        />{' '}
+                      </div>
+                    )}
+                      </td>
                       <td className={`d-flex`}>
-                        <img  className={`img-fluid mr-3`} src="/static/delete 2.svg" alt="delete"/>
-                        <img onClick={()=>(handleRemove(index))} src="/static/upload.svg" alt="upload"/>
+                        <img onClick={()=>removeDocArr(index)} className={`img-fluid mr-3`} src="/static/delete 2.svg" alt="delete"/>
+                        <img src="/static/upload.svg" alt="upload"/>
                       </td>
 
                     </tr>

@@ -3,6 +3,7 @@ import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
 import _get from 'lodash/get'
 import DownloadBar from '../DownloadBar'
+import { addPrefixOrSuffix } from 'utils/helper'
 
 const Index = ({
   finalCal,
@@ -11,11 +12,81 @@ const Index = ({
   setSameRevised,
   invoiceDataRevised,
   saveForCalculation,
+  setInvoiceDataRevised,
   calcRevised,
   handleUpdateRevisedMarginMoney
 
 }) => {
   console.log(marginData,"marginData")
+
+  let emergent =  {
+    companyName: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
+    branch: 'DELHI',
+    state: 'DELHI',
+    address : '8B, SAGAR, 6 TILAK MARG, NEW DELHI - 110001',
+    GSTIN : '07AAACS8253L1Z0' 
+ }
+
+ let indoGerman = {
+    companyName: 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED',
+    branch: 'SURAT',
+    state: 'GUJARAT',
+    address : 'PLOT NO-A 54, GANGA NAGAR SOCIETY, NEAR PALANPUR PATIA, RANDAR ROAD, SURAT-395009',
+    GSTIN : '24AAACI3028D1Z8' 
+ }
+
+ const [changeImporterData, setChangeImporterData] = useState()
+
+ const dropDownChange = (name, value) => {
+  if(value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
+  
+    setChangeImporterData({...emergent})
+    const newInput = { ...invoiceDataRevised }
+    newInput['importerName'] = emergent.companyName
+    newInput['branchOffice'] = emergent.branch
+    newInput['importerGSTIN'] = emergent.GSTIN
+    newInput['companyAddress'] = emergent.address
+      // saveInvoiceData('branchOffice', emergent.branch)
+      // saveInvoiceData('importerGSTIN', emergent.GSTIN)
+      // saveInvoiceData('companyAddress', emergent.address)
+      setInvoiceDataRevised({ ...newInput })
+
+   
+ }else if(value === 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED'){
+ 
+  setChangeImporterData({...indoGerman })
+  const newInput = { ...invoiceDataRevised }
+  newInput['importerName'] = indoGerman.companyName
+  newInput['branchOffice'] = indoGerman.branch
+  newInput['importerGSTIN'] = indoGerman.GSTIN
+  newInput['companyAddress'] = indoGerman.address
+    // saveInvoiceData('branchOffice', emergent.branch)
+    // saveInvoiceData('importerGSTIN', emergent.GSTIN)
+    // saveInvoiceData('companyAddress', emergent.address)
+    setInvoiceDataRevised({ ...newInput })
+  
+ 
+ }
+
+
+ 
+}
+const changeImporter=(e)=>{
+  if(e.target.name=="branchOffice" ){
+  changeImporterData.branch=e.target.value
+  setChangeImporterData({...changeImporterData})
+  }
+  if(e.target.name=="companyAddress" ){
+  changeImporterData.address=e.target.value
+  setChangeImporterData({...changeImporterData})
+  }
+  if(e.target.name=="importerGSTIN" ){
+  changeImporterData.GSTIN=e.target.value
+  setChangeImporterData({...changeImporterData})
+  }
+}
+
+
   return (
     <>
       <div className={`${styles.card}  accordionMargin card`}>
@@ -80,7 +151,7 @@ const Index = ({
                       Quantity<strong className="text-danger">*</strong>
                     </label>
                     <div className={`${styles.val}  heading`}>
-                      {marginData?.order?.quantity?.toLocaleString()}
+                      {addPrefixOrSuffix(marginData?.order?.quantity, 'MT', '')?.toLocaleString()}
                     </div>
                   </div>
                 </div>
@@ -100,7 +171,7 @@ const Index = ({
                       Unit Price<strong className="text-danger">*</strong>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      {marginData?.order?.perUnitPrice}
+                      {addPrefixOrSuffix(marginData?.order?.perUnitPrice, 'INR', 'front')}
                     </div>
                   </div>
                 </div>
@@ -120,7 +191,7 @@ const Index = ({
                       Conversion Rate<strong className="text-danger">*</strong>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      {marginData?.conversionRate}
+                      {addPrefixOrSuffix(marginData?.conversionRate, 'INR', 'front')}
                     </div>
                   </div>
                 </div>
@@ -230,7 +301,7 @@ const Index = ({
                       <strong className="text-danger">*</strong>
                     </label>
                     <div className={`${styles.val} heading`}>
-                    (+/-)  {marginData?.order?.tolerance}
+                    (+/-)  {addPrefixOrSuffix(marginData?.order?.tolerance, '%', '')}
                     </div>
                   </div>
                 </div>
@@ -252,9 +323,9 @@ const Index = ({
                     <div className={`${styles.val} heading`}>
                       {' '}
                       {
-                        marginData?.order?.termsheet?.transactionDetails
-                          ?.marginMoney
-                      }%
+                       addPrefixOrSuffix(marginData?.order?.termsheet?.transactionDetails
+                          ?.marginMoney, '%', '')
+                      }
                     </div>
                   </div>
                 </div>
@@ -328,7 +399,7 @@ const Index = ({
                       <span className={`${styles.blue}`}>{`(A*B)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      {finalCal.orderValue}
+                      {addPrefixOrSuffix(finalCal.orderValue ? finalCal.orderValue : 0, 'Cr', '')}
                     </div>
                   </div>
                 </div>
@@ -351,7 +422,7 @@ const Index = ({
                       <span className={`${styles.blue}`}>{`(J*C)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      {finalCal.orderValueInINR}
+                      { addPrefixOrSuffix(finalCal.orderValueInINR ? finalCal.orderValueInINR : 0 , 'INR', 'front')}
                     </div>
                   </div>
                 </div>
@@ -379,7 +450,7 @@ const Index = ({
                       </span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      {finalCal.usanceInterest}
+                      {addPrefixOrSuffix(finalCal.usanceInterest ? finalCal.usanceInterest : 0, 'INR', 'front')}
                     </div>
                   </div>
                 </div>
@@ -401,7 +472,7 @@ const Index = ({
                       <span className={`${styles.blue}`}>{`(K*E)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      {finalCal.tradeMargin}
+                      { addPrefixOrSuffix(finalCal.tradeMargin ? finalCal.tradeMargin : 0, 'Cr', '')}
                     </div>
                   </div>
                 </div>
@@ -423,7 +494,7 @@ const Index = ({
                       <span className={`${styles.blue}`}>{`(K+L+M)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      {finalCal.grossOrderValue}
+                      {addPrefixOrSuffix(finalCal.grossOrderValue ? finalCal.grossOrderValue : 0, 'Cr', '')}
                     </div>
                   </div>
                 </div>
@@ -446,7 +517,7 @@ const Index = ({
                       <span className={`${styles.blue}`}>{`(N*F)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      {finalCal.toleranceValue}
+                      { addPrefixOrSuffix(finalCal.toleranceValue ? finalCal.toleranceValue : 0 , 'Cr', '')}
                     </div>
                   </div>
                 </div>
@@ -930,16 +1001,19 @@ const Index = ({
                       required
                       defaultValue={marginData?.revisedMarginMoney?.invoiceDetail?.importerName}
                       onChange={(e) =>
-                        saveInvoiceDataRevisedRevised(
+                        dropDownChange(
                           e.target.name,
                           e.target.value,
                         )
                       }
                     >
-                      <option value="Ramakrishna Traders">
-                        Ramakrishna Traders
+                      <option>Select an option</option>
+                      <option value="INDO GERMAN INTERNATIONAL PRIVATE LIMITED">
+                      INDO GERMAN INTERNATIONAL PRIVATE LIMITED
                       </option>
-                      <option value="Balaji Traders">Balaji Traders</option>
+                      <option value="EMERGENT INDUSTRIAL SOLUTIONS LIMITED">
+                        EMERGENT INDUSTRIAL SOLUTIONS LIMITED
+                      </option>
                     </select>
                     <label
                       className={`${styles.label_heading} label_heading`}
@@ -954,25 +1028,30 @@ const Index = ({
                     ></img>
                   </div>
                 </div>
-                <div className={`${styles.each_input} col-md-3 col-sm-6`}>
+                <div
+                  className={`${styles.each_input} col-md-3 col-sm-6`}
+                >
                   <div className="d-flex">
                     <select
                       id="Code"
                       name="branchOffice"
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       required
-                      defaultValue={marginData?.revisedMarginMoney?.invoiceDetail?.branch}
+                      
+                      value={
+                        changeImporterData?.branch ? changeImporterData?.branch : marginData?.revisedMarginMoney?.invoiceDetail?.branchOffice
+                      }
                       onChange={(e) =>
-                        saveInvoiceDataRevisedRevised(
-                          e.target.name,
-                          e.target.value,
-                        )
+                        changeImporter(e)
                       }
                     >
-                      <option value="Visakhapatnam, India">
-                        {'Visakhapatnam, India'}
+                      <option>Select an option</option>
+                      <option value="SURAT">
+                        {'SURAT'}
                       </option>
-                      <option value="Mumbai, India">Mumbai, India</option>
+                      <option value="DELHI">
+                        DELHI
+                      </option>
                     </select>
                     <label
                       className={`${styles.label_heading} label_heading`}
@@ -988,19 +1067,17 @@ const Index = ({
                   </div>
                 </div>
 
-                <div className={`${styles.each_input} col-md-3 col-sm-6`}>
+                <div
+                  className={`${styles.each_input} col-md-3 col-sm-6`}
+                >
                   <input
                     type="text"
                     id="textInput"
+                    value={ changeImporterData?.address  ? changeImporterData?.address : marginData?.revisedMarginMoney?.invoiceDetail?.companyAddress}
                     name="companyAddress"
-                    defaultValue={marginData?.revisedMarginMoney?.invoiceDetail?.companyAddress}
-
-                    onChange={(e) =>
-                      saveInvoiceDataRevisedRevised(
-                        e.target.name,
-                        e.target.value,
-                      )
-                    }
+                     onChange={(e) =>
+                        changeImporter(e)
+                      }
                     className={`${styles.input_field} input form-control`}
                     required
                   />
@@ -1012,18 +1089,19 @@ const Index = ({
                     <strong className="text-danger">*</strong>
                   </label>
                 </div>
-                <div className={`${styles.each_input} col-md-3 col-sm-6`}>
+                <div
+                  className={`${styles.each_input} col-md-3 col-sm-6`}
+                >
                   <input
                     type="text"
                     id="textInput"
                     name="importerGSTIN"
-                    onChange={(e) =>
-                      saveInvoiceDataRevisedRevised(
-                        e.target.name,
-                        e.target.value,
-                      )
+                     onChange={(e) =>
+                        changeImporter(e)
+                      }
+                    value={
+                    changeImporterData?.GSTIN ? changeImporterData?.GSTIN : marginData?.revisedMarginMoney?.invoiceDetail?.importerGSTIN
                     }
-                    defaultValue={marginData?.revisedMarginMoney?.invoiceDetail?.importerGSTIN}
                     className={`${styles.input_field} input form-control`}
                     required
                   />
