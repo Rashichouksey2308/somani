@@ -722,6 +722,7 @@ export default function Index({
                                     Upload Excel
                                   </button>
                                 </div>
+
                                 <div className={`${styles.upload_text}`}>
                                   ONLY .XLS FILES ARE ALLOWED
                                   <br /> &amp; MAX FILE SIZE UP TO 50MB
@@ -811,7 +812,7 @@ export default function Index({
                                         onChange={(e) => uploadDoc(e, index)}
                                       />
                                       <button
-                                        className={`${styles.button_upload} btn`}
+                                        className={`${styles.upload_btn} btn`}
                                       >
                                         Upload
                                       </button>
@@ -879,7 +880,7 @@ export default function Index({
                                             }
                                           />
                                           <button
-                                            className={`${styles.button_upload} btn`}
+                                            className={`${styles.upload_btn} btn`}
                                           >
                                             Upload
                                           </button>
@@ -947,7 +948,7 @@ export default function Index({
                                             }
                                           />
                                           <button
-                                            className={`${styles.button_upload} btn`}
+                                            className={`${styles.upload_btn} btn`}
                                           >
                                             Upload
                                           </button>
@@ -1084,7 +1085,7 @@ export default function Index({
                                         onChange={(e) => uploadDoc(e, index)}
                                       />
                                       <button
-                                        className={`${styles.button_upload} btn`}
+                                        className={`${styles.upload_btn} btn`}
                                       >
                                         Upload
                                       </button>

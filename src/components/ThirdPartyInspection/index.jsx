@@ -842,7 +842,7 @@ export default function Index({ addButton, inspectionData }) {
                       >
                         <thead>
                           <tr>
-                            <th width="40%">
+                            <th width="25%">
                               DOCUMENT NAME{' '}
                               <img
                                 className={`${styles.sort_img} mb-1`}
@@ -850,7 +850,7 @@ export default function Index({ addButton, inspectionData }) {
                                 alt="Sort icon"
                               />
                             </th>
-                            <th width="20%">
+                            <th width="10%">
                               FORMAT{' '}
                               <img
                                 className={`${styles.sort_img} mb-1`}
@@ -858,7 +858,7 @@ export default function Index({ addButton, inspectionData }) {
                                 alt="Sort icon"
                               />
                             </th>
-                            <th width="25%">
+                            <th width="20%">
                               DOCUMENT DATE{' '}
                               <img
                                 className={`${styles.sort_img} mb-1`}
@@ -866,8 +866,8 @@ export default function Index({ addButton, inspectionData }) {
                                 alt="Sort icon"
                               />
                             </th>
-                            <th>ACTION</th>
-                            <th></th>
+                            <th width="20%">ACTION</th>
+                            <th width="20%"></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -1220,7 +1220,6 @@ export default function Index({ addButton, inspectionData }) {
                     Any one document is mandatory
                   </div>
 
-
                   {/* <div
                     className={`${styles.dashboard_form}  border_color card-body`}
                     style={{ borderTop: '2px solid #CAD6E6' }}
@@ -1439,8 +1438,8 @@ export default function Index({ addButton, inspectionData }) {
               </div>
             </div>
           </div>
-          
-                  <div className="0">
+
+          <div className="0">
             <UploadOther orderid={orderid} module="Loading-Transit-Unloading" />
           </div>
         </div>
