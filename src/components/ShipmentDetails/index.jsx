@@ -234,7 +234,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
                     {/* <option value="volvo">
                       {orderDetail?.shipmentDetail?.shipmentType}
                     </option> */}
-                    <option disabled selected>Select an option</option>
+                    <option disabled >Select an option</option>
                     <option value="Visakhapatnam, India">Visakhapatnam, India</option>
                     <option value="Mumbai, India">Mumbai, India</option>
                     <option value="Port Blair, India">Port Blair, India</option>
