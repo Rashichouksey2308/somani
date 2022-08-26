@@ -367,6 +367,7 @@
             height: 30px;
           }
         }
+
         .upload_text {
           color: #8492a6;
           text-transform: uppercase;
@@ -576,6 +577,7 @@
         width: 100%;
       }
     }
+
     .form_group {
       position: relative;
       margin-bottom: 40px;
@@ -1056,4 +1058,13 @@
     font-size: 12px;
     padding: 0 15px;
   }
+}
+.certificate {
+  font-size: 20px;
+  letter-spacing: 0.19px;
+  color: #111111;
+  background-color: #c3c3c31f;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 7px 0;
 }

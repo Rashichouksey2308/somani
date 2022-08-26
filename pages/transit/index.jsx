@@ -239,11 +239,7 @@ function Index() {
                   <tr className="table_row">
                     <th>
                       ORDER ID{' '}
-                      <img
-                        className={`mb-1`}
-                        src="/static/icons8-sort-24.svg"
-                        alt="Sort icon"
-                      />{' '}
+                      <img src="/static/icons8-sort-24.svg" alt="Sort icon" />{' '}
                     </th>
                     <th>COMMODITY</th>
                     <th>BUYER NAME</th>
@@ -251,7 +247,7 @@ function Index() {
                     <th>
                       SURRENDERED
                       <img
-                        className={`mb-1`}
+                        style={{ marginLeft: '5px' }}
                         src="/static/icons8-sort-24.svg"
                         alt="Sort icon"
                       />{' '}
