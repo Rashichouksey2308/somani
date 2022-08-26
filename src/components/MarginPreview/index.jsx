@@ -1591,7 +1591,7 @@ function Index() {
                       <span className={`ml-2`}>No. of PDC's</span>
                     </td>
                     <td className={`${styles.good} `}>
-                      {marginData?.additionalPDC?.toLocaleString() ?? 0}
+                      {marginData?.numberOfPDC?.toLocaleString() ?? 0}
                     </td>
                   </tr>
 
