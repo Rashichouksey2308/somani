@@ -15,12 +15,7 @@ const Index = ({ saveOrderData, orderData }) => {
   return (
     <div className={`${styles.main} vessel_card card border-color`}>
       <div
-        className={`${styles.head_container} card-header head_container d-flex justify-content-between bg-transparent`}
-        data-toggle="collapse"
-        data-target="#orderSummary"
-        aria-expanded="true"
-        aria-controls="orderSummary"
-      >
+        className={`${styles.head_container} card-header align-items-center head_container d-flex justify-content-between bg-transparent`} style={{cursor:'default'}}>
         <h3 className={`${styles.heading} mb-0`}>Order Summary</h3>
         <div className="d-flex">
           <div className={`${styles.unit_container} d-flex align-items-center`}>
@@ -56,7 +51,7 @@ const Index = ({ saveOrderData, orderData }) => {
               <option value="Million">Million</option>
             </select>
           </div>
-          <span>+</span>
+          <span data-toggle="collapse" data-target="#orderSummary" aria-expanded="true" aria-controls="orderSummary">+</span>
         </div>
       </div>
       <div
@@ -253,7 +248,7 @@ const Index = ({ saveOrderData, orderData }) => {
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
-                  <select
+                  {/* <select
                     className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                     name="manufacturerName"
                     required
@@ -264,18 +259,27 @@ const Index = ({ saveOrderData, orderData }) => {
                     <option selected>Select an option</option>
                     <option value="CBX">CBX</option>
                     <option value="ABX">ABX</option>
-                  </select>
+                  </select> */}
+                  <Form.Control
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    type="text"
+                    name="manufacturerName"
+                    onChange={(e) => {
+                      saveOrderData(e.target.name, e.target.value)
+                    }}
+                  />
                   <Form.Label
                     className={`${styles.label_heading} label_heading`}
                   >
                     Manufacturer / Mines name
                     <strong className="text-danger">*</strong>
                   </Form.Label>
-                  <img
+                  {/* <img
                     className={`${styles.arrow} image_arrow img-fluid`}
                     src="/static/inputDropDown.svg"
                     alt="Search"
-                  />
+                  /> */}
                 </div>
               </Form.Group>
 

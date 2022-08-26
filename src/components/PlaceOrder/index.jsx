@@ -220,7 +220,7 @@ const Index = () => {
 
         <div className={`${styles.main} card border-color`}>
           <div
-            className={`${styles.head_container} border_color card-header head_container justify-content-between d-flex bg-transparent`}
+            className={`${styles.head_container} m-0 border_color align-items-center card-header head_container justify-content-between d-flex bg-transparent`}
           >
             <h3 className={`${styles.heading} mb-0`}>Limit Details</h3>
           </div>
