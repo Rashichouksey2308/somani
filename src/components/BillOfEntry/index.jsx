@@ -73,7 +73,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
 
 
   const uploadDoc1 = async (e) => {
-    let name = e.target.id
+    let name = e.target.name
     let docs = await uploadDoc(e)
 
     //  console.log(docs, uploadDoc(e), 'this is upload response')
@@ -333,6 +333,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       >
                         <Form.Check
                           className={styles.radio}
+                          
                           inline
                           label="Provisional"
                           checked={
@@ -1018,34 +1019,24 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       </td>
                       {/* <td className={styles.doc_row}>28-02-2022,5:30 PM</td> */}
                       <td>
-                        {true ? (
+                        {billOfEntryData.document1  === null ? (
                           <>
                             <div className={styles.uploadBtnWrapper}>
                               <input
                                 type="file"
-                                name="myfile"
+                                name="document1"
                                 accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                onChange={(e) => uploadDocument1(e)}
+                                onChange={(e) => uploadDoc1(e)}
                               />
                               <button className={`${styles.button_upload} btn`}>
                                 Upload
                               </button>
                             </div>
-                            {/* <div className={styles.uploadBtnWrapper}>
-                        <input
-                          type="file"
-                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                          onChange={(e) => uploadDocument1(e)}
-                          name="myfile"
-                        />
-                        <button  className={`${styles.uploadDoc} btn`}>
-                          Upload
-                        </button>
-                        </div> */}
+                
                           </>
                         ) : (
                           <div className={styles.certificate}>
-                            {/* {lcDoc?.lcDraftDoc?.name} */}
+                           {billOfEntryData?.document1?.originalName}
                             <img
                               className={`${styles.close_image} float-right m-2 img-fluid`}
                               src="/static/close.svg"
@@ -1069,34 +1060,24 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       </td>
                       {/* <td className={styles.doc_row}>28-02-2022,5:30 PM</td> */}
                       <td>
-                        {true ? (
+                        {billOfEntryData?.document2 === null ? (
                           <>
                             <div className={styles.uploadBtnWrapper}>
                               <input
                                 type="file"
-                                name="myfile"
+                                name="document2"
                                 accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                onChange={(e) => uploadDocument1(e)}
+                                onChange={(e) => uploadDoc1(e)}
                               />
                               <button className={`${styles.button_upload} btn`}>
                                 Upload
                               </button>
                             </div>
-                            {/* <div className={styles.uploadBtnWrapper}>
-                        <input
-                          type="file"
-                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                          onChange={(e) => uploadDocument1(e)}
-                          name="myfile"
-                        />
-                        <button  className={`${styles.uploadDoc} btn`}>
-                          Upload
-                        </button>
-                        </div> */}
+                           
                           </>
                         ) : (
                           <div className={styles.certificate}>
-                            {/* {lcDoc?.lcDraftDoc?.name} */}
+                           {billOfEntryData?.document2?.originalName}
                             <img
                               className={`${styles.close_image} float-right m-2 img-fluid`}
                               src="/static/close.svg"
@@ -1120,34 +1101,24 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       </td>
                       {/* <td className={styles.doc_row}>28-02-2022,5:30 PM</td> */}
                       <td>
-                        {true ? (
+                        {billOfEntryData.document3 === null ? (
                           <>
                             <div className={styles.uploadBtnWrapper}>
                               <input
                                 type="file"
-                                name="myfile"
+                                name="document3"
                                 accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                onChange={(e) => uploadDocument1(e)}
+                                onChange={(e) => uploadDoc1(e)}
                               />
                               <button className={`${styles.button_upload} btn`}>
                                 Upload
                               </button>
                             </div>
-                            {/* <div className={styles.uploadBtnWrapper}>
-                        <input
-                          type="file"
-                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                          onChange={(e) => uploadDocument1(e)}
-                          name="myfile"
-                        />
-                        <button  className={`${styles.uploadDoc} btn`}>
-                          Upload
-                        </button>
-                        </div> */}
+                           
                           </>
                         ) : (
                           <div className={styles.certificate}>
-                            {/* {lcDoc?.lcDraftDoc?.name} */}
+                            {billOfEntryData?.document3?.originalName}
                             <img
                               className={`${styles.close_image} float-right m-2 img-fluid`}
                               src="/static/close.svg"
