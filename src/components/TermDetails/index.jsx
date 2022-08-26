@@ -47,7 +47,7 @@ const Index = ({
   return (
     <div className={`${styles.main} vessel_card main`}>
       <div
-        className={`${styles.head_container} border_color d-flex justify-content-between`}
+        className={`${styles.head_container} border_color align-items-center d-flex justify-content-between`}
         data-toggle="collapse"
         data-target="#termDetails"
         aria-expanded="true"
@@ -133,7 +133,7 @@ const Index = ({
                   <option value="USD">USD</option>
                   <option value="Rupee">INR</option>
                   <option value="Euro">Euro</option>
-                  <option value="BritishPound">British Pound</option>
+                  <option value="POUND">POUND</option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   Currency<strong className="text-danger">*</strong>

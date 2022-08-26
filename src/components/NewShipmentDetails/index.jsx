@@ -30,7 +30,7 @@ const index = ({ saveShipmentData, shipment }) => {
   return (
     <div className={`${styles.main} vessel_card border-color card`}>
       <div
-        className={`${styles.head_container} d-flex justify-content-between`}
+        className={`${styles.head_container} d-flex align-items-center justify-content-between`}
         data-toggle="collapse"
         data-target="#shipmentDetails"
         aria-expanded="true"
