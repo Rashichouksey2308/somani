@@ -3014,7 +3014,7 @@ const sectionTerms = (
                     {filteredCreditRating &&
                       filteredCreditRating.length > 0 &&
                       filteredCreditRating.map((val, index) => (
-                        <td key={index}>{val?.suggested?.value}</td>
+                        <td key={index}>{CovertvaluefromtoCR(val?.suggested?.value)} Cr</td>
                       ))}{' '}
                   </>
                 ) : (
@@ -3045,7 +3045,10 @@ const sectionTerms = (
                 <td>-</td>
                 <td>{camData?.orderValue}</td>
                 <td>-</td>
-                <td>{camData?.suggestedOrderValue}</td>
+                <td>
+                  {CovertvaluefromtoCR(camData?.suggestedOrderValue)} Cr
+                  {/* {camData?.suggestedOrderValue} */}
+                  </td>
                 <td>
                   <input type="checkbox"></input>
                 </td>
@@ -3077,25 +3080,11 @@ const sectionTerms = (
                   camData?.company?.recommendation?.sanctionTerms?.map(
                     (condition, index) => <li key={index}>{condition}</li>,
                   )}
-                {/* <li>
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam sadipscing elitr, sed diam
-                </li>
-                <li>
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam sadipscing elitr, sed diam
-                </li>
-                <li>
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam sadipscing elitr, sed diam
-                </li>
-                <li>
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam sadipscing elitr, sed diam
-                </li> */}
+              
               </ul>
             </div>
             <div>
+              Remarks
               <div className={`${styles.approve}`}>
                 {approveComment &&
                   approveComment?.map((approve, index) => (
