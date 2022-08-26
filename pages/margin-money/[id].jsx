@@ -1997,6 +1997,7 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                         }
                         setSameRevised={setSameRevised}
                         invoiceDataRevised={invoiceDataRevised}
+                        setInvoiceDataRevised={setInvoiceDataRevised}
                         saveForCalculation={saveForCalculation}
                         calcRevised={calcRevised}
                         handleUpdateRevisedMarginMoney={
