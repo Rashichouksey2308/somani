@@ -29,9 +29,14 @@ const Index = ({
 
   const payementchangeFunc = (value) => {
     if (value === 'DaysfromBLDate') {
+      console.log("herer12")
+       
       setIsBlSelected("DaysfromBLDate")
+    onChangePaymentDueDate({target:{value:"",id:"daysFromVesselDischargeDate"}})
     } else if (value === 'DaysfromVesselDischargeDate') {
       setIsBlSelected("DaysfromVesselDischargeDate")
+         onChangePaymentDueDate({target:{value:"",id:"daysFromBlDate"}})
+      
     }else{
       setIsBlSelected(value)
     }
@@ -181,6 +186,12 @@ const Index = ({
                 )}
                 onChange={onChangeCommodityDetails}
                 type="text"
+                onKeyDown={(evt) =>{
+                      return /^-?\d*$/.test(evt.target.value);
+                  }
+                }
+              
+               
                 required
               />
 
@@ -620,7 +631,7 @@ const Index = ({
                 className={`${styles.value} input form-control`}
                 onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                 type="number"
-                defaultValue={termsheetDetails?.paymentDueDate?.daysFromBlDate}
+                value={termsheetDetails?.paymentDueDate?.daysFromBlDate}
                 onChange={onChangePaymentDueDate}
                 disabled={IsBlSelected=="DaysfromBLDate"?false:IsBlSelected=="Whicheverisearlier"?false:true}
                 required
@@ -635,7 +646,7 @@ const Index = ({
                 className={`${styles.value} input form-control`}
                 type="number"
                 onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
-                defaultValue={
+                value={
                   termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate
                 }
                 onChange={onChangePaymentDueDate}
@@ -762,12 +773,9 @@ const Index = ({
                   className={`${styles.value} ${styles.customSelect}  input form-control`}
                   onChange={onChangeCommercialTerms}
                   required
+                  value={termsheetDetails?.commercials?.exchangeFluctuation}
                 >
-                  <option
-                    value={termsheetDetails?.commercials?.exchangeFluctuation}
-                  >
-                    {termsheetDetails?.commercials?.exchangeFluctuation}{' '}
-                  </option>
+                  <option>Select an option</option>
                   <option value="On Buyers A/C">On Buyers A/C</option>
                   <option value="On Sellers A/C">On Sellers A/C</option>
                 </select>
@@ -829,10 +837,12 @@ const Index = ({
                   className={`${styles.value} ${styles.customSelect} input form-control`}
                   onChange={onChangeCommercialTerms}
                   required
+
+                  disabled={true}
                 >
                   <option selected></option>
-                  <option value="1.1">1.1</option>
-                  <option value="2.1">2.1</option>
+                  <option selected value="1">1</option>
+                  <option value="2">2</option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   Version<strong className="text-danger">*</strong>

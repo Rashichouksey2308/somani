@@ -315,6 +315,7 @@ function Index({
     }
 
   }
+  console.log( _get(companyData, "GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1",""),"651645")
   function createGradient(ctx, area, color, color2) {
     // const colorStart = faker.random.arrayElement(colors);
     // const colorMid = faker.random.arrayElement(
@@ -2724,7 +2725,16 @@ const compilanceStatus = (companyData, camData) => {
                     className={`${styles.value} value pr-5`}
                     style={{ color: '#EA3F3F' }}
                   >
-                    {moment(_get(companyData, "GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1", ""), 'MMyyyy').format('MM-yyyy')}
+                    {
+                      [].forEach((l,index2)=>{
+                        
+                      })
+                    }
+                    {
+                    _get(companyData, "GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1","") !=""?
+                    moment(_get(companyData, "GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1", ""), 'MMyyyy').format('MM-yyyy')
+                  :""
+                  }
                   </span>
                 </Col>
                 <Col
@@ -3004,7 +3014,7 @@ const sectionTerms = (
                     {filteredCreditRating &&
                       filteredCreditRating.length > 0 &&
                       filteredCreditRating.map((val, index) => (
-                        <td key={index}>{val?.suggested?.value}</td>
+                        <td key={index}>{CovertvaluefromtoCR(val?.suggested?.value)} Cr</td>
                       ))}{' '}
                   </>
                 ) : (
@@ -3035,7 +3045,10 @@ const sectionTerms = (
                 <td>-</td>
                 <td>{camData?.orderValue}</td>
                 <td>-</td>
-                <td>{camData?.suggestedOrderValue}</td>
+                <td>
+                  {CovertvaluefromtoCR(camData?.suggestedOrderValue)} Cr
+                  {/* {camData?.suggestedOrderValue} */}
+                  </td>
                 <td>
                   <input type="checkbox"></input>
                 </td>
@@ -3067,25 +3080,11 @@ const sectionTerms = (
                   camData?.company?.recommendation?.sanctionTerms?.map(
                     (condition, index) => <li key={index}>{condition}</li>,
                   )}
-                {/* <li>
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam sadipscing elitr, sed diam
-                </li>
-                <li>
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam sadipscing elitr, sed diam
-                </li>
-                <li>
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam sadipscing elitr, sed diam
-                </li>
-                <li>
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam sadipscing elitr, sed diam
-                </li> */}
+              
               </ul>
             </div>
             <div>
+              Remarks
               <div className={`${styles.approve}`}>
                 {approveComment &&
                   approveComment?.map((approve, index) => (

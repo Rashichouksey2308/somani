@@ -501,7 +501,7 @@ function Index() {
       portOfDestination: orderList?.supplierCredential?.portOfDestination,
       remarks: orderList?.supplierCredential?.remarks,
       shipmentNumber: orderList?.supplierCredential?.shipmentNumber,
-      supplierName: orderList?.supplierCredential?.supplierName,
+      supplierName: orderList?.supplierCredential?.supplierName ? orderList?.supplierCredential?.supplierName : orderList?.supplierName,
     })
   }, [orderList])
 

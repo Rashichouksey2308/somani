@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
+import {CovertvaluefromtoCR} from '../../utils/helper'
 
 const Index = ({
   financialsComment,
@@ -652,7 +653,9 @@ const Index = ({
               <tr>
                 <td>Order Value</td>
                 <td>-</td>
-                <td>{creditDetail?.orderValue}</td>
+                <td>
+                  
+                  {creditDetail?.orderValue}</td>
 
                 <td>-</td>
 

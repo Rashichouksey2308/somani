@@ -32,6 +32,8 @@ function Index(props) {
           "city": ""
       }
   )
+  const [docList,setDocList]=useState([])
+  const [doc,setdoc]=useState({attachDoc:""})
   const [EditAddress,setEditAddress]=useState(
           {
           "addressType": "",
@@ -161,9 +163,14 @@ useEffect(() => {
     }])
 
   }
-  const handleRemove=(index)=>{
-    setList([...list.slice(0,index), ...list.slice(index+1)])
-  }
+const handleRemove = (index) => {
+  docList.forEach((val,i)=>{
+      if(index==val.index){
+      setDocList([...docList.slice(0,i), ...docList.slice(i+1)])
+      }
+    })
+  setList([...list.slice(0, index), ...list.slice(index + 1)])
+}
   const handleInput=(name,value,key)=>{
    
   const newInput = { ...seteveState }
@@ -176,37 +183,45 @@ useEffect(() => {
 
   }
   
-const handleChangeInput=(name,value,index)=>{
-   let arrayToSave={
-     name:"",designation:"",email:"",phoneNo:"",
-      actions:"false"
-   }
-   masterList.forEach((val,index)=>{
-    if(val.name==value){
-      arrayToSave.name=val.name
-      arrayToSave.designation=val.designation
-      arrayToSave.email=val.email
-      arrayToSave.phoneNo=val.phoneNo
-    }
-   })
- 
-
-    setList(prevState => {
-      const newState = prevState.map((obj ,i)=> {
-       
-        if (i == index) {
-          return arrayToSave;
-        }
-
-        
-        return obj;
-      });
-
-      return newState;
-    });
-   
-
+const handleChangeInput = (name, value, index) => {
+let arrayToSave={
+    name:"",designation:"",email:"",phoneNo:"",
+    actions:"false",addnew:"false"
   }
+  if(value=="addnew"){
+  arrayToSave={
+    name:"",designation:"",email:"",phoneNo:"",
+    actions:"false",addnew:"true"
+  }
+    setDocList([...docList,{attachDoc:"",index:index}])
+  }else{
+    masterList.forEach((val,index)=>{
+  if(val.name==value){
+    arrayToSave.name=val.name
+    arrayToSave.designation=val.designation
+    arrayToSave.email=val.email
+    arrayToSave.phoneNo=val.phoneNo
+    
+  }
+  })
+  }
+  
+  setList(prevState => {
+    const newState = prevState.map((obj ,i)=> {
+      
+      if (i == index) {
+        return arrayToSave;
+      }
+
+      
+      return obj;
+    });
+
+    return newState;
+  });
+
+
+}
    const handleChangeInput2=(name,value,index)=>{
    
  
@@ -654,7 +669,7 @@ setEditAddress(
                     </div>
                   </div>
          </div>
-        <div className={`${styles.tableContainer} border-color card p-0`}>
+       <div className={`${styles.tableContainer} border-color card p-0`}>
           <div
             className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
             data-toggle="collapse"
@@ -679,7 +694,7 @@ setEditAddress(
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
                 <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
-                  <tr>
+                  <tr className='table_row'>
                     <th>NAME</th>
                     <th>DESIGNATION</th>
                     <th>EMAIL</th>
@@ -691,51 +706,71 @@ setEditAddress(
                       return(
                         <>
                         {val.actions=="true"?
-                        <tr key={index}>
+                        <tr key={index} className='table_row'>
                           <td>{val.name}</td>
                           <td>{val.designation}</td>
                           <td>{val.email}</td>
-                          <td>{val.phone}</td>
+                          <td>{val.phoneNo}</td>
                           <td className={`d-flex`}>
-                            <img className={`${styles.image} img-fluid mr-3`} onClick={()=>(onEdit(index))} src="/static/mode_edit.svg" alt="edit"/>
-                          <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img>
+                          <img className={`${styles.image} mr-2`} onClick={()=>(onEdit(index))} src="/static/mode_edit.svg" alt="edit"/>
+                          <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg" alt="delete"/>
                           </td>
 
                         </tr>
-                        :<tr key={index}>
+                        :<tr key={index} className='table_row'>
                           <td>
-                            <select 
-                            value="name" className={`${styles.customSelect}`}
+                        {val.addnew=="false"?
+                         <>
+                           <select 
+                            value={val.name}
+                            className={`${styles.customSelect}`}
                             onChange={(e)=>{
                               handleChangeInput(e.target.name,e.target.value,index)
                             }}>
-                               <option>Select an option</option>
+                              <option>Select an option</option>
                               <option value={"Bhawana Jain"}>{"Bhawana Jain"}</option>
                               <option value={"Vipin Kumar"}>{"Vipin Kumar"}</option>
                               <option value={"Devesh Jain"}>{"Devesh Jain"}</option>
                               <option value={"Fatima Yannoulis"}>{"Fatima Yannoulis"}</option>
+                              <option value={"addnew"}>{"Add New"}</option>
                             </select>
                             <img
                               className={`${styles.arrow2} image_arrow img-fluid`}
                               src="/static/inputDropDown.svg"
                               alt="Search"
                             />
+                         </>  : 
+                           
+                         <>
+                          <input type="text" 
+                              placeholder={"Add new"}
+                               name= "name"
+                               value={val.name}
+                               onChange={(e)=>{
+                                handleChangeInput2(e.target.name,e.target.value,index)
+                                }}
+                              ></input>
+                         </>
+                      }
+                            
                           </td>
-                          <td><input type="text" 
+                          <td>
+                            <input type="text" 
                           placeholder={val.designation}
                           name= "designation"
-                          readOnly={true}
-                          // onChange={(e)=>{
-                          //   handleChangeInput(e.target.name,e.target.value,index)
-                          // }}
-                          ></input></td>
+                          readOnly={val.addnew!="true"?true:false}
+                           onChange={(e)=>{
+                            handleChangeInput2(e.target.name,e.target.value,index)
+                             }}
+                          ></input>
+                          
+                          </td>
                           <td><input type="text" placeholder={val.email}
                           name= "email"
-                          readOnly={true}
-                          // onChange={(e)=>{
-                          //   handleChangeInput(e.target.name,e.target.value,index)
-                          // }}
-                          ></input></td>
+                          readOnly={val.addnew!="true"?true:false}
+                         
+                          ></input>
+                          </td>
                           <td><input type="text" placeholder={val.phoneNo}
                           name= "phoneNo"
                           onChange={(e)=>{
@@ -743,8 +778,24 @@ setEditAddress(
                           }}
                           ></input></td>
                           <td className={`d-flex`}>
-                            <img className={`${styles.image} img-fluid mr-3`} onClick={()=>(onEditRemove(index))} src="/static/mode_edit.svg" alt="edit"/>
-                            <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img>
+                            <div
+                              className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
+                              onClick={()=>{
+                              onEditRemove(index)
+                              }}
+                            >
+                              <img className={`${styles.image} img-fluid mr-3`} src="/static/save-3.svg" alt="save"/>
+                            </div>
+                            <div
+                              className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center`}
+                              onClick={()=>{
+                              handleRemove(index)
+                              }}
+                            >
+                              <img src="/static/delete 2.svg" />
+                            </div>
+                            {/* <img  onClick={()=>(onEditRemove(index))}src="/static/save-3.svg"  />
+                            <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img> */}
                           </td>
 
                         </tr>}
@@ -756,9 +807,112 @@ setEditAddress(
                 <div className={`${styles.addMoreRows}`} onClick={(e)=>{
                     addMoreRows()
                   }}>
-                  <span>+</span>  Add more rows
+                  <span>+</span> Add more rows
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+         <div className={styles.displaytable}>
+            <div className={styles.table_scroll_outer}>
+              <div className={styles.table_scroll_inner}>
+                <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
+                <tr height={67} className='table_row'>
+                  <th>DOCUMENT NAME <img className="mb-1" src="/static/icons8-sort-24.svg" alt="sort"/></th>
+                  <th>FORMAT <img className="mb-1" src="/static/icons8-sort-24.svg" alt="sort"/></th>
+                  <th>DOCUMENT DATE <img className="mb-1" src="/static/icons8-sort-24.svg" alt="sort"/></th>
+                  <th></th>
+                  <th>ACTION</th>
+                </tr>
+                <tbody>
+                  <tr  className='table_row'>
+                      <td><strong>Board Resolution Copy<span className={`danger`}>*</span></strong></td>
+                      <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/>{/* {val.designation} */}</td>
+                      <td>{`28-02-2022,5:30 PM`}</td>
+                      <td>
+                  <td style={{padding:"0"}}>
+                    {doc.attachDoc == '' ? (
+                      <div className={styles.uploadBtnWrapper}>
+                        <input
+                          type="file"
+                          name="myfile"
+                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                          onChange={(e) => {
+                            // addDoc(e.target.files[0], index)
+                            // uploadDocument2(e)
+                            setdoc({attachDoc:e.target.files[0].name})
+                          }}
+                        />
+                        <button className={`${styles.button_upload} btn`}>
+                          Upload
+                        </button>
+                      </div>
+                    ) : (
+                      <div className={styles.certificate}>
+                        {doc.attachDoc}
+                        <img
+                          className={`${styles.close_image} float-right m-2 img-fluid`}
+                          src="/static/close.svg"
+                          onClick={() =>setdoc({attachDoc:""})}
+                          alt="Close"
+                        />{' '}
+                      </div>
+                    )}
+                      </td>
+                      </td>
+                      <td className={`d-flex`}>
+                        {/* <img  className={`img-fluid mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
+                        <img  src="/static/upload.svg" alt="upload"/>
+                      </td>
+                      </tr>
+
+                  
+                {docList.length>0 && docList.map((val,index)=>{
+                  return(
+                    <>
+                   <tr key={index} className='table_row'>
+                      <td><strong>Board Resolution Copy<span className={`danger`}>*</span></strong></td>
+                      <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/>{/* {val.designation} */}</td>
+                      <td>{`28-02-2022,5:30 PM`}</td>
+                      <td>
+                    {val.attachDoc == '' ? (
+                      <div className={styles.uploadBtnWrapper}>
+                        <input
+                          type="file"
+                          name="myfile"
+                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                          onChange={(e) => {
+                            // addDoc(e.target.files[0], index)
+                            // uploadDocument2(e)
+                          }}
+                        />
+                        <button className={`${styles.button_upload} btn`}>
+                          Upload
+                        </button>
+                      </div>
+                    ) : (
+                      <div className={styles.certificate}>
+                        {val.attachDoc.name}
+                        <img
+                          className={`${styles.close_image} float-right m-2 img-fluid`}
+                          src="/static/close.svg"
+                          // onClick={() => removeDoc(index)}
+                          alt="Close"
+                        />{' '}
+                      </div>
+                    )}
+                      </td>
+                      <td className={`d-flex`}>
+                        
+                        <img src="/static/upload.svg" alt="upload"/>
+                      </td>
+
+                    </tr>
+                    </>
+                  )
+                })}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
