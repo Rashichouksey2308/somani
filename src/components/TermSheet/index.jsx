@@ -89,16 +89,16 @@ const Index = () => {
               lcOpeningCurrency: sheet?.commercials?.lcOpeningCurrency,
               lcOpeningChargesUnit: sheet?.commercials?.lcOpeningChargesUnit,
               lcOpeningChargesPercentage:
-                sheet?.commercials?.lcOpeningChargesPercentage,
+                sheet?.commercials?.lcOpeningChargesPercentage ||1.5,
               usanceInterestPercetage:
                 sheet?.commercials?.usanceInterestPercetage || 4,
               overDueInterestPerMonth:
                 sheet?.commercials?.overDueInterestPerMonth||1.5,
-              exchangeFluctuation: sheet?.commercials?.exchangeFluctuation,
+              exchangeFluctuation: sheet?.commercials?.exchangeFluctuation || "On Buyers A/C",
               forexHedging: sheet?.commercials?.forexHedging,
               otherTermsAndConditions:
                 sheet?.commercials?.otherTermsAndConditions || "As Per Sales Contract",
-              version: sheet?.commercials?.version,
+              version: sheet?.commercials?.version || 1,
             },
           }),
         )
@@ -269,16 +269,19 @@ const Index = () => {
   const onChangePaymentDueDate = (e) => {
     const Key = e.target.id
     const value = e.target.value
+    console.log("herer123",Key,value)
     setTermsheetDetails((prev) => ({
       ...prev,
       paymentDueDate: { ...prev.paymentDueDate, [Key]: value },
     }))
   }
+  console.log(termsheetDetails.paymentDueDate,"herer1234")
 
   const onChangeCommercialTerms = (e) => {
+    
     const Key = e.target.id
     const value = e.target.value
-    // console.log(value, "bal")
+    
     setTermsheetDetails((prev) => ({
       ...prev,
       commercials: { ...prev.commercials, [Key]: value },
@@ -404,7 +407,7 @@ const Index = () => {
       buyer: { ...prev.buyer, bank: value },
     }))
   }
-  //console.log(otherTermsAndConditions, 'otherTermsAndConditions')
+  console.log(termsheet, 'otherTermsAndConditions')
 
   return (
     <>
@@ -416,7 +419,7 @@ const Index = () => {
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow"
             />
-            <h1 className={`${styles.heading} heading`}>Termsheet</h1>
+            <h1 className={`${styles.heading} heading`}>{_get(termsheet,"data[0].company.companyName","")}</h1>
           </div>
           <div className="">
             {termsheet &&

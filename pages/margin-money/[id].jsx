@@ -700,10 +700,24 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                             <span className={`heading`}>Payment Initiated</span>
                           </div>
                         </div>
-                        <h5 className={`${styles.unit_label} accordion_Text`}>
-                          Unit :
-                          <span>{marginData?.order?.orderCurrency}</span>
-                        </h5>
+                      <div className="d-flex">
+                      <div className={`${styles.unit_container} d-flex align-items-center justify-content-evenly`}>
+                      <h5 className={`${styles.unit_label} accordion_Text ml-5`}>Unit:</h5>
+                      <select
+                        className={`${styles.options} accordion_DropDown mr-4`}
+                        name="unitOfQuantity"
+                        onChange={(e) => {
+                          saveOrderData(e.target.name, e.target.value)
+                        }}
+                      >
+                        <option>Select</option>
+                        <option selected value="Crores">
+                          Crores
+                        </option>
+                        <option value="Million">Million</option>
+                      </select>
+                    </div>
+                    </div>
                         {/* <input >{marginData?.order?.unitOfValue}</input> */}
                         {/* <select
                           className={`${styles.options} mr-4 accordion_DropDown`}
@@ -854,11 +868,12 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
+                                  {marginData?.order?.orderCurrency} {" "}
                                   {addPrefixOrSuffix(
                                     marginData?.order?.perUnitPrice,
                                     '',
                                   ).toLocaleString()} 
-                                  {marginData?.order?.orderCurrency}
+                                  
                                 </div>
                               </div>
                             </div>

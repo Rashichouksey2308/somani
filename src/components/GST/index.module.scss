@@ -9,8 +9,9 @@
 }
 .cardHeader {
     cursor: pointer;
+    min-height: 80px;
     border-bottom: none;
-    padding: 25px 35px !important;
+    padding: 0 35px !important;
     @include respond(md-desktop) {
         padding: 0 15px 0 15px !important;
     }

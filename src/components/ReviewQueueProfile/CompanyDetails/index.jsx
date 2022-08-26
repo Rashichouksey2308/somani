@@ -92,7 +92,11 @@ function Index({ order, companyDetail }) {
                   Type of Business
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
-                  {_get(companyDetail, 'profile.companyDetail.typeOfBusiness[0]', '')}
+                  {_get(
+                    companyDetail,
+                    'profile.companyDetail.typeOfBusiness[0]',
+                    '',
+                  )}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -124,10 +128,11 @@ function Index({ order, companyDetail }) {
                   Active Compliant
                 </div>
                 <div
-                  className={`${`${styles.value} accordion_Text`} ${companyDetail?.profile?.companyDetail?.activeCompliance
-                    ? styles.success
-                    : styles.warning
-                    }`}
+                  className={`${`${styles.value} accordion_Text`} ${
+                    companyDetail?.profile?.companyDetail?.activeCompliance
+                      ? styles.success
+                      : styles.warning
+                  }`}
                 >
                   {companyDetail?.activeCompliance ? 'Yes' : 'No'}
                 </div>
@@ -175,11 +180,10 @@ function Index({ order, companyDetail }) {
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
                   {checkNan(
-                    CovertvaluefromtoCR(companyDetail?.profile?.companyDetail?.paidUpCapital)
-
+                    CovertvaluefromtoCR(
+                      companyDetail?.profile?.companyDetail?.paidUpCapital,
+                    ),
                   )}
-
-
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -187,10 +191,11 @@ function Index({ order, companyDetail }) {
                   Last Balance Sheet
                 </div>
                 <div
-                  className={`${`${styles.value} accordion_Text`} ${companyDetail?.profile?.companyDetail?.lastBalanceSheet
-                    ? styles.success
-                    : styles.warning
-                    }`}
+                  className={`${`${styles.value} accordion_Text`} ${
+                    companyDetail?.profile?.companyDetail?.lastBalanceSheet
+                      ? styles.success
+                      : styles.warning
+                  }`}
                 >
                   {companyDetail?.profile?.companyDetail?.lastBalanceSheet}
                 </div>
@@ -247,7 +252,7 @@ function Index({ order, companyDetail }) {
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="Sourcing"
                   >
-                    <option value=''>Please select an Option</option>
+                    <option value="">Select</option>
                     <option value="SocialMedia">{order?.sourceChanel}</option>
                     <option value="Website">Website</option>
                   </select>
@@ -273,7 +278,7 @@ function Index({ order, companyDetail }) {
                     name="Sourcing"
                     value={order?.referedBy}
                   >
-                    <option value=''>Please select an Option</option>
+                    <option value="">Select</option>
                     <option value="CHA">{'CHA'}</option>
                     <option value="CMA">CMA</option>
                   </select>
@@ -298,7 +303,7 @@ function Index({ order, companyDetail }) {
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="Sourcing"
                   >
-                    <option value=''>Please select an Option</option>
+                    <option value="">Select</option>
                     <option value="Bhutani Traders">Bhutani Traders</option>
                   </select>
                   <label className={`${styles.label_heading} label_heading`}>

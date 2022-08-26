@@ -29,10 +29,16 @@ const Index = ({
 
   const payementchangeFunc = (value) => {
     if (value === 'DaysfromBLDate') {
-      setIsBlSelected("DaysfromBLDate")
+      console.log('herer12')
+
+      setIsBlSelected('DaysfromBLDate')
+      onChangePaymentDueDate({
+        target: { value: '', id: 'daysFromVesselDischargeDate' },
+      })
     } else if (value === 'DaysfromVesselDischargeDate') {
-      setIsBlSelected("DaysfromVesselDischargeDate")
-    }else{
+      setIsBlSelected('DaysfromVesselDischargeDate')
+      onChangePaymentDueDate({ target: { value: '', id: 'daysFromBlDate' } })
+    } else {
       setIsBlSelected(value)
     }
   }
@@ -43,7 +49,10 @@ const Index = ({
     termsheetDetails?.commodityDetails?.unitOfQuantity,
   )
 
-  console.log(termsheetDetails?.transactionDetails?.incoTerms,'dkfgdfhjgdjfhgdkjfgdkjg')
+  console.log(
+    termsheetDetails?.transactionDetails?.incoTerms,
+    'dkfgdfhjgdjfhgdkjfgdkjg',
+  )
   return (
     <div className={`${styles.main} vessel_card main`}>
       <div
@@ -181,6 +190,9 @@ const Index = ({
                 )}
                 onChange={onChangeCommodityDetails}
                 type="text"
+                onKeyDown={(evt) => {
+                  return /^-?\d*$/.test(evt.target.value)
+                }}
                 required
               />
 
@@ -192,12 +204,15 @@ const Index = ({
               <div className="d-flex">
                 <input
                   id="tolerance"
-                  value={addPrefixOrSuffix(termsheetDetails?.commodityDetails?.tolerance,"%")}
+                  value={addPrefixOrSuffix(
+                    termsheetDetails?.commodityDetails?.tolerance,
+                    '%',
+                  )}
                   className={`${styles.value} ${styles.customSelect} input form-control`}
                   onChange={onChangeCommodityDetails}
                   required
                 />
-                  {/* <option value="10">±10%</option>
+                {/* <option value="10">±10%</option>
                   <option value="20">±20%</option>
                 </select> */}
                 <label className={`${styles.label} label_heading`}>
@@ -221,7 +236,11 @@ const Index = ({
               {/* <input id='lcValue' value={termsheetDetails?.transactionDetails?.lcValue ? termsheetDetails?.transactionDetails?.lcValue : null} className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required /> */}
               <input
                 id="lcValue"
-                value={addPrefixOrSuffix(newLcVal ? newLcVal : 0, 'USD', 'front')}
+                value={addPrefixOrSuffix(
+                  newLcVal ? newLcVal : 0,
+                  'USD',
+                  'front',
+                )}
                 className={`${styles.value} input form-control`}
                 onChange={onChangeTransactionDetails}
                 required
@@ -339,7 +358,7 @@ const Index = ({
                   required
                 >
                   {/* <option value={termsheetDetails?.transactionDetails?.loadPort}>{termsheetDetails?.transactionDetails?.loadPort} </option> */}
-                 <option>Select an option</option>
+                  <option>Select an option</option>
                   <option value="Abbot Port">Abbot Port</option>
                   <option value="India Port">India Port</option>
                 </select>
@@ -363,7 +382,7 @@ const Index = ({
                   required
                 >
                   <option>Select an option</option>
-                  <option value="Australia" >Australia</option>
+                  <option value="Australia">Australia</option>
                   <option value="India">India</option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
@@ -446,7 +465,7 @@ const Index = ({
                   required
                 >
                   <option>Select an option</option>
-                  <option value='Gujrat, India'>Gujrat, India</option>
+                  <option value="Gujrat, India">Gujrat, India</option>
                   <option value="Visakhapatnam, India">
                     Visakhapatnam, India
                   </option>
@@ -475,9 +494,7 @@ const Index = ({
                 >
                   <option>Select an option</option>
                   <option value="Home Consumption">Home Consumption</option>
-                  <option value="Intobond">
-                    Intobond 
-                  </option>
+                  <option value="Intobond">Intobond</option>
                   <option value="Exbond">Exbond </option>
                 </select>
 
@@ -524,13 +541,14 @@ const Index = ({
                     onChange={onChangeTransactionDetails}
                     className={`${styles.value} ${styles.customSelect} input form-control`}
                     required
-                   
-                    id={"typeOfPort"}
+                    id={'typeOfPort'}
                   >
                     <option value="">Select an option</option>
                     <option value="Load Port">Load Port</option>
                     <option value="Discharge Port">Discharge Port</option>
-                    <option value="Both">Both</option>
+                    <option value="Both">
+                      Both Lord port and discharge port
+                    </option>
                   </select>
 
                   <img
@@ -562,8 +580,7 @@ const Index = ({
                   onChange={onChangeTransactionDetails}
                   required
                 >
-                   <option>Select an option</option>
-                 
+                  <option>Select an option</option>
 
                   <option value="Mumbai Port, Mumbai">
                     Mumbai Port, Mumbai
@@ -593,7 +610,7 @@ const Index = ({
                   className={`${styles.value} ${styles.customSelect}  input form-control`}
                   required
                 >
-                   <option>Select an option</option>
+                  <option>Select an option</option>
                   <option value="DaysfromBLDate">Days from BL Date</option>
                   <option value="DaysfromVesselDischargeDate">
                     {' '}
@@ -620,9 +637,15 @@ const Index = ({
                 className={`${styles.value} input form-control`}
                 onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                 type="number"
-                defaultValue={termsheetDetails?.paymentDueDate?.daysFromBlDate}
+                value={termsheetDetails?.paymentDueDate?.daysFromBlDate}
                 onChange={onChangePaymentDueDate}
-                disabled={IsBlSelected=="DaysfromBLDate"?false:IsBlSelected=="Whicheverisearlier"?false:true}
+                disabled={
+                  IsBlSelected == 'DaysfromBLDate'
+                    ? false
+                    : IsBlSelected == 'Whicheverisearlier'
+                    ? false
+                    : true
+                }
                 required
               />
               <label className={`${styles.label} label_heading`}>
@@ -635,12 +658,17 @@ const Index = ({
                 className={`${styles.value} input form-control`}
                 type="number"
                 onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
-                defaultValue={
+                value={
                   termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate
                 }
                 onChange={onChangePaymentDueDate}
-                disabled={IsBlSelected=="DaysfromVesselDischargeDate"?false:IsBlSelected=="Whicheverisearlier"?false:true}
-               
+                disabled={
+                  IsBlSelected == 'DaysfromVesselDischargeDate'
+                    ? false
+                    : IsBlSelected == 'Whicheverisearlier'
+                    ? false
+                    : true
+                }
                 required
               />
               <label className={`${styles.label} label_heading`}>
@@ -680,9 +708,13 @@ const Index = ({
                 className={`${styles.value} input form-control`}
                 type="text"
                 onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
-                value={
-                  addPrefixOrSuffix(termsheetDetails?.commercials?.lcOpeningChargesUnit ? termsheetDetails?.commercials?.lcOpeningChargesUnit : 0, 'USD', 'front')
-                }
+                value={addPrefixOrSuffix(
+                  termsheetDetails?.commercials?.lcOpeningChargesUnit
+                    ? termsheetDetails?.commercials?.lcOpeningChargesUnit
+                    : 0,
+                  'USD',
+                  'front',
+                )}
                 onChange={onChangeCommercialTerms}
                 required
               />
@@ -762,12 +794,9 @@ const Index = ({
                   className={`${styles.value} ${styles.customSelect}  input form-control`}
                   onChange={onChangeCommercialTerms}
                   required
+                  value={termsheetDetails?.commercials?.exchangeFluctuation}
                 >
-                  <option
-                    value={termsheetDetails?.commercials?.exchangeFluctuation}
-                  >
-                    {termsheetDetails?.commercials?.exchangeFluctuation}{' '}
-                  </option>
+                  <option>Select an option</option>
                   <option value="On Buyers A/C">On Buyers A/C</option>
                   <option value="On Sellers A/C">On Sellers A/C</option>
                 </select>
@@ -790,7 +819,6 @@ const Index = ({
                   onChange={onChangeCommercialTerms}
                   required
                 >
-                  
                   <option value="yes">Yes</option>
                   <option value="No">No</option>
                 </select>
@@ -829,10 +857,13 @@ const Index = ({
                   className={`${styles.value} ${styles.customSelect} input form-control`}
                   onChange={onChangeCommercialTerms}
                   required
+                  disabled={true}
                 >
                   <option selected></option>
-                  <option value="1.1">1.1</option>
-                  <option value="2.1">2.1</option>
+                  <option selected value="1">
+                    1
+                  </option>
+                  <option value="2">2</option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   Version<strong className="text-danger">*</strong>
