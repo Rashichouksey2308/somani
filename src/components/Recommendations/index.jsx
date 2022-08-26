@@ -265,7 +265,7 @@ const Index = ({
                         <tr key={index}>
                           <td>{index + 1}</td>
                           <td className="position-relative">
-                            <input
+                            {/* <input
                               className={`${styles.input}  input form-control`}
                               name="name"
                               disabled={!profile.actions}
@@ -277,8 +277,8 @@ const Index = ({
                                   index,
                                 )
                               }}
-                            ></input>
-                            {/* <select
+                            ></input> */}
+                            <select
                               className={`${styles.input} ${styles.customSelect} input form-control`}
                               name="name"
                               disabled={!profile.actions}
@@ -287,21 +287,26 @@ const Index = ({
                                 handleGroupExpChange(
                                   e.target.name,
                                   e.target.value,
-                                  index
+                                  index,
                                 )
                               }}
                             >
-                              <option >Select an option</option>
-                              <option value='Emerging Traders'>Emerging Traders</option>
-                              <option value='Bhutani Traders'>Krishna Taders</option>
-                              <option value='Krishna Traders'>Krishna Traders</option>
-
-                            </select> 
+                              <option>Select an option</option>
+                              <option value="Emerging Traders">
+                                Emerging Traders
+                              </option>
+                              <option value="Bhutani Traders">
+                                Krishna Taders
+                              </option>
+                              <option value="Krishna Traders">
+                                Krishna Traders
+                              </option>
+                            </select>
                             <img
                               className={`${styles.arrow} img-fluid`}
                               src="/static/inputDropDown.svg"
                               alt="Search"
-                            />*/}
+                            />
                           </td>
                           <td>
                             <input
