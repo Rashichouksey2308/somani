@@ -7,6 +7,7 @@ import UploadOther from '../../UploadOther'
 import _get from 'lodash/get'
 import { UpdateCustomClearance } from '../../../redux/CustomClearance&Warehousing/action'
 import { useDispatch } from 'react-redux'
+import { toast } from 'react-toastify'
 
 export default function Index({ OrderId, customData }) {
   console.log(customData, 'customData')
@@ -20,6 +21,20 @@ export default function Index({ OrderId, customData }) {
     },
     document: null,
   })
+
+  const [plotInspectionData, setPlotInspectionData] = useState('')
+  const uploadDocument1 = (e) => {
+    const newUploadDoc1 = { ...plotInspectionData }
+    newUploadDoc1.plotInspectionReport = e.target.files[0]
+
+    setPlotInspectionData(newUploadDoc1)
+  }
+
+  const handleClose = () => {
+    setPlotInspectionData((doc) => {
+      return { ...doc, plotInspectionReport: null }
+    })
+  }
 
   const onChangeWarehouseDetails = (name, text) => {
     let newData = { ...warehouseDetails }
@@ -43,11 +58,26 @@ export default function Index({ OrderId, customData }) {
 
   const onSaveDischarge = () => {
     let warehouseDetailpayload = warehouseDetails.wareHouseDetails
-    let fd = new FormData()
-    fd.append('wareHouseDetails', JSON.stringify(warehouseDetailpayload))
-    fd.append('customClearanceId', customData._id)
-    fd.append('document', warehouseDetails.document)
-    dispatch(UpdateCustomClearance(fd))
+    if (warehouseDetailpayload.quantity === '') {
+      let toastMessage = 'quantity CANNOT BE EMPTY  '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    } else if (warehouseDetailpayload.dateOfStorage === null) {
+      let toastMessage = 'DATE OF STORAGE  CANNOT BE EMPTY  '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    } else {
+      console.log(warehouseDetailpayload, 'warehouseDetailpayload')
+      let fd = new FormData()
+      fd.append('wareHouseDetails', JSON.stringify(warehouseDetailpayload))
+      fd.append('customClearanceId', customData._id)
+      fd.append('document', warehouseDetails.document)
+      dispatch(UpdateCustomClearance(fd))
+    }
   }
 
   const handleDropdown = (e) => {
@@ -93,7 +123,9 @@ export default function Index({ OrderId, customData }) {
                     <div className={`${styles.label} text`}>
                       CMA Name<strong className="text-danger">*</strong>
                     </div>
-                    <span className={styles.value}>Abcz</span>
+                    <span className={styles.value}>
+                      Dr. Amin Controllers Private Limited
+                    </span>
                   </div>
                   <div className="col-lg-4 col-md-6 col-sm-6">
                     <div className={`${styles.label} text`}>
@@ -142,29 +174,30 @@ export default function Index({ OrderId, customData }) {
                   <div
                     className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 mt-5`}
                   >
-                    <div className="d-flex justify-content-start mt-2">
-                      <div className={styles.uploadBtnWrapper}>
-                        <input
-                          id="document"
-                          onChange={(e) => onSaveDocument(e)}
-                          type="file"
-                          name="myfile"
-                        />
-                        <button className={`${styles.upload_btn} btn`}>
-                          Upload
-                        </button>
-                      </div>
-                      <img
-                        src="/static/delete 2.svg"
-                        className={`${styles.delete_image} img-fluid ml-3 mr-3`}
-                        alt="Bin"
+                    {/* {showButton === null ? ( */}
+                    <div className={styles.uploadBtnWrapper}>
+                      <input
+                        id="document"
+                        onChange={(e) => {
+                          onSaveDocument(e), uploadDocument1(e)
+                        }}
+                        type="file"
+                        name="myfile"
                       />
-                      <img
-                        src="/static/mode_edit.svg"
-                        className={`${styles.edit_image} img-fluid`}
-                        alt="edit"
-                      />
+                      <button className={`${styles.upload_btn} btn`}>
+                        Upload
+                      </button>
                     </div>
+                    {/* ) : ( */}
+                    <div className={styles.certificate}>
+                      <img
+                        className={`${styles.close_image} float-right m-2 img-fluid`}
+                        src="/static/close.svg"
+                        onClick={() => handleClose()}
+                        alt="Close"
+                      />{' '}
+                    </div>
+                    {/* )} */}
                   </div>
                 </div>
               </div>

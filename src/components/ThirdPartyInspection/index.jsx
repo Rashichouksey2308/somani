@@ -10,22 +10,27 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { UpdateInspection } from 'redux/Inspections/action'
 import _get from 'lodash/get'
+import { toast } from 'react-toastify'
+import UploadOther from '../UploadOther/index'
+import { ViewDocument } from 'redux/ViewDoc/action'
 // import ThirdPartyPopUp from './ThirdPartyPopUp'
 
 export default function Index({ addButton, inspectionData }) {
   const dispatch = useDispatch()
 
+  let orderid = _get(inspectionData, 'order._id', '')
+
   const [editInput, setEditInput] = useState(true)
   const [bothField, setBothField] = useState(false)
   const [portType, setPortType] = useState({
-    load: false,
-    discharge: false,
+    loadPortInspection: false,
+    dischargePortInspection: false,
   })
 
   const handlePortType = (name, value) => {
     let newInput = { ...portType }
     newInput[name] = !value
-    console.log(name, value, 'cak')
+    // console.log(name, value, 'cak')
     setPortType(newInput)
   }
 
@@ -46,25 +51,25 @@ export default function Index({ addButton, inspectionData }) {
 
   const [inspectionDetails, setInspectionDetails] = useState({
     loadPortInspectionDetails: {
-      noOfContainers: '',
-      inspectionPort: '',
-      inspectedBy: '',
-      inspectionDate: '',
-      specialMention: '',
+      numberOfContainer: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.numberOfContainer,
+      inspectionPort: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectionPort,
+      inspectedBy: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectedBy,
+      startDate: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.startDate,
+      specialMention: inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.specialMention,
     },
     dischargePortInspectionDetails: {
-      noOfContainers: '',
-      inspectionPort: '',
-      inspectedBy: '',
-      inspectionDate: '',
-      specialMention: '',
+      numberOfContainer: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.numberOfContainer,
+      inspectionPort: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectionPort,
+      inspectedBy: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectedBy,
+      startDate: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.startDate,
+      specialMention: inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.specialMention,
     },
   })
 
   const [documents, setDocuments] = useState({
-    certificateOfQuality: null,
-    certificateOfWeight: null,
-    certificateOfOrigin: null,
+    certificateOfQuality: inspectionData?.thirdPartyInspection?.certificateOfQuality || null,
+    certificateOfWeight: inspectionData?.thirdPartyInspection?.certificateOfWeight || null,
+    certificateOfOrigin: inspectionData?.thirdPartyInspection?.certificateOfOrigin || null,
   })
 
   const uploadDocument1 = (e) => {
@@ -114,40 +119,422 @@ export default function Index({ addButton, inspectionData }) {
 
   const saveDate = (value, name) => {
     // console.log(value, name, 'save date')
-    const namesplit = name.split('.')
+    // const namesplit = name.split('.')
     // namesplit.length > 1
     //   ? (newInput[namesplit[0]][namesplit[1]] = value)
     //   : (newInput[name] = value)
-    // const d = new Date(value)
+    const d = new Date(value)
     let text = d.toISOString()
-    saveInspectionDetails(namesplit, text)
+    saveInspectionDetails(name, text)
+  }
+
+  // const saveDate = (value, name) => {
+  //   const d = new Date(value)
+  //   let text = d.toISOString()
+  //   saveShipmentData(name, text)
+  // }
+  const [dateStartFrom,setDateStartFrom]=useState({
+    inspectionDateAtLoad:"",
+    inspectionDateAtDischarge:""
+ 
+  })
+  const setStartDate=(val,name)=>{
+      var new_date = moment(new Date(val).toISOString()).add(1, 'days').format("DD-MM-YYYY");
+      if(name=="loadPortInspectionDetails.startDate"){
+    
+      setDateStartFrom({...dateStartFrom,inspectionDateAtLoad:new_date})
+    }else{
+      setDateStartFrom({...dateStartFrom,inspectionDateAtDischarge:new_date})
+    }
+   
   }
 
   const handleSave = () => {
-    let fd = new FormData()
-    fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
-    fd.append('inspectionId', inspectionData?._id)
-    fd.append('certificateOfOrigin', documents.certificateOfOrigin)
-    fd.append('certificateOfQuality', documents.certificateOfQuality)
-    fd.append('certificateOfWeight', documents.certificateOfWeight)
+    if (inspectionData?.order?.shipmentDetail?.shipmentType == 'Liner') {
+      if (
+        portType.loadPortInspection == true &&
+        portType.dischargePortInspection == false
+      ) {
+        if (
+          inspectionDetails?.loadPortInspectionDetails?.numberOfContainer === ''
+        ) {
+          let toastMessage = 'NUMBER OF CONTAINERS CANNOT BE EMPTY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          inspectionDetails?.loadPortInspectionDetails?.inspectedBy === ''
+        ) {
+          let toastMessage = 'INSPECTED BY CANNOT BE EMPTY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          inspectionDetails?.loadPortInspectionDetails?.startDate === ''
+        ) {
+          let toastMessage = 'PLEASE SELECT INSPECTION DATE'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          inspectionDetails?.loadPortInspectionDetails?.inspectionPort === ''
+        ) {
+          let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          documents.certificateOfOrigin == null ||
+          documents.certificateOfQuality == null ||
+          documents.certificateOfWeight == null
+        ) {
+          let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else {
+          let fd = new FormData()
+          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
+          fd.append('loadPortInspection', portType.loadPortInspection)
+          fd.append('inspectionId', inspectionData?._id)
+          fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+          fd.append('certificateOfQuality', documents.certificateOfQuality)
+          fd.append('certificateOfWeight', documents.certificateOfWeight)
 
-    dispatch(UpdateInspection(fd))
+          dispatch(UpdateInspection(fd))
+        }
+      } else if (
+        portType.dischargePortInspection == true &&
+        portType.loadPortInspection == false
+      ) {
+        if (
+          inspectionDetails?.dischargePortInspectionDetails?.numberOfContainer ===
+          ''
+        ) {
+          let toastMessage = 'NUMBER OF CONTAINERS CANNOT BE EMPTY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          inspectionDetails?.dischargePortInspectionDetails?.inspectedBy === ''
+        ) {
+          let toastMessage = 'INSPECTED BY CANNOT BE EMPTY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          inspectionDetails?.dischargePortInspectionDetails?.startDate ===
+          ''
+        ) {
+          let toastMessage = 'PLEASE SELECT INSPECTION DATE'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
+          ''
+        ) {
+          let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          documents.certificateOfOrigin == null ||
+          documents.certificateOfQuality == null ||
+          documents.certificateOfWeight == null
+        ) {
+          let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else {
+          let fd = new FormData()
+          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
+          fd.append('dischargePortInspection', portType.dischargePortInspection)
+          fd.append('inspectionId', inspectionData?._id)
+          fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+          fd.append('certificateOfQuality', documents.certificateOfQuality)
+          fd.append('certificateOfWeight', documents.certificateOfWeight)
+
+          dispatch(UpdateInspection(fd))
+        }
+      } else {
+        if (
+          inspectionDetails?.loadPortInspectionDetails?.numberOfContainer === ''
+        ) {
+          let toastMessage = 'NUMBER OF CONTAINERS CANNOT BE EMPTY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          inspectionDetails?.loadPortInspectionDetails?.inspectedBy === ''
+        ) {
+          let toastMessage = 'INSPECTED BY CANNOT BE EMPTY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          inspectionDetails?.loadPortInspectionDetails?.startDate === ''
+        ) {
+          let toastMessage = 'PLEASE SELECT INSPECTION DATE'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          inspectionDetails?.loadPortInspectionDetails?.inspectionPort === ''
+        ) {
+          let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          documents.certificateOfOrigin == null ||
+          documents.certificateOfQuality == null ||
+          documents.certificateOfWeight == null
+        ) {
+          let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          inspectionDetails?.dischargePortInspectionDetails?.numberOfContainer ===
+          ''
+        ) {
+          let toastMessage = 'DISCHARGEN NUMBER OF CONTAINERS CANNOT BE EMPTY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          inspectionDetails?.dischargePortInspectionDetails?.inspectedBy === ''
+        ) {
+          let toastMessage = 'DISCHARGE INSPECTED BY CANNOT BE EMPTY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          inspectionDetails?.dischargePortInspectionDetails?.startDate ===
+          ''
+        ) {
+          let toastMessage = 'PLEASE SELECT DISCHARGE PORT INSPECTION DATE'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
+          ''
+        ) {
+          let toastMessage = 'DICHARGE INSPECTION PORT CANNOT BE EMPTY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          documents.certificateOfOrigin == null ||
+          documents.certificateOfQuality == null ||
+          documents.certificateOfWeight == null
+        ) {
+          let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else {
+          let fd = new FormData()
+          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
+          fd.append('dischargePortInspection', portType.dischargePortInspection)
+          fd.append('loadPortInspection', portType.loadPortInspection)
+          fd.append('inspectionId', inspectionData?._id)
+          fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+          fd.append('certificateOfQuality', documents.certificateOfQuality)
+          fd.append('certificateOfWeight', documents.certificateOfWeight)
+
+          dispatch(UpdateInspection(fd))
+        }
+      }
+    } else if (inspectionData?.order?.shipmentDetail?.shipmentType == 'BULK') {
+      if (
+        portType.loadPortInspection == true &&
+        portType.dischargePortInspection == false
+      ) {
+        if (inspectionDetails?.loadPortInspectionDetails?.inspectedBy === '') {
+          let toastMessage = 'INSPECTED BY CANNOT BE EMPTY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          inspectionDetails?.loadPortInspectionDetails?.startDate === ''
+        ) {
+          let toastMessage = 'PLEASE SELECT INSPECTION DATE'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          inspectionDetails?.loadPortInspectionDetails?.inspectionPort === ''
+        ) {
+          let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          documents.certificateOfOrigin == null ||
+          documents.certificateOfQuality == null ||
+          documents.certificateOfWeight == null
+        ) {
+          let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else {
+          let fd = new FormData()
+          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
+          fd.append('loadPortInspection', portType.loadPortInspection)
+          fd.append('inspectionId', inspectionData?._id)
+          fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+          fd.append('certificateOfQuality', documents.certificateOfQuality)
+          fd.append('certificateOfWeight', documents.certificateOfWeight)
+
+          dispatch(UpdateInspection(fd))
+        }
+      } else if (
+        portType.dischargePortInspection == true &&
+        portType.loadPortInspection == false
+      ) {
+        if (
+          inspectionDetails?.dischargePortInspectionDetails?.inspectedBy === ''
+        ) {
+          let toastMessage = 'INSPECTED BY CANNOT BE EMPTY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          inspectionDetails?.dischargePortInspectionDetails?.startDate ===
+          ''
+        ) {
+          let toastMessage = 'PLEASE SELECT INSPECTION DATE'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
+          ''
+        ) {
+          let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          documents.certificateOfOrigin == null ||
+          documents.certificateOfQuality == null ||
+          documents.certificateOfWeight == null
+        ) {
+          let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else {
+          let fd = new FormData()
+          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
+          fd.append('dischargePortInspection', portType.dischargePortInspection)
+          fd.append('inspectionId', inspectionData?._id)
+          fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+          fd.append('certificateOfQuality', documents.certificateOfQuality)
+          fd.append('certificateOfWeight', documents.certificateOfWeight)
+
+          dispatch(UpdateInspection(fd))
+        }
+      } else {
+        if (inspectionDetails?.loadPortInspectionDetails?.inspectedBy === '') {
+          let toastMessage = 'INSPECTED BY CANNOT BE EMPTY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          inspectionDetails?.loadPortInspectionDetails?.startDate === ''
+        ) {
+          let toastMessage = 'PLEASE SELECT INSPECTION DATE'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          inspectionDetails?.loadPortInspectionDetails?.inspectionPort === ''
+        ) {
+          let toastMessage = 'INSPECTION PORT CANNOT BE EMPTY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          documents.certificateOfOrigin == null ||
+          documents.certificateOfQuality == null ||
+          documents.certificateOfWeight == null
+        ) {
+          let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          inspectionDetails?.dischargePortInspectionDetails?.inspectedBy === ''
+        ) {
+          let toastMessage = 'DISCHARGE INSPECTED BY CANNOT BE EMPTY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          inspectionDetails?.dischargePortInspectionDetails?.startDate ===
+          ''
+        ) {
+          let toastMessage = 'PLEASE SELECT DISCHARGE PORT INSPECTION DATE'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          inspectionDetails?.dischargePortInspectionDetails?.inspectionPort ===
+          ''
+        ) {
+          let toastMessage = 'DICHARGE INSPECTION PORT CANNOT BE EMPTY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else if (
+          documents.certificateOfOrigin == null ||
+          documents.certificateOfQuality == null ||
+          documents.certificateOfWeight == null
+        ) {
+          let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } else {
+          let fd = new FormData()
+          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
+          fd.append('dischargePortInspection', portType.dischargePortInspection)
+          fd.append('loadPortInspection', portType.loadPortInspection)
+          fd.append('inspectionId', inspectionData?._id)
+          fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+          fd.append('certificateOfQuality', documents.certificateOfQuality)
+          fd.append('certificateOfWeight', documents.certificateOfWeight)
+
+          dispatch(UpdateInspection(fd))
+        }
+      }
+    }
   }
-  console.log(portType, 'portType')
+  // console.log(portType, 'portType')
   useEffect(() => {
     if (inspectionData) {
       if (
         inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort ==
         'Load Port'
       ) {
-        setPortType({ ...portType, lord: true })
+        setPortType({ ...portType, loadPortInspection: true })
       } else if (
         inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort ==
         'Both'
       ) {
-        setPortType({ ...portType, lord: true, discharge: true })
+        setPortType({
+          ...portType,
+          loadPortInspection: true,
+          dischargePortInspection: true,
+        })
       } else {
-        setPortType({ ...portType, discharge: true })
+        setPortType({ ...portType, dischargePortInspection: true })
       }
     }
   }, [inspectionData])
@@ -202,27 +589,30 @@ export default function Index({ addButton, inspectionData }) {
                     inline
                     label="Load Port"
                     value="Load"
-                    name="load"
+                    name="loadPortInspection"
                     type={type}
                     onChange={(e) => {
-                      handlePortType(e.target.name, portType.load)
+                      handlePortType(e.target.name, portType.loadPortInspection)
 
                       // setBothField(!bothField)
                     }}
-                    checked={portType.load ? 'checked' : ''}
+                    checked={portType.loadPortInspection ? 'checked' : ''}
                     id={`inline-${type}-1`}
                   />
                   <Form.Check
                     className={styles.radio}
                     inline
                     label="Discharge Port"
-                    name="discharge"
+                    name="dischargePortInspection"
                     value="Discharge"
                     onChange={(e) => {
-                      handlePortType(e.target.name, portType.discharge)
+                      handlePortType(
+                        e.target.name,
+                        portType.dischargePortInspection,
+                      )
                       // setBothField(!bothField)
                     }}
-                    checked={portType.discharge ? 'checked' : ''}
+                    checked={portType.dischargePortInspection ? 'checked' : ''}
                     type={type}
                     id={`inline-${type}-2`}
                   />
@@ -271,7 +661,7 @@ export default function Index({ addButton, inspectionData }) {
               </div>
             </div>
           </div>
-          {portType.load ? (
+          {portType.loadPortInspection ? (
             <>
               <div className={`${styles.main} vessel_card card border-color`}>
                 <div
@@ -306,7 +696,8 @@ export default function Index({ addButton, inspectionData }) {
                         <input
                           className={`${styles.input_field} input form-control`}
                           required
-                          name="loadPortInspectionDetails.noOfContainers"
+                          name="loadPortInspectionDetails.numberOfContainer"
+                          defaultValue={inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.numberOfContainer}
                           onChange={(e) =>
                             saveInspectionDetails(e.target.name, e.target.value)
                           }
@@ -332,6 +723,8 @@ export default function Index({ addButton, inspectionData }) {
                           required
                           type="text"
                           name="loadPortInspectionDetails.inspectionPort"
+                          defaultValue={inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectionPort}
+
                           onChange={(e) =>
                             saveInspectionDetails(e.target.name, e.target.value)
                           }
@@ -354,6 +747,8 @@ export default function Index({ addButton, inspectionData }) {
                         className={`${styles.input_field} input form-control`}
                         required
                         name="loadPortInspectionDetails.inspectedBy"
+                        defaultValue={inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectedBy}
+
                         onChange={(e) =>
                           saveInspectionDetails(e.target.name, e.target.value)
                         }
@@ -369,8 +764,10 @@ export default function Index({ addButton, inspectionData }) {
                       <div className="d-flex">
                         <DateCalender
                           saveDate={saveDate}
-                          name="loadPortInspectionDetails.inspectionDate"
+                          name="loadPortInspectionDetails.startDate"
+                          defaultDate={inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.startDate}
                           labelName="Inspection Date"
+                          startFrom={dateStartFrom.inspectionDateAtLoad}
                           dateFormat={`dd-MM-yyyy`}
                         />
                         <img
@@ -391,6 +788,7 @@ export default function Index({ addButton, inspectionData }) {
                         <input
                           as="textarea"
                           name="loadPortInspectionDetails.specialMention"
+                          defaultValue={inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.specialMention}
                           onChange={(e) =>
                             saveInspectionDetails(e.target.name, e.target.value)
                           }
@@ -411,8 +809,8 @@ export default function Index({ addButton, inspectionData }) {
               </div>
             </>
           ) : null}
-          {portType.discharge
-            ? Discharge(inspectionData, saveInspectionDetails, saveDate)
+          {portType.dischargePortInspection
+            ? Discharge(inspectionData, saveInspectionDetails, saveDate, setStartDate, setDateStartFrom)
             : ''}
 
           <div className={`${styles.main} vessel_card card border-color`}>
@@ -444,7 +842,7 @@ export default function Index({ addButton, inspectionData }) {
                       >
                         <thead>
                           <tr>
-                            <th width="40%">
+                            <th width="25%">
                               DOCUMENT NAME{' '}
                               <img
                                 className={`${styles.sort_img} mb-1`}
@@ -452,7 +850,7 @@ export default function Index({ addButton, inspectionData }) {
                                 alt="Sort icon"
                               />
                             </th>
-                            <th width="20%">
+                            <th width="10%">
                               FORMAT{' '}
                               <img
                                 className={`${styles.sort_img} mb-1`}
@@ -460,7 +858,7 @@ export default function Index({ addButton, inspectionData }) {
                                 alt="Sort icon"
                               />
                             </th>
-                            <th width="25%">
+                            <th width="20%">
                               DOCUMENT DATE{' '}
                               <img
                                 className={`${styles.sort_img} mb-1`}
@@ -468,8 +866,8 @@ export default function Index({ addButton, inspectionData }) {
                                 alt="Sort icon"
                               />
                             </th>
-                            <th>ACTION</th>
-                            <th></th>
+                            <th width="20%">ACTION</th>
+                            <th width="20%"></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -477,7 +875,8 @@ export default function Index({ addButton, inspectionData }) {
                             <td className={styles.doc_name}>
                               Certificate of Origin
                               <strong className="text-danger ml-1">*</strong>
-                              <span>View</span>
+                              <span onClick={()=>dispatch(ViewDocument({path: inspectionData?.thirdPartyInspection?.certificateOfOrigin?.path,
+                              order: inspectionData?.order?._id}))}>View</span>
                             </td>
                             <td>
                               <img
@@ -588,7 +987,8 @@ export default function Index({ addButton, inspectionData }) {
                             <td className={styles.doc_name}>
                               Certificate of Quality
                               <strong className="text-danger ml-1">*</strong>
-                              <span>View</span>
+                              <span onClick={()=>dispatch(ViewDocument({path: inspectionData?.thirdPartyInspection?.certificateOfQuality?.path,
+                              order: inspectionData?.order?._id}))}>View</span>
                             </td>
                             <td>
                               <img
@@ -699,7 +1099,8 @@ export default function Index({ addButton, inspectionData }) {
                             <td className={styles.doc_name}>
                               Certificate of Weight
                               <strong className="text-danger ml-1">*</strong>
-                              <span>View</span>
+                              <span onClick={()=>dispatch(ViewDocument({path: inspectionData?.thirdPartyInspection?.certificateOfWeight?.path,
+                              order: inspectionData?.order?._id}))}>View</span>
                             </td>
                             <td>
                               <img
@@ -819,7 +1220,7 @@ export default function Index({ addButton, inspectionData }) {
                     Any one document is mandatory
                   </div>
 
-                  <div
+                  {/* <div
                     className={`${styles.dashboard_form}  border_color card-body`}
                     style={{ borderTop: '2px solid #CAD6E6' }}
                   >
@@ -1032,10 +1433,14 @@ export default function Index({ addButton, inspectionData }) {
                         </table>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
+          </div>
+
+          <div className="0">
+            <UploadOther orderid={orderid} module="Loading-Transit-Unloading" />
           </div>
         </div>
         <SaveBar handleSave={handleSave} rightBtn="Submit" />
@@ -1120,7 +1525,7 @@ export default function Index({ addButton, inspectionData }) {
   )
 }
 
-const Discharge = ({ inspectionData, saveInspectionDetails, saveDate }) => {
+const Discharge = (inspectionData, saveInspectionDetails, saveDate, setDateStartFrom, setStartDate) => {
   return (
     <div className={`${styles.main} vessel_card card border-color`}>
       <div
@@ -1150,7 +1555,8 @@ const Discharge = ({ inspectionData, saveInspectionDetails, saveDate }) => {
               <input
                 className={`${styles.input_field} input form-control`}
                 required
-                name="dischargePortInspectionDetails.noOfContainers"
+                name="dischargePortInspectionDetails.numberOfContainer"
+                defaultValue={inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.numberOfContainer}
                 onChange={(e) =>
                   saveInspectionDetails(e.target.name, e.target.value)
                 }
@@ -1172,6 +1578,7 @@ const Discharge = ({ inspectionData, saveInspectionDetails, saveDate }) => {
                 required
                 type="text"
                 name="dischargePortInspectionDetails.inspectionPort"
+                defaultValue={inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectionPort}
                 onChange={(e) =>
                   saveInspectionDetails(e.target.name, e.target.value)
                 }
@@ -1193,6 +1600,7 @@ const Discharge = ({ inspectionData, saveInspectionDetails, saveDate }) => {
               required
               type="text"
               name="dischargePortInspectionDetails.inspectedBy"
+              defaultValue={inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectedBy}
               onChange={(e) =>
                 saveInspectionDetails(e.target.name, e.target.value)
               }
@@ -1204,8 +1612,10 @@ const Discharge = ({ inspectionData, saveInspectionDetails, saveDate }) => {
           <div className={`${styles.form_group} col-md-4 col-sm-6`}>
             <div className="d-flex">
               <DateCalender
-                name="dischargePortInspectionDetails.inspectionDate"
+                name="dischargePortInspectionDetails.startDate"
+                defaultDate={inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.startDate}
                 saveDate={saveDate}
+                setDateStartFrom={setStartDate}
                 labelName="Inspection Date"
                 dateFormat={`dd-MM-yyyy`}
               />
@@ -1228,6 +1638,8 @@ const Discharge = ({ inspectionData, saveInspectionDetails, saveDate }) => {
                 as="textarea"
                 rows={3}
                 name="dischargePortInspectionDetails.specialMention"
+                defaultValue={inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.specialMention}
+
                 onChange={(e) =>
                   saveInspectionDetails(e.target.name, e.target.value)
                 }

@@ -84,9 +84,9 @@ export const GetAllTransitDetails = (payload) => async (dispatch, getState, api)
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
-        Axios.get(`${API.corebaseUrl}${API.getTransitDetails}`, {
+        Axios.get(`${API.corebaseUrl}${API.getTransitDetails}${payload ? payload : ''}`, {
             headers: headers,
-        }, payload).then((response) => {
+        }).then((response) => {
             if (response.data.code === 200) {
                 dispatch(getAllTransitDetailsSuccess(response.data.data))
             } else {
