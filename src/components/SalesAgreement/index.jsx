@@ -299,6 +299,7 @@ const onSave=()=>{
   setSubmitData(true)
  }
  const updateData=async(key,data)=>{
+  let toastMessage=""
   console.log("this13",data)
   let dataToSend={}
     if(key=="Supplier"){
@@ -319,9 +320,79 @@ const onSave=()=>{
     "multiPartyAddresses":data.supplierState.multiPartyAddresses,
     }
     }
-    console.log(dataToSend,"dataToSend")
+    
 
 
+   if (dataToSend.supplier.name == "" || dataToSend.supplier.name == undefined) {
+      toastMessage = `Please add supplier name  `
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      setSubmitData(false)
+      return
+    
+    
+    }
+  }
+   if (dataToSend.supplier.shortName== "" || dataToSend.supplier.shortName== undefined) {
+      toastMessage = `Please add short name  `
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      setSubmitData(false)
+      return
+    
+    
+    }
+  }
+   if (dataToSend.supplier.bankDetails.accountNo == "" || dataToSend.supplier.bankDetails.accountNo == undefined) {
+      toastMessage = `Please add account number `
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      setSubmitData(false)
+      return
+    
+    
+    }
+  }
+     if (dataToSend.supplier.bankDetails.bankName == "" || dataToSend.supplier.bankDetails.bankName == undefined) {
+      toastMessage = `Please add bank name `
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      setSubmitData(false)
+      return
+    
+    
+    }
+  }
+   if (dataToSend.supplier.bankDetails.swiftCode == "" || dataToSend.supplier.bankDetails.swiftCode == undefined) {
+      toastMessage = `Please add swift code `
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      setSubmitData(false)
+      return
+    
+    
+    }
+  }
+    if (dataToSend.supplier.addresses.length <= 0 || dataToSend.supplier.addresses == undefined) {
+      toastMessage = `Please add address `
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      setSubmitData(false)
+      return
+    
+    
+    }
+  }
+    if (dataToSend.supplier.authorisedSignatoryDetails.length <= 0 || dataToSend.supplier.authorisedSignatoryDetails == undefined) {
+      toastMessage = `Please add authorised Signatory Details `
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      setSubmitData(false)
+      return
+    
+    
+    }
+  }
 
 
 
@@ -342,6 +413,47 @@ const onSave=()=>{
     console.log(dataToSend,"dataToSend")
 
     sessionStorage.removeItem("Seller")
+   if (dataToSend.seller.name == "" || dataToSend.seller.name == undefined) {
+      toastMessage = `Please add seller name  `
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      setSubmitData(false)
+      return
+    
+    
+    }
+  }
+   if (dataToSend.seller.shortName== "" || dataToSend.seller.shortName== undefined) {
+      toastMessage = `Please add short name  `
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      setSubmitData(false)
+      return
+    
+    
+    }
+  }
+ 
+  if (dataToSend.seller.addresses.length <= 0 || dataToSend.seller.addresses == undefined) {
+      toastMessage = `Please add address `
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      setSubmitData(false)
+      return
+    
+    
+    }
+  }
+    if (dataToSend.seller.authorisedSignatoryDetails.length <= 0 || dataToSend.seller.authorisedSignatoryDetails == undefined) {
+      toastMessage = `Please add authorised Signatory Details `
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      setSubmitData(false)
+      return
+    
+    
+    }
+  }
 
 
 
@@ -359,7 +471,48 @@ const onSave=()=>{
 
     }
     }
-    console.log(dataToSend,"dataToSend")
+  if (dataToSend.buyer.name == "" || dataToSend.buyer.name == undefined) {
+      toastMessage = `Please add buyer name  `
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      setSubmitData(false)
+      return
+    
+    
+    }
+  }
+   if (dataToSend.buyer.shortName== "" || dataToSend.buyer.shortName== undefined) {
+      toastMessage = `Please add short name  `
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      setSubmitData(false)
+      return
+    
+    
+    }
+  }
+ 
+  if (dataToSend.buyer.addresses.length <= 0 || dataToSend.buyer.addresses == undefined) {
+      toastMessage = `Please add address `
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      setSubmitData(false)
+      return
+    
+    
+    }
+  }
+    if (dataToSend.buyer.authorisedSignatoryDetails.length <= 0 || dataToSend.buyer.authorisedSignatoryDetails == undefined) {
+      toastMessage = `Please add authorised Signatory Details `
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      setSubmitData(false)
+      return
+    
+    
+    }
+  }
+
 
 
 
@@ -377,6 +530,29 @@ const onSave=()=>{
 
     }
     }
+  if (dataToSend.finance.name == "" || dataToSend.finance.name == undefined) {
+      toastMessage = `Please add name `
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      setSubmitData(false)
+      return
+    
+    
+    }
+  }
+   if (dataToSend.finance.branchName== "" || dataToSend.finance.branchName== undefined) {
+      toastMessage = `Please add branch name  `
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      setSubmitData(false)
+      return
+    
+    
+    }
+  }
+ 
+
+
     console.log(dataToSend,"dataToSend")
 
 
@@ -390,7 +566,7 @@ const onSave=()=>{
     cma:{
     "name": data.cmaData.name,
     "shortName": data.cmaData.shortName,
-    "shortName": data.cmaData.gstin,
+    "gstin": data.cmaData.gstin,
     "addresses": data.addresses,
     "authorisedSignatoryDetails": data.list,
     }
@@ -399,6 +575,58 @@ const onSave=()=>{
 
 
     }
+    if (dataToSend.cma.name == "" || dataToSend.cma.name == undefined) {
+    toastMessage = `Please add cma name  `
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    setSubmitData(false)
+    return
+
+
+    }
+    }
+    if (dataToSend.cma.shortName== "" || dataToSend.cma.shortName== undefined) {
+    toastMessage = `Please add short name  `
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    setSubmitData(false)
+    return
+
+
+    }
+    }
+    if (dataToSend.cma.gstin== "" || dataToSend.cma.gstin== undefined) {
+    toastMessage = `Please add short name  `
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    setSubmitData(false)
+    return
+
+
+    }
+    }
+
+    if (dataToSend.cma.addresses.length <= 0 || dataToSend.cma.addresses == undefined) {
+    toastMessage = `Please add address `
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    setSubmitData(false)
+    return
+
+
+    }
+    }
+    if (dataToSend.cma.authorisedSignatoryDetails.length <= 0 || dataToSend.cma.authorisedSignatoryDetails == undefined) {
+    toastMessage = `Please add authorised Signatory Details `
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    setSubmitData(false)
+    return
+
+
+    }
+    }
+
 
 
     }
@@ -415,17 +643,119 @@ const onSave=()=>{
 
     }
     }
+    if (dataToSend.cha.name == "" || dataToSend.cha.name == undefined) {
+    toastMessage = `Please add cha name  `
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    setSubmitData(false)
+    return
+
+
+    }
+    }
+    if (dataToSend.cha.shortName== "" || dataToSend.cha.shortName== undefined) {
+    toastMessage = `Please add short name  `
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    setSubmitData(false)
+    return
+
+
+    }
+    }
+    if (dataToSend.cha.gstin== "" || dataToSend.cha.gstin== undefined) {
+    toastMessage = `Please add short name  `
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    setSubmitData(false)
+    return
+
+
+    }
+    }
+
+    if (dataToSend.cha.addresses.length <= 0 || dataToSend.cha.addresses == undefined) {
+    toastMessage = `Please add address `
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    setSubmitData(false)
+    return
+
+
+    }
+    }
+    if (dataToSend.cha.authorisedSignatoryDetails.length <= 0 || dataToSend.cha.authorisedSignatoryDetails == undefined) {
+    toastMessage = `Please add authorised Signatory Details `
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    setSubmitData(false)
+    return
+
+
+    }
+    }
     }
     if(key=="Stevedore"){
     dataToSend={
     genericId:props.genericData?._id,
-    cha:{
+    stevedore:{
     "name": data.chaState.name,
     "shortName": data.chaState.shortName,
     "gstin": data.chaState.gstin,
 
     "addresses": data.addressList,
     "authorisedSignatoryDetails": data.list,
+
+    }
+    }
+    if (dataToSend.stevedore.name == "" || dataToSend.stevedore.name == undefined) {
+    toastMessage = `Please add stevedore name  `
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    setSubmitData(false)
+    return
+
+
+    }
+    }
+    if (dataToSend.stevedore.shortName== "" || dataToSend.stevedore.shortName== undefined) {
+    toastMessage = `Please add short name  `
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    setSubmitData(false)
+    return
+
+
+    }
+    }
+    if (dataToSend.stevedore.gstin== "" || dataToSend.stevedore.gstin== undefined) {
+    toastMessage = `Please add short name  `
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    setSubmitData(false)
+    return
+
+
+    }
+    }
+
+    if (dataToSend.stevedore.addresses.length <= 0 || dataToSend.stevedore.addresses == undefined) {
+    toastMessage = `Please add address `
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    setSubmitData(false)
+    return
+
+
+    }
+    }
+    if (dataToSend.stevedore.authorisedSignatoryDetails.length <= 0 || dataToSend.stevedore.authorisedSignatoryDetails == undefined) {
+    toastMessage = `Please add authorised Signatory Details `
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    setSubmitData(false)
+    return
+
 
     }
     }
@@ -441,6 +771,39 @@ const onSave=()=>{
 
     }
     }
+    if (dataToSend.shipping.name == "" || dataToSend.shipping.name == undefined) {
+    toastMessage = `Please add shipping name  `
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    setSubmitData(false)
+    return
+
+
+    }
+    }
+    if (dataToSend.shipping.vesselName== "" || dataToSend.shipping.vesselName== undefined) {
+    toastMessage = `Please add vessel Name  `
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    setSubmitData(false)
+    return
+
+
+    }
+    }
+    if (dataToSend.shipping.gstin== "" || dataToSend.shipping.gstin== undefined) {
+    toastMessage = `Please add short name  `
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    setSubmitData(false)
+    return
+
+
+    }
+    }
+
+ 
+   
     }
     if(key=="Delivery Terms"){
     console.log("this14")
@@ -452,6 +815,17 @@ const onSave=()=>{
 
     }
     }
+     if (dataToSend.delivery.deliveryTerms == "" || dataToSend.delivery.deliveryTerms == undefined) {
+    toastMessage = `Please select delivery Terms  `
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    setSubmitData(false)
+    return
+
+
+    }
+    }
+
     }
     if(key=="Product Specifications"){
     console.log("this14")
@@ -459,6 +833,16 @@ const onSave=()=>{
     genericId:props.genericData?._id,
     productSpecifications:{
     "comments":data.addressList,
+
+
+    }
+    }
+    if (dataToSend.productSpecifications.comments.length <= 0 || dataToSend.productSpecifications.comments == undefined) {
+    toastMessage = `Please add comments `
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    setSubmitData(false)
+    return
 
 
     }
@@ -474,6 +858,16 @@ const onSave=()=>{
     genericId:props.genericData?._id,
     additionalComments:{
     "comments": data.addressList,
+
+
+    }
+    }
+     if (dataToSend.additionalComments.comments.length <= 0 || dataToSend.additionalComments.comments == undefined) {
+    toastMessage = `Please add address `
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    setSubmitData(false)
+    return
 
 
     }
@@ -508,7 +902,59 @@ const onSave=()=>{
       "branchName": data.associate.branchName,
       "shortName": data.associate.shortName,
       "gstin": data.associate.gstin,
-       "addresses": list,
+      "addresses": list,
+      "authorisedSignatoryDetails": data.list,
+
+
+    }
+    }
+        if (dataToSend.associateBuyer.branchName == "" || dataToSend.associateBuyer.branchName == undefined) {
+    toastMessage = `Please add branch name  `
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    setSubmitData(false)
+    return
+
+
+    }
+    }
+    if (dataToSend.associateBuyer.shortName== "" || dataToSend.associateBuyer.shortName== undefined) {
+    toastMessage = `Please add short name  `
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    setSubmitData(false)
+    return
+
+
+    }
+    }
+    if (dataToSend.associateBuyer.gstin== "" || dataToSend.associateBuyer.gstin== undefined) {
+    toastMessage = `Please add short name  `
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    setSubmitData(false)
+    return
+
+
+    }
+    }
+
+    if (dataToSend.associateBuyer.addresses.length <= 0 || dataToSend.associateBuyer.addresses == undefined) {
+    toastMessage = `Please add address `
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    setSubmitData(false)
+    return
+
+
+    }
+    }
+    if (dataToSend.associateBuyer.authorisedSignatoryDetails.length <= 0 || dataToSend.stevedore.authorisedSignatoryDetails == undefined) {
+    toastMessage = `Please add authorised Signatory Details `
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    setSubmitData(false)
+    return
 
 
     }

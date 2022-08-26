@@ -133,12 +133,18 @@ props.updateData("Associate Buyer",data)
 
   }
   const handleRemove=(index)=>{
-    
+     console.log(docList,"docList")
+     docList.forEach((val,i)=>{
+       if(index==val.index){
+        setDocList([...docList.slice(0,i), ...docList.slice(i+1)])
+       }
+     })
+   
      setList([...list.slice(0,index), ...list.slice(index+1)])
 }
-const removeDocArr=(index)=>{
-   setDocList([...docList.slice(0,index), ...docList.slice(index+1)])
-}
+// const removeDocArr=(index)=>{
+//    setDocList([...docList.slice(0,index), ...docList.slice(index+1)])
+// }
 const handleChangeInput2=(name2,value,index)=>{
    
  
@@ -170,9 +176,9 @@ const handleChangeInput = (name, value, index) => {
    if(value=="addnew"){
    arrayToSave={
      name:"",designation:"",email:"",phoneNo:"",
-      actions:"false",addnew:"true"
+     actions:"false",addnew:"true"
    }
-   setDocList([...docList,{attachDoc:""}])
+   setDocList([...docList,{attachDoc:"",index:index}])
    }else{
       masterList.forEach((val,index)=>{
     if(val.name==value){
@@ -867,7 +873,7 @@ setAddressList(current => [...current, newAddress])
                     )}
                       </td>
                       <td className={`d-flex`}>
-                        <img onClick={()=>removeDocArr(index)} className={`img-fluid mr-3`} src="/static/delete 2.svg" alt="delete"/>
+                        {/* <img onClick={()=>removeDocArr(index)} className={`img-fluid mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
                         <img src="/static/upload.svg" alt="upload"/>
                       </td>
 

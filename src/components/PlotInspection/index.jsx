@@ -86,9 +86,7 @@ export default function Index({ inspectionData }) {
                       name="plotInspectionDate"
                       saveDate={saveDate}
                       defaultDate={
-                        inspectionData?.plotInspection?.plotInspectionDate?.split(
-                          'T',
-                        )[0]
+                        inspectionData?.plotInspection?.plotInspectionDate
                       }
                       labelName="Plot Inspection Date"
                       dateFormat={`dd-MM-yyyy`}
