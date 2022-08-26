@@ -3,11 +3,11 @@ import styles from './index.module.scss'
 import { Row, Col } from 'react-bootstrap'
 import _get from 'lodash/get'
 
-function index({data,Heading, val,totalData }) {
-  console.log(data,"dati")
+function index({ data, Heading, val, totalData }) {
+  console.log(data, "data")
   const totalNumberOfCases = data?.length
   //const pendingCases = data.filter((e)=> e.)
-  console.log(totalNumberOfCases,'totalNumberOfCases')
+  console.log(totalNumberOfCases, 'totalNumberOfCases')
   return (
     <div className={`${styles.card_litigations} card shadow-none`}>
       <div className={`${styles.card_ligitations_holder}`}>
@@ -78,21 +78,21 @@ function index({data,Heading, val,totalData }) {
                 </tr>
               </thead>
               <tbody>
-               {data && data?.map((courtCase, index)=> (
-                 <tr key={index}>
-                  <td>{index+1}</td>
-                  <td className="">{courtCase?.cin}</td>
-                  <td className="">{courtCase?.caseNumber}</td>
-                  <td className="">{courtCase?.caseType}</td>
-                  <td className="">{courtCase?.section}</td>
-                  <td className="">{_get(courtCase,"petitioner[0]","")}</td>
-                  <td className="">{_get(courtCase,"respondent[0]","")}</td>
-                  <td className="text-center">
-                    <img src="./static/blue-eye.svg"
-                    className='img-fluid'
-                    alt="blue eye"></img>
-                  </td>
-                </tr>))}
+                {data && data?.map((courtCase, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td className="">{courtCase.cin}</td>
+                    <td className="">{courtCase.caseNumber}</td>
+                    <td className="">{courtCase.caseType}</td>
+                    <td className="">{courtCase.section}</td>
+                    <td className="">{_get(courtCase, 'petitioner[0]', '')}</td>
+                    <td className="">{_get(courtCase, 'respondent[0]', '')}</td>
+                    <td className="text-center">
+                      <img src="./static/blue-eye.svg"
+                        className='img-fluid'
+                        alt="blue eye"></img>
+                    </td>
+                  </tr>))}
               </tbody>
             </table>
 

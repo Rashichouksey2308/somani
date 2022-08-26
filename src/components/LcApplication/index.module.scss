@@ -1,13 +1,14 @@
 @import '../styles/Core/config';
 .container_inner {
   margin: 28px;
-  margin-bottom: 154px;
+  margin-bottom: 152px;
   @include respond(sm-desktop) {
     margin: 20px;
+    margin-bottom: 144px;
   }
   @include respond(phone) {
     margin: 15px;
-    margin-bottom: 120px;
+    margin-bottom: 121px;
   }
   .head_header {
     height: 48px;
@@ -42,10 +43,10 @@
     border: 1px solid #d2d7e5;
     border-radius: 6px !important;
     .cardHeader {
-      height: 80px;
+      min-height: 80px;
       cursor: pointer;
       border-bottom: none;
-      padding: 25px 35px !important;
+      padding: 0 35px !important;
       h2 {
         font-size: 22px;
         color: #3687e8;
