@@ -1855,20 +1855,20 @@ function Index() {
                           <label className={styles.label}>Litigations Status:</label>
                           <select onChange={updateLitigationStatus} className={`${styles.form_control} form-control`}>
                             {orderList?.company?.litigationStatus !==
-                              'Active' ? (
+                              'Disposed' ? (
                               <>
                                 <option>
                                   Select an option
                                 </option>
                                 <option value="Pending">Pending</option>
-                                <option value="Active">Active</option>
+                                <option value="Disposed">Disposed</option>
                               </>
                             ) : (
                               <>
                                 <option>
                                   Select an option
                                 </option>
-                                <option value="Active">Active</option>
+                                <option value="Disposed">Disposed</option>
                                 <option value="Pending">Pending</option>
                               </>
                             )}

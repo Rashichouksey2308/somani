@@ -1,11 +1,12 @@
 @import '../styles/Core/config';
 .wrapper {
-  margin-bottom: 1rem;
+  margin-bottom: 26px;
   border-radius: 6px !important;
   .cardHeader {
     cursor: pointer;
+    min-height: 80px;
     border-bottom: none;
-    padding: 25px 35px !important;
+    padding: 0 35px !important;
     h2 {
       font-size: 22px;
       color: #3687e8;
@@ -293,13 +294,13 @@
   margin-bottom: 26px;
   .head_container {
     cursor: pointer;
-    padding: 25px 35px !important;
+    min-height: 80px;
+    padding: 0 35px !important;
     .heading {
       font-size: 22px;
       font-weight: bold;
       color: #3687e8;
       line-height: 27px;
-      margin-bottom: 0;
       @include respond(md-desktop) {
         font-size: 22px;
       }
