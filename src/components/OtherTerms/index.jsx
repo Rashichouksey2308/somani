@@ -12,7 +12,7 @@ const Index = ({ termsheetDetails, onChangeDropDown, termsheet, otherTermConditi
 
     return (
         <div className={`${styles.main} main`}>
-            <div className={`${styles.head_container} border_color d-flex justify-content-between`} data-toggle="collapse" data-target="#otherTerm" aria-expanded="true" aria-controls="otherTerm">
+            <div className={`${styles.head_container} border_color align-items-center d-flex justify-content-between`} data-toggle="collapse" data-target="#otherTerm" aria-expanded="true" aria-controls="otherTerm">
                 <h3 className={styles.heading}>Other Terms &amp; Conditions</h3>
                 <span>+</span>
             </div>

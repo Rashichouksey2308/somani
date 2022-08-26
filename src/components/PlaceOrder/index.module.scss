@@ -1,14 +1,14 @@
 @import "../styles/Core/config";
 .card {
     margin: 28px;
-    margin-bottom: 70px;
+    margin-bottom: 68px;
     @include respond(sm-desktop) {
         margin: 20px;
-        margin-bottom: 70px;
+        margin-bottom: 60px;
     }
     @include respond(phone) {
         margin: 15px;
-        margin-bottom: 68px;
+        margin-bottom: 71px;
     }
     .head_container {
         min-height: 48px;
@@ -16,20 +16,15 @@
         background: none;
         flex-direction: row;
         justify-content: space-between;
-        margin: 0 0 27px;
+        margin: 0 0 27px 10px;
         @include respond(sm-desktop) {
             margin-top: 15px;
             margin-bottom: -20px;
         }
-        @include respond(phone) {
-            margin-top: 15px;
-            margin-bottom: -20px;
-        }  
         .head_header {
             display: flex;
             justify-content: space-around;
             flex-direction: row;
-            margin-left: 10px;
             .arrow {
                 width: 13px;
                 height: 21px;
@@ -54,12 +49,11 @@
                 padding-left: 18px;
                 margin: 0;
                 @include respond(md-desktop) {
-                    font-size: 30px;
-                    line-height: 41px;         
+                    font-size: 30px;      
                 }
                 @include respond(sm-desktop) {
                     font-size: 26px;     
-                    line-height: 38px;         
+                    line-height: 38px;
                 }
                 @include respond(phone) {
                     font-size: 22px;
@@ -94,7 +88,7 @@
         border-radius: 6px;  
         .head_container {
             min-height: 80px;
-            padding: 25px 35px !important;
+            padding: 0 35px !important;
             border-bottom: 2px solid #CAD6E6;
             .heading {
                 color: #3687e8;
