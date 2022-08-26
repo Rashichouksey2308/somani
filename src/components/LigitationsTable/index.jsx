@@ -81,10 +81,10 @@ function index({ data, Heading, val, totalData }) {
                 {data && data?.map((courtCase, index) => (
                   <tr key={index}>
                     <td>{index + 1}</td>
-                    <td className="">{courtCase.cin}</td>
-                    <td className="">{courtCase.caseNumber}</td>
-                    <td className="">{courtCase.caseType}</td>
-                    <td className="">{courtCase.section}</td>
+                    <td className="">{courtCase?.cin}</td>
+                    <td className="">{courtCase?.caseNumber}</td>
+                    <td className="">{courtCase?.caseType}</td>
+                    <td className="">{courtCase?.section}</td>
                     <td className="">{_get(courtCase, 'petitioner[0]', '')}</td>
                     <td className="">{_get(courtCase, 'respondent[0]', '')}</td>
                     <td className="text-center">
