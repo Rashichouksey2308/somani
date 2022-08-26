@@ -31,7 +31,7 @@ import OpenCharges from '../../src/components/ReviewQueueFinancials/OpenCharges'
 import Peer from '../../src/components/ReviewQueueFinancials/Peer'
 import Ratios from '../../src/components/ReviewQueueFinancials/Ratios'
 
-import { removePrefixOrSuffix ,CovertvaluefromtoCR} from '../../src/utils/helper'
+import { removePrefixOrSuffix, CovertvaluefromtoCR } from '../../src/utils/helper'
 //redux
 import { UpdateCompanyDetails } from '../../src/redux/companyDetail/action'
 
@@ -52,6 +52,7 @@ import { GetDocuments, AddingDocument, DeleteDocument } from '../../src/redux/cr
 import moment from 'moment'
 import { toast } from 'react-toastify'
 import UploadOther from '../../src/components/UploadOther'
+import _get from 'lodash/get'
 
 
 
@@ -193,6 +194,38 @@ function Index() {
       setComplienceStatutoryFilter(statutory)
       setComplienceBalanceFilter(balance)
     }
+
+    if (Array.isArray(companyData?.compliance?.error) && companyData?.compliance?.error?.length > 0) {
+      _get(companyData, 'compliance.error', [{}]).forEach((item) => {
+        let toastMessage = item.message
+        let toastDiscription = item.description
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastDiscription.toUpperCase(), { toastId: toastDiscription })
+          // toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+      })
+    }
+    if (Array.isArray(companyData?.profile?.error) && companyData?.profile?.error?.length > 0) {
+      _get(companyData, 'profile.error', [{}]).forEach((item) => {
+        let toastMessage = item?.message
+        let toastDiscription = item?.description
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastDiscription.toUpperCase(), { toastId: toastDiscription })
+          // toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+      })
+    }
+
+    if (Array.isArray(companyData?.financial?.error) && companyData?.financial?.error?.length > 0) {
+      _get(companyData, 'financial.error', [{}]).forEach((item) => {
+        let toastMessage = item.message
+        let toastDiscription = item.description
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastDiscription })
+          toast.error(toastDiscription.toUpperCase(), { toastId: toastMessage })
+        }
+      })
+    }
   }, [companyData])
   console.log(complienceFilter, "complienceFilter")
   // const [manualDocModule, setManualDocModule] = useState(true)
@@ -309,7 +342,7 @@ function Index() {
       toDate: orderList?.shipmentDetail?.loadPort?.toDate,
     },
     shipmentType: orderList?.shipmentDetail?.shipmentType,
-    portOfLoading : orderList?.shipmentDetail?.portOfLoading
+    portOfLoading: orderList?.shipmentDetail?.portOfLoading
   })
 
   const saveOrderData = (name, value) => {
@@ -901,16 +934,16 @@ function Index() {
       delete val.isEdit
     })
     let data = { ...product }
-      data.monthlyProductionCapacity = removePrefixOrSuffix(product.monthlyProductionCapacity)
-      data.capacityUtilization = removePrefixOrSuffix(product.capacityUtilization)
-      data.AvgMonthlyElectricityBill = removePrefixOrSuffix(product.AvgMonthlyElectricityBill)
-      data.averageStockOfCommodity = removePrefixOrSuffix(product.averageStockOfCommodity)
-      data.averageStockInTransit = removePrefixOrSuffix(product.averageStockInTransit)
-      data.availableStock = removePrefixOrSuffix(product.availableStock)
-      data.dailyConsumptionOfCommodity = removePrefixOrSuffix(product.dailyConsumptionOfCommodity)
-     
-    let supplierData = {...supplierCred}
-    supplierData.commodityOfTotalTrade = removePrefixOrSuffix(supplierCred.commodityOfTotalTrade)  
+    data.monthlyProductionCapacity = removePrefixOrSuffix(product.monthlyProductionCapacity)
+    data.capacityUtilization = removePrefixOrSuffix(product.capacityUtilization)
+    data.AvgMonthlyElectricityBill = removePrefixOrSuffix(product.AvgMonthlyElectricityBill)
+    data.averageStockOfCommodity = removePrefixOrSuffix(product.averageStockOfCommodity)
+    data.averageStockInTransit = removePrefixOrSuffix(product.averageStockInTransit)
+    data.availableStock = removePrefixOrSuffix(product.availableStock)
+    data.dailyConsumptionOfCommodity = removePrefixOrSuffix(product.dailyConsumptionOfCommodity)
+
+    let supplierData = { ...supplierCred }
+    supplierData.commodityOfTotalTrade = removePrefixOrSuffix(supplierCred.commodityOfTotalTrade)
 
 
     let obj = {
@@ -1245,7 +1278,7 @@ function Index() {
     let highCourt = []
     let tribunalCourts = []
     //civil
-    districtCourt = companyData?.compliance.districtCourt.cases.filter((val) => {
+    districtCourt = companyData?.compliance?.districtCourt?.cases?.filter((val) => {
 
       if (
         val.civilCriminal == filterType.class
@@ -1257,7 +1290,7 @@ function Index() {
         return val
       }
     })
-    supremeCourt = companyData?.compliance.supremeCourt.cases.filter((val) => {
+    supremeCourt = companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
 
       if (
         val.civilCriminal == filterType.class
@@ -1269,7 +1302,7 @@ function Index() {
         return val
       }
     })
-    highCourt = companyData?.compliance.highCourt.cases.filter((val) => {
+    highCourt = companyData?.compliance?.highCourt?.cases?.filter((val) => {
 
       if (
         val.civilCriminal == filterType.class
@@ -1281,7 +1314,7 @@ function Index() {
         return val
       }
     })
-    tribunalCourts = companyData?.compliance.tribunalCourts.cases.filter((val) => {
+    tribunalCourts = companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
 
       if (
         val.civilCriminal == filterType.class
@@ -1294,7 +1327,7 @@ function Index() {
       }
     })
     //risk:
-    districtCourt = companyData?.compliance.districtCourt.cases.filter((val) => {
+    districtCourt = companyData?.compliance?.districtCourt?.cases?.filter((val) => {
 
       if (
         val.severity_ == filterType.risk == "high" ? "High" || "high" : filterType.risk
@@ -1306,7 +1339,7 @@ function Index() {
         return val
       }
     })
-    supremeCourt = companyData?.compliance.supremeCourt.cases.filter((val) => {
+    supremeCourt = companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
 
       if (
         val.severity_ == filterType.risk == "high" ? "High" || "high" : filterType.risk
@@ -1318,7 +1351,7 @@ function Index() {
         return val
       }
     })
-    highCourt = companyData?.compliance.highCourt.cases.filter((val) => {
+    highCourt = companyData?.compliance?.highCourt?.cases?.filter((val) => {
 
       if (
         val.severity_ == filterType.risk == "high" ? "High" || "high" : filterType.risk
@@ -1330,7 +1363,7 @@ function Index() {
         return val
       }
     })
-    tribunalCourts = companyData?.compliance.tribunalCourts.cases.filter((val) => {
+    tribunalCourts = companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
 
       if (
         val.severity_ == filterType.risk == "high" ? "High" || "high" : filterType.risk
@@ -1343,7 +1376,7 @@ function Index() {
       }
     })
     //filterBY
-    districtCourt = companyData?.compliance.districtCourt.cases.filter((val) => {
+    districtCourt = companyData?.compliance?.districtCourt?.cases?.filter((val) => {
 
       if (
         val.caseStatus == filterType.pending ? "Pending" : null ||
@@ -1358,7 +1391,7 @@ function Index() {
         return val
       }
     })
-    supremeCourt = companyData?.compliance.supremeCourt.cases.filter((val) => {
+    supremeCourt = companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
 
       if (
         val.caseStatus == filterType.pending ? "Pending" : null ||
@@ -1373,7 +1406,7 @@ function Index() {
         return val
       }
     })
-    highCourt = companyData?.compliance.highCourt.cases.filter((val) => {
+    highCourt = companyData?.compliance?.highCourt?.cases?.filter((val) => {
       if (
         val.caseStatus == filterType.pending ? "Pending" : null ||
           val.caseStatus == filterType.disposed ? "Disposed" : null
@@ -1387,7 +1420,7 @@ function Index() {
         return val
       }
     })
-    tribunalCourts = companyData?.compliance.tribunalCourts.cases.filter((val) => {
+    tribunalCourts = companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
 
       if (
         val.caseStatus == filterType.pending ? "Pending" : null ||
@@ -1617,8 +1650,8 @@ function Index() {
                 </div>
                 <div className="tab-pane fade" id="gst" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <GST alertObj={alertObj} 
-                    GstDataHandler={GstDataHandler}
+                    <GST alertObj={alertObj}
+                      GstDataHandler={GstDataHandler}
                       orderList={orderList}
                       companyData={companyData}
                     />
