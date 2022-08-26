@@ -14,7 +14,6 @@ import _get from 'lodash/get'
 import { removePrefixOrSuffix } from 'utils/helper'
 import { toast } from 'react-toastify'
 
-
 export default function Index({ customData, OrderId, uploadDoc }) {
   const isShipmentTypeBULK =
     _get(customData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk'
@@ -26,7 +25,6 @@ export default function Index({ customData, OrderId, uploadDoc }) {
 
   console.log(customClearance, 'this is custom doc')
   console.log(customData, 'customData')
-
 
   const [billOfEntryData, setBillOfEntryData] = useState({
     boeAssessment: '',
@@ -70,7 +68,6 @@ export default function Index({ customData, OrderId, uploadDoc }) {
   }
 
   let totalBl = 0
-
 
   const uploadDoc1 = async (e) => {
     let name = e.target.name
@@ -307,9 +304,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
               </div>
             </div>
           </div>
-          <div
-            className={`${styles.main} vessel_card card border_color`}
-          >
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
             >
@@ -483,7 +478,8 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                     Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {customData?.order?.quantity} {customData?.order?.unitOfQuantity?.toUpperCase()}
+                    {customData?.order?.quantity}{' '}
+                    {customData?.order?.unitOfQuantity?.toUpperCase()}
                   </span>
                 </div>
                 <div
@@ -535,11 +531,13 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                   <div className={`${styles.label} text`}>
                     IGM Number<strong className="text-danger">*</strong>{' '}
                   </div>
-                  <span className={styles.value}>{_get(
-                    customData,
-                    'order.transit.IGM.igmDetails[0].igmNumber',
-                    '',
-                  )}</span>
+                  <span className={styles.value}>
+                    {_get(
+                      customData,
+                      'order.transit.IGM.igmDetails[0].igmNumber',
+                      '',
+                    )}
+                  </span>
                 </div>
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
@@ -547,11 +545,13 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                   <div className={`${styles.label} text`}>
                     IGM Filing Date<strong className="text-danger">*</strong>{' '}
                   </div>
-                  <span className={styles.value}>{_get(
-                    customData,
-                    'order.transit.IGM.igmDetails[0].igmFiling',
-                    '',
-                  )}</span>
+                  <span className={styles.value}>
+                    {_get(
+                      customData,
+                      'order.transit.IGM.igmDetails[0].igmFiling',
+                      '',
+                    )}
+                  </span>
                 </div>
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
@@ -748,7 +748,9 @@ export default function Index({ customData, OrderId, uploadDoc }) {
               </div>
 
               <div className={`${styles.bill_landing} card border_color mt-4`}>
-                <div className={`${styles.vessel_card} d-flex align-items-center`}>
+                <div
+                  className={`${styles.vessel_card} d-flex align-items-center`}
+                >
                   <div className={`${styles.card_sub_heading}`}>Duty</div>
                 </div>
                 <div className={styles.table_scroll_outer}>
@@ -914,55 +916,73 @@ export default function Index({ customData, OrderId, uploadDoc }) {
               </div>
 
               <div className="row ml-auto">
-
-
-                {_get(customData, 'order.transit.BL.billOfLanding', [{}]).map((bl, indexbl) => {
-                  totalBl += Number(removePrefixOrSuffix(bl?.blQuantity))
-                  return (
-                    <> <div key={indexbl}
-                      className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                    >
-                      <Form.Check aria-label="option 1" />
-                      <div className={`${styles.label} text ml-4`}>
-                        BL Number <strong className="text-danger ml-n1">*</strong>
-                      </div>
-                      <span className={`${styles.value} ml-4`}>{bl?.blNumber}</span>
-                    </div>
-                      <div
-                        className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                      >
-                        <div className={`${styles.label} text`}>
-                          BL Date <strong className="text-danger ml-n1">*</strong>{' '}
+                {_get(customData, 'order.transit.BL.billOfLanding', [{}]).map(
+                  (bl, indexbl) => {
+                    totalBl += Number(removePrefixOrSuffix(bl?.blQuantity))
+                    return (
+                      <>
+                        {' '}
+                        <div
+                          key={indexbl}
+                          className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                        >
+                          <Form.Check aria-label="option 1" />
+                          <div className={`${styles.label} text ml-4`}>
+                            BL Number{' '}
+                            <strong className="text-danger ml-n1">*</strong>
+                          </div>
+                          <span className={`${styles.value} ml-4`}>
+                            {bl?.blNumber}
+                          </span>
                         </div>
-                        <span className={styles.value}>{moment((bl?.blDate)?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</span>
-                      </div>
-
-                      <div
-                        className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                      >
-                        <div className={`${styles.label} text`}>
-                          BL Quantity <strong className="text-danger ml-n1">*</strong>{' '}
+                        <div
+                          className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                        >
+                          <div className={`${styles.label} text`}>
+                            BL Date{' '}
+                            <strong className="text-danger ml-n1">*</strong>{' '}
+                          </div>
+                          <span className={styles.value}>
+                            {moment(
+                              bl?.blDate?.slice(0, 10),
+                              'YYYY-MM-DD',
+                              true,
+                            ).format('DD-MM-YYYY')}
+                          </span>
                         </div>
-                        <span className={styles.value}>{bl?.blQuantity} {customData?.order?.unitOfQuantity}</span>
-                      </div>
-                      <div
-                        className="col-lg-3 col-md-4 col-sm-6 text-center"
-                        style={{ top: '40px' }}
-                      >
-                        <img
-                          src="/static/preview.svg"
-                          className={`${styles.previewImg} img-fluid ml-n4`}
-                          alt="Preview"
-                        />
-                      </div></>
-                  )
-                })}
-
+                        <div
+                          className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                        >
+                          <div className={`${styles.label} text`}>
+                            BL Quantity{' '}
+                            <strong className="text-danger ml-n1">*</strong>{' '}
+                          </div>
+                          <span className={styles.value}>
+                            {bl?.blQuantity} {customData?.order?.unitOfQuantity}
+                          </span>
+                        </div>
+                        <div
+                          className="col-lg-3 col-md-4 col-sm-6 text-center"
+                          style={{ top: '40px' }}
+                        >
+                          <img
+                            src="/static/preview.svg"
+                            className={`${styles.previewImg} img-fluid ml-n4`}
+                            alt="Preview"
+                          />
+                        </div>
+                      </>
+                    )
+                  },
+                )}
               </div>
               <hr></hr>
               <div className="text-right">
                 <div className={`${styles.total_quantity} text `}>
-                  Total: <span className="form-check-label ml-2">{totalBl} {customData?.order?.unitOfQuantity}</span>
+                  Total:{' '}
+                  <span className="form-check-label ml-2">
+                    {totalBl} {customData?.order?.unitOfQuantity}
+                  </span>
                 </div>
               </div>
             </div>
@@ -1013,7 +1033,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       <td>
                         <img
                           src="/static/pdf.svg"
-                          className="img-fluid"
+                          className={`${styles.pdfImage} img-fluid`}
                           alt="Pdf"
                         />
                       </td>
@@ -1054,7 +1074,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       <td>
                         <img
                           src="/static/pdf.svg"
-                          className="img-fluid"
+                          className={`${styles.pdfImage} img-fluid`}
                           alt="Pdf"
                         />
                       </td>
@@ -1095,7 +1115,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       <td>
                         <img
                           src="/static/pdf.svg"
-                          className="img-fluid"
+                          className={`${styles.pdfImage} img-fluid`}
                           alt="Pdf"
                         />
                       </td>
