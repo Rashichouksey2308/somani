@@ -90,13 +90,13 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
       className={`${styles.upload_main} vessel_card border_color upload_main`}
     >
       <div
-        className={`${styles.head_container} border_color d-flex justify-content-between`}
+        className={`${styles.head_container} border_color align-items-center d-flex justify-content-between`}
         data-toggle="collapse"
         data-target="#uploadOther"
         aria-expanded="true"
         aria-controls="uploadOther"
       >
-        <h3 className={styles.heading}>Document</h3>
+        <h3 className={`${styles.heading} mb-0`}>Document</h3>
         <span>+</span>
       </div>
       <div

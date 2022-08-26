@@ -101,14 +101,14 @@
         }
       }
       .head_container {
-        padding: 25px 35px !important;
+        min-height: 80px;
+        padding: 0 35px !important;
         border-bottom: 2px solid #cad6e6;
 
         .heading {
+          font-size: 22px;
           color: #3687e8;
           font-weight: bold;
-          font-size: 22px;
-          text-transform: capitalize;
           line-height: 27px;
           @include respond(md-desktop) {
             font-size: 20px;

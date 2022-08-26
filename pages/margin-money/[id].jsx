@@ -680,7 +680,7 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                       className={`${styles.cardHeader} d-flex align-items-center justify-content-between`} style={{cursor : 'default'}}>
                       <div className={`${styles.commodity}`}>
                         <span
-                          className={`${styles.comm_head} sub_heading mb-2`}
+                          className={`${styles.comm_head} sub_heading`}
                         >
                           Commodity
                         </span>
@@ -731,7 +731,7 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                           </option>
                           <option>Million</option>
                         </select> */}
-                        <span data-toggle="collapse" data-target="#commodityAccordion" aria-expanded="true" aria-controls="commodityAccordion">+</span>
+                        <span data-toggle="collapse" data-target="#commodityAccordion" aria-expanded="true" aria-controls="commodityAccordion" style={{marginTop:'-7px'}}>+</span>
                       </div>
                     </div>
                     <div

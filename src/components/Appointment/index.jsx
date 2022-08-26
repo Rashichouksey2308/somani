@@ -116,7 +116,7 @@ export default function Index({ inspectionData }) {
         <div className={`${styles.vessel_card}`}>
           <div className={`${styles.main} vessel_card card`}>
             <div
-              className={`${styles.head_container} border_color card-header head_container justify-content-between d-flex bg-transparent`}
+              className={`${styles.head_container} border_color align-items-center card-header head_container justify-content-between d-flex bg-transparent`}
             >
               <h3 className={`${styles.heading}`}>
                 Appointment of Third Party

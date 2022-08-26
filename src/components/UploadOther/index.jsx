@@ -106,7 +106,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
     <div className={`${styles.upload_main} vessel_card border_color card`}>
       <div
         className={`${styles.head_container} border_color d-flex  align-items-center justify-content-between`}
-        data-toggle="collapse"
+        data-toggle="collapse "
         data-target="#uploadOther"
         aria-expanded="true"
         aria-controls="uploadOther"
@@ -120,7 +120,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
       </div>
       <div
         id="uploadOther"
-        className="collapse"
+        className="collapse show"
         aria-labelledby="uploadOther"
         data-parent="#uploadOther"
       >
@@ -321,7 +321,6 @@ const Index = ({ orderid, module, isDocumentName }) => {
                     }
                     className={`${styles.value} input form-control`}
                     type="text"
-                    placeholder="Insurance Quotation"
                     disabled={manualDocModule}
                   />
                   <Form.Label className={`${styles.label} label_heading`}>

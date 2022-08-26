@@ -245,12 +245,16 @@ const index = ({
     setEditData(newInput)
   }
   console.log(keyAddressData, 'editData')
-  console.log(creditDetail, "creditDetail", creditDetail?.monthlyProductionCapacity)
+  console.log(
+    creditDetail,
+    'creditDetail',
+    creditDetail?.monthlyProductionCapacity,
+  )
   return (
     <>
       <div className={`${styles.main} vessel_card card border_color`}>
         <div
-          className={`${styles.head_container} border_color card-header d-flex justify-content-between bg-transparent`}
+          className={`${styles.head_container} border_color align-items-center card-header d-flex justify-content-between bg-transparent`}
           data-toggle="collapse"
           data-target="#productSummary"
           aria-expanded="true"
@@ -272,13 +276,10 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-
-                  value={
-                    addPrefixOrSuffix(
-                      creditDetail?.monthlyProductionCapacity,
-                      creditDetail?.unitOfQuantity?.toUpperCase()
-                    )
-                  }
+                  value={addPrefixOrSuffix(
+                    creditDetail?.monthlyProductionCapacity,
+                    creditDetail?.unitOfQuantity?.toUpperCase(),
+                  )}
                   name="monthlyProductionCapacity"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value)
@@ -295,12 +296,10 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  value={
-                    addPrefixOrSuffix(
-                      creditDetail?.capacityUtilization,
-                      "%"
-                    )
-                  }
+                  value={addPrefixOrSuffix(
+                    creditDetail?.capacityUtilization,
+                    '%',
+                  )}
                   name="capacityUtilization"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value)
@@ -317,13 +316,10 @@ const index = ({
                   required
                   type="text"
                   onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
-
-                  value={
-                    addPrefixOrSuffix(
-                      creditDetail?.averageStockOfCommodity,
-                      creditDetail?.unitOfQuantity?.toUpperCase()
-                    )
-                  }
+                  value={addPrefixOrSuffix(
+                    creditDetail?.averageStockOfCommodity,
+                    creditDetail?.unitOfQuantity?.toUpperCase(),
+                  )}
                   name="averageStockOfCommodity"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value)
@@ -341,13 +337,10 @@ const index = ({
                   required
                   type="text"
                   onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
-
-                  value={
-                    addPrefixOrSuffix(
-                      creditDetail?.averageStockInTransit,
-                      creditDetail?.unitOfQuantity?.toUpperCase()
-                    )
-                  }
+                  value={addPrefixOrSuffix(
+                    creditDetail?.averageStockInTransit,
+                    creditDetail?.unitOfQuantity?.toUpperCase(),
+                  )}
                   name="averageStockInTransit"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value)
@@ -364,13 +357,10 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-
-                  value={
-                    addPrefixOrSuffix(
-                      creditDetail?.availableStock,
-                      creditDetail?.unitOfQuantity?.toUpperCase()
-                    )
-                  }
+                  value={addPrefixOrSuffix(
+                    creditDetail?.availableStock,
+                    creditDetail?.unitOfQuantity?.toUpperCase(),
+                  )}
                   name="availableStock"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value)
@@ -386,13 +376,10 @@ const index = ({
                   required
                   type="text"
                   onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
-
-                  value={
-                    addPrefixOrSuffix(
-                      creditDetail?.dailyConsumptionOfCommodity,
-                      creditDetail?.unitOfQuantity?.toUpperCase()
-                    )
-                  }
+                  value={addPrefixOrSuffix(
+                    creditDetail?.dailyConsumptionOfCommodity,
+                    creditDetail?.unitOfQuantity?.toUpperCase(),
+                  )}
                   name="dailyConsumptionOfCommodity"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value)
@@ -408,9 +395,7 @@ const index = ({
                   <DateCalender
                     name="stockCoverageOfCommodity"
                     defaultDate={
-                      creditDetail?.stockCoverageOfCommodity?.split(
-                        'T',
-                      )[0]
+                      creditDetail?.stockCoverageOfCommodity?.split('T')[0]
                     }
                     saveDate={saveDate}
                     labelName="Stock Coverage of Commodity"
@@ -449,15 +434,9 @@ const index = ({
                     }}
                   >
                     <option
-                      value={
-                        creditDetail
-                          ?.existingProcurementOfCommodity
-                      }
+                      value={creditDetail?.existingProcurementOfCommodity}
                     >
-                      {
-                        creditDetail
-                          ?.existingProcurementOfCommodity
-                      }
+                      {creditDetail?.existingProcurementOfCommodity}
                     </option>
                     <option value="Import">Import</option>
                     <option value="Manufacturers">Manufacturers</option>
@@ -480,12 +459,13 @@ const index = ({
                     required
                     type="text"
                     name="existingSuppliers"
-                    defaultValue={creditDetail?
-                      creditDetail?.existingSuppliers?.map(
-                      (e) => {
-                        return `${e}`
-                      },
-                    ):""}
+                    defaultValue={
+                      creditDetail
+                        ? creditDetail?.existingSuppliers?.map((e) => {
+                            return `${e}`
+                          })
+                        : ''
+                    }
                     onBlur={(e) => {
                       saveProductData(e.target.name, e.target.value.split(','))
                     }}
@@ -513,15 +493,9 @@ const index = ({
                     required
                   >
                     <option
-                      value={
-                        creditDetail
-                          ?.contributionCommoditySenstivity
-                      }
+                      value={creditDetail?.contributionCommoditySenstivity}
                     >
-                      {
-                        creditDetail
-                          ?.contributionCommoditySenstivity
-                      }
+                      {creditDetail?.contributionCommoditySenstivity}
                     </option>
                     <option value="Very High">Very High</option>
                     <option value="High">High</option>
@@ -545,12 +519,12 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-
-                  value={
-                    addPrefixOrSuffix(
-                      creditDetail?.AvgMonthlyElectricityBill,'INR', 'front', true
-                    )
-                  }
+                  value={addPrefixOrSuffix(
+                    creditDetail?.AvgMonthlyElectricityBill,
+                    'INR',
+                    'front',
+                    true,
+                  )}
                   name="AvgMonthlyElectricityBill"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value)
@@ -568,11 +542,9 @@ const index = ({
                     required
                     type="text"
                     name="existingCHA"
-                    defaultValue={creditDetail?.existingCHA?.map(
-                      (e) => {
-                        return `${e}`
-                      },
-                    )}
+                    defaultValue={creditDetail?.existingCHA?.map((e) => {
+                      return `${e}`
+                    })}
                     onBlur={(e) => {
                       saveProductData(e.target.name, e.target.value.split(','))
                     }}
@@ -606,7 +578,7 @@ const index = ({
 
       <div className={`${styles.main} vessel_card card border_color`}>
         <div
-          className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}
+          className={`${styles.head_container} card-header align-items-center d-flex justify-content-between bg-transparent`}
           data-toggle="collapse"
           data-target="#supplierCred"
           aria-expanded="true"
@@ -637,8 +609,7 @@ const index = ({
                     onChange={(e) => {
                       saveSupplierData(e.target.name, e.target.value)
                     }}
-                  >
-                  </input>
+                  ></input>
                   {/* <option>
                       {supplierCred?.supplierName}
                     </option>
@@ -660,9 +631,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
-                  value={
-                    supplierCred?.shipmentNumber
-                  }
+                  value={supplierCred?.shipmentNumber}
                   name="shipmentNumber"
                   onChange={(e) => {
                     saveSupplierData(e.target.name, e.target.value)
@@ -678,9 +647,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
-                  value={
-                    supplierCred?.consigneesNumber
-                  }
+                  value={supplierCred?.consigneesNumber}
                   name="consigneesNumber"
                   onChange={(e) => {
                     saveSupplierData(e.target.name, e.target.value)
@@ -710,17 +677,15 @@ const index = ({
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
                   <input
-                  className={`${styles.input_field} input form-control`}
-                  required
-                  type="number"
-                  defaultValue={
-                    supplierCred?.countryOfOrigin
-                  }
-                  name="countryOfOrigin"
-                  onChange={(e) => {
-                    saveSupplierData(e.target.name, e.target.value)
-                  }}
-                />
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    type="number"
+                    defaultValue={supplierCred?.countryOfOrigin}
+                    name="countryOfOrigin"
+                    onChange={(e) => {
+                      saveSupplierData(e.target.name, e.target.value)
+                    }}
+                  />
                   <label className={`${styles.label_heading} label_heading`}>
                     Country of Origin<strong className="text-danger">*</strong>
                   </label>
@@ -729,17 +694,15 @@ const index = ({
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
                   <input
-                  className={`${styles.input_field} input form-control`}
-                  required
-                  type="number"
-                  defaultValue={
-                    supplierCred?.portOfDestination
-                  }
-                  name="portOfDestination"
-                  onChange={(e) => {
-                    saveSupplierData(e.target.name, e.target.value)
-                  }}
-                />
+                    className={`${styles.input_field} input form-control`}
+                    required
+                    type="number"
+                    defaultValue={supplierCred?.portOfDestination}
+                    name="portOfDestination"
+                    onChange={(e) => {
+                      saveSupplierData(e.target.name, e.target.value)
+                    }}
+                  />
                   <label className={`${styles.label_heading} label_heading`}>
                     Port of Destination
                     <strong className="text-danger">*</strong>
@@ -751,9 +714,7 @@ const index = ({
                   <DateCalender
                     name="oldestShipmentDate"
                     defaultDate={
-                      supplierCred?.oldestShipmentDate?.split(
-                        'T',
-                      )[0]
+                      supplierCred?.oldestShipmentDate?.split('T')[0]
                     }
                     saveDate={saveSupplierDate}
                     labelName="Oldest Shipment Date"
@@ -791,9 +752,7 @@ const index = ({
                   <DateCalender
                     name="latestShipmentDate"
                     defaultDate={
-                      supplierCred?.latestShipmentDate?.split(
-                        'T',
-                      )[0]
+                      supplierCred?.latestShipmentDate?.split('T')[0]
                     }
                     saveDate={saveSupplierDate}
                     labelName="Latest Shipment Date"
@@ -824,9 +783,11 @@ const index = ({
                   className={`${styles.input_field} ${styles.percent} input form-control`}
                   required
                   type="text"
-                  value={
-                    addPrefixOrSuffix(supplierCred?.commodityOfTotalTrade, '%', '')
-                  }
+                  value={addPrefixOrSuffix(
+                    supplierCred?.commodityOfTotalTrade,
+                    '%',
+                    '',
+                  )}
                   name="commodityOfTotalTrade"
                   onChange={(e) => {
                     saveSupplierData(e.target.name, e.target.value)
@@ -857,13 +818,13 @@ const index = ({
 
       <div className={`${styles.main} card border_color`}>
         <div
-          className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}
+          className={`${styles.head_container} card-header align-items-center d-flex justify-content-between bg-transparent`}
           data-toggle="collapse"
           data-target="#keyContact"
           aria-expanded="true"
           aria-controls="keyContact"
         >
-          <h3 className={`${styles.heading} mb-0`}>Key Contact Person</h3>
+          <h3 className={`${styles.heading} mb-0`}>Key Contact Person(s)</h3>
           <span>+</span>
         </div>
         <div
@@ -950,26 +911,24 @@ const index = ({
                           /> */}
                         </td>
                         <td>
-                           <div className="d-flex mr-4">
-                          <select
-                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                            
-                            value={person.department}
-                            name="department"
-                            onChange={(e) => handlePersonChange(e, index)}
-                            type="text"
-                            readOnly={!person.isEdit}
-                          >
-                             <option>Select an option</option>
+                          <div className="d-flex mr-4">
+                            <select
+                              className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                              value={person.department}
+                              name="department"
+                              onChange={(e) => handlePersonChange(e, index)}
+                              type="text"
+                              readOnly={!person.isEdit}
+                            >
+                              <option>Select an option</option>
                               <option>Technology</option>
-                              
                             </select>
-                             <img
+                            <img
                               className={`${styles.arrow} ml-n4 img-fluid`}
                               src="/static/inputDropDown.svg"
                               alt="Search"
                             />
-                            </div>
+                          </div>
                         </td>
                         <td>
                           <input
@@ -1054,7 +1013,7 @@ const index = ({
 
       <div className={`${styles.main} vessel_card card border_color`}>
         <div
-          className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}
+          className={`${styles.head_container} card-header align-items-center d-flex justify-content-between bg-transparent`}
           data-toggle="collapse"
           data-target="#keyAddress"
           aria-expanded="true"
@@ -1092,10 +1051,9 @@ const index = ({
             {showAddress ? (
               <div
                 className={`${styles.main} ${styles.add_address} card border_color`}
-                
               >
                 <div
-                  className={`${styles.head_container} mb-n3 card-header d-flex justify-content-between bg-transparent`}
+                  className={`${styles.head_container} mb-n3 align-items-center card-header d-flex justify-content-between bg-transparent`}
                 >
                   <h3 className={`${styles.heading}`}>Add a new address</h3>
                   <img
@@ -1139,7 +1097,9 @@ const index = ({
                     </div>
                   </div>
                   <div className="row">
-                    <div className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-4`}>
+                    <div
+                      className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-4`}
+                    >
                       <div className="d-flex">
                         <select
                           className={`${styles.input_field} ${styles.small_input} ${styles.customSelect}  input form-control`}
@@ -1166,7 +1126,9 @@ const index = ({
                         />
                       </div>
                     </div>
-                    <div className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-4`}>
+                    <div
+                      className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-4`}
+                    >
                       <div className="d-flex">
                         <input
                           className={`${styles.input_field} input form-control`}
@@ -1190,7 +1152,9 @@ const index = ({
                       </div>
                     </div>
 
-                    <div className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-4`}>
+                    <div
+                      className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-4`}
+                    >
                       <input
                         className={`${styles.input_field} input form-control`}
                         required
@@ -1207,7 +1171,9 @@ const index = ({
                       </label>
                     </div>
 
-                    <div className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-4`}>
+                    <div
+                      className={`${styles.form_group} ${styles.small_input} col-md-2 col-sm-4`}
+                    >
                       <input
                         className={`${styles.input_field} input form-control`}
                         required
@@ -1333,7 +1299,9 @@ const index = ({
                       </label>
                     </div>
 
-                    <div className={`${styles.btn_outer} d-flex justify-center-center align-items-center col-md-4`}>
+                    <div
+                      className={`${styles.btn_outer} d-flex justify-center-center align-items-center col-md-4`}
+                    >
                       <div className={`${styles.btn_container}`}>
                         <button className={`${styles.gst_btn}`}>
                           {' '}
@@ -1353,14 +1321,13 @@ const index = ({
                           />
                           GST Doc
                         </button>
-                      
                       </div>
                       <button
-                          className={`${styles.add_btn}`}
-                          onClick={() => handleClick()}
-                        >
-                          Add
-                        </button>
+                        className={`${styles.add_btn}`}
+                        onClick={() => handleClick()}
+                      >
+                        Add
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -1730,7 +1697,7 @@ const index = ({
 
       <div className={`${styles.main} card border_color`}>
         <div
-          className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}
+          className={`${styles.head_container} card-header align-items-center d-flex justify-content-between bg-transparent`}
           data-toggle="collapse"
           data-target="#debtProfile"
           aria-expanded="true"
@@ -1783,10 +1750,10 @@ const index = ({
                             type="checkbox"
                             defaultChecked={profile?.primaryBank ? true : false}
                             disabled={!profile.actions}
-                            style={{marginTop:"12px"}}
+                            style={{ marginTop: '12px' }}
                           />
                         </td>
-                        <td >
+                        <td>
                           <input
                             name="bankName"
                             className="input"
@@ -1799,8 +1766,6 @@ const index = ({
                                 index,
                               )
                             }
-                            
-                           
                           />
                         </td>
                         <td>
@@ -1818,8 +1783,12 @@ const index = ({
                           >
                             <option>{profile.limitType}</option>
                             <option value="Cash Credit">Cash Credit</option>
-                            <option value="Bank Guarantee">Bank Guarantee</option>
-                            <option value="Post Ship Credit">Post Ship Credit</option>
+                            <option value="Bank Guarantee">
+                              Bank Guarantee
+                            </option>
+                            <option value="Post Ship Credit">
+                              Post Ship Credit
+                            </option>
                           </select>
                         </td>
 
@@ -1836,7 +1805,7 @@ const index = ({
                               )
                             }
                             defaultValue={profile.limit}
-                          // readOnly={!saveTable}
+                            // readOnly={!saveTable}
                           />
                         </td>
 
