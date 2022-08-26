@@ -47,7 +47,7 @@ function Index() {
               alt="ArrowRight"
             />
             <h1 className={`${styles.title} heading`}>
-              <span>{_get(inspectionData, 'comapany.companyName', '')}</span>
+              <span>{_get(inspectionData, 'company.companyName', '')}</span>
             </h1>
             <div className="ml-auto">
               <div className={`${styles.lastModified} text `}>

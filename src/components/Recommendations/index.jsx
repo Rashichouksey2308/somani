@@ -116,7 +116,7 @@ const handleRemoveRowEx=(index)=>{
     <>
       <div className={`${styles.main} vessel_card card border_color `}>
         <div
-          className={`${styles.head_container} card-header d-flex justify-content-between bg-transparent`}
+          className={`${styles.head_container} card-header align-items-center d-flex justify-content-between bg-transparent`}
           data-toggle="collapse"
           data-target="#recommendations"
           aria-expanded="true"
@@ -280,7 +280,7 @@ const handleRemoveRowEx=(index)=>{
                         <tr key={index}>
                           <td>{index + 1}</td>
                           <td className="position-relative">
-                            <input
+                            {/* <input
                               className={`${styles.input}  input form-control`}
                               name="name"
                               disabled={!profile.actions}
@@ -292,8 +292,36 @@ const handleRemoveRowEx=(index)=>{
                                   index,
                                 )
                               }}
-                            ></input>
-                    
+                            ></input> */}
+                            <select
+                              className={`${styles.input} ${styles.customSelect} input form-control`}
+                              name="name"
+                              disabled={!profile.actions}
+                              defaultValue={profile?.name}
+                              onChange={(e) => {
+                                handleGroupExpChange(
+                                  e.target.name,
+                                  e.target.value,
+                                  index,
+                                )
+                              }}
+                            >
+                              <option>Select an option</option>
+                              <option value="Emerging Traders">
+                                Emerging Traders
+                              </option>
+                              <option value="Bhutani Traders">
+                                Krishna Taders
+                              </option>
+                              <option value="Krishna Traders">
+                                Krishna Traders
+                              </option>
+                            </select>
+                            <img
+                              className={`${styles.arrow} img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
                           </td>
                           <td>
                             <input

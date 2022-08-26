@@ -35,7 +35,7 @@ const Index = ({
       <div className="vessel_card w-100">
         <DatePicker
           selected={
-            startDate == null ? defaultDate != undefined? "" :moment(defaultDate).toDate()  : startDate 
+            startDate == null ? defaultDate == undefined ? "" : moment(defaultDate).toDate()  : startDate 
           }
           dateFormat={dateFormat ? dateFormat : 'dd-MM-yyyy'}
           name={name}

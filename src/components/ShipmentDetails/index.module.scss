@@ -4,13 +4,14 @@
   border-radius: 6px !important;
   .head_container {
     cursor: pointer;
+    min-height: 80px;
     border-bottom: none;
-    padding: 25px 35px !important;
+    padding: 0 35px !important;
     .heading {
-      color: #3687e8;
       font-size: 22px;
+      color: #3687e8;
       font-weight: bold;
-      text-transform: capitalize;
+      line-height: 27px;
       @include respond(md-desktop) {
         font-size: 20px;
       }

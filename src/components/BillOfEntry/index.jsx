@@ -14,7 +14,6 @@ import _get from 'lodash/get'
 import { removePrefixOrSuffix } from 'utils/helper'
 import { toast } from 'react-toastify'
 
-
 export default function Index({ customData, OrderId, uploadDoc }) {
   const isShipmentTypeBULK =
     _get(customData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk'
@@ -26,7 +25,6 @@ export default function Index({ customData, OrderId, uploadDoc }) {
 
   console.log(customClearance, 'this is custom doc')
   console.log(customData, 'customData')
-
 
   const [billOfEntryData, setBillOfEntryData] = useState({
     boeAssessment: '',
@@ -71,9 +69,8 @@ export default function Index({ customData, OrderId, uploadDoc }) {
 
   let totalBl = 0
 
-
   const uploadDoc1 = async (e) => {
-    let name = e.target.id
+    let name = e.target.name
     let docs = await uploadDoc(e)
 
     //  console.log(docs, uploadDoc(e), 'this is upload response')
@@ -194,7 +191,12 @@ export default function Index({ customData, OrderId, uploadDoc }) {
   // }
 
   const handleSave = () => {
-    // [{ id: 'conversionRate', value: 'CONVERSION RATE' }, { id: 'invoiceDate', value: ' INVOICE DATE' }, { id: 'invoiceValue', value: 'INVOICE VALUE' }, { id: 'invoiceQuantity', value: 'INVOICE QUANTITY' }, { id: 'invoiceNumber', value: 'INVOICE NUMBER' }, { id: 'currency', value: 'CURRENCY' }].forEach((val) => {
+    // [{ id: 'conversionRate', value: 'CONVERSION RATE' },
+    //  { id: 'invoiceDate', value: ' INVOICE DATE' },
+    //   { id: 'invoiceValue', value: 'INVOICE VALUE' },
+    //    { id: 'invoiceQuantity', value: 'INVOICE QUANTITY' },
+    //     { id: 'invoiceNumber', value: 'INVOICE NUMBER' },
+    //      { id: 'currency', value: 'CURRENCY' }].forEach((val) => {
     //   console.log(val, 'boeValidation')
     //   if (billOfEntryData.boeDetails[val.id] === '') {
     //     let toastMessage = `${val.value} CANNOT BE AN EMPTY FIELD`
@@ -205,12 +207,65 @@ export default function Index({ customData, OrderId, uploadDoc }) {
     //   }
 
     // })
-    const billOfEntry = { billOfEntry: [billOfEntryData]}
-    const fd = new FormData()
-    fd.append('customClearanceId', customData?._id)
-    fd.append('billOfEntry', JSON.stringify(billOfEntry))
+    if (billOfEntryData.boeDetails.currency === '') {
 
-    dispatch(UpdateCustomClearance(fd))
+      let toastMessage = 'CURRENCY CANNOT BE EMPTY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    else if (billOfEntryData.boeDetails.invoiceNumber === '') {
+
+      let toastMessage = 'INVOICE NUMBER CANNOT BE EMPTY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    else if (billOfEntryData.boeDetails.invoiceDate === '') {
+
+      let toastMessage = 'INVOICE DATE CANNOT BE EMPTY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    else if (billOfEntryData.boeDetails.invoiceQuantity === '') {
+
+      let toastMessage = 'INVOICE QUANTITY CANNOT BE EMPTY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    } else if (billOfEntryData.boeDetails.invoiceValue === '') {
+
+      let toastMessage = 'INVOICE VALUE CANNOT BE EMPTY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    else if (billOfEntryData.boeDetails.conversionRate === '') {
+
+      let toastMessage = 'COVERSION RATE CANNOT BE EMPTY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+
+
+
+    else {
+      const billOfEntry = { billOfEntry: [billOfEntryData] }
+      const fd = new FormData()
+      fd.append('customClearanceId', customData?._id)
+      fd.append('billOfEntry', JSON.stringify(billOfEntry))
+
+      dispatch(UpdateCustomClearance(fd))
+    }
+
 
   }
 
@@ -249,9 +304,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
               </div>
             </div>
           </div>
-          <div
-            className={`${styles.main} vessel_card card border_color`}
-          >
+          <div className={`${styles.main} vessel_card card border_color`}>
             <div
               className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
             >
@@ -275,6 +328,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       >
                         <Form.Check
                           className={styles.radio}
+                          
                           inline
                           label="Provisional"
                           checked={
@@ -424,7 +478,8 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                     Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {customData?.order?.quantity} {customData?.order?.unitOfQuantity?.toUpperCase()}
+                    {customData?.order?.quantity}{' '}
+                    {customData?.order?.unitOfQuantity?.toUpperCase()}
                   </span>
                 </div>
                 <div
@@ -476,11 +531,13 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                   <div className={`${styles.label} text`}>
                     IGM Number<strong className="text-danger">*</strong>{' '}
                   </div>
-                  <span className={styles.value}>{_get(
-                    customData,
-                    'order.transit.IGM.igmDetails[0].igmNumber',
-                    '',
-                  )}</span>
+                  <span className={styles.value}>
+                    {_get(
+                      customData,
+                      'order.transit.IGM.igmDetails[0].igmNumber',
+                      '',
+                    )}
+                  </span>
                 </div>
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
@@ -488,11 +545,13 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                   <div className={`${styles.label} text`}>
                     IGM Filing Date<strong className="text-danger">*</strong>{' '}
                   </div>
-                  <span className={styles.value}>{_get(
-                    customData,
-                    'order.transit.IGM.igmDetails[0].igmFiling',
-                    '',
-                  )}</span>
+                  <span className={styles.value}>
+                    {_get(
+                      customData,
+                      'order.transit.IGM.igmDetails[0].igmFiling',
+                      '',
+                    )}
+                  </span>
                 </div>
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
@@ -689,7 +748,9 @@ export default function Index({ customData, OrderId, uploadDoc }) {
               </div>
 
               <div className={`${styles.bill_landing} card border_color mt-4`}>
-                <div className={`${styles.vessel_card} d-flex align-items-center`}>
+                <div
+                  className={`${styles.vessel_card} d-flex align-items-center`}
+                >
                   <div className={`${styles.card_sub_heading}`}>Duty</div>
                 </div>
                 <div className={styles.table_scroll_outer}>
@@ -855,55 +916,73 @@ export default function Index({ customData, OrderId, uploadDoc }) {
               </div>
 
               <div className="row ml-auto">
-
-
-                {_get(customData, 'order.transit.BL.billOfLanding', [{}]).map((bl, indexbl) => {
-                  totalBl += Number(removePrefixOrSuffix(bl?.blQuantity))
-                  return (
-                    <> <div key={indexbl}
-                      className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                    >
-                      <Form.Check aria-label="option 1" />
-                      <div className={`${styles.label} text ml-4`}>
-                        BL Number <strong className="text-danger ml-n1">*</strong>
-                      </div>
-                      <span className={`${styles.value} ml-4`}>{bl?.blNumber}</span>
-                    </div>
-                      <div
-                        className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                      >
-                        <div className={`${styles.label} text`}>
-                          BL Date <strong className="text-danger ml-n1">*</strong>{' '}
+                {_get(customData, 'order.transit.BL.billOfLanding', [{}]).map(
+                  (bl, indexbl) => {
+                    totalBl += Number(removePrefixOrSuffix(bl?.blQuantity))
+                    return (
+                      <>
+                        {' '}
+                        <div
+                          key={indexbl}
+                          className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                        >
+                          <Form.Check aria-label="option 1" />
+                          <div className={`${styles.label} text ml-4`}>
+                            BL Number{' '}
+                            <strong className="text-danger ml-n1">*</strong>
+                          </div>
+                          <span className={`${styles.value} ml-4`}>
+                            {bl?.blNumber}
+                          </span>
                         </div>
-                        <span className={styles.value}>{moment((bl?.blDate)?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</span>
-                      </div>
-
-                      <div
-                        className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                      >
-                        <div className={`${styles.label} text`}>
-                          BL Quantity <strong className="text-danger ml-n1">*</strong>{' '}
+                        <div
+                          className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                        >
+                          <div className={`${styles.label} text`}>
+                            BL Date{' '}
+                            <strong className="text-danger ml-n1">*</strong>{' '}
+                          </div>
+                          <span className={styles.value}>
+                            {moment(
+                              bl?.blDate?.slice(0, 10),
+                              'YYYY-MM-DD',
+                              true,
+                            ).format('DD-MM-YYYY')}
+                          </span>
                         </div>
-                        <span className={styles.value}>{bl?.blQuantity} {customData?.order?.unitOfQuantity}</span>
-                      </div>
-                      <div
-                        className="col-lg-3 col-md-4 col-sm-6 text-center"
-                        style={{ top: '40px' }}
-                      >
-                        <img
-                          src="/static/preview.svg"
-                          className={`${styles.previewImg} img-fluid ml-n4`}
-                          alt="Preview"
-                        />
-                      </div></>
-                  )
-                })}
-
+                        <div
+                          className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                        >
+                          <div className={`${styles.label} text`}>
+                            BL Quantity{' '}
+                            <strong className="text-danger ml-n1">*</strong>{' '}
+                          </div>
+                          <span className={styles.value}>
+                            {bl?.blQuantity} {customData?.order?.unitOfQuantity}
+                          </span>
+                        </div>
+                        <div
+                          className="col-lg-3 col-md-4 col-sm-6 text-center"
+                          style={{ top: '40px' }}
+                        >
+                          <img
+                            src="/static/preview.svg"
+                            className={`${styles.previewImg} img-fluid ml-n4`}
+                            alt="Preview"
+                          />
+                        </div>
+                      </>
+                    )
+                  },
+                )}
               </div>
               <hr></hr>
               <div className="text-right">
                 <div className={`${styles.total_quantity} text `}>
-                  Total: <span className="form-check-label ml-2">{totalBl} {customData?.order?.unitOfQuantity}</span>
+                  Total:{' '}
+                  <span className="form-check-label ml-2">
+                    {totalBl} {customData?.order?.unitOfQuantity}
+                  </span>
                 </div>
               </div>
             </div>
@@ -954,40 +1033,30 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       <td>
                         <img
                           src="/static/pdf.svg"
-                          className="img-fluid"
+                          className={`${styles.pdfImage} img-fluid`}
                           alt="Pdf"
                         />
                       </td>
                       {/* <td className={styles.doc_row}>28-02-2022,5:30 PM</td> */}
                       <td>
-                        {true ? (
+                        {billOfEntryData.document1  === null ? (
                           <>
                             <div className={styles.uploadBtnWrapper}>
                               <input
                                 type="file"
-                                name="myfile"
+                                name="document1"
                                 accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                onChange={(e) => uploadDocument1(e)}
+                                onChange={(e) => uploadDoc1(e)}
                               />
                               <button className={`${styles.button_upload} btn`}>
                                 Upload
                               </button>
                             </div>
-                            {/* <div className={styles.uploadBtnWrapper}>
-                        <input
-                          type="file"
-                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                          onChange={(e) => uploadDocument1(e)}
-                          name="myfile"
-                        />
-                        <button  className={`${styles.uploadDoc} btn`}>
-                          Upload
-                        </button>
-                        </div> */}
+                
                           </>
                         ) : (
                           <div className={styles.certificate}>
-                            {/* {lcDoc?.lcDraftDoc?.name} */}
+                           {billOfEntryData?.document1?.originalName}
                             <img
                               className={`${styles.close_image} float-right m-2 img-fluid`}
                               src="/static/close.svg"
@@ -1005,40 +1074,30 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       <td>
                         <img
                           src="/static/pdf.svg"
-                          className="img-fluid"
+                          className={`${styles.pdfImage} img-fluid`}
                           alt="Pdf"
                         />
                       </td>
                       {/* <td className={styles.doc_row}>28-02-2022,5:30 PM</td> */}
                       <td>
-                        {true ? (
+                        {billOfEntryData?.document2 === null ? (
                           <>
                             <div className={styles.uploadBtnWrapper}>
                               <input
                                 type="file"
-                                name="myfile"
+                                name="document2"
                                 accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                onChange={(e) => uploadDocument1(e)}
+                                onChange={(e) => uploadDoc1(e)}
                               />
                               <button className={`${styles.button_upload} btn`}>
                                 Upload
                               </button>
                             </div>
-                            {/* <div className={styles.uploadBtnWrapper}>
-                        <input
-                          type="file"
-                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                          onChange={(e) => uploadDocument1(e)}
-                          name="myfile"
-                        />
-                        <button  className={`${styles.uploadDoc} btn`}>
-                          Upload
-                        </button>
-                        </div> */}
+                           
                           </>
                         ) : (
                           <div className={styles.certificate}>
-                            {/* {lcDoc?.lcDraftDoc?.name} */}
+                           {billOfEntryData?.document2?.originalName}
                             <img
                               className={`${styles.close_image} float-right m-2 img-fluid`}
                               src="/static/close.svg"
@@ -1056,40 +1115,30 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       <td>
                         <img
                           src="/static/pdf.svg"
-                          className="img-fluid"
+                          className={`${styles.pdfImage} img-fluid`}
                           alt="Pdf"
                         />
                       </td>
                       {/* <td className={styles.doc_row}>28-02-2022,5:30 PM</td> */}
                       <td>
-                        {true ? (
+                        {billOfEntryData.document3 === null ? (
                           <>
                             <div className={styles.uploadBtnWrapper}>
                               <input
                                 type="file"
-                                name="myfile"
+                                name="document3"
                                 accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                onChange={(e) => uploadDocument1(e)}
+                                onChange={(e) => uploadDoc1(e)}
                               />
                               <button className={`${styles.button_upload} btn`}>
                                 Upload
                               </button>
                             </div>
-                            {/* <div className={styles.uploadBtnWrapper}>
-                        <input
-                          type="file"
-                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                          onChange={(e) => uploadDocument1(e)}
-                          name="myfile"
-                        />
-                        <button  className={`${styles.uploadDoc} btn`}>
-                          Upload
-                        </button>
-                        </div> */}
+                           
                           </>
                         ) : (
                           <div className={styles.certificate}>
-                            {/* {lcDoc?.lcDraftDoc?.name} */}
+                            {billOfEntryData?.document3?.originalName}
                             <img
                               className={`${styles.close_image} float-right m-2 img-fluid`}
                               src="/static/close.svg"

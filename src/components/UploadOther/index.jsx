@@ -321,7 +321,6 @@ const Index = ({ orderid, module, isDocumentName }) => {
                     }
                     className={`${styles.value} input form-control`}
                     type="text"
-                    placeholder="Insurance Quotation"
                     disabled={manualDocModule}
                   />
                   <Form.Label className={`${styles.label} label_heading`}>

@@ -31,7 +31,7 @@ import OpenCharges from '../../src/components/ReviewQueueFinancials/OpenCharges'
 import Peer from '../../src/components/ReviewQueueFinancials/Peer'
 import Ratios from '../../src/components/ReviewQueueFinancials/Ratios'
 
-import { removePrefixOrSuffix ,CovertvaluefromtoCR} from '../../src/utils/helper'
+import { removePrefixOrSuffix, CovertvaluefromtoCR } from '../../src/utils/helper'
 //redux
 import { UpdateCompanyDetails } from '../../src/redux/companyDetail/action'
 
@@ -48,113 +48,120 @@ import { setPageName, setDynamicName } from '../../src/redux/userData/action'
 
 import { RefetchCombineKarza } from '../../src/redux/companyDetail/action'
 import { UpdateCam } from '../../src/redux/creditQueueUpdate/action'
-import { GetDocuments, AddingDocument, DeleteDocument } from '../../src/redux/creditQueueUpdate/action'
+import {
+  GetDocuments,
+  AddingDocument,
+  DeleteDocument,
+} from '../../src/redux/creditQueueUpdate/action'
 import moment from 'moment'
 import { toast } from 'react-toastify'
 import UploadOther from '../../src/components/UploadOther'
+import _get from 'lodash/get'
 
 
 
 let alertObj = {
-  "isShell": "Shell",
-  "isCompanyUnderLiquidation": "Company Under Liquidation",
-  "isMlm": "MLM",
-  "isVanishing": "Vanishing",
-  "NA": "Non-Genuine Dealers of Mahavat",
-  "isSebiDebarred": "SEBI Debarred",
-  "NA": "BSE Disciplinary Action",
-  "isNseCompanySuspended": "NSE Company Suspended",
-  "isNseExpelled": "NSE Expelled",
-  "isNseCompanySuspendedNonCompliance": "NSE Company Suspended Non Compliance",
-  "isNseUnderGsmSurveillance": "NSE Under GSM Surveillance",
-  "isNseDefaulter": "NSE Defaulter",
-  "isCompanyStrikedOffUs248": "Company Striked Off Us 248",
-  "isBseCompanySuspendedMoreThan7Years": "BSE Company Suspended More Than 7 Years",
-  "isBsePenalSuspended": "BSE Penal Suspended",
-  "isBseExpelled": "BSE Expelled",
-  "isBseDefaulter": "BSE Defaulter",
-  "isCompanyStrikedOff": "Company Striked Off",
-  "isCompanyUnderStrikeOff": "Company Under Strike Off",
-  "isProclaimedOffender": "Proclaimed Offender",
-  "isCompanyUnderProsecution": "Company Under Prosecution",
-  "isNseSuspended": "NSE Suspended",
-  "isMcaDirectorUnderProsecution": "MCA Director Under Prosecution",
-  "isNseUnderAsmSurveillance": "NSE Under Asm Surveillance",
-  "isBseUnderGsmSurveillance": "BSE Under GSM Surveillance",
-  "isCompanyActiveNonCompliant": "Company Active Non Compliant",
-  "isDinDeactivated": "DIN Deactivated",
-  "isDinDisabled": "DIN Disabled",
-  "isBseIlliquidSecurity": "BSE Illiquid Security",
-  "isDormant": "Dormant",
-  "isNotFiled5inv": "Not Filed 5INV",
-  "isDinDisqualified": "DIN Disqualied",
-  "isDinSurrendered": "DIN Surrendered",
-  "isMcaCompanyDefaulter": "MCA Company Defaulter",
-  "isMcaDirectorDefaulter": "MCA Director Defaulter",
-  "isSuspendedAtStockExchange": "Suspended At Stock Exchange",
-  "isBseMemberInactive": "BSE Member Inactive",
-  "isDinLapsed": "DIN Lapsed",
-  "isNseCompanyDelisted": "NSE Company Delisted",
-  "isBseCompanyDelisted": "BSE Company Delisted",
-  "isBseSebiRelaxationForMps": "BSE SEBI Relaxation For MPS",
-  "isEpfTransactionDefault": "EPF Transaction Default",
-  "isIecBlackListed": "IEC Black Listed",
-  "isIecInDeniedEntityList": "IEC In Denied Entity List",
-  "isGstTransactionDefault": "GST Transaction Default",
-  "isGstInactive": "GST Inactive",
-  "isEpfTransactionDelay": "EPF Transaction Delay",
-  "isEpfClosed": "EPF Closed",
-  "NA": "TDS Payment Delay",
-  "isLeiRegistrationRetired": "LEI Registration Retired",
-  "isIecSuspended": "IEC Suspended",
-  "NA": "TDS Payment Default",
-  "isIecCancelled": "IEC Cancelled",
-  "isGstCancelled": "GST Cancelled",
-  "isGstProvisional": "GST Provisional",
-  "isTanInactive": "TAN Inactive",
-  "isGstTransactionDelay": "GST Transaction Delay",
-  "isLeiRegistrationLapsed": "LEI Registration Lapsed",
-  "isLeiRegistrationDuplicate": "LEI Registration Duplicate",
-  "isIbbi": "IBBI",
-  "isWilfulBankDefaulter": "Wilful Defaulter",
-  "isCompanyUnderCirp": "Company Under CIRP",
-  "isBifr": "BIFR",
-  "isChargeOpenAtArc_": "Charge Open At ARC",
-  "isEpfRegisteredWithBifr": "EPF Registered With BIFR",
-  "isEpfUnderLiquidation": "EPF Under Liquidation",
-  "isSickUnit": "Sick Unit",
-  "isBankDefaulterSuitFiled": "Suit Filed",
-  "isChargeOpenAtSasf_": "Charge Open At SASF",
-  "isCorporateDebtRestructuring": "Corporate Debt Restructuring",
-  "isChargeClosedAtArc_": "Charge Closed At ARC",
-  "isChargeClosedAtSasf_": "Charge Closed At SASF",
-  "isQualifiedOpinion": "Qualified Opinion",
-  "isDisclaimerRemarks": "Disclaimer Remarks",
-  "isUnfavourableRemarks": "Unfavourable Remarks",
-  "isCreditRatingSuspended": "Credit Rating Suspended",
-  "isCreditRatingWithdrawn": "Credit Rating Withdrawn",
-  "isRatedEntityNonCooperative": "Entity Non-Cooperative",
-  "isCreditRatingOutlookNegative": "Credit Rating Outlook Negative",
-  "isCreditRatingDowngraded": "Credit Rating Downgraded",
-  "isCreditWatchWithNegativeImplication": "Credit Watch With Negative Implication",
-  "isCreditWatchWithDevelopingImplication": "Credit Watch With Developing Implication",
-  "isDomainInvalid_": "Domain Invalid",
-  "isEmailInvalid_": "Email Invalid",
-  "isEmailDisposable_": "Email Disposable",
-  "isAddressQualityPoor_": "Generic Address",
-  "isOffshoreLeak": "Offshore Leak",
-  "IsDirectorResigned": "Director Resignation(s)",
-  "isGstUnderCancellation": "GST Under Cancellation",
-  "isTanTransactionDefault": "TAN Transaction Default",
-  "isTanTransactionDelay": "TAN Transaction Delay",
-  "isPanInactive": "PAN Inactive",
-  "isHawala": "Hawala",
-  "isGstFraud": "GST Fraud",
-  "isBankDefaulterNonSuitFiled": "Bank Defaulter Non SuitFiled",
-  "isBankAuction": "Bank Auction",
-  "isiecdgftpenalty": "IEC DGFT Penalty"
+  isShell: 'Shell',
+  isCompanyUnderLiquidation: 'Company Under Liquidation',
+  isMlm: 'MLM',
+  isVanishing: 'Vanishing',
+  NA: 'Non-Genuine Dealers of Mahavat',
+  isSebiDebarred: 'SEBI Debarred',
+  NA: 'BSE Disciplinary Action',
+  isNseCompanySuspended: 'NSE Company Suspended',
+  isNseExpelled: 'NSE Expelled',
+  isNseCompanySuspendedNonCompliance: 'NSE Company Suspended Non Compliance',
+  isNseUnderGsmSurveillance: 'NSE Under GSM Surveillance',
+  isNseDefaulter: 'NSE Defaulter',
+  isCompanyStrikedOffUs248: 'Company Striked Off Us 248',
+  isBseCompanySuspendedMoreThan7Years:
+    'BSE Company Suspended More Than 7 Years',
+  isBsePenalSuspended: 'BSE Penal Suspended',
+  isBseExpelled: 'BSE Expelled',
+  isBseDefaulter: 'BSE Defaulter',
+  isCompanyStrikedOff: 'Company Striked Off',
+  isCompanyUnderStrikeOff: 'Company Under Strike Off',
+  isProclaimedOffender: 'Proclaimed Offender',
+  isCompanyUnderProsecution: 'Company Under Prosecution',
+  isNseSuspended: 'NSE Suspended',
+  isMcaDirectorUnderProsecution: 'MCA Director Under Prosecution',
+  isNseUnderAsmSurveillance: 'NSE Under Asm Surveillance',
+  isBseUnderGsmSurveillance: 'BSE Under GSM Surveillance',
+  isCompanyActiveNonCompliant: 'Company Active Non Compliant',
+  isDinDeactivated: 'DIN Deactivated',
+  isDinDisabled: 'DIN Disabled',
+  isBseIlliquidSecurity: 'BSE Illiquid Security',
+  isDormant: 'Dormant',
+  isNotFiled5inv: 'Not Filed 5INV',
+  isDinDisqualified: 'DIN Disqualied',
+  isDinSurrendered: 'DIN Surrendered',
+  isMcaCompanyDefaulter: 'MCA Company Defaulter',
+  isMcaDirectorDefaulter: 'MCA Director Defaulter',
+  isSuspendedAtStockExchange: 'Suspended At Stock Exchange',
+  isBseMemberInactive: 'BSE Member Inactive',
+  isDinLapsed: 'DIN Lapsed',
+  isNseCompanyDelisted: 'NSE Company Delisted',
+  isBseCompanyDelisted: 'BSE Company Delisted',
+  isBseSebiRelaxationForMps: 'BSE SEBI Relaxation For MPS',
+  isEpfTransactionDefault: 'EPF Transaction Default',
+  isIecBlackListed: 'IEC Black Listed',
+  isIecInDeniedEntityList: 'IEC In Denied Entity List',
+  isGstTransactionDefault: 'GST Transaction Default',
+  isGstInactive: 'GST Inactive',
+  isEpfTransactionDelay: 'EPF Transaction Delay',
+  isEpfClosed: 'EPF Closed',
+  NA: 'TDS Payment Delay',
+  isLeiRegistrationRetired: 'LEI Registration Retired',
+  isIecSuspended: 'IEC Suspended',
+  NA: 'TDS Payment Default',
+  isIecCancelled: 'IEC Cancelled',
+  isGstCancelled: 'GST Cancelled',
+  isGstProvisional: 'GST Provisional',
+  isTanInactive: 'TAN Inactive',
+  isGstTransactionDelay: 'GST Transaction Delay',
+  isLeiRegistrationLapsed: 'LEI Registration Lapsed',
+  isLeiRegistrationDuplicate: 'LEI Registration Duplicate',
+  isIbbi: 'IBBI',
+  isWilfulBankDefaulter: 'Wilful Defaulter',
+  isCompanyUnderCirp: 'Company Under CIRP',
+  isBifr: 'BIFR',
+  isChargeOpenAtArc_: 'Charge Open At ARC',
+  isEpfRegisteredWithBifr: 'EPF Registered With BIFR',
+  isEpfUnderLiquidation: 'EPF Under Liquidation',
+  isSickUnit: 'Sick Unit',
+  isBankDefaulterSuitFiled: 'Suit Filed',
+  isChargeOpenAtSasf_: 'Charge Open At SASF',
+  isCorporateDebtRestructuring: 'Corporate Debt Restructuring',
+  isChargeClosedAtArc_: 'Charge Closed At ARC',
+  isChargeClosedAtSasf_: 'Charge Closed At SASF',
+  isQualifiedOpinion: 'Qualified Opinion',
+  isDisclaimerRemarks: 'Disclaimer Remarks',
+  isUnfavourableRemarks: 'Unfavourable Remarks',
+  isCreditRatingSuspended: 'Credit Rating Suspended',
+  isCreditRatingWithdrawn: 'Credit Rating Withdrawn',
+  isRatedEntityNonCooperative: 'Entity Non-Cooperative',
+  isCreditRatingOutlookNegative: 'Credit Rating Outlook Negative',
+  isCreditRatingDowngraded: 'Credit Rating Downgraded',
+  isCreditWatchWithNegativeImplication:
+    'Credit Watch With Negative Implication',
+  isCreditWatchWithDevelopingImplication:
+    'Credit Watch With Developing Implication',
+  isDomainInvalid_: 'Domain Invalid',
+  isEmailInvalid_: 'Email Invalid',
+  isEmailDisposable_: 'Email Disposable',
+  isAddressQualityPoor_: 'Generic Address',
+  isOffshoreLeak: 'Offshore Leak',
+  IsDirectorResigned: 'Director Resignation(s)',
+  isGstUnderCancellation: 'GST Under Cancellation',
+  isTanTransactionDefault: 'TAN Transaction Default',
+  isTanTransactionDelay: 'TAN Transaction Delay',
+  isPanInactive: 'PAN Inactive',
+  isHawala: 'Hawala',
+  isGstFraud: 'GST Fraud',
+  isBankDefaulterNonSuitFiled: 'Bank Defaulter Non SuitFiled',
+  isBankAuction: 'Bank Auction',
+  isiecdgftpenalty: 'IEC DGFT Penalty',
 }
-
 
 function Index() {
   const dispatch = useDispatch()
@@ -166,7 +173,6 @@ function Index() {
   const [complienceBalanceFilter, setComplienceBalanceFilter] = useState([])
 
   const { fetchingKarzaGst } = useSelector((state) => state.review)
-
 
   // const [newDoc, setNewDoc] = useState({
   //   document: [],
@@ -180,10 +186,7 @@ function Index() {
       let statutory = []
       let balance = []
       companyData.compliance?.alerts?.forEach((val, index) => {
-        if (val.alert.trim() == "isIbbi"
-
-
-        ) {
+        if (val.alert.trim() == 'isIbbi') {
           balance.push(val)
         } else {
           statutory.push(val)
@@ -193,8 +196,40 @@ function Index() {
       setComplienceStatutoryFilter(statutory)
       setComplienceBalanceFilter(balance)
     }
+
+    if (Array.isArray(companyData?.compliance?.error) && companyData?.compliance?.error?.length > 0) {
+      _get(companyData, 'compliance.error', [{}]).forEach((item) => {
+        let toastMessage = item.message
+        let toastDiscription = item.description
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastDiscription.toUpperCase(), { toastId: toastDiscription })
+          // toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+      })
+    }
+    if (Array.isArray(companyData?.profile?.error) && companyData?.profile?.error?.length > 0) {
+      _get(companyData, 'profile.error', [{}]).forEach((item) => {
+        let toastMessage = item?.message
+        let toastDiscription = item?.description
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastDiscription.toUpperCase(), { toastId: toastDiscription })
+          // toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+      })
+    }
+
+    if (Array.isArray(companyData?.financial?.error) && companyData?.financial?.error?.length > 0) {
+      _get(companyData, 'financial.error', [{}]).forEach((item) => {
+        let toastMessage = item.message
+        let toastDiscription = item.description
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastDiscription })
+          toast.error(toastDiscription.toUpperCase(), { toastId: toastMessage })
+        }
+      })
+    }
   }, [companyData])
-  console.log(complienceFilter, "complienceFilter")
+  console.log(complienceFilter, 'complienceFilter')
   // const [manualDocModule, setManualDocModule] = useState(true)
   // const [filteredDoc, setFilteredDoc] = useState([])
   const [gstData, setGstData] = useState({})
@@ -218,30 +253,14 @@ function Index() {
 
   const rtrnChartIndiaction = (latest, previous, last) => {
     if (latest > previous && previous > last) {
-      return (<img
-        src="/static/profit.svg"
-        alt="Profit"
-        className="img-fluid"
-      />)
-    }
-    else if (latest < previous && previous < last) {
+      return <img src="/static/profit.svg" alt="Profit" className="img-fluid" />
+    } else if (latest < previous && previous < last) {
+      return <img src="/static/loss.svg" alt="Loss" className="img-fluid" />
+    } else
       return (
-        <img
-          src="/static/loss.svg"
-          alt="Loss"
-          className="img-fluid"
-        />
+        <img src="/static/average.svg" alt="Average" className="img-fluid" />
       )
-    }
-    else
-      return (<img
-        src="/static/average.svg"
-        alt="Average"
-        className="img-fluid"
-      />)
-
   }
-
 
   useEffect(() => {
     dispatch(setPageName('credit-queue'))
@@ -254,8 +273,6 @@ function Index() {
   //   dispatch(GetDocuments(`?order=${id}`))
   // }, [dispatch, companyData, orderList?.termsheet?.order])
   const id = sessionStorage.getItem('orderID')
-
-
 
   const [selectedTab, setSelectedTab] = useState('Profile')
 
@@ -309,11 +326,11 @@ function Index() {
       toDate: orderList?.shipmentDetail?.loadPort?.toDate,
     },
     shipmentType: orderList?.shipmentDetail?.shipmentType,
-    portOfLoading : orderList?.shipmentDetail?.portOfLoading
+    portOfLoading: orderList?.shipmentDetail?.portOfLoading
   })
 
   const saveOrderData = (name, value) => {
-    console.log(value, "value888")
+    console.log(value, 'value888')
     const newInput = { ...orderDetails }
     newInput[name] = value
     // console.log(newInput)
@@ -367,7 +384,7 @@ function Index() {
     //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     //   }
     //   return
-    // } 
+    // }
     else if (orderDetails?.unitOfValue?.trim() === '') {
       let toastMessage = 'Please Set the unit of value'
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -431,7 +448,8 @@ function Index() {
     } else {
       let orderToSend = { ...orderDetails }
       orderToSend.quantity = removePrefixOrSuffix(orderDetails.quantity)
-      orderToSend.orderValue = removePrefixOrSuffix(orderDetails.orderValue) * 10000000
+      orderToSend.orderValue =
+        removePrefixOrSuffix(orderDetails.orderValue) * 10000000
       orderToSend.tolerance = removePrefixOrSuffix(orderDetails.tolerance)
       if (orderDetails.unitOfValue === 'Cr' || 'Crores') {
         const obj = {
@@ -460,35 +478,64 @@ function Index() {
     // console.log(newInput, "prod")
     setProduct(newInput)
   }
-  console.log(product, "productData")
+  console.log(product, 'productData')
   const [supplierCred, setSupplierCred] = useState()
-  console.log("orderList", orderList)
+  console.log('orderList', orderList)
   useEffect(() => {
-
     setProduct({
-      AvgMonthlyElectricityBill:
-        orderList?.productSummary?.AvgMonthlyElectricityBill ? orderList?.productSummary?.AvgMonthlyElectricityBill : "",
-      availableStock: orderList?.productSummary?.availableStock ? orderList?.productSummary?.availableStock : "",
-      averageStockInTransit: orderList?.productSummary?.averageStockInTransit ? orderList?.productSummary?.averageStockInTransit : "",
-      averageStockOfCommodity:
-        orderList?.productSummary?.averageStockOfCommodity ? orderList?.productSummary?.averageStockOfCommodity : "",
-      capacityUtilization: orderList?.productSummary?.capacityUtilization ? orderList?.productSummary?.capacityUtilization : "",
-      contributionCommoditySenstivity:
-        orderList?.productSummary?.contributionCommoditySenstivity ? orderList?.productSummary?.contributionCommoditySenstivity : "",
-      dailyConsumptionOfCommodity:
-        orderList?.productSummary?.dailyConsumptionOfCommodity ? orderList?.productSummary?.dailyConsumptionOfCommodity : "",
-      existingCHA: orderList?.productSummary?.existingCHA ? orderList?.productSummary?.existingCHA : [],
-      existingProcurementOfCommodity:
-        orderList?.productSummary?.existingProcurementOfCommodity ? orderList?.productSummary?.existingProcurementOfCommodity : "",
-      existingSuppliers: orderList?.productSummary?.existingSuppliers ? orderList?.productSummary?.existingSuppliers : [],
-      monthlyProductionCapacity:
-        orderList?.productSummary?.monthlyProductionCapacity ? orderList?.productSummary?.monthlyProductionCapacity : "",
-      paymentStatusForElectricityBills:
-        orderList?.productSummary?.paymentStatusForElectricityBills ? orderList?.productSummary?.paymentStatusForElectricityBills : "",
-      stockCoverageOfCommodity:
-        orderList?.productSummary?.stockCoverageOfCommodity ? orderList?.productSummary?.stockCoverageOfCommodity : undefined,
-      typeOfCurrency: orderList?.productSummary?.typeOfCurrency ? orderList?.productSummary?.typeOfCurrency : orderList?.orderCurrency,
-      unitOfQuantity: orderList?.productSummary?.unitOfQuantity ? orderList?.productSummary?.unitOfQuantity : orderList?.unitOfQuantity,
+      AvgMonthlyElectricityBill: orderList?.productSummary
+        ?.AvgMonthlyElectricityBill
+        ? orderList?.productSummary?.AvgMonthlyElectricityBill
+        : '',
+      availableStock: orderList?.productSummary?.availableStock
+        ? orderList?.productSummary?.availableStock
+        : '',
+      averageStockInTransit: orderList?.productSummary?.averageStockInTransit
+        ? orderList?.productSummary?.averageStockInTransit
+        : '',
+      averageStockOfCommodity: orderList?.productSummary
+        ?.averageStockOfCommodity
+        ? orderList?.productSummary?.averageStockOfCommodity
+        : '',
+      capacityUtilization: orderList?.productSummary?.capacityUtilization
+        ? orderList?.productSummary?.capacityUtilization
+        : '',
+      contributionCommoditySenstivity: orderList?.productSummary
+        ?.contributionCommoditySenstivity
+        ? orderList?.productSummary?.contributionCommoditySenstivity
+        : '',
+      dailyConsumptionOfCommodity: orderList?.productSummary
+        ?.dailyConsumptionOfCommodity
+        ? orderList?.productSummary?.dailyConsumptionOfCommodity
+        : '',
+      existingCHA: orderList?.productSummary?.existingCHA
+        ? orderList?.productSummary?.existingCHA
+        : [],
+      existingProcurementOfCommodity: orderList?.productSummary
+        ?.existingProcurementOfCommodity
+        ? orderList?.productSummary?.existingProcurementOfCommodity
+        : '',
+      existingSuppliers: orderList?.productSummary?.existingSuppliers
+        ? orderList?.productSummary?.existingSuppliers
+        : [],
+      monthlyProductionCapacity: orderList?.productSummary
+        ?.monthlyProductionCapacity
+        ? orderList?.productSummary?.monthlyProductionCapacity
+        : '',
+      paymentStatusForElectricityBills: orderList?.productSummary
+        ?.paymentStatusForElectricityBills
+        ? orderList?.productSummary?.paymentStatusForElectricityBills
+        : '',
+      stockCoverageOfCommodity: orderList?.productSummary
+        ?.stockCoverageOfCommodity
+        ? orderList?.productSummary?.stockCoverageOfCommodity
+        : undefined,
+      typeOfCurrency: orderList?.productSummary?.typeOfCurrency
+        ? orderList?.productSummary?.typeOfCurrency
+        : orderList?.orderCurrency,
+      unitOfQuantity: orderList?.productSummary?.unitOfQuantity
+        ? orderList?.productSummary?.unitOfQuantity
+        : orderList?.unitOfQuantity,
     })
     setSupplierCred({
       HSCodesNumber: orderList?.supplierCredential?.HSCodesNumber,
@@ -501,35 +548,48 @@ function Index() {
       portOfDestination: orderList?.supplierCredential?.portOfDestination,
       remarks: orderList?.supplierCredential?.remarks,
       shipmentNumber: orderList?.supplierCredential?.shipmentNumber,
-      supplierName: orderList?.supplierCredential?.supplierName,
+      supplierName: orderList?.supplierCredential?.supplierName ? orderList?.supplierCredential?.supplierName : orderList?.supplierName,
     })
   }, [orderList])
 
-
   const handleProductSave = () => {
-    if (product.capacityUtilization === '' || product.contributionCommoditySenstivity === '') {
+    if (
+      product.capacityUtilization === '' ||
+      product.contributionCommoditySenstivity === ''
+    ) {
       let toastMessage = 'Please fill the required fields'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     } else {
       let data = { ...product }
-      data.monthlyProductionCapacity = removePrefixOrSuffix(product.monthlyProductionCapacity)
-      data.capacityUtilization = removePrefixOrSuffix(product.capacityUtilization)
-      data.AvgMonthlyElectricityBill = removePrefixOrSuffix(product.AvgMonthlyElectricityBill)
-      data.averageStockOfCommodity = removePrefixOrSuffix(product.averageStockOfCommodity)
-      data.averageStockInTransit = removePrefixOrSuffix(product.averageStockInTransit)
+      data.monthlyProductionCapacity = removePrefixOrSuffix(
+        product.monthlyProductionCapacity,
+      )
+      data.capacityUtilization = removePrefixOrSuffix(
+        product.capacityUtilization,
+      )
+      data.AvgMonthlyElectricityBill = removePrefixOrSuffix(
+        product.AvgMonthlyElectricityBill,
+      )
+      data.averageStockOfCommodity = removePrefixOrSuffix(
+        product.averageStockOfCommodity,
+      )
+      data.averageStockInTransit = removePrefixOrSuffix(
+        product.averageStockInTransit,
+      )
       data.availableStock = removePrefixOrSuffix(product.availableStock)
-      data.dailyConsumptionOfCommodity = removePrefixOrSuffix(product.dailyConsumptionOfCommodity)
+      data.dailyConsumptionOfCommodity = removePrefixOrSuffix(
+        product.dailyConsumptionOfCommodity,
+      )
       let obj = {
         order: orderList._id,
         productSummary: { ...data },
-        gstin: gstData.gstin
+        gstin: gstData.gstin,
       }
       dispatch(UpdateCreditCalculate(obj))
     }
   }
-
 
   const saveSupplierData = (name, value) => {
     const newInput = { ...supplierCred }
@@ -556,7 +616,6 @@ function Index() {
     },
   ])
 
-
   const [financialsComment, setFinancialsComment] = useState(
     orderList?.company?.recommendations?.commentsOnFinancials,
   )
@@ -570,11 +629,9 @@ function Index() {
   )
   const [approveComment, setApproveComment] = useState()
 
-
   useEffect(() => {
     setApproveComment(orderList?.cam?.approvalRemarks)
   }, [orderList])
-
 
   const [strengthsComment, setStrengthsComment] = useState(
     orderList?.company?.recommendations?.strengths,
@@ -584,11 +641,16 @@ function Index() {
     orderList?.company?.recommendations?.weakness,
   )
   const deleteComponent = (index) => {
-
-    setKeyAddData([...keyAddData.slice(0, index), ...keyAddData.slice(index + 1)])
+    setKeyAddData([
+      ...keyAddData.slice(0, index),
+      ...keyAddData.slice(index + 1),
+    ])
   }
   const deleteAddress = (index) => {
-    setPersonData([...personData.slice(0, index), ...personData.slice(index + 1)])
+    setPersonData([
+      ...personData.slice(0, index),
+      ...personData.slice(index + 1),
+    ])
   }
   const addCompanyCommentArr = (companyComments) => {
     let newArr = [...companyComment]
@@ -621,43 +683,59 @@ function Index() {
     setWeaknessComment(newArr)
   }
 
-
   const dltCompanyCommentArr = (index) => {
     // let newArr = [...companyComment]
     // newArr.pop(index)
     // setCompanyComment(newArr)
-    setCompanyComment([...companyComment.slice(0, index), ...companyComment.slice(index + 1)])
-
+    setCompanyComment([
+      ...companyComment.slice(0, index),
+      ...companyComment.slice(index + 1),
+    ])
   }
   const dltFinancialsCommentArr = (index) => {
     // let newArr = [...financialsComment]
     // newArr.pop(index)
-    setFinancialsComment([...financialsComment.slice(0, index), ...financialsComment.slice(index + 1)])
+    setFinancialsComment([
+      ...financialsComment.slice(0, index),
+      ...financialsComment.slice(index + 1),
+    ])
     // setFinancialsComment(newArr)
   }
   const dltSanctionCommentArr = (index) => {
     // let newArr = [...sanctionComment]
     // newArr.pop(index)
     // setSanctionComment(newArr)
-    setSanctionComment([...sanctionComment.slice(0, index), ...sanctionComment.slice(index + 1)])
+    setSanctionComment([
+      ...sanctionComment.slice(0, index),
+      ...sanctionComment.slice(index + 1),
+    ])
   }
   const dltApproveRemarkArr = (index) => {
     // let newArr = [...approveComment]
     // newArr.pop(index)
     // setApproveComment(newArr)
-    setApproveComment([...approveComment.slice(0, index), ...approveComment.slice(index + 1)])
+    setApproveComment([
+      ...approveComment.slice(0, index),
+      ...approveComment.slice(index + 1),
+    ])
   }
   const dltStrengthsCommentArr = (index) => {
     // let newArr = [...strengthsComment]
     // newArr.pop(index)
     // setStrengthsComment(newArr)
-    setStrengthsComment([...strengthsComment.slice(0, index), ...strengthsComment.slice(index + 1)])
+    setStrengthsComment([
+      ...strengthsComment.slice(0, index),
+      ...strengthsComment.slice(index + 1),
+    ])
   }
   const dltWeaknessCommentArr = (index) => {
     // let newArr = [...weaknessComment]
     // newArr.pop(index)
     // setWeaknessComment(newArr)
-    setWeaknessComment([...weaknessComment.slice(0, index), ...weaknessComment.slice(index + 1)])
+    setWeaknessComment([
+      ...weaknessComment.slice(0, index),
+      ...weaknessComment.slice(index + 1),
+    ])
   }
 
   const [debtData, setDebtData] = useState([
@@ -685,21 +763,21 @@ function Index() {
   useEffect(() => {
     if (orderList?.company?.keyContactPerson.length > 0) {
       setPersonData([
-
         {
           contact: {
-            callingCode: orderList?.company?.keyContactPerson?.contact?.callingCode,
+            callingCode:
+              orderList?.company?.keyContactPerson?.contact?.callingCode,
             number: orderList?.company?.keyContactPerson?.contact?.number,
           },
           department: orderList?.company?.keyContactPerson?.department,
           designation: orderList?.company?.keyContactPerson?.designation,
           email: orderList?.company?.keyContactPerson?.email,
           name: orderList?.company?.keyContactPerson?.name,
-          isEdit: false
-        }])
+          isEdit: false,
+        },
+      ])
     }
   }, [orderList])
-
 
   useEffect(() => {
     let groupExposureArr = []
@@ -774,7 +852,7 @@ function Index() {
 
   const [suggestedCredit, setSuggestedCredit] = useState({
     suggestedCreditLimit: orderList?.suggestedCreditLimit,
-    suggestedOrderValue: orderList?.suggestedOrderValue
+    suggestedOrderValue: orderList?.suggestedOrderValue,
   })
 
   const saveSuggestedCreditData = (name, value) => {
@@ -786,9 +864,8 @@ function Index() {
 
   const [approvedCredit, setApprovedCredit] = useState({
     approvedOrderValue: orderList?.cam?.approvedOrderValue,
-    approvedCreditValue: orderList?.cam?.approvedCreditValue
+    approvedCreditValue: orderList?.cam?.approvedCreditValue,
   })
-
 
   const saveApprovedCreditData = (name, value) => {
     const newInput = { ...approvedCredit }
@@ -797,7 +874,7 @@ function Index() {
     setApprovedCredit(newInput)
   }
 
- 
+
   //console.log(groupExposureData, "THIS IS GROUP EXP DATA")
 
   const addGroupExpArr = (exposureData) => {
@@ -812,20 +889,17 @@ function Index() {
     setKeyAddData(newArr)
   }
   const updateKeyAddDataArr = (newData, index) => {
-
-    setKeyAddData(prevState => {
+    setKeyAddData((prevState) => {
       const newState = prevState.map((obj, i) => {
-
         if (i == index) {
-
-          return newData;
+          return newData
         }
         // 👇️ otherwise return object as is
-        return obj;
-      });
+        return obj
+      })
 
-      return newState;
-    });
+      return newState
+    })
   }
 
   const addDebtArr = (debt) => {
@@ -837,29 +911,27 @@ function Index() {
     high: [],
     low: [],
     medium: [],
-    sever: []
-
+    sever: [],
   })
   useEffect(() => {
     let a = {
       high: [],
       low: [],
       medium: [],
-      sever: []
-
+      sever: [],
     }
     if (companyData?.compliance?.alerts) {
       companyData?.compliance?.alerts.forEach((val, index) => {
-        if (val.severity == "low") {
+        if (val.severity == 'low') {
           a.low.push(val)
         }
-        if (val.severity == "high") {
+        if (val.severity == 'high') {
           a.high.push(val)
         }
-        if (val.severity == "medium") {
+        if (val.severity == 'medium') {
           a.medium.push(val)
         }
-        if (val.severity == "severe") {
+        if (val.severity == 'severe') {
           a.sever.push(val)
         }
       })
@@ -867,30 +939,30 @@ function Index() {
     }
   }, [companyData?.compliance?.alerts])
 
-
   // console.log(companyData?.compliance?.litigations[0]?.highPriority, "sddssds")
   const addPersonArr = (keyPersonData) => {
     // let newArr = [...personData]
     // newArr.push(keyPersonData)
     console.log(keyPersonData, 'This IS KEY PETDHDH')
-    setPersonData([...keyPersonData, {
-      contact: {
-        callingCode: '',
-        number: '',
+    setPersonData([
+      ...keyPersonData,
+      {
+        contact: {
+          callingCode: '',
+          number: '',
+        },
+        department: '',
+        designation: '',
+        email: '',
+        name: '',
+        isEdit: false,
       },
-      department: '',
-      designation: '',
-      email: '',
-      name: '',
-      isEdit: false
-    }])
+    ])
   }
   const setEditRow = (index) => {
     let tempArr = [...personData]
     tempArr.forEach((val, i) => {
-      if (i == index) [
-        val.isEdit = !val.isEdit
-      ]
+      if (i == index) [(val.isEdit = !val.isEdit)]
     })
     setPersonData(tempArr)
   }
@@ -901,16 +973,16 @@ function Index() {
       delete val.isEdit
     })
     let data = { ...product }
-      data.monthlyProductionCapacity = removePrefixOrSuffix(product.monthlyProductionCapacity)
-      data.capacityUtilization = removePrefixOrSuffix(product.capacityUtilization)
-      data.AvgMonthlyElectricityBill = removePrefixOrSuffix(product.AvgMonthlyElectricityBill)
-      data.averageStockOfCommodity = removePrefixOrSuffix(product.averageStockOfCommodity)
-      data.averageStockInTransit = removePrefixOrSuffix(product.averageStockInTransit)
-      data.availableStock = removePrefixOrSuffix(product.availableStock)
-      data.dailyConsumptionOfCommodity = removePrefixOrSuffix(product.dailyConsumptionOfCommodity)
-     
-    let supplierData = {...supplierCred}
-    supplierData.commodityOfTotalTrade = removePrefixOrSuffix(supplierCred.commodityOfTotalTrade)  
+    data.monthlyProductionCapacity = removePrefixOrSuffix(product.monthlyProductionCapacity)
+    data.capacityUtilization = removePrefixOrSuffix(product.capacityUtilization)
+    data.AvgMonthlyElectricityBill = removePrefixOrSuffix(product.AvgMonthlyElectricityBill)
+    data.averageStockOfCommodity = removePrefixOrSuffix(product.averageStockOfCommodity)
+    data.averageStockInTransit = removePrefixOrSuffix(product.averageStockInTransit)
+    data.availableStock = removePrefixOrSuffix(product.availableStock)
+    data.dailyConsumptionOfCommodity = removePrefixOrSuffix(product.dailyConsumptionOfCommodity)
+
+    let supplierData = { ...supplierCred }
+    supplierData.commodityOfTotalTrade = removePrefixOrSuffix(supplierCred.commodityOfTotalTrade)
 
 
     let obj = {
@@ -929,7 +1001,7 @@ function Index() {
       debtProfile: [...debtData],
       groupExposureDetail: [...groupExposureData],
       suggestedOrderValue: suggestedCredit.suggestedOrderValue,
-      suggestedCreditLimit: suggestedCredit.suggestedCreditLimit
+      suggestedCreditLimit: suggestedCredit.suggestedCreditLimit,
     }
     // console.log(obj, "credit obj")
     dispatch(UpdateCredit(obj))
@@ -991,7 +1063,6 @@ function Index() {
     }
   }
 
-
   const handleCamApprove = () => {
     if (gettingPercentageCredit && gettingPercentageOrder) {
       const obj = {
@@ -1013,29 +1084,21 @@ function Index() {
   }
 
   const currentOpenLink = (e) => {
-    console.log(e.target.attributes[4].nodeValue, "eee")
-    if (e.target.attributes[4].nodeValue == "Compliance") {
+    console.log(e.target.attributes[4].nodeValue, 'eee')
+    if (e.target.attributes[4].nodeValue == 'Compliance') {
       let list = document.getElementsByClassName('nav-tabs')
       let tab = document.getElementsByClassName('tab-content')
       for (let i = 0; i < list[0].children.length; i++) {
-
-
-
-
-
         list[0].children[i].children[0].classList.remove('active')
 
         tab[0].children[i].classList.remove('show')
         tab[0].children[i].classList.remove('active')
-
-
       }
 
       list[0].children[3].children[0].classList.add('active')
 
       tab[0].children[3].classList.add('show')
       tab[0].children[3].classList.add('active')
-
     }
     setSelectedTab(e.target.attributes[4].nodeValue)
   }
@@ -1089,7 +1152,6 @@ function Index() {
     )
   }
 
-
   // const handleNewDocModule = (e) => {
   //   if (e.target.value === 'others') {
   //     setManualDocModule(false)
@@ -1111,7 +1173,6 @@ function Index() {
   //   dispatch(AddingDocument(fd))
   // }
 
-
   // const uploadDocument2 = (e) => {
   //   const newUploadDoc1 = { ...newDoc }
   //   newUploadDoc1.document = e.target.files[0]
@@ -1120,14 +1181,17 @@ function Index() {
   // console.log(newDoc, "documents")
 
   const GstDataHandler = (data) => {
-    console.log(data, "gst")
+    console.log(data, 'gst')
     setGstData(data)
   }
-  console.log(gstData, "gstDAta")
+  console.log(gstData, 'gstDAta')
 
   const deleteData = (index) => {
     //console.log("indexssd",index)
-    setCompanyComment([...companyComment.slice(0, index), ...companyComment.slice(index + 1)])
+    setCompanyComment([
+      ...companyComment.slice(0, index),
+      ...companyComment.slice(index + 1),
+    ])
   }
 
   const [totalCourt, setTotalCourt] = useState({
@@ -1136,7 +1200,7 @@ function Index() {
     total: 0,
     high: 0,
     medium: 0,
-    relevence: 0
+    relevence: 0,
   })
   const [Supreme, setSupreme] = useState([])
   const [District, setDistrict] = useState([])
@@ -1153,7 +1217,7 @@ function Index() {
     risk: ""
 
   })
-  console.log(filterType, "filterType")
+  console.log(filterType, 'filterType')
   useEffect(() => {
     if (companyData) {
       filterLitigation()
@@ -1166,74 +1230,74 @@ function Index() {
       total: 0,
       high: 0,
       medium: 0,
-      relevence: 0
+      relevence: 0,
     }
-    companyData?.compliance.districtCourt.cases.forEach((val, index) => {
+    companyData?.compliance?.districtCourt?.cases?.forEach((val, index) => {
       count.total = count.total + 1
-      if (val.caseStatus == "Disposed") {
+      if (val.caseStatus == 'Disposed') {
         count.disposed = count.disposed + 1
       }
-      if (val.caseStatus == "Pending") {
+      if (val.caseStatus == 'Pending') {
         count.pending = count.pending + 1
       }
-      if (val.severity_ == "HIGH" || val.severity_ == "high") {
+      if (val.severity_ == 'HIGH' || val.severity_ == 'high') {
         count.high = count.high + 1
       }
-      if (val.severity_ == "medium") {
+      if (val.severity_ == 'medium') {
         count.medium = count.medium + 1
       }
       if (val.severity_ == null) {
         count.relevence = count.relevence + 1
       }
     })
-    companyData?.compliance.highCourt.cases.forEach((val, index) => {
+    companyData?.compliance?.highCourt?.cases?.forEach((val, index) => {
       count.total = count.total + 1
-      if (val.caseStatus == "Disposed") {
+      if (val.caseStatus == 'Disposed') {
         count.disposed = count.disposed + 1
       }
-      if (val.caseStatus == "Pending") {
+      if (val.caseStatus == 'Pending') {
         count.pending = count.pending + 1
       }
-      if (val.severity_ == "HIGH" || val.severity_ == "high") {
+      if (val.severity_ == 'HIGH' || val.severity_ == 'high') {
         count.high = count.high + 1
       }
-      if (val.severity_ == "medium") {
+      if (val.severity_ == 'medium') {
         count.medium = count.medium + 1
       }
       if (val.severity_ == null) {
         count.relevence = count.relevence + 1
       }
     })
-    companyData?.compliance.supremeCourt.cases.forEach((val, index) => {
+    companyData?.compliance?.supremeCourt?.cases?.forEach((val, index) => {
       count.total = count.total + 1
-      if (val.caseStatus == "Disposed") {
+      if (val.caseStatus == 'Disposed') {
         count.disposed = count.disposed + 1
       }
-      if (val.caseStatus == "Pending") {
+      if (val.caseStatus == 'Pending') {
         count.pending = count.pending + 1
       }
-      if (val.severity_ == "HIGH" || val.severity_ == "high") {
+      if (val.severity_ == 'HIGH' || val.severity_ == 'high') {
         count.high = count.high + 1
       }
-      if (val.severity_ == "medium") {
+      if (val.severity_ == 'medium') {
         count.medium = count.medium + 1
       }
       if (val.severity_ == null) {
         count.relevence = count.relevence + 1
       }
     })
-    companyData?.compliance.tribunalCourts.cases.forEach((val, index) => {
+    companyData?.compliance?.tribunalCourts?.cases?.forEach((val, index) => {
       count.total = count.total + 1
-      if (val.caseStatus == "Disposed") {
+      if (val.caseStatus == 'Disposed') {
         count.disposed = count.disposed + 1
       }
-      if (val.caseStatus == "Pending") {
+      if (val.caseStatus == 'Pending') {
         count.pending = count.pending + 1
       }
-      if (val.severity_ == "HIGH" || val.severity_ == "high") {
+      if (val.severity_ == 'HIGH' || val.severity_ == 'high') {
         count.high = count.high + 1
       }
-      if (val.severity_ == "medium") {
+      if (val.severity_ == 'medium') {
         count.medium = count.medium + 1
       }
       if (val.severity_ == null) {
@@ -1245,7 +1309,7 @@ function Index() {
     let highCourt = []
     let tribunalCourts = []
     //civil
-    districtCourt = companyData?.compliance.districtCourt.cases.filter((val) => {
+    districtCourt = companyData?.compliance?.districtCourt?.cases?.filter((val) => {
 
       if (
         val.civilCriminal == filterType.class
@@ -1257,7 +1321,7 @@ function Index() {
         return val
       }
     })
-    supremeCourt = companyData?.compliance.supremeCourt.cases.filter((val) => {
+    supremeCourt = companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
 
       if (
         val.civilCriminal == filterType.class
@@ -1269,7 +1333,7 @@ function Index() {
         return val
       }
     })
-    highCourt = companyData?.compliance.highCourt.cases.filter((val) => {
+    highCourt = companyData?.compliance?.highCourt?.cases?.filter((val) => {
 
       if (
         val.civilCriminal == filterType.class
@@ -1281,7 +1345,7 @@ function Index() {
         return val
       }
     })
-    tribunalCourts = companyData?.compliance.tribunalCourts.cases.filter((val) => {
+    tribunalCourts = companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
 
       if (
         val.civilCriminal == filterType.class
@@ -1294,7 +1358,7 @@ function Index() {
       }
     })
     //risk:
-    districtCourt = companyData?.compliance.districtCourt.cases.filter((val) => {
+    districtCourt = companyData?.compliance?.districtCourt?.cases?.filter((val) => {
 
       if (
         val.severity_ == filterType.risk == "high" ? "High" || "high" : filterType.risk
@@ -1306,31 +1370,28 @@ function Index() {
         return val
       }
     })
-    supremeCourt = companyData?.compliance.supremeCourt.cases.filter((val) => {
+    supremeCourt = companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
 
       if (
-        val.severity_ == filterType.risk == "high" ? "High" || "high" : filterType.risk
+        (val.severity_ == filterType.risk) == 'high'
+          ? 'High' || 'high'
+          : filterType.risk
+      ) {
+        return val
+      }
+    })
+    highCourt = companyData?.compliance?.highCourt?.cases?.filter((val) => {
 
-
-
+      if (
+        (val.severity_ == filterType.risk) == 'high'
+          ? 'High' || 'high'
+          : filterType.risk
       ) {
 
         return val
       }
     })
-    highCourt = companyData?.compliance.highCourt.cases.filter((val) => {
-
-      if (
-        val.severity_ == filterType.risk == "high" ? "High" || "high" : filterType.risk
-
-
-
-      ) {
-
-        return val
-      }
-    })
-    tribunalCourts = companyData?.compliance.tribunalCourts.cases.filter((val) => {
+    tribunalCourts = companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
 
       if (
         val.severity_ == filterType.risk == "high" ? "High" || "high" : filterType.risk
@@ -1343,7 +1404,7 @@ function Index() {
       }
     })
     //filterBY
-    districtCourt = companyData?.compliance.districtCourt.cases.filter((val) => {
+    districtCourt = companyData?.compliance?.districtCourt?.cases?.filter((val) => {
 
       if (
         val.caseStatus == filterType.pending ? "Pending" : null ||
@@ -1358,36 +1419,34 @@ function Index() {
         return val
       }
     })
-    supremeCourt = companyData?.compliance.supremeCourt.cases.filter((val) => {
+    supremeCourt = companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
 
       if (
-        val.caseStatus == filterType.pending ? "Pending" : null ||
-          val.caseStatus == filterType.disposed ? "Disposed" : null
-
-
-
+        val.caseStatus == filterType.pending
+          ? 'Pending'
+          : null || val.caseStatus == filterType.disposed
+          ? 'Disposed'
+          : null
       ) {
-
         return val
       } else {
         return val
       }
     })
-    highCourt = companyData?.compliance.highCourt.cases.filter((val) => {
+    highCourt = companyData?.compliance?.highCourt?.cases?.filter((val) => {
       if (
-        val.caseStatus == filterType.pending ? "Pending" : null ||
-          val.caseStatus == filterType.disposed ? "Disposed" : null
-
-
-
+        val.caseStatus == filterType.pending
+          ? 'Pending'
+          : null || val.caseStatus == filterType.disposed
+          ? 'Disposed'
+          : null
       ) {
-
         return val
       } else {
         return val
       }
     })
-    tribunalCourts = companyData?.compliance.tribunalCourts.cases.filter((val) => {
+    tribunalCourts = companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
 
       if (
         val.caseStatus == filterType.pending ? "Pending" : null ||
@@ -1427,21 +1486,32 @@ function Index() {
                 {orderList?.company?.companyName}
               </h1>
             </div>
-            {selectedTab == "CAM" ?
+            {selectedTab == 'CAM' ? (
               <>
-                <div className={`${styles.unit} ml-auto mt-n4 d-flex align-items-center`}>
-                  <h5 className={`${styles.unit_label} mb-0 accordion_Text`}>Unit :</h5>
+                <div
+                  className={`${styles.unit} ml-auto mt-n4 d-flex align-items-center`}
+                >
+                  <h5 className={`${styles.unit_label} mb-0 accordion_Text`}>
+                    Unit :
+                  </h5>
                   <div className="d-flex align-items-center position-relative">
-                    <select className={`${styles.select} ${styles.customSelect} accordion_body form-select`} aria-label="Default select example">
-                      <option selected value="Crores">Crores</option>
+                    <select
+                      className={`${styles.select} ${styles.customSelect} accordion_body form-select`}
+                      aria-label="Default select example"
+                    >
+                      <option selected value="Crores">
+                        Crores
+                      </option>
                     </select>
-                    <img className={`${styles.arrow} image_arrow img-fluid`} src="/static/inputDropDown.svg"
-                      alt="Search" />
+                    <img
+                      className={`${styles.arrow} image_arrow img-fluid`}
+                      src="/static/inputDropDown.svg"
+                      alt="Search"
+                    />
                   </div>
                 </div>
               </>
-              : null
-            }
+            ) : null}
             {uploadBtn ? (
               <div className="ml-auto">
                 {uploadButton(dispatch, orderList, companyData)}{' '}
@@ -1593,22 +1663,46 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className="accordion shadow-none" id="profileAccordion">
-                    <CompanyDetails order={orderList?.company} companyDetail={companyData} />
-                    <AuditorsDetail auditorsDetails={companyData?.profile?.auditorDetail} />
+                    <CompanyDetails
+                      order={orderList?.company}
+                      companyDetail={companyData}
+                    />
+                    <AuditorsDetail
+                      auditorsDetails={companyData?.profile?.auditorDetail}
+                    />
                     <AuditorDeatils directorData={companyData} />
-                    <ShareHoldingPattern shareHolding={companyData?.profile?.shareholdingPattern} />
-                    <CreditRatings creditRating={companyData?.profile?.creditRating} />
+                    <ShareHoldingPattern
+                      shareHolding={companyData?.profile?.shareholdingPattern}
+                    />
+                    <CreditRatings
+                      creditRating={companyData?.profile?.creditRating}
+                    />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Financials" role="tabpanel">
-                  <div className="accordion shadow-none" id="FinancialsAccordion">
-                    <BalanceSheet rtrnChartIndiaction={rtrnChartIndiaction} balanceData={companyData} />
+                  <div
+                    className="accordion shadow-none"
+                    id="FinancialsAccordion"
+                  >
+                    <BalanceSheet
+                      rtrnChartIndiaction={rtrnChartIndiaction}
+                      balanceData={companyData}
+                    />
 
-                    <IncomeStatement rtrnChartIndiaction={rtrnChartIndiaction} incomeData={companyData} />
+                    <IncomeStatement
+                      rtrnChartIndiaction={rtrnChartIndiaction}
+                      incomeData={companyData}
+                    />
 
-                    <CashFlow rtrnChartIndiaction={rtrnChartIndiaction} cashData={companyData} />
+                    <CashFlow
+                      rtrnChartIndiaction={rtrnChartIndiaction}
+                      cashData={companyData}
+                    />
 
-                    <Ratios rtrnChartIndiaction={rtrnChartIndiaction} ratioData={companyData} />
+                    <Ratios
+                      rtrnChartIndiaction={rtrnChartIndiaction}
+                      ratioData={companyData}
+                    />
 
                     <Peer peerData={companyData} />
 
@@ -1617,8 +1711,8 @@ function Index() {
                 </div>
                 <div className="tab-pane fade" id="gst" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <GST alertObj={alertObj} 
-                    GstDataHandler={GstDataHandler}
+                    <GST alertObj={alertObj}
+                      GstDataHandler={GstDataHandler}
                       orderList={orderList}
                       companyData={companyData}
                     />
@@ -1627,7 +1721,9 @@ function Index() {
                 <div className="tab-pane fade" id="Compliance" role="tabpanel">
                   <div className={`${styles.card} card`}>
                     <div
-                      className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{ cursor: 'default' }}>
+                      className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
+                      style={{ cursor: 'default' }}
+                    >
                       <div
                         className={`${styles.detail_head_container}  d-flex align-items-center justify-content-between w-100`}
                       >
@@ -1636,16 +1732,21 @@ function Index() {
                           className={`${styles.categories} mb-0  d-flex align-items-center justify-content-end `}
                         >
                           <label className={styles.label}>Status:</label>
-                          <div
-                            className={`${styles.status}`}
-                          >
+                          <div className={`${styles.status}`}>
                             <span>
                               {companyData?.compliance?.other?.complianceStatus}{' '}
                             </span>
                           </div>
                         </div>
                       </div>
-                      <span data-toggle="collapse" data-target="#compliance" aria-expanded="true" aria-controls="compliance">+</span>
+                      <span
+                        data-toggle="collapse"
+                        data-target="#compliance"
+                        aria-expanded="true"
+                        aria-controls="compliance"
+                      >
+                        +
+                      </span>
                     </div>
                     <div
                       id="compliance"
@@ -1701,7 +1802,9 @@ function Index() {
                         </Row>
                         <Row className={` ${styles.row} mt-1 mb-1`}>
                           <Col className={`${styles.col}`} sm={2}>
-                            <span className={styles.head}>High Risk ({level.high.length})</span>
+                            <span className={styles.head}>
+                              High Risk ({level.high.length})
+                            </span>
                           </Col>
                           <Col className={`${styles.col}`}>
                             <div
@@ -1738,7 +1841,9 @@ function Index() {
                         </Row>
                         <Row className={` ${styles.row} mt-1 mb-1`}>
                           <Col className={`${styles.col}`} sm={2}>
-                            <span className={styles.head}>Medium Risk ({level.medium.length})</span>
+                            <span className={styles.head}>
+                              Medium Risk ({level.medium.length})
+                            </span>
                           </Col>
                           <Col className={`${styles.col}`}>
                             <div
@@ -1777,7 +1882,9 @@ function Index() {
                         </Row>
                         <Row className={` ${styles.row} mt-1 mb-1`}>
                           <Col className={`${styles.col}`} sm={2}>
-                            <span className={styles.head}>Low Risk ({level.low.length})</span>
+                            <span className={styles.head}>
+                              Low Risk ({level.low.length})
+                            </span>
                           </Col>
                           <Col className={`${styles.col}`}>
                             <div
@@ -1820,19 +1927,34 @@ function Index() {
                   {/* details */}
                   <div className={`${styles.card} card`}>
                     <div
-                      className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{ cursor: 'default' }}>
+                      className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
+                      style={{ cursor: 'default' }}
+                    >
                       <h2 className="mb-0 ">Details</h2>
-                      <div className={`${styles.categories} mb-0 d-flex align-items-center`}>
+                      <div
+                        className={`${styles.categories} mb-0 d-flex align-items-center`}
+                      >
                         <label className={styles.label}>Categories:</label>
-                        <select onChange={(e) => setComplienceFilter(e.target.value)} className={`${styles.form_control} form-control`}>
-                          <option>
-                            Select an option
+                        <select
+                          onChange={(e) => setComplienceFilter(e.target.value)}
+                          className={`${styles.form_control} form-control`}
+                        >
+                          <option>Select an option</option>
+                          <option value="StatutoryCompliance">
+                            Statutory Compliance
                           </option>
                           <option value="All">All</option>
                           <option value="StatutoryCompliance">Statutory Compliance</option>
                           <option value="BankingDefaults">Banking Defaults</option>
                         </select>
-                        <span data-toggle="collapse" data-target="#details" aria-expanded="true" aria-controls="details">+</span>
+                        <span
+                          data-toggle="collapse"
+                          data-target="#details"
+                          aria-expanded="true"
+                          aria-controls="details"
+                        >
+                          +
+                        </span>
                       </div>
                     </div>
                     <div
@@ -1844,37 +1966,59 @@ function Index() {
                       <div
                         className={` ${styles.cardBody_details} card-body border_color`}
                       >
-                        {table2(complienceStatutoryFilter, complienceBalanceFilter, complienceFilter)}
+                        {table2(
+                          complienceStatutoryFilter,
+                          complienceBalanceFilter,
+                          complienceFilter,
+                        )}
                       </div>
                     </div>
                   </div>
                   <div className={`${styles.card} card`}>
-                    <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} style={{ cursor: 'default' }}>
-                      <div className={`${styles.detail_head_container} d-flex align-items-center justify-content-between w-100`}>
+                    <div
+                      className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
+                      style={{ cursor: 'default' }}
+                    >
+                      <div
+                        className={`${styles.detail_head_container} d-flex align-items-center justify-content-between w-100`}
+                      >
                         <h2 className="mb-0">Litigations</h2>
-                        <div className={`${styles.categories}  d-flex align-items-center`}>
-                          <label className={styles.label}>Litigations Status:</label>
-                          <select onChange={updateLitigationStatus} className={`${styles.form_control} form-control`}>
+                        <div
+                          className={`${styles.categories}  d-flex align-items-center`}
+                        >
+                          <label className={styles.label}>
+                            Litigations Status:
+                          </label>
+                          <select
+                            onChange={updateLitigationStatus}
+                            className={`${styles.form_control} form-control`}
+                          >
                             {orderList?.company?.litigationStatus !==
-                              'Active' ? (
+                              'Disposed' ? (
                               <>
-                                <option>
-                                  Select an option
-                                </option>
+                                <option>Select an option</option>
                                 <option value="Pending">Pending</option>
-                                <option value="Active">Active</option>
+                                <option value="Disposed">Disposed</option>
                               </>
                             ) : (
                               <>
                                 <option>
                                   Select an option
                                 </option>
-                                <option value="Active">Active</option>
+                                <option value="Disposed">Disposed</option>
                                 <option value="Pending">Pending</option>
                               </>
                             )}
                           </select>
-                          <span data-toggle="collapse" data-target="#litigations" aria-expanded="true" aria-controls="litigations">+</span>
+
+                          <span
+                            data-toggle="collapse"
+                            data-target="#litigations"
+                            aria-expanded="true"
+                            aria-controls="litigations"
+                          >
+                            +
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -1904,7 +2048,8 @@ function Index() {
                                     value=""
                                     id="flexCheckDefault"
                                     onChange={() => {
-                                      filterType.filterBy.pending = !filterType.filterBy.pending
+                                      filterType.filterBy.pending =
+                                        !filterType.filterBy.pending
                                       setFilterType({ ...filterType })
                                     }}
                                     checked={filterType.filterBy.pending?"checked":""}
@@ -1913,11 +2058,7 @@ function Index() {
                                     className="form-check-label"
                                     htmlFor="flexCheckDefault"
                                   >
-                                    Pending (
-                                    {
-                                      totalCourt.pending
-                                    }
-                                    )
+                                    Pending ({totalCourt.pending})
                                   </label>
                                 </div>
                                 <div className="form-check ml-4">
@@ -1927,20 +2068,16 @@ function Index() {
                                     value=""
                                     id="flexCheckDefault1"
                                     onChange={() => {
-                                      filterType.filterBy.disposed = !filterType.filterBy.disposed
+                                      filterType.filterBy.disposed =
+                                        !filterType.filterBy.disposed
                                       setFilterType({ ...filterType })
                                     }}
                                   />
                                   <label
                                     className="form-check-label"
                                     htmlFor="flexCheckDefault1"
-
                                   >
-                                    Disposed (
-                                    {
-                                      totalCourt.disposed
-                                    }
-                                    )
+                                    Disposed ({totalCourt.disposed})
                                   </label>
                                 </div>
                                 <div className="form-check  ml-4">
@@ -1950,7 +2087,8 @@ function Index() {
                                     value=""
                                     id="flexCheckDefault3"
                                     onChange={() => {
-                                      filterType.filterBy.total = !filterType.filterBy.total
+                                      filterType.filterBy.total =
+                                        !filterType.filterBy.total
                                       setFilterType({ ...filterType })
                                     }}
                                   />
@@ -1958,11 +2096,7 @@ function Index() {
                                     className="form-check-label"
                                     htmlFor="flexCheckDefault3"
                                   >
-                                    Total Cases (
-                                    {
-                                      totalCourt.total
-                                    }
-                                    )
+                                    Total Cases ({totalCourt.total})
                                   </label>
                                 </div>
                               </div>
@@ -1978,23 +2112,28 @@ function Index() {
                                   checked />
                                   <label className="form-check-label" htmlFor="flexRadioDefault1"
                                     onChange={() => {
-                                      setFilterType({ ...filterType, party: "Respondent" })
+                                      setFilterType({
+                                        ...filterType,
+                                        party: 'Respondent',
+                                      })
                                     }}
                                   >
                                     Respondent
                                   </label>
                                 </div>
                                 <div className="form-check ml-4">
-                                  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"  />
+                                  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked />
                                   <label className="form-check-label" htmlFor="flexRadioDefault2"
                                     onChange={() => {
-                                      setFilterType({ ...filterType, party: "Petitioner" })
+                                      setFilterType({
+                                        ...filterType,
+                                        party: 'Petitioner',
+                                      })
                                     }}
                                   >
                                     Petitioner
                                   </label>
                                 </div>
-
                               </div>
                             </Col>
                             <Col md={4}>
@@ -2003,25 +2142,42 @@ function Index() {
                                 className={` d-flex align-items-center justify-content-start`}
                               >
                                 <div className="form-check">
-                                  <input className="form-check-input" type="radio" name="flexRadio" id="flexRadioDefault3"
-
+                                  <input
+                                    className="form-check-input"
+                                    type="radio"
+                                    name="flexRadio"
+                                    id="flexRadioDefault3"
                                     onChange={() => {
-
-                                      setFilterType({ ...filterType, class: "Civil" })
-                                    }} />
-                                  <label className="form-check-label" htmlFor="flexRadioDefault3"
-
+                                      setFilterType({
+                                        ...filterType,
+                                        class: 'Civil',
+                                      })
+                                    }}
+                                  />
+                                  <label
+                                    className="form-check-label"
+                                    htmlFor="flexRadioDefault3"
                                   >
                                     Civil
                                   </label>
                                 </div>
                                 <div className="form-check ml-3">
-                                  <input className="form-check-input" type="radio" name="flexRadio" id="flexRadioDefault4" checked
+                                  <input
+                                    className="form-check-input"
+                                    type="radio"
+                                    name="flexRadio"
+                                    id="flexRadioDefault4"
+                                    checked
                                     onChange={() => {
-                                      setFilterType({ ...filterType, class: "Criminal" })
-                                    }} />
-                                  <label className="form-check-label" htmlFor="flexRadioDefault4"
-
+                                      setFilterType({
+                                        ...filterType,
+                                        class: 'Criminal',
+                                      })
+                                    }}
+                                  />
+                                  <label
+                                    className="form-check-label"
+                                    htmlFor="flexRadioDefault4"
                                   >
                                     Criminal
                                   </label>
@@ -2044,14 +2200,13 @@ function Index() {
                                 value={'high'}
                                 id={'high'}
                                 onChange={() => {
-                                  setFilterType({ ...filterType, risk: "high" })
+                                  setFilterType({ ...filterType, risk: 'high' })
                                 }}
                               />
                               <span className={styles.control__content}>
                                 <span>High Risk</span>
                                 <span>({totalCourt.high})</span>
                               </span>
-
                             </label>
 
                             <label
@@ -2065,7 +2220,10 @@ function Index() {
                                 value={'medium'}
                                 id={'medium'}
                                 onChange={() => {
-                                  setFilterType({ ...filterType, risk: "medium" })
+                                  setFilterType({
+                                    ...filterType,
+                                    risk: 'medium',
+                                  })
                                 }}
                               />
                               <span className={styles.control__content}>
@@ -2084,7 +2242,10 @@ function Index() {
                                 value={'Relevance'}
                                 id={'Relevance'}
                                 onChange={() => {
-                                  setFilterType({ ...filterType, risk: "relevence" })
+                                  setFilterType({
+                                    ...filterType,
+                                    risk: 'relevence',
+                                  })
                                 }}
                               />
                               <span className={styles.control__content}>
@@ -2124,7 +2285,15 @@ function Index() {
                           /> */}
                         </div>
 
-                        <div>{ligitations(Supreme, District, High, Tribunal, companyData)}</div>
+                        <div>
+                          {ligitations(
+                            Supreme,
+                            District,
+                            High,
+                            Tribunal,
+                            companyData,
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -2161,7 +2330,7 @@ function Index() {
                     supplierCred={supplierCred}
                     setEditRow={setEditRow}
                     orderDetail={orderList}
-                   
+
 
                   />
                   <Recommendations
@@ -2202,15 +2371,16 @@ function Index() {
                   />
                 </div>
 
-
                 <div
                   className="tab-pane fade"
                   id="DocumentsTab"
                   role="tabpanel"
                 >
                   <div className="accordion" id="profileAccordion">
-                    <UploadOther module='LeadOnboarding&OrderApproval' orderid={id} />
-
+                    <UploadOther
+                      module="LeadOnboarding&OrderApproval"
+                      orderid={id}
+                    />
                   </div>
                 </div>
               </div>
@@ -2219,10 +2389,10 @@ function Index() {
         </div>
       </div>
       {selectedTab == 'Financials' ||
-        'Compliance' ||
-        'Orders' ||
-        'Credit' ||
-        'DocumentsTab' ? (
+      'Compliance' ||
+      'Orders' ||
+      'Credit' ||
+      'DocumentsTab' ? (
         <PreviousBar rightButtonClick={onNext} leftButtonClick={onBack} />
       ) : null}
       {selectedTab == 'Profile' ? (
@@ -2233,7 +2403,9 @@ function Index() {
           isApprove={true}
           rightButtonName={`Next`}
           handleApprove={onNext}
-          handleReject={() => { console.log("download pdf") }}
+          handleReject={() => {
+            console.log('download pdf')
+          }}
         />
       ) : null}
       {selectedTab == 'GST' ? (
@@ -2263,21 +2435,28 @@ function Index() {
 export default Index
 
 const uploadButton = (dispatch, orderList, companyData) => {
-
   return (
     <>
-      <button onClick={() =>
-
-        dispatch(RefetchCombineKarza({ company: orderList?.company?._id }))
-      } type="button" className={`${styles.btnPrimary} btn btn-primary`}><img src="/static/refresh.svg" alt="refresh" className="img-fluid" />Update Info</button>
-      <div className={`${styles.lastModified} text `}><span>Last Modified:</span>{moment(companyData?.updatedAt).format(' D MMM , h:mm a')}</div>
+      <button
+        onClick={() =>
+          dispatch(RefetchCombineKarza({ company: orderList?.company?._id }))
+        }
+        type="button"
+        className={`${styles.btnPrimary} btn btn-primary`}
+      >
+        <img src="/static/refresh.svg" alt="refresh" className="img-fluid" />
+        Update Info
+      </button>
+      <div className={`${styles.lastModified} text `}>
+        <span>Last Modified:</span>
+        {moment(companyData?.updatedAt).format(' D MMM , h:mm a')}
+      </div>
     </>
   )
 }
 
 const ligitations = (Supreme, District, High, Tribunal, companyData) => {
-  console.log(District, "District")
-
+  console.log(District, 'District')
 
   return (
     <>
@@ -2310,9 +2489,9 @@ const ligitations = (Supreme, District, High, Tribunal, companyData) => {
 }
 
 const table2 = (sat, balance, complienceFilter) => {
-
-  console.log(sat, balance, "oi")
-  let length = complienceFilter == "StatutoryCompliance" ? sat.length : balance.length
+  console.log(sat, balance, 'oi')
+  let length =
+    complienceFilter == 'StatutoryCompliance' ? sat.length : balance.length
   return (
     <table
       className={`${styles.table_details} table border-color`}

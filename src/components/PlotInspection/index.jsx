@@ -22,7 +22,7 @@ export default function Index({ inspectionData }) {
   })
 
   const savePlotInspectionData = (name, value) => {
-    let newInput = {...plotInspectionData}
+    let newInput = { ...plotInspectionData }
     newInput[name] = value
     setPlotInspectionData(newInput)
   }
@@ -54,10 +54,12 @@ export default function Index({ inspectionData }) {
       }
     } else {
       let fd = new FormData()
-      fd.append( 'plotInspectionDate', JSON.stringify(plotInspectionData.plotInspectionDate))
+      fd.append(
+        'plotInspectionDate',
+        JSON.stringify(plotInspectionData.plotInspectionDate),
+      )
       fd.append('plotInspectionReport', plotInspectionData.plotInspectionReport)
       fd.append('inspectionId', inspectionData?._id)
-
 
       dispatch(UpdateInspection(fd))
     }
@@ -83,7 +85,9 @@ export default function Index({ inspectionData }) {
                     <DateCalender
                       name="plotInspectionDate"
                       saveDate={saveDate}
-                      defaultDate={inspectionData?.plotInspection?.plotInspectionDate?.split('T')[0]}
+                      defaultDate={
+                        inspectionData?.plotInspection?.plotInspectionDate
+                      }
                       labelName="Plot Inspection Date"
                       dateFormat={`dd-MM-yyyy`}
                     />
@@ -99,7 +103,7 @@ export default function Index({ inspectionData }) {
           </div>
           <div className={`${styles.main} vessel_card card border-color`}>
             <div
-              className={`${styles.head_container} border_color head_container d-flex justify-content-between`}
+              className={`${styles.head_container} border_color align-items-center head_container d-flex justify-content-between`}
               data-toggle="collapse"
               data-target="#upload"
               aria-expanded="true"
@@ -114,63 +118,63 @@ export default function Index({ inspectionData }) {
               aria-labelledby="upload"
               data-parent="#upload"
             >
-              <div className={`${styles.table_form}`}>
-                <div className={styles.table_container}>
-                  <div className={styles.table_scroll_outer}>
-                    <div className={styles.table_scroll_inner}>
-                      <table
-                        className={`${styles.table} table`}
-                        cellPadding="0"
-                        cellSpacing="0"
-                        border="0"
-                      >
-                        <thead>
-                          <tr>
-                            <th width="40%">
-                              DOCUMENT NAME{' '}
-                              <img
-                                className={`${styles.sort_img} mb-1`}
-                                src="/static/icons8-sort-24.svg"
-                                alt="Sort icon"
-                              />
-                            </th>
-                            <th width="20%">
-                              FORMAT{' '}
-                              <img
-                                className={`${styles.sort_img} mb-1`}
-                                src="/static/icons8-sort-24.svg"
-                                alt="Sort icon"
-                              />
-                            </th>
-                            <th width="25%">
-                              DOCUMENT DATE{' '}
-                              <img
-                                className={`${styles.sort_img} mb-1`}
-                                src="/static/icons8-sort-24.svg"
-                                alt="Sort icon"
-                              />
-                            </th>
-                            <th>ACTION</th>
-                            <th></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr className="table_row">
-                            <td className={styles.doc_name}>
-                              Plot Inspection Report
-                              <strong className="text-danger ml-1">*</strong>
-                            </td>
-                            <td>
-                              <img
-                                src="/static/pdf.svg"
-                                className={`${styles.pdfImage} img-fluid`}
-                                alt="Pdf"
-                              />
-                            </td>
-                            <td className={styles.doc_row}>
-                              28-02-2022,5:30 PM
-                            </td>
-                            {/* <td>
+              <div className={styles.table_container}>
+                <div className={`${styles.table_form}`}>
+                  <div className={styles.table_container}>
+                    <div className={styles.table_scroll_outer}>
+                      <div className={styles.table_scroll_inner}>
+                        <table
+                          className={`${styles.table} table`}
+                          cellPadding="0"
+                          cellSpacing="0"
+                          border="0"
+                        >
+                          <thead>
+                            <tr>
+                              <th width="35%">
+                                DOCUMENT NAME{' '}
+                                <img
+                                  className={`${styles.sort_img} mb-1`}
+                                  src="/static/icons8-sort-24.svg"
+                                  alt="Sort icon"
+                                />
+                              </th>
+                              <th width="20%">
+                                FORMAT{' '}
+                                <img
+                                  className={`${styles.sort_img} mb-1`}
+                                  src="/static/icons8-sort-24.svg"
+                                  alt="Sort icon"
+                                />
+                              </th>
+                              <th width="25%">
+                                DOCUMENT DATE{' '}
+                                <img
+                                  className={`${styles.sort_img} mb-1`}
+                                  src="/static/icons8-sort-24.svg"
+                                  alt="Sort icon"
+                                />
+                              </th>
+                              <th>ACTION</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr className="table_row">
+                              <td className={styles.doc_name}>
+                                Plot Inspection Report
+                                <strong className="text-danger ml-1">*</strong>
+                              </td>
+                              <td>
+                                <img
+                                  src="/static/pdf.svg"
+                                  className={`${styles.pdfImage} img-fluid`}
+                                  alt="Pdf"
+                                />
+                              </td>
+                              <td className={styles.doc_row}>
+                                28-02-2022,5:30 PM
+                              </td>
+                              {/* <td>
                               {' '}
                               <div className="dropdown">
                                 <button
@@ -223,42 +227,43 @@ export default function Index({ inspectionData }) {
                                 </div>
                               </div>
                             </td> */}
-                            <td>
-                              {plotInspectionData?.plotInspectionReport ==
-                              null ? (
-                                <>
-                                  <div className={styles.uploadBtnWrapper}>
-                                    <input
-                                      type="file"
-                                      name="myfile"
-                                      accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                      onChange={(e) => uploadDocument1(e)}
-                                    />
-                                    <button
-                                      className={`${styles.button_upload} btn`}
-                                    >
-                                      Upload
-                                    </button>
+                              <td>
+                                {plotInspectionData?.plotInspectionReport ==
+                                null ? (
+                                  <>
+                                    <div className={styles.uploadBtnWrapper}>
+                                      <input
+                                        type="file"
+                                        name="myfile"
+                                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                        onChange={(e) => uploadDocument1(e)}
+                                      />
+                                      <button
+                                        className={`${styles.updateBtn} btn`}
+                                      >
+                                        Upload
+                                      </button>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <div className={styles.certificate}>
+                                    {
+                                      plotInspectionData?.plotInspectionReport
+                                        ?.name
+                                    }
+                                    <img
+                                      className={`${styles.close_image} float-right m-2 img-fluid`}
+                                      src="/static/close.svg"
+                                      onClick={() => handleClose()}
+                                      alt="Close"
+                                    />{' '}
                                   </div>
-                                </>
-                              ) : (
-                                <div className={styles.certificate}>
-                                  {
-                                    plotInspectionData?.plotInspectionReport
-                                      ?.name
-                                  }
-                                  <img
-                                    className={`${styles.close_image} float-right m-2 img-fluid`}
-                                    src="/static/close.svg"
-                                    onClick={() => handleClose()}
-                                    alt="Close"
-                                  />{' '}
-                                </div>
-                              )}
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                                )}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                   </div>
                 </div>
