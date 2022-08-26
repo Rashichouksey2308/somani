@@ -202,7 +202,7 @@ function Index() {
       return false  
     }
   }
-    if(lcData.tolerancePercentage === "" || cData.tolerancePercentage ==undefined){
+    if(lcData.tolerancePercentage === "" || lcData.tolerancePercentage ==undefined){
        toastMessage = 'Please add Tolerance Percentage'
       if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })

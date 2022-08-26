@@ -246,8 +246,6 @@
       // display: inline-block;
       overflow-y: auto;
       overflow-x: auto;
-      border-radius: 6px;
-
       .table_scroll_outer {
         width: 100%;
         display: table;
@@ -679,7 +677,8 @@
     line-height: 25px;
     text-transform: capitalize;
     border: none;
-    width: 260px;
+    width: 100%;
+    max-width: 260px;
     height: 48px;
   }
   .label_heading {
@@ -778,5 +777,6 @@
 }
 .customSelect {
   appearance: none;
+  padding-right: 40px;
   // position: relative;
 }

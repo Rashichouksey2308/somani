@@ -70,7 +70,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
   let totalBl = 0
 
   const uploadDoc1 = async (e) => {
-    let name = e.target.id
+    let name = e.target.name
     let docs = await uploadDoc(e)
 
     //  console.log(docs, uploadDoc(e), 'this is upload response')
@@ -191,7 +191,12 @@ export default function Index({ customData, OrderId, uploadDoc }) {
   // }
 
   const handleSave = () => {
-    // [{ id: 'conversionRate', value: 'CONVERSION RATE' }, { id: 'invoiceDate', value: ' INVOICE DATE' }, { id: 'invoiceValue', value: 'INVOICE VALUE' }, { id: 'invoiceQuantity', value: 'INVOICE QUANTITY' }, { id: 'invoiceNumber', value: 'INVOICE NUMBER' }, { id: 'currency', value: 'CURRENCY' }].forEach((val) => {
+    // [{ id: 'conversionRate', value: 'CONVERSION RATE' },
+    //  { id: 'invoiceDate', value: ' INVOICE DATE' },
+    //   { id: 'invoiceValue', value: 'INVOICE VALUE' },
+    //    { id: 'invoiceQuantity', value: 'INVOICE QUANTITY' },
+    //     { id: 'invoiceNumber', value: 'INVOICE NUMBER' },
+    //      { id: 'currency', value: 'CURRENCY' }].forEach((val) => {
     //   console.log(val, 'boeValidation')
     //   if (billOfEntryData.boeDetails[val.id] === '') {
     //     let toastMessage = `${val.value} CANNOT BE AN EMPTY FIELD`
@@ -202,12 +207,66 @@ export default function Index({ customData, OrderId, uploadDoc }) {
     //   }
 
     // })
-    const billOfEntry = { billOfEntry: [billOfEntryData]}
-    const fd = new FormData()
-    fd.append('customClearanceId', customData?._id)
-    fd.append('billOfEntry', JSON.stringify(billOfEntry))
+    if (billOfEntryData.boeDetails.currency === '') {
 
-    dispatch(UpdateCustomClearance(fd))
+      let toastMessage = 'CURRENCY CANNOT BE EMPTY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    else if (billOfEntryData.boeDetails.invoiceNumber === '') {
+
+      let toastMessage = 'INVOICE NUMBER CANNOT BE EMPTY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    else if (billOfEntryData.boeDetails.invoiceDate === '') {
+
+      let toastMessage = 'INVOICE DATE CANNOT BE EMPTY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    else if (billOfEntryData.boeDetails.invoiceQuantity === '') {
+
+      let toastMessage = 'INVOICE QUANTITY CANNOT BE EMPTY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    } else if (billOfEntryData.boeDetails.invoiceValue === '') {
+
+      let toastMessage = 'INVOICE VALUE CANNOT BE EMPTY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    else if (billOfEntryData.boeDetails.conversionRate === '') {
+
+      let toastMessage = 'COVERSION RATE CANNOT BE EMPTY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+
+
+
+    else {
+      const billOfEntry = { billOfEntry: [billOfEntryData] }
+      const fd = new FormData()
+      fd.append('customClearanceId', customData?._id)
+      fd.append('billOfEntry', JSON.stringify(billOfEntry))
+
+      dispatch(UpdateCustomClearance(fd))
+    }
+
+
   }
 
   return (
@@ -269,6 +328,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       >
                         <Form.Check
                           className={styles.radio}
+                          
                           inline
                           label="Provisional"
                           checked={
@@ -979,34 +1039,24 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       </td>
                       {/* <td className={styles.doc_row}>28-02-2022,5:30 PM</td> */}
                       <td>
-                        {true ? (
+                        {billOfEntryData.document1  === null ? (
                           <>
                             <div className={styles.uploadBtnWrapper}>
                               <input
                                 type="file"
-                                name="myfile"
+                                name="document1"
                                 accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                onChange={(e) => uploadDocument1(e)}
+                                onChange={(e) => uploadDoc1(e)}
                               />
                               <button className={`${styles.button_upload} btn`}>
                                 Upload
                               </button>
                             </div>
-                            {/* <div className={styles.uploadBtnWrapper}>
-                        <input
-                          type="file"
-                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                          onChange={(e) => uploadDocument1(e)}
-                          name="myfile"
-                        />
-                        <button  className={`${styles.uploadDoc} btn`}>
-                          Upload
-                        </button>
-                        </div> */}
+                
                           </>
                         ) : (
                           <div className={styles.certificate}>
-                            {/* {lcDoc?.lcDraftDoc?.name} */}
+                           {billOfEntryData?.document1?.originalName}
                             <img
                               className={`${styles.close_image} float-right m-2 img-fluid`}
                               src="/static/close.svg"
@@ -1030,34 +1080,24 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       </td>
                       {/* <td className={styles.doc_row}>28-02-2022,5:30 PM</td> */}
                       <td>
-                        {true ? (
+                        {billOfEntryData?.document2 === null ? (
                           <>
                             <div className={styles.uploadBtnWrapper}>
                               <input
                                 type="file"
-                                name="myfile"
+                                name="document2"
                                 accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                onChange={(e) => uploadDocument1(e)}
+                                onChange={(e) => uploadDoc1(e)}
                               />
                               <button className={`${styles.button_upload} btn`}>
                                 Upload
                               </button>
                             </div>
-                            {/* <div className={styles.uploadBtnWrapper}>
-                        <input
-                          type="file"
-                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                          onChange={(e) => uploadDocument1(e)}
-                          name="myfile"
-                        />
-                        <button  className={`${styles.uploadDoc} btn`}>
-                          Upload
-                        </button>
-                        </div> */}
+                           
                           </>
                         ) : (
                           <div className={styles.certificate}>
-                            {/* {lcDoc?.lcDraftDoc?.name} */}
+                           {billOfEntryData?.document2?.originalName}
                             <img
                               className={`${styles.close_image} float-right m-2 img-fluid`}
                               src="/static/close.svg"
@@ -1081,34 +1121,24 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       </td>
                       {/* <td className={styles.doc_row}>28-02-2022,5:30 PM</td> */}
                       <td>
-                        {true ? (
+                        {billOfEntryData.document3 === null ? (
                           <>
                             <div className={styles.uploadBtnWrapper}>
                               <input
                                 type="file"
-                                name="myfile"
+                                name="document3"
                                 accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                onChange={(e) => uploadDocument1(e)}
+                                onChange={(e) => uploadDoc1(e)}
                               />
                               <button className={`${styles.button_upload} btn`}>
                                 Upload
                               </button>
                             </div>
-                            {/* <div className={styles.uploadBtnWrapper}>
-                        <input
-                          type="file"
-                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                          onChange={(e) => uploadDocument1(e)}
-                          name="myfile"
-                        />
-                        <button  className={`${styles.uploadDoc} btn`}>
-                          Upload
-                        </button>
-                        </div> */}
+                           
                           </>
                         ) : (
                           <div className={styles.certificate}>
-                            {/* {lcDoc?.lcDraftDoc?.name} */}
+                            {billOfEntryData?.document3?.originalName}
                             <img
                               className={`${styles.close_image} float-right m-2 img-fluid`}
                               src="/static/close.svg"

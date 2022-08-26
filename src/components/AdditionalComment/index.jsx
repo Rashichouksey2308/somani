@@ -68,6 +68,55 @@ console.log(termsheetDetails,"termsheetDetails")
         }
     }
     const addComment = () => {
+        console.log(inputs,"commentType")
+        if(commentType=="Deliveries/Due Date/Payment"){
+            if(days.day1==''|| days.day1==undefined){
+                 
+            let toastMessage = 'add day 1'
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+                toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            
+             return
+           }
+            }
+        if(days.day2==''|| days.day2==undefined){
+                 
+            let toastMessage = 'add day 2'
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+                toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            
+             return
+           }
+            }
+        }else{
+            if(inputs.input1==''|| inputs.input1==undefined){
+                 
+            let toastMessage = 'add input 1'
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+                toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            
+             return
+           }
+            }  
+             if(inputs.input2==''|| inputs.input2==undefined){
+                 
+            let toastMessage = 'add input 2'
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+                toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            
+             return
+           }
+            } 
+             if(inputs.input3==''|| inputs.input3==undefined){
+                 
+            let toastMessage = 'add input 3'
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+                toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            
+             return
+           }
+            } 
+        }
         setAdditionalComments([...additionalComments, { additionalCommentType: commentType, comment: textGenerator() }])
         setDays({ day1: "", day2: "" })
         setInputs({ input1: "", input2: "", input3: "" })
@@ -89,7 +138,7 @@ console.log(termsheetDetails,"termsheetDetails")
     console.log(comment, "comment")
     return (
         <div className={`${styles.main} vessel_card main`}>
-            <div className={`${styles.head_container} border_color d-flex justify-content-between`} data-toggle="collapse" data-target="#additional" aria-expanded="true" aria-controls="additional">
+            <div className={`${styles.head_container} border_color align-items-center d-flex justify-content-between`} data-toggle="collapse" data-target="#additional" aria-expanded="true" aria-controls="additional">
                 <h3 className={styles.heading}>Additional Comments</h3>
                 <span>+</span>
             </div>
@@ -101,9 +150,10 @@ console.log(termsheetDetails,"termsheetDetails")
                                 <div className={`${styles.form_group} d-flex justify-content-between`} >
                                     <div className='d-flex' style={{ width: "460px" }}>
                                         <select className={`${styles.value} ${styles.customSelect} input form-control`}
-                                         onChange={(e) => {setCommentType(e.target.value)
-                                        setDays({ day1: termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate, day2: termsheetDetails?.paymentDueDate?.daysFromBlDate })
-                                          setInputs({ input1: termsheetDetails?.transactionDetails?.portOfDischarge, input2: "Dr. Amin", input3: "IGM" })}
+                                         onChange={(e) => {
+                                           setCommentType(e.target.value)
+                                           setDays({ day1: termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate, day2: termsheetDetails?.paymentDueDate?.daysFromBlDate })
+                                           setInputs({ input1: termsheetDetails?.transactionDetails?.portOfDischarge, input2: "Dr. Amin", input3: "IGM" })}
                                          } required>
                                             
                                             <option value="Deliveries/Due Date/Payment">Deliveries/Due Date/Payment</option>
