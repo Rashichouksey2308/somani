@@ -247,6 +247,7 @@
       // display: inline-block;
       overflow-y: auto;
       overflow-x: auto;
+      border-radius: 6px;
       .table_scroll_outer {
         width: 100%;
         display: table;
@@ -256,12 +257,15 @@
           display: table-cell;
 
           .table {
+            background-color: #fafafa !important;
+
             th {
               font-size: 15px;
               color: #8492a6;
               font-weight: bold;
               line-height: 18px;
-              padding: 13px 30px;
+              padding-left: 30px;
+              height: 57px;
               white-space: nowrap;
               vertical-align: middle;
               text-transform: uppercase;
@@ -274,6 +278,7 @@
               line-height: 24px;
               padding: 15px 30px;
               white-space: nowrap;
+              //height: 48px;
               vertical-align: middle;
               border: 3px solid #f0f2f6;
 
