@@ -70,9 +70,7 @@ export default function Index({
   }
   const dispatch = useDispatch()
 
-  let shipmentTypeBulk =
-    _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') ===
-    'Bulk'
+  let shipmentTypeBulk = _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') == 'Bulk'
 
   const existingBlData = _get(TransitDetails, `data[0].BL.billOfLanding`, [])
 
@@ -87,11 +85,11 @@ export default function Index({
 
   const handleShow = () => setShow(true)
 
-  useEffect(() => {
-    if (existingBlData.length > 0) {
-      setBolList(existingBlData)
-    }
-  }, [existingBlData])
+  // useEffect(() => {
+  //   if (existingBlData.length > 0) {
+  //     setBolList(existingBlData)
+  //   }
+  // }, [existingBlData])
 
   const [editInput, setEditInput] = useState(true)
   const [shipmentType, setShipmentType] = useState(true)
@@ -153,13 +151,14 @@ export default function Index({
   }
 
   const handleCloseDoc = (e, index) => {
-    setBolList((prevState) => {
-      let items = prevState.items.filter(item=>item.itemid!==index);
-      return {
-        ...prevState,
-        items
-      };
-    });
+
+    let tempArr = [...bolList]
+
+    tempArr[index].e==null
+    console.log(tempArr, 'temp arr', e)
+    setBolList(
+      tempArr
+    );
 
   }
 
@@ -288,7 +287,8 @@ export default function Index({
       '',
     ) === 'Liner'){
 
-    for (let i = 0; i <= bolList.length; i++) {
+    for (let i = 0; i <= bolList.length - 1; i++) {
+      console.log(i, 'INSIDE FOR LOOP', bolList.length)
       if (
         bolList[i]?.vesselName == '' ||
         bolList[i]?.vesselName == undefined
@@ -398,7 +398,9 @@ export default function Index({
     'data[0].order.vessel.vessels[0].shipmentType',
     '',
   ) === 'Bulk'){
-    for (let i = 0; i <= bolList.length; i++) {
+    for (let i = 0; i <= bolList.length - 1; i++) {
+      console.log(i, 'INSIDE FOR LOOP', bolList.length, bolList)
+
       if (
         bolList[i]?.vesselName == '' ||
         bolList[i]?.vesselName == undefined
@@ -537,13 +539,14 @@ export default function Index({
                       name="group1"
                       // disabled={!isShipmentTypeBULK}
                       type={type}
-                      checked={
-                        _get(
-                          TransitDetails,
-                          'data[0].order.vessel.vessels[0].shipmentType',
-                          '',
-                        ) === 'Bulk'
-                      }
+                      // checked={
+                      //   _get(
+                      //     TransitDetails,
+                      //     'data[0].order.vessel.vessels[0].shipmentType',
+                      //     '',
+                      //   ) === 'Bulk'
+                      // }
+                      checked={isShipmentTypeBULK}
                       id={`inline-${type}-1`}
                     />
                     <Form.Check
@@ -552,13 +555,15 @@ export default function Index({
                       label="Liner"
                       name="group1"
                       // disabled={isShipmentTypeBULK}
-                      checked={
-                        _get(
-                          TransitDetails,
-                          'data[0].order.vessel.vessels[0].shipmentType',
-                          '',
-                        ) === 'Liner'
-                      }
+                      // checked={
+                      //   _get(
+                      //     TransitDetails,
+                      //     'data[0].order.vessel.vessels[0].shipmentType',
+                      //     '',
+                      //   ) === 'Liner'
+                      // }
+                      checked={!isShipmentTypeBULK}
+
                       type={type}
                       id={`inline-${type}-2`}
                     />
@@ -1043,7 +1048,7 @@ export default function Index({
                                     Upload
                                   </button>
                                 </div> */}
-                                {bolList && bolList[0]?.blDoc == null ? (
+                                {bolList && bolList[index]?.blDoc == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
@@ -1061,11 +1066,11 @@ export default function Index({
                                   </>
                                 ) : (
                                   <div className={styles.certificate}>
-                                    {bolList[0]?.blDoc?.originalName}
+                                    {bolList[index]?.blDoc?.originalName}
                                     <img
                                       className={`${styles.close_image} float-right ml-2 img-fluid`}
                                       src="/static/close.svg"
-                                      onClick={(e) => handleCloseDoc(e, index)}
+                                      onClick={(e) => handleCloseDoc('blDoc', index)}
                                       alt="Close"
                                     />{' '}
                                   </div>
@@ -1106,7 +1111,7 @@ export default function Index({
                                       </button>
                                     </div> */}
                                     {bolList &&
-                                    bolList[0]?.containerNumberListDoc ==
+                                    bolList[index]?.containerNumberListDoc ==
                                       null ? (
                                       <>
                                         <div
@@ -1130,7 +1135,7 @@ export default function Index({
                                     ) : (
                                       <div className={styles.certificate}>
                                         {
-                                          bolList[0]?.containerNumberListDoc
+                                          bolList[index]?.containerNumberListDoc
                                             ?.originalName
                                         }
                                         <img
@@ -1175,7 +1180,7 @@ export default function Index({
                                       </button>
                                     </div> */}
                                     {bolList &&
-                                    bolList[0]?.packingListDoc == null ? (
+                                    bolList[index]?.packingListDoc == null ? (
                                       <>
                                         <div
                                           className={styles.uploadBtnWrapper}
@@ -1198,7 +1203,7 @@ export default function Index({
                                     ) : (
                                       <div className={styles.certificate}>
                                         {
-                                          bolList[0]?.packingListDoc
+                                          bolList[index]?.packingListDoc
                                             ?.originalName
                                         }
                                         <img
@@ -1316,7 +1321,7 @@ export default function Index({
                               </td>
                               <td>
                                 {bolList &&
-                                bolList[0]?.blSurrenderDoc == null ? (
+                                bolList[index]?.blSurrenderDoc == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
@@ -1334,7 +1339,7 @@ export default function Index({
                                   </>
                                 ) : (
                                   <div className={styles.certificate}>
-                                    {bolList[0]?.blSurrenderDoc?.originalName}
+                                    {bolList[index]?.blSurrenderDoc?.originalName}
                                     <img
                                       className={`${styles.close_image} float-right ml-2 img-fluid`}
                                       src="/static/close.svg"
