@@ -152,10 +152,15 @@ export default function Index({
     }
   }
 
-  const handleCloseDoc = () => {
-    // setBolList(doc => {
-    //   return [...doc, {...doc[0], blSurrenderDoc: null}]
-    // })
+  const handleCloseDoc = (e, index) => {
+    setBolList((prevState) => {
+      let items = prevState.items.filter(item=>item.itemid!==index);
+      return {
+        ...prevState,
+        items
+      };
+    });
+
   }
 
   const onChangeVessel = (e, index) => {
@@ -673,6 +678,7 @@ export default function Index({
                         >
                           <div className="d-flex">
                             <select
+                              id='vesselName'
                               onChange={(e) => onChangeVessel(e, index)}
                               className={`${styles.input_field} ${styles.customSelect}   input form-control`}
                             >
@@ -1130,7 +1136,7 @@ export default function Index({
                                         <img
                                           className={`${styles.close_image} float-right ml-2 img-fluid`}
                                           src="/static/close.svg"
-                                          onClick={() => handleCloseDoc()}
+                                          onClick={(e) => handleCloseDoc(e, index)}
                                           alt="Close"
                                         />{' '}
                                       </div>
@@ -1198,7 +1204,7 @@ export default function Index({
                                         <img
                                           className={`${styles.close_image} float-right ml-2 img-fluid`}
                                           src="/static/close.svg"
-                                          onClick={() => handleCloseDoc()}
+                                          onClick={(e) => handleCloseDoc(e, index)}
                                           alt="Close"
                                         />{' '}
                                       </div>
@@ -1332,7 +1338,7 @@ export default function Index({
                                     <img
                                       className={`${styles.close_image} float-right ml-2 img-fluid`}
                                       src="/static/close.svg"
-                                      onClick={() => handleCloseDoc()}
+                                      onClick={(e) => handleCloseDoc(e, index)}
                                       alt="Close"
                                     />{' '}
                                   </div>
