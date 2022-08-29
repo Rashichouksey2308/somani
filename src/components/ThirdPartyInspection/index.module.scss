@@ -441,6 +441,7 @@
               font-weight: bold;
               line-height: 25px;
               font-size: 20px;
+              cursor: pointer;
               @include respond(md-desktop) {
                 font-size: 17px;
               }
