@@ -2121,7 +2121,7 @@ function Index() {
                                   </label>
                                 </div>
                                 <div className="form-check ml-4">
-                                  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked />
+                                  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"  />
                                   <label className="form-check-label" htmlFor="flexRadioDefault2"
                                     onChange={() => {
                                       setFilterType({

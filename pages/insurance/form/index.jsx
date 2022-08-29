@@ -27,7 +27,7 @@ const Index = () => {
   const { insuranceResponse } = useSelector((state) => state.insurance)
 
   let insuranceData = _get(insuranceResponse, 'data[0]', {})
-  console.log(insuranceData, 'This is InsuranceData')
+  console.log(insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.laycanFrom, 'This is InsuranceData')
 
 
   const [quotationData, setQuotationData] = useState({
@@ -442,9 +442,7 @@ console.log(quotationData,"quotationData")
                                 saveDate={saveDate}
                                 defaultDate={
                                  
-                                    _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanFrom', '')?.split(
-                                    'T',
-                                  )[0]
+                                    _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanFrom', '')
                                   
                                 }
                                 labelName="Laycan from"
@@ -461,9 +459,7 @@ console.log(quotationData,"quotationData")
                               <DateCalender
                                 name="laycanTo"
                                 defaultDate={
-                                 _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanTo', '')?.split(
-                                    'T',
-                                  )[0]
+                                 _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanTo', '')
                                 }
                                 saveDate={saveDate}
                                 labelName="Laycan to"
@@ -480,9 +476,7 @@ console.log(quotationData,"quotationData")
                               <DateCalender
                                 name="expectedTimeOfDispatch"
                                 defaultDate={
-                                  moment(_get(insuranceData, 'order.vessel.vessels[0].transitDetails.EDTatLoadPort', '')?.split(
-                                    'T',
-                                  )[0]).toDate
+                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.EDTatLoadPort', '')
                                 }
                                 saveDate={saveDate}
                                 labelName="Expected time of Dispatch"
@@ -499,9 +493,7 @@ console.log(quotationData,"quotationData")
                               <DateCalender
                                 name="expectedTimeOfArrival"
                                 defaultDate={
-                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.ETAatDischargePort','')?.split(
-                                    'T',
-                                  )[0]
+                                 _get(insuranceData, 'order.vessel.vessels[0].transitDetails.ETAatDischargePort','')
                                 }
                                 saveDate={saveDate}
                                 labelName="Expected time of Arrival"
@@ -702,9 +694,7 @@ console.log(quotationData,"quotationData")
                               <DateCalender
                                 name="laycanFrom"
                                 defaultDate={
-                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanFrom', '')?.split(
-                                    'T',
-                                  )[0]
+                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanFrom', '')
                                 }
                                 saveDate={saveDate}
                                 labelName="Laycan from"
@@ -721,9 +711,7 @@ console.log(quotationData,"quotationData")
                               <DateCalender
                                 name="laycanTo"
                                 defaultDate={
-                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanTo', '')?.split(
-                                    'T',
-                                  )[0]
+                                 _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanTo', '')
                                 }
                                 saveDate={saveDate}
                                 labelName="Laycan to"
@@ -740,9 +728,7 @@ console.log(quotationData,"quotationData")
                               <DateCalender
                                 name="expectedTimeOfDispatch"
                                 defaultDate={
-                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.EDTatLoadPort', '')?.split(
-                                    'T',
-                                  )[0]
+                                 _get(insuranceData, 'order.vessel.vessels[0].transitDetails.EDTatLoadPort', '')
                                 }
                                 saveDate={saveDate}
                                 labelName="Expected time of Dispatch"
@@ -759,9 +745,7 @@ console.log(quotationData,"quotationData")
                               <DateCalender
                                 name="expectedTimeOfArrival"
                                 defaultDate={
-                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.ETAatDischargePort', '')?.split(
-                                    'T',
-                                  )[0]
+                                  _get(insuranceData, 'order.vessel.vessels[0].transitDetails.ETAatDischargePort', '')
                                 }
                                 saveDate={saveDate}
                                 labelName="Expected time of Arrival"

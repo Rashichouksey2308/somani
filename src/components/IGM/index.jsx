@@ -97,6 +97,7 @@ export default function Index({
         },
       ],
     })
+    setIgmList(tempArray)
   }
 
   const onChangeIgm = (name, text) => {
