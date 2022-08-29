@@ -1,4 +1,4 @@
-import * as types from './actionsType'
+import * as types from './actions'
 
 const initialState = {
   allGeneric: [],
