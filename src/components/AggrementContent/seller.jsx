@@ -722,7 +722,7 @@ setEditAddress(
                           <td>{val.email}</td>
                           <td>{val.phoneNo}</td>
                           <td className={`d-flex`}>
-                          <img className={`${styles.image} mr-2`} onClick={()=>(onEdit(index))} src="/static/mode_edit.svg" alt="edit"/>
+                          <img className={`${styles.image} mr-3`} onClick={()=>(onEdit(index))} src="/static/mode_edit.svg" alt="edit"/>
                           <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg" alt="delete"/>
                           </td>
 
@@ -794,7 +794,7 @@ setEditAddress(
                               onEditRemove(index)
                               }}
                             >
-                              <img className={`${styles.image} img-fluid mr-3`} src="/static/save-3.svg" alt="save"/>
+                              <img className={`${styles.image} mr-3`} src="/static/save-3.svg" alt="save"/>
                             </div>
                             <div
                               className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center`}
@@ -871,7 +871,7 @@ setEditAddress(
                       </td>
                       </td>
                       <td className={`d-flex`}>
-                        {/* <img  className={`img-fluid mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
+                        {/* <img  className={`mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
                         <img  src="/static/upload.svg" alt="upload"/>
                       </td>
                       </tr>
@@ -913,7 +913,7 @@ setEditAddress(
                     )}
                       </td>
                       <td className={`d-flex`}>
-                        {/* <img onClick={()=>removeDocArr(index)} className={`img-fluid mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
+                        {/* <img onClick={()=>removeDocArr(index)} className={`mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
                         <img src="/static/upload.svg" alt="upload"/>
                       </td>
 

@@ -700,7 +700,7 @@ setEditAddress(
                           {/* <td>{val.email}</td>
                           <td>{val.phone}</td> */}
                           <td className={`d-flex`}>
-                            <img onClick={()=>(onEdit(index))} className={`${styles.image} img-fluid mr-3`} src="/static/mode_edit.svg" alt="edit"/>
+                            <img onClick={()=>(onEdit(index))} className={`${styles.image} mr-3`} src="/static/mode_edit.svg" alt="edit"/>
                             <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img>
                           </td>
 
@@ -743,7 +743,7 @@ setEditAddress(
                           }}
                           ></input></td> */}
                           <td className={`d-flex`}>
-                            <img onClick={()=>(onEditRemove(index))} className={`${styles.image} img-fluid mr-3`} src="/static/mode_edit.svg" alt="edit"/>
+                            <img onClick={()=>(onEditRemove(index))} className={`${styles.image} mr-3`} src="/static/save-3.svg" alt="save"/>
                             <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img>
                           </td>
 
