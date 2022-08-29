@@ -5,16 +5,21 @@ import styles from './index.module.scss'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllTermsheet, GetTermsheet } from 'redux/buyerProfile/action'
-import { setPageName, setDynamicName,setDynamicOrder } from '../../redux/userData/action'
+import { setPageName, setDynamicName, setDynamicOrder } from '../../redux/userData/action'
+import { SearchLeads } from 'redux/buyerProfile/action'
 import { getDisplayName } from 'next/dist/shared/lib/utils'
 import Filter from '../Filter'
 import moment from 'moment'
 
 function Index() {
   const [currentPage, setCurrentPage] = useState(0);
+  const [serachterm, setSearchTerm] = useState("");
+
 
   const dispatch = useDispatch()
   const { allTermsheets } = useSelector((state) => state.order)
+  const { searchedLeads } = useSelector((state) => state.order)
+
 
   useEffect(() => {
     dispatch(getAllTermsheet(`?page=${currentPage}&limit=7`))
@@ -25,6 +30,21 @@ function Index() {
     sessionStorage.setItem('termsheetId', sheet.company._id)
     Router.push('/termsheet/order-list')
   }
+
+  const handleSearch = (e) => {
+    const query = `${e.target.value}`
+    setSearchTerm(query)
+    if (query.length >= 3) {
+      dispatch(SearchLeads(query))
+    }
+  }
+
+  const handleFilteredData = (e) => {
+    setSearchTerm("")
+    const id = `${e.target.id}`
+    dispatch(getAllTermsheet(`?company=${id}`))
+  }
+
   return (
     <>
       {' '}
@@ -44,11 +64,20 @@ function Index() {
                   />
                 </div>
                 <input
+                  value={serachterm}
+                  onChange={handleSearch}
                   type="text"
                   className={`${styles.formControl} form-control formControl `}
                   placeholder="Search"
                 />
               </div>
+              {searchedLeads && serachterm && <div className={styles.searchResults}>
+                <ul>
+                  {searchedLeads?.data?.data?.map((results, index) => (
+                    <li onClick={handleFilteredData} id={results._id} key={index}>{results.companyName} <span>{results.customerId}</span></li>
+                  ))}
+                </ul>
+              </div>}
             </div>
             <Filter />
             {/* <a href="#" className={`${styles.filterList} filterList`}>
@@ -131,19 +160,19 @@ function Index() {
                           {sheet.status}
                         </td>
                         <td>
-                          <img
+                          {sheet.status === 'Approved' ? <img
                             src="/static/preview.svg"
                             className="img-fluid"
                             alt="Preview"
                             onClick={() => {
                               dispatch(GetTermsheet(`?company=${sheet.company._id}`))
-                              console.log(sheet.order,"sheet.order")
+                              console.log(sheet.order, "sheet.order")
                               dispatch(setDynamicName(sheet.order.orderId))
                               // dispatch(setDynamicOrder(sheet.))
                               Router.push("/termsheet-preview")
                             }}
 
-                          />
+                          /> : null}
                         </td>
                       </tr>
                     ))}

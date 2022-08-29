@@ -141,7 +141,7 @@ const index = ({ saveShipmentData, shipment }) => {
                     name="lastDateOfShipment"
                     saveDate={saveDate}
                     labelName="Last date of shipment"
-                    startFrom={dateStartFrom.eta}
+                    startFrom={moment(shipment.ETAofDischarge.toDate).add(1, 'days').toDate()}
                      
                   />
                   <img

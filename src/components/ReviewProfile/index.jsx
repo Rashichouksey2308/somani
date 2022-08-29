@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/jsx-key */
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { DropdownButton, Dropdown, Form } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
@@ -13,7 +13,10 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
     '🚀 ~ file: index.jsx ~ line 9 ~ Index ~ reviewedProfile',
     reviewedProfile?.orderValues?.apiResponse,
   )
-  const [transactionTypeDropdown,settransactionTypeDropdown] = useState(['Import', 'Domestic'])
+  const [transactionTypeDropdown, settransactionTypeDropdown] = useState([
+    'Import',
+    'Domestic',
+  ])
   const commodityDropdown = ['Iron', 'Crude', 'Steel']
   const countryOfOriginDropdown = ['America', 'India', 'Russia']
   const portOfDischargeDropdown = [
@@ -22,24 +25,22 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
     'Vishakapatnam, India',
   ]
   useEffect(() => {
-   if(reviewedProfile){
-     if(reviewedProfile?.transactionType?.originalValue=="Domestic"){
-      settransactionTypeDropdown(["Import"])
-     }else if(reviewedProfile?.transactionType?.originalValue=="Import"){
-       settransactionTypeDropdown(["Domestic"])
-     }else{
-      settransactionTypeDropdown(['Import', 'Domestic'])
-     }
-   }
-  },[reviewedProfile])
+    if (reviewedProfile) {
+      if (reviewedProfile?.transactionType?.originalValue == 'Domestic') {
+        settransactionTypeDropdown(['Import'])
+      } else if (reviewedProfile?.transactionType?.originalValue == 'Import') {
+        settransactionTypeDropdown(['Domestic'])
+      } else {
+        settransactionTypeDropdown(['Import', 'Domestic'])
+      }
+    }
+  }, [reviewedProfile])
   const typeOfBusinessDropdown = ['Manufacturer', 'Trader', 'Retail']
-  
+
   console.log(
-     moment(
-                         reviewedProfile?.ExpectedDateOfShipment?.originalValue.split(
-                        'T',
-                      )[0],
-                    ).add(90, 'days').toDate(),
+    moment(reviewedProfile?.ExpectedDateOfShipment?.originalValue.split('T')[0])
+      .add(90, 'days')
+      .toDate(),
     'reviewedProfile?.orderValue?.originalValue',
   )
   const DropDown = (values, name, disabled) => {
@@ -231,7 +232,8 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                   <td>
                     {CovertvaluefromtoCR(
                       reviewedProfile?.turnOver?.originalValue,
-                    )}{" "}Cr
+                    )}{' '}
+                    Cr
                   </td>
                   <td>
                     <div className={styles.tick}>
@@ -311,7 +313,8 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                   <td>
                     {CovertvaluefromtoCR(
                       reviewedProfile?.orderValue?.originalValue,
-                    )}{" "}Cr
+                    )}{' '}
+                    Cr
                   </td>
                   <td>
                     <div className={styles.tick}>
@@ -466,27 +469,17 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                       //   }
                       //   disabled={fields[8]?.isEdit}
                       // />
-                       <DateCalender
+                      <DateCalender
                         name="ExpectedDateOfShipment"
-                        saveDate={(name,value)=>{ 
-                        handleChange(name, value)
+                        saveDate={(name, value) => {
+                          handleChange(name, value)
                         }}
-
                         disabled={fields[7]?.isEdit}
                         labelName=""
-                        maxDate={
-                          moment(
-                         reviewedProfile?.ExpectedDateOfShipment?.originalValue.split(
-                        'T',
-                      )[0],
-                    ).add(90, 'days').toDate()}
-                       lastDate={
-                          moment(
-                         reviewedProfile?.ExpectedDateOfShipment?.originalValue.split(
-                        'T',
-                      )[0],
-                    ).toDate()}
-                      small={true}
+                        maxDate={moment(
+                          reviewedProfile?.ExpectedDateOfShipment?.originalValue?.split('T')[0]).add(90, 'days').toDate()}
+                        lastDate={moment(reviewedProfile?.ExpectedDateOfShipment?.originalValue.split('T')[0]).toDate()}
+                        small={true}
                       />
                     )}
                   </td>

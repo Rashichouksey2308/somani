@@ -37,6 +37,13 @@
             line-height: 41px;
             margin: 0;
             padding-left: 18px;
+            text-transform: lowercase;
+            &:first-letter {
+                text-transform: uppercase;
+            }
+            &:first-line {
+                text-transform: capitalize;
+            }
             @include respond(phone) {
                 font-size: $font_size_mobile_head;
                 margin: 0px;

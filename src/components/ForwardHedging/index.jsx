@@ -29,7 +29,7 @@ export default function Index() {
 
   let hedgingData = _get(allForwardHedging, 'data[0]', '')
   let hedgingDataDetail = _get(allForwardHedging, 'data[0].detail[0]', {})
-  // console.log(hedgingData, "THIS IS HEDGING DATA")
+  console.log(hedgingData, "THIS IS HEDGING DATA")
 
   const [list, setList] = useState([{
     bankName: '',
@@ -85,9 +85,20 @@ export default function Index() {
   }
 
   const saveHedgingData = (name, value, index) => {
-    let newInput = { ...list }
-    newInput[name] = value
-    setList(newInput)
+    // const name = name
+    // const value = value
+    setList((prevState) => {
+      const newState = prevState.map((obj, i) => {
+        if (i == index) {
+          return {
+            ...obj,
+            [name]: value,
+          }
+        }
+        return obj
+      })
+      return newState
+    })
   }
 
   const saveDate = (value, name, index) => {
@@ -195,7 +206,7 @@ export default function Index() {
     // fd.append('forwardSalesContract', list?.forwardSalesContract)
     let obj = {
       forwardHedgingId: hedgingData?._id,
-      detail: { ...hedgingObj }
+      detail: [ hedgingObj ]
     }
 
     dispatch(UpdateForwardHedging(obj))
@@ -211,7 +222,7 @@ export default function Index() {
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
             />
-            <h1 className={`${styles.heading}`}>Ramkrishanan Traders </h1>
+            <h1 className={`${styles.heading}`}>{hedgingData?.company?.companyName} </h1>
           </div>
           <div
             className={`${styles.vessel_card} vessel_card border_color`}
@@ -246,8 +257,8 @@ export default function Index() {
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           >
                             <option selected>Select an option</option>
-                            <option>Indo German</option>
-                            <option>N/A</option>
+                            <option value='Indo German'>Indo German</option>
+                            <option value='Emergent Solutions'>Emergent Solutions</option>
                           </select>
                           <label
                             className={`${styles.label_heading} label_heading`}

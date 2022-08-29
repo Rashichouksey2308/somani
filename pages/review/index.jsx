@@ -346,107 +346,106 @@ function Index() {
       : (newInput[name] = value)
     setShipment(newInput)
   }
-
-  const onOrderSave = () => {
-    if (orderDetails?.transactionType?.trim() === '') {
+  const orderValidation=()=>{
+     if (orderDetails?.transactionType?.trim() === '' || orderDetails?.transactionType?.trim() == undefined) {
       let toastMessage = 'Invalid Transaction Type'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    } else if (orderDetails?.commodity?.trim() === '') {
+      return false
+    }  if (orderDetails?.commodity?.trim() === '' || orderDetails?.commodity?.trim() == undefined) {
       let toastMessage = 'the Commodity can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    } else if (orderDetails?.quantity === '') {
+      return false
+    }  if (orderDetails?.quantity === ''|| orderDetails?.quantity?.trim() == undefined) {
       let toastMessage = 'Quantity can not be Empty '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    } else if (orderDetails?.unitOfQuantity?.trim() === '') {
+      return false
+    }  if (orderDetails?.unitOfQuantity?.trim() === ''|| orderDetails?.unitOfQuantity?.trim() == undefined) {
       let toastMessage = 'Please Provide a unit Of Quantity  '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    } else if (orderDetails?.orderValue === '') {
+      return false
+    }  if (orderDetails?.orderValue === '' || orderDetails?.orderValue?.trim() == undefined || orderDetails?.orderValue?.trim() == NaN) {
       let toastMessage = 'Please Check the orderValue  '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
+      return false
     }
-    // else if (orderDetails?.orderCurrency?.trim() === '') {
-    //   let toastMessage = 'the orderCurrency can not be Empty'
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //   }
-    //   return
-    // }
-    else if (orderDetails?.unitOfValue?.trim() === '') {
+  
+     if (orderDetails?.unitOfValue?.trim() === '' || orderDetails?.unitOfValue?.trim() == undefined ) {
       let toastMessage = 'Please Set the unit of value'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    } else if (orderDetails?.supplierName?.trim() === '') {
+      return false
+    }  if (orderDetails?.supplierName?.trim() === '' || orderDetails?.supplierName?.trim() == undefined) {
       let toastMessage = 'the supplier Name can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    } else if (orderDetails?.countryOfOrigin?.trim() === '') {
+      return false
+    }  if (orderDetails?.countryOfOrigin?.trim() === '' || orderDetails?.countryOfOrigin?.trim() == undefined) {
       let toastMessage = 'the country Of Origin can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    } else if (orderDetails?.portOfDischarge?.trim() === '') {
+      return false
+    }  if (orderDetails?.portOfDischarge?.trim() === ''|| orderDetails?.portOfDischarge?.trim() == undefined) {
       let toastMessage = 'the port Of Discharge can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    } else if (orderDetails?.ExpectedDateOfShipment?.trim() === '') {
+      return false
+    }  if (orderDetails?.ExpectedDateOfShipment?.trim() === '' || orderDetails?.ExpectedDateOfShipment?.trim() == undefined) {
       let toastMessage = 'the Expected Date Of Shipment can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    } else if (orderDetails?.incoTerm?.trim() === '') {
+      return false
+    }  if (orderDetails?.incoTerm?.trim() === '' || orderDetails?.incoTerm?.trim() == undefined) {
       let toastMessage = 'the incoTerm can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    } else if (orderDetails?.grade?.trim() === '') {
+      return false
+    }  if (orderDetails?.grade?.trim() === '' || orderDetails?.grade?.trim() == undefined) {
       let toastMessage = 'the grade can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    } else if (orderDetails?.tolerance === '') {
+      return false
+    }  if (orderDetails?.tolerance === ''|| orderDetails?.tolerance == undefined) {
       let toastMessage = 'the tolerance can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    } else if (orderDetails?.transactionPeriodDays === '') {
+      return false
+    }  if (orderDetails?.transactionPeriodDays === ''|| orderDetails?.transactionPeriodDays == undefined) {
       let toastMessage = 'the transaction Period Days can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    } else if (orderDetails?.manufacturerName?.trim() === '') {
+      return false
+    }  if (orderDetails?.manufacturerName?.trim() === ''|| orderDetails?.manufacturerName?.trim() == undefined) {
       let toastMessage = 'the manufacturer Name can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    } else {
+      return false
+    }
+    return true
+  }
+  console.log(orderDetails,"orderDetails")
+  const onOrderSave = () => {
+    if(orderValidation()){
+     
       let orderToSend = { ...orderDetails }
       orderToSend.quantity = removePrefixOrSuffix(orderDetails.quantity)
       orderToSend.orderValue =
@@ -456,7 +455,7 @@ function Index() {
         const obj = {
           ...orderToSend,
           shipmentDetail: { ...shipment },
-          order: orderList._id,
+          order: orderList?._id,
           orderValue: removePrefixOrSuffix(orderDetails.orderValue) * 10000000,
         }
         dispatch(UpdateOrderShipment(obj))
@@ -464,11 +463,12 @@ function Index() {
         const obj = {
           ...orderToSend,
           shipmentDetail: { ...shipment },
-          order: orderList._id,
+          order: orderList?._id,
         }
         dispatch(UpdateOrderShipment(obj))
       }
     }
+    
   }
 
   const [product, setProduct] = useState()
@@ -967,8 +967,110 @@ function Index() {
     })
     setPersonData(tempArr)
   }
-
+  console.log(supplierCred,"product")
+const creditValidation=()=>{
+   if (product.monthlyProductionCapacity ==""||product.monthlyProductionCapacity == undefined) {
+      let toastMessage = 'Please add  monthly Production Capacitye'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+      if (product.capacityUtilization ==""||product.capacityUtilization == undefined) {
+      let toastMessage = 'Please add  capacity Utilization'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+       if (product.averageStockOfCommodity ==""||product.averageStockOfCommodity == undefined) {
+      let toastMessage = 'Please add  average Stock Of Commodity'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+       if (product.averageStockInTransit ==""||product.averageStockInTransit == undefined) {
+      let toastMessage = 'Please add  average Stock In Transit'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+      if (product.AvgMonthlyElectricityBill ==""||product.AvgMonthlyElectricityBill == undefined) {
+      let toastMessage = 'Please add  Avg Monthly Electricity Bill'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+       if (product.availableStock ==""||product.availableStock == undefined) {
+      let toastMessage = 'Please add  available Stock'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+      if (supplierCred.supplierName ==""||supplierCred.supplierName == undefined) {
+      let toastMessage = 'Please add supplier Name'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+       if (supplierCred.shipmentNumber ==""||supplierCred.shipmentNumber == undefined) {
+      let toastMessage = 'Please add number of shipment'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+      if (supplierCred.consigneesNumber ==""||supplierCred.consigneesNumber == undefined) {
+      let toastMessage = 'Please add consignees Number'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+       if (supplierCred.HSCodesNumber ==""||supplierCred.HSCodesNumber == undefined) {
+      let toastMessage = 'Please add HS Codes '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+      if (supplierCred.countryOfOrigin ==""||supplierCred.countryOfOrigin == undefined) {
+      let toastMessage = 'Please add country Of Origin '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+       if (supplierCred.portOfDestination ==""||supplierCred.portOfDestination == undefined) {
+      let toastMessage = 'Please add port Of Destination '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+         if (supplierCred.oldestShipmentDate ==""||supplierCred.oldestShipmentDate == undefined) {
+      let toastMessage = 'Please add oldest Shipment Date '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+      if (supplierCred.latestShipmentDate ==""||supplierCred.latestShipmentDate == undefined) {
+      let toastMessage = 'Please add latest Shipment Date '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+      return true
+}
   const onCreditSave = () => {
+    if(creditValidation()){
     let tempPerson = [...personData]
     tempPerson.forEach((val, index) => {
       delete val.isEdit
@@ -1006,6 +1108,7 @@ function Index() {
     }
     // console.log(obj, "credit obj")
     dispatch(UpdateCredit(obj))
+  }
   }
 
   const filteredCreditRating =
@@ -2121,7 +2224,7 @@ function Index() {
                                   </label>
                                 </div>
                                 <div className="form-check ml-4">
-                                  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked />
+                                  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"  />
                                   <label className="form-check-label" htmlFor="flexRadioDefault2"
                                     onChange={() => {
                                       setFilterType({

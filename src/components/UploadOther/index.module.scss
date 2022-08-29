@@ -75,6 +75,7 @@
           text-decoration: underline;
           font-size: 19px;
           color: #3687e8;
+          cursor: pointer;
           @include respond(md-desktop) {
             font-size: 17px;
           }

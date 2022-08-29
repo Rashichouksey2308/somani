@@ -137,7 +137,7 @@ export default function Index({ isQuery }) {
     if ('generic' == pageName) {
       if (id !== null) {
         router.route =
-          '/Agreements & LC Module' + '/Generic' + `/${id.toLowerCase()}` + '/Order ID'
+          '/Agreements & LC Module' + '/Generic' + `/${id}` + '/Order ID'
         console.log('router123', router.route)
       } else {
         router.route = '/Agreements & LC Module' + '/Generic'

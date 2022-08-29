@@ -30,7 +30,8 @@ const Index = ({ orderid, module, isDocumentName }) => {
     'LeadOnboarding&OrderApproval',
   )
   const [filteredDoc, setFilteredDoc] = useState([])
-
+  const [currentDoc, setCurrentDoc] = useState('')
+  console.log(newDoc, 'newDOc')
   useEffect(() => {
     sessionStorage.setItem('docFetchID', orderid)
     const tempArray = documentsFetched?.documents?.filter((doc) => {
@@ -68,10 +69,22 @@ const Index = ({ orderid, module, isDocumentName }) => {
     if (e.target.value === 'others') {
       setManualDocModule(false)
     } else {
+      document.getElementById('otherDocName').value = ''
       setManualDocModule(true)
       setNewDoc({ ...newDoc, name: e.target.value })
     }
   }
+
+
+  const handleCloseDoc = () => {
+    setNewDoc({
+      document: [],
+      order: orderid,
+      name: '',
+      module: module,
+    })
+  }
+
   const uploadDocument2 = (e) => {
     const newUploadDoc1 = { ...newDoc }
     newUploadDoc1.document = e.target.files[0]
@@ -90,6 +103,12 @@ const Index = ({ orderid, module, isDocumentName }) => {
     fd.append('name', newDoc.name)
 
     dispatch(AddingDocument(fd))
+    setNewDoc({
+      document: [],
+      order: orderid,
+      name: '',
+      module: module,
+    })
   }
   const [filterValue, setFilterValue] = useState('')
   const filterDocBySearch = (val) => {
@@ -136,19 +155,34 @@ const Index = ({ orderid, module, isDocumentName }) => {
                     src="/static/browse.svg"
                     alt="Browse"
                   />
-                  <p className={styles.drop_para}>
-                    Drop Files here or
-                    <br />
-                    <div className={styles.uploadBtnWrapper}>
-                      <input
-                        onChange={(e) => uploadDocument2(e)}
-                        type="file"
-                        name="myfile"
-                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                      />
-                      <a href="#">Browse</a>
+                  {newDoc?.document?.name ?
+                    <div className={styles.certificate}>
+                      {newDoc?.document?.name}
+                      <img
+                        className={`${styles.close_image} float-right ml-2 img-fluid`}
+                        src="/static/close.svg"
+                        onClick={(e) => handleCloseDoc()}
+                        alt="Close"
+                      />{' '}
                     </div>
-                  </p>
+
+
+                    : <p className={styles.drop_para}>
+                      Drop Files here or
+                      <br />
+                      <div className={styles.uploadBtnWrapper}>
+                        <input
+                          onChange={(e) => uploadDocument2(e)}
+                          type="file"
+                          name="myfile"
+                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                        />
+
+
+
+                        <a href="#">Browse</a>
+                      </div>
+                    </p>}
                 </div>
               </div>
               <div className="col-md-4 offset-md-1 col-sm-6">
@@ -316,6 +350,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                 </Form.Group>
                 <Form.Group className={`${styles.form_group}`}>
                   <input
+                    id='otherDocName'
                     onChange={(e) =>
                       setNewDoc({ ...newDoc, name: e.target.value })
                     }

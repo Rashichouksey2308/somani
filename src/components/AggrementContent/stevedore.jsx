@@ -743,7 +743,7 @@ const addDoc=(e,index)=>{
                           <td>{val.email}</td>
                           <td>{val.phoneNo}</td>
                           <td className={`d-flex`}>
-                          <img className={`${styles.image} mr-2`} onClick={()=>(onEdit(index))} src="/static/mode_edit.svg" alt="edit"/>
+                          <img className={`${styles.image} mr-3`} onClick={()=>(onEdit(index))} src="/static/mode_edit.svg" alt="edit"/>
                           <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg" alt="delete"/>
                           </td>
 
@@ -815,7 +815,7 @@ const addDoc=(e,index)=>{
                               onEditRemove(index)
                               }}
                             >
-                              <img className={`${styles.image} img-fluid mr-3`} src="/static/save-3.svg" alt="save"/>
+                              <img className={`${styles.image} mr-3`} src="/static/save-3.svg" alt="save"/>
                             </div>
                             <div
                               className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center`}
@@ -891,7 +891,7 @@ const addDoc=(e,index)=>{
                       </td>
                       </td>
                       <td className={`d-flex`}>
-                        {/* <img  className={`img-fluid mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
+                        {/* <img  className={`mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
                         <img  src="/static/upload.svg" alt="upload"/>
                       </td>
                       </tr>
