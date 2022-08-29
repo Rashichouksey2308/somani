@@ -206,7 +206,7 @@ export default function Index() {
     // fd.append('forwardSalesContract', list?.forwardSalesContract)
     let obj = {
       forwardHedgingId: hedgingData?._id,
-      detail: { ...hedgingObj }
+      detail: [ hedgingObj ]
     }
 
     dispatch(UpdateForwardHedging(obj))
