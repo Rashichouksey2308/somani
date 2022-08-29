@@ -652,7 +652,7 @@ export default function Index({
                                     <img
                                       onClick={() => onAddBlNumber(index2)}
                                       src="/static/add-btn.svg"
-                                      className="img-fluid ml-5"
+                                      className={`${styles.delete_image} img-fluid ml-5`}
                                       alt="Add"
                                     />
                                   ) : null}
@@ -662,7 +662,7 @@ export default function Index({
                                         onRemoveBlNumber(index, index2)
                                       }
                                       src="/static/delete 2.svg"
-                                      className="img-fluid ml-5"
+                                      className={`${styles.delete_image} img-fluid ml-5`}
                                       alt="delete"
                                     />
                                   ) : null}
@@ -730,7 +730,7 @@ export default function Index({
                                       <img
                                         onClick={() => onAddBlNumber(index2)}
                                         src="/static/add-btn.svg"
-                                        className="img-fluid ml-5"
+                                        className={`${styles.delete_image} img-fluid ml-5`}
                                         alt="Add"
                                       />
                                     ) : null}
@@ -740,7 +740,7 @@ export default function Index({
                                           onRemoveBlNumber(index, index2)
                                         }
                                         src="/static/delete 2.svg"
-                                        className="img-fluid ml-5"
+                                        className={`${styles.delete_image} img-fluid ml-5`}
                                         alt="delete"
                                       />
                                     ) : null}
