@@ -35,7 +35,11 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
   const typeOfBusinessDropdown = ['Manufacturer', 'Trader', 'Retail']
   
   console.log(
-    reviewedProfile?.orderValue?.originalValue,
+     moment(
+                         reviewedProfile?.ExpectedDateOfShipment?.originalValue.split(
+                        'T',
+                      )[0],
+                    ).add(90, 'days').toDate(),
     'reviewedProfile?.orderValue?.originalValue',
   )
   const DropDown = (values, name, disabled) => {
@@ -462,7 +466,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                       //   }
                       //   disabled={fields[8]?.isEdit}
                       // />
-                <DateCalender
+                       <DateCalender
                         name="ExpectedDateOfShipment"
                         saveDate={(name,value)=>{ 
                         handleChange(name, value)
@@ -470,7 +474,19 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
 
                         disabled={fields[7]?.isEdit}
                         labelName=""
-                        small={true}
+                        maxDate={
+                          moment(
+                         reviewedProfile?.ExpectedDateOfShipment?.originalValue.split(
+                        'T',
+                      )[0],
+                    ).add(90, 'days').toDate()}
+                       lastDate={
+                          moment(
+                         reviewedProfile?.ExpectedDateOfShipment?.originalValue.split(
+                        'T',
+                      )[0],
+                    ).toDate()}
+                      small={true}
                       />
                     )}
                   </td>

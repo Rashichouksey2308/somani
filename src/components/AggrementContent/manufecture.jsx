@@ -255,7 +255,7 @@ let arrayToSave={
   if(value=="addnew"){
   arrayToSave={
     name:"",designation:"",email:"",phoneNo:"",
-    actions:"false",addnew:"true"
+    actions:"false",addnew:"true",document:"new"
   }
     setDocList([...docList,{attachDoc:"",index:index}])
   }else{
@@ -288,7 +288,37 @@ let arrayToSave={
 }
 const handleChangeInput2=(name2,value,index)=>{
 
+ const addDoc=(e,index)=>{
+    setDocList(prevState => {
+      const newState = prevState.map((obj ,i)=> {
+    
+        if (i == index) {
+          return {...obj, attachDoc: e};
+        }
 
+      
+        return obj;
+      });
+
+      return newState;
+    });
+    setList(prevState => {
+      const newState = prevState.map((obj ,i)=> {
+       
+        if (obj.document) {
+         console.log(obj.document,"obj.document")
+         if(obj.document="new"){
+           return {...obj, document: e};
+         }
+        }
+
+        
+        return obj;
+      });
+
+      return newState;
+    });
+ }
 
 
 setList(prevState => {
@@ -1070,7 +1100,8 @@ setEditAddress(
                           onChange={(e) => {
                             // addDoc(e.target.files[0], index)
                             // uploadDocument2(e)
-                            setdoc({attachDoc:e.target.files[0].name})
+                             let data = await props.uploadDoc(e)
+                           console.log(data,"upload")
                           }}
                         />
                         <button className={`${styles.button_upload} btn`}>
@@ -1079,7 +1110,7 @@ setEditAddress(
                       </div>
                     ) : (
                       <div className={styles.certificate}>
-                        {doc.attachDoc}
+                        {doc.attachDoc.originalName}
                         <img
                           className={`${styles.close_image} float-right m-2 img-fluid`}
                           src="/static/close.svg"
@@ -1112,6 +1143,8 @@ setEditAddress(
                           name="myfile"
                           accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                           onChange={(e) => {
+                             let data = await props.uploadDoc(e)
+                              addDoc(data, index)
                             // addDoc(e.target.files[0], index)
                             // uploadDocument2(e)
                           }}
@@ -1122,7 +1155,7 @@ setEditAddress(
                       </div>
                     ) : (
                       <div className={styles.certificate}>
-                        {val.attachDoc.name}
+                        {val.attachDoc.originalName}
                         <img
                           className={`${styles.close_image} float-right m-2 img-fluid`}
                           src="/static/close.svg"

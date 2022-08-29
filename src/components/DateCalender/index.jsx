@@ -14,7 +14,8 @@ const Index = ({
   setStartDateFrom,
   startFrom,
   disabled,
-  small
+  small,
+  maxDate
 }) => {
   const [startDate, setStartDate] = useState(null)
   const [lastDate, setlastDate] = useState()
@@ -52,6 +53,7 @@ const Index = ({
             console.log(startDate, name, 'Event')
           }}
            minDate={lastDate}
+           maxDate={maxDate}
            disabled={disabled?disabled:false}
            
         />
