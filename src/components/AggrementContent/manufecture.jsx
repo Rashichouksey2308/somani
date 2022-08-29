@@ -1184,7 +1184,7 @@ setEditAddress(
          
         <div className={styles.manufacture}>
          <div className={`${styles.addressContainer} m-0`}>
-          {multiList.length>0?<span className={`mb-3`}> {props.multiPartValue} Addresses</span>:null}
+          {multiList?.length > 0 ? <span className={`mb-3`}> {props.multiPartValue} Addresses</span>:null}
           <div className={`${styles.containerChild} d-flex justify-content-between flex-wrap  `}>
            {multiList?.map((val,index)=>{
             return(
