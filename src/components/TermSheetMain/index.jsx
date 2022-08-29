@@ -5,7 +5,7 @@ import styles from './index.module.scss'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllTermsheet, GetTermsheet } from 'redux/buyerProfile/action'
-import { setPageName, setDynamicName } from '../../redux/userData/action'
+import { setPageName, setDynamicName,setDynamicOrder } from '../../redux/userData/action'
 import { getDisplayName } from 'next/dist/shared/lib/utils'
 import Filter from '../Filter'
 import moment from 'moment'
@@ -137,7 +137,9 @@ function Index() {
                             alt="Preview"
                             onClick={() => {
                               dispatch(GetTermsheet(`?company=${sheet.company._id}`))
+                              console.log(sheet.order,"sheet.order")
                               dispatch(setDynamicName(sheet.order.orderId))
+                              // dispatch(setDynamicOrder(sheet.))
                               Router.push("/termsheet-preview")
                             }}
 

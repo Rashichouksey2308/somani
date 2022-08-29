@@ -22,6 +22,9 @@ import { updateGenericData } from '../../redux/generic/actionsType'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { cssNumber } from 'jquery'
+import API from '../../../src/utils/endpoints'
+import Cookies from 'js-cookie'
+import Axios from 'axios'
 
 
 function Index(props) {
@@ -58,7 +61,47 @@ function Index(props) {
   setSidebar(tempArr)
   setIsSideBarOpen(false)
   }
-  
+  const uploadDoc = async (e) => {
+    console.log(e, 'response data')
+    let fd = new FormData()
+    fd.append('document', e.target.files[0])
+    // dispatch(UploadCustomDoc(fd))
+
+    let cookie = Cookies.get('SOMANI')
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    try {
+      let response = await Axios.post(
+        `${API.corebaseUrl}${API.customClearanceDoc}`,
+        fd,
+        {
+          headers: headers,
+        },
+      )
+      console.log(response.data.data, 'dischargeOfCargo2')
+      if (response.data.code === 200) {
+        // dispatch(getCustomClearanceSuccess(response.data.data))
+
+        return response.data.data
+        // let toastMessage = 'DOCUMENT UPDATED'
+        // if (!toast.isActive(toastMessage.toUpperCase())) {
+        //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
+      } else {
+        // dispatch(getCustomClearanceFailed(response.data.data))
+        // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+        // if (!toast.isActive(toastMessage.toUpperCase())) {
+        //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
+      }
+    } catch (error) {
+      // dispatch(getCustomClearanceFailed())
+      // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
+      // if (!toast.isActive(toastMessage.toUpperCase())) {
+      //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      // }
+    }
+  }
   
   const showContent =(sellerData)=>{
     if(active=="Buyer"){
@@ -71,6 +114,7 @@ function Index(props) {
         active={active}
         data={props?.genericData?.buyer}
         order={props?.genericData}
+        uploadDoc={uploadDoc}
         />
       )
     }
@@ -82,7 +126,8 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
-        data={props?.genericData?.supplier}
+        data={props?.genericData?.associate}
+        uploadDoc={uploadDoc}
         
         
         />
@@ -97,6 +142,7 @@ function Index(props) {
         updateData={updateData}
         active={active}
         data={props?.genericData?.seller}
+        uploadDoc={uploadDoc}
 
         />
       )
@@ -109,7 +155,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
-         data={props?.genericData?.supplier}
+        data={props?.genericData?.supplier}
         />
 
 
@@ -139,6 +185,7 @@ function Index(props) {
         multiPartValue={multiPartValue}
         data={props?.genericData?.supplier}
         order={props?.genericData?.order}
+        uploadDoc={uploadDoc}
         />
       )
     }
@@ -173,7 +220,8 @@ function Index(props) {
         sendData={sendData} 
         submitData={submitData} 
         updateData={updateData}
-         data={props?.genericData?.supplier}
+        data={props?.genericData?.supplier}
+        uploadDoc={uploadDoc}
         />
       )
     }
@@ -444,7 +492,9 @@ const onSave=()=>{
     
     }
   }
-    if (dataToSend.seller.authorisedSignatoryDetails.length <= 0 || dataToSend.seller.authorisedSignatoryDetails == undefined) {
+  if (dataToSend.seller.authorisedSignatoryDetails.length <= 0 || dataToSend.seller.authorisedSignatoryDetails == undefined) {
+      
+  
       toastMessage = `Please add authorised Signatory Details `
       if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -454,6 +504,25 @@ const onSave=()=>{
     
     }
   }
+  
+  
+    if (dataToSend.seller.authorisedSignatoryDetails.length >= 0 ) {
+      
+     for(let i =0;i<dataToSend.seller.authorisedSignatoryDetails.length;i++) {
+       if(dataToSend?.seller?.authorisedSignatoryDetails[i]?.document=="new"){
+      toastMessage = `Please add authorised Signatory Details document `
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      setSubmitData(false)
+      break;
+      
+       }
+     }
+    }
+      
+    
+    
+    }
 
 
 
