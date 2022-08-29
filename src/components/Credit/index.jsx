@@ -278,7 +278,7 @@ const index = ({
                   type="text"
                   value={addPrefixOrSuffix(
                     creditDetail?.monthlyProductionCapacity,
-                    creditDetail?.unitOfQuantity?.toUpperCase(),
+                    creditDetail?.unitOfQuantity?.toUpperCase()||"MT",
                   )}
                   name="monthlyProductionCapacity"
                   onChange={(e) => {
@@ -318,7 +318,7 @@ const index = ({
                   onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   value={addPrefixOrSuffix(
                     creditDetail?.averageStockOfCommodity,
-                    creditDetail?.unitOfQuantity?.toUpperCase(),
+                    creditDetail?.unitOfQuantity?.toUpperCase()||"MT",
                   )}
                   name="averageStockOfCommodity"
                   onChange={(e) => {
@@ -339,7 +339,7 @@ const index = ({
                   onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   value={addPrefixOrSuffix(
                     creditDetail?.averageStockInTransit,
-                    creditDetail?.unitOfQuantity?.toUpperCase(),
+                    creditDetail?.unitOfQuantity?.toUpperCase()||"MT",
                   )}
                   name="averageStockInTransit"
                   onChange={(e) => {
@@ -359,7 +359,7 @@ const index = ({
                   type="text"
                   value={addPrefixOrSuffix(
                     creditDetail?.availableStock,
-                    creditDetail?.unitOfQuantity?.toUpperCase(),
+                    creditDetail?.unitOfQuantity?.toUpperCase()||"MT",
                   )}
                   name="availableStock"
                   onChange={(e) => {
@@ -378,7 +378,7 @@ const index = ({
                   onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   value={addPrefixOrSuffix(
                     creditDetail?.dailyConsumptionOfCommodity,
-                    creditDetail?.unitOfQuantity?.toUpperCase(),
+                    creditDetail?.unitOfQuantity?.toUpperCase()||"MT",
                   )}
                   name="dailyConsumptionOfCommodity"
                   onChange={(e) => {

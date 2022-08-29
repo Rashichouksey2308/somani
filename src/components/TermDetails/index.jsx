@@ -142,7 +142,7 @@ const Index = ({
                   <option value="USD">USD</option>
                   <option value="Rupee">INR</option>
                   <option value="Euro">Euro</option>
-                  <option value="POUND">POUND</option>
+                  <option value="BRITISHPOUND">POUND</option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   Currency<strong className="text-danger">*</strong>
