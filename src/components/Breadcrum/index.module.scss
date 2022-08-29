@@ -46,13 +46,7 @@
                     line-height: 19px;
                     margin-left: 0.5rem;
                     white-space: nowrap;
-                    text-transform: lowercase;
-                    &:first-letter {
-                        text-transform: uppercase;
-                    }
-                    &:first-line {
-                        text-transform: capitalize;
-                    }
+                    text-transform: capitalize;
                     @include respond(sm-desktop) {
                         font-size: 16px;
                         line-height: 1.2;

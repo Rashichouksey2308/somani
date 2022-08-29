@@ -142,7 +142,7 @@ const Index = ({
                   <option value="USD">USD</option>
                   <option value="Rupee">INR</option>
                   <option value="Euro">Euro</option>
-                  <option value="POUND">POUND</option>
+                  <option value="BRITISHPOUND">POUND</option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   Currency<strong className="text-danger">*</strong>
@@ -238,7 +238,7 @@ const Index = ({
                 id="lcValue"
                 value={addPrefixOrSuffix(
                   newLcVal ? newLcVal : 0,
-                  'USD',
+                   termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase(),
                   'front',
                 )}
                 className={`${styles.value} input form-control`}
@@ -360,6 +360,7 @@ const Index = ({
                   {/* <option value={termsheetDetails?.transactionDetails?.loadPort}>{termsheetDetails?.transactionDetails?.loadPort} </option> */}
                   <option>Select an option</option>
                   <option value="Abbot Port">Abbot Port</option>
+                  
                   <option value="India Port">India Port</option>
                 </select>
                 <label className={`${styles.label} label_heading`}>

@@ -7,7 +7,7 @@ import Router from 'next/router'
 import _get from "lodash/get";
 import { useDispatch, useSelector } from 'react-redux'
 import { GetOrders } from '../../../src/redux/registerBuyer/action'
-import { setPageName, setDynamicName } from '../../../src/redux/userData/action'
+import { setPageName, setDynamicName,setDynamicOrder } from '../../../src/redux/userData/action'
 import { GetTermsheet } from '../../../src/redux/buyerProfile/action'
 import moment from 'moment';
 
@@ -22,7 +22,7 @@ function Index() {
 
 
   // console.log(singleOrder, 'all order listtt1')
-  //console.log(termsheet, "TErmshetTermsheet")
+  console.log(termsheet, "TErmshetTermsheet")
 
 
   useEffect(() => {
@@ -36,9 +36,14 @@ dispatch(setPageName(_get(
     "data[0].company.companyName",
     "All Termsheet Order"
   )))
-    
-  }, [dispatch, singleOrder, termsheet])
 
+ 
+    
+  }, [singleOrder, termsheet])
+
+  useEffect(() =>{
+      dispatch(setDynamicOrder(null))
+  },[])
 useEffect(() => {
 dispatch(setPageName('termsheet'))
 dispatch(setDynamicName(_get(
@@ -56,10 +61,12 @@ dispatch(setDynamicName(_get(
     dispatch(GetTermsheet(`?termsheetId=${term._id}`))
     sessionStorage.setItem('termID', term._id)
     console.log(term,"term.buyerName")
-    dispatch(setDynamicName(term.company.companyName))
+     dispatch(setDynamicName(term.company.companyName))
+     dispatch(setDynamicOrder(term?.order?.applicationId ? term.order.applicationId : term.order.orderId))
     sessionStorage.setItem('termOrdID', term?.order._id)
     Router.push("/termsheet/12")
     // Router.push('/lc-module')
+   
   }
 
   return (

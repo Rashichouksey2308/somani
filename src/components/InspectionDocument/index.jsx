@@ -85,6 +85,16 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
       setNewDoc({ ...newDoc, [e.target.id]: e.target.value })
     }
   }
+
+  const handleCloseDoc = () => {
+    setNewDoc({
+      document: [],
+      order: orderid,
+      name: '',
+      module: module,
+    })
+  }
+
   return (
     <div
       className={`${styles.upload_main} vessel_card border_color upload_main`}
@@ -214,30 +224,34 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
                     alt="Browse"
                     onChange={(e) => uploadDocument2(e)}
                   />
-                  <p className={styles.drop_para}>
-                    Drop Files here or
-                    <br />
-                    {true ? (
+                  {newDoc?.document?.name ?
+                    <div className={styles.certificate}>
+                      {newDoc?.document?.name}
+                      <img
+                        className={`${styles.close_image} float-right ml-2 img-fluid`}
+                        src="/static/close.svg"
+                        onClick={(e) => handleCloseDoc()}
+                        alt="Close"
+                      />{' '}
+                    </div>
+
+
+                    : <p className={styles.drop_para}>
+                      Drop Files here or
+                      <br />
                       <div className={styles.uploadBtnWrapper}>
                         <input
-                          type="file"
-                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
                           onChange={(e) => uploadDocument2(e)}
+                          type="file"
                           name="myfile"
+                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
                         />
+
+
+
                         <a href="#">Browse</a>
                       </div>
-                    ) : (
-                      <div className={styles.certificate2}>
-                        {'name'}
-                        <img
-                          className={`${styles.close_image} float-right m-2 img-fluid`}
-                          src="/static/close.svg"
-                          alt="Close"
-                        />{' '}
-                      </div>
-                    )}
-                  </p>
+                    </p>}
                 </div>
               </div>
               <div className="col-md-4 offset-md-1 col-sm-6">

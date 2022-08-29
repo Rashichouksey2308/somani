@@ -7,7 +7,7 @@ import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { getGenericData } from '../../src/redux/generic/actionsType'
 
-import { setPageName,setDynamicName } from '../../src/redux/userData/action'
+import { setPageName,setDynamicName ,setDynamicOrder} from '../../src/redux/userData/action'
 
 function Index(props) {
   console.log("🚀 ~ file: index.jsx ~ line 14 ~ Index ~ props", props)
@@ -21,6 +21,7 @@ function Index(props) {
  useEffect(() => {
     dispatch(setPageName('agreemnent'))
     dispatch(setDynamicName(null))
+    dispatch(setDynamicOrder(null))
   })
  useEffect(() => {
    getDate()

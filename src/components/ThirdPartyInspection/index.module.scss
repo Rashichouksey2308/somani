@@ -81,6 +81,13 @@
           background-color: transparent;
           border: none;
           outline: none;
+
+          @include respond(sm-desktop) {
+            font-size: 18px;
+          }
+          @include respond(phone) {
+            font-size: 16px;
+          }
         }
         .dropDown_label {
           font-weight: 500;
@@ -88,6 +95,7 @@
           line-height: 17px;
           margin: 0;
           letter-spacing: 0.53px;
+          white-space: nowrap;
         }
         .product_btn {
           border: 3px solid #3687e8;
@@ -441,6 +449,7 @@
               font-weight: bold;
               line-height: 25px;
               font-size: 20px;
+              cursor: pointer;
               @include respond(md-desktop) {
                 font-size: 17px;
               }
@@ -689,6 +698,7 @@ img {
       text-decoration: underline;
       font-size: 19px;
       color: #3687e8;
+      cursor: pointer;
       @include respond(md-desktop) {
         font-size: 17px;
       }

@@ -20,7 +20,7 @@ function Index({
 
   const { insuranceResponse } = useSelector((state) => state.insurance)
 
-  console.log(insuranceResponse, 'INSURANCE RESPONSE')
+  // console.log(insuranceResponse, 'INSURANCE RESPONSE')
 
   useEffect(() => {
     dispatch(GettingAllInsurance(`?page=${currentPage}&limit=7`))

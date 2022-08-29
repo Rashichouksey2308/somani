@@ -12,7 +12,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
     let text = d.toISOString()
     saveOrderData(name, text)
   }
-  console.log(orderDetail,"orderDetail")
+  console.log(orderDetail?.transactionType,"orderDetail")
   return (
     <div className={`${styles.main} vessel_card card border-color`}>
       <div
@@ -59,7 +59,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   inline
                   label="Import"
                   onChange={(e)=>{saveOrderData("transactionType", "Import")}}
-                  defaultChecked={orderDetail?.transactionType === 'Import'}
+                  checked={orderDetail?.transactionType === 'Import'? "checked":""}
                   name="group1"
                   type={type}
                   id={`inline-${type}-1`}
@@ -69,7 +69,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   inline
                   label="Domestic"
                   onChange={(e)=>{saveOrderData("transactionType", "Domestic")}}
-                  defaultChecked={orderDetail?.transactionType === 'Domestic'}
+                  checked={orderDetail?.transactionType === 'Domestic'? "checked":""}
                   name="group1"
                   type={type}
                   id={`inline-${type}-2`}

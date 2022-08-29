@@ -4,7 +4,7 @@ const initialState = {
   isDark: false,
   pageName: 'dashboard',
   id: null,
-  order: '',
+  order: null,
   currency: 'CRORES',
 }
 function UserReducer(state = initialState, action) {

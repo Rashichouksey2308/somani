@@ -31,10 +31,7 @@ import OpenCharges from '../../src/components/ReviewQueueFinancials/OpenCharges'
 import Peer from '../../src/components/ReviewQueueFinancials/Peer'
 import Ratios from '../../src/components/ReviewQueueFinancials/Ratios'
 
-import {
-  removePrefixOrSuffix,
-  CovertvaluefromtoCR,
-} from '../../src/utils/helper'
+import { removePrefixOrSuffix, CovertvaluefromtoCR } from '../../src/utils/helper'
 //redux
 import { UpdateCompanyDetails } from '../../src/redux/companyDetail/action'
 
@@ -59,6 +56,9 @@ import {
 import moment from 'moment'
 import { toast } from 'react-toastify'
 import UploadOther from '../../src/components/UploadOther'
+import _get from 'lodash/get'
+
+
 
 let alertObj = {
   isShell: 'Shell',
@@ -168,7 +168,7 @@ function Index() {
 
   const [darkMode, setDarkMode] = useState(false)
   const [uploadBtn, setUploadBtn] = useState(false)
-  const [complienceFilter, setComplienceFilter] = useState('')
+  const [complienceFilter, setComplienceFilter] = useState('All')
   const [complienceStatutoryFilter, setComplienceStatutoryFilter] = useState([])
   const [complienceBalanceFilter, setComplienceBalanceFilter] = useState([])
 
@@ -195,6 +195,38 @@ function Index() {
 
       setComplienceStatutoryFilter(statutory)
       setComplienceBalanceFilter(balance)
+    }
+
+    if (Array.isArray(companyData?.compliance?.error) && companyData?.compliance?.error?.length > 0) {
+      _get(companyData, 'compliance.error', [{}]).forEach((item) => {
+        let toastMessage = item.message
+        let toastDiscription = item.description
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastDiscription.toUpperCase(), { toastId: toastDiscription })
+          // toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+      })
+    }
+    if (Array.isArray(companyData?.profile?.error) && companyData?.profile?.error?.length > 0) {
+      _get(companyData, 'profile.error', [{}]).forEach((item) => {
+        let toastMessage = item?.message
+        let toastDiscription = item?.description
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastDiscription.toUpperCase(), { toastId: toastDiscription })
+          // toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+      })
+    }
+
+    if (Array.isArray(companyData?.financial?.error) && companyData?.financial?.error?.length > 0) {
+      _get(companyData, 'financial.error', [{}]).forEach((item) => {
+        let toastMessage = item.message
+        let toastDiscription = item.description
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastDiscription })
+          toast.error(toastDiscription.toUpperCase(), { toastId: toastMessage })
+        }
+      })
     }
   }, [companyData])
   console.log(complienceFilter, 'complienceFilter')
@@ -232,6 +264,7 @@ function Index() {
 
   useEffect(() => {
     dispatch(setPageName('credit-queue'))
+    console.log(orderList?.company?.companyName,"orderList?.company?.companyName")
     dispatch(setDynamicName(orderList?.company?.companyName))
   }, [orderList, dispatch])
 
@@ -294,7 +327,7 @@ function Index() {
       toDate: orderList?.shipmentDetail?.loadPort?.toDate,
     },
     shipmentType: orderList?.shipmentDetail?.shipmentType,
-    portOfLoading: orderList?.shipmentDetail?.portOfLoading,
+    portOfLoading: orderList?.shipmentDetail?.portOfLoading
   })
 
   const saveOrderData = (name, value) => {
@@ -313,107 +346,106 @@ function Index() {
       : (newInput[name] = value)
     setShipment(newInput)
   }
-
-  const onOrderSave = () => {
-    if (orderDetails?.transactionType?.trim() === '') {
+  const orderValidation=()=>{
+     if (orderDetails?.transactionType?.trim() === '' || orderDetails?.transactionType?.trim() == undefined) {
       let toastMessage = 'Invalid Transaction Type'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    } else if (orderDetails?.commodity?.trim() === '') {
+      return false
+    }  if (orderDetails?.commodity?.trim() === '' || orderDetails?.commodity?.trim() == undefined) {
       let toastMessage = 'the Commodity can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    } else if (orderDetails?.quantity === '') {
+      return false
+    }  if (orderDetails?.quantity === ''|| orderDetails?.quantity?.trim() == undefined) {
       let toastMessage = 'Quantity can not be Empty '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    } else if (orderDetails?.unitOfQuantity?.trim() === '') {
+      return false
+    }  if (orderDetails?.unitOfQuantity?.trim() === ''|| orderDetails?.unitOfQuantity?.trim() == undefined) {
       let toastMessage = 'Please Provide a unit Of Quantity  '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    } else if (orderDetails?.orderValue === '') {
+      return false
+    }  if (orderDetails?.orderValue === '' || orderDetails?.orderValue?.trim() == undefined || orderDetails?.orderValue?.trim() == NaN) {
       let toastMessage = 'Please Check the orderValue  '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
+      return false
     }
-    // else if (orderDetails?.orderCurrency?.trim() === '') {
-    //   let toastMessage = 'the orderCurrency can not be Empty'
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //   }
-    //   return
-    // }
-    else if (orderDetails?.unitOfValue?.trim() === '') {
+  
+     if (orderDetails?.unitOfValue?.trim() === '' || orderDetails?.unitOfValue?.trim() == undefined ) {
       let toastMessage = 'Please Set the unit of value'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    } else if (orderDetails?.supplierName?.trim() === '') {
+      return false
+    }  if (orderDetails?.supplierName?.trim() === '' || orderDetails?.supplierName?.trim() == undefined) {
       let toastMessage = 'the supplier Name can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    } else if (orderDetails?.countryOfOrigin?.trim() === '') {
+      return false
+    }  if (orderDetails?.countryOfOrigin?.trim() === '' || orderDetails?.countryOfOrigin?.trim() == undefined) {
       let toastMessage = 'the country Of Origin can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    } else if (orderDetails?.portOfDischarge?.trim() === '') {
+      return false
+    }  if (orderDetails?.portOfDischarge?.trim() === ''|| orderDetails?.portOfDischarge?.trim() == undefined) {
       let toastMessage = 'the port Of Discharge can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    } else if (orderDetails?.ExpectedDateOfShipment?.trim() === '') {
+      return false
+    }  if (orderDetails?.ExpectedDateOfShipment?.trim() === '' || orderDetails?.ExpectedDateOfShipment?.trim() == undefined) {
       let toastMessage = 'the Expected Date Of Shipment can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    } else if (orderDetails?.incoTerm?.trim() === '') {
+      return false
+    }  if (orderDetails?.incoTerm?.trim() === '' || orderDetails?.incoTerm?.trim() == undefined) {
       let toastMessage = 'the incoTerm can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    } else if (orderDetails?.grade?.trim() === '') {
+      return false
+    }  if (orderDetails?.grade?.trim() === '' || orderDetails?.grade?.trim() == undefined) {
       let toastMessage = 'the grade can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    } else if (orderDetails?.tolerance === '') {
+      return false
+    }  if (orderDetails?.tolerance === ''|| orderDetails?.tolerance == undefined) {
       let toastMessage = 'the tolerance can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    } else if (orderDetails?.transactionPeriodDays === '') {
+      return false
+    }  if (orderDetails?.transactionPeriodDays === ''|| orderDetails?.transactionPeriodDays == undefined) {
       let toastMessage = 'the transaction Period Days can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    } else if (orderDetails?.manufacturerName?.trim() === '') {
+      return false
+    }  if (orderDetails?.manufacturerName?.trim() === ''|| orderDetails?.manufacturerName?.trim() == undefined) {
       let toastMessage = 'the manufacturer Name can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    } else {
+      return false
+    }
+    return true
+  }
+  console.log(orderDetails,"orderDetails")
+  const onOrderSave = () => {
+    if(orderValidation()){
+     
       let orderToSend = { ...orderDetails }
       orderToSend.quantity = removePrefixOrSuffix(orderDetails.quantity)
       orderToSend.orderValue =
@@ -423,7 +455,7 @@ function Index() {
         const obj = {
           ...orderToSend,
           shipmentDetail: { ...shipment },
-          order: orderList._id,
+          order: orderList?._id,
           orderValue: removePrefixOrSuffix(orderDetails.orderValue) * 10000000,
         }
         dispatch(UpdateOrderShipment(obj))
@@ -431,11 +463,12 @@ function Index() {
         const obj = {
           ...orderToSend,
           shipmentDetail: { ...shipment },
-          order: orderList._id,
+          order: orderList?._id,
         }
         dispatch(UpdateOrderShipment(obj))
       }
     }
+    
   }
 
   const [product, setProduct] = useState()
@@ -842,6 +875,7 @@ function Index() {
     setApprovedCredit(newInput)
   }
 
+
   //console.log(groupExposureData, "THIS IS GROUP EXP DATA")
 
   const addGroupExpArr = (exposureData) => {
@@ -933,35 +967,126 @@ function Index() {
     })
     setPersonData(tempArr)
   }
-
+  console.log(supplierCred,"product")
+const creditValidation=()=>{
+   if (product.monthlyProductionCapacity ==""||product.monthlyProductionCapacity == undefined) {
+      let toastMessage = 'Please add  monthly Production Capacitye'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+      if (product.capacityUtilization ==""||product.capacityUtilization == undefined) {
+      let toastMessage = 'Please add  capacity Utilization'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+       if (product.averageStockOfCommodity ==""||product.averageStockOfCommodity == undefined) {
+      let toastMessage = 'Please add  average Stock Of Commodity'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+       if (product.averageStockInTransit ==""||product.averageStockInTransit == undefined) {
+      let toastMessage = 'Please add  average Stock In Transit'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+      if (product.AvgMonthlyElectricityBill ==""||product.AvgMonthlyElectricityBill == undefined) {
+      let toastMessage = 'Please add  Avg Monthly Electricity Bill'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+       if (product.availableStock ==""||product.availableStock == undefined) {
+      let toastMessage = 'Please add  available Stock'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+      if (supplierCred.supplierName ==""||supplierCred.supplierName == undefined) {
+      let toastMessage = 'Please add supplier Name'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+       if (supplierCred.shipmentNumber ==""||supplierCred.shipmentNumber == undefined) {
+      let toastMessage = 'Please add number of shipment'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+      if (supplierCred.consigneesNumber ==""||supplierCred.consigneesNumber == undefined) {
+      let toastMessage = 'Please add consignees Number'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+       if (supplierCred.HSCodesNumber ==""||supplierCred.HSCodesNumber == undefined) {
+      let toastMessage = 'Please add HS Codes '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+      if (supplierCred.countryOfOrigin ==""||supplierCred.countryOfOrigin == undefined) {
+      let toastMessage = 'Please add country Of Origin '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+       if (supplierCred.portOfDestination ==""||supplierCred.portOfDestination == undefined) {
+      let toastMessage = 'Please add port Of Destination '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+         if (supplierCred.oldestShipmentDate ==""||supplierCred.oldestShipmentDate == undefined) {
+      let toastMessage = 'Please add oldest Shipment Date '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+      if (supplierCred.latestShipmentDate ==""||supplierCred.latestShipmentDate == undefined) {
+      let toastMessage = 'Please add latest Shipment Date '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+      return true
+}
   const onCreditSave = () => {
+    if(creditValidation()){
     let tempPerson = [...personData]
     tempPerson.forEach((val, index) => {
       delete val.isEdit
     })
     let data = { ...product }
-    data.monthlyProductionCapacity = removePrefixOrSuffix(
-      product.monthlyProductionCapacity,
-    )
+    data.monthlyProductionCapacity = removePrefixOrSuffix(product.monthlyProductionCapacity)
     data.capacityUtilization = removePrefixOrSuffix(product.capacityUtilization)
-    data.AvgMonthlyElectricityBill = removePrefixOrSuffix(
-      product.AvgMonthlyElectricityBill,
-    )
-    data.averageStockOfCommodity = removePrefixOrSuffix(
-      product.averageStockOfCommodity,
-    )
-    data.averageStockInTransit = removePrefixOrSuffix(
-      product.averageStockInTransit,
-    )
+    data.AvgMonthlyElectricityBill = removePrefixOrSuffix(product.AvgMonthlyElectricityBill)
+    data.averageStockOfCommodity = removePrefixOrSuffix(product.averageStockOfCommodity)
+    data.averageStockInTransit = removePrefixOrSuffix(product.averageStockInTransit)
     data.availableStock = removePrefixOrSuffix(product.availableStock)
-    data.dailyConsumptionOfCommodity = removePrefixOrSuffix(
-      product.dailyConsumptionOfCommodity,
-    )
+    data.dailyConsumptionOfCommodity = removePrefixOrSuffix(product.dailyConsumptionOfCommodity)
 
     let supplierData = { ...supplierCred }
-    supplierData.commodityOfTotalTrade = removePrefixOrSuffix(
-      supplierCred.commodityOfTotalTrade,
-    )
+    supplierData.commodityOfTotalTrade = removePrefixOrSuffix(supplierCred.commodityOfTotalTrade)
+
 
     let obj = {
       productSummary: { ...data },
@@ -983,6 +1108,7 @@ function Index() {
     }
     // console.log(obj, "credit obj")
     dispatch(UpdateCredit(obj))
+  }
   }
 
   const filteredCreditRating =
@@ -1186,13 +1312,14 @@ function Index() {
   const [Tribunal, setTribunal] = useState([])
   const [filterType, setFilterType] = useState({
     filterBy: {
-      pending: false,
+      pending: true,
       disposed: false,
-      total: false,
+      total: false
     },
-    party: '',
-    class: 'Criminal',
-    risk: '',
+    party: "Respondent",
+    class: "Criminal",
+    risk: ""
+
   })
   console.log(filterType, 'filterType')
   useEffect(() => {
@@ -1209,7 +1336,7 @@ function Index() {
       medium: 0,
       relevence: 0,
     }
-    companyData?.compliance.districtCourt.cases.forEach((val, index) => {
+    companyData?.compliance?.districtCourt?.cases?.forEach((val, index) => {
       count.total = count.total + 1
       if (val.caseStatus == 'Disposed') {
         count.disposed = count.disposed + 1
@@ -1227,7 +1354,7 @@ function Index() {
         count.relevence = count.relevence + 1
       }
     })
-    companyData?.compliance.highCourt.cases.forEach((val, index) => {
+    companyData?.compliance?.highCourt?.cases?.forEach((val, index) => {
       count.total = count.total + 1
       if (val.caseStatus == 'Disposed') {
         count.disposed = count.disposed + 1
@@ -1245,7 +1372,7 @@ function Index() {
         count.relevence = count.relevence + 1
       }
     })
-    companyData?.compliance.supremeCourt.cases.forEach((val, index) => {
+    companyData?.compliance?.supremeCourt?.cases?.forEach((val, index) => {
       count.total = count.total + 1
       if (val.caseStatus == 'Disposed') {
         count.disposed = count.disposed + 1
@@ -1263,7 +1390,7 @@ function Index() {
         count.relevence = count.relevence + 1
       }
     })
-    companyData?.compliance.tribunalCourts.cases.forEach((val, index) => {
+    companyData?.compliance?.tribunalCourts?.cases?.forEach((val, index) => {
       count.total = count.total + 1
       if (val.caseStatus == 'Disposed') {
         count.disposed = count.disposed + 1
@@ -1286,43 +1413,69 @@ function Index() {
     let highCourt = []
     let tribunalCourts = []
     //civil
-    districtCourt = companyData?.compliance.districtCourt.cases.filter(
-      (val) => {
-        if (val.civilCriminal == filterType.class) {
-          return val
-        }
-      },
-    )
-    supremeCourt = companyData?.compliance.supremeCourt.cases.filter((val) => {
-      if (val.civilCriminal == filterType.class) {
+    districtCourt = companyData?.compliance?.districtCourt?.cases?.filter((val) => {
+
+      if (
+        val.civilCriminal == filterType.class
+
+
+
+      ) {
+
         return val
       }
     })
-    highCourt = companyData?.compliance.highCourt.cases.filter((val) => {
-      if (val.civilCriminal == filterType.class) {
+    supremeCourt = companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
+
+      if (
+        val.civilCriminal == filterType.class
+
+
+
+      ) {
+
         return val
       }
     })
-    tribunalCourts = companyData?.compliance.tribunalCourts.cases.filter(
-      (val) => {
-        if (val.civilCriminal == filterType.class) {
-          return val
-        }
-      },
-    )
+    highCourt = companyData?.compliance?.highCourt?.cases?.filter((val) => {
+
+      if (
+        val.civilCriminal == filterType.class
+
+
+
+      ) {
+
+        return val
+      }
+    })
+    tribunalCourts = companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
+
+      if (
+        val.civilCriminal == filterType.class
+
+
+
+      ) {
+
+        return val
+      }
+    })
     //risk:
-    districtCourt = companyData?.compliance.districtCourt.cases.filter(
-      (val) => {
-        if (
-          (val.severity_ == filterType.risk) == 'high'
-            ? 'High' || 'high'
-            : filterType.risk
-        ) {
-          return val
-        }
-      },
-    )
-    supremeCourt = companyData?.compliance.supremeCourt.cases.filter((val) => {
+    districtCourt = companyData?.compliance?.districtCourt?.cases?.filter((val) => {
+
+      if (
+        val.severity_ == filterType.risk == "high" ? "High" || "high" : filterType.risk
+
+
+
+      ) {
+
+        return val
+      }
+    })
+    supremeCourt = companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
+
       if (
         (val.severity_ == filterType.risk) == 'high'
           ? 'High' || 'high'
@@ -1331,43 +1484,47 @@ function Index() {
         return val
       }
     })
-    highCourt = companyData?.compliance.highCourt.cases.filter((val) => {
+    highCourt = companyData?.compliance?.highCourt?.cases?.filter((val) => {
+
       if (
         (val.severity_ == filterType.risk) == 'high'
           ? 'High' || 'high'
           : filterType.risk
       ) {
+
         return val
       }
     })
-    tribunalCourts = companyData?.compliance.tribunalCourts.cases.filter(
-      (val) => {
-        if (
-          (val.severity_ == filterType.risk) == 'high'
-            ? 'High' || 'high'
-            : filterType.risk
-        ) {
-          return val
-        }
-      },
-    )
+    tribunalCourts = companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
+
+      if (
+        val.severity_ == filterType.risk == "high" ? "High" || "high" : filterType.risk
+
+
+
+      ) {
+
+        return val
+      }
+    })
     //filterBY
-    districtCourt = companyData?.compliance.districtCourt.cases.filter(
-      (val) => {
-        if (
-          val.caseStatus == filterType.pending
-            ? 'Pending'
-            : null || val.caseStatus == filterType.disposed
-            ? 'Disposed'
-            : null
-        ) {
-          return val
-        } else {
-          return val
-        }
-      },
-    )
-    supremeCourt = companyData?.compliance.supremeCourt.cases.filter((val) => {
+    districtCourt = companyData?.compliance?.districtCourt?.cases?.filter((val) => {
+
+      if (
+        val.caseStatus == filterType.pending ? "Pending" : null ||
+          val.caseStatus == filterType.disposed ? "Disposed" : null
+
+
+
+      ) {
+
+        return val
+      } else {
+        return val
+      }
+    })
+    supremeCourt = companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
+
       if (
         val.caseStatus == filterType.pending
           ? 'Pending'
@@ -1380,7 +1537,7 @@ function Index() {
         return val
       }
     })
-    highCourt = companyData?.compliance.highCourt.cases.filter((val) => {
+    highCourt = companyData?.compliance?.highCourt?.cases?.filter((val) => {
       if (
         val.caseStatus == filterType.pending
           ? 'Pending'
@@ -1393,22 +1550,23 @@ function Index() {
         return val
       }
     })
-    tribunalCourts = companyData?.compliance.tribunalCourts.cases.filter(
-      (val) => {
-        if (
-          val.caseStatus == filterType.pending
-            ? 'Pending'
-            : null || val.caseStatus == filterType.disposed
-            ? 'Disposed'
-            : null
-        ) {
-          return val
-        } else {
-          return val
-        }
-      },
-    )
-    console.log(districtCourt, 'districtCourt99')
+    tribunalCourts = companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
+
+      if (
+         val.caseStatus == filterType.pending ? "Pending" : null ||
+         val.caseStatus == filterType.disposed ? "Disposed" : null
+
+
+
+      ) {
+
+        return val
+      } else {
+        return val
+      }
+    })
+
+
 
     setSupreme(supremeCourt)
     setTribunal(tribunalCourts)
@@ -1657,8 +1815,7 @@ function Index() {
                 </div>
                 <div className="tab-pane fade" id="gst" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <GST
-                      alertObj={alertObj}
+                    <GST alertObj={alertObj}
                       GstDataHandler={GstDataHandler}
                       orderList={orderList}
                       companyData={companyData}
@@ -1887,12 +2044,10 @@ function Index() {
                           className={`${styles.form_control} form-control`}
                         >
                           <option>Select an option</option>
-                          <option value="StatutoryCompliance">
-                            Statutory Compliance
-                          </option>
-                          <option value="BankingDefaults">
-                            Banking Defaults
-                          </option>
+                          
+                          <option selected value="All">All</option>
+                          <option value="StatutoryCompliance">Statutory Compliance</option>
+                          <option value="BankingDefaults">Banking Defaults</option>
                         </select>
                         <span
                           data-toggle="collapse"
@@ -1999,6 +2154,7 @@ function Index() {
                                         !filterType.filterBy.pending
                                       setFilterType({ ...filterType })
                                     }}
+                                    checked={filterType.filterBy.pending?"checked":""}
                                   />
                                   <label
                                     className="form-check-label"
@@ -2053,15 +2209,10 @@ function Index() {
                                 className={` d-flex align-items-center justify-content-start`}
                               >
                                 <div className="form-check">
-                                  <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    name="flexRadioDefault"
-                                    id="flexRadioDefault1"
-                                  />
-                                  <label
-                                    className="form-check-label"
-                                    htmlFor="flexRadioDefault1"
+                                  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" 
+                                  
+                                  checked />
+                                  <label className="form-check-label" htmlFor="flexRadioDefault1"
                                     onChange={() => {
                                       setFilterType({
                                         ...filterType,
@@ -2073,16 +2224,8 @@ function Index() {
                                   </label>
                                 </div>
                                 <div className="form-check ml-4">
-                                  <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    name="flexRadioDefault"
-                                    id="flexRadioDefault2"
-                                    checked
-                                  />
-                                  <label
-                                    className="form-check-label"
-                                    htmlFor="flexRadioDefault2"
+                                  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"  />
+                                  <label className="form-check-label" htmlFor="flexRadioDefault2"
                                     onChange={() => {
                                       setFilterType({
                                         ...filterType,
@@ -2289,6 +2432,8 @@ function Index() {
                     supplierCred={supplierCred}
                     setEditRow={setEditRow}
                     orderDetail={orderList}
+
+
                   />
                   <Recommendations
                     creditDetail={orderList}
@@ -2469,9 +2614,7 @@ const table2 = (sat, balance, complienceFilter) => {
       <tbody>
         <tr>
           <td className={styles.firstCell} rowSpan={length + 1}>
-            {complienceFilter == 'StatutoryCompliance'
-              ? `Statutory Compliance`
-              : `Banking Defaults`}
+            {complienceFilter == "StatutoryCompliance" ? `Statutory Compliance` : complienceFilter=="All"? "All": `Banking Defaults`}
           </td>
           {/* <td></td>
           <td></td>
@@ -2479,31 +2622,65 @@ const table2 = (sat, balance, complienceFilter) => {
           <td></td>
           <td></td> */}
         </tr>
-        {complienceFilter == 'StatutoryCompliance'
-          ? sat.length &&
-            sat?.map((alert, index) => {
-              return (
-                <tr key={index}>
-                  <td> {alert.alert}</td>
-                  <td> {alert.severity}</td>
-                  <td> {alert.source}</td>
-                  <td> {alert.idType}</td>
-                  <td> {alert.value}</td>
-                </tr>
-              )
-            })
-          : balance.length > 0 &&
-            balance?.map((alert, index) => {
-              return (
-                <tr key={index}>
-                  <td> {alert.alert}</td>
-                  <td> {alert.severity}</td>
-                  <td> {alert.source}</td>
-                  <td> {alert.idType}</td>
-                  <td> {alert.value}</td>
-                </tr>
-              )
-            })}
+        {complienceFilter == "StatutoryCompliance"
+          ?
+          sat.length && sat?.map((alert, index) => {
+            return (
+              <tr key={index}>
+                <td> {alert.alert}</td>
+                <td> {alert.severity}</td>
+                <td> {alert.source}</td>
+                <td> {alert.idType}</td>
+                <td> {alert.value}</td>
+              </tr>
+            )
+          })
+          :
+          balance.length > 0 && balance?.map((alert, index) => {
+            return (
+              <tr key={index}>
+                <td> {alert.alert}</td>
+                <td> {alert.severity}</td>
+                <td> {alert.source}</td>
+                <td> {alert.idType}</td>
+                <td> {alert.value}</td>
+              </tr>
+            )
+          })
+        }
+        {complienceFilter=="All"?
+        <>
+        {sat.length && sat?.map((alert, index) => {
+            return (
+              <tr key={index}>
+                <td> {alert.alert}</td>
+                <td> {alert.severity}</td>
+                <td> {alert.source}</td>
+                <td> {alert.idType}</td>
+                <td> {alert.value}</td>
+              </tr>
+            )
+          })}
+          {
+          
+          balance.length > 0 && balance?.map((alert, index) => {
+            return (
+              <tr key={index}>
+                <td> {alert.alert}</td>
+                <td> {alert.severity}</td>
+                <td> {alert.source}</td>
+                <td> {alert.idType}</td>
+                <td> {alert.value}</td>
+              </tr>
+            )
+          })
+             
+          }
+        </>
+        :null}
+
+
+
       </tbody>
     </table>
   )

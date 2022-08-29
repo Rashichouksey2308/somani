@@ -98,7 +98,7 @@ const Index = () => {
               forexHedging: sheet?.commercials?.forexHedging,
               otherTermsAndConditions:
                 sheet?.commercials?.otherTermsAndConditions || "As Per Sales Contract",
-              version: sheet?.commercials?.version || 1,
+              version: sheet?.commercials?.version || "1",
             },
           }),
         )

@@ -27,6 +27,7 @@ const index = ({ saveShipmentData, shipment }) => {
     }
    
   }
+  console.log(shipment,"shipment")
   return (
     <div className={`${styles.main} vessel_card border-color card`}>
       <div
@@ -140,7 +141,8 @@ const index = ({ saveShipmentData, shipment }) => {
                     name="lastDateOfShipment"
                     saveDate={saveDate}
                     labelName="Last date of shipment"
-                     startFrom={dateStartFrom.eta}
+                    startFrom={moment(shipment.ETAofDischarge.toDate).add(1, 'days').toDate()}
+                     
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -171,6 +173,7 @@ const index = ({ saveShipmentData, shipment }) => {
                     saveDate={saveDate}
                     setStartDateFrom={setStartDate}
                     labelName="ETA at Discharge Port from"
+                    maxDate={moment(shipment.lastDateOfShipment).toDate()}
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -203,6 +206,7 @@ const index = ({ saveShipmentData, shipment }) => {
                     saveDate={saveDate}
                     labelName="ETA at Discharge Port to"
                     startFrom={dateStartFrom.laycan}
+                    maxDate={moment(shipment.lastDateOfShipment).toDate()}
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}
