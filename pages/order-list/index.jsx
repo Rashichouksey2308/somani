@@ -24,9 +24,10 @@ function Index() {
   const { singleOrder } = useSelector((state) => state.buyer)
   console.log(singleOrder, 'singleorder')
 
-  // useEffect(() => {
-  //   dispatch(GetOrders(`?page=${currentPage}`))
-  // }, [dispatch, currentPage])
+  useEffect(() => {
+   let companyIDnewOrder = sessionStorage.getItem('companyID')
+    dispatch(GetOrders(`?page=${currentPage}company=${companyIDnewOrder}`))
+  }, [dispatch, currentPage])
   // {_get(
   //   props,
   //   "pageData.field_landing_page_flexi_content[0].component.content.field_form[0].field_car_number[2].field_placeholder",
@@ -40,9 +41,11 @@ function Index() {
       , " ")))
   }, [dispatch, singleOrder])
 
-  let compId = _get(singleOrder,'data[0].company._id','')
+  let compId = _get(singleOrder, 'data[0].company._id', '')
+
 
   const handleRouteNewOrder = () => {
+    sessionStorage.setItem('companyID', _get(singleOrder, 'data[0].company._id', ''))
     dispatch(GetOrders(`?company=${compId}`))
     dispatch(GetCreditLimit({ companyId: compId }))
     setTimeout(() => {
@@ -72,7 +75,7 @@ function Index() {
       Router.push('/review')
     }
     if (buyer.queue === 'ReviewQueue') {
-       dispatch(GetBuyer({ companyId: buyer.company._id, orderId: buyer._id }))
+      dispatch(GetBuyer({ companyId: buyer.company._id, orderId: buyer._id }))
       Router.push('/review/id')
     }
   }
