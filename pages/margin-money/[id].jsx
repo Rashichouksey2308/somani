@@ -201,7 +201,7 @@ function Index() {
       (Number(orderValueInINR) *
         (forCalculation.isUsanceInterestIncluded
           ? Number(forCalculation.usanceInterestPercentage / 100)
-          : 1) *
+          : 0) *
         90) /
         365,
     ).toFixed(2) //L

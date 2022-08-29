@@ -58,13 +58,27 @@ const Index = ({
                           addTypeOfDoc(e.target.value, index)
                         }}
                       >
-                          <option >Select an option</option>
-                        <option value="GST Certification" >
-                          GST Certification
-                        </option>
-                        <option value="Incorporation Certification">
-                          Incorporation Certification
-                        </option>
+                         
+                       <option>Select an option</option>
+                          <option value="CertificateofIncorporation">
+                            Certificate of Incorporation
+                          </option>
+                          <option value="IECCertificate">
+                            IEC Certificate
+                          </option>
+                          <option value="BusinessRegistrationCertificate ">
+                            Business Registration Certificate{' '}
+                          </option>
+                          <option value="PANCard">PAN Card</option>
+                          <option value="GSTCertificate">
+                            GST Certificate
+                          </option>
+                          <option value="BankReferenceLetter">
+                            Bank Reference Letter
+                          </option>
+                          <option value="FinancialYear ">
+                            Financial Year{' '}
+                          </option>
                       </select>
                       <img
                         className={`${styles.arrow} image_arrow img-fluid`}

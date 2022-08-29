@@ -168,7 +168,7 @@ function Index() {
 
   const [darkMode, setDarkMode] = useState(false)
   const [uploadBtn, setUploadBtn] = useState(false)
-  const [complienceFilter, setComplienceFilter] = useState('')
+  const [complienceFilter, setComplienceFilter] = useState('All')
   const [complienceStatutoryFilter, setComplienceStatutoryFilter] = useState([])
   const [complienceBalanceFilter, setComplienceBalanceFilter] = useState([])
 
@@ -264,6 +264,7 @@ function Index() {
 
   useEffect(() => {
     dispatch(setPageName('credit-queue'))
+    console.log(orderList?.company?.companyName,"orderList?.company?.companyName")
     dispatch(setDynamicName(orderList?.company?.companyName))
   }, [orderList, dispatch])
 
@@ -1449,8 +1450,8 @@ function Index() {
     tribunalCourts = companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
 
       if (
-        val.caseStatus == filterType.pending ? "Pending" : null ||
-          val.caseStatus == filterType.disposed ? "Disposed" : null
+         val.caseStatus == filterType.pending ? "Pending" : null ||
+         val.caseStatus == filterType.disposed ? "Disposed" : null
 
 
 
@@ -1461,7 +1462,7 @@ function Index() {
         return val
       }
     })
-    console.log(districtCourt, "districtCourt99")
+
 
 
     setSupreme(supremeCourt)
@@ -1940,10 +1941,8 @@ function Index() {
                           className={`${styles.form_control} form-control`}
                         >
                           <option>Select an option</option>
-                          <option value="StatutoryCompliance">
-                            Statutory Compliance
-                          </option>
-                          <option value="All">All</option>
+                          
+                          <option selected value="All">All</option>
                           <option value="StatutoryCompliance">Statutory Compliance</option>
                           <option value="BankingDefaults">Banking Defaults</option>
                         </select>

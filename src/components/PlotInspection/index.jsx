@@ -20,6 +20,7 @@ export default function Index({ inspectionData }) {
     plotInspectionDate: inspectionData?.plotInspection?.plotInspectionDate,
     plotInspectionReport: null,
   })
+  console.log(plotInspectionData, 'THIS IS PLOT')
 
   const savePlotInspectionData = (name, value) => {
     let newInput = { ...plotInspectionData }
@@ -53,11 +54,11 @@ export default function Index({ inspectionData }) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
     } else {
+      let obj = {
+        plotInspectionDate: plotInspectionData?.plotInspectionDate
+      }
       let fd = new FormData()
-      fd.append(
-        'plotInspectionDate',
-        JSON.stringify(plotInspectionData.plotInspectionDate),
-      )
+      fd.append('plotInspection', JSON.stringify(obj) )
       fd.append('plotInspectionReport', plotInspectionData.plotInspectionReport)
       fd.append('inspectionId', inspectionData?._id)
 
