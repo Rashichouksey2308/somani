@@ -61,15 +61,17 @@
             padding: 25px 0px 25px 0px;
         }
         .comment_para {
-            border: 1px solid #0000001F;
-            border-radius: 4px;
-            padding: 25px 30px 25px 30px;
-            margin-top: 35px;
+            padding: 20px 0;
+            border-bottom: 1px solid #D9DDE8;
             .comment {
-                letter-spacing: 0.19px;
                 //color: #111111;
                 font-size: 20px;
+                letter-spacing: 0.19px;
                 line-height: 25px;
+                width: 85%;
+                border: none;
+                box-shadow: none;
+                background: none;
             }
         }
         .textarea_main {
@@ -124,8 +126,8 @@
         }
         .comment_field {
             height: 106px;
-            background-color: #C3C3C31F;
-            border: 1px solid #0000001F;
+            // background-color: #C3C3C31F;
+            // border: 1px solid #0000001F;
             border-radius: 4px;
             font-size: 20px;
             font-weight: 500;
@@ -137,6 +139,7 @@
     }
     .sanction_terms {
         padding: 20px 0 20px 35px;
+        margin: 0 -35px;
         .sanction_heading {
             font-size: 20px;
             line-height: 25px;
@@ -237,15 +240,15 @@
         }
     }
     .datatable {
-        border-radius: 6px;
         margin: 30px;
+        border-radius: 6px;
         h5 {
-            color: #111111;
-            text-transform: capitalize;
-            font-weight: bold;
             font-size: 20px;
+            font-weight: bold;
             line-height: 25px;
             padding-left: 35px;
+            min-height: 80px;
+            margin: 0;
         }
         .table_scroll_outer {
             width: 100%;
@@ -358,7 +361,9 @@
             font-weight: bold;
             color: #3687E8;
             span {
-                margin-right: 15px;
+                font-size: 24px;
+                line-height: 0.7;
+                margin-right: 14px;
             }
         }
     }
@@ -402,48 +407,59 @@
         }
     }
 }
-.sectionTable {
-    //    border-top: 2px solid red !important;
-    border: none;
-    tr {
-        height: 67px;
-        border: none !important;
-        th {
-            text-align: center;
-            vertical-align: middle;
-            font-size: 15px;
-            line-height: 19px;
-            font-weight: bold;
-            border: none !important;
-            color: #8492A6;
-            background: #FAFAFB;
-            :first-child {
-                width: 15%;
-                text-align: left;
+.table_scroll_outer {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+    .table_scroll_inner {
+        display: table-cell;
+        overflow-x: auto;
+        .sectionTable {
+            //    border-top: 2px solid red !important;
+            border: none;
+            tr {
+                height: 67px;
+                border: none !important;
+                th {
+                    text-align: center;
+                    vertical-align: middle;
+                    font-size: 15px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    border: none !important;
+                    color: #8492A6;
+                    background: #FAFAFB;
+                    :first-child {
+                        width: 15%;
+                        text-align: left;
+                        padding-left: 35px;
+                    }
+                }
+                td {
+                    vertical-align: baseline;
+                    text-align: center;
+                    border: none !important;
+                    &:first-child {
+                        padding-left: 35px;
+                        text-align: left;
+                    }
+                    input {
+                        width: 19px;
+                        height: 14px
+                    }
+                    .text {
+                        width: 135px;
+                        height: 50px;
+                        // background: #C3C3C31F;
+                        // border: 1px solid #0000001F;
+                        border-radius: 4px;
+                        outline: none;
+                    }
+                    select {
+                        width: 11rem;
+                    }
+                }
             }
-        }
-        td {
-            vertical-align: baseline;
-            text-align: center;
-            border: none !important;
-            input {
-                width: 19px;
-                height: 14px
-            }
-            .text {
-                width: 135px;
-                height: 50px;
-                background: #C3C3C31F;
-                border: 1px solid #0000001F;
-                border-radius: 4px;
-            }
-            select {
-                width: 11rem;
-            }
-        }
-        :first-child {
-            padding-left: 35px;
-            text-align: left;
         }
     }
 }

@@ -131,9 +131,9 @@ const Index = ({
             <h5 className={styles.sub_heading}>Company Profile</h5>
             {companyComment &&
               companyComment.map((comment, index) => (
-                <div key={index} className={`${styles.comment_para} d-flex `}>
+                <div key={index} className={`${styles.comment_para} d-flex justify-content-between`}>
                   <Form.Control
-                    className={`${styles.comment} border-0 shadow-none`}
+                    className={`${styles.comment} input`}
                     as="textarea"
                     defaultValue={comment}
                     rows={3}
@@ -143,7 +143,7 @@ const Index = ({
                   <div className="ml-3">
                     <img
                       src="/static/mode_edit.svg"
-                      className={`${styles.edit_image} img-fluid mb-3`}
+                      className={`${styles.edit_image} mr-4`}
                       alt="edit"
                       onClick={(e) => {
                         setEditProfile(!editProfile)
@@ -151,7 +151,6 @@ const Index = ({
                     />
                     <img
                       src="/static/delete 2.svg"
-                      className="img-fluid"
                       alt="delete"
                       onClick={(e) => {
                         deleteData(index)
@@ -166,7 +165,7 @@ const Index = ({
                 as="textarea"
                 rows={3}
                 placeholder=""
-                className={`${styles.comment_field} form-control`}
+                className={`${styles.comment_field} input form-control`}
                 onChange={(e) => setCompanyComments(e.target.value)}
               />
               <label className={`${styles.label_heading} label_heading`}>
@@ -189,9 +188,9 @@ const Index = ({
             <h5 className={styles.sub_heading}>Comments On Financials</h5>
             {financialsComment &&
               financialsComment.map((comment, index) => (
-                <div key={index} className={`${styles.comment_para} d-flex `}>
+                <div key={index} className={`${styles.comment_para} d-flex justify-content-between`}>
                   <Form.Control
-                    className={`${styles.comment} border-0 shadow-none`}
+                    className={`${styles.comment} input`}
                     defaultValue={comment}
                     as="textarea"
                     rows={3}
@@ -200,14 +199,13 @@ const Index = ({
                   <div className="ml-3">
                     <img
                       src="/static/mode_edit.svg"
-                      className={`${styles.edit_image} img-fluid mb-3`}
+                      className={`${styles.edit_image} mr-4`}
                       onClick={() => {
                         setEditFinance(!editFinance)
                       }}
                     />
                     <img
                       src="/static/delete 2.svg"
-                      className="img-fluid"
                       alt="delete"
                       onClick={() => dltFinancialsCommentArr(index)}
                     />
@@ -220,7 +218,7 @@ const Index = ({
                 as="textarea"
                 rows={3}
                 placeholder=""
-                className={`${styles.comment_field} form-control`}
+                className={`${styles.comment_field} input form-control`}
                 onChange={(e) => setFinancialsComments(e.target.value)}
               />
               <label className={`${styles.label_heading} label_heading`}>
@@ -240,8 +238,10 @@ const Index = ({
           </div>
           <hr className={styles.line}></hr>
 
-          <div className={`${styles.datatable} pt-5 datatable`}>
-            <h5>Group Exposure Details</h5>
+          <div className={`${styles.datatable} datatable`}>
+            <h5 className='d-flex align-items-center'>
+              <span>Group Exposure Details</span>
+            </h5>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
                 <table
@@ -368,7 +368,7 @@ const Index = ({
                               {!profile.actions ? (
                                 <img
                                   src="/static/mode_edit.svg"
-                                  className={`${styles.edit_image} mr-3 img-fluid`}
+                                  className={`${styles.edit_image} mr-3`}
                                   onClick={() => {
                                     setActions(index, true)
                                   }}
@@ -376,7 +376,7 @@ const Index = ({
                               ) : (
                                 <img
                                   src="/static/save-3.svg"
-                                  className={`${styles.edit_image} mr-3 img-fluid`}
+                                  className={`${styles.edit_image} mr-3`}
                                   alt="save"
                                   onClick={(e) => {
                                     setActions(index, false)
@@ -385,7 +385,7 @@ const Index = ({
                               )}
                               <img
                                 src="/static/delete 2.svg"
-                                className={`${styles.delete_image} img-fluid`}
+                                className={`${styles.delete_image}`}
                                 onClick={() => {
                                   handleRemoveRow(index)
                                 }}
@@ -457,13 +457,13 @@ const Index = ({
                   <div className="mt-3">
                     <img
                       src="/static/delete 2.svg"
-                      className="img-fluid mr-4"
+                      className="mr-4"
                       alt="delete"
                       onClick={() => dltStrengthsCommentArr(index)}
                     />
                     <img
                       src="/static/mode_edit.svg"
-                      className={`${styles.edit_image} img-fluid`}
+                      className={`${styles.edit_image}`}
                       alt="edit"
                       onClick={(e) => {
                         setEditStren(!editStren)
@@ -475,7 +475,7 @@ const Index = ({
             {/* <hr></hr> */}
             {/* <div className="d-flex justify-content-between">
               <Form.Control
-                className={`${styles.paragraph}`}
+                className={`${styles.paragraph} input`}
                 as="textarea"
                 rows={3}
                 readOnly={editStren1}
@@ -483,12 +483,12 @@ const Index = ({
               <div className="mt-3">
                 <img
                   src="/static/delete 2.svg"
-                  className="img-fluid mr-4"
+                  className="mr-4"
                   alt="delete"
                 />
                 <img
                   src="/static/mode_edit.svg"
-                  className={`${styles.edit_image} img-fluid`}
+                  className={`${styles.edit_image}`}
                   alt="edit"
                   onClick={(e) => {
                     setEditStren1(!editStren1)
@@ -504,7 +504,7 @@ const Index = ({
                 as="textarea"
                 rows={3}
                 placeholder=""
-                className={`${styles.comment_field} form-control`}
+                className={`${styles.comment_field} input form-control`}
                 onChange={(e) => setWeaknessComments(e.target.value)}
               />
               <label className={`${styles.label_heading} label_heading`}>
@@ -538,7 +538,7 @@ const Index = ({
                   <div className="mt-3">
                     <img
                       src="/static/delete 2.svg"
-                      className="img-fluid mr-4"
+                      className="mr-4"
                       alt="delete"
                       onClick={(e) => {
                         dltWeaknessCommentArr(index)
@@ -546,7 +546,7 @@ const Index = ({
                     />
                     <img
                       src="/static/mode_edit.svg"
-                      className={`${styles.edit_image} img-fluid`}
+                      className={`${styles.edit_image}`}
                       alt="edit"
                       onClick={(e) => {
                         setEditWeak(!editWeak)
@@ -559,7 +559,7 @@ const Index = ({
 
             {/* <div className="d-flex justify-content-between">
               <Form.Control
-                className={`${styles.paragraph}`}
+                className={`${styles.paragraph} input`}
                 as="textarea"
                 rows={3}
                 readOnly={editWeak1}
@@ -567,12 +567,12 @@ const Index = ({
               <div className="mt-3">
                 <img
                   src="/static/delete 2.svg"
-                  className="img-fluid mr-4"
+                  className="mr-4"
                   alt="delete"
                 />
                 <img
                   src="/static/mode_edit.svg"
-                  className={`${styles.edit_image} img-fluid`}
+                  className={`${styles.edit_image}`}
                   alt="edit"
                   onClick={(e) => {
                     setEditWeak1(!editWeak1)
@@ -609,78 +609,82 @@ const Index = ({
                 </div>
               </div>
             </div>
-            <table
-              className={`${styles.sectionTable} table   `}
-              cellPadding="0"
-              cellSpacing="0"
-              border="0"
-            >
-              <tr>
-                <th></th>
-                <th>PREVIOUS LIMIT</th>
-                <th>APPLIED VALUE</th>
-                <th>DERIVED VALUE</th>
-                <th>SUGGESTED VALUE</th>
-              </tr>
-              <tr>
-                <td>Limit Value</td>
-                <td>{creditDetail?.company?.creditLimit?.availableLimit}</td>
-                <td>-</td>
+            <div className={styles.table_scroll_outer}>
+              <div className={styles.table_scroll_inner}>
+                <table
+                  className={`${styles.sectionTable} table`}
+                  cellPadding="0"
+                  cellSpacing="0"
+                  border="0"
+                >
+                  <tr>
+                    <th></th>
+                    <th>PREVIOUS LIMIT</th>
+                    <th>APPLIED VALUE</th>
+                    <th>DERIVED VALUE</th>
+                    <th>SUGGESTED VALUE</th>
+                  </tr>
+                  <tr>
+                    <td>Limit Value</td>
+                    <td>{creditDetail?.company?.creditLimit?.availableLimit}</td>
+                    <td>-</td>
 
-                {filteredCreditRating ? (
-                  <>
-                    {' '}
-                    {filteredCreditRating &&
-                      filteredCreditRating.length > 0 &&
-                      filteredCreditRating.map((val, index) => (
-                        <td key={index}>{val.derived.value}</td>
-                      ))}{' '}
-                  </>
-                ) : (
-                  <td>-</td>
-                )}
+                    {filteredCreditRating ? (
+                      <>
+                        {' '}
+                        {filteredCreditRating &&
+                          filteredCreditRating.length > 0 &&
+                          filteredCreditRating.map((val, index) => (
+                            <td key={index}>{val.derived.value}</td>
+                          ))}{' '}
+                      </>
+                    ) : (
+                      <td>-</td>
+                    )}
 
-                <td>
-                  <input
-                    className={`${styles.text}`}
-                    type="text"
-                    name="suggestedCreditLimit"
-                    defaultValue={creditDetail?.suggestedCreditLimit}
-                    onChange={(e) => {
-                      saveSuggestedCreditData(
-                        e.target.name,
-                        Number(e.target.value * 10000000),
-                      )
-                    }}
-                  ></input>
-                </td>
-              </tr>
-              <tr>
-                <td>Order Value</td>
-                <td>-</td>
-                <td>
-                  
-                  {creditDetail?.orderValue}</td>
+                    <td>
+                      <input
+                        className={`${styles.text} input`}
+                        type="text"
+                        name="suggestedCreditLimit"
+                        defaultValue={creditDetail?.suggestedCreditLimit}
+                        onChange={(e) => {
+                          saveSuggestedCreditData(
+                            e.target.name,
+                            Number(e.target.value * 10000000),
+                          )
+                        }}
+                      ></input>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Order Value</td>
+                    <td>-</td>
+                    <td>
+                      
+                      {creditDetail?.orderValue}</td>
 
-                <td>-</td>
+                    <td>-</td>
 
-                <td>
-                  <input
-                    className={`${styles.text}`}
-                    type="number"
-                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
-                    name="suggestedOrderValue"
-                    defaultValue={creditDetail?.suggestedOrderValue}
-                    onChange={(e) => {
-                      saveSuggestedCreditData(
-                        e.target.name,
-                        Number(e.target.value * 10000000),
-                      )
-                    }}
-                  ></input>
-                </td>
-              </tr>
-            </table>
+                    <td>
+                      <input
+                        className={`${styles.text} input`}
+                        type="number"
+                        onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                        name="suggestedOrderValue"
+                        defaultValue={creditDetail?.suggestedOrderValue}
+                        onChange={(e) => {
+                          saveSuggestedCreditData(
+                            e.target.name,
+                            Number(e.target.value * 10000000),
+                          )
+                        }}
+                      ></input>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
             <div className="d-flex justify-content-start align-items-center pt-5 pl-5">
               {/* <div className={`${styles.form_group} mr-5`}>
                 <div className={`${styles.label_sanction}`}>Limit Value</div>
@@ -707,7 +711,7 @@ const Index = ({
                 as="textarea"
                 rows={3}
                 placeholder=""
-                className={`${styles.comment_field} form-control`}
+                className={`${styles.comment_field} input form-control`}
                 onChange={(e) => setSanctionComments(e.target.value)}
               />
               <label className={`${styles.label_heading} label_heading`}>
@@ -743,13 +747,13 @@ const Index = ({
                   <div className="mt-3">
                     <img
                       src="/static/delete 2.svg"
-                      className="img-fluid mr-4"
+                      className="mr-4"
                       alt="delete"
                       onClick={() => dltSanctionCommentArr(index)}
                     />
                     <img
                       src="/static/mode_edit.svg"
-                      className={`${styles.edit_image} img-fluid`}
+                      className={`${styles.edit_image}`}
                       alt="edit"
                       onClick={(e) => {
                         setEditSanc(!editSanc)
@@ -762,7 +766,7 @@ const Index = ({
 
             {/* <div className="d-flex justify-content-between">
               <Form.Control
-                className={`${styles.paragraph}`}
+                className={`${styles.paragraph} input`}
                 as="textarea"
                 rows={3}
                 readOnly={editSanc1}
@@ -770,12 +774,12 @@ const Index = ({
               <div className="mt-3">
                 <img
                   src="/static/delete 2.svg"
-                  className="img-fluid mr-4"
+                  className="mr-4"
                   alt="delete"
                 />
                 <img
                   src="/static/mode_edit.svg"
-                  className={`${styles.edit_image} img-fluid`}
+                  className={`${styles.edit_image}`}
                   alt="edit"
                   onClick={(e) => {
                     setEditSanc1(!editSanc1)
