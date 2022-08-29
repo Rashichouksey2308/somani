@@ -59,7 +59,7 @@ export default function Index({ isQuery }) {
   const order = useSelector((state) => state?.user.order)
   const currency = useSelector((state) => state?.user)
 
-  console.log(id, 'pageName', pageName, currency)
+  console.log('pageName23', order)
   //  const [currency,setCurrency]=useState("CRORES")
   //  useEffect(() => {
   //   if(window){
@@ -108,10 +108,21 @@ export default function Index({ isQuery }) {
     }
 
     if ('termsheet' == pageName) {
-      if (id !== null) {
-        router.route = '/Leads' + '/Termsheet' + `/${id.toLowerCase()}`
+      console.log(order,"order2sssd")
+       if (order!=null) {
+        router.route = '/Leads' + '/Termsheet' + `/${id.toLowerCase()}` + `/${order}`
+        console.log('router1234', router.route)
+      }else if(id !== null){
+       
+       
+        router.route = '/Leads' + '/Termsheet' + `/${id.toLowerCase()} `
         console.log('router123', router.route)
-      } else {
+      
+        
+       
+      }
+        
+       else {
         router.route = '/Leads' + '/Termsheet'
       }
     }
@@ -226,7 +237,7 @@ export default function Index({ isQuery }) {
         setUrlLength(url.length)
       }
     })
-  }, [pageName, id])
+  }, [pageName, id,order])
   console.log(myUrl, 'url')
   console.log(currency, 'pageName')
   return (
@@ -238,6 +249,7 @@ export default function Index({ isQuery }) {
         {pageName == 'generic' ||
         pageName == 'vessel' ||
         pageName == 'custom' ||
+        pageName == 'termsheet' ||
         pageName == 'payment' ? (
           <div className={`${styles.breadcrumItem}`}>
             {myUrl.map((val, index) => {

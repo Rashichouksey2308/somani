@@ -847,7 +847,7 @@ setEditAddress(
                           type="file"
                           name="myfile"
                           accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                          onChange={(e) => {
+                          onChange={async(e) => {
                            let data = await props.uploadDoc(e)
                            console.log(data,"upload")
                             setdoc({attachDoc:data})
@@ -891,7 +891,7 @@ setEditAddress(
                           type="file"
                           name="myfile"
                           accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                          onChange={(e) => {
+                          onChange={async(e) => {
                             let data = await props.uploadDoc(e)
                               addDoc(data, index)
                           }}
