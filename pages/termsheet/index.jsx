@@ -8,6 +8,7 @@ const Index = () => {
   useEffect(() => {
     dispatch(setPageName('termsheet'))
     dispatch(setDynamicName(null))
+    dispatch(setDynamicOrder(null))
   })
 useEffect(() => {
   if(window){

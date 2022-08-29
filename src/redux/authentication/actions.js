@@ -371,7 +371,7 @@ export const validateToken = (payload) => async (dispatch, getState, api) => {
       if (response.data.code === 401) {
         dispatch(generateToken())
       }
-      dispatch(types.validatingTokenFailed(response.data.data))
+      dispatch(validatingTokenFailed(response.data.data))
 
       let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
       if (!toast.isActive(toastMessage.toUpperCase())) {
