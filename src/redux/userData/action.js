@@ -86,5 +86,6 @@ export const setDynamicName = (value) => async (dispatch, getState, api) => {
 }
 
 export const setDynamicOrder = (value) => async (dispatch, getState, api) => {
+  console.log('start', value)
   dispatch(dynamicOrder(value))
 }
