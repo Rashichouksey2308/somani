@@ -278,7 +278,7 @@ const index = ({
                   type="text"
                   value={addPrefixOrSuffix(
                     creditDetail?.monthlyProductionCapacity,
-                    creditDetail?.unitOfQuantity?.toUpperCase(),
+                    creditDetail?.unitOfQuantity?.toUpperCase()||"MT",
                   )}
                   name="monthlyProductionCapacity"
                   onChange={(e) => {
@@ -318,7 +318,7 @@ const index = ({
                   onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   value={addPrefixOrSuffix(
                     creditDetail?.averageStockOfCommodity,
-                    creditDetail?.unitOfQuantity?.toUpperCase(),
+                    creditDetail?.unitOfQuantity?.toUpperCase()||"MT",
                   )}
                   name="averageStockOfCommodity"
                   onChange={(e) => {
@@ -339,7 +339,7 @@ const index = ({
                   onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   value={addPrefixOrSuffix(
                     creditDetail?.averageStockInTransit,
-                    creditDetail?.unitOfQuantity?.toUpperCase(),
+                    creditDetail?.unitOfQuantity?.toUpperCase()||"MT",
                   )}
                   name="averageStockInTransit"
                   onChange={(e) => {
@@ -359,7 +359,7 @@ const index = ({
                   type="text"
                   value={addPrefixOrSuffix(
                     creditDetail?.availableStock,
-                    creditDetail?.unitOfQuantity?.toUpperCase(),
+                    creditDetail?.unitOfQuantity?.toUpperCase()||"MT",
                   )}
                   name="availableStock"
                   onChange={(e) => {
@@ -378,7 +378,7 @@ const index = ({
                   onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   value={addPrefixOrSuffix(
                     creditDetail?.dailyConsumptionOfCommodity,
-                    creditDetail?.unitOfQuantity?.toUpperCase(),
+                    creditDetail?.unitOfQuantity?.toUpperCase()||"MT",
                   )}
                   name="dailyConsumptionOfCommodity"
                   onChange={(e) => {
@@ -1777,11 +1777,12 @@ const index = ({
                                 index,
                               )
                             }
+                            value={profile?.limitType}
                             name="limitType"
                             className={`${styles.dropDown} heading`}
                             disabled={!profile.actions}
                           >
-                            <option>{profile.limitType}</option>
+                            <option disabled>Select an option</option>
                             <option value="Cash Credit">Cash Credit</option>
                             <option value="Bank Guarantee">
                               Bank Guarantee
@@ -1789,6 +1790,10 @@ const index = ({
                             <option value="Post Ship Credit">
                               Post Ship Credit
                             </option>
+                            <option value='LC Limits'>LC Limits</option>
+                            <option value='Buyers Credit'>Buyers Credit</option>
+                            <option value='Term Loan'>Term Loan</option>
+                            <option value='Packing Credit'>Packing Credit</option>
                           </select>
                         </td>
 

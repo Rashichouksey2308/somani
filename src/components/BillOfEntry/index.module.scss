@@ -79,6 +79,7 @@
         margin: 0 15px 0 30px;
         width: 97px;
         height: 38px;
+        white-space: nowrap;
         @include respond(md-desktop) {
           font-size: 16px;
         }
@@ -86,17 +87,21 @@
           font-size: 14px;
         }
         @include respond(phone) {
-          font-size: 12px;
-          width: 50px;
-          height: 26px;
+          width: 60px;
+          height: 35px;
           text-align: center;
-          border-radius: 3px;
         }
         .add_sign {
           font-size: 24px;
           font-weight: bold;
           line-height: 27px;
           margin-right: 5px;
+          @include respond(md-desktop) {
+            font-size: 22px;
+          }
+          @include respond(sm-desktop) {
+            font-size: 20px;
+          }
         }
       }
       .head_container {
