@@ -198,7 +198,7 @@ export default function Index(props) {
                                 style={{ marginTop: '-40px' }}
                               >
                                 <div
-                                  className={`${styles.form_group} ml-n2 col-lg-6`}
+                                  className={`${styles.form_group} ml-n2 col-lg-6 col-md-6`}
                                 >
                                   <div className={`${styles.label} text`}>
                                     Status
