@@ -54,21 +54,28 @@ export const updateGenericData =
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
-      Axios.put(`${API.corebaseUrl}${API.updateGeneric}`, payload, {
-        headers: headers,
-      }).then((response) => {
-        if (response.data.code === 200) {
-          dispatch(submitGenericSuccess(response.data))
-          let toastMessage = 'Submmitted'
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })   }
-        } else {
-          dispatch(submitGenericFailed(response.data.data))
-          let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
+      let response = await Axios.put(
+        `${API.corebaseUrl}${API.updateGeneric}`,
+        payload,
+        {
+          headers: headers,
+        },
+      )
+      if (response.data.code === 200) {
+        dispatch(submitGenericSuccess(response.data))
+        let toastMessage = 'Submitted'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-      })
+        console.log(response.data.timestamp, 'responsesdasd')
+        return response.data.timestamp
+      } else {
+        dispatch(submitGenericFailed(response.data.data))
+        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+      }
     } catch (error) {
       dispatch(submitGenericFailed())
 

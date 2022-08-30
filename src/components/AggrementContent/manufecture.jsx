@@ -244,8 +244,22 @@ setList([...list.slice(0, index), ...list.slice(index + 1)])
     
 
   }
-  const removeDocArr=(index)=>{
-   setDocList([...docList.slice(0,index), ...docList.slice(index+1)])
+const removeDoc=(index)=>{
+    console.log("removeDOc")
+     setDocList(prevState => {
+      const newState = prevState.map((obj ,i)=> {
+       
+        if (i == index) {
+          return {...obj, attachDoc: ''};
+        }
+
+        
+        return obj;
+      });
+
+      return newState;
+    });
+  
 }
 const handleChangeInput = (name, value, index) => {
 let arrayToSave={
@@ -286,9 +300,7 @@ let arrayToSave={
 
 
 }
-const handleChangeInput2=(name2,value,index)=>{
-
- const addDoc=(e,index)=>{
+const addDoc=(e,index)=>{
     setDocList(prevState => {
       const newState = prevState.map((obj ,i)=> {
     
@@ -319,6 +331,9 @@ const handleChangeInput2=(name2,value,index)=>{
       return newState;
     });
  }
+const handleChangeInput2=(name2,value,index)=>{
+
+ 
 
 
 setList(prevState => {
@@ -338,21 +353,21 @@ setList(prevState => {
 
 
 }
-
 const handleAddressInput=()=>{
-
+if(props.addressValidation(addressType,newAddress)){
 setAddressList(current => [...current, newAddress])
   
-  setNewAddress({
-              "addressType": "Registered",
-              "fullAddress": "",
-              "pinCode": "",
-              "country": "",
-              "gstin": "",
-              "state": "",
-              "city": ""
-          })
-          setAddressType("Registered")
+setNewAddress({
+          "addressType": "Registered",
+          "fullAddress": "",
+          "pinCode": "",
+          "country": "",
+          "gstin": "",
+          "state": "",
+          "city": ""
+      })
+setAddressType("Registered")
+}
 }
 const onAddressRemove=(index)=>{
 setAddressList([...addressList.slice(0,index), ...addressList.slice(index+1)])
@@ -407,10 +422,39 @@ setEditAddress(
             "city": ""
         }
   )
+ 
+
 
 
 }
+const cancelAddress=()=>{
+ setNewAddress({
+              "addressType": "Registered",
+              "fullAddress": "",
+              "pinCode": "",
+              "country": "",
+              "gstin": "",
+              "state": "",
+              "city": ""
+          })
+  setAddressType("Registered")
+     setNewMultiAddress(
+            {
+            "addressType": "",
+            "fullAddress": "",
+            "pinCode": "",
+            "country": "",
+            "gstin": "",
+            "state": "",
+            "city": ""
+        }
+  )
+  setMultiAddressType("Registered")
+}
 const saveNewAddress=()=>{
+  if(props.addressValidation(EditAddress.addressType,EditAddress)){
+
+ 
 console.log(EditAddress,"EditAddress",toEditIndex)
 setAddressList(prevState => {
   const newState = prevState.map((obj ,i)=> {
@@ -427,18 +471,18 @@ setAddressList(prevState => {
 });
 setIsEdit(false)
 setEditAddress(
-            {
-            "addressType": "",
-            "fullAddress": "",
-            "pinCode": "",
-            "country": "",
-            "gstin": "",
-            "state": "",
-            "city": ""
-        }
+      {
+      "addressType": "",
+      "fullAddress": "",
+      "pinCode": "",
+      "country": "",
+      "gstin": "",
+      "state": "",
+      "city": ""
+  }
 )
 
-
+ }
 
 }
 
@@ -767,7 +811,7 @@ setEditAddress(
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="text"
+                        type="number"
                         name="pinCode"
                         value={newAddress.pinCode}
                         onChange={(e) => {
@@ -835,7 +879,7 @@ setEditAddress(
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="text"
+                        type="number"
                         name="pinCode"
                         value={newAddress.pinCode}
                         onChange={(e) => {
@@ -923,7 +967,11 @@ setEditAddress(
                     >
                     <span>Add</span>
                     </div>
-                    <div className={`${styles.cancel} d-flex justify-content-center align-items-center`}>
+                    <div className={`${styles.cancel} d-flex justify-content-center align-items-center`}
+                     onClick={()=>{
+                      cancelAddress()
+                    }}
+                    >
                     <span>Cancel</span>
                     </div>
                   </div>
@@ -1018,9 +1066,9 @@ setEditAddress(
                           <td>
                             <input type="text"
                               className='input'
-                              placeholder={val.designation}
+                              value={val.designation}
                               name="designation"
-                              readOnly={val.addnew!="true"?true:false}
+                              // readOnly={val.addnew!="true"?true:false}
                               onChange={(e)=>{
                                 handleChangeInput2(e.target.name,e.target.value,index)
                               }}
@@ -1028,10 +1076,14 @@ setEditAddress(
                           
                           </td>
                           <td>
-                            <input type="text" placeholder={val.email}
+                            <input type="text" 
+                            value={val.email}
                               name= "email"
-                              readOnly={val.addnew!="true"?true:false}                              
+                                                        
                               className='input'
+                              onChange={(e)=>{
+                                handleChangeInput2(e.target.name,e.target.value,index)
+                              }}
                             />
                           </td>
                           <td>
@@ -1165,7 +1217,7 @@ setEditAddress(
                         <img
                           className={`${styles.close_image} float-right m-2 img-fluid`}
                           src="/static/close.svg"
-                          // onClick={() => removeDoc(index)}
+                          onClick={() => removeDoc(index)}
                           alt="Close"
                         />{' '}
                       </div>
@@ -1189,7 +1241,29 @@ setEditAddress(
         <>
          
         <div className={styles.manufacture}>
-         <div className={`${styles.addressContainer} m-0`}>
+        
+           <span className={``}>{props.multiPartValue} Details</span>
+            
+            <Form.Group className={`${styles.form_group} d-flex  col-md-8 col-sm-6`}>
+              <Form.Control
+                className={`${styles.input_field} input form-control`}
+                required
+                type="text"
+                name="name"
+                onChange={(e) => {
+                  handleInput(e.target.name,e.target.value)
+                }}
+              />
+              <Form.Label className={`${styles.label_heading} label_heading`}>
+               {props.multiPartValue} Name<strong className="text-danger">*</strong>
+              </Form.Label>
+                <img
+                    className={`${styles.search_image} img-fluid`}
+                    src="/static/search-grey.svg"
+                    alt="Search"
+                  />
+            </Form.Group>
+          <div className={`${styles.addressContainer} m-0`}>
           {multiList?.length > 0 ? <span className={`mb-3`}> {props.multiPartValue} Addresses</span>:null}
           <div className={`${styles.containerChild} d-flex justify-content-between flex-wrap  `}>
            {multiList?.map((val,index)=>{
@@ -1228,30 +1302,9 @@ setEditAddress(
 
           </div>
         </div>
-           <span className={``}>{props.multiPartValue} Details</span>
-           
           <div className={`row`}>
 
-            
-            <Form.Group className={`${styles.form_group} d-flex  col-md-8 col-sm-6`}>
-              <Form.Control
-                className={`${styles.input_field} input form-control`}
-                required
-                type="text"
-                name="name"
-                onChange={(e) => {
-                  handleInput(e.target.name,e.target.value)
-                }}
-              />
-              <Form.Label className={`${styles.label_heading} label_heading`}>
-               {props.multiPartValue} Name<strong className="text-danger">*</strong>
-              </Form.Label>
-                <img
-                    className={`${styles.search_image} img-fluid`}
-                    src="/static/search-grey.svg"
-                    alt="Search"
-                  />
-            </Form.Group>
+           
             <div className={`${styles.newAddressContainer} ${styles.newAddressContainer2} m-0`}>
                   <div className={styles.newAddressHead}><span>Add a new {props.multiPartValue} address</span></div>
                     <div className={`${styles.newAddressContent} row`}>
@@ -1306,7 +1359,7 @@ setEditAddress(
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="text"
+                        type="number"
                         name="pinCode"
                         value={newMultiAddress.pinCode}
                         onChange={(e) => {
@@ -1344,7 +1397,7 @@ setEditAddress(
                     </Form.Group>
                     </>
                     :<>
-                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                    {/* <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                       <div className="d-flex">
                         <select
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
@@ -1369,12 +1422,12 @@ setEditAddress(
                           alt="Search"
                         />
                       </div>
-                    </Form.Group>
+                    </Form.Group> */}
                     <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="text"
+                        type="number"
                         name="pinCode"
                         value={newMultiAddress.pinCode}
                         onChange={(e) => {
@@ -1462,7 +1515,11 @@ setEditAddress(
                     >
                     <span>Add</span>
                     </div>
-                    <div className={`${styles.cancel} d-flex justify-content-center align-items-center`}>
+                    <div className={`${styles.cancel} d-flex justify-content-center align-items-center`}
+                    onClick={()=>{
+                      cancelAddress()
+                    }}
+                    >
                     <span>Cancel</span>
                     </div>
                   </div>
@@ -1492,7 +1549,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         <select
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           name="addressType"
-                          
+                          value={EditAddress.addressType}
                           onChange={(e) => {
                             setAddressEditType(e.target.value)
                             editNewAddress(e.target.name,e.target.value)
@@ -1538,7 +1595,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="text"
+                        type="number"
                         name="pinCode"
                         value={EditAddress.pinCode}
                         onChange={(e) => {
@@ -1606,7 +1663,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="text"
+                        type="number"
                         name="pinCode"
                          value={EditAddress.pinCode}
                         onChange={(e) => {
