@@ -2071,11 +2071,15 @@ const creditValidation=()=>{
                       <div
                         className={` ${styles.cardBody_details} card-body border_color`}
                       >
-                        {table2(
-                          complienceStatutoryFilter,
-                          complienceBalanceFilter,
-                          complienceFilter,
-                        )}
+                      <div className={styles.table_scroll_outer}>
+                        <div className={styles.table_scroll_inner}>
+                          {table2(
+                            complienceStatutoryFilter,
+                            complienceBalanceFilter,
+                            complienceFilter,
+                          )}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
