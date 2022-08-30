@@ -24,7 +24,7 @@ function Index({ directorData }) {
       setDarkMode(false)
     }
   }, [])
-  console.log(directorData?.profile?.directorDetail?.length,"len")
+  console.log(_get(directorData?.profile?.directorDetail[0], `otherAssociatedEntities${otherAssociates}`, []),"len")
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -637,7 +637,7 @@ function Index({ directorData }) {
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  {director && _get(director, `otherAssociatedEntities${otherAssociates}`, []).map((associates, index) => {
+                                  {Array.isArray(_get(director, `otherAssociatedEntities${otherAssociates}`, [])) && _get(director, `otherAssociatedEntities${otherAssociates}`, []).map((associates, index) => {
                                     const fromDate = associates?.fromDate
                                     const toDate = associates?.toDate
 
