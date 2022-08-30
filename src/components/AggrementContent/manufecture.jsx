@@ -972,7 +972,7 @@ setEditAddress(
                           <td>{val.email}</td>
                           <td>{val.phoneNo}</td>
                           <td className={`d-flex`}>
-                          <img className={`${styles.image} mr-2`} onClick={()=>(onEdit(index))} src="/static/mode_edit.svg" alt="edit"/>
+                          <img className={`${styles.image} mr-3`} onClick={()=>(onEdit(index))} src="/static/mode_edit.svg" alt="edit"/>
                           <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg" alt="delete"/>
                           </td>
 
@@ -983,7 +983,7 @@ setEditAddress(
                          <>
                            <select 
                             value={val.name}
-                            className={`${styles.customSelect}`}
+                            className={`${styles.customSelect} input`}
                             onChange={(e)=>{
                               handleChangeInput(e.target.name,e.target.value,index)
                             }}>
@@ -1003,40 +1003,46 @@ setEditAddress(
                            
                          <>
                           <input type="text" 
-                              placeholder={"Add new"}
-                               name= "name"
-                               value={val.name}
-                               onChange={(e)=>{
-                                handleChangeInput2(e.target.name,e.target.value,index)
-                                }}
-                              ></input>
-                         </>
+                            className='input'
+                            placeholder={"Add new"}
+                            name= "name"
+                            value={val.name}
+                            onChange={(e)=>{
+                            handleChangeInput2(e.target.name,e.target.value,index)
+                            }}
+                          />
+                        </>
                       }
                             
                           </td>
                           <td>
-                            <input type="text" 
-                          placeholder={val.designation}
-                          name= "designation"
-                          readOnly={val.addnew!="true"?true:false}
-                           onChange={(e)=>{
-                            handleChangeInput2(e.target.name,e.target.value,index)
-                             }}
-                          ></input>
+                            <input type="text"
+                              className='input'
+                              placeholder={val.designation}
+                              name="designation"
+                              readOnly={val.addnew!="true"?true:false}
+                              onChange={(e)=>{
+                                handleChangeInput2(e.target.name,e.target.value,index)
+                              }}
+                            />
                           
                           </td>
-                          <td><input type="text" placeholder={val.email}
-                          name= "email"
-                          readOnly={val.addnew!="true"?true:false}
-                         
-                          ></input>
+                          <td>
+                            <input type="text" placeholder={val.email}
+                              name= "email"
+                              readOnly={val.addnew!="true"?true:false}                              
+                              className='input'
+                            />
                           </td>
-                          <td><input type="text" placeholder={val.phoneNo}
-                          name= "phoneNo"
-                          onChange={(e)=>{
-                            handleChangeInput2(e.target.name,e.target.value,index)
-                          }}
-                          ></input></td>
+                          <td>
+                            <input type="text" placeholder={val.phoneNo}
+                              className='input'
+                              name= "phoneNo"
+                              onChange={(e)=>{
+                                handleChangeInput2(e.target.name,e.target.value,index)
+                              }}
+                            />
+                          </td>
                           <td className={`d-flex`}>
                             <div
                               className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
@@ -1044,7 +1050,7 @@ setEditAddress(
                               onEditRemove(index)
                               }}
                             >
-                              <img className={`${styles.image} img-fluid mr-3`} src="/static/save-3.svg" alt="save"/>
+                              <img className={`${styles.image} mr-3`} src="/static/save-3.svg" alt="save"/>
                             </div>
                             <div
                               className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center`}
@@ -1122,7 +1128,7 @@ setEditAddress(
                       </td>
                       </td>
                       <td className={`d-flex`}>
-                        {/* <img  className={`img-fluid mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
+                        {/* <img  className={`mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
                         <img  src="/static/upload.svg" alt="upload"/>
                       </td>
                       </tr>
@@ -1166,7 +1172,7 @@ setEditAddress(
                     )}
                       </td>
                       <td className={`d-flex`}>
-                        {/* <img onClick={()=>removeDocArr(index)} className={`img-fluid mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
+                        {/* <img onClick={()=>removeDocArr(index)} className={`mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
                         <img src="/static/upload.svg" alt="upload"/>
                       </td>
 
@@ -1267,7 +1273,7 @@ setEditAddress(
                           
                         </select>
                         <Form.Label
-                          className={`${styles.label_heading} ${styles.select}  label_heading`}
+                          className={`${styles.label_heading} ${styles.select} label_heading`}
                         >
                           Address Type<strong className="text-danger">*</strong>
                         </Form.Label>

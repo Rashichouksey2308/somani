@@ -68,10 +68,11 @@ function Index(props) {
           <div className={`d-flex justify-content-between align-items-between`}>
             <input
               placeholder={``}
+              className='input'
               onChange={(e) => {
                 setValue(e.target.value)
               }}
-            ></input>
+            />
             <img
               className="img-fluid ml-4"
               src="/static/add-btn.svg"
@@ -134,13 +135,14 @@ function Index(props) {
                       onChange={(e) => {
                         // handleInput(e.target.name,e.target.value,"bankName")
                       }}
+                      className='input'
                     />
                     <div
                       className={`d-flex justify-content-evenly align-items-center`}
                     >
                       {!editField ? (
                         <img
-                          className="img-fluid ml-4 mr-4"
+                          className={`${styles.image} ml-4 mr-3`}
                           src="/static/mode_edit.svg"
                           alt="edit button"
                           onClick={() => {
@@ -151,7 +153,7 @@ function Index(props) {
                       ) : (
                         <img
                           src="/static/save-3.svg"
-                          className={`${styles.edit_image} ml-4 mr-4`}
+                          className={`${styles.image} ml-4 mr-3`}
                           alt="save"
                           onClick={(e) => {
                             setEditField(false)

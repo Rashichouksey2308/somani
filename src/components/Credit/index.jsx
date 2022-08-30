@@ -796,6 +796,10 @@ const index = ({
                 <label className={`${styles.label_heading} label_heading`}>
                   Commodity to Total Trade % -24M
                   <strong className="text-danger">*</strong>
+                  <div className={`${styles.tooltip}`}>
+                    <img className={`ml-2 mt-n1 img-fluid`} src="/static/info-circle.svg"/>
+                    <span className={`${styles.tooltiptext}`}>Lorem ipsum</span>
+                  </div>
                 </label>
               </div>
               <div className="col-12 mt-4">
@@ -833,7 +837,7 @@ const index = ({
           aria-labelledby="keyContact"
           data-parent="#profileAccordion"
         >
-          <div className={`${styles.datatable} card-body datatable`}>
+          <div className={`${styles.datatable} card-body`}>
             <div className={`${styles.table_scroll_outer}`}>
               <div className={`${styles.table_scroll_inner}`}>
                 <table
@@ -1050,16 +1054,17 @@ const index = ({
             </div>
             {showAddress ? (
               <div
-                className={`${styles.main} ${styles.add_address} card border_color`}
+                className={`${styles.main} ${styles.add_address} card shadow-none border_color`}
               >
                 <div
-                  className={`${styles.head_container} mb-n3 align-items-center card-header d-flex justify-content-between bg-transparent`}
+                  className={`${styles.head_container} align-items-center card-header d-flex justify-content-between bg-transparent`}
                 >
-                  <h3 className={`${styles.heading}`}>Add a new address</h3>
+                  <h3 className={`${styles.heading} mb-0`}>Add a new address</h3>
                   <img
                     onClick={() => {
                       setShowAddress(false)
-                    }}
+                    }}                    
+                    style={{marginRight:'-15px'}}
                     src="/static/accordion_close_black.svg"
                   />
                 </div>
@@ -1335,17 +1340,16 @@ const index = ({
             ) : null}
             {showEditAddress ? (
               <div
-                className={`${styles.main} card border_color`}
-                style={{ margin: '10px 35px 32px 32px' }}
-              >
+                className={`${styles.main} ${styles.add_address} card shadow-none border_color`}>
                 <div
-                  className={`${styles.head_container} mb-n3 card-header d-flex justify-content-between bg-transparent`}
+                  className={`${styles.head_container} align-items-center card-header d-flex justify-content-between bg-transparent`}
                 >
-                  <h3 className={`${styles.heading}`}>Edit address</h3>
+                  <h3 className={`${styles.heading} mb-0`}>Edit address</h3>
                   <img
                     onClick={() => {
                       setShowEditAddress(false)
                     }}
+                    style={{marginRight:'-15px'}}
                     src="/static/accordion_close_black.svg"
                   />
                 </div>
@@ -1572,36 +1576,39 @@ const index = ({
                         GSTIN<strong className="text-danger">*</strong>
                       </label>
                     </div>
-
-                    <div className={`${styles.btn_container} col-md-4`}>
-                      <button className={`${styles.gst_btn}`}>
-                        {' '}
-                        <input
-                          type="file"
-                          name={keyAddressData.GSTIN}
-                          // name="myfile"
-                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                          onChange={(e) => {
-                            uploadDocument(e)
-                          }}
-                        />
-                        <img
-                          className="img-fluid mr-2 mb-1"
-                          src="/static/file_upload.svg"
-                          alt="file upload"
-                        />
-                        GST Doc
+                    <div
+                      className={`${styles.btn_outer} d-flex justify-center-center align-items-center col-md-4`}
+                    >
+                      <div className={`${styles.btn_container}`}>
+                        <button className={`${styles.gst_btn}`}>
+                          {' '}
+                          <input
+                            type="file"
+                            name={keyAddressData.GSTIN}
+                            // name="myfile"
+                            accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                            onChange={(e) => {
+                              uploadDocument(e)
+                            }}
+                          />
+                          <img
+                            className="img-fluid mr-2 mb-1"
+                            src="/static/file_upload.svg"
+                            alt="file upload"
+                          />
+                          GST Doc
+                        </button>
+                      </div>
+                      <button
+                        className={`${styles.add_btn}`}
+                        onClick={() => {
+                          updateKeyAddDataArr(editData, Index)
+                          setShowEditAddress(false)
+                        }}
+                      >
+                        Update
                       </button>
                     </div>
-                    <button
-                      // className={`${styles.add_btn}`}
-                      onClick={() => {
-                        updateKeyAddDataArr(editData, Index)
-                        setShowEditAddress(false)
-                      }}
-                    >
-                      Update
-                    </button>
                   </div>
                 </div>
                 <div className={`${styles.form_group} col-md-8 col-sm-6`}>
@@ -1649,36 +1656,39 @@ const index = ({
                     GSTIN<strong className="text-danger">*</strong>
                   </label>
                 </div>
-
-                <div className={`${styles.btn_container} col-md-4`}>
-                  <button className={`${styles.gst_btn}`}>
-                    {' '}
-                    <input
-                      type="file"
-                      name={keyAddressData.GSTIN}
-                      // name="myfile"
-                      accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                      onChange={(e) => {
-                        uploadDocument(e)
-                      }}
-                    />
-                    <img
-                      className="img-fluid mr-2 mb-1"
-                      src="/static/file_upload.svg"
-                      alt="file upload"
-                    />
-                    GST Doc
+                <div
+                  className={`${styles.btn_outer} d-flex justify-center-center align-items-center col-md-4`}
+                >
+                  <div className={`${styles.btn_container}`}>
+                    <button className={`${styles.gst_btn}`}>
+                      {' '}
+                      <input
+                        type="file"
+                        name={keyAddressData.GSTIN}
+                        // name="myfile"
+                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                        onChange={(e) => {
+                          uploadDocument(e)
+                        }}
+                      />
+                      <img
+                        className="img-fluid mr-2 mb-1"
+                        src="/static/file_upload.svg"
+                        alt="file upload"
+                      />
+                      GST Doc
+                    </button>
+                  </div>
+                  <button
+                    className={`${styles.add_btn}`}
+                    onClick={() => {
+                      updateKeyAddDataArr(editData, Index)
+                      setShowEditAddress(false)
+                    }}
+                  >
+                    Update
                   </button>
                 </div>
-                <button
-                  className={`${styles.add_btn}`}
-                  onClick={() => {
-                    updateKeyAddDataArr(editData, Index)
-                    setShowEditAddress(false)
-                  }}
-                >
-                  Update
-                </button>
               </div>
             ) : null}
             <div
@@ -1712,7 +1722,7 @@ const index = ({
           aria-labelledby="debtProfile"
           data-parent="#profileAccordion"
         >
-          <div className={`${styles.datatable} datatable`}>
+          <div className={`${styles.datatable}  card-body`}>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
                 <table
@@ -1734,7 +1744,7 @@ const index = ({
                   </thead>
                   <tbody>
                     {debtData?.map((profile, index) => (
-                      <tr key={index}>
+                      <tr key={index} className='table_credit shadow-none'>
                         <td>{index + 1}</td>
                         <td className="d-flex justify-content-center align-items-end">
                           <input
@@ -1839,7 +1849,7 @@ const index = ({
                             {!profile.actions ? (
                               <img
                                 src="/static/mode_edit.svg"
-                                className={`${styles.edit_image} mr-3 img-fluid`}
+                                className={`${styles.edit_image} mr-3`}
                                 onClick={() => {
                                   setActions(index, true)
                                 }}
@@ -1847,7 +1857,7 @@ const index = ({
                             ) : (
                               <img
                                 src="/static/save-3.svg"
-                                className={`${styles.edit_image} mr-3 img-fluid`}
+                                className={`${styles.edit_image} mr-3`}
                                 alt="save"
                                 onClick={(e) => {
                                   setActions(index, false)
@@ -1856,7 +1866,7 @@ const index = ({
                             )}
                             <img
                               src="/static/delete 2.svg"
-                              className={`${styles.delete_image} img-fluid`}
+                              className={`${styles.delete_image}`}
                               onClick={() => {
                                 handleRemoveRow(index)
                               }}

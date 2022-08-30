@@ -2977,101 +2977,105 @@ const sectionTerms = (
           data-parent="#profileAccordion"
         >
           <div className={`${styles.terms_wrapper} card-body border_color`}>
-            <table
-              className={`${styles.sectionTable} table   `}
-              cellPadding="0"
-              cellSpacing="0"
-              border="0"
-            >
-              <tr>
-                <th></th>
-                <th>PREVIOUS LIMIT</th>
-                <th>APPLIED VALUE</th>
-                <th>DERIVED VALUE</th>
-                <th>SUGGESTED VALUE</th>
-                <th>REVISED</th>
-                <th>APPROVED VALUE</th>
-              </tr>
-              <tr>
-                <td>Limit Value</td>
-                <td>{camData?.company?.creditLimit?.availableLimit}</td>
-                <td>-</td>
-                {filteredCreditRating ? (
-                  <>
-                    {' '}
-                    {filteredCreditRating &&
-                      filteredCreditRating.length > 0 &&
-                      filteredCreditRating.map((val, index) => (
-                        <td key={index}>{val?.derived?.value}</td>
-                      ))}{' '}
-                  </>
-                ) : (
-                  <td>-</td>
-                )}
-                {filteredCreditRating ? (
-                  <>
-                    {' '}
-                    {filteredCreditRating &&
-                      filteredCreditRating.length > 0 &&
-                      filteredCreditRating.map((val, index) => (
-                        <td key={index}>{CovertvaluefromtoCR(val?.suggested?.value)} Cr</td>
-                      ))}{' '}
-                  </>
-                ) : (
-                  <td>-</td>
-                )}
-                <td>
-                  <input type="checkbox"></input>
-                </td>
-                <td>
-                  <input
-                    className={`${styles.text}`}
-                    required={true}
-                    type="number"
-                    defaultValue={camData?.cam?.approvedCreditValue}
-                    name="approvedCreditValue"
-                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
-                    onChange={(e) => {
-                      onApprove(
-                        e.target.name,
-                        Number(e.target.value * 10000000),
-                      )
-                    }}
-                  ></input>
-                </td>
-              </tr>
-              <tr>
-                <td>Order Value</td>
-                <td>-</td>
-                <td>{camData?.orderValue}</td>
-                <td>-</td>
-                <td>
-                  {CovertvaluefromtoCR(camData?.suggestedOrderValue)} Cr
-                  {/* {camData?.suggestedOrderValue} */}
-                  </td>
-                <td>
-                  <input type="checkbox"></input>
-                </td>
-                <td>
-                  <input
-                    className={`${styles.text}`}
-                    type="number"
-                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
-                    name="approvedOrderValue"
-                    defaultValue={camData?.cam?.approvedOrderValue}
-                    onChange={(e) => {
-                      onApproveOrder(
-                        e.target.name,
-                        Number(e.target.value * 10000000),
-                      )
-                    }}
-                  ></input>
-                </td>
-              </tr>
-            </table>
+            <div className={styles.table_scroll_outer}>
+              <div className={styles.table_scroll_inner}>
+                <table
+                  className={`${styles.sectionTable} table   `}
+                  cellPadding="0"
+                  cellSpacing="0"
+                  border="0"
+                >
+                  <tr>
+                    <th></th>
+                    <th>PREVIOUS LIMIT</th>
+                    <th>APPLIED VALUE</th>
+                    <th>DERIVED VALUE</th>
+                    <th>SUGGESTED VALUE</th>
+                    <th>REVISED</th>
+                    <th>APPROVED VALUE</th>
+                  </tr>
+                  <tr>
+                    <td>Limit Value</td>
+                    <td>{camData?.company?.creditLimit?.availableLimit}</td>
+                    <td>-</td>
+                    {filteredCreditRating ? (
+                      <>
+                        {' '}
+                        {filteredCreditRating &&
+                          filteredCreditRating.length > 0 &&
+                          filteredCreditRating.map((val, index) => (
+                            <td key={index}>{val?.derived?.value}</td>
+                          ))}{' '}
+                      </>
+                    ) : (
+                      <td>-</td>
+                    )}
+                    {filteredCreditRating ? (
+                      <>
+                        {' '}
+                        {filteredCreditRating &&
+                          filteredCreditRating.length > 0 &&
+                          filteredCreditRating.map((val, index) => (
+                            <td key={index}>{CovertvaluefromtoCR(val?.suggested?.value)} Cr</td>
+                          ))}{' '}
+                      </>
+                    ) : (
+                      <td>-</td>
+                    )}
+                    <td>
+                      <input type="checkbox"></input>
+                    </td>
+                    <td>
+                      <input
+                        className={`${styles.text} input`}
+                        required={true}
+                        type="number"
+                        defaultValue={camData?.cam?.approvedCreditValue}
+                        name="approvedCreditValue"
+                        onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                        onChange={(e) => {
+                          onApprove(
+                            e.target.name,
+                            Number(e.target.value * 10000000),
+                          )
+                        }}
+                      ></input>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Order Value</td>
+                    <td>-</td>
+                    <td>{camData?.orderValue}</td>
+                    <td>-</td>
+                    <td>
+                      {CovertvaluefromtoCR(camData?.suggestedOrderValue)} Cr
+                      {/* {camData?.suggestedOrderValue} */}
+                      </td>
+                    <td>
+                      <input type="checkbox"></input>
+                    </td>
+                    <td>
+                      <input
+                        className={`${styles.text} input`}
+                        type="number"
+                        onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                        name="approvedOrderValue"
+                        defaultValue={camData?.cam?.approvedOrderValue}
+                        onChange={(e) => {
+                          onApproveOrder(
+                            e.target.name,
+                            Number(e.target.value * 10000000),
+                          )
+                        }}
+                      ></input>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
             <div>
               <div
-                className={`${styles.heading} heading  card_sub_header d-flex  align-items-center justify-content-start`}
+                className={`${styles.heading} heading card_sub_header d-flex align-items-center justify-content-start`}
               >
                 Sanction Conditions
               </div>
