@@ -477,11 +477,9 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                         disabled={fields[7]?.isEdit}
                         labelName=""
                         maxDate={moment(
-                          reviewedProfile?.ExpectedDateOfShipment?.originalValue?.split(
-                            'T',
-                          )[0],
+                         new Date()
                         )
-                          .add(90, 'days')
+                          .add(3, 'months')
                           .toDate()}
                         lastDate={moment(
                           reviewedProfile?.ExpectedDateOfShipment?.originalValue.split(
