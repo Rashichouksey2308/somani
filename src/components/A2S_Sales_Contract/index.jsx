@@ -29,6 +29,10 @@ function Index(props) {
     terms: "",
     addComm: "",
     spec: "",
+    unitOfGrade:"",
+    unitOfQuantity:"",
+    unitOfValue:"",
+    curr:""
 
   })
 
@@ -58,6 +62,10 @@ function Index(props) {
           terms: data?.terms,
           addComm: data?.addComm,
           spec: data?.spec,
+          unitOfGrade:data?.unitOfGrade,
+          unitOfQuantity:data?.unitOfQuantity,
+          unitOfValue:data?.unitOfValue,
+          curr:data?.orderCurrency
         })
       } else {
         const data = JSON.parse(sessionStorage.getItem("genericSelected"))
@@ -70,9 +78,9 @@ function Index(props) {
 
 
         setData({
-          seller: data.seller.name,
+          seller: data?.seller?.name,
           buyer: "Indo German International",
-          shortseller: data.seller.shortName,
+          shortseller: data?.seller.shortName,
           shortbuyer: "IGI",
           sellerSignature: "",
           buyerSignature: "",
@@ -90,6 +98,10 @@ function Index(props) {
           terms: data?.order?.deliveryTerm,
           addComm: data?.additionalComments?.comments,
           spec: data?.productSpecifications?.comments,
+          unitOfGrade:data.order.unitOfGrade,
+          unitOfQuantity:data.order.unitOfQuantity,
+          unitOfValue:data.order.unitOfValue,
+          curr:data.order.orderCurrency
         })
       }
     }
@@ -522,11 +534,11 @@ const salesContract = (changeHandler, data, preview) => {
 
         <div className={`${styles.inputsContainer}`}>
           <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Date of execution</Col>
+            <Col md={5} className={styles.left}>Date of Execution</Col>
             <Col md={7} className={styles.right}>{moment(new Date()).format("DD-MM-YYYY")}</Col>
           </Row>
           <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Place of execution</Col>
+            <Col md={5} className={styles.left}>Place of Execution</Col>
             <Col md={7} className={styles.right}>{data.placeOfExecution}</Col>
           </Row>
           <Row className={`${styles.row}`}>
@@ -543,15 +555,15 @@ const salesContract = (changeHandler, data, preview) => {
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Quantity</Col>
-            <Col md={7} className={styles.right}>{data.quan}</Col>
+            <Col md={7} className={styles.right}>{data.quan} {data?.unitOfQuantity?.toUpperCase()}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Unit Price</Col>
-            <Col md={7} className={styles.right}>{data.unitPrice}</Col>
+            <Col md={7} className={styles.right}>{data.curr} {data.unitPrice}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Total Order Value</Col>
-            <Col md={7} className={styles.right}>{data.totalOrderValue}</Col>
+            <Col md={7} className={styles.right}>{data.totalOrderValue} {data.unitOfValue}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Load Port</Col>
