@@ -168,18 +168,18 @@ function Index({ shareHolding }) {
             className={`${styles.graphTable} ${styles.cardBody} card-body border_color`}
           >
             <h3 className="label_heading">Equity Capital</h3>
-            <div className={styles.tableParent}>
-              <div className={styles.table_scroll_outer}>
+            <div className={`${styles.tableParent}`}>
+              <div className={`${styles.table_scroll_outer}`}>
                 <div className={styles.table_scroll_inner}>
                   <table
-                    className={`${styles.table} table mb-4`}
+                    className={`${styles.table} table mb-0`}
                     cellPadding="0"
                     cellSpacing="0"
                     border="0"
                   >
                     <tbody>
                       <tr>
-                        <th
+                        <th width="23%"
                           rowSpan={shareHolding ? shareHolding?.length : '17'}
                         >
                           <div className={styles.chart}>
@@ -215,7 +215,7 @@ function Index({ shareHolding }) {
                             </div>
                           </div>
                         </th>
-                        <th></th>
+                        <th width="5%"></th>
                         <th>FULL NAME</th>
                         <th>NO. OF SHARES</th>
                         <th>% SHAREHOLDING</th>
@@ -235,27 +235,27 @@ function Index({ shareHolding }) {
                           return (
                             <tr key={index}>
                               <td
-                                className={`${styles.legends} ${styles.green} border-bottom-0`}
+                                className={`${styles.legends} ${styles.green} border-top-0 border-bottom-0`}
                               >
                                 <span></span>
                               </td>
-                              <td className={`${styles.name} border-bottom-0`}>
+                              <td className={`${styles.name} border-top-0 border-bottom-0`}>
                                 {shareHolder.fullName}
                               </td>
-                              <td className="border-bottom-0">
+                              <td className="border-top-0 border-bottom-0">
                                 {shareHolder.numberOfShares}
                               </td>
-                              <td className="border-bottom-0">
+                              <td className="border-top-0 border-bottom-0">
                                 {shareHolder.percentageShareHolding?.toLocaleString(
                                   undefined,
                                   { minimumFractionDigits: 2 },
                                 )}
                                 %
                               </td>
-                              <td className="border-bottom-0">
+                              <td className="border-top-0 border-bottom-0">
                                 {shareHolder.pan}
                               </td>
-                              <td className="border-bottom-0">
+                              <td className="border-top-0 border-bottom-0">
                                 {shareHolder.director ? 'Yes' : 'No'}
                               </td>
                             </tr>
@@ -263,7 +263,7 @@ function Index({ shareHolding }) {
                         }
                       })}
                       <tr>
-                        <td></td>
+                        <td className='border-top-0'></td>
                         <td className="border-top-0"></td>
                         <td>{totalEquityShare}</td>
                         <td>{totalEquitySharePercentage.toFixed(2)}%</td>
@@ -276,19 +276,19 @@ function Index({ shareHolding }) {
               </div>
             </div>
 
-            <h3 className="label_heading">Preference Capital</h3>
+            <h3 className="label_heading mt-4 pt-1">Preference Capital</h3>
             <div className={styles.tableParent}>
               <div className={styles.table_scroll_outer}>
                 <div className={styles.table_scroll_inner}>
                   <table
-                    className={`${styles.table} table`}
+                    className={`${styles.table} table mb-0`}
                     cellPadding="0"
                     cellSpacing="0"
                     border="0"
                   >
                     <tbody>
                       <tr>
-                        <th rowSpan="7">
+                        <th rowSpan="7" width="23%">
                           <div className={styles.chart}>
                             <Doughnut data={prefrencedata} options={options} />
                             <div className={`${styles.total_value} `}>
@@ -306,7 +306,7 @@ function Index({ shareHolding }) {
                             </div>
                           </div>
                         </th>
-                        <th></th>
+                        <th width="5%"></th>
                         <th>FULL NAME</th>
                         <th>NO. OF SHARES</th>
                         <th>% SHAREHOLDING</th>
@@ -318,23 +318,23 @@ function Index({ shareHolding }) {
                           return (
                             <tr key={index}>
                               <td
-                                className={`${styles.legends} ${styles.green} border-bottom-0`}
+                                className={`${styles.legends} ${styles.green} border-top-0 border-bottom-0`}
                               >
                                 <span></span>
                               </td>
-                              <td className={`${styles.name} border-bottom-0`}>
+                              <td className={`${styles.name} border-top-0 border-bottom-0`}>
                                 {shareHolder.fullName}
                               </td>
-                              <td className="border-bottom-0">
+                              <td className="border-top-0 border-bottom-0">
                                 {shareHolder.numberOfShares}
                               </td>
-                              <td className="border-bottom-0">
+                              <td className="border-top-0 border-bottom-0">
                                 {shareHolder.percentageShareHolding}
                               </td>
-                              <td className="border-bottom-0">
+                              <td className="border-top-0 border-bottom-0">
                                 {shareHolder.pan}
                               </td>
-                              <td className="border-bottom-0">
+                              <td className="border-top-0 border-bottom-0">
                                 {shareHolder.director ? 'Yes' : 'No'}
                               </td>
                             </tr>
@@ -342,7 +342,7 @@ function Index({ shareHolding }) {
                         }
                       })}
                       <tr>
-                        <td></td>
+                        <td className='border-top-0'></td>
                         <td className="border-top-0"></td>
                         <td>{totalPrefrenceShare}</td>
                         <td>{totalPrefrenceSharePercentage.toFixed(2)}%</td>

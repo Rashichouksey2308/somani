@@ -470,18 +470,17 @@ const handleRemoveRowEx=(index)=>{
                   />
                   <div className="mt-3">
                     <img
-                      src="/static/delete 2.svg"
-                      className="mr-4"
-                      alt="delete"
-                      onClick={() => dltStrengthsCommentArr(index)}
-                    />
-                    <img
                       src="/static/mode_edit.svg"
-                      className={`${styles.edit_image}`}
+                      className={`${styles.edit_image} mr-4`}
                       alt="edit"
                       onClick={(e) => {
                         setEditStren(!editStren)
                       }}
+                    />
+                    <img
+                      src="/static/delete 2.svg"
+                      alt="delete"
+                      onClick={() => dltStrengthsCommentArr(index)}
                     />
                   </div>
                 </div>
@@ -496,17 +495,16 @@ const handleRemoveRowEx=(index)=>{
               />
               <div className="mt-3">
                 <img
-                  src="/static/delete 2.svg"
-                  className="mr-4"
-                  alt="delete"
-                />
-                <img
                   src="/static/mode_edit.svg"
-                  className={`${styles.edit_image}`}
+                  className={`${styles.edit_image} mr-4`}
                   alt="edit"
                   onClick={(e) => {
                     setEditStren1(!editStren1)
                   }}
+                />
+                <img
+                  src="/static/delete 2.svg"
+                  alt="delete"
                 />
               </div>
             </div> */}
@@ -551,19 +549,18 @@ const handleRemoveRowEx=(index)=>{
                   />
                   <div className="mt-3">
                     <img
-                      src="/static/delete 2.svg"
-                      className="mr-4"
-                      alt="delete"
-                      onClick={(e) => {
-                        dltWeaknessCommentArr(index)
-                      }}
-                    />
-                    <img
                       src="/static/mode_edit.svg"
-                      className={`${styles.edit_image}`}
+                      className={`${styles.edit_image} mr-4`}
                       alt="edit"
                       onClick={(e) => {
                         setEditWeak(!editWeak)
+                      }}
+                    />
+                    <img
+                      src="/static/delete 2.svg"
+                      alt="delete"
+                      onClick={(e) => {
+                        dltWeaknessCommentArr(index)
                       }}
                     />
                   </div>
