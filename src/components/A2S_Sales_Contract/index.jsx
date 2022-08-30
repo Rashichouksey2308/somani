@@ -164,22 +164,9 @@ const salesContract = (changeHandler, data, preview) => {
             <Col md={1} className={styles.left}>1</Col>
             <Col md={4} className={styles.left}>Seller</Col>
             <Col md={7} className={styles.right}>
-              {preview ?
-                <>{data.seller}</>
-                :
-                <>
-                  <input
-                    onChange={(e) => {
-                      changeHandler(e.target.name, e.target.value)
-                    }}
-                    value={data.seller}
-                    name="seller"
-                    type="text"
-                    placeholder="Indo Intertrade AgIndustriesstrasse 16,Zug 6300" className={`${styles.para}`}>
-
-                  </input>
-                </>
-              }
+          
+                <>{data?.seller}</>
+           
 
             </Col>
           </Row>
@@ -187,26 +174,9 @@ const salesContract = (changeHandler, data, preview) => {
             <Col md={1} className={styles.left}>2</Col>
             <Col md={4} className={styles.left}>Buyer</Col>
             <Col md={7} className={styles.right}>
-              {preview ?
-                <>{data.buyer}</>
-                :
-
-                <>
-                  <input
-                    onChange={(e) => {
-                      changeHandler(e.target.name, e.target.value)
-                    }}
-                    value={data.buyer}
-                    name="buyer"
-                    type="text"
-                    placeholder="Indo German International Pvt. Ltd.
-Plot No-49-48-6/1, Lalitha Nagar, 
-Ground Floor, Sakshi Office Road, 
-Akkayyapalem, Visakhapatnam, 
-Andhra Pradesh, 530016 India
-" className={`${styles.para}`}></input>
-                </>
-              }
+             
+                <>{data?.buyer}</>
+              
             </Col>
           </Row>
           <Row className={`${styles.row}`}>
@@ -226,7 +196,7 @@ Andhra Pradesh, 530016 India
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={1} className={styles.left}>6</Col>
-            <Col md={4} className={styles.left}>Quality / Inspection </Col>
+            <Col md={4} className={styles.left}>Total Order Value  </Col>
             <Col md={7} className={styles.right}>Details as per Schedule 1</Col>
           </Row>
           <Row className={`${styles.row}`}>
@@ -560,7 +530,7 @@ Andhra Pradesh, 530016 India
             <Col md={7} className={styles.right}>{data.placeOfExecution}</Col>
           </Row>
           <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Details of Manufacturer / Supplier / Shipperr</Col>
+            <Col md={5} className={styles.left}>Details of Manufacturer / Supplier / Shipper</Col>
             <Col md={7} className={styles.right}>{data.details}</Col>
           </Row>
           <Row className={`${styles.row}`}>
