@@ -7,6 +7,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { ChangeCurrency } from '../../redux/userData/action'
 import { addPrefixOrSuffix ,removePrefixOrSuffix} from 'utils/helper'
+import { GetPanGst } from 'redux/GetPanGst/action'
+import Filter from '../Filter'
 
 const Index = ({
   saveCompanyData,
@@ -18,15 +20,36 @@ const Index = ({
   whatsappCallingCodeFunction,
   handleCommunication,
 }) => {
+
   const { gstList } = useSelector((state) => state.buyer)
+
   const dispatch = useDispatch()
-  // console.log(gstList?.data, "THIS IS GST LIST")
+
+  const [serachterm, setSearchTerm] = useState("");
+
+  const handleSearch = (e) => {
+    const query = `${e.target.value}`
+    setSearchTerm(query)
+    if (query.length >= 3) {
+      dispatch(GetPanGst({name: query}))
+    }
+  }
+
+  const handleFilteredData = (e) => {
+    setSearchTerm("")
+    const id = `${e.target.id}`
+    // dispatch(GetAllBuyer(`?company=${id}`))
+  }
+
+  const {gettingCompanyPanResponse} = useSelector((state)=>state.GetPan)
+
+  console.log(gettingCompanyPanResponse, "THIS IS GST LIST")
   const [slider, setSlider] = useState(50)
   const [typeOfSlider, setSliderType] = useState(1)
 
   const [highlight, setHighlight] = useState(0)
   const [highlight3, setHighlight3] = useState(0)
-console.log(slider,"slider16513")
+// console.log(slider,"slider16513")
   const setSlide = (val) => {
     setSlider(val)
     getSlider(val)
@@ -37,9 +60,9 @@ console.log(slider,"slider16513")
   }, [slider])
 
   const getSlider = (val) => {
-    console.log(slider, 'slider8999')
+    // console.log(slider, 'slider8999')
     if (typeOfSlider == 3) {
-      console.log('slider3')
+      // console.log('slider3')
       return (
         <div className={styles.slidecontainer}>
           <input
@@ -289,13 +312,24 @@ console.log(slider,"slider16513")
             <div className={`${styles.each_input} col-md-4 col-sm-6`}>
               <input
                 type="text"
-                onBlur={(e) => saveCompanyData(e.target.name, e.target.value)}
+                onBlur={(e) => {saveCompanyData(e.target.name, e.target.value); handleSearch(e)}}
+                // onChange={handleSearch}
                 value={gstList?.data?.companyData?.companyName}
                 id="companyInput"
                 name="companyName"
                 className={`${styles.input_field} ${styles.company_name} input form-control`}
                 required
               />
+             
+              {gettingCompanyPanResponse && serachterm && <div className={styles.searchResults}>
+                <ul>
+                  {gettingCompanyPanResponse?.data?.map((results, index) => (
+                    <li onClick={handleFilteredData} id={results._id} key={index}>{results.companyName} </li>
+                  ))}
+                </ul>
+              </div>}
+          
+            {/* <Filter/> */}
               <label
                 className={`${styles.label_heading} label_heading`}
                 id="textInput"
