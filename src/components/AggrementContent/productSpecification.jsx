@@ -68,10 +68,11 @@ function Index(props) {
           <div className={`d-flex justify-content-between align-items-between`}>
             <input
               placeholder={``}
+              className='input'
               onChange={(e) => {
                 setValue(e.target.value)
               }}
-            ></input>
+            />
             <img
               className="img-fluid ml-4"
               src="/static/add-btn.svg"

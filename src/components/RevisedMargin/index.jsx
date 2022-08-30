@@ -372,7 +372,7 @@ const changeImporter=(e)=>{
                         saveForCalculation(e.target.name, e.target.value)
                       }
                       defaultValue={marginData?.additionalPDC}
-                      className={`${styles.input_field} form-control`}
+                      className={`${styles.input_field} input form-control`}
                       style={{ color: '#FF9D00' }}
                     />
                   </div>
