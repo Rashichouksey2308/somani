@@ -277,11 +277,11 @@ const handleRemoveRowEx=(index)=>{
                   <tbody>
                     {groupExposureData &&
                       groupExposureData?.map((profile, index) => (
-                        <tr key={index}>
+                        <tr key={index} className="table_credit shadow-none">
                           <td>{index + 1}</td>
                           <td className="position-relative">
                             {/* <input
-                              className={`${styles.input}  input form-control`}
+                              className={`${styles.input} input form-control`}
                               name="name"
                               disabled={!profile.actions}
                               defaultValue={profile?.name}
