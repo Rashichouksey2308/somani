@@ -24,6 +24,7 @@ import CustomClearanceReducer from 'redux/CustomClearance&Warehousing/reducer'
 import ReleaseOrderReducer from 'redux/release&DeliveryOrder/reducer'
 import LiftingReducer from 'redux/Lifting/reducer'
 import ViewDocumentReducer from 'redux/ViewDoc/reducer'
+import GetCompanyPanReducer from 'redux/GetPanGst/reducer'
 
 export const createStore = (preloadedState) => {
   const middlewares = []
@@ -59,7 +60,8 @@ export const createStore = (preloadedState) => {
       Custom: CustomClearanceReducer,
       Release: ReleaseOrderReducer,
       Lifting: LiftingReducer,
-      ViewDoc: ViewDocumentReducer
+      ViewDoc: ViewDocumentReducer,
+      GetPan : GetCompanyPanReducer,
     },
     preloadedState,
     middleware: (getDefaultMiddleware) =>

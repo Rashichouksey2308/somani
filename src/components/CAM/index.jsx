@@ -48,7 +48,7 @@ function Index({
   approvedCredit,
 }) {
   const dispatch = useDispatch()
-  console.log(companyData, 'companyData')
+  console.log(camData, 'companyData')
   // console.log(fetchingKarzaGst, 'fetchingKarzaGst')
   useEffect(() => {
     if (window) {

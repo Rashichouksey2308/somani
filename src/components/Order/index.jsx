@@ -34,10 +34,11 @@ const Index = ({ orderDetail, saveOrderData }) => {
             <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
             <select className={`${styles.options} accordion_DropDown `} name='unitOfValue' 
             onChange={(e)=>saveOrderData(e.target.name, e.target.value)}>
-              <option>Crores</option>
+              <option value="Crores">Crores</option>
             
               {/* <option selected>Crores</option> */}
-              <option>Million</option>
+              <option value="Million">Million</option>
+               <option value="Lakh">Lakh</option>
             </select>
             <span data-toggle="collapse" data-target="#orderSummary" aria-expanded="true" aria-controls="orderSummary">+</span>
           </div>
@@ -229,7 +230,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                     required
                     type="text"
                     name="manufacturerName"
-                    defaultValue={orderDetail?.manufacturerName}
+                    // defaultValue={orderDetail?.manufacturerName}
                     onChange={(e) => {
                       saveOrderData(e.target.name, e.target.value)
                     }}
@@ -238,11 +239,11 @@ const Index = ({ orderDetail, saveOrderData }) => {
                     Manufacturer / Mines name
                     <strong className="text-danger">*</strong>
                   </Form.Label>
-                  {/* <img
-                    className={`${styles.arrow} image_arrow img-fluid`}
-                    src="/static/inputDropDown.svg"
+                 <img
+                    className={`${styles.search_image} img-fluid`}
+                    src="/static/search-grey.svg"
                     alt="Search"
-                  /> */}
+                  />
                 </div>
               </Form.Group>
 
@@ -284,10 +285,12 @@ const Index = ({ orderDetail, saveOrderData }) => {
                 </div>
 
               </Form.Group>
-
+{/* defaultDate={orderDetail?.ExpectedDateOfShipment?.split('T')[0]} */}
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                  <div className="d-flex">
-                    <DateCalender name='ExpectedDateOfShipment'  defaultDate={orderDetail?.ExpectedDateOfShipment?.split('T')[0]} saveDate={saveDate} labelName='Expected Date Of Shipment'/>
+                    <DateCalender name='ExpectedDateOfShipment' 
+                      defaultDate={null}
+                      saveDate={saveDate} labelName='Expected Date Of Shipment'/>
                      <img
                         className={`${styles.calanderIcon} img-fluid`}
                         src="/static/caldericon.svg"

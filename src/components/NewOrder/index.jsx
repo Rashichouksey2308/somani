@@ -49,6 +49,7 @@ const Index = ({ saveOrderData, orderData }) => {
                 Crores
               </option>
               <option value="Million">Million</option>
+               <option value="Lakh">Lakh</option>
             </select>
           </div>
           <span data-toggle="collapse" data-target="#orderSummary" aria-expanded="true" aria-controls="orderSummary">+</span>
