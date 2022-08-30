@@ -54,9 +54,25 @@ const Index = ({ saveOrderData, darkMode,orderDetails }) => {
               type="text"
               id="textInput"
               name="quantity"
+                // onKeyDown={(evt) =>{
+                //   const re = /^[0-9\b]+$/;
+                //   console.log(re.test(evt.target.value),"keydone",evt.target.value)
+                //   if (re.test(evt.target.value) == false) {
+                //     // evt.preventDefault()
+                //   }
+                //   }
+                  
+                // }
               onChange={(e) => {
+                
+                 e.target.value.replaceAll('M', '')
+                 .replaceAll('T', '')
+                  .replace(/ /g, '')
+                  console.log( e.target.value ," e.target.value ")
+                e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0)
                 saveOrderData(e.target.name, e.target.value)
               }}
+             
               className={`${styles.input_field} input form-control`}
               required
               value={addPrefixOrSuffix(orderDetails?.quantity?.toString(),orderDetails.unitOfQuantity=="mt"?"MT":orderDetails.unitOfQuantity)}
@@ -76,6 +92,7 @@ const Index = ({ saveOrderData, darkMode,orderDetails }) => {
               id="textInput"
               name="orderValue"
               onChange={(e) => {
+                 e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0)
                 // saveOrderData(e.target.name, e.target.value * 10000000)
                 saveOrderData(e.target.name, e.target.value)
               }}
