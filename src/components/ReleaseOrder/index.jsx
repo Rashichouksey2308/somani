@@ -219,7 +219,7 @@ export default function Index({ ReleaseOrderData }) {
             >
               <h3 className={`${styles.heading}`}>Release Order</h3>
 
-              <span onClick={(e) => setTabOpen(false)}>+</span>
+              <span >+</span>
             </div>
             <div
               id="lcApplication"
@@ -343,7 +343,7 @@ export default function Index({ ReleaseOrderData }) {
                       className="col-lg-3 col-md-4 col-sm-6 text-center"
                       style={{ top: '50px' }}
                     >
-                      {false ? (
+                      {true ? (
                         <>
                           <div className={styles.uploadBtnWrapper}>
                             <input
@@ -356,7 +356,7 @@ export default function Index({ ReleaseOrderData }) {
                               Upload
                             </button>
                           </div>
-                          {Number(netBalanceQuantity) > 0 && (
+                          {Number(netBalanceQuantity) >= 0 && (
                             <img
                               onClick={() =>
                                 addMorereleaseDetailDataRows(index)

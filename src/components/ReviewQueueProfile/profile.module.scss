@@ -157,60 +157,63 @@
       overflow-x: auto;
       padding: 15px 15px !important;
     }
-    .table_scroll_outer {
-      width: 100%;
-      display: table;
-      table-layout: fixed;
-      .table_scroll_inner {
-        display: table-cell;
-        overflow-x: auto;
-        overflow-y: auto;
-        .table {
-          height: 300px;
-          display: inline-block;
-          th {
-            font-size: 15px;
-            color: #8492a6;
-            font-weight: bold;
-            line-height: 18px;
-            padding: 13px 30px;
-            white-space: nowrap;
-            background: #fafafb;
-            vertical-align: middle;
-            text-transform: uppercase;
-            border: 3px solid #f0f2f6;
-          }
-          td {
-            font-size: 19px;
-            //color: rgba(17, 17, 17, 0.7);
-            font-weight: 500;
-            line-height: 24px;
-            white-space: nowrap;
-            vertical-align: middle;
-            border: 3px solid #f0f2f6;
-            padding: 15px 20px 15px 30px;
-            &.stable {
-              line-height: 19px;
-              span {
-                font-size: 16px;
-                color: #ff9d00;
-                display: block;
-              }
+    .tableParent {
+      max-height: 300px;
+      // display: inline-block;
+      overflow-y: auto;
+      overflow-x: auto;
+      border-radius: 6px;
+      .table_scroll_outer {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+        .table_scroll_inner {
+          display: table-cell;
+          .table {
+            th {
+              font-size: 15px;
+              color: #8492a6;
+              font-weight: bold;
+              line-height: 18px;
+              padding: 13px 30px;
+              white-space: nowrap;
+              background: #fafafb;
+              vertical-align: middle;
+              text-transform: uppercase;
+              border: 3px solid #f0f2f6;
             }
-            &.negative {
-              line-height: 19px;
-              span {
-                font-size: 16px;
-                color: #ea3f3f;
-                display: block;
+            td {
+              font-size: 19px;
+              //color: rgba(17, 17, 17, 0.7);
+              font-weight: 500;
+              line-height: 24px;
+              white-space: nowrap;
+              vertical-align: middle;
+              border: 3px solid #f0f2f6;
+              padding: 15px 20px 15px 30px;
+              &.stable {
+                line-height: 19px;
+                span {
+                  font-size: 16px;
+                  color: #ff9d00;
+                  display: block;
+                }
               }
-            }
-            &.positive {
-              line-height: 19px;
-              span {
-                font-size: 16px;
-                color: #43c34d;
-                display: block;
+              &.negative {
+                line-height: 19px;
+                span {
+                  font-size: 16px;
+                  color: #ea3f3f;
+                  display: block;
+                }
+              }
+              &.positive {
+                line-height: 19px;
+                span {
+                  font-size: 16px;
+                  color: #43c34d;
+                  display: block;
+                }
               }
             }
           }
@@ -240,10 +243,10 @@
       font-size: 20px;
       font-weight: bold;
       line-height: 25px;
-      margin-bottom: 15px;
+      margin-bottom: 19px;
     }
     .tableParent {
-      height: 300px;
+      max-height: 300px;
       // display: inline-block;
       overflow-y: auto;
       overflow-x: auto;
@@ -264,7 +267,7 @@
               color: #8492a6;
               font-weight: bold;
               line-height: 18px;
-              padding-left: 30px;
+              padding-left: 22px;
               height: 57px;
               white-space: nowrap;
               vertical-align: middle;
@@ -276,8 +279,8 @@
               font-size: 19px;
               font-weight: 500;
               line-height: 24px;
-              padding: 15px 30px;
-              white-space: nowrap;
+              padding: 15px 22px;
+              // white-space: nowrap;
               //height: 48px;
               vertical-align: middle;
               border: 3px solid #f0f2f6;

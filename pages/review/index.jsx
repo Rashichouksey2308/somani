@@ -359,19 +359,19 @@ function Index() {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
-    }  if (orderDetails?.quantity === ''|| orderDetails?.quantity?.trim() == undefined) {
+    }  if (orderDetails?.quantity === ''|| orderDetails?.quantity == undefined) {
       let toastMessage = 'Quantity can not be Empty '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
-    }  if (orderDetails?.unitOfQuantity?.trim() === ''|| orderDetails?.unitOfQuantity?.trim() == undefined) {
+    }  if (orderDetails?.unitOfQuantity?.trim() === ''|| orderDetails?.unitOfQuantity == undefined) {
       let toastMessage = 'Please Provide a unit Of Quantity  '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
-    }  if (orderDetails?.orderValue === '' || orderDetails?.orderValue?.trim() == undefined || orderDetails?.orderValue?.trim() == NaN) {
+    }  if (orderDetails?.orderValue === '' || orderDetails?.orderValue == undefined || orderDetails?.orderValue == NaN) {
       let toastMessage = 'Please Check the orderValue  '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -1168,6 +1168,8 @@ const creditValidation=()=>{
   }
 
   const handleCamApprove = () => {
+     
+    if( orderValidation() && creditValidation() ){
     if (gettingPercentageCredit && gettingPercentageOrder) {
       const obj = {
         approvalRemarks: [...approveComment],
@@ -1178,6 +1180,7 @@ const creditValidation=()=>{
       }
       dispatch(UpdateCam(obj))
     }
+  }
   }
   const handleCamReject = () => {
     const obj = {
@@ -1637,7 +1640,7 @@ const creditValidation=()=>{
                 aria-selected="true"
                 onClick={(e) => {
                   currentOpenLink(e)
-                  setUploadBtn(false)
+                  setUploadBtn(true)
                 }}
               >
                 Profile
@@ -1701,7 +1704,7 @@ const creditValidation=()=>{
                 aria-selected="false"
                 onClick={(e) => {
                   currentOpenLink(e)
-                  setUploadBtn(false)
+                  setUploadBtn(true)
                 }}
               >
                 Orders
@@ -1717,7 +1720,7 @@ const creditValidation=()=>{
                 aria-selected="false"
                 onClick={(e) => {
                   currentOpenLink(e)
-                  setUploadBtn(false)
+                  setUploadBtn(true)
                 }}
               >
                 Credit
@@ -2096,17 +2099,17 @@ const creditValidation=()=>{
                             className={`${styles.form_control} form-control`}
                           >
                             {orderList?.company?.litigationStatus !==
-                              'Disposed' ? (
+                              'Pending' ? (
                               <>
-                                <option>Select an option</option>
+                                {/* <option>Select an option</option> */}
                                 <option value="Pending">Pending</option>
                                 <option value="Disposed">Disposed</option>
                               </>
                             ) : (
                               <>
-                                <option>
+                                {/* <option>
                                   Select an option
-                                </option>
+                                </option> */}
                                 <option value="Disposed">Disposed</option>
                                 <option value="Pending">Pending</option>
                               </>

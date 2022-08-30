@@ -808,18 +808,22 @@ const index = ({
                   </div>
                 </label>
               </div>
-              <div className="col-12 mt-4">
-                <label className={`${styles.label_heading}`}>Remarks</label>
+              <div className={`${styles.form_group} col-12 mt-4`}>
                 <textarea
                   as="textarea"
                   rows={3}
-                  className={`${styles.remark_field} input form-control`}
+                  required
+                  className={`${styles.remark_field} ${styles.input_field} input form-control`}
+                  style={{height:'auto'}}
                   name="remarks"
                   defaultValue={supplierCred?.remarks}
                   onChange={(e) => {
                     saveSupplierData(e.target.name, e.target.value)
                   }}
                 />
+                <label className={`${styles.label_heading} label_heading`}>
+                  Remarks
+                </label>
               </div>
             </div>
           </div>

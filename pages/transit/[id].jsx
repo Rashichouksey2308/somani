@@ -136,7 +136,7 @@ function Index() {
                 LOI
               </a>
             </li>
-            {commodity === 'coal' && <li className={`${styles.navItem} nav-item`}>
+            {commodity?.toLowerCase() === 'coal' && <li className={`${styles.navItem} nav-item`}>
               <a
                 className={`${styles.navLink} navLink nav-link `}
                 data-toggle="tab"
@@ -181,7 +181,7 @@ function Index() {
                     <LetterIndermity TransitDetails={TransitDetails} />
                   </div>
                 </div>
-                {commodity === 'coal' && <div className="tab-pane fade" id="cims" role="tabpanel">
+                {commodity.toLowerCase() === 'coal' && <div className="tab-pane fade" id="cims" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
                     <CIMS orderid={objID} docUploadFunction={uploadDoc} TransitDetails={TransitDetails} isShipmentTypeBULK={isShipmentTypeBULK} />
                   </div>
