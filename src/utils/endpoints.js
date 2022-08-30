@@ -46,7 +46,7 @@ export default {
   updateCompanyDetails: '/api/core/lead/update-company',
 
   //complienceCase
-  getCaseDetails: 'api/core/lead/litigation-case-detail',
+  getCaseDetails: '/api/core/lead/litigation-case-detail',
 
   // Refetch Karza
   refetchCombineKarza: '/api/core/lead/refetch-combine-karza',
