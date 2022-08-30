@@ -359,19 +359,19 @@ function Index() {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
-    }  if (orderDetails?.quantity === ''|| orderDetails?.quantity?.trim() == undefined) {
+    }  if (orderDetails?.quantity === ''|| orderDetails?.quantity == undefined) {
       let toastMessage = 'Quantity can not be Empty '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
-    }  if (orderDetails?.unitOfQuantity?.trim() === ''|| orderDetails?.unitOfQuantity?.trim() == undefined) {
+    }  if (orderDetails?.unitOfQuantity?.trim() === ''|| orderDetails?.unitOfQuantity == undefined) {
       let toastMessage = 'Please Provide a unit Of Quantity  '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
-    }  if (orderDetails?.orderValue === '' || orderDetails?.orderValue?.trim() == undefined || orderDetails?.orderValue?.trim() == NaN) {
+    }  if (orderDetails?.orderValue === '' || orderDetails?.orderValue == undefined || orderDetails?.orderValue == NaN) {
       let toastMessage = 'Please Check the orderValue  '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
