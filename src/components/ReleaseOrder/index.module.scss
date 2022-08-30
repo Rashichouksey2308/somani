@@ -103,6 +103,12 @@
           padding: 5px;
           background-color: transparent;
           border: none;
+          @include respond(sm-desktop) {
+            font-size: 18px;
+          }
+          @include respond(phone) {
+            font-size: 17px;
+          }
         }
 
         .dropDown_label {
@@ -150,6 +156,12 @@
           font-size: 20px;
           line-height: 23px;
           font-weight: 500;
+          @include respond(sm-desktop) {
+            font-size: 18px;
+          }
+          @include respond(phone) {
+            font-size: 16px;
+          }
         }
       }
 
@@ -331,6 +343,12 @@
         height: 60px;
         line-height: 25px;
         font-weight: 500;
+        @include respond(sm-desktop) {
+          font-size: 18px;
+        }
+        @include respond(phone) {
+          font-size: 16px;
+        }
       }
 
       .form_group {
@@ -560,6 +578,15 @@
       color: #3687e8;
       font-weight: normal;
       line-height: 20px;
+      @include respond(md-desktop) {
+        font-size: 42px;
+      }
+      @include respond(sm-desktop) {
+        font-size: 35px;
+      }
+      @include respond(phone) {
+        font-size: 30px;
+      }
     }
   }
   .dashboard_form {
