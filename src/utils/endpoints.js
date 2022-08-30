@@ -66,11 +66,6 @@ export default {
   addDocuments: '/api/core/order/order-document',
   deleteDocument: '/api/core/order/order-document',
 
-  //DocumentsCam :
-  getDocuments: '/api/core/order/order-document',
-  addDocuments: '/api/core/order/order-document',
-  deleteDocument: '/api/core/order/order-document',
-
   //Update Cam Sheet
   updateCam: '/api/core/order/cam',
 
