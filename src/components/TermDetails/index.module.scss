@@ -117,8 +117,6 @@
                 position: relative;
                 box-sizing: border-box;
                 letter-spacing: 0.19px;
-                // padding: 13px 30px 13px 17px;
-                border: 1px solid #0000001F;
                 &:invalid + label {
                     //background: none;
                     transform:translateY(0);
@@ -162,5 +160,6 @@
 }
 .customSelect {
     appearance: none;
+    padding-right: 40px !important;
     // position: relative;
 }

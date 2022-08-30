@@ -281,7 +281,7 @@ const handleRemoveRowEx=(index)=>{
                           <td>{index + 1}</td>
                           <td className="position-relative">
                             {/* <input
-                              className={`${styles.input}  input form-control`}
+                              className={`${styles.input} input form-control`}
                               name="name"
                               disabled={!profile.actions}
                               defaultValue={profile?.name}
@@ -335,7 +335,7 @@ const handleRemoveRowEx=(index)=>{
                                   index,
                                 )
                               }}
-                              className={styles.input}
+                              className={`${styles.input} input`}
                             />
                           </td>
                           <td>
@@ -350,7 +350,7 @@ const handleRemoveRowEx=(index)=>{
                                   index,
                                 )
                               }}
-                              className={styles.input}
+                              className={`${styles.input} input`}
                             />
                           </td>
                           <td className="position-relative">

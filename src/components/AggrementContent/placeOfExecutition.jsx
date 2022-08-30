@@ -218,18 +218,18 @@ function Index(props) {
                               <td>
                                 <select
                                   value={val.name}
-                                  className={`${styles.customSelect}`}
+                                  className={`${styles.customSelect} input`}
                                   name="name"
                                   onChange={(e) => {
                                     handleChangeInput(e.target.name, e.target.value, index)
                                   }}>
-                              <option>Select an option</option>
-                              <option value={"Sales Agreement"}>{"Sales Agreement"}</option>
-                              <option value={"Associateship Agreement"}>{"Associateship Agreement"}</option>
-                              <option value={"TPA (Seller)"}>{"TPA (Seller)"}</option>
-                              <option value={"Assignment Letter"}>{"Assignment Letter"}</option>
-                              <option value={"QPA"}>{"QPA"}</option>
-                              <option value={"TPA (CMA)"}>{"TPA (CMA)"}</option>
+                                  <option>Select an option</option>
+                                  <option value={"Sales Agreement"}>{"Sales Agreement"}</option>
+                                  <option value={"Associateship Agreement"}>{"Associateship Agreement"}</option>
+                                  <option value={"TPA (Seller)"}>{"TPA (Seller)"}</option>
+                                  <option value={"Assignment Letter"}>{"Assignment Letter"}</option>
+                                  <option value={"QPA"}>{"QPA"}</option>
+                                  <option value={"TPA (CMA)"}>{"TPA (CMA)"}</option>
                                 </select>
                                 <img
                                   className={`${styles.arrow2} image_arrow img-fluid`}
@@ -237,14 +237,16 @@ function Index(props) {
                                   alt="Search"
                                 />
                               </td>
-                              <td><input type="text"
-                                placeholder={val.execution}
-                                name="execution"
-                                onChange={(e) => {
-                                  handleChangeInput(e.target.name, e.target.value, index)
-                                }}
-                              ></input></td>
-                            
+                              <td>
+                                <input type="text"
+                                  className='input'
+                                  placeholder={val.execution}
+                                  name="execution"
+                                  onChange={(e) => {
+                                    handleChangeInput(e.target.name, e.target.value, index)
+                                  }}
+                                />
+                              </td>                            
                               <td className={`d-flex`}>
                                 <img className={`${styles.image} img-fluid mr-3`} onClick={() => (onEditRemove(index))} src="/static/save-3.svg" alt="save" />
                                 <img onClick={() => (handleRemove(index))} src="/static/delete 2.svg"></img>
