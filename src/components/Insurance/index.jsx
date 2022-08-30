@@ -3,12 +3,14 @@ import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import DateCalender from '../DateCalender'
 
+
 const index = () => {
   return (
     <div className={`${styles.card} accordion_body container-fluid`}>
       <div className={styles.head_container}>
         <div className={styles.head_header}>
           <img
+            
             className={`${styles.arrow} img-fluid`}
             src="/static/keyboard_arrow_right-3.svg"
             alt="ArrowRight"
@@ -22,7 +24,7 @@ const index = () => {
 
       <div className={`${styles.vessel_card} mt-3 border_color`}>
         <div className={`${styles.heading} heading_card`}>
-          Vessel Information
+
         </div>
         <div className={styles.radio_form}>
           {['checkbox'].map((type) => (

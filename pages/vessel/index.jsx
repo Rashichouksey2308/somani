@@ -14,6 +14,13 @@ import API from '../../src/utils/endpoints'
 import Cookies from 'js-cookie';
 import Axios from 'axios';
 import { toast } from 'react-toastify'
+import {
+  setPageName,
+  setDynamicName,
+  setDynamicOrder,
+} from '../../src/redux/userData/action'
+import { removePrefixOrSuffix } from 'utils/helper'
+
 
 export default function Home() {
   const dispatch = useDispatch()
@@ -26,14 +33,17 @@ export default function Home() {
   useEffect(() => {
     fetchInitialData()
 
-
-
   }, [])
   const fetchInitialData = async () => {
     let id = sessionStorage.getItem('VesselId')
     const data = await dispatch(GetVessel(`?vesselId=${id}`))
+    // console.log(data, 'vessel data')
     setData(data)
     serVesselDataToAdd(data)
+    dispatch(setPageName('vessel'))
+    dispatch(setDynamicName(_get(data, 'data[0].company.companyName', 'Company Name')))
+    dispatch(setDynamicOrder(_get(data, 'data[0].order.orderId', 'Order Id')))
+
   }
 
   const [list, setList] = useState([])
@@ -46,6 +56,7 @@ export default function Home() {
   const [partShipment, setPartshipment] = useState()
   const [VesselToAdd, serVesselDataToAdd] = useState()
   const [shipmentTypeBulk, setShipmentTypeBulk] = useState('Bulk')
+  const [vesselData, setVesselData] = useState()
 
 
   console.log(VesselToAdd, "THIS IS VESSEL TO")
@@ -56,6 +67,7 @@ export default function Home() {
       "data[0].updatedAt",
       false
     ))
+    setVesselData(Vessel)
     setPartshipment(_get(
       Vessel,
       "data[0].partShipmentAllowed",
@@ -210,6 +222,16 @@ export default function Home() {
   const OnVesselBasicFieldsChangeHandler = (e, index) => {
     const name = e.target.id
     const value = e.target.value
+    if (name === 'quantity') {
+      // console.log('THIS IS VESSELquantity', removePrefixOrSuffix(value), _get(vesselData, 'data[0].order.quantity', 0))
+      if (removePrefixOrSuffix(value) > _get(vesselData, 'data[0].order.quantity', 0)) {
+
+        let toastMessage = 'Quantity Cannot Exceed orignal Order QUantity'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+      }
+    }
     setList(prevState => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -379,7 +401,7 @@ export default function Home() {
     let toastMessage = ""
 
     for (let i = 0; i < list.length; i++) {
-      console.log(list[i].shipmentType,'gdksfujhfgjkdgfkjhhhhmh')
+      console.log(list[i].shipmentType, 'gdksfujhfgjkdgfkjhhhhmh')
       if (list[i].shipmentType == "" || list[i].shipmentType == undefined) {
         toastMessage = `Please Select shipment Type of Vessel Information ${i}  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -559,7 +581,7 @@ export default function Home() {
 
   const onSaveHandler = async () => {
 
-    console.log(list,'gdksfujhfgjkdgfkjhhhhmh')
+    console.log(list, 'gdksfujhfgjkdgfkjhhhhmh')
     if (validation()) {
 
 
@@ -602,6 +624,7 @@ export default function Home() {
   return (
     <>
       <Vessels
+        vesselData={vesselData}
         vesselUpdatedAt={vesselUpdatedAt}
         containerExcel={containerExcel}
         vesselCertificate={vesselCertificate}
