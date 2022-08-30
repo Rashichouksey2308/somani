@@ -1168,6 +1168,8 @@ const creditValidation=()=>{
   }
 
   const handleCamApprove = () => {
+     
+    if( orderValidation() && creditValidation() ){
     if (gettingPercentageCredit && gettingPercentageOrder) {
       const obj = {
         approvalRemarks: [...approveComment],
@@ -1178,6 +1180,7 @@ const creditValidation=()=>{
       }
       dispatch(UpdateCam(obj))
     }
+  }
   }
   const handleCamReject = () => {
     const obj = {
@@ -1637,7 +1640,7 @@ const creditValidation=()=>{
                 aria-selected="true"
                 onClick={(e) => {
                   currentOpenLink(e)
-                  setUploadBtn(false)
+                  setUploadBtn(true)
                 }}
               >
                 Profile
@@ -1701,7 +1704,7 @@ const creditValidation=()=>{
                 aria-selected="false"
                 onClick={(e) => {
                   currentOpenLink(e)
-                  setUploadBtn(false)
+                  setUploadBtn(true)
                 }}
               >
                 Orders
@@ -1717,7 +1720,7 @@ const creditValidation=()=>{
                 aria-selected="false"
                 onClick={(e) => {
                   currentOpenLink(e)
-                  setUploadBtn(false)
+                  setUploadBtn(true)
                 }}
               >
                 Credit

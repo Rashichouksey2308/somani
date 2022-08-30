@@ -314,6 +314,7 @@ export default function Index({ isQuery }) {
             >
               <option selected>CRORES</option>
               <option>MILLIONS</option>
+              <option value="Lakh">LAKH</option>
             </select>
           </div>
         ) : null}

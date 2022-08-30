@@ -34,10 +34,11 @@ const Index = ({ orderDetail, saveOrderData }) => {
             <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
             <select className={`${styles.options} accordion_DropDown `} name='unitOfValue' 
             onChange={(e)=>saveOrderData(e.target.name, e.target.value)}>
-              <option>Crores</option>
+              <option value="Crores">Crores</option>
             
               {/* <option selected>Crores</option> */}
-              <option>Million</option>
+              <option value="Million">Million</option>
+               <option value="Lakh">Lakh</option>
             </select>
             <span data-toggle="collapse" data-target="#orderSummary" aria-expanded="true" aria-controls="orderSummary">+</span>
           </div>
