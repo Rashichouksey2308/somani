@@ -15,6 +15,7 @@ export default {
   getBuyers: '/api/core/lead/get-all-leads',
   uploadDocuments: '/api/core/order/doc-upoad',
   search: '/api/core/lead/search?searchTerm=',
+  getPanGst : '/api/get-company',
 
   //orders
   getBuyerOrder: '/api/core/lead/order-review',
