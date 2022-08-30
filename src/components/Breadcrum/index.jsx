@@ -108,21 +108,15 @@ export default function Index({ isQuery }) {
     }
 
     if ('termsheet' == pageName) {
-      console.log(order,"order2sssd")
-       if (order!=null) {
+      if (order != null) {
         router.route = '/Leads' + '/Termsheet' + `/${id.toLowerCase()}` + `/${order}`
         console.log('router1234', router.route)
-      }else if(id !== null){
-       
-       
+      } else if (id !== null) {
         router.route = '/Leads' + '/Termsheet' + `/${id.toLowerCase()} `
         console.log('router123', router.route)
-      
-        
-       
       }
-        
-       else {
+
+      else {
         router.route = '/Leads' + '/Termsheet'
       }
     }
@@ -144,12 +138,14 @@ export default function Index({ isQuery }) {
       }
     }
     if ('vessel' == pageName) {
-      if (id !== null) {
-        router.route = '/Vessel Nomination' + `/${id.toLowerCase()}` + '/Order ID'
-        console.log('router123', router.route)
+      if (order != null) {
+        router.route = '/Vessel Nomination' + `/${id.toLowerCase()}` + `/${order}`
+      } else if (id != null) {
+        router.route = '/Agreement & Lc Module' + '/Vessel Nomination' + `/${id.toLowerCase()}`
       } else {
-        router.route = '/Vessel Nomination'
+        router.route = '/Agreement & Lc Module' + '/Vessel Nomination'
       }
+
     }
     if ('loading' == pageName) {
       if (id !== null) {
@@ -237,7 +233,7 @@ export default function Index({ isQuery }) {
         setUrlLength(url.length)
       }
     })
-  }, [pageName, id,order])
+  }, [pageName, id, order])
   console.log(myUrl, 'url')
   console.log(currency, 'pageName')
   return (
@@ -247,10 +243,10 @@ export default function Index({ isQuery }) {
       <div>
         <img src="/static/home.svg"></img>
         {pageName == 'generic' ||
-        pageName == 'vessel' ||
-        pageName == 'custom' ||
-        pageName == 'termsheet' ||
-        pageName == 'payment' ? (
+          pageName == 'vessel' ||
+          pageName == 'custom' ||
+          pageName == 'termsheet' ||
+          pageName == 'payment' ? (
           <div className={`${styles.breadcrumItem}`}>
             {myUrl.map((val, index) => {
               {
@@ -259,11 +255,10 @@ export default function Index({ isQuery }) {
               return (
                 <div
                   key={index}
-                  className={`${styles.breadcrumcontainer} ${
-                    myUrlLength == index + 1
-                      ? `${styles.highlight} highlight`
-                      : null
-                  }`}
+                  className={`${styles.breadcrumcontainer} ${myUrlLength == index + 1
+                    ? `${styles.highlight} highlight`
+                    : null
+                    }`}
                 >
                   <span className="breadcrum_mode">/</span>
                   <span className={`${styles.value} breadcrum_mode`}>
@@ -282,17 +277,16 @@ export default function Index({ isQuery }) {
               return (
                 <div
                   key={index}
-                  className={`${styles.breadcrumcontainer} ${
-                    myUrlLength == 4
-                      ? myUrlLength - 2 == index
-                        ? `${styles.highlight} highlight`
-                        : myUrlLength - 1 == index
+                  className={`${styles.breadcrumcontainer} ${myUrlLength == 4
+                    ? myUrlLength - 2 == index
+                      ? `${styles.highlight} highlight`
+                      : myUrlLength - 1 == index
                         ? `${styles.highlight} highlight`
                         : null
-                      : myUrlLength - 1 == index
+                    : myUrlLength - 1 == index
                       ? `${styles.highlight} highlight`
                       : null
-                  }`}
+                    }`}
                 >
                   <span className="breadcrum_mode">/</span>
                   <span className={`${styles.value} breadcrum_mode`}>

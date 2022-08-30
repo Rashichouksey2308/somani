@@ -5,25 +5,36 @@ import { useDispatch, useSelector } from 'react-redux'
 import { GetAllVessel, GetVessel } from '../../src/redux/vessel/action'
 import { GetOrders } from '../../src/redux/registerBuyer/action'
 import Filter from '../../src/components/Filter'
+import {
+  setPageName,
+  setDynamicName,
+  setDynamicOrder,
+} from '../../src/redux/userData/action'
 
 function Index() {
   const dispatch = useDispatch()
   const [currentPage, setCurrentPage] = useState(0);
   const { allVessel, Vessel } = useSelector((state) => state.vessel)
   console.log(allVessel, Vessel, 'allVessel')
-useEffect(() => {
-if(window){
-    sessionStorage.setItem('loadedPage',"Agreement & Lc Module")
-    sessionStorage.setItem('loadedSubPage',`Vessel Nomination`)
-    sessionStorage.setItem('openList',2)
+  useEffect(() => {
+    if (window) {
+      sessionStorage.setItem('loadedPage', "Agreement & Lc Module")
+      sessionStorage.setItem('loadedSubPage', `Vessel Nomination`)
+      sessionStorage.setItem('openList', 2)
     }
-},[])
+  }, [])
   useEffect(() => {
     dispatch(GetAllVessel(`?page=${currentPage}&limit=7`))
   }, [])
 
+  useEffect(() => {
+    dispatch(setPageName('vessel'))
+    dispatch(setDynamicName(null))
+    dispatch(setDynamicOrder(null))
+  }, [allVessel])
+
   const handleRoute = (vessel) => {
-    sessionStorage.setItem('VesselCompany', vessel.order._id)
+    sessionStorage.setItem('VesselCompany', vessel.company._id)
     sessionStorage.setItem('VesselId', vessel._id)
     dispatch(GetVessel(`?vesselId=${vessel._id}`))
     setTimeout(() => {
@@ -152,7 +163,7 @@ if(window){
                           <span
                             className={`${styles.status} ${styles.approved}`}
                           ></span>
-                          Apporoved
+                          Approved
                         </td>
                         <td>
                           {' '}
