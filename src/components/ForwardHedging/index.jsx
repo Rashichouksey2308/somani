@@ -144,12 +144,24 @@ export default function Index() {
     }
   }
 
-  const uploadDocument1 = async (e) => {
+  const uploadDocument1 = async (e,index) => {
     // console.log(uploadDocument(e), 'function call')
     const doc = await uploadDocument(e)
-    setList(doc1 => {
-      return { ...doc1, forwardSalesContract: doc }
+      setList((prevState) => {
+      const newState = prevState.map((obj, i) => {
+        if (i == index) {
+          return {
+            ...obj,
+            forwardSalesContract: doc,
+          }
+        }
+        return obj
+      })
+      return newState
     })
+    // setList(doc1 => {
+    //   return { ...doc1, {forwardSalesContract: doc }}
+    // })
   }
 
   const [cancel, setCancel] = useState(false)
@@ -211,6 +223,7 @@ export default function Index() {
 
     dispatch(UpdateForwardHedging(obj))
   }
+  console.log(list,"list")
 
   return (
     <>
