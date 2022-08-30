@@ -278,7 +278,7 @@ const index = ({
                   type="text"
                   value={addPrefixOrSuffix(
                     creditDetail?.monthlyProductionCapacity,
-                    creditDetail?.unitOfQuantity?.toUpperCase()||"MT",
+                    creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
                   )}
                   name="monthlyProductionCapacity"
                   onChange={(e) => {
@@ -318,7 +318,7 @@ const index = ({
                   onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   value={addPrefixOrSuffix(
                     creditDetail?.averageStockOfCommodity,
-                    creditDetail?.unitOfQuantity?.toUpperCase()||"MT",
+                    creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
                   )}
                   name="averageStockOfCommodity"
                   onChange={(e) => {
@@ -339,7 +339,7 @@ const index = ({
                   onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   value={addPrefixOrSuffix(
                     creditDetail?.averageStockInTransit,
-                    creditDetail?.unitOfQuantity?.toUpperCase()||"MT",
+                    creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
                   )}
                   name="averageStockInTransit"
                   onChange={(e) => {
@@ -359,7 +359,7 @@ const index = ({
                   type="text"
                   value={addPrefixOrSuffix(
                     creditDetail?.availableStock,
-                    creditDetail?.unitOfQuantity?.toUpperCase()||"MT",
+                    creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
                   )}
                   name="availableStock"
                   onChange={(e) => {
@@ -378,7 +378,7 @@ const index = ({
                   onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   value={addPrefixOrSuffix(
                     creditDetail?.dailyConsumptionOfCommodity,
-                    creditDetail?.unitOfQuantity?.toUpperCase()||"MT",
+                    creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
                   )}
                   name="dailyConsumptionOfCommodity"
                   onChange={(e) => {
@@ -631,6 +631,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
+                  onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   value={supplierCred?.shipmentNumber}
                   name="shipmentNumber"
                   onChange={(e) => {
@@ -649,6 +650,7 @@ const index = ({
                   type="number"
                   value={supplierCred?.consigneesNumber}
                   name="consigneesNumber"
+                  onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   onChange={(e) => {
                     saveSupplierData(e.target.name, e.target.value)
                   }}
@@ -663,6 +665,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
+                  onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   value={supplierCred?.HSCodesNumber}
                   name="HSCodesNumber"
                   onChange={(e) => {
@@ -679,7 +682,7 @@ const index = ({
                   <input
                     className={`${styles.input_field} input form-control`}
                     required
-                    type="number"
+                    type="text"
                     defaultValue={supplierCred?.countryOfOrigin}
                     name="countryOfOrigin"
                     onChange={(e) => {
@@ -696,7 +699,7 @@ const index = ({
                   <input
                     className={`${styles.input_field} input form-control`}
                     required
-                    type="number"
+                    type="text"
                     defaultValue={supplierCred?.portOfDestination}
                     name="portOfDestination"
                     onChange={(e) => {
@@ -797,7 +800,10 @@ const index = ({
                   Commodity to Total Trade % -24M
                   <strong className="text-danger">*</strong>
                   <div className={`${styles.tooltip}`}>
-                    <img className={`ml-2 mt-n1 img-fluid`} src="/static/info-circle.svg"/>
+                    <img
+                      className={`ml-2 mt-n1 img-fluid`}
+                      src="/static/info-circle.svg"
+                    />
                     <span className={`${styles.tooltiptext}`}>Lorem ipsum</span>
                   </div>
                 </label>
@@ -1059,12 +1065,14 @@ const index = ({
                 <div
                   className={`${styles.head_container} align-items-center card-header d-flex justify-content-between bg-transparent`}
                 >
-                  <h3 className={`${styles.heading} mb-0`}>Add a new address</h3>
+                  <h3 className={`${styles.heading} mb-0`}>
+                    Add a new address
+                  </h3>
                   <img
                     onClick={() => {
                       setShowAddress(false)
-                    }}                    
-                    style={{marginRight:'-15px'}}
+                    }}
+                    style={{ marginRight: '-15px' }}
                     src="/static/accordion_close_black.svg"
                   />
                 </div>
@@ -1340,7 +1348,8 @@ const index = ({
             ) : null}
             {showEditAddress ? (
               <div
-                className={`${styles.main} ${styles.add_address} card shadow-none border_color`}>
+                className={`${styles.main} ${styles.add_address} card shadow-none border_color`}
+              >
                 <div
                   className={`${styles.head_container} align-items-center card-header d-flex justify-content-between bg-transparent`}
                 >
@@ -1349,7 +1358,7 @@ const index = ({
                     onClick={() => {
                       setShowEditAddress(false)
                     }}
-                    style={{marginRight:'-15px'}}
+                    style={{ marginRight: '-15px' }}
                     src="/static/accordion_close_black.svg"
                   />
                 </div>
@@ -1744,7 +1753,7 @@ const index = ({
                   </thead>
                   <tbody>
                     {debtData?.map((profile, index) => (
-                      <tr key={index} className='table_credit shadow-none'>
+                      <tr key={index} className="table_credit shadow-none">
                         <td>{index + 1}</td>
                         <td className="d-flex justify-content-center align-items-end">
                           <input
@@ -1800,10 +1809,12 @@ const index = ({
                             <option value="Post Ship Credit">
                               Post Ship Credit
                             </option>
-                            <option value='LC Limits'>LC Limits</option>
-                            <option value='Buyers Credit'>Buyers Credit</option>
-                            <option value='Term Loan'>Term Loan</option>
-                            <option value='Packing Credit'>Packing Credit</option>
+                            <option value="LC Limits">LC Limits</option>
+                            <option value="Buyers Credit">Buyers Credit</option>
+                            <option value="Term Loan">Term Loan</option>
+                            <option value="Packing Credit">
+                              Packing Credit
+                            </option>
                           </select>
                         </td>
 
