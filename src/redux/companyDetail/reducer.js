@@ -6,11 +6,12 @@ const initialState = {
   updatingCompany: false,
   gettingCreditData: false,
   creditData: null,
+  caseDetails: null
 }
 
 function CompanyReducer(state = initialState, action) {
   switch (action.type) {
-    
+
     case types.GET_COMPANY_DETAIL:
       return {
         gettingCompanyDetail: true,
@@ -58,6 +59,22 @@ function CompanyReducer(state = initialState, action) {
         ...state,
         updatingCompany: false,
       }
+
+    // case types.GET_CASE_DETAILS:
+    //   return {
+    //     ...state,
+    //   }
+    case types.GET_CASE_DETAILS_SUCCESS:
+      return {
+        ...state,
+        caseDetails: action.payload,
+      }
+    // case types.GET_CASE_DETAILS_FAILED:
+    //   return {
+    //     ...state,
+    //     updatingCompany: false,
+    //   }
+
 
     default:
       return state
