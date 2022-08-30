@@ -328,6 +328,7 @@
         display: table-cell;
         overflow-x: auto;
         .table {
+          margin-bottom: 0;
           th {
             font-size: 15px;
             color: #8492a6;
@@ -336,6 +337,7 @@
             padding: 24px 15px;
             text-transform: uppercase;
             white-space: nowrap;
+            border-bottom: none;
             &:first-child {
               padding-left: 35px;
               @include respond(sm-desktop) {
@@ -354,9 +356,6 @@
             }
           }
           tr {
-            &:last-child {
-              border-bottom: none;
-            }
             td {
               font-size: 19px;
               font-weight: 500;
