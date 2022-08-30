@@ -2099,17 +2099,17 @@ const creditValidation=()=>{
                             className={`${styles.form_control} form-control`}
                           >
                             {orderList?.company?.litigationStatus !==
-                              'Disposed' ? (
+                              'Pending' ? (
                               <>
-                                <option>Select an option</option>
+                                {/* <option>Select an option</option> */}
                                 <option value="Pending">Pending</option>
                                 <option value="Disposed">Disposed</option>
                               </>
                             ) : (
                               <>
-                                <option>
+                                {/* <option>
                                   Select an option
-                                </option>
+                                </option> */}
                                 <option value="Disposed">Disposed</option>
                                 <option value="Pending">Pending</option>
                               </>

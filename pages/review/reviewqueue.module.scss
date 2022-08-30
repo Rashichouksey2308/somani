@@ -610,6 +610,7 @@
               border: 2px solid #cccccc;
               border-radius: 31px;
               justify-content: center;
+              padding: 0 28px;
               span {
                 // width:100%;
                 text-align: center;
@@ -621,19 +622,19 @@
               &:hover {
                 background-color: #3687e8;
                 color: #fff;
-                border: none;
+                border: 2px solid #3687e8;
               }
               &:checked {
                 background-color: #3687e8;
                 color: #fff;
-                border: none;
+                border: 2px solid #3687e8;
               }
             }
           }
           .control input:checked ~ .control__content {
             background-color: #3687e8;
             color: #fff;
-            border: none;
+            border: 2px solid #3687e8;
           }
         }
         @include respond(md-desktop) {
