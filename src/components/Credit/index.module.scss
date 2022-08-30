@@ -328,6 +328,7 @@
         display: table-cell;
         overflow-x: auto;
         .table {
+          margin-bottom: 0;
           th {
             font-size: 15px;
             color: #8492a6;
@@ -336,6 +337,7 @@
             padding: 24px 15px;
             text-transform: uppercase;
             white-space: nowrap;
+            border-bottom: none;
             &:first-child {
               padding-left: 35px;
               @include respond(sm-desktop) {
@@ -354,9 +356,6 @@
             }
           }
           tr {
-            &:last-child {
-              border-bottom: none;
-            }
             td {
               font-size: 19px;
               font-weight: 500;
@@ -419,6 +418,7 @@
     line-height: 23px;
     font-weight: bold;
     color: #3687e8;
+    cursor: pointer;
     span {
       font-size: 24px;
       line-height: 0.7;
@@ -550,39 +550,39 @@
   position: relative;
   display: inline-block;
   .tooltiptext {
-      font-size: 12px !important;
-      color: #000000;
-      line-height: 16px !important;
-      text-align: center;
-      border-radius: 6px;
-      padding: 8px 12px;
+    font-size: 12px !important;
+    color: #000000;
+    line-height: 16px !important;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 12px;
+    position: absolute;
+    z-index: 1;
+    right: -5px;
+    top: -45px;
+    margin-left: -60px;
+    opacity: 0;
+    visibility: hidden;
+    min-width: 121px;
+    white-space: nowrap;
+    background: #d2d7e5;
+    transition: opacity 0.3s;
+    // border: 1px solid #707070;
+    &::after {
+      content: '';
       position: absolute;
-      z-index: 1;
-      right: -5px;
-      top: -45px;
-      margin-left: -60px;
-      opacity: 0;
-      visibility: hidden;
-      min-width: 121px;
-      white-space: nowrap;
-      background: #D2D7E5;
-      transition: opacity 0.3s;
-      // border: 1px solid #707070;
-      &::after {
-          content: "";
-          position: absolute;
-          top: 100%;
-          right: 14px;
-          margin-left: -5px;
-          border-width: 5px;
-          border-style: solid;
-          border-color: #D2D7E5 transparent transparent transparent;
-      }
+      top: 100%;
+      right: 14px;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #d2d7e5 transparent transparent transparent;
+    }
   }
   &:hover {
-      .tooltiptext {
-          visibility: visible;
-          opacity: 1;
-      }
+    .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
   }
 }

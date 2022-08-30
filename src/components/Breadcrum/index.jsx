@@ -330,7 +330,7 @@ export default function Index({ isQuery }) {
               <option>EURO</option>
               <option>USD</option>
 
-              <option>BRITISH POUND</option>
+              <option>POUND</option>
             </select>
           </div>
         ) : null}

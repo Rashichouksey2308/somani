@@ -43,7 +43,7 @@ const Index = ({
   const [sanctionComments, setSanctionComments] = useState('')
   const [weaknessComments, setWeaknessComments] = useState('')
 
-  console.log(creditDetail, 'THIS IS CREDIT DETAIL')
+  console.log(groupExposureData, 'THIS IS CREDIT DETAIL')
 
   const filteredCreditRating =
     creditDetail?.company?.creditLimit?.creditRating?.filter((rating) => {
@@ -83,8 +83,8 @@ const Index = ({
   }
 
   const handleGroupExpChange = (name, value, index) => {
-    // console.log(name, value, index, 'name,value')
-    let tempArr = groupExposureData
+    console.log(name, value, index, 'name,value')
+    let tempArr =[...groupExposureData]
     tempArr.forEach((val, i) => {
       if (i == index) {
         val[name] = value
@@ -277,7 +277,7 @@ const handleRemoveRowEx=(index)=>{
                   <tbody>
                     {groupExposureData &&
                       groupExposureData?.map((profile, index) => (
-                        <tr key={index}>
+                        <tr key={index} className="table_credit shadow-none">
                           <td>{index + 1}</td>
                           <td className="position-relative">
                             {/* <input
@@ -326,31 +326,58 @@ const handleRemoveRowEx=(index)=>{
                           <td>
                             <input
                               name="limit"
-                              defaultValue={profile?.limit}
+                              type="text"
+                              value={profile?.limit}
                               disabled={!profile.actions}
+                               onKeyDown={(evt) =>{
+                                const re = /^[0-9\b]+$/;
+                                console.log(re.test(evt.target.value),"keydone",evt.target.value)
+                                if (re.test(evt.target.value) == false) {
+                                  // evt.preventDefault()
+                                }
+                               }
+                                
+                              }
                               onChange={(e) => {
-                                handleGroupExpChange(
-                                  e.target.name,
-                                  e.target.value,
+                              e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0).toLocaleString('en-IN')
+                               
+                                   handleGroupExpChange(
+                                   e.target.name,
+                                   e.target.value.toString(),
                                   index,
                                 )
+                               
                               }}
-                              className={`${styles.input} input`}
+                              className={styles.input}
+                              pattern="^[\d,]+$"
                             />
                           </td>
                           <td>
                             <input
                               name="outstandingLimit"
-                              defaultValue={profile?.outstandingLimit}
+                              type="text"
+                              value={profile?.outstandingLimit}
                               disabled={!profile.actions}
-                              onChange={(e) => {
-                                handleGroupExpChange(
-                                  e.target.name,
-                                  e.target.value,
+                                onKeyDown={(evt) =>{
+                                const re = /^[0-9\b]+$/;
+                                console.log(re.test(evt.target.value),"keydone",evt.target.value)
+                                if (re.test(evt.target.value) == false) {
+                                  // evt.preventDefault()
+                                }
+                               }
+                                
+                              }
+                            onChange={(e) => {
+                              e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0).toLocaleString('en-IN')
+                               
+                                   handleGroupExpChange(
+                                   e.target.name,
+                                   e.target.value.toString(),
                                   index,
                                 )
+                               
                               }}
-                              className={`${styles.input} input`}
+                              className={styles.input}
                             />
                           </td>
                           <td className="position-relative">
@@ -437,6 +464,7 @@ const handleRemoveRowEx=(index)=>{
                 as="textarea"
                 rows={3}
                 placeholder=""
+                value={strengthsComments}
                 className={`${styles.comment_field} input form-control`}
                 onChange={(e) => setStrengthsComments(e.target.value)}
               />
@@ -448,9 +476,11 @@ const handleRemoveRowEx=(index)=>{
                 className="img-fluid ml-4"
                 src="/static/add-btn.svg"
                 alt="add button"
-                onClick={() =>
+                onClick={() =>{
                   strengthsComments.length > 0 &&
                   addStrengthsCommentArr(strengthsComments)
+                  setStrengthsComments("")
+                }
                 }
               />
             </div>
@@ -518,6 +548,7 @@ const handleRemoveRowEx=(index)=>{
                 as="textarea"
                 rows={3}
                 placeholder=""
+                value={weaknessComments}
                 className={`${styles.comment_field} input form-control`}
                 onChange={(e) => setWeaknessComments(e.target.value)}
               />
@@ -529,9 +560,11 @@ const handleRemoveRowEx=(index)=>{
                 className="img-fluid ml-4"
                 src="/static/add-btn.svg"
                 alt="add button"
-                onClick={() =>
+                onClick={() =>{
                   weaknessComments.length > 0 &&
                   addWeaknessCommentArr(weaknessComments)
+                  setWeaknessComments("")
+                }
                 }
               />
             </div>
