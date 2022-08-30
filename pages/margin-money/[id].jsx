@@ -715,6 +715,7 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                           Crores
                         </option>
                         <option value="Million">Million</option>
+                        <option value="Lakh">Lakh</option>
                       </select>
                     </div>
                     </div>
