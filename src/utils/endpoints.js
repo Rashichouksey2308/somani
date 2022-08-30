@@ -45,6 +45,9 @@ export default {
   getCompanyDetails: '/api/core/lead/fetchCompanyDetail',
   updateCompanyDetails: '/api/core/lead/update-company',
 
+  //complienceCase
+  getCaseDetails: 'api/core/lead/litigation-case-detail',
+
   // Refetch Karza
   refetchCombineKarza: '/api/core/lead/refetch-combine-karza',
 
@@ -104,7 +107,7 @@ export default {
 
   //Delivery
   delivery: '/api/core/delivery',
-  uploadDoc :'/api/core/delivery/upload-doc',
+  uploadDoc: '/api/core/delivery/upload-doc',
   lifting: '/api/core/lifting',
 
   //ViewDocument

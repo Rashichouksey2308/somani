@@ -1663,7 +1663,7 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                                 <input
                                 type="text"
                                 id="textInput"
-                                name="consigneeName"
+                                name="consigneeGSTIN"
                                 value={invoiceData?.consigneeGSTIN}
                                 onChange={(e) =>
                                   saveInvoiceData(e.target.name, e.target.value)
