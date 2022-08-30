@@ -1,18 +1,30 @@
 /* eslint-disable @next/next/no-img-element */
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import styles from './index.module.scss'
 
-const Index = ({ uploadDocument1, uploadDocument2, docName,docName2 }) => {
+const Index = ({ uploadDocument1, uploadDocument2, docName, docName2 }) => {
   const [vesselCertificate, setVesselCertificate] = useState()
+  const [containerList, setContainerList] = useState()
 
   const vesselDocFunction = (e) => {
     // console.log(e.target.files[0],  'THIS IS VESSEL CERTIFICATE')
-    setVesselCertificate(e.target.files[0])
+    if (e.target.id === 'Vessel Certificate') {
+      setVesselCertificate(e.target.files[0])
+    }
+    if (e.target.id === 'Container List') {
+      setContainerList(e.target.files[0])
+    }
+
     uploadDocument1(e)
   }
 
-  const handleClose = () => {
-    setVesselCertificate(null)
+  const handleClose = (e) => {
+    if (e === 'Vessel Certificate') {
+      setVesselCertificate(null)
+    }
+    if (e === 'Container List') {
+      setContainerList(null)
+    }
   }
 
   return (
@@ -89,19 +101,20 @@ const Index = ({ uploadDocument1, uploadDocument2, docName,docName2 }) => {
                       <td>
                         {' '}
                         {vesselCertificate == null ? (
-                        <>
-                          <div className={styles.uploadBtnWrapper}>
-                            <input
-                              type="file"
-                              name="myfile"
-                              accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                              onChange={(e) => vesselDocFunction(e)}
-                            />
-                            <button className={`${styles.button_upload} btn`}>
-                              Upload
-                            </button>
-                          </div>
-                          {/* <div className={styles.uploadBtnWrapper}>
+                          <>
+                            <div className={styles.uploadBtnWrapper}>
+                              <input
+                                id={docName}
+                                type="file"
+                                name="myfile"
+                                accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                onChange={(e) => vesselDocFunction(e)}
+                              />
+                              <button className={`${styles.button_upload} btn`}>
+                                Upload
+                              </button>
+                            </div>
+                            {/* <div className={styles.uploadBtnWrapper}>
                       <input
                         type="file"
                         accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
@@ -112,21 +125,21 @@ const Index = ({ uploadDocument1, uploadDocument2, docName,docName2 }) => {
                         Upload
                       </button>
                     </div> */}
-                        </>
-                      ) : (
-                        <div className={styles.certificate}>
-                          {vesselCertificate?.name}
-                          <img
-                            className={`${styles.close_image} float-right ml-2 img-fluid`}
-                            src="/static/close.svg"
-                            onClick={()=> handleClose()}
-                            alt="Close"
-                          />{' '}
-                        </div>
-                      )}
+                          </>
+                        ) : (
+                          <div className={styles.certificate}>
+                            {vesselCertificate?.name}
+                            <img
+                              className={`${styles.close_image} float-right ml-2 img-fluid`}
+                              src="/static/close.svg"
+                              onClick={() => handleClose(docName)}
+                              alt="Close"
+                            />{' '}
+                          </div>
+                        )}
                       </td>
                     </tr>
-                     <tr className="table_row">
+                    {docName2 && <tr className="table_row">
                       <td className={styles.doc_name}>
                         {docName2}
                         <strong className="text-danger">*</strong>
@@ -141,20 +154,21 @@ const Index = ({ uploadDocument1, uploadDocument2, docName,docName2 }) => {
                       <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                       <td>
                         {' '}
-                        {vesselCertificate == null ? (
-                        <>
-                          <div className={styles.uploadBtnWrapper}>
-                            <input
-                              type="file"
-                              name="myfile"
-                              accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                              onChange={(e) => vesselDocFunction(e)}
-                            />
-                            <button className={`${styles.button_upload} btn`}>
-                              Upload
-                            </button>
-                          </div>
-                          {/* <div className={styles.uploadBtnWrapper}>
+                        {containerList == null ? (
+                          <>
+                            <div className={styles.uploadBtnWrapper}>
+                              <input
+                                id={docName2}
+                                type="file"
+                                name="myfile"
+                                accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                onChange={(e) => vesselDocFunction(e)}
+                              />
+                              <button className={`${styles.button_upload} btn`}>
+                                Upload
+                              </button>
+                            </div>
+                            {/* <div className={styles.uploadBtnWrapper}>
                       <input
                         type="file"
                         accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
@@ -165,20 +179,20 @@ const Index = ({ uploadDocument1, uploadDocument2, docName,docName2 }) => {
                         Upload
                       </button>
                     </div> */}
-                        </>
-                      ) : (
-                        <div className={styles.certificate}>
-                          {vesselCertificate?.name}
-                          <img
-                            className={`${styles.close_image} float-right ml-2 img-fluid`}
-                            src="/static/close.svg"
-                            onClick={()=> handleClose()}
-                            alt="Close"
-                          />{' '}
-                        </div>
-                      )}
+                          </>
+                        ) : (
+                          <div className={styles.certificate}>
+                            {containerList?.name}
+                            <img
+                              className={`${styles.close_image} float-right ml-2 img-fluid`}
+                              src="/static/close.svg"
+                              onClick={() => handleClose(docName2)}
+                              alt="Close"
+                            />{' '}
+                          </div>
+                        )}
                       </td>
-                    </tr>
+                    </tr>}
                   </tbody>
                 </table>
               </div>
