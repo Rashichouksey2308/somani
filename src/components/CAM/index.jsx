@@ -620,7 +620,7 @@ const basicInfo = (camData) => {
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label1`}>Order Value</span>
                   <span className={`${styles.value} value pr-5`}>
-                    {CovertvaluefromtoCR(camData?.orderValue)} {camData?.unitOfValue}
+                    {CovertvaluefromtoCR(camData?.orderValue)} {camData?.unitOfValue=="Crores"?"Cr":camData?.unitOfValue}
                   </span>
                 </Col>
                 <Col
@@ -3088,7 +3088,7 @@ const sectionTerms = (
               </ul>
             </div>
             <div>
-              Remarks
+             
               <div className={`${styles.approve}`}>
                 {approveComment &&
                   approveComment?.map((approve, index) => (

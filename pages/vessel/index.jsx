@@ -401,7 +401,6 @@ export default function Home() {
    let  toastMessage= ""
   
   for(let i=0;i<list.length;i++){
-    console.log(list[i],"list[i]",list[0])
      if (list[i].shipmentType == "" || list[i].shipmentType == undefined) {
       toastMessage = `Please Select shipment Type of Vessel Information ${i}  `
       if (!toast.isActive(toastMessage.toUpperCase())) {

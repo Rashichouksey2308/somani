@@ -30,8 +30,9 @@ const index = ({
   supplierCred,
   setEditRow,
   orderDetail,
+  companyData
 }) => {
-  console.log(keyAddData, 'person')
+  console.log(companyData, 'companyData')
   console.log(creditDetail, 'debtData')
   const dispatch = useDispatch()
 
@@ -63,7 +64,7 @@ const index = ({
     pinCode: null,
   })
 
-  console.log(keyAddressData, 'keyAddressData')
+  console.log(personData, 'personData')
   useEffect(() => {
     const newInput = { ...keyAddressData }
     newInput.GSTIN_document.name = gstDocument.name
@@ -560,7 +561,7 @@ const index = ({
                 </div>
               </div>
             </div>
-            <div className={`${styles.saveButton} m-0 mt-4`}>
+            <div className={`${styles.saveButton} mt-4 mb-4`}>
               <div
                 className={`${styles.button} d-flex justify-content-center align-items-center ml-0`}
                 onClick={() => {
@@ -824,6 +825,18 @@ const index = ({
                 <label className={`${styles.label_heading} label_heading`}>
                   Remarks
                 </label>
+              </div>
+            </div>
+            <div className={`${styles.saveButton} mt-4 mb-4`}>
+              <div
+                className={`${styles.button} d-flex justify-content-center align-items-center ml-0`}
+                onClick={() => {
+                  if (!updatingCreditCalculate) {
+                    handleProductSave()
+                  }
+                }}
+              >
+                <span>Save</span>
               </div>
             </div>
           </div>
@@ -1296,7 +1309,7 @@ const index = ({
                       <label
                         className={`${styles.label_heading} label_heading`}
                       >
-                        Branch<strong className="text-danger">*</strong>
+                        Branch
                       </label>
                     </div>
                     <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -1312,7 +1325,7 @@ const index = ({
                       <label
                         className={`${styles.label_heading} label_heading`}
                       >
-                        GSTIN<strong className="text-danger">*</strong>
+                        GSTIN
                       </label>
                     </div>
 
