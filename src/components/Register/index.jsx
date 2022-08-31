@@ -107,7 +107,7 @@ function Index() {
   }, [companyDetails.companyPan])
 
   const [orderDetails, setOrderDetails] = useState({
-    transactionType: '',
+    transactionType: 'Import',
     commodity: '',
     quantity: null,
     unitOfQuantity: 'mt',

@@ -63,6 +63,8 @@ function Index() {
     }
   }, [])
 
+  // console.log(marginData,'marginData')
+
 
   const [forCalculation, setForCalculation] = useState({
     isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || '',

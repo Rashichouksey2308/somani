@@ -842,7 +842,7 @@ const changeImporter=(e)=>{
                     type="text"
                     id="textInput"
                     name="buyerAddress"
-                    defaultValue={marginData?.revisedMarginMoney?.invoiceDetail?.buyerAddress}
+                    defaultValue={marginData?.data?.company?.detailedCompanyInfo?.profile?.companyDetail?.registeredAddress ? marginData?.data?.company?.detailedCompanyInfo?.profile?.companyDetail?.registeredAddress : marginData?.revisedMarginMoney?.invoiceDetail?.buyerAddress}
                     className={`${styles.input_field} input form-control`}
                     required
                     onChange={(e) =>

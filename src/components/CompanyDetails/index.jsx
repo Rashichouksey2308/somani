@@ -237,6 +237,7 @@ console.log(slider,"slider16513")
                 <Form.Check
                   className={styles.radio}
                   inline
+                  defaultChecked
                   onChange={() => saveOrderData('transactionType', 'Import')}
                   label="Import"
                   name="group1"
