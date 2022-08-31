@@ -560,7 +560,7 @@ const index = ({
                 </div>
               </div>
             </div>
-            <div className={`${styles.saveButton} m-0 mt-4`}>
+            <div className={`${styles.saveButton} mt-4 mb-4`}>
               <div
                 className={`${styles.button} d-flex justify-content-center align-items-center ml-0`}
                 onClick={() => {
@@ -824,6 +824,18 @@ const index = ({
                 <label className={`${styles.label_heading} label_heading`}>
                   Remarks
                 </label>
+              </div>
+            </div>
+            <div className={`${styles.saveButton} mt-4 mb-4`}>
+              <div
+                className={`${styles.button} d-flex justify-content-center align-items-center ml-0`}
+                onClick={() => {
+                  if (!updatingCreditCalculate) {
+                    handleProductSave()
+                  }
+                }}
+              >
+                <span>Save</span>
               </div>
             </div>
           </div>

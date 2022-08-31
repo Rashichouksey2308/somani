@@ -621,7 +621,7 @@ const salesContract = (changeHandler, data, preview) => {
                     value={data?.buyerSignature}
                     name="buyerSignature"
                     type="text"
-                    placeholder="" className={`${styles.para}`}></input>
+                    placeholder="" className={`${styles.para} input`}></input>
                 </>
 
             }
@@ -637,7 +637,7 @@ const salesContract = (changeHandler, data, preview) => {
                     type="text"
                     value={data?.sellerSignature}
                     name="sellerSignature"
-                    placeholder="" className={`${styles.para}`}></input>
+                    placeholder="" className={`${styles.para} input`}></input>
                 </>
             }
 
