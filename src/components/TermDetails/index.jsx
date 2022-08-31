@@ -201,13 +201,13 @@ const Index = ({
               </label>
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-              <div className="d-flex">
+              <div
+                className={`${styles.suffixWrapper} d-flex text-muted`}
+                customSuffix="%"
+              >
                 <input
                   id="tolerance"
-                  value={addPrefixOrSuffix(
-                    termsheetDetails?.commodityDetails?.tolerance,
-                    '%',
-                  )}
+                  value={termsheetDetails?.commodityDetails?.tolerance}
                   className={`${styles.value} ${styles.customSelect} input form-control`}
                   onChange={onChangeCommodityDetails}
                   required
@@ -581,15 +581,14 @@ const Index = ({
                   onChange={onChangeTransactionDetails}
                   required
                 >
-                 
-
-                 <option>Select an option</option>
-                  <option value="Gujrat, India">Gujrat, India</option>
-                  <option value="Visakhapatnam, India">
-                    Visakhapatnam, India
+                  <option selected>Select an option</option>
+                  <option value="Calcutta Port"> Calcutta Port</option>
+                  <option value="Mumbai, India"> Mumbai, India </option>
+                  <option value="Vizag, India"> Vizag, India </option>
+                  <option value="Vishakapatnam, India">
+                    {' '}
+                    Visakhapatnam, India{' '}
                   </option>
-                  <option value="Vizag, India">Vizag, India</option>
-                  <option value="Mumbai, India">Mumbai, India</option>
                 </select>
                
                 <label className={`${styles.label} label_heading`}>

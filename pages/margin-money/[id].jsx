@@ -23,7 +23,7 @@ import {
   setDynamicName,
   setDynamicOrder,
 } from '../../src/redux/userData/action'
-import { addPrefixOrSuffix ,checkNan} from '../../src/utils/helper'
+import { addPrefixOrSuffix, checkNan } from '../../src/utils/helper'
 // import { Row, Col } from 'react-bootstrap'
 
 function Index() {
@@ -286,74 +286,65 @@ function Index() {
 
   console.log(invoiceData, 'invoice data value')
 
-  let emergent =  {
+  let emergent = {
     companyName: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
     branch: 'DELHI',
     state: 'DELHI',
-    address : '8B, SAGAR, 6 TILAK MARG, NEW DELHI - 110001',
-    GSTIN : '07AAACS8253L1Z0' 
- }
+    address: '8B, SAGAR, 6 TILAK MARG, NEW DELHI - 110001',
+    GSTIN: '07AAACS8253L1Z0',
+  }
 
- let indoGerman = {
+  let indoGerman = {
     companyName: 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED',
     branch: 'SURAT',
     state: 'GUJARAT',
-    address : 'PLOT NO-A 54, GANGA NAGAR SOCIETY, NEAR PALANPUR PATIA, RANDAR ROAD, SURAT-395009',
-    GSTIN : '24AAACI3028D1Z8' 
- }
+    address:
+      'PLOT NO-A 54, GANGA NAGAR SOCIETY, NEAR PALANPUR PATIA, RANDAR ROAD, SURAT-395009',
+    GSTIN: '24AAACI3028D1Z8',
+  }
 
- const [changeImporterData, setChangeImporterData] = useState()
+  const [changeImporterData, setChangeImporterData] = useState()
 
- const dropDownChange = (name, value) => {
-  if(value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
-  
-    setChangeImporterData({...emergent})
-    const newInput = { ...invoiceData }
-    newInput['importerName'] = emergent.companyName
-    newInput['branchOffice'] = emergent.branch
-    newInput['importerGSTIN'] = emergent.GSTIN
-    newInput['companyAddress'] = emergent.address
+  const dropDownChange = (name, value) => {
+    if (value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
+      setChangeImporterData({ ...emergent })
+      const newInput = { ...invoiceData }
+      newInput['importerName'] = emergent.companyName
+      newInput['branchOffice'] = emergent.branch
+      newInput['importerGSTIN'] = emergent.GSTIN
+      newInput['companyAddress'] = emergent.address
       // saveInvoiceData('branchOffice', emergent.branch)
       // saveInvoiceData('importerGSTIN', emergent.GSTIN)
       // saveInvoiceData('companyAddress', emergent.address)
       setInvoiceData({ ...newInput })
-
-   
- }else if(value === 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED'){
- 
-  setChangeImporterData({...indoGerman })
-  const newInput = { ...invoiceData }
-  newInput['importerName'] = indoGerman.companyName
-  newInput['branchOffice'] = indoGerman.branch
-  newInput['importerGSTIN'] = indoGerman.GSTIN
-  newInput['companyAddress'] = indoGerman.address
-    // saveInvoiceData('branchOffice', emergent.branch)
-    // saveInvoiceData('importerGSTIN', emergent.GSTIN)
-    // saveInvoiceData('companyAddress', emergent.address)
-    setInvoiceData({ ...newInput })
-  
- 
- }
-
-
- 
-}
-const changeImporter=(e)=>{
-  if(e.target.name=="branchOffice" ){
-  changeImporterData.branch=e.target.value
-  setChangeImporterData({...changeImporterData})
+    } else if (value === 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') {
+      setChangeImporterData({ ...indoGerman })
+      const newInput = { ...invoiceData }
+      newInput['importerName'] = indoGerman.companyName
+      newInput['branchOffice'] = indoGerman.branch
+      newInput['importerGSTIN'] = indoGerman.GSTIN
+      newInput['companyAddress'] = indoGerman.address
+      // saveInvoiceData('branchOffice', emergent.branch)
+      // saveInvoiceData('importerGSTIN', emergent.GSTIN)
+      // saveInvoiceData('companyAddress', emergent.address)
+      setInvoiceData({ ...newInput })
+    }
   }
-  if(e.target.name=="companyAddress" ){
-  changeImporterData.address=e.target.value
-  setChangeImporterData({...changeImporterData})
+  const changeImporter = (e) => {
+    if (e.target.name == 'branchOffice') {
+      changeImporterData.branch = e.target.value
+      setChangeImporterData({ ...changeImporterData })
+    }
+    if (e.target.name == 'companyAddress') {
+      changeImporterData.address = e.target.value
+      setChangeImporterData({ ...changeImporterData })
+    }
+    if (e.target.name == 'importerGSTIN') {
+      changeImporterData.GSTIN = e.target.value
+      setChangeImporterData({ ...changeImporterData })
+    }
   }
-  if(e.target.name=="importerGSTIN" ){
-  changeImporterData.GSTIN=e.target.value
-  setChangeImporterData({...changeImporterData})
-  }
-}
-console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
-
+  console.log(changeImporterData, 'THIS IS CHANGE IMPORTER')
 
   const setSame = (val) => {
     if (val == true) {
@@ -440,18 +431,28 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
   const [invoiceDataRevised, setInvoiceDataRevised] = useState({
     buyerName: marginData?.company?.companyName || '',
     buyerGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN || '',
-    buyerAddress: marginData?.revisedMarginMoney?.invoiceDetail?.buyerAddress || '',
-    isConsigneeSameAsBuyer: marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer,
-    consigneeName: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeName || '',
-    consigneeGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeGSTIN || '',
-    consigneeAddress: marginData?.revisedMarginMoney?.invoiceDetail?.consigneeAddress || '',
-    importerName: marginData?.revisedMarginMoney?.invoiceDetail?.importerName || '',
-    branchOffice: marginData?.revisedMarginMoney?.invoiceDetail?.branchOffice || '',
-    companyAddress: marginData?.revisedMarginMoney?.invoiceDetail?.companyAddress || '',
-    importerGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.importerGSTIN || '',
+    buyerAddress:
+      marginData?.revisedMarginMoney?.invoiceDetail?.buyerAddress || '',
+    isConsigneeSameAsBuyer:
+      marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer,
+    consigneeName:
+      marginData?.revisedMarginMoney?.invoiceDetail?.consigneeName || '',
+    consigneeGSTIN:
+      marginData?.revisedMarginMoney?.invoiceDetail?.consigneeGSTIN || '',
+    consigneeAddress:
+      marginData?.revisedMarginMoney?.invoiceDetail?.consigneeAddress || '',
+    importerName:
+      marginData?.revisedMarginMoney?.invoiceDetail?.importerName || '',
+    branchOffice:
+      marginData?.revisedMarginMoney?.invoiceDetail?.branchOffice || '',
+    companyAddress:
+      marginData?.revisedMarginMoney?.invoiceDetail?.companyAddress || '',
+    importerGSTIN:
+      marginData?.revisedMarginMoney?.invoiceDetail?.importerGSTIN || '',
     bankName: marginData?.revisedMarginMoney?.invoiceDetail?.bankName || '',
     branch: marginData?.revisedMarginMoney?.invoiceDetail?.branch || '',
-    branchAddress: marginData?.revisedMarginMoney?.invoiceDetail?.branchAddress || '',
+    branchAddress:
+      marginData?.revisedMarginMoney?.invoiceDetail?.branchAddress || '',
     IFSCcode: marginData?.revisedMarginMoney?.invoiceDetail?.IFSCcode || '',
     accountNo: marginData?.revisedMarginMoney?.invoiceDetail?.accountNo || '',
   })
@@ -679,11 +680,11 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                     className={`${styles.card} vessel_card accordionMargin card`}
                   >
                     <div
-                      className={`${styles.cardHeader} d-flex align-items-center justify-content-between`} style={{cursor : 'default'}}>
+                      className={`${styles.cardHeader} d-flex align-items-center justify-content-between`}
+                      style={{ cursor: 'default' }}
+                    >
                       <div className={`${styles.commodity}`}>
-                        <span
-                          className={`${styles.comm_head} sub_heading`}
-                        >
+                        <span className={`${styles.comm_head} sub_heading`}>
                           Commodity
                         </span>
                         <span className={`${styles.comm_val} heading`}>
@@ -702,25 +703,31 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                             <span className={`heading`}>Payment Initiated</span>
                           </div>
                         </div>
-                      <div className="d-flex">
-                      <div className={`${styles.unit_container} d-flex align-items-center justify-content-evenly`}>
-                      <h5 className={`${styles.unit_label} accordion_Text ml-5`}>Unit:</h5>
-                      <select
-                        className={`${styles.options} accordion_DropDown mr-4`}
-                        name="unitOfQuantity"
-                        onChange={(e) => {
-                          saveOrderData(e.target.name, e.target.value)
-                        }}
-                      >
-                        <option>Select</option>
-                        <option selected value="Crores">
-                          Crores
-                        </option>
-                        <option value="Million">Million</option>
-                        <option value="Lakh">Lakh</option>
-                      </select>
-                    </div>
-                    </div>
+                        <div className="d-flex">
+                          <div
+                            className={`${styles.unit_container} d-flex align-items-center justify-content-evenly`}
+                          >
+                            <h5
+                              className={`${styles.unit_label} accordion_Text ml-5`}
+                            >
+                              Unit:
+                            </h5>
+                            <select
+                              className={`${styles.options} accordion_DropDown mr-4`}
+                              name="unitOfQuantity"
+                              onChange={(e) => {
+                                saveOrderData(e.target.name, e.target.value)
+                              }}
+                            >
+                              <option>Select</option>
+                              <option selected value="Crores">
+                                Crores
+                              </option>
+                              <option value="Million">Million</option>
+                              <option value="Lakh">Lakh</option>
+                            </select>
+                          </div>
+                        </div>
                         {/* <input >{marginData?.order?.unitOfValue}</input> */}
                         {/* <select
                           className={`${styles.options} mr-4 accordion_DropDown`}
@@ -734,7 +741,15 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                           </option>
                           <option>Million</option>
                         </select> */}
-                        <span data-toggle="collapse" data-target="#commodityAccordion" aria-expanded="true" aria-controls="commodityAccordion" style={{marginTop:'-7px'}}>+</span>
+                        <span
+                          data-toggle="collapse"
+                          data-target="#commodityAccordion"
+                          aria-expanded="true"
+                          aria-controls="commodityAccordion"
+                          style={{ marginTop: '-7px' }}
+                        >
+                          +
+                        </span>
                       </div>
                     </div>
                     <div
@@ -766,7 +781,8 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                                   {addPrefixOrSuffix(
                                     marginData?.order?.quantity?.toLocaleString(),
                                     '',
-                                  )} {marginData?.order?.unitOfQuantity.toUpperCase()}
+                                  )}{' '}
+                                  {marginData?.order?.unitOfQuantity.toUpperCase()}
                                 </div>
                               </div>
                             </div>
@@ -871,12 +887,11 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {marginData?.order?.orderCurrency} {" "}
+                                  {marginData?.order?.orderCurrency}{' '}
                                   {addPrefixOrSuffix(
                                     marginData?.order?.perUnitPrice,
                                     '',
-                                  ).toLocaleString()} 
-                                  
+                                  ).toLocaleString()}
                                 </div>
                               </div>
                             </div>
@@ -936,7 +951,8 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                                   {
                                     marginData?.order?.termsheet?.commercials
                                       ?.usanceInterestPercetage
-                                  }%
+                                  }
+                                  %
                                   <div className={` d-flex align-items-center`}>
                                     <label
                                       className={`${styles.label_heading} ${styles.subHeading} ml-3 label_heading mb-0`}
@@ -1181,14 +1197,8 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                                   >{`(A*B)`}</span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                 
-                                {
-                                marginData?.order?.orderCurrency} {
-                                  checkNan(Number(
-                                    finalCal.orderValue,
-                                  ))
-                                  }
-                                  
+                                  {marginData?.order?.orderCurrency}{' '}
+                                  {checkNan(Number(finalCal.orderValue))}
                                 </div>
                               </div>
                             </div>
@@ -1213,9 +1223,7 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.orderValueInINR?.toLocaleString()} */}
-                                  {checkNan(Number(
-                                    finalCal.orderValueInINR,
-                                  ))}
+                                  {checkNan(Number(finalCal.orderValueInINR))}
                                 </div>
                               </div>
                             </div>
@@ -1248,10 +1256,8 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                ₹ {/* {finalCal.usanceInterest} */}
-                                  {checkNan(Number(
-                                    finalCal.usanceInterest,
-                                  ))}
+                                  ₹ {/* {finalCal.usanceInterest} */}
+                                  {checkNan(Number(finalCal.usanceInterest))}
                                 </div>
                               </div>
                             </div>
@@ -1275,9 +1281,7 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                ₹ {checkNan(Number(
-                                    finalCal.tradeMargin,
-                                  ))}
+                                  ₹ {checkNan(Number(finalCal.tradeMargin))}
                                   {/* {finalCal.tradeMargin?.toLocaleString()} */}
                                 </div>
                               </div>
@@ -1303,9 +1307,7 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.grossOrderValue?.toLocaleString()} */}
-                                  ₹  {checkNan(Number(
-                                    finalCal.grossOrderValue,
-                                  ))}
+                                  ₹ {checkNan(Number(finalCal.grossOrderValue))}
                                 </div>
                               </div>
                             </div>
@@ -1329,10 +1331,8 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {/* {finalCal.toleranceValue} */}
-                                  ₹  {checkNan(Number(
-                                    finalCal.toleranceValue,
-                                  ))}
+                                  {/* {finalCal.toleranceValue} */}₹{' '}
+                                  {checkNan(Number(finalCal.toleranceValue))}
                                 </div>
                               </div>
                             </div>
@@ -1356,10 +1356,8 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {/* {finalCal.totalOrderValue} */}
-                                  ₹  {checkNan(Number(
-                                    finalCal.totalOrderValue,
-                                  ))}
+                                  {/* {finalCal.totalOrderValue} */}₹{' '}
+                                  {checkNan(Number(finalCal.totalOrderValue))}
                                 </div>
                               </div>
                             </div>
@@ -1383,9 +1381,10 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                ₹  {checkNan(Number(
-                                    finalCal.provisionalUnitPricePerTon,
-                                  ))}
+                                  ₹{' '}
+                                  {checkNan(
+                                    Number(finalCal.provisionalUnitPricePerTon),
+                                  )}
                                   {/* {finalCal.provisionalUnitPricePerTon} */}
                                 </div>
                               </div>
@@ -1410,10 +1409,8 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {/* {finalCal.marginMoney} */}
-                                  ₹ {checkNan(Number(
-                                    finalCal.marginMoney,
-                                  ))}
+                                  {/* {finalCal.marginMoney} */}₹{' '}
+                                  {checkNan(Number(finalCal.marginMoney))}
                                 </div>
                               </div>
                             </div>
@@ -1437,8 +1434,8 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {/* {finalCal.totalSPDC} */}
-                                  ₹ {checkNan(Number(finalCal.totalSPDC))}
+                                  {/* {finalCal.totalSPDC} */}₹{' '}
+                                  {checkNan(Number(finalCal.totalSPDC))}
                                 </div>
                               </div>
                             </div>
@@ -1462,9 +1459,7 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                ₹  {checkNan(Number(
-                                    finalCal.amountPerSPDC,
-                                  ))}
+                                  ₹ {checkNan(Number(finalCal.amountPerSPDC))}
                                   {/* {finalCal.amountPerSPDC} */}
                                 </div>
                               </div>
@@ -1504,9 +1499,7 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                                 type="text"
                                 id="textInput"
                                 name="buyerName"
-                                defaultValue={
-                                  marginData?.company?.companyName
-                                }
+                                defaultValue={marginData?.company?.companyName}
                                 className={`${styles.input_field} input form-control`}
                                 required
                                 onChange={(e) =>
@@ -1541,7 +1534,7 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                                   }
                                 >
                                   <option>Select an option</option>
-                                
+
                                   <option value="GTSDT789652JKH">
                                     GTSDT789652JKH
                                   </option>
@@ -1664,16 +1657,19 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                             >
                               <div className="d-flex">
                                 <input
-                                type="text"
-                                id="textInput"
-                                name="consigneeGSTIN"
-                                value={invoiceData?.consigneeGSTIN}
-                                onChange={(e) =>
-                                  saveInvoiceData(e.target.name, e.target.value)
-                                }
-                                className={`${styles.input_field} input form-control`}
-                                required
-                              />
+                                  type="text"
+                                  id="textInput"
+                                  name="consigneeGSTIN"
+                                  value={invoiceData?.consigneeGSTIN}
+                                  onChange={(e) =>
+                                    saveInvoiceData(
+                                      e.target.name,
+                                      e.target.value,
+                                    )
+                                  }
+                                  className={`${styles.input_field} input form-control`}
+                                  required
+                                />
                                 <label
                                   className={`${styles.label_heading} label_heading`}
                                   id="textInput"
@@ -1730,7 +1726,7 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                                 >
                                   <option>Select an option</option>
                                   <option value="INDO GERMAN INTERNATIONAL PRIVATE LIMITED">
-                                  INDO GERMAN INTERNATIONAL PRIVATE LIMITED
+                                    INDO GERMAN INTERNATIONAL PRIVATE LIMITED
                                   </option>
                                   <option value="EMERGENT INDUSTRIAL SOLUTIONS LIMITED">
                                     EMERGENT INDUSTRIAL SOLUTIONS LIMITED
@@ -1758,21 +1754,16 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                                   name="branchOffice"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   required
-                                  
                                   value={
-                                    changeImporterData?.branch ? changeImporterData?.branch : marginData?.invoiceDetail?.branchOffice
+                                    changeImporterData?.branch
+                                      ? changeImporterData?.branch
+                                      : marginData?.invoiceDetail?.branchOffice
                                   }
-                                  onChange={(e) =>
-                                    changeImporter(e)
-                                  }
+                                  onChange={(e) => changeImporter(e)}
                                 >
                                   <option>Select an option</option>
-                                  <option value="SURAT">
-                                    {'SURAT'}
-                                  </option>
-                                  <option value="DELHI">
-                                    DELHI
-                                  </option>
+                                  <option value="SURAT">{'SURAT'}</option>
+                                  <option value="DELHI">DELHI</option>
                                 </select>
                                 <label
                                   className={`${styles.label_heading} label_heading`}
@@ -1794,11 +1785,13 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                               <input
                                 type="text"
                                 id="textInput"
-                                value={ changeImporterData?.address  ? changeImporterData?.address : marginData?.invoiceDetail?.companyAddress}
+                                value={
+                                  changeImporterData?.address
+                                    ? changeImporterData?.address
+                                    : marginData?.invoiceDetail?.companyAddress
+                                }
                                 name="companyAddress"
-                                 onChange={(e) =>
-                                    changeImporter(e)
-                                  }
+                                onChange={(e) => changeImporter(e)}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1817,11 +1810,11 @@ console.log(changeImporterData, "THIS IS CHANGE IMPORTER")
                                 type="text"
                                 id="textInput"
                                 name="importerGSTIN"
-                                 onChange={(e) =>
-                                    changeImporter(e)
-                                  }
+                                onChange={(e) => changeImporter(e)}
                                 value={
-                                changeImporterData?.GSTIN ? changeImporterData?.GSTIN : marginData?.invoiceDetail?.importerGSTIN
+                                  changeImporterData?.GSTIN
+                                    ? changeImporterData?.GSTIN
+                                    : marginData?.invoiceDetail?.importerGSTIN
                                 }
                                 className={`${styles.input_field} input form-control`}
                                 required
