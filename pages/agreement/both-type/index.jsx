@@ -581,7 +581,7 @@ function Index() {
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        addMoreRows()
+                        // addMoreRows()
                       }}
                     >
                       <span style={{ fontSize: '2rem' }} className={`mr-2`}>
