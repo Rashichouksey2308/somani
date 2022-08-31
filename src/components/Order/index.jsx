@@ -332,7 +332,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
-                  Transaction Period (Days)
+                  HSN code 
                   <strong className="text-danger">*</strong>
                 </Form.Label>
               </Form.Group>

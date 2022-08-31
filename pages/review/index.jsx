@@ -181,6 +181,7 @@ function Index() {
   //   name: '',
   //   module: 'LeadOnboarding,OrderApproval',
   // })
+  
   useEffect(() => {
     if (companyData) {
       let statutory = []
@@ -814,24 +815,24 @@ function Index() {
     },
   ])
 
-  useEffect(() => {
-    if (orderList?.company?.keyContactPerson.length > 0) {
-      setPersonData([
-        {
-          contact: {
-            callingCode:
-              orderList?.company?.keyContactPerson?.contact?.callingCode,
-            number: orderList?.company?.keyContactPerson?.contact?.number,
-          },
-          department: orderList?.company?.keyContactPerson?.department,
-          designation: orderList?.company?.keyContactPerson?.designation,
-          email: orderList?.company?.keyContactPerson?.email,
-          name: orderList?.company?.keyContactPerson?.name,
-          isEdit: false,
-        },
-      ])
-    }
-  }, [orderList])
+  // useEffect(() => {
+  //   if (orderList?.company?.keyContactPerson.length > 0) {
+  //     setPersonData([
+  //       {
+  //         contact: {
+  //           callingCode:
+  //             orderList?.company?.keyContactPerson?.contact?.callingCode,
+  //           number: orderList?.company?.keyContactPerson?.contact?.number,
+  //         },
+  //         department: orderList?.company?.keyContactPerson?.department,
+  //         designation: orderList?.company?.keyContactPerson?.designation,
+  //         email: orderList?.company?.keyContactPerson?.email,
+  //         name: orderList?.company?.keyContactPerson?.name,
+  //         isEdit: false,
+  //       },
+  //     ])
+  //   }
+  // }, [orderList])
 
   useEffect(() => {
     let groupExposureArr = []
@@ -1631,6 +1632,28 @@ const creditValidation=()=>{
 
     setTotalCourt(count)
   }
+  useEffect(() => {
+    let temp=[]
+    if(companyData?.profile?.directorDetail.length>0){
+      companyData?.profile?.directorDetail.forEach((val,index)=>{
+         temp.push({
+         contact: {
+          callingCode: '+91',
+          number: '',
+        },
+          department: '',
+          designation: val.designation,
+          email: val.email,
+          name: val.name,
+
+         })
+      })
+    }
+    console.log(temp,"temp")
+    setPersonData([...temp])
+  },[companyData?.profile?.directorDetai])
+  console.log(personData,"per")
+  console.log(companyData?.profile?.directorDetail,"director")
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -2492,6 +2515,7 @@ const creditValidation=()=>{
                     supplierCred={supplierCred}
                     setEditRow={setEditRow}
                     orderDetail={orderList}
+                    companyData={companyData}
 
 
                   />

@@ -30,8 +30,9 @@ const index = ({
   supplierCred,
   setEditRow,
   orderDetail,
+  companyData
 }) => {
-  console.log(keyAddData, 'person')
+  console.log(companyData, 'companyData')
   console.log(creditDetail, 'debtData')
   const dispatch = useDispatch()
 
@@ -63,7 +64,7 @@ const index = ({
     pinCode: null,
   })
 
-  console.log(keyAddressData, 'keyAddressData')
+  console.log(personData, 'personData')
   useEffect(() => {
     const newInput = { ...keyAddressData }
     newInput.GSTIN_document.name = gstDocument.name
