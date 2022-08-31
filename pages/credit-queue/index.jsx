@@ -13,7 +13,7 @@ import {
 } from '../../src/redux/registerBuyer/action'
 import {GetCompanyDetails} from '../../src/redux/companyDetail/action'
 import { SearchLeads } from '../../src/redux/buyerProfile/action.js'
-import { setPageName,setDynamicName } from '../../src/redux/userData/action'
+import { setPageName,setDynamicName,setDynamicOrder } from '../../src/redux/userData/action'
 import { GetDocuments } from '../../src/redux/creditQueueUpdate/action'
 import Filter from '../../src/components/Filter'
 
@@ -45,12 +45,14 @@ function Index() {
   useEffect(() => {
     dispatch(setPageName('credit-queue'))
     dispatch(setDynamicName(null))
+     
+    dispatch(setDynamicOrder(null))
   })
   
   
   const handleRoute = (buyer) => {
     // console.log(buyer,'butyer')
-     console.log(" before go to get document")
+     console.log("getDetails payload",buyer.company._id)
     if (buyer.queue === 'CreditQueue') {
       dispatch(GetAllOrders({ orderId: buyer._id }))
      //dispatch(GetDocuments({order: buyer._id}))

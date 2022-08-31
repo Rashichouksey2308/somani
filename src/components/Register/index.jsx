@@ -429,6 +429,7 @@ console.log(companyDetails.transactionType,"trans")
           mobileFunction={mobileFunction}
           saveOrderData={saveOrderData}
           saveCompanyData={saveCompanyData}
+          orderDetails={orderDetails}
         />
         <OrderDetails
           darkMode={darkMode}

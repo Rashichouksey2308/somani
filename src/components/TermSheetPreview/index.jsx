@@ -494,7 +494,7 @@ function Index() {
             </Col>
             <Col md={8}  sm={6} xs={6}  className={`${styles.sub_contentValue} termsheet_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                  <ul>
-                 <li>{termsheetDetails.paymentDueDate?.computationOfDueDate}</li>
+                 <li>{termsheetDetails?.paymentDueDate?.computationOfDueDate}</li>
                  
              </ul>
             </Col>
