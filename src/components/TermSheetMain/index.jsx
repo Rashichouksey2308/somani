@@ -140,7 +140,7 @@ function Index() {
                 >
                   <thead>
                     <tr className="table_row">
-                      <th>ORDER ID</th>
+                      <th>CUSTOMER ID</th>
                       <th>BUYER NAME</th>
                       <th>EXISTING CUSTOMER</th>
                       <th>CREATED ON</th>

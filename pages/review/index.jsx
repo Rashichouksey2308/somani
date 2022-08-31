@@ -44,7 +44,7 @@ import {
   UpdateOrderShipment,
 } from '../../src/redux/buyerProfile/action'
 
-import { setPageName, setDynamicName } from '../../src/redux/userData/action'
+import { setPageName, setDynamicName,setDynamicOrder } from '../../src/redux/userData/action'
 
 import { RefetchCombineKarza } from '../../src/redux/companyDetail/action'
 import { UpdateCam } from '../../src/redux/creditQueueUpdate/action'
@@ -181,6 +181,7 @@ function Index() {
   //   name: '',
   //   module: 'LeadOnboarding,OrderApproval',
   // })
+  
   useEffect(() => {
     if (companyData) {
       let statutory = []
@@ -266,9 +267,10 @@ function Index() {
     dispatch(setPageName('credit-queue'))
     console.log(orderList?.company?.companyName,"orderList?.company?.companyName")
     dispatch(setDynamicName(orderList?.company?.companyName))
+    dispatch(setDynamicOrder(orderList?.company?.customerId))
   }, [orderList, dispatch])
 
-  console.log(orderList?.termsheet?.order, 'termsheetOrder')
+  console.log(orderList, 'termsheetOrder')
   // useEffect(() => {
 
   //   dispatch(GetDocuments(`?order=${id}`))
@@ -427,22 +429,74 @@ function Index() {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
-    }  if (orderDetails?.transactionPeriodDays === ''|| orderDetails?.transactionPeriodDays == undefined) {
+    } 
+     if (orderDetails?.transactionPeriodDays === ''|| orderDetails?.transactionPeriodDays == undefined) {
       let toastMessage = 'the transaction Period Days can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
-    }  if (orderDetails?.manufacturerName?.trim() === ''|| orderDetails?.manufacturerName?.trim() == undefined) {
-      let toastMessage = 'the manufacturer Name can not be Empty'
+    }  
+       if (shipment?.shipmentType === ''|| shipment?.shipmentType == undefined) {
+      let toastMessage = 'add shipment Type'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
     }
+    if (shipment?.loadPort.toDate === ''|| shipment?.loadPort.toDate == undefined) {
+      let toastMessage = 'add load Port  to'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+    if (shipment?.loadPort.fromDate === ''|| shipment?.loadPort.fromDate == undefined) {
+      let toastMessage = 'add load Port from date'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+     if (shipment?.ETAofDischarge.fromDate === ''|| shipment?.ETAofDischarge.fromDate == undefined) {
+      let toastMessage = 'add eta of discharge from'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+    if (shipment?.ETAofDischarge.toDate === ''|| shipment?.ETAofDischarge.toDate == undefined) {
+      let toastMessage = 'add eta of discharge to'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+     if (shipment?.lastDateOfShipment === ''|| shipment?.lastDateOfShipment == undefined) {
+      let toastMessage = 'add last date of shipment'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+     if (shipment?.portOfLoading === ''|| shipment?.portOfLoading == undefined) {
+      let toastMessage = 'add port Of Loading'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+ 
+    // if (orderDetails?.manufacturerName?.trim() === ''|| orderDetails?.manufacturerName?.trim() == undefined) {
+    //   let toastMessage = 'the manufacturer Name can not be Empty'
+    //   if (!toast.isActive(toastMessage.toUpperCase())) {
+    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    //   }
+    //   return false
+    // }
     return true
   }
-  console.log(orderDetails,"orderDetails")
+  console.log(orderDetails,"orderDetails",shipment)
   const onOrderSave = () => {
     if(orderValidation()){
      
@@ -761,24 +815,24 @@ function Index() {
     },
   ])
 
-  useEffect(() => {
-    if (orderList?.company?.keyContactPerson.length > 0) {
-      setPersonData([
-        {
-          contact: {
-            callingCode:
-              orderList?.company?.keyContactPerson?.contact?.callingCode,
-            number: orderList?.company?.keyContactPerson?.contact?.number,
-          },
-          department: orderList?.company?.keyContactPerson?.department,
-          designation: orderList?.company?.keyContactPerson?.designation,
-          email: orderList?.company?.keyContactPerson?.email,
-          name: orderList?.company?.keyContactPerson?.name,
-          isEdit: false,
-        },
-      ])
-    }
-  }, [orderList])
+  // useEffect(() => {
+  //   if (orderList?.company?.keyContactPerson.length > 0) {
+  //     setPersonData([
+  //       {
+  //         contact: {
+  //           callingCode:
+  //             orderList?.company?.keyContactPerson?.contact?.callingCode,
+  //           number: orderList?.company?.keyContactPerson?.contact?.number,
+  //         },
+  //         department: orderList?.company?.keyContactPerson?.department,
+  //         designation: orderList?.company?.keyContactPerson?.designation,
+  //         email: orderList?.company?.keyContactPerson?.email,
+  //         name: orderList?.company?.keyContactPerson?.name,
+  //         isEdit: false,
+  //       },
+  //     ])
+  //   }
+  // }, [orderList])
 
   useEffect(() => {
     let groupExposureArr = []
@@ -1578,6 +1632,28 @@ const creditValidation=()=>{
 
     setTotalCourt(count)
   }
+  useEffect(() => {
+    let temp=[]
+    if(companyData?.profile?.directorDetail.length>0){
+      companyData?.profile?.directorDetail.forEach((val,index)=>{
+         temp.push({
+         contact: {
+          callingCode: '+91',
+          number: '',
+        },
+          department: '',
+          designation: val.designation,
+          email: val.email,
+          name: val.name,
+
+         })
+      })
+    }
+    console.log(temp,"temp")
+    setPersonData([...temp])
+  },[companyData?.profile?.directorDetai])
+  console.log(personData,"per")
+  console.log(companyData?.profile?.directorDetail,"director")
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -2439,6 +2515,7 @@ const creditValidation=()=>{
                     supplierCred={supplierCred}
                     setEditRow={setEditRow}
                     orderDetail={orderList}
+                    companyData={companyData}
 
 
                   />

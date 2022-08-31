@@ -17,9 +17,11 @@ const Index = ({
   mobileCallingCodeFunction,
   whatsappCallingCodeFunction,
   handleCommunication,
+  orderDetails
 }) => {
   const { gstList } = useSelector((state) => state.buyer)
   const dispatch = useDispatch()
+  console.log(orderDetails,"orderDetails")
   // console.log(gstList?.data, "THIS IS GST LIST")
   const [slider, setSlider] = useState(50)
   const [typeOfSlider, setSliderType] = useState(1)
@@ -159,6 +161,7 @@ const Index = ({
                   label="Import"
                   name="group1"
                   type={type}
+                  checked={orderDetails.transactionType == "Import"?"checked":""}
                   id={`inline-${type}-1`}
                 />
                 <Form.Check
@@ -168,7 +171,9 @@ const Index = ({
                   name="group1"
                   onChange={() => saveOrderData('transactionType', 'Domestic')}
                   type={type}
+                  checked={orderDetails.transactionType == "Domestic"?"checked":""}
                   id={`inline-${type}-2`}
+                  
                 />
               </div>
             ))}
@@ -270,8 +275,8 @@ const Index = ({
                   required
                 >
                   <option>Select an option</option>
-                  <option value="Manufacturer">Manufacturer</option>
-                  <option value="Retailer">Retailer</option>
+                 <option value="Manufacturer">Manufacturer</option>
+                  {/* <option value="Retailer">Retailer</option> */}
                   <option value="Trading">Trading</option>
                 </select>
                 <label

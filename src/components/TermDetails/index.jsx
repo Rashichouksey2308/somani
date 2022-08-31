@@ -495,8 +495,8 @@ const Index = ({
                 >
                   <option>Select an option</option>
                   <option value="Home Consumption">Home Consumption</option>
-                  <option value="Intobond">Intobond</option>
-                  <option value="Exbond">Exbond </option>
+                  <option value="Into-Bond">Into-Bond</option>
+                  <option value="EX-Bond">EX-Bond </option>
                 </select>
 
                 <label className={`${styles.label} label_heading`}>
@@ -548,7 +548,7 @@ const Index = ({
                     <option value="Load Port">Load Port</option>
                     <option value="Discharge Port">Discharge Port</option>
                     <option value="Both">
-                      Both Lord port and discharge port
+                      Lord Port and Discharge Port
                     </option>
                   </select>
 
@@ -590,6 +590,7 @@ const Index = ({
                     Visakhapatnam, India{' '}
                   </option>
                 </select>
+               
                 <label className={`${styles.label} label_heading`}>
                   Storage of Goods<strong className="text-danger">*</strong>
                 </label>

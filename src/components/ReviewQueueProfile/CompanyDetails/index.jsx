@@ -251,10 +251,13 @@ function Index({ order, companyDetail }) {
                     onChange={onChangeHandler}
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="Sourcing"
+                    value={order?.sourceChanel}
                   >
                     <option value="">Select</option>
-                    <option value="SocialMedia">{order?.sourceChanel}</option>
-                    <option value="Website">Website</option>
+                    
+                    <option value="Sales Assocaite">Sales Assocaite</option>
+                     <option value="Website">Website</option>
+                      <option value=" Customs Associate "> Customs Associate </option>
                   </select>
                   <label className={`${styles.label_heading} label_heading`}>
                     Sourcing Channel
@@ -281,6 +284,7 @@ function Index({ order, companyDetail }) {
                     <option value="">Select</option>
                     <option value="CHA">{'CHA'}</option>
                     <option value="CMA">CMA</option>
+                     <option value="Stevedore">{'Stevedore'}</option>
                   </select>
                   <label className={`${styles.label_heading} label_heading`}>
                     Referred By
