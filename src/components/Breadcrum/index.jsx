@@ -76,11 +76,11 @@ export default function Index({ isQuery }) {
       router.route = '/Dashboard'
     }
     if ('newOrder' == pageName) {
-      router.route = '/Leads' + `/${id.toLowerCase()}` + '/New Order'
+      router.route = '/Leads' + `/${id?.toLowerCase()}` + '/New Order'
     }
     if ('leads' == pageName) {
       if (id !== null) {
-        router.route = '/Leads' + `/${id.toLowerCase()}`
+        router.route = '/Leads' + `/${id?.toLowerCase()}`
       } else {
         router.route = '/Leads'
       }
