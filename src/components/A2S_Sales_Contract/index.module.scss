@@ -145,8 +145,8 @@
     }    
     .inputsContainer {
         font-size: 20px;
-        margin-bottom: 4rem;
         line-height: 36px;
+        margin-bottom: 3rem;
         border: 2px solid black;
         .row {
             margin: 0px !important;
@@ -170,9 +170,9 @@
             border-bottom: none;
         }
         .right {
-            display: flex;
-            align-items: center !important;
-            justify-content: flex-start !important;
+            // display: flex;
+            // align-items: center !important;
+            // justify-content: flex-start !important;
             padding-left: 15px;
         }
         .para {
