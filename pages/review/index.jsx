@@ -44,7 +44,7 @@ import {
   UpdateOrderShipment,
 } from '../../src/redux/buyerProfile/action'
 
-import { setPageName, setDynamicName } from '../../src/redux/userData/action'
+import { setPageName, setDynamicName,setDynamicOrder } from '../../src/redux/userData/action'
 
 import { RefetchCombineKarza } from '../../src/redux/companyDetail/action'
 import { UpdateCam } from '../../src/redux/creditQueueUpdate/action'
@@ -266,9 +266,10 @@ function Index() {
     dispatch(setPageName('credit-queue'))
     console.log(orderList?.company?.companyName,"orderList?.company?.companyName")
     dispatch(setDynamicName(orderList?.company?.companyName))
+    dispatch(setDynamicOrder(orderList?.company?.customerId))
   }, [orderList, dispatch])
 
-  console.log(orderList?.termsheet?.order, 'termsheetOrder')
+  console.log(orderList, 'termsheetOrder')
   // useEffect(() => {
 
   //   dispatch(GetDocuments(`?order=${id}`))
@@ -427,22 +428,74 @@ function Index() {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
-    }  if (orderDetails?.transactionPeriodDays === ''|| orderDetails?.transactionPeriodDays == undefined) {
+    } 
+     if (orderDetails?.transactionPeriodDays === ''|| orderDetails?.transactionPeriodDays == undefined) {
       let toastMessage = 'the transaction Period Days can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
-    }  if (orderDetails?.manufacturerName?.trim() === ''|| orderDetails?.manufacturerName?.trim() == undefined) {
-      let toastMessage = 'the manufacturer Name can not be Empty'
+    }  
+       if (shipment?.shipmentType === ''|| shipment?.shipmentType == undefined) {
+      let toastMessage = 'add shipment Type'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
     }
+    if (shipment?.loadPort.toDate === ''|| shipment?.loadPort.toDate == undefined) {
+      let toastMessage = 'add load Port  to'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+    if (shipment?.loadPort.fromDate === ''|| shipment?.loadPort.fromDate == undefined) {
+      let toastMessage = 'add load Port from date'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+     if (shipment?.ETAofDischarge.fromDate === ''|| shipment?.ETAofDischarge.fromDate == undefined) {
+      let toastMessage = 'add eta of discharge from'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+    if (shipment?.ETAofDischarge.toDate === ''|| shipment?.ETAofDischarge.toDate == undefined) {
+      let toastMessage = 'add eta of discharge to'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+     if (shipment?.lastDateOfShipment === ''|| shipment?.lastDateOfShipment == undefined) {
+      let toastMessage = 'add last date of shipment'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+     if (shipment?.portOfLoading === ''|| shipment?.portOfLoading == undefined) {
+      let toastMessage = 'add port Of Loading'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+ 
+    // if (orderDetails?.manufacturerName?.trim() === ''|| orderDetails?.manufacturerName?.trim() == undefined) {
+    //   let toastMessage = 'the manufacturer Name can not be Empty'
+    //   if (!toast.isActive(toastMessage.toUpperCase())) {
+    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    //   }
+    //   return false
+    // }
     return true
   }
-  console.log(orderDetails,"orderDetails")
+  console.log(orderDetails,"orderDetails",shipment)
   const onOrderSave = () => {
     if(orderValidation()){
      

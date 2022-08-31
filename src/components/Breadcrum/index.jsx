@@ -92,7 +92,10 @@ export default function Index({ isQuery }) {
       }
     }
     if ('credit-queue' == pageName) {
-      if (id !== null) {
+        if (order!=null) {
+           router.route = '/Leads' + '/Credit Queue' + `/${id.toLowerCase()}` + `/${order}`
+        }
+      else if (id !== null) {
         router.route = '/Leads' + '/Credit Queue' + `/${id.toLowerCase()}`
       } else {
         router.route = '/Leads' + '/Credit Queue'
@@ -250,6 +253,7 @@ export default function Index({ isQuery }) {
         pageName == 'vessel' ||
         pageName == 'custom' ||
         pageName == 'termsheet' ||
+         pageName == 'credit-queue'||
         pageName == 'payment' ? (
           <div className={`${styles.breadcrumItem}`}>
             {myUrl.map((val, index) => {
