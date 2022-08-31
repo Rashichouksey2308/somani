@@ -145,17 +145,18 @@ const handleRemoveRowEx=(index)=>{
                     readOnly={!editProfile}
                   />
 
-                  <div className="ml-3 mt-3">
+                  <div className="mr-3">
                     <img
-                      src="/static/mode_edit.svg"
-                      className={`${styles.edit_image} mr-4`}
+                      src="/static/mode_edit.svg" role="button"
+                      className={`${styles.edit_image} d-block`}
                       alt="edit"
                       onClick={(e) => {
                         setEditProfile(!editProfile)
                       }}
                     />
                     <img
-                      src="/static/delete 2.svg"
+                      src="/static/delete 2.svg" role="button"
+                      className={`d-block mt-2`}
                       alt="delete"
                       onClick={(e) => {
                         deleteData(index)
@@ -165,7 +166,7 @@ const handleRemoveRowEx=(index)=>{
                 </div>
               ))}
 
-            <div className="d-flex mt-4 pb-4 position-relative">
+            <div className="d-flex mt-4 position-relative">
               <input
                 as="textarea"
                 rows={3}
@@ -179,7 +180,7 @@ const handleRemoveRowEx=(index)=>{
               </label>
 
               <img
-                className="img-fluid ml-4"
+                className="img-fluid ml-4" role="button"
                 src="/static/add-btn.svg"
                 alt="add button"
                 onClick={() =>
@@ -192,7 +193,7 @@ const handleRemoveRowEx=(index)=>{
               />
             </div>
           </div>
-          <hr className={styles.line}></hr>
+          <hr className={`${styles.line} mb-0`}></hr>
           <div className={`${styles.dashboard_form}`}>
             <h5 className={styles.sub_heading}>Comments On Financials</h5>
             {financialsComment &&
@@ -205,16 +206,17 @@ const handleRemoveRowEx=(index)=>{
                     rows={3}
                     readOnly={!editFinance}
                   />
-                  <div className="ml-3 mt-3">
+                  <div className="mr-3">
                     <img
-                      src="/static/mode_edit.svg"
-                      className={`${styles.edit_image} mr-4`}
+                      src="/static/mode_edit.svg" role="button"
+                      className={`${styles.edit_image} d-block`}
                       onClick={() => {
                         setEditFinance(!editFinance)
                       }}
                     />
                     <img
-                      src="/static/delete 2.svg"
+                      src="/static/delete 2.svg" role="button"
+                      className={`d-block mt-2`}
                       alt="delete"
                       onClick={() => dltFinancialsCommentArr(index)}
                     />
@@ -222,7 +224,7 @@ const handleRemoveRowEx=(index)=>{
                 </div>
               ))}
 
-            <div className="d-flex mt-4 pb-4 position-relative">
+            <div className="d-flex mt-4 position-relative">
               <input
                 as="textarea"
                 rows={3}
@@ -236,7 +238,7 @@ const handleRemoveRowEx=(index)=>{
               </label>
 
               <img
-                className="img-fluid ml-4"
+                className="img-fluid ml-4" role="button"
                 src="/static/add-btn.svg"
                 alt="add button"
                 onClick={() =>
@@ -408,7 +410,7 @@ const handleRemoveRowEx=(index)=>{
                             <div>
                               {!profile.actions ? (
                                 <img
-                                  src="/static/mode_edit.svg"
+                                  src="/static/mode_edit.svg" role="button"
                                   className={`${styles.edit_image} mr-3`}
                                   onClick={() => {
                                     setActions(index, true)
@@ -416,7 +418,7 @@ const handleRemoveRowEx=(index)=>{
                                 />
                               ) : (
                                 <img
-                                  src="/static/save-3.svg"
+                                  src="/static/save-3.svg" role="button"
                                   className={`${styles.edit_image} mr-3`}
                                   alt="save"
                                   onClick={(e) => {
@@ -425,7 +427,7 @@ const handleRemoveRowEx=(index)=>{
                                 />
                               )}
                               <img
-                                src="/static/delete 2.svg"
+                                src="/static/delete 2.svg" role="button"
                                 className={`${styles.delete_image}`}
                                 onClick={() => {
                                   handleRemoveRowEx(index)
@@ -443,7 +445,7 @@ const handleRemoveRowEx=(index)=>{
             <div
               className={`${styles.add_image} p-3 d-flex justify-content-end`}
             >
-              <div
+              <div role="button"
                 onClick={(e) => {
                   //  onExpSave(exposureData)
                   addMoreExpRows()
@@ -455,66 +457,68 @@ const handleRemoveRowEx=(index)=>{
           </div>
           <span className={styles.view_order}>View Past Orders</span>
 
-          <hr className={styles.line}></hr>
+          <hr className={`${styles.line} mt-5`}></hr>
 
-          <div className={`${styles.dashboard_form}`}>
-            <div className={`${styles.sub_heading} value`}>Strengths</div>
-            <div className="d-flex mt-5 pb-4">
-              <input
-                as="textarea"
-                rows={3}
-                placeholder=""
-                value={strengthsComments}
-                className={`${styles.comment_field} input form-control`}
-                onChange={(e) => setStrengthsComments(e.target.value)}
-              />
-              <label className={`${styles.label_heading} label_heading`}>
-                Comments
-              </label>
+          <div className={`${styles.dashboard_form} p-0`}>
+            <div className={`${styles.comment_inner}`}>
+              <div className={`${styles.sub_heading} value`}>Strengths</div>
+              <div className="d-flex mt-5 pb-4">
+                <input
+                  as="textarea"
+                  rows={3}
+                  placeholder=""
+                  value={strengthsComments}
+                  className={`${styles.comment_field} input form-control`}
+                  onChange={(e) => setStrengthsComments(e.target.value)}
+                />
+                <label className={`${styles.label_heading} label_heading`}>
+                  Comments
+                </label>
 
-              <img
-                className="img-fluid ml-4"
-                src="/static/add-btn.svg"
-                alt="add button"
-                onClick={() =>{
-                  strengthsComments.length > 0 &&
-                  addStrengthsCommentArr(strengthsComments)
-                  setStrengthsComments("")
-                }
-                }
-              />
-            </div>
-            <div className={`${styles.strength} value`}>Strengths</div>
-            {strengthsComment &&
+                <img
+                  className="img-fluid ml-4" role="button"
+                  src="/static/add-btn.svg"
+                  alt="add button"
+                  onClick={() =>{
+                    strengthsComments.length > 0 &&
+                    addStrengthsCommentArr(strengthsComments)
+                    setStrengthsComments("")
+                  }
+                  }
+                />
+              </div>
+              {/* <div className={`${styles.strength} value`}>Strengths</div> */}
+              {strengthsComment &&
               strengthsComment.map((strengths, index) => (
-                <div
-                  key={index}
-                  className={`${styles.textarea_main} d-flex justify-content-between`}
-                >
-                  <Form.Control
-                    className={`${styles.paragraph} input`}
-                    defaultValue={strengths}
-                    as="textarea"
-                    rows={3}
-                    readOnly={!editStren}
+              <div
+                key={index}
+                className={`${styles.textarea_main} d-flex justify-content-between`}
+              >
+                <Form.Control
+                  className={`${styles.paragraph} input pl-0`}
+                  defaultValue={strengths}
+                  as="textarea"
+                  rows={3}
+                  readOnly={!editStren}
+                />
+                <div className="mt-3">
+                  <img
+                    src="/static/mode_edit.svg" role="button"
+                    className={`${styles.edit_image} mr-4`}
+                    alt="edit"
+                    onClick={(e) => {
+                      setEditStren(!editStren)
+                    }}
                   />
-                  <div className="mt-3">
-                    <img
-                      src="/static/mode_edit.svg"
-                      className={`${styles.edit_image} mr-4`}
-                      alt="edit"
-                      onClick={(e) => {
-                        setEditStren(!editStren)
-                      }}
-                    />
-                    <img
-                      src="/static/delete 2.svg"
-                      alt="delete"
-                      onClick={() => dltStrengthsCommentArr(index)}
-                    />
-                  </div>
+                  <img
+                    src="/static/delete 2.svg" role="button"
+                    alt="delete"
+                    onClick={() => dltStrengthsCommentArr(index)}
+                  />
                 </div>
+              </div>
               ))}
+            </div>
             {/* <hr></hr> */}
             {/* <div className="d-flex justify-content-between">
               <Form.Control
@@ -525,7 +529,7 @@ const handleRemoveRowEx=(index)=>{
               />
               <div className="mt-3">
                 <img
-                  src="/static/mode_edit.svg"
+                  src="/static/mode_edit.svg" role="button"
                   className={`${styles.edit_image} mr-4`}
                   alt="edit"
                   onClick={(e) => {
@@ -533,48 +537,49 @@ const handleRemoveRowEx=(index)=>{
                   }}
                 />
                 <img
-                  src="/static/delete 2.svg"
+                  src="/static/delete 2.svg" role="button"
                   alt="delete"
                 />
               </div>
             </div> */}
 
-            <hr className={styles.line} style={{ margin: '-1px -35px 0' }}></hr>
-            <div className={`${styles.sub_heading} value`}>Weakness</div>
-            <div className="d-flex mt-5 pb-4">
-              <input
-                as="textarea"
-                rows={3}
-                placeholder=""
-                value={weaknessComments}
-                className={`${styles.comment_field} input form-control`}
-                onChange={(e) => setWeaknessComments(e.target.value)}
-              />
-              <label className={`${styles.label_heading} label_heading`}>
-                Comments
-              </label>
+            <hr className={styles.line} style={{ margin: '-1px 0 0' }}></hr>
+            <div className={`${styles.comment_inner}`}>
+              <div className={`${styles.sub_heading} value`}>Weakness</div>
+              <div className="d-flex mt-5 pb-5">
+                <input
+                  as="textarea"
+                  rows={3}
+                  placeholder=""
+                  value={weaknessComments}
+                  className={`${styles.comment_field} input form-control`}
+                  onChange={(e) => setWeaknessComments(e.target.value)}
+                />
+                <label className={`${styles.label_heading} label_heading`}>
+                  Comments
+                </label>
 
-              <img
-                className="img-fluid ml-4"
-                src="/static/add-btn.svg"
-                alt="add button"
-                onClick={() =>{
-                  weaknessComments.length > 0 &&
-                  addWeaknessCommentArr(weaknessComments)
-                  setWeaknessComments("")
-                }
-                }
-              />
-            </div>
-            <div className={`${styles.strength} value`}>Weakness</div>
-            {weaknessComment &&
-              weaknessComment.map((weakness, index) => (
+                <img
+                  className="img-fluid ml-4" role="button"
+                  src="/static/add-btn.svg"
+                  alt="add button"
+                  onClick={() =>{
+                    weaknessComments.length > 0 &&
+                    addWeaknessCommentArr(weaknessComments)
+                    setWeaknessComments("")
+                  }
+                  }
+                />
+              </div>
+              {/* <div className={`${styles.strength} value`}>Weakness</div> */}
+              {weaknessComment &&
+                weaknessComment.map((weakness, index) => (
                 <div
                   key={index}
                   className={`${styles.textarea_main} d-flex justify-content-between`}
                 >
                   <Form.Control
-                    className={`${styles.paragraph} input`}
+                    className={`${styles.paragraph} input pl-0`}
                     defaultValue={weakness}
                     as="textarea"
                     rows={3}
@@ -582,7 +587,7 @@ const handleRemoveRowEx=(index)=>{
                   />
                   <div className="mt-3">
                     <img
-                      src="/static/mode_edit.svg"
+                      src="/static/mode_edit.svg" role="button"
                       className={`${styles.edit_image} mr-4`}
                       alt="edit"
                       onClick={(e) => {
@@ -590,7 +595,7 @@ const handleRemoveRowEx=(index)=>{
                       }}
                     />
                     <img
-                      src="/static/delete 2.svg"
+                      src="/static/delete 2.svg" role="button"
                       alt="delete"
                       onClick={(e) => {
                         dltWeaknessCommentArr(index)
@@ -599,7 +604,7 @@ const handleRemoveRowEx=(index)=>{
                   </div>
                 </div>
               ))}
-
+            </div>
             {/* <div className="d-flex justify-content-between">
               <Form.Control
                 className={`${styles.paragraph} input`}
@@ -609,12 +614,12 @@ const handleRemoveRowEx=(index)=>{
               />
               <div className="mt-3">
                 <img
-                  src="/static/delete 2.svg"
+                  src="/static/delete 2.svg" role="button"
                   className="mr-4"
                   alt="delete"
                 />
                 <img
-                  src="/static/mode_edit.svg"
+                  src="/static/mode_edit.svg" role="button"
                   className={`${styles.edit_image}`}
                   alt="edit"
                   onClick={(e) => {
@@ -624,9 +629,9 @@ const handleRemoveRowEx=(index)=>{
               </div>
             </div> */}
 
-            <hr className={styles.line} style={{ margin: '-1px -35px 0' }}></hr>
+            <hr className={styles.line} style={{margin:'-1px 0 0'}}></hr>
             <div
-              className={`${styles.sanction_terms} mt-4 d-flex justify-content-between align-items-center`}
+              className={`${styles.sanction_terms} d-flex justify-content-between align-items-center`}
             >
               <div className={`${styles.sanction_heading} value`}>
                 Sanction Terms
@@ -655,7 +660,7 @@ const handleRemoveRowEx=(index)=>{
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
                 <table
-                  className={`${styles.sectionTable} table`}
+                  className={`${styles.sectionTable} table mb-0`}
                   cellPadding="0"
                   cellSpacing="0"
                   border="0"
@@ -728,8 +733,68 @@ const handleRemoveRowEx=(index)=>{
                 </table>
               </div>
             </div>
-            <div className="d-flex justify-content-start align-items-center pt-5 pl-5">
-              {/* <div className={`${styles.form_group} mr-5`}>
+            <div className={`${styles.comment_inner}`}>
+              <div className="d-flex mt-5 pb-5">
+                <input
+                  as="textarea"
+                  rows={3}
+                  placeholder=""
+                  value={sanctionComments}
+                  className={`${styles.comment_field} input form-control`}
+                  onChange={(e) => setSanctionComments(e.target.value)}
+                />
+                <label className={`${styles.label_heading} label_heading`}>
+                  Comments
+                </label>
+
+                <img
+                  className="img-fluid ml-4" role="button"
+                  src="/static/add-btn.svg"
+                  alt="add button"
+                  onClick={() =>{
+                    sanctionComments.length > 0 &&
+                    addSanctionCommentArr(sanctionComments)
+                    setSanctionComments("")
+                  }
+                  }
+                />
+              </div>
+              {/* <div className={`${styles.strength} value`}>Weakness</div> */}
+              {sanctionComment &&
+                sanctionComment.map((sanction, index) => (
+                <div
+                  key={index}
+                  className={`${styles.textarea_main} d-flex justify-content-between`}
+                >
+                  <Form.Control
+                    className={`${styles.paragraph} input pl-0`}
+                    defaultValue={sanction}
+                    as="textarea"
+                    rows={3}
+                    readOnly={!editSanc}
+                  />
+                  <div className="mt-3">
+                    <img
+                      src="/static/mode_edit.svg" role="button"
+                      className={`${styles.edit_image} mr-4`}
+                      alt="edit"
+                      onClick={(e) => {
+                        setEditSanc(!editSanc)
+                      }}
+                    />
+                    <img
+                      src="/static/delete 2.svg" role="button"
+                      alt="delete"
+                      onClick={(e) => {
+                        dltSanctionCommentArr(index)
+                      }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+            {/*<div className="d-flex justify-content-start align-items-center pt-5 pl-5">
+               <div className={`${styles.form_group} mr-5`}>
                 <div className={`${styles.label_sanction}`}>Limit Value</div>
                 <div>100 CR</div>
               </div>
@@ -739,7 +804,7 @@ const handleRemoveRowEx=(index)=>{
               </div>
 
             </div>
-            <div className="d-flex mt-5 pb-4">
+            <div className="d-flex mt-5 pb-5">
               <input
                 as="textarea"
                 rows={3}
@@ -752,7 +817,7 @@ const handleRemoveRowEx=(index)=>{
               </label>
 
               <img
-                className="img-fluid ml-4"
+                className="img-fluid ml-4" role="button"
                 src="/static/add-btn.svg"
                 alt="add button"
                 onClick={() =>
@@ -779,13 +844,13 @@ const handleRemoveRowEx=(index)=>{
                   />
                   <div className="mt-3">
                     <img
-                      src="/static/delete 2.svg"
+                      src="/static/delete 2.svg" role="button"
                       className="mr-4"
                       alt="delete"
                       onClick={() => dltSanctionCommentArr(index)}
                     />
                     <img
-                      src="/static/mode_edit.svg"
+                      src="/static/mode_edit.svg" role="button"
                       className={`${styles.edit_image}`}
                       alt="edit"
                       onClick={(e) => {
@@ -805,12 +870,12 @@ const handleRemoveRowEx=(index)=>{
               />
               <div className="mt-3">
                 <img
-                  src="/static/delete 2.svg"
+                  src="/static/delete 2.svg" role="button"
                   className="mr-4"
                   alt="delete"
                 />
                 <img
-                  src="/static/mode_edit.svg"
+                  src="/static/mode_edit.svg" role="button"
                   className={`${styles.edit_image}`}
                   alt="edit"
                   onClick={(e) => {
@@ -818,8 +883,8 @@ const handleRemoveRowEx=(index)=>{
                   }}
                 />
               </div>
-            </div> */}
-          </div>
+            </div> 
+          </div>*/}
         </div>
       </div>
       </div>
