@@ -323,7 +323,7 @@ function Index() {
           </div>
         </div>
       </div>
-      <PaginateBar rightButtonTitle='Share' leftButtonTitle='Request Letter' />
+      <PaginateBar rightButtonTitle='Share' leftButtonTitle='Request Letter' openbar={()=>{}} />
     </>
   )
 }

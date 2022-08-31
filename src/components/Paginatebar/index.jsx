@@ -20,7 +20,9 @@ function index({ openbar, leftButtonTitle, rightButtonTitle ,exportPDF}) {
 
       </div>
       <div className={`${styles.approve} ml-3`} onClick={
-        () => { openbar() }
+        () => { if(openbar){
+                openbar()
+        } }
       }><span>{rightButtonTitle}</span></div>
     </div>
   )
