@@ -8,6 +8,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { GettingAllInsurance } from '../../../src/redux/insurance/action'
 import moment from 'moment'
 import { CovertvaluefromtoCR } from '../../../src/utils/helper'
+import {
+  setPageName,
+  setDynamicName,
+  setDynamicOrder,
+} from '../../../src/redux/userData/action'
+import Router from 'next/router'
 
 function Index() {
   const dispatch = useDispatch()
@@ -21,6 +27,10 @@ function Index() {
 
   let insuranceData = _get(insuranceResponse, 'data[0]', {})
 
+  dispatch(setPageName('insurance Request Letter'))
+  dispatch(setDynamicName(_get(insuranceData, 'company.companyName', 'Company Name')))
+  dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')))
+
   console.log(insuranceData, 'INSURANCE DATA LETTER')
 
   return (
@@ -29,7 +39,9 @@ function Index() {
         <div
           className={`${styles.card} tabHeader border-0 shadow-none bg-transparent card2`}
         >
-          <div className={`${styles.head_header} align-items-center`}>
+          <div
+            onClick={() => Router.push('/insurance/form')}
+            className={`${styles.head_header} align-items-center`}>
             <img
               className={`${styles.arrow} img-fluid image_arrow mr-2`}
               src="/static/keyboard_arrow_right-3.svg"
@@ -53,7 +65,10 @@ function Index() {
               <div className={`${styles.details_content} mb-1`}>
                 <span className={`${styles.details_head}`}>Date:</span>
                 <span className={`${styles.details_val} label_heading" ml-1`}>
-                  {moment(insuranceData?.createdAt?.split('T')[0]).format(
+                  {/* {moment(insuranceData?.createdAt?.split('T')[0]).format(
+                    'DD.MM.yyyy',
+                  )} */}
+                   {moment(new Date()).format(
                     'DD.MM.yyyy',
                   )}
                 </span>

@@ -147,6 +147,19 @@ export default function Index({ isQuery }) {
       }
 
     }
+    if ('insurance' == pageName) {
+      if (order != null) {
+        router.route = '/Agreement & Lc Module' + `/${id.toLowerCase()}` + '/Insurance' + `/${order}`
+      } else {
+        router.route = '/Agreement & Lc Module' + '/Insurance'
+      }
+
+    }
+    if ('insurance Request Letter' == pageName) {
+      router.route = '/Agreement & Lc Module' + `/${id.toLowerCase()}` + '/Insurance' + '/Request Letter' + `/${order}`
+    }
+
+
     if ('loading' == pageName) {
       if (id !== null) {
         router.route = '/Loading, Transit & Unloading' + `/${id.toLowerCase()}` + '/Order ID'
