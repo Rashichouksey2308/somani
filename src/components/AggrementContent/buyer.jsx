@@ -7,12 +7,7 @@ let buyer = {
   "name": "",
 
   "branchName": "",
-  "addresses": [
-
-  ],
-  "authorisedSignatoryDetails": [
-
-  ],
+ 
 
 
 }
@@ -25,6 +20,7 @@ function Index(props) {
   const [addressList,setAddressList]=useState([])
   const [docList,setDocList]=useState([])
   const [doc,setdoc]=useState({attachDoc:""})
+  const [gstin,setGstin]=useState=("")
   const [newAddress,setNewAddress]=useState(
           {
           "addressType": "Registered",
@@ -55,32 +51,34 @@ function Index(props) {
         let savedData = JSON.parse(sessionStorage.getItem("Buyer"))
         let buyer = {
           "name": savedData.name,
-          "shortName": savedData.shortName,
+          "branchName": savedData.branchName,
 
-          "addresses": savedData.addresses,
-          "authorisedSignatoryDetails": savedData.authorisedSignatoryDetails,
+          
 
 
         }
-        setList(savedData.authorisedSignatoryDetails)
+        setAddressList(savedData.addresses?savedDataa?.addresses:[])
+        setList(savedData.authorisedSignatoryDetails?savedDataa?.authorisedSignatoryDetails:[])
 
         setBuyerData(buyer)
-      }else{
+      }
+      else{
         let buyer = {
           "name": props?.data?.name,
-          "shortName": props?.data?.shortName,
+          "branchName": props?.data?.branchName,
 
-          "addresses": props?.data?.addresses,
-          "authorisedSignatoryDetails": props?.data?.authorisedSignatoryDetails,
+          
 
 
         }
-        setList(props?.data?.authorisedSignatoryDetails)
+        setAddressList(props?.data?.addresses?props?.data?.addresses:[])
+        setList(props?.data?.authorisedSignatoryDetails?props?.data?.authorisedSignatoryDetails:[])
 
         setBuyerData(buyer)
       }
     }
-  }, [])
+  }, [props])
+  console.log(list,addressList,"sdasd",buyerData)
 let masterList=[
 {name:"Bhawana Jain",designation:"Vice President (Finance & Accounts)",email:"bhawanajain@somanigroup.com",phoneNo:""},
 {name:"Vipin Kumar",designation:"Manager Accounts",email:"vipinrajput@somanigroup.com",phoneNo:""},
@@ -92,7 +90,7 @@ let masterList=[
       let data = {
         buyerData: buyerData,
         list: list,
-        addresses: buyerData
+        addresses: addressList
 
       }
       props.sendData("Buyer", data)
@@ -101,7 +99,7 @@ let masterList=[
       let data = {
         buyerData: buyerData,
         list: list,
-        addresses: buyerData
+        addresses: addressList
 
       }
 
@@ -170,7 +168,7 @@ let masterList=[
 
     newInput[name] = value
     setBuyerData(newInput)
-
+    
   }
 const handleChangeInput = (name, value, index) => {
 let arrayToSave={
@@ -448,11 +446,13 @@ const cancelAddress=()=>{
                   value={buyerData.branchName}
                   onChange={(e) => {
                     handleInput(e.target.name, e.target.value)
+                    
                   }}
                   >
                      <option>Select an option</option>
                     
                     <option value="Delhi">Delhi</option>
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Branch Name<strong className="text-danger">*</strong>
@@ -470,7 +470,7 @@ const cancelAddress=()=>{
             </div>
             <div className={` ${styles.info} col-md-4 col-sm-6`}>
               <span>GSTIN.</span>
-              <p>27AAATW4183C2ZG</p>
+              <p>{gstin}</p>
             </div>
             <div className={` ${styles.info} col-md-4 col-sm-6`}>
               <span>Short Name</span>

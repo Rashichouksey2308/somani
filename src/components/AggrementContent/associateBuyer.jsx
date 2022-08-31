@@ -6,7 +6,7 @@ import { Form, Row, Col } from 'react-bootstrap'
 
   let associate={
     "branchName": "",
-    "shortNAme": "",
+    "shortName": "",
     "gstin": "",
 
         
@@ -40,7 +40,7 @@ function Index(props) {
   )
   const [addressType,setAddressType]=useState("Registered")
   const [addressEditType,setAddressEditType]=useState("Registered")
-    const [list,setList]=useState([
+  const [list,setList]=useState([
    
   
   ])
@@ -51,11 +51,47 @@ function Index(props) {
 {name:"Devesh Jain",designation:"Director",email:"devesh@indointertrade.ch",phoneNo:""},
 {name:"Fatima Yannoulis ",designation:"Chief Financial Officer",email:"fatima@indointertrade.ch",phoneNo:""}
 ]
+  useEffect(() => {
+    if (window) {
+      if (sessionStorage.getItem("Associate")) {
+        let savedData = JSON.parse(sessionStorage.getItem("Associate"))
+        let buyer = {
+          "name": savedData.name,
+          "shortName": savedData.shortName,
+
+          "gstin": savedData.gstin,
+          
+
+
+        }
+        setAddressList(savedData.addresses)
+        setList(savedData.authorisedSignatoryDetails)
+
+        setAssociateData(buyer)
+      }else{
+        let buyer = {
+          "name": props?.data?.name,
+          "shortName": props?.data?.shortName,
+          "gstin": savedData.gstin,
+          
+
+
+
+
+        }
+        setAddressList(props?.data.addresses)
+        setList(props?.data?.authorisedSignatoryDetails)
+
+        setAssociateData(buyer)
+      }
+    }
+  }, [])
 useEffect(() => {
 if(props.saveData==true && props.active=="Associate Buyer"){
   let data={
   associate:associateData,
-  address:addressList
+  address:addressList,
+  list:list
 
   
   
@@ -66,7 +102,8 @@ if(props.submitData==true && props.active=="Associate Buyer"){
 console.log("this12")
 let data={
   associate:associateData,
-  list:addressList
+  address:addressList,
+  list:list
 
   
   }

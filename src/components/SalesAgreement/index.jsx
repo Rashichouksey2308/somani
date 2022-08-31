@@ -453,7 +453,7 @@ const onSave=()=>{
     }
   }
    if (dataToSend.supplier.shortName== "" || dataToSend.supplier.shortName== undefined) {
-      toastMessage = `Please add short name  `
+      toastMessage = `Please add gstin  `
       if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       setSubmitData(false)
@@ -621,8 +621,8 @@ const onSave=()=>{
     
     }
   }
-   if (dataToSend.buyer.shortName== "" || dataToSend.buyer.shortName== undefined) {
-      toastMessage = `Please add short name  `
+   if (dataToSend.buyer.branchName == "" || dataToSend.buyer.branchName == undefined) {
+      toastMessage = `Please add branch Name`
       if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       setSubmitData(false)
@@ -631,6 +631,7 @@ const onSave=()=>{
     
     }
   }
+ 
  
   if (dataToSend.buyer.addresses.length <= 0 || dataToSend.buyer.addresses == undefined) {
       toastMessage = `Please add address `
@@ -946,26 +947,26 @@ const onSave=()=>{
    
     }
     if(key=="Delivery Terms"){
-    console.log("this14")
+    console.log("this14",data)
     dataToSend={
     genericId:props.genericData?._id,
     delivery:{
-    "deliveryTerms":data.deliveryData.delivery,
+    "deliveryTerms":data.deliveryData,
 
 
     }
     }
-     if (dataToSend.delivery.deliveryTerms == "" || dataToSend.delivery.deliveryTerms == undefined) {
-    toastMessage = `Please select delivery Terms  `
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    setSubmitData(false)
-    return
+    //  if (dataToSend.delivery.deliveryTerms == "" || dataToSend.delivery.deliveryTerms == undefined) {
+    // toastMessage = `Please select delivery Terms  `
+    // if (!toast.isActive(toastMessage.toUpperCase())) {
+    // toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    // setSubmitData(false)
+    // return
 
 
-    }
-    }
-
+    // }
+    // }
+    // sessionStorage.setItem("Delivery",JSON.stringify(data.deliveryData))
     }
     if(key=="Product Specifications"){
     console.log("this14")
@@ -987,6 +988,7 @@ const onSave=()=>{
 
     }
     }
+    sessionStorage.setItem("Product",JSON.stringify(data.addressList))
     }
     if(key=="Additional Comments"){
     let list=[];
@@ -1031,10 +1033,11 @@ const onSave=()=>{
     }
      if(key=="Associate Buyer"){
     console.log("this14")
-    let list=[];
-    data.list.forEach((val,index)=>{
-    list.push({agreementName:val.name,place:val.execution})
-    })
+    // let list=[];
+    // data.list.forEach((val,index)=>{
+    // list.push({agreementName:val.name,place:val.execution})
+    // })
+    console.log(data.associate,"data.associate")
     dataToSend={
     genericId:props.genericData?._id,
 
@@ -1042,13 +1045,13 @@ const onSave=()=>{
       "branchName": data.associate.branchName,
       "shortName": data.associate.shortName,
       "gstin": data.associate.gstin,
-      "addresses": list,
+      "addresses": data.address,
       "authorisedSignatoryDetails": data.list,
 
 
     }
     }
-        if (dataToSend.associateBuyer.branchName == "" || dataToSend.associateBuyer.branchName == undefined) {
+    if (dataToSend.associateBuyer.branchName == "" || dataToSend.associateBuyer.branchName == undefined) {
     toastMessage = `Please add branch name  `
     if (!toast.isActive(toastMessage.toUpperCase())) {
     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -1069,7 +1072,7 @@ const onSave=()=>{
     // }
     // }
     if (dataToSend.associateBuyer.gstin== "" || dataToSend.associateBuyer.gstin== undefined) {
-    toastMessage = `Please add short name  `
+    toastMessage = `Please add gstin  `
     if (!toast.isActive(toastMessage.toUpperCase())) {
     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     setSubmitData(false)
@@ -1089,7 +1092,7 @@ const onSave=()=>{
 
     }
     }
-    if (dataToSend.associateBuyer.authorisedSignatoryDetails.length <= 0 || dataToSend.stevedore.authorisedSignatoryDetails == undefined) {
+    if (dataToSend.associateBuyer.authorisedSignatoryDetails.length <= 0 || dataToSend.associateBuyer.authorisedSignatoryDetails == undefined) {
     toastMessage = `Please add authorised Signatory Details `
     if (!toast.isActive(toastMessage.toUpperCase())) {
     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -1171,6 +1174,40 @@ const sendData=(key,data)=>{
     sessionStorage.setItem("Buyer",JSON.stringify(dataToSend))
 
   }
+   if(key=="Delivery Terms"){
+    
+    dataToSend={
+   
+   
+    "deliveryTerms":data.deliveryData,
+
+
+    
+    }
+     sessionStorage.setItem("Delivery",JSON.stringify(dataToSend))
+   
+    
+
+    }
+   if(key=="Associate Buyer"){
+    
+   
+    dataToSend={
+  
+
+ 
+      "branchName": data.associate.branchName,
+      "shortName": data.associate.shortName,
+      "gstin": data.associate.gstin,
+      "addresses": data.address,
+      "authorisedSignatoryDetails": data.list,
+
+
+   
+    }
+    sessionStorage.setItem("Associate",JSON.stringify(dataToSend))
+ 
+    }
    if(key=="Financing Bank"){
    dataToSend={
       
@@ -1202,6 +1239,7 @@ const sendData=(key,data)=>{
     sessionStorage.setItem("Cma",JSON.stringify(dataToSend))
 
   }
+  
   if(key=="CHA"){
     dataToSend={
      

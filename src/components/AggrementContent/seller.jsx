@@ -20,7 +20,9 @@ let buyer = {
 function Index(props) {
   const [buyerData, setBuyerData] = useState(buyer)
   const [list, setList] = useState([])
-  const [addressList,setAddressList]=useState([])
+  const [addressList,setAddressList]=useState([
+      
+  ])
   const [newAddress,setNewAddress]=useState(
           {
           "addressType": "Registered",
@@ -60,6 +62,20 @@ function Index(props) {
 
 
         }
+        let temp=[];
+        savedData.addresses.forEach(val=>{
+          temp.push(val)
+        })
+        temp.push({
+              "addressType": "Registered",
+              "fullAddress": "Industriestrasse 16",
+              "pinCode": "6300",
+              "country": "Switzerland",
+              "gstin": "",
+              "state": "",
+              "city": "Zug"
+          })
+        setAddressList(temp)
         setList(savedData.authorisedSignatoryDetails)
 
         setBuyerData(buyer)
@@ -73,6 +89,34 @@ function Index(props) {
 
 
         }
+
+        let temp=[];
+      //  props?.data.addresses.forEach(val=>{
+      //     temp.push(val)
+      //   })
+      //   if(temp=undefined){
+      //     temp=[]
+      //   }
+      //   console.log(temp,"temo")
+      //   temp.push({
+      //         "addressType": "Registered",
+      //         "fullAddress": "Industriestrasse 16",
+      //         "pinCode": "6300",
+      //         "country": "Switzerland",
+      //         "gstin": "",
+      //         "state": "",
+      //         "city": "Zug"
+      //     })
+        setAddressList([{
+              "addressType": "Registered",
+              "fullAddress": "Industriestrasse 16",
+              "pinCode": "6300",
+              "country": "Switzerland",
+              "gstin": "",
+              "state": "",
+              "city": "Zug"
+          }])
+       
         setList(props?.data?.authorisedSignatoryDetails)
 
         setBuyerData(buyer)
@@ -292,7 +336,7 @@ setNewAddress({
           "gstin": "",
           "state": "",
           "city": ""
-      })
+})
 setAddressType("Registered")
 }
 }
@@ -416,7 +460,7 @@ const cancelAddress=()=>{
                   }}
                 >
                  
-                  <option selected value="Indo German International">Indo German International</option>
+                  <option selected value="Indo Intertrade Ag">Indo Intertrade Ag</option>
                    <option>Select an option</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
