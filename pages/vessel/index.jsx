@@ -396,46 +396,47 @@ export default function Home() {
       return newState;
     })
   }
- const validation =()=>{
-   let isOk = true
-   let  toastMessage= ""
-  
-  for(let i=0;i<=list.length;i++){
-     if (list[i].shipmentType == "" || list[i].shipmentType == undefined) {
-      toastMessage = `Please Select shipment Type of Vessel Information ${i}  `
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      isOk =  false
-      break; 
-    
-    }
-    
-  }
-    if (list[i].commodity == "" || list[i].commodity == undefined) {
-      toastMessage = `Please add commodity of Vessel Information ${i}  `
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      isOk =  false
-      break; 
-    }
-    
-  }
-    if (list[i].quantity == "" || list[i].quantity == undefined) {
-      toastMessage = `Please add quantity of Vessel Information ${i}  `
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      isOk =  false
-      break; 
-    }
-    
-  }
-  if (list[i].orderValue == "" || list[i].orderValue == undefined) {
-  toastMessage = `Please add order Value of Vessel Information ${i}  `
-  if (!toast.isActive(toastMessage.toUpperCase())) {
-  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-  isOk =  false
-  break; 
-  }
+  const validation = () => {
+    let isOk = true
+    let toastMessage = ""
+    console.log(list,'list validation')
+
+    for (let i = 0; i < list.length; i++) {
+      if (list[i].shipmentType == "" || list[i].shipmentType == undefined) {
+        toastMessage = `Please Select shipment Type of Vessel Information ${i}  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break;
+
+        }
+
+      }
+      if (list[i].commodity == "" || list[i].commodity == undefined) {
+        toastMessage = `Please add commodity of Vessel Information ${i}  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break;
+        }
+
+      }
+      if (list[i].quantity == "" || list[i].quantity == undefined) {
+        toastMessage = `Please add quantity of Vessel Information ${i}  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break;
+        }
+
+      }
+      if (list[i].orderValue == "" || list[i].orderValue == undefined) {
+        toastMessage = `Please add order Value of Vessel Information ${i}  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break;
+        }
 
       }
       if (list[i].transitDetails.countryOfOrigin == "" || list[i].transitDetails.countryOfOrigin == undefined) {
