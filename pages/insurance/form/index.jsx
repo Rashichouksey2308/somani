@@ -16,6 +16,7 @@ import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../../src/utils/help
 import { toast } from 'react-toastify'
 import moment from 'moment'
 
+
 const Index = () => {
   const dispatch = useDispatch()
 
@@ -195,9 +196,11 @@ console.log(quotationData,"quotationData")
           <div className={`${styles.head_container} align-items-center`}>
             <div className={`${styles.head_header} align-items-center`}>
               <img
+              
                 className={`${styles.arrow} img-fluid mr-2 image_arrow`}
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="ArrowRight"
+                onClick={() =>  Router.push('/insurance')}
               />
               <h1 className={styles.heading}>
                 {insuranceData?.company?.companyName}

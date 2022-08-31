@@ -19,19 +19,8 @@ import AssignmentLetter from '../../src/components/AssignmentLetter'
 
 function Index() {
   const [preview,setPreview]=useState(false)
-  const [darkMode, setDarkMode] = useState(false)
-  useEffect(() => {
-    if (
-      localStorage.getItem('darkMode') == 'true' ||
-      localStorage.getItem('darkMode') == true
-    ) {
-      // console.log("this")
-      setDarkMode(true)
-    } else {
-      // console.log("this2")
-      setDarkMode(false)
-    }
-  }, [])
+
+
  const setPreviewValue=(val)=>{
   setPreview(val)
  }
