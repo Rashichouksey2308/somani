@@ -37,8 +37,13 @@ function Index(props) {
   const [saveData,setSaveData]=useState(false)
   const [submitData,setSubmitData]=useState(false)
   const [isSideBarOpen,setIsSideBarOpen]=useState(true)
+  useEffect(() => {
+    if(window){
+    props.setDate(localStorage.getItem("timeGenericUpdated"))
+    }
+  })
   const changeActiveValue=(val,index)=>{
-
+ 
   setActive(val)
   showContent()
   setSaveData(false)
@@ -102,7 +107,64 @@ function Index(props) {
       // }
     }
   }
-  
+  const addressValidation=(type,data,check=true)=>{
+    console.log(type,data,"type,data")
+  if (data.addressType === "" || data.addressType==undefined) {
+      let toastMessage = 'Please add address Type'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+     if (data.fullAddress === "" || data.fullAddress==undefined) {
+      let toastMessage = 'Please add address'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+      if (data.pinCode === "" || data.pinCode==undefined) {
+    let toastMessage = 'Please add pin Code'
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    }
+    return false
+    }
+      if (data.country === "" || data.country==undefined) {
+      let toastMessage = 'Please add Country'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+    if(type=="Branch"){
+   if(check){
+     if (data.gstin === "" || data.gstin==undefined) {
+      let toastMessage = 'Please add gstin'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+   }
+       if (data.city === "" || data.city==undefined) {
+      let toastMessage = 'Please add city'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+        if (data.state === "" || data.state==undefined) {
+      let toastMessage = 'Please add state'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
+    }
+     
+    return true
+  }
   const showContent =(sellerData)=>{
     if(active=="Buyer"){
       return(
@@ -115,6 +177,7 @@ function Index(props) {
         data={props?.genericData?.buyer}
         order={props?.genericData}
         uploadDoc={uploadDoc}
+        addressValidation={addressValidation}
         />
       )
     }
@@ -128,6 +191,7 @@ function Index(props) {
         active={active}
         data={props?.genericData?.associate}
         uploadDoc={uploadDoc}
+        addressValidation={addressValidation}
         
         
         />
@@ -143,6 +207,7 @@ function Index(props) {
         active={active}
         data={props?.genericData?.seller}
         uploadDoc={uploadDoc}
+        addressValidation={addressValidation}
 
         />
       )
@@ -156,6 +221,8 @@ function Index(props) {
         updateData={updateData}
         active={active}
         data={props?.genericData?.supplier}
+        addressValidation={addressValidation}
+        uploadDoc={uploadDoc}
         />
 
 
@@ -170,6 +237,8 @@ function Index(props) {
         updateData={updateData}
         active={active}
          data={props?.genericData?.cma}
+         addressValidation={addressValidation}
+         uploadDoc={uploadDoc}
         />
       )
     }
@@ -186,6 +255,7 @@ function Index(props) {
         data={props?.genericData?.supplier}
         order={props?.genericData?.order}
         uploadDoc={uploadDoc}
+        addressValidation={addressValidation}
         />
       )
     }
@@ -222,6 +292,7 @@ function Index(props) {
         updateData={updateData}
         data={props?.genericData?.supplier}
         uploadDoc={uploadDoc}
+        addressValidation={addressValidation}
         />
       )
     }
@@ -346,7 +417,7 @@ const onSave=()=>{
  const onSubmit=()=>{
   setSubmitData(true)
  }
- const updateData=async(key,data)=>{
+ const updateData=async (key,data)=>{
   let toastMessage=""
   console.log("this13",data)
   let dataToSend={}
@@ -987,16 +1058,16 @@ const onSave=()=>{
 
     }
     }
-    if (dataToSend.associateBuyer.shortName== "" || dataToSend.associateBuyer.shortName== undefined) {
-    toastMessage = `Please add short name  `
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    setSubmitData(false)
-    return
+    // if (dataToSend.associateBuyer.shortName== "" || dataToSend.associateBuyer.shortName== undefined) {
+    // toastMessage = `Please add short name  `
+    // if (!toast.isActive(toastMessage.toUpperCase())) {
+    // toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    // setSubmitData(false)
+    // return
 
 
-    }
-    }
+    // }
+    // }
     if (dataToSend.associateBuyer.gstin== "" || dataToSend.associateBuyer.gstin== undefined) {
     toastMessage = `Please add short name  `
     if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -1032,7 +1103,10 @@ const onSave=()=>{
 
 
      console.log("this15")
-    await dispatch(updateGenericData(dataToSend))
+  let timestamp=await dispatch(updateGenericData(dataToSend))
+  console.log(timestamp,"timestamp")
+  props.setDate(timestamp)
+  localStorage.setItem("timeGenericUpdated",timestamp)
   let tempArr=sideBar;
     sideBar.forEach((val,index)=>{
       if(val.value==key){

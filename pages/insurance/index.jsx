@@ -7,6 +7,11 @@ import Filter from '../../src/components/Filter'
 import { useSelector, useDispatch } from 'react-redux'
 import { GettingAllInsurance } from '../../src/redux/insurance/action'
 import { SearchLeads } from '../../src/redux/buyerProfile/action'
+import {
+  setPageName,
+  setDynamicName,
+  setDynamicOrder,
+} from '../../src/redux/userData/action'
 
 function Index() {
   const dispatch = useDispatch()
@@ -51,6 +56,10 @@ if(window){
     sessionStorage.setItem('loadedSubPage',`Insurance`)
     sessionStorage.setItem('openList',2)
     }
+
+    dispatch(setPageName('insurance'))
+    dispatch(setDynamicName(null))
+    dispatch(setDynamicOrder(null))
 },[])
   return (
     <div className="container-fluid p-0 border-0">
