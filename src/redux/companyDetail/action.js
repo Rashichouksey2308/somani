@@ -80,6 +80,25 @@ function refetchCombineKarzaFailed() {
   }
 }
 
+function getCaseDetails() {
+  return {
+    type: types.GET_CASE_DETAILS,
+  }
+}
+
+function getCaseDetailsSuccess(payload) {
+  return {
+    type: types.GET_CASE_DETAILS_SUCCESS,
+    payload,
+  }
+}
+
+function getCaseDetailsFailed() {
+  return {
+    type: types.GET_CASE_DETAILS_FAILED,
+  }
+}
+
 export const GetCompanyDetails = (payload) => (dispatch, getState, api) => {
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -97,7 +116,8 @@ export const GetCompanyDetails = (payload) => (dispatch, getState, api) => {
         dispatch(getComanyDetailsFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
       }
     })
   } catch (error) {
@@ -131,7 +151,8 @@ export const GetCreditLimit = (payload) => (dispatch, getState, api) => {
 
         let toastMessage = 'COULD NOT FETCH CREDIT LIMIT'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
       }
     })
   } catch (error) {
@@ -159,13 +180,15 @@ export const UpdateCompanyDetails = (payload) => (dispatch, getState, api) => {
         dispatch(updateCompanyDetailsSuccess(response.data.data))
         let toastMessage = 'Successfully updated company details'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
 
       } else {
         dispatch(updateCompanyDetailsFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
       }
     })
   } catch (error) {
@@ -195,13 +218,46 @@ export const RefetchCombineKarza = (payload) => (dispatch, getState, api) => {
         dispatch(refetchCombineKarzaFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
       }
     })
   } catch (error) {
     dispatch(refetchCombineKarzaFailed())
 
     let toastMessage = 'COULD NOT FETCH DATA FROM KARZA'
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    }
+  }
+}
+
+
+export const GetCaseDetails = (payload) => (dispatch, getState, api) => {
+  let cookie = Cookies.get('SOMANI')
+  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+
+  try {
+    Axios.post(`${API.corebaseUrl}${API.getCaseDetails}`, payload, {
+      headers: headers,
+    }).then((response) => {
+      if (response.data.code === 200) {
+        dispatch(getCaseDetailsSuccess(response.data.data))
+      } else {
+        dispatch(getCaseDetailsFailed(response.data.data))
+        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+      }
+    })
+  } catch (error) {
+    dispatch(getCaseDetailsFailed())
+
+    let toastMessage = 'COULD NOT FETCH COMPANY DETAILS'
     if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }

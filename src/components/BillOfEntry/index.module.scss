@@ -131,6 +131,15 @@
           color: #3687e8;
           font-weight: normal;
           line-height: 20px;
+          @include respond(md-desktop) {
+            font-size: 42px;
+          }
+          @include respond(sm-desktop) {
+            font-size: 35px;
+          }
+          @include respond(phone) {
+            font-size: 30px;
+          }
         }
 
         .dropDown {
@@ -142,6 +151,12 @@
           padding: 5px;
           background-color: transparent;
           border: none;
+          @include respond(sm-desktop) {
+            font-size: 18px;
+          }
+          @include respond(phone) {
+            font-size: 17px;
+          }
         }
         .dropDown_label {
           letter-spacing: 0.53px;
@@ -163,6 +178,12 @@
             font-size: 20px;
             line-height: 25px;
             font-weight: bold;
+            @include respond(sm-desktop) {
+              font-size: 18px;
+            }
+            @include respond(phone) {
+              font-size: 16px;
+            }
           }
         }
         .add_row {
@@ -172,6 +193,12 @@
           font-weight: bold;
           color: #3687e8;
           cursor: pointer;
+          @include respond(sm-desktop) {
+            font-size: 16px;
+          }
+          @include respond(phone) {
+            font-size: 14px;
+          }
 
           span {
             margin-right: 15px;
@@ -393,6 +420,12 @@
           font-size: 20px;
           line-height: 23px;
           font-weight: 500;
+          @include respond(sm-desktop) {
+            font-size: 18px;
+          }
+          @include respond(phone) {
+            font-size: 16px;
+          }
         }
       }
       .bill_landing {
@@ -1227,4 +1260,15 @@ input:checked + .slider:before {
   color: #3687e8;
   line-height: 23px;
   text-transform: capitalize;
+
+  @include respond(sm-desktop) {
+    font-size: 16px;
+    width: 150px;
+    height: 40px;
+  }
+  @include respond(phone) {
+    font-size: $font_size_mobile_input_label;
+    width: 70%;
+    height: 35px;
+  }
 }

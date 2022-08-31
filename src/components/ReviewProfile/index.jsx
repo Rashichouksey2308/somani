@@ -17,7 +17,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
     'Import',
     'Domestic',
   ])
-  const commodityDropdown = ['Iron', 'Crude', 'Steel']
+  const commodityDropdown = ['Iron', 'Crude', 'Steel',"Coal"]
   const countryOfOriginDropdown = ['America', 'India', 'Russia']
   const portOfDischargeDropdown = [
     'Mumbai, India',
@@ -309,7 +309,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                 </tr>
 
                 <tr className={`${styles.table_row} border_color table_row`}>
-                  <td>Order Value (Cr)</td>
+                  <td>Order Value</td>
                   <td>
                     {CovertvaluefromtoCR(
                       reviewedProfile?.orderValue?.originalValue,
@@ -477,8 +477,15 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                         disabled={fields[7]?.isEdit}
                         labelName=""
                         maxDate={moment(
-                          reviewedProfile?.ExpectedDateOfShipment?.originalValue?.split('T')[0]).add(90, 'days').toDate()}
-                        lastDate={moment(reviewedProfile?.ExpectedDateOfShipment?.originalValue.split('T')[0]).toDate()}
+                         new Date()
+                        )
+                          .add(3, 'months')
+                          .toDate()}
+                        lastDate={moment(
+                          reviewedProfile?.ExpectedDateOfShipment?.originalValue.split(
+                            'T',
+                          )[0],
+                        ).toDate()}
                         small={true}
                       />
                     )}

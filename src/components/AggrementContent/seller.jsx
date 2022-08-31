@@ -170,8 +170,22 @@ newInput[name] = value
 setBuyerData(newInput)
 
 }
-const removeDocArr=(index)=>{
-  setDocList([...docList.slice(0,index), ...docList.slice(index+1)])
+const removeDoc=(index)=>{
+    console.log("removeDOc")
+     setDocList(prevState => {
+      const newState = prevState.map((obj ,i)=> {
+       
+        if (i == index) {
+          return {...obj, attachDoc: ''};
+        }
+
+        
+        return obj;
+      });
+
+      return newState;
+    });
+  
 }
 const handleChangeInput = (name, value, index) => {
 let arrayToSave={
@@ -267,19 +281,20 @@ const handleChangeInput2=(name2,value,index)=>{
  }
  //address 
 const handleAddressInput=()=>{
-
+if(props.addressValidation(addressType,newAddress,false)){
 setAddressList(current => [...current, newAddress])
   
-  setNewAddress({
-              "addressType": "Registered",
-              "fullAddress": "",
-              "pinCode": "",
-              "country": "",
-              "gstin": "",
-              "state": "",
-              "city": ""
-          })
-    setAddressType("Registered")
+setNewAddress({
+          "addressType": "Registered",
+          "fullAddress": "",
+          "pinCode": "",
+          "country": "",
+          "gstin": "",
+          "state": "",
+          "city": ""
+      })
+setAddressType("Registered")
+}
 }
 const onAddressRemove=(index)=>{
 setAddressList([...addressList.slice(0,index), ...addressList.slice(index+1)])
@@ -338,6 +353,7 @@ setEditAddress(
 
 }
 const saveNewAddress=()=>{
+  if(props.addressValidation(EditAddress.addressType,EditAddress,false)){
 console.log(EditAddress,"EditAddress",toEditIndex)
 setAddressList(prevState => {
   const newState = prevState.map((obj ,i)=> {
@@ -365,7 +381,20 @@ setEditAddress(
         }
 )
 
+}
 
+}
+const cancelAddress=()=>{
+ setNewAddress({
+              "addressType": "Registered",
+              "fullAddress": "",
+              "pinCode": "",
+              "country": "",
+              "gstin": "",
+              "state": "",
+              "city": ""
+          })
+  setAddressType("Registered")
 
 }
   return (
@@ -518,7 +547,7 @@ setEditAddress(
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="text"
+                        type="number"
                         name="pinCode"
                         value={newAddress.pinCode}
                         onChange={(e) => {
@@ -556,7 +585,7 @@ setEditAddress(
                     </Form.Group>
                     </>
                     :<>
-                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                    {/* <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                       <div className="d-flex">
                         <select
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
@@ -581,12 +610,12 @@ setEditAddress(
                           alt="Search"
                         />
                       </div>
-                    </Form.Group>
+                    </Form.Group> */}
                     <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="text"
+                        type="number"
                         name="pinCode"
                         value={newAddress.pinCode}
                         onChange={(e) => {
@@ -674,7 +703,11 @@ setEditAddress(
                     >
                     <span>Add</span>
                     </div>
-                    <div className={`${styles.cancel} d-flex justify-content-center align-items-center`}>
+                    <div className={`${styles.cancel} d-flex justify-content-center align-items-center`}
+                     onClick={()=>{
+                      cancelAddress()
+                    }}
+                    >
                     <span>Cancel</span>
                     </div>
                   </div>
@@ -733,7 +766,7 @@ setEditAddress(
                          <>
                            <select 
                             value={val.name}
-                            className={`${styles.customSelect}`}
+                            className={`${styles.customSelect} input`}
                             onChange={(e)=>{
                               handleChangeInput(e.target.name,e.target.value,index)
                             }}>
@@ -753,40 +786,50 @@ setEditAddress(
                            
                          <>
                           <input type="text" 
-                              placeholder={"Add new"}
-                               name= "name"
-                               value={val.name}
-                               onChange={(e)=>{
-                                handleChangeInput2(e.target.name,e.target.value,index)
-                                }}
-                              ></input>
-                         </>
+                            className='input'
+                            placeholder={"Add new"}
+                            name= "name"
+                            value={val.name}
+                            onChange={(e)=>{
+                            handleChangeInput2(e.target.name,e.target.value,index)
+                            }}
+                          />
+                        </>
                       }
                             
                           </td>
                           <td>
-                            <input type="text" 
-                          placeholder={val.designation}
-                          name= "designation"
-                          readOnly={val.addnew!="true"?true:false}
-                           onChange={(e)=>{
-                            handleChangeInput2(e.target.name,e.target.value,index)
-                             }}
-                          ></input>
+                            <input type="text"
+                              className='input'
+                              value={val.designation}
+                              name="designation"
+                              // readOnly={val.addnew!="true"?true:false}
+                              onChange={(e)=>{
+                                handleChangeInput2(e.target.name,e.target.value,index)
+                              }}
+                            />
                           
                           </td>
-                          <td><input type="text" placeholder={val.email}
-                          name= "email"
-                          readOnly={val.addnew!="true"?true:false}
-                         
-                          ></input>
+                          <td>
+                            <input type="text" 
+                            value={val.email}
+                              name= "email"
+                                                        
+                              className='input'
+                              onChange={(e)=>{
+                                handleChangeInput2(e.target.name,e.target.value,index)
+                              }}
+                            />
                           </td>
-                          <td><input type="text" placeholder={val.phoneNo}
-                          name= "phoneNo"
-                          onChange={(e)=>{
-                            handleChangeInput2(e.target.name,e.target.value,index)
-                          }}
-                          ></input></td>
+                          <td>
+                            <input type="text" placeholder={val.phoneNo}
+                              className='input'
+                              name= "phoneNo"
+                              onChange={(e)=>{
+                                handleChangeInput2(e.target.name,e.target.value,index)
+                              }}
+                            />
+                          </td>
                           <td className={`d-flex`}>
                             <div
                               className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
@@ -906,7 +949,7 @@ setEditAddress(
                         <img
                           className={`${styles.close_image} float-right m-2 img-fluid`}
                           src="/static/close.svg"
-                          // onClick={() => removeDoc(index)}
+                          onClick={() => removeDoc(index)}
                           alt="Close"
                         />{' '}
                       </div>
@@ -942,7 +985,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         <select
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           name="addressType"
-                          
+                           value={EditAddress.addressType}
                           onChange={(e) => {
                             setAddressEditType(e.target.value)
                             editNewAddress(e.target.name,e.target.value)
@@ -988,7 +1031,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="text"
+                        type="number"
                         name="pinCode"
                         value={EditAddress.pinCode}
                         onChange={(e) => {
@@ -1026,7 +1069,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                     </Form.Group>
                     </>
                     :<>
-                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                    {/* <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                       <div className='d-flex'>
                         <select
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
@@ -1051,12 +1094,12 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                           alt="Search"
                         />
                       </div>
-                    </Form.Group>
+                    </Form.Group> */}
                     <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="text"
+                        type="number"
                         name="pinCode"
                          value={EditAddress.pinCode}
                         onChange={(e) => {

@@ -15,6 +15,7 @@ export default {
   getBuyers: '/api/core/lead/get-all-leads',
   uploadDocuments: '/api/core/order/doc-upoad',
   search: '/api/core/lead/search?searchTerm=',
+  getPanGst : '/api/get-company',
 
   //orders
   getBuyerOrder: '/api/core/lead/order-review',
@@ -45,6 +46,9 @@ export default {
   getCompanyDetails: '/api/core/lead/fetchCompanyDetail',
   updateCompanyDetails: '/api/core/lead/update-company',
 
+  //complienceCase
+  getCaseDetails: '/api/core/lead/litigation-case-detail',
+
   // Refetch Karza
   refetchCombineKarza: '/api/core/lead/refetch-combine-karza',
 
@@ -56,11 +60,6 @@ export default {
   updateLcModule: '/api/core/lc-module',
   updateLcModuleAmendment: '/api/core/lc-module/amendment',
   updateLcAmendmentPost: '/api/core/lc-module/post-update-amendment',
-
-  //DocumentsCam :
-  getDocuments: '/api/core/order/order-document',
-  addDocuments: '/api/core/order/order-document',
-  deleteDocument: '/api/core/order/order-document',
 
   //DocumentsCam :
   getDocuments: '/api/core/order/order-document',

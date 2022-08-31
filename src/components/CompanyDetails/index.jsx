@@ -222,7 +222,8 @@ console.log(slider,"slider16513")
                 >
                   <option>Select an option</option>
                   <option value="Crores" selected>Crores</option>
-                  <option value="Million">Millions</option>
+                  <option value="Million">Million</option>
+                   <option value="Lakh">Lakh</option>
                 </select>
               </div>
             </div>

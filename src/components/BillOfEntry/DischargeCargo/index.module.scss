@@ -34,6 +34,7 @@
         margin: 0 50px;
         width: 184px;
         height: 38px;
+        white-space: nowrap;
         @include respond(md-desktop) {
           font-size: 16px;
         }
@@ -42,8 +43,8 @@
         }
         @include respond(phone) {
           font-size: 12px;
-          width: 50px;
-          height: 26px;
+          width: 120px;
+          height: 30px;
           text-align: center;
           border-radius: 3px;
         }
@@ -76,6 +77,15 @@
           font-weight: normal;
           line-height: 20px;
           margin-top: -7px;
+          @include respond(md-desktop) {
+            font-size: 42px;
+          }
+          @include respond(sm-desktop) {
+            font-size: 35px;
+          }
+          @include respond(phone) {
+            font-size: 30px;
+          }
         }
       }
     }
@@ -646,6 +656,16 @@
   color: #3687e8;
   line-height: 23px;
   text-transform: capitalize;
+  @include respond(sm-desktop) {
+    font-size: 16px;
+    width: 150px;
+    height: 40px;
+  }
+  @include respond(phone) {
+    font-size: $font_size_mobile_input_label;
+    width: 70%;
+    height: 35px;
+  }
 }
 .dropDown {
   font-size: 20px;
@@ -654,6 +674,12 @@
   background-color: transparent;
   border: none;
   outline: none;
+  @include respond(sm-desktop) {
+    font-size: 18px;
+  }
+  @include respond(phone) {
+    font-size: 17px;
+  }
 }
 .dropDown_label {
   font-weight: 500;
@@ -661,4 +687,5 @@
   line-height: 17px;
   margin: 0;
   letter-spacing: 0.53px;
+  //white-space: nowrap;
 }

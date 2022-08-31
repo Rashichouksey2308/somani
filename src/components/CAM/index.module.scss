@@ -873,56 +873,63 @@
   background: #43c34e42 !important;
 }
 
-.sectionTable {
-  //    border-top: 2px solid red !important;
-  border: none;
+.table_scroll_outer {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+    .table_scroll_inner {
+        display: table-cell;
+        overflow-x: auto;
+        .sectionTable {
+          //    border-top: 2px solid red !important;
+          border: none;
 
-  tr {
-    height: 67px;
+          tr {
+            height: 67px;
 
-    border: none !important;
+            border: none !important;
 
-    th {
-      text-align: center;
-      vertical-align: middle;
-      font-size: 15px;
-      line-height: 19px;
-      font-weight: bold;
-      border: none !important;
-      color: #8492a6;
-      background: #fafafb;
-      :first-child {
-        width: 15%;
-        text-align: left;
-      }
+            th {
+              text-align: center;
+              vertical-align: middle;
+              font-size: 15px;
+              line-height: 19px;
+              font-weight: bold;
+              border: none !important;
+              color: #8492a6;
+              background: #fafafb;
+              &:first-child {
+                width: 15%;
+                padding-left: 35px;
+                text-align: left;
+              }
+            }
+
+            td {
+              vertical-align: baseline;
+              text-align: center;
+              border: none !important;
+              input {
+                width: 19px;
+                height: 14px;
+              }
+              .text {
+                width: 135px;
+                height: 50px;
+                border-radius: 4px;
+              }
+
+              select {
+                width: 11rem;
+              }
+              &:first-child {
+                padding-left: 35px;
+                text-align: left;
+              }
+            }
+          }
+        }
     }
-
-    td {
-      vertical-align: baseline;
-      text-align: center;
-      border: none !important;
-      input {
-        width: 19px;
-        height: 14px;
-      }
-      .text {
-        width: 135px;
-        height: 50px;
-        background: #c3c3c31f;
-        border: 1px solid #0000001f;
-        border-radius: 4px;
-      }
-
-      select {
-        width: 11rem;
-      }
-    }
-
-    :first-child {
-      padding-left: 35px;
-      text-align: left;
-    }
-  }
 }
 .subHeadContainer {
   margin-left: 25rem;

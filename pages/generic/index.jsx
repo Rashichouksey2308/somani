@@ -16,6 +16,7 @@ function Index(props) {
   const [genericData,setGenericData]=useState()
   const dispatch = useDispatch()
   const [darkMode, setDarkMode] = useState(false)
+  const [lastModified,setlastModified]=useState("")
   useEffect(() => {
 
 
@@ -41,7 +42,10 @@ function Index(props) {
   },[])
   console.log(genericData,"genericData")
 
-
+ const setDate=(date)=>{
+  console.log(date,"date213")
+  setlastModified(date)
+ }
   return (
     <div className={`${styles.dashboardTab} w-100`}>
       <div className={`${styles.tabHeader} tabHeader d-flex align-items-center`}>
@@ -53,7 +57,7 @@ function Index(props) {
         </div>
         <div className={"ml-auto d-flex"}>
           <div className="ml-auto  mr-2">
-            <div className={`${styles.lastModified} text `}><span>Last Modified:</span> 28 Jan,11:34am</div>
+            <div className={`${styles.lastModified} text `}><span>Last Modified:</span> {lastModified}</div>
 
           </div>
           
@@ -68,7 +72,7 @@ function Index(props) {
         <div className="row">
           <div className="col-md-12  accordion_body">
             <div className={`${styles.tabContent} tab-content`}>
-              <SalesAgreement genericData={genericData} />
+              <SalesAgreement genericData={genericData} setDate={setDate} />
 
 
 

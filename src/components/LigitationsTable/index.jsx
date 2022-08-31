@@ -2,9 +2,14 @@ import React from 'react'
 import styles from './index.module.scss'
 import { Row, Col } from 'react-bootstrap'
 import _get from 'lodash/get'
+import { useDispatch } from 'react-redux'
+import { GetCaseDetails } from '../../redux/companyDetail/action'
 
 function index({ data, Heading, val, totalData }) {
-  console.log(data, "data")
+  const dispatch = useDispatch()
+  const casePreviewHandler = (cinNo) => {
+    dispatch(GetCaseDetails({ cin: cinNo }))
+  }
   const totalNumberOfCases = data?.length
   //const pendingCases = data.filter((e)=> e.)
   console.log(totalNumberOfCases, 'totalNumberOfCases')
@@ -88,9 +93,11 @@ function index({ data, Heading, val, totalData }) {
                     <td className="">{_get(courtCase, 'petitioner[0]', '')}</td>
                     <td className="">{_get(courtCase, 'respondent[0]', '')}</td>
                     <td className="text-center">
-                      <img src="./static/blue-eye.svg"
+                      <img  src="./static/blue-eye.svg"
                         className='img-fluid'
-                        alt="blue eye"></img>
+                        alt="blue eye"
+                        onClick={() => casePreviewHandler(courtCase.cin)}
+                        />
                     </td>
                   </tr>))}
               </tbody>

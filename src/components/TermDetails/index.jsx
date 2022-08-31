@@ -581,11 +581,14 @@ const Index = ({
                   onChange={onChangeTransactionDetails}
                   required
                 >
-                  <option>Select an option</option>
+                 
 
-                  <option value="Mumbai Port, Mumbai">
-                    Mumbai Port, Mumbai
-                  </option>
+                 <option selected>Select an option</option> 
+                 <option value="Calcutta Port"> Calcutta Port
+                  </option> 
+                  <option value="Mumbai, India"> Mumbai, India </option> 
+                  <option value="Vizag, India"> Vizag, India </option> 
+                  <option value="Vishakapatnam, India"> Visakhapatnam, India </option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   Storage of Goods<strong className="text-danger">*</strong>

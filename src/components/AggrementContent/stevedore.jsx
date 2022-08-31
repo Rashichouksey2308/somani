@@ -63,6 +63,19 @@ function Index(props) {
     {name:"Devesh Jain",designation:"Director",email:"devesh@indointertrade.ch",phoneNo:""},
     {name:"Fatima Yannoulis ",designation:"Chief Financial Officer",email:"fatima@indointertrade.ch",phoneNo:""}
     ]
+const cancelAddress=()=>{
+ setNewAddress({
+              "addressType": "Registered",
+              "fullAddress": "",
+              "pinCode": "",
+              "country": "",
+              "gstin": "",
+              "state": "",
+              "city": ""
+          })
+  setAddressType("Registered")
+
+}
 useEffect(() => {
    if(window){
     console.log(sessionStorage.getItem("Stevedore"),".getItem")
@@ -158,8 +171,8 @@ useEffect(() => {
 
    
   setList([...list,{
-      name:"",designation:"",email:"",phoneNo:"",
-      actions:"false"
+      name:"",designation:"",email:"",phone:"",
+      actions:"false",addnew:"false"
     }])
 
   }
@@ -182,7 +195,23 @@ const handleRemove = (index) => {
     
 
   }
+  const removeDoc=(index)=>{
+    console.log("removeDOc")
+     setDocList(prevState => {
+      const newState = prevState.map((obj ,i)=> {
+       
+        if (i == index) {
+          return {...obj, attachDoc: ''};
+        }
+
+        
+        return obj;
+      });
+
+      return newState;
+    });
   
+}
 const handleChangeInput = (name, value, index) => {
 let arrayToSave={
     name:"",designation:"",email:"",phoneNo:"",
@@ -222,16 +251,16 @@ let arrayToSave={
 
 
 }
-   const handleChangeInput2=(name,value,index)=>{
+ const handleChangeInput2=(name2,value,index)=>{
    
  
- 
+  
 
     setList(prevState => {
       const newState = prevState.map((obj ,i)=> {
        
         if (i == index) {
-          return {...obj,phoneNo:value};
+          return {...obj,[name2]:value};
         }
 
         
@@ -245,19 +274,20 @@ let arrayToSave={
 
   }
 const handleAddressInput=()=>{
-
+if(props.addressValidation(addressType,newAddress)){
 setAddressList(current => [...current, newAddress])
   
-  setNewAddress({
-              "addressType": "Registered",
-              "fullAddress": "",
-              "pinCode": "",
-              "country": "",
-              "gstin": "",
-              "state": "",
-              "city": ""
-          })
-          setAddressType("Registered")
+setNewAddress({
+          "addressType": "Registered",
+          "fullAddress": "",
+          "pinCode": "",
+          "country": "",
+          "gstin": "",
+          "state": "",
+          "city": ""
+      })
+setAddressType("Registered")
+}
 }
 const onAddressRemove=(index)=>{
 setAddressList([...addressList.slice(0,index), ...addressList.slice(index+1)])
@@ -316,6 +346,9 @@ setEditAddress(
 
 }
 const saveNewAddress=()=>{
+  if(props.addressValidation(EditAddress.addressType,EditAddress)){
+
+ 
 console.log(EditAddress,"EditAddress",toEditIndex)
 setAddressList(prevState => {
   const newState = prevState.map((obj ,i)=> {
@@ -332,18 +365,18 @@ setAddressList(prevState => {
 });
 setIsEdit(false)
 setEditAddress(
-            {
-            "addressType": "",
-            "fullAddress": "",
-            "pinCode": "",
-            "country": "",
-            "gstin": "",
-            "state": "",
-            "city": ""
-        }
+      {
+      "addressType": "",
+      "fullAddress": "",
+      "pinCode": "",
+      "country": "",
+      "gstin": "",
+      "state": "",
+      "city": ""
+  }
 )
 
-
+ }
 
 }
 const addDoc=(e,index)=>{
@@ -539,7 +572,7 @@ const addDoc=(e,index)=>{
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="text"
+                        type="number"
                         name="pinCode"
                         value={newAddress.pinCode}
                         onChange={(e) => {
@@ -607,7 +640,7 @@ const addDoc=(e,index)=>{
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="text"
+                        type="number"
                         name="pinCode"
                         value={newAddress.pinCode}
                         onChange={(e) => {
@@ -695,7 +728,11 @@ const addDoc=(e,index)=>{
                     >
                     <span>Add</span>
                     </div>
-                    <div className={`${styles.cancel} d-flex justify-content-center align-items-center`}>
+                    <div className={`${styles.cancel} d-flex justify-content-center align-items-center`}
+                     onClick={()=>{
+                      cancelAddress()
+                    }}
+                    >
                     <span>Cancel</span>
                     </div>
                   </div>
@@ -754,7 +791,7 @@ const addDoc=(e,index)=>{
                          <>
                            <select 
                             value={val.name}
-                            className={`${styles.customSelect}`}
+                            className={`${styles.customSelect} input`}
                             onChange={(e)=>{
                               handleChangeInput(e.target.name,e.target.value,index)
                             }}>
@@ -774,40 +811,50 @@ const addDoc=(e,index)=>{
                            
                          <>
                           <input type="text" 
-                              placeholder={"Add new"}
-                               name= "name"
-                               value={val.name}
-                               onChange={(e)=>{
-                                handleChangeInput2(e.target.name,e.target.value,index)
-                                }}
-                              ></input>
-                         </>
+                            className='input'
+                            placeholder={"Add new"}
+                            name= "name"
+                            value={val.name}
+                            onChange={(e)=>{
+                            handleChangeInput2(e.target.name,e.target.value,index)
+                            }}
+                          />
+                        </>
                       }
                             
                           </td>
                           <td>
-                            <input type="text" 
-                          placeholder={val.designation}
-                          name= "designation"
-                          readOnly={val.addnew!="true"?true:false}
-                           onChange={(e)=>{
-                            handleChangeInput2(e.target.name,e.target.value,index)
-                             }}
-                          ></input>
+                            <input type="text"
+                              className='input'
+                              value={val.designation}
+                              name="designation"
+                              // readOnly={val.addnew!="true"?true:false}
+                              onChange={(e)=>{
+                                handleChangeInput2(e.target.name,e.target.value,index)
+                              }}
+                            />
                           
                           </td>
-                          <td><input type="text" placeholder={val.email}
-                          name= "email"
-                          readOnly={val.addnew!="true"?true:false}
-                         
-                          ></input>
+                          <td>
+                            <input type="text" 
+                            value={val.email}
+                              name= "email"
+                                                        
+                              className='input'
+                              onChange={(e)=>{
+                                handleChangeInput2(e.target.name,e.target.value,index)
+                              }}
+                            />
                           </td>
-                          <td><input type="text" placeholder={val.phoneNo}
-                          name= "phoneNo"
-                          onChange={(e)=>{
-                            handleChangeInput2(e.target.name,e.target.value,index)
-                          }}
-                          ></input></td>
+                          <td>
+                            <input type="text" placeholder={val.phoneNo}
+                              className='input'
+                              name= "phoneNo"
+                              onChange={(e)=>{
+                                handleChangeInput2(e.target.name,e.target.value,index)
+                              }}
+                            />
+                          </td>
                           <td className={`d-flex`}>
                             <div
                               className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
@@ -844,7 +891,7 @@ const addDoc=(e,index)=>{
             </div>
           </div>
         </div>
-         <div className={styles.displaytable}>
+        <div className={styles.displaytable}>
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
                 <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
@@ -869,8 +916,9 @@ const addDoc=(e,index)=>{
                           name="myfile"
                           accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                           onChange={async(e) => {
-                             let data = await props.uploadDoc(e)
+                           let data = await props.uploadDoc(e)
                            console.log(data,"upload")
+                            setdoc({attachDoc:data})
                           }}
                         />
                         <button className={`${styles.button_upload} btn`}>
@@ -879,7 +927,7 @@ const addDoc=(e,index)=>{
                       </div>
                     ) : (
                       <div className={styles.certificate}>
-                        {doc.attachDoc.originalName}
+                         {doc.attachDoc.originalName}
                         <img
                           className={`${styles.close_image} float-right m-2 img-fluid`}
                           src="/static/close.svg"
@@ -912,7 +960,7 @@ const addDoc=(e,index)=>{
                           name="myfile"
                           accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                           onChange={async(e) => {
-                          let data = await props.uploadDoc(e)
+                            let data = await props.uploadDoc(e)
                               addDoc(data, index)
                           }}
                         />
@@ -922,18 +970,18 @@ const addDoc=(e,index)=>{
                       </div>
                     ) : (
                       <div className={styles.certificate}>
-                        {val.attachDoc.originalName}
+                       {val.attachDoc.originalName}
                         <img
                           className={`${styles.close_image} float-right m-2 img-fluid`}
                           src="/static/close.svg"
-                          // onClick={() => removeDoc(index)}
+                          onClick={() => removeDoc(index)}
                           alt="Close"
                         />{' '}
                       </div>
                     )}
                       </td>
                       <td className={`d-flex`}>
-                        
+                        {/* <img onClick={()=>removeDocArr(index)} className={`mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
                         <img src="/static/upload.svg" alt="upload"/>
                       </td>
 
@@ -963,7 +1011,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         <select
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           name="addressType"
-                          
+                           value={EditAddress.addressType}
                           onChange={(e) => {
                             setAddressEditType(e.target.value)
                             editNewAddress(e.target.name,e.target.value)
@@ -1009,7 +1057,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="text"
+                        type="number"
                         name="pinCode"
                         value={EditAddress.pinCode}
                         onChange={(e) => {
@@ -1077,7 +1125,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="text"
+                        type="number"
                         name="pinCode"
                          value={EditAddress.pinCode}
                         onChange={(e) => {

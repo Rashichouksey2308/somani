@@ -79,12 +79,13 @@ const handleAddressInput=()=>{
     <>
       <div className={`${styles.container} vessel_card`}>
         <div className={`${styles.paymet} card-body p-0`}>
-     <div className={`d-flex justify-content-between align-items-between mb-4`}>
-       <input placeholder={``}
-       onChange={(e)=>{
-        setValue(e.target.value)
-       }}
-       ></input>
+      <div className={`d-flex justify-content-between align-items-between mb-4`}>
+        <input placeholder={``}
+          className='input'
+          onChange={(e)=>{
+            setValue(e.target.value)
+          }}
+        />
        <img className="img-fluid ml-4" src="/static/add-btn.svg" alt="add button"
        onClick={()=>{
                     handleAddressInput()
@@ -100,16 +101,15 @@ const handleAddressInput=()=>{
       <>
        <li  className={`d-flex justify-content-between align-items-center ${styles.comment}`}>
           <input
-
-              required
-              type="text"
-              name="bankName"
-              value={val.value}
-              onChange={(e) => {
-              handleEditAddressInput(e.target.value,index)
-              }}
-              readOnly={val.isEdit}
-
+            required
+            type="text"
+            name="bankName"
+            className='input'
+            value={val.value}
+            onChange={(e) => {
+            handleEditAddressInput(e.target.value,index)
+            }}
+            readOnly={val.isEdit}
           />
        <div className={`d-flex justify-content-end align-items-center`}>
          

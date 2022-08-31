@@ -466,7 +466,7 @@ function Index({ directorData }) {
                               <label className={`accordion_Text`}>
                                 Contact
                               </label>
-                              +91 9876543210
+                              {/* +91 9876543210 */}
                             </div>
 
                             <div
@@ -494,7 +494,8 @@ function Index({ directorData }) {
                               <label className={`accordion_Text`}>
                                 % Shareholding
                               </label>
-                              40%
+                              {director?.percentageShareHolding}
+                              {/* 40% */}
                             </div>
                             <div
                               className={`${styles.detailsBox}  col-md-2 mt-5`}
@@ -510,7 +511,7 @@ function Index({ directorData }) {
                               <label className={`accordion_Text`}>
                                 Landline
                               </label>
-                              0542-5463874
+                              {/* 0542-5463874 */}
                             </div>
                             <div
                               className={`${styles.detailsBox}  col-md-2 mt-5`}
