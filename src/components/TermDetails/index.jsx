@@ -32,12 +32,12 @@ const Index = ({
       console.log('herer12')
 
       setIsBlSelected('DaysfromBLDate')
-      onChangePaymentDueDate({
-        target: { value: '', id: 'daysFromVesselDischargeDate' },
-      })
+      // onChangePaymentDueDate({
+      //   target: { value: '', id: 'daysFromVesselDischargeDate' },
+      // })
     } else if (value === 'DaysfromVesselDischargeDate') {
       setIsBlSelected('DaysfromVesselDischargeDate')
-      onChangePaymentDueDate({ target: { value: '', id: 'daysFromBlDate' } })
+      // onChangePaymentDueDate({ target: { value: '', id: 'daysFromBlDate' } })
     } else {
       setIsBlSelected(value)
     }
@@ -431,7 +431,7 @@ const Index = ({
                   required
                 >
                   {termsheetDetails?.transactionDetails?.partShipmentAllowed ===
-                  'Yes' ? (
+                    'Yes' ? (
                     <>
                       {' '}
                       <option value="Yes">Yes</option>{' '}
@@ -535,7 +535,7 @@ const Index = ({
               </div>
             </div>
             {termsheetDetails.transactionDetails?.thirdPartyInspectionReq ==
-            'true' ? (
+              'true' ? (
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
                   <select
@@ -648,8 +648,8 @@ const Index = ({
                   IsBlSelected == 'DaysfromBLDate'
                     ? false
                     : IsBlSelected == 'Whicheverisearlier'
-                    ? false
-                    : true
+                      ? false
+                      : true
                 }
                 required
               />
@@ -671,8 +671,8 @@ const Index = ({
                   IsBlSelected == 'DaysfromVesselDischargeDate'
                     ? false
                     : IsBlSelected == 'Whicheverisearlier'
-                    ? false
-                    : true
+                      ? false
+                      : true
                 }
                 required
               />
