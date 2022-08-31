@@ -26,13 +26,10 @@ function Index() {
 
   useEffect(() => {
    let companyIDnewOrder = sessionStorage.getItem('companyID')
+   console.log(companyIDnewOrder,"companyIDnewOrder")
     dispatch(GetOrders(`?page=${currentPage}company=${companyIDnewOrder}`))
   }, [dispatch, currentPage])
-  // {_get(
-  //   props,
-  //   "pageData.field_landing_page_flexi_content[0].component.content.field_form[0].field_car_number[2].field_placeholder",
-  //   "Ex. 1234"
-  // )}
+  
 
   useEffect(() => {
     dispatch(setPageName('leads'))
