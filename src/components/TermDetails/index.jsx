@@ -548,7 +548,7 @@ const Index = ({
                     <option value="Load Port">Load Port</option>
                     <option value="Discharge Port">Discharge Port</option>
                     <option value="Both">
-                      Both Lord port and discharge port
+                      Lord Port and Discharge Port
                     </option>
                   </select>
 

@@ -52,7 +52,7 @@ function Index() {
   
   const handleRoute = (buyer) => {
     // console.log(buyer,'butyer')
-     console.log(" before go to get document")
+     console.log("getDetails payload",buyer.company._id)
     if (buyer.queue === 'CreditQueue') {
       dispatch(GetAllOrders({ orderId: buyer._id }))
      //dispatch(GetDocuments({order: buyer._id}))

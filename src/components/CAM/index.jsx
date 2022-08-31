@@ -3088,7 +3088,7 @@ const sectionTerms = (
               </ul>
             </div>
             <div>
-              Remarks
+             
               <div className={`${styles.approve}`}>
                 {approveComment &&
                   approveComment?.map((approve, index) => (
