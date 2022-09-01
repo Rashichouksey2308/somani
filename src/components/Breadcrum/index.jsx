@@ -16,6 +16,8 @@ export default function Index({ isQuery }) {
     sessionStorage.removeItem('Associate')
     sessionStorage.removeItem('add')
     sessionStorage.removeItem('Product')
+    sessionStorage.removeItem('Finance')
+    sessionStorage.removeItem('Shipping')
   }
   useEffect(() => {
     if (

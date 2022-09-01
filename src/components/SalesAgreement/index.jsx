@@ -283,15 +283,16 @@ function Index(props) {
         />
       )
     }
-        if(active=="Stevedore"){
+      if(active=="Stevedore"){
       return(
         <Stevedore
         saveData={saveData} 
         sendData={sendData} 
         submitData={submitData} 
         updateData={updateData}
-        data={props?.genericData?.supplier}
+        data={props?.genericData?.stevedore}
         uploadDoc={uploadDoc}
+        active={active}
         addressValidation={addressValidation}
         />
       )
@@ -696,6 +697,7 @@ let dataToSend2={
 
     }
     if(key=="Financing Bank"){
+      console.log(data.financeData,"finan")
     dataToSend={
     genericId:props.genericData?._id,
     finance:{
@@ -726,7 +728,16 @@ let dataToSend2={
     
     }
   }
- 
+   let dataToSend2={
+      
+        "name": data.financeData.name,
+        "branchName": data.financeData.branchName,
+        
+       
+       
+    
+  }
+  sessionStorage.setItem("Finance",JSON.stringify(dataToSend2))
 
 
     console.log(dataToSend,"dataToSend")
@@ -875,15 +886,16 @@ let dataToSend2={
     dataToSend={
     genericId:props.genericData?._id,
     stevedore:{
-    "name": data.chaState.name,
-    "shortName": data.chaState.shortName,
-    "gstin": data.chaState.gstin,
+    "name": data.seteveState.name,
+    "shortName": data.seteveState.shortName,
+    "gstin": data.seteveState.gstin,
 
     "addresses": data.addressList,
     "authorisedSignatoryDetails": data.list,
 
     }
     }
+    console.log("Stevedore",dataToSend)
     if (dataToSend.stevedore.name == "" || dataToSend.stevedore.name == undefined) {
     toastMessage = `Please add stevedore name  `
     if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -935,6 +947,19 @@ let dataToSend2={
 
     }
     }
+    let  dataToSend={
+     
+     
+       "name": data.seteveState.name,
+        "shortName": data.seteveState.shortName,
+         "gstin": data.seteveState.gstin,
+
+        "addresses": data.addressList,
+        "authorisedSignatoryDetails": data.list,
+       
+  
+  }
+    sessionStorage.setItem("Stevedore",JSON.stringify(dataToSend))
     }
     if(key=="Shipping Line"){
     console.log("this14")
@@ -968,7 +993,7 @@ let dataToSend2={
     }
     }
     if (dataToSend.shipping.gstin== "" || dataToSend.shipping.gstin== undefined) {
-    toastMessage = `Please add short name  `
+    toastMessage = `Please add gstin `
     if (!toast.isActive(toastMessage.toUpperCase())) {
     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     setSubmitData(false)
@@ -977,7 +1002,16 @@ let dataToSend2={
 
     }
     }
+   let  dataToSend2={
+   
+   
+    "name":data.shippingData.name,
+    "vesselName":data.shippingData.vesselName,
+    "gstin":data.shippingData.gstin,
 
+    
+    }
+  sessionStorage.setItem("Shipping",JSON.stringify(dataToSend2))
  
    
     }
@@ -1322,16 +1356,16 @@ const sendData=(key,data)=>{
     dataToSend={
      
      
-       "name": data.chaState.name,
-        "shortName": data.chaState.shortName,
-         "gstin": data.chaState.gstin,
+       "name": data.seteveState.name,
+        "shortName": data.seteveState.shortName,
+         "gstin": data.seteveState.gstin,
 
         "addresses": data.addressList,
         "authorisedSignatoryDetails": data.list,
        
   
   }
-    sessionStorage.setItem("Cha",JSON.stringify(dataToSend))
+    sessionStorage.setItem("Stevedore",JSON.stringify(dataToSend))
 
   }
 
@@ -1352,6 +1386,24 @@ if(key=="Additional Comments"){
    
      sessionStorage.setItem("add",JSON.stringify(data.addressList))
     
+    }
+  if(key=="Shipping Line"){
+    console.log("this14")
+    dataToSend={
+   
+   
+    "name":data.shippingData.name,
+    "vesselName":data.shippingData.vesselName,
+    "gstin":data.shippingData.gstin,
+
+    
+    }
+  sessionStorage.setItem("Shipping",JSON.stringify(dataToSend))
+    
+    
+
+ 
+   
     }
     let tempArr=sideBar;
     sideBar.forEach((val,index)=>{
