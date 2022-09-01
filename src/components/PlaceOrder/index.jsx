@@ -9,19 +9,31 @@ import { useSelector, useDispatch } from 'react-redux'
 import { PlaceNewOrder } from 'redux/newOrder/action'
 import { handleCurrencyOrder, removePrefixOrSuffix } from 'utils/helper'
 import _get from 'lodash/get'
+// import {
+//   GetAllBuyer,
+//   GetAllOrders,
+//   GetBuyer,
+// } from '../../redux/registerBuyer/action'
+import { GetCreditLimit } from '../../redux/companyDetail/action'
+import { GetOrders } from '../../redux/registerBuyer/action'
+
+
 
 
 const Index = () => {
 
   const dispatch = useDispatch()
+  let compId = sessionStorage.getItem('companyID',)
+  dispatch(GetOrders(`?company=${compId}`))
+  dispatch(GetCreditLimit({ companyId: compId }))
 
-  const {singleOrder} = useSelector((state)=>state.buyer)
-  const {creditData} = useSelector((state)=>state.companyDetails)
+  const { singleOrder } = useSelector((state) => state.buyer)
+  const { creditData } = useSelector((state) => state.companyDetails)
 
   let singleOrderId = _get(singleOrder, 'data[0].company._id', '')
 
   const [orderData, setOrderData] = useState({
-    transactionType: '',
+    transactionType: 'Import',
     commodity: '',
     quantity: null,
     unitOfQuantity: 'MT',
@@ -56,20 +68,20 @@ const Index = () => {
   const saveOrderData = (name, value) => {
     const newInput = { ...orderData }
     newInput[name] = value
-   
+
     setOrderData(newInput)
   }
-   console.log(orderData,"stat")
+  console.log(orderData, "stat")
 
   const handleCurr = () => {
-    const newInput = {...orderData}
-   let currVal =  handleCurrencyOrder(orderData.unitOfValue, orderData.orderValue)
-   newInput.orderValue = currVal
-   setOrderData(newInput)
+    const newInput = { ...orderData }
+    let currVal = handleCurrencyOrder(orderData.unitOfValue, orderData.orderValue)
+    newInput.orderValue = currVal
+    setOrderData(newInput)
 
   }
 
-  
+
 
   const saveShipmentData = (name, value) => {
     const newInput = { ...shipment }
@@ -112,7 +124,7 @@ const Index = () => {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
-    } 
+    }
     // else if (orderData?.orderCurrency?.trim() === '') {
     //   let toastMessage = 'Order Currency cannot be empty'
     //   if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -181,18 +193,18 @@ const Index = () => {
       }
       return
     } else {
-      let orderDataNew = {...orderData}
+      let orderDataNew = { ...orderData }
       orderDataNew.quantity = removePrefixOrSuffix(orderData.quantity)
-      orderDataNew.orderValue = removePrefixOrSuffix(orderData.orderValue) *10000000
+      orderDataNew.orderValue = removePrefixOrSuffix(orderData.orderValue) * 10000000
       orderDataNew.tolerance = removePrefixOrSuffix(orderData.tolerance)
-      
-        const obj = {
-          orderDetails:{...orderDataNew},
-          shipmentDetail: { ...shipment },
-          company: singleOrderId,
-        }
-        dispatch(PlaceNewOrder(obj))
-      
+
+      const obj = {
+        orderDetails: { ...orderDataNew },
+        shipmentDetail: { ...shipment },
+        company: singleOrderId,
+      }
+      dispatch(PlaceNewOrder(obj))
+
     }
   }
 
@@ -214,7 +226,7 @@ const Index = () => {
             <h1 className={styles.heading}>Place a New Order</h1>
           </div>
           <div>
-            <button onClick={()=>clearData()} className={`${styles.clear_btn} clear_btn`}>Clear All</button>
+            <button onClick={() => clearData()} className={`${styles.clear_btn} clear_btn`}>Clear All</button>
           </div>
         </div>
 
