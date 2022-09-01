@@ -31,11 +31,14 @@ function Index() {
   }, [dispatch])
 
   useEffect(() => {
-    dispatch(
-      setPageName(
-        _get(termsheet, 'data[0].company.companyName', 'All Termsheet Order'),
-      ),
-    )
+    dispatch(setPageName(_get(
+      termsheet,
+      "data[0].company.companyName",
+      "All Termsheet Order"
+    )))
+
+
+
   }, [singleOrder, termsheet])
 
   useEffect(() => {
@@ -43,16 +46,16 @@ function Index() {
   }, [])
   useEffect(() => {
     dispatch(setPageName('termsheet'))
-    dispatch(
-      setDynamicName(
-        _get(termsheet, 'data[0].company.companyName', 'All Termsheet Order'),
-      ),
-    )
+    dispatch(setDynamicName(_get(
+      termsheet,
+      "data[0].company.companyName",
+      "All Termsheet Order"
+    )))
   }, [dispatch, singleOrder, termsheet])
-  console.log(termsheet, 'termsheet')
+  console.log(termsheet, "termsheet")
 
   const handleRoute = (term, index) => {
-    console.log('here', term)
+    console.log("here", term)
     // console.log(term?.order._id, "termtrem")
     //dispatch(GetBuyer({ companyId: term.company._id, orderId: buyer._id }))
     dispatch(GetTermsheet(`?termsheetId=${term._id}`))
@@ -69,6 +72,7 @@ function Index() {
     sessionStorage.setItem('termOrdID', term?.order._id)
     Router.push('/termsheet/12')
     // Router.push('/lc-module')
+
   }
 
   return (
@@ -244,65 +248,54 @@ function Index() {
                       </th>
                       <th>COMMODITY</th>
                       <th>CREATED BY</th>
-                      <th>CREATED ON</th>
+                      <th>ORDER CREATED DATE</th>
                       <th>STATUS</th>
+                      <th>PREVIEW</th>
                     </tr>
                   </thead>
-                  {termsheet &&
-                    termsheet?.data?.map((term, index) => (
-                      <tbody Key={index}>
-                        <tr>
-                          <td
-                            className={`${styles.first}`}
-                            onClick={() => handleRoute(term, index)}
-                          >
-                            {term?.order?.orderId
-                              ? term?.order?.orderId : term?.order?.applicationId
-                               }
-                          </td>
-                          <td
-                            className={`${styles.buyerName}`}
-                            onClick={() => handleRoute(term, index)}
-                          >
-                            {term?.order?.commodity}
-                          </td>
+                  {termsheet && termsheet?.data?.map((term, index) => (<tbody Key={index}>
+                    <tr>
+                      <td className={`${styles.first}`} onClick={() => handleRoute(term, index)}>
+                        {term?.order?.orderId
+                              ? term?.order?.orderId : term?.order?.applicationId}
+                      </td>
+                      <td className={`${styles.buyerName}`} onClick={() => handleRoute(term, index)} >{term?.order?.commodity}</td>
 
-                          <td>
-                            {term?.createdBy?.userRole
-                              ? term?.createdBy?.userRole
-                              : 'RM'}{' '}
-                          </td>
-                          <td>
-                            {moment(
-                              (term?.order?.createdAt).slice(0, 10),
-                              'YYYY-MM-DD',
-                              true,
-                            ).format('DD-MM-YYYY')}
-                          </td>
-                          <td>
-                            <span
-                              className={`${styles.status} ${
-                                term?.order?.queue === 'Rejected'
-                                  ? styles.rejected
-                                  : term?.order?.queue === 'ReviewQueue'
-                                  ? styles.review
-                                  : term?.order?.queue === 'CreditQueue'
-                                  ? styles.approved
-                                  : styles.rejected
-                              }`}
-                            ></span>
+                      <td>{term?.createdBy?.userRole ? term?.createdBy?.userRole : "RM"} </td>
+                      <td>{term?.order?.existingCustomer ? moment((term?.order?.createdAt).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY") : moment((term?.order?.cam?.approvedAt).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</td>
+                      <td>
+                        <span
+                          className={`${styles.status} ${term?.order?.queue === 'Rejected' ? styles.rejected : term?.order?.queue === 'ReviewQueue'
+                            ? styles.review
+                            : term?.order?.queue === 'CreditQueue'
+                              ? styles.approved
+                              : styles.rejected
+                            }`}
+                        ></span>
+                        {term?.status}
+                        {/* {term?.order?.queue === 'Rejected' ? 'Rejected' : term?.order?.queue === 'ReviewQueue'
+                          ? 'Review'
+                          : term?.order?.queue === 'CreditQueue'
+                            ? 'Approved'
+                            : 'Rejected'} */}
+                      </td>
+                      <td>
+                        {term.status === 'Approved' ? <img
+                          src="/static/preview.svg"
+                          className="img-fluid"
+                          alt="Preview"
+                          onClick={() => {
+                            dispatch(GetTermsheet(`?company=${term.company._id}`))
+                            console.log(term.order, "term.order")
+                            dispatch(setDynamicName(term.order.orderId))
+                            // dispatch(setDynamicOrder(term))
+                            Router.push("/termsheet-preview")
+                          }}
 
-                            {term?.order?.queue === 'Rejected'
-                              ? 'Rejected'
-                              : term?.order?.queue === 'ReviewQueue'
-                              ? 'Review'
-                              : term?.order?.queue === 'CreditQueue'
-                              ? 'Approved'
-                              : 'Rejected'}
-                          </td>
-                        </tr>
-                      </tbody>
-                    ))}
+                        /> : null}
+                      </td>
+                    </tr>
+                  </tbody>))}
                 </table>
               </div>
             </div>

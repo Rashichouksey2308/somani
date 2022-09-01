@@ -8,15 +8,21 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getGenericData } from '../../src/redux/generic/actionsType'
 
 import { setPageName,setDynamicName ,setDynamicOrder} from '../../src/redux/userData/action'
+import { SearchLeads } from '../../src/redux/buyerProfile/action'
 
 function Index(props) {
   console.log("🚀 ~ file: index.jsx ~ line 14 ~ Index ~ props", props)
   const [currentPage, setCurrentPage] = useState(0)
+  const [serachterm, setSearchTerm] = useState('')
+
   const dispatch = useDispatch()
  const [genData,setData]=useState([])
   
   const { generic } = useSelector((state) => state.generic.allGeneric)
-  console.log(genData,"generic22131")
+
+  const { searchedLeads } = useSelector((state) => state.order)
+
+  console.log(generic,"generic")
 
  useEffect(() => {
     dispatch(setPageName('agreemnent'))
@@ -51,6 +57,20 @@ const getDate = async () =>{
     // Router.push('/lc-module')
   }
 
+  const handleSearch = (e) => {
+    const query = `${e.target.value}`
+    setSearchTerm(query)
+    if (query.length >= 3) {
+      dispatch(SearchLeads(query))
+    }
+  }
+
+  const handleFilteredData = (e) => {
+    setSearchTerm('')
+    const id = `${e.target.id}`
+    dispatch(getGenericData(`?company=${id}`))
+  }
+
   return (
     <>
       {' '}
@@ -73,11 +93,29 @@ const getDate = async () =>{
                   />
                 </div>
                 <input
+                  value={serachterm}
+                  onChange={handleSearch}
                   type="text"
                   className={`${styles.formControl} form-control formControl `}
                   placeholder="Search"
                 />
               </div>
+              {searchedLeads && serachterm && (
+                <div className={styles.searchResults}>
+                  <ul>
+                    {searchedLeads.data.data.map((results, index) => (
+                      <li
+                        onClick={handleFilteredData}
+                        id={results._id}
+                        key={index}
+                      >
+                        {results.companyName} <span>{results.customerId}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            
             </div>
           </div>
 
@@ -93,7 +131,7 @@ const getDate = async () =>{
               >
                 <span>
                   Showing Page {currentPage + 1} out of{' '}
-                  {Math.ceil(generic?.length / 10)}
+                  {Math.ceil(genData?.length / 10)}
                 </span>
                 <a
                   onClick={() => {
