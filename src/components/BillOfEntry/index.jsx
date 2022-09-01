@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux'
 import { UpdateCustomClearance } from 'redux/CustomClearance&Warehousing/action'
 import { useSelector } from 'react-redux'
 import _get from 'lodash/get'
-import { removePrefixOrSuffix } from 'utils/helper'
+import { removePrefixOrSuffix, addPrefixOrSuffix } from 'utils/helper'
 import { toast } from 'react-toastify'
 
 export default function Index({ customData, OrderId, uploadDoc }) {
