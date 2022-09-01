@@ -16,6 +16,8 @@ export default function Index({ isQuery }) {
     sessionStorage.removeItem('Associate')
     sessionStorage.removeItem('add')
     sessionStorage.removeItem('Product')
+    sessionStorage.removeItem('Finance')
+    sessionStorage.removeItem('Shipping')
   }
   useEffect(() => {
     if (
@@ -28,7 +30,8 @@ export default function Index({ isQuery }) {
       isQuery == '/agreement/preview' ||
       isQuery == '/transit' ||
       isQuery == '/review-queue' ||
-      isQuery == '/margin-preview'
+      isQuery == '/margin-preview'||
+      isQuery == '/generic/generic-list'
       
     ) {
       show.units = false

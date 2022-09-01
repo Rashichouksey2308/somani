@@ -151,7 +151,7 @@ const getDate = async () =>{
                   {genData?.length>0 && genData?.map((term, index) => (<tbody Key={index}>
 
                     <td >
-                      {term?.company._id}
+                      {term?.order.orderId}
                     </td>
                     <td className={`${styles.buyerName}`} onClick={() => handleRoute(term)} >{term?.company.companyName}</td>
 
