@@ -68,6 +68,7 @@ const Index = ({ saveOrderData, orderData }) => {
             {['radio'].map((type) => (
               <div key={`inline-${type}`} className={styles.radio_group}>
                 <Form.Check
+                defaultChecked
                   className={styles.radio}
                   inline
                   label="Import"

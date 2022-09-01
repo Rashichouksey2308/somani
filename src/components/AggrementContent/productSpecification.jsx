@@ -4,63 +4,93 @@ import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 function Index(props) {
-  const [addressList, setAddressList] = useState([])
-  const [value, setValue] = useState('')
-  const [editField, setEditField] = useState(false)
-  const [doc,setdoc]=useState({attachDoc:""})
-  useEffect(() => {
-    if (props.saveData == true && props.active == 'Product Specifications') {
-      let data = {
-        addressList: addressList,
-      }
-      props.sendData('Place of Execution', data)
-    }
-    if (props.submitData == true && props.active == 'Product Specifications') {
-      let data = {
-        addressList: addressList,
-      }
-
-      props.updateData('Place of Execution', data)
-    }
-
-    // setSupplierState({...supplierState,multiParty:props.multiPart})
-  }, [props])
-  const onAddressRemove = (index) => {
-    setAddressList([
-      ...addressList.slice(0, index),
-      ...addressList.slice(index + 1),
-    ])
+const [addressList, setAddressList] = useState([])
+const [value, setValue] = useState('')
+const [editField, setEditField] = useState(false)
+const [doc,setdoc]=useState({attachDoc:""})
+useEffect(() => {
+if (props.saveData == true && props.active == 'Product Specifications') {
+  let temp=[]
+  addressList.forEach((val)=>{
+    temp.push(val.value)
+  })
+  let data = {
+    addressList: temp,
   }
-  useEffect(() => {
-    if (window) {
-      if (sessionStorage.getItem('Product')) {
-        console.log('herer23123')
+  props.sendData('Product Specifications', data)
+}
+if (props.submitData == true && props.active == 'Product Specifications') {
+  let temp=[]
+  addressList.forEach((val)=>{
+    temp.push(val.value)
+  })
+  let data = {
+    addressList: temp,
+  }
 
-        let savedData = JSON.parse(sessionStorage.getItem('Product'))
+  props.updateData('Product Specifications', data)
+}
 
-        setAddressList(savedData.comments)
-      } else {
-        setAddressList(props.data?.comments)
-      }
-    }
-  }, [props])
-  const handleEditAddressInput = (value, index) => {
-    setAddressList((prevState) => {
-      const newState = prevState.map((obj, i) => {
-        if (i == index) {
-          return value
-        }
+// setSupplierState({...supplierState,multiParty:props.multiPart})
+}, [props.saveData,props.submitData])
+const onAddressRemove = (index) => {
+setAddressList([
+  ...addressList.slice(0, index),
+  ...addressList.slice(index + 1),
+])
+}
+useEffect(() => {
+if (window) {
+  if (sessionStorage.getItem('Product')) {
+    console.log('herer23123')
 
-        return obj
-      })
-
-      return newState
+    let savedData = JSON.parse(sessionStorage.getItem('Product'))
+    let temp=[]
+    savedData.forEach((val,index)=>{
+      temp.push({value:val,action:false})
     })
+    setAddressList(temp)
+  } else {
+    let temp=[]
+    props?.data?.comments.forEach((val,index)=>{
+      temp.push({value:val,action:false})
+    })
+    setAddressList(temp)
+    
   }
-  const handleAddressInput = () => {
-    setAddressList([...addressList, value])
-  }
-  console.log(addressList, '8512')
+}
+}, [props])
+const handleEditAddressInput = (index) => {
+setAddressList((prevState) => {
+  const newState = prevState.map((obj, i) => {
+    if (i == index) {
+      console.log(obj.action,"obj.action")
+      return {...obj,action:!obj.action}
+    }
+
+    return obj
+  })
+
+  return newState
+})
+}
+const handleAddressInput = () => {
+setAddressList([...addressList, {value:value,action:false}])
+}
+const handleInput=(val,index)=>{
+setAddressList((prevState) => {
+  const newState = prevState.map((obj, i) => {
+    if (i == index) {
+      return {...obj,value:val}
+    }
+
+    return obj
+  })
+
+  return newState
+})
+}
+
   return (
     <>
       <div className={`${styles.container} vessel_card`}>
@@ -72,6 +102,7 @@ function Index(props) {
               onChange={(e) => {
                 setValue(e.target.value)
               }}
+              value={value}
             />
             <img
               className="img-fluid ml-4"
@@ -79,6 +110,7 @@ function Index(props) {
               alt="add button"
               onClick={() => {
                 handleAddressInput()
+                setValue("")
               }}
             ></img>
           </div>
@@ -131,23 +163,24 @@ function Index(props) {
                       required
                       type="text"
                       name="bankName"
-                      value={val}
+                      value={val.value}
                       onChange={(e) => {
-                        // handleInput(e.target.name,e.target.value,"bankName")
+                        handleInput(e.target.value,index)
                       }}
                       className='input'
+                      readOnly={val.action}
                     />
                     <div
                       className={`d-flex justify-content-evenly align-items-center`}
                     >
-                      {!editField ? (
+                      {val.action ? (
                         <img
                           className={`${styles.image} ml-4 mr-3`}
                           src="/static/mode_edit.svg"
                           alt="edit button"
                           onClick={() => {
                             handleEditAddressInput(index)
-                            setEditField(true)
+                           
                           }}
                         ></img>
                       ) : (
@@ -156,7 +189,8 @@ function Index(props) {
                           className={`${styles.image} ml-4 mr-3`}
                           alt="save"
                           onClick={(e) => {
-                            setEditField(false)
+                             handleEditAddressInput(index)
+                          
                           }}
                         />
                       )}

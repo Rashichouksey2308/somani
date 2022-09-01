@@ -3,87 +3,76 @@
 import React ,{useState,useEffect}from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
- let delivery={
-    "delivery": "",
-    
-
-        
- }
 function Index(props) {
-  console.log(props.submitData, props.active,"kk")
-  const[deliveryData,setDeliveryData]=useState(delivery)
-  useEffect(() => {
-   if(window){
-    if(sessionStorage.getItem("Delivery")){
-      let savedData=JSON.parse(sessionStorage.getItem("Delivery"))
-      let shipping={
-       "delivery": savedData.name,
-     
-        
-        
-       }
-      
-       
-       setDeliveryData(shipping)
-    }else{
-       let shipping={
-       "delivery": props.data?.name,
-      
-        
-        
-       }
-      
-       
-       setDeliveryData(shipping)
+ 
+  const[deliveryData,setDeliveryData]=useState("")
+useEffect(() => {
+if(window){
+if(sessionStorage.getItem("Delivery")){
+let savedData=JSON.parse(sessionStorage.getItem("Delivery"))
+
+
+console.log("savd")
+setDeliveryData(savedData.deliveryTerms)
+}
+}else{
+  setDeliveryData(props?.delivery?.deliveryTerms)
+}
+},[props])
+useEffect(() => {
+if(props.saveData==true && props.active=="Delivery Terms"){
+let data={
+deliveryData:deliveryData,
+
+
+
+}
+props.sendData("Delivery Terms",data)
+}
+if(props.submitData==true && props.active=="Delivery Terms"){
+console.log("this12")
+let data={
+deliveryData:deliveryData,
+
+
+}
+console.log(data,deliveryData,"deliveryData")
+props.updateData("Delivery Terms",data)
+
+}
+},[props.saveData,props.submitData])
+const handleInput=(name,value,key)=>{
+
+console.log(value,"diler")
+
+setDeliveryData(value)
+let dataToSend2={
+   
+   
+    "deliveryTerms":value,
+
+
+    
     }
-   }
-  },[props])
-   useEffect(() => {
-    if(props.saveData==true && props.active=="Delivery Terms"){
-       let data={
-        deliveryData:deliveryData,
-      
-        
-        
-       }
-       props.sendData("Delivery Terms",data)
-    }
-    if(props.submitData==true && props.active=="Delivery Terms"){
-      console.log("this12")
-      let data={
-      deliveryData:deliveryData,
-      
-       
-       }
+  sessionStorage.setItem("Delivery",JSON.stringify(dataToSend2))
 
-      props.updateData("Delivery Terms",data)
-
-    }
-  },[props])
-    const handleInput=(name,value,key)=>{
-  
-
-  const newInput = { ...deliveryData }
-
-      newInput[name] = value
-      setDeliveryData(newInput)
-
-  }
+}
+console.log(deliveryData,"deliveryData")
   return (
     
     <>
       <div className={`${styles.container} vessel_card`}>
         <Form className={`${styles.form}`}>
           <div className="row border-color ">
-       <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+           <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div className='d-flex'>
                 <select
                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                  name="countryOfOrigin"
+                  name="delivery"
                   onChange={(e) => {
                     handleInput(e.target.name,e.target.value)
                   }}
-                  value={deliveryData.delivery}
+                  value={deliveryData}
                 >
                  <option>Select an option</option>
                   <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>

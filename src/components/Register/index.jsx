@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import { handleCurrencyOrder } from 'utils/helper'
 import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../utils/helper'
-import { debounce } from "lodash"
+import { debounce } from 'lodash'
 
 function Index() {
   const [darkMode, setDarkMode] = useState(false)
@@ -56,7 +56,7 @@ function Index() {
     turnOverUnit: 'Cr',
   })
 
-  console.log(companyDetails.turnOver,"companyDetails tin")
+  console.log(companyDetails.turnOver, 'companyDetails tin')
   useEffect(() => {
     const newInput = { ...companyDetails }
     newInput.companyName = gstList?.data?.companyData?.companyName
@@ -107,7 +107,7 @@ function Index() {
   }, [companyDetails.companyPan])
 
   const [orderDetails, setOrderDetails] = useState({
-    transactionType: '',
+    transactionType: 'Import',
     commodity: '',
     quantity: null,
     unitOfQuantity: 'mt',
@@ -124,16 +124,15 @@ function Index() {
 
   const saveCompanyData = (name, value) => {
     const newInput = { ...companyDetails }
-    
-    if(name=="turnOver"){
-       let tempValue=Number(value)
-       newInput[name] = tempValue   
-       console.log(tempValue, "turn",name)
-    }else{
-     newInput[name] = value   
+
+    if (name == 'turnOver') {
+      let tempValue = Number(value)
+      newInput[name] = tempValue
+      console.log(tempValue, 'turn', name)
+    } else {
+      newInput[name] = value
     }
-    
-    
+
     setCompanyDetails(newInput)
   }
 
@@ -150,14 +149,24 @@ function Index() {
   const saveOrderData = (name, value) => {
     const newInput = { ...orderDetails }
 
-    if (name == "quantity") {
-      let tempVal = addPrefixOrSuffix(value.toString(), orderDetails.unitOfQuantity == "mt" ? "MT" : orderDetails.unitOfQuantity)
+    if (name == 'quantity') {
+      let tempVal = addPrefixOrSuffix(
+        value.toString(),
+        orderDetails.unitOfQuantity == 'mt'
+          ? 'MT'
+          : orderDetails.unitOfQuantity,
+      )
       newInput[name] = tempVal
     }
-    if (name == "orderValue") {
-      let tempVal = addPrefixOrSuffix(value.toString(),
-        orderDetails?.unitOfValue == "Millions" ? "Mn" :
-          orderDetails?.unitOfValue == "Crores" ? "Cr" : orderDetails?.unitOfValue)
+    if (name == 'orderValue') {
+      let tempVal = addPrefixOrSuffix(
+        value.toString(),
+        orderDetails?.unitOfValue == 'Millions'
+          ? 'Mn'
+          : orderDetails?.unitOfValue == 'Crores'
+          ? 'Cr'
+          : orderDetails?.unitOfValue,
+      )
       newInput[name] = tempVal
     } else {
       newInput[name] = value
@@ -188,19 +197,19 @@ function Index() {
   const chanegTermsCheck = () => {
     setTermsCheck(!termsCheck)
   }
-console.log(companyDetails.transactionType,"trans")
+  // console.log(companyDetails.transactionType,"trans")
   const submitData = () => {
- console.log("submit1")
-    // handleCurrOrder()  
-      if (companyDetails.transactionType === null) {
+    //  console.log("submit1")
+    // handleCurrOrder()
+    if (companyDetails.transactionType === null) {
       let toastMessage = 'Please Select a valid transaction Type'
       if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
-      }
+    }
     if (companyDetails.companyName === '') {
-       console.log("submit2")
+      console.log('submit2')
       let toastMessage = 'Please Fill The Company Name'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -236,7 +245,11 @@ console.log(companyDetails.transactionType,"trans")
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
-    } else if (Number(removePrefixOrSuffix(orderDetails.quantity)) <=0 || orderDetails.quantity === null || isNaN(Number(removePrefixOrSuffix(orderDetails.quantity)))) {
+    } else if (
+      Number(removePrefixOrSuffix(orderDetails.quantity)) <= 0 ||
+      orderDetails.quantity === null ||
+      isNaN(Number(removePrefixOrSuffix(orderDetails.quantity)))
+    ) {
       let toastMessage = 'Please Fill A valid quantity'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -250,7 +263,11 @@ console.log(companyDetails.transactionType,"trans")
     //   }
     //   return
     // }
-    else if (Number(removePrefixOrSuffix(orderDetails.orderValue)) <=0 || orderDetails.orderValue === null || isNaN(Number(removePrefixOrSuffix(orderDetails.orderValue)))) {
+    else if (
+      Number(removePrefixOrSuffix(orderDetails.orderValue)) <= 0 ||
+      orderDetails.orderValue === null ||
+      isNaN(Number(removePrefixOrSuffix(orderDetails.orderValue)))
+    ) {
       let toastMessage = 'Please Fill A valid order value'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -297,38 +314,40 @@ console.log(companyDetails.transactionType,"trans")
     //   }
     // }
     else {
-       console.log("submit3")
+      //  console.log("submit3")
       let docTypeArr = []
       documents.forEach((val, index) => {
         docTypeArr.push(val.typeDocument)
       })
       let sendOrder = { ...orderDetails }
-       let sendOrder1 = { ...companyDetails }
+      let sendOrder1 = { ...companyDetails }
       sendOrder.quantity = Number(removePrefixOrSuffix(orderDetails.quantity))
-      sendOrder.orderValue = Number(removePrefixOrSuffix(orderDetails.orderValue) * 10000000)
-      sendOrder1.turnOver = Number(removePrefixOrSuffix(companyDetails.turnOver) * 10000000)
+      sendOrder.orderValue = Number(
+        removePrefixOrSuffix(orderDetails.orderValue) * 10000000,
+      )
+      sendOrder1.turnOver = Number(
+        removePrefixOrSuffix(companyDetails.turnOver) * 10000000,
+      )
 
-      console.log(sendOrder.quantity, "orderDetails12",)
+      console.log(sendOrder.quantity, 'orderDetails12')
       const fd = new FormData()
       fd.append('companyProfile', JSON.stringify(sendOrder1))
       fd.append('orderDetails', JSON.stringify(sendOrder))
       fd.append('documentType', JSON.stringify(docTypeArr))
-     
+
       documents.forEach((val, index) => {
-        console.log(val.attachDoc,"doc")
-       fd.append(`documents`, val.attachDoc)
-        
+        // console.log(val.attachDoc,"doc")
+        fd.append(`documents`, val.attachDoc)
       })
-      
 
       // fd.append('documents', documents.document2)
       fd.append('gstList', JSON.stringify(gstListData))
-      console.log(sendOrder, isNaN(orderDetails.quantity), 'this is payload')
+      // console.log(sendOrder, isNaN(orderDetails.quantity), 'this is payload')
 
-       dispatch(CreateBuyer(fd))
+      dispatch(CreateBuyer(fd))
     }
   }
-  console.log(companyDetails, 'this is payload2')
+  // console.log(companyDetails, 'this is payload2')
   const clearData = () => {
     document.getElementById('CompanyDetailsForm').reset()
     document.getElementById('OrderDetailsForm').reset()
@@ -337,8 +356,15 @@ console.log(companyDetails.transactionType,"trans")
 
     // document.querySelector(companyInput).value = ''
   }
-  console.log(Number(removePrefixOrSuffix(orderDetails.orderValue)) <= 0, orderDetails.orderValue === isNaN, 'this is payload')
-  console.log(Number(removePrefixOrSuffix(orderDetails.quantity)) <= 0, 'orderDetails12')
+  console.log(
+    Number(removePrefixOrSuffix(orderDetails.orderValue)) <= 0,
+    orderDetails.orderValue === isNaN,
+    'this is payload',
+  )
+  console.log(
+    Number(removePrefixOrSuffix(orderDetails.quantity)) <= 0,
+    'orderDetails12',
+  )
   // console.log((orderDetails?.quantity?.slice(orderDetails?.quantity?.length - 2, orderDetails?.quantity?.length) === '' ), "orderDetails12")
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -429,11 +455,13 @@ console.log(companyDetails.transactionType,"trans")
           mobileFunction={mobileFunction}
           saveOrderData={saveOrderData}
           saveCompanyData={saveCompanyData}
+          orderDetails={orderDetails}
         />
         <OrderDetails
           darkMode={darkMode}
           saveOrderData={saveOrderData}
-          orderDetails={orderDetails} />
+          orderDetails={orderDetails}
+        />
         <Documents
           darkMode={darkMode}
           saveDocument={saveDocument}

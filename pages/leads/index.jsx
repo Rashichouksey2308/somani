@@ -35,9 +35,9 @@ function Index() {
   },[])
 
   const handleRoute = (buyer) => {
-    console.log("buyer",buyer)
+    console.log("buyer13324",buyer.company._id)
     sessionStorage.setItem('orderId', buyer._id);
-    // sessionStorage.getItem('company',buyer.company._id)
+    sessionStorage.setItem('companyID',buyer.company._id)
     dispatch(GetOrders( `?company=${buyer.company._id}` ))
     setTimeout(() => {
       Router.push('/order-list')
@@ -269,6 +269,7 @@ function Index() {
                           <td
                             className={`${styles.buyerName}`}
                             onClick={() => {
+                              console.log("this is buyer")
                               handleRoute(buyer)
                             }}
                           >
