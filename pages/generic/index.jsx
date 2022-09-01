@@ -6,7 +6,7 @@ import SalesAgreement from '../../src/components/SalesAgreement'
 import Cookies from 'js-cookie'
 import API from '../../src/utils/endpoints'
 import { useDispatch, useSelector } from 'react-redux'
-import { setPageName,setDynamicName } from '../../src/redux/userData/action'
+import { setPageName,setDynamicName ,setDynamicOrder} from '../../src/redux/userData/action'
 import Router from 'next/router';
 
 
@@ -19,10 +19,16 @@ function Index(props) {
   const [lastModified,setlastModified]=useState("")
 
   useEffect(() => {
+   if(window){
     dispatch(setPageName('generic'))
-    dispatch(setDynamicName(sessionStorage.getItem('genericID')))
+    dispatch(setDynamicOrder(sessionStorage.getItem('genericID')))
+    let data=JSON.parse(sessionStorage.getItem("genericSelected"))
+    console.log(data.company.companyName,"data.company.companyName")
+    dispatch(setDynamicName(data.company.companyName))
+   }
+
     
-  })
+  },[])
   useEffect(() => {
     if(window){
       setGenericData(JSON.parse(sessionStorage.getItem("genericSelected")))

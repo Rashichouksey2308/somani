@@ -271,7 +271,7 @@ const handleRemoveRowEx=(index)=>{
                       <th>S.NO.</th>
                       <th>NAME OF THE COMPANY</th>
                       <th>LIMIT AMOUNT</th>
-                      <th>OUTSTANDING LIMIT</th>
+                      <th>OUTSTANDING EXPOSURE</th>
                       <th>ACCOUNT CONDUCT</th>
                       <th>ACTION</th>
                     </tr>
@@ -397,6 +397,7 @@ const handleRemoveRowEx=(index)=>{
                               }}
                             >
                               <option>Select an Option</option>
+                              <option value="Poor">Poor</option>
                               <option value="Good">Good</option>
                               <option value="Satisfactory">Satisfactory</option>
                             </select>

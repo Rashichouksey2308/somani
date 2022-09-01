@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 let buyer = {
-  "name": "",
+  "name": "Indo German International Private Limited",
 
   "branchName": "",
   
@@ -15,13 +15,16 @@ let buyer = {
 function Index(props) {
   const [buyerData, setBuyerData] = useState(buyer)
   useEffect(() => {
-    setBuyerData({...buyerData,name:props?.order?.company?.companyName})
+    setBuyerData({...buyerData,name:"Indo German International Private Limited"})
   },[props.order])
+  console.log(buyerData,"buyerData")
   const [gstin,setGstin]=useState("")
   const [list, setList] = useState([])
+  const [shortName,setShotName]=useState("IGI")
   const [addressList,setAddressList]=useState([])
   const [docList,setDocList]=useState([])
   const [doc,setdoc]=useState({attachDoc:""})
+  const[pan,setPan]=useState("AAACI3028D")
   const [newAddress,setNewAddress]=useState(
           {
           "addressType": "Registered",
@@ -51,7 +54,7 @@ function Index(props) {
       if (sessionStorage.getItem("Buyer")) {
         let savedData = JSON.parse(sessionStorage.getItem("Buyer"))
         let buyer = {
-          "name": savedData.name,
+          "name": savedData.name || "Indo German International Private Limited",
           "branchName": savedData.branchName,
 
           
@@ -72,7 +75,7 @@ function Index(props) {
         setBuyerData(buyer)
       }else{
         let buyer = {
-          "name": props?.data?.name,
+          "name": props?.data?.name ||"Indo German International Private Limited",
           "branchName": props?.data?.branchName,
 
           
@@ -417,6 +420,32 @@ const cancelAddress=()=>{
   setAddressType("Registered")
 
 }
+useEffect(() => {
+ if(buyerData?.name){
+   if(buyerData.name=="Indo German International Private Limited"){
+        setShotName("IGIPL")
+        setPan("AAACI3028D")
+        if(buyerData.branchName=="Delhi"){
+        setGstin("07AAACI3028D1Z4")
+        }else if(buyerData.branchName=="Vizag"){
+        setGstin("37AAACI3028D2Z0")
+        }else{
+        setGstin("")
+        }
+}
+    if(buyerData.name=="Emergent Industrial Solution limited"){
+         setShotName("EISL")
+          setPan("AAACS8253L")
+          if(buyerData.branchName=="Delhi"){
+          setGstin("07AAACS8253L1Z0")
+          }else if(buyerData.branchName=="Vizag"){
+          setGstin("37AAACS8253L1ZX")
+          }else{
+          setGstin("")
+          }
+      }  
+ }               
+},[buyerData.name,buyerData.branchName])
   return (
     <>
       <div className={`${styles.container} vessel_card`}>
@@ -434,9 +463,11 @@ const cancelAddress=()=>{
                   onChange={(e) => {
                     handleInput(e.target.name, e.target.value)
                   }}
+
                 >
-                 <option>Select an option</option>
-                  <option selected value={props?.order?.company?.companyName}>{props?.order?.company?.companyName}</option>
+                  <option>Select an option</option>
+                  <option  value={`Indo German International Private Limited`}>{`Indo German International Private Limited`}</option>
+                  <option  value={`Emergent Industrial Solution limited`}>{`Emergent Industrial Solution limited`}</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Name<strong className="text-danger">*</strong>
@@ -463,11 +494,7 @@ const cancelAddress=()=>{
                   name="branchName"
                   value={buyerData.branchName}
                   onChange={(e) => {
-                     if(e.target.value=="Delhi"){
-                      setGstin("07AAACI3028D1Z4")
-                     }else{
-                      setGstin("37AAACI3028D2Z0")
-                     }
+                   
                     handleInput(e.target.name, e.target.value)
                     
                   }}
@@ -475,7 +502,7 @@ const cancelAddress=()=>{
                      <option>Select an option</option>
                     
                     <option value="Delhi">Delhi</option>
-                       <option value="Andhra Pradesh">Andhra Pradesh</option>
+                       <option value="Vizag">Vizag</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Branch Name<strong className="text-danger">*</strong>
@@ -489,7 +516,7 @@ const cancelAddress=()=>{
             </Form.Group>
             <div className={`${styles.info} col-md-4 col-sm-6`}>
               <span>PAN NO.</span>
-              <p>27AAATW4183C2ZG</p>
+              <p>{pan}</p>
             </div>
             <div className={` ${styles.info} col-md-4 col-sm-6`}>
               <span>GSTIN.</span>
@@ -497,7 +524,7 @@ const cancelAddress=()=>{
             </div>
             <div className={` ${styles.info} col-md-4 col-sm-6`}>
               <span>Short Name</span>
-              <p>IGI</p>
+              <p>{shortName}</p>
             </div>
 
           </div>
@@ -559,7 +586,7 @@ const cancelAddress=()=>{
                            <option>Select an option</option>
                           <option value="Registered">Registered Office</option>
                           <option value="Branch">Branch </option>
-                            <option value="Supplier">Supplier Address </option>
+                            
                           
                         </select>
                         <Form.Label
@@ -962,7 +989,7 @@ const cancelAddress=()=>{
                     )}
                       </td>
                       </td>
-                      <td className={`d-flex`}>
+                      <td>
                         {/* <img  className={`mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
                         <img  src="/static/upload.svg" alt="upload"/>
                       </td>
@@ -1004,8 +1031,7 @@ const cancelAddress=()=>{
                       </div>
                     )}
                       </td>
-                      <td className={`d-flex`}>
-                        
+                      <td>                        
                         <img src="/static/upload.svg" alt="upload"/>
                       </td>
 
@@ -1043,7 +1069,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                            <option>Select an option</option>
                           <option value="Registered">Registered </option>
                           <option value="Branch">Branch </option>
-                          <option value="Supplier">Supplier  </option>
+                          
                           
                         </select>
                         <Form.Label

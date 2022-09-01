@@ -39,7 +39,7 @@ export const GetPanGst = (payload) => async (dispatch, getState, api) => {
         dispatch(getPanGstSuccess(response.data.data))
       } else {
         dispatch(getPanGstFailed(response.data.data))
-        let toastMessage = 'FAILED TO GET COMPANY PAN & GST'
+        let toastMessage = 'FAILED TO GET COMPANY PAN'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
       }

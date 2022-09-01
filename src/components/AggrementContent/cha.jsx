@@ -49,15 +49,15 @@ function Index(props) {
    const [addressEditType,setAddressEditType]=useState("Registered")
  
 
-  useEffect(() => {
-    let tempArr=chaState.authorisedSignatoryDetails
-    tempArr.forEach((val,index)=>{
-      val.actions = "true"
-    })
-    setList(tempArr)
-    let tempArr2=chaState.addresses
-    setAddressList(tempArr2)
-  },[])
+  // useEffect(() => {
+  //   let tempArr=chaState.authorisedSignatoryDetails
+  //   tempArr.forEach((val,index)=>{
+  //     val.actions = "true"
+  //   })
+  //   setList(tempArr)
+  //   let tempArr2=chaState.addresses
+  //   setAddressList(tempArr2)
+  // },[])
  
 useEffect(() => {
    if(window){
@@ -91,7 +91,7 @@ useEffect(() => {
        setChaState(supplier)
     }
    }
-  },[])
+  },[props])
   let masterList=[
     {name:"Bhawana Jain",designation:"Vice President (Finance & Accounts)",email:"bhawanajain@somanigroup.com",phoneNo:""},
     {name:"Vipin Kumar",designation:"Manager Accounts",email:"vipinrajput@somanigroup.com",phoneNo:""},
@@ -150,7 +150,7 @@ return newState;
 
  
    
-  },[props])
+  },[props.saveData,props.submitData])
   const onEdit=(index)=>{
     let tempArr=list;
     setList(prevState => {
@@ -942,7 +942,7 @@ setEditAddress(
                     )}
                       </td>
                       </td>
-                      <td className={`d-flex`}>
+                      <td>
                         {/* <img  className={`mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
                         <img  src="/static/upload.svg" alt="upload"/>
                       </td>
@@ -984,7 +984,7 @@ setEditAddress(
                       </div>
                     )}
                       </td>
-                      <td className={`d-flex`}>
+                      <td>
                         {/* <img onClick={()=>removeDocArr(index)} className={`mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
                         <img src="/static/upload.svg" alt="upload"/>
                       </td>

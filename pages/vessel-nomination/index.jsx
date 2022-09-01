@@ -3,7 +3,8 @@ import styles from './index.module.scss'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetAllVessel, GetVessel } from '../../src/redux/vessel/action'
-import { GetOrders } from '../../src/redux/registerBuyer/action'
+import { SearchLeads } from '../../src/redux/buyerProfile/action.js'
+
 import Filter from '../../src/components/Filter'
 import {
   setPageName,
@@ -12,20 +13,27 @@ import {
 } from '../../src/redux/userData/action'
 
 function Index() {
+
+  const [serachterm, setSearchTerm] = useState('')
+
   const dispatch = useDispatch()
-  const [currentPage, setCurrentPage] = useState(0);
+
+  const [currentPage, setCurrentPage] = useState(0)
+
+  const { searchedLeads } = useSelector((state) => state.order)
+
   const { allVessel, Vessel } = useSelector((state) => state.vessel)
-  console.log(allVessel, Vessel, 'allVessel')
+  console.log(allVessel, 'allVessel')
   useEffect(() => {
     if (window) {
-      sessionStorage.setItem('loadedPage', "Agreement & Lc Module")
+      sessionStorage.setItem('loadedPage', 'Agreement & Lc Module')
       sessionStorage.setItem('loadedSubPage', `Vessel Nomination`)
       sessionStorage.setItem('openList', 2)
     }
   }, [])
   useEffect(() => {
     dispatch(GetAllVessel(`?page=${currentPage}&limit=7`))
-  }, [])
+  }, [currentPage])
 
   useEffect(() => {
     dispatch(setPageName('vessel'))
@@ -38,8 +46,21 @@ function Index() {
     sessionStorage.setItem('VesselId', vessel._id)
     dispatch(GetVessel(`?vesselId=${vessel._id}`))
     setTimeout(() => {
-      Router.push('/vessel-nomination/id')
+      Router.push('/vessel')
     }, 500)
+  }
+  const handleSearch = (e) => {
+    const query = `${e.target.value}`
+    setSearchTerm(query)
+    if (query.length >= 3) {
+      dispatch(SearchLeads(query))
+    }
+  }
+
+  const handleFilteredData = (e) => {
+    setSearchTerm('')
+    const id = `${e.target.id}`
+    dispatch(GetAllVessel(`?company=${id}`))
   }
 
   return (
@@ -58,11 +79,28 @@ function Index() {
                 />
               </div>
               <input
+                value={serachterm}
+                onChange={handleSearch}
                 type="text"
                 className={`${styles.formControl} form-control formControl `}
                 placeholder="Search"
               />
             </div>
+            {searchedLeads && serachterm && (
+              <div className={styles.searchResults}>
+                <ul>
+                  {searchedLeads.data.data.map((results, index) => (
+                    <li
+                      onClick={handleFilteredData}
+                      id={results._id}
+                      key={index}
+                    >
+                      {results.companyName} <span>{results.customerId}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
           <Filter />
           {/* <a href="#" className={`${styles.filterList} filterList `}>
@@ -85,7 +123,10 @@ function Index() {
             <div
               className={`${styles.pageList} d-flex justify-content-end align-items-center`}
             >
-              <span>Showing Page {currentPage + 1}  out of {Math.ceil(allVessel?.totalCount / 7)}</span>
+              <span>
+                Showing Page {currentPage + 1} out of{' '}
+                {Math.ceil(allVessel?.totalCount / 7)}
+              </span>
               <a
                 onClick={() => {
                   if (currentPage === 0) {
@@ -140,6 +181,7 @@ function Index() {
                       />
                     </th>
                     <th>BUYER NAME</th>
+                    <th>COMMODITY</th>
                     <th>CREATED BY</th>
                     <th>CREATED ON</th>
                     <th>STATUS</th>
@@ -150,13 +192,14 @@ function Index() {
                   {allVessel &&
                     allVessel?.data?.map((vessel, index) => (
                       <tr key={index} className="table_row">
-                        <td>{vessel?.order?._id}</td>
+                        <td>{vessel?.order?.orderId ? vessel?.order?.orderId : vessel?.order?.applicationId }</td>
                         <td
                           className={styles.buyerName}
                           onClick={() => handleRoute(vessel)}
                         >
                           {vessel?.company?.companyName}
                         </td>
+                        <td>{vessel?.order?.commodity}</td>
                         <td>RM-Sales</td>
                         <td>22-02-2022</td>
                         <td>

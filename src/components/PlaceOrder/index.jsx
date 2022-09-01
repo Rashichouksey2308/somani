@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react'
+import React, { useState ,useEffect} from 'react'
 import styles from './index.module.scss'
 import NewOrder from '../NewOrder'
 import NewShipmentDetails from '../NewShipmentDetails'
@@ -23,9 +23,8 @@ import { GetOrders } from '../../redux/registerBuyer/action'
 const Index = () => {
 
   const dispatch = useDispatch()
-  let compId = sessionStorage.getItem('companyID',)
-  dispatch(GetOrders(`?company=${compId}`))
-  dispatch(GetCreditLimit({ companyId: compId }))
+  
+  
 
   const { singleOrder } = useSelector((state) => state.buyer)
   const { creditData } = useSelector((state) => state.companyDetails)
@@ -64,7 +63,11 @@ const Index = () => {
     shipmentType: '',
   })
 
-
+useEffect(() => { 
+  let compId = sessionStorage.getItem('companyID',)
+  dispatch(GetOrders(`?company=${compId}`))
+  dispatch(GetCreditLimit({ companyId: compId }))
+},[])
   const saveOrderData = (name, value) => {
     const newInput = { ...orderData }
     newInput[name] = value

@@ -19,7 +19,9 @@ const Index = ({
   handleCommunication,
   orderDetails
 }) => {
+
   const { gstList } = useSelector((state) => state.buyer)
+
   const dispatch = useDispatch()
   console.log(orderDetails,"orderDetails")
   // console.log(gstList?.data, "THIS IS GST LIST")
@@ -213,13 +215,24 @@ const Index = ({
             <div className={`${styles.each_input} col-md-4 col-sm-6`}>
               <input
                 type="text"
-                onBlur={(e) => saveCompanyData(e.target.name, e.target.value)}
+                onBlur={(e) => {saveCompanyData(e.target.name, e.target.value);}}
+                // onChange={handleSearch}
                 value={gstList?.data?.companyData?.companyName}
                 id="companyInput"
                 name="companyName"
                 className={`${styles.input_field} ${styles.company_name} input form-control`}
                 required
               />
+{/*              
+              {gettingCompanyPanResponse && serachterm && <div className={styles.searchResults}>
+                <ul>
+                  {gettingCompanyPanResponse?.data?.map((results, index) => (
+                    <li onClick={handleFilteredData} id={results._id} key={index}>{results.companyName} </li>
+                  ))}
+                </ul>
+              </div>}
+           */}
+            {/* <Filter/> */}
               <label
                 className={`${styles.label_heading} label_heading`}
                 id="textInput"

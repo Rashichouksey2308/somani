@@ -65,9 +65,6 @@ function Index() {
     }
   }, [])
 
-  // console.log(marginData,'marginData')
-
-
   const [forCalculation, setForCalculation] = useState({
     isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || '',
     status: marginData?.status || '',
@@ -1810,7 +1807,7 @@ function Index() {
                                 className={`${styles.label_heading} label_heading`}
                                 id="textInput"
                               >
-                                Company Address*
+                                Company Address
                                 <strong className="text-danger">*</strong>
                               </label>
                             </div>

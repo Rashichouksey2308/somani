@@ -7,7 +7,7 @@ import moment from 'moment'
 
 
 function Index(props) {
-  console.log(props.preview,"55")
+  console.log(props,"55")
   const [data, setData] = useState({
     seller: "",
     buyer: "",
@@ -43,9 +43,9 @@ function Index(props) {
       
         setData({
           seller: data?.seller,
-          buyer: data?.buyer,
+          buyer: data?.buyer?.toLowerCase(),
           shortseller: data?.shortseller,
-          shortbuyer: data?.shortbuyer,
+          shortbuyer:`${data?.buyer=="Indo German International Private Limited"?"IGPL":"EISL"}`,
           sellerSignature: data?.sellerSignature,
           buyerSignature: data?.buyerSignature,
           dateOfExecution: data?.dateOfExecution,
@@ -70,21 +70,26 @@ function Index(props) {
       } else {
         const data = JSON.parse(sessionStorage.getItem("genericSelected"))
         let exe;
+        let dat=new Date();
         data?.placeOfExecution?.execution?.forEach((val, index) => {
           if (val.agreementName == "Sales Agreement") {
             exe = val.place
+            if(val.dateOfExecution){
+              dat=moment(val.dateOfExecution).format("DD-MM-YYYY")
+            }
           }
         })
-
+       
+        console.log(dat,"datasallelll")
 
         setData({
           seller: data?.seller?.name,
-          buyer: "Indo German International",
+          buyer: data?.buyer?.name,
           shortseller: data?.seller.shortName,
-          shortbuyer: "IGI",
+          shortbuyer:  `${data?.buyer?.name=="Indo German International Private Limited"?"IGPL":"EISL"}`,
           sellerSignature: "",
           buyerSignature: "",
-          dateOfExecution: "",
+          dateOfExecution: dat,
           placeOfExecution: exe,
           details: data?.supplier?.name,
           detailsOfEndBuyer: "",
@@ -94,8 +99,10 @@ function Index(props) {
           totalOrderValue: data?.order?.orderValue,
           lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
           dischargePort: data?.order?.portOfDischarge,
-          lastDate: data?.order?.ExpectedDateOfShipment,
-          terms: data?.order?.deliveryTerm,
+
+          lastDate: data?.order.shipmentDetail.lastDateOfShipment,
+
+          terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed=="Yes"?"Full":"Partial"}`,
           addComm: data?.additionalComments?.comments,
           spec: data?.productSpecifications?.comments,
           unitOfGrade:data.order.unitOfGrade,
@@ -185,9 +192,9 @@ const salesContract = (changeHandler, data, preview) => {
           <Row className={`${styles.row}`}>
             <Col md={1} className={styles.left}>2</Col>
             <Col md={4} className={styles.left}>Buyer</Col>
-            <Col md={7} className={styles.right}>
+            <Col md={7} className={styles.right} style={{textTransform:"capitalize"}}>
              
-                <>{data?.buyer}</>
+                <>{data?.buyer.toLowerCase()}</>
               
             </Col>
           </Row>
@@ -307,7 +314,7 @@ const salesContract = (changeHandler, data, preview) => {
             <Col md={1} className={styles.left}>17</Col>
             <Col md={4} className={styles.left}>Remedies Available to the Seller</Col>
             <Col md={7} className={styles.right}>
-              <ol type='' style={{listStyle:'lower-roman'}}>
+              <ol type='A'>
                 <li>
                   <p className="text_sales">In the event of the failure of the Buyer to make timely payment as agreed to in terms of the Clause Payment Terms hereinabove, the Buyer shall pay the overdue interest @ 18% p.a. to the Seller for each day of delay.  However, the delay in making the payment shall in no event exceed 15 days beyond the due date of making the payment as specified hereinabove.
                   </p>
@@ -394,11 +401,8 @@ const salesContract = (changeHandler, data, preview) => {
             <Col md={1} className={styles.left}>20</Col>
             <Col md={4} className={styles.left}>Termination</Col>
             <Col md={7} className={styles.right}>
-              <ol type='1'>
-                <li>In the event the Buyer commits any breach of the terms of the agreement, then the Seller may, by giving thirty (30) days prior written notice to the Buyer, terminate this Agreement without liability and charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of the Goods already shipped by the Seller at the instance of the Buyer. Provided further, the Parties hereto agree that the Seller may immediately terminate this Agreement without providing any notice to the Buyer upon the Buyer, or the Buyer's shareholders commencing a voluntary proceeding under any applicable bankruptcy, insolvency, winding up or other similar law now or hereafter in effect (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the entry of an order for relief in an involuntary proceeding under any such law (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the appointment or taking possession by a resolution professional, Receiver, liquidator, assignee (or similar official) for any or a substantial part of its property; or the Buyer has involuntarily become the subject of proceedings (including filing of an application/ petition for corporate insolvency resolution) under the Insolvency &amp; Bankruptcy Code, 2016 or an order has been made by the appropriate authority for winding up of the Buyer.<br/><br/>
-                In the event that conditions of Force Majeure continue so that the Buyer’s obligations remain suspended for a period or periods amounting in aggregate to sixty (60) days in any consecutive period of ninety (90) days, and at the end of said period or at anytime thereafter, then the Seller may give thirty (30) days prior written notice to the Buyer that the Seller intends to terminate this Agreement. At the expiration of the thirty (30) days, the Seller at its discretion may terminate this Agreement forthwith without any liability or charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of the Goods.</li>
-              </ol>
-
+              In the event the Buyer commits any breach of the terms of the agreement, then the Seller may, by giving thirty (30) days prior written notice to the Buyer, terminate this Agreement without liability and charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of the Goods already shipped by the Seller at the instance of the Buyer. Provided further, the Parties hereto agree that the Seller may immediately terminate this Agreement without providing any notice to the Buyer upon the Buyer, or the Buyer's shareholders commencing a voluntary proceeding under any applicable bankruptcy, insolvency, winding up or other similar law now or hereafter in effect (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the entry of an order for relief in an involuntary proceeding under any such law (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the appointment or taking possession by a resolution professional, Receiver, liquidator, assignee (or similar official) for any or a substantial part of its property; or the Buyer has involuntarily become the subject of proceedings (including filing of an application/ petition for corporate insolvency resolution) under the Insolvency &amp; Bankruptcy Code, 2016 or an order has been made by the appropriate authority for winding up of the Buyer.<br/><br/>
+              In the event that conditions of Force Majeure continue so that the Buyer's obligations remain suspended for a period or periods amounting in aggregate to sixty (60) days in any consecutive period of ninety (90) days, and at the end of said period or at anytime thereafter, then the Seller may give thirty (30) days prior written notice to the Buyer that the Seller intends to terminate this Agreement. At the expiration of the thirty (30) days, the Seller at its discretion may terminate this Agreement forthwith without any liability or charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of the Goods.
             </Col>
           </Row>
           <Row className={`${styles.row}`}>
@@ -536,7 +540,7 @@ const salesContract = (changeHandler, data, preview) => {
         <div className={`${styles.inputsContainer}`}>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Date of Execution</Col>
-            <Col md={7} className={styles.right}>{moment(new Date()).format("DD-MM-YYYY")}</Col>
+            <Col md={7} className={styles.right}>{moment(data.dat).format("DD-MM-YYYY")}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Place of Execution</Col>
@@ -614,46 +618,49 @@ const salesContract = (changeHandler, data, preview) => {
 
 
         </div>
-        <p className=" text_sales"> <strong>SIGNATURE PAGE</strong></p>
+        <p className=" text_sales pb-3"> <strong>SIGNATURE PAGE</strong></p>
         <div className={`row`}>
-          <Col md={12} className={`d-flex justify-content-around`}>
-            <p className="text_sales  m-0">(Seller)</p>
-            <p className="text_sales  m-0">(Buyer)</p>
-
-          </Col>
-          <Col md={12} className={`d-flex justify-content-around`}>
+          <Col md={6} >
+            <p className="text_sales m-0">Seller</p>
+            
             {
               preview ?
                 <><span>{data?.buyerSignature}</span></>
                 :
-                <>
-                  <input
+                <><div className='form-group mt-5 pt-3'>
+                  <textarea
+                    rows={3}
                     onChange={(e) => {
                       changeHandler(e.target.name, e.target.value)
                     }}
                     value={data?.buyerSignature}
                     name="buyerSignature"
                     type="text"
-                    placeholder="" className={`${styles.para} input`}></input>
+                    placeholder="" className={`${styles.para} w-100 mt-5 input`}>
+                    </textarea>
+                  </div>
                 </>
-
             }
-            {
+          </Col>
+          <Col md={6} >
+            <p className="text_sales m-0">Buyer</p> {
               preview ?
                 <><span> {data?.sellerSignature}</span></>
                 :
-                <>
-                  <input
-                    onChange={(e) => {
-                      changeHandler(e.target.name, e.target.value)
-                    }}
-                    type="text"
-                    value={data?.sellerSignature}
-                    name="sellerSignature"
-                    placeholder="" className={`${styles.para} input`}></input>
+                <><div className='form-group mt-5 pt-3'>
+                    <textarea
+                      rows={3}
+                      onChange={(e) => {
+                        changeHandler(e.target.name, e.target.value)
+                      }}
+                      type="text"
+                      value={data?.sellerSignature}
+                      name="sellerSignature"
+                      placeholder="" className={`${styles.para} w-100 mt-5 input`}>
+                    </textarea>
+                  </div>
                 </>
             }
-
           </Col>
 
         </div>

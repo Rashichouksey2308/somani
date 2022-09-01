@@ -7,9 +7,15 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAllTermsheet, GetTermsheet } from 'redux/buyerProfile/action'
 import { setPageName, setDynamicName, setDynamicOrder } from '../../redux/userData/action'
 import { SearchLeads } from 'redux/buyerProfile/action'
-import { getDisplayName } from 'next/dist/shared/lib/utils'
+// import { getDisplayName } from 'next/dist/shared/lib/utils'
 import Filter from '../Filter'
 import moment from 'moment'
+import {
+  GetAllBuyer,
+  GetAllOrders,
+  GetBuyer,
+} from '../../redux/registerBuyer/action'
+import { GetCompanyDetails } from '../../redux/companyDetail/action'
 
 function Index() {
   const [currentPage, setCurrentPage] = useState(0);
@@ -43,6 +49,18 @@ function Index() {
     setSearchTerm("")
     const id = `${e.target.id}`
     dispatch(getAllTermsheet(`?company=${id}`))
+  }
+  const handleRoutePreview = (buyer) => {
+    console.log(buyer, 'butyer')
+    console.log("getDetails payload", buyer.company._id)
+
+    // dispatch(GetAllOrders({ orderId: buyer._id }))
+    //dispatch(GetDocuments({order: buyer._id}))
+    dispatch(GetCompanyDetails({ company: buyer.company._id }))
+    sessionStorage.setItem('orderID', buyer._id)
+    sessionStorage.setItem('companyID', buyer.company._id)
+    Router.push('/review')
+
   }
 
   return (
@@ -145,13 +163,13 @@ function Index() {
                       <th>EXISTING CUSTOMER</th>
                       <th>CREATED ON</th>
                       <th>STATUS</th>
-                      <th>PREVIEW</th>
+                      <th>PREVIEW CAM</th>
                     </tr>
                   </thead>
                   <tbody>
                     {allTermsheets && allTermsheets?.data?.map((sheet, index) => (
                       <tr key={index} className={`${styles.table_row} table_row`}>
-                        <td>{sheet.order.applicationId ? sheet.order.applicationId : sheet.order.orderId}</td>
+                        <td>{sheet.order.orderId ? sheet.order.orderId : sheet.order.applicationId  }</td>
                         <td onClick={() => { handleRoute(sheet) }} className={`${styles.buyerName}`}>{sheet.company.companyName}</td>
                         <td>{sheet.order.existingCustomer ? "Yes" : "No"}</td>
                         <td>{moment((sheet.createdAt).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</td>
@@ -160,19 +178,15 @@ function Index() {
                           {sheet.status}
                         </td>
                         <td>
-                          {sheet.status === 'Approved' ? <img
+                          <img
                             src="/static/preview.svg"
                             className="img-fluid"
                             alt="Preview"
                             onClick={() => {
-                              dispatch(GetTermsheet(`?company=${sheet.company._id}`))
-                              console.log(sheet.order, "sheet.order")
-                              dispatch(setDynamicName(sheet.order.orderId))
-                              // dispatch(setDynamicOrder(sheet.))
-                              Router.push("/termsheet-preview")
+                              handleRoutePreview(sheet)
                             }}
 
-                          /> : null}
+                          />
                         </td>
                       </tr>
                     ))}

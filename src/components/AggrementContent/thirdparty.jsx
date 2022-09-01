@@ -75,10 +75,11 @@ console.log(deliveryData,"deliveryData")
                   value={deliveryData}
                 >
                  <option>Select an option</option>
-                  <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
-                  <option value="India">India</option>
-                  <option value="America">America</option>
-                  <option value="Russia">Russia</option>
+                  <option value="CIF	Cost Insurance Freight Incoterms 2000">CIF	Cost Insurance Freight Incoterms 2000</option>
+                  <option value={`CFR	Cost & Freight Incoterms 2000`}>{`CFR	Cost & Freight Incoterms 2000`}</option>
+                  <option value="DDP	Delivery Duties Paid Incoterms 2000">DDP	Delivery Duties Paid Incoterms 2000</option>
+                  <option value="EXW	Ex Works Incoterms 2000">EXW	Ex Works Incoterms 2000</option>
+                  <option value="FOB	Free on Board Incoterms 2000">FOB	Free on Board Incoterms 2000</option>
                 </select>
                 <Form.Label
                   className={`${styles.label_heading} ${styles.select}  label_heading`}

@@ -89,18 +89,7 @@ const [addressEditType,setAddressEditType]=useState("Registered")
   {name:"Fatima Yannoulis ",designation:"Chief Financial Officer",email:"fatima@indointertrade.ch",phoneNo:""}
   ]
 
-// useEffect(() => {
-//   let tempArr=supplierState.authorisedSignatoryDetails
-//   tempArr.forEach((val,index)=>{
-//   val.actions = "true"
-//   })
-//   setList(tempArr)
-//   let tempArr2=supplierState.addresses
-//   setAddressList(tempArr2)
-//   let tempArr3=supplierState?.multiPartyAddresses
-//   setMultiList(tempArr3)
-//   setSupplierState({...supplierState,name:props?.order?.supplierName})
-// },[props])
+
  
 console.log(props?.order?.supplierName,"props?.order?.supplierName")
 
@@ -364,7 +353,7 @@ setList(prevState => {
 
 }
 const handleAddressInput=()=>{
-if(props.addressValidation(addressType,newAddress)){
+if(props.addressValidation(addressType,newAddress,false)){
 setAddressList(current => [...current, newAddress])
   
 setNewAddress({
@@ -1189,7 +1178,7 @@ setEditAddress(
                     )}
                       </td>
                       </td>
-                      <td className={`d-flex`}>
+                      <td>
                         {/* <img  className={`mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
                         <img  src="/static/upload.svg" alt="upload"/>
                       </td>
@@ -1233,7 +1222,7 @@ setEditAddress(
                       </div>
                     )}
                       </td>
-                      <td className={`d-flex`}>
+                      <td>
                         {/* <img onClick={()=>removeDocArr(index)} className={`mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
                         <img src="/static/upload.svg" alt="upload"/>
                       </td>
@@ -1253,8 +1242,8 @@ setEditAddress(
         <div className={styles.manufacture}>
         
            <span className={``}>{props.multiPartValue} Details</span>
-            
-            <Form.Group className={`${styles.form_group} d-flex  col-md-8 col-sm-6`}>
+          <div className='row mt-4'>
+            <Form.Group className={`${styles.form_group} d-flex col-md-8 col-sm-6`}>
               <Form.Control
                 className={`${styles.input_field} input form-control`}
                 required
@@ -1273,6 +1262,7 @@ setEditAddress(
                     alt="Search"
                   />
             </Form.Group>
+          </div>
           <div className={`${styles.addressContainer} m-0`}>
           {multiList?.length > 0 ? <span className={`mb-3`}> {props.multiPartValue} Addresses</span>:null}
           <div className={`${styles.containerChild} d-flex justify-content-between flex-wrap  `}>

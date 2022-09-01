@@ -24,16 +24,26 @@ function Index() {
  const setPreviewValue=(val)=>{
   setPreview(val)
  }
+ const [name,setName]=useState("")
+ useEffect(() => {
+    if (window) {
+      const data = JSON.parse(sessionStorage.getItem("genericSelected"))
+        setName(data.company.companyName)
+      
+    }
+  }, [])
   return (
     <div className={`${styles.dashboardTab} w-100`}>
       <div className={`${styles.tabHeader} tabHeader `}>
-        <div className={`${styles.tab_header_inner} d-flex align-items-center`}>
+        <div
+          className={`${styles.tab_header_inner} ml-3 d-flex align-items-center`}
+        >
           <img
             className={`${styles.arrow} img-fluid image_arrow mr-2`}
             src="/static/keyboard_arrow_right-3.svg"
             alt="arrow"
           />
-          <h1 className={`${styles.title} heading`}>Name</h1>
+          <h1 className={`${styles.title} heading `}>{name}</h1>
           <div className={'ml-auto d-flex'}>
             <div className="ml-auto mr-2">
               <button
@@ -149,9 +159,9 @@ function Index() {
                 >
                   <div className="accordion shadow-none" id="profileAccordion">
                     <Contract
-                    preview={preview}
-                    setPreviewValue={setPreviewValue}
-                     />
+                      preview={preview}
+                      setPreviewValue={setPreviewValue}
+                    />
                   </div>
                 </div>
                 <div

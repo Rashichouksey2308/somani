@@ -69,6 +69,67 @@
         border-radius: 24px !important;
         border: 2px solid #d2d7e5 !important;
       }
+      .searchResults {
+        width: 100%;
+        top: 65px;
+        z-index: 1;
+        padding: 10px 30px;
+        position: absolute;
+        border-radius: 24px;
+        background: #ffffff;
+        border: 2px solid #d2d7e5;
+        @include respond(md-desktop) {
+          padding: 8px 20px;
+        }
+        @include respond(sm-desktop) {
+        }
+        &::after {
+          top: -15px;
+          left: 40px;
+          content: '';
+          position: absolute;
+          border-left: 12px solid transparent;
+          border-right: 12px solid transparent;
+          border-bottom: 15px solid #d2d7e5;
+        }
+        ul {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          li {
+            font-size: 18px;
+            color: #3687e8;
+            font-weight: bold;
+            line-height: 1.5;
+            padding: 7px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #d2d7e5;
+            @include respond(md-desktop) {
+              font-size: 16px;
+            }
+            @include respond(sm-desktop) {
+              font-size: 14px;
+            }
+            span {
+              font-size: 15px;
+              font-weight: 500;
+              color: #8492a6;
+              margin-left: 10px;
+            }
+            @include respond(md-desktop) {
+              font-size: 14px;
+            }
+            @include respond(sm-desktop) {
+              font-size: 12px;
+            }
+            &:last-child {
+              border-bottom: none;
+            }
+          }
+        }
+      }
     }
     .filterIcon {
       width: 48px;
