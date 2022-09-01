@@ -42,10 +42,13 @@
         border: 1px solid #CAD6E6;
     }
     .dashboard_form {
-        padding: 25px 35px !important;
+        padding: 25px 35px;
         // border-top: 2px solid #CAD6E6;
+        .comment_inner {
+            padding: 25px 35px;
+        }
         .sub_heading {
-            margin-top: 20px;
+            // margin-top: 20px;
             font-size: 20px;
             line-height: 25px;
             font-weight: bold;
@@ -61,8 +64,10 @@
             padding: 25px 0px 25px 0px;
         }
         .comment_para {
-            padding: 20px 0;
-            border-bottom: 1px solid #D9DDE8;
+            padding: 20px;
+            border-radius: 4px;
+            margin: 27px 0 35px;
+            border: 1px solid #0000001F;
             .comment {
                 //color: #111111;
                 font-size: 20px;
@@ -86,7 +91,8 @@
                 box-shadow: none;
                 background: none;
             }
-            &:first-child {
+            &:last-child {
+                padding-bottom: 0;
                 border-bottom: none;
             }
         }
@@ -139,7 +145,6 @@
     }
     .sanction_terms {
         padding: 20px 0 20px 35px;
-        margin: 0 -35px;
         .sanction_heading {
             font-size: 20px;
             line-height: 25px;
@@ -240,8 +245,8 @@
         }
     }
     .datatable {
-        margin: 30px;
         border-radius: 6px;
+        margin: 67px 35px 40px;
         h5 {
             font-size: 20px;
             font-weight: bold;

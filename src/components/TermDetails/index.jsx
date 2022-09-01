@@ -32,12 +32,12 @@ const Index = ({
       console.log('herer12')
 
       setIsBlSelected('DaysfromBLDate')
-      onChangePaymentDueDate({
-        target: { value: '', id: 'daysFromVesselDischargeDate' },
-      })
+      // onChangePaymentDueDate({
+      //   target: { value: '', id: 'daysFromVesselDischargeDate' },
+      // })
     } else if (value === 'DaysfromVesselDischargeDate') {
       setIsBlSelected('DaysfromVesselDischargeDate')
-      onChangePaymentDueDate({ target: { value: '', id: 'daysFromBlDate' } })
+      // onChangePaymentDueDate({ target: { value: '', id: 'daysFromBlDate' } })
     } else {
       setIsBlSelected(value)
     }
@@ -201,13 +201,13 @@ const Index = ({
               </label>
             </div>
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-              <div className="d-flex">
+              <div
+                className={`${styles.suffixWrapper} d-flex text-muted`}
+                customSuffix="%"
+              >
                 <input
                   id="tolerance"
-                  value={addPrefixOrSuffix(
-                    termsheetDetails?.commodityDetails?.tolerance,
-                    '%',
-                  )}
+                  value={termsheetDetails?.commodityDetails?.tolerance}
                   className={`${styles.value} ${styles.customSelect} input form-control`}
                   onChange={onChangeCommodityDetails}
                   required
@@ -238,7 +238,7 @@ const Index = ({
                 id="lcValue"
                 value={addPrefixOrSuffix(
                   newLcVal ? newLcVal : 0,
-                   termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase(),
+                  termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase(),
                   'front',
                 )}
                 className={`${styles.value} input form-control`}
@@ -360,7 +360,7 @@ const Index = ({
                   {/* <option value={termsheetDetails?.transactionDetails?.loadPort}>{termsheetDetails?.transactionDetails?.loadPort} </option> */}
                   <option>Select an option</option>
                   <option value="Abbot Port">Abbot Port</option>
-                  
+
                   <option value="India Port">India Port</option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
@@ -431,7 +431,7 @@ const Index = ({
                   required
                 >
                   {termsheetDetails?.transactionDetails?.partShipmentAllowed ===
-                  'Yes' ? (
+                    'Yes' ? (
                     <>
                       {' '}
                       <option value="Yes">Yes</option>{' '}
@@ -495,8 +495,8 @@ const Index = ({
                 >
                   <option>Select an option</option>
                   <option value="Home Consumption">Home Consumption</option>
-                  <option value="Intobond">Intobond</option>
-                  <option value="Exbond">Exbond </option>
+                  <option value="Into-Bond">Into-Bond</option>
+                  <option value="EX-Bond">EX-Bond </option>
                 </select>
 
                 <label className={`${styles.label} label_heading`}>
@@ -535,7 +535,7 @@ const Index = ({
               </div>
             </div>
             {termsheetDetails.transactionDetails?.thirdPartyInspectionReq ==
-            'true' ? (
+              'true' ? (
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
                   <select
@@ -548,7 +548,7 @@ const Index = ({
                     <option value="Load Port">Load Port</option>
                     <option value="Discharge Port">Discharge Port</option>
                     <option value="Both">
-                      Both Lord port and discharge port
+                      Lord Port and Discharge Port
                     </option>
                   </select>
 
@@ -581,15 +581,16 @@ const Index = ({
                   onChange={onChangeTransactionDetails}
                   required
                 >
-                 
-
-                 <option selected>Select an option</option> 
-                 <option value="Calcutta Port"> Calcutta Port
-                  </option> 
-                  <option value="Mumbai, India"> Mumbai, India </option> 
-                  <option value="Vizag, India"> Vizag, India </option> 
-                  <option value="Vishakapatnam, India"> Visakhapatnam, India </option>
+                  <option selected>Select an option</option>
+                  <option value="Calcutta Port"> Calcutta Port</option>
+                  <option value="Mumbai, India"> Mumbai, India </option>
+                  <option value="Vizag, India"> Vizag, India </option>
+                  <option value="Vishakapatnam, India">
+                    {' '}
+                    Visakhapatnam, India{' '}
+                  </option>
                 </select>
+               
                 <label className={`${styles.label} label_heading`}>
                   Storage of Goods<strong className="text-danger">*</strong>
                 </label>
@@ -647,8 +648,8 @@ const Index = ({
                   IsBlSelected == 'DaysfromBLDate'
                     ? false
                     : IsBlSelected == 'Whicheverisearlier'
-                    ? false
-                    : true
+                      ? false
+                      : true
                 }
                 required
               />
@@ -670,8 +671,8 @@ const Index = ({
                   IsBlSelected == 'DaysfromVesselDischargeDate'
                     ? false
                     : IsBlSelected == 'Whicheverisearlier'
-                    ? false
-                    : true
+                      ? false
+                      : true
                 }
                 required
               />

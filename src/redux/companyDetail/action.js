@@ -102,7 +102,7 @@ function getCaseDetailsFailed() {
 export const GetCompanyDetails = (payload) => (dispatch, getState, api) => {
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-
+  console.log(payload.company, 'getDetails payload2')
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
 
@@ -182,7 +182,6 @@ export const UpdateCompanyDetails = (payload) => (dispatch, getState, api) => {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-
       } else {
         dispatch(updateCompanyDetailsFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
@@ -231,7 +230,6 @@ export const RefetchCombineKarza = (payload) => (dispatch, getState, api) => {
     }
   }
 }
-
 
 export const GetCaseDetails = (payload) => (dispatch, getState, api) => {
   let cookie = Cookies.get('SOMANI')
