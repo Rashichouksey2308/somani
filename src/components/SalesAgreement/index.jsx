@@ -927,7 +927,7 @@ const onSave=()=>{
 
     }
     }
-      let  dataToSend={
+  let  dataToSend2={
      
      
        "name": data.seteveState.name,
@@ -939,7 +939,7 @@ const onSave=()=>{
        
   
   }
-    sessionStorage.setItem("Stevedore",JSON.stringify(dataToSend))
+    sessionStorage.setItem("Stevedore",JSON.stringify(dataToSend2))
     console.log("Stevedore",dataToSend)
     if (dataToSend.stevedore.name == "" || dataToSend.stevedore.name == undefined) {
     toastMessage = `Please add stevedore name  `
