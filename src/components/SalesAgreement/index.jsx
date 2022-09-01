@@ -31,7 +31,7 @@ function Index(props) {
     const dispatch = useDispatch()
 
   console.log(props.genericData,"sales")
-  const [active,setActive]=useState("Supplier")
+  const [active,setActive]=useState("Product Specifications")
   const [multiPart,setMultiPart]=useState(false)
   const [multiPartValue,setMultiPartValue]=useState("Manufacturer")
   const [saveData,setSaveData]=useState(false)
@@ -137,7 +137,7 @@ function Index(props) {
       }
       return false
       }
-    if(type=="Branch"){
+  if(type=="Branch"){
    if(check){
      if (data.gstin === "" || data.gstin==undefined) {
       let toastMessage = 'Please add gstin'
@@ -165,6 +165,7 @@ function Index(props) {
      
     return true
   }
+  console.log(active,"active")
   const showContent =(sellerData)=>{
     if(active=="Buyer"){
       return(
@@ -351,7 +352,8 @@ function Index(props) {
   }
   const [sideBar,setSidebar] =useState(
     [
-    {name:"Supplier",state:"current",value:"Supplier",image:"/static/currnet.svg"},
+    {name:"Product Specifications",state:"current",value:"Product Specifications",image:"/static/currnet.svg"},
+    {name:"Supplier",state:"default",value:"Supplier",image:"/static/Group 3256.svg"},
     {name:"Seller",state:"default",value:"Seller",image:"/static/Group 3256.svg"},
     {name:"Buyer",state:"default",value:"Buyer",image:"/static/Group 3256.svg"},
     {name:"Associate Buyer",state:"default",value:"Associate Buyer",image:"/static/Group 3256.svg"},
@@ -363,7 +365,7 @@ function Index(props) {
     {name:"Delivery Terms",state:"default",value:"Delivery Terms",image:"/static/Group 3256.svg"},
     {name:"Place of Execution",state:"default",value:"Place of Execution",image:"/static/Group 3256.svg"},
     {name:"Additional Comments",state:"default",value:"Additional Comments",image:"/static/Group 3256.svg"},
-    {name:"Product Specifications",state:"default",value:"Product Specifications",image:"/static/Group 3256.svg"},
+    
     
     ]
   )

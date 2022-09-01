@@ -1,296 +1,357 @@
 @import '../styles/Core/config';
 .container_inner {
-    margin: 28px;
-    min-height: 74vh;
-    margin-bottom: 68px;
+  margin: 28px;
+  min-height: 74vh;
+  margin-bottom: 68px;
+  @include respond(sm-desktop) {
+    margin: 20px;
+    margin-bottom: 60px;
+    display: block !important;
+  }
+  @include respond(phone) {
+    margin: 15px;
+    min-height: auto;
+    margin-bottom: 71px;
+  }
+  .filter {
+    min-height: 48px;
+    margin: 0 0 27px 0;
     @include respond(sm-desktop) {
-        margin: 20px;
-        margin-bottom: 60px;
-        display: block !important;
+      font-size: 26px;
     }
     @include respond(phone) {
-        margin: 15px;
-        min-height: auto;
-        margin-bottom: 71px;
+      font-size: 24px;
     }
-    .filter {
-        min-height: 48px;
-        margin: 0 0 27px 0;
-        @include respond(sm-desktop) {
-            font-size: 26px;
-        }
-        @include respond(phone) {
-            font-size: 24px;
-        }
-    }
+  }
 }
 .search {
-    width: 492px;
-    position: relative;
-    // margin-left: 20px;
-    @include respond(sm-desktop) {
-        width: 100%;
-        margin-bottom: 15px;
-    }
-    .inputGroupPrepend {
-        top: 50%;
-        left: 31px;
-        z-index: 1;
-        position: absolute;
-        transform: translateY(-50%);
-    }
-    .formControl {
-        font-size: 18px !important;
-        font-weight: 500 !important;
-        line-height: 23px !important;
-        height: 48px !important;
-        z-index: 0 !important;
-        position: relative !important;
-        box-shadow: none !important;
-        padding-left: 65px !important;
-        border-radius: 24px !important;
-        border: 2px solid #d2d7e5 !important;
-    }
+  width: 492px;
+  position: relative;
+  // margin-left: 20px;
+  @include respond(sm-desktop) {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  .inputGroupPrepend {
+    top: 50%;
+    left: 31px;
+    z-index: 1;
+    position: absolute;
+    transform: translateY(-50%);
+  }
+  .formControl {
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    line-height: 23px !important;
+    height: 48px !important;
+    z-index: 0 !important;
+    position: relative !important;
+    box-shadow: none !important;
+    padding-left: 65px !important;
+    border-radius: 24px !important;
+    border: 2px solid #d2d7e5 !important;
+  }
 }
 .filterList {
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 25px;
-    padding: 9px 12px;
-    border-radius: 8px;
-    margin: 0 10px 0 5px;
-    letter-spacing: 0.17px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 25px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  margin: 0 10px 0 5px;
+  letter-spacing: 0.17px;
+  display: inline-block;
+  text-transform: capitalize;
+  img {
+    width: 10px;
+    margin-left: 12px;
     display: inline-block;
-    text-transform: capitalize;
-    img {
-        width: 10px;
-        margin-left: 12px;
-        display: inline-block;
-    }
+  }
 }
 .createBtn {
-    font-size: 20px;
-    color: #ffffff;
-    font-weight: bold;
-    line-height: 25px;
-    width: 188px;
-    height: 48px;
-    padding: 12px 0;
-    box-shadow: none;
-    text-align: center;
-    border: none;
-    border-radius: 5px;
-    background: #3687e8;
-    //display: inline-block;
-    text-transform: capitalize;
+  font-size: 20px;
+  color: #ffffff;
+  font-weight: bold;
+  line-height: 25px;
+  width: 188px;
+  height: 48px;
+  padding: 12px 0;
+  box-shadow: none;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  background: #3687e8;
+  //display: inline-block;
+  text-transform: capitalize;
 }
 .datatable {
-    border: 1px solid #d2d7e5;
-    border-radius: 6px;
-    .tableFilter {
-        min-height: 80px;
-        padding: 0 15px 0 35px;
-        @include respond(sm-desktop) {
-            padding: 0 15px 0 15px;
+  border: 1px solid #d2d7e5;
+  border-radius: 6px;
+  .tableFilter {
+    min-height: 80px;
+    padding: 0 15px 0 35px;
+    @include respond(sm-desktop) {
+      padding: 0 15px 0 15px;
+    }
+    h3 {
+      font-size: 22px !important;
+      font-weight: bold;
+      line-height: 27px;
+      margin: 0;
+      color: #3687e8;
+    }
+  }
+  .table_scroll_outer {
+    width: 100%;
+    display: table;
+    table-layout: fixed;
+    .table_scroll_inner {
+      display: table-cell;
+      overflow-x: auto;
+      .table {
+        margin-bottom: 0px;
+        th {
+          font-size: 15px;
+          font-weight: bold;
+          line-height: 18px;
+          padding: 24px 15px;
+          text-transform: uppercase;
+          border-top: 2px solid #f2f5f9;
+          border-bottom: 2px solid #f2f5f9;
+          &:first-child {
+            padding-left: 35px;
+            @include respond(sm-desktop) {
+              padding-left: 15px;
+            }
+          }
+          img {
+            width: 14px;
+            height: 14px;
+          }
+          @include respond(md-desktop) {
+            font-size: 14px;
+            line-height: 1.2;
+          }
+          @include respond(sm-desktop) {
+            font-size: 13px;
+          }
+          @include respond(phone) {
+            font-size: 12px;
+          }
         }
-        h3 {
+        td {
+          font-size: 19px;
+          font-weight: 500;
+          line-height: 24px;
+          padding: 24px 15px;
+          border-top: none;
+          white-space: nowrap;
+          &:first-child {
+            padding-left: 35px;
+            @include respond(sm-desktop) {
+              padding-left: 15px;
+            }
+          }
+          @include respond(md-desktop) {
+            font-size: 17px;
+            padding: 18px 10px;
+          }
+          @include respond(sm-desktop) {
+            font-size: 15px;
+            padding: 15px 10px;
+          }
+          h3 {
             font-size: 22px !important;
             font-weight: bold;
             line-height: 27px;
             margin: 0;
             color: #3687e8;
+          }
+          &.buyerName {
+            color: #3687e8;
+            opacity: 1 !important;
+            font-weight: bold;
+            text-transform: capitalize;
+            cursor: pointer;
+          }
         }
-    }
-    .table_scroll_outer {
-        width: 100%;
-        display: table;
-        table-layout: fixed;
-        .table_scroll_inner {
+        .table_scroll_outer {
+          width: 100%;
+          display: table;
+          table-layout: fixed;
+          .table_scroll_inner {
             display: table-cell;
             overflow-x: auto;
             .table {
-                margin-bottom: 0px;
-                th {
-                    font-size: 15px;
-                    font-weight: bold;
-                    line-height: 18px;
-                    padding: 24px 15px;
-                    text-transform: uppercase;
-                    border-top: 2px solid #f2f5f9;
-                    border-bottom: 2px solid #f2f5f9;
-                    &:first-child {
-                        padding-left: 35px;
-                        @include respond(sm-desktop) {
-                            padding-left: 15px;
-                        }
-                    }
-                    img {
-                        width: 14px;
-                        height: 14px;
-                    }
-                    @include respond(md-desktop) {
-                        font-size: 14px;
-                        line-height: 1.2;
-                    }
-                    @include respond(sm-desktop) {
-                        font-size: 13px;
-                    }
-                    @include respond(phone) {
-                        font-size: 12px;
-                    }
+              margin-bottom: 0px;
+              th {
+                font-size: 15px;
+                font-weight: bold;
+                line-height: 18px;
+                padding: 24px 15px;
+                text-transform: uppercase;
+                border-top: 2px solid #f2f5f9;
+                border-bottom: 2px solid #f2f5f9;
+                &:first-child {
+                  padding-left: 35px;
+                  @include respond(sm-desktop) {
+                    padding-left: 15px;
+                  }
                 }
-                td {
-                    font-size: 19px;
-                    font-weight: 500;
-                    line-height: 24px;
-                    padding: 24px 15px;
-                    border-top: none;
-                    white-space: nowrap;
-                    &:first-child {
-                        padding-left: 35px;
-                        @include respond(sm-desktop) {
-                            padding-left: 15px;
-                        }
-                    }
-                    @include respond(md-desktop) {
-                        font-size: 17px;
-                        padding: 18px 10px;
-                    }
-                    @include respond(sm-desktop) {
-                        font-size: 15px;
-                        padding: 15px 10px;
-                    }
-                    h3 {
-                        font-size: 22px !important; 
-                        font-weight: bold;
-                        line-height: 27px;
-                        margin: 0;
-                        color: #3687E8;
-                    }
-                    &.buyerName {
-                        color: #3687e8;
-                        opacity: 1 !important;
-                        font-weight: bold;
-                        text-transform: capitalize;
-                        cursor: pointer;
-                    }
+                img {
+                  width: 14px;
+                  height: 14px;
                 }
-                .table_scroll_outer {
-                    width: 100%;
-                    display: table;
-                    table-layout: fixed;
-                    .table_scroll_inner {
-                        display: table-cell;
-                        overflow-x: auto;
-                        .table {
-                            margin-bottom: 0px;
-                            th {
-                                font-size: 15px;
-                                font-weight: bold;
-                                line-height: 18px;
-                                padding: 24px 15px;
-                                text-transform: uppercase;
-                                border-top: 2px solid #F2F5F9;
-                                border-bottom: 2px solid #F2F5F9;
-                                &:first-child {
-                                    padding-left: 35px;
-                                    @include respond(sm-desktop) {
-                                        padding-left: 15px;
-                                    }
-                                }
-                                img {
-                                    width: 14px;
-                                    height: 14px;
-                                }
-                                @include respond(md-desktop) {
-                                    font-size: 14px;
-                                    line-height: 1.2;
-                                }
-                                @include respond(sm-desktop) {
-                                    font-size: 13px;
-                                }
-                                @include respond(phone) {
-                                    font-size: 12px;
-                                }
-                            }
-                            td {
-                                font-size: 19px;
-                                font-weight: 500;
-                                line-height: 24px;
-                                padding: 24px 15px;
-                                border-top: none;
-                                white-space: nowrap;
-                                &:first-child {
-                                    padding-left: 35px;
-                                    @include respond(sm-desktop) {
-                                        padding-left: 15px;
-                                    }
-                                }
-                                @include respond(md-desktop) {
-                                    font-size: 17px;
-                                    padding: 18px 10px;
-                                }
-                                @include respond(sm-desktop) {
-                                    font-size: 15px;
-                                    padding: 15px 10px;
-                                }
-                                @include respond(phone) {
-                                    font-size: 14px;
-                                    padding: 10px;
-                                }
-                            }                
-                            .buyerName {
-                                color: #3687E8;
-                                font-weight: bold;
-                                text-transform: capitalize;
-                            }
-                            .status {
-                                width: 15px;
-                                height: 15px;
-                                margin-right: 10px;
-                                border-radius: 50%;
-                                display: inline-block;
-                                vertical-align: middle;
-                            }        
-                            .approved {
-                                background: #26DD73;
-                            }
-                            .rejected {
-                                background: #ED714C;
-                            }
-                            .review {
-                                background: #FFCE00;
-                            }
-                        }
-                        @include respond(phone) {
-                            font-size: 14px;
-                            padding: 10px;
-                        }
-                    }
-                    .buyerName {
-                        color: #3687e8;
-                        font-weight: bold;
-                        text-transform: capitalize;
-                    }
-                    .status {
-                        width: 15px;
-                        height: 15px;
-                        margin-right: 10px;
-                        border-radius: 50%;
-                        display: inline-block;
-                        vertical-align: middle;
-                    }
-                    .approved {
-                        background: #26dd73;
-                    }
-                    .rejected {
-                        background: #ed714c;
-                    }
-                    .review {
-                        background: #ffce00;
-                    }
+                @include respond(md-desktop) {
+                  font-size: 14px;
+                  line-height: 1.2;
                 }
+                @include respond(sm-desktop) {
+                  font-size: 13px;
+                }
+                @include respond(phone) {
+                  font-size: 12px;
+                }
+              }
+              td {
+                font-size: 19px;
+                font-weight: 500;
+                line-height: 24px;
+                padding: 24px 15px;
+                border-top: none;
+                white-space: nowrap;
+                &:first-child {
+                  padding-left: 35px;
+                  @include respond(sm-desktop) {
+                    padding-left: 15px;
+                  }
+                }
+                @include respond(md-desktop) {
+                  font-size: 17px;
+                  padding: 18px 10px;
+                }
+                @include respond(sm-desktop) {
+                  font-size: 15px;
+                  padding: 15px 10px;
+                }
+                @include respond(phone) {
+                  font-size: 14px;
+                  padding: 10px;
+                }
+              }
+              .buyerName {
+                color: #3687e8;
+                font-weight: bold;
+                text-transform: capitalize;
+              }
+              .status {
+                width: 15px;
+                height: 15px;
+                margin-right: 10px;
+                border-radius: 50%;
+                display: inline-block;
+                vertical-align: middle;
+              }
+              .approved {
+                background: #26dd73;
+              }
+              .rejected {
+                background: #ed714c;
+              }
+              .review {
+                background: #ffce00;
+              }
             }
+            @include respond(phone) {
+              font-size: 14px;
+              padding: 10px;
+            }
+          }
+          .buyerName {
+            color: #3687e8;
+            font-weight: bold;
+            text-transform: capitalize;
+          }
+          .status {
+            width: 15px;
+            height: 15px;
+            margin-right: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            vertical-align: middle;
+          }
+          .approved {
+            background: #26dd73;
+          }
+          .rejected {
+            background: #ed714c;
+          }
+          .review {
+            background: #ffce00;
+          }
         }
+      }
     }
+  }
+}
+.searchResults {
+  width: 100%;
+  top: 65px;
+  z-index: 1;
+  padding: 10px 30px;
+  position: absolute;
+  border-radius: 24px;
+  background: #ffffff;
+  border: 2px solid #d2d7e5;
+  @include respond(md-desktop) {
+    padding: 8px 20px;
+  }
+  @include respond(sm-desktop) {
+  }
+  &::after {
+    top: -15px;
+    left: 40px;
+    content: '';
+    position: absolute;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 15px solid #d2d7e5;
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    li {
+      font-size: 18px;
+      color: #3687e8;
+      font-weight: bold;
+      line-height: 1.5;
+      padding: 7px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #d2d7e5;
+      @include respond(md-desktop) {
+        font-size: 16px;
+      }
+      @include respond(sm-desktop) {
+        font-size: 14px;
+      }
+      span {
+        font-size: 15px;
+        font-weight: 500;
+        color: #8492a6;
+        margin-left: 10px;
+      }
+      @include respond(md-desktop) {
+        font-size: 14px;
+      }
+      @include respond(sm-desktop) {
+        font-size: 12px;
+      }
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
 }

@@ -10,12 +10,22 @@ import {
   setDynamicName,
   setDynamicOrder,
 } from '../../src/redux/userData/action'
+import { SearchLeads } from '../../src/redux/buyerProfile/action'
 
 function Index() {
+
   const dispatch = useDispatch()
+
   const [currentPage, setCurrentPage] = useState(0);
+
+  const [serachterm, setSearchTerm] = useState('')
+
+  const { searchedLeads } = useSelector((state) => state.order)
+
   const { allVessel, Vessel } = useSelector((state) => state.vessel)
+
   console.log(allVessel, Vessel, 'allVessel')
+
   useEffect(() => {
     if (window) {
       sessionStorage.setItem('loadedPage', "Agreement & Lc Module")
@@ -23,6 +33,7 @@ function Index() {
       sessionStorage.setItem('openList', 2)
     }
   }, [])
+
   useEffect(() => {
     dispatch(GetAllVessel(`?page=${currentPage}&limit=7`))
   }, [])
@@ -42,6 +53,21 @@ function Index() {
     }, 500)
   }
 
+  const handleSearch = (e) => {
+    const query = `${e.target.value}`
+    setSearchTerm(query)
+    if (query.length >= 3) {
+      dispatch(SearchLeads(query))
+    }
+  }
+
+  const handleFilteredData = (e) => {
+    setSearchTerm('')
+    const id = `${e.target.id}`
+    dispatch(GetVessel(`?company=${id}`))
+  }
+
+
   return (
     <div className="container-fluid p-0">
       <div className={`${styles.container_inner}`}>
@@ -58,11 +84,28 @@ function Index() {
                 />
               </div>
               <input
-                type="text"
-                className={`${styles.formControl} form-control formControl `}
-                placeholder="Search"
-              />
-            </div>
+                  value={serachterm}
+                  onChange={handleSearch}
+                  type="text"
+                  className={`${styles.formControl} form-control formControl `}
+                  placeholder="Search"
+                />
+              </div>
+              {searchedLeads && serachterm && (
+                <div className={styles.searchResults}>
+                  <ul>
+                    {searchedLeads.data.data.map((results, index) => (
+                      <li
+                        onClick={handleFilteredData}
+                        id={results._id}
+                        key={index}
+                      >
+                        {results.companyName} <span>{results.customerId}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
           </div>
           <Filter />
           {/* <a href="#" className={`${styles.filterList} filterList `}>
@@ -150,7 +193,7 @@ function Index() {
                   {allVessel &&
                     allVessel?.data?.map((vessel, index) => (
                       <tr key={index} className="table_row">
-                        <td>{vessel?.order?._id}</td>
+                        <td>{vessel?.order?.orderId ? vessel?.order?.orderId : vessel?.order?.applicationId}</td>
                         <td
                           className={styles.buyerName}
                           onClick={() => handleRoute(vessel)}

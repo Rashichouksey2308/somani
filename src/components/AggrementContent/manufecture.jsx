@@ -89,18 +89,7 @@ const [addressEditType,setAddressEditType]=useState("Registered")
   {name:"Fatima Yannoulis ",designation:"Chief Financial Officer",email:"fatima@indointertrade.ch",phoneNo:""}
   ]
 
-// useEffect(() => {
-//   let tempArr=supplierState.authorisedSignatoryDetails
-//   tempArr.forEach((val,index)=>{
-//   val.actions = "true"
-//   })
-//   setList(tempArr)
-//   let tempArr2=supplierState.addresses
-//   setAddressList(tempArr2)
-//   let tempArr3=supplierState?.multiPartyAddresses
-//   setMultiList(tempArr3)
-//   setSupplierState({...supplierState,name:props?.order?.supplierName})
-// },[props])
+
  
 console.log(props?.order?.supplierName,"props?.order?.supplierName")
 
@@ -364,7 +353,7 @@ setList(prevState => {
 
 }
 const handleAddressInput=()=>{
-if(props.addressValidation(addressType,newAddress)){
+if(props.addressValidation(addressType,newAddress,false)){
 setAddressList(current => [...current, newAddress])
   
 setNewAddress({

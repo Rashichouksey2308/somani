@@ -215,7 +215,7 @@ const Index = ({
             <div className={`${styles.each_input} col-md-4 col-sm-6`}>
               <input
                 type="text"
-                onBlur={(e) => {saveCompanyData(e.target.name, e.target.value); handleSearch(e)}}
+                onBlur={(e) => {saveCompanyData(e.target.name, e.target.value);}}
                 // onChange={handleSearch}
                 value={gstList?.data?.companyData?.companyName}
                 id="companyInput"
@@ -223,7 +223,7 @@ const Index = ({
                 className={`${styles.input_field} ${styles.company_name} input form-control`}
                 required
               />
-             
+{/*              
               {gettingCompanyPanResponse && serachterm && <div className={styles.searchResults}>
                 <ul>
                   {gettingCompanyPanResponse?.data?.map((results, index) => (
@@ -231,7 +231,7 @@ const Index = ({
                   ))}
                 </ul>
               </div>}
-          
+           */}
             {/* <Filter/> */}
               <label
                 className={`${styles.label_heading} label_heading`}
