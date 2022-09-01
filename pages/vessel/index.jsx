@@ -63,11 +63,8 @@ console.log(currency,"currency")
  
   const setData = (Vessel) => {
     
-   console.log(_get(
-      Vessel,
-      "data[0].vessels",
-      []
-    ),"Vessel123")
+   console.log(
+      Vessel.data[0],"Vessel123")
     
    setCurrency(_get(
             Vessel,
@@ -125,24 +122,69 @@ console.log(currency,"currency")
               "data[0].order.countryOfOrigin",
               ""
             ),
-            portOfLoading: "",
+            portOfLoading:"" ||  _get(
+              Vessel,
+              "data[0].vessels[0].transitDetails.portOfLoading",
+              ""
+            ),
             portOfDischarge: _get(
               Vessel,
               "data[0].order.portOfDischarge",
               ""
+            )|| _get(
+              Vessel,
+              "data[0].vessels[0].transitDetails.portOfDischarge",
+              ""
             ),
-            laycanFrom: "",
-            laycanTo: "",
-            EDTatLoadPort: "",
-            ETAatDischargePort: ""
+            laycanFrom: ""|| _get(
+              Vessel,
+              "data[0].vessels[0].transitDetails.laycanFrom",
+              ""
+            ),
+            laycanTo: ""|| _get(
+              Vessel,
+              "data[0].vessels[0].transitDetails.laycanTo",
+              ""
+            ),
+            EDTatLoadPort: ""|| _get(
+              Vessel,
+              "data[0].vessels[0].transitDetails.EDTatLoadPort",
+              ""
+            ),
+            ETAatDischargePort: ""|| _get(
+              Vessel,
+              "data[0].vessels[0].transitDetails.ETAatDischargePort",
+              ""
+            )
           },
 
           vesselInformation: [{
-            name: '',
-            IMONumber: '',
-            flag: '',
-            yearOfBuilt: '',
-            shippingLineOrCharter: '',
+            name: ''|| _get(
+              Vessel,
+              "data[0].vessels[0].vesselInformation[0].name",
+              ""
+            )
+          ,
+            IMONumber: ''|| _get(
+              Vessel,
+              "data[0].vessels[0].vesselInformation[0].IMONumber",
+              ""
+            ),
+            flag: ''|| _get(
+              Vessel,
+              "data[0].vessels[0].vesselInformation[0].flag",
+              ""
+            ),
+            yearOfBuilt: ''|| _get(
+              Vessel,
+              "data[0].vessels[0].vesselInformation[0].yearOfBuilt",
+              ""
+            ),
+            shippingLineOrCharter: ''|| _get(
+              Vessel,
+              "data[0].vessels[0].vesselInformation[0].shippingLineOrCharter",
+              ""
+            ),
           }]
         },
       ])
@@ -205,7 +247,7 @@ console.log(currency,"currency")
       },
     ])
   }
- console.log
+ console.log(list,"874")
 
   const OnAddvesselInformation = () => {
     const newArr = [...list]

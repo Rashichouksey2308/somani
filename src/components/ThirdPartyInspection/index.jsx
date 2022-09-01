@@ -26,7 +26,7 @@ export default function Index({ addButton, inspectionData }) {
     loadPortInspection: false,
     dischargePortInspection: false,
   })
-
+console.log(inspectionData,"inspectionData")
   const handlePortType = (name, value) => {
     let newInput = { ...portType }
     newInput[name] = !value
@@ -85,6 +85,46 @@ export default function Index({ addButton, inspectionData }) {
           ?.specialMention,
     },
   })
+  useEffect(() => {
+    setInspectionDetails(
+      {
+    loadPortInspectionDetails: {
+      numberOfContainer:
+        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+          ?.numberOfContainer,
+      inspectionPort:
+        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+          ?.inspectionPort,
+      inspectedBy:
+        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+          ?.inspectedBy,
+      startDate:
+        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+          ?.startDate,
+      specialMention:
+        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+          ?.specialMention,
+    },
+    dischargePortInspectionDetails: {
+      numberOfContainer:
+        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+          ?.numberOfContainer,
+      inspectionPort:
+        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+          ?.inspectionPort,
+      inspectedBy:
+        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+          ?.inspectedBy,
+      startDate:
+        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+          ?.startDate,
+      specialMention:
+        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+          ?.specialMention,
+    },
+  }
+    )
+  },[inspectionData])
 
   const [documents, setDocuments] = useState({
     certificateOfQuality:
@@ -175,6 +215,7 @@ export default function Index({ addButton, inspectionData }) {
   }
 
   const handleSave = () => {
+    console.log("SAvee",inspectionData?.order?.shipmentDetail?.shipmentType)
     if (inspectionData?.order?.shipmentDetail?.shipmentType == 'Liner') {
       if (
         portType.loadPortInspection == true &&
