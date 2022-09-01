@@ -4,36 +4,31 @@ import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetAllVessel, GetVessel } from '../../src/redux/vessel/action'
 import { GetOrders } from '../../src/redux/registerBuyer/action'
+import { SearchLeads } from '../../src/redux/buyerProfile/action.js'
+
 import Filter from '../../src/components/Filter'
 import {
   setPageName,
   setDynamicName,
   setDynamicOrder,
 } from '../../src/redux/userData/action'
-import { SearchLeads } from '../../src/redux/buyerProfile/action'
 
 function Index() {
-
-  const dispatch = useDispatch()
-
-  const [currentPage, setCurrentPage] = useState(0);
-
   const [serachterm, setSearchTerm] = useState('')
 
+  const dispatch = useDispatch()
+  const [currentPage, setCurrentPage] = useState(0)
   const { searchedLeads } = useSelector((state) => state.order)
 
   const { allVessel, Vessel } = useSelector((state) => state.vessel)
-
   console.log(allVessel, Vessel, 'allVessel')
-
   useEffect(() => {
     if (window) {
-      sessionStorage.setItem('loadedPage', "Agreement & Lc Module")
+      sessionStorage.setItem('loadedPage', 'Agreement & Lc Module')
       sessionStorage.setItem('loadedSubPage', `Vessel Nomination`)
       sessionStorage.setItem('openList', 2)
     }
   }, [])
-
   useEffect(() => {
     dispatch(GetAllVessel(`?page=${currentPage}&limit=7`))
   }, [])
@@ -52,7 +47,6 @@ function Index() {
       Router.push('/vessel')
     }, 500)
   }
-
   const handleSearch = (e) => {
     const query = `${e.target.value}`
     setSearchTerm(query)
@@ -64,9 +58,8 @@ function Index() {
   const handleFilteredData = (e) => {
     setSearchTerm('')
     const id = `${e.target.id}`
-    dispatch(GetVessel(`?company=${id}`))
+    dispatch(GetAllBuyer(`?company=${id}`))
   }
-
 
   return (
     <div className="container-fluid p-0">
@@ -128,7 +121,10 @@ function Index() {
             <div
               className={`${styles.pageList} d-flex justify-content-end align-items-center`}
             >
-              <span>Showing Page {currentPage + 1}  out of {Math.ceil(allVessel?.totalCount / 7)}</span>
+              <span>
+                Showing Page {currentPage + 1} out of{' '}
+                {Math.ceil(allVessel?.totalCount / 7)}
+              </span>
               <a
                 onClick={() => {
                   if (currentPage === 0) {
@@ -194,7 +190,7 @@ function Index() {
                   {allVessel &&
                     allVessel?.data?.map((vessel, index) => (
                       <tr key={index} className="table_row">
-                        <td>{vessel?.order?.orderId ? vessel?.order?.orderId : vessel?.order?.applicationId}</td>
+                        <td>{vessel?.order?._id}</td>
                         <td
                           className={styles.buyerName}
                           onClick={() => handleRoute(vessel)}
