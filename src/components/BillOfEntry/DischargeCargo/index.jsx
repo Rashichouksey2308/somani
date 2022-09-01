@@ -422,7 +422,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
             />
           </div>
         </div>
-        <SaveBar handleSave={onSaveDischarge} rightBtn="Submit" />
+        <SaveBar handleSave={onSaveDischarge} rightBtn="Submit" rightBtnClick={onSaveDischarge} />
       </div>
       <Modal
         show={show}
