@@ -33,7 +33,7 @@ function Index() {
   }, [])
   useEffect(() => {
     dispatch(GetAllVessel(`?page=${currentPage}&limit=7`))
-  }, [])
+  }, [currentPage])
 
   useEffect(() => {
     dispatch(setPageName('vessel'))

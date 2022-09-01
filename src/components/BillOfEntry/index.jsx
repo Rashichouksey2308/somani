@@ -553,30 +553,36 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                     )}
                   </span>
                 </div>
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
-                  <div className={`${styles.label} text`}>CIRC Number</div>
-                  <span className={styles.value}>
-                    {_get(
-                      customData,
-                      'order.transit.CIMS.cimsDetails[0].circNumber',
-                      '',
-                    )}
-                  </span>
-                </div>
+                {_get(
+                  customData,
+                  'order.commodity',
+                  ''
+                ).toLowerCase() === 'coal' ? <>
+                  <div
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  >
+                    <div className={`${styles.label} text`}>CIRC Number</div>
+                    <span className={styles.value}>
+                      {_get(
+                        customData,
+                        'order.transit.CIMS.cimsDetails[0].circNumber',
+                        '',
+                      )}
+                    </span>
+                  </div>
 
-                <div
-                  className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                >
-                  <div className={`${styles.label} text`}>CIRC Date</div>
-                  <span className={styles.value}>
-                    {moment(
-                      customData?.order?.transit?.CIMS?.cimsDetails[0]
-                        ?.circNumber,
-                    ).format('DD-MM-YYYY')}
-                  </span>
-                </div>
+                  <div
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  >
+                    <div className={`${styles.label} text`}>CIRC Date</div>
+                    <span className={styles.value}>
+                      {moment(
+                        customData?.order?.transit?.CIMS?.cimsDetails[0]
+                          ?.circNumber,
+                      ).format('DD-MM-YYYY')}
+                    </span>
+                  </div>
+                </> : null}
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
@@ -1107,7 +1113,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                         )}
                       </td>
                     </tr>
-                    <tr className="table_row">
+                    {!pfCheckBox ? <tr className="table_row">
                       <td className={styles.doc_name}>
                         PD Bond
                         <strong className="text-danger ml-0">*</strong>
@@ -1147,7 +1153,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                           </div>
                         )}
                       </td>
-                    </tr>
+                    </tr> : null}
                   </tbody>
                 </table>
               </div>
