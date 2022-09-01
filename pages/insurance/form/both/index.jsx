@@ -11,6 +11,7 @@ import {
 } from '../../../../src/redux/insurance/action'
 import _get from 'lodash/get'
 import Router from 'next/router'
+import { toast } from 'react-toastify'
 
 const Index = () => {
   const [insuranceType, setInsuranceType] = useState('Marine')
@@ -23,8 +24,12 @@ const Index = () => {
   }, [dispatch])
 
   const { insuranceResponse } = useSelector((state) => state.insurance)
+  console.log(insuranceResponse, "insuranceResponse")
+  const [insuranceData, setInsuranceData] = useState()
+  useEffect(() => {
+    setInsuranceData(_get(insuranceResponse, 'data[0]', {}))
 
-  let insuranceData = _get(insuranceResponse, 'data[0]', {})
+  }, [insuranceResponse])
 
   const [marineData, setMarineData] = useState({
     policyNumber: '',
@@ -102,20 +107,32 @@ const Index = () => {
     setIsInsurerSameData(true)
     setStorageData(marineData)
   }
-
+  const validate = () => {
+    let toastMessage = ""
+    if (insuranceDocument.marinePolicyDocument == "" || marineData == undefined) {
+      toastMessage = 'Please Select Insurance Type'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
+      }
+    }
+  }
+  console.log(insuranceData, "insuranceData")
   const handleInsuranceUpdate = () => {
-    let fd = new FormData()
-    fd.append('marineInsurance', JSON.stringify(marineData))
-    fd.append('storageInsurance', JSON.stringify(storageData))
-    fd.append('insuranceId', insuranceData?._id)
-    fd.append(
-      'insuranceType',
-      JSON.stringify(insuranceData?.quotationRequest?.insuranceType),
-    )
-    fd.append('marinePolicyDocument', insuranceDocument.marinePolicyDocument)
-    fd.append('storagePolicyDocument', insuranceDocument.storagePolicyDocument)
+    if (validate()) {
+      let fd = new FormData()
+      fd.append('marineInsurance', JSON.stringify(marineData))
+      fd.append('storageInsurance', JSON.stringify(storageData))
+      fd.append('insuranceId', insuranceData?._id)
+      fd.append(
+        'insuranceType',
+        JSON.stringify(insuranceData?.quotationRequest?.insuranceType),
+      )
+      fd.append('marinePolicyDocument', insuranceDocument.marinePolicyDocument)
+      fd.append('storagePolicyDocument', insuranceDocument.storagePolicyDocument)
 
-    dispatch(UpdateInsurance(fd))
+      dispatch(UpdateInsurance(fd))
+    }
   }
 
   const handleRoute = () => {
@@ -198,9 +215,11 @@ const Index = () => {
           </div>
         </div>
         {insuranceData?.quotationRequest?.insuranceType ==
-        'Marine Insurance' ? (
+          'Marine Insurance' ? (
           <>
-            <div className={`${styles.wrapper} border_color mt-4 card`}>
+            <div
+              className={`${styles.wrapper} vessel_card border_color mt-4 card`}
+            >
               <div
                 className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
                 data-toggle="collapse"
@@ -223,7 +242,11 @@ const Index = () => {
                           className={styles.radio}
                           inline
                           label="Domestic"
-                          name="group1"
+                          name="insuranceFrom"
+                          checked={marineData.insuranceFrom === "Domestic"}
+                          onChange={(e) =>
+                            saveMarineData(e.target.name, "Domestic")
+                          }
                           type={type}
                           id={`inline-${type}-1`}
                         />
@@ -232,9 +255,13 @@ const Index = () => {
                           className={styles.radio}
                           inline
                           label="International"
-                          name="group1"
+                          checked={marineData.insuranceFrom === "International"}
+                          name="insuranceFrom"
                           type={type}
                           id={`inline-${type}-2`}
+                          onChange={(e) =>
+                            saveMarineData(e.target.name, "International")
+                          }
                         />
                       </div>
                     ))}
@@ -288,7 +315,7 @@ const Index = () => {
                               className={`${styles.label_heading} label_heading`}
                             >
                               Name of Insurer
-                              <strong className="text-danger">*</strong>
+
                             </label>
                             <img
                               className={`${styles.arrow} image_arrow img-fluid`}
@@ -312,7 +339,8 @@ const Index = () => {
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              GST of Insurer
+                              GSTN of Insurer
+                              {marineData?.insuranceFrom === 'Domestic' && <strong className="text-danger">*</strong>}
                             </label>
                             <img
                               className={`${styles.checked_image} img-fluid`}
@@ -352,7 +380,7 @@ const Index = () => {
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            GST of Insured
+                            GSTN of Insured
                             <strong className="text-danger">*</strong>
                           </label>
                         </Col>
@@ -466,7 +494,9 @@ const Index = () => {
         ) : insuranceData?.quotationRequest?.insuranceType ==
           'Storage Insurance' ? (
           <>
-            <div className={`${styles.wrapper} border_color mt-4 card`}>
+            <div
+              className={`${styles.wrapper} vessel_card border_color mt-4 card`}
+            >
               <div
                 className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
                 data-toggle="collapse"
@@ -586,7 +616,7 @@ const Index = () => {
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              GST of Insurer
+                              GSTN of Insurer
                             </label>
                             <img
                               className={`${styles.checked_image} img-fluid`}
@@ -626,7 +656,7 @@ const Index = () => {
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            GST of Insured
+                            GSTN of Insured
                             <strong className="text-danger">*</strong>
                           </label>
                         </Col>
@@ -739,7 +769,9 @@ const Index = () => {
           </>
         ) : insuranceData?.quotationRequest?.insuranceType == 'Both' ? (
           <>
-            <div className={`${styles.wrapper} border_color mt-4 card`}>
+            <div
+              className={`${styles.wrapper} vessel_card border_color mt-4 card`}
+            >
               <div
                 className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
                 data-toggle="collapse"
@@ -853,7 +885,7 @@ const Index = () => {
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              GST of Insurer
+                              GSTN of Insurer
                             </label>
                             <img
                               className={`${styles.checked_image} img-fluid`}
@@ -893,7 +925,7 @@ const Index = () => {
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            GST of Insured
+                            GSTN of Insured
                             <strong className="text-danger">*</strong>
                           </label>
                         </Col>
@@ -1173,7 +1205,7 @@ const Index = () => {
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            GST of Insured
+                            GSTN of Insured
                             <strong className="text-danger">*</strong>
                           </label>
                         </Col>

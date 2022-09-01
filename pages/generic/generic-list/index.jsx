@@ -42,10 +42,12 @@ const getDate = async () =>{
 
 
   const handleRoute = (term) => {
-   
+   console.log(term,"ssd")
     sessionStorage.setItem('genericSelected', JSON.stringify(term))
+    sessionStorage.setItem('genericID',term.order.orderId)
     Router.push("/generic")
-     dispatch(setDynamicName(term))
+
+    //  dispatch(setDynamicName(null))
     // Router.push('/lc-module')
   }
 

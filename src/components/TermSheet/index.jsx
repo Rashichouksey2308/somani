@@ -48,7 +48,7 @@ const Index = () => {
             termsheetId: sheet._id,
             commodityDetails: {
               unitOfQuantity: sheet?.order?.unitOfQuantity,
-              orderCurrency: sheet?.order?.orderCurrency,
+              orderCurrency: sheet?.order?.orderCurrency||"INR",
               quantity: sheet?.order?.quantity,
               perUnitPrice: sheet?.order?.perUnitPrice,
               commodity: sheet?.order?.commodity,

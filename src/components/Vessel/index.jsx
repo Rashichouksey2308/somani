@@ -49,6 +49,7 @@ function Index({
   containerListDocument,
   setContainerListDocument,
   containerExcel,
+  currency
 }) {
 
   // console.log(containerExcel, 'containerExcel')
@@ -150,7 +151,15 @@ function Index({
 
                         {list[index].shipmentType === 'Bulk' ? (
                           <>
-                            {index > 1 ? (
+                          <button
+                                className={styles.add_btn}
+                                onClick={(e) => {
+                                  onAddVessel()
+                                }}
+                              >
+                                Add
+                            </button>
+                            {index > 0 ? (
                               <button
                                 className={styles.add_btn}
                                 onClick={(e) => {
@@ -160,14 +169,7 @@ function Index({
                                 Delete
                               </button>
                             ) : (
-                              <button
-                                className={styles.add_btn}
-                                onClick={(e) => {
-                                  onAddVessel()
-                                }}
-                              >
-                                Add
-                              </button>
+                              null
                             )}
                           </>
                         ) : null}
@@ -184,9 +186,10 @@ function Index({
                               onChange={(e) =>
                                 shipmentTypeChangeHandler(e, index)
                               }
+                              value={val.shipmentType}
                             >
                               <option>Select an option</option>
-                              <option value="Bulk" selected>
+                              <option value="Bulk">
                                 Bulk
                               </option>
                               <option value="Liner">Liner</option>
@@ -250,11 +253,13 @@ function Index({
                           <select
                             className={`${styles.input_field} pl-2 pr-3 input w-35 border-right-0`}
                             style={{ color: '#3687E8' }}
+                            value={currency}
                             required
                           >
                             <option>Select</option>
-                            <option>USD</option>
-                            <option>INR</option>
+                            <option value="USD">USD</option>
+                            <option value="INR">INR</option>
+                            <option value="EURO">EURO</option>
                           </select>
                           <input
                             id="orderValue"
@@ -744,7 +749,13 @@ function Index({
                                 <h3 className={styles.sub_heading}>
                                   Vessel Information
                                 </h3>
-                                {index > 1 ? (
+                                <button
+                                    onClick={() => OnAddvesselInformation()}
+                                    className={styles.add_btn}
+                                  >
+                                    Add
+                                  </button>
+                                {index > 0 ? (
                                   <button
                                     onClick={() =>
                                       OnAddvesselInformationDelete(index)
@@ -754,12 +765,7 @@ function Index({
                                     Delete
                                   </button>
                                 ) : (
-                                  <button
-                                    onClick={() => OnAddvesselInformation()}
-                                    className={styles.add_btn}
-                                  >
-                                    Add
-                                  </button>
+                                  null
                                 )}
                               </div>
                               <div className="row">

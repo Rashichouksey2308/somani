@@ -75,25 +75,15 @@ function uploadDocVesselFailed() {
 export const GetAllVessel = (payload) => async (dispatch, getState, api) => {
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-  console.log(
-    `${API.corebaseUrl}${API.getVessel}`,
-    `API.corebaseUrl{API.getVessel}`,
-  )
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
-  console.log(
-    `${API.corebaseUrl}${API.getVessel}`,
-    jwtAccessToken,
-    `API.corebaseUrl{API.getVessel}`,
-  )
   try {
     Axios.get(
-      `${API.corebaseUrl}${API.getVessel}`,
+      `${API.corebaseUrl}${API.getVessel}${payload ? payload : ''}`,
       {
         headers: headers,
       },
-      payload,
     ).then((response) => {
       if (response.data.code === 200) {
         dispatch(getAllVesselSuccess(response.data.data))

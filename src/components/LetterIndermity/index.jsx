@@ -347,7 +347,7 @@ function Index({ TransitDetails }) {
                 person is party to or liable under this indemnity{' '}
               </li>
               <li>
-                his indemnity shall be governed by and construed in accordance
+                This indemnity shall be governed by and construed in accordance
                 with English law and each and every person liable under this
                 indemnity shall at your request submit to the Jurisdiction of
                 the High Court of Justice of England.{' '}
