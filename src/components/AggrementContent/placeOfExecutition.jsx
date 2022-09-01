@@ -209,6 +209,7 @@ console.log(list,"val.dateOfExecution")
                             <tr key={index}>
                               <td>{val.name}</td>
                               <td>{val.execution}</td>
+                              <td>{ val.dateOfExecution==null?"":moment(val.dateOfExecution).format("DD-MM-YYYY")}</td>
                               
                               <td className={`d-flex`}>
                                 <img className={`${styles.image} img-fluid mr-3`} onClick={() => (onEdit(index))} src="/static/mode_edit.svg" alt="edit" />
