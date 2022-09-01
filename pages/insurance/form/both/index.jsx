@@ -200,7 +200,9 @@ const Index = () => {
         {insuranceData?.quotationRequest?.insuranceType ==
         'Marine Insurance' ? (
           <>
-            <div className={`${styles.wrapper} border_color mt-4 card`}>
+            <div
+              className={`${styles.wrapper} vessel_card border_color mt-4 card`}
+            >
               <div
                 className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
                 data-toggle="collapse"
@@ -466,7 +468,9 @@ const Index = () => {
         ) : insuranceData?.quotationRequest?.insuranceType ==
           'Storage Insurance' ? (
           <>
-            <div className={`${styles.wrapper} border_color mt-4 card`}>
+            <div
+              className={`${styles.wrapper} vessel_card border_color mt-4 card`}
+            >
               <div
                 className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
                 data-toggle="collapse"
@@ -739,7 +743,9 @@ const Index = () => {
           </>
         ) : insuranceData?.quotationRequest?.insuranceType == 'Both' ? (
           <>
-            <div className={`${styles.wrapper} border_color mt-4 card`}>
+            <div
+              className={`${styles.wrapper} vessel_card border_color mt-4 card`}
+            >
               <div
                 className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
                 data-toggle="collapse"
