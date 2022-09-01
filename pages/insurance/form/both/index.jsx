@@ -24,12 +24,12 @@ const Index = () => {
   }, [dispatch])
 
   const { insuranceResponse } = useSelector((state) => state.insurance)
-  console.log(insuranceResponse,"insuranceResponse")
- const [insuranceData,setInsuranceData]=useState()
+  console.log(insuranceResponse, "insuranceResponse")
+  const [insuranceData, setInsuranceData] = useState()
   useEffect(() => {
     setInsuranceData(_get(insuranceResponse, 'data[0]', {}))
 
-  },[insuranceResponse])
+  }, [insuranceResponse])
 
   const [marineData, setMarineData] = useState({
     policyNumber: '',
@@ -107,8 +107,8 @@ const Index = () => {
     setIsInsurerSameData(true)
     setStorageData(marineData)
   }
-const validate=()=>{
-   let toastMessage = ""
+  const validate = () => {
+    let toastMessage = ""
     if (insuranceDocument.marinePolicyDocument == "" || marineData == undefined) {
       toastMessage = 'Please Select Insurance Type'
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -116,22 +116,22 @@ const validate=()=>{
         return false
       }
     }
-}
-console.log(insuranceData,"insuranceData")
+  }
+  console.log(insuranceData, "insuranceData")
   const handleInsuranceUpdate = () => {
-    if(validate()){
-    let fd = new FormData()
-    fd.append('marineInsurance', JSON.stringify(marineData))
-    fd.append('storageInsurance', JSON.stringify(storageData))
-    fd.append('insuranceId', insuranceData?._id)
-    fd.append(
-      'insuranceType',
-      JSON.stringify(insuranceData?.quotationRequest?.insuranceType),
-    )
-    fd.append('marinePolicyDocument', insuranceDocument.marinePolicyDocument)
-    fd.append('storagePolicyDocument', insuranceDocument.storagePolicyDocument)
+    if (validate()) {
+      let fd = new FormData()
+      fd.append('marineInsurance', JSON.stringify(marineData))
+      fd.append('storageInsurance', JSON.stringify(storageData))
+      fd.append('insuranceId', insuranceData?._id)
+      fd.append(
+        'insuranceType',
+        JSON.stringify(insuranceData?.quotationRequest?.insuranceType),
+      )
+      fd.append('marinePolicyDocument', insuranceDocument.marinePolicyDocument)
+      fd.append('storagePolicyDocument', insuranceDocument.storagePolicyDocument)
 
-    dispatch(UpdateInsurance(fd))
+      dispatch(UpdateInsurance(fd))
     }
   }
 
@@ -215,7 +215,7 @@ console.log(insuranceData,"insuranceData")
           </div>
         </div>
         {insuranceData?.quotationRequest?.insuranceType ==
-        'Marine Insurance' ? (
+          'Marine Insurance' ? (
           <>
             <div
               className={`${styles.wrapper} vessel_card border_color mt-4 card`}
@@ -242,7 +242,11 @@ console.log(insuranceData,"insuranceData")
                           className={styles.radio}
                           inline
                           label="Domestic"
-                          name="group1"
+                          name="insuranceFrom"
+                          checked={marineData.insuranceFrom === "Domestic"}
+                          onChange={(e) =>
+                            saveMarineData(e.target.name, "Domestic")
+                          }
                           type={type}
                           id={`inline-${type}-1`}
                         />
@@ -251,9 +255,13 @@ console.log(insuranceData,"insuranceData")
                           className={styles.radio}
                           inline
                           label="International"
-                          name="group1"
+                          checked={marineData.insuranceFrom === "International"}
+                          name="insuranceFrom"
                           type={type}
                           id={`inline-${type}-2`}
+                          onChange={(e) =>
+                            saveMarineData(e.target.name, "International")
+                          }
                         />
                       </div>
                     ))}
@@ -307,7 +315,7 @@ console.log(insuranceData,"insuranceData")
                               className={`${styles.label_heading} label_heading`}
                             >
                               Name of Insurer
-                              <strong className="text-danger">*</strong>
+
                             </label>
                             <img
                               className={`${styles.arrow} image_arrow img-fluid`}
@@ -332,6 +340,7 @@ console.log(insuranceData,"insuranceData")
                               className={`${styles.label_heading} label_heading`}
                             >
                               GSTN of Insurer
+                              {marineData?.insuranceFrom === 'Domestic' && <strong className="text-danger">*</strong>}
                             </label>
                             <img
                               className={`${styles.checked_image} img-fluid`}
