@@ -49,6 +49,7 @@ function Index({
   containerListDocument,
   setContainerListDocument,
   containerExcel,
+  currency
 }) {
 
   // console.log(containerExcel, 'containerExcel')
@@ -69,8 +70,8 @@ function Index({
   const handleClose = (e) => {
     setVesselCertificate(null)
   }
-  console.log(list,'list')
-// console.log(vesselData,'vesselData')
+  console.log(list, 'list')
+  // console.log(vesselData,'vesselData')
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -150,7 +151,15 @@ function Index({
 
                         {list[index].shipmentType === 'Bulk' ? (
                           <>
-                            {index > 1 ? (
+                          <button
+                                className={styles.add_btn}
+                                onClick={(e) => {
+                                  onAddVessel()
+                                }}
+                              >
+                                Add
+                            </button>
+                            {index > 0 ? (
                               <button
                                 className={styles.add_btn}
                                 onClick={(e) => {
@@ -160,14 +169,7 @@ function Index({
                                 Delete
                               </button>
                             ) : (
-                              <button
-                                className={styles.add_btn}
-                                onClick={(e) => {
-                                  onAddVessel()
-                                }}
-                              >
-                                Add
-                              </button>
+                              null
                             )}
                           </>
                         ) : null}
@@ -184,9 +186,10 @@ function Index({
                               onChange={(e) =>
                                 shipmentTypeChangeHandler(e, index)
                               }
+                              value={val.shipmentType}
                             >
                               <option>Select an option</option>
-                              <option value="Bulk" selected>
+                              <option value="Bulk">
                                 Bulk
                               </option>
                               <option value="Liner">Liner</option>
@@ -231,7 +234,7 @@ function Index({
                             // value={val.quantity}
                             value={addPrefixOrSuffix(
                               val.quantity,
-                              _get(vesselData,'data[0].order.unitOfQuantity','').toUpperCase(),
+                              _get(vesselData, 'data[0].order.unitOfQuantity', '').toUpperCase(),
                               '',
                             )}
                             onChange={(e) =>
@@ -250,11 +253,13 @@ function Index({
                           <select
                             className={`${styles.input_field} pl-2 pr-3 input w-35 border-right-0`}
                             style={{ color: '#3687E8' }}
+                            value={currency}
                             required
                           >
                             <option>Select</option>
-                            <option>USD</option>
-                            <option>INR</option>
+                            <option value="USD">USD</option>
+                            <option value="INR">INR</option>
+                            <option value="EURO">EURO</option>
                           </select>
                           <input
                             id="orderValue"
@@ -294,7 +299,7 @@ function Index({
                                 OnVesselTransitFieldsChangeHandler(e, index)
                               }
                               value={val.transitDetails.countryOfOrigin}
-                              
+
                             >
                               <option>Select an option</option>
                               {/* <option value={val.countryOfOrigin}>
@@ -356,7 +361,7 @@ function Index({
                               onChange={(e) =>
                                 OnVesselTransitFieldsChangeHandler(e, index)
                               }
-                               value={val.transitDetails.portOfDischarge}
+                              value={val.transitDetails.portOfDischarge}
                             >
                               <option>Select an option</option>
                               {/* <option value={val.portOfDischarge}>
@@ -564,7 +569,8 @@ function Index({
                                     <div className="d-flex">
                                       <input
                                         id="yearOfBuilt"
-                                        value={moment(vesselInfo.yearOfBuilt).format("YYYY")}
+                                        // value={vesselInfo.yearOfBuilt}
+                                        value={vesselInfo.yearOfBuilt ? moment(vesselInfo.yearOfBuilt).format("YYYY") : ''}
                                         className={`${styles.input_field} input form-control`}
                                         type="text"
                                         onKeyDown={(evt) =>
@@ -743,7 +749,13 @@ function Index({
                                 <h3 className={styles.sub_heading}>
                                   Vessel Information
                                 </h3>
-                                {index > 1 ? (
+                                <button
+                                    onClick={() => OnAddvesselInformation()}
+                                    className={styles.add_btn}
+                                  >
+                                    Add
+                                  </button>
+                                {index > 0 ? (
                                   <button
                                     onClick={() =>
                                       OnAddvesselInformationDelete(index)
@@ -753,12 +765,7 @@ function Index({
                                     Delete
                                   </button>
                                 ) : (
-                                  <button
-                                    onClick={() => OnAddvesselInformation()}
-                                    className={styles.add_btn}
-                                  >
-                                    Add
-                                  </button>
+                                  null
                                 )}
                               </div>
                               <div className="row">

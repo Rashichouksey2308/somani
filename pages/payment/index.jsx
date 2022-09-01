@@ -1,25 +1,49 @@
 /* eslint-disable @next/next/no-img-element */
-import React ,{useEffect}from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './index.module.scss'
 import PaymentTableMain from '../../src/components/PaymentTableMain'
 import Filter from '../../src/components/Filter'
 import Router from 'next/router'
-import { useDispatch } from 'react-redux'
-import { setPageName,setDynamicName } from '../../src/redux/userData/action'
+import { useDispatch, useSelector } from 'react-redux'
+import { setPageName, setDynamicName } from '../../src/redux/userData/action'
+import { SearchLeads } from '../../src/redux/buyerProfile/action'
+import { GetAllDelivery } from '../../src/redux/release&DeliveryOrder/action'
+
 function Index() {
-    const dispatch = useDispatch()
-   useEffect(() => {
+
+  const dispatch = useDispatch()
+
+  const [serachterm, setSearchTerm] = useState('')
+
+  const { searchedLeads } = useSelector((state) => state.order)
+
+  useEffect(() => {
     dispatch(setPageName('payment'))
     dispatch(setDynamicName(null))
   })
 
-useEffect(() => {
-if(window){
-    sessionStorage.setItem('loadedPage',"Payments, Invoicing & Delivery")
-    sessionStorage.setItem('loadedSubPage',null)
-    sessionStorage.setItem('openList',5)
+  useEffect(() => {
+    if (window) {
+      sessionStorage.setItem('loadedPage', 'Payments, Invoicing & Delivery')
+      sessionStorage.setItem('loadedSubPage', null)
+      sessionStorage.setItem('openList', 5)
     }
-},[])
+  }, [])
+
+  
+  const handleSearch = (e) => {
+    const query = `${e.target.value}`
+    setSearchTerm(query)
+    if (query.length >= 3) {
+      dispatch(SearchLeads(query))
+    }
+  }
+
+  const handleFilteredData = (e) => {
+    setSearchTerm('')
+    const id = `${e.target.id}`
+    dispatch(GetAllDelivery(`?company=${id}`))
+  }
 
   return (
     <div className="container-fluid p-0 border-0">
@@ -37,11 +61,28 @@ if(window){
                 />
               </div>
               <input
-                type="text"
-                className={`${styles.formControl} form-control formControl `}
-                placeholder="Search"
-              />
-            </div>
+                  value={serachterm}
+                  onChange={handleSearch}
+                  type="text"
+                  className={`${styles.formControl} form-control formControl `}
+                  placeholder="Search"
+                />
+              </div>
+              {searchedLeads && serachterm && (
+                <div className={styles.searchResults}>
+                  <ul>
+                    {searchedLeads.data.data.map((results, index) => (
+                      <li
+                        onClick={handleFilteredData}
+                        id={results._id}
+                        key={index}
+                      >
+                        {results.companyName} <span>{results.customerId}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
           </div>
           <Filter />
           {/* <a href="#" className={`${styles.filterList} filterList `}>
@@ -120,7 +161,6 @@ if(window){
           pageType="DELIVERY ORDER NO."
           dateHeading="DELIVERY ORDER DATE"
           isStatus={true}
-          
         />
       </div>
     </div>

@@ -780,7 +780,7 @@ export default function Index({
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              Bl Date
+                              BL Date
                             </label>
                           </div>
                         </div>

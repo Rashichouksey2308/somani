@@ -3,7 +3,7 @@ import styles from './index.module.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 export default function Index({ isQuery }) {
-  console.log(isQuery, 'isQuery')
+
   const [show, setShow] = useState({
     units: true,
     currency: true,
@@ -18,6 +18,9 @@ export default function Index({ isQuery }) {
     sessionStorage.removeItem('Product')
     sessionStorage.removeItem('Finance')
     sessionStorage.removeItem('Shipping')
+    sessionStorage.removeItem('Cma')
+    sessionStorage.removeItem('Cha')
+    sessionStorage.removeItem('Stevedore')
   }
   useEffect(() => {
     if (
@@ -73,7 +76,8 @@ export default function Index({ isQuery }) {
       setShow({ ...show })
     }
   }, [isQuery])
-  console.log(isQuery, 'isQuery')
+ 
+  
   const [myUrl, setUrl] = useState([])
   const [myUrlLength, setUrlLength] = useState([])
   var url = []
@@ -83,7 +87,7 @@ export default function Index({ isQuery }) {
   const order = useSelector((state) => state?.user.order)
   const currency = useSelector((state) => state?.user)
 
-  console.log('pageName23', order)
+  console.log('pageName23', order,id)
   const [unit, setUnit] = useState({ value: 'crores' })
   const [curency, setCurency] = useState({ value: 'inr' })
 
@@ -164,7 +168,7 @@ export default function Index({ isQuery }) {
     if ('generic' == pageName) {
       if (id !== null) {
         router.route =
-          '/Agreements & LC Module' + '/Generic' + `/${id}` + '/Order ID'
+          '/Agreements & LC Module' + '/Generic' + `/${id}` + `/${order}`
         console.log('router123', router.route)
       } else {
         router.route = '/Agreements & LC Module' + '/Generic'
