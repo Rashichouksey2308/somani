@@ -185,7 +185,7 @@ function Index() {
                   {marginMoneyResponse?.data?.map((margin, index) => (
                     <tbody key={index}>
                       <tr className="table_row">
-                        <td>{margin?.order?.orderId}</td>
+                        <td>{margin?.order?.orderId ? margin?.order?.orderId : margin?.order?.applicationId}</td>
                         <td
                           className={styles.buyerName}
                           onClick={() => {

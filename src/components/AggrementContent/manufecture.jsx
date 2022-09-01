@@ -1189,7 +1189,7 @@ setEditAddress(
                     )}
                       </td>
                       </td>
-                      <td className={`d-flex`}>
+                      <td>
                         {/* <img  className={`mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
                         <img  src="/static/upload.svg" alt="upload"/>
                       </td>
@@ -1233,7 +1233,7 @@ setEditAddress(
                       </div>
                     )}
                       </td>
-                      <td className={`d-flex`}>
+                      <td>
                         {/* <img onClick={()=>removeDocArr(index)} className={`mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
                         <img src="/static/upload.svg" alt="upload"/>
                       </td>
@@ -1253,8 +1253,8 @@ setEditAddress(
         <div className={styles.manufacture}>
         
            <span className={``}>{props.multiPartValue} Details</span>
-            
-            <Form.Group className={`${styles.form_group} d-flex  col-md-8 col-sm-6`}>
+          <div className='row mt-4'>
+            <Form.Group className={`${styles.form_group} d-flex col-md-8 col-sm-6`}>
               <Form.Control
                 className={`${styles.input_field} input form-control`}
                 required
@@ -1273,6 +1273,7 @@ setEditAddress(
                     alt="Search"
                   />
             </Form.Group>
+          </div>
           <div className={`${styles.addressContainer} m-0`}>
           {multiList?.length > 0 ? <span className={`mb-3`}> {props.multiPartValue} Addresses</span>:null}
           <div className={`${styles.containerChild} d-flex justify-content-between flex-wrap  `}>

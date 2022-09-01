@@ -35,7 +35,9 @@ function Index() {
   return (
     <div className={`${styles.dashboardTab} w-100`}>
       <div className={`${styles.tabHeader} tabHeader `}>
-        <div className={`${styles.tab_header_inner} d-flex align-items-center`}>
+        <div
+          className={`${styles.tab_header_inner} ml-3 d-flex align-items-center`}
+        >
           <img
             className={`${styles.arrow} img-fluid image_arrow mr-2`}
             src="/static/keyboard_arrow_right-3.svg"
@@ -157,9 +159,9 @@ function Index() {
                 >
                   <div className="accordion shadow-none" id="profileAccordion">
                     <Contract
-                    preview={preview}
-                    setPreviewValue={setPreviewValue}
-                     />
+                      preview={preview}
+                      setPreviewValue={setPreviewValue}
+                    />
                   </div>
                 </div>
                 <div
