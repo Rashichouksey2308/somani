@@ -24,6 +24,14 @@ function Index() {
  const setPreviewValue=(val)=>{
   setPreview(val)
  }
+ const [name,setName]=useState("")
+ useEffect(() => {
+    if (window) {
+      const data = JSON.parse(sessionStorage.getItem("genericSelected"))
+        setName(data.company.companyName)
+      
+    }
+  }, [])
   return (
     <div className={`${styles.dashboardTab} w-100`}>
       <div className={`${styles.tabHeader} tabHeader `}>
@@ -33,7 +41,7 @@ function Index() {
             src="/static/keyboard_arrow_right-3.svg"
             alt="arrow"
           />
-          <h1 className={`${styles.title} heading`}>Name</h1>
+          <h1 className={`${styles.title} heading `}>{name}</h1>
           <div className={'ml-auto d-flex'}>
             <div className="ml-auto mr-2">
               <button
