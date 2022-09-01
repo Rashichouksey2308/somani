@@ -5,7 +5,7 @@ import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
   let finance={
     "name": "",
-    "brachName": "",
+    "branchName": "",
 
         
  }
@@ -18,7 +18,7 @@ const[financeData,setFinanceData]=useState(finance)
       let savedData=JSON.parse(sessionStorage.getItem("Finance"))
       let finance={
         "name": savedData.name,
-        "brachName": savedData.branch,
+        "branchName": savedData.branchName,
         
         
        }
@@ -28,7 +28,7 @@ const[financeData,setFinanceData]=useState(finance)
     }else{
        let finance={
         "name": props.data?.name,
-        "brachName": props.data?.branch,
+        "branchName": props.data?.branchName,
         
         
        }
@@ -58,7 +58,7 @@ const[financeData,setFinanceData]=useState(finance)
       props.updateData("Financing Bank",data)
 
     }
-  },[props])
+  },[props.saveData,props.submitData])
   const handleInput=(name,value,key)=>{
   
 
@@ -68,6 +68,7 @@ const[financeData,setFinanceData]=useState(finance)
       setFinanceData(newInput)
 
   }
+  console.log(financeData,"dsad")
   return (
     <>
       <div className={`${styles.container} vessel_card`}>
@@ -85,7 +86,7 @@ const[financeData,setFinanceData]=useState(finance)
                   }}
                 >
                    <option>Select an option</option>
-                  <option value="27AAATW4Ing Bank N.V183C2ZG">Ing Bank N.V</option>
+                  <option value="Ing Bank N.V">Ing Bank N.V</option>
                 
                 </select>
                 <Form.Label
@@ -104,13 +105,13 @@ const[financeData,setFinanceData]=useState(finance)
               <div className='d-flex'>
                 <select
                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                  name="brachName"
-                  value={financeData.brachName}
+                  name="branchName"
+                  value={financeData.branchName}
                   onChange={(e) => {
                     handleInput(e.target.name,e.target.value)
                   }}
                 >
-                   <option>Select an option</option>
+                  <option>Select an option</option>
                   <option value="Karol Bagh">Karol Bagh</option>
                 
                 </select>
