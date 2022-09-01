@@ -252,13 +252,13 @@ function Index({
                             style={{ color: '#3687E8' }}
                             required
                           >
-                            <option>Select an option</option>
+                            <option>Select</option>
                             <option>USD</option>
                             <option>INR</option>
                           </select>
                           <input
                             id="orderValue"
-                            type="number"
+                            type="text"
                             onKeyDown={(evt) =>
                               evt.key === 'e' && evt.preventDefault()
                             }
@@ -293,6 +293,8 @@ function Index({
                               onChange={(e) =>
                                 OnVesselTransitFieldsChangeHandler(e, index)
                               }
+                              value={val.transitDetails.countryOfOrigin}
+                              
                             >
                               <option>Select an option</option>
                               {/* <option value={val.countryOfOrigin}>
@@ -323,6 +325,7 @@ function Index({
                               onChange={(e) =>
                                 OnVesselTransitFieldsChangeHandler(e, index)
                               }
+                              value={val.transitDetails.portOfLoading}
                             >
                               <option>Select an option</option>
                               {/* <option value={val.portOfLoading}>
@@ -353,6 +356,7 @@ function Index({
                               onChange={(e) =>
                                 OnVesselTransitFieldsChangeHandler(e, index)
                               }
+                               value={val.transitDetails.portOfDischarge}
                             >
                               <option>Select an option</option>
                               {/* <option value={val.portOfDischarge}>
@@ -560,9 +564,9 @@ function Index({
                                     <div className="d-flex">
                                       <input
                                         id="yearOfBuilt"
-                                        defaultValue={vesselInfo.yearOfBuilt}
+                                        value={moment(vesselInfo.yearOfBuilt).format("YYYY")}
                                         className={`${styles.input_field} input form-control`}
-                                        type="number"
+                                        type="text"
                                         onKeyDown={(evt) =>
                                           evt.key === 'e' &&
                                           evt.preventDefault()
@@ -607,11 +611,11 @@ function Index({
                                           *
                                         </strong>
                                       </label>
-                                      <img
+                                      {/* <img
                                         className={`${styles.arrow} image_arrow img-fluid`}
                                         src="/static/inputDropDown.svg"
                                         alt="Search"
-                                      />
+                                      /> */}
                                     </div>
                                   </div>
 

@@ -35,7 +35,7 @@ function Index({chargesData}) {
         <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`}>
           <h2 className="mb-0">Charges</h2>
           <div className={`${styles.charges} form-group`}>
-            <input type="radio" id="all" onClick={()=>{handleRadioSelect('all')}} name="charges" value="All" />
+            <input defaultChecked type="radio" id="all" onClick={()=>{handleRadioSelect('all')}} name="charges" value="All" />
             <label htmlFor="all">All</label>
             <input type="radio" id="open" name="charges" value="Open" onClick={()=>{handleRadioSelect('open')}}/>
             <label htmlFor="open" >Open</label>

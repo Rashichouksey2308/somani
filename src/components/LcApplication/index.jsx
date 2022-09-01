@@ -91,6 +91,7 @@ function Index({
                             value={lcData?.formOfDocumentaryCredit}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
+                             <option value="">Select an option</option>
                             <option value="Irrevocable">Irrevocable</option>
                             <option value="Revocable">Revocable</option>
                           </select>

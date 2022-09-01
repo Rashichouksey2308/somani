@@ -192,7 +192,7 @@ function Index() {
       clauseArr.map((e) => e.dropDownValue).includes(clauseObj.dropDownValue)
     ) {
       let toastMessage = 'CLAUSE ALREADY ADDED'
-      if (!toast.isActive(toastMessage).toUpperCase()) {
+      if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
     } else {

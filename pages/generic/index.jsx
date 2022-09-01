@@ -17,19 +17,7 @@ function Index(props) {
   const dispatch = useDispatch()
   const [darkMode, setDarkMode] = useState(false)
   const [lastModified,setlastModified]=useState("")
-  useEffect(() => {
 
-
-    if (localStorage.getItem('darkMode') == 'true' ||
-      localStorage.getItem('darkMode') == true) {
-      // console.log("this")
-      setDarkMode(true)
-    } else {
-      // console.log("this2")
-      setDarkMode(false)
-    }
-
-  }, [])
   useEffect(() => {
     dispatch(setPageName('generic'))
     dispatch(setDynamicName(sessionStorage.getItem('genericID')))
@@ -43,7 +31,7 @@ function Index(props) {
   console.log(genericData,"genericData")
 
  const setDate=(date)=>{
-  console.log(date,"date213")
+
   setlastModified(date)
  }
   return (
