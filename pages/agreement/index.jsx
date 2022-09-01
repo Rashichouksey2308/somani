@@ -18,22 +18,35 @@ import { Form } from 'react-bootstrap'
 import AssignmentLetter from '../../src/components/AssignmentLetter'
 
 function Index() {
-  const [preview,setPreview]=useState(false)
-
-
- const setPreviewValue=(val)=>{
-  setPreview(val)
- }
+  const [preview, setPreview] = useState(false)
+  const [darkMode, setDarkMode] = useState(false)
+  useEffect(() => {
+    if (
+      localStorage.getItem('darkMode') == 'true' ||
+      localStorage.getItem('darkMode') == true
+    ) {
+      // console.log("this")
+      setDarkMode(true)
+    } else {
+      // console.log("this2")
+      setDarkMode(false)
+    }
+  }, [])
+  const setPreviewValue = (val) => {
+    setPreview(val)
+  }
   return (
     <div className={`${styles.dashboardTab} w-100`}>
       <div className={`${styles.tabHeader} tabHeader `}>
-        <div className={`${styles.tab_header_inner} d-flex align-items-center`}>
+        <div
+          className={`${styles.tab_header_inner} ml-3 d-flex align-items-center`}
+        >
           <img
             className={`${styles.arrow} img-fluid image_arrow mr-2`}
             src="/static/keyboard_arrow_right-3.svg"
             alt="arrow"
           />
-          <h1 className={`${styles.title} heading`}>Name</h1>
+          <h1 className={`${styles.title} heading`}>Ramakrishna Traders</h1>
           <div className={'ml-auto d-flex'}>
             <div className="ml-auto mr-2">
               <button
@@ -149,9 +162,9 @@ function Index() {
                 >
                   <div className="accordion shadow-none" id="profileAccordion">
                     <Contract
-                    preview={preview}
-                    setPreviewValue={setPreviewValue}
-                     />
+                      preview={preview}
+                      setPreviewValue={setPreviewValue}
+                    />
                   </div>
                 </div>
                 <div

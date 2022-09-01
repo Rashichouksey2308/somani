@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
+import DateCalender from '../DateCalender'
+import moment from 'moment'
 let cma = {
  
   "authorisedSignatoryDetails": [
@@ -17,7 +19,7 @@ function Index(props) {
   const [list, setList] = useState([])
 
  
-
+console.log(list,"val.dateOfExecution")
 
   useEffect(() => {
     if (window) {
@@ -34,6 +36,7 @@ function Index(props) {
           temp.push({
             name:val.agreementName,
             execution:val.place,
+            dateOfExecution:val?.dateOfExecution,
             action:"false"
           })
         })
@@ -105,6 +108,7 @@ function Index(props) {
 
     setList([...list, {
       name: "Sales Agreement", execution: "", 
+      dateOfExecution:null,
       actions: "false"
     }])
 
@@ -193,6 +197,7 @@ function Index(props) {
                   <tr>
                     <th className='border-0'>Agreement Name</th>
                     <th className='border-0'>Place of Execution</th>
+                    <th className='border-0'>Date of Execution</th>
                     <th className='border-0'>Actions</th>
                     
                   </tr>
@@ -236,6 +241,7 @@ function Index(props) {
                                   alt="Search"
                                 />
                               </td>
+                             
                               <td>
                                 <input type="text"
                                   className='input'
@@ -246,7 +252,30 @@ function Index(props) {
                                     handleChangeInput(e.target.name, e.target.value, index)
                                   }}
                                 />
-                              </td>                            
+                              </td>   
+                               <td>
+                              <div className="d-flex">
+                               <DateCalender
+                                name="dateOfExecution"
+                                saveDate={ (val,name,index)=>{
+                                  handleChangeInput(name, val, index)
+                                } }
+                                defaultDate={
+                                  val.dateOfExecution==null?null:moment(val.dateOfExecution).toDate()
+                                  }
+                                small={true}
+                                index={index}
+                                
+                                
+                              />
+                              <img
+                                className={`${styles.calanderIcon} image_arrow img-fluid`}
+                                src="/static/caldericon.svg"
+                                alt="Search"
+                              />
+                            </div>
+                               
+                              </td>                         
                               <td className={`d-flex`}>
                                 <img className={`${styles.image} img-fluid mr-3`} onClick={() => (onEditRemove(index))} src="/static/save-3.svg" alt="save" />
                                 <img onClick={() => (handleRemove(index))} src="/static/delete 2.svg"></img>

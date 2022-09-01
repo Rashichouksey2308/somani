@@ -7,7 +7,7 @@ import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetOrders } from '../../src/redux/registerBuyer/action'
 import { setPageName, setDynamicName } from '../../src/redux/userData/action'
-import _get from "lodash/get"
+import _get from 'lodash/get'
 import { GetCreditLimit } from '../../src/redux/companyDetail/action'
 import moment from 'moment'
 import {
@@ -25,29 +25,30 @@ function Index() {
   console.log(singleOrder, 'singleorder')
 
   useEffect(() => {
-   let companyIDnewOrder = sessionStorage.getItem('companyID')
-   console.log(companyIDnewOrder,"companyIDnewOrder")
+    let companyIDnewOrder = sessionStorage.getItem('companyID')
+    console.log(companyIDnewOrder, 'companyIDnewOrder')
     dispatch(GetOrders(`?page=${currentPage}company=${companyIDnewOrder}`))
   }, [dispatch, currentPage])
-  
 
   useEffect(() => {
     dispatch(setPageName('leads'))
-    dispatch(setDynamicName(_get(singleOrder,
-      'data[0].company.companyName'
-      , " ")))
+    dispatch(
+      setDynamicName(_get(singleOrder, 'data[0].company.companyName', ' ')),
+    )
   }, [dispatch, singleOrder])
 
   let compId = _get(singleOrder, 'data[0].company._id', '')
 
-
   const handleRouteNewOrder = () => {
-    sessionStorage.setItem('companyID', _get(singleOrder, 'data[0].company._id', ''))
+    sessionStorage.setItem(
+      'companyID',
+      _get(singleOrder, 'data[0].company._id', ''),
+    )
     dispatch(GetOrders(`?company=${compId}`))
     dispatch(GetCreditLimit({ companyId: compId }))
     setTimeout(() => {
       Router.push('/new-order')
-    }, 1000);
+    }, 1000)
   }
 
   // buyer.queue === 'Rejected'
@@ -58,14 +59,13 @@ function Index() {
   //                                 ? 'Approved'
   //                                 : 'Rejected'
   const handleRoute = (buyer) => {
-    sessionStorage.setItem('orderId', buyer._id);
-    sessionStorage.setItem('company', buyer.company._id);
+    sessionStorage.setItem('orderId', buyer._id)
+    sessionStorage.setItem('company', buyer.company._id)
     // console.log(buyer,'butyer')
 
-    console.log(" before go to get document")
-    sessionStorage.setItem('company', buyer.company._id);
+    console.log(' before go to get document')
+    sessionStorage.setItem('company', buyer.company._id)
     if (buyer.queue === 'CreditQueue') {
-
       // dispatch(GetAllOrders({ orderId: buyer._id }))
       //dispatch(GetDocuments({order: buyer._id}))
       dispatch(GetCompanyDetails({ company: buyer.company._id }))
@@ -84,13 +84,16 @@ function Index() {
         <div className={styles.leads_inner}>
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
-
             <div className={`${styles.head_header} align-items-center`}>
-              <img className={`${styles.arrow} img-fluid mr-2 image_arrow`}
-                src="/static/keyboard_arrow_right-3.svg" alt="arrow" />
-              <h1 className={`${styles.heading} heading`}>{_get(singleOrder, 'data[0].company.companyName', "")}</h1>
+              <img
+                className={`${styles.arrow} img-fluid mr-2 image_arrow`}
+                src="/static/keyboard_arrow_right-3.svg"
+                alt="arrow"
+              />
+              <h1 className={`${styles.heading} heading`}>
+                {_get(singleOrder, 'data[0].company.companyName', '')}
+              </h1>
             </div>
-
 
             <button
               type="button"
@@ -191,7 +194,10 @@ function Index() {
               <div
                 className={`${styles.pageList} d-flex justify-content-end align-items-center`}
               >
-                <span>Showing Page {currentPage + 1}  out of {Math.ceil(singleOrder?.totalCount / 10)}</span>
+                <span>
+                  Showing Page {currentPage + 1} out of{' '}
+                  {Math.ceil(singleOrder?.totalCount / 10)}
+                </span>
                 <a
                   onClick={() => {
                     if (currentPage === 0) {
@@ -212,7 +218,10 @@ function Index() {
                 </a>
                 <a
                   onClick={() => {
-                    if (currentPage + 1 < Math.ceil(singleOrder?.totalCount / 10)) {
+                    if (
+                      currentPage + 1 <
+                      Math.ceil(singleOrder?.totalCount / 10)
+                    ) {
                       setCurrentPage((prevState) => prevState + 1)
                     }
                   }}
@@ -257,7 +266,11 @@ function Index() {
                           key={index}
                           className={`${styles.table_row} table_row`}
                         >
-                          <td>{buyer?.applicationId ? buyer?.applicationId : buyer?.order?.orderId}</td>
+                          <td>
+                            {buyer?.orderId
+                              ? buyer?.orderId : buyer?.applicationId
+                              }
+                          </td>
                           <td
                             className={`${styles.buyerName}`}
                             onClick={() => {
@@ -268,28 +281,31 @@ function Index() {
                           </td>
                           <td>{buyer.createdBy.fName}</td>
 
-                          <td>{
-                            moment(buyer.createdAt.split('T')[0]).format("DD-MM-YYYY")}
+                          <td>
+                            {moment(buyer.createdAt.split('T')[0]).format(
+                              'DD-MM-YYYY',
+                            )}
                           </td>
                           <td>
                             <span
-                              className={`${styles.status} ${buyer.queue === 'Rejected'
-                                ? styles.rejected
-                                : buyer.queue === 'ReviewQueue'
+                              className={`${styles.status} ${
+                                buyer.queue === 'Rejected'
+                                  ? styles.rejected
+                                  : buyer.queue === 'ReviewQueue'
                                   ? styles.review
                                   : buyer.queue === 'CreditQueue'
-                                    ? styles.approved
-                                    : styles.rejected
-                                }`}
+                                  ? styles.approved
+                                  : styles.rejected
+                              }`}
                             ></span>
 
                             {buyer.queue === 'Rejected'
                               ? 'Rejected'
                               : buyer.queue === 'ReviewQueue'
-                                ? 'Review'
-                                : buyer.queue === 'CreditQueue'
-                                  ? 'Approved'
-                                  : 'Rejected'}
+                              ? 'Review'
+                              : buyer.queue === 'CreditQueue'
+                              ? 'Approved'
+                              : 'Rejected'}
                           </td>
                         </tr>
                       ))}
