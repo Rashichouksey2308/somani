@@ -52,7 +52,7 @@ if (window) {
     setAddressList(temp)
   } else {
     let temp=[]
-    props.data?.forEach((val,index)=>{
+    props?.data?.comments.forEach((val,index)=>{
       temp.push({value:val,action:false})
     })
     setAddressList(temp)

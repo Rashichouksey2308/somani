@@ -15,6 +15,8 @@ let savedData=JSON.parse(sessionStorage.getItem("Delivery"))
 console.log("savd")
 setDeliveryData(savedData.deliveryTerms)
 }
+}else{
+  setDeliveryData(props?.delivery?.deliveryTerms)
 }
 },[props])
 useEffect(() => {
@@ -44,8 +46,18 @@ const handleInput=(name,value,key)=>{
 console.log(value,"diler")
 
 setDeliveryData(value)
+let dataToSend2={
+   
+   
+    "deliveryTerms":value,
+
+
+    
+    }
+  sessionStorage.setItem("Delivery",JSON.stringify(dataToSend2))
 
 }
+console.log(deliveryData,"deliveryData")
   return (
     
     <>

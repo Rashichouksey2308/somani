@@ -51,41 +51,41 @@ function Index(props) {
 {name:"Devesh Jain",designation:"Director",email:"devesh@indointertrade.ch",phoneNo:""},
 {name:"Fatima Yannoulis ",designation:"Chief Financial Officer",email:"fatima@indointertrade.ch",phoneNo:""}
 ]
-  useEffect(() => {
-    if (window) {
-      if (sessionStorage.getItem("Associate")) {
-        let savedData = JSON.parse(sessionStorage.getItem("Associate"))
-        let buyer = {
-          "name": savedData.name,
-          "shortName": savedData.shortName,
+useEffect(() => {
+if (window) {
+  if (sessionStorage.getItem("Associate")) {
+    let savedData = JSON.parse(sessionStorage.getItem("Associate"))
+    let buyer = {
+      "branchName": savedData.branchName,
+      "shortName": savedData.shortName,
 
-          "gstin": savedData.gstin,
-          
-
-
-        }
-        setAddressList(savedData.addresses)
-        setList(savedData.authorisedSignatoryDetails)
-
-        setAssociateData(buyer)
-      }else{
-        let buyer = {
-          "name": props?.data?.name,
-          "shortName": props?.data?.shortName,
-          "gstin": savedData.gstin,
-          
+      "gstin": savedData.gstin,
+      
 
 
-
-
-        }
-        setAddressList(props?.data.addresses)
-        setList(props?.data?.authorisedSignatoryDetails)
-
-        setAssociateData(buyer)
-      }
     }
-  }, [])
+    setAddressList(savedData.addresses)
+    setList(savedData.authorisedSignatoryDetails)
+
+    setAssociateData(buyer)
+  }else{
+    console.log("in props")
+    let buyer = {
+      "branchName": props?.data?.branchName,
+      "shortName": props?.data?.shortName,
+      
+        "gstin": props?.data?.gstin,
+
+
+
+    }
+    setAddressList(props?.data?.addresses?props?.data?.addresses:[])
+    setList(props?.data?.authorisedSignatoryDetails?props?.data?.authorisedSignatoryDetails:[])
+
+    setAssociateData(buyer)
+  }
+}
+}, [props])
 useEffect(() => {
 if(props.saveData==true && props.active=="Associate Buyer"){
   let data={
@@ -111,7 +111,7 @@ let data={
 props.updateData("Associate Buyer",data)
 
 }
-},[props])
+},[props.saveData,props.submitData])
  const addDoc=(e,index)=>{
     setDocList(prevState => {
       const newState = prevState.map((obj ,i)=> {
@@ -143,7 +143,7 @@ props.updateData("Associate Buyer",data)
       return newState;
     });
  }
- console.log(list,"listtttttt",docList)
+ console.log(associate,"associate",docList)
   const handleInput=(name,value,key)=>{
   
 
@@ -229,25 +229,25 @@ const removeDoc=(index)=>{
   
 }
 const handleChangeInput2=(name2,value,index)=>{
-   
- 
-  
 
-    setList(prevState => {
-      const newState = prevState.map((obj ,i)=> {
-       
-        if (i == index) {
-          return {...obj,[name2]:value};
-        }
 
-        
-        return obj;
-      });
 
-      return newState;
-    });
+
+setList(prevState => {
+  const newState = prevState.map((obj ,i)=> {
+    
+    if (i == index) {
+      return {...obj,[name2]:value};
+    }
 
     
+    return obj;
+  });
+
+  return newState;
+});
+
+
 
 }
 
@@ -409,13 +409,16 @@ const cancelAddress=()=>{
   setAddressType("Registered")
 
 }
+console.log(associateData,"associateData")
   return (
     <>
       <div className={`${styles.container} vessel_card`}>
         <Form className={`${styles.form}`}>
           <div className="row">
             <div className={`${styles.info} col-md-4 col-sm-6`}>
-              <span>Name<strong className="text-danger">*</strong></span>
+              <span>Name
+                {/* <strong className="text-danger">*</strong> */}
+                </span>
               <p>Jaiswal Nico</p>
             </div>
             <div className={`${styles.info} col-md-4 col-sm-6`}>
@@ -432,6 +435,7 @@ const cancelAddress=()=>{
                 required
                 type="text"
                 name="branchName"
+                 value={associateData.branchName}
                 onChange={(e)=>{
                   handleInput(e.target.name,e.target.value)
                 }}
@@ -448,6 +452,7 @@ const cancelAddress=()=>{
                   onChange={(e) => {
                     handleInput(e.target.name,e.target.value)
                   }}
+                  value={associateData.gstin}
                 >  
                 <option>Select an option</option>
                 
@@ -476,6 +481,7 @@ const cancelAddress=()=>{
                 onChange={(e) => {
                 handleInput(e.target.name,e.target.value)
                 }}
+                value={associateData.shortName}
                 />
               <Form.Label className={`${styles.label_heading} label_heading`}>
                 Short Name

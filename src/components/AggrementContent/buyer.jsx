@@ -7,6 +7,7 @@ let buyer = {
   "name": "",
 
   "branchName": "",
+  
  
 
 
@@ -14,13 +15,13 @@ let buyer = {
 function Index(props) {
   const [buyerData, setBuyerData] = useState(buyer)
   useEffect(() => {
-    setBuyerData({...buyer,name:props?.order?.company?.companyName})
+    setBuyerData({...buyerData,name:props?.order?.company?.companyName})
   },[props.order])
+  const [gstin,setGstin]=useState("")
   const [list, setList] = useState([])
   const [addressList,setAddressList]=useState([])
   const [docList,setDocList]=useState([])
   const [doc,setdoc]=useState({attachDoc:""})
-  const [gstin,setGstin]=useState=("")
   const [newAddress,setNewAddress]=useState(
           {
           "addressType": "Registered",
@@ -57,12 +58,19 @@ function Index(props) {
 
 
         }
-        setAddressList(savedData.addresses?savedDataa?.addresses:[])
-        setList(savedData.authorisedSignatoryDetails?savedDataa?.authorisedSignatoryDetails:[])
+        if(savedData.branchName=="Delhi"){
+
+          setGstin("07AAACI3028D1Z4")
+                     
+        }
+        else if(savedData.branchName=="Andhra Pradesh"){
+              setGstin("37AAACI3028D2Z0")
+          }
+        setAddressList(savedData.addresses)
+        setList(savedData.authorisedSignatoryDetails)
 
         setBuyerData(buyer)
-      }
-      else{
+      }else{
         let buyer = {
           "name": props?.data?.name,
           "branchName": props?.data?.branchName,
@@ -71,14 +79,21 @@ function Index(props) {
 
 
         }
-        setAddressList(props?.data?.addresses?props?.data?.addresses:[])
-        setList(props?.data?.authorisedSignatoryDetails?props?.data?.authorisedSignatoryDetails:[])
+        if(props?.data?.branchName=="Delhi"){
+
+          setGstin("07AAACI3028D1Z4")
+                     
+        }
+        else if(props?.data?.branchName=="Andhra Pradesh"){
+              setGstin("37AAACI3028D2Z0")
+          }
+        setAddressList(props?.data.addresses)
+        setList(props?.data?.authorisedSignatoryDetails)
 
         setBuyerData(buyer)
       }
     }
-  }, [props])
-  console.log(list,addressList,"sdasd",buyerData)
+  }, [])
 let masterList=[
 {name:"Bhawana Jain",designation:"Vice President (Finance & Accounts)",email:"bhawanajain@somanigroup.com",phoneNo:""},
 {name:"Vipin Kumar",designation:"Manager Accounts",email:"vipinrajput@somanigroup.com",phoneNo:""},
@@ -90,7 +105,8 @@ let masterList=[
       let data = {
         buyerData: buyerData,
         list: list,
-        addresses: addressList
+        addresses: addressList,
+        list:list,
 
       }
       props.sendData("Buyer", data)
@@ -99,7 +115,8 @@ let masterList=[
       let data = {
         buyerData: buyerData,
         list: list,
-        addresses: addressList
+        addresses: addressList,
+        list:list
 
       }
 
@@ -107,6 +124,7 @@ let masterList=[
 
     }
   }, [props])
+  
   const onEdit = (index) => {
     let tempArr = list;
     // tempArr[index].actions.edit="false"
@@ -168,7 +186,7 @@ let masterList=[
 
     newInput[name] = value
     setBuyerData(newInput)
-    
+
   }
 const handleChangeInput = (name, value, index) => {
 let arrayToSave={
@@ -412,7 +430,7 @@ const cancelAddress=()=>{
                   required
                   type="text"
                   name="name"
-                  value={buyerData.shortName}
+                  value={buyerData.name}
                   onChange={(e) => {
                     handleInput(e.target.name, e.target.value)
                   }}
@@ -445,6 +463,11 @@ const cancelAddress=()=>{
                   name="branchName"
                   value={buyerData.branchName}
                   onChange={(e) => {
+                     if(e.target.value=="Delhi"){
+                      setGstin("07AAACI3028D1Z4")
+                     }else{
+                      setGstin("37AAACI3028D2Z0")
+                     }
                     handleInput(e.target.name, e.target.value)
                     
                   }}
@@ -452,7 +475,7 @@ const cancelAddress=()=>{
                      <option>Select an option</option>
                     
                     <option value="Delhi">Delhi</option>
-                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                       <option value="Andhra Pradesh">Andhra Pradesh</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Branch Name<strong className="text-danger">*</strong>

@@ -552,7 +552,7 @@ export default function Home() {
         }
 
       } else {
-        if (list[i].shippingInformation.shippingLineOrCharter == "" || list[i].shippingInformation.shippingLineOrCharter == undefined) {
+        if (list[i]?.shippingInformation?.shippingLineOrCharter == "" || list[i]?.shippingInformation?.shippingLineOrCharter == undefined) {
           toastMessage = `Please add shipping Line Or Charter  of Vessel Information ${i}  `
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -561,7 +561,7 @@ export default function Home() {
           }
 
         }
-        if (list[i].shippingInformation.numberOfContainers == "" || list[i].shippingInformation.numberOfContainers == undefined) {
+        if (list[i]?.shippingInformation?.numberOfContainers == "" || list[i]?.shippingInformation?.numberOfContainers == undefined) {
           toastMessage = `Please add number Of Containers  of Vessel Information ${i}  `
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
