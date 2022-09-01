@@ -564,27 +564,27 @@ export default function Index({
                           <div
                             className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                           >
-                            <select
-                              id="vesselName"
-                              onChange={(e) => onChangeBlDropDown(e)}
-                              className={`${styles.input_field} ${styles.customSelect}  input form-control`}
-                            >
-                              <option>Select an option</option>
-                              {_get(
-                                TransitDetails,
-                                'data[0].BL.billOfLanding',
-                                [],
-                              ).map((bl, index3) => (
-                                <option
-                                  key={index3}
-                                  value={`${bl.blNumber}-${index}-${index2}`}
-                                >
-                                  {bl.blNumber}
-                                </option>
-                              ))}
-                            </select>
-
-                            {/* <input
+                            <div className="d-flex">
+                              <select
+                                id="vesselName"
+                                onChange={(e) => onChangeBlDropDown(e)}
+                                className={`${styles.input_field} ${styles.customSelect}  input form-control`}
+                              >
+                                <option>Select an option</option>
+                                {_get(
+                                  TransitDetails,
+                                  'data[0].BL.billOfLanding',
+                                  [],
+                                ).map((bl, index3) => (
+                                  <option
+                                    key={index3}
+                                    value={`${bl.blNumber}-${index}-${index2}`}
+                                  >
+                                    {bl.blNumber}
+                                  </option>
+                                ))}
+                              </select>
+                              {/* <input
                             id="blNumber"
                             onChange={(e) => onChangeBlNumberEntry(e)}
                             className={`${styles.input_field} input form-control`}
@@ -592,12 +592,18 @@ export default function Index({
                             onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                             required
                           /> */}
-                            <label
-                              className={`${styles.label_heading} label_heading`}
-                            >
-                              BL Number
-                              <strong className="text-danger">*</strong>
-                            </label>
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                              >
+                                BL Number
+                                <strong className="text-danger">*</strong>
+                              </label>
+                              <img
+                                className={`${styles.arrow} image_arrow img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                              />
+                            </div>
                           </div>
 
                           {shipmentTypeBulk ? (
