@@ -631,7 +631,7 @@ const onSave=()=>{
     dataToSend={
     genericId:props.genericData?._id,
     buyer:{
-    "name":props.genericData.company.companyName,
+    "name":data.buyerData.name,
     "branchName": data.buyerData.branchName,
 
     "addresses": data.addresses,
@@ -642,7 +642,7 @@ const onSave=()=>{
     let dataToSend2={
      
     
-        "name": props.genericData.company.companyName,
+        "name":data.buyerData.name,
         "branchName": data.buyerData.branchName,
         "addresses": data.addresses,
         "authorisedSignatoryDetails": data.list,
@@ -1297,7 +1297,7 @@ const sendData=(key,data)=>{
     dataToSend={
      
     
-        "name": props.genericData.company.companyName,
+        "name": data.buyerData.name,
         "branchName": data.buyerData.branchName,
         "addresses": data.addresses,
         "authorisedSignatoryDetails": data.list,
