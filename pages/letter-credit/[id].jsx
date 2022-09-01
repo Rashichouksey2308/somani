@@ -10,15 +10,16 @@ import { GetLcModule, UpdateAmendment } from '../../src/redux/lcModule/action'
 import Router from 'next/router'
 import { removePrefixOrSuffix } from '../../src/utils/helper'
 import _get from 'lodash/get'
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
 
 function Index() {
   const dispatch = useDispatch()
 
   const { lcModule } = useSelector((state) => state.lc)
 
+  
   let lcModuleData = _get(lcModule, 'data[0]', {})
-
+console.log(lcModuleData,"lcModuleData")
   const [editInput, setEditInput] = useState(false)
   const [editCurrent, setEditCurrent] = useState()
 
@@ -220,26 +221,65 @@ function Index() {
   }
 
   const handleRightButton = () => {
-    let sendLcData = { ...lcData }
-    sendLcData.tolerancePercentage = Number(
-      removePrefixOrSuffix(lcData.tolerancePercentage),
-    )
-    let fd = new FormData()
-    fd.append('lcApplication', JSON.stringify(sendLcData))
-    fd.append('lcModuleId', JSON.stringify(lcModuleData._id))
-    fd.append('document1', lcDoc.lcDraftDoc)
+    if (lcData.dateOfAmendment === '' || lcData.dateOfAmendment == undefined) {
+      let toastMessage = 'DATE OF AMENDMENT IS MANDATORY'
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      }
+    } else if (
+      lcData.numberOfAmendment === '' ||
+      lcData.numberOfAmendment == undefined
+    ) {
+      let toastMessage = 'NUMBER OF AMENDMENT IS MANDATORY'
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      }
+    } else if (lcDoc.lcDraftDoc === '' || lcDoc.lcDraftDoc == undefined) {
+      let toastMessage = 'PLEASE UPLOAD LC DRAFT'
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      }
+    } else {
+      let sendLcData = { ...lcData }
+      sendLcData.tolerancePercentage = Number(
+        removePrefixOrSuffix(lcData.tolerancePercentage),
+      )
+      let fd = new FormData()
+      fd.append('lcApplication', JSON.stringify(sendLcData))
+      fd.append('lcModuleId', JSON.stringify(lcModuleData._id))
+      fd.append('document1', lcDoc.lcDraftDoc)
 
-    dispatch(UpdateAmendment(fd))
+      dispatch(UpdateAmendment(fd))
+    }
   }
 
   const handleSubmit = () => {
-    let fd = new FormData()
-    fd.append('lcApplication', JSON.stringify(lcData))
-    fd.append('lcModuleId', JSON.stringify(lcModuleData._id))
-    fd.append('document1', lcDoc.lcDraftDoc)
+    if (lcData.dateOfAmendment === '' || lcData.dateOfAmendment == undefined) {
+      let toastMessage = 'DATE OF AMENDMENT IS MANDATORY'
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      }
+    } else if (
+      lcData.numberOfAmendment === '' ||
+      lcData.numberOfAmendment == undefined
+    ) {
+      let toastMessage = 'NUMBER OF AMENDMENT IS MANDATORY'
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      }
+    } else if (lcDoc.lcDraftDoc === '' || lcDoc.lcDraftDoc == undefined) {
+      let toastMessage = 'PLEASE UPLOAD LC DRAFT'
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      }
+    } else {
+      let fd = new FormData()
+      fd.append('lcApplication', JSON.stringify(lcData))
+      fd.append('lcModuleId', JSON.stringify(lcModuleData._id))
+      fd.append('document1', lcDoc.lcDraftDoc)
 
-    dispatch(UpdateAmendment(fd))
-    // Router.push('/letter-credit/id')
+      dispatch(UpdateAmendment(fd))
+    }
   }
 
   return (
@@ -316,6 +356,7 @@ function Index() {
                         <div className="d-flex">
                           <DateCalender
                             name="dateOfAmendment"
+                            defaultDate={lcData?.dateOfAmendment}
                             saveDate={saveDate}
                             labelName="(30) Date Of Ammendment"
                           />
@@ -330,6 +371,7 @@ function Index() {
                         <input
                           className={`${styles.input_field} input form-control`}
                           type="number"
+                          defaultValue={lcData?.numberOfAmendment}
                           onKeyDown={(evt) =>
                             evt.key === 'e' && evt.preventDefault()
                           }
