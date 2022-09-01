@@ -3016,7 +3016,7 @@ const sectionTerms = (
                         {filteredCreditRating &&
                           filteredCreditRating.length > 0 &&
                           filteredCreditRating.map((val, index) => (
-                            <td key={index}>{CovertvaluefromtoCR(val?.suggested?.value)} Cr</td>
+                            <td key={index}>{checkNan(CovertvaluefromtoCR(val?.suggested?.value))} Cr</td>
                           ))}{' '}
                       </>
                     ) : (
@@ -3048,7 +3048,7 @@ const sectionTerms = (
                     <td>{camData?.orderValue}</td>
                     <td>-</td>
                     <td>
-                      {CovertvaluefromtoCR(camData?.suggestedOrderValue)} Cr
+                      {checkNan(CovertvaluefromtoCR(camData?.suggestedOrderValue))} Cr
                       {/* {camData?.suggestedOrderValue} */}
                       </td>
                     <td>
