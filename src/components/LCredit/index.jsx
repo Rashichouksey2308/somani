@@ -193,7 +193,7 @@ function Index() {
 
   const inputRef = useRef(null)
 
-  // console.log(clauseObj, 'this is ccccc')
+  console.log(clauseObj, 'this is ccccc')
 
   const [clauseArr, setClauseArr] = useState([])
   // console.log(clauseArr, 'new arr', clauseArr.map((e)=>e.dropDownValue))
@@ -203,10 +203,7 @@ function Index() {
   const [fieldType, setFieldType] = useState(false)
 
   const dropDownChange = (e) => {
-    console.log(inputRef.current,"ref",e.target.value)
-    //  if(inputRef !== null){
-    //    inputRef.current.value = ''
-    //  }
+    
     if (
       e.target.value == 'latestDateOfShipment' ||
       e.target.value == 'dateOfExpiry'
@@ -248,7 +245,7 @@ function Index() {
 
   const addToArr = () => {
     if (clauseObj.existingValue === '' || clauseObj.newValue === '') {
-      let toastMessage = 'CANNOT ADD A CLOUSE WITH EMPTY VALUES'
+      let toastMessage = 'CANNOT ADD A CLAUSE WITH EMPTY VALUES'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
@@ -290,15 +287,39 @@ console.log(clauseArr,"clauseArr")
   }
 
   const handleSubmit = () => {
+    if(lcData.documentaryCreditNumber === '' || lcData.documentaryCreditNumber == undefined ){
+      let toastMessage = 'DOCUMENTARY CREDIT NUMBER IS MANDATORY'
+      if(!toast.isActive(toastMessage)){
+        toast.error(toastMessage, {toastId: toastMessage})
+      }
+    }
+   else if(lcData.lcIssuingBank === '' || lcData.lcIssuingBank == undefined ){
+      let toastMessage = 'SELECT LC ISSUING BANK FROM DROPDOWN'
+      if(!toast.isActive(toastMessage)){
+        toast.error(toastMessage, {toastId: toastMessage})
+      }
+    }
+   else if(lcData.dateOfIssue === '' || lcData.dateOfIssue == undefined ){
+      let toastMessage = 'DATE OF ISSUE IS MANDATORY'
+      if(!toast.isActive(toastMessage)){
+        toast.error(toastMessage, {toastId: toastMessage})
+      }
+    }
+   else if(lcDoc.lcDraftDoc === '' || lcDoc.lcDraftDoc == undefined ){
+      let toastMessage = 'PLEASE UPLOAD LC DRAFT'
+      if(!toast.isActive(toastMessage)){
+        toast.error(toastMessage, {toastId: toastMessage})
+      }
+    }
+    else{
     setLcData(clauseData)
     let fd = new FormData()
     fd.append('lcApplication', JSON.stringify(lcData))
     fd.append('lcModuleId', JSON.stringify(lcModuleData._id))
     fd.append('document1', lcDoc.lcDraftDoc)
 
-    // console.log(fd, 'IBJJJ')
     dispatch(UpdateLcAmendment(fd))
-    //Router.push('/amend-letter')
+    }
   }
 
   return (
@@ -494,13 +515,13 @@ console.log(clauseArr,"clauseArr")
                           className={`${styles.input_field} input form-control`}
                           disabled
                           type="text"
-                          // value={
+                          value={
                             
-                          // clauseObj?.existingValue
-                          // }
-                          onChange={(e)=>{
+                          clauseObj?.existingValue
+                          }
+                          // onChange={(e)=>{
 
-                          }}
+                          // }}
                         />
                         <label
                           className={`${styles.label_heading} label_heading`}
