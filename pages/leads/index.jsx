@@ -5,45 +5,47 @@ import 'bootstrap/dist/css/bootstrap.css'
 import styles from './index.module.scss'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
-import { GetAllBuyer, GetBuyer, GetOrders } from '../../src/redux/registerBuyer/action'
-import  {SearchLeads} from  '../../src/redux/buyerProfile/action.js';
-import { setPageName,setDynamicName } from '../../src/redux/userData/action'
+import {
+  GetAllBuyer,
+  GetBuyer,
+  GetOrders,
+} from '../../src/redux/registerBuyer/action'
+import { SearchLeads } from '../../src/redux/buyerProfile/action.js'
+import { setPageName, setDynamicName } from '../../src/redux/userData/action'
 import Filter from '../../src/components/Filter'
 
 function Index() {
-  const [serachterm, setSearchTerm] = useState("");
-  const [currentPage, setCurrentPage] = useState(0);
+  const [serachterm, setSearchTerm] = useState('')
+  const [currentPage, setCurrentPage] = useState(0)
   const dispatch = useDispatch()
 
   const { allBuyerList } = useSelector((state) => state.buyer)
   const { searchedLeads } = useSelector((state) => state.order)
-  
+
   useEffect(() => {
     dispatch(GetAllBuyer(`?page=${currentPage}`))
   }, [dispatch, currentPage])
-  
- useEffect(() => {
+
+  useEffect(() => {
     dispatch(setPageName('leads'))
     dispatch(setDynamicName(null))
   })
   useEffect(() => {
-  if(window){
-    sessionStorage.setItem('loadedPage',"Leads")
-    sessionStorage.setItem('loadedSubPage',null)
-    sessionStorage.setItem('openList',1)
-  }
-  },[])
+    if (window) {
+      sessionStorage.setItem('loadedPage', 'Leads')
+      sessionStorage.setItem('loadedSubPage', null)
+      sessionStorage.setItem('openList', 1)
+    }
+  }, [])
 
   const handleRoute = (buyer) => {
-    console.log("buyer",buyer)
-    sessionStorage.setItem('orderId', buyer._id);
+    console.log('buyer', buyer)
+    sessionStorage.setItem('orderId', buyer._id)
     // sessionStorage.getItem('company',buyer.company._id)
-    dispatch(GetOrders( `?company=${buyer.company._id}` ))
+    dispatch(GetOrders(`?company=${buyer.company._id}`))
     setTimeout(() => {
       Router.push('/order-list')
-    }, 500);
-    
-    
+    }, 500)
   }
 
   const handleSearch = (e) => {
@@ -55,12 +57,10 @@ function Index() {
   }
 
   const handleFilteredData = (e) => {
-    setSearchTerm("")
+    setSearchTerm('')
     const id = `${e.target.id}`
     dispatch(GetAllBuyer(`?company=${id}`))
   }
-
-
 
   return (
     <>
@@ -88,15 +88,23 @@ function Index() {
                   placeholder="Search"
                 />
               </div>
-              {searchedLeads && serachterm && <div className={styles.searchResults}>
-                <ul>
-                  {searchedLeads.data.data.map((results, index) => (
-                    <li onClick={handleFilteredData} id={results._id} key={index}>{results.companyName} <span>{results.customerId}</span></li>
-                  ))}
-                </ul>
-              </div>}
+              {searchedLeads && serachterm && (
+                <div className={styles.searchResults}>
+                  <ul>
+                    {searchedLeads.data.data.map((results, index) => (
+                      <li
+                        onClick={handleFilteredData}
+                        id={results._id}
+                        key={index}
+                      >
+                        {results.companyName} <span>{results.customerId}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
-            <Filter/>
+            <Filter />
             {/* <a href="#" className={`${styles.filterList} filterList`}>
               Ramesh Shetty
               <img src="/static/close.svg" className="img-fluid" alt="Close" />
@@ -205,7 +213,10 @@ function Index() {
               <div
                 className={`${styles.pageList} d-flex justify-content-end align-items-center`}
               >
-                <span>Showing Page {currentPage + 1}  out of {Math.ceil(allBuyerList?.data?.totalCount / 10)}</span>
+                <span>
+                  Showing Page {currentPage + 1} out of{' '}
+                  {Math.ceil(allBuyerList?.data?.totalCount / 10)}
+                </span>
                 <a
                   onClick={() => {
                     if (currentPage === 0) {
@@ -219,7 +230,6 @@ function Index() {
                 >
                   {' '}
                   <img
-
                     src="/static/keyboard_arrow_right-3.svg"
                     alt="arrow right"
                     className="img-fluid"
@@ -227,10 +237,12 @@ function Index() {
                 </a>
                 <a
                   onClick={() => {
-                    if (currentPage+1 < Math.ceil(allBuyerList?.data?.totalCount / 10)) {
+                    if (
+                      currentPage + 1 <
+                      Math.ceil(allBuyerList?.data?.totalCount / 10)
+                    ) {
                       setCurrentPage((prevState) => prevState + 1)
                     }
-
                   }}
                   href="#"
                   className={`${styles.arrow} ${styles.rightArrow} arrow`}
@@ -253,7 +265,13 @@ function Index() {
                 >
                   <thead>
                     <tr className="table_row">
-                      <th >CUSTOMER ID <img className={`mb-1`} src="/static/icons8-sort-24.svg"/></th>
+                      <th>
+                        CUSTOMER ID{' '}
+                        <img
+                          className={`mb-1`}
+                          src="/static/icons8-sort-24.svg"
+                        />
+                      </th>
                       <th>BUYER NAME</th>
                       <th>CREATED BY</th>
                       <th>USERNAME</th>
@@ -264,7 +282,10 @@ function Index() {
                   <tbody>
                     {allBuyerList &&
                       allBuyerList.data?.data?.map((buyer, index) => (
-                        <tr key={index} className={`${styles.table_row} table_row`}>
+                        <tr
+                          key={index}
+                          className={`${styles.table_row} table_row`}
+                        >
                           <td>{buyer.company.customerId}</td>
                           <td
                             className={`${styles.buyerName}`}
@@ -274,21 +295,29 @@ function Index() {
                           >
                             {buyer.company.companyName}
                           </td>
-                          <td>{buyer.createdBy.userRole ? buyer.createdBy.userRole : "RM"}</td>
+                          <td>
+                            {buyer.createdBy.userRole
+                              ? buyer.createdBy.userRole
+                              : 'RM'}
+                          </td>
                           <td>{buyer.createdBy.fName}</td>
                           <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
                           <td>
                             <span
                               className={`${styles.status} ${
-                              buyer.queue === 'Rejected' ? styles.rejected :  buyer.queue === 'ReviewQueue'
+                                buyer.queue === 'Rejected'
+                                  ? styles.rejected
+                                  : buyer.queue === 'ReviewQueue'
                                   ? styles.review
                                   : buyer.queue === 'CreditQueue'
                                   ? styles.approved
                                   : styles.rejected
                               }`}
                             ></span>
-                            
-                          {buyer.queue === 'Rejected' ? 'Rejected' : buyer.queue === 'ReviewQueue'
+
+                            {buyer.queue === 'Rejected'
+                              ? 'Rejected'
+                              : buyer.queue === 'ReviewQueue'
                               ? 'Review'
                               : buyer.queue === 'CreditQueue'
                               ? 'Approved'
@@ -296,7 +325,6 @@ function Index() {
                           </td>
                         </tr>
                       ))}
-                  
                   </tbody>
                 </table>
               </div>
