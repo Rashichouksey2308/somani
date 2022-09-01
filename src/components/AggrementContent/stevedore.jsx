@@ -111,12 +111,14 @@ useEffect(() => {
   },[])
   console.log(seteveState,"seteveState")
   useEffect(() => {
+    console.log("saasdasd",props.saveData,props.active)
     if(props.saveData==true && props.active=="Stevedore"){
        let data={
         seteveState:seteveState,
         list:list,
         addressList:addressList,
        }
+       console.log("saasdasd",props.saveData,props.active)
        props.sendData("Stevedore",data)
     }
     if(props.submitData==true && props.active=="Stevedore"){
@@ -132,7 +134,7 @@ useEffect(() => {
 
  
    
-  },[props])
+  },[props.saveData,props.submitData])
   const onEdit=(index)=>{
     let tempArr=list;
     setList(prevState => {
@@ -254,21 +256,21 @@ let arrayToSave={
  const handleChangeInput2=(name2,value,index)=>{
    
  
-  
 
-    setList(prevState => {
-      const newState = prevState.map((obj ,i)=> {
-       
-        if (i == index) {
-          return {...obj,[name2]:value};
-        }
 
-        
-        return obj;
-      });
+  setList(prevState => {
+  const newState = prevState.map((obj ,i)=> {
+    
+    if (i == index) {
+      return {...obj,[name2]:value};
+    }
 
-      return newState;
-    });
+    
+    return obj;
+  });
+
+  return newState;
+  });
 
     
 

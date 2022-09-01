@@ -19,7 +19,7 @@ const Index = ({
 }) => {
   const [startDate, setStartDate] = useState(null)
   const [lastDate, setlastDate] = useState()
-  console.log(moment(defaultDate).toDate(), defaultDate,'momentDate')
+  
   useEffect(() => {
     if(startFrom){
       console.log("in start DAte")
@@ -50,17 +50,20 @@ const Index = ({
             if(setStartDateFrom){
               setStartDateFrom(startDate,name)
             }
-            console.log(startDate, name, 'Event')
+            
           }}
            minDate={lastDate}
            maxDate={maxDate}
            disabled={disabled?disabled:false}
            
         />
-        <label className={`${styles.label_heading} label_heading`}>
+        {labelName?
+         <label className={`${styles.label_heading} label_heading`}>
           {labelName}
           <strong className="text-danger">*</strong>
         </label>
+        :null}
+       
       </div>
     </>
   )
