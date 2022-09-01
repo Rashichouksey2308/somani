@@ -189,7 +189,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
-        data={props?.genericData?.associate}
+        data={props?.genericData?.associateBuyer}
         uploadDoc={uploadDoc}
         addressValidation={addressValidation}
         
@@ -328,8 +328,8 @@ function Index(props) {
         sendData={sendData} 
         submitData={submitData} 
         updateData={updateData}
-         active={active}
-         data={props?.genericData?.additionalComments}
+        active={active}
+        data={props?.genericData?.additionalComments}
         
         />
       )
@@ -417,10 +417,10 @@ const onSave=()=>{
  const onSubmit=()=>{
   setSubmitData(true)
  }
- const updateData=async (key,data)=>{
+ const updateData=async (key,data)=>{ 
   let toastMessage=""
-  console.log("this13",data)
   let dataToSend={}
+  console.log("this13",data,key)
     if(key=="Supplier"){
     dataToSend={
     genericId:props.genericData?._id,
@@ -453,7 +453,7 @@ const onSave=()=>{
     }
   }
    if (dataToSend.supplier.shortName== "" || dataToSend.supplier.shortName== undefined) {
-      toastMessage = `Please add short name  `
+      toastMessage = `Please add gstin  `
       if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       setSubmitData(false)
@@ -521,7 +521,7 @@ const onSave=()=>{
     dataToSend={
     genericId:props.genericData?._id,
     seller:{
-    "name": "Indo German International",
+    "name": "Indo Intertrade Ag",
     "shortName": data.sellerData.shortName,
 
     "addresses": data.addresses,
@@ -621,8 +621,8 @@ const onSave=()=>{
     
     }
   }
-   if (dataToSend.buyer.shortName== "" || dataToSend.buyer.shortName== undefined) {
-      toastMessage = `Please add short name  `
+   if (dataToSend.buyer.branchName == "" || dataToSend.buyer.branchName == undefined) {
+      toastMessage = `Please add branch Name`
       if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       setSubmitData(false)
@@ -631,6 +631,7 @@ const onSave=()=>{
     
     }
   }
+ 
  
   if (dataToSend.buyer.addresses.length <= 0 || dataToSend.buyer.addresses == undefined) {
       toastMessage = `Please add address `
@@ -654,7 +655,17 @@ const onSave=()=>{
   }
 
 
-
+let dataToSend2={
+     
+    
+        "name": props.genericData.company.companyName,
+        "branchName": data.buyerData.branchName,
+        "addresses": data.addresses,
+        "authorisedSignatoryDetails": data.list,
+       
+  
+  }
+    sessionStorage.setItem("Buyer",JSON.stringify(dataToSend2))
 
 
 
@@ -946,26 +957,35 @@ const onSave=()=>{
    
     }
     if(key=="Delivery Terms"){
-    console.log("this14")
+    console.log("this14",data)
     dataToSend={
     genericId:props.genericData?._id,
-    delivery:{
-    "deliveryTerms":data.deliveryData.delivery,
+    deliveryTerms:{
+    "delivery":data.deliveryData,
 
 
     }
     }
-     if (dataToSend.delivery.deliveryTerms == "" || dataToSend.delivery.deliveryTerms == undefined) {
-    toastMessage = `Please select delivery Terms  `
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    setSubmitData(false)
-    return
+    let dataToSend2={
+   
+   
+    "deliveryTerms":data.deliveryData,
 
 
+    
     }
-    }
+     sessionStorage.setItem("Delivery",JSON.stringify(dataToSend2))
+    //  if (dataToSend.delivery.deliveryTerms == "" || dataToSend.delivery.deliveryTerms == undefined) {
+    // toastMessage = `Please select delivery Terms  `
+    // if (!toast.isActive(toastMessage.toUpperCase())) {
+    // toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    // setSubmitData(false)
+    // return
 
+
+    // }
+    // }
+    // sessionStorage.setItem("Delivery",JSON.stringify(data.deliveryData))
     }
     if(key=="Product Specifications"){
     console.log("this14")
@@ -987,23 +1007,24 @@ const onSave=()=>{
 
     }
     }
+    sessionStorage.setItem("Product",JSON.stringify(data.addressList))
     }
     if(key=="Additional Comments"){
     let list=[];
     data.addressList.forEach((val,index)=>{
-    list.push({type:val})
+    list.push(val.value)
     })
-    console.log("this14")
+    console.log("this14",list)
     dataToSend={
     genericId:props.genericData?._id,
     additionalComments:{
-    "comments": data.addressList,
+    "comments": list,
 
 
     }
     }
-     if (dataToSend.additionalComments.comments.length <= 0 || dataToSend.additionalComments.comments == undefined) {
-    toastMessage = `Please add address `
+    if (data.addressList.length <= 0 || data.addressList == undefined) {
+    toastMessage = `Please add Comments `
     if (!toast.isActive(toastMessage.toUpperCase())) {
     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     setSubmitData(false)
@@ -1012,9 +1033,11 @@ const onSave=()=>{
 
     }
     }
+    sessionStorage.setItem("add",JSON.stringify(data.addressList))
     }
     if(key=="Place of Execution"){
-    console.log("this14")
+    console.log("this14",data.list)
+  
     let list=[];
     data.list.forEach((val,index)=>{
     list.push({agreementName:val.name,place:val.execution})
@@ -1028,27 +1051,37 @@ const onSave=()=>{
 
     }
     }
+    sessionStorage.setItem("exe",JSON.stringify(data.list))
+    if (list.length <= 0 || list == undefined) {
+    toastMessage = `Please add place of execution `
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    setSubmitData(false)
+    return
+
+
+    }
+    }
+
     }
      if(key=="Associate Buyer"){
     console.log("this14")
-    let list=[];
-    data.list.forEach((val,index)=>{
-    list.push({agreementName:val.name,place:val.execution})
-    })
+    
+    console.log(data.associate,"data.associate")
     dataToSend={
     genericId:props.genericData?._id,
 
     associateBuyer:{
-      "branchName": data.associate.branchName,
-      "shortName": data.associate.shortName,
-      "gstin": data.associate.gstin,
-      "addresses": list,
-      "authorisedSignatoryDetails": data.list,
+      "branchName": data?.associate?.branchName,
+      "shortName": data?.associate?.shortName,
+      "gstin": data?.associate?.gstin,
+      "addresses": data?.address,
+      "authorisedSignatoryDetails": data?.list,
 
 
     }
     }
-        if (dataToSend.associateBuyer.branchName == "" || dataToSend.associateBuyer.branchName == undefined) {
+    if (dataToSend.associateBuyer.branchName == "" || dataToSend.associateBuyer.branchName == undefined) {
     toastMessage = `Please add branch name  `
     if (!toast.isActive(toastMessage.toUpperCase())) {
     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -1058,18 +1091,9 @@ const onSave=()=>{
 
     }
     }
-    // if (dataToSend.associateBuyer.shortName== "" || dataToSend.associateBuyer.shortName== undefined) {
-    // toastMessage = `Please add short name  `
-    // if (!toast.isActive(toastMessage.toUpperCase())) {
-    // toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    // setSubmitData(false)
-    // return
-
-
-    // }
-    // }
+   
     if (dataToSend.associateBuyer.gstin== "" || dataToSend.associateBuyer.gstin== undefined) {
-    toastMessage = `Please add short name  `
+    toastMessage = `Please add gstin  `
     if (!toast.isActive(toastMessage.toUpperCase())) {
     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     setSubmitData(false)
@@ -1089,7 +1113,7 @@ const onSave=()=>{
 
     }
     }
-    if (dataToSend.associateBuyer.authorisedSignatoryDetails.length <= 0 || dataToSend.stevedore.authorisedSignatoryDetails == undefined) {
+    if (dataToSend.associateBuyer.authorisedSignatoryDetails.length <= 0 || dataToSend.associateBuyer.authorisedSignatoryDetails == undefined) {
     toastMessage = `Please add authorised Signatory Details `
     if (!toast.isActive(toastMessage.toUpperCase())) {
     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -1099,9 +1123,11 @@ const onSave=()=>{
 
     }
     }
+  
     }
 
-
+   
+  
      console.log("this15")
   let timestamp=await dispatch(updateGenericData(dataToSend))
   console.log(timestamp,"timestamp")
@@ -1147,7 +1173,7 @@ const sendData=(key,data)=>{
     dataToSend={
      
     
-        "name": "Indo German International",
+        "name": "Indo Intertrade Ag",
         "shortName": data.sellerData.shortName,
         "addresses": data.addresses,
         "authorisedSignatoryDetails": data.list,
@@ -1171,6 +1197,40 @@ const sendData=(key,data)=>{
     sessionStorage.setItem("Buyer",JSON.stringify(dataToSend))
 
   }
+   if(key=="Delivery Terms"){
+    
+   let dataToSend={
+   
+   
+    "deliveryTerms":data.deliveryData,
+
+
+    
+    }
+     sessionStorage.setItem("Delivery",JSON.stringify(dataToSend))
+   
+    
+
+    }
+   if(key=="Associate Buyer"){
+    
+   
+    dataToSend={
+  
+
+ 
+      "branchName": data.associate.branchName,
+      "shortName": data.associate.shortName,
+      "gstin": data.associate.gstin,
+      "addresses": data.address,
+      "authorisedSignatoryDetails": data.list,
+
+
+   
+    }
+    sessionStorage.setItem("Associate",JSON.stringify(dataToSend))
+ 
+    }
    if(key=="Financing Bank"){
    dataToSend={
       
@@ -1202,6 +1262,7 @@ const sendData=(key,data)=>{
     sessionStorage.setItem("Cma",JSON.stringify(dataToSend))
 
   }
+  
   if(key=="CHA"){
     dataToSend={
      
@@ -1235,9 +1296,24 @@ const sendData=(key,data)=>{
 
   }
 
- 
+  if(key=="Product Specifications"){
+  
+    sessionStorage.setItem("Product",JSON.stringify(data.addressList))
+    }
+    if(key=="Place of Execution"){
+  
+    sessionStorage.setItem("exe",JSON.stringify(data.list))
+    }
       
-
+if(key=="Additional Comments"){
+    let list=[];
+    data.addressList.forEach((val,index)=>{
+    list.push({type:val})
+    })
+   
+     sessionStorage.setItem("add",JSON.stringify(data.addressList))
+    
+    }
     let tempArr=sideBar;
     sideBar.forEach((val,index)=>{
       if(val.value==key){
@@ -1251,7 +1327,7 @@ const sendData=(key,data)=>{
         
   toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
     
-
+setSaveData(false)
 
 
   

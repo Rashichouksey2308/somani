@@ -7,20 +7,17 @@ let buyer = {
   "name": "",
 
   "branchName": "",
-  "addresses": [
-
-  ],
-  "authorisedSignatoryDetails": [
-
-  ],
+  
+ 
 
 
 }
 function Index(props) {
   const [buyerData, setBuyerData] = useState(buyer)
   useEffect(() => {
-    setBuyerData({...buyer,name:props?.order?.company?.companyName})
+    setBuyerData({...buyerData,name:props?.order?.company?.companyName})
   },[props.order])
+  const [gstin,setGstin]=useState("")
   const [list, setList] = useState([])
   const [addressList,setAddressList]=useState([])
   const [docList,setDocList]=useState([])
@@ -55,26 +52,42 @@ function Index(props) {
         let savedData = JSON.parse(sessionStorage.getItem("Buyer"))
         let buyer = {
           "name": savedData.name,
-          "shortName": savedData.shortName,
+          "branchName": savedData.branchName,
 
-          "addresses": savedData.addresses,
-          "authorisedSignatoryDetails": savedData.authorisedSignatoryDetails,
+          
 
 
         }
+        if(savedData.branchName=="Delhi"){
+
+          setGstin("07AAACI3028D1Z4")
+                     
+        }
+        else if(savedData.branchName=="Andhra Pradesh"){
+              setGstin("37AAACI3028D2Z0")
+          }
+        setAddressList(savedData.addresses)
         setList(savedData.authorisedSignatoryDetails)
 
         setBuyerData(buyer)
       }else{
         let buyer = {
           "name": props?.data?.name,
-          "shortName": props?.data?.shortName,
+          "branchName": props?.data?.branchName,
 
-          "addresses": props?.data?.addresses,
-          "authorisedSignatoryDetails": props?.data?.authorisedSignatoryDetails,
+          
 
 
         }
+        if(props?.data?.branchName=="Delhi"){
+
+          setGstin("07AAACI3028D1Z4")
+                     
+        }
+        else if(props?.data?.branchName=="Andhra Pradesh"){
+              setGstin("37AAACI3028D2Z0")
+          }
+        setAddressList(props?.data.addresses)
         setList(props?.data?.authorisedSignatoryDetails)
 
         setBuyerData(buyer)
@@ -92,7 +105,8 @@ let masterList=[
       let data = {
         buyerData: buyerData,
         list: list,
-        addresses: buyerData
+        addresses: addressList,
+        list:list,
 
       }
       props.sendData("Buyer", data)
@@ -101,7 +115,8 @@ let masterList=[
       let data = {
         buyerData: buyerData,
         list: list,
-        addresses: buyerData
+        addresses: addressList,
+        list:list
 
       }
 
@@ -109,6 +124,7 @@ let masterList=[
 
     }
   }, [props])
+  
   const onEdit = (index) => {
     let tempArr = list;
     // tempArr[index].actions.edit="false"
@@ -414,7 +430,7 @@ const cancelAddress=()=>{
                   required
                   type="text"
                   name="name"
-                  value={buyerData.shortName}
+                  value={buyerData.name}
                   onChange={(e) => {
                     handleInput(e.target.name, e.target.value)
                   }}
@@ -447,12 +463,19 @@ const cancelAddress=()=>{
                   name="branchName"
                   value={buyerData.branchName}
                   onChange={(e) => {
+                     if(e.target.value=="Delhi"){
+                      setGstin("07AAACI3028D1Z4")
+                     }else{
+                      setGstin("37AAACI3028D2Z0")
+                     }
                     handleInput(e.target.name, e.target.value)
+                    
                   }}
                   >
                      <option>Select an option</option>
                     
                     <option value="Delhi">Delhi</option>
+                       <option value="Andhra Pradesh">Andhra Pradesh</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Branch Name<strong className="text-danger">*</strong>
@@ -470,7 +493,7 @@ const cancelAddress=()=>{
             </div>
             <div className={` ${styles.info} col-md-4 col-sm-6`}>
               <span>GSTIN.</span>
-              <p>27AAATW4183C2ZG</p>
+              <p>{gstin}</p>
             </div>
             <div className={` ${styles.info} col-md-4 col-sm-6`}>
               <span>Short Name</span>

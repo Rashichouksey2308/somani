@@ -19,33 +19,30 @@ function Index(props) {
  
 
 
-  // useEffect(() => {
-  //   if (window) {
-  //     console.log(sessionStorage.getItem("exe"), ".getItem")
-  //     if (sessionStorage.getItem("exe")) {
-  //       let savedData = JSON.parse(sessionStorage.getItem("exe"))
-  //       let cma = {
-        
-  //         "authorisedSignatoryDetails": savedData.execution,
-
-
-  //       }
-  //       setList(savedData.execution)
+  useEffect(() => {
+    if (window) {
+      console.log(sessionStorage.getItem("exe"), ".getItem")
+      if (sessionStorage.getItem("exe")) {
+        let savedData = JSON.parse(sessionStorage.getItem("exe"))
+    
+        setList(savedData)
       
        
-  //     }else{
-  //        let cma = {
-         
-  //         "authorisedSignatoryDetails": props.data?.execution,
-
-
-  //       }
-  //       setList(props.data?.execution)
+      }else{
+        let temp=[]
+        props.data?.execution.forEach((val)=>{
+          temp.push({
+            name:val.agreementName,
+            execution:val.place,
+            action:"false"
+          })
+        })
+        setList(temp)
       
        
-  //     }
-  //   }
-  // }, [])
+      }
+    }
+  }, [props])
   useEffect(() => {
     if (props.saveData == true && props.active == "Place of Execution") {
       let data = {
@@ -68,7 +65,7 @@ function Index(props) {
 
 
 
-  }, [props])
+  }, [props.saveData,props.submitData])
   const onEdit = (index) => {
     let tempArr = list;
     setList(prevState => {
@@ -164,6 +161,7 @@ function Index(props) {
     setAddressList([...addressList.slice(0, index), ...addressList.slice(index + 1)])
 
   }
+  console.log(list,"564456")
   return (
 
     <>
@@ -220,6 +218,7 @@ function Index(props) {
                                   value={val.name}
                                   className={`${styles.customSelect} input`}
                                   name="name"
+                                 
                                   onChange={(e) => {
                                     handleChangeInput(e.target.name, e.target.value, index)
                                   }}>
@@ -242,6 +241,7 @@ function Index(props) {
                                   className='input'
                                   placeholder={val.execution}
                                   name="execution"
+                                  value={val.execution}
                                   onChange={(e) => {
                                     handleChangeInput(e.target.name, e.target.value, index)
                                   }}
