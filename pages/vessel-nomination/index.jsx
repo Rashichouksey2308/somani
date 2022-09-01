@@ -3,7 +3,6 @@ import styles from './index.module.scss'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetAllVessel, GetVessel } from '../../src/redux/vessel/action'
-import { GetOrders } from '../../src/redux/registerBuyer/action'
 import { SearchLeads } from '../../src/redux/buyerProfile/action.js'
 
 import Filter from '../../src/components/Filter'
@@ -14,14 +13,17 @@ import {
 } from '../../src/redux/userData/action'
 
 function Index() {
+
   const [serachterm, setSearchTerm] = useState('')
 
   const dispatch = useDispatch()
+
   const [currentPage, setCurrentPage] = useState(0)
+
   const { searchedLeads } = useSelector((state) => state.order)
 
   const { allVessel, Vessel } = useSelector((state) => state.vessel)
-  console.log(allVessel, Vessel, 'allVessel')
+  console.log(allVessel, 'allVessel')
   useEffect(() => {
     if (window) {
       sessionStorage.setItem('loadedPage', 'Agreement & Lc Module')
@@ -58,7 +60,7 @@ function Index() {
   const handleFilteredData = (e) => {
     setSearchTerm('')
     const id = `${e.target.id}`
-    dispatch(GetAllBuyer(`?company=${id}`))
+    dispatch(GetAllVessel(`?company=${id}`))
   }
 
   return (
@@ -190,7 +192,7 @@ function Index() {
                   {allVessel &&
                     allVessel?.data?.map((vessel, index) => (
                       <tr key={index} className="table_row">
-                        <td>{vessel?.order?._id}</td>
+                        <td>{vessel?.order?.orderId ? vessel?.order?.orderId : vessel?.order?.applicationId }</td>
                         <td
                           className={styles.buyerName}
                           onClick={() => handleRoute(vessel)}
