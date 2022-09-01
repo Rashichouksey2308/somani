@@ -434,8 +434,8 @@ useEffect(() => {
         }
 }
     if(buyerData.name=="Emergent Industrial Solution limited"){
-      setShotName("EISL")
-          setPan("")
+         setShotName("EISL")
+          setPan("AAACS8253L")
           if(buyerData.branchName=="Delhi"){
           setGstin("07AAACS8253L1Z0")
           }else if(buyerData.branchName=="Vizag"){
