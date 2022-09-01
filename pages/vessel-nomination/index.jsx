@@ -49,7 +49,7 @@ function Index() {
     sessionStorage.setItem('VesselId', vessel._id)
     dispatch(GetVessel(`?vesselId=${vessel._id}`))
     setTimeout(() => {
-      Router.push('/vessel-nomination/id')
+      Router.push('/vessel')
     }, 500)
   }
 
@@ -84,28 +84,28 @@ function Index() {
                 />
               </div>
               <input
-                  value={serachterm}
-                  onChange={handleSearch}
-                  type="text"
-                  className={`${styles.formControl} form-control formControl `}
-                  placeholder="Search"
-                />
+                value={serachterm}
+                onChange={handleSearch}
+                type="text"
+                className={`${styles.formControl} form-control formControl `}
+                placeholder="Search"
+              />
+            </div>
+            {searchedLeads && serachterm && (
+              <div className={styles.searchResults}>
+                <ul>
+                  {searchedLeads.data.data.map((results, index) => (
+                    <li
+                      onClick={handleFilteredData}
+                      id={results._id}
+                      key={index}
+                    >
+                      {results.companyName} <span>{results.customerId}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              {searchedLeads && serachterm && (
-                <div className={styles.searchResults}>
-                  <ul>
-                    {searchedLeads.data.data.map((results, index) => (
-                      <li
-                        onClick={handleFilteredData}
-                        id={results._id}
-                        key={index}
-                      >
-                        {results.companyName} <span>{results.customerId}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+            )}
           </div>
           <Filter />
           {/* <a href="#" className={`${styles.filterList} filterList `}>
@@ -183,6 +183,7 @@ function Index() {
                       />
                     </th>
                     <th>BUYER NAME</th>
+                    <th>COMMODITY</th>
                     <th>CREATED BY</th>
                     <th>CREATED ON</th>
                     <th>STATUS</th>
@@ -200,6 +201,7 @@ function Index() {
                         >
                           {vessel?.company?.companyName}
                         </td>
+                        <td>{vessel?.order?.commodity}</td>
                         <td>RM-Sales</td>
                         <td>22-02-2022</td>
                         <td>
