@@ -44,7 +44,7 @@ function Index() {
     sessionStorage.setItem('VesselId', vessel._id)
     dispatch(GetVessel(`?vesselId=${vessel._id}`))
     setTimeout(() => {
-      Router.push('/vessel-nomination/id')
+      Router.push('/vessel')
     }, 500)
   }
   const handleSearch = (e) => {
@@ -179,6 +179,7 @@ function Index() {
                       />
                     </th>
                     <th>BUYER NAME</th>
+                    <th>COMMODITY</th>
                     <th>CREATED BY</th>
                     <th>CREATED ON</th>
                     <th>STATUS</th>
@@ -196,6 +197,7 @@ function Index() {
                         >
                           {vessel?.company?.companyName}
                         </td>
+                        <td>{vessel?.order?.commodity}</td>
                         <td>RM-Sales</td>
                         <td>22-02-2022</td>
                         <td>

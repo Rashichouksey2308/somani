@@ -69,8 +69,8 @@ function Index({
   const handleClose = (e) => {
     setVesselCertificate(null)
   }
-  console.log(list,'list')
-// console.log(vesselData,'vesselData')
+  console.log(list, 'list')
+  // console.log(vesselData,'vesselData')
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -231,7 +231,7 @@ function Index({
                             // value={val.quantity}
                             value={addPrefixOrSuffix(
                               val.quantity,
-                              _get(vesselData,'data[0].order.unitOfQuantity','').toUpperCase(),
+                              _get(vesselData, 'data[0].order.unitOfQuantity', '').toUpperCase(),
                               '',
                             )}
                             onChange={(e) =>
@@ -294,7 +294,7 @@ function Index({
                                 OnVesselTransitFieldsChangeHandler(e, index)
                               }
                               value={val.transitDetails.countryOfOrigin}
-                              
+
                             >
                               <option>Select an option</option>
                               {/* <option value={val.countryOfOrigin}>
@@ -356,7 +356,7 @@ function Index({
                               onChange={(e) =>
                                 OnVesselTransitFieldsChangeHandler(e, index)
                               }
-                               value={val.transitDetails.portOfDischarge}
+                              value={val.transitDetails.portOfDischarge}
                             >
                               <option>Select an option</option>
                               {/* <option value={val.portOfDischarge}>
@@ -564,7 +564,8 @@ function Index({
                                     <div className="d-flex">
                                       <input
                                         id="yearOfBuilt"
-                                        value={moment(vesselInfo.yearOfBuilt).format("YYYY")}
+                                        // value={vesselInfo.yearOfBuilt}
+                                        value={vesselInfo.yearOfBuilt ? moment(vesselInfo.yearOfBuilt).format("YYYY") : ''}
                                         className={`${styles.input_field} input form-control`}
                                         type="text"
                                         onKeyDown={(evt) =>
