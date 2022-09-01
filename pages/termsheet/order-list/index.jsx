@@ -4,13 +4,16 @@ import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import styles from './index.module.scss'
 import Router from 'next/router'
-import _get from "lodash/get";
+import _get from 'lodash/get'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetOrders } from '../../../src/redux/registerBuyer/action'
-import { setPageName, setDynamicName, setDynamicOrder } from '../../../src/redux/userData/action'
+import {
+  setPageName,
+  setDynamicName,
+  setDynamicOrder,
+} from '../../../src/redux/userData/action'
 import { GetTermsheet } from '../../../src/redux/buyerProfile/action'
-import moment from 'moment';
-
+import moment from 'moment'
 
 function Index() {
   const [currentPage, setCurrentPage] = useState(0)
@@ -19,11 +22,8 @@ function Index() {
   const { singleOrder } = useSelector((state) => state.buyer)
   const { termsheet } = useSelector((state) => state.order)
 
-
-
   // console.log(singleOrder, 'all order listtt1')
-  console.log(termsheet, "TErmshetTermsheet")
-
+  console.log(termsheet, 'TErmshetTermsheet')
 
   useEffect(() => {
     let Id = sessionStorage.getItem('termsheetId')
@@ -60,11 +60,17 @@ function Index() {
     //dispatch(GetBuyer({ companyId: term.company._id, orderId: buyer._id }))
     dispatch(GetTermsheet(`?termsheetId=${term._id}`))
     sessionStorage.setItem('termID', term._id)
-    console.log(term, "term.buyerName")
+    console.log(term, 'term.buyerName')
     dispatch(setDynamicName(term.company.companyName))
-    dispatch(setDynamicOrder(term?.order?.applicationId ? term.order.applicationId : term.order.orderId))
+    dispatch(
+      setDynamicOrder(
+        term?.order?.applicationId
+          ? term.order.applicationId
+          : term.order.orderId,
+      ),
+    )
     sessionStorage.setItem('termOrdID', term?.order._id)
-    Router.push("/termsheet/12")
+    Router.push('/termsheet/12')
     // Router.push('/lc-module')
 
   }
@@ -76,19 +82,20 @@ function Index() {
         <div className={styles.leads_inner}>
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
-
             <div className={`${styles.head_header} align-items-center`}>
-              <img className={`${styles.arrow} img-fluid mr-2 image_arrow`}
-                src="/static/keyboard_arrow_right-3.svg" alt="arrow" />
-              <h1 className={`${styles.heading} heading`}>{_get(
-                termsheet,
-                "data[0].company.companyName",
-                "All Termsheet Order"
-              )}</h1>
+              <img
+                className={`${styles.arrow} img-fluid mr-2 image_arrow`}
+                src="/static/keyboard_arrow_right-3.svg"
+                alt="arrow"
+              />
+              <h1 className={`${styles.heading} heading`}>
+                {_get(
+                  termsheet,
+                  'data[0].company.companyName',
+                  'All Termsheet Order',
+                )}
+              </h1>
             </div>
-
-
-
           </div>
 
           {/*status Box*/}
@@ -204,7 +211,10 @@ function Index() {
                 </a>
                 <a
                   onClick={() => {
-                    if (currentPage + 1 < Math.ceil(termsheet?.totalCount / 10)) {
+                    if (
+                      currentPage + 1 <
+                      Math.ceil(termsheet?.totalCount / 10)
+                    ) {
                       setCurrentPage((prevState) => prevState + 1)
                     }
                   }}
@@ -229,7 +239,13 @@ function Index() {
                 >
                   <thead>
                     <tr className="table_row">
-                      <th >ORDER ID <img className={`mb-1`} src="/static/icons8-sort-24.svg" /></th>
+                      <th>
+                        ORDER ID{' '}
+                        <img
+                          className={`mb-1`}
+                          src="/static/icons8-sort-24.svg"
+                        />
+                      </th>
                       <th>COMMODITY</th>
                       <th>CREATED BY</th>
                       <th>ORDER CREATED DATE</th>
@@ -240,7 +256,8 @@ function Index() {
                   {termsheet && termsheet?.data?.map((term, index) => (<tbody Key={index}>
                     <tr>
                       <td className={`${styles.first}`} onClick={() => handleRoute(term, index)}>
-                        {term?.order?.applicationId ? term.order.applicationId : term.order.orderId}
+                        {term?.order?.orderId
+                              ? term?.order?.orderId : term?.order?.applicationId}
                       </td>
                       <td className={`${styles.buyerName}`} onClick={() => handleRoute(term, index)} >{term?.order?.commodity}</td>
 

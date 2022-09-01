@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAllTermsheet, GetTermsheet } from 'redux/buyerProfile/action'
 import { setPageName, setDynamicName, setDynamicOrder } from '../../redux/userData/action'
 import { SearchLeads } from 'redux/buyerProfile/action'
-import { getDisplayName } from 'next/dist/shared/lib/utils'
+// import { getDisplayName } from 'next/dist/shared/lib/utils'
 import Filter from '../Filter'
 import moment from 'moment'
 import {
@@ -169,7 +169,7 @@ function Index() {
                   <tbody>
                     {allTermsheets && allTermsheets?.data?.map((sheet, index) => (
                       <tr key={index} className={`${styles.table_row} table_row`}>
-                        <td>{sheet.order.applicationId ? sheet.order.applicationId : sheet.order.orderId}</td>
+                        <td>{sheet.order.orderId ? sheet.order.orderId : sheet.order.applicationId  }</td>
                         <td onClick={() => { handleRoute(sheet) }} className={`${styles.buyerName}`}>{sheet.company.companyName}</td>
                         <td>{sheet.order.existingCustomer ? "Yes" : "No"}</td>
                         <td>{moment((sheet.createdAt).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</td>
