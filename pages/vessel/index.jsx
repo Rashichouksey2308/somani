@@ -54,14 +54,26 @@ export default function Home() {
   const [companyName, setCompanyName] = useState("")
   const [vesselUpdatedAt, setVesselUpdatedAt] = useState("")
   const [partShipment, setPartshipment] = useState()
+   const [currency, setCurrency] = useState("INR")
   const [VesselToAdd, serVesselDataToAdd] = useState()
   const [shipmentTypeBulk, setShipmentTypeBulk] = useState('Bulk')
   const [vesselData, setVesselData] = useState()
 
-
-  console.log(VesselToAdd, "THIS IS VESSEL TO")
+console.log(currency,"currency")
+ 
   const setData = (Vessel) => {
-    console.log(Vessel, "THIS IS VESSEL")
+    
+   console.log(_get(
+      Vessel,
+      "data[0].vessels",
+      []
+    ),"Vessel123")
+    
+   setCurrency(_get(
+            Vessel,
+            "data[0].order.orderCurrency",
+            "INR"
+          ))
     setVesselUpdatedAt(_get(
       Vessel,
       "data[0].updatedAt",
@@ -70,7 +82,7 @@ export default function Home() {
     setVesselData(Vessel)
     setPartshipment(_get(
       Vessel,
-      "data[0].partShipmentAllowed",
+      "data[0].currencyAllowed",
       false
     ))
 
@@ -79,11 +91,15 @@ export default function Home() {
       Vessel,
       "data[0].vessels",
       []
-    ).length < 1) {
+    ).length <= 1) {
       setShipmentTypeBulk(false)
       setList([
         {
-          shipmentType: 'Bulk',
+          shipmentType: _get(
+            Vessel,
+            "data[0].order.shipmentDetail.shipmentType",
+            ""
+          ),
           commodity: _get(
             Vessel,
             "data[0].order.commodity",
@@ -92,6 +108,11 @@ export default function Home() {
           quantity: _get(
             Vessel,
             "data[0].order.quantity",
+            ""
+          ),
+            orderCurrency: _get(
+            Vessel,
+            "data[0].order.orderCurrency",
             ""
           ),
           orderValue: _get(
@@ -125,11 +146,14 @@ export default function Home() {
           }]
         },
       ])
-    } else setList(_get(
+    } else {
+      console.log("elelele")
+      setList(_get(
       Vessel,
       "data[0].vessels",
       []
     ))
+    }
     // serVesselDataToAdd(Vessel)
   }
 
@@ -181,7 +205,7 @@ export default function Home() {
       },
     ])
   }
-
+ console.log
 
   const OnAddvesselInformation = () => {
     const newArr = [...list]
@@ -654,6 +678,7 @@ export default function Home() {
         onDeleteVessel={onDeleteVessel}
         OnAddvesselInformationDelete={OnAddvesselInformationDelete}
         shipmentTypeBulk={shipmentTypeBulk}
+        currency={currency}
       />
       <div className="mt-5">
         <VesselSaveBar handleSave={onSaveHandler} rightBtn="Submit" rightBtnClick={onSaveHandler} />

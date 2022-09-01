@@ -49,6 +49,7 @@ function Index({
   containerListDocument,
   setContainerListDocument,
   containerExcel,
+  currency
 }) {
 
   // console.log(containerExcel, 'containerExcel')
@@ -185,9 +186,10 @@ function Index({
                               onChange={(e) =>
                                 shipmentTypeChangeHandler(e, index)
                               }
+                              value={val.shipmentType}
                             >
                               <option>Select an option</option>
-                              <option value="Bulk" selected>
+                              <option value="Bulk">
                                 Bulk
                               </option>
                               <option value="Liner">Liner</option>
@@ -251,11 +253,13 @@ function Index({
                           <select
                             className={`${styles.input_field} pl-2 pr-3 input w-35 border-right-0`}
                             style={{ color: '#3687E8' }}
+                            value={currency}
                             required
                           >
                             <option>Select</option>
-                            <option>USD</option>
-                            <option>INR</option>
+                            <option value="USD">USD</option>
+                            <option value="INR">INR</option>
+                            <option value="EURO">EURO</option>
                           </select>
                           <input
                             id="orderValue"

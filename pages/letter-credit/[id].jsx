@@ -17,8 +17,9 @@ function Index() {
 
   const { lcModule } = useSelector((state) => state.lc)
 
+  
   let lcModuleData = _get(lcModule, 'data[0]', {})
-
+console.log(lcModuleData,"lcModuleData")
   const [editInput, setEditInput] = useState(false)
   const [editCurrent, setEditCurrent] = useState()
 
