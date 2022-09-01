@@ -93,7 +93,7 @@ function Index(props) {
         setBuyerData(buyer)
       }
     }
-  }, [])
+  }, [props])
 let masterList=[
 {name:"Bhawana Jain",designation:"Vice President (Finance & Accounts)",email:"bhawanajain@somanigroup.com",phoneNo:""},
 {name:"Vipin Kumar",designation:"Manager Accounts",email:"vipinrajput@somanigroup.com",phoneNo:""},
@@ -123,7 +123,7 @@ let masterList=[
       props.updateData("Buyer", data)
 
     }
-  }, [props])
+  }, [props.saveData,props.submitData])
   
   const onEdit = (index) => {
     let tempArr = list;

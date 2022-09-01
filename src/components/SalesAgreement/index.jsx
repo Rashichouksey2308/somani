@@ -513,7 +513,22 @@ const onSave=()=>{
     }
   }
 
-
+    let  dataToSend2={
+    
+        "name": data.supplierState.name,
+        "shortName": data.supplierState.shortName,
+        "bankDetails": {
+            "bankName": data.supplierState.bankDetails.bankName,
+            "accountNo": data.supplierState.bankDetails.accountNo,
+            "swiftCode": data.supplierState.bankDetails.swiftCode,
+            "city": data.supplierState.bankDetails.city
+        },
+        "addresses": data.addressList,
+        "authorisedSignatoryDetails": data.list,
+        "multiParty":data.supplierState.multiParty,
+    
+  }
+    sessionStorage.setItem("Supplier",JSON.stringify(dataToSend2))
 
 
     }
@@ -531,7 +546,7 @@ const onSave=()=>{
     }
     console.log(dataToSend,"dataToSend")
 
-    sessionStorage.removeItem("Seller")
+    
    if (dataToSend.seller.name == "" || dataToSend.seller.name == undefined) {
       toastMessage = `Please add seller name  `
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -595,7 +610,17 @@ const onSave=()=>{
     
     }
 
-
+    let dataToSend2={
+     
+    
+        "name": "Indo Intertrade Ag",
+        "shortName": data.sellerData.shortName,
+        "addresses": data.addresses,
+        "authorisedSignatoryDetails": data.list,
+       
+  
+  }
+    sessionStorage.setItem("Seller",JSON.stringify(dataToSend2))
 
 
     }
@@ -1081,6 +1106,20 @@ let dataToSend2={
 
     }
     }
+      let  dataToSend2={
+  
+
+ 
+      "branchName": data.associate.branchName,
+      "shortName": data.associate.shortName,
+      "gstin": data.associate.gstin,
+      "addresses": data.address,
+      "authorisedSignatoryDetails": data.list,
+
+
+   
+    }
+    sessionStorage.setItem("Associate",JSON.stringify(dataToSend2))
     if (dataToSend.associateBuyer.branchName == "" || dataToSend.associateBuyer.branchName == undefined) {
     toastMessage = `Please add branch name  `
     if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -1123,12 +1162,12 @@ let dataToSend2={
 
     }
     }
-  
+   
     }
 
    
   
-     console.log("this15")
+  console.log("this15")
   let timestamp=await dispatch(updateGenericData(dataToSend))
   console.log(timestamp,"timestamp")
   props.setDate(timestamp)
