@@ -27,7 +27,7 @@ function Index() {
   useEffect(() => {
    let companyIDnewOrder = sessionStorage.getItem('companyID')
    console.log(companyIDnewOrder,"companyIDnewOrder")
-    dispatch(GetOrders(`?page=${currentPage}company=${companyIDnewOrder}`))
+    dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}`))
   }, [dispatch, currentPage])
   
 
