@@ -6,11 +6,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { GetLcModule } from 'redux/lcModule/action'
 import Filter from '../Filter'
 import { setPageName,setDynamicName } from '../../redux/userData/action'
+import { SearchLeads } from 'redux/buyerProfile/action'
 
 function Index() {
   const dispatch = useDispatch()
 
   const [currentPage, setCurrentPage] = useState(0)
+
+  const [serachterm, setSearchTerm] = useState('')
+
+  const { searchedLeads } = useSelector((state) => state.order)
 
   const { lcModule } = useSelector((state) => state.lc)
 
@@ -28,6 +33,22 @@ function Index() {
     dispatch(setPageName('letter-table'))
     dispatch(setDynamicName(null))
   })
+
+  const handleSearch = (e) => {
+    const query = `${e.target.value}`
+    setSearchTerm(query)
+    if (query.length >= 3) {
+      dispatch(SearchLeads(query))
+    }
+  }
+
+  const handleFilteredData = (e) => {
+    setSearchTerm('')
+    const id = `${e.target.id}`
+    dispatch(GetLcModule(`?company=${id}`))
+  }
+
+
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
@@ -44,11 +65,28 @@ function Index() {
                 />
               </div>
               <input
-                type="text"
-                className={`${styles.formControl} form-control formControl `}
-                placeholder="Search"
-              />
-            </div>
+                  value={serachterm}
+                  onChange={handleSearch}
+                  type="text"
+                  className={`${styles.formControl} form-control formControl `}
+                  placeholder="Search"
+                />
+              </div>
+              {searchedLeads && serachterm && (
+                <div className={styles.searchResults}>
+                  <ul>
+                    {searchedLeads.data.data.map((results, index) => (
+                      <li
+                        onClick={handleFilteredData}
+                        id={results._id}
+                        key={index}
+                      >
+                        {results.companyName} <span>{results.customerId}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
           </div>
           <Filter />
 
