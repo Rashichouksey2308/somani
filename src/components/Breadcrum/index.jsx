@@ -8,23 +8,41 @@ export default function Index({ isQuery }) {
     units: true,
     currency: true,
   })
+  const removeStorage=()=>{
+    sessionStorage.removeItem('exe')
+    sessionStorage.removeItem('Seller')
+    sessionStorage.removeItem('Buyer')
+    sessionStorage.removeItem('Supplier')
+    sessionStorage.removeItem('Associate')
+    sessionStorage.removeItem('add')
+    sessionStorage.removeItem('Product')
+  }
   useEffect(() => {
     if (
       isQuery?.match('/leads') ||
       isQuery?.match('/order-list') ||
       isQuery?.match('/new-order') ||
       isQuery?.match('/termsheet-preview') ||
-      isQuery?.match('/generic') ||
+     
       isQuery?.match('/letter-table/letter-amend/id') ||
       isQuery == '/agreement/preview' ||
       isQuery == '/transit' ||
       isQuery == '/review-queue' ||
       isQuery == '/margin-preview'
+      
     ) {
       show.units = false
       show.currency = false
+       removeStorage()
       setShow({ ...show })
-    } else if (
+    }
+    else if( isQuery?.match('/generic')){
+      show.units = false
+      show.currency = false
+      
+      setShow({ ...show })
+    }    
+    else if (
       isQuery?.match('/credit-queue') ||
       isQuery?.match('/termsheet') ||
       isQuery?.match('/margin-money') ||
@@ -35,13 +53,16 @@ export default function Index({ isQuery }) {
     ) {
       show.units = false
       show.currency = true
+      removeStorage()
       setShow({ ...show })
     } else if (
       isQuery?.match('/termsheet/') ||
       isQuery?.match('/margin-money/')
+      
     ) {
       show.units = true
       show.currency = true
+      removeStorage()
       setShow({ ...show })
     } else {
       show.units = true
