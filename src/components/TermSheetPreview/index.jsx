@@ -285,7 +285,7 @@ function Index() {
    
   //  ];
   
-    const doc = new jsPDF('p', '10', [2000,2000])
+    const doc = new jsPDF('p', 'pt', [1000,1000])
     doc.html(ReactDOMServer.renderToString(toPrintPdf(termsheet,termsheetDetails,additionalComments )), {
       callback: function (doc) {
         doc.save('sample.pdf')
@@ -494,7 +494,7 @@ function Index() {
             </Col>
             <Col md={8}  sm={6} xs={6}  className={`${styles.sub_contentValue} termsheet_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
                  <ul>
-                 <li>{termsheetDetails.paymentDueDate?.computationOfDueDate}</li>
+                 <li>{termsheetDetails?.paymentDueDate?.computationOfDueDate}</li>
                  
              </ul>
             </Col>
@@ -1462,7 +1462,7 @@ const toPrintPdf=(data,termsheetDetails,additionalComments )=>{
   console.log(termsheetDetails,"ldwfsdf")
   return(
    <>
-    <table width='2000px' cellPadding='0' cellSpacing='0' border='0'>
+    <table width='1000px' cellPadding='0' cellSpacing='0' border='0'>
           <tr>
             <td valign='top'>
               <table width='100%' bgColor='#D8EAFF' style={{fontFamily:'Arial, Helvetica, sans-serif', marginBottom:'26px', border:'1px solid #D2D7E5', borderRadius:'6px', height:'126px'}} cellPadding='10' cellSpacing='0' border='0'>

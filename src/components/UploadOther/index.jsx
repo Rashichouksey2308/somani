@@ -10,6 +10,7 @@ import {
 } from '../../../src/redux/creditQueueUpdate/action'
 import { useDispatch, useSelector } from 'react-redux'
 import { ViewDocument } from 'redux/ViewDoc/action'
+import moment from 'moment'
 
 const Index = ({ orderid, module, isDocumentName }) => {
   const dispatch = useDispatch()
@@ -490,7 +491,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                                 alt="Pdf"
                               />
                             </td>
-                            <td className={styles.doc_row}>{document.date}</td>
+                            <td className={styles.doc_row}>{moment(document.date).format('DD-MM-YYYY, h:mm a')}</td>
                             <td className={styles.doc_row}>
                               {document.uploadedBy?.fName}{' '}
                               {document.uploadedBy?.lName}

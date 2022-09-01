@@ -6,9 +6,7 @@ import { emailValidation, panValidation, phoneValidation } from 'utils/helper'
 import { useSelector, useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { ChangeCurrency } from '../../redux/userData/action'
-import { addPrefixOrSuffix ,removePrefixOrSuffix} from 'utils/helper'
-import { GetPanGst } from 'redux/GetPanGst/action'
-import Filter from '../Filter'
+import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper'
 
 const Index = ({
   saveCompanyData,
@@ -19,37 +17,22 @@ const Index = ({
   mobileCallingCodeFunction,
   whatsappCallingCodeFunction,
   handleCommunication,
+  orderDetails
 }) => {
 
   const { gstList } = useSelector((state) => state.buyer)
 
   const dispatch = useDispatch()
-
-  const [serachterm, setSearchTerm] = useState("");
-
-  const handleSearch = (e) => {
-    const query = `${e.target.value}`
-    setSearchTerm(query)
-    if (query.length >= 3) {
-      dispatch(GetPanGst({name: query}))
-    }
-  }
-
-  const handleFilteredData = (e) => {
-    setSearchTerm("")
-    const id = `${e.target.id}`
-    // dispatch(GetAllBuyer(`?company=${id}`))
-  }
-
-  const {gettingCompanyPanResponse} = useSelector((state)=>state.GetPan)
-
-  console.log(gettingCompanyPanResponse, "THIS IS GST LIST")
+  console.log(orderDetails,"orderDetails")
+  // console.log(gstList?.data, "THIS IS GST LIST")
   const [slider, setSlider] = useState(50)
   const [typeOfSlider, setSliderType] = useState(1)
+  const [isSliderOnFocus, setIsSliderOnFocus] = useState(false)
+  const [sliderWithCr, setSliderWithCr] = useState('')
 
   const [highlight, setHighlight] = useState(0)
   const [highlight3, setHighlight3] = useState(0)
-// console.log(slider,"slider16513")
+  console.log(slider, 'slider16513')
   const setSlide = (val) => {
     setSlider(val)
     getSlider(val)
@@ -59,102 +42,14 @@ const Index = ({
     getSlider()
   }, [slider])
 
+  useEffect(() => {
+    if (isSliderOnFocus === false) {
+      setSliderWithCr(slider.toString() + ' Cr')
+    }
+  }, [slider, isSliderOnFocus])
+
   const getSlider = (val) => {
-    // console.log(slider, 'slider8999')
-    if (typeOfSlider == 3) {
-      // console.log('slider3')
-      return (
-        <div className={styles.slidecontainer}>
-          <input
-            type="range"
-            min="500"
-            max="1000"
-            step="100"
-            name="turnOver"
-            list="tickmarks"
-            onChange={(e) => {
-              saveCompanyData(e.target.name, Number(e.target.value))
-              let high = (Math.abs(Number(e.target.value) - 500) / 1000) * 200
-
-              setHighlight3(high)
-              if (Number(e.target.value) == 500) {
-                setSliderType(2)
-                setSlide(500)
-              } else {
-                setSlider(Number(e.target.value))
-              }
-
-              getSlider()
-            }}
-            className={`${styles.slider} px-0 input form-control`}
-            id="myRange"
-            style={{
-              background: `linear-gradient(90deg, #3687E8 ${highlight3}%, #C3C3C31F ${highlight3}%)`,
-            }}
-          />
-          <datalist id="tickmarks">
-            <option value="500" label="500"></option>
-            <option value="600" label="600"></option>
-            <option value="700" label="700"></option>
-            <option value="800" label="800"></option>
-            <option value="900" label="900"></option>
-            <option value="1000" label="1000"></option>
-          </datalist>
-        </div>
-      )
-    }
-    if (typeOfSlider == 2) {
-      return (
-        <div className={styles.slidecontainer}>
-          <input
-            type="range"
-            min="100"
-            max="600"
-            step="100"
-            name="turnOver"
-            list="tickmarks"
-            onChange={(e) => {
-              saveCompanyData(e.target.name, Number(e.target.value))
-
-              let high = (Math.abs(Number(e.target.value) - 50) / 600) * 100
-
-              setHighlight(high)
-              if (Number(e.target.value) == 100) {
-                setSliderType(1)
-                setSlider(0)
-              } else if (Number(e.target.value) == 600) {
-                setSliderType(3)
-                setSlide(500)
-              } else {
-                setSlider(Number(e.target.value))
-              }
-
-              getSlider()
-            }}
-            className={`${styles.slider} px-0 input form-control`}
-            id="myRange"
-            style={{
-              background: `linear-gradient(90deg, #3687E8 
-                      ${highlight}%, #C3C3C31F ${highlight}%)`,
-            }}
-          />
-          <datalist id="tickmarks">
-            <option value="100" label="100"></option>
-            <option value="200" label="200"></option>
-            <option value="300" label="300"></option>
-            <option value="400" label="400"></option>
-            <option value="500" label="500"></option>
-            <option value="600" label="600"></option>
-          </datalist>
-
-          <div
-            className={`${styles.less_label} d-flex justify-content-end mr-n2`}
-          >
-            or more
-          </div>
-        </div>
-      )
-    }
+    console.log(slider, 'slider8999')
     if (typeOfSlider == 1) {
       console.log('slider1')
       return (
@@ -163,15 +58,15 @@ const Index = ({
             type="range"
             min="0"
             max="100"
-            step="25"
             name="turnOver"
             list="tickmarks"
+            value={slider}
             onChange={(e) => {
               console.log(Number(e.target.value), 'sadaasd')
               saveCompanyData(e.target.name, Number(e.target.value))
               if (Number(e.target.value == 100)) {
-                setSliderType(2)
-                setSlider(200)
+                setSliderType(1)
+                setSlider(100)
               } else {
                 setSlider(Number(e.target.value))
               }
@@ -202,7 +97,7 @@ const Index = ({
       )
     }
   }
-
+  console.log(sliderWithCr, 'demo')
   return (
     <>
       <div className={`${styles.main} border_color`}>
@@ -224,7 +119,9 @@ const Index = ({
                   onChange={(e) => saveOrderData(e.target.name, e.target.value)}
                 >
                   <option>Select an option</option>
-                  <option value="MT" selected>MT</option>
+                  <option value="MT" selected>
+                    MT
+                  </option>
                   <option value="KG">KG</option>
                 </select>
               </div>
@@ -244,9 +141,11 @@ const Index = ({
                   }}
                 >
                   <option>Select an option</option>
-                  <option value="Crores" selected>Crores</option>
+                  <option value="Crores" selected>
+                    Crores
+                  </option>
                   <option value="Million">Million</option>
-                   <option value="Lakh">Lakh</option>
+                  <option value="Lakh">Lakh</option>
                 </select>
               </div>
             </div>
@@ -260,10 +159,12 @@ const Index = ({
                 <Form.Check
                   className={styles.radio}
                   inline
+                  defaultChecked
                   onChange={() => saveOrderData('transactionType', 'Import')}
                   label="Import"
                   name="group1"
                   type={type}
+                  checked={orderDetails.transactionType == "Import"?"checked":""}
                   id={`inline-${type}-1`}
                 />
                 <Form.Check
@@ -273,7 +174,9 @@ const Index = ({
                   name="group1"
                   onChange={() => saveOrderData('transactionType', 'Domestic')}
                   type={type}
+                  checked={orderDetails.transactionType == "Domestic"?"checked":""}
                   id={`inline-${type}-2`}
+                  
                 />
               </div>
             ))}
@@ -387,7 +290,7 @@ const Index = ({
                 >
                   <option>Select an option</option>
                  <option value="Manufacturer">Manufacturer</option>
-                  <option value="Retailer">Retailer</option>
+                  {/* <option value="Retailer">Retailer</option> */}
                   <option value="Trading">Trading</option>
                 </select>
                 <label
@@ -495,30 +398,27 @@ const Index = ({
                   className={`${styles.input_container} form-control input`}
                   type="text"
                   onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
-                  value={addPrefixOrSuffix(slider,"Cr")}
+                  value={sliderWithCr || slider}
+                  onFocus={(e) => {
+                    e.target.type === 'number',
+                      setIsSliderOnFocus(true),
+                      setSliderWithCr('')
+                  }}
+                  onBlur={(e) => {
+                    e.target.type === 'text', setIsSliderOnFocus(false)
+                  }}
+                  max={100}
                   name="turnOver"
                   onChange={(e) => {
                     setSlider(Number(e.target.value))
-                    if (Number(e.target.value) <= 100) {
-                      setSliderType(1)
-                    }
-                    if (
-                      Number(e.target.value) > 100 &&
-                      Number(e.target.value) < 500
-                    ) {
-                      let high = (Math.abs(Number(e.target.value)) / 600) * 100
-                      console.log(high, 'high', Number(e.target.value))
-                      setHighlight(high)
-                      setSliderType(2)
-                    }
-                    if (Number(e.target.value) >= 500) {
-                      let high = (Math.abs(Number(e.target.value)) / 1000) * 100
-                      console.log(high, 'high', Number(e.target.value))
-                      setHighlight3(high)
-                      setSliderType(3)
-                    }
                     saveCompanyData(e.target.name, Number(e.target.value))
                     getSlider()
+                    if (e.target.value > 100) {
+                      e.target.value = 100
+                      setSlider(Number(e.target.value))
+                      saveCompanyData(e.target.name, Number(e.target.value))
+                      getSlider()
+                    }
                   }}
                 />
               </div>

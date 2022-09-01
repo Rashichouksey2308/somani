@@ -5,8 +5,16 @@ import Router from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
 import { GetOrders } from '../../redux/registerBuyer/action'
 import Filter from '../Filter'
+import {
+  setPageName,
+  setDynamicName,
+  setDynamicOrder,
+} from '../../redux/userData/action'
+import _get from 'lodash/get'
 
 function Index() {
+  const { singleOrder } = useSelector((state) => state.buyer)
+  console.log(singleOrder, 'singleOrder')
   const [edit, setEdit] = useState(false)
   const router = useRouter()
   const dispatch = useDispatch()
@@ -16,17 +24,25 @@ function Index() {
     dispatch(GetOrders(`?company=${id1}`))
   }, [dispatch])
 
+  useEffect(() => {
+    dispatch(setPageName('vessel'))
+    dispatch(setDynamicName(_get(singleOrder, 'data[0].company.companyName', 'Company Name')))
+    dispatch(setDynamicOrder(null))
+  }, [singleOrder])
+
+
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
         <div className={`${styles.filter} d-flex align-items-center`}>
           <div className={`${styles.head_header} align-items-center`}>
             <img
+             onClick={()=>{Router.push('/vessel-nomination')}}
               className={`${styles.arrow} image_arrow img-fluid mr-2`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
             />
-            <h1 className={styles.heading}>Ramakrishna Traders</h1>
+            <h1 className={styles.heading}>{_get(singleOrder, 'data[0].company.companyName', 'Company Name')}</h1>
           </div>
           {/* <div className={styles.search}>
             <div className="input-group">

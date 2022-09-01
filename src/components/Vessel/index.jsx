@@ -12,8 +12,14 @@ import { UPDATE_CREDIT_CALCULATE_SUCCESSFULL } from 'redux/buyerProfile/actionTy
 import { add } from 'lodash'
 import { setPageName, setDynamicName } from '../../redux/userData/action'
 //import { set } from 'immer/dist/internal'
+import Router from 'next/router'
+import _get from 'lodash/get'
+import { addPrefixOrSuffix } from 'utils/helper'
+
+
 
 function Index({
+  vesselData,
   vesselUpdatedAt,
   partShipmentAllowed,
   setPartShipmentAllowed,
@@ -38,8 +44,14 @@ function Index({
   onDeleteVessel,
   OnAddvesselInformationDelete,
   vesselCertificate,
-  setVesselCertificate
+  setVesselCertificate,
+  shipmentTypeBulk,
+  containerListDocument,
+  setContainerListDocument,
+  containerExcel,
 }) {
+
+  // console.log(containerExcel, 'containerExcel')
   const dispatch = useDispatch()
   // useEffect(() => {
   //   dispatch(setPageName('vessel'))
@@ -54,10 +66,11 @@ function Index({
     console.log(uploadDocHandler(e), 'vesselDocUpload')
   }
 
-  const handleClose = () => {
+  const handleClose = (e) => {
     setVesselCertificate(null)
   }
-
+  console.log(list,'list')
+// console.log(vesselData,'vesselData')
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -66,6 +79,8 @@ function Index({
             className={`${styles.tab_header} d-lg-flex d-inline-block align-items-center justify-content-between`}
           >
             <img
+              onClick={() => { Router.push('/vessel-nomination/id') }}
+
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow right"
               className="img-fluid mr-2 image_arrow"
@@ -73,7 +88,7 @@ function Index({
             <h1 className={`${styles.title} heading`}>{companyName}</h1>
             <div className="ml-auto">
               <div className={`${styles.lastModified} text `}>
-                <div>Last Modified:</div> {moment((vesselUpdatedAt)?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}    
+                <div>Last Modified:</div> {moment((vesselUpdatedAt ? vesselUpdatedAt : '')?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY,h:mm a")}
               </div>
             </div>
           </div>
@@ -213,7 +228,12 @@ function Index({
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
-                            value={val.quantity}
+                            // value={val.quantity}
+                            value={addPrefixOrSuffix(
+                              val.quantity,
+                              _get(vesselData,'data[0].order.unitOfQuantity','').toUpperCase(),
+                              '',
+                            )}
                             onChange={(e) =>
                               OnVesselBasicFieldsChangeHandler(e, index)
                             }
@@ -232,18 +252,18 @@ function Index({
                             style={{ color: '#3687E8' }}
                             required
                           >
-                            <option>Select an option</option>
+                            <option>Select</option>
                             <option>USD</option>
                             <option>INR</option>
                           </select>
                           <input
                             id="orderValue"
-                            type="number"
+                            type="text"
                             onKeyDown={(evt) =>
                               evt.key === 'e' && evt.preventDefault()
                             }
                             className={`${styles.input_field} border-left-0 input form-control`}
-                            value={val.orderValue}
+                            value={Number(val.orderValue).toLocaleString()}
                             onChange={(e) =>
                               OnVesselBasicFieldsChangeHandler(e, index)
                             }
@@ -273,6 +293,8 @@ function Index({
                               onChange={(e) =>
                                 OnVesselTransitFieldsChangeHandler(e, index)
                               }
+                              value={val.transitDetails.countryOfOrigin}
+                              
                             >
                               <option>Select an option</option>
                               {/* <option value={val.countryOfOrigin}>
@@ -303,6 +325,7 @@ function Index({
                               onChange={(e) =>
                                 OnVesselTransitFieldsChangeHandler(e, index)
                               }
+                              value={val.transitDetails.portOfLoading}
                             >
                               <option>Select an option</option>
                               {/* <option value={val.portOfLoading}>
@@ -333,6 +356,7 @@ function Index({
                               onChange={(e) =>
                                 OnVesselTransitFieldsChangeHandler(e, index)
                               }
+                               value={val.transitDetails.portOfDischarge}
                             >
                               <option>Select an option</option>
                               {/* <option value={val.portOfDischarge}>
@@ -540,9 +564,9 @@ function Index({
                                     <div className="d-flex">
                                       <input
                                         id="yearOfBuilt"
-                                        defaultValue={vesselInfo.yearOfBuilt}
+                                        value={moment(vesselInfo.yearOfBuilt).format("YYYY")}
                                         className={`${styles.input_field} input form-control`}
-                                        type="number"
+                                        type="text"
                                         onKeyDown={(evt) =>
                                           evt.key === 'e' &&
                                           evt.preventDefault()
@@ -587,11 +611,11 @@ function Index({
                                           *
                                         </strong>
                                       </label>
-                                      <img
+                                      {/* <img
                                         className={`${styles.arrow} image_arrow img-fluid`}
                                         src="/static/inputDropDown.svg"
                                         alt="Search"
-                                      />
+                                      /> */}
                                     </div>
                                   </div>
 
@@ -843,7 +867,7 @@ function Index({
                             className={`${styles.form_group} d-flex justify-content-start`}
                           >
                             {' '}
-                            <div className={styles.uploadBtnWrapper}>
+                            {containerExcel === null ? <div className={styles.uploadBtnWrapper}>
                               <input
                                 onChange={(e) => uploadDocHandler1(e)}
                                 type="file"
@@ -853,7 +877,17 @@ function Index({
                               <button className={`${styles.upload_btn}`}>
                                 Upload Excel
                               </button>
-                            </div>
+                            </div> :
+
+                              <div className={styles.certificate}>
+                                {containerExcel?.name}
+                                <img
+                                  className={`${styles.close_image} float-right ml-2 img-fluid`}
+                                  src="/static/close.svg"
+                                  onClick={() => handleClose(docName2)}
+                                  alt="Close"
+                                />{' '}
+                              </div>}
                             <div className={`${styles.upload_text}`}>
                               <strong className="text-danger ml-n2 mr-1">
                                 *
@@ -869,8 +903,8 @@ function Index({
                 )
               })}
 
-            <UploadDocument docName='Container No. List' docName2={`Upload Other Documents`} vesselCertificate={vesselCertificate} handleClose={handleClose} uploadDocument1={uploadDocHandler} />
-            
+            <UploadDocument docName='Vessel Certificate' docName2={shipmentTypeBulk === 'Bulk' ? false : 'Container List'} vesselCertificate={vesselCertificate} handleClose={handleClose} uploadDocument1={uploadDocHandler} />
+
             <UploadOther
               module="Agreements&Insurance&LC&Opening"
               orderid={id1}

@@ -37,6 +37,8 @@ function Index() {
 
   let id = sessionStorage.getItem('marginId')
 
+  const [unit, setUnit] = useState({ value: 'Crores' })
+
   const RevisedMarginMoneyTrue = _get(
     margin,
     'data.data[0].revisedMarginMoney.isActive',
@@ -576,6 +578,15 @@ function Index() {
 
     dispatch(RevisedMarginMoney(obj))
   }
+
+  const saveOrderData = (name, value) => {
+    const newInput = { ...unit }
+    newInput[name] = value
+
+    // console.log(newInput)
+    setUnit(newInput)
+  }
+
   const [active, setActive] = useState('Margin Money')
   return (
     <>

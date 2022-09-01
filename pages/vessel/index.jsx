@@ -14,6 +14,13 @@ import API from '../../src/utils/endpoints'
 import Cookies from 'js-cookie';
 import Axios from 'axios';
 import { toast } from 'react-toastify'
+import {
+  setPageName,
+  setDynamicName,
+  setDynamicOrder,
+} from '../../src/redux/userData/action'
+import { removePrefixOrSuffix } from 'utils/helper'
+
 
 export default function Home() {
   const dispatch = useDispatch()
@@ -26,36 +33,32 @@ export default function Home() {
   useEffect(() => {
     fetchInitialData()
 
-
-
   }, [])
   const fetchInitialData = async () => {
     let id = sessionStorage.getItem('VesselId')
     const data = await dispatch(GetVessel(`?vesselId=${id}`))
+    // console.log(data, 'vessel data')
     setData(data)
     serVesselDataToAdd(data)
-  }
+    dispatch(setPageName('vessel'))
+    dispatch(setDynamicName(_get(data, 'data[0].company.companyName', 'Company Name')))
+    dispatch(setDynamicOrder(_get(data, 'data[0].order.orderId', 'Order Id')))
 
+  }
+  console.log("test")
   const [list, setList] = useState([])
-  const [containerExcel, setContainerExcel] = useState({})
+  const [containerExcel, setContainerExcel] = useState(null)
   const [vesselCertificate, setVesselCertificate] = useState({})
   const [containerListDocument, setContainerListDocument] = useState({})
   const [partShipmentAllowed, setPartShipmentAllowed] = useState(partShipment)
   const [companyName, setCompanyName] = useState("")
   const [vesselUpdatedAt, setVesselUpdatedAt] = useState("")
-
-
-  console.log(containerExcel,list, 'containerExcel')
-
-
-
-  // useEffect(() => {
-
-  //    // console.log("check 2")
-  // }, [Vessel])
-
   const [partShipment, setPartshipment] = useState()
   const [VesselToAdd, serVesselDataToAdd] = useState()
+  const [shipmentTypeBulk, setShipmentTypeBulk] = useState('Bulk')
+  const [vesselData, setVesselData] = useState()
+
+
   console.log(VesselToAdd, "THIS IS VESSEL TO")
   const setData = (Vessel) => {
     console.log(Vessel, "THIS IS VESSEL")
@@ -64,6 +67,7 @@ export default function Home() {
       "data[0].updatedAt",
       false
     ))
+    setVesselData(Vessel)
     setPartshipment(_get(
       Vessel,
       "data[0].partShipmentAllowed",
@@ -76,6 +80,7 @@ export default function Home() {
       "data[0].vessels",
       []
     ).length < 1) {
+      setShipmentTypeBulk(false)
       setList([
         {
           shipmentType: 'Bulk',
@@ -201,6 +206,7 @@ export default function Home() {
       setList(prevState => prevState.slice(0, 1)
       )
     }
+    setShipmentTypeBulk(e.target.value)
     setList(prevState => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -216,6 +222,16 @@ export default function Home() {
   const OnVesselBasicFieldsChangeHandler = (e, index) => {
     const name = e.target.id
     const value = e.target.value
+    if (name === 'quantity') {
+      // console.log('THIS IS VESSELquantity', removePrefixOrSuffix(value), _get(vesselData, 'data[0].order.quantity', 0))
+      if (removePrefixOrSuffix(value) > _get(vesselData, 'data[0].order.quantity', 0)) {
+
+        let toastMessage = 'Quantity Cannot Exceed orignal Order QUantity'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+      }
+    }
     setList(prevState => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -339,10 +355,10 @@ export default function Home() {
           if (uploadDocType === ' containerExcel') {
             setContainerExcel(response.data.data)
           }
-          if (uploadDocType === 'vesselCertificate') {
+          if (uploadDocType === 'Vessel Certificate') {
             setVesselCertificate(response.data.data)
           }
-          if (uploadDocType === 'containerListDocument') {
+          if (uploadDocType === 'Container List') {
             setContainerListDocument(response.data.data)
           }
         } else {
@@ -380,212 +396,215 @@ export default function Home() {
       return newState;
     })
   }
- const validation =()=>{
-   let isOk = true
-   let  toastMessage= ""
-  
-  for(let i=0;i<=list.length;i++){
-     if (list[i].shipmentType == "" || list[i].shipmentType == undefined) {
-      toastMessage = `Please Select shipment Type of Vessel Information ${i}  `
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      isOk =  false
-      break; 
-    
+  const validation = () => {
+    let isOk = true
+    let toastMessage = ""
+    console.log(list,'list validation')
+
+    for (let i = 0; i < list.length; i++) {
+      if (list[i].shipmentType == "" || list[i].shipmentType == undefined) {
+        toastMessage = `Please Select shipment Type of Vessel Information ${i}  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break;
+
+        }
+
+      }
+      if (list[i].commodity == "" || list[i].commodity == undefined) {
+        toastMessage = `Please add commodity of Vessel Information ${i}  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break;
+        }
+
+      }
+      if (list[i].quantity == "" || list[i].quantity == undefined) {
+        toastMessage = `Please add quantity of Vessel Information ${i}  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break;
+        }
+
+      }
+      if (list[i].orderValue == "" || list[i].orderValue == undefined) {
+        toastMessage = `Please add order Value of Vessel Information ${i}  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break;
+        }
+
+      }
+      if (list[i].transitDetails.countryOfOrigin == "" || list[i].transitDetails.countryOfOrigin == undefined) {
+        toastMessage = `Please select country Of Origin of Vessel Information ${i}  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break;
+        }
+
+      }
+      if (list[i].transitDetails.portOfLoading == "" || list[i].transitDetails.portOfLoading == undefined) {
+        toastMessage = `Please select port Of Loading of Vessel Information ${i}  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break;
+        }
+
+      }
+      if (list[i].transitDetails.portOfDischarge == "" || list[i].transitDetails.portOfDischarge == undefined) {
+        toastMessage = `Please select port Of Discharge of Vessel Information ${i}  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break;
+        }
+
+      }
+      if (list[i].transitDetails.portOfDischarge == "" || list[i].transitDetails.portOfDischarge == undefined) {
+        toastMessage = `Please select port Of Discharge of Vessel Information ${i}  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break;
+        }
+
+      }
+      if (list[i].transitDetails.laycanFrom == "" || list[i].transitDetails.laycanFrom == undefined) {
+        toastMessage = `Please add laycan From of Vessel Information ${i}  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break;
+        }
+
+      }
+      if (list[i].transitDetails.laycanTo == "" || list[i].transitDetails.laycanTo == undefined) {
+        toastMessage = `Please add laycan to of Vessel Information ${i}  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break;
+        }
+
+      }
+      if (list[i].transitDetails.EDTatLoadPort == "" || list[i].transitDetails.EDTatLoadPort == undefined) {
+        toastMessage = `Please add EDT at Load Port to of Vessel Information ${i}  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break;
+        }
+
+      }
+      if (list[i].transitDetails.ETAatDischargePort == "" || list[i].transitDetails.ETAatDischargePort == undefined) {
+        toastMessage = `Please add EDT at dischargePort to of Vessel Information ${i}  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break;
+        }
+
+      }
+      if (list[i].shipmentType == "Bulk") {
+        if (list[i].vesselInformation[0].name == "" || list[i].vesselInformation[0].name == undefined) {
+          toastMessage = `Please add vessel name  of Vessel Information ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break;
+          }
+
+        }
+
+        if (list[i].vesselInformation[0].IMONumber == "" || list[i].vesselInformation[0].IMONumber == undefined) {
+          toastMessage = `Please add IMO Number  of Vessel Information ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break;
+          }
+
+        }
+
+        if (list[i].vesselInformation[0].flag == "" || list[i].vesselInformation[0].flag == undefined) {
+          toastMessage = `Please add IMO Number  of Vessel Information ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break;
+          }
+
+        }
+
+        if (list[i].vesselInformation[0].yearOfBuilt == "" || list[i].vesselInformation[0].yearOfBuilt == undefined || list[i].vesselInformation[0].yearOfBuilt == null) {
+          toastMessage = `Please add yea Of Built  of Vessel Information ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break;
+          }
+
+        }
+
+      } else {
+        if (list[i]?.shippingInformation?.shippingLineOrCharter == "" || list[i]?.shippingInformation?.shippingLineOrCharter == undefined) {
+          toastMessage = `Please add shipping Line Or Charter  of Vessel Information ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break;
+          }
+
+        }
+        if (list[i]?.shippingInformation?.numberOfContainers == "" || list[i]?.shippingInformation?.numberOfContainers == undefined) {
+          toastMessage = `Please add number Of Containers  of Vessel Information ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break;
+          }
+
+        }
+      }
+
+
     }
-    
-  }
-    if (list[i].commodity == "" || list[i].commodity == undefined) {
-      toastMessage = `Please add commodity of Vessel Information ${i}  `
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      isOk =  false
-      break; 
-    }
-    
-  }
-    if (list[i].quantity == "" || list[i].quantity == undefined) {
-      toastMessage = `Please add quantity of Vessel Information ${i}  `
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      isOk =  false
-      break; 
-    }
-    
-  }
-  if (list[i].orderValue == "" || list[i].orderValue == undefined) {
-  toastMessage = `Please add order Value of Vessel Information ${i}  `
-  if (!toast.isActive(toastMessage.toUpperCase())) {
-  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-  isOk =  false
-  break; 
-  }
 
+    return isOk
   }
-  if (list[i].transitDetails.countryOfOrigin == "" || list[i].transitDetails.countryOfOrigin == undefined) {
-  toastMessage = `Please select country Of Origin of Vessel Information ${i}  `
-  if (!toast.isActive(toastMessage.toUpperCase())) {
-  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-  isOk =  false
-  break; 
-  }
-
-  }
-  if (list[i].transitDetails.portOfLoading == "" || list[i].transitDetails.portOfLoading == undefined) {
-  toastMessage = `Please select port Of Loading of Vessel Information ${i}  `
-  if (!toast.isActive(toastMessage.toUpperCase())) {
-  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-  isOk =  false
-  break; 
-  }
-
-  }
-    if (list[i].transitDetails.portOfDischarge == "" || list[i].transitDetails.portOfDischarge == undefined) {
-  toastMessage = `Please select port Of Discharge of Vessel Information ${i}  `
-  if (!toast.isActive(toastMessage.toUpperCase())) {
-  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-  isOk =  false
-  break; 
-  }
-
-  }
-  if (list[i].transitDetails.portOfDischarge == "" || list[i].transitDetails.portOfDischarge == undefined) {
-  toastMessage = `Please select port Of Discharge of Vessel Information ${i}  `
-  if (!toast.isActive(toastMessage.toUpperCase())) {
-  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-  isOk =  false
-  break; 
-  }
-
-  }
-    if (list[i].transitDetails.laycanFrom == "" || list[i].transitDetails.laycanFrom == undefined) {
-  toastMessage = `Please add laycan From of Vessel Information ${i}  `
-  if (!toast.isActive(toastMessage.toUpperCase())) {
-  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-  isOk =  false
-  break; 
-  }
-
-  }
-  if (list[i].transitDetails.laycanTo == "" || list[i].transitDetails.laycanTo == undefined) {
-  toastMessage = `Please add laycan to of Vessel Information ${i}  `
-  if (!toast.isActive(toastMessage.toUpperCase())) {
-  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-  isOk =  false
-  break; 
-  }
-
-  }
-  if (list[i].transitDetails.EDTatLoadPort == "" || list[i].transitDetails.EDTatLoadPort == undefined) {
-  toastMessage = `Please add EDT at Load Port to of Vessel Information ${i}  `
-  if (!toast.isActive(toastMessage.toUpperCase())) {
-  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-  isOk =  false
-  break; 
-  }
-
-  }
-  if (list[i].transitDetails.ETAatDischargePort == "" || list[i].transitDetails.ETAatDischargePort == undefined) {
-  toastMessage = `Please add EDT at dischargePort to of Vessel Information ${i}  `
-  if (!toast.isActive(toastMessage.toUpperCase())) {
-  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-  isOk =  false
-  break; 
-  }
-
-  }
-  if(list[i].shipmentType=="Bulk"){
-  if (list[i].vesselInformation[0].name == "" || list[i].vesselInformation[0].name == undefined) {
-  toastMessage = `Please add vessel name  of Vessel Information ${i}  `
-  if (!toast.isActive(toastMessage.toUpperCase())) {
-  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-  isOk =  false
-  break; 
-  }
-
-  } 
-
- if (list[i].vesselInformation[0].IMONumber == "" || list[i].vesselInformation[0].IMONumber == undefined) {
-  toastMessage = `Please add IMO Number  of Vessel Information ${i}  `
-  if (!toast.isActive(toastMessage.toUpperCase())) {
-  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-  isOk =  false
-  break; 
-  }
-
-  }
-
-  if (list[i].vesselInformation[0].flag == "" || list[i].vesselInformation[0].flag == undefined) {
-  toastMessage = `Please add IMO Number  of Vessel Information ${i}  `
-  if (!toast.isActive(toastMessage.toUpperCase())) {
-  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-  isOk =  false
-  break; 
-  }
-
-  }
-
-  if (list[i].vesselInformation[0].yearOfBuilt == "" || list[i].vesselInformation[0].yearOfBuilt == undefined || list[i].vesselInformation[0].yearOfBuilt == null) {
-  toastMessage = `Please add yea Of Built  of Vessel Information ${i}  `
-  if (!toast.isActive(toastMessage.toUpperCase())) {
-  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-  isOk =  false
-  break; 
-  }
-
-  }
-
-  }else{
-  if (list[i].shippingInformation.shippingLineOrCharter == "" || list[i].shippingInformation.shippingLineOrCharter == undefined) {
-  toastMessage = `Please add shipping Line Or Charter  of Vessel Information ${i}  `
-  if (!toast.isActive(toastMessage.toUpperCase())) {
-  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-  isOk =  false
-  break; 
-  }
-
-  }
-   if (list[i].shippingInformation.numberOfContainers == "" || list[i].shippingInformation.numberOfContainers == undefined) {
-  toastMessage = `Please add number Of Containers  of Vessel Information ${i}  `
-  if (!toast.isActive(toastMessage.toUpperCase())) {
-  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-  isOk =  false 
-  break; 
-  }
-
-  }
-  }
-
-
-   }
-  
-   return isOk
- }
 
   const onSaveHandler = async () => {
-    if(validation()){
 
-  
-    const payload = {
-      vesselId: id,
-      partShipmentAllowed: partShipmentAllowed,
-      vessels: [...list]
+    console.log(list, 'gdksfujhfgjkdgfkjhhhhmh')
+    if (validation()) {
+
+
+      const payload = {
+        vesselId: id,
+        partShipmentAllowed: partShipmentAllowed,
+        vessels: [...list]
+      }
+      if (containerListDocument) {
+        payload.containerListDocument = containerListDocument
+      }
+      if (vesselCertificate) {
+        payload.vesselCertificate = vesselCertificate
+      }
+      if (containerExcel) {
+        payload.containerExcel = containerExcel
+      }
+      // console.log(payload, 'vessels123456')
+      // console.log("check 3")
+      await dispatch(UpdateVessel(payload))
+      fetchInitialData()
     }
-    if (containerListDocument) {
-      payload.containerListDocument = containerListDocument
-    }
-    if (vesselCertificate) {
-      payload.vesselCertificate = vesselCertificate
-    }
-    if (containerExcel) {
-      payload.containerExcel = containerExcel
-    }
-    // console.log(payload, 'vessels123456')
-    // console.log("check 3")
-    await dispatch(UpdateVessel(payload))
-    fetchInitialData()
   }
-    }
   // // console.log(Vessel, "Vessel")
   // console.log(containerExcel, ' containerExcel')
 
@@ -605,9 +624,13 @@ export default function Home() {
   return (
     <>
       <Vessels
+        vesselData={vesselData}
         vesselUpdatedAt={vesselUpdatedAt}
+        containerExcel={containerExcel}
         vesselCertificate={vesselCertificate}
         setVesselCertificate={setVesselCertificate}
+        setContainerListDocument={setContainerListDocument}
+        containerListDocument={containerListDocument}
         partShipmentAllowed={partShipmentAllowed}
         setPartShipmentAllowed={setPartShipmentAllowed}
         id1={id1}
@@ -630,6 +653,7 @@ export default function Home() {
         shippingInfoChangeHandler={shippingInfoChangeHandler}
         onDeleteVessel={onDeleteVessel}
         OnAddvesselInformationDelete={OnAddvesselInformationDelete}
+        shipmentTypeBulk={shipmentTypeBulk}
       />
       <div className="mt-5">
         <VesselSaveBar handleSave={onSaveHandler} rightBtn="Submit" rightBtnClick={onSaveHandler} />

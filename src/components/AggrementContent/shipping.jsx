@@ -30,8 +30,8 @@ function Index(props) {
     }else{
        let shipping={
        "name": props.data?.name,
-      "vesselName": props.data?.vesselName,
-      "gstin": props.data?.gstin,
+       "vesselName": props.data?.vesselName,
+       "gstin": props.data?.gstin,
         
         
        }
@@ -62,7 +62,7 @@ function Index(props) {
       props.updateData("Shipping Line",data)
 
     }
-  },[props])
+  },[props.saveData,props.submitData])
   const handleInput=(name,value,key)=>{
   
 

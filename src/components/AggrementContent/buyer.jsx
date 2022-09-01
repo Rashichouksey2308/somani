@@ -7,20 +7,17 @@ let buyer = {
   "name": "",
 
   "branchName": "",
-  "addresses": [
-
-  ],
-  "authorisedSignatoryDetails": [
-
-  ],
+  
+ 
 
 
 }
 function Index(props) {
   const [buyerData, setBuyerData] = useState(buyer)
   useEffect(() => {
-    setBuyerData({...buyer,name:props?.order?.company?.companyName})
+    setBuyerData({...buyerData,name:props?.order?.company?.companyName})
   },[props.order])
+  const [gstin,setGstin]=useState("")
   const [list, setList] = useState([])
   const [addressList,setAddressList]=useState([])
   const [docList,setDocList]=useState([])
@@ -55,32 +52,48 @@ function Index(props) {
         let savedData = JSON.parse(sessionStorage.getItem("Buyer"))
         let buyer = {
           "name": savedData.name,
-          "shortName": savedData.shortName,
+          "branchName": savedData.branchName,
 
-          "addresses": savedData.addresses,
-          "authorisedSignatoryDetails": savedData.authorisedSignatoryDetails,
+          
 
 
         }
+        if(savedData.branchName=="Delhi"){
+
+          setGstin("07AAACI3028D1Z4")
+                     
+        }
+        else if(savedData.branchName=="Andhra Pradesh"){
+              setGstin("37AAACI3028D2Z0")
+          }
+        setAddressList(savedData.addresses)
         setList(savedData.authorisedSignatoryDetails)
 
         setBuyerData(buyer)
       }else{
         let buyer = {
           "name": props?.data?.name,
-          "shortName": props?.data?.shortName,
+          "branchName": props?.data?.branchName,
 
-          "addresses": props?.data?.addresses,
-          "authorisedSignatoryDetails": props?.data?.authorisedSignatoryDetails,
+          
 
 
         }
+        if(props?.data?.branchName=="Delhi"){
+
+          setGstin("07AAACI3028D1Z4")
+                     
+        }
+        else if(props?.data?.branchName=="Andhra Pradesh"){
+              setGstin("37AAACI3028D2Z0")
+          }
+        setAddressList(props?.data.addresses)
         setList(props?.data?.authorisedSignatoryDetails)
 
         setBuyerData(buyer)
       }
     }
-  }, [])
+  }, [props])
 let masterList=[
 {name:"Bhawana Jain",designation:"Vice President (Finance & Accounts)",email:"bhawanajain@somanigroup.com",phoneNo:""},
 {name:"Vipin Kumar",designation:"Manager Accounts",email:"vipinrajput@somanigroup.com",phoneNo:""},
@@ -92,7 +105,8 @@ let masterList=[
       let data = {
         buyerData: buyerData,
         list: list,
-        addresses: buyerData
+        addresses: addressList,
+        list:list,
 
       }
       props.sendData("Buyer", data)
@@ -101,14 +115,16 @@ let masterList=[
       let data = {
         buyerData: buyerData,
         list: list,
-        addresses: buyerData
+        addresses: addressList,
+        list:list
 
       }
 
       props.updateData("Buyer", data)
 
     }
-  }, [props])
+  }, [props.saveData,props.submitData])
+  
   const onEdit = (index) => {
     let tempArr = list;
     // tempArr[index].actions.edit="false"
@@ -147,7 +163,7 @@ let masterList=[
     });
 
   }
-   const addMoreRows=()=>{
+  const addMoreRows=()=>{
 
    
   setList([...list,{
@@ -233,24 +249,39 @@ let arrayToSave={
     
 
   }
-const removeDocArr=(index)=>{
-   setDocList([...docList.slice(0,index), ...docList.slice(index+1)])
+const removeDoc=(index)=>{
+    console.log("removeDOc")
+     setDocList(prevState => {
+      const newState = prevState.map((obj ,i)=> {
+       
+        if (i == index) {
+          return {...obj, attachDoc: ''};
+        }
+
+        
+        return obj;
+      });
+
+      return newState;
+    });
+  
 }
  //address 
 const handleAddressInput=()=>{
-
+if(props.addressValidation(addressType,newAddress)){
 setAddressList(current => [...current, newAddress])
   
-  setNewAddress({
-              "addressType": "Registered",
-              "fullAddress": "",
-              "pinCode": "",
-              "country": "",
-              "gstin": "",
-              "state": "",
-              "city": ""
-          })
-    setAddressType("Registered")
+setNewAddress({
+          "addressType": "Registered",
+          "fullAddress": "",
+          "pinCode": "",
+          "country": "",
+          "gstin": "",
+          "state": "",
+          "city": ""
+      })
+setAddressType("Registered")
+}
 }
 const onAddressRemove=(index)=>{
 setAddressList([...addressList.slice(0,index), ...addressList.slice(index+1)])
@@ -340,6 +371,9 @@ setEditAddress(
     });
  }
 const saveNewAddress=()=>{
+  if(props.addressValidation(EditAddress.addressType,EditAddress)){
+
+ 
 console.log(EditAddress,"EditAddress",toEditIndex)
 setAddressList(prevState => {
   const newState = prevState.map((obj ,i)=> {
@@ -356,18 +390,31 @@ setAddressList(prevState => {
 });
 setIsEdit(false)
 setEditAddress(
-            {
-            "addressType": "",
-            "fullAddress": "",
-            "pinCode": "",
-            "country": "",
-            "gstin": "",
-            "state": "",
-            "city": ""
-        }
+      {
+      "addressType": "",
+      "fullAddress": "",
+      "pinCode": "",
+      "country": "",
+      "gstin": "",
+      "state": "",
+      "city": ""
+  }
 )
 
+ }
 
+}
+const cancelAddress=()=>{
+ setNewAddress({
+              "addressType": "Registered",
+              "fullAddress": "",
+              "pinCode": "",
+              "country": "",
+              "gstin": "",
+              "state": "",
+              "city": ""
+          })
+  setAddressType("Registered")
 
 }
   return (
@@ -383,7 +430,7 @@ setEditAddress(
                   required
                   type="text"
                   name="name"
-                  value={buyerData.shortName}
+                  value={buyerData.name}
                   onChange={(e) => {
                     handleInput(e.target.name, e.target.value)
                   }}
@@ -416,12 +463,19 @@ setEditAddress(
                   name="branchName"
                   value={buyerData.branchName}
                   onChange={(e) => {
+                     if(e.target.value=="Delhi"){
+                      setGstin("07AAACI3028D1Z4")
+                     }else{
+                      setGstin("37AAACI3028D2Z0")
+                     }
                     handleInput(e.target.name, e.target.value)
+                    
                   }}
                   >
                      <option>Select an option</option>
                     
                     <option value="Delhi">Delhi</option>
+                       <option value="Andhra Pradesh">Andhra Pradesh</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Branch Name<strong className="text-danger">*</strong>
@@ -439,7 +493,7 @@ setEditAddress(
             </div>
             <div className={` ${styles.info} col-md-4 col-sm-6`}>
               <span>GSTIN.</span>
-              <p>27AAATW4183C2ZG</p>
+              <p>{gstin}</p>
             </div>
             <div className={` ${styles.info} col-md-4 col-sm-6`}>
               <span>Short Name</span>
@@ -542,7 +596,7 @@ setEditAddress(
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="text"
+                        type="number"
                         name="pinCode"
                         value={newAddress.pinCode}
                         onChange={(e) => {
@@ -610,7 +664,7 @@ setEditAddress(
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="text"
+                        type="number"
                         name="pinCode"
                         value={newAddress.pinCode}
                         onChange={(e) => {
@@ -698,7 +752,10 @@ setEditAddress(
                     >
                     <span>Add</span>
                     </div>
-                    <div className={`${styles.cancel} d-flex justify-content-center align-items-center`}>
+                    <div className={`${styles.cancel} d-flex justify-content-center align-items-center`}
+                     onClick={()=>{
+                      cancelAddress()
+                    }}>
                     <span>Cancel</span>
                     </div>
                   </div>
@@ -776,42 +833,45 @@ setEditAddress(
                          </>  : 
                            
                          <>
-                          <input type="text"
+                          <input type="text" 
                             className='input'
                             placeholder={"Add new"}
                             name= "name"
                             value={val.name}
                             onChange={(e)=>{
-                              handleChangeInput2(e.target.name,e.target.value,index)
+                            handleChangeInput2(e.target.name,e.target.value,index)
                             }}
                           />
-                         </>
+                        </>
                       }
                             
                           </td>
                           <td>
                             <input type="text"
                               className='input'
-                              placeholder={val.designation}
-                              name= "designation"
-                              readOnly={val.addnew!="true"?true:false}
+                              value={val.designation}
+                              name="designation"
+                              // readOnly={val.addnew!="true"?true:false}
                               onChange={(e)=>{
                                 handleChangeInput2(e.target.name,e.target.value,index)
                               }}
-                            />                          
+                            />
+                          
                           </td>
                           <td>
-                            <input type="text"
-                              className='input'
-                              placeholder={val.email}
+                            <input type="text" 
+                            value={val.email}
                               name= "email"
-                              readOnly={val.addnew!="true"?true:false}                         
+                                                        
+                              className='input'
+                              onChange={(e)=>{
+                                handleChangeInput2(e.target.name,e.target.value,index)
+                              }}
                             />
                           </td>
                           <td>
-                            <input type="text"
+                            <input type="text" placeholder={val.phoneNo}
                               className='input'
-                              placeholder={val.phoneNo}
                               name= "phoneNo"
                               onChange={(e)=>{
                                 handleChangeInput2(e.target.name,e.target.value,index)
@@ -938,7 +998,7 @@ setEditAddress(
                         <img
                           className={`${styles.close_image} float-right m-2 img-fluid`}
                           src="/static/close.svg"
-                          // onClick={() => removeDoc(index)}
+                          onClick={() => removeDoc(index)}
                           alt="Close"
                         />{' '}
                       </div>
@@ -974,7 +1034,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         <select
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           name="addressType"
-                          
+                           value={EditAddress.addressType}
                           onChange={(e) => {
                             setAddressEditType(e.target.value)
                             editNewAddress(e.target.name,e.target.value)
@@ -1020,7 +1080,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="text"
+                        type="number"
                         name="pinCode"
                         value={EditAddress.pinCode}
                         onChange={(e) => {
@@ -1088,7 +1148,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="text"
+                        type="number"
                         name="pinCode"
                          value={EditAddress.pinCode}
                         onChange={(e) => {

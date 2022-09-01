@@ -43,6 +43,8 @@ function Index(props) {
           "city": ""
       }
   )
+   const [docList,setDocList]=useState([])
+  const [doc,setdoc]=useState({attachDoc:""})
   const [addressType,setAddressType]=useState("Registered")
    const [addressEditType,setAddressEditType]=useState("Registered")
  
@@ -91,11 +93,41 @@ useEffect(() => {
    }
   },[])
   let masterList=[
-  {name:"Dr. Amin Controllers Private Limited",address:"Embassy Chambers, 6th Floor, Plot No. 5, Road No. 3, Khar (West) Mumbai, Maharashtra - 400 05227AAACA3912A2ZE"},
-  {name:"Integral Trading and Logistics",address:"Flat No. 303, 3rd Floor, Tirumala Plaza, Dabagarden, Visakhapatnam, Andhra Pradesh - 53002037AABFI9574L2ZP"},
- 
-  ]
-  console.log(chaState,"chaState")
+    {name:"Bhawana Jain",designation:"Vice President (Finance & Accounts)",email:"bhawanajain@somanigroup.com",phoneNo:""},
+    {name:"Vipin Kumar",designation:"Manager Accounts",email:"vipinrajput@somanigroup.com",phoneNo:""},
+    {name:"Devesh Jain",designation:"Director",email:"devesh@indointertrade.ch",phoneNo:""},
+    {name:"Fatima Yannoulis ",designation:"Chief Financial Officer",email:"fatima@indointertrade.ch",phoneNo:""}
+    ]
+const removeDoc=(index)=>{
+console.log("removeDOc")
+setDocList(prevState => {
+const newState = prevState.map((obj ,i)=> {
+  
+  if (i == index) {
+    return {...obj, attachDoc: ''};
+  }
+
+  
+  return obj;
+});
+
+return newState;
+});
+
+}
+ const cancelAddress=()=>{
+ setNewAddress({
+              "addressType": "Registered",
+              "fullAddress": "",
+              "pinCode": "",
+              "country": "",
+              "gstin": "",
+              "state": "",
+              "city": ""
+          })
+  setAddressType("Registered")
+
+}
   useEffect(() => {
     if(props.saveData==true && props.active=="CHA"){
        let data={
@@ -153,18 +185,54 @@ useEffect(() => {
     });
 
   }
-  const addMoreRows=()=>{
+ const addMoreRows=()=>{
 
    
   setList([...list,{
-      name:"",address:"",
-      actions:"false"
+      name:"",designation:"",email:"",phone:"",
+      actions:"false",addnew:"false"
     }])
 
   }
-  const handleRemove=(index)=>{
-    setList([...list.slice(0,index), ...list.slice(index+1)])
-  }
+const handleRemove = (index) => {
+  docList.forEach((val,i)=>{
+      if(index==val.index){
+      setDocList([...docList.slice(0,i), ...docList.slice(i+1)])
+      }
+    })
+  setList([...list.slice(0, index), ...list.slice(index + 1)])
+}
+  const addDoc=(e,index)=>{
+    setDocList(prevState => {
+      const newState = prevState.map((obj ,i)=> {
+    
+        if (i == index) {
+          return {...obj, attachDoc: e};
+        }
+
+      
+        return obj;
+      });
+
+      return newState;
+    });
+    setList(prevState => {
+      const newState = prevState.map((obj ,i)=> {
+       
+        if (obj.document) {
+         console.log(obj.document,"obj.document")
+         if(obj.document="new"){
+           return {...obj, document: e};
+         }
+        }
+
+        
+        return obj;
+      });
+
+      return newState;
+    });
+ }
   const handleInput=(name,value,key)=>{
    
   const newInput = { ...chaState }
@@ -177,48 +245,55 @@ useEffect(() => {
 
   }
   
- const handleChangeInput=(name,value,index)=>{
-   let arrayToSave={
-     name:"",address:"",
-      actions:"false"
-   }
-   masterList.forEach((val,index)=>{
-    if(val.name==value){
-      arrayToSave.name=val.name
-      arrayToSave.address=val.address
-      // arrayToSave.email=val.email
-      // arrayToSave.phoneNo=val.phoneNo
-    }
-   })
- 
-
-    setList(prevState => {
-      const newState = prevState.map((obj ,i)=> {
-       
-        if (i == index) {
-          return arrayToSave;
-        }
-
-        
-        return obj;
-      });
-
-      return newState;
-    });
-  
-    // setList(tempArr)
-
+const handleChangeInput = (name, value, index) => {
+let arrayToSave={
+    name:"",designation:"",email:"",phoneNo:"",
+    actions:"false",addnew:"false"
   }
-   const handleChangeInput2=(name,value,index)=>{
+  if(value=="addnew"){
+  arrayToSave={
+    name:"",designation:"",email:"",phoneNo:"",
+    actions:"false",addnew:"true",document:"new"
+  }
+    setDocList([...docList,{attachDoc:"",index:index}])
+  }else{
+    masterList.forEach((val,index)=>{
+  if(val.name==value){
+    arrayToSave.name=val.name
+    arrayToSave.designation=val.designation
+    arrayToSave.email=val.email
+    arrayToSave.phoneNo=val.phoneNo
+    
+  }
+  })
+  }
+  
+  setList(prevState => {
+    const newState = prevState.map((obj ,i)=> {
+      
+      if (i == index) {
+        return arrayToSave;
+      }
+
+      
+      return obj;
+    });
+
+    return newState;
+  });
+
+
+}
+ const handleChangeInput2=(name2,value,index)=>{
    
  
- 
+  
 
     setList(prevState => {
       const newState = prevState.map((obj ,i)=> {
        
         if (i == index) {
-          return {...obj,phoneNo:value};
+          return {...obj,[name2]:value};
         }
 
         
@@ -233,19 +308,20 @@ useEffect(() => {
   }
  //address 
 const handleAddressInput=()=>{
-
+if(props.addressValidation(addressType,newAddress)){
 setAddressList(current => [...current, newAddress])
   
-  setNewAddress({
-              "addressType": "Registered",
-              "fullAddress": "",
-              "pinCode": "",
-              "country": "",
-              "gstin": "",
-              "state": "",
-              "city": ""
-          })
-          setAddressType("Registered")
+setNewAddress({
+          "addressType": "Registered",
+          "fullAddress": "",
+          "pinCode": "",
+          "country": "",
+          "gstin": "",
+          "state": "",
+          "city": ""
+      })
+setAddressType("Registered")
+}
 }
 const onAddressRemove=(index)=>{
 setAddressList([...addressList.slice(0,index), ...addressList.slice(index+1)])
@@ -304,6 +380,9 @@ setEditAddress(
 
 }
 const saveNewAddress=()=>{
+  if(props.addressValidation(EditAddress.addressType,EditAddress)){
+
+ 
 console.log(EditAddress,"EditAddress",toEditIndex)
 setAddressList(prevState => {
   const newState = prevState.map((obj ,i)=> {
@@ -320,18 +399,18 @@ setAddressList(prevState => {
 });
 setIsEdit(false)
 setEditAddress(
-            {
-            "addressType": "",
-            "fullAddress": "",
-            "pinCode": "",
-            "country": "",
-            "gstin": "",
-            "state": "",
-            "city": ""
-        }
+      {
+      "addressType": "",
+      "fullAddress": "",
+      "pinCode": "",
+      "country": "",
+      "gstin": "",
+      "state": "",
+      "city": ""
+  }
 )
 
-
+ }
 
 }
 
@@ -497,7 +576,7 @@ setEditAddress(
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="text"
+                        type="number"
                         name="pinCode"
                         value={newAddress.pinCode}
                         onChange={(e) => {
@@ -565,7 +644,7 @@ setEditAddress(
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="text"
+                        type="number"
                         name="pinCode"
                         value={newAddress.pinCode}
                         onChange={(e) => {
@@ -653,12 +732,16 @@ setEditAddress(
                     >
                     <span>Add</span>
                     </div>
-                    <div className={`${styles.cancel} d-flex justify-content-center align-items-center`}>
+                    <div className={`${styles.cancel} d-flex justify-content-center align-items-center`}
+                     onClick={()=>{
+                      cancelAddress()
+                    }}
+                    >
                     <span>Cancel</span>
                     </div>
                   </div>
          </div>
-        <div className={`${styles.tableContainer} border-color card p-0`}>
+          <div className={`${styles.tableContainer} border-color card p-0`}>
           <div
             className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
             data-toggle="collapse"
@@ -683,10 +766,11 @@ setEditAddress(
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
                 <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
-                  <tr>
+                  <tr className='table_row'>
                     <th>NAME</th>
                     <th>DESIGNATION</th>
-                    
+                    <th>EMAIL</th>
+                    <th>PHONE NO.</th>
                     <th>ACTION</th>
                   </tr>
                   <tbody>
@@ -694,67 +778,106 @@ setEditAddress(
                       return(
                         <>
                         {val.actions=="true"?
-                        <tr key={index}>
+                        <tr key={index} className='table_row'>
                           <td>{val.name}</td>
-                          <td>{val.address}</td>
-                          {/* <td>{val.email}</td>
-                          <td>{val.phone}</td> */}
+                          <td>{val.designation}</td>
+                          <td>{val.email}</td>
+                          <td>{val.phoneNo}</td>
                           <td className={`d-flex`}>
-                            <img onClick={()=>(onEdit(index))} className={`${styles.image} mr-3`} src="/static/mode_edit.svg" alt="edit"/>
-                            <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img>
+                          <img className={`${styles.image} mr-3`} onClick={()=>(onEdit(index))} src="/static/mode_edit.svg" alt="edit"/>
+                          <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg" alt="delete"/>
                           </td>
 
                         </tr>
-                        :<tr key={index}>
+                        :<tr key={index} className='table_row'>
                           <td>
-                            <select 
-                            value={val.name} 
+                        {val.addnew=="false"?
+                         <>
+                           <select 
+                            value={val.name}
                             className={`${styles.customSelect} input`}
                             onChange={(e)=>{
                               handleChangeInput(e.target.name,e.target.value,index)
                             }}>
-                               <option>Select an option</option>
-                              <option value={"Dr. Amin Controllers Private Limited"}>{"Dr. Amin Controllers Private Limited"}</option>
-                              <option value={"Integral Trading and Logistics"}>{"Integral Trading and Logistics"}</option>
+                              <option>Select an option</option>
+                              <option value={"Bhawana Jain"}>{"Bhawana Jain"}</option>
+                              <option value={"Vipin Kumar"}>{"Vipin Kumar"}</option>
+                              <option value={"Devesh Jain"}>{"Devesh Jain"}</option>
+                              <option value={"Fatima Yannoulis"}>{"Fatima Yannoulis"}</option>
+                              <option value={"addnew"}>{"Add New"}</option>
                             </select>
                             <img
                               className={`${styles.arrow2} image_arrow img-fluid`}
                               src="/static/inputDropDown.svg"
                               alt="Search"
                             />
+                         </>  : 
+                           
+                         <>
+                          <input type="text" 
+                            className='input'
+                            placeholder={"Add new"}
+                            name= "name"
+                            value={val.name}
+                            onChange={(e)=>{
+                            handleChangeInput2(e.target.name,e.target.value,index)
+                            }}
+                          />
+                        </>
+                      }
+                            
                           </td>
                           <td>
                             <input type="text"
                               className='input'
-                              placeholder={val.address}
-                              name= "designation"
-                              readOnly={true}
-                              // onChange={(e)=>{
-                              //   handleChangeInput(e.target.name,e.target.value,index)
-                              // }}
+                              value={val.designation}
+                              name="designation"
+                              // readOnly={val.addnew!="true"?true:false}
+                              onChange={(e)=>{
+                                handleChangeInput2(e.target.name,e.target.value,index)
+                              }}
                             />
+                          
                           </td>
-                          {/* <td>
-                            <input type="text"
-                              className='input'
-                              placeholder={val.email}
+                          <td>
+                            <input type="text" 
+                            value={val.email}
                               name= "email"
-                              readOnly={true}                         
+                                                        
+                              className='input'
+                              onChange={(e)=>{
+                                handleChangeInput2(e.target.name,e.target.value,index)
+                              }}
                             />
                           </td>
                           <td>
-                            <input type="text"
+                            <input type="text" placeholder={val.phoneNo}
                               className='input'
-                              placeholder={val.phoneNo}
                               name= "phoneNo"
                               onChange={(e)=>{
                                 handleChangeInput2(e.target.name,e.target.value,index)
                               }}
                             />
-                          </td> */}
+                          </td>
                           <td className={`d-flex`}>
-                            <img onClick={()=>(onEditRemove(index))} className={`${styles.image} mr-3`} src="/static/save-3.svg" alt="save"/>
-                            <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img>
+                            <div
+                              className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
+                              onClick={()=>{
+                              onEditRemove(index)
+                              }}
+                            >
+                              <img className={`${styles.image} mr-3`} src="/static/save-3.svg" alt="save"/>
+                            </div>
+                            <div
+                              className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center`}
+                              onClick={()=>{
+                              handleRemove(index)
+                              }}
+                            >
+                              <img src="/static/delete 2.svg" />
+                            </div>
+                            {/* <img  onClick={()=>(onEditRemove(index))}src="/static/save-3.svg"  />
+                            <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img> */}
                           </td>
 
                         </tr>}
@@ -764,11 +887,114 @@ setEditAddress(
                   </tbody>
                 </table>
                 <div className={`${styles.addMoreRows}`} onClick={(e)=>{
-                  addMoreRows()
+                    addMoreRows()
                   }}>
-                  <span>+</span>  Add more rows
+                  <span>+</span> Add more rows
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+        <div className={styles.displaytable}>
+            <div className={styles.table_scroll_outer}>
+              <div className={styles.table_scroll_inner}>
+                <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
+                <tr height={67} className='table_row'>
+                  <th>DOCUMENT NAME <img className="mb-1" src="/static/icons8-sort-24.svg" alt="sort"/></th>
+                  <th>FORMAT <img className="mb-1" src="/static/icons8-sort-24.svg" alt="sort"/></th>
+                  <th>DOCUMENT DATE <img className="mb-1" src="/static/icons8-sort-24.svg" alt="sort"/></th>
+                  <th></th>
+                  <th>ACTION</th>
+                </tr>
+                <tbody>
+                  <tr  className='table_row'>
+                      <td><strong>Board Resolution Copy<span className={`danger`}>*</span></strong></td>
+                      <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/>{/* {val.designation} */}</td>
+                      <td>{`28-02-2022,5:30 PM`}</td>
+                      <td>
+                  <td style={{padding:"0"}}>
+                    {doc.attachDoc == '' ? (
+                      <div className={styles.uploadBtnWrapper}>
+                        <input
+                          type="file"
+                          name="myfile"
+                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                          onChange={async(e) => {
+                           let data = await props.uploadDoc(e)
+                           console.log(data,"upload")
+                            setdoc({attachDoc:data})
+                          }}
+                        />
+                        <button className={`${styles.button_upload} btn`}>
+                          Upload
+                        </button>
+                      </div>
+                    ) : (
+                      <div className={styles.certificate}>
+                         {doc.attachDoc.originalName}
+                        <img
+                          className={`${styles.close_image} float-right m-2 img-fluid`}
+                          src="/static/close.svg"
+                          onClick={() =>setdoc({attachDoc:""})}
+                          alt="Close"
+                        />{' '}
+                      </div>
+                    )}
+                      </td>
+                      </td>
+                      <td className={`d-flex`}>
+                        {/* <img  className={`mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
+                        <img  src="/static/upload.svg" alt="upload"/>
+                      </td>
+                      </tr>
+
+                  
+                {docList.length>0 && docList.map((val,index)=>{
+                  return(
+                    <>
+                   <tr key={index} className='table_row'>
+                      <td><strong>Board Resolution Copy<span className={`danger`}>*</span></strong></td>
+                      <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/>{/* {val.designation} */}</td>
+                      <td>{`28-02-2022,5:30 PM`}</td>
+                      <td>
+                    {val.attachDoc == '' ? (
+                      <div className={styles.uploadBtnWrapper}>
+                        <input
+                          type="file"
+                          name="myfile"
+                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                          onChange={async(e) => {
+                            let data = await props.uploadDoc(e)
+                              addDoc(data, index)
+                          }}
+                        />
+                        <button className={`${styles.button_upload} btn`}>
+                          Upload
+                        </button>
+                      </div>
+                    ) : (
+                      <div className={styles.certificate}>
+                       {val.attachDoc.originalName}
+                        <img
+                          className={`${styles.close_image} float-right m-2 img-fluid`}
+                          src="/static/close.svg"
+                          onClick={() => removeDoc(index)}
+                          alt="Close"
+                        />{' '}
+                      </div>
+                    )}
+                      </td>
+                      <td className={`d-flex`}>
+                        {/* <img onClick={()=>removeDocArr(index)} className={`mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
+                        <img src="/static/upload.svg" alt="upload"/>
+                      </td>
+
+                    </tr>
+                    </>
+                  )
+                })}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -789,7 +1015,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         <select
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           name="addressType"
-                          
+                           value={EditAddress.addressType}
                           onChange={(e) => {
                             setAddressEditType(e.target.value)
                             editNewAddress(e.target.name,e.target.value)
@@ -835,7 +1061,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="text"
+                        type="number"
                         name="pinCode"
                         value={EditAddress.pinCode}
                         onChange={(e) => {
@@ -903,7 +1129,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="text"
+                        type="number"
                         name="pinCode"
                          value={EditAddress.pinCode}
                         onChange={(e) => {

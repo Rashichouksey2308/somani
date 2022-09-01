@@ -94,6 +94,7 @@
         box-shadow: none;
         position: relative;
         box-sizing: border-box;
+        padding-right: 40px;
         &:invalid + label {
           background: none;
           transform: translateY(0);
@@ -124,7 +125,7 @@
   cursor: pointer;
   width: 260px;
   height: 48px;
-  background: #3687e8 0% 0% no-repeat padding-box;
+  background: #3687e8;
   border-radius: 5px;
   color: #ffffff;
   display: flex;

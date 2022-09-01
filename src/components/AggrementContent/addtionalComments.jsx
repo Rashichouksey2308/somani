@@ -22,6 +22,38 @@ const newState = prevState.map((obj ,i)=> {
 return newState;
 });
   }
+    useEffect(() => {
+    if (window) {
+      console.log(sessionStorage.getItem("add"), ".getItem")
+      if (sessionStorage.getItem("add")) {
+        let savedData = JSON.parse(sessionStorage.getItem("add"))
+      let temp=[]
+        savedData.forEach((val)=>{
+          temp.push({
+            comments:val.value,
+            
+            isEdit:false
+          })
+        })
+        setAddressList(savedData)
+      
+       
+      }else{
+        let temp=[]
+        props.data?.comments.forEach((val)=>{
+          temp.push({
+            value:val,
+            
+            isEdit:false
+          })
+        })
+        setAddressList(temp)
+      
+       
+      }
+    }
+  }, [props])
+  console.log(addressList,"addressList")
   useEffect(() => {
     if(props.saveData==true && props.active=="Additional Comments"){
        let data={
@@ -42,7 +74,7 @@ return newState;
 
  
     // setSupplierState({...supplierState,multiParty:props.multiPart})
-  },[props])
+  },[props.saveData,props.submitData])
 const onAddressRemove=(index)=>{
 setAddressList([...addressList.slice(0,index), ...addressList.slice(index+1)])
 

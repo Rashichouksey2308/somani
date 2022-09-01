@@ -2286,8 +2286,8 @@ function Index() {
         exportPDF={exportPDF}
         leftButtonTitle={'Margin Money'}
         rightButtonTitle={'Send to Buyer'}
-        openbar={()=>{
-          console.log("open")
+        openbar={() => {
+          console.log('open')
         }}
       />
     </>

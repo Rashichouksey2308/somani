@@ -7,6 +7,11 @@ import Filter from '../../src/components/Filter'
 import { useSelector, useDispatch } from 'react-redux'
 import { GettingAllInsurance } from '../../src/redux/insurance/action'
 import { SearchLeads } from '../../src/redux/buyerProfile/action'
+import {
+  setPageName,
+  setDynamicName,
+  setDynamicOrder,
+} from '../../src/redux/userData/action'
 
 function Index() {
   const dispatch = useDispatch()
@@ -39,7 +44,8 @@ function Index() {
   }
 
   const handleEditRoute = (insured) => {
-    if (insured?.marineInsurance?.insuranceTo?.toDate() < d) {
+    console.log("asdas",d,insured)
+    if (insured?.marineInsurance?.insuranceTo < d) {
       Router.push('/insurance-renew/id')
     } else if (insured?.quotationRequest?.quotationRequestSubmitted === true) {
       Router.push('/insurance/form/both')
@@ -51,6 +57,10 @@ if(window){
     sessionStorage.setItem('loadedSubPage',`Insurance`)
     sessionStorage.setItem('openList',2)
     }
+
+    dispatch(setPageName('insurance'))
+    dispatch(setDynamicName(null))
+    dispatch(setDynamicOrder(null))
 },[])
   return (
     <div className="container-fluid p-0 border-0">

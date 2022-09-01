@@ -29,6 +29,10 @@ function Index(props) {
     terms: "",
     addComm: "",
     spec: "",
+    unitOfGrade:"",
+    unitOfQuantity:"",
+    unitOfValue:"",
+    curr:""
 
   })
 
@@ -58,6 +62,10 @@ function Index(props) {
           terms: data?.terms,
           addComm: data?.addComm,
           spec: data?.spec,
+          unitOfGrade:data?.unitOfGrade,
+          unitOfQuantity:data?.unitOfQuantity,
+          unitOfValue:data?.unitOfValue,
+          curr:data?.orderCurrency
         })
       } else {
         const data = JSON.parse(sessionStorage.getItem("genericSelected"))
@@ -70,9 +78,9 @@ function Index(props) {
 
 
         setData({
-          seller: data.seller.name,
+          seller: data?.seller?.name,
           buyer: "Indo German International",
-          shortseller: data.seller.shortName,
+          shortseller: data?.seller.shortName,
           shortbuyer: "IGI",
           sellerSignature: "",
           buyerSignature: "",
@@ -90,6 +98,10 @@ function Index(props) {
           terms: data?.order?.deliveryTerm,
           addComm: data?.additionalComments?.comments,
           spec: data?.productSpecifications?.comments,
+          unitOfGrade:data.order.unitOfGrade,
+          unitOfQuantity:data.order.unitOfQuantity,
+          unitOfValue:data.order.unitOfValue,
+          curr:data.order.orderCurrency
         })
       }
     }
@@ -164,22 +176,9 @@ const salesContract = (changeHandler, data, preview) => {
             <Col md={1} className={styles.left}>1</Col>
             <Col md={4} className={styles.left}>Seller</Col>
             <Col md={7} className={styles.right}>
-              {preview ?
-                <>{data.seller}</>
-                :
-                <>
-                  <input
-                    onChange={(e) => {
-                      changeHandler(e.target.name, e.target.value)
-                    }}
-                    value={data.seller}
-                    name="seller"
-                    type="text"
-                    placeholder="Indo Intertrade AgIndustriesstrasse 16,Zug 6300" className={`${styles.para}`}>
-
-                  </input>
-                </>
-              }
+          
+                <>{data?.seller}</>
+           
 
             </Col>
           </Row>
@@ -187,26 +186,9 @@ const salesContract = (changeHandler, data, preview) => {
             <Col md={1} className={styles.left}>2</Col>
             <Col md={4} className={styles.left}>Buyer</Col>
             <Col md={7} className={styles.right}>
-              {preview ?
-                <>{data.buyer}</>
-                :
-
-                <>
-                  <input
-                    onChange={(e) => {
-                      changeHandler(e.target.name, e.target.value)
-                    }}
-                    value={data.buyer}
-                    name="buyer"
-                    type="text"
-                    placeholder="Indo German International Pvt. Ltd.
-Plot No-49-48-6/1, Lalitha Nagar, 
-Ground Floor, Sakshi Office Road, 
-Akkayyapalem, Visakhapatnam, 
-Andhra Pradesh, 530016 India
-" className={`${styles.para}`}></input>
-                </>
-              }
+             
+                <>{data?.buyer}</>
+              
             </Col>
           </Row>
           <Row className={`${styles.row}`}>
@@ -226,7 +208,7 @@ Andhra Pradesh, 530016 India
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={1} className={styles.left}>6</Col>
-            <Col md={4} className={styles.left}>Quality / Inspection </Col>
+            <Col md={4} className={styles.left}>Total Order Value  </Col>
             <Col md={7} className={styles.right}>Details as per Schedule 1</Col>
           </Row>
           <Row className={`${styles.row}`}>
@@ -318,14 +300,14 @@ Andhra Pradesh, 530016 India
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={1} className={styles.left}>16</Col>
-            <Col md={4} className={styles.left}>Time is the essence k </Col>
+            <Col md={4} className={styles.left}>Time is the essence</Col>
             <Col md={7} className={styles.right}>Time is the Essence of the Contract. In the event of failure of the Buyer to fulfill its obligations as contained herein including making of the payment and taking of the delivery of the material within   the time period specified in the Clause Payment Terms hereinabove, it shall constitute a material breach of the Agreement. </Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={1} className={styles.left}>17</Col>
-            <Col md={4} className={styles.left}>Remedies Available to the SellerRemedies Available to the Seller </Col>
+            <Col md={4} className={styles.left}>Remedies Available to the Seller</Col>
             <Col md={7} className={styles.right}>
-              <ol type="A">
+              <ol type='A'>
                 <li>
                   <p className="text_sales">In the event of the failure of the Buyer to make timely payment as agreed to in terms of the Clause Payment Terms hereinabove, the Buyer shall pay the overdue interest @ 18% p.a. to the Seller for each day of delay.  However, the delay in making the payment shall in no event exceed 15 days beyond the due date of making the payment as specified hereinabove.
                   </p>
@@ -357,7 +339,7 @@ Andhra Pradesh, 530016 India
                   </p>
                 </li>
                 <li>
-                  <p className="text_sales">Notwithstanding anything contained herein to the contrary, all risks, consequences arising out of the actual transaction(s) taking place between Manufacturer/shipper and the Seller under the Contract and/or any modified/amended agreement will be to  the account of the Buyer only. The Seller shall in no way be responsible or liable for the same
+                  <p className="text_sales">Notwithstanding anything contained herein to the contrary, all risks, consequences arising out of the actual transaction(s) taking place between Manufacturer/shipper and the Seller under the Contract and/or any modified/amended agreement will be to the account of the Buyer only. The Seller shall in no way be responsible or liable for the same.
                   </p>
                 </li>
                 <li>
@@ -365,10 +347,10 @@ Andhra Pradesh, 530016 India
                   </p>
                 </li>
                 <li>
-                  <p className="text_sales">Buyer acknowledges that:(i) pursuant to this Agreement Seller has entered into certain agreements similar to the Collateral Management Agreement to fulfil requirement of the relevant bank which has issued a letter of credit to facilitate purchase of the Goods by Seller; and (ii) the collateral manager appointed by the Bank shall keep the Goods in its custody at a  facility leased by the Buyer at Storage facility at Discharge Port. For this purpose, Buyer unconditionally agrees that whenever collateral manager takes Buyer’s permission to keep the Goods at the Storage facility which facility is under Buyer’s control and management, then Buyer shall ensure the collateral manager has the unfettered and unrestricted access to the Storage Facility and shall have the sole custody over the Goods kept at the Storage facility. If there is any theft or loss of the Goods at the Storage facility, the Buyer shall fully indemnify Seller to such loss of the Goods without any demur or protest</p>
+                  <p className="text_sales">Buyer acknowledges that:(i) pursuant to this Agreement Seller has entered into certain agreements similar to the Collateral Management Agreement to fulfil requirement of the relevant bank which has issued a letter of credit to facilitate purchase of the Goods by Seller; and (ii) the collateral manager appointed by the Bank shall keep the Goods in its custody at a facility leased by the Buyer at Storage facility at Discharge Port. For this purpose, Buyer unconditionally agrees that whenever collateral manager takes Buyer's permission to keep the Goods at the Storage facility which facility is under Buyer's control and management, then Buyer shall ensure the collateral manager has the unfettered and unrestricted access to the Storage Facility and shall have the sole custody over the Goods kept at the Storage facility. If there is any theft or loss of the Goods at the Storage facility, the Buyer shall fully indemnify Seller to such loss of the Goods without any demur or protest.</p>
                 </li>
                 <li>
-                  <p className="text_sales">Notwithstanding anything contained in this Agreement, for avoidance of any doubts, the Parties hereby clarify that unless Buyer fully pays Seller under this Agreement, the Seller shall have lien on unpaid quantity of the Goods which is delivered to Buyer pursuant to this Agreement or any other agreement. Buyer unconditionally represents and warrants that Buyer has not created and shall not create any encumbrance (whatsoever) in favour of any lender or any third party on the Goods under this Agreement or any other similar agreements unless Buyer fully pays for such Goods. </p>
+                  <p className="text_sales">Notwithstanding anything contained in this Agreement, for avoidance of any doubts, the Parties hereby clarify that unless Buyer fully pays Seller under this Agreement, the Seller shall have lien on unpaid quantity of the Goods which is delivered to Buyer pursuant to this Agreement or any other agreement. Buyer unconditionally represents and warrants that Buyer has not created and shall not create any encumbrance (whatsoever) in favour of any lender or any third party on the Goods under this Agreement or any other similar agreements unless Buyer fully pays for such Goods.</p>
                 </li>
                 <li>
                   <p className="text_sales">Any payment to be made by the Buyer under this contract shall be made free and clear of and without deduction or withholding for or on account of any taxes. If at any time the Buyer is required to make any deduction or withholding in respect of taxes from any payment to be made under this contract, the Buyer shall pay such additional amounts as may be necessary to ensure that, after the making of such deduction or withholding, the Seller receives for such payment a net sum equal to the sum it would have received had no such deduction or withholding been made.</p>
@@ -391,7 +373,7 @@ Andhra Pradesh, 530016 India
                       <li><p>For all quantity and quality claims/ issues pertaining to material supplied by Manufacturer/shipper;</p></li>
                       <li><p>Any express or implied warranty claim for the quality of material supplied by Manufacturer/shipper;
                       </p></li>
-                      <li><p>Loss of cargo</p></li>
+                      <li><p>Loss of cargo;</p></li>
                       <li><p>Any demurrage charges at the load port and/or discharge port shall be settled directly between the Buyer and Manufacturer/shipper;
                       </p></li>
 
@@ -399,7 +381,7 @@ Andhra Pradesh, 530016 India
                   </p>
                 </li>
               </ol>
-              {/* <p>All Claims direct or consequential shall be settled directly between End Buyer and Manufacturer/shipper</p> */}
+              <p>All Claims direct or consequential shall be settled directly between End Buyer and Manufacturer/shipper</p>
 
             </Col>
           </Row>
@@ -411,12 +393,9 @@ Andhra Pradesh, 530016 India
           <Row className={`${styles.row}`}>
             <Col md={1} className={styles.left}>20</Col>
             <Col md={4} className={styles.left}>Termination</Col>
-            <Col md={7} className={styles.right}>1.   greement, then the Seller may, by giving thirty (30) days prior written notice to the Buyer, terminate this Agreement without liability and charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of the Goods already shipped by the Seller at the instance of the Buyer. Provided further, the Parties hereto agree that the Seller may immediately terminate this Agreement without providing any notice to the Buyer upon the Buyer, or the Buyer&apos;s shareholders commencing a voluntary proceeding under any applicable bankruptcy, insolvency, winding up or other similar law now or hereafter in effect (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the entry of an order for relief in an involuntary proceeding under any such law (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the appointment or taking possession by a resolution professional, Receiver, liquidator, assignee (or similar official) for any or a substantial part of its property; or the Buyer has involuntarily become the subject of proceedings (including filing of an application/ petition for corporate insolvency resolution) under the Insolvency & Bankruptcy Code, 2016 or an order has been made by the appropriate authority for winding up of the Buyer.
-
-
-
-              In the event that conditions of Force Majeure continue so that the Buyer’s obligations remain suspended for a period or periods amounting in aggregate to sixty (60) days in any consecutive period of ninety (90) days, and at the end of said period or at anytime thereafter, then the Seller may give thirty (30) days prior written notice to the Buyer that the Seller intends to terminate this Agreement. At the expiration of the thirty (30) days, the Seller at its discretion may terminate this Agreement forthwith without any liability or charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of the Goods.
-
+            <Col md={7} className={styles.right}>
+              In the event the Buyer commits any breach of the terms of the agreement, then the Seller may, by giving thirty (30) days prior written notice to the Buyer, terminate this Agreement without liability and charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of the Goods already shipped by the Seller at the instance of the Buyer. Provided further, the Parties hereto agree that the Seller may immediately terminate this Agreement without providing any notice to the Buyer upon the Buyer, or the Buyer's shareholders commencing a voluntary proceeding under any applicable bankruptcy, insolvency, winding up or other similar law now or hereafter in effect (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the entry of an order for relief in an involuntary proceeding under any such law (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the appointment or taking possession by a resolution professional, Receiver, liquidator, assignee (or similar official) for any or a substantial part of its property; or the Buyer has involuntarily become the subject of proceedings (including filing of an application/ petition for corporate insolvency resolution) under the Insolvency &amp; Bankruptcy Code, 2016 or an order has been made by the appropriate authority for winding up of the Buyer.<br/><br/>
+              In the event that conditions of Force Majeure continue so that the Buyer's obligations remain suspended for a period or periods amounting in aggregate to sixty (60) days in any consecutive period of ninety (90) days, and at the end of said period or at anytime thereafter, then the Seller may give thirty (30) days prior written notice to the Buyer that the Seller intends to terminate this Agreement. At the expiration of the thirty (30) days, the Seller at its discretion may terminate this Agreement forthwith without any liability or charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of the Goods.
             </Col>
           </Row>
           <Row className={`${styles.row}`}>
@@ -497,7 +476,7 @@ Andhra Pradesh, 530016 India
             <Col md={1} className={styles.left}>26</Col>
             <Col md={4} className={styles.left}>No Assignment</Col>
             <Col md={7} className={styles.right}>
-              No changes in respect of the contract covered by this agreement shall be valid unless the same is agreed to in writing by both parties herewith specifically stating the same to on amendment to this agreement. Contract is valid if approved by Fax and no mail confirmation will be sent.
+            Neither Party shall be entitled to assign, transfer or sub-contract its rights under this Agreement in whole or in part without first obtaining the other’s consent in writing.
             </Col>
           </Row>
           <Row className={`${styles.row}`}>
@@ -550,17 +529,18 @@ Andhra Pradesh, 530016 India
         </div>
 
 
+        <h3 className='text-center mb-4'>Schedule I</h3>
         <div className={`${styles.inputsContainer}`}>
           <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Date of execution</Col>
+            <Col md={5} className={styles.left}>Date of Execution</Col>
             <Col md={7} className={styles.right}>{moment(new Date()).format("DD-MM-YYYY")}</Col>
           </Row>
           <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Place of execution</Col>
+            <Col md={5} className={styles.left}>Place of Execution</Col>
             <Col md={7} className={styles.right}>{data.placeOfExecution}</Col>
           </Row>
           <Row className={`${styles.row}`}>
-            <Col md={5} className={styles.left}>Details of Manufacturer / Supplier / Shipperr</Col>
+            <Col md={5} className={styles.left}>Details of Manufacturer / Supplier / Shipper</Col>
             <Col md={7} className={styles.right}>{data.details}</Col>
           </Row>
           <Row className={`${styles.row}`}>
@@ -573,15 +553,15 @@ Andhra Pradesh, 530016 India
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Quantity</Col>
-            <Col md={7} className={styles.right}>{data.quan}</Col>
+            <Col md={7} className={styles.right}>{data.quan} {data?.unitOfQuantity?.toUpperCase()}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Unit Price</Col>
-            <Col md={7} className={styles.right}>{data.unitPrice}</Col>
+            <Col md={7} className={styles.right}>{data.curr} {data.unitPrice}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Total Order Value</Col>
-            <Col md={7} className={styles.right}>{data.totalOrderValue}</Col>
+            <Col md={7} className={styles.right}>{data.totalOrderValue} {data.unitOfValue}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Load Port</Col>
@@ -631,46 +611,49 @@ Andhra Pradesh, 530016 India
 
 
         </div>
-        <p className=" text_sales"> <strong>SIGNATURE PAGE</strong></p>
+        <p className=" text_sales pb-3"> <strong>SIGNATURE PAGE</strong></p>
         <div className={`row`}>
-          <Col md={12} className={`d-flex justify-content-around`}>
-            <p className="text_sales  m-0">(Seller)</p>
-            <p className="text_sales  m-0">(Buyer)</p>
-
-          </Col>
-          <Col md={12} className={`d-flex justify-content-around`}>
+          <Col md={6} >
+            <p className="text_sales m-0">Seller</p>
+            
             {
               preview ?
                 <><span>{data?.buyerSignature}</span></>
                 :
-                <>
-                  <input
+                <><div className='form-group mt-5 pt-3'>
+                  <textarea
+                    rows={3}
                     onChange={(e) => {
                       changeHandler(e.target.name, e.target.value)
                     }}
                     value={data?.buyerSignature}
                     name="buyerSignature"
                     type="text"
-                    placeholder="" className={`${styles.para}`}></input>
+                    placeholder="" className={`${styles.para} w-100 mt-5 input`}>
+                    </textarea>
+                  </div>
                 </>
-
             }
-            {
+          </Col>
+          <Col md={6} >
+            <p className="text_sales m-0">Buyer</p> {
               preview ?
                 <><span> {data?.sellerSignature}</span></>
                 :
-                <>
-                  <input
-                    onChange={(e) => {
-                      changeHandler(e.target.name, e.target.value)
-                    }}
-                    type="text"
-                    value={data?.sellerSignature}
-                    name="sellerSignature"
-                    placeholder="" className={`${styles.para}`}></input>
+                <><div className='form-group mt-5 pt-3'>
+                    <textarea
+                      rows={3}
+                      onChange={(e) => {
+                        changeHandler(e.target.name, e.target.value)
+                      }}
+                      type="text"
+                      value={data?.sellerSignature}
+                      name="sellerSignature"
+                      placeholder="" className={`${styles.para} w-100 mt-5 input`}>
+                    </textarea>
+                  </div>
                 </>
             }
-
           </Col>
 
         </div>

@@ -6,7 +6,7 @@ import { Form, Row, Col } from 'react-bootstrap'
 
   let associate={
     "branchName": "",
-    "shortNAme": "",
+    "shortName": "",
     "gstin": "",
 
         
@@ -40,7 +40,7 @@ function Index(props) {
   )
   const [addressType,setAddressType]=useState("Registered")
   const [addressEditType,setAddressEditType]=useState("Registered")
-    const [list,setList]=useState([
+  const [list,setList]=useState([
    
   
   ])
@@ -52,10 +52,46 @@ function Index(props) {
 {name:"Fatima Yannoulis ",designation:"Chief Financial Officer",email:"fatima@indointertrade.ch",phoneNo:""}
 ]
 useEffect(() => {
+if (window) {
+  if (sessionStorage.getItem("Associate")) {
+    let savedData = JSON.parse(sessionStorage.getItem("Associate"))
+    let buyer = {
+      "branchName": savedData.branchName,
+      "shortName": savedData.shortName,
+
+      "gstin": savedData.gstin,
+      
+
+
+    }
+    setAddressList(savedData.addresses)
+    setList(savedData.authorisedSignatoryDetails)
+
+    setAssociateData(buyer)
+  }else{
+    console.log("in props")
+    let buyer = {
+      "branchName": props?.data?.branchName,
+      "shortName": props?.data?.shortName,
+      
+        "gstin": props?.data?.gstin,
+
+
+
+    }
+    setAddressList(props?.data?.addresses?props?.data?.addresses:[])
+    setList(props?.data?.authorisedSignatoryDetails?props?.data?.authorisedSignatoryDetails:[])
+
+    setAssociateData(buyer)
+  }
+}
+}, [props])
+useEffect(() => {
 if(props.saveData==true && props.active=="Associate Buyer"){
   let data={
   associate:associateData,
-  address:addressList
+  address:addressList,
+  list:list
 
   
   
@@ -66,7 +102,8 @@ if(props.submitData==true && props.active=="Associate Buyer"){
 console.log("this12")
 let data={
   associate:associateData,
-  list:addressList
+  address:addressList,
+  list:list
 
   
   }
@@ -74,7 +111,7 @@ let data={
 props.updateData("Associate Buyer",data)
 
 }
-},[props])
+},[props.saveData,props.submitData])
  const addDoc=(e,index)=>{
     setDocList(prevState => {
       const newState = prevState.map((obj ,i)=> {
@@ -106,7 +143,7 @@ props.updateData("Associate Buyer",data)
       return newState;
     });
  }
- console.log(list,"listtttttt",docList)
+ console.log(associate,"associate",docList)
   const handleInput=(name,value,key)=>{
   
 
@@ -174,19 +211,13 @@ props.updateData("Associate Buyer",data)
    
      setList([...list.slice(0,index), ...list.slice(index+1)])
 }
-// const removeDocArr=(index)=>{
-//    setDocList([...docList.slice(0,index), ...docList.slice(index+1)])
-// }
-const handleChangeInput2=(name2,value,index)=>{
-   
- 
-  
-
-    setList(prevState => {
+const removeDoc=(index)=>{
+    console.log("removeDOc")
+     setDocList(prevState => {
       const newState = prevState.map((obj ,i)=> {
        
         if (i == index) {
-          return {...obj,[name2]:value};
+          return {...obj, attachDoc: ''};
         }
 
         
@@ -195,8 +226,28 @@ const handleChangeInput2=(name2,value,index)=>{
 
       return newState;
     });
+  
+}
+const handleChangeInput2=(name2,value,index)=>{
+
+
+
+
+setList(prevState => {
+  const newState = prevState.map((obj ,i)=> {
+    
+    if (i == index) {
+      return {...obj,[name2]:value};
+    }
 
     
+    return obj;
+  });
+
+  return newState;
+});
+
+
 
 }
 
@@ -296,7 +347,10 @@ setEditAddress(
 
 }
 const saveNewAddress=()=>{
+  if(props.addressValidation(EditAddress.addressType,EditAddress)){
 
+ 
+console.log(EditAddress,"EditAddress",toEditIndex)
 setAddressList(prevState => {
   const newState = prevState.map((obj ,i)=> {
     
@@ -312,25 +366,38 @@ setAddressList(prevState => {
 });
 setIsEdit(false)
 setEditAddress(
-            {
-            "addressType": "",
-            "fullAddress": "",
-            "pinCode": "",
-            "country": "",
-            "gstin": "",
-            "state": "",
-            "city": ""
-        }
+      {
+      "addressType": "",
+      "fullAddress": "",
+      "pinCode": "",
+      "country": "",
+      "gstin": "",
+      "state": "",
+      "city": ""
+  }
 )
 
-
+ }
 
 }
 const handleAddressInput=()=>{
-
+if(props.addressValidation(addressType,newAddress)){
 setAddressList(current => [...current, newAddress])
   
-  setNewAddress({
+setNewAddress({
+          "addressType": "Registered",
+          "fullAddress": "",
+          "pinCode": "",
+          "country": "",
+          "gstin": "",
+          "state": "",
+          "city": ""
+      })
+setAddressType("Registered")
+}
+}
+const cancelAddress=()=>{
+ setNewAddress({
               "addressType": "Registered",
               "fullAddress": "",
               "pinCode": "",
@@ -339,15 +406,19 @@ setAddressList(current => [...current, newAddress])
               "state": "",
               "city": ""
           })
-    setAddressType("Registered")
+  setAddressType("Registered")
+
 }
+console.log(associateData,"associateData")
   return (
     <>
       <div className={`${styles.container} vessel_card`}>
         <Form className={`${styles.form}`}>
           <div className="row">
             <div className={`${styles.info} col-md-4 col-sm-6`}>
-              <span>Name<strong className="text-danger">*</strong></span>
+              <span>Name
+                {/* <strong className="text-danger">*</strong> */}
+                </span>
               <p>Jaiswal Nico</p>
             </div>
             <div className={`${styles.info} col-md-4 col-sm-6`}>
@@ -364,6 +435,7 @@ setAddressList(current => [...current, newAddress])
                 required
                 type="text"
                 name="branchName"
+                 value={associateData.branchName}
                 onChange={(e)=>{
                   handleInput(e.target.name,e.target.value)
                 }}
@@ -380,6 +452,7 @@ setAddressList(current => [...current, newAddress])
                   onChange={(e) => {
                     handleInput(e.target.name,e.target.value)
                   }}
+                  value={associateData.gstin}
                 >  
                 <option>Select an option</option>
                 
@@ -408,6 +481,7 @@ setAddressList(current => [...current, newAddress])
                 onChange={(e) => {
                 handleInput(e.target.name,e.target.value)
                 }}
+                value={associateData.shortName}
                 />
               <Form.Label className={`${styles.label_heading} label_heading`}>
                 Short Name
@@ -510,7 +584,7 @@ setAddressList(current => [...current, newAddress])
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="text"
+                        type="number"
                         name="pinCode"
                         value={newAddress.pinCode}
                         onChange={(e) => {
@@ -578,7 +652,7 @@ setAddressList(current => [...current, newAddress])
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="text"
+                        type="number"
                         name="pinCode"
                         value={newAddress.pinCode}
                         onChange={(e) => {
@@ -666,7 +740,11 @@ setAddressList(current => [...current, newAddress])
                     >
                     <span>Add</span>
                     </div>
-                    <div className={`${styles.cancel} d-flex justify-content-center align-items-center`}>
+                    <div className={`${styles.cancel} d-flex justify-content-center align-items-center`}
+                    
+                     onClick={()=>{
+                      cancelAddress()
+                    }}>
                     <span>Cancel</span>
                     </div>
                   </div>
@@ -744,42 +822,45 @@ setAddressList(current => [...current, newAddress])
                          </>  : 
                            
                          <>
-                          <input type="text"
+                          <input type="text" 
                             className='input'
                             placeholder={"Add new"}
                             name= "name"
                             value={val.name}
                             onChange={(e)=>{
-                              handleChangeInput2(e.target.name,e.target.value,index)
+                            handleChangeInput2(e.target.name,e.target.value,index)
                             }}
                           />
-                         </>
+                        </>
                       }
                             
                           </td>
                           <td>
                             <input type="text"
                               className='input'
-                              placeholder={val.designation}
-                              name= "designation"
-                              readOnly={val.addnew!="true"?true:false}
+                              value={val.designation}
+                              name="designation"
+                              // readOnly={val.addnew!="true"?true:false}
                               onChange={(e)=>{
                                 handleChangeInput2(e.target.name,e.target.value,index)
                               }}
-                            />                          
+                            />
+                          
                           </td>
                           <td>
-                            <input type="text"
-                              className='input'
-                              placeholder={val.email}
+                            <input type="text" 
+                            value={val.email}
                               name= "email"
-                              readOnly={val.addnew!="true"?true:false}                         
+                                                        
+                              className='input'
+                              onChange={(e)=>{
+                                handleChangeInput2(e.target.name,e.target.value,index)
+                              }}
                             />
                           </td>
                           <td>
-                            <input type="text"
+                            <input type="text" placeholder={val.phoneNo}
                               className='input'
-                              placeholder={val.phoneNo}
                               name= "phoneNo"
                               onChange={(e)=>{
                                 handleChangeInput2(e.target.name,e.target.value,index)
@@ -908,7 +989,7 @@ setAddressList(current => [...current, newAddress])
                         <img
                           className={`${styles.close_image} float-right m-2 img-fluid`}
                           src="/static/close.svg"
-                          // onClick={() => removeDoc(index)}
+                          onClick={() => removeDoc(index)}
                           alt="Close"
                         />{' '}
                       </div>
@@ -944,7 +1025,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         <select
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           name="addressType"
-                          
+                           value={EditAddress.addressType}
                           onChange={(e) => {
                             setAddressEditType(e.target.value)
                             editNewAddress(e.target.name,e.target.value)
@@ -990,7 +1071,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="text"
+                        type="number"
                         name="pinCode"
                         value={EditAddress.pinCode}
                         onChange={(e) => {
@@ -1058,7 +1139,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="text"
+                        type="number"
                         name="pinCode"
                          value={EditAddress.pinCode}
                         onChange={(e) => {

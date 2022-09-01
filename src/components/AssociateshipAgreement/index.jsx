@@ -971,7 +971,7 @@ const associateShip=()=>{
     <>
      <div className="card-body">
        <p className="text-center text_sales"> <strong><u>ASSOCIATESHIP AGREEMENT</u></strong></p>
-       <p className="text_sales">This Agreement (<strong>“Agreement”</strong>) is made at the place and on the day as set out in <strong>Schedule I</strong> hereto by and between</p>
+       <p className="text_sales">This Agreement (<strong>“Agreement”</strong>) is made at the place and on the day as set out in <strong>Schedule I</strong> hereto by and between:</p>
        <p className="text_sales"><GrowInput placeholder="Indo German International Private Limited, (CIN: U74899DL1994PTC063676)"></GrowInput>, a company incorporated under the Indian Companies Act, 1956, having its <GrowInput placeholder="Registered Office"></GrowInput> at <GrowInput placeholder="7A, Sagar Apartments, 6, Tilak Marg, New Delhi- 110 001"></GrowInput>, through its Authorised Signatory (hereinafter called <GrowInput placeholder="“IGI”"></GrowInput> or <strong>“Seller”</strong>, which expression shall, unless it be repugnant to the context or meaning thereof, be deemed to mean and include its successors and permitted assigns, attorneys) of One Part.</p>
        <p className=" text-center text_sales">And</p>
        <p className="text_sales"><GrowInput placeholder="IGI"></GrowInput> and the Associate Buyer, wherever required, are collectively referred to as the “Parties” and individually as the “Party”.</p>
