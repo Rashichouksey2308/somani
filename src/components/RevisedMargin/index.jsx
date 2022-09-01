@@ -14,84 +14,76 @@ const Index = ({
   saveForCalculation,
   setInvoiceDataRevised,
   calcRevised,
-  handleUpdateRevisedMarginMoney
-
+  handleUpdateRevisedMarginMoney,
 }) => {
-  console.log(marginData,"marginData")
+  console.log(marginData, 'marginData')
 
-  let emergent =  {
+  let emergent = {
     companyName: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
     branch: 'DELHI',
     state: 'DELHI',
-    address : '8B, SAGAR, 6 TILAK MARG, NEW DELHI - 110001',
-    GSTIN : '07AAACS8253L1Z0' 
- }
+    address: '8B, SAGAR, 6 TILAK MARG, NEW DELHI - 110001',
+    GSTIN: '07AAACS8253L1Z0',
+  }
 
- let indoGerman = {
+  let indoGerman = {
     companyName: 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED',
     branch: 'SURAT',
     state: 'GUJARAT',
-    address : 'PLOT NO-A 54, GANGA NAGAR SOCIETY, NEAR PALANPUR PATIA, RANDAR ROAD, SURAT-395009',
-    GSTIN : '24AAACI3028D1Z8' 
- }
+    address:
+      'PLOT NO-A 54, GANGA NAGAR SOCIETY, NEAR PALANPUR PATIA, RANDAR ROAD, SURAT-395009',
+    GSTIN: '24AAACI3028D1Z8',
+  }
 
- const [changeImporterData, setChangeImporterData] = useState()
+  const [changeImporterData, setChangeImporterData] = useState()
 
- const dropDownChange = (name, value) => {
-  if(value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
-  
-    setChangeImporterData({...emergent})
-    const newInput = { ...invoiceDataRevised }
-    newInput['importerName'] = emergent.companyName
-    newInput['branchOffice'] = emergent.branch
-    newInput['importerGSTIN'] = emergent.GSTIN
-    newInput['companyAddress'] = emergent.address
+  const dropDownChange = (name, value) => {
+    if (value === 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED') {
+      setChangeImporterData({ ...emergent })
+      const newInput = { ...invoiceDataRevised }
+      newInput['importerName'] = emergent.companyName
+      newInput['branchOffice'] = emergent.branch
+      newInput['importerGSTIN'] = emergent.GSTIN
+      newInput['companyAddress'] = emergent.address
       // saveInvoiceData('branchOffice', emergent.branch)
       // saveInvoiceData('importerGSTIN', emergent.GSTIN)
       // saveInvoiceData('companyAddress', emergent.address)
       setInvoiceDataRevised({ ...newInput })
-
-   
- }else if(value === 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED'){
- 
-  setChangeImporterData({...indoGerman })
-  const newInput = { ...invoiceDataRevised }
-  newInput['importerName'] = indoGerman.companyName
-  newInput['branchOffice'] = indoGerman.branch
-  newInput['importerGSTIN'] = indoGerman.GSTIN
-  newInput['companyAddress'] = indoGerman.address
-    // saveInvoiceData('branchOffice', emergent.branch)
-    // saveInvoiceData('importerGSTIN', emergent.GSTIN)
-    // saveInvoiceData('companyAddress', emergent.address)
-    setInvoiceDataRevised({ ...newInput })
-  
- 
- }
-
-
- 
-}
-const changeImporter=(e)=>{
-  if(e.target.name=="branchOffice" ){
-  changeImporterData.branch=e.target.value
-  setChangeImporterData({...changeImporterData})
+    } else if (value === 'INDO GERMAN INTERNATIONAL PRIVATE LIMITED') {
+      setChangeImporterData({ ...indoGerman })
+      const newInput = { ...invoiceDataRevised }
+      newInput['importerName'] = indoGerman.companyName
+      newInput['branchOffice'] = indoGerman.branch
+      newInput['importerGSTIN'] = indoGerman.GSTIN
+      newInput['companyAddress'] = indoGerman.address
+      // saveInvoiceData('branchOffice', emergent.branch)
+      // saveInvoiceData('importerGSTIN', emergent.GSTIN)
+      // saveInvoiceData('companyAddress', emergent.address)
+      setInvoiceDataRevised({ ...newInput })
+    }
   }
-  if(e.target.name=="companyAddress" ){
-  changeImporterData.address=e.target.value
-  setChangeImporterData({...changeImporterData})
+  const changeImporter = (e) => {
+    if (e.target.name == 'branchOffice') {
+      changeImporterData.branch = e.target.value
+      setChangeImporterData({ ...changeImporterData })
+    }
+    if (e.target.name == 'companyAddress') {
+      changeImporterData.address = e.target.value
+      setChangeImporterData({ ...changeImporterData })
+    }
+    if (e.target.name == 'importerGSTIN') {
+      changeImporterData.GSTIN = e.target.value
+      setChangeImporterData({ ...changeImporterData })
+    }
   }
-  if(e.target.name=="importerGSTIN" ){
-  changeImporterData.GSTIN=e.target.value
-  setChangeImporterData({...changeImporterData})
-  }
-}
-
 
   return (
     <>
       <div className={`${styles.card}  accordionMargin card`}>
         <div
-          className={`${styles.cardHeader} d-flex align-items-center justify-content-between`} style={{cursor:'default'}}>
+          className={`${styles.cardHeader} d-flex align-items-center justify-content-between`}
+          style={{ cursor: 'default' }}
+        >
           <div className={`${styles.commodity}`}>
             <span className={`${styles.comm_head} sub_heading mb-2`}>
               Commodity
@@ -112,18 +104,23 @@ const changeImporter=(e)=>{
               </div>
             </div>
             <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
-            <select className={`${styles.options} accordion_DropDown`} 
-            value={marginData?.order?.unitOfValue == 'Cr' ? 'Crores' : "Million"}>
-              <option>
-                {' '}
-                {"Crores"}
-              </option>
-              <option>
-                {' '}
-                {"Million"}
-              </option>
+            <select
+              className={`${styles.options} accordion_DropDown`}
+              value={
+                marginData?.order?.unitOfValue == 'Cr' ? 'Crores' : 'Million'
+              }
+            >
+              <option> {'Crores'}</option>
+              <option> {'Million'}</option>
             </select>
-            <span data-toggle="collapse" data-target="#commodityAccordion" aria-expanded="true" aria-controls="commodityAccordion">+</span>
+            <span
+              data-toggle="collapse"
+              data-target="#commodityAccordion"
+              aria-expanded="true"
+              aria-controls="commodityAccordion"
+            >
+              +
+            </span>
           </div>
         </div>
         <div
@@ -151,7 +148,11 @@ const changeImporter=(e)=>{
                       Quantity<strong className="text-danger">*</strong>
                     </label>
                     <div className={`${styles.val}  heading`}>
-                      {addPrefixOrSuffix(marginData?.order?.quantity, 'MT', '')?.toLocaleString()}
+                      {addPrefixOrSuffix(
+                        marginData?.order?.quantity,
+                        'MT',
+                        '',
+                      )?.toLocaleString()}
                     </div>
                   </div>
                 </div>
@@ -171,7 +172,11 @@ const changeImporter=(e)=>{
                       Unit Price<strong className="text-danger">*</strong>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      {addPrefixOrSuffix(marginData?.order?.perUnitPrice, 'INR', 'front')}
+                      {addPrefixOrSuffix(
+                        marginData?.order?.perUnitPrice,
+                        'INR',
+                        'front',
+                      )}
                     </div>
                   </div>
                 </div>
@@ -191,7 +196,11 @@ const changeImporter=(e)=>{
                       Conversion Rate<strong className="text-danger">*</strong>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      {addPrefixOrSuffix(marginData?.conversionRate, 'INR', 'front')}
+                      {addPrefixOrSuffix(
+                        marginData?.conversionRate,
+                        'INR',
+                        'front',
+                      )}
                     </div>
                   </div>
                 </div>
@@ -217,7 +226,8 @@ const changeImporter=(e)=>{
                       {
                         marginData?.order?.termsheet?.commercials
                           ?.usanceInterestPercetage
-                      }%
+                      }
+                      %
                       <div className={` d-flex align-items-center`}>
                         <label
                           className={`${styles.label_heading} ml-3 text-nowrap label_heading mb-0`}
@@ -280,7 +290,8 @@ const changeImporter=(e)=>{
                       {
                         marginData?.order?.termsheet?.commercials
                           ?.tradeMarginPercentage
-                      } %
+                      }{' '}
+                      %
                     </div>
                   </div>
                 </div>
@@ -301,7 +312,8 @@ const changeImporter=(e)=>{
                       <strong className="text-danger">*</strong>
                     </label>
                     <div className={`${styles.val} heading`}>
-                    (+/-)  {addPrefixOrSuffix(marginData?.order?.tolerance, '%', '')}
+                      (+/-){' '}
+                      {addPrefixOrSuffix(marginData?.order?.tolerance, '%', '')}
                     </div>
                   </div>
                 </div>
@@ -322,10 +334,12 @@ const changeImporter=(e)=>{
                     </label>
                     <div className={`${styles.val} heading`}>
                       {' '}
-                      {
-                       addPrefixOrSuffix(marginData?.order?.termsheet?.transactionDetails
-                          ?.marginMoney, '%', '')
-                      }
+                      {addPrefixOrSuffix(
+                        marginData?.order?.termsheet?.transactionDetails
+                          ?.marginMoney,
+                        '%',
+                        '',
+                      )}
                     </div>
                   </div>
                 </div>
@@ -346,7 +360,9 @@ const changeImporter=(e)=>{
                       {` No. of PDC's`}
                       <strong className="text-danger">*</strong>
                     </label>
-                    <div className={`${styles.val} heading`}>{marginData?.numberOfPDC}</div>
+                    <div className={`${styles.val} heading`}>
+                      {marginData?.numberOfPDC}
+                    </div>
                   </div>
                 </div>
                 <div
@@ -399,7 +415,11 @@ const changeImporter=(e)=>{
                       <span className={`${styles.blue}`}>{`(A*B)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      {addPrefixOrSuffix(finalCal.orderValue ? finalCal.orderValue : 0, 'Cr', '')}
+                      {addPrefixOrSuffix(
+                        finalCal.orderValue ? finalCal.orderValue : 0,
+                        'Cr',
+                        '',
+                      )}
                     </div>
                   </div>
                 </div>
@@ -422,7 +442,11 @@ const changeImporter=(e)=>{
                       <span className={`${styles.blue}`}>{`(J*C)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      { addPrefixOrSuffix(finalCal.orderValueInINR ? finalCal.orderValueInINR : 0 , 'INR', 'front')}
+                      {addPrefixOrSuffix(
+                        finalCal.orderValueInINR ? finalCal.orderValueInINR : 0,
+                        'INR',
+                        'front',
+                      )}
                     </div>
                   </div>
                 </div>
@@ -441,16 +465,26 @@ const changeImporter=(e)=>{
                     >
                       Usance Interest (%) for 90 days (INR)
                       <strong className="text-danger">*</strong>
-                      <span className={`${styles.blue}`}>{`(K*D*90/365)`}
-                        
+                      <span className={`${styles.blue}`}>
+                        {`(K*D*90/365)`}
+
                         <div className={`${styles.tooltip}`}>
-                          <img className={`ml-2 mt-n1 img-fluid`} src="/static/info-circle.svg"/>
-                          <span className={`${styles.tooltiptext}`}>Indicative Figures</span>
+                          <img
+                            className={`ml-2 mt-n1 img-fluid`}
+                            src="/static/info-circle.svg"
+                          />
+                          <span className={`${styles.tooltiptext}`}>
+                            Indicative Figures
+                          </span>
                         </div>
                       </span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      {addPrefixOrSuffix(finalCal.usanceInterest ? finalCal.usanceInterest : 0, 'INR', 'front')}
+                      {addPrefixOrSuffix(
+                        finalCal.usanceInterest ? finalCal.usanceInterest : 0,
+                        'INR',
+                        'front',
+                      )}
                     </div>
                   </div>
                 </div>
@@ -472,7 +506,11 @@ const changeImporter=(e)=>{
                       <span className={`${styles.blue}`}>{`(K*E)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      { addPrefixOrSuffix(finalCal.tradeMargin ? finalCal.tradeMargin : 0, 'Cr', '')}
+                      {addPrefixOrSuffix(
+                        finalCal.tradeMargin ? finalCal.tradeMargin : 0,
+                        'Cr',
+                        '',
+                      )}
                     </div>
                   </div>
                 </div>
@@ -494,7 +532,11 @@ const changeImporter=(e)=>{
                       <span className={`${styles.blue}`}>{`(K+L+M)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      {addPrefixOrSuffix(finalCal.grossOrderValue ? finalCal.grossOrderValue : 0, 'Cr', '')}
+                      {addPrefixOrSuffix(
+                        finalCal.grossOrderValue ? finalCal.grossOrderValue : 0,
+                        'Cr',
+                        '',
+                      )}
                     </div>
                   </div>
                 </div>
@@ -517,7 +559,11 @@ const changeImporter=(e)=>{
                       <span className={`${styles.blue}`}>{`(N*F)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      { addPrefixOrSuffix(finalCal.toleranceValue ? finalCal.toleranceValue : 0 , 'Cr', '')}
+                      {addPrefixOrSuffix(
+                        finalCal.toleranceValue ? finalCal.toleranceValue : 0,
+                        'Cr',
+                        '',
+                      )}
                     </div>
                   </div>
                 </div>
@@ -539,7 +585,7 @@ const changeImporter=(e)=>{
                       <span className={`${styles.blue}`}>{`(N+O)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                    ₹ {finalCal.totalOrderValue}
+                      ₹ {finalCal.totalOrderValue}
                     </div>
                   </div>
                 </div>
@@ -561,7 +607,7 @@ const changeImporter=(e)=>{
                       <span className={`${styles.blue}`}>{`(N/A)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                    ₹ {finalCal.provisionalUnitPricePerTon}
+                      ₹ {finalCal.provisionalUnitPricePerTon}
                     </div>
                   </div>
                 </div>
@@ -583,7 +629,7 @@ const changeImporter=(e)=>{
                       <span className={`${styles.blue}`}>{`(P*G)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                    ₹ {finalCal.marginMoney}
+                      ₹ {finalCal.marginMoney}
                     </div>
                   </div>
                 </div>
@@ -605,7 +651,7 @@ const changeImporter=(e)=>{
                       <span className={`${styles.blue}`}>{`(P-R)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                    ₹ {finalCal.totalSPDC}
+                      ₹ {finalCal.totalSPDC}
                     </div>
                   </div>
                 </div>
@@ -630,12 +676,17 @@ const changeImporter=(e)=>{
                       Additional Amount per SPDC (INR){' '}
                       <strong className="text-danger">*</strong>
                       <div className={`${styles.tooltip}`}>
-                        <img className={`ml-2 mt-n1 img-fluid`} src="/static/info-circle.svg"/>
-                        <span className={`${styles.tooltiptext}`}>[(S-Previous Value)/I)]</span>
+                        <img
+                          className={`ml-2 mt-n1 img-fluid`}
+                          src="/static/info-circle.svg"
+                        />
+                        <span className={`${styles.tooltiptext}`}>
+                          [(S-Previous Value)/I)]
+                        </span>
                       </div>
                     </label>
                     <div className={`${styles.val} ${styles.green} heading`}>
-                    ₹ {calcRevised.additionalAmountPerPDC}
+                      ₹ {calcRevised.additionalAmountPerPDC}
                     </div>
                   </div>
                 </div>
@@ -656,12 +707,17 @@ const changeImporter=(e)=>{
                       Revised Net Order Value ()INR
                       <strong className="text-danger">*</strong>
                       <div className={`${styles.tooltip}`}>
-                        <img className={`ml-2 mt-n1 img-fluid`} src="/static/info-circle.svg"/>
-                        <span className={`${styles.tooltiptext}`}>P - Total Order Value (Previous)</span>
+                        <img
+                          className={`ml-2 mt-n1 img-fluid`}
+                          src="/static/info-circle.svg"
+                        />
+                        <span className={`${styles.tooltiptext}`}>
+                          P - Total Order Value (Previous)
+                        </span>
                       </div>
                     </label>
                     <div className={`${styles.val} ${styles.green} heading`}>
-                    ₹ {calcRevised.revisedNetOrderValue}
+                      ₹ {calcRevised.revisedNetOrderValue}
                     </div>
                   </div>
                 </div>
@@ -682,7 +738,7 @@ const changeImporter=(e)=>{
                       <strong className="text-danger">*</strong>
                     </label>
                     <div className={`${styles.val} ${styles.green} heading`}>
-                    ₹ {calcRevised.marginMoney}
+                      ₹ {calcRevised.marginMoney}
                     </div>
                   </div>
                 </div>
@@ -704,7 +760,7 @@ const changeImporter=(e)=>{
                       <span className={`${styles.blue}`}>{`(R)`}</span>
                     </label>
                     <div className={`${styles.val} ${styles.green} heading`}>
-                    ₹ {finalCal.marginMoney}
+                      ₹ {finalCal.marginMoney}
                     </div>
                   </div>
                 </div>
@@ -725,7 +781,7 @@ const changeImporter=(e)=>{
                       <strong className="text-danger">*</strong>
                     </label>
                     <div className={`${styles.val} ${styles.green} heading`}>
-                    ₹ 38,50,000.00
+                      ₹ 38,50,000.00
                     </div>
                   </div>
                 </div>
@@ -747,7 +803,7 @@ const changeImporter=(e)=>{
                       <span className={`${styles.blue}`}>{`(W-X)`}</span>
                     </label>
                     <div className={`${styles.val} ${styles.green} heading`}>
-                    ₹  38,50,000.00
+                      ₹ 38,50,000.00
                     </div>
                   </div>
                 </div>
@@ -816,7 +872,10 @@ const changeImporter=(e)=>{
                           e.target.value,
                         )
                       }
-                      defaultValue={marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN}
+                      defaultValue={
+                        marginData?.revisedMarginMoney?.invoiceDetail
+                          ?.buyerGSTIN
+                      }
                     >
                       {/* <option value="GTSDT789652JKH">
                                     {marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN}
@@ -842,7 +901,10 @@ const changeImporter=(e)=>{
                     type="text"
                     id="textInput"
                     name="buyerAddress"
-                    defaultValue={marginData?.revisedMarginMoney?.invoiceDetail?.buyerAddress}
+                    defaultValue={
+                      marginData?.revisedMarginMoney?.invoiceDetail
+                        ?.buyerAddress
+                    }
                     className={`${styles.input_field} input form-control`}
                     required
                     onChange={(e) =>
@@ -948,7 +1010,7 @@ const changeImporter=(e)=>{
                       }
                       value={invoiceDataRevised?.consigneeGSTIN}
                     >
-                       <option>Select an option</option>
+                      <option>Select an option</option>
                       <option value="GTSDT789652JKH">GTSDT789652JKH</option>
                       <option value="GTSDT789652JKH">GTSDT789652JKH</option>
                     </select>
@@ -999,17 +1061,17 @@ const changeImporter=(e)=>{
                       name="importerName"
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       required
-                      defaultValue={marginData?.revisedMarginMoney?.invoiceDetail?.importerName}
+                      defaultValue={
+                        marginData?.revisedMarginMoney?.invoiceDetail
+                          ?.importerName
+                      }
                       onChange={(e) =>
-                        dropDownChange(
-                          e.target.name,
-                          e.target.value,
-                        )
+                        dropDownChange(e.target.name, e.target.value)
                       }
                     >
                       <option>Select an option</option>
                       <option value="INDO GERMAN INTERNATIONAL PRIVATE LIMITED">
-                      INDO GERMAN INTERNATIONAL PRIVATE LIMITED
+                        INDO GERMAN INTERNATIONAL PRIVATE LIMITED
                       </option>
                       <option value="EMERGENT INDUSTRIAL SOLUTIONS LIMITED">
                         EMERGENT INDUSTRIAL SOLUTIONS LIMITED
@@ -1028,30 +1090,24 @@ const changeImporter=(e)=>{
                     ></img>
                   </div>
                 </div>
-                <div
-                  className={`${styles.each_input} col-md-3 col-sm-6`}
-                >
+                <div className={`${styles.each_input} col-md-3 col-sm-6`}>
                   <div className="d-flex">
                     <select
                       id="Code"
                       name="branchOffice"
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       required
-                      
                       value={
-                        changeImporterData?.branch ? changeImporterData?.branch : marginData?.revisedMarginMoney?.invoiceDetail?.branchOffice
+                        changeImporterData?.branch
+                          ? changeImporterData?.branch
+                          : marginData?.revisedMarginMoney?.invoiceDetail
+                              ?.branchOffice
                       }
-                      onChange={(e) =>
-                        changeImporter(e)
-                      }
+                      onChange={(e) => changeImporter(e)}
                     >
                       <option>Select an option</option>
-                      <option value="SURAT">
-                        {'SURAT'}
-                      </option>
-                      <option value="DELHI">
-                        DELHI
-                      </option>
+                      <option value="SURAT">{'SURAT'}</option>
+                      <option value="DELHI">DELHI</option>
                     </select>
                     <label
                       className={`${styles.label_heading} label_heading`}
@@ -1067,17 +1123,18 @@ const changeImporter=(e)=>{
                   </div>
                 </div>
 
-                <div
-                  className={`${styles.each_input} col-md-3 col-sm-6`}
-                >
+                <div className={`${styles.each_input} col-md-3 col-sm-6`}>
                   <input
                     type="text"
                     id="textInput"
-                    value={ changeImporterData?.address  ? changeImporterData?.address : marginData?.revisedMarginMoney?.invoiceDetail?.companyAddress}
+                    value={
+                      changeImporterData?.address
+                        ? changeImporterData?.address
+                        : marginData?.revisedMarginMoney?.invoiceDetail
+                            ?.companyAddress
+                    }
                     name="companyAddress"
-                     onChange={(e) =>
-                        changeImporter(e)
-                      }
+                    onChange={(e) => changeImporter(e)}
                     className={`${styles.input_field} input form-control`}
                     required
                   />
@@ -1085,22 +1142,21 @@ const changeImporter=(e)=>{
                     className={`${styles.label_heading} label_heading`}
                     id="textInput"
                   >
-                    Company Address*
+                    Company Address
                     <strong className="text-danger">*</strong>
                   </label>
                 </div>
-                <div
-                  className={`${styles.each_input} col-md-3 col-sm-6`}
-                >
+                <div className={`${styles.each_input} col-md-3 col-sm-6`}>
                   <input
                     type="text"
                     id="textInput"
                     name="importerGSTIN"
-                     onChange={(e) =>
-                        changeImporter(e)
-                      }
+                    onChange={(e) => changeImporter(e)}
                     value={
-                    changeImporterData?.GSTIN ? changeImporterData?.GSTIN : marginData?.revisedMarginMoney?.invoiceDetail?.importerGSTIN
+                      changeImporterData?.GSTIN
+                        ? changeImporterData?.GSTIN
+                        : marginData?.revisedMarginMoney?.invoiceDetail
+                            ?.importerGSTIN
                     }
                     className={`${styles.input_field} input form-control`}
                     required
@@ -1121,7 +1177,9 @@ const changeImporter=(e)=>{
                       name="bankName"
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       required
-                      defaultValue={marginData?.revisedMarginMoney?.invoiceDetail?.bankName}
+                      defaultValue={
+                        marginData?.revisedMarginMoney?.invoiceDetail?.bankName
+                      }
                       onChange={(e) =>
                         saveInvoiceDataRevisedRevised(
                           e.target.name,
@@ -1152,7 +1210,9 @@ const changeImporter=(e)=>{
                       name="branch"
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       required
-                      defaultValue={marginData?.revisedMarginMoney?.invoiceDetail?.branch}
+                      defaultValue={
+                        marginData?.revisedMarginMoney?.invoiceDetail?.branch
+                      }
                       onChange={(e) =>
                         saveInvoiceDataRevisedRevised(
                           e.target.name,
@@ -1188,7 +1248,10 @@ const changeImporter=(e)=>{
                         e.target.value,
                       )
                     }
-                    defaultValue={marginData?.revisedMarginMoney?.invoiceDetail?.branchAddress}
+                    defaultValue={
+                      marginData?.revisedMarginMoney?.invoiceDetail
+                        ?.branchAddress
+                    }
                     className={`${styles.input_field} input form-control`}
                     required
                   />
@@ -1211,7 +1274,9 @@ const changeImporter=(e)=>{
                         e.target.value,
                       )
                     }
-                    defaultValue={marginData?.revisedMarginMoney?.invoiceDetail?.IFSCcode}
+                    defaultValue={
+                      marginData?.revisedMarginMoney?.invoiceDetail?.IFSCcode
+                    }
                     className={`${styles.input_field} input form-control`}
                     required
                   />
@@ -1234,7 +1299,9 @@ const changeImporter=(e)=>{
                         e.target.value,
                       )
                     }
-                    defaultValue={marginData?.revisedMarginMoney?.invoiceDetail?.accountNo}
+                    defaultValue={
+                      marginData?.revisedMarginMoney?.invoiceDetail?.accountNo
+                    }
                     className={`${styles.input_field} input form-control`}
                     required
                   />
