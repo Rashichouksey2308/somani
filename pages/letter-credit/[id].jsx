@@ -355,6 +355,7 @@ function Index() {
                         <div className="d-flex">
                           <DateCalender
                             name="dateOfAmendment"
+                            defaultDate={lcData?.dateOfAmendment}
                             saveDate={saveDate}
                             labelName="(30) Date Of Ammendment"
                           />
@@ -369,6 +370,7 @@ function Index() {
                         <input
                           className={`${styles.input_field} input form-control`}
                           type="number"
+                          defaultValue={lcData?.numberOfAmendment}
                           onKeyDown={(evt) =>
                             evt.key === 'e' && evt.preventDefault()
                           }
