@@ -80,7 +80,7 @@ function Index(props) {
           }
         })
        
-        console.log(data,"datasallelll")
+        console.log(dat,"datasallelll")
 
         setData({
           seller: data?.seller?.name,
@@ -99,7 +99,9 @@ function Index(props) {
           totalOrderValue: data?.order?.orderValue,
           lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
           dischargePort: data?.order?.portOfDischarge,
-          lastDate: data?.order?.ExpectedDateOfShipment,
+
+          lastDate: data?.order.shipmentDetail.lastDateOfShipment,
+
           terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed=="Yes"?"Full":"Partial"}`,
           addComm: data?.additionalComments?.comments,
           spec: data?.productSpecifications?.comments,
@@ -538,7 +540,7 @@ const salesContract = (changeHandler, data, preview) => {
         <div className={`${styles.inputsContainer}`}>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Date of Execution</Col>
-            <Col md={7} className={styles.right}>{moment(data.dateOfExecution).format("DD-MM-YYYY")}</Col>
+            <Col md={7} className={styles.right}>{moment(data.dat).format("DD-MM-YYYY")}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Place of Execution</Col>
