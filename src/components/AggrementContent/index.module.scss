@@ -966,35 +966,7 @@ img {
 
 }
 
-.uploadBtnWrapper {
-  overflow: hidden;
-  position: relative;
-  display: block;
-  line-height: 60px;
 
-  input {
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    opacity: 0;
-    cursor: pointer;
-    position: absolute;
-  }
-}
-
- .button_upload {
-     width: 106px;
-     height: 38px;
-     border: 3px solid #3687E8;
-     border-radius: 5px;
-     text-align: center;
-     font-weight: bold;
-     font-size: 18px;
-     color: #3687E8;
-     line-height: 23px;
-     text-transform: capitalize;
- }
   .button_upload2 {
       width: 310px;
       height: 48px;
@@ -1020,4 +992,34 @@ img {
     height: 20px !important;
     pointer-events: none;
 }
+}
+
+.uploadBtnWrapper {
+  overflow: hidden;
+  position: relative;
+  display: block;
+  line-height: 60px;
+
+  input {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    cursor: pointer;
+    position: absolute;
+  }
+}
+
+.button_upload {
+  width: 106px;
+  height: 38px;
+  border: 3px solid #3687E8;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  color: #3687E8;
+  line-height: 23px;
+  text-transform: capitalize;
 }

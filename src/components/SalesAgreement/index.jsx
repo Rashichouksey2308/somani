@@ -962,7 +962,7 @@ const onSave=()=>{
     }
     }
     if (dataToSend.stevedore.gstin== "" || dataToSend.stevedore.gstin== undefined) {
-    toastMessage = `Please add short name  `
+    toastMessage = `Please add gstin `
     if (!toast.isActive(toastMessage.toUpperCase())) {
     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     setSubmitData(false)

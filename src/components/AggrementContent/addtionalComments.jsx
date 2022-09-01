@@ -117,6 +117,7 @@ const handleAddressInput=()=>{
           onChange={(e)=>{
             setValue(e.target.value)
           }}
+          value={value}
         />
        <img className="img-fluid ml-4" src="/static/add-btn.svg" alt="add button"
        onClick={()=>{

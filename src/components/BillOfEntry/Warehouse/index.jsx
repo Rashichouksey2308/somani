@@ -213,7 +213,7 @@ export default function Index({ OrderId, customData }) {
             />
           </div>
         </div>
-        <SaveBar handleSave={onSaveDischarge} rightBtn="Submit" />
+        <SaveBar handleSave={onSaveDischarge} rightBtn="Submit" rightBtnClick={onSaveDischarge} />
       </div>
     </>
   )

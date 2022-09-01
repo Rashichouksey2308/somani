@@ -77,11 +77,7 @@ export default function Index({ inspectionData }) {
     setIsEdit(true)
   }
 
-  // const handleEditInput = (name, value) => {
-  //   let newInput = { ...addressData }
-  //   newInput[name] = value
-  //   setAddressData(newInput)
-  // }
+
   const handleEditInput = (name, value) => {
     const newInput = { ...addressData }
     const namesplit = name.split('.')
@@ -101,6 +97,7 @@ export default function Index({ inspectionData }) {
   }
 
   const handleSave = () => {
+    console.log("SAvee")
     const fd = new FormData()
     fd.append('thirdPartyAppointment', JSON.stringify(appointmentData))
     fd.append('inspectionId', inspectionData?._id)
@@ -228,7 +225,7 @@ export default function Index({ inspectionData }) {
             </div>
           </div>
         </div>
-        <SaveBar handleSave={handleSave} rightBtn="Submit" />
+        <SaveBar handleSave={handleSave} rightBtn="Submit"  />
       </div>
     </>
   )

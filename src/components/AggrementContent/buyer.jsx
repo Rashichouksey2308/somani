@@ -427,25 +427,72 @@ useEffect(() => {
         setPan("AAACI3028D")
         if(buyerData.branchName=="Delhi"){
         setGstin("07AAACI3028D1Z4")
+           setAddressList([
+           {
+          addressType: "Registered",
+          fullAddress: "7A , SAGAR APARTMENTS,6 TILAK MARG",
+          pinCode: "110001",
+          country: "India",
+          gstin: "",
+          state: "DELHI",
+          city: "NEW DELHI"
+       }
+        ])
         }else if(buyerData.branchName=="Vizag"){
         setGstin("37AAACI3028D2Z0")
+           setAddressList([
+           {
+          addressType: "Registered",
+          fullAddress: "Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road,Akkayyapalem",
+          pinCode: "530016",
+          country: "India",
+          gstin: "",
+          state: "Andhra Pradesh",
+          city: "Visakhapatnam"
+       }
+        ])
         }else{
         setGstin("")
         }
+     
+        
 }
     if(buyerData.name=="Emergent Industrial Solution limited"){
          setShotName("EISL")
           setPan("AAACS8253L")
           if(buyerData.branchName=="Delhi"){
           setGstin("07AAACS8253L1Z0")
+        setAddressList([
+           {
+          addressType: "Registered",
+          fullAddress: "8B, SAGAR, 6 TILAK MARG",
+          pinCode: "110001",
+          country: "India",
+          gstin: "",
+          state: "DELHI",
+          city: "NEW DELHI"
+       }
+        ])
           }else if(buyerData.branchName=="Vizag"){
           setGstin("37AAACS8253L1ZX")
+          setAddressList([
+           {
+          addressType: "Registered",
+          fullAddress: "49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM",
+          pinCode: "530016",
+          country: "India",
+          gstin: "",
+          state: " ANDHRA PRADESH",
+          city: "VISAKHAPATNAM"
+       }
+        ])
           }else{
           setGstin("")
           }
       }  
  }               
 },[buyerData.name,buyerData.branchName])
+console.log(addressList,"addressList")
   return (
     <>
       <div className={`${styles.container} vessel_card`}>

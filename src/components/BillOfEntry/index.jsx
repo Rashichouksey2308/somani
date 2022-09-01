@@ -1167,7 +1167,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
             />
           </div>
         </div>
-        <SaveBar handleSave={handleSave} rightBtn="Submit" />
+        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSave} />
       </div>
     </>
   )

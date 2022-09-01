@@ -70,7 +70,7 @@ function Index({
   const handleClose = (e) => {
     setVesselCertificate(null)
   }
-  console.log(list, 'list')
+ 
   // console.log(vesselData,'vesselData')
   return (
     <>
@@ -483,7 +483,7 @@ function Index({
                     {list[index].shipmentType === 'Bulk' ? (
                       <>
                         {list &&
-                          list[0].vesselInformation.map(
+                          list[index].vesselInformation.map(
                             (vesselInfo, index1) => (
                               <div
                                 key={index}
@@ -499,7 +499,7 @@ function Index({
                                   >
                                     <input
                                       id="name"
-                                      defaultValue={vesselInfo.name}
+                                      value={vesselInfo.name}
                                       className={`${styles.input_field} input form-control`}
                                       required
                                       type="text"
@@ -522,7 +522,7 @@ function Index({
                                   >
                                     <input
                                       id="IMONumber"
-                                      defaultValue={vesselInfo.IMONumber}
+                                      value={vesselInfo.IMONumber}
                                       className={`${styles.input_field} input form-control`}
                                       required
                                       type="text"
@@ -545,7 +545,7 @@ function Index({
                                   >
                                     <input
                                       id="flag"
-                                      defaultValue={vesselInfo.flag}
+                                      value={vesselInfo.flag}
                                       className={`${styles.input_field} input form-control`}
                                       required
                                       type="text"
@@ -630,7 +630,7 @@ function Index({
                                   >
                                     <input
                                       id="shippingLineOrCharter"
-                                      defaultValue={
+                                      value={
                                         vesselInfo.shippingLineOrCharter
                                       }
                                       className={`${styles.input_field} input form-control`}
