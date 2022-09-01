@@ -131,7 +131,7 @@ const Index = ({
                 <select
                   value={
                     termsheetDetails?.commodityDetails?.orderCurrency == 'INR'
-                      ? 'Rupee'
+                      ? 'INR'
                       : termsheetDetails?.commodityDetails?.orderCurrency
                   }
                   id="orderCurrency"
@@ -139,8 +139,9 @@ const Index = ({
                   onChange={onChangeCommodityDetails}
                   required
                 >
+                  <option>Select</option>
                   <option value="USD">USD</option>
-                  <option value="Rupee">INR</option>
+                  <option value="INR">INR</option>
                   <option value="Euro">Euro</option>
                   <option value="BRITISHPOUND">POUND</option>
                 </select>

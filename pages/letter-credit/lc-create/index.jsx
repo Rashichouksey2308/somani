@@ -167,20 +167,20 @@ function Index() {
       return false  
     }
   }
-    if(lcData.dateOfExpiry === "" || lcData.dateOfExpiry ==undefined){
-       toastMessage = 'Please add  Date Of Expiry'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      return false  
-    }
-  }
-     if(lcData.placeOfExpiry === "" || lcData.placeOfExpiry ==undefined){
-       toastMessage = 'Please add Place Of Expiry'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      return false  
-    }
-  }
+  //   if(lcData.dateOfExpiry === "" || lcData.dateOfExpiry ==undefined){
+  //      toastMessage = 'Please add  Date Of Expiry'
+  //     if (!toast.isActive(toastMessage.toUpperCase())) {
+  //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+  //     return false  
+  //   }
+  // }
+  //    if(lcData.placeOfExpiry === "" || lcData.placeOfExpiry ==undefined){
+  //      toastMessage = 'Please add Place Of Expiry'
+  //     if (!toast.isActive(toastMessage.toUpperCase())) {
+  //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+  //     return false  
+  //   }
+  // }
      if(lcData.applicant === "" || lcData.applicant ==undefined){
        toastMessage = 'Please Select Applicant'
       if (!toast.isActive(toastMessage.toUpperCase())) {
