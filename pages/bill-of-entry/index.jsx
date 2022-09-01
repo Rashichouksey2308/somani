@@ -1,16 +1,22 @@
 /* eslint-disable @next/next/no-img-element */
-import React ,{useEffect}from 'react'
+import React ,{useEffect, useState}from 'react'
 import styles from './index.module.scss'
 import BillOfEntryTableMain from '../../src/components/BillOfEntryTableMain'
 import Router from 'next/router'
 import Filter from '../../src/components/Filter'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {GetAllCustomClearance} from  '../../src/redux/CustomClearance&Warehousing/action'
 import _get from 'lodash/get'
 import { setPageName,setDynamicName } from '../../src/redux/userData/action'
+import { SearchLeads } from '../../src/redux/buyerProfile/action'
 
 
 function Index() {
+
+  const [serachterm, setSearchTerm] = useState('')
+
+  const { searchedLeads } = useSelector((state) => state.order)
+
   useEffect(() => {
 if(window){
     sessionStorage.setItem('loadedPage',"Custom Clearance & WareHouse")
@@ -18,6 +24,7 @@ if(window){
     sessionStorage.setItem('openList',4)
     }
 },[])
+
   const dispatch = useDispatch()
 
   const routeChange = (insured) => {
@@ -29,6 +36,20 @@ if(window){
     dispatch(setPageName('custom'))
     dispatch(setDynamicName(null))
   })
+
+  const handleSearch = (e) => {
+    const query = `${e.target.value}`
+    setSearchTerm(query)
+    if (query.length >= 3) {
+      dispatch(SearchLeads(query))
+    }
+  }
+
+  const handleFilteredData = (e) => {
+    setSearchTerm('')
+    const id = `${e.target.id}`
+    dispatch(GetAllCustomClearance(`?company=${id}`))
+  }
 
 
   return (
@@ -56,12 +77,29 @@ if(window){
                   />
                 </div>
                 <input
+                  value={serachterm}
+                  onChange={handleSearch}
                   type="text"
                   className={`${styles.formControl} form-control formControl `}
                   placeholder="Search"
                 />
               </div>
-            </div>
+              {searchedLeads && serachterm && (
+                <div className={styles.searchResults}>
+                  <ul>
+                    {searchedLeads.data.data.map((results, index) => (
+                      <li
+                        onClick={handleFilteredData}
+                        id={results._id}
+                        key={index}
+                      >
+                        {results.companyName} <span>{results.customerId}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+          </div>
             <Filter />
             {/* <a href="#" className={`${styles.filterList} filterList `}>
         Bhutani Traders

@@ -9,22 +9,30 @@ import {
   GetAllForwardHedging,
   GetForwardHedging,
 } from '../../src/redux/ForwardHedging/action'
+import { SearchLeads } from '../../src/redux/buyerProfile/action'
 
 function Index() {
+
   const dispatch = useDispatch()
 
   const [currentPage, setCurrentPage] = useState(0)
 
+  const [serachterm, setSearchTerm] = useState('')
+
+  const { searchedLeads } = useSelector((state) => state.order)
+
   const { allForwardHedging } = useSelector((state) => state.ForwardHedging)
-useEffect(() => {
-if(window){
-    sessionStorage.setItem('loadedPage',"Loading, Transit & Unloadinge")
-    sessionStorage.setItem('loadedSubPage',`Forward Hedging`)
-    sessionStorage.setItem('openList',3)
+
+  useEffect(() => {
+    if (window) {
+      sessionStorage.setItem('loadedPage', 'Loading, Transit & Unloadinge')
+      sessionStorage.setItem('loadedSubPage', `Forward Hedging`)
+      sessionStorage.setItem('openList', 3)
     }
-},[])
+  }, [])
 
   console.log(allForwardHedging, 'allForwardHedging')
+
   useEffect(() => {
     dispatch(GetAllForwardHedging(`?page=${currentPage}&limit=7`))
   }, [dispatch, currentPage])
@@ -34,6 +42,21 @@ if(window){
     dispatch(GetAllForwardHedging(`?forwardHedgingId=${list._id}`))
     Router.push('/forward-hedging')
   }
+
+  const handleSearch = (e) => {
+    const query = `${e.target.value}`
+    setSearchTerm(query)
+    if (query.length >= 3) {
+      dispatch(SearchLeads(query))
+    }
+  }
+
+  const handleFilteredData = (e) => {
+    setSearchTerm('')
+    const id = `${e.target.id}`
+    dispatch(GetAllForwardHedging(`?company=${id}`))
+  }
+
   return (
     <div className="container-fluid p-0 border-0">
       <div className={`${styles.container_inner}`}>
@@ -50,11 +73,28 @@ if(window){
                 />
               </div>
               <input
-                type="text"
-                className={`${styles.formControl} form-control formControl `}
-                placeholder="Search"
-              />
-            </div>
+                  value={serachterm}
+                  onChange={handleSearch}
+                  type="text"
+                  className={`${styles.formControl} form-control formControl `}
+                  placeholder="Search"
+                />
+              </div>
+              {searchedLeads && serachterm && (
+                <div className={styles.searchResults}>
+                  <ul>
+                    {searchedLeads.data.data.map((results, index) => (
+                      <li
+                        onClick={handleFilteredData}
+                        id={results._id}
+                        key={index}
+                      >
+                        {results.companyName} <span>{results.customerId}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
           </div>
           <Filter />
           {/* <a href="#" className={`${styles.filterList} filterList `}>
@@ -159,23 +199,27 @@ if(window){
                         </td>
                         <td>{list?.order?.commodity} </td>
                         <td></td>
-                           <td>
-                            <span
-                              className={`${styles.status} ${
-                              list.order.queue === 'Rejected' ? styles.rejected :  list.order.queue === 'ReviewQueue'
-                                  ? styles.review
-                                  : list.order.queue === 'CreditQueue'
-                                  ? styles.approved
-                                  : styles.rejected
-                              }`}
-                            ></span>
-                            
-                          {list.order.queue === 'Rejected' ? 'Rejected' : list.order.queue === 'ReviewQueue'
-                              ? 'Review'
-                              : list.order.queue === 'CreditQueue'
-                              ? 'Approved'
-                              : 'Rejected'}
-                          </td>
+                        <td>
+                          <span
+                            className={`${styles.status} ${
+                              list.order.queue === 'Rejected'
+                                ? styles.rejected
+                                : list.order.queue === 'ReviewQueue'
+                                ? styles.review
+                                : list.order.queue === 'CreditQueue'
+                                ? styles.approved
+                                : styles.rejected
+                            }`}
+                          ></span>
+
+                          {list.order.queue === 'Rejected'
+                            ? 'Rejected'
+                            : list.order.queue === 'ReviewQueue'
+                            ? 'Review'
+                            : list.order.queue === 'CreditQueue'
+                            ? 'Approved'
+                            : 'Rejected'}
+                        </td>
                         <td>
                           <img
                             className={`${styles.edit_image} img-fluid mr-3`}

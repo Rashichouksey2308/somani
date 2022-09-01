@@ -18,6 +18,9 @@ export default function Index({ isQuery }) {
     sessionStorage.removeItem('Product')
     sessionStorage.removeItem('Finance')
     sessionStorage.removeItem('Shipping')
+    sessionStorage.removeItem('Cma')
+    sessionStorage.removeItem('Cha')
+    sessionStorage.removeItem('Stevedore')
   }
   useEffect(() => {
     if (
