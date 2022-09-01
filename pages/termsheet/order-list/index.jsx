@@ -4,13 +4,16 @@ import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import styles from './index.module.scss'
 import Router from 'next/router'
-import _get from "lodash/get";
+import _get from 'lodash/get'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetOrders } from '../../../src/redux/registerBuyer/action'
-import { setPageName, setDynamicName,setDynamicOrder } from '../../../src/redux/userData/action'
+import {
+  setPageName,
+  setDynamicName,
+  setDynamicOrder,
+} from '../../../src/redux/userData/action'
 import { GetTermsheet } from '../../../src/redux/buyerProfile/action'
-import moment from 'moment';
-
+import moment from 'moment'
 
 function Index() {
   const [currentPage, setCurrentPage] = useState(0)
@@ -19,11 +22,8 @@ function Index() {
   const { singleOrder } = useSelector((state) => state.buyer)
   const { termsheet } = useSelector((state) => state.order)
 
-
-
   // console.log(singleOrder, 'all order listtt1')
-  console.log(termsheet, "TErmshetTermsheet")
-
+  console.log(termsheet, 'TErmshetTermsheet')
 
   useEffect(() => {
     let Id = sessionStorage.getItem('termsheetId')
@@ -31,42 +31,48 @@ function Index() {
   }, [dispatch])
 
   useEffect(() => {
-dispatch(setPageName(_get(
-    termsheet,
-    "data[0].company.companyName",
-    "All Termsheet Order"
-  )))
+    dispatch(setPageName(_get(
+      termsheet,
+      "data[0].company.companyName",
+      "All Termsheet Order"
+    )))
 
- 
-    
+
+
   }, [singleOrder, termsheet])
 
-  useEffect(() =>{
-      dispatch(setDynamicOrder(null))
-  },[])
-useEffect(() => {
-dispatch(setPageName('termsheet'))
-dispatch(setDynamicName(_get(
-    termsheet,
-    "data[0].company.companyName",
-    "All Termsheet Order"
-  )))
-},[dispatch, singleOrder, termsheet])
-  console.log(termsheet,"termsheet")
+  useEffect(() => {
+    dispatch(setDynamicOrder(null))
+  }, [])
+  useEffect(() => {
+    dispatch(setPageName('termsheet'))
+    dispatch(setDynamicName(_get(
+      termsheet,
+      "data[0].company.companyName",
+      "All Termsheet Order"
+    )))
+  }, [dispatch, singleOrder, termsheet])
+  console.log(termsheet, "termsheet")
 
-  const handleRoute = (term,index) => {
-    console.log("here",term)
-   // console.log(term?.order._id, "termtrem")
+  const handleRoute = (term, index) => {
+    console.log("here", term)
+    // console.log(term?.order._id, "termtrem")
     //dispatch(GetBuyer({ companyId: term.company._id, orderId: buyer._id }))
     dispatch(GetTermsheet(`?termsheetId=${term._id}`))
     sessionStorage.setItem('termID', term._id)
-    console.log(term,"term.buyerName")
-     dispatch(setDynamicName(term.company.companyName))
-     dispatch(setDynamicOrder(term?.order?.applicationId ? term.order.applicationId : term.order.orderId))
+    console.log(term, 'term.buyerName')
+    dispatch(setDynamicName(term.company.companyName))
+    dispatch(
+      setDynamicOrder(
+        term?.order?.applicationId
+          ? term.order.applicationId
+          : term.order.orderId,
+      ),
+    )
     sessionStorage.setItem('termOrdID', term?.order._id)
-    Router.push("/termsheet/12")
+    Router.push('/termsheet/12')
     // Router.push('/lc-module')
-   
+
   }
 
   return (
@@ -76,19 +82,20 @@ dispatch(setDynamicName(_get(
         <div className={styles.leads_inner}>
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
-
             <div className={`${styles.head_header} align-items-center`}>
-              <img className={`${styles.arrow} img-fluid mr-2 image_arrow`}
-                src="/static/keyboard_arrow_right-3.svg" alt="arrow" />
-              <h1 className={`${styles.heading} heading`}>{_get(
+              <img
+                className={`${styles.arrow} img-fluid mr-2 image_arrow`}
+                src="/static/keyboard_arrow_right-3.svg"
+                alt="arrow"
+              />
+              <h1 className={`${styles.heading} heading`}>
+                {_get(
                   termsheet,
-                  "data[0].company.companyName",
-                  "All Termsheet Order"
-                )}</h1>
+                  'data[0].company.companyName',
+                  'All Termsheet Order',
+                )}
+              </h1>
             </div>
-
-
-
           </div>
 
           {/*status Box*/}
@@ -204,7 +211,10 @@ dispatch(setDynamicName(_get(
                 </a>
                 <a
                   onClick={() => {
-                    if (currentPage + 1 < Math.ceil(termsheet?.totalCount / 10)) {
+                    if (
+                      currentPage + 1 <
+                      Math.ceil(termsheet?.totalCount / 10)
+                    ) {
                       setCurrentPage((prevState) => prevState + 1)
                     }
                   }}
@@ -229,23 +239,30 @@ dispatch(setDynamicName(_get(
                 >
                   <thead>
                     <tr className="table_row">
-                      <th >ORDER ID <img className={`mb-1`} src="/static/icons8-sort-24.svg" /></th>
+                      <th>
+                        ORDER ID{' '}
+                        <img
+                          className={`mb-1`}
+                          src="/static/icons8-sort-24.svg"
+                        />
+                      </th>
                       <th>COMMODITY</th>
                       <th>CREATED BY</th>
-                      <th>CREATED ON</th>
+                      <th>ORDER CREATED DATE</th>
                       <th>STATUS</th>
-
+                      <th>PREVIEW</th>
                     </tr>
                   </thead>
                   {termsheet && termsheet?.data?.map((term, index) => (<tbody Key={index}>
                     <tr>
-                      <td className={`${styles.first}`} onClick={() => handleRoute(term,index)}>
-                        {term?.order?.applicationId ? term.order.applicationId : term.order.orderId}
+                      <td className={`${styles.first}`} onClick={() => handleRoute(term, index)}>
+                        {term?.order?.orderId
+                              ? term?.order?.orderId : term?.order?.applicationId}
                       </td>
-                      <td className={`${styles.buyerName}`} onClick={() => handleRoute(term,index)} >{term?.order?.commodity}</td>
+                      <td className={`${styles.buyerName}`} onClick={() => handleRoute(term, index)} >{term?.order?.commodity}</td>
 
                       <td>{term?.createdBy?.userRole ? term?.createdBy?.userRole : "RM"} </td>
-                      <td>{moment((term?.order?.createdAt).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</td>
+                      <td>{term?.order?.existingCustomer ? moment((term?.order?.createdAt).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY") : moment((term?.order?.cam?.approvedAt).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</td>
                       <td>
                         <span
                           className={`${styles.status} ${term?.order?.queue === 'Rejected' ? styles.rejected : term?.order?.queue === 'ReviewQueue'
@@ -255,12 +272,27 @@ dispatch(setDynamicName(_get(
                               : styles.rejected
                             }`}
                         ></span>
-
-                        {term?.order?.queue === 'Rejected' ? 'Rejected' : term?.order?.queue === 'ReviewQueue'
+                        {term?.status}
+                        {/* {term?.order?.queue === 'Rejected' ? 'Rejected' : term?.order?.queue === 'ReviewQueue'
                           ? 'Review'
                           : term?.order?.queue === 'CreditQueue'
                             ? 'Approved'
-                            : 'Rejected'}
+                            : 'Rejected'} */}
+                      </td>
+                      <td>
+                        {term.status === 'Approved' ? <img
+                          src="/static/preview.svg"
+                          className="img-fluid"
+                          alt="Preview"
+                          onClick={() => {
+                            dispatch(GetTermsheet(`?company=${term.company._id}`))
+                            console.log(term.order, "term.order")
+                            dispatch(setDynamicName(term.order.orderId))
+                            // dispatch(setDynamicOrder(term))
+                            Router.push("/termsheet-preview")
+                          }}
+
+                        /> : null}
                       </td>
                     </tr>
                   </tbody>))}

@@ -435,7 +435,7 @@ const cancelAddress=()=>{
                     handleInput(e.target.name, e.target.value)
                   }}
                 >
-                 <option>Select an option</option>
+                  <option>Select an option</option>
                   <option selected value={props?.order?.company?.companyName}>{props?.order?.company?.companyName}</option>
                 </select>
                 <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -962,7 +962,7 @@ const cancelAddress=()=>{
                     )}
                       </td>
                       </td>
-                      <td className={`d-flex`}>
+                      <td>
                         {/* <img  className={`mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
                         <img  src="/static/upload.svg" alt="upload"/>
                       </td>
@@ -1004,8 +1004,7 @@ const cancelAddress=()=>{
                       </div>
                     )}
                       </td>
-                      <td className={`d-flex`}>
-                        
+                      <td>                        
                         <img src="/static/upload.svg" alt="upload"/>
                       </td>
 

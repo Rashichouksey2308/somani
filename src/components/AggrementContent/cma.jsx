@@ -7,12 +7,7 @@ let cma = {
   "name": "",
   "shortName": "",
   "gstin": "",
-  "addresses": [
-
-  ],
-  "authorisedSignatoryDetails": [
-
-  ],
+ 
 
 
 
@@ -32,6 +27,7 @@ function Index(props) {
           "city": ""
       }
   )
+  console.log(list,addressList,"addressList")
   const [EditAddress,setEditAddress]=useState(
           {
           "addressType": "",
@@ -133,7 +129,7 @@ const cancelAddress=()=>{
 
 
 
-  }, [props])
+  }, [props.saveData,props.submitData])
   const removeDoc=(index)=>{
     console.log("removeDOc")
      setDocList(prevState => {
@@ -424,11 +420,13 @@ setEditAddress(
             <Form.Group className={`${styles.form_group} col-md-8 col-sm-6`}>
               <div className='d-flex'>
                 <select
+                  name="name"
                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                   value={cmaState.name}
                   onChange={(e) => {
                     handleInput(e.target.name, e.target.value)
                   }}
+                  
                 >
                  <option>Select an option</option>
                   <option value="Dr. Amin">Dr. Amin</option>
@@ -452,6 +450,7 @@ setEditAddress(
                 required
                 type="text"
                 value={cmaState.shortName}
+                 name="shortName"
                 onChange={(e) => {
                   handleInput(e.target.name, e.target.value)
                 }}
@@ -468,6 +467,7 @@ setEditAddress(
                   onChange={(e) => {
                     handleInput(e.target.name, e.target.value)
                   }}
+                   name="gstin"
                 >
                    <option>Select an option</option>
                   <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
@@ -947,7 +947,7 @@ setEditAddress(
                     )}
                       </td>
                       </td>
-                      <td className={`d-flex`}>
+                      <td>
                         {/* <img  className={`mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
                         <img  src="/static/upload.svg" alt="upload"/>
                       </td>
@@ -989,7 +989,7 @@ setEditAddress(
                       </div>
                     )}
                       </td>
-                      <td className={`d-flex`}>
+                      <td>
                         {/* <img onClick={()=>removeDocArr(index)} className={`mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
                         <img src="/static/upload.svg" alt="upload"/>
                       </td>

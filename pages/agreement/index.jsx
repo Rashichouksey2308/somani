@@ -18,23 +18,20 @@ import { Form } from 'react-bootstrap'
 import AssignmentLetter from '../../src/components/AssignmentLetter'
 
 function Index() {
-  const [preview, setPreview] = useState(false)
-  const [darkMode, setDarkMode] = useState(false)
-  useEffect(() => {
-    if (
-      localStorage.getItem('darkMode') == 'true' ||
-      localStorage.getItem('darkMode') == true
-    ) {
-      // console.log("this")
-      setDarkMode(true)
-    } else {
-      // console.log("this2")
-      setDarkMode(false)
+  const [preview,setPreview]=useState(false)
+
+
+ const setPreviewValue=(val)=>{
+  setPreview(val)
+ }
+ const [name,setName]=useState("")
+ useEffect(() => {
+    if (window) {
+      const data = JSON.parse(sessionStorage.getItem("genericSelected"))
+        setName(data.company.companyName)
+      
     }
   }, [])
-  const setPreviewValue = (val) => {
-    setPreview(val)
-  }
   return (
     <div className={`${styles.dashboardTab} w-100`}>
       <div className={`${styles.tabHeader} tabHeader `}>
@@ -46,7 +43,7 @@ function Index() {
             src="/static/keyboard_arrow_right-3.svg"
             alt="arrow"
           />
-          <h1 className={`${styles.title} heading`}>Ramakrishna Traders</h1>
+          <h1 className={`${styles.title} heading `}>{name}</h1>
           <div className={'ml-auto d-flex'}>
             <div className="ml-auto mr-2">
               <button
