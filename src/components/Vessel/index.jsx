@@ -150,7 +150,15 @@ function Index({
 
                         {list[index].shipmentType === 'Bulk' ? (
                           <>
-                            {index > 1 ? (
+                          <button
+                                className={styles.add_btn}
+                                onClick={(e) => {
+                                  onAddVessel()
+                                }}
+                              >
+                                Add
+                            </button>
+                            {index > 0 ? (
                               <button
                                 className={styles.add_btn}
                                 onClick={(e) => {
@@ -160,14 +168,7 @@ function Index({
                                 Delete
                               </button>
                             ) : (
-                              <button
-                                className={styles.add_btn}
-                                onClick={(e) => {
-                                  onAddVessel()
-                                }}
-                              >
-                                Add
-                              </button>
+                              null
                             )}
                           </>
                         ) : null}
@@ -744,7 +745,13 @@ function Index({
                                 <h3 className={styles.sub_heading}>
                                   Vessel Information
                                 </h3>
-                                {index > 1 ? (
+                                <button
+                                    onClick={() => OnAddvesselInformation()}
+                                    className={styles.add_btn}
+                                  >
+                                    Add
+                                  </button>
+                                {index > 0 ? (
                                   <button
                                     onClick={() =>
                                       OnAddvesselInformationDelete(index)
@@ -754,12 +761,7 @@ function Index({
                                     Delete
                                   </button>
                                 ) : (
-                                  <button
-                                    onClick={() => OnAddvesselInformation()}
-                                    className={styles.add_btn}
-                                  >
-                                    Add
-                                  </button>
+                                  null
                                 )}
                               </div>
                               <div className="row">

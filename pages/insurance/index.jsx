@@ -37,6 +37,7 @@ function Index() {
   }
 
   const changeRoute = (insured) => {
+    console.log(insured,"insured")
     sessionStorage.setItem('quotationId', insured._id)
     dispatch(GettingAllInsurance(`?insuranceId=${insured?._id}`))
 
@@ -45,6 +46,7 @@ function Index() {
 
   const handleEditRoute = (insured) => {
     console.log("asdas",d,insured)
+    sessionStorage.setItem('quotationId', insured._id)
     if (insured?.marineInsurance?.insuranceTo < d) {
       Router.push('/insurance-renew/id')
     } else if (insured?.quotationRequest?.quotationRequestSubmitted === true) {
