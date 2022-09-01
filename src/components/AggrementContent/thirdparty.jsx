@@ -40,7 +40,7 @@ console.log(data,deliveryData,"deliveryData")
 props.updateData("Delivery Terms",data)
 
 }
-},[props])
+},[props.saveData,props.submitData])
 const handleInput=(name,value,key)=>{
 
 console.log(value,"diler")

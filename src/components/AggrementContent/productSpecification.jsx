@@ -32,7 +32,7 @@ if (props.submitData == true && props.active == 'Product Specifications') {
 }
 
 // setSupplierState({...supplierState,multiParty:props.multiPart})
-}, [props])
+}, [props.saveData,props.submitData])
 const onAddressRemove = (index) => {
 setAddressList([
   ...addressList.slice(0, index),

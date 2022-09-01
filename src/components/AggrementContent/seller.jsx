@@ -66,7 +66,11 @@ function Index(props) {
         savedData.addresses.forEach(val=>{
           temp.push(val)
         })
-        temp.push({
+        temp.forEach(val=>{
+          if(val.fullAddress=="Industriestrasse 16" && val.pinCode=="6300"){
+              
+          }else{
+             temp.push({
               "addressType": "Registered",
               "fullAddress": "Industriestrasse 16",
               "pinCode": "6300",
@@ -75,6 +79,9 @@ function Index(props) {
               "state": "",
               "city": "Zug"
           })
+          }
+        })
+       
         setAddressList(temp)
         setList(savedData.authorisedSignatoryDetails)
 
@@ -122,7 +129,7 @@ function Index(props) {
         setBuyerData(buyer)
       }
     }
-  }, [])
+  }, [props])
 let masterList=[
 {name:"Bhawana Jain",designation:"Vice President (Finance & Accounts)",email:"bhawanajain@somanigroup.com",phoneNo:""},
 {name:"Vipin Kumar",designation:"Manager Accounts",email:"vipinrajput@somanigroup.com",phoneNo:""},
@@ -150,7 +157,7 @@ let masterList=[
       props.updateData("Seller", data)
 
     }
-  }, [props])
+  }, [props.saveData,props.submitData])
   const onEdit = (index) => {
     let tempArr = list;
     // tempArr[index].actions.edit="false"

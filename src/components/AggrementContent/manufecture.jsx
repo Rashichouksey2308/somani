@@ -177,7 +177,7 @@ useEffect(() => {
     }
    
    }
-  },[props])
+  },[props.saveData,props.submitData])
   console.log(props,"props")
   const onEdit=(index)=>{
     let tempArr=list;
