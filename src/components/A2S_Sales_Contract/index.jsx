@@ -7,7 +7,7 @@ import moment from 'moment'
 
 
 function Index(props) {
-  console.log(props.preview,"55")
+  console.log(props,"55")
   const [data, setData] = useState({
     seller: "",
     buyer: "",
@@ -43,7 +43,7 @@ function Index(props) {
       
         setData({
           seller: data?.seller,
-          buyer: data?.buyer,
+          buyer: data?.buyer?.toLowerCase(),
           shortseller: data?.shortseller,
           shortbuyer: data?.shortbuyer,
           sellerSignature: data?.sellerSignature,
@@ -70,21 +70,26 @@ function Index(props) {
       } else {
         const data = JSON.parse(sessionStorage.getItem("genericSelected"))
         let exe;
+        let dat=new Date();
         data?.placeOfExecution?.execution?.forEach((val, index) => {
           if (val.agreementName == "Sales Agreement") {
             exe = val.place
+            if(val.dateOfExecution){
+              dat=moment(val.dateOfExecution).format("DD-MM-YYYY")
+            }
           }
         })
-
+       
+        console.log(data,"datasallelll")
 
         setData({
           seller: data?.seller?.name,
-          buyer: "Indo German International",
+          buyer: data?.buyer?.name,
           shortseller: data?.seller.shortName,
-          shortbuyer: "IGI",
+          shortbuyer:  data?.buyer?.shotName,
           sellerSignature: "",
           buyerSignature: "",
-          dateOfExecution: "",
+          dateOfExecution: dat,
           placeOfExecution: exe,
           details: data?.supplier?.name,
           detailsOfEndBuyer: "",
@@ -95,7 +100,7 @@ function Index(props) {
           lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
           dischargePort: data?.order?.portOfDischarge,
           lastDate: data?.order?.ExpectedDateOfShipment,
-          terms: data?.order?.deliveryTerm,
+          terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed=="Yes"?"Full":"Partial"}`,
           addComm: data?.additionalComments?.comments,
           spec: data?.productSpecifications?.comments,
           unitOfGrade:data.order.unitOfGrade,
@@ -185,9 +190,9 @@ const salesContract = (changeHandler, data, preview) => {
           <Row className={`${styles.row}`}>
             <Col md={1} className={styles.left}>2</Col>
             <Col md={4} className={styles.left}>Buyer</Col>
-            <Col md={7} className={styles.right}>
+            <Col md={7} className={styles.right} style={{textTransform:"capitalize"}}>
              
-                <>{data?.buyer}</>
+                <>{data?.buyer.toLowerCase()}</>
               
             </Col>
           </Row>
@@ -533,7 +538,7 @@ const salesContract = (changeHandler, data, preview) => {
         <div className={`${styles.inputsContainer}`}>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Date of Execution</Col>
-            <Col md={7} className={styles.right}>{moment(new Date()).format("DD-MM-YYYY")}</Col>
+            <Col md={7} className={styles.right}>{moment(data.dateOfExecution).format("DD-MM-YYYY")}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Place of Execution</Col>

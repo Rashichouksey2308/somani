@@ -952,7 +952,7 @@ console.log(associateData,"associateData")
                     )}
                       </td>
                       </td>
-                      <td className={`d-flex`}>
+                      <td>
                         {/* <img  className={`mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
                         <img  src="/static/upload.svg" alt="upload"/>
                       </td>
@@ -995,7 +995,7 @@ console.log(associateData,"associateData")
                       </div>
                     )}
                       </td>
-                      <td className={`d-flex`}>
+                      <td>
                         {/* <img onClick={()=>removeDocArr(index)} className={`mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
                         <img src="/static/upload.svg" alt="upload"/>
                       </td>
