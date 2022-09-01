@@ -11,6 +11,7 @@ import {
 } from '../../../../src/redux/insurance/action'
 import _get from 'lodash/get'
 import Router from 'next/router'
+import { toast } from 'react-toastify'
 
 const Index = () => {
   const [insuranceType, setInsuranceType] = useState('Marine')
@@ -23,8 +24,12 @@ const Index = () => {
   }, [dispatch])
 
   const { insuranceResponse } = useSelector((state) => state.insurance)
+  console.log(insuranceResponse,"insuranceResponse")
+ const [insuranceData,setInsuranceData]=useState()
+  useEffect(() => {
+    setInsuranceData(_get(insuranceResponse, 'data[0]', {}))
 
-  let insuranceData = _get(insuranceResponse, 'data[0]', {})
+  },[insuranceResponse])
 
   const [marineData, setMarineData] = useState({
     policyNumber: '',
@@ -102,8 +107,19 @@ const Index = () => {
     setIsInsurerSameData(true)
     setStorageData(marineData)
   }
-
+const validate=()=>{
+   let toastMessage = ""
+    if (insuranceDocument.marinePolicyDocument == "" || marineData == undefined) {
+      toastMessage = 'Please Select Insurance Type'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
+      }
+    }
+}
+console.log(insuranceData,"insuranceData")
   const handleInsuranceUpdate = () => {
+    if(validate()){
     let fd = new FormData()
     fd.append('marineInsurance', JSON.stringify(marineData))
     fd.append('storageInsurance', JSON.stringify(storageData))
@@ -116,6 +132,7 @@ const Index = () => {
     fd.append('storagePolicyDocument', insuranceDocument.storagePolicyDocument)
 
     dispatch(UpdateInsurance(fd))
+    }
   }
 
   const handleRoute = () => {
@@ -312,7 +329,7 @@ const Index = () => {
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              GST of Insurer
+                              GSTN of Insurer
                             </label>
                             <img
                               className={`${styles.checked_image} img-fluid`}
@@ -352,7 +369,7 @@ const Index = () => {
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            GST of Insured
+                            GSTN of Insured
                             <strong className="text-danger">*</strong>
                           </label>
                         </Col>
@@ -586,7 +603,7 @@ const Index = () => {
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              GST of Insurer
+                              GSTN of Insurer
                             </label>
                             <img
                               className={`${styles.checked_image} img-fluid`}
@@ -626,7 +643,7 @@ const Index = () => {
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            GST of Insured
+                            GSTN of Insured
                             <strong className="text-danger">*</strong>
                           </label>
                         </Col>
@@ -853,7 +870,7 @@ const Index = () => {
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              GST of Insurer
+                              GSTN of Insurer
                             </label>
                             <img
                               className={`${styles.checked_image} img-fluid`}
@@ -893,7 +910,7 @@ const Index = () => {
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            GST of Insured
+                            GSTN of Insured
                             <strong className="text-danger">*</strong>
                           </label>
                         </Col>
@@ -1173,7 +1190,7 @@ const Index = () => {
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            GST of Insured
+                            GSTN of Insured
                             <strong className="text-danger">*</strong>
                           </label>
                         </Col>
