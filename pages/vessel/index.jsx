@@ -45,7 +45,7 @@ export default function Home() {
     dispatch(setDynamicOrder(_get(data, 'data[0].order.orderId', 'Order Id')))
 
   }
-
+  console.log("test")
   const [list, setList] = useState([])
   const [containerExcel, setContainerExcel] = useState(null)
   const [vesselCertificate, setVesselCertificate] = useState({})

@@ -44,7 +44,8 @@ function Index() {
   }
 
   const handleEditRoute = (insured) => {
-    if (insured?.marineInsurance?.insuranceTo?.toDate() < d) {
+    console.log("asdas",d,insured)
+    if (insured?.marineInsurance?.insuranceTo < d) {
       Router.push('/insurance-renew/id')
     } else if (insured?.quotationRequest?.quotationRequestSubmitted === true) {
       Router.push('/insurance/form/both')

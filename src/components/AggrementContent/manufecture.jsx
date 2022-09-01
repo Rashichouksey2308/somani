@@ -5,7 +5,7 @@ import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import { add } from 'lodash'
 let supplier={
-       "name": "",
+        "name": "",
         "shortName": "",
         "bankDetails": {
             "bankName": "",
@@ -100,9 +100,9 @@ useEffect(() => {
   let tempArr3=supplierState?.multiPartyAddresses
   setMultiList(tempArr3)
   setSupplierState({...supplierState,name:props?.order?.supplierName})
-},[])
+},[props])
  
-
+console.log(props?.order?.supplierName,"props?.order?.supplierName")
 
   useEffect(() => {
     if(props.saveData==true && props.active=="Supplier"){
@@ -126,7 +126,7 @@ useEffect(() => {
 
  
     setSupplierState({...supplierState,multiParty:props.multiPart})
-  },[props])
+  },[props.saveData,props.submitData])
    useEffect(() => {
    if(window){
     
@@ -156,7 +156,7 @@ useEffect(() => {
        setSupplierState(supplier)
     }else{
        let supplier={
-       "name": props?.order?.supplierName,
+       "name": props?.order?.supplierName || props.order?.supplierName,
         "shortName": props.data?.shortName,
         "bankDetails": {
             "bankName": props.data?.bankDetails?.bankName,
@@ -177,7 +177,7 @@ useEffect(() => {
     }
    
    }
-  },[props.saveData,props.submitData])
+  },[props])
   console.log(props,"props")
   const onEdit=(index)=>{
     let tempArr=list;
