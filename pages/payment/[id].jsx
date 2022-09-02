@@ -105,6 +105,7 @@ function Index() {
   }
   console.log(lifting)
   const handleLiftingSubmit = () => {
+    
     let tempArr = []
     let temp2 = []
     lifting.forEach((val, index) => {
