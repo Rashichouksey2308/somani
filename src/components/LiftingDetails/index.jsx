@@ -550,7 +550,7 @@ export default function Index(props) {
             <UploadOther orderid={orderid} module="PaymentsInvoicing&Delivery" />
           </div>
         </div>
-        <SaveBar rightBtn="Submit" handleSave={props.handleLiftingSubmit} />
+        <SaveBar rightBtn="Submit" handleSave={props.handleLiftingSubmit} rightBtnClick={props.handleLiftingSubmit} />
 
         {/* </div> */}
       </div>
