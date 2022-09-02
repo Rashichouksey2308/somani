@@ -53,7 +53,7 @@ const getDate = async () =>{
    
     sessionStorage.setItem('genericSelected', JSON.stringify(term))
     Router.push("/agreement")
-     dispatch(setDynamicName(term))
+    dispatch(setDynamicName(term))
     // Router.push('/lc-module')
   }
 

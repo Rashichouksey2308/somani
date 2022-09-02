@@ -100,15 +100,15 @@ function Index(props) {
           lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
           dischargePort: data?.order?.portOfDischarge,
 
-          lastDate: data?.order.shipmentDetail.lastDateOfShipment,
+          lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
 
           terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed=="Yes"?"Full":"Partial"}`,
           addComm: data?.additionalComments?.comments,
           spec: data?.productSpecifications?.comments,
-          unitOfGrade:data.order.unitOfGrade,
-          unitOfQuantity:data.order.unitOfQuantity,
-          unitOfValue:data.order.unitOfValue,
-          curr:data.order.orderCurrency
+          unitOfGrade:data?.order?.unitOfGrade,
+          unitOfQuantity:data?.order?.unitOfQuantity,
+          unitOfValue:data?.order?.unitOfValue,
+          curr:data?.order?.orderCurrency
         })
       }
     }
@@ -523,7 +523,7 @@ const salesContract = (changeHandler, data, preview) => {
             <Col md={4} className={styles.left}>Buyer</Col>
             <Col md={7} className={styles.right} style={{textTransform:"capitalize"}}>
              
-                <>{data?.buyer.toLowerCase()}</>
+                <>{data?.buyer?.toLowerCase()}</>
               
             </Col>
           </Row>

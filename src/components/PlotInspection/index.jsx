@@ -47,7 +47,8 @@ export default function Index({ inspectionData }) {
     })
   }
 
-  const handleSave = () => {
+  const handleSubmit = () => {
+    console.log('payload Third party1')
     if (plotInspectionData.plotInspectionDate == '') {
       let toastMessage = 'PLOT INSPECTION DATE IS MANDATORY'
       if (!toast.isActive(toastMessage)) {
@@ -58,12 +59,33 @@ export default function Index({ inspectionData }) {
         plotInspectionDate: plotInspectionData?.plotInspectionDate
       }
       let fd = new FormData()
-      fd.append('plotInspection', JSON.stringify(obj) )
+      fd.append('plotInspection', JSON.stringify(obj))
       fd.append('plotInspectionReport', plotInspectionData.plotInspectionReport)
       fd.append('inspectionId', inspectionData?._id)
+      let task = 'submit'
 
-      dispatch(UpdateInspection(fd))
+      console.log('payload Third party2', 'Payload')
+
+      dispatch(UpdateInspection({fd, task}))
     }
+  }
+
+  const handleSave = () => {
+
+    let obj = {
+      plotInspectionDate: plotInspectionData?.plotInspectionDate
+    }
+    let fd = new FormData()
+    fd.append('plotInspection', JSON.stringify(obj))
+    fd.append('plotInspectionReport', plotInspectionData.plotInspectionReport)
+    fd.append('inspectionId', inspectionData?._id)
+
+    let task = 'save'
+
+    console.log('payload Third party2', 'Payload')
+
+    dispatch(UpdateInspection({fd, task}))
+
   }
 
   return (
@@ -230,7 +252,7 @@ export default function Index({ inspectionData }) {
                             </td> */}
                               <td>
                                 {plotInspectionData?.plotInspectionReport ==
-                                null ? (
+                                  null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
@@ -281,7 +303,7 @@ export default function Index({ inspectionData }) {
             orderid={orderid} module="Loading-Transit-Unloading"
           /> */}
         </div>
-        <SaveBar handleSave={handleSave} rightBtn="Submit" />
+        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />
       </div>
     </>
   )
