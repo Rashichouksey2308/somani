@@ -49,6 +49,7 @@ console.log(lcModule,"lcModule")
               className={`${styles.arrow} image_arrow img-fluid mr-2`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
+              onClick={() => Router.push('/letter-table')}
             />
             <h1 className={styles.heading}>Letter of Credit </h1>
           </div>

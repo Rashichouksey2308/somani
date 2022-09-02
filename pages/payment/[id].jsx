@@ -8,6 +8,7 @@ import DeliveryOrder from '../../src/components/DeliveryOrder'
 import DeliveryPreview from '../../src/components/DeliveryPreview'
 import LiftingDetails from '../../src/components/LiftingDetails'
 import { useDispatch, useSelector } from 'react-redux'
+import Router from 'next/router'
 import {
   GetAllDelivery,
   GetDelivery,
@@ -302,6 +303,8 @@ function Index() {
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow right"
               className="img-fluid mr-2 image_arrow"
+              onClick={() => Router.push('/payment')}
+
             />
             <h1 className={`${styles.title} heading`}>
               <span>

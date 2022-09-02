@@ -11,6 +11,8 @@ import { UpdateTransitDetails, GetTransitDetails } from '../../src/redux/Transit
 import { useDispatch, useSelector } from 'react-redux'
 import LetterIndermity from '../../src/components/LetterIndermity'
 import Cookies from 'js-cookie'
+import Router from 'next/router'
+
 
 //api
 import Axios from 'axios'
@@ -106,6 +108,9 @@ function Index() {
               className={`${styles.arrow} mr-2 image_arrow img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
+              onClick={() => Router.push('/transit')}
+
+
             />
             <h1 className={`${styles.title} heading`}>
               <span>{_get(TransitDetails, "data[0].company.companyName", 'Company Name')}</span>
