@@ -120,7 +120,7 @@ export default function Index(props) {
                                       {option.orderNumber}
                                     </option>
                                   ))}
-                                  <option value="n/a">N/A</option>
+                                  <option value="Not Available">Not Available</option>
                                 </select>
                                 <label
                                   className={`${styles.label_heading} label_heading`}
