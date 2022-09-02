@@ -105,10 +105,10 @@ export default function Index({
   // console.log(bolList, existingBlData, 'existingBlData')
 
   useEffect(() => {
-    if(_get(TransitDetails, `data[0].BL.billOfLanding`, []).length > 0){
+    if (_get(TransitDetails, `data[0].BL.billOfLanding`, []).length > 0) {
       setBolList(_get(TransitDetails, `data[0].BL.billOfLanding`, []))
     }
-    
+
   }, [TransitDetails])
 
   const partShipmentAllowed = _get(
@@ -222,6 +222,12 @@ export default function Index({
       filteredVessel,
       'transitDetails.ETAatDischargePort',
       null,
+    )
+
+    newArray[index].containerDetails.numberOfContainers = _get(
+      filteredVessel,
+      'shippingInformation.numberOfContainers',
+      '',
     )
 
     setBolList(newArray)
@@ -765,8 +771,8 @@ export default function Index({
                           <div className="d-flex">
                             {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                             <DatePicker
-                              
-                              selected={startBlDate?moment(startBlDate).toDate():""}
+
+                              selected={startBlDate ? moment(startBlDate).toDate() : ""}
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startBlDate) => {
@@ -906,13 +912,14 @@ export default function Index({
                             <strong className="text-danger">*</strong>
                           </h5>
                           <div className="row mt-n4">
-                            <div
+                            {!bol?.containerDetails?.containerDoc === null ? <div
                               className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                             >
                               <input
-                                onChange={(e) =>
-                                  onChangeContainerDetailsHandler(e, index)
-                                }
+                                disabled
+                                // onChange={(e) =>
+                                // onChangeContainerDetailsHandler(e, index)
+                                // }
                                 value={
                                   bol?.containerDetails?.numberOfContainers
                                 }
@@ -930,7 +937,7 @@ export default function Index({
                                 Number of Containers
                                 <strong className="text-danger">*</strong>
                               </label>
-                            </div>
+                            </div> : null}
                             <div
                               className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                             >

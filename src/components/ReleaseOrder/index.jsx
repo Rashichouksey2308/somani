@@ -194,6 +194,15 @@ export default function Index({ ReleaseOrderData }) {
     let orderNo = index + 1
     return orderNo
   }
+
+  const uplaodDoc = async (e, index) => {
+    console.log(e, index, 'UploadDocRealeseORder')
+    let name = e.target.id
+    let doc = await uploadDoc(e)
+    handlereleaseDetailChange(name, value, index)
+  }
+
+
   const handleCloseO = () => {
     setDocuments((doc) => {
       return { ...doc, certificateOfOrigin: null }
@@ -288,12 +297,14 @@ export default function Index({ ReleaseOrderData }) {
                 className={`${styles.dashboard_form} border_color card-body`}
                 style={{ borderTop: '2px solid #CAD6E6' }}
               >
+                
                 <div className={`${styles.form_heading} mt-2`}>
                   Release Order Details
                 </div>
                 <div className={styles.table_scroll_outer}>
                   <div className={styles.table_scroll_inner}>
                     {releaseDetail.map((item, index) => (
+
                       <div key={index} className="row mb-3 ml-lg-auto">
                         <div
                           className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
@@ -332,7 +343,7 @@ export default function Index({ ReleaseOrderData }) {
                             onChange={(e) => netQuantityChange(e, index)}
                             id="netQuantityReleased"
                             className={`${styles.input_field} input form-control`}
-                            type="text"
+                            type="number"
                             onKeyDown={(evt) =>
                               evt.key === 'e' && evt.preventDefault()
                             }
@@ -348,19 +359,18 @@ export default function Index({ ReleaseOrderData }) {
                           className="col-lg-3 col-md-4 col-sm-6 text-center"
                           style={{ top: '40px' }}
                         >
-                          {true ? (
+                          {item?.document === null ? (
                             <>
-                              <div className="d-flex">
+
+                              <div className='d-flex'>
                                 <div className={styles.uploadBtnWrapper}>
                                   <input
-                                    type="file"
+                                    id='document'
                                     name="myfile"
                                     accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                    onChange={(e) => uploadDocument1(e)}
+                                    onChange={(e) => uplaodDoc(e)}
                                   />
-                                  <button
-                                    className={`${styles.button_upload} btn`}
-                                  >
+                                  <button className={`${styles.button_upload} btn`}>
                                     Upload
                                   </button>
                                 </div>
@@ -453,6 +463,7 @@ export default function Index({ ReleaseOrderData }) {
                       )} */}
                         </div>
                       </div>
+
                     ))}
                   </div>
                 </div>
