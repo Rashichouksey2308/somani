@@ -4,6 +4,7 @@ import { Row, Col } from "react-bootstrap"
 import GrowInput from '../GrowInput'
 import Router from 'next/router'
 import moment from 'moment'
+import {CovertvaluefromtoCR} from '../../utils/helper'
 
 
 function Index(props) {
@@ -453,7 +454,7 @@ function Index(props) {
         </tr>
       </table> */}
       <div className={`${styles.content} card`}>
-        {salesContract(changeHandler, data, props.preview)}
+        {salesContract(changeHandler, data, props.preview,CovertvaluefromtoCR)}
         {
           !props.preview ?
             <>
@@ -484,7 +485,7 @@ function Index(props) {
 }
 
 export default Index
-const salesContract = (changeHandler, data, preview) => {
+const salesContract = (changeHandler, data, preview,CovertvaluefromtoCR) => {
   console.log(data, "data2342")
   return (
     <>
@@ -897,7 +898,7 @@ const salesContract = (changeHandler, data, preview) => {
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Total Order Value</Col>
-            <Col md={7} className={styles.right}>{data.totalOrderValue} {data.unitOfValue}</Col>
+            <Col md={7} className={styles.right}>{CovertvaluefromtoCR(data.totalOrderValue)} {data.unitOfValue=="Crores"?"Cr":data.unitOfValue}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Load Port</Col>

@@ -22,11 +22,12 @@ export default function Index({ addButton, inspectionData }) {
 
   const [editInput, setEditInput] = useState(true)
   const [bothField, setBothField] = useState(false)
+  const [haveDoc,sethaveDoc]=useState(false)
   const [portType, setPortType] = useState({
     loadPortInspection: false,
     dischargePortInspection: false,
   })
-  console.log(inspectionData, "inspectionData")
+  console.log(portType, "inspectionData")
   const handlePortType = (name, value) => {
     let newInput = { ...portType }
     newInput[name] = !value
@@ -134,18 +135,32 @@ export default function Index({ addButton, inspectionData }) {
     certificateOfOrigin:
       inspectionData?.thirdPartyInspection?.certificateOfOrigin || null,
   })
-
+   console.log("sethave",documents)
+useEffect((
+ 
+) => {
+   
+ 
+   if(documents.certificateOfQuality==null && documents.certificateOfWeight==null && documents.certificateOfOrigin==null){
+    
+     sethaveDoc(false)
+  }
+},[
+  documents.certificateOfQuality,documents.certificateOfWeight, documents.certificateOfOrigin
+])
   const uploadDocument1 = (e) => {
     const newUploadDoc = { ...documents }
     newUploadDoc.certificateOfQuality = e.target.files[0]
-
-    setDocuments(newUploadDoc)
+   
+    setDocuments({newUploadDoc})
+    sethaveDoc(true)
   }
   const uploadDocument2 = (e) => {
     const newUploadDoc1 = { ...documents }
     newUploadDoc1.certificateOfWeight = e.target.files[0]
-
+ 
     setDocuments(newUploadDoc1)
+    sethaveDoc(true)
   }
 
   const uploadDocument3 = (e) => {
@@ -153,22 +168,17 @@ export default function Index({ addButton, inspectionData }) {
     newUploadDoc1.certificateOfOrigin = e.target.files[0]
 
     setDocuments(newUploadDoc1)
+     sethaveDoc(true)
   }
 
   const handleCloseW = () => {
-    setDocuments((doc) => {
-      return { ...doc, certificateOfWeight: null }
-    })
+    setDocuments({ ...documents, certificateOfWeight: null })
   }
   const handleCloseQ = () => {
-    setDocuments((doc) => {
-      return { ...doc, certificateOfQuality: null }
-    })
+    setDocuments({ ...documents, certificateOfQuality: null })
   }
   const handleCloseO = () => {
-    setDocuments((doc) => {
-      return { ...doc, certificateOfOrigin: null }
-    })
+    setDocuments({ ...documents, certificateOfOrigin: null })
   }
 
   const saveInspectionDetails = (name, value) => {
@@ -214,8 +224,127 @@ export default function Index({ addButton, inspectionData }) {
     }
   }
 
-  const handleSave = () => {
-    //console.log("SAvee", inspectionData?.order?.shipmentDetail?.shipmentType)
+   const handleSave = () => {
+    console.log("dsaasdad",haveDoc)
+    if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Liner') {
+      if (
+        portType.loadPortInspection == true &&
+        portType.dischargePortInspection == false
+      ) {
+        
+      
+          let fd = new FormData()
+          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
+          fd.append('loadPortInspection', portType.loadPortInspection)
+          fd.append('inspectionId', inspectionData?._id)
+          fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+          fd.append('certificateOfQuality', documents.certificateOfQuality)
+          fd.append('certificateOfWeight', documents.certificateOfWeight)
+
+          let task = 'save'
+
+          dispatch(UpdateInspection({fd, task}))
+        
+      } else if (
+        portType.dischargePortInspection == true &&
+        portType.loadPortInspection == false
+      ) {
+        if (
+          inspectionDetails?.dischargePortInspectionDetails
+            ?.numberOfContainer === ''
+        ) {
+          let toastMessage = 'NUMBER OF CONTAINERS CANNOT BE EMPTY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } 
+          let fd = new FormData()
+          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
+          fd.append('dischargePortInspection', portType.dischargePortInspection)
+          fd.append('inspectionId', inspectionData?._id)
+          fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+          fd.append('certificateOfQuality', documents.certificateOfQuality)
+          fd.append('certificateOfWeight', documents.certificateOfWeight)
+
+          let task = 'save'
+
+          dispatch(UpdateInspection({fd, task}))
+       
+      } else {
+        
+          let fd = new FormData()
+          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
+          fd.append('dischargePortInspection', portType.dischargePortInspection)
+          fd.append('loadPortInspection', portType.loadPortInspection)
+          fd.append('inspectionId', inspectionData?._id)
+          fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+          fd.append('certificateOfQuality', documents.certificateOfQuality)
+          fd.append('certificateOfWeight', documents.certificateOfWeight)
+
+          let task = 'save'
+
+          dispatch(UpdateInspection({fd, task}))
+        
+      }
+    } 
+    if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk') {
+      
+      if (
+        portType.loadPortInspection == true &&
+        portType.dischargePortInspection == false
+      ) {
+        
+          let fd = new FormData()
+          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
+          fd.append('loadPortInspection', portType.loadPortInspection)
+          fd.append('inspectionId', inspectionData?._id)
+          fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+          fd.append('certificateOfQuality', documents.certificateOfQuality)
+          fd.append('certificateOfWeight', documents.certificateOfWeight)
+
+          let task = 'save'
+
+          dispatch(UpdateInspection({fd, task}))
+        
+      } else if (
+        portType.dischargePortInspection == true &&
+        portType.loadPortInspection == false
+      ) {
+       
+          let fd = new FormData()
+          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
+          fd.append('dischargePortInspection', portType.dischargePortInspection)
+          fd.append('inspectionId', inspectionData?._id)
+          fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+          fd.append('certificateOfQuality', documents.certificateOfQuality)
+          fd.append('certificateOfWeight', documents.certificateOfWeight)
+
+          let task = 'save'
+
+          dispatch(UpdateInspection({fd, task}))
+        
+      } else {
+        
+         
+          let fd = new FormData()
+          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
+          fd.append('dischargePortInspection', portType.dischargePortInspection)
+          fd.append('loadPortInspection', portType.loadPortInspection)
+          fd.append('inspectionId', inspectionData?._id)
+          fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+          fd.append('certificateOfQuality', documents.certificateOfQuality)
+          fd.append('certificateOfWeight', documents.certificateOfWeight)
+
+          let task = 'save'
+
+          dispatch(UpdateInspection({fd, task}))
+        
+      }
+    }
+  }
+  console.log(haveDoc,"sethaveDoc")
+   const handleSubmit = () => {
+    console.log("dsaasdad",haveDoc)
     if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Liner') {
       if (
         portType.loadPortInspection == true &&
@@ -250,9 +379,7 @@ export default function Index({ addButton, inspectionData }) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          documents.certificateOfOrigin == null ||
-          documents.certificateOfQuality == null ||
-          documents.certificateOfWeight == null
+            haveDoc==false
         ) {
           let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
           if (!toast.isActive(toastMessage)) {
@@ -306,9 +433,7 @@ export default function Index({ addButton, inspectionData }) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          documents.certificateOfOrigin == null ||
-          documents.certificateOfQuality == null ||
-          documents.certificateOfWeight == null
+            haveDoc==false
         ) {
           let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
           if (!toast.isActive(toastMessage)) {
@@ -357,9 +482,7 @@ export default function Index({ addButton, inspectionData }) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          documents.certificateOfOrigin == null ||
-          documents.certificateOfQuality == null ||
-          documents.certificateOfWeight == null
+            haveDoc==false
         ) {
           let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
           if (!toast.isActive(toastMessage)) {
@@ -396,9 +519,7 @@ export default function Index({ addButton, inspectionData }) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          documents.certificateOfOrigin == null ||
-          documents.certificateOfQuality == null ||
-          documents.certificateOfWeight == null
+            haveDoc==false
         ) {
           let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
           if (!toast.isActive(toastMessage)) {
@@ -419,7 +540,9 @@ export default function Index({ addButton, inspectionData }) {
           dispatch(UpdateInspection({fd, task}))
         }
       }
-    } else if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'BULK') {
+    } 
+    if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk') {
+      
       if (
         portType.loadPortInspection == true &&
         portType.dischargePortInspection == false
@@ -444,9 +567,7 @@ export default function Index({ addButton, inspectionData }) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          documents.certificateOfOrigin == null ||
-          documents.certificateOfQuality == null ||
-          documents.certificateOfWeight == null
+          haveDoc==false
         ) {
           let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
           if (!toast.isActive(toastMessage)) {
@@ -492,9 +613,7 @@ export default function Index({ addButton, inspectionData }) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          documents.certificateOfOrigin == null ||
-          documents.certificateOfQuality == null ||
-          documents.certificateOfWeight == null
+            haveDoc==false
         ) {
           let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
           if (!toast.isActive(toastMessage)) {
@@ -534,9 +653,7 @@ export default function Index({ addButton, inspectionData }) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          documents.certificateOfOrigin == null ||
-          documents.certificateOfQuality == null ||
-          documents.certificateOfWeight == null
+           haveDoc==false
         ) {
           let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
           if (!toast.isActive(toastMessage)) {
@@ -565,9 +682,7 @@ export default function Index({ addButton, inspectionData }) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          documents.certificateOfOrigin == null ||
-          documents.certificateOfQuality == null ||
-          documents.certificateOfWeight == null
+           haveDoc==false
         ) {
           let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
           if (!toast.isActive(toastMessage)) {
@@ -1577,7 +1692,7 @@ export default function Index({ addButton, inspectionData }) {
             <UploadOther orderid={orderid} module="Loading-Transit-Unloading" />
           </div>
         </div>
-        <SaveBar handleSave={handleSave} rightBtn="Submit" />
+        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />
       </div>
       <Modal
         show={show}

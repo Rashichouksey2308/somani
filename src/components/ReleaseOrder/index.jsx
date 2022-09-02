@@ -160,7 +160,7 @@ export default function Index({ ReleaseOrderData }) {
   }
   const netQuantityChange = (e, index) => {
     // console.log(netBalanceQuantity, e.target.value, "herere12e")
-    if (netBalanceQuantity <= e.target.value) {
+    if (netBalanceQuantity < e.target.value) {
       // let temp = Number(e.target.value)
       // if (e.target.value == "") {
       //   temp = 0
@@ -171,7 +171,18 @@ export default function Index({ ReleaseOrderData }) {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-    } else {
+    }
+    if (netBalanceQuantity > e.target.value) {
+      // let temp = Number(e.target.value)
+      // if (e.target.value == "") {
+      //   temp = 0
+      // }
+
+      const toastMessage =
+        'Net Quantity Realesed cannot be Greater than net bALance Quantity'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
     }
     handlereleaseDetailChange(e.target.id, e.target.value, index)
     // getData()
@@ -194,6 +205,14 @@ export default function Index({ ReleaseOrderData }) {
     let orderNo = index + 1
     return orderNo
   }
+
+  const uplaodDoc = async (e, index) => {
+    console.log(e, index, 'UploadDocRealeseORder')
+    let name = e.target.id
+    let doc = await uploadDoc(e)
+    handlereleaseDetailChange(name, value, index)
+  }
+
   const handleCloseO = () => {
     setDocuments((doc) => {
       return { ...doc, certificateOfOrigin: null }
@@ -252,7 +271,7 @@ export default function Index({ ReleaseOrderData }) {
                         ReleaseOrderData,
                         'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
                         '',
-                      )}
+                      ).toUpperCase()}
                     </span>
                   </div>
                   <div
@@ -332,7 +351,7 @@ export default function Index({ ReleaseOrderData }) {
                             onChange={(e) => netQuantityChange(e, index)}
                             id="netQuantityReleased"
                             className={`${styles.input_field} input form-control`}
-                            type="text"
+                            type="number"
                             onKeyDown={(evt) =>
                               evt.key === 'e' && evt.preventDefault()
                             }
@@ -348,15 +367,15 @@ export default function Index({ ReleaseOrderData }) {
                           className="col-lg-3 col-md-4 col-sm-6 text-center"
                           style={{ top: '40px' }}
                         >
-                          {true ? (
+                          {item?.document === null ? (
                             <>
                               <div className="d-flex">
                                 <div className={styles.uploadBtnWrapper}>
                                   <input
-                                    type="file"
+                                    id="document"
                                     name="myfile"
                                     accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                    onChange={(e) => uploadDocument1(e)}
+                                    onChange={(e) => uplaodDoc(e)}
                                   />
                                   <button
                                     className={`${styles.button_upload} btn`}
