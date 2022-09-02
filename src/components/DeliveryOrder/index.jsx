@@ -310,7 +310,7 @@ export default function Index(props) {
           </div>
         </div>
 
-        <SaveBar handleSave={props.onSaveHAndler} rightBtn="Submit"  rightBtnClick={handleSave} />
+        <SaveBar handleSave={props.onSaveHAndler} rightBtn="Submit"  rightBtnClick={props.onSaveHAndler} />
       </div>
 
       {/* <Modal
