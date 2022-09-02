@@ -71,7 +71,7 @@ if (window) {
   }else{
     console.log("in props")
     let buyer = {
-      "branchName": props?.data?.branchName,
+      "branchName": props?.data?.branch,
       "shortName": props?.data?.shortName,
       
         "gstin": props?.data?.gstin,

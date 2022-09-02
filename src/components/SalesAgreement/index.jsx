@@ -280,7 +280,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
-         data={props?.genericData?.finance}
+         data={props?.genericData?.financingBank}
         />
       )
     }
@@ -632,7 +632,7 @@ const onSave=()=>{
     genericId:props.genericData?._id,
     buyer:{
     "name":data.buyerData.name,
-    "branchName": data.buyerData.branchName,
+    "branch": data.buyerData.branchName,
 
     "addresses": data.addresses,
     "authorisedSignatoryDetails": data.list,
@@ -660,7 +660,7 @@ const onSave=()=>{
     
     }
   }
-   if (dataToSend.buyer.branchName == "" || dataToSend.buyer.branchName == undefined) {
+   if (dataToSend.buyer.branch == "" || dataToSend.buyer.branch == undefined) {
       toastMessage = `Please add branch Name`
       if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -703,9 +703,9 @@ const onSave=()=>{
       console.log(data.financeData,"finan")
     dataToSend={
     genericId:props.genericData?._id,
-    finance:{
+    financingBank:{
     "name": data.financeData.name,
-    "branchName": data.financeData.branchName,
+    "branch": data.financeData.branchName,
 
 
 
@@ -721,7 +721,7 @@ const onSave=()=>{
     
   }
   sessionStorage.setItem("Finance",JSON.stringify(dataToSend2))
-  if (dataToSend.finance.name == "" || dataToSend.finance.name == undefined) {
+  if (dataToSend.financingBank.name == "" || dataToSend.financingBank.name == undefined) {
       toastMessage = `Please add name `
       if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -731,7 +731,7 @@ const onSave=()=>{
     
     }
   }
-   if (dataToSend.finance.branchName== "" || dataToSend.finance.branchName== undefined) {
+   if (dataToSend.financingBank.branch== "" || dataToSend.financingBank.branch== undefined) {
       toastMessage = `Please add branch name  `
       if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -1168,7 +1168,7 @@ const onSave=()=>{
     genericId:props.genericData?._id,
 
     associateBuyer:{
-      "branchName": data?.associate?.branchName,
+      "branch": data?.associate?.branchName,
       "shortName": data?.associate?.shortName,
       "gstin": data?.associate?.gstin,
       "addresses": data?.address,
@@ -1191,7 +1191,7 @@ const onSave=()=>{
    
     }
     sessionStorage.setItem("Associate",JSON.stringify(dataToSend2))
-    if (dataToSend.associateBuyer.branchName == "" || dataToSend.associateBuyer.branchName == undefined) {
+    if (dataToSend.associateBuyer.branch == "" || dataToSend.associateBuyer.branch == undefined) {
     toastMessage = `Please add branch name  `
     if (!toast.isActive(toastMessage.toUpperCase())) {
     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
