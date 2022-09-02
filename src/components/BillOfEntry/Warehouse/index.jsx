@@ -55,7 +55,7 @@ export default function Index({ OrderId, customData }) {
     tempData[name] = doc
     setWarehouseDetails(tempData)
   }
-// console.log(warehouseDetails,'warehouseDetails')
+  // console.log(warehouseDetails,'warehouseDetails')
   const onSaveDischarge = () => {
     let warehouseDetailpayload = warehouseDetails.wareHouseDetails
     if (warehouseDetailpayload.quantity === '') {
@@ -76,8 +76,20 @@ export default function Index({ OrderId, customData }) {
       fd.append('wareHouseDetails', JSON.stringify(warehouseDetailpayload))
       fd.append('customClearanceId', customData._id)
       fd.append('document', warehouseDetails.document)
-      dispatch(UpdateCustomClearance(fd))
+      let task = 'submit'
+      dispatch(UpdateCustomClearance({ fd, task }))
     }
+  }
+
+
+  const handleSave = () => {
+    let warehouseDetailpayload = warehouseDetails.wareHouseDetails
+    let fd = new FormData()
+    fd.append('wareHouseDetails', JSON.stringify(warehouseDetailpayload))
+    fd.append('customClearanceId', customData._id)
+    fd.append('document', warehouseDetails.document)
+    let task = 'save'
+    dispatch(UpdateCustomClearance({ fd, task }))
   }
 
   const handleDropdown = (e) => {
@@ -190,7 +202,7 @@ export default function Index({ OrderId, customData }) {
                       </div>
                     ) : (
                       <div className={styles.certificate}>
-                         {warehouseDetails?.document?.name}
+                        {warehouseDetails?.document?.name}
                         <img
                           className={`${styles.close_image} float-right m-2 img-fluid`}
                           src="/static/close.svg"
@@ -213,7 +225,7 @@ export default function Index({ OrderId, customData }) {
             />
           </div>
         </div>
-        <SaveBar handleSave={onSaveDischarge} rightBtn="Submit" rightBtnClick={onSaveDischarge} />
+        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={onSaveDischarge} />
       </div>
     </>
   )
