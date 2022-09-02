@@ -319,7 +319,7 @@ useEffect((
           fd.append('certificateOfQuality', documents.certificateOfQuality)
           fd.append('certificateOfWeight', documents.certificateOfWeight)
 
-          let task = 'Save'
+          let task = 'save'
 
           dispatch(UpdateInspection({fd, task}))
         
