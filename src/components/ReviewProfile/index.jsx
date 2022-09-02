@@ -18,7 +18,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
     'Domestic',
   ])
   const commodityDropdown = ['Iron', 'Crude', 'Steel',"Coal"]
-  const countryOfOriginDropdown = ['America', 'India', 'Russia']
+  const countryOfOriginDropdown = ['India', 'Australia',"Sri Lanka","Qatar","Dubai"]
   const portOfDischargeDropdown = [
     'Mumbai, India',
     'Gujrat, India',

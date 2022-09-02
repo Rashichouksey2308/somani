@@ -178,6 +178,7 @@ const Index = ({ saveOrderData, darkMode,orderDetails }) => {
                   Visakhapatnam, India
                 </option>
                 <option value="Mumbai, India">Mumbai, India</option>
+                <option value="Gujrat, India">Gujrat, India</option>
               </select>
               <label
                 className={`${styles.label_heading} label_heading`}
