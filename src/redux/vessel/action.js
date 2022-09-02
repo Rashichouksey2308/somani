@@ -79,12 +79,9 @@ export const GetAllVessel = (payload) => async (dispatch, getState, api) => {
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.get(
-      `${API.corebaseUrl}${API.getVessel}${payload ? payload : ''}`,
-      {
-        headers: headers,
-      },
-    ).then((response) => {
+    Axios.get(`${API.corebaseUrl}${API.getVessel}${payload ? payload : ''}`, {
+      headers: headers,
+    }).then((response) => {
       if (response.data.code === 200) {
         dispatch(getAllVesselSuccess(response.data.data))
       } else {
@@ -158,10 +155,7 @@ export const UpdateVessel = (payload) => async (dispatch, getState, api) => {
     if (response.data.code === 200) {
       console.log('check 5')
       dispatch(updateVesselSuccess(response.data.data))
-      let toastMessage = 'VESSEL UPDATED SUCCESSFULLY'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
-      }
+      return response.data.code
     } else {
       dispatch(updateVesselFailed(response.data.data))
       let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
