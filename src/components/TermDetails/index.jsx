@@ -399,6 +399,10 @@ const Index = ({
                 />
               </div>
             </div>
+            {console.log(
+              'country origin',
+              termsheetDetails?.transactionDetails?.countryOfOrigin,
+            )}
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div className="d-flex">
                 <select
@@ -434,7 +438,7 @@ const Index = ({
                   required
                 >
                   {termsheetDetails?.transactionDetails?.partShipmentAllowed ===
-                    'Yes' ? (
+                  'Yes' ? (
                     <>
                       {' '}
                       <option value="Yes">Yes</option>{' '}
@@ -535,7 +539,7 @@ const Index = ({
               </div>
             </div>
             {termsheetDetails.transactionDetails?.thirdPartyInspectionReq ==
-              'true' ? (
+            'true' ? (
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
                   <select
@@ -547,9 +551,7 @@ const Index = ({
                     <option value="">Select an option</option>
                     <option value="Load Port">Load Port</option>
                     <option value="Discharge Port">Discharge Port</option>
-                    <option value="Both">
-                      Lord Port and Discharge Port
-                    </option>
+                    <option value="Both">Lord Port and Discharge Port</option>
                   </select>
 
                   <img
@@ -587,7 +589,7 @@ const Index = ({
                 <option value="Gujrat, India">Gujrat, India</option>
                     
                 </select>
-               
+
                 <label className={`${styles.label} label_heading`}>
                   Storage of Goods<strong className="text-danger">*</strong>
                 </label>
@@ -645,8 +647,8 @@ const Index = ({
                   IsBlSelected == 'DaysfromBLDate'
                     ? false
                     : IsBlSelected == 'Whicheverisearlier'
-                      ? false
-                      : true
+                    ? false
+                    : true
                 }
                 required
               />
@@ -668,8 +670,8 @@ const Index = ({
                   IsBlSelected == 'DaysfromVesselDischargeDate'
                     ? false
                     : IsBlSelected == 'Whicheverisearlier'
-                      ? false
-                      : true
+                    ? false
+                    : true
                 }
                 required
               />

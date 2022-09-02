@@ -14,6 +14,7 @@ import Cookies from 'js-cookie'
 export default function Index({ ReleaseOrderData }) {
   const dispatch = useDispatch()
   const [show, setShow] = useState(false)
+  
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
@@ -194,7 +195,11 @@ export default function Index({ ReleaseOrderData }) {
     let orderNo = index + 1
     return orderNo
   }
-
+  const handleCloseO = () => {
+    setDocuments((doc) => {
+      return { ...doc, certificateOfOrigin: null }
+    })
+  }
   const onSaveHAndler = () => {
     let payload = {
       deliveryId: _get(ReleaseOrderData, 'data[0]._id', ''),
@@ -280,16 +285,20 @@ export default function Index({ ReleaseOrderData }) {
                   </div>
                 </div>
               </div>
+             
               <div
                 className={`${styles.dashboard_form} border_color card-body`}
                 style={{ borderTop: '2px solid #CAD6E6' }}
               >
+                
                 <div className={`${styles.form_heading} mt-2`}>
                   Release Order Details
                 </div>
-
+                <div className={styles.table_scroll_outer}>
+                  <div className={styles.table_scroll_inner}>
                 {releaseDetail.map((item, index) => (
-                  <div key={index} className="row ml-lg-auto">
+                 
+                  <div key={index} className="row mb-3 ml-lg-auto">
                     <div
                       className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                     >
@@ -341,10 +350,12 @@ export default function Index({ ReleaseOrderData }) {
                     </div>
                     <div
                       className="col-lg-3 col-md-4 col-sm-6 text-center"
-                      style={{ top: '50px' }}
+                      style={{ top: '40px' }}
                     >
                       {true ? (
                         <>
+                       
+                        <div className='d-flex'>
                           <div className={styles.uploadBtnWrapper}>
                             <input
                               type="file"
@@ -356,17 +367,36 @@ export default function Index({ ReleaseOrderData }) {
                               Upload
                             </button>
                           </div>
+
+                           {/* <div className={styles.certificate}>
+                                 release.pdf
+                                  <img
+                                    className={`${styles.close_image} float-right m-2 img-fluid`}
+                                    src="/static/close.svg"
+                                    onClick={() => handleCloseO()}
+                                    alt="Close"
+                                  />{' '}
+                                </div>   */}
                           {Number(netBalanceQuantity) >= 0 && (
+                            <div  style={{ marginTop: '12px' }}>
+                             <img
+                          onClick={() => handleDeleteRow(index)}
+                          src="/static/delete 2.svg"
+                          className={`${styles.delete_image} img-fluid ml-3 mr-2`}
+                          alt="Delete"
+                        />
                             <img
                               onClick={() =>
                                 addMorereleaseDetailDataRows(index)
                               }
                               src="/static/add-btn.svg"
-                              className={`${styles.delete_image} mt-n4 img-fluid`}
+                              className={`${styles.delete_image} ml-2 img-fluid`}
                               alt="Add button"
                             />
+                           
+                        </div>
                           )}
-
+</div>
                           {/* <div className={styles.uploadBtnWrapper}>
                         <input
                           type="file"
@@ -390,6 +420,7 @@ export default function Index({ ReleaseOrderData }) {
                             />{' '}
                           </div>
                           {Number(netBalanceQuantity) > 0 && (
+                            <>
                             <img
                               onClick={() =>
                                 addMorereleaseDetailDataRows(index)
@@ -398,6 +429,13 @@ export default function Index({ ReleaseOrderData }) {
                               className={`${styles.delete_image} mt-n4 img-fluid`}
                               alt="Add button"
                             />
+                            <img
+                          onClick={() => handleDeleteRow(index)}
+                          src="/static/delete 2.svg"
+                          className={`${styles.delete_image} ml-1 mt-n4 img-fluid mr-2`}
+                          alt="Delete"
+                        />
+                        </>
                           )}
                         </>
                       )}
@@ -419,8 +457,13 @@ export default function Index({ ReleaseOrderData }) {
                       )} */}
                     </div>
                   </div>
+                 
                 ))}
+                 </div>
+                </div>
+                
                 <hr></hr>
+                
                 <div className="text-right">
                   <div className={`${styles.total_quantity} text `}>
                     Net Balance Quantity:{' '}

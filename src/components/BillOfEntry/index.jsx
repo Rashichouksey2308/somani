@@ -818,52 +818,61 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                         {dutyData.length > 0 &&
                           dutyData.map((val, index) => (
                             <tr key={index} className="table_row">
-                              <td className={styles.doc_name}>{index + 1}</td>
-                              <td>
-                                <select
-                                  name="duty"
-                                  onChange={(e) =>
-                                    handleDutyChange(
-                                      e.target.name,
-                                      e.target.value,
-                                      index,
-                                    )
-                                  }
-                                  disabled={!val.actions}
-                                  className={`${styles.dutyDropdown}`}
-                                >
-                                  <option>Select an option</option>
-                                  <option>{val.duty}</option>
-                                  <option value="BCD">BCD</option>
-                                  <option value="IGST">IGST</option>
-                                </select>
-                              </td>
-                              <td>
-                                <input
-                                  className={`${styles.dutyDropdown}`}
-                                  name="amount"
-                                  disabled={!val.actions}
-                                  onChange={(e) =>
-                                    handleDutyChange(
-                                      e.target.name,
-                                      e.target.value,
-                                      index,
-                                    )
-                                  }
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  className={`${styles.dutyDropdown}`}
-                                  onChange={(e) =>
-                                    handleDutyChange(
-                                      e.target.name,
-                                      e.target.value,
-                                      index,
-                                    )
-                                  }
-                                />
-                              </td>
+{!val.actions ? ( <>
+                       
+                          <td className={styles.doc_name}>1</td>
+                          <td>BCD</td>
+                          <td>24,000</td>
+                          <td className="text-right"></td>       
+                          </>
+                              
+          ) :  ( <> <td className={styles.doc_name}>{index + 1}</td>
+          <td>
+            <select
+              name="duty"
+              onChange={(e) =>
+                handleDutyChange(
+                  e.target.name,
+                  e.target.value,
+                  index,
+                )
+              }
+              disabled={!val.actions}
+              className={`${styles.dutyDropdown}`}
+            >
+              <option>Select an option</option>
+              <option>{val.duty}</option>
+              <option value="BCD">BCD</option>
+              <option value="IGST">IGST</option>
+            </select>
+          </td>
+          <td>
+            <input
+              className={`${styles.dutyDropdown}`}
+              name="amount"
+              disabled={!val.actions}
+              onChange={(e) =>
+                handleDutyChange(
+                  e.target.name,
+                  e.target.value,
+                  index,
+                )
+              }
+            />
+          </td>
+          <td>
+            <input
+              className={`${styles.dutyDropdown}`}
+              onChange={(e) =>
+                handleDutyChange(
+                  e.target.name,
+                  e.target.value,
+                  index,
+                )
+              }
+            />
+          </td> </> ) }
+
                               <td>
                                 <div>
                                   {!val.actions ? (
@@ -875,6 +884,8 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                                       }}
                                     />
                                   ) : (
+                                    <>
+                                    
                                     <img
                                       src="/static/save-3.svg"
                                       className={`${styles.edit_image} mr-3 img-fluid`}
@@ -883,6 +894,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                                         setActions(index, false)
                                       }}
                                     />
+                                    </>
                                   )}
                                   <img
                                     src="/static/delete 2.svg"
