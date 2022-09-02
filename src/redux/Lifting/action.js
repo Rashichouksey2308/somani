@@ -75,7 +75,8 @@ export const GetAllLifting = (payload) => async (dispatch, getState, api) => {
         dispatch(getAllLiftingFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
       }
     })
   } catch (error) {
@@ -104,7 +105,8 @@ export const GetLifting = (payload) => async (dispatch, getState, api) => {
         dispatch(getLiftingFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
       }
     })
   } catch (error) {
@@ -133,12 +135,14 @@ export const UpdateLiftingData =
           dispatch(updateLiftingDataSuccess(response.data.data))
           let toastMessage = 'UPDATED SUCCESSFULLY'
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
+            toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
         } else {
           dispatch(updateLiftingDataFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
         }
       })
     } catch (error) {
