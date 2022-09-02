@@ -132,20 +132,21 @@ export default function Index({ addButton, inspectionData }) {
       inspectionData?.thirdPartyInspection?.certificateOfQuality || null,
     certificateOfWeight:
       inspectionData?.thirdPartyInspection?.certificateOfWeight || null,
-    certificateOfWeight:
+    certificateOfOrigin:
       inspectionData?.thirdPartyInspection?.certificateOfOrigin || null,
   })
+   console.log("sethave",documents)
 useEffect((
  
 ) => {
    
-  console.log("sethave",documents.certificateOfQuality,documents.certificateOfWeight,documents.certificateOfQuality)
-   if(documents.certificateOfQuality==null && documents.certificateOfWeight==null && documents.certificateOfQuality==null){
+ 
+   if(documents.certificateOfQuality==null && documents.certificateOfWeight==null && documents.certificateOfOrigin==null){
     
      sethaveDoc(false)
   }
 },[
-  documents.certificateOfQuality,documents.certificateOfWeight, documents.certificateOfQuality
+  documents.certificateOfQuality,documents.certificateOfWeight, documents.certificateOfOrigin
 ])
   const uploadDocument1 = (e) => {
     const newUploadDoc = { ...documents }
@@ -171,13 +172,13 @@ useEffect((
   }
 
   const handleCloseW = () => {
-    setDocuments({ ...document, certificateOfWeight: null })
+    setDocuments({ ...documents, certificateOfWeight: null })
   }
   const handleCloseQ = () => {
-    setDocuments({ ...document, certificateOfQuality: null })
+    setDocuments({ ...documents, certificateOfQuality: null })
   }
   const handleCloseO = () => {
-    setDocuments({ ...document, certificateOfOrigin: null })
+    setDocuments({ ...documents, certificateOfOrigin: null })
   }
 
   const saveInspectionDetails = (name, value) => {
