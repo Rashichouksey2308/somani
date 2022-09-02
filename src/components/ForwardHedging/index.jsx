@@ -5,6 +5,7 @@ import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
 import { useState, useEffect } from 'react'
 import DateCalender from '../DateCalender'
+import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   GetAllForwardHedging,
@@ -234,6 +235,8 @@ export default function Index() {
               className={`${styles.arrow} image_arrow mr-2 img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
+              onClick={() => Router.push('/forward-table')}
+
             />
             <h1 className={`${styles.heading}`}>{hedgingData?.company?.companyName} </h1>
           </div>
