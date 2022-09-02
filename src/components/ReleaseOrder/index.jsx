@@ -15,7 +15,6 @@ export default function Index({ ReleaseOrderData }) {
   const dispatch = useDispatch()
   const [show, setShow] = useState(false)
 
-
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
   console.log(ReleaseOrderData, 'ReleaseOrderData123')
@@ -233,7 +232,7 @@ export default function Index({ ReleaseOrderData }) {
             >
               <h3 className={`${styles.heading}`}>Release Order</h3>
 
-              <span >+</span>
+              <span>+</span>
             </div>
             <div
               id="lcApplication"
@@ -263,7 +262,6 @@ export default function Index({ ReleaseOrderData }) {
                         'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
                         '',
                       )}
-                      MT
                     </span>
                   </div>
                   <div
@@ -299,7 +297,7 @@ export default function Index({ ReleaseOrderData }) {
                 className={`${styles.dashboard_form} border_color card-body`}
                 style={{ borderTop: '2px solid #CAD6E6' }}
               >
-
+                
                 <div className={`${styles.form_heading} mt-2`}>
                   Release Order Details
                 </div>
@@ -402,7 +400,6 @@ export default function Index({ ReleaseOrderData }) {
                                       className={`${styles.delete_image} ml-2 img-fluid`}
                                       alt="Add button"
                                     />
-
                                   </div>
                                 )}
                               </div>

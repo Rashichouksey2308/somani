@@ -38,6 +38,7 @@ export default function Index({
   const [shipmentType, setShipmentType] = useState(true)
   const [startBlDate, setBlDate] = useState(null)
   const [lastDate, setlastDate] = useState(new Date())
+   const [consigneeName, setConsigneeName] = useState("")
   const [consigneeInfo, setConsigneeInfo] = useState({
     name: '',
     branch: '',
@@ -210,6 +211,7 @@ export default function Index({
         branch: 'DELHI',
         address: '7A , SAGAR APARTMENTS, 6 TILAK MARG, NEW DELHI-110001',
       })
+      setConsigneeName("indoGerman")
     } else if (e.target.value === 'EMERGENT') {
       setConsigneeInfo({
         name: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
@@ -217,10 +219,29 @@ export default function Index({
         address:
           '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016',
       })
+      setConsigneeName("EMERGENT")
     } else {
       setConsigneeInfo({ name: '', branch: '', address: '' })
+      setConsigneeName("")
     }
   }
+  useEffect(() => {
+    if(TransitDetails){
+       setConsigneeInfo({
+        name: _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, ''),
+        branch:_get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeBranch`, ''),
+        address:
+          _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeAddress`, ''),
+      })
+      if(_get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '')=="EMERGENT INDUSTRIAL SOLUTIONS LIMITED"){
+        setConsigneeName("EMERGENT")
+      }
+       if(_get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '')=="INDO GERMAN INTERNATIONAL PRIVATE LIMITED"){
+        setConsigneeName("indoGerman")
+      }
+       
+    }
+  },[TransitDetails])
 
   const onChangeBlDropDown = (e) => {
     const text = e.target.value
@@ -458,8 +479,9 @@ export default function Index({
                     <select
                       onChange={(e) => onChangeConsignee(e)}
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                      value={consigneeName}
                     >
-                      <option></option>
+                      <option value = "">Select an option</option>
                       <option value="indoGerman">
                         INDO GERMAN INTERNATIONAL PRIVATE LIMITED
                       </option>

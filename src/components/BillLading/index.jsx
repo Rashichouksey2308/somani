@@ -765,14 +765,8 @@ export default function Index({
                           <div className="d-flex">
                             {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                             <DatePicker
-                              // value={moment((bol?.blDate), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
-                              // defaultDate={bol?.blDate}
-                              // selected={
-                              //   bol?.blDate == null
-                              //     ? ''
-                              //     : moment(bol?.blDate).toDate()
-                              // }
-                              defaultDate={startBlDate}
+                              
+                              selected={startBlDate?moment(startBlDate).toDate():""}
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startBlDate) => {
