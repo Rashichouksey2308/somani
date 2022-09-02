@@ -36,7 +36,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
     boeDetails: {
       invoiceQuantity: '',
       invoiceQuantityUnit: '',
-      currency: '',
+      currency: 'INR',
       conversionRate: '',
       invoiceNumber: '',
       invoiceValue: '',
@@ -592,11 +592,14 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       onChange={(e) =>
                         saveBillOfEntryData(e.target.name, e.target.value)
                       }
+                      value={billOfEntryData.boeDetails.currency}
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
-                      <option selected>Choose Currency</option>
-                      <option value="USD">USD</option>
+                    <option selected>Select an option</option>
                       <option value="INR">INR</option>
+                      <option value="USD">USD</option>
+                      <option value="EURO">EURO</option>
+                      <option value="POUND">POUND</option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Currency

@@ -296,11 +296,9 @@ const Index = ({ saveOrderData, orderData }) => {
                     }}
                   >
                     <option selected>Select an option</option>
+                    <option value="Vishakapatnam, India">Visakhapatnam, India</option>
                     <option value="Mumbai, India">Mumbai, India</option>
-                    <option value="Vizag, India">Vizag, India</option>
-                    <option value="Vishakapatnam, India">
-                      Visakhapatnam, India
-                    </option>
+                    <option value="Gujrat, India">Gujrat, India</option>
                   </select>
                   <Form.Label
                     className={`${styles.label_heading} label_heading`}

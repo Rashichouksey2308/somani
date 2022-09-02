@@ -346,9 +346,11 @@ function Index() {
   }
 
   const changeRoute = () => {
+    if(checkValidation()){
     dispatch(GetLcModule(`?lcModuleId=${lcModuleData?.order?.lc}`))
     sessionStorage.setItem('lcPreviewId', lcModuleData?.order?.lc)
     Router.push('/letter-table/letter-amend/id')
+    }
   }
   return (
     <>

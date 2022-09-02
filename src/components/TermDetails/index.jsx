@@ -360,9 +360,8 @@ const Index = ({
                 >
                   {/* <option value={termsheetDetails?.transactionDetails?.loadPort}>{termsheetDetails?.transactionDetails?.loadPort} </option> */}
                   <option>Select an option</option>
-                  <option value="Abbot Port">Abbot Port</option>
-
-                  <option value="India Port">India Port</option>
+                  <option value="Westshore Terminals,Canada">Westshore Terminals,Canada</option>
+                  <option value="Abbot Point,Australia">Abbot Point,Australia</option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   Port Of Loading<strong className="text-danger">*</strong>
@@ -384,9 +383,11 @@ const Index = ({
                   required
                 >
                   <option>Select an option</option>
-                  <option value="America">America</option>
-                  <option value="Australia">Australia</option>
                   <option value="India">India</option>
+                  <option value="Australia">Australia</option>
+                  <option value="Sri Lanka">Sri Lanka</option>
+                  <option value="Qatar">Qatar</option>
+                  <option value="Dubai">Dubai</option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   Country Of Origin<strong className="text-danger">*</strong>
@@ -472,12 +473,9 @@ const Index = ({
                   required
                 >
                   <option>Select an option</option>
-                  <option value="Gujrat, India">Gujrat, India</option>
-                  <option value="Visakhapatnam, India">
-                    Visakhapatnam, India
-                  </option>
-                  <option value="Vizag, India">Vizag, India</option>
-                  <option value="Mumbai, India">Mumbai, India</option>
+                  <option value="Vishakapatnam, India">Visakhapatnam, India</option>
+                <option value="Mumbai, India">Mumbai, India</option>
+                <option value="Gujrat, India">Gujrat, India</option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   Port Of Discharge<strong className="text-danger">*</strong>
@@ -586,13 +584,10 @@ const Index = ({
                   required
                 >
                   <option selected>Select an option</option>
-                  <option value="Calcutta Port"> Calcutta Port</option>
-                  <option value="Mumbai, India"> Mumbai, India </option>
-                  <option value="Vizag, India"> Vizag, India </option>
-                  <option value="Vishakapatnam, India">
-                    {' '}
-                    Visakhapatnam, India{' '}
-                  </option>
+                <option value="Vishakapatnam, India">Visakhapatnam, India</option>
+                <option value="Mumbai, India">Mumbai, India</option>
+                <option value="Gujrat, India">Gujrat, India</option>
+                    
                 </select>
 
                 <label className={`${styles.label} label_heading`}>
