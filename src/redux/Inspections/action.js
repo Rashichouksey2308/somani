@@ -72,7 +72,7 @@ export const GetAllInspection =
         {
           headers: headers,
         },
-        
+
       ).then((response) => {
         if (response.data.code === 200) {
           dispatch(getAllInspectionSuccess(response.data.data))
@@ -80,7 +80,8 @@ export const GetAllInspection =
           dispatch(getAllInspectionFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
         }
       })
     } catch (error) {
@@ -109,7 +110,8 @@ export const GetInspection = (payload) => async (dispatch, getState, api) => {
         dispatch(getInspectionFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
       }
     })
   } catch (error) {
@@ -126,23 +128,29 @@ export const UpdateInspection =
   (payload) => async (dispatch, getState, api) => {
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+    console.log(payload, 'payload Third party23')
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
-      Axios.put(`${API.corebaseUrl}${API.updateInspection}`, payload, {
+      Axios.put(`${API.corebaseUrl}${API.updateInspection}`, payload.fd, {
         headers: headers,
       }).then((response) => {
         if (response.data.code === 200) {
           dispatch(updateInspectionSuccess(response.data.data))
           let toastMessage = 'UPDATED SUCCESSFULLY'
+          if (payload.task === 'save') {
+            toastMessage = 'Saved Successfully'
+          }
           if (!toast.isActive(toastMessage.toUpperCase())) {
-              toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })   }
+            toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
         } else {
           dispatch(updateInspectionFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
         }
       })
     } catch (error) {
