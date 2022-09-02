@@ -446,7 +446,7 @@ export default function Index({ ReleaseOrderData }) {
         <SaveBar
           handleSave={onSaveHAndler}
           rightBtn="Generate Delivery Order"
-          rightBtnClick={handleShow}
+          rightBtnClick={onSaveHAndler}
         />
       </div>
 
