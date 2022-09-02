@@ -3,7 +3,8 @@ import React, { useState } from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
-import InspectionDocument from '../InspectionDocument'
+// import InspectionDocument from '../InspectionDocument'
+import UploadOther from '../UploadOther'
 import DateCalender from '../DateCalender'
 import _get from 'lodash/get'
 import { useDispatch, useSelector } from 'react-redux'
@@ -17,6 +18,9 @@ import 'react-datepicker/dist/react-datepicker.css'
 import DatePicker from 'react-datepicker'
 import { CovertvaluefromtoCR } from '../../utils/helper'
 import moment from 'moment'
+
+
+
 
 export default function Index({
   isShipmentTypeBULK,
@@ -34,6 +38,7 @@ export default function Index({
   const [shipmentType, setShipmentType] = useState(true)
   const [startBlDate, setBlDate] = useState(null)
   const [lastDate, setlastDate] = useState(new Date())
+   const [consigneeName, setConsigneeName] = useState("")
   const [consigneeInfo, setConsigneeInfo] = useState({
     name: '',
     branch: '',
@@ -181,6 +186,7 @@ export default function Index({
         branch: 'DELHI',
         address: '7A , SAGAR APARTMENTS, 6 TILAK MARG, NEW DELHI-110001',
       })
+      setConsigneeName("indoGerman")
     } else if (e.target.value === 'EMERGENT') {
       setConsigneeInfo({
         name: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
@@ -188,10 +194,29 @@ export default function Index({
         address:
           '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016',
       })
+      setConsigneeName("EMERGENT")
     } else {
       setConsigneeInfo({ name: '', branch: '', address: '' })
+      setConsigneeName("")
     }
   }
+  useEffect(() => {
+    if(TransitDetails){
+       setConsigneeInfo({
+        name: _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, ''),
+        branch:_get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeBranch`, ''),
+        address:
+          _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeAddress`, ''),
+      })
+      if(_get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '')=="EMERGENT INDUSTRIAL SOLUTIONS LIMITED"){
+        setConsigneeName("EMERGENT")
+      }
+       if(_get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '')=="INDO GERMAN INTERNATIONAL PRIVATE LIMITED"){
+        setConsigneeName("indoGerman")
+      }
+       
+    }
+  },[TransitDetails])
 
   const onChangeBlDropDown = (e) => {
     const text = e.target.value
@@ -251,9 +276,29 @@ export default function Index({
     let fd = new FormData()
     fd.append('igm', JSON.stringify(igmDetails))
     fd.append('transitId', transId._id)
-    dispatch(UpdateTransitDetails(fd))
+    let task = 'save'
+    dispatch(UpdateTransitDetails({ fd, task }))
   }
 
+  const handleSubmit = () => {
+    const igmDetails = { ...igmList }
+    igmDetails.shipmentType = _get(
+      TransitDetails,
+      `data[0].order.vessel.vessels[0].shipmentType`,
+      '',
+    )
+    igmDetails.shipmentDetails = {
+      consigneeName: consigneeInfo.name,
+      consigneeBranch: consigneeInfo.branch,
+      consigneeAddress: consigneeInfo.address,
+    }
+    console.log(igmDetails, 'igmPayload')
+    let fd = new FormData()
+    fd.append('igm', JSON.stringify(igmDetails))
+    fd.append('transitId', transId._id)
+    let task = 'submit'
+    dispatch(UpdateTransitDetails({ fd, task }))
+  }
   return (
     <>
       <div className={`${styles.backgroundMain} p-0 container-fluid`}>
@@ -324,7 +369,7 @@ export default function Index({
                       _get(TransitDetails, 'data[0].order.orderValue', ''),
                     )}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
-                    'Crores'
+                      'Crores'
                       ? 'Cr'
                       : _get(TransitDetails, 'data[0].order.unitOfValue', '')}
                   </span>
@@ -407,8 +452,9 @@ export default function Index({
                     <select
                       onChange={(e) => onChangeConsignee(e)}
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                      value={consigneeName}
                     >
-                      <option></option>
+                      <option value = "">Select an option</option>
                       <option value="indoGerman">
                         INDO GERMAN INTERNATIONAL PRIVATE LIMITED
                       </option>
@@ -486,26 +532,26 @@ export default function Index({
                         >
                           {shipmentTypeBulk
                             ? _get(
-                                TransitDetails,
-                                'data[0].order.vessel.vessels',
-                                [],
-                              ).map((vessel, index) => (
-                                <option
-                                  value={vessel?.vesselInformation[0]?.name}
-                                  key={index}
-                                >
-                                  {vessel?.vesselInformation[0]?.name}
-                                </option>
-                              ))
+                              TransitDetails,
+                              'data[0].order.vessel.vessels',
+                              [],
+                            ).map((vessel, index) => (
+                              <option
+                                value={vessel?.vesselInformation[0]?.name}
+                                key={index}
+                              >
+                                {vessel?.vesselInformation[0]?.name}
+                              </option>
+                            ))
                             : _get(
-                                TransitDetails,
-                                'data[0].order.vessel.vessels[0].vesselInformation',
-                                [],
-                              ).map((vessel, index) => (
-                                <option value={vessel?.name} key={index}>
-                                  {vessel?.name}
-                                </option>
-                              ))}
+                              TransitDetails,
+                              'data[0].order.vessel.vessels[0].vesselInformation',
+                              [],
+                            ).map((vessel, index) => (
+                              <option value={vessel?.name} key={index}>
+                                {vessel?.name}
+                              </option>
+                            ))}
                         </select>
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -706,7 +752,7 @@ export default function Index({
                                       </strong>
                                     </div>
                                     <span className={styles.value}>
-                                      4,000 MT
+                                      {blEntry?.containerDetails?.numberOfContainers}
                                     </span>
                                   </div>
                                 </div>
@@ -724,7 +770,7 @@ export default function Index({
                                       </strong>
                                     </div>
                                     <span className={styles.value}>
-                                      4,000 MT
+                                      {blEntry?.blQuantity}
                                     </span>
                                   </div>
                                   <div className="col-md-6">
@@ -833,14 +879,15 @@ export default function Index({
             )
           })}
           <div className="">
-            <InspectionDocument
+            <UploadOther   module="Loading-Transit-Unloading"  orderId={orderId}  />
+            {/* <InspectionDocument
               module="Loading-Transit-Unloading"
               orderId={orderId}
               documentName="IGM Copy"
-            />
+            /> */}
           </div>
         </div>
-        <SaveBar handleSave={handleSave} rightBtn="Submit"   rightBtnClick={handleSave}/>
+        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />
       </div>
     </>
   )

@@ -289,6 +289,7 @@ export default function Index(props) {
                         }
                         className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                       >
+                        <option >Select an option</option>
                         <option value={true}>Yes</option>
                         <option value={false}>No</option>
                       </select>

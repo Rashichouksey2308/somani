@@ -190,7 +190,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
   //   ])
   // }
 
-  const handleSave = () => {
+  const handleSubmit = () => {
     // [{ id: 'conversionRate', value: 'CONVERSION RATE' },
     //  { id: 'invoiceDate', value: ' INVOICE DATE' },
     //   { id: 'invoiceValue', value: 'INVOICE VALUE' },
@@ -207,6 +207,15 @@ export default function Index({ customData, OrderId, uploadDoc }) {
     //   }
 
     // })
+
+    if (billOfEntryData.boeDetails.currency === '') {
+
+      let toastMessage = 'CURRENCY CANNOT BE EMPTY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
     if (billOfEntryData.boeDetails.currency === '') {
 
       let toastMessage = 'CURRENCY CANNOT BE EMPTY'
@@ -263,12 +272,27 @@ export default function Index({ customData, OrderId, uploadDoc }) {
       fd.append('customClearanceId', customData?._id)
       fd.append('billOfEntry', JSON.stringify(billOfEntry))
 
-      dispatch(UpdateCustomClearance(fd))
+      let task = 'submit'
+
+      dispatch(UpdateCustomClearance({fd, task}))
     }
 
 
   }
 
+
+
+  const handleSave = ()=> {
+    const billOfEntry = { billOfEntry: [billOfEntryData] }
+    const fd = new FormData()
+    fd.append('customClearanceId', customData?._id)
+    fd.append('billOfEntry', JSON.stringify(billOfEntry))
+
+    let task = 'save'
+
+    dispatch(UpdateCustomClearance({fd, task}))
+    
+  }
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -1182,7 +1206,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
             />
           </div>
         </div>
-        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSave} />
+        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />
       </div>
     </>
   )

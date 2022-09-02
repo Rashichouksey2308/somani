@@ -520,7 +520,9 @@ export default function Index({
     let fd = new FormData()
     fd.append('bl', JSON.stringify(bol))
     fd.append('transitId', transId._id)
-    dispatch(UpdateTransitDetails(fd))
+
+    let task = 'submit'
+    dispatch(UpdateTransitDetails({ fd, task }))
     console.log(fd, bol, 'filteredVessel')
   }
   // console.log(bolList, 'filteredVessel', startetaAtDischargePortFrom)
@@ -540,7 +542,7 @@ export default function Index({
                       inline
                       label="Bulk"
                       name="group1"
-                       disabled={shipmentTypeBulk}
+                      disabled={shipmentTypeBulk}
                       type={type}
                       // checked={
                       //   _get(
@@ -557,7 +559,7 @@ export default function Index({
                       inline
                       label="Liner"
                       name="group1"
-                       disabled={!shipmentTypeBulk}
+                      disabled={!shipmentTypeBulk}
                       // checked={
                       //   _get(
                       //     TransitDetails,
@@ -763,14 +765,8 @@ export default function Index({
                           <div className="d-flex">
                             {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                             <DatePicker
-                              // value={moment((bol?.blDate), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
-                              // defaultDate={bol?.blDate}
-                              // selected={
-                              //   bol?.blDate == null
-                              //     ? ''
-                              //     : moment(bol?.blDate).toDate()
-                              // }
-                              defaultDate={startBlDate}
+                              
+                              selected={startBlDate?moment(startBlDate).toDate():""}
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startBlDate) => {
