@@ -18,6 +18,7 @@ let stevedore={
         
 }
 function Index(props) {
+  console.log(props.data,"setSameAsCHA")
   const[seteveState,setSeteveState]=useState(stevedore)
   const [list,setList]=useState([])
   const [addressList,setAddressList]=useState([])
@@ -80,7 +81,7 @@ useEffect(() => {
    if(window){
     console.log(sessionStorage.getItem("Stevedore"),".getItem")
     if(sessionStorage.getItem("Stevedore")){
-      let savedData=JSON.parse(sessionStorage.getItem("Stevedore"))
+      let savedData=props.sameAsCHA?JSON.parse(sessionStorage.getItem("Cha")):JSON.parse(sessionStorage.getItem("Stevedore"))
       let supplier={
         "name": savedData.name,
         "shortName": savedData.shortName,
@@ -108,7 +109,7 @@ useEffect(() => {
        setSeteveState(supplier)
     }
    }
-  },[])
+  },[props,props.sameAsCHA])
   console.log(seteveState,"seteveState")
   useEffect(() => {
     console.log("saasdasd",props.saveData,props.active)
