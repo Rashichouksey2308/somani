@@ -542,10 +542,9 @@ function Index({
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
                             <option value="">Select an option</option>
-                            <option value="Visakhapatnam, India">
-                              Visakhapatnam Port, India
-                            </option>
-                            <option value="Mumbai, India">Mumbai, India</option>
+                           <option value="Vishakapatnam, India">Visakhapatnam, India</option>
+                          <option value="Mumbai, India">Mumbai, India</option>
+                          <option value="Gujrat, India">Gujrat, India</option>
                           </select>
 
                           <label

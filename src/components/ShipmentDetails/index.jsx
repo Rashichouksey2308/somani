@@ -235,9 +235,8 @@ const index = ({ orderDetail, saveShipmentData }) => {
                       {orderDetail?.shipmentDetail?.shipmentType}
                     </option> */}
                     <option disabled >Select an option</option>
-                    <option value="Visakhapatnam, India">Visakhapatnam, India</option>
-                    <option value="Mumbai, India">Mumbai, India</option>
-                    <option value="Port Blair, India">Port Blair, India</option>
+                   <option value="Westshore Terminals,Canada">Westshore Terminals,Canada</option>
+                   <option value="Abbot Point,Australia">Abbot Point,Australia</option>
                     {/* <option value="Bulk">Bulk</option> */}
                   </select>
                   <Form.Label

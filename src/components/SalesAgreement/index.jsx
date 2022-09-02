@@ -37,6 +37,7 @@ function Index(props) {
   const [saveData,setSaveData]=useState(false)
   const [submitData,setSubmitData]=useState(false)
   const [isSideBarOpen,setIsSideBarOpen]=useState(true)
+  const [sameAsCHA,setSameAsCHA]=useState(true)
   useEffect(() => {
     if(window){
     props.setDate(localStorage.getItem("timeGenericUpdated"))
@@ -146,6 +147,13 @@ function Index(props) {
       }
       return false
       }
+        if (data.state === "" || data.state==undefined) {
+      let toastMessage = 'Please add state'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
    }
        if (data.city === "" || data.city==undefined) {
       let toastMessage = 'Please add city'
@@ -154,13 +162,7 @@ function Index(props) {
       }
       return false
       }
-        if (data.state === "" || data.state==undefined) {
-      let toastMessage = 'Please add state'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      }
-      return false
-      }
+      
     }
      
     return true
@@ -291,10 +293,11 @@ function Index(props) {
         sendData={sendData} 
         submitData={submitData} 
         updateData={updateData}
-        data={props?.genericData?.stevedore}
+        data={sameAsCHA?props?.genericData?.stevedore:props?.genericData?.CHA}
         uploadDoc={uploadDoc}
         active={active}
         addressValidation={addressValidation}
+        sameAsCHA={sameAsCHA}
         />
       )
     }
@@ -1584,7 +1587,11 @@ const onShowSideBar=()=>{
                       <span>Same as CHA</span>
                       <span className={` ${styles.yes}`}>Yes</span>
                       <label className={styles.switch}>
-                        <input type="checkbox"></input>
+                        <input type="checkbox" checked={sameAsCHA?"checked":""}
+                        onChange={(e)=>{
+                          setSameAsCHA(!sameAsCHA)
+                        }}
+                        ></input>
                         <span className={`${styles.slider} ${styles.round}` }></span>
                       </label>
                       <span  className={`${styles.no}`}>No</span>

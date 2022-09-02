@@ -105,7 +105,10 @@ export default function Index({
   // console.log(bolList, existingBlData, 'existingBlData')
 
   useEffect(() => {
-    setBolList(_get(TransitDetails, `data[0].BL.billOfLanding`, []))
+    if(_get(TransitDetails, `data[0].BL.billOfLanding`, []).length > 0){
+      setBolList(_get(TransitDetails, `data[0].BL.billOfLanding`, []))
+    }
+    
   }, [TransitDetails])
 
   const partShipmentAllowed = _get(

@@ -30,11 +30,11 @@ export default function Index() {
 
   let hedgingData = _get(allForwardHedging, 'data[0]', '')
   let hedgingDataDetail = _get(allForwardHedging, 'data[0].detail[0]', {})
-  console.log(hedgingData, "THIS IS HEDGING DATA")
+  console.log(hedgingDataDetail, "THIS IS HEDGING DATA")
 
   const [list, setList] = useState([{
     bankName: '',
-    currency: '',
+    currency: 'INR',
     bookedRate: '',
     bookedRateCurrency: 'INR',
     bookedAmount: '',
@@ -51,9 +51,9 @@ export default function Index() {
     setList([{
 
       bankName: hedgingDataDetail?.bankName ?? 'Bank of America',
-      currency: hedgingDataDetail?.currency,
+      currency: hedgingDataDetail?.currency || "INR",
       bookedRate: hedgingDataDetail?.bookedRate,
-      bookedRateCurrency: hedgingDataDetail?.bookedRateCurrency,
+      bookedRateCurrency: hedgingDataDetail?.bookedRateCurrency || "INR",
       bookedAmount: hedgingDataDetail?.bookedAmount,
       validityFrom: hedgingDataDetail?.validityFrom,
       validityTo: hedgingDataDetail?.validityTo,
@@ -66,11 +66,12 @@ export default function Index() {
     }])
   }, [hedgingData])
 
+  console.log(list,"list")
   const onAddForwardHedging = () => {
     setList(prevState => {
       return [...prevState, {
         bankName: '',
-        currency: '',
+        currency: 'INR',
         bookedRate: '',
         bookedRateCurrency: 'INR',
         bookedAmount: '',
@@ -310,6 +311,7 @@ export default function Index() {
                       >
                         <div className="d-flex">
                           <select
+                            value={item.currency}
                             name="currency"
                             onChange={(e) =>
                               saveHedgingData(e.target.name, e.target.value, index)
@@ -317,7 +319,9 @@ export default function Index() {
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           >
                             <option selected>Select an option</option>
+                            <option value="INR">INR</option>
                             <option value="USD">USD</option>
+                            <option value="EURO">EURO</option>
                             <option value="POUND">POUND</option>
                           </select>
                           <label
