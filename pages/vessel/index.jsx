@@ -667,7 +667,14 @@ export default function Home() {
       }
       // console.log(payload, 'vessels123456')
       // console.log("check 3")
-      await dispatch(UpdateVessel(payload))
+      let data=await dispatch(UpdateVessel(payload))
+      if(data==200){
+      let toastMessage = 'VESSEL UPDATED SUCCESSFULLY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      }
+    
       fetchInitialData()
     }
   }
@@ -707,16 +714,12 @@ export default function Home() {
     // console.log("check 3")
     await dispatch(UpdateVessel(payload))
 
-    toastMessage = `Vessel DATA SAVED`
+    let toastMessage = `Vessel DATA SAVED`
     if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
-  fetchInitialData()
-
-}
-
-
+  
 return (
   <>
     <Vessels
@@ -758,3 +761,7 @@ return (
   </>
 )
 }
+
+
+
+
