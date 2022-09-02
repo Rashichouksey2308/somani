@@ -517,7 +517,9 @@ export default function Index({
     let fd = new FormData()
     fd.append('bl', JSON.stringify(bol))
     fd.append('transitId', transId._id)
-    dispatch(UpdateTransitDetails(fd))
+
+    let task = 'submit'
+    dispatch(UpdateTransitDetails({ fd, task }))
     console.log(fd, bol, 'filteredVessel')
   }
   // console.log(bolList, 'filteredVessel', startetaAtDischargePortFrom)
@@ -537,7 +539,7 @@ export default function Index({
                       inline
                       label="Bulk"
                       name="group1"
-                       disabled={shipmentTypeBulk}
+                      disabled={shipmentTypeBulk}
                       type={type}
                       // checked={
                       //   _get(
@@ -554,7 +556,7 @@ export default function Index({
                       inline
                       label="Liner"
                       name="group1"
-                       disabled={!shipmentTypeBulk}
+                      disabled={!shipmentTypeBulk}
                       // checked={
                       //   _get(
                       //     TransitDetails,

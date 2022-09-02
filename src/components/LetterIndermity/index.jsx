@@ -127,7 +127,7 @@ function Index({ TransitDetails }) {
 
   const saveData = () => {
     if (loi.authorizedSignatory.name === '') {
-      let toastMessage = 'PLEase selcet authorised signatory'
+      let toastMessage = 'PLEase select authorized signatory'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
@@ -141,7 +141,8 @@ function Index({ TransitDetails }) {
     let fd = new FormData()
     fd.append('loi', JSON.stringify(LOI))
     fd.append('transitId', transId._id)
-    dispatch(UpdateTransitDetails(fd))
+    let task = 'submit'
+    dispatch(UpdateTransitDetails({fd, task}))
     //console.log(fd, bol, 'filteredVessel')
 
     Router.push('/loi-preview')
@@ -394,9 +395,10 @@ function Index({ TransitDetails }) {
       </div>
 
       <SavePreviewBar
-        openbar={saveData}
+        // openbar={saveData}
         isDownload={false}
         rightBtn="Save &amp; Preview"
+        rightBtnClick={saveData}
       />
     </div>
   )

@@ -145,10 +145,10 @@ export default function Index() {
     }
   }
 
-  const uploadDocument1 = async (e,index) => {
+  const uploadDocument1 = async (e, index) => {
     // console.log(uploadDocument(e), 'function call')
     const doc = await uploadDocument(e)
-      setList((prevState) => {
+    setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
           return {
@@ -219,12 +219,28 @@ export default function Index() {
     // fd.append('forwardSalesContract', list?.forwardSalesContract)
     let obj = {
       forwardHedgingId: hedgingData?._id,
-      detail: [ hedgingObj ]
+      detail: [hedgingObj]
     }
-
-    dispatch(UpdateForwardHedging(obj))
+    let task = 'save'
+    dispatch(UpdateForwardHedging({ obj, task }))
   }
-  console.log(list,"list")
+  const handleSubmit = () => {
+    let hedgingObj = { ...list }
+
+    hedgingObj.balanceAmount = list.bookedAmount
+
+    // let fd = new FormData()
+    // fd.append('forwardHedgingId', hedgingData?._id)
+    // fd.append('detail', JSON.stringify(list))
+    // fd.append('forwardSalesContract', list?.forwardSalesContract)
+    let obj = {
+      forwardHedgingId: hedgingData?._id,
+      detail: [hedgingObj]
+    }
+    let task = 'submit'
+    dispatch(UpdateForwardHedging({ obj, task }))
+  }
+  console.log(list, "list")
 
   return (
     <>
@@ -604,7 +620,7 @@ export default function Index() {
           </div>
         </div>
 
-        <SaveBar handleSave={handleSave} rightBtn="Submit"  rightBtnClick={handleSave} />
+        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />
       </div>
     </>
   )
