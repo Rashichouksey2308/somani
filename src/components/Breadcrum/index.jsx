@@ -3,12 +3,11 @@ import styles from './index.module.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 export default function Index({ isQuery }) {
-
   const [show, setShow] = useState({
     units: true,
     currency: true,
   })
-  const removeStorage=()=>{
+  const removeStorage = () => {
     sessionStorage.removeItem('exe')
     sessionStorage.removeItem('Seller')
     sessionStorage.removeItem('Buyer')
@@ -28,27 +27,23 @@ export default function Index({ isQuery }) {
       isQuery?.match('/order-list') ||
       isQuery?.match('/new-order') ||
       isQuery?.match('/termsheet-preview') ||
-     
       isQuery?.match('/letter-table/letter-amend/id') ||
       isQuery == '/agreement/preview' ||
       isQuery == '/transit' ||
       isQuery == '/review-queue' ||
-      isQuery == '/margin-preview'||
+      isQuery == '/margin-preview' ||
       isQuery == '/generic/generic-list'
-      
     ) {
       show.units = false
       show.currency = false
-       removeStorage()
+      removeStorage()
       setShow({ ...show })
-    }
-    else if( isQuery?.match('/generic')){
+    } else if (isQuery?.match('/generic')) {
       show.units = false
       show.currency = false
-      
+
       setShow({ ...show })
-    }    
-    else if (
+    } else if (
       isQuery?.match('/credit-queue') ||
       isQuery?.match('/termsheet') ||
       isQuery?.match('/margin-money') ||
@@ -64,7 +59,6 @@ export default function Index({ isQuery }) {
     } else if (
       isQuery?.match('/termsheet/') ||
       isQuery?.match('/margin-money/')
-      
     ) {
       show.units = true
       show.currency = true
@@ -76,8 +70,7 @@ export default function Index({ isQuery }) {
       setShow({ ...show })
     }
   }, [isQuery])
- 
-  
+
   const [myUrl, setUrl] = useState([])
   const [myUrlLength, setUrlLength] = useState([])
   var url = []
@@ -87,7 +80,7 @@ export default function Index({ isQuery }) {
   const order = useSelector((state) => state?.user.order)
   const currency = useSelector((state) => state?.user)
 
-  console.log('pageName23', order,id)
+  console.log('pageName23', order, id)
   const [unit, setUnit] = useState({ value: 'crores' })
   const [curency, setCurency] = useState({ value: 'inr' })
 
@@ -365,7 +358,7 @@ export default function Index({ isQuery }) {
         )}
       </div>
       <div className={`${styles.unit_container} d-flex`}>
-        {show.units ? (
+        {show.units && pageName !== 'payment' ? (
           <div className="mr-0 mr-sm-2">
             <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
             <select
@@ -381,7 +374,7 @@ export default function Index({ isQuery }) {
             </select>
           </div>
         ) : null}
-        {show.currency ? (
+        {show.currency && pageName !== 'payment' ? (
           <div>
             <h5 className={`${styles.unit_label} accordion_Text`}>
               Currency :

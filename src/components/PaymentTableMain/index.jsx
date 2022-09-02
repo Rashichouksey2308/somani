@@ -2,13 +2,22 @@
 import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
-import { GetAllDelivery, GetDelivery } from '../../redux/release&DeliveryOrder/action'
+import {
+  GetAllDelivery,
+  GetDelivery,
+} from '../../redux/release&DeliveryOrder/action'
 import Router from 'next/router'
 
-function Index({ tableName, pageType, isStatus, dateHeading, handleEditRoute }) {
+function Index({
+  tableName,
+  pageType,
+  isStatus,
+  dateHeading,
+  handleEditRoute,
+}) {
   const dispatch = useDispatch()
 
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0)
   const { allReleaseOrder } = useSelector((state) => state.Release)
   console.log(allReleaseOrder, 'allReleaseOrder')
 
@@ -16,16 +25,12 @@ function Index({ tableName, pageType, isStatus, dateHeading, handleEditRoute }) 
     dispatch(GetAllDelivery(`?page=${currentPage}&limit=7`))
   }, [dispatch, currentPage])
 
-
   const handleRoute = (sheet) => {
     sessionStorage.setItem('ROrderID', sheet._id)
     dispatch(GetDelivery(`?deliveryId=${sheet._id}`))
     sessionStorage.setItem('company', sheet.company._id)
     Router.push('/payment/id')
   }
-
-
-
 
   return (
     <div className={`${styles.datatable} datatable card`}>
@@ -122,32 +127,44 @@ function Index({ tableName, pageType, isStatus, dateHeading, handleEditRoute }) 
               </tr>
             </thead>
             <tbody>
-              {allReleaseOrder && allReleaseOrder?.data?.map((insured, index) => (<tr key={index} className="table_row">
-                <td>{insured?.order?.orderId}</td>
-                <td
-                  className={styles.buyerName}
-                  onClick={() => {
-                    handleRoute(insured)
-                  }}
-                >
-                  {insured?.company?.companyName}
-                </td>
-                <td>{insured?.order?.commodity}</td>
-                <td>{insured?.quotationRequest?.insuranceType}</td>
-                <td>{insured?.quotationRequest?.expectedTimeOfDispatch?.split('T')[0]}</td>
-                <td>
-                  <span className={`${styles.status} ${styles.review}`}></span>
-                  On-Hold
-                </td>
-                <td onClick={() => handleEditRoute(insured)}>
-                  <img
-                    className={`${styles.edit_image} img-fluid mr-3`}
-                    src="/static/mode_edit.svg"
-                    alt="edit"
-
-                  />
-                </td>
-              </tr>))}
+              {allReleaseOrder &&
+                allReleaseOrder?.data?.map((insured, index) => (
+                  <tr key={index} className="table_row">
+                    <td>{insured?.order?.orderId}</td>
+                    <td
+                      className={styles.buyerName}
+                      onClick={() => {
+                        handleRoute(insured)
+                      }}
+                    >
+                      {insured?.company?.companyName}
+                    </td>
+                    <td>{insured?.order?.commodity}</td>
+                    <td>{insured?.deliveryDetail?.deliveryOrderNumber} </td>
+                    <td>{insured?.deliveryDetail?.deliveryOrderDate} </td>
+                    {/* <td>{insured?.quotationRequest?.insuranceType}</td> */}
+                    {/* <td>
+                      {
+                        insured?.quotationRequest?.expectedTimeOfDispatch?.split(
+                          'T',
+                        )[0]
+                      }
+                    </td> */}
+                    <td>
+                      <span
+                        className={`${styles.status} ${styles.review}`}
+                      ></span>
+                      On-Hold
+                    </td>
+                    <td onClick={() => handleEditRoute(insured)}>
+                      <img
+                        className={`${styles.edit_image} img-fluid mr-3`}
+                        src="/static/mode_edit.svg"
+                        alt="edit"
+                      />
+                    </td>
+                  </tr>
+                ))}
               {/* <tr className="table_row">
                 <td>124621</td>
                 <td
