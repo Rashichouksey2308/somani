@@ -12,10 +12,10 @@ import UploadOther from '../UploadOther'
 import _get from 'lodash/get'
 
 export default function Index(props) {
-  console.log(props.liftingData, 'liftingdata')
+  console.log(props.data, 'liftingdata')
   const [editInput, setEditInput] = useState(true)
   const [darkMode, setDarkMode] = useState(false)
-  const [currentOrder, setCurrentOrder] = useState('Ramal001-00001/05')
+  const [currentOrder, setCurrentOrder] = useState('')
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
       setEditInput(false)
@@ -135,12 +135,12 @@ export default function Index(props) {
                         setCurrentOrder(e.target.value)
                       }}
                     >
-                      <option value="Ramal001-00001/05">
-                        Ramal001-00001/05
-                      </option>
-                      <option value="Ramal001-00001/02">
-                        Ramal001-00001/02
-                      </option>
+                      <option key={index} >Select an option</option>
+                      {_get(props.data,"data[0].deliveryDetail",[]).map((val,index)=>{
+                       return(
+                         <option key={index} value={val?.deliveryOrderNumber}>{val?.deliveryOrderNumber}</option>
+                       )
+                      })}
                     </select>
 
                     <img

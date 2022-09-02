@@ -25,7 +25,7 @@ function Index() {
   const dispatch = useDispatch()
   const { allLiftingData } = useSelector((state) => state.Lifting)
   const { ReleaseOrderData } = useSelector((state) => state.Release)
-  //console.log(ReleaseOrderData, 'ReleaseOrderData')
+  console.log(ReleaseOrderData, 'ReleaseOrderData')
   const [darkMode, setDarkMode] = useState(false)
   useEffect(() => {
     dispatch(setPageName('payment'))
@@ -39,9 +39,18 @@ function Index() {
     dispatch(GetAllLifting())
   }, [dispatch])
 
-  //console.log(allLiftingData, "allLiftingData")
+  console.log(allLiftingData, "allLiftingData")
   const liftingData = _get(allLiftingData, 'data[0]', '')
   const [lifting, setLifting] = useState([])
+  // useEffect(() => {
+  //   if(ReleaseOrderData){
+  //     setLifting([...lifting,{
+
+  //   }])
+  //   }
+  // },[
+  //   ReleaseOrderData
+  // ])
   const addNewLifting = (value) => {
     setLifting([
       ...lifting,
@@ -94,6 +103,7 @@ function Index() {
     })
     setLifting([...tempArr])
   }
+  console.log(lifting)
   const handleLiftingSubmit = () => {
     let tempArr = []
     let temp2 = []
