@@ -60,18 +60,43 @@ export default function Index({
             blNumber: number,
             blDate: new Date(),
             blQuantity: '',
+            noOfContainers: ''
           },
         ],
       },
     ],
     document: null,
   })
+
   const [blNewNumberEntry, setBlNewNumberEntry] = useState({
     blNumber: number,
     BlDate: new Date(),
     quantity: '',
   })
   const [orderData, setOrderData] = useState()
+  // let balanceQuantity = _get(TransitDetails, 'data[0].order.quantity', '')
+
+
+  const calculateBalaceQuantity = () => {
+    let balanceQuantity = _get(TransitDetails, 'data[0].order.quantity', '')
+    // _get(
+    //   TransitDetails,
+    //   'data[0].BL.billOfLanding',
+    //   [],
+    // ).forEach((item) => {
+    // balanceQuantity = balanceQuantity - item.blQuantity
+    // })
+
+    igmList.igmDetails.forEach((item) => {
+      item.blNumber.forEach((item2) => {
+        balanceQuantity = balanceQuantity - item2.blQuantity
+
+      })
+
+
+    })
+    return balanceQuantity
+  }
   useEffect(() => {
     let NewArr = []
     TransitDetails?.data?.forEach((element) => {
@@ -97,7 +122,7 @@ export default function Index({
           blNumber: number,
           BlDate: '',
           quantity: '',
-          noOfConatiners: 0,
+          noOfContainers: 0,
         },
       ],
     })
@@ -226,6 +251,8 @@ export default function Index({
         filterData[0].blNumber
       tempArray.igmDetails[index].blNumber[index2].blQuantity =
         filterData[0].blQuantity
+      tempArray.igmDetails[index].blNumber[index2].noOfContainers =
+        filterData[0].containerDetails?.numberOfContainers
       setIgmList(tempArray)
     }
   }
@@ -486,7 +513,7 @@ export default function Index({
                     <div className={`${styles.label} text`}>
                       Balance Quantity:
                     </div>
-                    <div className={`${styles.value} ml-2 mr-4`}>4,500</div>
+                    <div className={`${styles.value} ml-2 mr-4`}>{calculateBalaceQuantity()}  {_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}{' '}</div>
                     <button
                       onClick={() => onigmAdd()}
                       className={styles.add_btn}
@@ -730,7 +757,7 @@ export default function Index({
                                       </strong>
                                     </div>
                                     <span className={styles.value}>
-                                      {blEntry?.containerDetails?.numberOfContainers}
+                                      {blEntry?.noOfContainers}
                                     </span>
                                   </div>
                                 </div>
@@ -857,7 +884,7 @@ export default function Index({
             )
           })}
           <div className="">
-            <UploadOther   module="Loading-Transit-Unloading"  orderId={orderId}  />
+            <UploadOther module="Loading-Transit-Unloading" orderId={orderId} />
             {/* <InspectionDocument
               module="Loading-Transit-Unloading"
               orderId={orderId}

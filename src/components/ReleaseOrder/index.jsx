@@ -14,7 +14,7 @@ import Cookies from 'js-cookie'
 export default function Index({ ReleaseOrderData }) {
   const dispatch = useDispatch()
   const [show, setShow] = useState(false)
-  
+
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
@@ -195,6 +195,15 @@ export default function Index({ ReleaseOrderData }) {
     let orderNo = index + 1
     return orderNo
   }
+
+  const uplaodDoc = async (e, index) => {
+    console.log(e, index, 'UploadDocRealeseORder')
+    let name = e.target.id
+    let doc = await uploadDoc(e)
+    handlereleaseDetailChange(name, value, index)
+  }
+
+
   const handleCloseO = () => {
     setDocuments((doc) => {
       return { ...doc, certificateOfOrigin: null }
@@ -285,90 +294,90 @@ export default function Index({ ReleaseOrderData }) {
                   </div>
                 </div>
               </div>
-             
+
               <div
                 className={`${styles.dashboard_form} border_color card-body`}
                 style={{ borderTop: '2px solid #CAD6E6' }}
               >
-                
+
                 <div className={`${styles.form_heading} mt-2`}>
                   Release Order Details
                 </div>
                 <div className={styles.table_scroll_outer}>
                   <div className={styles.table_scroll_inner}>
-                {releaseDetail.map((item, index) => (
-                 
-                  <div key={index} className="row mb-3 ml-lg-auto">
-                    <div
-                      className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                    >
-                      <div className={`${styles.label} text`}>
-                        Release Order No.{' '}
-                        <strong className="text-danger ml-n1">*</strong>
-                      </div>
-                      <span className={`${styles.value}`}>
-                        {orderNo(index)}
-                      </span>
-                    </div>
-                    <div
-                      className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                    >
-                      <div className="d-flex">
-                        <DateCalender
-                          defaultDate={item.releaseOrderDate}
-                          index={index}
-                          saveDate={saveDate}
-                          name="releaseOrderDate"
-                          labelName="Release Order Date"
-                        />
-                        <img
-                          className={`${styles.calanderIcon} image_arrow img-fluid`}
-                          src="/static/caldericon.svg"
-                          alt="Search"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
-                    >
-                      <input
-                        defaultValue={item.netQuantityReleased}
-                        onChange={(e) => netQuantityChange(e, index)}
-                        id="netQuantityReleased"
-                        className={`${styles.input_field} input form-control`}
-                        type="number"
-                        onKeyDown={(evt) =>
-                          evt.key === 'e' && evt.preventDefault()
-                        }
-                      />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        Net Quantity Released
-                        <strong className="text-danger">*</strong>
-                      </label>
-                    </div>
-                    <div
-                      className="col-lg-3 col-md-4 col-sm-6 text-center"
-                      style={{ top: '40px' }}
-                    >
-                      {true ? (
-                        <>
-                       
-                        <div className='d-flex'>
-                          <div className={styles.uploadBtnWrapper}>
-                            <input
-                              type="file"
-                              name="myfile"
-                              accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                              onChange={(e) => uploadDocument1(e)}
-                            />
-                            <button className={`${styles.button_upload} btn`}>
-                              Upload
-                            </button>
-                          </div>
+                    {releaseDetail.map((item, index) => (
 
-                           {/* <div className={styles.certificate}>
+                      <div key={index} className="row mb-3 ml-lg-auto">
+                        <div
+                          className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                        >
+                          <div className={`${styles.label} text`}>
+                            Release Order No.{' '}
+                            <strong className="text-danger ml-n1">*</strong>
+                          </div>
+                          <span className={`${styles.value}`}>
+                            {orderNo(index)}
+                          </span>
+                        </div>
+                        <div
+                          className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                        >
+                          <div className="d-flex">
+                            <DateCalender
+                              defaultDate={item.releaseOrderDate}
+                              index={index}
+                              saveDate={saveDate}
+                              name="releaseOrderDate"
+                              labelName="Release Order Date"
+                            />
+                            <img
+                              className={`${styles.calanderIcon} image_arrow img-fluid`}
+                              src="/static/caldericon.svg"
+                              alt="Search"
+                            />
+                          </div>
+                        </div>
+                        <div
+                          className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                        >
+                          <input
+                            defaultValue={item.netQuantityReleased}
+                            onChange={(e) => netQuantityChange(e, index)}
+                            id="netQuantityReleased"
+                            className={`${styles.input_field} input form-control`}
+                            type="number"
+                            onKeyDown={(evt) =>
+                              evt.key === 'e' && evt.preventDefault()
+                            }
+                          />
+                          <label
+                            className={`${styles.label_heading} label_heading`}
+                          >
+                            Net Quantity Released
+                            <strong className="text-danger">*</strong>
+                          </label>
+                        </div>
+                        <div
+                          className="col-lg-3 col-md-4 col-sm-6 text-center"
+                          style={{ top: '40px' }}
+                        >
+                          {item?.document === null ? (
+                            <>
+
+                              <div className='d-flex'>
+                                <div className={styles.uploadBtnWrapper}>
+                                  <input
+                                    id='document'
+                                    name="myfile"
+                                    accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                    onChange={(e) => uplaodDoc(e)}
+                                  />
+                                  <button className={`${styles.button_upload} btn`}>
+                                    Upload
+                                  </button>
+                                </div>
+
+                                {/* <div className={styles.certificate}>
                                  release.pdf
                                   <img
                                     className={`${styles.close_image} float-right m-2 img-fluid`}
@@ -377,27 +386,27 @@ export default function Index({ ReleaseOrderData }) {
                                     alt="Close"
                                   />{' '}
                                 </div>   */}
-                          {Number(netBalanceQuantity) >= 0 && (
-                            <div  style={{ marginTop: '12px' }}>
-                             <img
-                          onClick={() => handleDeleteRow(index)}
-                          src="/static/delete 2.svg"
-                          className={`${styles.delete_image} img-fluid ml-3 mr-2`}
-                          alt="Delete"
-                        />
-                            <img
-                              onClick={() =>
-                                addMorereleaseDetailDataRows(index)
-                              }
-                              src="/static/add-btn.svg"
-                              className={`${styles.delete_image} ml-2 img-fluid`}
-                              alt="Add button"
-                            />
-                           
-                        </div>
-                          )}
-</div>
-                          {/* <div className={styles.uploadBtnWrapper}>
+                                {Number(netBalanceQuantity) >= 0 && (
+                                  <div style={{ marginTop: '12px' }}>
+                                    <img
+                                      onClick={() => handleDeleteRow(index)}
+                                      src="/static/delete 2.svg"
+                                      className={`${styles.delete_image} img-fluid ml-3 mr-2`}
+                                      alt="Delete"
+                                    />
+                                    <img
+                                      onClick={() =>
+                                        addMorereleaseDetailDataRows(index)
+                                      }
+                                      src="/static/add-btn.svg"
+                                      className={`${styles.delete_image} ml-2 img-fluid`}
+                                      alt="Add button"
+                                    />
+
+                                  </div>
+                                )}
+                              </div>
+                              {/* <div className={styles.uploadBtnWrapper}>
                         <input
                           type="file"
                           accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
@@ -408,38 +417,38 @@ export default function Index({ ReleaseOrderData }) {
                           Upload
                         </button>
                         </div> */}
-                        </>
-                      ) : (
-                        <>
-                          <div className={styles.certificate}>
-                            {/* {lcDoc?.lcDraftDoc?.name} */}
-                            <img
-                              className={`${styles.close_image} float-right m-2 img-fluid`}
-                              src="/static/close.svg"
-                              alt="Close"
-                            />{' '}
-                          </div>
-                          {Number(netBalanceQuantity) > 0 && (
+                            </>
+                          ) : (
                             <>
-                            <img
-                              onClick={() =>
-                                addMorereleaseDetailDataRows(index)
-                              }
-                              src="/static/add-btn.svg"
-                              className={`${styles.delete_image} mt-n4 img-fluid`}
-                              alt="Add button"
-                            />
-                            <img
-                          onClick={() => handleDeleteRow(index)}
-                          src="/static/delete 2.svg"
-                          className={`${styles.delete_image} ml-1 mt-n4 img-fluid mr-2`}
-                          alt="Delete"
-                        />
-                        </>
+                              <div className={styles.certificate}>
+                                {/* {lcDoc?.lcDraftDoc?.name} */}
+                                <img
+                                  className={`${styles.close_image} float-right m-2 img-fluid`}
+                                  src="/static/close.svg"
+                                  alt="Close"
+                                />{' '}
+                              </div>
+                              {Number(netBalanceQuantity) > 0 && (
+                                <>
+                                  <img
+                                    onClick={() =>
+                                      addMorereleaseDetailDataRows(index)
+                                    }
+                                    src="/static/add-btn.svg"
+                                    className={`${styles.delete_image} mt-n4 img-fluid`}
+                                    alt="Add button"
+                                  />
+                                  <img
+                                    onClick={() => handleDeleteRow(index)}
+                                    src="/static/delete 2.svg"
+                                    className={`${styles.delete_image} ml-1 mt-n4 img-fluid mr-2`}
+                                    alt="Delete"
+                                  />
+                                </>
+                              )}
+                            </>
                           )}
-                        </>
-                      )}
-                      {/* {releaseDetail.length > 1 && (
+                          {/* {releaseDetail.length > 1 && (
                         <img
                           onClick={() => handleDeleteRow(index)}
                           src="/static/delete 2.svg"
@@ -455,15 +464,15 @@ export default function Index({ ReleaseOrderData }) {
                           alt="Add button"
                         />
                       )} */}
-                    </div>
+                        </div>
+                      </div>
+
+                    ))}
                   </div>
-                 
-                ))}
-                 </div>
                 </div>
-                
+
                 <hr></hr>
-                
+
                 <div className="text-right">
                   <div className={`${styles.total_quantity} text `}>
                     Net Balance Quantity:{' '}
