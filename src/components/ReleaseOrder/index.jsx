@@ -160,7 +160,7 @@ export default function Index({ ReleaseOrderData }) {
   }
   const netQuantityChange = (e, index) => {
     // console.log(netBalanceQuantity, e.target.value, "herere12e")
-    if (netBalanceQuantity <= e.target.value) {
+    if (netBalanceQuantity < e.target.value) {
       // let temp = Number(e.target.value)
       // if (e.target.value == "") {
       //   temp = 0
@@ -171,7 +171,18 @@ export default function Index({ ReleaseOrderData }) {
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-    } else {
+    }
+    if (netBalanceQuantity > e.target.value) {
+      // let temp = Number(e.target.value)
+      // if (e.target.value == "") {
+      //   temp = 0
+      // }
+
+      const toastMessage =
+        'Net Quantity Realesed cannot be Greater than net bALance Quantity'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
     }
     handlereleaseDetailChange(e.target.id, e.target.value, index)
     // getData()
@@ -201,7 +212,6 @@ export default function Index({ ReleaseOrderData }) {
     let doc = await uploadDoc(e)
     handlereleaseDetailChange(name, value, index)
   }
-
 
   const handleCloseO = () => {
     setDocuments((doc) => {
@@ -261,7 +271,7 @@ export default function Index({ ReleaseOrderData }) {
                         ReleaseOrderData,
                         'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
                         '',
-                      )}
+                      ).toUpperCase()}
                     </span>
                   </div>
                   <div
@@ -297,14 +307,12 @@ export default function Index({ ReleaseOrderData }) {
                 className={`${styles.dashboard_form} border_color card-body`}
                 style={{ borderTop: '2px solid #CAD6E6' }}
               >
-                
                 <div className={`${styles.form_heading} mt-2`}>
                   Release Order Details
                 </div>
                 <div className={styles.table_scroll_outer}>
                   <div className={styles.table_scroll_inner}>
                     {releaseDetail.map((item, index) => (
-
                       <div key={index} className="row mb-3 ml-lg-auto">
                         <div
                           className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
@@ -361,16 +369,17 @@ export default function Index({ ReleaseOrderData }) {
                         >
                           {item?.document === null ? (
                             <>
-
-                              <div className='d-flex'>
+                              <div className="d-flex">
                                 <div className={styles.uploadBtnWrapper}>
                                   <input
-                                    id='document'
+                                    id="document"
                                     name="myfile"
                                     accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                     onChange={(e) => uplaodDoc(e)}
                                   />
-                                  <button className={`${styles.button_upload} btn`}>
+                                  <button
+                                    className={`${styles.button_upload} btn`}
+                                  >
                                     Upload
                                   </button>
                                 </div>
@@ -463,7 +472,6 @@ export default function Index({ ReleaseOrderData }) {
                       )} */}
                         </div>
                       </div>
-
                     ))}
                   </div>
                 </div>
