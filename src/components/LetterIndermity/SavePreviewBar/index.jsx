@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './index.module.scss'
 
-function index({ isDownload, openbar, rightBtn }) {
+function index({ isDownload, openbar, rightBtn , rightBtnClick}) {
   return (
     <div className={`${styles.root} background1`}>
       {isDownload ? (
@@ -28,7 +28,8 @@ function index({ isDownload, openbar, rightBtn }) {
       <div
         className={`${styles.approve} ml-3`}
         onClick={() => {
-          openbar()
+          // openbar()
+          rightBtnClick()
         }}
       >
         <span>{rightBtn}</span>

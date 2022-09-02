@@ -122,7 +122,6 @@
 
     .dashboard_form {
       padding: 20px 35px 25px 40px;
-
       .form_heading {
         font-size: 22px;
         line-height: 27px;
@@ -143,6 +142,15 @@
           line-height: 15px;
         }
       }
+      .table_scroll_outer {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+        .table_scroll_inner {
+          display: table-cell;
+          overflow-x: auto;
+          overflow-y: hidden;
+      
 
       .total_quantity {
         letter-spacing: 0.53px;
@@ -439,6 +447,8 @@
           }
         }
       }
+    }
+  }
     }
 
     .table_scroll_outer {
@@ -938,6 +948,17 @@
     }
   }
 }
+
+
+.certificate {
+  font-size: 20px;
+  letter-spacing: 0.19px;
+  color: #111111;
+  background-color: #c3c3c31f;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 7px 0;
+}
 .edit_image {
   background: #c3c3c31f;
   border: 1px solid #0000001f;
@@ -956,23 +977,7 @@
     padding: 5px;
   }
 }
-.delete_image {
-  background: #c3c3c31f;
-  border: 1px solid #0000001f;
-  border-radius: 4px;
-  padding: 7px 5px;
-  width: 40px;
-  height: 40px;
-  @include respond(md-desktop) {
-    height: 30px;
-  }
-  @include respond(sm-desktop) {
-    height: 28px;
-  }
-  @include respond(phone) {
-    height: 25px;
-  }
-}
+
 .arrow {
   margin-left: -40px;
   width: 13px;
@@ -1387,10 +1392,12 @@ input:checked + .slider:before {
   }
 }
 .button_upload {
-  width: 106px;
-  height: 38px;
+  max-width: 234px;
+  width: 100%;
+height: 36px;
   border: 3px solid #3687e8;
   border-radius: 5px;
+  padding:0 15px;
   text-align: center;
   font-weight: bold;
   font-size: 18px;

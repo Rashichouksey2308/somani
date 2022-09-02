@@ -77,6 +77,8 @@ export default function Index({ OrderId, customData, uploadDoc }) {
     setDischargeOfCargo(tempData)
   }
   console.log(dischargeOfCargo, 'dischargeOfCargo3')
+
+
   const onSaveDischarge = () => {
     if (dischargeOfCargo.dischargeOfCargo.dischargeQuantity === '') {
 
@@ -138,10 +140,23 @@ export default function Index({ OrderId, customData, uploadDoc }) {
       fd.append('customClearanceId', customData._id)
       fd.append('document1', dischargeOfCargo.document1)
       fd.append('document2', dischargeOfCargo.document2)
-      dispatch(UpdateCustomClearance(fd))
+
+      let task = 'save'
+      dispatch(UpdateCustomClearance({fd, task}))
     }
   }
   console.log(dischargeOfCargo, 'dischargeOfCargo')
+
+  const handleSave = () => {
+    let fd = new FormData()
+    fd.append('dischargeOfCargo', JSON.stringify(dischargeOfCargo))
+    fd.append('customClearanceId', customData._id)
+    fd.append('document1', dischargeOfCargo.document1)
+    fd.append('document2', dischargeOfCargo.document2)
+
+    let task = 'save'
+    dispatch(UpdateCustomClearance({fd, task}))
+  }
 
   return (
     <>
@@ -422,7 +437,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
             />
           </div>
         </div>
-        <SaveBar handleSave={onSaveDischarge} rightBtn="Submit" rightBtnClick={onSaveDischarge} />
+        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={onSaveDischarge} />
       </div>
       <Modal
         show={show}

@@ -67,7 +67,7 @@ export const GetAllForwardHedging =
         {
           headers: headers,
         },
-      
+
       ).then((response) => {
         if (response.data.code === 200) {
           dispatch(getAllForwardHedgingSuccess(response.data.data))
@@ -75,7 +75,8 @@ export const GetAllForwardHedging =
           dispatch(getAllForwardHedgingFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
         }
       })
     } catch (error) {
@@ -105,7 +106,8 @@ export const GetForwardHedging =
           dispatch(getForwardHedgingFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
         }
       })
     } catch (error) {
@@ -126,20 +128,27 @@ export const UpdateForwardHedging =
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
-      Axios.put(`${API.corebaseUrl}${API.updateForwardHedging}`, payload, {
+      Axios.put(`${API.corebaseUrl}${API.updateForwardHedging}`, payload.obj, {
         headers: headers,
       }).then((response) => {
         if (response.data.code === 200) {
           dispatch(updateForwardHedgingSuccess(response.data.data))
-          
-          let toastMessage = 'SAVED SUCCESSFULLY'
+
+          let toastMessage = 'updated  SUCCESSFULLY'
+          console.log(payload.task ,'payload.task')
+          if (payload.task === 'save') {
+            toastMessage = 'SAVED SUCCESSFULLY'
+
+          }
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })   }
+            toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
         } else {
           dispatch(updateForwardHedgingFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
         }
       })
     } catch (error) {
