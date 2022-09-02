@@ -91,7 +91,7 @@ function Index({
                             value={lcData?.formOfDocumentaryCredit}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
-                             <option value="">Select an option</option>
+                             <option disabled>Select an option</option>
                             <option value="Irrevocable">Irrevocable</option>
                             <option value="Revocable">Revocable</option>
                           </select>
@@ -168,10 +168,10 @@ function Index({
                             onChange={(e) => {
                               saveLcData(e.target.name, e.target.value)
                             }}
-                            value={lcData?.lcIssuingBank}
+                            // value={lcData?.lcIssuingBank}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
-                             <option value="">Select an option</option>
+                             <option disabled>Select an option</option>
                             <option value="Reserve Bank of Spain">Reserve Bank of Spain</option>
                             <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
                           </select>
@@ -197,7 +197,7 @@ function Index({
                             value={lcData?.applicant}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
-                            <option value="">Select an option</option>
+                            <option disabled>Select an option</option>
                             <option value="Inod International Trading Fzco">
                               Indo International Trading Fzco
                             </option>
@@ -286,7 +286,7 @@ function Index({
                             value={lcData?.creditAvailablewith}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
-                            <option value="">Select an option</option>
+                            <option disabled>Select an option</option>
                             <option value="BNP PARIBAS PARIBAS _ BNPAFRPPS">
                               BNP PARIBAS PARIBAS _ BNPAFRPPS
                             </option>
@@ -316,7 +316,7 @@ function Index({
                             value={lcData?.creditAvailableBy}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
-                            <option value="">Select an option</option>
+                            <option disabled>Select an option</option>
                             <option value="By Negotiation">
                               By Negotiation
                             </option>
@@ -350,7 +350,7 @@ function Index({
                                 value={lcData?.atSight}
                                 className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                               >
-                                <option value="">Select an option</option>
+                                <option disabled>Select an option</option>
                                 <option value="Documetarty Credit">
                                   Documentary Credit
                                 </option>
@@ -439,7 +439,7 @@ function Index({
                             value={lcData?.partialShipment}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
-                            <option value="">Select an option</option>
+                            <option disabled>Select an option</option>
                             <option value="Prohibited">Prohibited</option>
                             <option value="Allowed">Allowed</option>
                           </select>
@@ -466,7 +466,7 @@ function Index({
                             value={lcData?.transhipments}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
-                            <option>Select an option</option>
+                            <option disabled>Select an option</option>
                             <option value="Prohibited">Prohibited</option>
                             <option value="Not Prohibited">
                               Not Prohibited
