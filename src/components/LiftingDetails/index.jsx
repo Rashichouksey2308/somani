@@ -12,7 +12,7 @@ import UploadOther from '../UploadOther'
 import _get from 'lodash/get'
 
 export default function Index(props) {
-  console.log(_get(props.data), 'liftingdata')
+  console.log(props.data, 'liftingdata')
   const [editInput, setEditInput] = useState(true)
   const [darkMode, setDarkMode] = useState(false)
   const [currentOrder, setCurrentOrder] = useState('')
@@ -135,7 +135,8 @@ export default function Index(props) {
                         setCurrentOrder(e.target.value)
                       }}
                     >
-                      {_get(props.data,"deliveryDetail",[]).map((val,index)=>{
+                      <option key={index} >Select an option</option>
+                      {_get(props.data,"data[0].deliveryDetail",[]).map((val,index)=>{
                        return(
                          <option key={index} value={val?.deliveryOrderNumber}>{val?.deliveryOrderNumber}</option>
                        )
