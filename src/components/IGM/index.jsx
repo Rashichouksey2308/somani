@@ -16,8 +16,9 @@ import { element, number } from 'prop-types'
 import { useEffect } from 'react'
 import 'react-datepicker/dist/react-datepicker.css'
 import DatePicker from 'react-datepicker'
-import { CovertvaluefromtoCR } from '../../utils/helper'
+import { checkNan, CovertvaluefromtoCR } from '../../utils/helper'
 import moment from 'moment'
+import { toast } from 'react-toastify'
 
 
 
@@ -96,6 +97,13 @@ export default function Index({
 
 
     })
+    if (balanceQuantity >= 0) {
+      const toastMessage =
+        'IGM can not exceed to gross BL quantity'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+    }
     return balanceQuantity
   }
   useEffect(() => {
