@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setPageName, setDynamicName } from '../../src/redux/userData/action'
 import _get from 'lodash/get'
 import { GetAllInspection } from '../../src/redux/Inspections/action'
+import Router from 'next/router'
 
 function Index() {
 
@@ -40,11 +41,13 @@ function Index() {
     <>
       <div className={`${styles.dashboardTab} w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
-          <div className={`${styles.tab_header_inner} d-flex align-items-center`}>
+          <div  className={`${styles.tab_header_inner} d-flex align-items-center`}>
           <img
               className={`${styles.arrow} mr-2 image_arrow img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
+              onClick={() => Router.push('/inspection')}
+
             />
             <h1 className={`${styles.title} heading`}>
               <span>{_get(inspectionData, 'company.companyName', '')}</span>

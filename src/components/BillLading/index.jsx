@@ -33,7 +33,7 @@ export default function Index({
   const initialStateForLiner = {
     vesselName: '',
     imoNumber: '',
-  blNumber: '',
+    blNumber: '',
     blDate: '',
     blQuantity: '',
     blQuantityUnit: '',
@@ -104,9 +104,9 @@ export default function Index({
   // console.log(bolList, existingBlData, 'existingBlData')
   // console.log(bolList, existingBlData, 'existingBlData')
 
-  // useEffect(() => {
-  //   setBolList(_get(TransitDetails, `data[0].BL.billOfLanding`, []))
-  // }, [TransitDetails])
+  useEffect(() => {
+    setBolList(_get(TransitDetails, `data[0].BL.billOfLanding`, []))
+  }, [TransitDetails])
 
   const partShipmentAllowed = _get(
     TransitDetails,
@@ -154,7 +154,7 @@ export default function Index({
 
     let tempArr = [...bolList]
 
-    tempArr[index].e==null
+    tempArr[index].e == null
     console.log(tempArr, 'temp arr', e)
     setBolList(
       tempArr
@@ -281,102 +281,102 @@ export default function Index({
     let isOk = true
     let toastMessage = ''
 
-    if(_get(
+    if (_get(
       TransitDetails,
       'data[0].order.vessel.vessels[0].shipmentType',
       '',
-    ) === 'Liner'){
+    ) === 'Liner') {
 
-    for (let i = 0; i <= bolList.length - 1; i++) {
-      console.log(i, 'INSIDE FOR LOOP', bolList.length)
-      if (
-        bolList[i]?.vesselName == '' ||
-        bolList[i]?.vesselName == undefined
-      ) {
-        toastMessage = `Please select vessel name of Bill of Lading  ${i}  `
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          isOk = false
-          break
+      for (let i = 0; i <= bolList.length - 1; i++) {
+        console.log(i, 'INSIDE FOR LOOP', bolList.length)
+        if (
+          bolList[i]?.vesselName == '' ||
+          bolList[i]?.vesselName == undefined
+        ) {
+          toastMessage = `Please select vessel name of Bill of Lading  ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break
+          }
         }
-      }
-      if (
-        bolList[i]?.blNumber == '' ||
-        bolList[i]?.blNumber == undefined
-      ) {
-        toastMessage = `BL NUMBER IS MANDATORY IN BILL OF LADING ${i}  `
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          isOk = false
-          break
+        if (
+          bolList[i]?.blNumber == '' ||
+          bolList[i]?.blNumber == undefined
+        ) {
+          toastMessage = `BL NUMBER IS MANDATORY IN BILL OF LADING ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break
+          }
         }
-      }
-      if (
-        bolList[i]?.blDate == '' ||
-        bolList[i]?.blDate == undefined
-      ) {
-        toastMessage = `BL DATE IS MANDATORY IN BILL OF LADING ${i}  `
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          isOk = false
-          break
+        if (
+          bolList[i]?.blDate == '' ||
+          bolList[i]?.blDate == undefined
+        ) {
+          toastMessage = `BL DATE IS MANDATORY IN BILL OF LADING ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break
+          }
         }
-      }
-      if (
-        bolList[i]?.blQuantity == '' ||
-        bolList[i]?.blQuantity == undefined
-      ) {
-        toastMessage = `BL QUANTITY IS MANDATORY IN BILL OF LADING ${i}  `
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          isOk = false
-          break
+        if (
+          bolList[i]?.blQuantity == '' ||
+          bolList[i]?.blQuantity == undefined
+        ) {
+          toastMessage = `BL QUANTITY IS MANDATORY IN BILL OF LADING ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break
+          }
         }
-      }
-      if (
-        bolList[i]?.etaAtDischargePortFrom == '' ||
-        bolList[i]?.etaAtDischargePortFrom == undefined
-      ) {
-        toastMessage = `ETA AT DISCHARGE PORT FROM IS MANDATORY IN BILL OF LADING ${i}  `
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          isOk = false
-          break
+        if (
+          bolList[i]?.etaAtDischargePortFrom == '' ||
+          bolList[i]?.etaAtDischargePortFrom == undefined
+        ) {
+          toastMessage = `ETA AT DISCHARGE PORT FROM IS MANDATORY IN BILL OF LADING ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break
+          }
         }
-      }
-      if (
-        bolList[i]?.etaAtDischargePortTo == '' ||
-        bolList[i]?.etaAtDischargePortTo == undefined
-      ) {
-        toastMessage = `ETA AT DISCHARGE PORT TO IS MANDATORY IN BILL OF LADING ${i}  `
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          isOk = false
-          break
+        if (
+          bolList[i]?.etaAtDischargePortTo == '' ||
+          bolList[i]?.etaAtDischargePortTo == undefined
+        ) {
+          toastMessage = `ETA AT DISCHARGE PORT TO IS MANDATORY IN BILL OF LADING ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break
+          }
         }
-      }
-      if (
-        bolList[i]?.containerDetails?.numberOfContainers == '' ||
-        bolList[i]?.containerDetails?.numberOfContainers == undefined
-      ) {
-        toastMessage = `Please mention number of containers in Bill of lading ${i}  `
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          isOk = false
-          break
+        if (
+          bolList[i]?.containerDetails?.numberOfContainers == '' ||
+          bolList[i]?.containerDetails?.numberOfContainers == undefined
+        ) {
+          toastMessage = `Please mention number of containers in Bill of lading ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break
+          }
         }
-      }
-      if (
-        bolList[i]?.containerDetails?.freeDetentionPeriod == '' ||
-        bolList[i]?.containerDetails?.freeDetentionPeriod == undefined
-      ) {
-        toastMessage = `FREE DETENTION DAYS ARE MANDATORY IN BILL OF LADING ${i}  `
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          isOk = false
-          break
+        if (
+          bolList[i]?.containerDetails?.freeDetentionPeriod == '' ||
+          bolList[i]?.containerDetails?.freeDetentionPeriod == undefined
+        ) {
+          toastMessage = `FREE DETENTION DAYS ARE MANDATORY IN BILL OF LADING ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break
+          }
         }
-      }
         if (
           bolList[i]?.blDoc == null ||
           bolList[i]?.blDoc == undefined
@@ -388,107 +388,107 @@ export default function Index({
             break
           }
         }
-      
+
+      }
+
+      return isOk
     }
+    else if (_get(
+      TransitDetails,
+      'data[0].order.vessel.vessels[0].shipmentType',
+      '',
+    ) === 'Bulk') {
+      for (let i = 0; i <= bolList.length - 1; i++) {
+        console.log(i, 'INSIDE FOR LOOP', bolList.length, bolList)
 
-    return isOk
-  }
-  else if(_get(
-    TransitDetails,
-    'data[0].order.vessel.vessels[0].shipmentType',
-    '',
-  ) === 'Bulk'){
-    for (let i = 0; i <= bolList.length - 1; i++) {
-      console.log(i, 'INSIDE FOR LOOP', bolList.length, bolList)
-
-      if (
-        bolList[i]?.vesselName == '' ||
-        bolList[i]?.vesselName == undefined
-      ) {
-        toastMessage = `Please select vessel name of Bill of Lading  ${i}  `
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          isOk = false
-          break
+        if (
+          bolList[i]?.vesselName == '' ||
+          bolList[i]?.vesselName == undefined
+        ) {
+          toastMessage = `Please select vessel name of Bill of Lading  ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break
+          }
         }
-      }
-      if (
-        bolList[i]?.blNumber == '' ||
-        bolList[i]?.blNumber == undefined
-      ) {
-        toastMessage = `BL NUMBER IS MANDATORY IN BILL OF LADING ${i}  `
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          isOk = false
-          break
+        if (
+          bolList[i]?.blNumber == '' ||
+          bolList[i]?.blNumber == undefined
+        ) {
+          toastMessage = `BL NUMBER IS MANDATORY IN BILL OF LADING ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break
+          }
         }
-      }
-      if (
-        bolList[i]?.blDate == '' ||
-        bolList[i]?.blDate == undefined
-      ) {
-        toastMessage = `BL DATE IS MANDATORY IN BILL OF LADING ${i}  `
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          isOk = false
-          break
+        if (
+          bolList[i]?.blDate == '' ||
+          bolList[i]?.blDate == undefined
+        ) {
+          toastMessage = `BL DATE IS MANDATORY IN BILL OF LADING ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break
+          }
         }
-      }
-      if (
-        bolList[i]?.blQuantity == '' ||
-        bolList[i]?.blQuantity == undefined
-      ) {
-        toastMessage = `BL QUANTITY IS MANDATORY IN BILL OF LADING ${i}  `
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          isOk = false
-          break
+        if (
+          bolList[i]?.blQuantity == '' ||
+          bolList[i]?.blQuantity == undefined
+        ) {
+          toastMessage = `BL QUANTITY IS MANDATORY IN BILL OF LADING ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break
+          }
         }
-      }
-      if (
-        bolList[i]?.etaAtDischargePortFrom == '' ||
-        bolList[i]?.etaAtDischargePortFrom == undefined
-      ) {
-        toastMessage = `ETA AT DISCHARGE PORT FROM IS MANDATORY IN BILL OF LADING ${i}  `
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          isOk = false
-          break
+        if (
+          bolList[i]?.etaAtDischargePortFrom == '' ||
+          bolList[i]?.etaAtDischargePortFrom == undefined
+        ) {
+          toastMessage = `ETA AT DISCHARGE PORT FROM IS MANDATORY IN BILL OF LADING ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break
+          }
         }
-      }
-      if (
-        bolList[i]?.etaAtDischargePortTo == '' ||
-        bolList[i]?.etaAtDischargePortTo == undefined
-      ) {
-        toastMessage = `ETA AT DISCHARGE PORT TO IS MANDATORY IN BILL OF LADING ${i}  `
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          isOk = false
-          break
+        if (
+          bolList[i]?.etaAtDischargePortTo == '' ||
+          bolList[i]?.etaAtDischargePortTo == undefined
+        ) {
+          toastMessage = `ETA AT DISCHARGE PORT TO IS MANDATORY IN BILL OF LADING ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break
+          }
         }
-      }
-      if (
-        bolList[i]?.containerDetails.numberOfContainers == '' ||
-        bolList[i]?.containerDetails.numberOfContainers == undefined
-      ) {
-        toastMessage = `Please mention number of containers in Bill of lading ${i}  `
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          isOk = false
-          break
+        if (
+          bolList[i]?.containerDetails.numberOfContainers == '' ||
+          bolList[i]?.containerDetails.numberOfContainers == undefined
+        ) {
+          toastMessage = `Please mention number of containers in Bill of lading ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break
+          }
         }
-      }
-      if (
-        bolList[i]?.containerDetails.freeDetentionPeriod == '' ||
-        bolList[i]?.containerDetails.freeDetentionPeriod == undefined
-      ) {
-        toastMessage = `FREE DETENTION DAYS ARE MANDATORY IN BILL OF LADING ${i}  `
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          isOk = false
-          break
+        if (
+          bolList[i]?.containerDetails.freeDetentionPeriod == '' ||
+          bolList[i]?.containerDetails.freeDetentionPeriod == undefined
+        ) {
+          toastMessage = `FREE DETENTION DAYS ARE MANDATORY IN BILL OF LADING ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break
+          }
         }
-      }
         if (
           bolList[i]?.blDoc == null ||
           bolList[i]?.blDoc == undefined
@@ -500,10 +500,10 @@ export default function Index({
             break
           }
         }
-    }
+      }
 
-    return isOk
-  }
+      return isOk
+    }
   }
 
   const saveData = () => {
@@ -537,7 +537,7 @@ export default function Index({
                       inline
                       label="Bulk"
                       name="group1"
-                      // disabled={!isShipmentTypeBULK}
+                       disabled={shipmentTypeBulk}
                       type={type}
                       // checked={
                       //   _get(
@@ -546,7 +546,7 @@ export default function Index({
                       //     '',
                       //   ) === 'Bulk'
                       // }
-                      checked={isShipmentTypeBULK}
+                      checked={shipmentTypeBulk}
                       id={`inline-${type}-1`}
                     />
                     <Form.Check
@@ -554,7 +554,7 @@ export default function Index({
                       inline
                       label="Liner"
                       name="group1"
-                      // disabled={isShipmentTypeBULK}
+                       disabled={!shipmentTypeBulk}
                       // checked={
                       //   _get(
                       //     TransitDetails,
@@ -619,7 +619,7 @@ export default function Index({
                       _get(TransitDetails, 'data[0].order.orderValue', ''),
                     )}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
-                    'Crores'
+                      'Crores'
                       ? 'Cr'
                       : _get(TransitDetails, 'data[0].order.unitOfValue', '')}
                   </span>
@@ -629,7 +629,7 @@ export default function Index({
                     Shipping Line/Charter
                     <strong className="text-danger">*</strong>{' '}
                   </div>
-                  {shipmentTypeBulk ? (
+                  {!shipmentTypeBulk ? (
                     <span className={styles.value}>
                       {_get(
                         TransitDetails,
@@ -683,6 +683,7 @@ export default function Index({
                         >
                           <div className="d-flex">
                             <select
+                              value={bol?.vesselName}
                               id='vesselName'
                               onChange={(e) => onChangeVessel(e, index)}
                               className={`${styles.input_field} ${styles.customSelect}   input form-control`}
@@ -690,26 +691,26 @@ export default function Index({
                               <option disabled selected>Select an option</option>
                               {shipmentTypeBulk
                                 ? _get(
-                                    TransitDetails,
-                                    'data[0].order.vessel.vessels',
-                                    [],
-                                  ).map((vessel, index) => (
-                                    <option
-                                      value={vessel?.vesselInformation?.name}
-                                      key={index}
-                                    >
-                                      {vessel?.vesselInformation[0]?.name}
-                                    </option>
-                                  ))
+                                  TransitDetails,
+                                  'data[0].order.vessel.vessels',
+                                  [],
+                                ).map((vessel, index) => (
+                                  <option
+                                    value={vessel?.vesselInformation?.name}
+                                    key={index}
+                                  >
+                                    {vessel?.vesselInformation[0]?.name}
+                                  </option>
+                                ))
                                 : _get(
-                                    TransitDetails,
-                                    'data[0].order.vessel.vessels[0].vesselInformation',
-                                    [],
-                                  ).map((vessel, index) => (
-                                    <option value={vessel?.name} key={index}>
-                                      {vessel?.name}
-                                    </option>
-                                  ))}
+                                  TransitDetails,
+                                  'data[0].order.vessel.vessels[0].vesselInformation',
+                                  [],
+                                ).map((vessel, index) => (
+                                  <option value={vessel?.name} key={index}>
+                                    {vessel?.name}
+                                  </option>
+                                ))}
                               <option value="option">option</option>
                             </select>
                             <label
@@ -760,8 +761,13 @@ export default function Index({
                             {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                             <DatePicker
                               // value={moment((bol?.blDate), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}
-                              defaultDate={bol?.blDate}
-                              selected={startBlDate}
+                              // defaultDate={bol?.blDate}
+                              // selected={
+                              //   bol?.blDate == null
+                              //     ? ''
+                              //     : moment(bol?.blDate).toDate()
+                              // }
+                              defaultDate={startBlDate}
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startBlDate) => {
@@ -1111,7 +1117,7 @@ export default function Index({
                                       </button>
                                     </div> */}
                                     {bolList &&
-                                    bolList[index]?.containerNumberListDoc ==
+                                      bolList[index]?.containerNumberListDoc ==
                                       null ? (
                                       <>
                                         <div
@@ -1180,7 +1186,7 @@ export default function Index({
                                       </button>
                                     </div> */}
                                     {bolList &&
-                                    bolList[index]?.packingListDoc == null ? (
+                                      bolList[index]?.packingListDoc == null ? (
                                       <>
                                         <div
                                           className={styles.uploadBtnWrapper}
@@ -1321,7 +1327,7 @@ export default function Index({
                               </td>
                               <td>
                                 {bolList &&
-                                bolList[index]?.blSurrenderDoc == null ? (
+                                  bolList[index]?.blSurrenderDoc == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input

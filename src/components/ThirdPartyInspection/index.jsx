@@ -26,7 +26,7 @@ export default function Index({ addButton, inspectionData }) {
     loadPortInspection: false,
     dischargePortInspection: false,
   })
-console.log(inspectionData,"inspectionData")
+  console.log(inspectionData, "inspectionData")
   const handlePortType = (name, value) => {
     let newInput = { ...portType }
     newInput[name] = !value
@@ -88,43 +88,43 @@ console.log(inspectionData,"inspectionData")
   useEffect(() => {
     setInspectionDetails(
       {
-    loadPortInspectionDetails: {
-      numberOfContainer:
-        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-          ?.numberOfContainer,
-      inspectionPort:
-        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-          ?.inspectionPort,
-      inspectedBy:
-        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-          ?.inspectedBy,
-      startDate:
-        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-          ?.startDate,
-      specialMention:
-        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-          ?.specialMention,
-    },
-    dischargePortInspectionDetails: {
-      numberOfContainer:
-        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-          ?.numberOfContainer,
-      inspectionPort:
-        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-          ?.inspectionPort,
-      inspectedBy:
-        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-          ?.inspectedBy,
-      startDate:
-        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-          ?.startDate,
-      specialMention:
-        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-          ?.specialMention,
-    },
-  }
+        loadPortInspectionDetails: {
+          numberOfContainer:
+            inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+              ?.numberOfContainer,
+          inspectionPort:
+            inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+              ?.inspectionPort,
+          inspectedBy:
+            inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+              ?.inspectedBy,
+          startDate:
+            inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+              ?.startDate,
+          specialMention:
+            inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+              ?.specialMention,
+        },
+        dischargePortInspectionDetails: {
+          numberOfContainer:
+            inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+              ?.numberOfContainer,
+          inspectionPort:
+            inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+              ?.inspectionPort,
+          inspectedBy:
+            inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+              ?.inspectedBy,
+          startDate:
+            inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+              ?.startDate,
+          specialMention:
+            inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+              ?.specialMention,
+        },
+      }
     )
-  },[inspectionData])
+  }, [inspectionData])
 
   const [documents, setDocuments] = useState({
     certificateOfQuality:
@@ -215,8 +215,8 @@ console.log(inspectionData,"inspectionData")
   }
 
   const handleSave = () => {
-    console.log("SAvee",inspectionData?.order?.shipmentDetail?.shipmentType)
-    if (inspectionData?.order?.shipmentDetail?.shipmentType == 'Liner') {
+    //console.log("SAvee", inspectionData?.order?.shipmentDetail?.shipmentType)
+    if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Liner') {
       if (
         portType.loadPortInspection == true &&
         portType.dischargePortInspection == false
@@ -267,7 +267,9 @@ console.log(inspectionData,"inspectionData")
           fd.append('certificateOfQuality', documents.certificateOfQuality)
           fd.append('certificateOfWeight', documents.certificateOfWeight)
 
-          dispatch(UpdateInspection(fd))
+          let task = 'submit'
+
+          dispatch(UpdateInspection({fd, task}))
         }
       } else if (
         portType.dischargePortInspection == true &&
@@ -321,7 +323,9 @@ console.log(inspectionData,"inspectionData")
           fd.append('certificateOfQuality', documents.certificateOfQuality)
           fd.append('certificateOfWeight', documents.certificateOfWeight)
 
-          dispatch(UpdateInspection(fd))
+          let task = 'submit'
+
+          dispatch(UpdateInspection({fd, task}))
         }
       } else {
         if (
@@ -410,10 +414,12 @@ console.log(inspectionData,"inspectionData")
           fd.append('certificateOfQuality', documents.certificateOfQuality)
           fd.append('certificateOfWeight', documents.certificateOfWeight)
 
-          dispatch(UpdateInspection(fd))
+          let task = 'submit'
+
+          dispatch(UpdateInspection({fd, task}))
         }
       }
-    } else if (inspectionData?.order?.shipmentDetail?.shipmentType == 'BULK') {
+    } else if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'BULK') {
       if (
         portType.loadPortInspection == true &&
         portType.dischargePortInspection == false
@@ -455,7 +461,9 @@ console.log(inspectionData,"inspectionData")
           fd.append('certificateOfQuality', documents.certificateOfQuality)
           fd.append('certificateOfWeight', documents.certificateOfWeight)
 
-          dispatch(UpdateInspection(fd))
+          let task = 'submit'
+
+          dispatch(UpdateInspection({fd, task}))
         }
       } else if (
         portType.dischargePortInspection == true &&
@@ -501,7 +509,9 @@ console.log(inspectionData,"inspectionData")
           fd.append('certificateOfQuality', documents.certificateOfQuality)
           fd.append('certificateOfWeight', documents.certificateOfWeight)
 
-          dispatch(UpdateInspection(fd))
+          let task = 'submit'
+
+          dispatch(UpdateInspection({fd, task}))
         }
       } else {
         if (inspectionDetails?.loadPortInspectionDetails?.inspectedBy === '') {
@@ -573,7 +583,9 @@ console.log(inspectionData,"inspectionData")
           fd.append('certificateOfQuality', documents.certificateOfQuality)
           fd.append('certificateOfWeight', documents.certificateOfWeight)
 
-          dispatch(UpdateInspection(fd))
+          let task = 'submit'
+
+          dispatch(UpdateInspection({fd, task}))
         }
       }
     }
@@ -617,7 +629,7 @@ console.log(inspectionData,"inspectionData")
                     Shipment Type:
                   </label>
                   <div className={`${styles.dropDown} input`} value="Bulk">
-                    {inspectionData?.order?.shipmentDetail?.shipmentType}
+                    {_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '')}
                   </div>
                 </div>
 
@@ -753,7 +765,7 @@ console.log(inspectionData,"inspectionData")
 
                   <div className="row">
                     {inspectionData?.order?.shipmentDetail?.shipmentType ===
-                    'Liner' ? (
+                      'Liner' ? (
                       <div
                         className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                       >
@@ -878,7 +890,7 @@ console.log(inspectionData,"inspectionData")
                           rows={3}
                           required
                           className={`${styles.comment_field} ${styles.input_field} input form-control`}
-                          // style={{ backgroundColor: 'none' }}
+                        // style={{ backgroundColor: 'none' }}
                         />
                         <label
                           className={`${styles.comment_heading} ${styles.label_heading} label_heading`}
@@ -894,12 +906,12 @@ console.log(inspectionData,"inspectionData")
           ) : null}
           {portType.dischargePortInspection
             ? Discharge(
-                inspectionData,
-                saveInspectionDetails,
-                saveDate,
-                setStartDate,
-                setDateStartFrom,
-              )
+              inspectionData,
+              saveInspectionDetails,
+              saveDate,
+              setStartDate,
+              setDateStartFrom,
+            )
             : ''}
 
           <div className={`${styles.main} vessel_card card border-color`}>
@@ -1043,7 +1055,7 @@ console.log(inspectionData,"inspectionData")
                             </td>
                             <td>
                               {documents &&
-                              documents?.certificateOfOrigin == null ? (
+                                documents?.certificateOfOrigin == null ? (
                                 <>
                                   <div className={styles.uploadBtnWrapper}>
                                     <input
@@ -1166,7 +1178,7 @@ console.log(inspectionData,"inspectionData")
                             </td>
                             <td>
                               {documents &&
-                              documents?.certificateOfQuality == null ? (
+                                documents?.certificateOfQuality == null ? (
                                 <>
                                   <div className={styles.uploadBtnWrapper}>
                                     <input
@@ -1290,7 +1302,7 @@ console.log(inspectionData,"inspectionData")
                             </td>
                             <td>
                               {documents &&
-                              documents?.certificateOfWeight == null ? (
+                                documents?.certificateOfWeight == null ? (
                                 <>
                                   <div className={styles.uploadBtnWrapper}>
                                     <input
@@ -1787,7 +1799,7 @@ const Discharge = (
                 }
                 required
                 className={`${styles.comment_field} ${styles.input_field} input form-control`}
-                // style={{ backgroundColor: 'none' }}
+              // style={{ backgroundColor: 'none' }}
               />
               <label
                 className={`${styles.comment_heading} ${styles.label_heading} label_heading`}

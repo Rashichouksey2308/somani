@@ -76,18 +76,18 @@ function Index(props) {
       }else{
         let buyer = {
           "name": props?.data?.name ||"Indo German International Private Limited",
-          "branchName": props?.data?.branchName,
+          "branchName": props?.data?.branch,
 
           
 
 
         }
-        if(props?.data?.branchName=="Delhi"){
+        if(props?.data?.branch=="Delhi"){
 
           setGstin("07AAACI3028D1Z4")
                      
         }
-        else if(props?.data?.branchName=="Andhra Pradesh"){
+        else if(props?.data?.branch=="Andhra Pradesh"){
               setGstin("37AAACI3028D2Z0")
           }
         setAddressList(props?.data.addresses)

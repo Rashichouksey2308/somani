@@ -28,7 +28,7 @@ const[financeData,setFinanceData]=useState(finance)
     }else{
        let finance={
         "name": props.data?.name,
-        "branchName": props.data?.branchName,
+        "branchName": props.data?.branch,
         
         
        }
