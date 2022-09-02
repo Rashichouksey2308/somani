@@ -135,7 +135,7 @@ export default function Index(props) {
                         setCurrentOrder(e.target.value)
                       }}
                     >
-                      <option key={index} >Select an option</option>
+                       <option >Select an option</option>
                       {_get(props.data,"data[0].deliveryDetail",[]).map((val,index)=>{
                        return(
                          <option key={index} value={val?.deliveryOrderNumber}>{val?.deliveryOrderNumber}</option>
@@ -550,7 +550,7 @@ export default function Index(props) {
             <UploadOther orderid={orderid} module="PaymentsInvoicing&Delivery" />
           </div>
         </div>
-        <SaveBar rightBtn="Submit" handleSave={props.handleLiftingSubmit} />
+        <SaveBar rightBtn="Submit" handleSave={props.handleLiftingSubmit} rightBtnClick={props.handleLiftingSubmit} />
 
         {/* </div> */}
       </div>
