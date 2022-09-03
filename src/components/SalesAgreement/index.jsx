@@ -1194,6 +1194,7 @@ const onSave=()=>{
    
     }
     sessionStorage.setItem("Associate",JSON.stringify(dataToSend2))
+    console.log(dataToSend.associateBuyer.authorisedSignatoryDetails,"okkk")
     if (dataToSend.associateBuyer.branch == "" || dataToSend.associateBuyer.branch == undefined) {
     toastMessage = `Please add branch name  `
     if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -1226,7 +1227,9 @@ const onSave=()=>{
 
     }
     }
+
     if (dataToSend.associateBuyer.authorisedSignatoryDetails.length <= 0 || dataToSend.associateBuyer.authorisedSignatoryDetails == undefined) {
+     
     toastMessage = `Please add authorised Signatory Details `
     if (!toast.isActive(toastMessage.toUpperCase())) {
     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -1236,8 +1239,27 @@ const onSave=()=>{
 
     }
     }
-   
+     if (dataToSend.associateBuyer.authorisedSignatoryDetails.length > 0 ) {
+      let isDoc=true
+     for(let i=0;i<dataToSend.associateBuyer.authorisedSignatoryDetails.length ;i++){
+      if(dataToSend.associateBuyer.authorisedSignatoryDetails[i].addnew=="true"){
+        if(dataToSend.associateBuyer.authorisedSignatoryDetails[i].document == "new"){
+          toastMessage = `Please add document `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          isDoc=false
+          break;
+         
+        }
+      }
+     }
     }
+    if(isDoc==false){
+      return
+    }
+    }
+  }
 
    
   
