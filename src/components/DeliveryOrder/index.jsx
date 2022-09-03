@@ -62,12 +62,16 @@ export default function Index(props) {
                       Invoice Quantity{' '}
                     </div>
                     <span className={styles.value}>
-                      {_get(
+                      {Number(_get(
                         props,
                         'ReleaseOrder.data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
                         '',
-                      )}{' '}
-                      MT
+                      )).toLocaleString()}{' '}
+                      {_get(
+                        props,
+                        'ReleaseOrder.data[0].order.unitOfQuantity',
+                        '',
+                      )}
                     </span>
                   </div>
 
@@ -77,7 +81,11 @@ export default function Index(props) {
                     <div className={`${styles.label} text`}>
                       Balance Quantity
                     </div>
-                    <span className={styles.value}>5,000 MT</span>
+                    <span className={styles.value}>{props.BalanceQuantity().toLocaleString()}  {_get(
+                      props,
+                      'ReleaseOrder.data[0].order.unitOfQuantity',
+                      '',
+                    )}</span>
                   </div>
                 </div>
               </div>
