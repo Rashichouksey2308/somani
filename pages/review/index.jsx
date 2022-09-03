@@ -2289,7 +2289,7 @@ function Index() {
                                           <div
                                             className={`${styles.compliance_content} Compliance ml-1`}
                                           >
-                                            {alertObj[alert.alert]}
+                                            {alertObj[alert.alert] ?? alert.alert}
                                           </div>
                                         </div>
                                       )
@@ -2328,7 +2328,7 @@ function Index() {
                                           <div
                                             className={`${styles.compliance_content} Compliance ml-1`}
                                           >
-                                            {alertObj[alert.alert]}
+                                            {alertObj[alert.alert] ?? alert.alert}
                                           </div>
                                         </div>
                                       )
@@ -2369,7 +2369,7 @@ function Index() {
                                           <div
                                             className={`${styles.compliance_content} Compliance ml-1`}
                                           >
-                                            {alertObj[alert.alert]}
+                                            {alertObj[alert.alert] ?? alert.alert}
                                           </div>
                                         </div>
                                       )
@@ -2410,7 +2410,7 @@ function Index() {
                                           <div
                                             className={`${styles.compliance_content} Compliance ml-1`}
                                           >
-                                            {alertObj[alert.alert]}
+                                            {alertObj[alert.alert] ?? alert.alert}
                                           </div>
                                         </div>
                                       )
