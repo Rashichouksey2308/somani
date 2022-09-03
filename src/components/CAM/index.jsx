@@ -2137,7 +2137,7 @@ const directorDetails = (camData) => {
               cellSpacing="0"
             >
               <tr>
-                <th>NAME</th>
+                <th className='40%'>NAME</th>
                 <th>PAN</th>
                 <th>DIN NUMBER</th>
                 <th>DATE OF APPOINTMENT</th>

@@ -12,6 +12,7 @@ import {
   setDynamicName,
   setDynamicOrder,
 } from '../../src/redux/userData/action'
+import moment from  'moment'
 
 function Index() {
   const dispatch = useDispatch()
@@ -45,9 +46,9 @@ function Index() {
   }
 
   const handleEditRoute = (insured) => {
-    console.log("asdas",d,insured)
+    // console.log("asdas",d,insured)
     sessionStorage.setItem('quotationId', insured._id)
-    if (insured?.marineInsurance?.insuranceTo < d) {
+    if (moment(insured?.marineInsurance?.insuranceTo).toDate() <= d || moment(insured?.storageInsurance?.insuranceTo).toDate() <= d) {
       Router.push('/insurance-renew/id')
     } else if (insured?.quotationRequest?.quotationRequestSubmitted === true) {
       Router.push('/insurance/form/both')

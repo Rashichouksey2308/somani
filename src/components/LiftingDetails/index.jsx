@@ -72,6 +72,8 @@ export default function Index(props) {
     }
   }
 
+  console.log(props.liftingData, 'props.liftingData')
+
   return (
     <>
       {/* <div className={`${styles.dashboardTab} w-100`}> */}
@@ -135,11 +137,11 @@ export default function Index(props) {
                         setCurrentOrder(e.target.value)
                       }}
                     >
-                       <option >Select an option</option>
-                      {_get(props.data,"data[0].deliveryDetail",[]).map((val,index)=>{
-                       return(
-                         <option key={index} value={val?.deliveryOrderNumber}>{val?.deliveryOrderNumber}</option>
-                       )
+                      <option >Select an option</option>
+                      {_get(props.data, "data[0].deliveryDetail", []).map((val, index) => {
+                        return (
+                          <option key={index} value={val?.deliveryOrderNumber}>{val?.deliveryOrderNumber}</option>
+                        )
                       })}
                     </select>
 
@@ -163,6 +165,8 @@ export default function Index(props) {
           </div>
           {props.liftingData &&
             props.liftingData.map((val, index) => {
+ 
+              console.log(val, 'Lifting Add ')
               return (
                 <div className={`${styles.main} mt-4 card border_color`}>
                   <div
@@ -181,7 +185,11 @@ export default function Index(props) {
                           DO Quantity
                         </div>
                         <div className={`${styles.do_number} mr-4`}>
-                          {val?.quantity} MT
+                          {props.returnLiftingData(val.deliveryOrder)?.doQuantity?.toLocaleString()}   {_get(
+                            props,
+                            'data.data[0].order.unitOfQuantity',
+                            '',
+                          )}
                         </div>
                       </div>
                       <div className="d-flex mr-5">
@@ -191,7 +199,11 @@ export default function Index(props) {
                           Balance Quantity
                         </div>
                         <div className={`${styles.do_number} mr-4`}>
-                          8,000 MT
+                          {props.returnLiftingData(val.deliveryOrder)?.balaceQuantity?.toLocaleString()}  {_get(
+                            props,
+                            'data.data[0].order.unitOfQuantity',
+                            '',
+                          )}
                         </div>
                       </div>
                       <span>+</span>
@@ -249,6 +261,7 @@ export default function Index(props) {
                                   className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
                                 >
                                   <input
+                                    onWheel={event => event.currentTarget.blur()}
                                     className={`${styles.input_field} input form-control`}
                                     required
                                     type="number"

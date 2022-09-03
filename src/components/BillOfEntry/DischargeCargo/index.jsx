@@ -10,7 +10,6 @@ import { useDispatch } from 'react-redux'
 import moment from 'moment'
 import { toast } from 'react-toastify'
 
-
 export default function Index({ OrderId, customData, uploadDoc }) {
   console.log(customData, 'customData')
   const dispatch = useDispatch()
@@ -18,6 +17,9 @@ export default function Index({ OrderId, customData, uploadDoc }) {
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
+
+  let shipmentTypeBulk =
+    _get(customData, `order.vessel.vessels[0].shipmentType`, '') == 'Bulk'
 
   const [dischargeOfCargo, setDischargeOfCargo] = useState({
     dischargeOfCargo: {
@@ -40,12 +42,6 @@ export default function Index({ OrderId, customData, uploadDoc }) {
     document1: null,
     document2: null,
   })
-
-  const ShipmentType = _get(
-    customData,
-    'customData?.order?.vessel?.vessels[0]?.shipmentType',
-    'Bulk',
-  )
 
   const saveDate = (value, name) => {
     // console.log(value, name, 'save date')
@@ -78,10 +74,8 @@ export default function Index({ OrderId, customData, uploadDoc }) {
   }
   console.log(dischargeOfCargo, 'dischargeOfCargo3')
 
-
   const onSaveDischarge = () => {
     if (dischargeOfCargo.dischargeOfCargo.dischargeQuantity === '') {
-
       let toastMessage = 'DISCHRGE QUANTITY CANNOT BE EMPTY  '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -97,44 +91,36 @@ export default function Index({ OrderId, customData, uploadDoc }) {
     //   return
     // }
     else if (dischargeOfCargo.dischargeOfCargo.vesselArrivaldate === '') {
-
       let toastMessage = 'vessel Arrival date CANNOT BE EMPTY  '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
-    }
-    else if (dischargeOfCargo.dischargeOfCargo.dischargeStartDate === '') {
-
+    } else if (dischargeOfCargo.dischargeOfCargo.dischargeStartDate === '') {
       let toastMessage = 'discharge Start Date CANNOT BE EMPTY  '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
-    }
-    else if (dischargeOfCargo.dischargeOfCargo.dischargeEndDate === '') {
-
+    } else if (dischargeOfCargo.dischargeOfCargo.dischargeEndDate === '') {
       let toastMessage = 'discharge End Date CANNOT BE EMPTY  '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     } else if (dischargeOfCargo.document1 === null) {
-
       let toastMessage = 'Statement Of Facts must be uploaded'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     } else if (dischargeOfCargo.document2 === null) {
-
       let toastMessage = 'Draft Survey Report must be uploaded '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
-    }
-    else {
+    } else {
       let fd = new FormData()
       fd.append('dischargeOfCargo', JSON.stringify(dischargeOfCargo))
       fd.append('customClearanceId', customData._id)
@@ -142,7 +128,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
       fd.append('document2', dischargeOfCargo.document2)
 
       let task = 'save'
-      dispatch(UpdateCustomClearance({fd, task}))
+      dispatch(UpdateCustomClearance({ fd, task }))
     }
   }
   console.log(dischargeOfCargo, 'dischargeOfCargo')
@@ -155,7 +141,14 @@ export default function Index({ OrderId, customData, uploadDoc }) {
     fd.append('document2', dischargeOfCargo.document2)
 
     let task = 'save'
-    dispatch(UpdateCustomClearance({fd, task}))
+    dispatch(UpdateCustomClearance({ fd, task }))
+  }
+
+  // fuction to prevent negative values in input
+  const preventMinus = (e) => {
+    if (e.code === 'Minus') {
+      e.preventDefault()
+    }
   }
 
   return (
@@ -195,6 +188,26 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
                       <option value="">Please select a vessel</option>
+                      {shipmentTypeBulk
+                        ? _get(customData, 'order.vessel.vessels', []).map(
+                            (vessel, index) => (
+                              <option
+                                value={vessel?.vesselInformation?.name}
+                                key={index}
+                              >
+                                {vessel?.vesselInformation[0]?.name}
+                              </option>
+                            ),
+                          )
+                        : _get(
+                            customData,
+                            'order.vessel.vessels[0].vesselInformation',
+                            [],
+                          ).map((vessel, index) => (
+                            <option value={vessel?.name} key={index}>
+                              {vessel?.name}
+                            </option>
+                          ))}
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Vessel Name<strong className="text-danger">*</strong>
@@ -230,6 +243,8 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                     id="dischargeQuantity"
                     className={`${styles.input_field} input form-control`}
                     type="number"
+                    min={0}
+                    onKeyPress={preventMinus}
                     onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                     required
                   />
@@ -340,7 +355,8 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                         </td>
                         <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                         <td>
-                          {dischargeOfCargo && dischargeOfCargo.document1 === null ? (
+                          {dischargeOfCargo &&
+                          dischargeOfCargo.document1 === null ? (
                             <>
                               <div className={styles.uploadBtnWrapper}>
                                 <input
@@ -355,7 +371,6 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                                   Upload
                                 </button>
                               </div>
-
                             </>
                           ) : (
                             <div className={styles.certificate}>
@@ -384,7 +399,8 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                         </td>
                         <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                         <td>
-                          {dischargeOfCargo && dischargeOfCargo.document2 === null ? (
+                          {dischargeOfCargo &&
+                          dischargeOfCargo.document2 === null ? (
                             <>
                               <div className={styles.uploadBtnWrapper}>
                                 <input
@@ -437,7 +453,11 @@ export default function Index({ OrderId, customData, uploadDoc }) {
             />
           </div>
         </div>
-        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={onSaveDischarge} />
+        <SaveBar
+          handleSave={handleSave}
+          rightBtn="Submit"
+          rightBtnClick={onSaveDischarge}
+        />
       </div>
       <Modal
         show={show}
@@ -477,11 +497,23 @@ export default function Index({ OrderId, customData, uploadDoc }) {
               <th width="33%">BL DATE</th>
               <th width="33%">BL QUANTITY</th>
             </tr>
-            {_get(customData, 'order.transit.BL.billOfLanding', [{}]).map((bl, indexbl) => (<tr className="table_row">
-              <td className="font-weight-bold">{bl?.blNumber}</td>
-              <td>{moment((bl?.blDate)?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</td>
-              <td>{bl?.blQuantity} {customData?.order?.unitOfQuantity}</td>
-            </tr>))}
+            {_get(customData, 'order.transit.BL.billOfLanding', [{}]).map(
+              (bl, indexbl) => (
+                <tr className="table_row">
+                  <td className="font-weight-bold">{bl?.blNumber}</td>
+                  <td>
+                    {moment(
+                      bl?.blDate?.slice(0, 10),
+                      'YYYY-MM-DD',
+                      true,
+                    ).format('DD-MM-YYYY')}
+                  </td>
+                  <td>
+                    {bl?.blQuantity} {customData?.order?.unitOfQuantity}
+                  </td>
+                </tr>
+              ),
+            )}
           </table>
           <div>
             <span className="text">Total Quantity: </span> &nbsp; 8,000 MT{' '}
