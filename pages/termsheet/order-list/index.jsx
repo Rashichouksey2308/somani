@@ -264,7 +264,7 @@ function Index() {
                       <td className={`${styles.buyerName}`} onClick={() => handleRoute(term, index)} >{term?.order?.commodity}</td>
 
                       <td>{term?.createdBy?.userRole ? term?.createdBy?.userRole : "RM"} </td>
-                      <td>{term?.order?.existingCustomer ? moment((term?.order?.createdAt).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY") : moment((term?.order?.cam?.approvedAt).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</td>
+                      <td>{term?.order?.existingCustomer ? moment((term?.order?.createdAt).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY") : moment((term?.order?.cam?.approvedAt)?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</td>
                       <td>
                         <span
                           className={`${styles.status} ${term?.order?.queue === 'Rejected' ? styles.rejected : term?.order?.queue === 'ReviewQueue'

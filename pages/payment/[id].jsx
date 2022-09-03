@@ -255,6 +255,8 @@ function Index() {
     return number
   }
 
+  // const return 
+
   const deliverChange = (name, value, index) => {
     let tempArr = deliveryOrder
 

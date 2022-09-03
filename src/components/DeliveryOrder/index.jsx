@@ -263,14 +263,14 @@ export default function Index(props) {
                                       className={`${styles.shareImg} img-fluid ml-3`}
                                       alt="add"
                                     />
-                                    <img
+                                    {props.releaseOrderData.length === 1 ? null : <img
                                       className={`${styles.shareImg} ml-3 img-fluid`}
                                       src="/static/delete.svg"
                                       alt="Search"
                                       onClick={(e) => {
                                         props.deleteNewDelivery(index)
                                       }}
-                                    />
+                                    />}
                                   </div>
                                 )}
                               </div>

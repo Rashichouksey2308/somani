@@ -23,7 +23,7 @@ function Index({ handleSave, rightBtn, rightBtnClick,handleRoute }) {
           if (rightBtnClick) {
             console.log('INspection Submitted2')
             rightBtnClick()
-            handleRoute()
+            // handleRoute()
           }
          
 

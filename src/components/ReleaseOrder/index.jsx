@@ -35,6 +35,11 @@ export default function Index({ ReleaseOrderData }) {
       document: null,
     },
   ])
+
+
+  // useEffect(() => {
+  //   if()
+  // },[])
   // console.log(releaseDetail, netBalanceQuantity, 'Release')
 
   // useEffect(() => {
@@ -354,6 +359,7 @@ export default function Index({ ReleaseOrderData }) {
                           className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                         >
                           <input
+                          onWheel={(e) => e.target.blur()}
                             defaultValue={Number(item.netQuantityReleased)?.toLocaleString()}
                             onChange={(e) => netQuantityChange(e, index)}
                             id="netQuantityReleased"
