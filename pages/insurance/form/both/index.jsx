@@ -607,7 +607,7 @@ const Index = () => {
                               onChange={(e) =>
                                 saveMarineData(e.target.name, e.target.value)
                               }
-                              value={insuranceData?.marineInsurance?.lossPayee}
+                              // value={insuranceData?.marineInsurance?.lossPayee}
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
                               <option>Select an option</option>
