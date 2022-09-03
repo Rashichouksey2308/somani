@@ -1,90 +1,91 @@
 .wrapper {
-    
-    border-radius: 6px;
-   
-    .title {
-        position: relative;
-        width:90%;
+  border-radius: 6px;
 
-        .blue {
-            color: #3687E8;
-            font-size: 22px;
-            font-weight: 27px;
+  .title {
+    position: relative;
+    width: 90%;
+
+    .blue {
+      color: #3687e8;
+      font-size: 22px;
+      font-weight: 27px;
+      font-weight: bold;
+    }
+
+    div {
+      font-size: 20px;
+      font-weight: 25px;
+      font-weight: 500;
+
+      span {
+        color: #00000080;
+        font-size: 16px;
+        font-weight: 17px;
+        font-weight: 500;
+        letter-spacing: 0.53px;
+      }
+    }
+
+    img {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      right: -5rem;
+      top: -0.2rem;
+    }
+  }
+
+  .tableTextAlign {
+    text-align: center !important;
+  }
+
+  .body {
+    padding: 0rem !important;
+
+    .table {
+      overflow-y: auto;
+      height: 400px;
+      font-size: 19px;
+      font-weight: 24px;
+      font-weight: 500;
+      tr {
+        height: 67px;
+        border-bottom: 2px solid red;
+        th {
+          text-align: center;
+          vertical-align: revert;
+          &:first-child {
             font-weight: bold;
+            padding-left: 35px;
+          }
         }
-
-        div {
-            font-size: 20px;
-            font-weight: 25px;
-            font-weight: 500;
-
-            span {
-                color: #00000080;
-                font-size: 16px;
-                font-weight: 17px;
-                font-weight: 500;
-                letter-spacing: 0.53px;
-            }
+        td {
+          vertical-align: revert;
+          &:first-child {
+            font-weight: bold;
+            padding-left: 35px;
+          }
         }
-
-        img {
-            position: absolute;
-            width: 14px;
-            height: 14px;
-            right: -5rem;
-            top: -0.2rem;
-        }
+      }
     }
-    .body{
-        padding:0rem !important;
-       
-        .table{
-            overflow-y: auto;
-            height: 400px;
-            font-size: 19px;
-            font-weight: 24px;
-            font-weight:500;
-            tr{
-                height: 67px;
-                border-bottom: 2px solid red;
-                th{
-                   
-                    vertical-align: revert;
-                    &:first-child {
-                        font-weight: bold;
-                        padding-left: 35px;
-                    }
-                }
-                td {
-                   
-                    vertical-align: revert;
-                    &:first-child{
-                        font-weight: bold;
-                        padding-left: 35px;
-                    }
-                }
-            }
-        }
-        div {
-            font-size: 20px;
-            font-weight: 25px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            justify-content: right;
-            padding:15px;
-            margin-right: 35px;
+    div {
+      font-size: 20px;
+      font-weight: 25px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: right;
+      padding: 15px;
+      margin-right: 35px;
 
-            span {
-                color: #00000080;
-               
-                font-size: 16px;
-                font-weight: 17px;
-                font-weight: 500;
-                letter-spacing: 0.53px;
-            }
-        }
+      span {
+        color: #00000080;
+
+        font-size: 16px;
+        font-weight: 17px;
+        font-weight: 500;
+        letter-spacing: 0.53px;
+      }
     }
-
-
+  }
 }
