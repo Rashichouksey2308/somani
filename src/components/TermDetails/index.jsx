@@ -13,6 +13,7 @@ const Index = ({
   onChangePaymentDueDate,
   onChangeTransactionDetails,
   newLcVal,
+  changePayment
 }) => {
   const [IsBlSelected, setIsBlSelected] = useState(false)
   const [thirdPartyInspection, setThirdPartyInspection] = useState(false)
@@ -32,14 +33,17 @@ const Index = ({
       console.log('herer12')
 
       setIsBlSelected('DaysfromBLDate')
+      changePayment("DaysfromBLDate")
       // onChangePaymentDueDate({
       //   target: { value: '', id: 'daysFromVesselDischargeDate' },
       // })
     } else if (value === 'DaysfromVesselDischargeDate') {
       setIsBlSelected('DaysfromVesselDischargeDate')
+      changePayment("DaysfromVesselDischargeDate")
       // onChangePaymentDueDate({ target: { value: '', id: 'daysFromBlDate' } })
     } else {
       setIsBlSelected(value)
+      changePayment("val")
     }
   }
 
