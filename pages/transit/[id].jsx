@@ -126,7 +126,7 @@ function Index() {
                 aria-controls="billLanding"
                 aria-selected="true"
               >
-                Bill of Lading
+                Bill of Landing
               </a>
             </li>
             <li className={`${styles.navItem} nav-item`}>
