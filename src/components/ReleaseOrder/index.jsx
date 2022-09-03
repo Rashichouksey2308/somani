@@ -335,7 +335,6 @@ export default function Index({ ReleaseOrderData }) {
                               name="releaseOrderDate"
                               labelName="Release Order Date"
                               // popperPlacement="top-end"
-                              portalId="root-portal"
                             />
                             <img
                               className={`${styles.calanderIcon} image_arrow img-fluid`}

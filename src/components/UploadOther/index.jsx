@@ -76,7 +76,6 @@ const Index = ({ orderid, module, isDocumentName }) => {
     }
   }
 
-
   const handleCloseDoc = () => {
     setNewDoc({
       document: [],
@@ -126,7 +125,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
     <div className={`${styles.upload_main} vessel_card border_color card`}>
       <div
         className={`${styles.head_container} border_color d-flex  align-items-center justify-content-between`}
-        data-toggle="collapse "
+        data-toggle="collapse"
         data-target="#uploadOther"
         aria-expanded="true"
         aria-controls="uploadOther"
@@ -156,7 +155,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                     src="/static/browse.svg"
                     alt="Browse"
                   />
-                  {newDoc?.document?.name ?
+                  {newDoc?.document?.name ? (
                     <div className={styles.certificate}>
                       {newDoc?.document?.name}
                       <img
@@ -166,9 +165,8 @@ const Index = ({ orderid, module, isDocumentName }) => {
                         alt="Close"
                       />{' '}
                     </div>
-
-
-                    : <p className={styles.drop_para}>
+                  ) : (
+                    <p className={styles.drop_para}>
                       Drop Files here or
                       <br />
                       <div className={styles.uploadBtnWrapper}>
@@ -179,11 +177,10 @@ const Index = ({ orderid, module, isDocumentName }) => {
                           accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
                         />
 
-
-
                         <a href="#">Browse</a>
                       </div>
-                    </p>}
+                    </p>
+                  )}
                 </div>
               </div>
               <div className="col-md-4 offset-md-1 col-sm-6">
@@ -351,7 +348,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                 </Form.Group>
                 <Form.Group className={`${styles.form_group}`}>
                   <input
-                    id='otherDocName'
+                    id="otherDocName"
                     onChange={(e) =>
                       setNewDoc({ ...newDoc, name: e.target.value })
                     }
@@ -491,7 +488,11 @@ const Index = ({ orderid, module, isDocumentName }) => {
                                 alt="Pdf"
                               />
                             </td>
-                            <td className={styles.doc_row}>{moment(document.date).format('DD-MM-YYYY, h:mm a')}</td>
+                            <td className={styles.doc_row}>
+                              {moment(document.date).format(
+                                'DD-MM-YYYY, h:mm a',
+                              )}
+                            </td>
                             <td className={styles.doc_row}>
                               {document.uploadedBy?.fName}{' '}
                               {document.uploadedBy?.lName}
