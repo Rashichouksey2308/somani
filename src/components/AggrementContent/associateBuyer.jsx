@@ -226,8 +226,21 @@ const removeDoc=(index)=>{
 
       return newState;
     });
+     setList(prevState => {
+      const newState = prevState.map((obj ,i)=> {
+       if (i == index) {
+          return {...obj, document: 'new'};
+        }
+
+        
+        return obj;
+      });
+
+      return newState;
+    });
   
 }
+console.log(docList,"document")
 const handleChangeInput2=(name2,value,index)=>{
 
 
