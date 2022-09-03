@@ -324,9 +324,9 @@ const Index = ({ orderDetail, saveOrderData }) => {
                 <Form.Control
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="number"
-                  defaultValue={orderDetail?.transactionPeriodDays}
-                  name="transactionPeriodDays"
+                  type="text"
+                  defaultValue={orderDetail?.hsnCode}
+                  name="hsnCode"
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
                   }}

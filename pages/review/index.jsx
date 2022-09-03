@@ -315,7 +315,7 @@ function Index() {
     incoTerm: orderList?.incoTerm,
     grade: orderList?.grade,
     tolerance: orderList?.tolerance,
-    transactionPeriodDays: orderList?.transactionPeriodDays,
+    hsnCode: orderList?.hsnCode,
     manufacturerName: orderList?.manufacturerName,
   })
   useEffect(() => {
@@ -334,7 +334,7 @@ function Index() {
       incoTerm: orderList?.incoTerm,
       grade: orderList?.grade,
       tolerance: orderList?.tolerance,
-      transactionPeriodDays: orderList?.transactionPeriodDays,
+      hsnCode: orderList?.hsnCode,
       manufacturerName: orderList?.manufacturerName,
     })
   }, [orderList])
@@ -500,10 +500,10 @@ function Index() {
       return false
     }
     if (
-      orderDetails?.transactionPeriodDays === '' ||
-      orderDetails?.transactionPeriodDays == undefined
+      orderDetails?.hsnCode === '' ||
+      orderDetails?.hsnCode == undefined
     ) {
-      let toastMessage = 'the transaction Period Days can not be Empty'
+      let toastMessage = 'the hsn code can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
