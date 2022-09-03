@@ -14,22 +14,29 @@ import Router from 'next/router'
 import { toast } from 'react-toastify'
 
 const Index = () => {
-  const [insuranceType, setInsuranceType] = useState('Marine')
+  const [insuranceType, setInsuranceType] = useState('')
 
   const dispatch = useDispatch()
 
+  
   useEffect(() => {
     let id = sessionStorage.getItem('quotationId')
     dispatch(GettingAllInsurance(`?insuranceId=${id}`))
   }, [dispatch])
 
   const { insuranceResponse } = useSelector((state) => state.insurance)
-  console.log(insuranceResponse, "insuranceResponse")
+  console.log(insuranceResponse, "insuranceResponse",insuranceType)
   const [insuranceData, setInsuranceData] = useState()
   useEffect(() => {
     setInsuranceData(_get(insuranceResponse, 'data[0]', {}))
-
+    if(_get(insuranceResponse, 'data[0].quotationRequest.insuranceType', {})=="Marine & Storage Insurance"){
+       setInsuranceType("Both")
+    }else{
+       setInsuranceType(_get(insuranceResponse, 'data[0].quotationRequest.insuranceType', {}))
+    }
+   
   }, [insuranceResponse])
+  
 
   const [marineData, setMarineData] = useState({
     policyNumber: '',
@@ -168,8 +175,8 @@ const Index = () => {
                     className={styles.radio}
                     inline
                     label="Marine Insurance"
-                    defaultChecked={
-                      insuranceData?.quotationRequest?.insuranceType ==
+                    checked={
+                      insuranceType ==
                       'Marine Insurance'
                     }
                     onChange={(e) => setInsuranceType('Marine Insurance')}
@@ -182,8 +189,8 @@ const Index = () => {
                     className={styles.radio}
                     inline
                     label="Storage Insurance"
-                    defaultChecked={
-                      insuranceData?.quotationRequest?.insuranceType ==
+                    checked={
+                      insuranceType ==
                       'Storage Insurance'
                     }
                     name="group1"
@@ -199,8 +206,8 @@ const Index = () => {
                     inline
                     label="Both"
                     value="Both"
-                    defaultChecked={
-                      insuranceData?.quotationRequest?.insuranceType === 'Both'
+                    checked={
+                     insuranceType === 'Both'
                     }
                     name="group1"
                     type={type}
@@ -487,7 +494,7 @@ const Index = () => {
               </div>
             </div>
             <UploadDocument
-              docName="Policy Document - Marine"
+              docName={`Policy Document  ${ insuranceType=="Marine Insurance"?"- Marine":insuranceType=="Storage Insurance"?"-Storage":"- Marine and Storage"}`}
               uploadDocument1={uploadDocument1}
             />
           </>
