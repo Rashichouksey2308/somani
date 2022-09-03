@@ -671,13 +671,14 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <div className={`${styles.col_header} label_heading`}>
                       Latest Return Filed GSTR 1
                     </div>
-                    <div className={styles.col_body}>{gstFilteredData?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr1}</div>
+                    <div className={styles.col_body}>{`${gstFilteredData?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr1.slice(0,2)}-${gstFilteredData?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr1.slice(2)}`}</div>
                   </Col>
                   <Col md={3} sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
                       Latest Return Filed GSTR 3B
                     </div>
-                    <div className={styles.col_body}>{gstFilteredData?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr3b}</div>
+                    <div className={styles.col_body}>{`${gstFilteredData?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr3b.slice(0,2)}-${gstFilteredData?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr3b.slice(2)}`}</div>
+
                   </Col>
                 </Row>
 
@@ -699,13 +700,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
 
                     {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map((alert, index) => {
                       if (alert.severity === 'severe') {
-                        console.log(alertObj[alert.alert], 'gst severity')
+                        
                         return (
                           <>    <div
                             className={styles.dot}
                             style={{ backgroundColor: '#EA3FD6' }}
                           ></div>
-                            <span>{alertObj[alert.alert]}</span></>
+                            <span>{alertObj[alert.alert] ?? alert.alert}</span></>
                         )
                       }
 
@@ -721,13 +722,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
 
                     {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map((alert, index) => {
                       if (alert.severity === 'high') {
-                        console.log(alertObj[alert.alert], 'gst severity')
+                        
                         return (
                           <>    <div
                             className={styles.dot}
                             style={{ backgroundColor: '#EA3FD6' }}
                           ></div>
-                            <span>{alertObj[alert.alert]}</span></>
+                            <span>{alertObj[alert.alert] ?? alert.alert}</span></>
                         )
                       }
 
@@ -741,13 +742,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
 
                     {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map((alert, index) => {
                       if (alert.severity === 'medium') {
-                        console.log(alertObj[alert.alert], 'gst severity')
+                        
                         return (
                           <>    <div
                             className={styles.dot}
                             style={{ backgroundColor: '#EA3FD6' }}
                           ></div>
-                            <span>{alertObj[alert.alert]}</span></>
+                            <span>{alertObj[alert.alert] ?? alert.alert}</span></>
                         )
                       }
 
@@ -761,13 +762,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
 
                     {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map((alert, index) => {
                       if (alert.severity === 'low') {
-                        console.log(alertObj[alert.alert], 'gst severity')
+                       
                         return (
                           <>    <div
                             className={styles.dot}
                             style={{ backgroundColor: '#EA3FD6' }}
                           ></div>
-                            <span>{alertObj[alert.alert]}</span></>
+                            <span>{alertObj[alert.alert] ?? alert.alert}</span></>
                         )
                       }
 
@@ -1868,7 +1869,7 @@ const gstSupplierDetail = (gstFilteredData, customerDetailsUnit, setCustomerDeta
                       cellSpacing="0"
                     >
                       <tr>
-                        <th className={`${styles.first}`} colSpan={6}>Recurring Party Sales In Last 12 Months</th>
+                        <th className={`${styles.first}`} colSpan={6}>Recurring Party Purchases In Last 12 Months</th>
                       </tr>
                       <tr className={styles.second_head}>
                         <td>CUSTOMER NAME</td>
@@ -1906,7 +1907,7 @@ const gstSupplierDetail = (gstFilteredData, customerDetailsUnit, setCustomerDeta
                       cellSpacing="0"
                     >
                       <tr>
-                        <th className={`${styles.first}`} colSpan={6}>Related Party Sales In Last 12 Months</th>
+                        <th className={`${styles.first}`} colSpan={6}>Related Party Purchases In Last 12 Months</th>
                       </tr>
                       <tr className={styles.second_head}>
                         <td>CUSTOMER NAME</td>
@@ -1944,7 +1945,7 @@ const gstSupplierDetail = (gstFilteredData, customerDetailsUnit, setCustomerDeta
                       cellSpacing="0"
                     >
                       <tr>
-                        <th className={`${styles.first}`} colSpan={6}>Top 10 Customers</th>
+                        <th className={`${styles.first}`} colSpan={6}>Top 10 Suppliers</th>
                       </tr>
                       <tr className={styles.second_head}>
                         <td>CUSTOMER NAME</td>
@@ -2399,16 +2400,11 @@ const gstPurchase = (head, gstFilteredData) => {
                             <td key={index}>{sales?.b2b?.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
                           ))}
                         </tr>
+                       
                         <tr>
-                          <td>B2C</td>
+                          <td>Other</td>
                           {gstFilteredData?.detail?.purchaseDetail?.numberOfInvoices?.map((sales, index) => (
-                            <td key={index}>{sales?.b2c?.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
-                          ))}
-                        </tr>
-                        <tr>
-                          <td>Import</td>
-                          {gstFilteredData?.detail?.purchaseDetail?.numberOfInvoices?.map((sales, index) => (
-                            <td key={index}>{sales?.import?.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+                            <td key={index}>{sales?.others?.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
                           ))}
                         </tr>
                       </tbody>
