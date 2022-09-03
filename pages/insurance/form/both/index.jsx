@@ -45,6 +45,36 @@ const Index = () => {
     premiumAmount: insuranceData?.marineInsurance?.premiumAmount,
   })
 
+  useEffect(() => {
+    setMarineData({
+      policyNumber: insuranceData?.marineInsurance?.policyNumber,
+    nameOfInsurer: insuranceData?.marineInsurance?.nameOfInsurer,
+    gstOfInsurer: insuranceData?.marineInsurance?.gstOfInsurer,
+    nameOfInsured: insuranceData?.marineInsurance?.nameOfInsured,
+    gstOfInsured: insuranceData?.marineInsurance?.gstOfInsured,
+    insuranceFrom: insuranceData?.marineInsurance?.insuranceFrom,
+    insuranceTo: insuranceData?.marineInsurance?.insuranceTo,
+    periodOfInsurance: insuranceData?.marineInsurance?.periodOfInsurance,
+    insuranceFromType:insuranceData?.marineInsurance?.insuranceFromType,
+    lossPayee: insuranceData?.marineInsurance?.lossPayee,
+    premiumAmount: insuranceData?.marineInsurance?.premiumAmount,
+    })
+    setStorageData({
+      policyNumber: insuranceData?.storageInsurance?.policyNumber,
+    nameOfInsurer: insuranceData?.storageInsurance?.nameOfInsurer,
+    gstOfInsurer: insuranceData?.storageInsurance?.gstOfInsurer,
+    nameOfInsured: insuranceData?.storageInsurance?.nameOfInsured,
+    gstOfInsured: insuranceData?.storageInsurance?.gstOfInsured,
+    insuranceFrom: insuranceData?.storageInsurance?.insuranceFrom,
+    insuranceTo: insuranceData?.storageInsurance?.insuranceTo,
+    periodOfInsurance: insuranceData?.storageInsurance?.periodOfInsurance,
+    insuranceFromType:insuranceData?.storageInsurance?.insuranceFromType,
+    lossPayee: insuranceData?.storageInsurance?.lossPayee,
+    premiumAmount: insuranceData?.storageInsurance?.premiumAmount,
+    })
+  }, [insuranceData])
+  
+
   const saveMarineData = (name, value) => {
     let newInput = { ...marineData }
     newInput[name] = value
@@ -405,7 +435,7 @@ const Index = () => {
                           inline
                           label="Domestic"
                           name="insuranceFromType"
-                          defaultChecked={marineData.insuranceFromType == 'Domestic'}
+                          defaultChecked={insuranceData?.marineInsurance?.insuranceFromType == 'Domestic'}
                           onChange={(e) =>
                             saveMarineData(e.target.name, 'Domestic')
                           }
@@ -417,7 +447,7 @@ const Index = () => {
                           className={styles.radio}
                           inline
                           label="International"
-                          defaultChecked={marineData.insuranceFromType == 'International'}
+                          defaultChecked={insuranceData?.marineInsurance?.insuranceFromType == 'International'}
                           name="insuranceFromType"
                           type={type}
                           id={`inline-${type}-2`}
