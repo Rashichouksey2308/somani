@@ -76,7 +76,7 @@ function Index() {
     })
   }, [termsheet])
 
-  console.log(additionalComments, 'additionalComments')
+  console.log(termsheetDetails, 'additionalComments')
 
   useEffect(() => {
     {
@@ -509,7 +509,9 @@ function Index() {
                 className={`${styles.sub_contentValue} termsheet_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}
               >
                 <ul>
-                  <li>{additionalComments.storageofGoods}</li>
+                  <li>{`
+                  Cargo to be stored in Custom Bonded Warehouse at port of Discharge (${termsheetDetails?.transactionDetails?.portOfDischarge}) under CMA with Dr. Amin. IGM and Into Bond Bill of Entry” shall be filled by the lndo’s nominated party and all expenses/charges to be born and paid by the Buyer.
+                  `}</li>
                 </ul>
               </Col>
             </Row>
@@ -546,7 +548,9 @@ function Index() {
                 className={`${styles.sub_contentValue} termsheet_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}
               >
                 <ul>
-                  <li>{additionalComments.deliveriesDueDatePayment}</li>
+                  <li>{`
+                 ${termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate ? termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate : termsheetDetails?.paymentDueDate?.daysFromBlDate} days from the vessel/container(s) at discharge date at discharge port or  ${termsheetDetails?.paymentDueDate?.daysFromBlDate}  days from the from the BL date, whichever is earlier, through TT or LC (in case of LC all Bank charges to be borne by the Buyer).
+                  `}</li>
                 </ul>
               </Col>
             </Row>
@@ -1353,7 +1357,7 @@ function Index() {
                           type="checkbox"
                           checked={
                             otherTermConditions?.dutyAndTaxes
-                              ?.cmaFeesIncludingSupervisionAndSurvey
+                              ?.cimsCharges
                           }
                         />
                         <label
@@ -1369,7 +1373,7 @@ function Index() {
                           type="checkbox"
                           checked={
                             otherTermConditions?.dutyAndTaxes
-                              ?.cmaFeesIncludingSupervisionAndSurvey
+                              ?.taxCollectedatSource
                           }
                         />
                         <label

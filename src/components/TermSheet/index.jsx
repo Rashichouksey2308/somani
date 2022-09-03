@@ -16,6 +16,7 @@ import { data } from 'jquery'
 import _get from 'lodash/get'
 import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../utils/helper'
 import moment from 'moment'
+import { toast } from 'react-toastify'
 
 const Index = () => {
   const dispatch = useDispatch()
@@ -336,6 +337,9 @@ const Index = () => {
     }))
   }
   console.log(termsheetDetails, 'tempSheet')
+  const changePayment=()=>{
+
+  }
   const handleSave = () => {
     // console.log(termsheetDetails.commercials.overDueInterestPerMont, "tempSheet2")
     let tempSheet = termsheetDetails
@@ -369,8 +373,22 @@ const Index = () => {
       termsheetDetails.commercials.lcOpeningChargesUnit,
     ).toString()
     //  tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
-    // console.log(termsheetDetails, "tempSheet1")
-
+    console.log(termsheetDetails, "tempSheet1")
+        
+ if (termsheetDetails.transactionDetails.portOfDischarge =="Select an option" ||termsheetDetails.transactionDetails.portOfDischarge =="" || termsheetDetails.transactionDetails.portOfDischarge==undefined ) {
+      let toastMessage = 'Please add port Of Discharge '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+    return
+    }
+    if (termsheetDetails.paymentDueDate.daysFromBlDate =="" || termsheetDetails.paymentDueDate.daysFromBlDate==undefined ) {
+      let toastMessage = 'Please add days From Bl Date '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+    return
+    }
     const UpdatedTermsheet = {
       ...tempSheet,
       status: 'Approved',
@@ -507,6 +525,7 @@ const Index = () => {
               handleSave={handleSave}
               termsheet={termsheet}
               newLcVal={newLcVal}
+              changePayment={changePayment}
             />
             <AdditionalComment
               setAdditionalComments={setAdditionalComments}

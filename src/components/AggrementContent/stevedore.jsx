@@ -79,9 +79,25 @@ const cancelAddress=()=>{
 }
 useEffect(() => {
    if(window){
-    console.log(sessionStorage.getItem("Stevedore"),".getItem")
-    if(sessionStorage.getItem("Stevedore")){
-      let savedData=props.sameAsCHA?JSON.parse(sessionStorage.getItem("Cha")):JSON.parse(sessionStorage.getItem("Stevedore"))
+    console.log(props.sameAsCHA,".getItem")
+    if(props.sameAsCHA==false){
+      let savedData=JSON.parse(sessionStorage.getItem("Cha"))
+      let supplier={
+        "name": savedData.name,
+        "shortName": savedData.shortName,
+        "gstin": savedData.gstin ,
+        "addresses": savedData.addresses,
+        "authorisedSignatoryDetails": savedData.authorisedSignatoryDetails,
+       
+        
+       }
+       setList(savedData.authorisedSignatoryDetails)
+       setAddressList(savedData.addresses)
+       setSeteveState(supplier)
+    }
+    else if(sessionStorage.getItem("Stevedore")){
+      console.log("s")
+      let savedData=JSON.parse(sessionStorage.getItem("Stevedore"))
       let supplier={
         "name": savedData.name,
         "shortName": savedData.shortName,
@@ -577,6 +593,9 @@ const addDoc=(e,index)=>{
                         required
                         type="number"
                         name="pinCode"
+                        onKeyDown={(evt) =>
+                          evt.key === 'e' && evt.preventDefault()
+                        }
                         value={newAddress.pinCode}
                         onChange={(e) => {
                           setAddress(e.target.name,e.target.value)
@@ -646,6 +665,9 @@ const addDoc=(e,index)=>{
                         type="number"
                         name="pinCode"
                         value={newAddress.pinCode}
+                        onKeyDown={(evt) =>
+                          evt.key === 'e' && evt.preventDefault()
+                        }
                         onChange={(e) => {
                           setAddress(e.target.name,e.target.value)
                         }}
@@ -1063,6 +1085,9 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         type="number"
                         name="pinCode"
                         value={EditAddress.pinCode}
+                        onKeyDown={(evt) =>
+                          evt.key === 'e' && evt.preventDefault()
+                        }
                         onChange={(e) => {
                           editNewAddress(e.target.name,e.target.value)
                         }}
@@ -1130,6 +1155,9 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         required
                         type="number"
                         name="pinCode"
+                        onKeyDown={(evt) =>
+                          evt.key === 'e' && evt.preventDefault()
+                        }
                          value={EditAddress.pinCode}
                         onChange={(e) => {
                           editNewAddress(e.target.name,e.target.value)
