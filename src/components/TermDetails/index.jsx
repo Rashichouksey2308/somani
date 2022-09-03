@@ -285,16 +285,14 @@ const Index = ({
                   className={`${styles.value} ${styles.customSelect} 
                                  input form-control`}
                   onChange={onChangeTransactionDetails}
-                  defaultValue={
+                  value={
                     termsheetDetails?.transactionDetails?.lcOpeningBank
                   }
                   required
                 >
                   <option>Select an option</option>
-                  <option value="First Class European Bank">
-                    First Class European Bank
-                  </option>
-                  <option value="US Bank">US Bank</option>
+                  <option value="Reserve Bank of Spain">Reserve Bank of Spain</option>
+                  <option value='Zurcher Kantonal Bank,Zurich' >Zurcher Kantonal Bank,Zurich</option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   LC Opening Bank<strong className="text-danger">*</strong>
@@ -309,6 +307,7 @@ const Index = ({
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div className="d-flex">
                 <select
+                  value={termsheetDetails?.transactionDetails?.incoTerms}
                   id="incoTerms"
                   className={`${styles.value} ${styles.customSelect} input form-control`}
                   onChange={onChangeTransactionDetails}
@@ -316,30 +315,9 @@ const Index = ({
                 >
                   {/* <option value={termsheetDetails?.transactionDetails?.incoTerm}>{termsheetDetails?.transactionDetails?.incoTerm} </option> */}
                   <option>Select an option</option>
-                  <option
-                    selected={
-                      termsheetDetails?.transactionDetails?.incoTerms === 'CFR'
-                    }
-                    value="CFR"
-                  >
-                    CFR
-                  </option>
-                  <option
-                    selected={
-                      termsheetDetails?.transactionDetails?.incoTerms === 'FOB'
-                    }
-                    value="FOB"
-                  >
-                    FOB
-                  </option>
-                  <option
-                    selected={
-                      termsheetDetails?.transactionDetails?.incoTerms === 'CIF'
-                    }
-                    value="CIF"
-                  >
-                    CIF
-                  </option>
+                  <option value="CFR">CFR</option>
+                  <option value="FOB"> FOB</option>
+                  <option value="CIF">CIF</option>
                 </select>
 
                 {/* <input id='incoTerm' defaultValue={termsheetDetails?.transactionDetails?.incoTerms} className={`${styles.value} input form-control`} type="text" required /> */}
@@ -442,7 +420,7 @@ const Index = ({
                   required
                 >
                   {termsheetDetails?.transactionDetails?.partShipmentAllowed ===
-                  'Yes' ? (
+                    'Yes' ? (
                     <>
                       {' '}
                       <option value="Yes">Yes</option>{' '}
@@ -478,8 +456,8 @@ const Index = ({
                 >
                   <option>Select an option</option>
                   <option value="Vishakapatnam, India">Visakhapatnam, India</option>
-                <option value="Mumbai, India">Mumbai, India</option>
-                <option value="Gujrat, India">Gujrat, India</option>
+                  <option value="Mumbai, India">Mumbai, India</option>
+                  <option value="Gujrat, India">Gujrat, India</option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   Port Of Discharge<strong className="text-danger">*</strong>
@@ -543,7 +521,7 @@ const Index = ({
               </div>
             </div>
             {termsheetDetails.transactionDetails?.thirdPartyInspectionReq ==
-            'true' ? (
+              'true' ? (
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
                   <select
@@ -588,10 +566,10 @@ const Index = ({
                   required
                 >
                   <option selected>Select an option</option>
-                <option value="Vishakapatnam, India">Visakhapatnam, India</option>
-                <option value="Mumbai, India">Mumbai, India</option>
-                <option value="Gujrat, India">Gujrat, India</option>
-                    
+                  <option value="Vishakapatnam, India">Visakhapatnam, India</option>
+                  <option value="Mumbai, India">Mumbai, India</option>
+                  <option value="Gujrat, India">Gujrat, India</option>
+
                 </select>
 
                 <label className={`${styles.label} label_heading`}>
@@ -651,8 +629,8 @@ const Index = ({
                   IsBlSelected == 'DaysfromBLDate'
                     ? false
                     : IsBlSelected == 'Whicheverisearlier'
-                    ? false
-                    : true
+                      ? false
+                      : true
                 }
                 required
               />
@@ -674,8 +652,8 @@ const Index = ({
                   IsBlSelected == 'DaysfromVesselDischargeDate'
                     ? false
                     : IsBlSelected == 'Whicheverisearlier'
-                    ? false
-                    : true
+                      ? false
+                      : true
                 }
                 required
               />

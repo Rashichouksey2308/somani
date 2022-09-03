@@ -31,7 +31,8 @@ const Index = () => {
     // gstOfInsured: '',
     insuranceFrom: '',
     insuranceTo: '',
-    periodOfInsurance: null,
+    updatePolicyNumber: '',
+    renewalDate: '',
     lossPayee: '',
     premiumAmount: null,
   })
@@ -56,7 +57,9 @@ const Index = () => {
     // nameOfInsured: '',
     // gstOfInsured: '',
     insuranceFrom: '',
+    renewalDate: '',
     insuranceTo: '',
+    updatePolicyNumber: '',
     periodOfInsurance: null,
     lossPayee: '',
     premiumAmount: null,
@@ -103,7 +106,7 @@ const Index = () => {
             alt="ArrowRight"
           />
           <h1 className={styles.heading}>
-            Ramakrishna Traders - Ramal001-000001
+            {insuranceData?.company?.companyName} - Ramal001-000001
           </h1>
         </div>
       </div>
@@ -112,10 +115,8 @@ const Index = () => {
         <div className={`${styles.wrapper} border_color mt-4 card`}>
           <div
             className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
-            data-toggle="collapse"
-            data-target="#storageInsurance"
-            aria-expanded="true"
-            aria-controls="storageInsurance"
+           
+            style={{ cursor: 'default' }}
           >
             <div className="d-lg-flex align-items-center d-inline-block ">
               <h2 className="mb-0">Renewal Insurance</h2>
@@ -145,7 +146,11 @@ const Index = () => {
               </div>
             </div>
 
-            <span>+</span>
+            <span  data-toggle="collapse"
+            data-target="#storageInsurance"
+            aria-expanded="true"
+            aria-controls="storageInsurance"
+            style={{cursor:'pointer'}}>+</span>
           </div>
           <div
             id="storageInsurance"

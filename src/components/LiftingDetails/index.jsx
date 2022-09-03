@@ -163,6 +163,7 @@ export default function Index(props) {
           </div>
           {props.liftingData &&
             props.liftingData.map((val, index) => {
+              console.log(val,'Lifting Add ')
               return (
                 <div className={`${styles.main} mt-4 card border_color`}>
                   <div
