@@ -838,7 +838,11 @@ useEffect((
                   </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
-                  <div className={`${styles.label} text`}>Vessel Name</div>
+                  <div className={`${styles.label} text`}>Vessel Name
+                  {!portType.loadPortInspection ? (
+                  <strong className="text-danger">*</strong>
+                  ) : ''}
+</div>
                   <span className={styles.value}>
                     {_get(
                       inspectionData,
@@ -1026,6 +1030,7 @@ useEffect((
               saveDate,
               setStartDate,
               setDateStartFrom,
+              handleShow
             )
             : ''}
 
@@ -1780,7 +1785,9 @@ const Discharge = (
   saveDate,
   setDateStartFrom,
   setStartDate,
+  handleShow,
 ) => {
+  
   return (
     <div className={`${styles.main} vessel_card card border-color`}>
       <div
@@ -1788,7 +1795,7 @@ const Discharge = (
       >
         <h3 className={`${styles.heading}`}>Inspection Details</h3>
         <button
-          // onClick={handleShow}
+          onClick={handleShow}
           className={styles.product_btn}
           type="button"
         >
