@@ -172,14 +172,13 @@ export default function Index({ ReleaseOrderData }) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     }
-    if (netBalanceQuantity > e.target.value) {
+    if (e.target.value < 0) {
       // let temp = Number(e.target.value)
       // if (e.target.value == "") {
       //   temp = 0
       // }
 
-      const toastMessage =
-        'Net Quantity Realesed cannot be Greater than net bALance Quantity'
+      const toastMessage = 'Net Quantity Realesed cannot be Negative'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
@@ -246,7 +245,7 @@ export default function Index({ ReleaseOrderData }) {
             </div>
             <div
               id="lcApplication"
-              className="collapse"
+              // className="collapse"
               aria-labelledby="lcApplication"
               data-parent="#lcApplication"
             >
@@ -335,6 +334,8 @@ export default function Index({ ReleaseOrderData }) {
                               saveDate={saveDate}
                               name="releaseOrderDate"
                               labelName="Release Order Date"
+                              // popperPlacement="top-end"
+                              portalId="root-portal"
                             />
                             <img
                               className={`${styles.calanderIcon} image_arrow img-fluid`}
