@@ -31,7 +31,7 @@ function Index() {
         setName(data.company.companyName)
       
     }
-  }, [])
+  },)
   return (
     <div className={`${styles.dashboardTab} w-100`}>
       <div className={`${styles.tabHeader} tabHeader `}>

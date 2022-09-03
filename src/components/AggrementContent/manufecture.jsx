@@ -812,6 +812,9 @@ setEditAddress(
                         required
                         type="number"
                         name="pinCode"
+                        onKeyDown={(evt) =>
+                          evt.key === 'e' && evt.preventDefault()
+                        }
                         value={newAddress.pinCode}
                         onChange={(e) => {
                           setAddress(e.target.name,e.target.value)
@@ -865,7 +868,7 @@ setEditAddress(
                         <Form.Label
                           className={`${styles.label_heading} ${styles.select}  label_heading`}
                         >
-                          GSTIN<strong className="text-danger">*</strong>
+                          GSTIN<strong className="text-danger"></strong>
                         </Form.Label>
                         <img
                           className={`${styles.arrow} image_arrow img-fluid`}
@@ -881,6 +884,9 @@ setEditAddress(
                         type="number"
                         name="pinCode"
                         value={newAddress.pinCode}
+                        onKeyDown={(evt) =>
+                          evt.key === 'e' && evt.preventDefault()
+                        }
                         onChange={(e) => {
                           setAddress(e.target.name,e.target.value)
                         }}
@@ -921,7 +927,7 @@ setEditAddress(
                         }}
                       />
                       <Form.Label className={`${styles.label_heading} label_heading`}>
-                        State<strong className="text-danger">*</strong>
+                        State<strong className="text-danger"></strong>
                       </Form.Label>
                     </Form.Group>
                       <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -1362,6 +1368,9 @@ setEditAddress(
                         type="number"
                         name="pinCode"
                         value={newMultiAddress.pinCode}
+                        onKeyDown={(evt) =>
+                          evt.key === 'e' && evt.preventDefault()
+                        }
                         onChange={(e) => {
                           setMultiAddress(e.target.name,e.target.value)
                         }}
@@ -1430,6 +1439,9 @@ setEditAddress(
                         type="number"
                         name="pinCode"
                         value={newMultiAddress.pinCode}
+                        onKeyDown={(evt) =>
+                          evt.key === 'e' && evt.preventDefault()
+                        }
                         onChange={(e) => {
                           setMultiAddress(e.target.name,e.target.value)
                         }}
@@ -1470,7 +1482,7 @@ setEditAddress(
                         }}
                       />
                       <Form.Label className={`${styles.label_heading} label_heading`}>
-                        State<strong className="text-danger">*</strong>
+                        State<strong className="text-danger"></strong>
                       </Form.Label>
                     </Form.Group>
                       <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -1598,6 +1610,9 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         type="number"
                         name="pinCode"
                         value={EditAddress.pinCode}
+                        onKeyDown={(evt) =>
+                          evt.key === 'e' && evt.preventDefault()
+                        }
                         onChange={(e) => {
                           editNewAddress(e.target.name,e.target.value)
                         }}
@@ -1650,7 +1665,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         <Form.Label
                           className={`${styles.label_heading} ${styles.select}  label_heading`}
                         >
-                          GSTIN<strong className="text-danger">*</strong>
+                          GSTIN<strong className="text-danger"></strong>
                         </Form.Label>
                         <img
                           className={`${styles.arrow} image_arrow img-fluid`}
@@ -1666,6 +1681,9 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         type="number"
                         name="pinCode"
                          value={EditAddress.pinCode}
+                         onKeyDown={(evt) =>
+                          evt.key === 'e' && evt.preventDefault()
+                        }
                         onChange={(e) => {
                           editNewAddress(e.target.name,e.target.value)
                         }}
@@ -1706,7 +1724,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         }}
                       />
                       <Form.Label className={`${styles.label_heading} label_heading`}>
-                        State<strong className="text-danger">*</strong>
+                        State<strong className="text-danger"></strong>
                       </Form.Label>
                     </Form.Group>
                       <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
