@@ -109,7 +109,8 @@ export const addPrefixOrSuffix = (
         .replaceAll(',', '')
         .replace(/ /g, '')
 
-      let newValue = symbol + '  ' + Number(removedValue)?.toLocaleString('en-IN')
+      let newValue =
+        symbol + '  ' + Number(removedValue)?.toLocaleString('en-IN')
       console.log(newValue, 'newValue')
       return newValue
     } else {
@@ -145,9 +146,10 @@ export const addPrefixOrSuffix = (
         .replaceAll(',', '')
         .replace(/ /g, '')
 
-
       console.log(removedValue, 'removedValue')
-      let newValue = `${Number(removedValue)?.toLocaleString('en-IN')}${` `}${type}`
+      let newValue = `${Number(removedValue)?.toLocaleString(
+        'en-IN',
+      )}${` `}${type}`
       console.log('999', type, removedValue, newValue)
       return newValue
     } else {
@@ -213,7 +215,7 @@ export const checkNan = (unitOfValue, type = false, number = 2) => {
     if (!type) {
       return unitOfValue?.toFixed(number)?.toLocaleString('en-IN')
     } else {
-      return unitOfValue?.toLocaleString(undefined, {
+      return unitOfValue?.toLocaleString('en-IN', {
         minimumFractionDigits: 2,
       })
     }
