@@ -31,6 +31,7 @@ const Index = () => {
     // gstOfInsured: '',
     insuranceFrom: '',
     insuranceTo: '',
+    updatePolicyNumber: '',
     periodOfInsurance: null,
     lossPayee: '',
     premiumAmount: null,
@@ -57,6 +58,7 @@ const Index = () => {
     // gstOfInsured: '',
     insuranceFrom: '',
     insuranceTo: '',
+    updatePolicyNumber: '',
     periodOfInsurance: null,
     lossPayee: '',
     premiumAmount: null,
@@ -103,7 +105,7 @@ const Index = () => {
             alt="ArrowRight"
           />
           <h1 className={styles.heading}>
-            Ramakrishna Traders - Ramal001-000001
+            {insuranceData?.company?.companyName} - Ramal001-000001
           </h1>
         </div>
       </div>
