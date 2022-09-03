@@ -157,7 +157,7 @@ export default function Index({
 
     let tempArr = [...bolList]
 
-    tempArr[index].e == null
+    tempArr[index][e] = null
     console.log(tempArr, 'temp arr', e)
     setBolList(
       tempArr
@@ -268,6 +268,27 @@ export default function Index({
       })
       return newState
     })
+  }
+  const onChangeContainerDetailsDocHandler = async (e, index) => {
+    const name = e.target.id
+    const value = await docUploadFunction(e)
+    if (value) {
+      setBolList((prevState) => {
+        const newState = prevState.map((obj, i) => {
+          if (i == index) {
+            return {
+              ...obj,
+              containerDetails: {
+                ...obj.containerDetails,
+                [name]: value,
+              },
+            }
+          }
+          return obj
+        })
+        return newState
+      })
+    }
   }
 
   const saveDate = (startDate, name, index) => {
@@ -548,14 +569,14 @@ export default function Index({
                       inline
                       label="Bulk"
                       name="group1"
-                      disabled={shipmentTypeBulk}
+                      disabled={!shipmentTypeBulk}
                       type={type}
                       // checked={
                       //   _get(
                       //     TransitDetails,
                       //     'data[0].order.vessel.vessels[0].shipmentType',
                       //     '',
-                      //   ) === 'Bulk'
+                      //   ) == 'Bulk' ? 'checked' : ''
                       // }
                       checked={shipmentTypeBulk}
                       id={`inline-${type}-1`}
@@ -565,15 +586,15 @@ export default function Index({
                       inline
                       label="Liner"
                       name="group1"
-                      disabled={!shipmentTypeBulk}
+                      disabled={shipmentTypeBulk}
                       // checked={
                       //   _get(
                       //     TransitDetails,
                       //     'data[0].order.vessel.vessels[0].shipmentType',
                       //     '',
-                      //   ) === 'Liner'
+                      //   ) == 'Liner' ? 'checked' : ''
                       // }
-                      checked={!isShipmentTypeBULK}
+                      checked={!shipmentTypeBulk ? 'checked' : ''}
 
                       type={type}
                       id={`inline-${type}-2`}
@@ -903,7 +924,7 @@ export default function Index({
                       </div>
                     </div>
 
-                    {!isShipmentTypeBULK ? (
+                    {!shipmentTypeBulk ? (
                       <>
                         <hr></hr>
                         <div className={`${styles.vessel_card} mt-5`}>
@@ -912,7 +933,7 @@ export default function Index({
                             <strong className="text-danger">*</strong>
                           </h5>
                           <div className="row mt-n4">
-                            {!bol?.containerDetails?.containerDoc === null ? <div
+                            {bol?.containerDetails?.containerDoc === null ? null : <div
                               className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                             >
                               <input
@@ -937,7 +958,7 @@ export default function Index({
                                 Number of Containers
                                 <strong className="text-danger">*</strong>
                               </label>
-                            </div> : null}
+                            </div>}
                             <div
                               className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                             >
@@ -970,8 +991,10 @@ export default function Index({
                                 <div className={styles.uploadBtnWrapper}>
                                   <input
                                     name={`containerDoc`}
-                                    id="documentName"
-                                    onChange={(e) => uploadDoc(e, index)}
+                                    id="containerDoc"
+                                    onChange={(e) => onChangeContainerDetailsDocHandler(e, index)}
+                                    accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+
                                     type="file"
                                   />
                                   <button
@@ -1089,7 +1112,7 @@ export default function Index({
                                 )}
                               </td>
                             </tr>
-                            {!isShipmentTypeBULK ? (
+                            {!shipmentTypeBulk ? (
                               <>
                                 <tr className="table_row">
                                   <td className={styles.doc_name}>
@@ -1132,7 +1155,7 @@ export default function Index({
                                           <input
                                             type="file"
                                             name={`containerNumberListDoc`}
-                                            accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                            accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                                             onChange={(e) =>
                                               uploadDoc(e, index)
                                             }
@@ -1153,7 +1176,7 @@ export default function Index({
                                         <img
                                           className={`${styles.close_image} float-right ml-2 img-fluid`}
                                           src="/static/close.svg"
-                                          onClick={(e) => handleCloseDoc(e, index)}
+                                          onClick={(e) => handleCloseDoc('containerNumberListDoc', index)}
                                           alt="Close"
                                         />{' '}
                                       </div>
@@ -1221,7 +1244,7 @@ export default function Index({
                                         <img
                                           className={`${styles.close_image} float-right ml-2 img-fluid`}
                                           src="/static/close.svg"
-                                          onClick={(e) => handleCloseDoc(e, index)}
+                                          onClick={(e) => handleCloseDoc('packingListDoc', index)}
                                           alt="Close"
                                         />{' '}
                                       </div>
