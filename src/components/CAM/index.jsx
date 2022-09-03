@@ -1557,7 +1557,9 @@ const chargeDetails = (data, options, tempArr, camData) => {
                           className={styles.round}
                           style={{ backgroundColor: `${val.color}` }}
                         ></div>
-                        <span className={` heading ml-2`}>{val.name}</span>
+                        <span className={` heading ml-2 mr-3`}
+                           style= {{whiteSpace:'nowrap'}}  
+                              >{val.name}</span>
                       </div>
                     )
                   })}
@@ -1570,7 +1572,7 @@ const chargeDetails = (data, options, tempArr, camData) => {
                   cellSpacing="0"
                 >
                   <tr>
-                    <th>BANK NAME</th>
+                    <th width='50%'>BANK NAME</th>
                     <th>CHARGE AMOUNT</th>
                     <th>DATE OF CREATION</th>
                   </tr>
