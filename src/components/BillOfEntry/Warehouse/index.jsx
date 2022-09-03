@@ -9,7 +9,7 @@ import { UpdateCustomClearance } from '../../../redux/CustomClearance&Warehousin
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 
-export default function Index({ OrderId, customData }) {
+export default function Index({ OrderId, customData, uploadDoc }) {
   console.log(customData, 'customData')
   const dispatch = useDispatch()
   const [editInput, setEditInput] = useState(true)
@@ -31,8 +31,11 @@ export default function Index({ OrderId, customData }) {
   }
 
   const handleClose = () => {
-    setPlotInspectionData((doc) => {
-      return { ...doc, plotInspectionReport: null }
+    // setPlotInspectionData((doc) => {
+    //   return { ...doc, plotInspectionReport: null }
+    // })
+    setWarehouseDetails((prevState) => {
+      return { ...prevState, document: null }
     })
   }
 
@@ -48,14 +51,14 @@ export default function Index({ OrderId, customData }) {
     onChangeWarehouseDetails(name, text)
   }
 
-  const onSaveDocument = (e) => {
+  const onSaveDocument = async (e) => {
     let name = e.target.id
-    let doc = e.target.files[0]
+    let doc = await uploadDoc(e)
     let tempData = { ...warehouseDetails }
     tempData[name] = doc
     setWarehouseDetails(tempData)
   }
-// console.log(warehouseDetails,'warehouseDetails')
+  // console.log(warehouseDetails,'warehouseDetails')
   const onSaveDischarge = () => {
     let warehouseDetailpayload = warehouseDetails.wareHouseDetails
     if (warehouseDetailpayload.quantity === '') {
@@ -76,8 +79,20 @@ export default function Index({ OrderId, customData }) {
       fd.append('wareHouseDetails', JSON.stringify(warehouseDetailpayload))
       fd.append('customClearanceId', customData._id)
       fd.append('document', warehouseDetails.document)
-      dispatch(UpdateCustomClearance(fd))
+      let task = 'submit'
+      dispatch(UpdateCustomClearance({ fd, task }))
     }
+  }
+
+  const handleSave = () => {
+    let warehouseDetailpayload = warehouseDetails.wareHouseDetails
+    let fd = new FormData()
+    fd.append('wareHouseDetails', JSON.stringify(warehouseDetailpayload))
+    fd.append('customClearanceId', customData._id)
+    fd.append('document', warehouseDetails.document)
+
+    let task = 'save'
+    dispatch(UpdateCustomClearance({ fd, task }))
   }
 
   const handleDropdown = (e) => {
@@ -105,7 +120,7 @@ export default function Index({ OrderId, customData }) {
             </div>
             <div
               id="lcApplication"
-              className="collapse"
+              // className="collapse"
               aria-labelledby="lcApplication"
               data-parent="#lcApplication"
             >
@@ -190,7 +205,7 @@ export default function Index({ OrderId, customData }) {
                       </div>
                     ) : (
                       <div className={styles.certificate}>
-                         {warehouseDetails?.document?.name}
+                        {warehouseDetails?.document?.originalName}
                         <img
                           className={`${styles.close_image} float-right m-2 img-fluid`}
                           src="/static/close.svg"
@@ -213,7 +228,11 @@ export default function Index({ OrderId, customData }) {
             />
           </div>
         </div>
-        <SaveBar handleSave={onSaveDischarge} rightBtn="Submit" />
+        <SaveBar
+          handleSave={handleSave}
+          rightBtn="Submit"
+          rightBtnClick={onSaveDischarge}
+        />
       </div>
     </>
   )

@@ -8,6 +8,8 @@ import {
   GetTransitDetails,
 } from '../../../redux/TransitDetails/action'
 import _get from 'lodash/get'
+import Router from 'next/router'
+
 
 function Index() {
   const [transitDetails, setTransitDetails] = useState()
@@ -234,7 +236,7 @@ function Index() {
         </div>
       </div>
 
-      <SavePreviewBar rightBtn="Edit" isDownload={true} />
+      <SavePreviewBar rightBtn="Edit" isDownload={true} rightBtnClick={() => Router.push('/transit/id')} />
     </div>
   )
 }

@@ -84,6 +84,8 @@ function Index() {
           <div className={`${styles.filter} d-flex align-items-center`}>
             <div className={`${styles.head_header} align-items-center`}>
               <img
+                            onClick={() => Router.push('/termsheet')}
+
                 className={`${styles.arrow} img-fluid mr-2 image_arrow`}
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="arrow"
@@ -262,7 +264,7 @@ function Index() {
                       <td className={`${styles.buyerName}`} onClick={() => handleRoute(term, index)} >{term?.order?.commodity}</td>
 
                       <td>{term?.createdBy?.userRole ? term?.createdBy?.userRole : "RM"} </td>
-                      <td>{term?.order?.existingCustomer ? moment((term?.order?.createdAt).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY") : moment((term?.order?.cam?.approvedAt).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</td>
+                      <td>{term?.order?.existingCustomer ? moment((term?.order?.createdAt).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY") :term?.order?.cam?.approvedAt? moment((term?.order?.cam?.approvedAt).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY"):""}</td>
                       <td>
                         <span
                           className={`${styles.status} ${term?.order?.queue === 'Rejected' ? styles.rejected : term?.order?.queue === 'ReviewQueue'

@@ -70,7 +70,7 @@ function Index({
   const handleClose = (e) => {
     setVesselCertificate(null)
   }
-  console.log(list, 'list')
+ 
   // console.log(vesselData,'vesselData')
   return (
     <>
@@ -305,7 +305,11 @@ function Index({
                               {/* <option value={val.countryOfOrigin}>
                                 {val.countryOfOrigin}
                               </option> */}
-                              <option value="india">India</option>
+                              <option value="India">India</option>
+                              <option value="Australia">Australia</option>
+                              <option value="Sri Lanka">Sri Lanka</option>
+                              <option value="Qatar">Qatar</option>
+                              <option value="Dubai">Dubai</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -336,7 +340,8 @@ function Index({
                               {/* <option value={val.portOfLoading}>
                                 {val.portOfLoading}
                               </option> */}
-                              <option value="perth">Perth</option>
+                              <option value="Westshore Terminals,Canada">Westshore Terminals,Canada</option>
+                              <option value="Abbot Point,Australia">Abbot Point,Australia</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -367,7 +372,9 @@ function Index({
                               {/* <option value={val.portOfDischarge}>
                                 {val.portOfDischarge}
                               </option> */}
-                              <option value="navasheva">Navasheva</option>
+                              <option value="Vishakapatnam, India">Visakhapatnam, India</option>
+                              <option value="Mumbai, India">Mumbai, India</option>
+                              <option value="Gujrat, India">Gujrat, India</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -472,7 +479,7 @@ function Index({
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              ETA at Discharge Port
+                              ETD at Discharge Port
                             </label>
                           </div>
                         </div>
@@ -483,7 +490,7 @@ function Index({
                     {list[index].shipmentType === 'Bulk' ? (
                       <>
                         {list &&
-                          list[0].vesselInformation.map(
+                          list[index].vesselInformation.map(
                             (vesselInfo, index1) => (
                               <div
                                 key={index}
@@ -499,7 +506,7 @@ function Index({
                                   >
                                     <input
                                       id="name"
-                                      defaultValue={vesselInfo.name}
+                                      value={vesselInfo.name}
                                       className={`${styles.input_field} input form-control`}
                                       required
                                       type="text"
@@ -522,7 +529,7 @@ function Index({
                                   >
                                     <input
                                       id="IMONumber"
-                                      defaultValue={vesselInfo.IMONumber}
+                                      value={vesselInfo.IMONumber}
                                       className={`${styles.input_field} input form-control`}
                                       required
                                       type="text"
@@ -545,7 +552,7 @@ function Index({
                                   >
                                     <input
                                       id="flag"
-                                      defaultValue={vesselInfo.flag}
+                                      value={vesselInfo.flag}
                                       className={`${styles.input_field} input form-control`}
                                       required
                                       type="text"
@@ -630,7 +637,7 @@ function Index({
                                   >
                                     <input
                                       id="shippingLineOrCharter"
-                                      defaultValue={
+                                      value={
                                         vesselInfo.shippingLineOrCharter
                                       }
                                       className={`${styles.input_field} input form-control`}

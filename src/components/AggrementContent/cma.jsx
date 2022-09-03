@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 let cma = {
-  "name": "",
+  "name": "Dr. Amin",
   "shortName": "",
   "gstin": "",
  
@@ -78,7 +78,7 @@ const cancelAddress=()=>{
       if (sessionStorage.getItem("Cma")) {
         let savedData = JSON.parse(sessionStorage.getItem("Cma"))
         let cma = {
-          "name": savedData.name,
+          "name": savedData.name || "Dr. Amin",
           "shortName": savedData.shortName,
           "gstin": savedData.gstin,
 
@@ -92,7 +92,7 @@ const cancelAddress=()=>{
         setCmaState(cma)
       }else{
          let cma = {
-          "name": props.data?.name,
+          "name": props.data?.name || "Dr. Amin",
           "shortName": props.data?.shortName,
           "gstin": props.data?.gstin,
 
@@ -584,6 +584,9 @@ setEditAddress(
                         type="number"
                         name="pinCode"
                         value={newAddress.pinCode}
+                        onKeyDown={(evt) =>
+                          evt.key === 'e' && evt.preventDefault()
+                        }
                         onChange={(e) => {
                           setAddress(e.target.name,e.target.value)
                         }}
@@ -651,6 +654,9 @@ setEditAddress(
                         required
                         type="number"
                         name="pinCode"
+                        onKeyDown={(evt) =>
+                          evt.key === 'e' && evt.preventDefault()
+                        }
                         value={newAddress.pinCode}
                         onChange={(e) => {
                           setAddress(e.target.name,e.target.value)
@@ -1069,6 +1075,9 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         type="number"
                         name="pinCode"
                         value={EditAddress.pinCode}
+                        onKeyDown={(evt) =>
+                          evt.key === 'e' && evt.preventDefault()
+                        }
                         onChange={(e) => {
                           editNewAddress(e.target.name,e.target.value)
                         }}
@@ -1137,6 +1146,9 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         type="number"
                         name="pinCode"
                          value={EditAddress.pinCode}
+                         onKeyDown={(evt) =>
+                          evt.key === 'e' && evt.preventDefault()
+                        }
                         onChange={(e) => {
                           editNewAddress(e.target.name,e.target.value)
                         }}

@@ -50,10 +50,10 @@ const getDate = async () =>{
 
 
   const handleRoute = (term) => {
-   
+    console.log(term,"adasdsdads")
     sessionStorage.setItem('genericSelected', JSON.stringify(term))
     Router.push("/agreement")
-     dispatch(setDynamicName(term))
+    dispatch(setDynamicName(term))
     // Router.push('/lc-module')
   }
 
@@ -180,7 +180,8 @@ const getDate = async () =>{
                     <tr className="table_row">
                       <th >ORDER ID <img className={`mb-1`} src="/static/icons8-sort-24.svg" /></th>
                     
-                      <th>COMPANY NAME </th>
+                      <th>BUYER NAME </th>
+                      <th>STATUS </th>
                       <th>Customer ID</th>
                     
 
@@ -191,9 +192,25 @@ const getDate = async () =>{
                     <td >
                       {term?.order.orderId}
                     </td>
-                    <td className={`${styles.buyerName}`} onClick={() => handleRoute(term)} >{term?.company.companyName}</td>
+                    <td className={`${styles.buyerName}`} onClick={() => handleRoute(term)} >{term?.buyer?.name}</td>
 
-                    <td >{term?.company.customerId}</td>
+                  
+                    <td>
+                    <span
+                      className={`${styles.status} ${
+                        term.order.termsheet.status === 'Rejected'
+                          ? styles.rejected
+                          :term.order.termsheet.status === 'Review'
+                          ? styles.review
+                          : term.order.termsheet.status === 'Approved'
+                          ? styles.approved
+                          : styles.rejected
+                      }`}
+                    ></span>
+
+                    { term.order.termsheet.status}
+                  </td>
+                      <td >{term?.company.customerId}</td>
                     {/* <td>{term?.order?.createdAt?.slice(0, 10)}</td> */}
                     {/* <td>
                       <span

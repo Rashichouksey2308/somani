@@ -241,18 +241,8 @@ const index = ({ saveShipmentData, shipment }) => {
                     }}
                   >
                     <option selected>Select an option</option>
-                    <option value="Calcutta Port">
-                      Calcutta Port
-                    </option>
-                    <option value="Mumbai, India">
-                    Mumbai, India
-                    </option>
-                    <option value="Vizag, India">
-                    Vizag, India
-                    </option>
-                    <option value="Vishakapatnam, India">
-                  Visakhapatnam, India
-                </option>
+                   <option value="Westshore Terminals,Canada">Westshore Terminals,Canada</option>
+                  <option value="Abbot Point,Australia">Abbot Point,Australia</option>
                   </select>
                   <Form.Label
                     className={`${styles.label_heading} label_heading`}

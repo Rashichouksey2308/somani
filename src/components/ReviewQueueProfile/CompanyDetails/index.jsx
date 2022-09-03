@@ -46,7 +46,7 @@ function Index({ order, companyDetail }) {
         </div>
         <div
           id="companyDetails"
-          className="collapse"
+          // className="collapse"
           aria-labelledby="companyDetails"
           data-parent="#profileAccordion"
         >
@@ -128,10 +128,11 @@ function Index({ order, companyDetail }) {
                   Active Compliant
                 </div>
                 <div
-                  className={`${`${styles.value} accordion_Text`} ${companyDetail?.profile?.companyDetail?.activeCompliance
-                    ? styles.success
-                    : styles.warning
-                    }`}
+                  className={`${`${styles.value} accordion_Text`} ${
+                    companyDetail?.profile?.companyDetail?.activeCompliance
+                      ? styles.success
+                      : styles.warning
+                  }`}
                 >
                   {companyDetail?.activeCompliance ? 'Yes' : 'No'}
                 </div>
@@ -190,10 +191,11 @@ function Index({ order, companyDetail }) {
                   Last Balance Sheet
                 </div>
                 <div
-                  className={`${`${styles.value} accordion_Text`} ${companyDetail?.profile?.companyDetail?.lastBalanceSheet
-                    ? styles.success
-                    : styles.warning
-                    }`}
+                  className={`${`${styles.value} accordion_Text`} ${
+                    companyDetail?.profile?.companyDetail?.lastBalanceSheet
+                      ? styles.success
+                      : styles.warning
+                  }`}
                 >
                   {companyDetail?.profile?.companyDetail?.lastBalanceSheet}
                 </div>
@@ -255,7 +257,10 @@ function Index({ order, companyDetail }) {
 
                     <option value="Sales Assocaite">Sales Assocaite</option>
                     <option value="Website">Website</option>
-                    <option value="Customs Associate"> Customs Associate </option>
+                    <option value="Customs Associate">
+                      {' '}
+                      Customs Associate{' '}
+                    </option>
                   </select>
                   <label className={`${styles.label_heading} label_heading`}>
                     Sourcing Channel
@@ -279,22 +284,25 @@ function Index({ order, companyDetail }) {
                     name="Sourcing"
                     value={order?.referedBy}
                   >
-                    {updateCompany?.sourceChanel === 'Customs Associate' ?
+                    {updateCompany?.sourceChanel === 'Customs Associate' ? (
                       <>
-                        < option value="">Select</option>
+                        <option value="">Select</option>
                         <option value="CHA">{'CHA'}</option>
                         <option value="CMA">CMA</option>
-                        <option value="Stevedore">{'Stevedore'}</option> </> :
-                      updateCompany?.sourceChanel === 'Sales Assocaite' ?
-                        <>
-                          <option value="">Select</option>
-                          <option value="userName1">{'userName1'}</option>
-                          <option value="userName2">userName2</option>
-                          <option value="USerName3">{'USerName3'}</option></> :
-                        <>
-                          <option value="Website">Website</option>
-
-                        </>}
+                        <option value="Stevedore">{'Stevedore'}</option>{' '}
+                      </>
+                    ) : updateCompany?.sourceChanel === 'Sales Assocaite' ? (
+                      <>
+                        <option value="">Select</option>
+                        <option value="userName1">{'userName1'}</option>
+                        <option value="userName2">userName2</option>
+                        <option value="USerName3">{'USerName3'}</option>
+                      </>
+                    ) : (
+                      <>
+                        <option value="Website">Website</option>
+                      </>
+                    )}
                   </select>
                   <label className={`${styles.label_heading} label_heading`}>
                     Referred By
@@ -322,33 +330,33 @@ function Index({ order, companyDetail }) {
                     <option value="userName1">{'userName1'}</option>
                     <option value="userName2">userName2</option>
                     <option value="USerName3">{'USerName3'}</option>
-                </select>
-                <label className={`${styles.label_heading} label_heading`}>
-                  Referral Name
-                  <strong className="text-danger">*</strong>
-                </label>
-                <img
-                  className={`${styles.arrow} image_arrow img-fluid`}
-                  src="/static/inputDropDown.svg"
-                  alt="Search"
-                />
+                  </select>
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Referral Name
+                    <strong className="text-danger">*</strong>
+                  </label>
+                  <img
+                    className={`${styles.arrow} image_arrow img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+                </div>
               </div>
-            </div>
-            <div
-              className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
-            >
-              <button onClick={saveHandler} className={`${styles.saveBtn} `}>
-                Save
-              </button>
-            </div>
+              <div
+                className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
+              >
+                <button onClick={saveHandler} className={`${styles.saveBtn} `}>
+                  Save
+                </button>
+              </div>
 
-            {/* <div className='mt-3 ml-3'>
+              {/* <div className='mt-3 ml-3'>
                             <CommonSave onSave={saveHandler} />
                             </div> */}
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </>
   )
 }

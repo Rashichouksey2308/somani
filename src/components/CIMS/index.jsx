@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import _get from 'lodash/get'
@@ -12,12 +12,16 @@ import {
   GetTransitDetails,
 } from '../../redux/TransitDetails/action'
 import UploadOther from '../UploadOther'
+import { toast } from 'react-toastify'
+import moment from 'moment'
+
 
 export default function Index({
   isShipmentTypeBULK,
   TransitDetails,
   vesselData,
   orderid,
+  docUploadFunction,
 }) {
   let transId = _get(TransitDetails, `data[0]`, '')
   let shipmentTypeBulk =
@@ -34,10 +38,16 @@ export default function Index({
       circDate: '',
       cimsCharges: '',
       paymentBy: '',
-      document1: null,
-      document2: null,
+      coalImportRegistrationDoc: null,
+      cimsPaymentReceiptDoc: null,
     },
   ])
+
+  useEffect(() => {
+    if (_get(TransitDetails, 'data[0].CIMS.cimsDetails', []).length > 0) {
+      setCimsDetails(_get(TransitDetails, 'data[0].CIMS.cimsDetails', []))
+    }
+  }, [TransitDetails])
   const dispatch = useDispatch()
   const onChangeVessel = (e, index) => {
     let VesselName = e.target.value
@@ -139,24 +149,168 @@ export default function Index({
     ])
   }
 
+  const handleCloseDoc = (e, index) => {
+    let tempArr = [...cimsDetails]
+    console.log(tempArr, 'khjfdfgkegfk12', tempArr[index].e, index, e)
+
+    tempArr[index][e] = null
+    setCimsDetails(tempArr);
+  }
+
+  const uploadDoc = async (e, index) => {
+    let id = e.target.id
+    let doc = await docUploadFunction(e)
+    console.log(doc, id, 'khjfdfgkegfk')
+
+    setCimsDetails((prevState) => {
+      const newState = prevState.map((obj, i) => {
+        if (i == index) {
+          return {
+            ...obj,
+            [id]: doc,
+          }
+        }
+        return obj
+      })
+      return newState
+    })
+  }
+  const validation = () => {
+    let isOk = true
+    let toastMessage = ''
+
+
+
+    for (let i = 0; i <= cimsDetails.length - 1; i++) {
+      console.log(i, 'INSIDE FOR LOOP', cimsDetails.length)
+      if (
+        cimsDetails[i]?.vesselName == '' ||
+        cimsDetails[i]?.vesselName == undefined
+      ) {
+        toastMessage = `Please select vessel name of CIMS NO   - ${i}  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break
+        }
+      }
+      if (
+        cimsDetails[i]?.quantity == '' ||
+        cimsDetails[i]?.quantity == undefined
+      ) {
+        toastMessage = `Please  FILL quantity of CIMS NO   - ${i}  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break
+        }
+      }
+      if (
+        cimsDetails[i]?.circNumber == '' ||
+        cimsDetails[i]?.circNumber == undefined
+      ) {
+        toastMessage = `PLEASE FILL THE CRIC NUMBER CIMS NO   - ${i}  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break
+        }
+      }
+      if (
+        cimsDetails[i]?.circDate == '' ||
+        cimsDetails[i]?.circDate == undefined
+      ) {
+        toastMessage = `Please  SELECT A CIRC DATE FOR CIMS NO   - ${i}  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break
+        }
+      }
+      if (
+        cimsDetails[i]?.cimsCharges == '' ||
+        cimsDetails[i]?.cimsCharges == undefined
+      ) {
+        toastMessage = `PLEASE FILL THE cims charges CIMS NO   - ${i}  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break
+        }
+      }
+      if (
+        cimsDetails[i]?.paymentBy == '' ||
+        cimsDetails[i]?.paymentBy == undefined
+      ) {
+        toastMessage = `Please  SELECT A PAYMENT BY FOR CIMS NO   - ${i}  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break
+        }
+      }
+      if (
+        cimsDetails[i]?.coalImportRegistrationDoc == null ||
+        cimsDetails[i]?.coalImportRegistrationDoc == undefined
+      ) {
+        toastMessage = `Please  UPLOAD A FILE FOR COAL IMPORT REGISTRATION    - ${i} `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break
+        }
+      }
+    }
+    return isOk
+  }
+
+  const handleSubmit = () => {
+    // const billOfLanding = [...bolList]
+    if (validation()) {
+      const cims = { cimsDetails: cimsDetails }
+
+      let fd = new FormData()
+      fd.append('cims', JSON.stringify(cims))
+      fd.append('transitId', transId._id)
+
+      let task = 'submit'
+      dispatch(UpdateTransitDetails({ fd, task }))
+    }
+
+  }
+
   const handleSave = () => {
     // const billOfLanding = [...bolList]
+
     const cims = { cimsDetails: cimsDetails }
 
     let fd = new FormData()
     fd.append('cims', JSON.stringify(cims))
     fd.append('transitId', transId._id)
-    dispatch(UpdateTransitDetails(fd))
+
+
+    let task = 'save'
+    dispatch(UpdateTransitDetails({ fd, task }))
+
+
   }
+
+  // console.log(cimsDetails, 'khjfdfgkegfk')
+
+
+
+
+
   return (
     <>
       <div className={`${styles.backgroundMain} vessel_card container-fluid`}>
-        {cimsDetails.map((list, index) => (
-          <div
-            key={index}
-            className={`${styles.vessel_card} mt-3 border_color`}
-          >
-            <div className={`${styles.main} border_color mt-4 card `}>
+
+        <div
+
+          className={`${styles.vessel_card} mt-3 border_color`}
+        >
+          {cimsDetails.map((list, index) => (
+            <div key={index} className={`${styles.main} border_color mt-4 card `}>
               <div
                 className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
               >
@@ -176,32 +330,33 @@ export default function Index({
                     <div className="d-flex">
                       {
                         <select
+                        value={list.vesselName}
                           onChange={(e) => onChangeVessel(e, index)}
                           className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                         >
                           <option>Select an option</option>
                           {shipmentTypeBulk
                             ? _get(
-                                TransitDetails,
-                                'data[0].order.vessel.vessels',
-                                [],
-                              ).map((vessel, index) => (
-                                <option
-                                  value={vessel?.vesselInformation?.name}
-                                  key={index}
-                                >
-                                  {vessel?.vesselInformation?.name}
-                                </option>
-                              ))
+                              TransitDetails,
+                              'data[0].order.vessel.vessels',
+                              [],
+                            ).map((vessel, index) => (
+                              <option
+                                value={vessel?.vesselInformation?.name}
+                                key={index}
+                              >
+                                {vessel?.vesselInformation?.name}
+                              </option>
+                            ))
                             : _get(
-                                TransitDetails,
-                                'data[0].order.vessel.vessels[0].vesselInformation',
-                                [],
-                              ).map((vessel, index) => (
-                                <option value={vessel?.name} key={index}>
-                                  {vessel?.name}
-                                </option>
-                              ))}
+                              TransitDetails,
+                              'data[0].order.vessel.vessels[0].vesselInformation',
+                              [],
+                            ).map((vessel, index) => (
+                              <option value={vessel?.name} key={index}>
+                                {vessel?.name}
+                              </option>
+                            ))}
                         </select>
                       }
                       <label
@@ -304,12 +459,13 @@ export default function Index({
                   >
                     <div className="d-flex">
                       <select
+                      value={list.paymentBy}
                         id="paymentBy"
                         onChange={(e) => onChangeCims(e, index)}
                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       >
                         <option>Select an option</option>
-                        <option value={list.paymentBy}>{list.paymentBy}</option>
+                        {/* <option value={list.paymentBy}>{list.paymentBy}</option> */}
                         <option value="1">1</option>
                         <option>N/A</option>
                       </select>
@@ -377,20 +533,41 @@ export default function Index({
                             alt="Pdf"
                           />
                         </td>
-                        <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                        <td className={styles.doc_row}>{moment(list?.coalImportRegistrationDoc?.Date).format(' DD-MM-YYYY , h:mm a')}</td>
                         <td>
                           <div className={styles.uploadBtnWrapper}>
-                            <input
-                              onChange={(e) => uploadDoc1(e, index)}
-                              type="file"
-                              name="myfile"
-                            />
-                            <button className={`${styles.upload_btn} btn`}>
-                              Upload
-                            </button>
+                            {cimsDetails &&
+                              cimsDetails[index]?.coalImportRegistrationDoc == null ? (
+                              <>
+                                <div className={styles.uploadBtnWrapper}>
+                                  <input
+                                    type="file"
+                                    id='coalImportRegistrationDoc'
+                                    accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                    onChange={(e) => uploadDoc(e, index)}
+                                  />
+                                  <button
+                                    className={`${styles.upload_btn} btn`}
+                                  >
+                                    Upload
+                                  </button>
+                                </div>
+                              </>
+                            ) : (
+                              <div className={styles.certificate}>
+                                {cimsDetails[index]?.coalImportRegistrationDoc?.originalName}
+                                <img
+                                  className={`${styles.close_image} float-right ml-2 img-fluid`}
+                                  src="/static/close.svg"
+                                  onClick={(e) => handleCloseDoc('coalImportRegistrationDoc', index)}
+                                  alt="Close"
+                                />{' '}
+                              </div>
+                            )}
                           </div>
                         </td>
                       </tr>
+
                       <tr className="table_row">
                         <td className={styles.doc_name}>
                           CIMS Payment Receipt
@@ -402,17 +579,37 @@ export default function Index({
                             alt="Pdf"
                           />
                         </td>
-                        <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                        <td className={styles.doc_row}> {moment(list?.cimsPaymentReceiptDoc?.Date).format(' DD-MM-YYYY , h:mm a')}</td>
                         <td>
                           <div className={styles.uploadBtnWrapper}>
-                            <input
-                              onChange={(e) => docUploadFunction(e)}
-                              type="file"
-                              name="myfile"
-                            />
-                            <button className={`${styles.upload_btn} btn`}>
-                              Upload
-                            </button>
+                            {cimsDetails &&
+                              cimsDetails[index]?.cimsPaymentReceiptDoc == null ? (
+                              <>
+                                <div className={styles.uploadBtnWrapper}>
+                                  <input
+                                    type="file"
+                                    id='cimsPaymentReceiptDoc'
+                                    accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                    onChange={(e) => uploadDoc(e, index)}
+                                  />
+                                  <button
+                                    className={`${styles.upload_btn} btn`}
+                                  >
+                                    Upload
+                                  </button>
+                                </div>
+                              </>
+                            ) : (
+                              <div className={styles.certificate}>
+                                {cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName}
+                                <img
+                                  className={`${styles.close_image} float-right ml-2 img-fluid`}
+                                  src="/static/close.svg"
+                                  onClick={(e) => handleCloseDoc('cimsPaymentReceiptDoc', index)}
+                                  alt="Close"
+                                />{' '}
+                              </div>
+                            )}
                           </div>
                         </td>
                       </tr>
@@ -421,15 +618,16 @@ export default function Index({
                 </div>
               </div>
             </div>
-            <div className="mt-4">
-              <UploadOther
-                orderid={orderid}
-                module="Loading-Transit-Unloading"
-              />
-            </div>
+          ))}
+          <div className="mt-4">
+            <UploadOther
+              orderid={orderid}
+              module="Loading-Transit-Unloading"
+            />
           </div>
-        ))}
-        <SaveBar handleSave={handleSave} rightBtn="Submit" />
+        </div>
+
+        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />
       </div>
     </>
   )

@@ -475,30 +475,7 @@ function Index() {
           </div> 
 
           <div>
-        <Row className={`${styles.row_head} row_head`}>
-            <Col md={4}  sm={6} xs={6}  className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
-             
-            <span>Payment Due Date</span>
-            
-            </Col>
-            <Col md={8}  sm={6} xs={6}>{""}</Col>
-          </Row>
-          <Row>
-            <Col md={4}  sm={6} xs={6} className={`${styles.sub_content} border_color label_heading pb-3 pt-4 d-flex justify-content-start align-content-center`}>
-             
-             <ol>
-                 <li>7. Computation of Due Date*</li>
-          
-             </ol>
-            
-            </Col>
-            <Col md={8}  sm={6} xs={6}  className={`${styles.sub_contentValue} termsheet_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
-                 <ul>
-                 <li>{termsheetDetails?.paymentDueDate?.computationOfDueDate}</li>
-                 
-             </ul>
-            </Col>
-        </Row>
+        
        </div> 
           <div>
             <Row className={`${styles.row_head} row_head`}>
@@ -686,32 +663,7 @@ function Index() {
             </Row>
           </div> 
            <div>
-        <Row className={`${styles.row_head} row_head`}>
-            <Col md={4}   sm={6} xs={6} className={`${styles.content_header} border_color d-flex justify-content-center align-content-center`}>
-             
-            <span>Additional Comments</span>
-            
-            </Col>
-            <Col md={8}  sm={6} xs={6}>{""}</Col>
-          </Row>
-          <Row>
-            <Col md={4}  sm={6} xs={6} className={`${styles.sub_content} border_color label_heading pb-3 pt-4 d-flex justify-content-start align-content-center`}>
-             
-             <ol>
-                 <li>18. Overdue Interest Per Month (%)</li>
-                   <li>19. Exchange Fluctuation</li>
-                  
-             </ol>
-            
-            </Col>
-            <Col md={8}  sm={6} xs={6}  className={`${styles.sub_contentValue} termsheet_Text label_heading  pb-3 pt-4 d-flex justify-content-start align-content-center`}>
-                 <ul>
-                 
-                 <li>{termsheetDetails?.commercials?.overDueInterestPerMonth}%</li>
-                   <li>{termsheetDetails.commercials?.exchangeFluctuation}</li>
-             </ul>
-            </Col>
-        </Row>
+       
        </div> 
          <div>
             <Row className={`${styles.row_head} row_head`}>
@@ -1401,7 +1353,7 @@ function Index() {
                           type="checkbox"
                           checked={
                             otherTermConditions?.dutyAndTaxes
-                              ?.cmaFeesIncludingSupervisionAndSurvey
+                              ?.cimsCharges
                           }
                         />
                         <label
@@ -1417,7 +1369,7 @@ function Index() {
                           type="checkbox"
                           checked={
                             otherTermConditions?.dutyAndTaxes
-                              ?.cmaFeesIncludingSupervisionAndSurvey
+                              ?.taxCollectedatSource
                           }
                         />
                         <label

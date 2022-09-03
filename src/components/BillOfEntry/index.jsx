@@ -36,7 +36,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
     boeDetails: {
       invoiceQuantity: '',
       invoiceQuantityUnit: '',
-      currency: '',
+      currency: 'INR',
       conversionRate: '',
       invoiceNumber: '',
       invoiceValue: '',
@@ -190,7 +190,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
   //   ])
   // }
 
-  const handleSave = () => {
+  const handleSubmit = () => {
     // [{ id: 'conversionRate', value: 'CONVERSION RATE' },
     //  { id: 'invoiceDate', value: ' INVOICE DATE' },
     //   { id: 'invoiceValue', value: 'INVOICE VALUE' },
@@ -207,6 +207,15 @@ export default function Index({ customData, OrderId, uploadDoc }) {
     //   }
 
     // })
+
+    if (billOfEntryData.boeDetails.currency === '') {
+
+      let toastMessage = 'CURRENCY CANNOT BE EMPTY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
     if (billOfEntryData.boeDetails.currency === '') {
 
       let toastMessage = 'CURRENCY CANNOT BE EMPTY'
@@ -263,12 +272,27 @@ export default function Index({ customData, OrderId, uploadDoc }) {
       fd.append('customClearanceId', customData?._id)
       fd.append('billOfEntry', JSON.stringify(billOfEntry))
 
-      dispatch(UpdateCustomClearance(fd))
+      let task = 'submit'
+
+      dispatch(UpdateCustomClearance({fd, task}))
     }
 
 
   }
 
+
+
+  const handleSave = ()=> {
+    const billOfEntry = { billOfEntry: [billOfEntryData] }
+    const fd = new FormData()
+    fd.append('customClearanceId', customData?._id)
+    fd.append('billOfEntry', JSON.stringify(billOfEntry))
+
+    let task = 'save'
+
+    dispatch(UpdateCustomClearance({fd, task}))
+    
+  }
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -592,11 +616,14 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       onChange={(e) =>
                         saveBillOfEntryData(e.target.name, e.target.value)
                       }
+                      value={billOfEntryData.boeDetails.currency}
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
-                      <option selected>Choose Currency</option>
-                      <option value="USD">USD</option>
+                    <option selected>Select an option</option>
                       <option value="INR">INR</option>
+                      <option value="USD">USD</option>
+                      <option value="EURO">EURO</option>
+                      <option value="POUND">POUND</option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Currency
@@ -815,52 +842,61 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                         {dutyData.length > 0 &&
                           dutyData.map((val, index) => (
                             <tr key={index} className="table_row">
-                              <td className={styles.doc_name}>{index + 1}</td>
-                              <td>
-                                <select
-                                  name="duty"
-                                  onChange={(e) =>
-                                    handleDutyChange(
-                                      e.target.name,
-                                      e.target.value,
-                                      index,
-                                    )
-                                  }
-                                  disabled={!val.actions}
-                                  className={`${styles.dutyDropdown}`}
-                                >
-                                  <option>Select an option</option>
-                                  <option>{val.duty}</option>
-                                  <option value="BCD">BCD</option>
-                                  <option value="IGST">IGST</option>
-                                </select>
-                              </td>
-                              <td>
-                                <input
-                                  className={`${styles.dutyDropdown}`}
-                                  name="amount"
-                                  disabled={!val.actions}
-                                  onChange={(e) =>
-                                    handleDutyChange(
-                                      e.target.name,
-                                      e.target.value,
-                                      index,
-                                    )
-                                  }
-                                />
-                              </td>
-                              <td>
-                                <input
-                                  className={`${styles.dutyDropdown}`}
-                                  onChange={(e) =>
-                                    handleDutyChange(
-                                      e.target.name,
-                                      e.target.value,
-                                      index,
-                                    )
-                                  }
-                                />
-                              </td>
+{!val.actions ? ( <>
+                       
+                          <td className={styles.doc_name}>1</td>
+                          <td>BCD</td>
+                          <td>24,000</td>
+                          <td className="text-right"></td>       
+                          </>
+                              
+          ) :  ( <> <td className={styles.doc_name}>{index + 1}</td>
+          <td>
+            <select
+              name="duty"
+              onChange={(e) =>
+                handleDutyChange(
+                  e.target.name,
+                  e.target.value,
+                  index,
+                )
+              }
+              disabled={!val.actions}
+              className={`${styles.dutyDropdown}`}
+            >
+              <option>Select an option</option>
+              <option>{val.duty}</option>
+              <option value="BCD">BCD</option>
+              <option value="IGST">IGST</option>
+            </select>
+          </td>
+          <td>
+            <input
+              className={`${styles.dutyDropdown}`}
+              name="amount"
+              disabled={!val.actions}
+              onChange={(e) =>
+                handleDutyChange(
+                  e.target.name,
+                  e.target.value,
+                  index,
+                )
+              }
+            />
+          </td>
+          <td>
+            <input
+              className={`${styles.dutyDropdown}`}
+              onChange={(e) =>
+                handleDutyChange(
+                  e.target.name,
+                  e.target.value,
+                  index,
+                )
+              }
+            />
+          </td> </> ) }
+
                               <td>
                                 <div>
                                   {!val.actions ? (
@@ -872,6 +908,8 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                                       }}
                                     />
                                   ) : (
+                                    <>
+                                    
                                     <img
                                       src="/static/save-3.svg"
                                       className={`${styles.edit_image} mr-3 img-fluid`}
@@ -880,6 +918,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                                         setActions(index, false)
                                       }}
                                     />
+                                    </>
                                   )}
                                   <img
                                     src="/static/delete 2.svg"
@@ -1167,7 +1206,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
             />
           </div>
         </div>
-        <SaveBar handleSave={handleSave} rightBtn="Submit" />
+        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />
       </div>
     </>
   )

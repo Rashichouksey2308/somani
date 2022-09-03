@@ -66,12 +66,22 @@ if (window) {
     }
     setAddressList(savedData.addresses)
     setList(savedData.authorisedSignatoryDetails)
-
+     let temp=[]
+     console.log(savedData,"savedData.authorisedSignatoryDetail")
+     if(savedData.authorisedSignatoryDetails?.length > 0){
+     
+     savedData.authorisedSignatoryDetails.forEach((val,index)=>{
+      if(val.document){
+       temp.push({attachDoc:val.document})
+      }
+     })
+     }
+     setDocList(temp)
     setAssociateData(buyer)
   }else{
     console.log("in props")
     let buyer = {
-      "branchName": props?.data?.branchName,
+      "branchName": props?.data?.branch,
       "shortName": props?.data?.shortName,
       
         "gstin": props?.data?.gstin,
@@ -81,6 +91,16 @@ if (window) {
     }
     setAddressList(props?.data?.addresses?props?.data?.addresses:[])
     setList(props?.data?.authorisedSignatoryDetails?props?.data?.authorisedSignatoryDetails:[])
+     let temp=[]
+     if(props?.data?.authorisedSignatoryDetails.length>0){
+      
+     props?.data?.authorisedSignatoryDetails.forEach((val,index)=>{
+      if(val.document){
+       temp.push({attachDoc:val.document})
+      }
+     })
+     }
+     setDocList(temp)
 
     setAssociateData(buyer)
   }
@@ -226,8 +246,21 @@ const removeDoc=(index)=>{
 
       return newState;
     });
+     setList(prevState => {
+      const newState = prevState.map((obj ,i)=> {
+       if (i == index) {
+          return {...obj, document: 'new'};
+        }
+
+        
+        return obj;
+      });
+
+      return newState;
+    });
   
 }
+console.log(docList,"document")
 const handleChangeInput2=(name2,value,index)=>{
 
 
@@ -586,6 +619,9 @@ console.log(associateData,"associateData")
                         required
                         type="number"
                         name="pinCode"
+                        onKeyDown={(evt) =>
+                          evt.key === 'e' && evt.preventDefault()
+                        }
                         value={newAddress.pinCode}
                         onChange={(e) => {
                           setAddress(e.target.name,e.target.value)
@@ -654,6 +690,9 @@ console.log(associateData,"associateData")
                         required
                         type="number"
                         name="pinCode"
+                        onKeyDown={(evt) =>
+                          evt.key === 'e' && evt.preventDefault()
+                        }
                         value={newAddress.pinCode}
                         onChange={(e) => {
                           setAddress(e.target.name,e.target.value)
@@ -1073,6 +1112,9 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         required
                         type="number"
                         name="pinCode"
+                        onKeyDown={(evt) =>
+                          evt.key === 'e' && evt.preventDefault()
+                        }
                         value={EditAddress.pinCode}
                         onChange={(e) => {
                           editNewAddress(e.target.name,e.target.value)
@@ -1142,6 +1184,9 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         type="number"
                         name="pinCode"
                          value={EditAddress.pinCode}
+                         onKeyDown={(evt) =>
+                          evt.key === 'e' && evt.preventDefault()
+                        }
                         onChange={(e) => {
                           editNewAddress(e.target.name,e.target.value)
                         }}

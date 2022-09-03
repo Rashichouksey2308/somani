@@ -77,11 +77,7 @@ export default function Index({ inspectionData }) {
     setIsEdit(true)
   }
 
-  // const handleEditInput = (name, value) => {
-  //   let newInput = { ...addressData }
-  //   newInput[name] = value
-  //   setAddressData(newInput)
-  // }
+
   const handleEditInput = (name, value) => {
     const newInput = { ...addressData }
     const namesplit = name.split('.')
@@ -101,13 +97,24 @@ export default function Index({ inspectionData }) {
   }
 
   const handleSave = () => {
+    console.log("SAvee")
     const fd = new FormData()
     fd.append('thirdPartyAppointment', JSON.stringify(appointmentData))
     fd.append('inspectionId', inspectionData?._id)
 
-    dispatch(UpdateInspection(fd))
+    let task = 'save'
+    dispatch(UpdateInspection({ fd, task }))
   }
 
+  const handleSubmit = () => {
+    console.log("SAvee")
+    const fd = new FormData()
+    fd.append('thirdPartyAppointment', JSON.stringify(appointmentData))
+    fd.append('inspectionId', inspectionData?._id)
+
+    let task = 'submit'
+    dispatch(UpdateInspection({ fd, task }))
+  }
   return (
     <>
       <div
@@ -162,8 +169,8 @@ export default function Index({ inspectionData }) {
                           appointmentData?.dateOfAppointment?.split('T')[0],
                         ).toDate()
                           ? moment(
-                              appointmentData?.dateOfAppointment?.split('T')[0],
-                            ).toDate()
+                            appointmentData?.dateOfAppointment?.split('T')[0],
+                          ).toDate()
                           : startDate
                       }
                       defaultDate={moment(
@@ -228,7 +235,7 @@ export default function Index({ inspectionData }) {
             </div>
           </div>
         </div>
-        <SaveBar handleSave={handleSave} rightBtn="Submit" />
+        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />
       </div>
     </>
   )

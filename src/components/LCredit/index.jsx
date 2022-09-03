@@ -22,16 +22,13 @@ function Index() {
     // setEditCurrent(val)
     // setEditInput(true)
     const newArr = [...clauseArr]
-     newArr.forEach((val,i)=>{
-       if(i==index){
-        val.isEdit=!val.isEdit
-       }
-     })
-
-   
+    newArr.forEach((val, i) => {
+      if (i == index) {
+        val.isEdit = !val.isEdit
+      }
+    })
 
     setClauseArr(newArr)
-    
   }
 
   console.log(editCurrent, 'THIS IS EDIT LC', editInput)
@@ -188,7 +185,7 @@ function Index() {
     existingValue: '',
     dropDownValue: '',
     newValue: '',
-    isEdit:false,
+    isEdit: false,
   })
 
   const inputRef = useRef(null)
@@ -203,7 +200,6 @@ function Index() {
   const [fieldType, setFieldType] = useState(false)
 
   const dropDownChange = (e) => {
-    
     if (
       e.target.value == 'latestDateOfShipment' ||
       e.target.value == 'dateOfExpiry'
@@ -246,9 +242,9 @@ function Index() {
   const addToArr = () => {
     if (clauseObj.existingValue === '' || clauseObj.newValue === '') {
       let toastMessage = 'CANNOT ADD A CLAUSE WITH EMPTY VALUES'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
     } else {
       const newArr = [...clauseArr]
       if (
@@ -259,14 +255,13 @@ function Index() {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
       } else {
-
         newArr.push(clauseObj)
 
         setClauseArr(newArr)
       }
     }
   }
-console.log(clauseArr,"clauseArr")
+  console.log(clauseArr, 'clauseArr')
   const removeFromArr = (arr) => {
     const newClause = clauseArr.filter((item) => {
       return item.dropDownValue !== arr
@@ -287,38 +282,40 @@ console.log(clauseArr,"clauseArr")
   }
 
   const handleSubmit = () => {
-    if(lcData.documentaryCreditNumber === '' || lcData.documentaryCreditNumber == undefined ){
+    if (
+      lcData.documentaryCreditNumber === '' ||
+      lcData.documentaryCreditNumber == undefined
+    ) {
       let toastMessage = 'DOCUMENTARY CREDIT NUMBER IS MANDATORY'
-      if(!toast.isActive(toastMessage)){
-        toast.error(toastMessage, {toastId: toastMessage})
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
       }
-    }
-   else if(lcData.lcIssuingBank === '' || lcData.lcIssuingBank == undefined ){
+    } else if (
+      lcData.lcIssuingBank === '' ||
+      lcData.lcIssuingBank == undefined
+    ) {
       let toastMessage = 'SELECT LC ISSUING BANK FROM DROPDOWN'
-      if(!toast.isActive(toastMessage)){
-        toast.error(toastMessage, {toastId: toastMessage})
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
       }
-    }
-   else if(lcData.dateOfIssue === '' || lcData.dateOfIssue == undefined ){
+    } else if (lcData.dateOfIssue === '' || lcData.dateOfIssue == undefined) {
       let toastMessage = 'DATE OF ISSUE IS MANDATORY'
-      if(!toast.isActive(toastMessage)){
-        toast.error(toastMessage, {toastId: toastMessage})
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
       }
-    }
-   else if(lcDoc.lcDraftDoc === '' || lcDoc.lcDraftDoc == undefined ){
+    } else if (lcDoc.lcDraftDoc === '' || lcDoc.lcDraftDoc == undefined) {
       let toastMessage = 'PLEASE UPLOAD LC DRAFT'
-      if(!toast.isActive(toastMessage)){
-        toast.error(toastMessage, {toastId: toastMessage})
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
       }
-    }
-    else{
-    setLcData(clauseData)
-    let fd = new FormData()
-    fd.append('lcApplication', JSON.stringify(lcData))
-    fd.append('lcModuleId', JSON.stringify(lcModuleData._id))
-    fd.append('document1', lcDoc.lcDraftDoc)
+    } else {
+      setLcData(clauseData)
+      let fd = new FormData()
+      fd.append('lcApplication', JSON.stringify(lcData))
+      fd.append('lcModuleId', JSON.stringify(lcModuleData._id))
+      fd.append('document1', lcDoc.lcDraftDoc)
 
-    dispatch(UpdateLcAmendment(fd))
+      dispatch(UpdateLcAmendment(fd))
     }
   }
 
@@ -332,6 +329,8 @@ console.log(clauseArr,"clauseArr")
               className={`${styles.arrow} image_arrow mr-2 img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
+              onClick={() => Router.push('/lc-module')}
+
             />
             <h1 className={`${styles.heading}`}>Letter of Credit </h1>
           </div>
@@ -367,8 +366,7 @@ console.log(clauseArr,"clauseArr")
                             }
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           >
-                             <option>Select an option</option>
-                            {/* <option>{lcData?.lcIssuingBank}</option> */}
+                            <option disabled>Select an option</option>
                             <option value="BNP PARIBAS PARIBAS - BNPAFPPX">
                               BNP PARIBAS PARIBAS - BNPAFPPX
                             </option>
@@ -515,10 +513,7 @@ console.log(clauseArr,"clauseArr")
                           className={`${styles.input_field} input form-control`}
                           disabled
                           type="text"
-                          value={
-                            
-                          clauseObj?.existingValue
-                          }
+                          value={clauseObj?.existingValue}
                           // onChange={(e)=>{
 
                           // }}
@@ -537,7 +532,6 @@ console.log(clauseArr,"clauseArr")
                               required
                               type="text"
                               ref={inputRef}
-                              
                               defaultValue={
                                 editInput ? editCurrent?.newValue : ''
                               }
@@ -551,8 +545,8 @@ console.log(clauseArr,"clauseArr")
                               <DateCalender
                                 name="newValue"
                                 // defaultDate={lcData?.dateOfIssue?.split('T')[0]}
-                              saveDate={saveDropDownDate}
-                              labelName="New Value"
+                                saveDate={saveDropDownDate}
+                                // labelName="New Value"
                               />
                               <img
                                 className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -561,11 +555,11 @@ console.log(clauseArr,"clauseArr")
                               />
                             </>
                           )}
-                          {/* <label
+                          <label
                             className={`${styles.label_heading} label_heading`}
                           >
                             New Value<strong className="text-danger">*</strong>
-                          </label> */}
+                          </label>
                           <img
                             className="img-fluid ml-4"
                             src="/static/add-btn.svg"
@@ -604,188 +598,205 @@ console.log(clauseArr,"clauseArr")
                             </thead>
                             <tbody>
                               {clauseArr &&
-                                clauseArr?.map((arr, index) => (
-                                  arr.isEdit?
-                                  <>
-                                   <tr key={index} className="table_row">
-                                    <td>
-                                      <div className="d-flex">
-                                      <select
-                                      defaultValue={
-                                      editInput ? editCurrent.dropDownValue : ''
-                                      }
-                                      onChange={(e) => dropDownChange(e)}
-                                      className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                      >
-                                      <option selected>Select an option</option>
-                                      <option value="shipmentForm">
-                                      (44A) Shipment From
-                                      </option>
-                                      <option value="applicableRules">
-                                      (40E) Application Rules
-                                      </option>
-                                      <option value="placeOfExpiry">
-                                      (32D) Place Of Expiry
-                                      </option>
-                                      <option value="dateOfExpiry">
-                                      (32D) Date Of Expiry
-                                      </option>
-                                      <option value="formOfDocumentaryCredit">
-                                      (40A) Form of Documentary Credit
-                                      </option>
-                                      <option value="applicant">(50) Applicant</option>
-                                      <option value="beneficiary">
-                                      (59) Beneficiary
-                                      </option>
-                                      <option value="currecyCodeAndAmountValue">
-                                      (32B) Currency Code &amp; Amount
-                                      </option>
-                                      <option value="tolerancePercentage">
-                                      (39A) Tolerance (+/-) Percentage
-                                      </option>
-                                      <option value="creditAvailablewith">
-                                      {' '}
-                                      (41A) Credit Available With
-                                      </option>
-                                      <option value="creditAvailableBy">
-                                      (41A) Credit Available By
-                                      </option>
-                                      <option value="atSight">(42C) At Sight</option>
-                                      <option value="drawee">(42A) Drawee</option>
-                                      <option value="deferredPayment">
-                                      (42P) Deferred Payment
-                                      </option>
-                                      <option value="partialShipment">
-                                      (43P) Partial Shipment
-                                      </option>
-                                      <option value="transhipments">
-                                      (43T) Transhipments
-                                      </option>
-                                      <option value="portOfLoading">
-                                      (44E) Port of Loading
-                                      </option>
-                                      <option value="portOfDischarge">
-                                      {' '}
-                                      (44F) Port of Discharge
-                                      </option>
-                                      <option value="latestDateOfShipment">
-                                      (44C) Latest Date Of Shipment
-                                      </option>
-                                      <option value="DescriptionOfGoods">
-                                      {' '}
-                                      (45A) Description Of The Goods
-                                      </option>
-                                      </select>
+                                clauseArr?.map((arr, index) =>
+                                  arr.isEdit ? (
+                                    <>
+                                      <tr key={index} className="table_row">
+                                        <td>
+                                          <div className="d-flex">
+                                            <select
+                                              defaultValue={
+                                                editInput
+                                                  ? editCurrent.dropDownValue
+                                                  : ''
+                                              }
+                                              onChange={(e) =>
+                                                dropDownChange(e)
+                                              }
+                                              className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                                            >
+                                              <option selected>
+                                                Select an option
+                                              </option>
+                                              <option value="shipmentForm">
+                                                (44A) Shipment From
+                                              </option>
+                                              <option value="applicableRules">
+                                                (40E) Application Rules
+                                              </option>
+                                              <option value="placeOfExpiry">
+                                                (32D) Place Of Expiry
+                                              </option>
+                                              <option value="dateOfExpiry">
+                                                (32D) Date Of Expiry
+                                              </option>
+                                              <option value="formOfDocumentaryCredit">
+                                                (40A) Form of Documentary Credit
+                                              </option>
+                                              <option value="applicant">
+                                                (50) Applicant
+                                              </option>
+                                              <option value="beneficiary">
+                                                (59) Beneficiary
+                                              </option>
+                                              <option value="currecyCodeAndAmountValue">
+                                                (32B) Currency Code &amp; Amount
+                                              </option>
+                                              <option value="tolerancePercentage">
+                                                (39A) Tolerance (+/-) Percentage
+                                              </option>
+                                              <option value="creditAvailablewith">
+                                                {' '}
+                                                (41A) Credit Available With
+                                              </option>
+                                              <option value="creditAvailableBy">
+                                                (41A) Credit Available By
+                                              </option>
+                                              <option value="atSight">
+                                                (42C) At Sight
+                                              </option>
+                                              <option value="drawee">
+                                                (42A) Drawee
+                                              </option>
+                                              <option value="deferredPayment">
+                                                (42P) Deferred Payment
+                                              </option>
+                                              <option value="partialShipment">
+                                                (43P) Partial Shipment
+                                              </option>
+                                              <option value="transhipments">
+                                                (43T) Transhipments
+                                              </option>
+                                              <option value="portOfLoading">
+                                                (44E) Port of Loading
+                                              </option>
+                                              <option value="portOfDischarge">
+                                                {' '}
+                                                (44F) Port of Discharge
+                                              </option>
+                                              <option value="latestDateOfShipment">
+                                                (44C) Latest Date Of Shipment
+                                              </option>
+                                              <option value="DescriptionOfGoods">
+                                                {' '}
+                                                (45A) Description Of The Goods
+                                              </option>
+                                            </select>
 
-                                      <label
-                                      className={`${styles.label_heading} label_heading`}
-                                      >
-                                      Clause
-                                      </label>
-                                      <img
-                                      className={`${styles.arrow} image_arrow img-fluid`}
-                                      src="/static/inputDropDown.svg"
-                                      alt="Search"
-                                      />
-                                      </div>
-                                    </td>
-                                    <td>
-                                      <input
-                                      className={`${styles.input_field} input form-control`}
-                                      disabled
-                                      type="text"
-                                      value={
-                                      editInput
-                                      ? editCurrent.existingValue
-                                      : clauseObj?.existingValue
-                                      }
-                                      />
-                                      <label
-                                      className={`${styles.label_heading} label_heading`}
-                                      >
-                                      Existing Value
-                                      </label>
-                                    </td>
-                                            <td>
-                                            <div className="d-flex">
-                                            {!fieldType ? (
-                                            <input
+                                            <label
+                                              className={`${styles.label_heading} label_heading`}
+                                            >
+                                              Clause
+                                            </label>
+                                            <img
+                                              className={`${styles.arrow} image_arrow img-fluid`}
+                                              src="/static/inputDropDown.svg"
+                                              alt="Search"
+                                            />
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <input
                                             className={`${styles.input_field} input form-control`}
-                                            required
+                                            disabled
                                             type="text"
-                                            ref={inputRef}
-                                            defaultValue={
-                                            editInput ? editCurrent?.newValue : ''
+                                            value={
+                                              editInput
+                                                ? editCurrent.existingValue
+                                                : clauseObj?.existingValue
                                             }
-                                            onChange={(e) => {
-                                            inputRef.current.value = ''
-                                            arrChange('newValue', e.target.value)
-                                            }}
-                                            />
+                                          />
+                                          <label
+                                            className={`${styles.label_heading} label_heading`}
+                                          >
+                                            Existing Value
+                                          </label>
+                                        </td>
+                                        <td>
+                                          <div className="d-flex">
+                                            {!fieldType ? (
+                                              <input
+                                                className={`${styles.input_field} input form-control`}
+                                                required
+                                                type="text"
+                                                ref={inputRef}
+                                                defaultValue={
+                                                  editInput
+                                                    ? editCurrent?.newValue
+                                                    : ''
+                                                }
+                                                onChange={(e) => {
+                                                  inputRef.current.value = ''
+                                                  arrChange(
+                                                    'newValue',
+                                                    e.target.value,
+                                                  )
+                                                }}
+                                              />
                                             ) : (
-                                            <>
-                                            <DateCalender
-                                            name="newValue"
-                                            // defaultDate={lcData?.dateOfIssue?.split('T')[0]}
-                                            saveDate={saveDropDownDate}
-                                            // labelName="New Value"
-                                            />
-
-                                            </>
+                                              <>
+                                                <DateCalender
+                                                  name="newValue"
+                                                  // defaultDate={lcData?.dateOfIssue?.split('T')[0]}
+                                                  saveDate={saveDropDownDate}
+                                                  // labelName="New Value"
+                                                />
+                                              </>
                                             )}
                                             <label
-                                            className={`${styles.label_heading} label_heading`}
+                                              className={`${styles.label_heading} label_heading`}
                                             >
-                                            New Value<strong className="text-danger">*</strong>
+                                              New Value
+                                              <strong className="text-danger">
+                                                *
+                                              </strong>
                                             </label>
-
-                                            </div>
-                                            </td>
-                                    <td>
-                                      <img
-                                        src="/static/mode_edit.svg"
-                                        className="img-fluid ml-n5"
-                                        alt="edit"
-                                        onClick={() => handleEdit(index)}
-                                      />
-                                      <img
-                                        src="/static/delete 2.svg"
-                                        className="img-fluid ml-3 mr-n5"
-                                        alt="delete"
-                                        onClick={() =>
-                                          removeFromArr(arr.dropDownValue)
-                                        }
-                                      />
-                                    </td>
-                                  </tr>
-                                  </>
-                                  
-                                  :
-                                  <>
-                                  <tr key={index} className="table_row">
-                                    <td>{arr.dropDownValue}</td>
-                                    <td>{arr.existingValue}</td>
-                                    <td>{arr.newValue}</td>
-                                    <td>
-                                      <img
-                                        src="/static/mode_edit.svg"
-                                        className="img-fluid ml-n5"
-                                        alt="edit"
-                                        onClick={() => handleEdit(index)}
-                                      />
-                                      <img
-                                        src="/static/delete 2.svg"
-                                        className="img-fluid ml-3 mr-n5"
-                                        alt="delete"
-                                        onClick={() =>
-                                          removeFromArr(arr.dropDownValue)
-                                        }
-                                      />
-                                    </td>
-                                  </tr>
-                                  </>
-                                ))}
-                             
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <img
+                                            src="/static/mode_edit.svg"
+                                            className="img-fluid ml-n5"
+                                            alt="edit"
+                                            onClick={() => handleEdit(index)}
+                                          />
+                                          <img
+                                            src="/static/delete 2.svg"
+                                            className="img-fluid ml-3 mr-n5"
+                                            alt="delete"
+                                            onClick={() =>
+                                              removeFromArr(arr.dropDownValue)
+                                            }
+                                          />
+                                        </td>
+                                      </tr>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <tr key={index} className="table_row">
+                                        <td>{arr.dropDownValue}</td>
+                                        <td>{arr.existingValue}</td>
+                                        <td>{arr.newValue}</td>
+                                        <td>
+                                          <img
+                                            src="/static/mode_edit.svg"
+                                            className="img-fluid ml-n5"
+                                            alt="edit"
+                                            onClick={() => handleEdit(index)}
+                                          />
+                                          <img
+                                            src="/static/delete 2.svg"
+                                            className="img-fluid ml-3 mr-n5"
+                                            alt="delete"
+                                            onClick={() =>
+                                              removeFromArr(arr.dropDownValue)
+                                            }
+                                          />
+                                        </td>
+                                      </tr>
+                                    </>
+                                  ),
+                                )}
                             </tbody>
                           </table>
                         </div>

@@ -37,6 +37,7 @@ function Index(props) {
   const [saveData,setSaveData]=useState(false)
   const [submitData,setSubmitData]=useState(false)
   const [isSideBarOpen,setIsSideBarOpen]=useState(true)
+  const [sameAsCHA,setSameAsCHA]=useState(true)
   useEffect(() => {
     if(window){
     props.setDate(localStorage.getItem("timeGenericUpdated"))
@@ -146,6 +147,13 @@ function Index(props) {
       }
       return false
       }
+        if (data.state === "" || data.state==undefined) {
+      let toastMessage = 'Please add state'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+      }
    }
        if (data.city === "" || data.city==undefined) {
       let toastMessage = 'Please add city'
@@ -154,13 +162,7 @@ function Index(props) {
       }
       return false
       }
-        if (data.state === "" || data.state==undefined) {
-      let toastMessage = 'Please add state'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      }
-      return false
-      }
+      
     }
      
     return true
@@ -280,7 +282,7 @@ function Index(props) {
         submitData={submitData} 
         updateData={updateData}
         active={active}
-         data={props?.genericData?.finance}
+         data={props?.genericData?.financingBank}
         />
       )
     }
@@ -291,10 +293,11 @@ function Index(props) {
         sendData={sendData} 
         submitData={submitData} 
         updateData={updateData}
-        data={props?.genericData?.stevedore}
+        data={sameAsCHA?props?.genericData?.stevedore:props?.genericData?.CHA}
         uploadDoc={uploadDoc}
         active={active}
         addressValidation={addressValidation}
+        sameAsCHA={sameAsCHA}
         />
       )
     }
@@ -632,7 +635,7 @@ const onSave=()=>{
     genericId:props.genericData?._id,
     buyer:{
     "name":data.buyerData.name,
-    "branchName": data.buyerData.branchName,
+    "branch": data.buyerData.branchName,
 
     "addresses": data.addresses,
     "authorisedSignatoryDetails": data.list,
@@ -660,7 +663,7 @@ const onSave=()=>{
     
     }
   }
-   if (dataToSend.buyer.branchName == "" || dataToSend.buyer.branchName == undefined) {
+   if (dataToSend.buyer.branch == "" || dataToSend.buyer.branch == undefined) {
       toastMessage = `Please add branch Name`
       if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -703,9 +706,9 @@ const onSave=()=>{
       console.log(data.financeData,"finan")
     dataToSend={
     genericId:props.genericData?._id,
-    finance:{
+    financingBank:{
     "name": data.financeData.name,
-    "branchName": data.financeData.branchName,
+    "branch": data.financeData.branchName,
 
 
 
@@ -721,7 +724,7 @@ const onSave=()=>{
     
   }
   sessionStorage.setItem("Finance",JSON.stringify(dataToSend2))
-  if (dataToSend.finance.name == "" || dataToSend.finance.name == undefined) {
+  if (dataToSend.financingBank.name == "" || dataToSend.financingBank.name == undefined) {
       toastMessage = `Please add name `
       if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -731,7 +734,7 @@ const onSave=()=>{
     
     }
   }
-   if (dataToSend.finance.branchName== "" || dataToSend.finance.branchName== undefined) {
+   if (dataToSend.financingBank.branch== "" || dataToSend.financingBank.branch== undefined) {
       toastMessage = `Please add branch name  `
       if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -962,7 +965,7 @@ const onSave=()=>{
     }
     }
     if (dataToSend.stevedore.gstin== "" || dataToSend.stevedore.gstin== undefined) {
-    toastMessage = `Please add short name  `
+    toastMessage = `Please add gstin `
     if (!toast.isActive(toastMessage.toUpperCase())) {
     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     setSubmitData(false)
@@ -1168,7 +1171,7 @@ const onSave=()=>{
     genericId:props.genericData?._id,
 
     associateBuyer:{
-      "branchName": data?.associate?.branchName,
+      "branch": data?.associate?.branchName,
       "shortName": data?.associate?.shortName,
       "gstin": data?.associate?.gstin,
       "addresses": data?.address,
@@ -1191,7 +1194,8 @@ const onSave=()=>{
    
     }
     sessionStorage.setItem("Associate",JSON.stringify(dataToSend2))
-    if (dataToSend.associateBuyer.branchName == "" || dataToSend.associateBuyer.branchName == undefined) {
+    console.log(dataToSend.associateBuyer.authorisedSignatoryDetails,"okkk")
+    if (dataToSend.associateBuyer.branch == "" || dataToSend.associateBuyer.branch == undefined) {
     toastMessage = `Please add branch name  `
     if (!toast.isActive(toastMessage.toUpperCase())) {
     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -1223,7 +1227,9 @@ const onSave=()=>{
 
     }
     }
+
     if (dataToSend.associateBuyer.authorisedSignatoryDetails.length <= 0 || dataToSend.associateBuyer.authorisedSignatoryDetails == undefined) {
+     
     toastMessage = `Please add authorised Signatory Details `
     if (!toast.isActive(toastMessage.toUpperCase())) {
     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -1233,8 +1239,27 @@ const onSave=()=>{
 
     }
     }
-   
+     if (dataToSend.associateBuyer.authorisedSignatoryDetails.length > 0 ) {
+      let isDoc=true
+     for(let i=0;i<dataToSend.associateBuyer.authorisedSignatoryDetails.length ;i++){
+      if(dataToSend.associateBuyer.authorisedSignatoryDetails[i].addnew=="true"){
+        if(dataToSend.associateBuyer.authorisedSignatoryDetails[i].document == "new"){
+          toastMessage = `Please add document `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          setSubmitData(false)
+          isDoc=false
+          break;
+         
+        }
+      }
+     }
     }
+    if(isDoc==false){
+      return
+    }
+    }
+  }
 
    
   
@@ -1584,7 +1609,11 @@ const onShowSideBar=()=>{
                       <span>Same as CHA</span>
                       <span className={` ${styles.yes}`}>Yes</span>
                       <label className={styles.switch}>
-                        <input type="checkbox"></input>
+                        <input type="checkbox" checked={sameAsCHA?"checked":""}
+                        onChange={(e)=>{
+                          setSameAsCHA(!sameAsCHA)
+                        }}
+                        ></input>
                         <span className={`${styles.slider} ${styles.round}` }></span>
                       </label>
                       <span  className={`${styles.no}`}>No</span>

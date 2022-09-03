@@ -15,7 +15,7 @@ import { useSelector } from 'react-redux'
 import _get from 'lodash/get'
 import API from '../../src/utils/endpoints'
 import toast from 'react-toastify'
-
+import Router from 'next/router'
 import Cookies from 'js-cookie'
 import Axios from 'axios'
 import { setPageName,setDynamicName } from '../../src/redux/userData/action'
@@ -86,7 +86,10 @@ dispatch(setDynamicName(customData?.company?.companyName))
         <div className={`${styles.tabHeader} tabHeader `}>
           <div className={`${styles.tab_header_inner} d-flex align-items-center`}>
             <img
-              src="/static/keyboard_arrow_right-3.svg" alt="arrow right" className="img-fluid mr-2 image_arrow"
+              src="/static/keyboard_arrow_right-3.svg" alt="arrow right"
+               className="img-fluid mr-2 image_arrow"
+               onClick={() => Router.push('/bill-of-entry')}
+
             />
             <h1 className={`${styles.title} heading`}>
               <span>{customData?.company?.companyName} - Ramal001-00002</span>
@@ -163,7 +166,7 @@ dispatch(setDynamicName(customData?.company?.companyName))
 
                   <div className="tab-pane fade" id="warehouse" role="tabpanel">
                     <div className={`${styles.card}  accordion_body`}>
-                      <Warehouse OrderId={OrderId} customData={customData} />
+                      <Warehouse uploadDoc={uploadDoc} OrderId={OrderId} customData={customData} />
                     </div>
                   </div>
                 </div>
