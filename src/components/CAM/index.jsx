@@ -1332,8 +1332,8 @@ const directorDetails = (camData) => {
                           <span
                             className={`d-flex justify-content-center align-content-center`}
                           >
-                            {fName.charAt(0)}
-                            {lName.charAt(0)}
+                            {fName?.charAt(0)}
+                            {lName?.charAt(0)}
                           </span>
                         </div>
 
@@ -2635,14 +2635,14 @@ const financeDetails = (
                         companyData,
                         'financial.cashFlowStatement[0].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
                         '',
-                      ).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                      )?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td>
                       {_get(
                         companyData,
                         'financial.cashFlowStatement[1].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
                         '',
-                      ).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                      )?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
                   <tr>
@@ -2652,14 +2652,14 @@ const financeDetails = (
                         companyData,
                         'financial.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
                         '',
-                      ).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                      )?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td>
                       {_get(
                         companyData,
                         'financial.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
                         '',
-                      ).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                      )?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
                   <tr>
@@ -2669,14 +2669,14 @@ const financeDetails = (
                         companyData,
                         'financial.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
                         '',
-                      ).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                      )?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                     <td>
                       {_get(
                         companyData,
                         'financial.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
                         '',
-                      ).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                      )?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
 
@@ -2691,7 +2691,7 @@ const financeDetails = (
                     <td>
                       {latestYearData?.workingCapitalTurnover
                         ?.toFixed(2)
-                        .toLocaleString()}
+                        ?.toLocaleString()}
                     </td>
                     <td>
                       {previousYearData?.workingCapitalTurnover

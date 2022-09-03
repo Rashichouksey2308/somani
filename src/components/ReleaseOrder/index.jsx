@@ -24,17 +24,25 @@ export default function Index({ ReleaseOrderData }) {
     'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
     0,
   )
+  const { releaseDetails } = useSelector((state) => state.user)
   const [editInput, setEditInput] = useState(true)
   const [netBalanceQuantity, setNetBalanceQuantity] = useState(InvoiceQuantity)
   const [releaseDetail, setReleaseDetail] = useState([
     {
       orderNumber: 1,
-      releaseOrderDate: undefined,
+      releaseOrderDate: '',
       netQuantityReleased: 0,
       unitOfMeasure: '',
       document: null,
     },
   ])
+
+  useEffect(() => {
+    let tempArr = [...releaseDetail]
+
+    setReleaseDetail(tempArr)
+  }, [])
+
   // console.log(releaseDetail, netBalanceQuantity, 'Release')
 
   // useEffect(() => {
@@ -164,7 +172,7 @@ export default function Index({ ReleaseOrderData }) {
     }
   }
   const netQuantityChange = (e, index) => {
-    console.log(netBalanceQuantity, Number(e.target.value), "herere12e")
+    console.log(netBalanceQuantity, Number(e.target.value), 'herere12e')
     if (netBalanceQuantity < Number(e.target.value)) {
       // let temp = Number(e.target.value)
       // if (e.target.value == "") {
@@ -272,11 +280,13 @@ export default function Index({ ReleaseOrderData }) {
                       Invoice Quantity
                     </div>
                     <span className={styles.value}>
-                      {Number(_get(
-                        ReleaseOrderData,
-                        'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
-                        0,
-                      ))?.toLocaleString()}
+                      {Number(
+                        _get(
+                          ReleaseOrderData,
+                          'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
+                          0,
+                        ),
+                      )?.toLocaleString()}
                     </span>
                   </div>
                   <div
@@ -340,8 +350,8 @@ export default function Index({ ReleaseOrderData }) {
                               saveDate={saveDate}
                               name="releaseOrderDate"
                               labelName="Release Order Date"
-                              // popperPlacement="top-end"
                             />
+                            {console.log('release Details', releaseDetail)}
                             <img
                               className={`${styles.calanderIcon} image_arrow img-fluid`}
                               src="/static/caldericon.svg"
@@ -353,7 +363,9 @@ export default function Index({ ReleaseOrderData }) {
                           className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                         >
                           <input
-                            defaultValue={Number(item.netQuantityReleased)?.toLocaleString()}
+                            defaultValue={Number(
+                              item.netQuantityReleased,
+                            )?.toLocaleString()}
                             onChange={(e) => netQuantityChange(e, index)}
                             id="netQuantityReleased"
                             className={`${styles.input_field} input form-control`}
@@ -402,12 +414,14 @@ export default function Index({ ReleaseOrderData }) {
                                 </div>   */}
 
                                 <div style={{ marginTop: '12px' }}>
-                                  {releaseDetail.length === 1 ? null : <img
-                                    onClick={() => handleDeleteRow(index)}
-                                    src="/static/delete 2.svg"
-                                    className={`${styles.delete_image} img-fluid ml-3 mr-2`}
-                                    alt="Delete"
-                                  />}
+                                  {releaseDetail.length === 1 ? null : (
+                                    <img
+                                      onClick={() => handleDeleteRow(index)}
+                                      src="/static/delete 2.svg"
+                                      className={`${styles.delete_image} img-fluid ml-3 mr-2`}
+                                      alt="Delete"
+                                    />
+                                  )}
                                   {Number(netBalanceQuantity) >= 0 && (
                                     <img
                                       onClick={() =>
@@ -416,9 +430,9 @@ export default function Index({ ReleaseOrderData }) {
                                       src="/static/add-btn.svg"
                                       className={`${styles.delete_image} ml-2 img-fluid`}
                                       alt="Add button"
-                                    />)}
+                                    />
+                                  )}
                                 </div>
-
                               </div>
                               {/* <div className={styles.uploadBtnWrapper}>
                         <input
@@ -491,7 +505,9 @@ export default function Index({ ReleaseOrderData }) {
                   <div className={`${styles.total_quantity} text `}>
                     Net Balance Quantity:{' '}
                     <span className="form-check-label ml-2">
-                      {Number(netBalanceQuantity) > 0 ? netBalanceQuantity?.toLocaleString() : 0}{' '}
+                      {Number(netBalanceQuantity) > 0
+                        ? netBalanceQuantity?.toLocaleString()
+                        : 0}{' '}
                       MT
                     </span>
                   </div>

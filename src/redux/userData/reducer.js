@@ -7,6 +7,7 @@ const initialState = {
   order: null,
   currency: 'CRORES',
   pageTabName: 'release',
+  releaseDetails: [],
 }
 function UserReducer(state = initialState, action) {
   switch (action.type) {
@@ -43,6 +44,11 @@ function UserReducer(state = initialState, action) {
       return {
         ...state,
         currency: action.value,
+      }
+    case types.RELEASE_DETAIL:
+      return {
+        ...state,
+        releaseDetails: action.payload,
       }
     default:
       return state

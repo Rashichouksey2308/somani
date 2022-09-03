@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import styles from '../profile.module.scss'
 import moment from 'moment'
 import _get from "lodash/get";
+import { isArray } from 'lodash';
 
 function Index({ directorData }) {
   const [darkMode, setDarkMode] = useState(false)
@@ -24,7 +25,7 @@ function Index({ directorData }) {
       setDarkMode(false)
     }
   }, [])
-  console.log(_get(directorData?.profile?.directorDetail[0], `otherAssociatedEntities${otherAssociates}`, []),"len")
+  console.log(directorData,"len")
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -350,7 +351,7 @@ function Index({ directorData }) {
             </div>
           : null
         }
-        {directorData?.profile?.directorDetail?.length > 0 && _get(directorData, 'profile.directorDetail', [{}]).map((director, index) => {
+        {directorData?.profile?.directorDetail?.length > 0 && _get(directorData, 'profile.directorDetail', []).map((director, index) => {
           return (
             <div
               key={index}
@@ -638,7 +639,7 @@ function Index({ directorData }) {
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  {Array.isArray(_get(director, `otherAssociatedEntities${otherAssociates}`, [])) && _get(director, `otherAssociatedEntities${otherAssociates}`, []).map((associates, index) => {
+                                  {isArray(director) && _get(director, `otherAssociatedEntities${otherAssociates}`, []).map((associates, index) => {
                                     const fromDate = associates?.fromDate
                                     const toDate = associates?.toDate
 
