@@ -1005,7 +1005,7 @@ export default function Index({
                                 </div>
 
                                 <div className={`${styles.upload_text}`}>
-                                  ONLY .XLS FILES ARE ALLOWED
+                                  ONLY .XLSX FILES ARE ALLOWED
                                   <br /> &amp; MAX FILE SIZE UP TO 50MB
                                 </div>
                               </div>

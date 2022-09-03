@@ -181,7 +181,7 @@ export default function Index(props) {
                           DO Quantity
                         </div>
                         <div className={`${styles.do_number} mr-4`}>
-                          20,000 MT
+                          {val?.quantity} MT
                         </div>
                       </div>
                       <div className="d-flex mr-5">
