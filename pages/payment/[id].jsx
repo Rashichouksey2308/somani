@@ -233,11 +233,26 @@ function Index() {
   }
   console.log(quantity, DOlimit, filteredDOArray, 'deliveryOrder')
 
+
+
   const generateDoNumber = (index) => {
     let orderDONumber = index < 10 ? `0${index}` : index
     let orderId = _get(ReleaseOrderData, 'data[0].order.orderId', '')
     let string = `${orderId.slice(0, 7)}-${orderId.slice(7)}`
     return `${string}/${orderDONumber}`
+  }
+
+  const BalanceQuantity = () => {
+    let number = Number(_get(
+      ReleaseOrderData,
+      'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
+      0,
+    ))
+
+    deliveryOrder.forEach((item) => {
+      number = number - Number(item.Quantity)
+    })
+    return number
   }
 
   const deliverChange = (name, value, index) => {
@@ -408,6 +423,7 @@ function Index() {
                 >
                   <div className={`${styles.card}  accordion_body`}>
                     <DeliveryOrder
+                      BalanceQuantity={BalanceQuantity}
                       setLastMileDelivery={setLastMileDelivery}
                       onSaveHAndler={onSaveDoHAndler}
                       quantity={quantity}
