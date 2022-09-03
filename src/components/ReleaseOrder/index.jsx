@@ -35,7 +35,7 @@ export default function Index({ ReleaseOrderData }) {
       document: null,
     },
   ])
-  console.log(releaseDetail, netBalanceQuantity, 'Release')
+  // console.log(releaseDetail, netBalanceQuantity, 'Release')
 
   // useEffect(() => {
   //   let realseOrderState = _get(ReleaseOrderData, 'data[0].releaseDetail', [])
@@ -45,13 +45,18 @@ export default function Index({ ReleaseOrderData }) {
   //     )
   //   }
   // }, [ReleaseOrderData])
-  console.log(releaseDetail, 'realseOrderStatecurre')
+  // console.log(releaseDetail, 'realseOrderStatecurre')
 
-  const handleDocUplaod = async (name, e, index) => {
-    console.log(e, name, index, 'name,value,index1')
-    const doc = await uploadDoc(e)
-    console.log(doc, 'name,value,index2.1')
-    handlereleaseDetailChange(name, doc, index)
+  // const handleDocUplaod = async (name, e, index) => {
+  //   console.log(e, name, index, 'name,value,index1')
+  //   const doc = await uploadDoc(e)
+  //   console.log(doc, 'name,value,index2.1')
+  //   handlereleaseDetailChange(name, doc, index)
+  // }
+  const closeDoc = (index) => {
+    let tempArr = [...releaseDetail]
+    tempArr[index].document = null
+    setReleaseDetail(tempArr)
   }
 
   const handlereleaseDetailChange = (name, value, index) => {
@@ -126,7 +131,7 @@ export default function Index({ ReleaseOrderData }) {
   const handleDeleteRow = (index) => {
     // console.log(index, 'temparr')
     let tempArr = [...releaseDetail]
-    tempArr.splice(index, 1)
+    tempArr.pop(index)
     setReleaseDetail(tempArr)
   }
 
@@ -159,8 +164,8 @@ export default function Index({ ReleaseOrderData }) {
     }
   }
   const netQuantityChange = (e, index) => {
-    // console.log(netBalanceQuantity, e.target.value, "herere12e")
-    if (netBalanceQuantity < e.target.value) {
+    console.log(netBalanceQuantity, Number(e.target.value), "herere12e")
+    if (netBalanceQuantity < Number(e.target.value)) {
       // let temp = Number(e.target.value)
       // if (e.target.value == "") {
       //   temp = 0
@@ -172,18 +177,18 @@ export default function Index({ ReleaseOrderData }) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     }
-    if (netBalanceQuantity > e.target.value) {
-      // let temp = Number(e.target.value)
-      // if (e.target.value == "") {
-      //   temp = 0
-      // }
+    // if (netBalanceQuantity > e.target.value) {
+    //   // let temp = Number(e.target.value)
+    //   // if (e.target.value == "") {
+    //   //   temp = 0
+    //   // }
 
-      const toastMessage =
-        'Net Quantity Realesed cannot be Greater than net bALance Quantity'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      }
-    }
+    //   const toastMessage =
+    //     'Net Quantity Realesed cannot be Greater than net bALance Quantity'
+    //   if (!toast.isActive(toastMessage.toUpperCase())) {
+    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    //   }
+    // }
     handlereleaseDetailChange(e.target.id, e.target.value, index)
     // getData()
   }
@@ -207,7 +212,7 @@ export default function Index({ ReleaseOrderData }) {
   }
 
   const uplaodDoc = async (e, index) => {
-    console.log(e, index, 'UploadDocRealeseORder')
+    // console.log(e.target.id, index, 'UploadDocRealeseORder')
     let name = e.target.id
     let doc = await uploadDoc(e)
     handlereleaseDetailChange(name, e.target.files[0], index)
@@ -246,7 +251,7 @@ export default function Index({ ReleaseOrderData }) {
             </div>
             <div
               id="lcApplication"
-              className="collapse"
+              // className="collapse"
               aria-labelledby="lcApplication"
               data-parent="#lcApplication"
             >
@@ -267,11 +272,11 @@ export default function Index({ ReleaseOrderData }) {
                       Invoice Quantity
                     </div>
                     <span className={styles.value}>
-                      {_get(
+                      {Number(_get(
                         ReleaseOrderData,
                         'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
-                        '',
-                      ).toUpperCase()}
+                        0,
+                      ))?.toLocaleString()}
                     </span>
                   </div>
                   <div
@@ -335,6 +340,7 @@ export default function Index({ ReleaseOrderData }) {
                               saveDate={saveDate}
                               name="releaseOrderDate"
                               labelName="Release Order Date"
+                              // popperPlacement="top-end"
                             />
                             <img
                               className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -347,7 +353,7 @@ export default function Index({ ReleaseOrderData }) {
                           className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                         >
                           <input
-                            defaultValue={item.netQuantityReleased}
+                            defaultValue={Number(item.netQuantityReleased)?.toLocaleString()}
                             onChange={(e) => netQuantityChange(e, index)}
                             id="netQuantityReleased"
                             className={`${styles.input_field} input form-control`}
@@ -375,7 +381,7 @@ export default function Index({ ReleaseOrderData }) {
                                     id="document"
                                     name="myfile"
                                     accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                    onChange={(e) => uplaodDoc(e)}
+                                    onChange={(e) => uplaodDoc(e, index)}
                                     type="file"
                                   />
                                   <button
@@ -394,14 +400,15 @@ export default function Index({ ReleaseOrderData }) {
                                     alt="Close"
                                   />{' '}
                                 </div>   */}
-                                {Number(netBalanceQuantity) >= 0 && (
-                                  <div style={{ marginTop: '12px' }}>
-                                    <img
-                                      onClick={() => handleDeleteRow(index)}
-                                      src="/static/delete 2.svg"
-                                      className={`${styles.delete_image} img-fluid ml-3 mr-2`}
-                                      alt="Delete"
-                                    />
+
+                                <div style={{ marginTop: '12px' }}>
+                                  {releaseDetail.length === 1 ? null : <img
+                                    onClick={() => handleDeleteRow(index)}
+                                    src="/static/delete 2.svg"
+                                    className={`${styles.delete_image} img-fluid ml-3 mr-2`}
+                                    alt="Delete"
+                                  />}
+                                  {Number(netBalanceQuantity) >= 0 && (
                                     <img
                                       onClick={() =>
                                         addMorereleaseDetailDataRows(index)
@@ -409,9 +416,9 @@ export default function Index({ ReleaseOrderData }) {
                                       src="/static/add-btn.svg"
                                       className={`${styles.delete_image} ml-2 img-fluid`}
                                       alt="Add button"
-                                    />
-                                  </div>
-                                )}
+                                    />)}
+                                </div>
+
                               </div>
                               {/* <div className={styles.uploadBtnWrapper}>
                         <input
@@ -428,8 +435,9 @@ export default function Index({ ReleaseOrderData }) {
                           ) : (
                             <>
                               <div className={styles.certificate}>
-                                {/* {lcDoc?.lcDraftDoc?.name} */}
+                                {item?.document?.name}
                                 <img
+                                  onClick={(e) => closeDoc(index)}
                                   className={`${styles.close_image} float-right m-2 img-fluid`}
                                   src="/static/close.svg"
                                   alt="Close"
@@ -483,7 +491,7 @@ export default function Index({ ReleaseOrderData }) {
                   <div className={`${styles.total_quantity} text `}>
                     Net Balance Quantity:{' '}
                     <span className="form-check-label ml-2">
-                      {Number(netBalanceQuantity) > 0 ? netBalanceQuantity : 0}{' '}
+                      {Number(netBalanceQuantity) > 0 ? netBalanceQuantity?.toLocaleString() : 0}{' '}
                       MT
                     </span>
                   </div>
@@ -503,7 +511,7 @@ export default function Index({ ReleaseOrderData }) {
 
         <SaveBar
           handleSave={onSaveHAndler}
-          rightBtn="Generate Delivery Order"
+          rightBtn="Submit"
           rightBtnClick={onSaveHAndler}
         />
       </div>

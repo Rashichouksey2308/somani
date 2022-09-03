@@ -268,7 +268,7 @@ console.log(lcModuleData,"lcModuleData")
         toast.error(toastMessage, { toastId: toastMessage })
       }
     } else if (lcDoc.lcDraftDoc === '' || lcDoc.lcDraftDoc == undefined) {
-      let toastMessage = 'PLEASE UPLOAD LC DRAFT'
+      let toastMessage = 'PLEASE UPLOAD LC AMENDMENT DRAFT'
       if (!toast.isActive(toastMessage)) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
@@ -626,7 +626,7 @@ console.log(lcModuleData,"lcModuleData")
             lcDoc={lcDoc}
             orderId={lcModuleData?.order?._id}
             uploadDocument1={uploadDocument1}
-            documentName="LC DRAFT"
+            documentName="LC AMENDMENT DRAFT"
             module="Agreements&Insurance&LC&Opening"
           />
         </div>
