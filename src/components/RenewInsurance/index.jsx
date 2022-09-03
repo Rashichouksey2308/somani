@@ -31,7 +31,8 @@ const Index = () => {
     // gstOfInsured: '',
     insuranceFrom: '',
     insuranceTo: '',
-    periodOfInsurance: null,
+    updatePolicyNumber: '',
+    renewalDate: '',
     lossPayee: '',
     premiumAmount: null,
   })
@@ -56,7 +57,9 @@ const Index = () => {
     // nameOfInsured: '',
     // gstOfInsured: '',
     insuranceFrom: '',
+    renewalDate: '',
     insuranceTo: '',
+    updatePolicyNumber: '',
     periodOfInsurance: null,
     lossPayee: '',
     premiumAmount: null,
@@ -103,7 +106,7 @@ const Index = () => {
             alt="ArrowRight"
           />
           <h1 className={styles.heading}>
-            Ramakrishna Traders - Ramal001-000001
+            {insuranceData?.company?.companyName} - Ramal001-000001
           </h1>
         </div>
       </div>
@@ -112,10 +115,8 @@ const Index = () => {
         <div className={`${styles.wrapper} border_color mt-4 card`}>
           <div
             className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
-            data-toggle="collapse"
-            data-target="#storageInsurance"
-            aria-expanded="true"
-            aria-controls="storageInsurance"
+           
+            style={{ cursor: 'default' }}
           >
             <div className="d-lg-flex align-items-center d-inline-block ">
               <h2 className="mb-0">Renewal Insurance</h2>
@@ -129,6 +130,7 @@ const Index = () => {
                       name="group1"
                       onChange={() => setInsuranceType(false)}
                       type={type}
+                      checked={insuranceType==false?"checked":""}
                       id={`inline-${type}-1`}
                     />
                     <Form.Check
@@ -138,6 +140,7 @@ const Index = () => {
                       name="group1"
                       onChange={() => setInsuranceType(true)}
                       type={type}
+                          checked={insuranceType==true?"checked":""}
                       id={`inline-${type}-2`}
                     />
                   </div>
@@ -145,9 +148,16 @@ const Index = () => {
               </div>
             </div>
 
-            <span>+</span>
+            <span  data-toggle="collapse"
+            data-target="#storageInsurance"
+            aria-expanded="true"
+            aria-controls="storageInsurance"
+            style={{cursor:'pointer'}}>+</span>
           </div>
-          <div
+          {
+            insuranceType==false?
+            <>
+            <div
             id="storageInsurance"
             className="collapse"
             aria-labelledby="storageInsurance"
@@ -247,26 +257,7 @@ const Index = () => {
                         />
                       </div>
                     </Col>
-                    {insuranceType ? (
-                      <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                        <input
-                          className={`${styles.input_field} input form-control`}
-                          required
-                          type="number"
-                          onKeyDown={(evt) =>
-                            evt.key === 'e' && evt.preventDefault()
-                          }
-                        />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          Period of Insurance (Days)
-                          <strong className="text-danger">*</strong>
-                        </label>
-                      </Col>
-                    ) : (
-                      ''
-                    )}
+                   
                     <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                       <div className="d-flex">
                         <select
@@ -287,17 +278,173 @@ const Index = () => {
                           alt="Search"
                         />
                       </div>
+                     
                     </Col>
+                     
+                   
+                
                   </Row>
                 </div>
               </div>
             </div>
           </div>
+         
+          </>
+            :
+            <>
+            <div
+            id="storageInsurance"
+            className="collapse"
+            aria-labelledby="storageInsurance"
+          >
+            <div className={` ${styles.cardBody} card-body  border_color`}>
+              <div className={` ${styles.content}`}>
+                <div className={` ${styles.body}`}>
+                  <Row>
+                    <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                      <div className="d-flex">
+                        <select
+                          name="policyNumber"
+                          onChange={(e) =>
+                            saveMarineData(e.target.name, e.target.value)
+                          }
+                          className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                        >
+                          <option selected></option>
+                          <option
+                            value={insuranceData?.marineInsurance?.policyNumber}
+                          >
+                            {insuranceData?.marineInsurance?.policyNumber}
+                          </option>
+                          <option value="IRDAN1277P09098">
+                            IRDAN1277P09098
+                          </option>
+                        </select>
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          Select Policy Number
+                          <strong className="text-danger">*</strong>
+                        </label>
+                        <img
+                          className={`${styles.arrow} image_arrow img-fluid`}
+                          src="/static/inputDropDown.svg"
+                          alt="Search"
+                        />
+                      </div>
+                    </Col>
+                    <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                      <input
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        type="text"
+                      />
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Update Policy Number
+                        <strong className="text-danger">*</strong>
+                      </label>
+                    </Col>
+                    <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                      <input
+                        className={`${styles.input_field} input form-control`}
+                        required
+                        name="premiumAmount"
+                        onChange={(e) =>
+                          saveMarineData(e.target.name, e.target.value)
+                        }
+                        type="text"
+                      />
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Premium Amount<strong className="text-danger">*</strong>
+                      </label>
+                    </Col>
+                    <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                      <div className="d-flex">
+                        <DateCalender labelName="Renewal date" />
+                        <img
+                          className={`${styles.calanderIcon} image_arrow img-fluid`}
+                          src="/static/caldericon.svg"
+                          alt="Search"
+                        />
+                      </div>
+                    </Col>
+                    <Col className="mb-4 mt-4" lg={2} md={6}>
+                      <div className="d-flex">
+                        <DateCalender labelName="Insurance from" />
+                        <img
+                          className={`${styles.calanderIcon} image_arrow img-fluid`}
+                          src="/static/caldericon.svg"
+                          alt="Search"
+                        />
+                      </div>
+                    </Col>
+                    <Col className="mb-4 mt-4" lg={2} md={6}>
+                      <div className="d-flex">
+                        <DateCalender labelName="Insurance to" />
+                        <img
+                          className={`${styles.calanderIcon} image_arrow img-fluid`}
+                          src="/static/caldericon.svg"
+                          alt="Search"
+                        />
+                      </div>
+                    </Col>
+                     <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                        <input
+                          className={`${styles.input_field} input form-control`}
+                          required
+                          type="number"
+                          onKeyDown={(evt) =>
+                            evt.key === 'e' && evt.preventDefault()
+                          }
+                        />
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          Period of Insurance (Days)
+                          <strong className="text-danger">*</strong>
+                        </label>
+                      </Col>
+                    <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                      <div className="d-flex">
+                        <select
+                          className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                        >
+                          <option>HDFC Bank</option>
+                          <option>SBI</option>
+                        </select>
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          Loss Payee Bank
+                          <strong className="text-danger">*</strong>
+                        </label>
+                        <img
+                          className={`${styles.arrow} image_arrow img-fluid`}
+                          src="/static/inputDropDown.svg"
+                          alt="Search"
+                        />
+                      </div>
+                     
+                    </Col>
+                    
+                  </Row>
+                </div>
+              </div>
+            </div>
+           </div>
+            
+           </>
+          }
+          
         </div>
 
-        <InspectionDocument documentName="Policy Document - Marine" />
+        
       </div>
-
+       <InspectionDocument documentName={`Policy Document ${insuranceType==false?`- Marine`: `- Storage`} `} />
       <SubmitBar />
     </div>
   )

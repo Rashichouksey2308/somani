@@ -107,7 +107,7 @@ if(window){
       </a>
        */}
           </div>
-          <button className={`${styles.addBtn}`}>Add</button>
+          {/* <button className={`${styles.addBtn}`}>Add</button> */}
         </div>
 
         <div
@@ -180,6 +180,7 @@ if(window){
           dateHeading="BOE DATE"
           isStatus={true}
           handleRoute={routeChange}
+          
         />
       </div>
     </div>

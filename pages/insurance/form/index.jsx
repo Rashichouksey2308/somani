@@ -63,16 +63,16 @@ const Index = () => {
 
     setQuotationData({
       additionalInfo: insuranceData?.quotationRequest?.additionalInfo || "",
-      expectedTimeOfArrival: insuranceData?.quotationRequest?.expectedTimeOfArrival|| undefined,
-      expectedTimeOfDispatch: insuranceData?.quotationRequest?.expectedTimeOfDispatch|| undefined,
-      insuranceType: insuranceData?.quotationRequest?.insuranceType|| "Marine Insurance",
-      laycanFrom: insuranceData?.quotationRequest?.laycanFrom|| undefined,
-      laycanTo: insuranceData?.quotationRequest?.laycanTo|| undefined,
-      lossPayee: insuranceData?.quotationRequest?.lossPayee|| "",
+      expectedTimeOfArrival: insuranceData?.quotationRequest?.expectedTimeOfArrival || undefined,
+      expectedTimeOfDispatch: insuranceData?.quotationRequest?.expectedTimeOfDispatch || undefined,
+      insuranceType: insuranceData?.quotationRequest?.insuranceType || "Marine Insurance",
+      laycanFrom: insuranceData?.quotationRequest?.laycanFrom || undefined,
+      laycanTo: insuranceData?.quotationRequest?.laycanTo || undefined,
+      lossPayee: insuranceData?.quotationRequest?.lossPayee || "",
       storageDetails: {
-        placeOfStorage: insuranceData?.quotationRequest?.storageDetails?.placeOfStorage|| "",
-        periodOfInsurance: insuranceData?.quotationRequest?.storageDetails?.periodOfInsurance|| "",
-        storagePlotAddress: insuranceData?.quotationRequest?.storageDetails?.storagePlotAddress|| "",
+        placeOfStorage: insuranceData?.quotationRequest?.storageDetails?.placeOfStorage || "",
+        periodOfInsurance: insuranceData?.quotationRequest?.storageDetails?.periodOfInsurance || "",
+        storagePlotAddress: insuranceData?.quotationRequest?.storageDetails?.storagePlotAddress || "",
       },
       sumInsured: insuranceData?.quotationRequest?.sumInsured || "",
     })
@@ -80,6 +80,7 @@ const Index = () => {
 
 
   const saveQuotationData = (name, value) => {
+    console.log(value, 'dhjsgfksjdghf')
     const newInput = { ...quotationData }
     const namesplit = name.split('.')
     namesplit.length > 1
@@ -144,8 +145,8 @@ const Index = () => {
         return false
       }
     }
-    if (quotationData.expectedTimeOfArrival == "" || 
-    quotationData.expectedTimeOfArrival == undefined
+    if (quotationData.expectedTimeOfArrival == "" ||
+      quotationData.expectedTimeOfArrival == undefined
     ) {
       toastMessage = 'Please add expected Time Of Arrival '
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -217,7 +218,7 @@ const Index = () => {
   }
 
   const [insuranceType, setInsuranceType] = useState('Marine Insurance')
-console.log(quotationData,'quotationData')
+  console.log(quotationData, 'quotationData')
   return (
     <>
       <div
@@ -259,7 +260,7 @@ console.log(quotationData,'quotationData')
                         label="Marine Insurance"
                         checked={
                           quotationData.insuranceType ==
-                          'Marine Insurance' ?"checked":""
+                            'Marine Insurance' ? "checked" : ""
                         }
                         name="group1"
                         type={type}
@@ -276,7 +277,7 @@ console.log(quotationData,'quotationData')
                         label="Storage Insurance"
                         checked={
                           quotationData.insuranceType ==
-                          'Storage Insurance'?"checked":""
+                            'Storage Insurance' ? "checked" : ""
                         }
                         name="group1"
                         type={type}
@@ -296,8 +297,8 @@ console.log(quotationData,'quotationData')
                         label="Both"
                         name="group1"
                         checked={
-                         quotationData.insuranceType ==
-                          'Marine & Storage Insurance'?"checked":""
+                          quotationData.insuranceType ==
+                            'Marine & Storage Insurance' ? "checked" : ""
                         }
                         type={type}
                         value="Marine & Storage Insurance"
@@ -332,7 +333,7 @@ console.log(quotationData,'quotationData')
               data-parent="#marineInsurance"
             >
               <div className={` ${styles.cardBody} card-body  border_color`}>
-                { quotationData.insuranceType == 'Marine Insurance' ? (
+                {quotationData.insuranceType == 'Marine Insurance' ? (
                   <>
                     <div className={` ${styles.content} border_color`}>
                       <div className={` ${styles.body}`}>
@@ -437,13 +438,13 @@ console.log(quotationData,'quotationData')
                                     e.target.value,
                                   )
                                 }}
-                                value={quotationData.lossPayee}
+                                value={_get(insuranceData, 'data.data[0].order.termsheet.transactionDetails.lcOpeningBank', quotationData?.lossPayee)}
                                 className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                               >
-                               
+
                                 <option>Select an  option</option>
-                                <option  value="Reserve Bank of Spain">Reserve Bank of Spain</option>
-                                <option >Zurcher Kantonal Bank,Zurich</option>
+                                <option value="Reserve Bank of Spain">Reserve Bank of Spain</option>
+                                <option value='Zurcher Kantonal Bank,Zurich' >Zurcher Kantonal Bank,Zurich</option>
                               </select>
                               <label
                                 className={`${styles.label_heading} label_heading`}
@@ -465,7 +466,7 @@ console.log(quotationData,'quotationData')
                                 saveDate={saveDate}
                                 defaultDate={
                                   quotationData.laycanFrom
-                                  
+
 
                                 }
                                 labelName="Laycan from"
@@ -499,8 +500,8 @@ console.log(quotationData,'quotationData')
                               <DateCalender
                                 name="expectedTimeOfDispatch"
                                 defaultDate={
-                                   quotationData.expectedTimeOfDispatch
-                                 
+                                  quotationData.expectedTimeOfDispatch
+
                                 }
                                 saveDate={saveDate}
                                 labelName="Expected time of Dispatch"
@@ -517,8 +518,8 @@ console.log(quotationData,'quotationData')
                               <DateCalender
                                 name="expectedTimeOfArrival"
                                 defaultDate={
-                                    quotationData.expectedTimeOfArrival
-                                 
+                                  quotationData.expectedTimeOfArrival
+
                                 }
                                 saveDate={saveDate}
                                 labelName="Expected time of Arrival"
@@ -684,24 +685,15 @@ console.log(quotationData,'quotationData')
                                   saveQuotationData(e.target.name, e.target.value)
                                 }}
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                value={ quotationData.lossPayee}
+                                value={_get(insuranceData, 'data.data[0].order.termsheet.transactionDetails.lcOpeningBank', quotationData?.lossPayee)}
+
                               >
                                 <option>Select an option</option>
                                 {/* <option selected>
                                   {insuranceData?.quotationRequest?.lossPayee}
                                 </option> */}
-                                <option
-                                  value={
-                                    insuranceData?.order?.lc?.lcApplication
-                                      ?.lcIssuingBank
-                                  }
-                                >
-                                  {
-                                    insuranceData?.order?.lc?.lcApplication
-                                      ?.lcIssuingBank
-                                  }
-                                </option>
-                                <option value="SBI BANK">SBI BANK</option>
+                                <option value="Reserve Bank of Spain">Reserve Bank of Spain</option>
+                                <option value='Zurcher Kantonal Bank,Zurich' >Zurcher Kantonal Bank,Zurich</option>
                               </select>
                               <label
                                 className={`${styles.label_heading} label_heading`}
@@ -720,9 +712,9 @@ console.log(quotationData,'quotationData')
                             <div className="d-flex">
                               <DateCalender
                                 name="laycanFrom"
-                                 defaultDate={
+                                defaultDate={
                                   quotationData.laycanFrom
-                                  
+
                                 }
                                 // defaultDate={
                                 //   _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanFrom', '')
@@ -741,10 +733,10 @@ console.log(quotationData,'quotationData')
                             <div className="d-flex">
                               <DateCalender
                                 name="laycanTo"
-                              
-                                 defaultDate={
+
+                                defaultDate={
                                   quotationData.laycanTo
-                                  
+
                                 }
                                 // defaultDate={
                                 //   _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanTo', '')
@@ -765,7 +757,7 @@ console.log(quotationData,'quotationData')
                                 name="expectedTimeOfDispatch"
                                 defaultDate={
                                   quotationData.expectedTimeOfDispatch
-                                  
+
                                 }
                                 saveDate={saveDate}
                                 labelName="Expected time of Dispatch"
@@ -782,8 +774,8 @@ console.log(quotationData,'quotationData')
                               <DateCalender
                                 name="expectedTimeOfArrival"
                                 defaultDate={
-                                   quotationData.expectedTimeOfArrival
-                                 
+                                  quotationData.expectedTimeOfArrival
+
                                 }
                                 saveDate={saveDate}
                                 labelName="Expected time of Arrival"
@@ -841,7 +833,7 @@ console.log(quotationData,'quotationData')
                                 }
                                 value={
                                   quotationData.storageDetails.placeOfStorage
-                                 
+
                                 }
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               >
@@ -878,8 +870,8 @@ console.log(quotationData,'quotationData')
                                 evt.key === 'e' && evt.preventDefault()
                               }
                               defaultValue={
-                                  quotationData.storageDetails.periodOfInsurance
-                               
+                                quotationData.storageDetails.periodOfInsurance
+
                               }
                               name="storageDetails.periodOfInsurance"
                               onChange={(e) =>
@@ -899,8 +891,8 @@ console.log(quotationData,'quotationData')
                               required
                               type="text"
                               defaultValue={
-                                 quotationData.storageDetails.storagePlotAddress
-                                
+                                quotationData.storageDetails.storagePlotAddress
+
                               }
                               name="storageDetails.storagePlotAddress"
                               onChange={(e) =>

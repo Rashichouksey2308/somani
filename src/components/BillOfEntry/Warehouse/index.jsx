@@ -103,6 +103,13 @@ export default function Index({ OrderId, customData, uploadDoc }) {
     }
   }
 
+  // fuction to prevent negative values in input
+  const preventMinus = (e) => {
+    if (e.code === 'Minus') {
+      e.preventDefault()
+    }
+  }
+
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -160,6 +167,8 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                       }
                       className={`${styles.input_field} input form-control`}
                       type="number"
+                      min={0}
+                      onKeyPress={preventMinus}
                       required
                       onKeyDown={(evt) =>
                         evt.key === 'e' && evt.preventDefault()
