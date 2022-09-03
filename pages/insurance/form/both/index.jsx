@@ -602,6 +602,7 @@ const Index = () => {
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                           <div className="d-flex">
                             <select
+                              value={_get(insuranceData, 'order.termsheet.transactionDetails.lcOpeningBank', insuranceData?.quotationRequest?.lossPayee)}
                               name="lossPayee"
                               onChange={(e) =>
                                 saveMarineData(e.target.name, e.target.value)
@@ -609,15 +610,9 @@ const Index = () => {
                               value={insuranceData?.marineInsurance?.lossPayee}
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
-                              <option disabled>Select an option</option>
-                              <option
-                                value={
-                                  insuranceData?.quotationRequest?.lossPayee
-                                }
-                              >
-                                {insuranceData?.quotationRequest?.lossPayee}
-                              </option>
-                              <option value="SBI">SBI</option>
+                              <option>Select an option</option>
+                              <option value="Reserve Bank of Spain">Reserve Bank of Spain</option>
+                              <option value='Zurcher Kantonal Bank,Zurich' >Zurcher Kantonal Bank,Zurich</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -952,8 +947,7 @@ const Index = () => {
               uploadDocument1={uploadDocument2}
             />
           </>
-        ) : insuranceData?.quotationRequest?.insuranceType ==
-          'Marine & Storage Insurance' ? (
+        ) : insuranceData?.quotationRequest?.insuranceType == 'Marine & Storage Insurance' ? (
           <>
             <div
               className={`${styles.wrapper} vessel_card border_color mt-4 card`}
