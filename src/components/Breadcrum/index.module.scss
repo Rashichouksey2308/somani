@@ -53,6 +53,7 @@
                     &:first-line {
                         text-transform: capitalize;
                     }
+                  
                     @include respond(sm-desktop) {
                         font-size: 16px;
                         line-height: 1.2;
