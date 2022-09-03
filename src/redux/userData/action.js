@@ -49,6 +49,12 @@ function changeCurrency(value = null) {
     value,
   }
 }
+function fetchingreleaseDetail(payload) {
+  return {
+    type: types.RELEASE_DETAIL,
+    payload,
+  }
+}
 export const ChangeCurrency = (payload) => async (dispatch, getState, api) => {
   dispatch(changeCurrency(payload))
   sessionStorage.setItem('unitOfValue', payload)
@@ -100,4 +106,8 @@ export const setDynamicName = (value) => async (dispatch, getState, api) => {
 export const setDynamicOrder = (value) => async (dispatch, getState, api) => {
   console.log('start', value)
   dispatch(dynamicOrder(value))
+}
+
+export const fetchReleaseDetail = () => async (dispatch, getState, api) => {
+  dispatch(fetchReleaseDetail(payload))
 }

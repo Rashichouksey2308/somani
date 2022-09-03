@@ -74,7 +74,7 @@ function Index({
             </div>
             <div
               id="lcApplication"
-              className="collapse"
+              // className="collapse"
               aria-labelledby="lcApplication"
               data-parent="#lcApplication"
             >
@@ -92,7 +92,7 @@ function Index({
                             value={lcData?.formOfDocumentaryCredit}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
-                             <option disabled>Select an option</option>
+                            <option disabled>Select an option</option>
                             <option value="Irrevocable">Irrevocable</option>
                             <option value="Revocable">Revocable</option>
                           </select>
@@ -172,9 +172,13 @@ function Index({
                             // value={lcData?.lcIssuingBank}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
-                             <option disabled>Select an option</option>
-                            <option value="Reserve Bank of Spain">Reserve Bank of Spain</option>
-                            <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
+                            <option disabled>Select an option</option>
+                            <option value="Reserve Bank of Spain">
+                              Reserve Bank of Spain
+                            </option>
+                            <option value="Zurcher Kantonal Bank,Zurich">
+                              Zurcher Kantonal Bank,Zurich
+                            </option>
                           </select>
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -243,7 +247,10 @@ function Index({
                           required
                           type="text"
                           // defaultValue={lcData?.currecyCodeAndAmountValue}
-                          value={addPrefixOrSuffix(lcData?.currecyCodeAndAmountValue, "USD")}
+                          value={addPrefixOrSuffix(
+                            lcData?.currecyCodeAndAmountValue,
+                            'USD',
+                          )}
                           name="currecyCodeAndAmountValue"
                           onChange={(e) => {
                             saveLcData(e.target.name, e.target.value)
@@ -542,9 +549,11 @@ function Index({
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
                             <option value="">Select an option</option>
-                           <option value="Vishakapatnam, India">Visakhapatnam, India</option>
-                          <option value="Mumbai, India">Mumbai, India</option>
-                          <option value="Gujrat, India">Gujrat, India</option>
+                            <option value="Vishakapatnam, India">
+                              Visakhapatnam, India
+                            </option>
+                            <option value="Mumbai, India">Mumbai, India</option>
+                            <option value="Gujrat, India">Gujrat, India</option>
                           </select>
 
                           <label
@@ -864,7 +873,6 @@ function Index({
                                 value={lcData?.reimbursingBan}
                                 className={`${styles.input_labels}  ${styles.customSelect} input form-control`}
                               >
-                                
                                 <option value="">Select an option</option>
                                 <option value="Bnp Paribas Paribas - Bnpafrppxx">
                                   Bnp Paribas Paribas - Bnpafrppxx
@@ -896,8 +904,7 @@ function Index({
                                 value={lcData?.adviceThroughBank}
                                 className={`${styles.input_labels}  ${styles.customSelect} input form-control`}
                               >
-                              
-                                 <option value="">Select an option</option>
+                                <option value="">Select an option</option>
                                 <option value="Bnp Paribas Paribas - Bnpafrppxx">
                                   Bnp Paribas Paribas - Bnpafrppxx
                                 </option>

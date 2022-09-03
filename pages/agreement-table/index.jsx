@@ -50,7 +50,7 @@ const getDate = async () =>{
 
 
   const handleRoute = (term) => {
-   
+    console.log(term,"adasdsdads")
     sessionStorage.setItem('genericSelected', JSON.stringify(term))
     Router.push("/agreement")
     dispatch(setDynamicName(term))
