@@ -336,7 +336,7 @@ const Index = () => {
                             <input
                               className={`${styles.input_field} input form-control`}
                               required
-                              style={{ borderColor: '#43C34D' }}
+                          
                               type="text"
                               name="gstOfInsured"
                               onChange={(e) =>
@@ -349,11 +349,7 @@ const Index = () => {
                               GSTN of Insurer
                               {marineData?.insuranceFrom === 'Domestic' && <strong className="text-danger">*</strong>}
                             </label>
-                            <img
-                              className={`${styles.checked_image} img-fluid`}
-                              src="/static/approved.svg"
-                              alt="Approve"
-                            />
+                           
                           </div>
                         </Col>
 
@@ -612,7 +608,7 @@ const Index = () => {
                           <div className="d-flex">
                             <input
                               className={`${styles.input_field} input form-control`}
-                              style={{ borderColor: '#43C34D' }}
+                            
                               required
                               name="gstOfInsured"
                               onChange={(e) =>
@@ -625,11 +621,7 @@ const Index = () => {
                             >
                               GSTN of Insurer
                             </label>
-                            <img
-                              className={`${styles.checked_image} img-fluid`}
-                              src="/static/approved.svg"
-                              alt="Approve"
-                            />
+                          
                           </div>
                         </Col>
 
@@ -894,11 +886,7 @@ const Index = () => {
                             >
                               GSTN of Insurer
                             </label>
-                            <img
-                              className={`${styles.checked_image} img-fluid`}
-                              src="/static/approved.svg"
-                              alt="Approve"
-                            />
+                         
                           </div>
                         </Col>
 
@@ -1158,7 +1146,7 @@ const Index = () => {
                           <div className="d-flex">
                             <input
                               className={`${styles.input_field} input form-control`}
-                              style={{ borderColor: '#43C34D' }}
+                            
                               required
                               name="gstOfInsured"
                               defaultValue={storageData.gstOfInsured}
@@ -1172,11 +1160,7 @@ const Index = () => {
                             >
                               GST of Insurer
                             </label>
-                            <img
-                              className={`${styles.checked_image} img-fluid`}
-                              src="/static/approved.svg"
-                              alt="Approve"
-                            />
+                          
                           </div>
                         </Col>
 
