@@ -127,7 +127,7 @@ const Index = ({ termsheetDetails, onChangeDropDown, termsheet, otherTermConditi
                                             <label className={`${styles.checkbox_label} termsheet_Text`}>Storage Insurance(Fire & Burglary)</label>
                                         </div>
                                         <div className='pt-4 d-flex align-items-center'>
-                                            <input id="insuranceCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.insuranceCharges} />
+                                            <input id="insuranceCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.chaOrstevedoringCharges?.insuranceCharges} onChange={onChangeCha} />
                                             <label className={`${styles.checkbox_label} termsheet_Text`}>Insurance Charges ( While transferring the material to customs bonded ware house )</label>
                                         </div>
                                     </div>
@@ -210,7 +210,7 @@ const Index = ({ termsheetDetails, onChangeDropDown, termsheet, otherTermConditi
                                             <label className={`${styles.checkbox_label} termsheet_Text`}>CIMS Charges (incase Commodity is Coal)</label>
                                         </div>
                                         <div className='pt-4 d-flex align-items-center'>
-                                            <input id="taxCollectedatSource" className={styles.checkbox}  type="checkbox" checked={true} onChange={onChangeDutyAndTaxes} />
+                                            <input id="taxCollectedatSource" className={styles.checkbox}  type="checkbox" checked={otherTermConditions?.dutyAndTaxes?.taxCollectedatSource} onChange={onChangeDutyAndTaxes} />
                                             <label className={`${styles.checkbox_label} termsheet_Text`}>Tax Collected at Source ( if applicable )</label>
                                         </div>
                                     </div>

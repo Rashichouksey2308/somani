@@ -1353,7 +1353,7 @@ function Index() {
                           type="checkbox"
                           checked={
                             otherTermConditions?.dutyAndTaxes
-                              ?.cmaFeesIncludingSupervisionAndSurvey
+                              ?.cimsCharges
                           }
                         />
                         <label
@@ -1369,7 +1369,7 @@ function Index() {
                           type="checkbox"
                           checked={
                             otherTermConditions?.dutyAndTaxes
-                              ?.cmaFeesIncludingSupervisionAndSurvey
+                              ?.taxCollectedatSource
                           }
                         />
                         <label

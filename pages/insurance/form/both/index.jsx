@@ -14,22 +14,23 @@ import Router from 'next/router'
 import { toast } from 'react-toastify'
 
 const Index = () => {
-  const [insuranceType, setInsuranceType] = useState('Marine')
+  const [insuranceType, setInsuranceType] = useState('')
 
   const dispatch = useDispatch()
 
+  
   useEffect(() => {
     let id = sessionStorage.getItem('quotationId')
     dispatch(GettingAllInsurance(`?insuranceId=${id}`))
   }, [dispatch])
 
   const { insuranceResponse } = useSelector((state) => state.insurance)
-
   const [insuranceData, setInsuranceData] = useState()
 
   useEffect(() => {
     setInsuranceData(_get(insuranceResponse, 'data[0]', {}))
   }, [insuranceResponse])
+  
 
   const [marineData, setMarineData] = useState({
     policyNumber: insuranceData?.marineInsurance?.policyNumber,
@@ -492,7 +493,7 @@ const Index = () => {
                             <input
                               className={`${styles.input_field} input form-control`}
                               required
-                              style={{ borderColor: '#43C34D' }}
+                          
                               type="text"
                               name="gstOfInsurer"
                               defaultValue={insuranceData?.marineInsurance?.gstOfInsurer}
@@ -508,11 +509,7 @@ const Index = () => {
                                 <strong className="text-danger">*</strong>
                               )}
                             </label>
-                            <img
-                              className={`${styles.checked_image} img-fluid`}
-                              src="/static/approved.svg"
-                              alt="Approve"
-                            />
+                           
                           </div>
                         </Col>
 
@@ -660,7 +657,7 @@ const Index = () => {
               </div>
             </div>
             <UploadDocument
-              docName="Policy Document - Marine"
+              docName={`Policy Document  ${ insuranceType=="Marine Insurance"?"- Marine":insuranceType=="Storage Insurance"?"-Storage":"- Marine and Storage"}`}
               uploadDocument1={uploadDocument1}
             />
           </>
@@ -790,7 +787,7 @@ const Index = () => {
                           <div className="d-flex">
                             <input
                               className={`${styles.input_field} input form-control`}
-                              style={{ borderColor: '#43C34D' }}
+                            
                               required
                               name="gstOfInsurer"
                               defaultValue={insuranceData?.storageInsurance?.gstOfInsurer}
@@ -804,11 +801,7 @@ const Index = () => {
                             >
                               GSTN of Insurer
                             </label>
-                            <img
-                              className={`${styles.checked_image} img-fluid`}
-                              src="/static/approved.svg"
-                              alt="Approve"
-                            />
+                          
                           </div>
                         </Col>
 
@@ -1091,11 +1084,7 @@ const Index = () => {
                             >
                               GSTN of Insurer
                             </label>
-                            <img
-                              className={`${styles.checked_image} img-fluid`}
-                              src="/static/approved.svg"
-                              alt="Approve"
-                            />
+                         
                           </div>
                         </Col>
 
@@ -1359,7 +1348,7 @@ const Index = () => {
                           <div className="d-flex">
                             <input
                               className={`${styles.input_field} input form-control`}
-                              style={{ borderColor: '#43C34D' }}
+                            
                               required
                               name="gstOfInsurer"
                               defaultValue={insuranceData?.storageInsurance?.gstOfInsurer}
@@ -1373,11 +1362,7 @@ const Index = () => {
                             >
                               GST of Insurer
                             </label>
-                            <img
-                              className={`${styles.checked_image} img-fluid`}
-                              src="/static/approved.svg"
-                              alt="Approve"
-                            />
+                          
                           </div>
                         </Col>
 
