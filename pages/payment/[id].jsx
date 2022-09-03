@@ -255,30 +255,35 @@ function Index() {
     return number
   }
 
-  // const returnLiftingData = (number,index) => {
-  //   console.log(index,'props.liftingData1')
-  //   let datainNeed = {}
-  //   let data = _get(ReleaseOrderData, 'data[0].deliveryDetail', [{}])
-  //   data.forEach((item) => {
-  //     if (item.deliveryOrderNumber === number) {
-  //       datainNeed = item
-  //     }
-  //   })
-  //   //  console.log(data, number,datainNeed, 'datadatadata')
-
-  //   let doQuantity = Number(datainNeed.netQuantityReleased)
-  //   let balaceQuantity = doQuantity
-
-  //   lifting.forEach((item) => {
-  //     item.detail.forEach((item2) => {
-  //       balaceQuantity = balaceQuantity - Number(item2.liftingQuant)
-  //       console.log(balaceQuantity, 'props.liftingData')
-  //     })
-  //   })
-  //   console.log(balaceQuantity, 'props.liftingData')
-
-  //   return { doQuantity, balaceQuantity }
-  // }
+  const returnLiftingData = (number) => {
+    // console.log(index, 'props.liftingData1')
+    let datainNeed = {}
+    let data = _get(ReleaseOrderData, 'data[0].deliveryDetail', [{}])
+    data.forEach((item) => {
+      if (item.deliveryOrderNumber === number) {
+        datainNeed = item
+      }
+    })
+    let doQuantity = Number(datainNeed.netQuantityReleased)
+    let balaceQuantity = doQuantity
+    // console.log(props.liftingData, balaceQuantity, number, 'props.liftingData12')
+    lifting.forEach((item) => {
+      // console.log(item.deliveryOrder,item, number,'props.liftingData12')
+      if (item.deliveryOrder === number) {
+        item.detail.forEach((item2) => {
+          balaceQuantity = balaceQuantity - Number(item2.liftingQuant)
+          console.log(balaceQuantity, 'props.liftingData')
+        })
+        if (balaceQuantity < 0) {
+          let toastMessage = 'Lifting quantity cannot be greater than balance quantity'
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
+        }
+      }
+    })
+    return { doQuantity, balaceQuantity }
+  }
 
   const deliverChange = (name, value, index) => {
     let tempArr = deliveryOrder
@@ -469,7 +474,7 @@ function Index() {
                 >
                   <div className={`${styles.card}  accordion_body`}>
                     <LiftingDetails
-                      // returnLiftingData={returnLiftingData}
+                      returnLiftingData={returnLiftingData}
                       data={ReleaseOrderData}
                       liftingData={lifting}
                       addNewLifting={addNewLifting}

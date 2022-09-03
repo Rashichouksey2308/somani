@@ -165,31 +165,7 @@ export default function Index(props) {
           </div>
           {props.liftingData &&
             props.liftingData.map((val, index) => {
-
-
-              console.log(index, 'props.liftingData1')
-              let datainNeed = {}
-              let data = _get(props.data, 'data[0].deliveryDetail', [{}])
-              data.forEach((item) => {
-                if (item.deliveryOrderNumber === val.deliveryOrder) {
-                  datainNeed = item
-                }
-              })
-              console.log(data, val.deliveryOrder, datainNeed, 'props.liftingData2')
-
-              let doQuantity = Number(datainNeed.netQuantityReleased)
-              let balaceQuantity = doQuantity
-              console.log(balaceQuantity, 'props.liftingData')
-              props.liftingData.forEach((item) => {
-                item.detail.forEach((item2) => {
-                  balaceQuantity = balaceQuantity - Number(item2.liftingQuant)
-                  console.log(balaceQuantity, 'props.liftingData')
-                })
-              })
-              console.log(balaceQuantity, 'props.liftingData')
-
-
-
+ 
               console.log(val, 'Lifting Add ')
               return (
                 <div className={`${styles.main} mt-4 card border_color`}>
@@ -209,7 +185,7 @@ export default function Index(props) {
                           DO Quantity
                         </div>
                         <div className={`${styles.do_number} mr-4`}>
-                          {doQuantity?.toLocaleString()}   {_get(
+                          {props.returnLiftingData(val.deliveryOrder)?.doQuantity?.toLocaleString()}   {_get(
                             props,
                             'data.data[0].order.unitOfQuantity',
                             '',
@@ -223,7 +199,7 @@ export default function Index(props) {
                           Balance Quantity
                         </div>
                         <div className={`${styles.do_number} mr-4`}>
-                          {balaceQuantity?.toLocaleString()}  {_get(
+                          {props.returnLiftingData(val.deliveryOrder)?.balaceQuantity?.toLocaleString()}  {_get(
                             props,
                             'data.data[0].order.unitOfQuantity',
                             '',
@@ -285,7 +261,7 @@ export default function Index(props) {
                                   className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
                                 >
                                   <input
-                                  onWheel={ event => event.currentTarget.blur() } 
+                                    onWheel={event => event.currentTarget.blur()}
                                     className={`${styles.input_field} input form-control`}
                                     required
                                     type="number"
