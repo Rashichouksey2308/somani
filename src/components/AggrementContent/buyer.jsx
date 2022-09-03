@@ -436,13 +436,22 @@ useEffect(() => {
           gstin: "",
           state: "DELHI",
           city: "NEW DELHI"
-       }
+        }
         ])
         }else if(buyerData.branchName=="Vizag"){
         setGstin("37AAACI3028D2Z0")
            setAddressList([
-           {
+             {
           addressType: "Registered",
+          fullAddress: "7A , SAGAR APARTMENTS,6 TILAK MARG",
+          pinCode: "110001",
+          country: "India",
+          gstin: "",
+          state: "DELHI",
+          city: "NEW DELHI"
+        },
+           {
+          addressType: "Branch",
           fullAddress: "Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road,Akkayyapalem",
           pinCode: "530016",
           country: "India",
@@ -476,8 +485,17 @@ useEffect(() => {
           }else if(buyerData.branchName=="Vizag"){
           setGstin("37AAACS8253L1ZX")
           setAddressList([
-           {
+             {
           addressType: "Registered",
+          fullAddress: "8B, SAGAR, 6 TILAK MARG",
+          pinCode: "110001",
+          country: "India",
+          gstin: "",
+          state: "DELHI",
+          city: "NEW DELHI"
+       },
+           {
+          addressType: "Branch",
           fullAddress: "49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM",
           pinCode: "530016",
           country: "India",

@@ -84,7 +84,6 @@ export default function Index({ OrderId, customData, uploadDoc }) {
     }
   }
 
-
   const handleSave = () => {
     let warehouseDetailpayload = warehouseDetails.wareHouseDetails
     let fd = new FormData()
@@ -121,7 +120,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
             </div>
             <div
               id="lcApplication"
-              className="collapse"
+              // className="collapse"
               aria-labelledby="lcApplication"
               data-parent="#lcApplication"
             >
@@ -229,7 +228,11 @@ export default function Index({ OrderId, customData, uploadDoc }) {
             />
           </div>
         </div>
-        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={onSaveDischarge} />
+        <SaveBar
+          handleSave={handleSave}
+          rightBtn="Submit"
+          rightBtnClick={onSaveDischarge}
+        />
       </div>
     </>
   )

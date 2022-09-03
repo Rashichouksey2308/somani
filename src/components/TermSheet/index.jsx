@@ -7,6 +7,7 @@ import OtherTerms from '../OtherTerms'
 import UploadOther from '../UploadOther'
 import ApproveBar from '../ApproveBar'
 import { useDispatch, useSelector } from 'react-redux'
+import Router from 'next/router'
 
 import { setPageName } from '../../redux/userData/action'
 import { GetTermsheet, updateTermsheet } from 'redux/buyerProfile/action'
@@ -418,6 +419,8 @@ const Index = () => {
               className={`${styles.arrow} img-fluid image_arrow mr-2`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow"
+              onClick={() => Router.push('/termsheet/order-list')}
+
             />
             <h1 className={`${styles.heading} heading`}>{_get(termsheet,"data[0].company.companyName","")}</h1>
           </div>
