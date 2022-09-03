@@ -271,7 +271,7 @@ export default function Index({
                       name="group1"
                       disabled={!isShipmentTypeBULK}
                       type={type}
-                      checked={isShipmentTypeBULK}
+                      checked={shipmentTypeBulk}
                       id={`inline-${type}-1`}
                     />
                     <Form.Check
@@ -281,7 +281,7 @@ export default function Index({
                       name="group1"
                       disabled={isShipmentTypeBULK}
                       type={type}
-                      checked={!isShipmentTypeBULK}
+                      checked={!shipmentTypeBulk}
                       id={`inline-${type}-2`}
                     />
                   </div>

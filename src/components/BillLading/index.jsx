@@ -537,16 +537,16 @@ export default function Index({
                       inline
                       label="Bulk"
                       name="group1"
-                      // disabled={!isShipmentTypeBULK}
+                      disabled
                       type={type}
                       // checked={
                       //   _get(
                       //     TransitDetails,
                       //     'data[0].order.vessel.vessels[0].shipmentType',
                       //     '',
-                      //   ) === 'Bulk'
+                      //   ) == 'Bulk' ? 'checked' : ''
                       // }
-                      checked={isShipmentTypeBULK}
+                      checked={shipmentTypeBulk ? 'checked' : ''}
                       id={`inline-${type}-1`}
                     />
                     <Form.Check
@@ -554,15 +554,15 @@ export default function Index({
                       inline
                       label="Liner"
                       name="group1"
-                      // disabled={isShipmentTypeBULK}
+                      disabled
                       // checked={
                       //   _get(
                       //     TransitDetails,
                       //     'data[0].order.vessel.vessels[0].shipmentType',
                       //     '',
-                      //   ) === 'Liner'
+                      //   ) == 'Liner' ? 'checked' : ''
                       // }
-                      checked={!isShipmentTypeBULK}
+                      checked={!shipmentTypeBulk ? 'checked' : ''}
 
                       type={type}
                       id={`inline-${type}-2`}
