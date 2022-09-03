@@ -5,6 +5,7 @@ import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
 import { useState, useEffect } from 'react'
 import DateCalender from '../DateCalender'
+import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   GetAllForwardHedging,
@@ -29,11 +30,11 @@ export default function Index() {
 
   let hedgingData = _get(allForwardHedging, 'data[0]', '')
   let hedgingDataDetail = _get(allForwardHedging, 'data[0].detail[0]', {})
-  console.log(hedgingData, "THIS IS HEDGING DATA")
+  console.log(hedgingDataDetail, "THIS IS HEDGING DATA")
 
   const [list, setList] = useState([{
     bankName: '',
-    currency: '',
+    currency: 'INR',
     bookedRate: '',
     bookedRateCurrency: 'INR',
     bookedAmount: '',
@@ -50,9 +51,9 @@ export default function Index() {
     setList([{
 
       bankName: hedgingDataDetail?.bankName ?? 'Bank of America',
-      currency: hedgingDataDetail?.currency,
+      currency: hedgingDataDetail?.currency || "INR",
       bookedRate: hedgingDataDetail?.bookedRate,
-      bookedRateCurrency: hedgingDataDetail?.bookedRateCurrency,
+      bookedRateCurrency: hedgingDataDetail?.bookedRateCurrency || "INR",
       bookedAmount: hedgingDataDetail?.bookedAmount,
       validityFrom: hedgingDataDetail?.validityFrom,
       validityTo: hedgingDataDetail?.validityTo,
@@ -65,11 +66,12 @@ export default function Index() {
     }])
   }, [hedgingData])
 
+  console.log(list,"list")
   const onAddForwardHedging = () => {
     setList(prevState => {
       return [...prevState, {
         bankName: '',
-        currency: '',
+        currency: 'INR',
         bookedRate: '',
         bookedRateCurrency: 'INR',
         bookedAmount: '',
@@ -144,10 +146,10 @@ export default function Index() {
     }
   }
 
-  const uploadDocument1 = async (e,index) => {
+  const uploadDocument1 = async (e, index) => {
     // console.log(uploadDocument(e), 'function call')
     const doc = await uploadDocument(e)
-      setList((prevState) => {
+    setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
           return {
@@ -218,12 +220,28 @@ export default function Index() {
     // fd.append('forwardSalesContract', list?.forwardSalesContract)
     let obj = {
       forwardHedgingId: hedgingData?._id,
-      detail: [ hedgingObj ]
+      detail: [hedgingObj]
     }
-
-    dispatch(UpdateForwardHedging(obj))
+    let task = 'save'
+    dispatch(UpdateForwardHedging({ obj, task }))
   }
-  console.log(list,"list")
+  const handleSubmit = () => {
+    let hedgingObj = { ...list }
+
+    hedgingObj.balanceAmount = list.bookedAmount
+
+    // let fd = new FormData()
+    // fd.append('forwardHedgingId', hedgingData?._id)
+    // fd.append('detail', JSON.stringify(list))
+    // fd.append('forwardSalesContract', list?.forwardSalesContract)
+    let obj = {
+      forwardHedgingId: hedgingData?._id,
+      detail: [hedgingObj]
+    }
+    let task = 'submit'
+    dispatch(UpdateForwardHedging({ obj, task }))
+  }
+  console.log(list, "list")
 
   return (
     <>
@@ -234,6 +252,8 @@ export default function Index() {
               className={`${styles.arrow} image_arrow mr-2 img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
+              onClick={() => Router.push('/forward-table')}
+
             />
             <h1 className={`${styles.heading}`}>{hedgingData?.company?.companyName} </h1>
           </div>
@@ -291,6 +311,7 @@ export default function Index() {
                       >
                         <div className="d-flex">
                           <select
+                            value={item.currency}
                             name="currency"
                             onChange={(e) =>
                               saveHedgingData(e.target.name, e.target.value, index)
@@ -298,7 +319,9 @@ export default function Index() {
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           >
                             <option selected>Select an option</option>
+                            <option value="INR">INR</option>
                             <option value="USD">USD</option>
+                            <option value="EURO">EURO</option>
                             <option value="POUND">POUND</option>
                           </select>
                           <label
@@ -601,7 +624,7 @@ export default function Index() {
           </div>
         </div>
 
-        <SaveBar handleSave={handleSave} rightBtn="Submit"  rightBtnClick={handleSave} />
+        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />
       </div>
     </>
   )

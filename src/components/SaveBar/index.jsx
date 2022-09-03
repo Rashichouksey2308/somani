@@ -3,13 +3,13 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import styles from './index.module.scss'
 
-function Index({handleSave, rightBtn, rightBtnClick }) {
-  console.log(handleSave,"handleSave")
+function Index({ handleSave, rightBtn, rightBtnClick }) {
+  console.log(rightBtnClick, "handleSave")
   // const {updatingAmendment} = useSelector((state)=>state.lc)
   return (
     <div className={`${styles.root} card`}>
-      <div onClick={()=>{ 
-        if(handleSave){
+      <div onClick={() => {
+        if (handleSave) {
           console.log("thsu")
           handleSave()
         }
@@ -19,10 +19,13 @@ function Index({handleSave, rightBtn, rightBtnClick }) {
       <div
         className={`${styles.approve} ml-3`}
         onClick={() => {
-          if(rightBtnClick){
+          console.log('INspection Submitted')
+          if (rightBtnClick) {
+            console.log('INspection Submitted2')
             rightBtnClick()
           }
-           
+         
+
           // handleSave()
         }}
       >

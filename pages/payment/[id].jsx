@@ -8,6 +8,7 @@ import DeliveryOrder from '../../src/components/DeliveryOrder'
 import DeliveryPreview from '../../src/components/DeliveryPreview'
 import LiftingDetails from '../../src/components/LiftingDetails'
 import { useDispatch, useSelector } from 'react-redux'
+import Router from 'next/router'
 import {
   GetAllDelivery,
   GetDelivery,
@@ -19,17 +20,24 @@ import {
 } from '../../src/redux/Lifting/action'
 import _get from 'lodash/get'
 import { toast } from 'react-toastify'
-import { setPageName, setDynamicName } from '../../src/redux/userData/action'
+import {
+  setPageName,
+  setDynamicName,
+  setPageTabName,
+} from '../../src/redux/userData/action'
 function Index() {
   const dispatch = useDispatch()
   const { allLiftingData } = useSelector((state) => state.Lifting)
   const { ReleaseOrderData } = useSelector((state) => state.Release)
-  //console.log(ReleaseOrderData, 'ReleaseOrderData')
+  console.log(ReleaseOrderData, 'ReleaseOrderData')
   const [darkMode, setDarkMode] = useState(false)
   useEffect(() => {
     dispatch(setPageName('payment'))
     dispatch(setDynamicName(ReleaseOrderData?.data[0]?.company.companyName))
   }, [ReleaseOrderData])
+  useEffect(() => {
+    dispatch(setPageTabName('release'))
+  }, [])
   useEffect(() => {
     let id = sessionStorage.getItem('ROrderID')
     let orderid = _get(ReleaseOrderData, 'data[0].order._id', '')
@@ -38,9 +46,18 @@ function Index() {
     dispatch(GetAllLifting())
   }, [dispatch])
 
-  //console.log(allLiftingData, "allLiftingData")
+  console.log(allLiftingData, 'allLiftingData')
   const liftingData = _get(allLiftingData, 'data[0]', '')
   const [lifting, setLifting] = useState([])
+  // useEffect(() => {
+  //   if(ReleaseOrderData){
+  //     setLifting([...lifting,{
+
+  //   }])
+  //   }
+  // },[
+  //   ReleaseOrderData
+  // ])
   const addNewLifting = (value) => {
     setLifting([
       ...lifting,
@@ -93,6 +110,7 @@ function Index() {
     })
     setLifting([...tempArr])
   }
+  console.log(lifting)
   const handleLiftingSubmit = () => {
     let tempArr = []
     let temp2 = []
@@ -291,6 +309,11 @@ function Index() {
     //console.log(payload,ReleaseOrderData, 'releaseOrderDate')
     await dispatch(UpdateDelivery(payload))
   }
+
+  // const tabNameHandler = (value) => {
+  //   dispatch(setPageTabName(value))
+  //   console.log('value', value)
+  // }
   return (
     <>
       <div className={`${styles.dashboardTab}  w-100`}>
@@ -302,6 +325,7 @@ function Index() {
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow right"
               className="img-fluid mr-2 image_arrow"
+              onClick={() => Router.push('/payment')}
             />
             <h1 className={`${styles.title} heading`}>
               <span>
@@ -311,7 +335,10 @@ function Index() {
             </h1>
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
-            <li className={`${styles.navItem}  nav-item`}>
+            <li
+              className={`${styles.navItem}  nav-item`}
+              onClick={() => dispatch(setPageTabName('release'))}
+            >
               <a
                 className={`${styles.navLink} navLink  nav-link active`}
                 data-toggle="tab"
@@ -323,7 +350,10 @@ function Index() {
                 Release Order
               </a>
             </li>
-            <li className={`${styles.navItem} nav-item`}>
+            <li
+              className={`${styles.navItem} nav-item`}
+              onClick={() => dispatch(setPageTabName('delivery'))}
+            >
               <a
                 className={`${styles.navLink} navLink nav-link `}
                 data-toggle="tab"
@@ -337,7 +367,10 @@ function Index() {
             </li>
             {_get(ReleaseOrderData, 'data[0].lastMileDelivery', false) ? (
               <>
-                <li className={`${styles.navItem} nav-item`}>
+                <li
+                  className={`${styles.navItem} nav-item`}
+                  onClick={() => dispatch(setPageTabName('lifting'))}
+                >
                   <a
                     className={`${styles.navLink} navLink nav-link `}
                     data-toggle="tab"

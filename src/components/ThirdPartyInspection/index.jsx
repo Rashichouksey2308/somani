@@ -22,11 +22,12 @@ export default function Index({ addButton, inspectionData }) {
 
   const [editInput, setEditInput] = useState(true)
   const [bothField, setBothField] = useState(false)
+  const [haveDoc,sethaveDoc]=useState(false)
   const [portType, setPortType] = useState({
     loadPortInspection: false,
     dischargePortInspection: false,
   })
-console.log(inspectionData,"inspectionData")
+  console.log(portType, "inspectionData")
   const handlePortType = (name, value) => {
     let newInput = { ...portType }
     newInput[name] = !value
@@ -88,43 +89,43 @@ console.log(inspectionData,"inspectionData")
   useEffect(() => {
     setInspectionDetails(
       {
-    loadPortInspectionDetails: {
-      numberOfContainer:
-        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-          ?.numberOfContainer,
-      inspectionPort:
-        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-          ?.inspectionPort,
-      inspectedBy:
-        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-          ?.inspectedBy,
-      startDate:
-        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-          ?.startDate,
-      specialMention:
-        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-          ?.specialMention,
-    },
-    dischargePortInspectionDetails: {
-      numberOfContainer:
-        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-          ?.numberOfContainer,
-      inspectionPort:
-        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-          ?.inspectionPort,
-      inspectedBy:
-        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-          ?.inspectedBy,
-      startDate:
-        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-          ?.startDate,
-      specialMention:
-        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-          ?.specialMention,
-    },
-  }
+        loadPortInspectionDetails: {
+          numberOfContainer:
+            inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+              ?.numberOfContainer,
+          inspectionPort:
+            inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+              ?.inspectionPort,
+          inspectedBy:
+            inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+              ?.inspectedBy,
+          startDate:
+            inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+              ?.startDate,
+          specialMention:
+            inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+              ?.specialMention,
+        },
+        dischargePortInspectionDetails: {
+          numberOfContainer:
+            inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+              ?.numberOfContainer,
+          inspectionPort:
+            inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+              ?.inspectionPort,
+          inspectedBy:
+            inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+              ?.inspectedBy,
+          startDate:
+            inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+              ?.startDate,
+          specialMention:
+            inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+              ?.specialMention,
+        },
+      }
     )
-  },[inspectionData])
+  }, [inspectionData])
 
   const [documents, setDocuments] = useState({
     certificateOfQuality:
@@ -134,18 +135,32 @@ console.log(inspectionData,"inspectionData")
     certificateOfOrigin:
       inspectionData?.thirdPartyInspection?.certificateOfOrigin || null,
   })
-
+   console.log("sethave",documents)
+useEffect((
+ 
+) => {
+   
+ 
+   if(documents.certificateOfQuality==null && documents.certificateOfWeight==null && documents.certificateOfOrigin==null){
+    
+     sethaveDoc(false)
+  }
+},[
+  documents.certificateOfQuality,documents.certificateOfWeight, documents.certificateOfOrigin
+])
   const uploadDocument1 = (e) => {
     const newUploadDoc = { ...documents }
     newUploadDoc.certificateOfQuality = e.target.files[0]
-
-    setDocuments(newUploadDoc)
+   
+    setDocuments({newUploadDoc})
+    sethaveDoc(true)
   }
   const uploadDocument2 = (e) => {
     const newUploadDoc1 = { ...documents }
     newUploadDoc1.certificateOfWeight = e.target.files[0]
-
+ 
     setDocuments(newUploadDoc1)
+    sethaveDoc(true)
   }
 
   const uploadDocument3 = (e) => {
@@ -153,22 +168,17 @@ console.log(inspectionData,"inspectionData")
     newUploadDoc1.certificateOfOrigin = e.target.files[0]
 
     setDocuments(newUploadDoc1)
+     sethaveDoc(true)
   }
 
   const handleCloseW = () => {
-    setDocuments((doc) => {
-      return { ...doc, certificateOfWeight: null }
-    })
+    setDocuments({ ...documents, certificateOfWeight: null })
   }
   const handleCloseQ = () => {
-    setDocuments((doc) => {
-      return { ...doc, certificateOfQuality: null }
-    })
+    setDocuments({ ...documents, certificateOfQuality: null })
   }
   const handleCloseO = () => {
-    setDocuments((doc) => {
-      return { ...doc, certificateOfOrigin: null }
-    })
+    setDocuments({ ...documents, certificateOfOrigin: null })
   }
 
   const saveInspectionDetails = (name, value) => {
@@ -214,9 +224,128 @@ console.log(inspectionData,"inspectionData")
     }
   }
 
-  const handleSave = () => {
-    console.log("SAvee",inspectionData?.order?.shipmentDetail?.shipmentType)
-    if (inspectionData?.order?.shipmentDetail?.shipmentType == 'Liner') {
+   const handleSave = () => {
+    console.log("dsaasdad",haveDoc)
+    if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Liner') {
+      if (
+        portType.loadPortInspection == true &&
+        portType.dischargePortInspection == false
+      ) {
+        
+      
+          let fd = new FormData()
+          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
+          fd.append('loadPortInspection', portType.loadPortInspection)
+          fd.append('inspectionId', inspectionData?._id)
+          fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+          fd.append('certificateOfQuality', documents.certificateOfQuality)
+          fd.append('certificateOfWeight', documents.certificateOfWeight)
+
+          let task = 'save'
+
+          dispatch(UpdateInspection({fd, task}))
+        
+      } else if (
+        portType.dischargePortInspection == true &&
+        portType.loadPortInspection == false
+      ) {
+        if (
+          inspectionDetails?.dischargePortInspectionDetails
+            ?.numberOfContainer === ''
+        ) {
+          let toastMessage = 'NUMBER OF CONTAINERS CANNOT BE EMPTY'
+          if (!toast.isActive(toastMessage)) {
+            toast.error(toastMessage, { toastId: toastMessage })
+          }
+        } 
+          let fd = new FormData()
+          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
+          fd.append('dischargePortInspection', portType.dischargePortInspection)
+          fd.append('inspectionId', inspectionData?._id)
+          fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+          fd.append('certificateOfQuality', documents.certificateOfQuality)
+          fd.append('certificateOfWeight', documents.certificateOfWeight)
+
+          let task = 'save'
+
+          dispatch(UpdateInspection({fd, task}))
+       
+      } else {
+        
+          let fd = new FormData()
+          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
+          fd.append('dischargePortInspection', portType.dischargePortInspection)
+          fd.append('loadPortInspection', portType.loadPortInspection)
+          fd.append('inspectionId', inspectionData?._id)
+          fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+          fd.append('certificateOfQuality', documents.certificateOfQuality)
+          fd.append('certificateOfWeight', documents.certificateOfWeight)
+
+          let task = 'save'
+
+          dispatch(UpdateInspection({fd, task}))
+        
+      }
+    } 
+    if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk') {
+      
+      if (
+        portType.loadPortInspection == true &&
+        portType.dischargePortInspection == false
+      ) {
+        
+          let fd = new FormData()
+          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
+          fd.append('loadPortInspection', portType.loadPortInspection)
+          fd.append('inspectionId', inspectionData?._id)
+          fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+          fd.append('certificateOfQuality', documents.certificateOfQuality)
+          fd.append('certificateOfWeight', documents.certificateOfWeight)
+
+          let task = 'save'
+
+          dispatch(UpdateInspection({fd, task}))
+        
+      } else if (
+        portType.dischargePortInspection == true &&
+        portType.loadPortInspection == false
+      ) {
+       
+          let fd = new FormData()
+          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
+          fd.append('dischargePortInspection', portType.dischargePortInspection)
+          fd.append('inspectionId', inspectionData?._id)
+          fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+          fd.append('certificateOfQuality', documents.certificateOfQuality)
+          fd.append('certificateOfWeight', documents.certificateOfWeight)
+
+          let task = 'save'
+
+          dispatch(UpdateInspection({fd, task}))
+        
+      } else {
+        
+         
+          let fd = new FormData()
+          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
+          fd.append('dischargePortInspection', portType.dischargePortInspection)
+          fd.append('loadPortInspection', portType.loadPortInspection)
+          fd.append('inspectionId', inspectionData?._id)
+          fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+          fd.append('certificateOfQuality', documents.certificateOfQuality)
+          fd.append('certificateOfWeight', documents.certificateOfWeight)
+
+          let task = 'save'
+
+          dispatch(UpdateInspection({fd, task}))
+        
+      }
+    }
+  }
+  console.log(haveDoc,"sethaveDoc")
+   const handleSubmit = () => {
+    console.log("dsaasdad",haveDoc)
+    if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Liner') {
       if (
         portType.loadPortInspection == true &&
         portType.dischargePortInspection == false
@@ -250,9 +379,7 @@ console.log(inspectionData,"inspectionData")
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          documents.certificateOfOrigin == null ||
-          documents.certificateOfQuality == null ||
-          documents.certificateOfWeight == null
+            haveDoc==false
         ) {
           let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
           if (!toast.isActive(toastMessage)) {
@@ -267,7 +394,9 @@ console.log(inspectionData,"inspectionData")
           fd.append('certificateOfQuality', documents.certificateOfQuality)
           fd.append('certificateOfWeight', documents.certificateOfWeight)
 
-          dispatch(UpdateInspection(fd))
+          let task = 'submit'
+
+          dispatch(UpdateInspection({fd, task}))
         }
       } else if (
         portType.dischargePortInspection == true &&
@@ -304,9 +433,7 @@ console.log(inspectionData,"inspectionData")
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          documents.certificateOfOrigin == null ||
-          documents.certificateOfQuality == null ||
-          documents.certificateOfWeight == null
+            haveDoc==false
         ) {
           let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
           if (!toast.isActive(toastMessage)) {
@@ -321,7 +448,9 @@ console.log(inspectionData,"inspectionData")
           fd.append('certificateOfQuality', documents.certificateOfQuality)
           fd.append('certificateOfWeight', documents.certificateOfWeight)
 
-          dispatch(UpdateInspection(fd))
+          let task = 'submit'
+
+          dispatch(UpdateInspection({fd, task}))
         }
       } else {
         if (
@@ -353,9 +482,7 @@ console.log(inspectionData,"inspectionData")
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          documents.certificateOfOrigin == null ||
-          documents.certificateOfQuality == null ||
-          documents.certificateOfWeight == null
+            haveDoc==false
         ) {
           let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
           if (!toast.isActive(toastMessage)) {
@@ -392,9 +519,7 @@ console.log(inspectionData,"inspectionData")
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          documents.certificateOfOrigin == null ||
-          documents.certificateOfQuality == null ||
-          documents.certificateOfWeight == null
+            haveDoc==false
         ) {
           let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
           if (!toast.isActive(toastMessage)) {
@@ -410,10 +535,14 @@ console.log(inspectionData,"inspectionData")
           fd.append('certificateOfQuality', documents.certificateOfQuality)
           fd.append('certificateOfWeight', documents.certificateOfWeight)
 
-          dispatch(UpdateInspection(fd))
+          let task = 'submit'
+
+          dispatch(UpdateInspection({fd, task}))
         }
       }
-    } else if (inspectionData?.order?.shipmentDetail?.shipmentType == 'BULK') {
+    } 
+    if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk') {
+      
       if (
         portType.loadPortInspection == true &&
         portType.dischargePortInspection == false
@@ -438,9 +567,7 @@ console.log(inspectionData,"inspectionData")
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          documents.certificateOfOrigin == null ||
-          documents.certificateOfQuality == null ||
-          documents.certificateOfWeight == null
+          haveDoc==false
         ) {
           let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
           if (!toast.isActive(toastMessage)) {
@@ -455,7 +582,9 @@ console.log(inspectionData,"inspectionData")
           fd.append('certificateOfQuality', documents.certificateOfQuality)
           fd.append('certificateOfWeight', documents.certificateOfWeight)
 
-          dispatch(UpdateInspection(fd))
+          let task = 'submit'
+
+          dispatch(UpdateInspection({fd, task}))
         }
       } else if (
         portType.dischargePortInspection == true &&
@@ -484,9 +613,7 @@ console.log(inspectionData,"inspectionData")
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          documents.certificateOfOrigin == null ||
-          documents.certificateOfQuality == null ||
-          documents.certificateOfWeight == null
+            haveDoc==false
         ) {
           let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
           if (!toast.isActive(toastMessage)) {
@@ -501,7 +628,9 @@ console.log(inspectionData,"inspectionData")
           fd.append('certificateOfQuality', documents.certificateOfQuality)
           fd.append('certificateOfWeight', documents.certificateOfWeight)
 
-          dispatch(UpdateInspection(fd))
+          let task = 'submit'
+
+          dispatch(UpdateInspection({fd, task}))
         }
       } else {
         if (inspectionDetails?.loadPortInspectionDetails?.inspectedBy === '') {
@@ -524,9 +653,7 @@ console.log(inspectionData,"inspectionData")
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          documents.certificateOfOrigin == null ||
-          documents.certificateOfQuality == null ||
-          documents.certificateOfWeight == null
+           haveDoc==false
         ) {
           let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
           if (!toast.isActive(toastMessage)) {
@@ -555,9 +682,7 @@ console.log(inspectionData,"inspectionData")
             toast.error(toastMessage, { toastId: toastMessage })
           }
         } else if (
-          documents.certificateOfOrigin == null ||
-          documents.certificateOfQuality == null ||
-          documents.certificateOfWeight == null
+           haveDoc==false
         ) {
           let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
           if (!toast.isActive(toastMessage)) {
@@ -573,7 +698,9 @@ console.log(inspectionData,"inspectionData")
           fd.append('certificateOfQuality', documents.certificateOfQuality)
           fd.append('certificateOfWeight', documents.certificateOfWeight)
 
-          dispatch(UpdateInspection(fd))
+          let task = 'submit'
+
+          dispatch(UpdateInspection({fd, task}))
         }
       }
     }
@@ -617,7 +744,7 @@ console.log(inspectionData,"inspectionData")
                     Shipment Type:
                   </label>
                   <div className={`${styles.dropDown} input`} value="Bulk">
-                    {inspectionData?.order?.shipmentDetail?.shipmentType}
+                    {_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '')}
                   </div>
                 </div>
 
@@ -753,7 +880,7 @@ console.log(inspectionData,"inspectionData")
 
                   <div className="row">
                     {inspectionData?.order?.shipmentDetail?.shipmentType ===
-                    'Liner' ? (
+                      'Liner' ? (
                       <div
                         className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                       >
@@ -878,7 +1005,7 @@ console.log(inspectionData,"inspectionData")
                           rows={3}
                           required
                           className={`${styles.comment_field} ${styles.input_field} input form-control`}
-                          // style={{ backgroundColor: 'none' }}
+                        // style={{ backgroundColor: 'none' }}
                         />
                         <label
                           className={`${styles.comment_heading} ${styles.label_heading} label_heading`}
@@ -894,12 +1021,12 @@ console.log(inspectionData,"inspectionData")
           ) : null}
           {portType.dischargePortInspection
             ? Discharge(
-                inspectionData,
-                saveInspectionDetails,
-                saveDate,
-                setStartDate,
-                setDateStartFrom,
-              )
+              inspectionData,
+              saveInspectionDetails,
+              saveDate,
+              setStartDate,
+              setDateStartFrom,
+            )
             : ''}
 
           <div className={`${styles.main} vessel_card card border-color`}>
@@ -1043,7 +1170,7 @@ console.log(inspectionData,"inspectionData")
                             </td>
                             <td>
                               {documents &&
-                              documents?.certificateOfOrigin == null ? (
+                                documents?.certificateOfOrigin == null ? (
                                 <>
                                   <div className={styles.uploadBtnWrapper}>
                                     <input
@@ -1166,7 +1293,7 @@ console.log(inspectionData,"inspectionData")
                             </td>
                             <td>
                               {documents &&
-                              documents?.certificateOfQuality == null ? (
+                                documents?.certificateOfQuality == null ? (
                                 <>
                                   <div className={styles.uploadBtnWrapper}>
                                     <input
@@ -1290,7 +1417,7 @@ console.log(inspectionData,"inspectionData")
                             </td>
                             <td>
                               {documents &&
-                              documents?.certificateOfWeight == null ? (
+                                documents?.certificateOfWeight == null ? (
                                 <>
                                   <div className={styles.uploadBtnWrapper}>
                                     <input
@@ -1565,7 +1692,7 @@ console.log(inspectionData,"inspectionData")
             <UploadOther orderid={orderid} module="Loading-Transit-Unloading" />
           </div>
         </div>
-        <SaveBar handleSave={handleSave} rightBtn="Submit" />
+        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />
       </div>
       <Modal
         show={show}
@@ -1787,7 +1914,7 @@ const Discharge = (
                 }
                 required
                 className={`${styles.comment_field} ${styles.input_field} input form-control`}
-                // style={{ backgroundColor: 'none' }}
+              // style={{ backgroundColor: 'none' }}
               />
               <label
                 className={`${styles.comment_heading} ${styles.label_heading} label_heading`}

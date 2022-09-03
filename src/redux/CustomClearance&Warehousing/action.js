@@ -74,7 +74,8 @@ export const GetAllCustomClearance =
           dispatch(getAllCustomClearanceFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
         }
       })
     } catch (error) {
@@ -104,7 +105,8 @@ export const GetCustomClearance =
           dispatch(getCustomClearanceFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
         }
       })
     } catch (error) {
@@ -125,20 +127,25 @@ export const UpdateCustomClearance =
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
-      Axios.put(`${API.corebaseUrl}${API.customClearance}`, payload, {
+      Axios.put(`${API.corebaseUrl}${API.customClearance}`, payload.fd, {
         headers: headers,
       }).then((response) => {
         if (response.data.code === 200) {
           dispatch(updateCustomClearanceSuccess(response.data.data))
 
-          let toastMessage = 'SAVED SUCCESSFULLY'
+          let toastMessage = 'updated  SUCCESSFULLY'
+          if (payload.task === 'save') {
+            toastMessage = 'SAVED SUCCESSFULLY'
+          }
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })   }
+            toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
         } else {
           dispatch(updateCustomClearanceFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
         }
       })
     } catch (error) {
@@ -165,12 +172,14 @@ export const UploadCustomDoc = (payload) => async (dispatch, getState, api) => {
         dispatch(getCustomClearanceSuccess(response.data.data))
         let toastMessage = 'DOCUMENT UPDATED'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
       } else {
         dispatch(getCustomClearanceFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
       }
     })
   } catch (error) {

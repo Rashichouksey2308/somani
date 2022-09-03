@@ -56,6 +56,7 @@ function Index({
               className={`${styles.arrow} image_arrow mr-2 img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
+              onClick={() => Router.push('/lc-module')}
             />
             <h1 className={`${styles.heading}`}>Letter of Credit </h1>
           </div>
@@ -541,10 +542,9 @@ function Index({
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
                             <option value="">Select an option</option>
-                            <option value="Visakhapatnam, India">
-                              Visakhapatnam Port, India
-                            </option>
-                            <option value="Mumbai, India">Mumbai, India</option>
+                           <option value="Vishakapatnam, India">Visakhapatnam, India</option>
+                          <option value="Mumbai, India">Mumbai, India</option>
+                          <option value="Gujrat, India">Gujrat, India</option>
                           </select>
 
                           <label

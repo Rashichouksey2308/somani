@@ -28,14 +28,14 @@ export default function Index(props) {
             >
               <h3 className={`${styles.heading}`}>Delivery Order</h3>
               <div className="d-flex">
-                <div className="d-flex mr-5">
+                {/* <div className="d-flex mr-5">
                   <div className={`${styles.label_heading} mr-3 label_heading`}>
                     Shipment Type
                   </div>
                   <div className={`${styles.shipment_type} heading mr-4`}>
                     Bulk
                   </div>
-                </div>
+                </div> */}
                 <span>+</span>
               </div>
             </div>
@@ -48,7 +48,7 @@ export default function Index(props) {
               <div className={`${styles.dashboard_form} card-body`}>
                 <div className="row">
                   <div
-                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                    className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
                   >
                     <div className={`${styles.label} text`}>Commodity</div>
                     <span className={styles.value}>
@@ -56,7 +56,7 @@ export default function Index(props) {
                     </span>
                   </div>
                   <div
-                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                    className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
                   >
                     <div className={`${styles.label} text`}>
                       Invoice Quantity{' '}
@@ -67,12 +67,12 @@ export default function Index(props) {
                         'ReleaseOrder.data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
                         '',
                       )}{' '}
-                      Mt
+                      MT
                     </span>
                   </div>
 
                   <div
-                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
+                    className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
                   >
                     <div className={`${styles.label} text`}>
                       Balance Quantity
@@ -120,12 +120,14 @@ export default function Index(props) {
                                       {option.orderNumber}
                                     </option>
                                   ))}
-                                  <option value="n/a">N/A</option>
+                                  <option value="Not Available">
+                                    Not Available
+                                  </option>
                                 </select>
                                 <label
                                   className={`${styles.label_heading} label_heading`}
                                 >
-                                  Released Order Number
+                                  Release Order Number
                                 </label>
                                 <img
                                   className={`${styles.arrow} image_arrow img-fluid`}
@@ -289,6 +291,7 @@ export default function Index(props) {
                         }
                         className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                       >
+                        <option>Select an option</option>
                         <option value={true}>Yes</option>
                         <option value={false}>No</option>
                       </select>
@@ -310,7 +313,11 @@ export default function Index(props) {
           </div>
         </div>
 
-        <SaveBar handleSave={props.onSaveHAndler} rightBtn="Submit"  rightBtnClick={handleSave} />
+        <SaveBar
+          handleSave={props.onSaveHAndler}
+          rightBtn="Submit"
+          rightBtnClick={props.onSaveHAndler}
+        />
       </div>
 
       {/* <Modal

@@ -10,7 +10,7 @@ function index({ leftButtonClick, onSave }) {
         onClick={() => onSave()}
         className={`${styles.reject} ml-3`}
       >
-        <span>Save</span>
+        <span>Submit</span>
       </div>
 
       <div
