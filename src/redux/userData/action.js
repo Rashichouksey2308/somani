@@ -23,6 +23,14 @@ function pageName(value) {
     value,
   }
 }
+
+function pageTabName(value) {
+  return {
+    type: types.PAGE_TAB_NAME,
+    value,
+  }
+}
+
 function dynamicPage(value = null) {
   return {
     type: types.DYNAMIC_PAGE,
@@ -79,6 +87,10 @@ export const setTheme = () => async (dispatch, getState, api) => {
 }
 export const setPageName = (value) => async (dispatch, getState, api) => {
   dispatch(pageName(value))
+}
+
+export const setPageTabName = (value) => async (dispatch, getState, api) => {
+  dispatch(pageTabName(value))
 }
 
 export const setDynamicName = (value) => async (dispatch, getState, api) => {

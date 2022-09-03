@@ -6,6 +6,7 @@ const initialState = {
   id: null,
   order: null,
   currency: 'CRORES',
+  pageTabName: 'release',
 }
 function UserReducer(state = initialState, action) {
   switch (action.type) {
@@ -19,6 +20,12 @@ function UserReducer(state = initialState, action) {
       return {
         ...state,
         pageName: action.value,
+      }
+    case types.PAGE_TAB_NAME:
+      console.log(action.value, ' action.value')
+      return {
+        ...state,
+        pageTabName: action.value,
       }
     case types.DYNAMIC_PAGE:
       // console.log(action.value, 'kkk')

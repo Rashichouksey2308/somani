@@ -76,6 +76,7 @@ export default function Index({ isQuery }) {
   var url = []
   const router = useRouter()
   const pageName = useSelector((state) => state?.user.pageName)
+  const { pageTabName } = useSelector((state) => state?.user)
   const id = useSelector((state) => state?.user.id)
   const order = useSelector((state) => state?.user.order)
   const currency = useSelector((state) => state?.user)
@@ -253,14 +254,29 @@ export default function Index({ isQuery }) {
         router.route = '/Custom Clearance & Warehouse'
       }
     }
+    console.log('tabname', pageTabName)
     if ('payment' == pageName) {
       if (id !== null) {
-        router.route =
-          '/Payment, Invoicing & Delivery' +
-          `/${id.toLowerCase()}` +
-          '/Release Order' +
-          '/Ramal001-00002'
-        console.log('router123', router.route)
+        if ('release' == pageTabName) {
+          router.route =
+            '/Payment, Invoicing & Delivery' +
+            `/${id.toLowerCase()}` +
+            '/Release Order' +
+            '/Ramal001-00002'
+          console.log('tabname', pageTabName)
+        } else if ('delivery' == pageTabName) {
+          router.route =
+            '/Payment, Invoicing & Delivery' +
+            `/${id.toLowerCase()}` +
+            '/Delivery Order' +
+            '/Ramal001-00002'
+        } else if ('lifting' == pageTabName) {
+          router.route =
+            '/Payment, Invoicing & Delivery' +
+            `/${id.toLowerCase()}` +
+            '/Lifting Order' +
+            '/Ramal001-00002'
+        }
       } else {
         router.route = '/Payment, Invoicing & Delivery'
       }

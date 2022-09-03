@@ -210,7 +210,7 @@ export default function Index({ ReleaseOrderData }) {
     console.log(e, index, 'UploadDocRealeseORder')
     let name = e.target.id
     let doc = await uploadDoc(e)
-    handlereleaseDetailChange(name, value, index)
+    handlereleaseDetailChange(name, e.target.files[0], index)
   }
 
   const handleCloseO = () => {
@@ -376,6 +376,7 @@ export default function Index({ ReleaseOrderData }) {
                                     name="myfile"
                                     accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                     onChange={(e) => uplaodDoc(e)}
+                                    type="file"
                                   />
                                   <button
                                     className={`${styles.button_upload} btn`}
