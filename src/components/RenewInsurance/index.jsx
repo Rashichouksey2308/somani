@@ -32,7 +32,7 @@ const Index = () => {
     insuranceFrom: '',
     insuranceTo: '',
     updatePolicyNumber: '',
-    periodOfInsurance: null,
+    renewalDate: '',
     lossPayee: '',
     premiumAmount: null,
   })
@@ -57,6 +57,7 @@ const Index = () => {
     // nameOfInsured: '',
     // gstOfInsured: '',
     insuranceFrom: '',
+    renewalDate: '',
     insuranceTo: '',
     updatePolicyNumber: '',
     periodOfInsurance: null,
