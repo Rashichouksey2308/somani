@@ -9,7 +9,7 @@ import { UpdateCustomClearance } from '../../../redux/CustomClearance&Warehousin
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 
-export default function Index({ OrderId, customData }) {
+export default function Index({ OrderId, customData, uploadDoc }) {
   console.log(customData, 'customData')
   const dispatch = useDispatch()
   const [editInput, setEditInput] = useState(true)
@@ -31,8 +31,11 @@ export default function Index({ OrderId, customData }) {
   }
 
   const handleClose = () => {
-    setPlotInspectionData((doc) => {
-      return { ...doc, plotInspectionReport: null }
+    // setPlotInspectionData((doc) => {
+    //   return { ...doc, plotInspectionReport: null }
+    // })
+    setWarehouseDetails((prevState) => {
+      return { ...prevState, document: null }
     })
   }
 
@@ -48,9 +51,9 @@ export default function Index({ OrderId, customData }) {
     onChangeWarehouseDetails(name, text)
   }
 
-  const onSaveDocument = (e) => {
+  const onSaveDocument = async (e) => {
     let name = e.target.id
-    let doc = e.target.files[0]
+    let doc = await uploadDoc(e)
     let tempData = { ...warehouseDetails }
     tempData[name] = doc
     setWarehouseDetails(tempData)
@@ -88,6 +91,7 @@ export default function Index({ OrderId, customData }) {
     fd.append('wareHouseDetails', JSON.stringify(warehouseDetailpayload))
     fd.append('customClearanceId', customData._id)
     fd.append('document', warehouseDetails.document)
+
     let task = 'save'
     dispatch(UpdateCustomClearance({ fd, task }))
   }
@@ -202,7 +206,7 @@ export default function Index({ OrderId, customData }) {
                       </div>
                     ) : (
                       <div className={styles.certificate}>
-                        {warehouseDetails?.document?.name}
+                        {warehouseDetails?.document?.originalName}
                         <img
                           className={`${styles.close_image} float-right m-2 img-fluid`}
                           src="/static/close.svg"

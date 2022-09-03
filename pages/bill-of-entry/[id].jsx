@@ -166,7 +166,7 @@ dispatch(setDynamicName(customData?.company?.companyName))
 
                   <div className="tab-pane fade" id="warehouse" role="tabpanel">
                     <div className={`${styles.card}  accordion_body`}>
-                      <Warehouse OrderId={OrderId} customData={customData} />
+                      <Warehouse uploadDoc={uploadDoc} OrderId={OrderId} customData={customData} />
                     </div>
                   </div>
                 </div>
