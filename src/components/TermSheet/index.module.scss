@@ -15,6 +15,7 @@
         display: flex;
         min-height: 48px;
         margin: 0 0 27px 10px;
+        margin-left: 0px;
         @include respond(phone) {
             align-items: center;
             padding: 0.75rem 0rem;

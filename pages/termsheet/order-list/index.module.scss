@@ -18,6 +18,7 @@
         display: flex !important;
     }
     .head_header {
+        margin-left: -8px;
         display: flex;
         @include respond(phone) {
             align-items: center;
