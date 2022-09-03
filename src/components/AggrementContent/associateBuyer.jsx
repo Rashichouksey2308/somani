@@ -619,6 +619,9 @@ console.log(associateData,"associateData")
                         required
                         type="number"
                         name="pinCode"
+                        onKeyDown={(evt) =>
+                          evt.key === 'e' && evt.preventDefault()
+                        }
                         value={newAddress.pinCode}
                         onChange={(e) => {
                           setAddress(e.target.name,e.target.value)
@@ -687,6 +690,9 @@ console.log(associateData,"associateData")
                         required
                         type="number"
                         name="pinCode"
+                        onKeyDown={(evt) =>
+                          evt.key === 'e' && evt.preventDefault()
+                        }
                         value={newAddress.pinCode}
                         onChange={(e) => {
                           setAddress(e.target.name,e.target.value)
@@ -1106,6 +1112,9 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         required
                         type="number"
                         name="pinCode"
+                        onKeyDown={(evt) =>
+                          evt.key === 'e' && evt.preventDefault()
+                        }
                         value={EditAddress.pinCode}
                         onChange={(e) => {
                           editNewAddress(e.target.name,e.target.value)
@@ -1175,6 +1184,9 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         type="number"
                         name="pinCode"
                          value={EditAddress.pinCode}
+                         onKeyDown={(evt) =>
+                          evt.key === 'e' && evt.preventDefault()
+                        }
                         onChange={(e) => {
                           editNewAddress(e.target.name,e.target.value)
                         }}
