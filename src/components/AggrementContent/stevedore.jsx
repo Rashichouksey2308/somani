@@ -79,9 +79,25 @@ const cancelAddress=()=>{
 }
 useEffect(() => {
    if(window){
-    console.log(sessionStorage.getItem("Stevedore"),".getItem")
-    if(sessionStorage.getItem("Stevedore")){
-      let savedData=props.sameAsCHA?JSON.parse(sessionStorage.getItem("Cha")):JSON.parse(sessionStorage.getItem("Stevedore"))
+    console.log(props.sameAsCHA,".getItem")
+    if(props.sameAsCHA==false){
+      let savedData=JSON.parse(sessionStorage.getItem("Cha"))
+      let supplier={
+        "name": savedData.name,
+        "shortName": savedData.shortName,
+        "gstin": savedData.gstin ,
+        "addresses": savedData.addresses,
+        "authorisedSignatoryDetails": savedData.authorisedSignatoryDetails,
+       
+        
+       }
+       setList(savedData.authorisedSignatoryDetails)
+       setAddressList(savedData.addresses)
+       setSeteveState(supplier)
+    }
+    else if(sessionStorage.getItem("Stevedore")){
+      console.log("s")
+      let savedData=JSON.parse(sessionStorage.getItem("Stevedore"))
       let supplier={
         "name": savedData.name,
         "shortName": savedData.shortName,

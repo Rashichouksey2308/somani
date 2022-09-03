@@ -66,7 +66,17 @@ if (window) {
     }
     setAddressList(savedData.addresses)
     setList(savedData.authorisedSignatoryDetails)
-
+     let temp=[]
+     console.log(savedData,"savedData.authorisedSignatoryDetail")
+     if(savedData.authorisedSignatoryDetails?.length > 0){
+     
+     savedData.authorisedSignatoryDetails.forEach((val,index)=>{
+      if(val.document){
+       temp.push({attachDoc:val.document})
+      }
+     })
+     }
+     setDocList(temp)
     setAssociateData(buyer)
   }else{
     console.log("in props")
@@ -81,6 +91,16 @@ if (window) {
     }
     setAddressList(props?.data?.addresses?props?.data?.addresses:[])
     setList(props?.data?.authorisedSignatoryDetails?props?.data?.authorisedSignatoryDetails:[])
+     let temp=[]
+     if(props?.data?.authorisedSignatoryDetails.length>0){
+      
+     props?.data?.authorisedSignatoryDetails.forEach((val,index)=>{
+      if(val.document){
+       temp.push({attachDoc:val.document})
+      }
+     })
+     }
+     setDocList(temp)
 
     setAssociateData(buyer)
   }

@@ -865,7 +865,7 @@ setEditAddress(
                         <Form.Label
                           className={`${styles.label_heading} ${styles.select}  label_heading`}
                         >
-                          GSTIN<strong className="text-danger">*</strong>
+                          GSTIN<strong className="text-danger"></strong>
                         </Form.Label>
                         <img
                           className={`${styles.arrow} image_arrow img-fluid`}
@@ -921,7 +921,7 @@ setEditAddress(
                         }}
                       />
                       <Form.Label className={`${styles.label_heading} label_heading`}>
-                        State<strong className="text-danger">*</strong>
+                        State<strong className="text-danger"></strong>
                       </Form.Label>
                     </Form.Group>
                       <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -1470,7 +1470,7 @@ setEditAddress(
                         }}
                       />
                       <Form.Label className={`${styles.label_heading} label_heading`}>
-                        State<strong className="text-danger">*</strong>
+                        State<strong className="text-danger"></strong>
                       </Form.Label>
                     </Form.Group>
                       <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -1650,7 +1650,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         <Form.Label
                           className={`${styles.label_heading} ${styles.select}  label_heading`}
                         >
-                          GSTIN<strong className="text-danger">*</strong>
+                          GSTIN<strong className="text-danger"></strong>
                         </Form.Label>
                         <img
                           className={`${styles.arrow} image_arrow img-fluid`}
@@ -1706,7 +1706,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         }}
                       />
                       <Form.Label className={`${styles.label_heading} label_heading`}>
-                        State<strong className="text-danger">*</strong>
+                        State<strong className="text-danger"></strong>
                       </Form.Label>
                     </Form.Group>
                       <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
