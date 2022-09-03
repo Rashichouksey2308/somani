@@ -255,7 +255,30 @@ function Index() {
     return number
   }
 
-  // const return 
+  // const returnLiftingData = (number,index) => {
+  //   console.log(index,'props.liftingData1')
+  //   let datainNeed = {}
+  //   let data = _get(ReleaseOrderData, 'data[0].deliveryDetail', [{}])
+  //   data.forEach((item) => {
+  //     if (item.deliveryOrderNumber === number) {
+  //       datainNeed = item
+  //     }
+  //   })
+  //   //  console.log(data, number,datainNeed, 'datadatadata')
+
+  //   let doQuantity = Number(datainNeed.netQuantityReleased)
+  //   let balaceQuantity = doQuantity
+
+  //   lifting.forEach((item) => {
+  //     item.detail.forEach((item2) => {
+  //       balaceQuantity = balaceQuantity - Number(item2.liftingQuant)
+  //       console.log(balaceQuantity, 'props.liftingData')
+  //     })
+  //   })
+  //   console.log(balaceQuantity, 'props.liftingData')
+
+  //   return { doQuantity, balaceQuantity }
+  // }
 
   const deliverChange = (name, value, index) => {
     let tempArr = deliveryOrder
@@ -346,8 +369,8 @@ function Index() {
             />
             <h1 className={`${styles.title} heading`}>
               <span>
-                {ReleaseOrderData?.data[0]?.company?.companyName} -
-                Ramal001-00002
+                {_get(ReleaseOrderData, 'data[0].company.companyName', '')} -
+                {` ${_get(ReleaseOrderData, 'data[0].order.orderId', '').slice(0, 8)}-${_get(ReleaseOrderData, 'data[0].order.orderId', '').slice(8)}`}
               </span>
             </h1>
           </div>
@@ -446,6 +469,7 @@ function Index() {
                 >
                   <div className={`${styles.card}  accordion_body`}>
                     <LiftingDetails
+                      // returnLiftingData={returnLiftingData}
                       data={ReleaseOrderData}
                       liftingData={lifting}
                       addNewLifting={addNewLifting}
