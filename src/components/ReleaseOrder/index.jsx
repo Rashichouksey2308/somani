@@ -131,7 +131,7 @@ export default function Index({ ReleaseOrderData }) {
   const handleDeleteRow = (index) => {
     // console.log(index, 'temparr')
     let tempArr = [...releaseDetail]
-    tempArr.splice(index, 1)
+    tempArr.pop(index)
     setReleaseDetail(tempArr)
   }
 
@@ -401,14 +401,15 @@ export default function Index({ ReleaseOrderData }) {
                                     alt="Close"
                                   />{' '}
                                 </div>   */}
-                                {Number(netBalanceQuantity) >= 0 && (
-                                  <div style={{ marginTop: '12px' }}>
-                                    <img
-                                      onClick={() => handleDeleteRow(index)}
-                                      src="/static/delete 2.svg"
-                                      className={`${styles.delete_image} img-fluid ml-3 mr-2`}
-                                      alt="Delete"
-                                    />
+
+                                <div style={{ marginTop: '12px' }}>
+                                  {releaseDetail.length === 1 ? null : <img
+                                    onClick={() => handleDeleteRow(index)}
+                                    src="/static/delete 2.svg"
+                                    className={`${styles.delete_image} img-fluid ml-3 mr-2`}
+                                    alt="Delete"
+                                  />}
+                                  {Number(netBalanceQuantity) >= 0 && (
                                     <img
                                       onClick={() =>
                                         addMorereleaseDetailDataRows(index)
@@ -416,9 +417,9 @@ export default function Index({ ReleaseOrderData }) {
                                       src="/static/add-btn.svg"
                                       className={`${styles.delete_image} ml-2 img-fluid`}
                                       alt="Add button"
-                                    />
-                                  </div>
-                                )}
+                                    />)}
+                                </div>
+
                               </div>
                               {/* <div className={styles.uploadBtnWrapper}>
                         <input
