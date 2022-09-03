@@ -315,8 +315,9 @@ export default function Index(props) {
 
         <SaveBar
           handleSave={props.onSaveHAndler}
-          rightBtn="Submit"
+          rightBtn="Generate Delivery Order"
           rightBtnClick={props.onSaveHAndler}
+          handleRoute={handleRoute}
         />
       </div>
 

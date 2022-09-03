@@ -251,7 +251,7 @@ export default function Index({ ReleaseOrderData }) {
             </div>
             <div
               id="lcApplication"
-              className="collapse"
+              // className="collapse"
               aria-labelledby="lcApplication"
               data-parent="#lcApplication"
             >
@@ -340,6 +340,8 @@ export default function Index({ ReleaseOrderData }) {
                               saveDate={saveDate}
                               name="releaseOrderDate"
                               labelName="Release Order Date"
+                              // popperPlacement="top-end"
+                              portalId="root-portal"
                             />
                             <img
                               className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -509,7 +511,7 @@ export default function Index({ ReleaseOrderData }) {
 
         <SaveBar
           handleSave={onSaveHAndler}
-          rightBtn="Generate Delivery Order"
+          rightBtn="Submit"
           rightBtnClick={onSaveHAndler}
         />
       </div>

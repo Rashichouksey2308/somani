@@ -576,7 +576,7 @@ export default function Index({
                       //     TransitDetails,
                       //     'data[0].order.vessel.vessels[0].shipmentType',
                       //     '',
-                      //   ) === 'Bulk'
+                      //   ) == 'Bulk' ? 'checked' : ''
                       // }
                       checked={shipmentTypeBulk}
                       id={`inline-${type}-1`}
@@ -592,9 +592,9 @@ export default function Index({
                       //     TransitDetails,
                       //     'data[0].order.vessel.vessels[0].shipmentType',
                       //     '',
-                      //   ) === 'Liner'
+                      //   ) == 'Liner' ? 'checked' : ''
                       // }
-                      checked={!isShipmentTypeBULK}
+                      checked={!shipmentTypeBulk ? 'checked' : ''}
 
                       type={type}
                       id={`inline-${type}-2`}

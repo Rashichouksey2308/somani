@@ -34,7 +34,7 @@ const index = ({
   orderDetail,
   companyData
 }) => {
-  console.log(companyData, 'companyData')
+  console.log(personData, 'companyData')
   console.log(creditDetail, 'debtData')
   const dispatch = useDispatch()
 
@@ -45,7 +45,16 @@ const index = ({
   const { gstDocument } = useSelector((state) => state.buyer)
 
   const { updatingCreditCalculate } = useSelector((state) => state.review)
-
+  const [keyNameList,setKeyNameList]=useState([])
+  useEffect(() => {
+    if(personData){
+       let temp=[]
+       personData.forEach((val)=>{
+        temp.push(val.name)
+       })
+       setKeyNameList([...temp])
+    }
+  },[personData])
   const [keyAddressData, setKeyAddressData] = useState({
     GSTIN: '',
     GSTIN_document: {
@@ -887,9 +896,14 @@ const index = ({
                               name="name"
                               onChange={(e) => handlePersonChange(e, index)}
                               readOnly={person.isEdit}
+                              value={person.name}
                             >
-                              <option>Ram Lal</option>
-                              <option>Ramakrishna</option>
+                              {keyNameList.length>0 && keyNameList.map(val=>{
+                                return(
+                                  <option value={val}>{val}</option>
+                                )
+                              })}
+                             
                             </select>
                             <img
                               className={`${styles.arrow} ml-n4 img-fluid`}
