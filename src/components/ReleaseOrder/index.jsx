@@ -185,18 +185,6 @@ export default function Index({ ReleaseOrderData }) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     }
-    // if (netBalanceQuantity > e.target.value) {
-    //   // let temp = Number(e.target.value)
-    //   // if (e.target.value == "") {
-    //   //   temp = 0
-    //   // }
-
-    //   const toastMessage =
-    //     'Net Quantity Realesed cannot be Greater than net bALance Quantity'
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //   }
-    // }
     if (Number(e.target.value) < 0) {
       // let temp = Number(e.target.value)
       // if (e.target.value == "") {
