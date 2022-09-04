@@ -182,7 +182,7 @@ function Index({
                           className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
                         >
                           <div className="d-flex">
-                            <select
+                            <select disabled
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               onChange={(e) =>
                                 shipmentTypeChangeHandler(e, index)
