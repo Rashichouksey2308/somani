@@ -179,7 +179,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                     className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 mt-5`}
                   >
                     <input
-                      value={warehouseDetails?.wareHouseDetails?.quantity}
+                      // value={warehouseDetails?.wareHouseDetails?.quantity}
                       id="quantity"
                       onChange={(e) =>
                         onChangeWarehouseDetails(e.target.id, e.target.value)
