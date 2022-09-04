@@ -217,7 +217,7 @@
         }
     }
     .row {
-        margin-bottom: 1rem;
+        // margin-bottom: 1rem;
     }
 }
 .verify_gst {
@@ -403,8 +403,10 @@
 .gst_cancelled {
     background: #ea3f3f22;
     border-radius: 5px;
-    width: 186px;
-    height: 38px;
+    // width: 186px;
+    min-height: 38px;
+    margin-bottom: 1rem;
+    padding: 5px 15px;
     @include respond(md-desktop) {
         width: 100%
     }

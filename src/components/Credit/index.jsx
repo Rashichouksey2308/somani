@@ -13,7 +13,6 @@ import AddressComponent from './addressComponent'
 import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper'
 import _get from 'lodash/get'
 
-
 const index = ({
   creditDetail,
   keyAddDataArr,
@@ -32,7 +31,7 @@ const index = ({
   supplierCred,
   setEditRow,
   orderDetail,
-  companyData
+  companyData,
 }) => {
   console.log(personData, 'companyData')
   console.log(creditDetail, 'debtData')
@@ -45,16 +44,16 @@ const index = ({
   const { gstDocument } = useSelector((state) => state.buyer)
 
   const { updatingCreditCalculate } = useSelector((state) => state.review)
-  const [keyNameList,setKeyNameList]=useState([])
+  const [keyNameList, setKeyNameList] = useState([])
   useEffect(() => {
-    if(personData){
-       let temp=[]
-       personData.forEach((val)=>{
+    if (personData) {
+      let temp = []
+      personData.forEach((val) => {
         temp.push(val.name)
-       })
-       setKeyNameList([...temp])
+      })
+      setKeyNameList([...temp])
     }
-  },[personData])
+  }, [personData])
   const [keyAddressData, setKeyAddressData] = useState({
     GSTIN: '',
     GSTIN_document: {
@@ -135,7 +134,9 @@ const index = ({
   }
   const FilterUniqueBank = () => {
     let filtered = _get(companyData, 'financial.openCharges', [])
-    const unique = [...new Set(filtered.map(item => item.nameOfChargeHolder1))]
+    const unique = [
+      ...new Set(filtered.map((item) => item.nameOfChargeHolder1)),
+    ]
     return unique
   }
   // console.log(FilterUniqueBank(),filtered, 'dghjfdkjhsgfhdsgfjk')
@@ -283,7 +284,7 @@ const index = ({
         </div>
         <div
           id="productSummary"
-          className="collapse"
+          // className="collapse"
           aria-labelledby="productSummary"
           data-parent="#profileAccordion"
         >
@@ -480,8 +481,8 @@ const index = ({
                     defaultValue={
                       creditDetail
                         ? creditDetail?.existingSuppliers?.map((e) => {
-                          return `${e}`
-                        })
+                            return `${e}`
+                          })
                         : ''
                     }
                     onBlur={(e) => {
@@ -844,7 +845,6 @@ const index = ({
                 </label>
               </div>
             </div>
-
           </div>
         </div>
       </div>
@@ -898,12 +898,10 @@ const index = ({
                               readOnly={person.isEdit}
                               value={person.name}
                             >
-                              {keyNameList.length>0 && keyNameList.map(val=>{
-                                return(
-                                  <option value={val}>{val}</option>
-                                )
-                              })}
-                             
+                              {keyNameList.length > 0 &&
+                                keyNameList.map((val) => {
+                                  return <option value={val}>{val}</option>
+                                })}
                             </select>
                             <img
                               className={`${styles.arrow} ml-n4 img-fluid`}
@@ -1815,7 +1813,7 @@ const index = ({
                             disabled={!profile.actions}
                           >
                             <option disabled>Select an option</option>
-                            {FilterUniqueBank().map(item => (
+                            {FilterUniqueBank().map((item) => (
                               <option value={item}>{item}</option>
                             ))}
                           </select>
@@ -1877,7 +1875,7 @@ const index = ({
                               )
                             }
                             defaultValue={profile.limit}
-                          // readOnly={!saveTable}
+                            // readOnly={!saveTable}
                           />
                         </td>
 
