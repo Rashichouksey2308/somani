@@ -413,7 +413,7 @@ export default function Index({
                     <div className="d-flex">
                       {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                       <DatePicker
-                        value={list?.circDate}
+                        value={moment(list?.circDate?.split('T')[0]).format('DD-MM-YYYY')}
                         defaultDate={list?.circDate}
                         selected={startBlDate}
                         dateFormat="dd-MM-yyyy"
@@ -443,7 +443,7 @@ export default function Index({
                     <input
                       id="cimsCharges"
                       onChange={(e) => onChangeCims(e, index)}
-                      defaultValue={list.cimsCharges}
+                      value={list.cimsCharges}
                       className={`${styles.input_field} input form-control`}
                       type="number"
                       onKeyDown={(evt) =>
