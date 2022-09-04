@@ -3259,23 +3259,15 @@ const gstSales = (head, gstFilteredData) => {
                       <tbody>
                         <tr>
                           <td>New Customers</td>
-                          {gstFilteredData?.detail?.salesDeatail?.revenuePercentage.map(
-                            (sales, index) => (
-                              <td key={index}>
-                                {sales?.newCustomer?.toLocaleString()}
-                              </td>
-                            ),
-                          )}
+                          {gstFilteredData?.detail?.salesDeatail?.revenuePercentage.map((sales, index) => (
+                            <td key={index}>{sales?.newCustomer?.toFixed(2)}</td>
+                          ))}
                         </tr>
                         <tr>
                           <td>Recurring Customers</td>
-                          {gstFilteredData?.detail?.salesDeatail?.revenuePercentage.map(
-                            (sales, index) => (
-                              <td key={index}>
-                                {sales?.RecurringCustomer?.toLocaleString()}
-                              </td>
-                            ),
-                          )}
+                          {gstFilteredData?.detail?.salesDeatail?.revenuePercentage.map((sales, index) => (
+                            <td key={index}>{sales?.RecurringCustomer?.toFixed(2)}</td>
+                          ))}
                         </tr>
                       </tbody>
                     </table>

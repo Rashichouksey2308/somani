@@ -81,6 +81,10 @@ export default function Index({
   }
   console.log(dischargeOfCargo, 'dischargeOfCargo3')
 
+  const onRemoveDoc = (name) => {
+    setDischargeOfCargo({ ...dischargeOfCargo, [name]: null })
+  }
+
   const onSaveDischarge = () => {
     if (dischargeOfCargo.dischargeOfCargo.dischargeQuantity === '') {
       let toastMessage = 'DISCHARGE QUANTITY CANNOT BE EMPTY  '
@@ -196,7 +200,29 @@ export default function Index({
       )
       setTotalBl(data)
     }
+    if (customData?.dischargeOfCargo) {
+      let data = _get(customData, 'dischargeOfCargo', {})
+      console.log(data,'customData1')
+      let tempData = {
+        dischargeOfCargo: {
+          vesselName: data?.dischargeOfCargo?.vesselName,
+          portOfDischarge: _get(customData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', ''),
+          dischargeQuantity: data?.dischargeOfCargo?.dischargeQuantity,
+          vesselArrivaldate: data?.dischargeOfCargo?.vesselArrivaldate,
+          dischargeStartDate: data?.dischargeOfCargo?.dischargeStartDate,
+          dischargeEndDate: data?.dischargeOfCargo?.dischargeEndDate,
+        },
+        document1: data?.document1 ?? null,
+        document2: data?.document2 ?? null,
+      }
+      setDischargeOfCargo(tempData)
+    }
   }, [customData])
+
+  console.log(
+    customData,
+    dischargeOfCargo,
+    'customData')
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -231,29 +257,31 @@ export default function Index({
                 >
                   <div className="d-flex">
                     <select
+                      onChange={(e) => onChangeDischargeOfCargo('vesselName', e.target.value)}
+                      defaultValue={dischargeOfCargo?.dischargeOfCargo?.vesselName}
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
                       <option value="">Please select a vessel</option>
                       {shipmentTypeBulk
                         ? _get(customData, 'order.vessel.vessels', []).map(
-                            (vessel, index) => (
-                              <option
-                                value={vessel?.vesselInformation?.name}
-                                key={index}
-                              >
-                                {vessel?.vesselInformation[0]?.name}
-                              </option>
-                            ),
-                          )
-                        : _get(
-                            customData,
-                            'order.vessel.vessels[0].vesselInformation',
-                            [],
-                          ).map((vessel, index) => (
-                            <option value={vessel?.name} key={index}>
-                              {vessel?.name}
+                          (vessel, index) => (
+                            <option
+                              value={vessel?.vesselInformation?.name}
+                              key={index}
+                            >
+                              {vessel?.vesselInformation[0]?.name}
                             </option>
-                          ))}
+                          ),
+                        )
+                        : _get(
+                          customData,
+                          'order.vessel.vessels[0].vesselInformation',
+                          [],
+                        ).map((vessel, index) => (
+                          <option value={vessel?.name} key={index}>
+                            {vessel?.name}
+                          </option>
+                        ))}
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Vessel Name<strong className="text-danger">*</strong>
@@ -273,7 +301,7 @@ export default function Index({
                     Port of Discharge
                   </div>
                   <span className={styles.value}>
-                    {dischargeOfCargo.dischargeOfCargo.portOfDischarge}
+                    {dischargeOfCargo?.dischargeOfCargo?.portOfDischarge}
                   </span>
                 </div>
                 <div
@@ -281,7 +309,7 @@ export default function Index({
                 >
                   <input
                     defaultValue={
-                      dischargeOfCargo.dischargeOfCargo.dischargeQuantity
+                      dischargeOfCargo?.dischargeOfCargo?.dischargeQuantity
                     }
                     onChange={(e) =>
                       onChangeDischargeOfCargo(e.target.id, e.target.value)
@@ -303,6 +331,7 @@ export default function Index({
                 >
                   <div className="d-flex">
                     <DateCalender
+                    defaultDate={dischargeOfCargo?.dischargeOfCargo?.vesselArrivaldate}
                       name="vesselArrivaldate"
                       saveDate={saveDate}
                       labelName="Vessel Arrival Date"
@@ -319,6 +348,7 @@ export default function Index({
                 >
                   <div className="d-flex">
                     <DateCalender
+                    defaultDate={dischargeOfCargo?.dischargeOfCargo?.dischargeStartDate}
                       name="dischargeStartDate"
                       saveDate={saveDate}
                       labelName="Discharge Start Date"
@@ -335,6 +365,7 @@ export default function Index({
                 >
                   <div className="d-flex">
                     <DateCalender
+                    defaultDate={dischargeOfCargo?.dischargeOfCargo?.dischargeEndDate}
                       name="dischargeEndDate"
                       saveDate={saveDate}
                       labelName="Discharge End Date"
@@ -402,7 +433,7 @@ export default function Index({
                         <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                         <td>
                           {dischargeOfCargo &&
-                          dischargeOfCargo.document1 === null ? (
+                            dischargeOfCargo.document1 === null ? (
                             <>
                               <div className={styles.uploadBtnWrapper}>
                                 <input
@@ -422,6 +453,7 @@ export default function Index({
                             <div className={styles.certificate}>
                               {dischargeOfCargo.document1?.originalName}
                               <img
+                                onClick={() => onRemoveDoc('document1')}
                                 className={`${styles.close_image} float-right m-2 img-fluid`}
                                 src="/static/close.svg"
                                 alt="Close"
@@ -446,7 +478,7 @@ export default function Index({
                         <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                         <td>
                           {dischargeOfCargo &&
-                          dischargeOfCargo.document2 === null ? (
+                            dischargeOfCargo.document2 === null ? (
                             <>
                               <div className={styles.uploadBtnWrapper}>
                                 <input
@@ -477,6 +509,7 @@ export default function Index({
                             <div className={styles.certificate}>
                               {dischargeOfCargo.document2?.originalName}
                               <img
+                                onClick={() => onRemoveDoc('document2')}
                                 className={`${styles.close_image} float-right m-2 img-fluid`}
                                 src="/static/close.svg"
                                 alt="Close"
@@ -495,7 +528,7 @@ export default function Index({
             <UploadOther
               isDocumentName={true}
               orderid={OrderId}
-              module="CustomClearanceAndWarehousing"
+              module="customClearanceAndWarehousing"
             />
           </div>
         </div>
