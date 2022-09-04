@@ -93,12 +93,13 @@
     }
     .content {
         .header {
-            padding: 25px 35px !important;
-            font-weight: bold;
             font-size: 22px;
             line-height: 27px;
+            font-weight: bold;
             height: 67px;
             background: #FAFAFB;
+            padding: 25px 35px !important;
+            border-top: 2px solid #CAD6E6;
             @include respond(md-desktop) {
                 padding: 15px !important;
             }
@@ -216,9 +217,6 @@
             padding-right: 0px !important;
         }
     }
-    .row {
-        // margin-bottom: 1rem;
-    }
 }
 .verify_gst {
     top: 50%;
@@ -295,7 +293,6 @@
                     top: 22px;
                     left: 15px;
                     font-size: 16px;
-                    z-index: 200;
                     line-height: 17px;
                     font-weight: 500;
                     margin-bottom: 0;
@@ -362,16 +359,6 @@
                 label {
                     top: 22px;
                 }
-                .formControl {
-                    &:invalid+label {
-                        // background: none;
-                    }
-                    &:focus {
-                        &+label {
-                            // background: #ffffff;
-                        }
-                    }
-                }
             }
         }
         .btn {
@@ -401,12 +388,12 @@
     }
 }
 .gst_cancelled {
-    background: #ea3f3f22;
+    // background: #ea3f3f22;
     border-radius: 5px;
     // width: 186px;
     min-height: 38px;
     margin-bottom: 1rem;
-    padding: 5px 15px;
+    // padding: 5px 15px;
     @include respond(md-desktop) {
         width: 100%
     }
@@ -583,7 +570,7 @@
     }
     .body {
         overflow-y: auto;
-        height: 250px;
+        max-height: 500px;
         @include respond(md-desktop) {
             width: calc(100vw - 35px);
         }
@@ -648,7 +635,14 @@
                             line-height: 23px;
                             border: none;
                             padding: 15px;
-                            &:first-child {
+                            &:first-child {                                
+                                text-transform: lowercase;
+                                &:first-letter {
+                                text-transform: uppercase;
+                                }
+                                &:first-line {
+                                text-transform: capitalize;
+                                }
                                 padding-left: 35px;
                                 @include respond(md-desktop) {
                                     padding-left: 15px;
@@ -681,7 +675,7 @@
                             line-height: 18px;
                             height: 41px;
                             vertical-align: middle;
-                            text-transform: uppercase;
+                            text-transform: uppercase !important;
                             border-bottom: 1.5px solid #dae2ed;
                             width: auto;
                             padding: 0 15px;
@@ -740,6 +734,13 @@
                             border: none;
                             padding: 15px;
                             &:first-child {
+                                text-transform: lowercase;
+                                &:first-letter {
+                                  text-transform: uppercase;
+                                }
+                                &:first-line {
+                                  text-transform: capitalize;
+                                }
                                 padding-left: 35px;
                                 @include respond(md-desktop) {
                                     padding-left: 15px;
@@ -858,6 +859,7 @@
                     height: 67px;
                     background: #FAFAFB;
                     vertical-align: middle;
+                    border-bottom: none;
                     &.first {
                         font-size: 22px;
                         line-height: 27px;
