@@ -23,6 +23,9 @@ export default function Index({ OrderId, customData, uploadDoc }) {
   })
 
   const [plotInspectionData, setPlotInspectionData] = useState('')
+  const [isWarehouseQuantityInFocus, setIsWarehouseQuantityInFocus] =
+    useState(false)
+
   const uploadDocument1 = (e) => {
     const newUploadDoc1 = { ...plotInspectionData }
     newUploadDoc1.plotInspectionReport = e.target.files[0]
@@ -166,10 +169,22 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                         onChangeWarehouseDetails(e.target.id, e.target.value)
                       }
                       className={`${styles.input_field} input form-control`}
-                      type="number"
+                      type="text"
                       min={0}
                       onKeyPress={preventMinus}
-                      required
+                      onFocus={(e) => {
+                        setIsWarehouseQuantityInFocus(true),
+                          e.target.type === 'number'
+                      }}
+                      onBlur={(e) => {
+                        setIsWarehouseQuantityInFocus(false),
+                          e.target.type === 'text'
+                      }}
+                      value={
+                        isWarehouseQuantityInFocus
+                          ? warehouseDetails?.wareHouseDetails?.quantity
+                          : warehouseDetails?.wareHouseDetails?.quantity + ' MT'
+                      }
                       onKeyDown={(evt) =>
                         evt.key === 'e' && evt.preventDefault()
                       }

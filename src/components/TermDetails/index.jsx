@@ -13,7 +13,7 @@ const Index = ({
   onChangePaymentDueDate,
   onChangeTransactionDetails,
   newLcVal,
-  changePayment
+  changePayment,
 }) => {
   const [IsBlSelected, setIsBlSelected] = useState(false)
   const [thirdPartyInspection, setThirdPartyInspection] = useState(false)
@@ -33,17 +33,17 @@ const Index = ({
       console.log('herer12')
 
       setIsBlSelected('DaysfromBLDate')
-      changePayment("DaysfromBLDate")
+      changePayment('DaysfromBLDate')
       // onChangePaymentDueDate({
       //   target: { value: '', id: 'daysFromVesselDischargeDate' },
       // })
     } else if (value === 'DaysfromVesselDischargeDate') {
       setIsBlSelected('DaysfromVesselDischargeDate')
-      changePayment("DaysfromVesselDischargeDate")
+      changePayment('DaysfromVesselDischargeDate')
       // onChangePaymentDueDate({ target: { value: '', id: 'daysFromBlDate' } })
     } else {
       setIsBlSelected(value)
-      changePayment("val")
+      changePayment('val')
     }
   }
 
@@ -71,7 +71,7 @@ const Index = ({
       </div>
       <div
         id="termDetails"
-        className="collapse"
+        // className="collapse"
         aria-labelledby="termDetails"
         data-parent="#termDetails"
       >
@@ -285,14 +285,16 @@ const Index = ({
                   className={`${styles.value} ${styles.customSelect} 
                                  input form-control`}
                   onChange={onChangeTransactionDetails}
-                  value={
-                    termsheetDetails?.transactionDetails?.lcOpeningBank
-                  }
+                  value={termsheetDetails?.transactionDetails?.lcOpeningBank}
                   required
                 >
                   <option>Select an option</option>
-                  <option value="Reserve Bank of Spain">Reserve Bank of Spain</option>
-                  <option value='Zurcher Kantonal Bank,Zurich' >Zurcher Kantonal Bank,Zurich</option>
+                  <option value="Reserve Bank of Spain">
+                    Reserve Bank of Spain
+                  </option>
+                  <option value="Zurcher Kantonal Bank,Zurich">
+                    Zurcher Kantonal Bank,Zurich
+                  </option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   LC Opening Bank<strong className="text-danger">*</strong>
@@ -342,8 +344,12 @@ const Index = ({
                 >
                   {/* <option value={termsheetDetails?.transactionDetails?.loadPort}>{termsheetDetails?.transactionDetails?.loadPort} </option> */}
                   <option>Select an option</option>
-                  <option value="Westshore Terminals,Canada">Westshore Terminals,Canada</option>
-                  <option value="Abbot Point,Australia">Abbot Point,Australia</option>
+                  <option value="Westshore Terminals,Canada">
+                    Westshore Terminals,Canada
+                  </option>
+                  <option value="Abbot Point,Australia">
+                    Abbot Point,Australia
+                  </option>
                 </select>
                 <label className={`${styles.label} label_heading`}>
                   Port Of Loading<strong className="text-danger">*</strong>
@@ -420,7 +426,7 @@ const Index = ({
                   required
                 >
                   {termsheetDetails?.transactionDetails?.partShipmentAllowed ===
-                    'Yes' ? (
+                  'Yes' ? (
                     <>
                       {' '}
                       <option value="Yes">Yes</option>{' '}
@@ -455,7 +461,9 @@ const Index = ({
                   required
                 >
                   <option>Select an option</option>
-                  <option value="Vishakapatnam, India">Visakhapatnam, India</option>
+                  <option value="Vishakapatnam, India">
+                    Visakhapatnam, India
+                  </option>
                   <option value="Mumbai, India">Mumbai, India</option>
                   <option value="Gujrat, India">Gujrat, India</option>
                 </select>
@@ -521,7 +529,7 @@ const Index = ({
               </div>
             </div>
             {termsheetDetails.transactionDetails?.thirdPartyInspectionReq ==
-              'true' ? (
+            'true' ? (
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
                   <select
@@ -566,10 +574,11 @@ const Index = ({
                   required
                 >
                   <option selected>Select an option</option>
-                  <option value="Vishakapatnam, India">Visakhapatnam, India</option>
+                  <option value="Vishakapatnam, India">
+                    Visakhapatnam, India
+                  </option>
                   <option value="Mumbai, India">Mumbai, India</option>
                   <option value="Gujrat, India">Gujrat, India</option>
-
                 </select>
 
                 <label className={`${styles.label} label_heading`}>
@@ -629,8 +638,8 @@ const Index = ({
                   IsBlSelected == 'DaysfromBLDate'
                     ? false
                     : IsBlSelected == 'Whicheverisearlier'
-                      ? false
-                      : true
+                    ? false
+                    : true
                 }
                 required
               />
@@ -652,8 +661,8 @@ const Index = ({
                   IsBlSelected == 'DaysfromVesselDischargeDate'
                     ? false
                     : IsBlSelected == 'Whicheverisearlier'
-                      ? false
-                      : true
+                    ? false
+                    : true
                 }
                 required
               />

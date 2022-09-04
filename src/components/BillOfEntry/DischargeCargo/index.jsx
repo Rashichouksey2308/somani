@@ -10,7 +10,13 @@ import { useDispatch } from 'react-redux'
 import moment from 'moment'
 import { toast } from 'react-toastify'
 
-export default function Index({ OrderId, customData, uploadDoc }) {
+export default function Index({
+  OrderId,
+  customData,
+  uploadDoc,
+  componentId,
+  setComponentId,
+}) {
   console.log(customData, 'customData')
   const dispatch = useDispatch()
   const [show, setShow] = useState(false)
@@ -113,6 +119,26 @@ export default function Index({ OrderId, customData, uploadDoc }) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
+    } else if (
+      dischargeOfCargo.dischargeOfCargo.dischargeStartDate <
+      dischargeOfCargo.dischargeOfCargo.vesselArrivaldate
+    ) {
+      let toastMessage =
+        'discharge Start Date Cannot Be Before Vessel Arrival Date'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    } else if (
+      dischargeOfCargo.dischargeOfCargo.dischargeEndDate <
+      dischargeOfCargo.dischargeOfCargo.dischargeStartDate
+    ) {
+      let toastMessage =
+        'discharge End Date Cannot Be Before Discharge Start Date '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
     } else if (dischargeOfCargo.dischargeOfCargo.dischargeEndDate === '') {
       let toastMessage = 'discharge End Date CANNOT BE EMPTY  '
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -140,6 +166,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
 
       let task = 'save'
       dispatch(UpdateCustomClearance({ fd, task }))
+      setComponentId(componentId + 1)
     }
   }
   console.log(dischargeOfCargo, 'dischargeOfCargo')

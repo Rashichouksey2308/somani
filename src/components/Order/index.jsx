@@ -4,7 +4,7 @@ import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 import DateCalender from '../DateCalender'
 import { addPrefixOrSuffix } from 'utils/helper'
-import {CovertvaluefromtoCR} from '../../utils/helper'
+import { CovertvaluefromtoCR } from '../../utils/helper'
 
 const Index = ({ orderDetail, saveOrderData }) => {
   const saveDate = (value, name) => {
@@ -12,19 +12,25 @@ const Index = ({ orderDetail, saveOrderData }) => {
     let text = d.toISOString()
     saveOrderData(name, text)
   }
-  console.log(orderDetail?.transactionType,"orderDetail")
+  console.log(orderDetail?.transactionType, 'orderDetail')
   return (
     <div className={`${styles.main} vessel_card card border-color`}>
       <div
-        className={`${styles.head_container} card-header align-items-center border_color head_container d-flex justify-content-between bg-transparent`}>
+        className={`${styles.head_container} card-header align-items-center border_color head_container d-flex justify-content-between bg-transparent`}
+      >
         <h3 className={`${styles.heading} mb-0`}>Order Summary</h3>
         <div className="d-flex">
           <div className={`${styles.unit_container} d-flex align-items-center`}>
             <h5 className={`${styles.unit_label} accordion_Text`}>
               Quantity :
             </h5>
-            <select className={`${styles.options} accordion_DropDown`} name='unitOfQuantity' 
-            onChange={(e)=>{saveOrderData(e.target.name, e.target.value)}}>
+            <select
+              className={`${styles.options} accordion_DropDown`}
+              name="unitOfQuantity"
+              onChange={(e) => {
+                saveOrderData(e.target.name, e.target.value)
+              }}
+            >
               <option>{orderDetail?.unitOfQuantity?.toUpperCase()}</option>
               {/* <option selected>MT</option> */}
             </select>
@@ -32,23 +38,32 @@ const Index = ({ orderDetail, saveOrderData }) => {
 
           <div className={`${styles.unit_container} d-flex align-items-center`}>
             <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
-            <select className={`${styles.options} accordion_DropDown `} name='unitOfValue' 
-            onChange={(e)=>saveOrderData(e.target.name, e.target.value)}>
+            <select
+              className={`${styles.options} accordion_DropDown `}
+              name="unitOfValue"
+              onChange={(e) => saveOrderData(e.target.name, e.target.value)}
+            >
               <option value="Crores">Crores</option>
-            
+
               {/* <option selected>Crores</option> */}
               <option value="Million">Million</option>
-               <option value="Lakh">Lakh</option>
+              <option value="Lakh">Lakh</option>
             </select>
-            <span data-toggle="collapse" data-target="#orderSummary" aria-expanded="true" aria-controls="orderSummary">+</span>
+            <span
+              data-toggle="collapse"
+              data-target="#orderSummary"
+              aria-expanded="true"
+              aria-controls="orderSummary"
+            >
+              +
+            </span>
           </div>
         </div>
       </div>
       <div
         id="orderSummary"
-        className="collapse"
+        // className="collapse"
         aria-labelledby="orderSummary"
-       
       >
         <div className={`${styles.dashboard_form} card-body border_color`}>
           <div className={styles.radio_form}>
@@ -59,8 +74,12 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   className={styles.radio}
                   inline
                   label="Import"
-                  onChange={(e)=>{saveOrderData("transactionType", "Import")}}
-                  checked={orderDetail?.transactionType === 'Import'? "checked":""}
+                  onChange={(e) => {
+                    saveOrderData('transactionType', 'Import')
+                  }}
+                  checked={
+                    orderDetail?.transactionType === 'Import' ? 'checked' : ''
+                  }
                   name="group1"
                   type={type}
                   id={`inline-${type}-1`}
@@ -69,8 +88,12 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   className={styles.radio}
                   inline
                   label="Domestic"
-                  onChange={(e)=>{saveOrderData("transactionType", "Domestic")}}
-                  checked={orderDetail?.transactionType === 'Domestic'? "checked":""}
+                  onChange={(e) => {
+                    saveOrderData('transactionType', 'Domestic')
+                  }}
+                  checked={
+                    orderDetail?.transactionType === 'Domestic' ? 'checked' : ''
+                  }
                   name="group1"
                   type={type}
                   id={`inline-${type}-2`}
@@ -111,7 +134,10 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   required
                   type="text"
                   name="quantity"
-                  value={addPrefixOrSuffix(orderDetail?.quantity,orderDetail?.unitOfQuantity?.toUpperCase())}
+                  value={addPrefixOrSuffix(
+                    orderDetail?.quantity,
+                    orderDetail?.unitOfQuantity?.toUpperCase(),
+                  )}
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
                   }}
@@ -127,8 +153,12 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   required
                   type="text"
                   name="orderValue"
-                  value={addPrefixOrSuffix(orderDetail?.orderValue,orderDetail?.unitOfValue=="Crores"?"Cr":orderDetail?.unitOfValue)}
-                 
+                  value={addPrefixOrSuffix(
+                    orderDetail?.orderValue,
+                    orderDetail?.unitOfValue == 'Crores'
+                      ? 'Cr'
+                      : orderDetail?.unitOfValue,
+                  )}
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
                   }}
@@ -156,28 +186,32 @@ const Index = ({ orderDetail, saveOrderData }) => {
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
-                   <select className={`${styles.input_field} ${styles.customSelect} input form-control`} 
-                   name='countryOfOrigin'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} 
-                   value={orderDetail?.countryOfOrigin}
-                   required>
-                  
-                 <option disabled>Select an option</option>
-                  <option value="India">India</option>
-                  <option value="Australia">Australia</option>
-                  <option value="Sri Lanka"> Sri Lanka</option>
-                  <option value="Qatar"> Qatar</option>
-                  <option value="Dubai"> Dubai</option>
-                </select>
-                <Form.Label className={`${styles.label_heading} label_heading`}>
-                  Country Of Origin<strong className="text-danger">*</strong>
-                </Form.Label>
+                  <select
+                    className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                    name="countryOfOrigin"
+                    onChange={(e) => {
+                      saveOrderData(e.target.name, e.target.value)
+                    }}
+                    value={orderDetail?.countryOfOrigin}
+                    required
+                  >
+                    <option disabled>Select an option</option>
+                    <option value="India">India</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Sri Lanka"> Sri Lanka</option>
+                    <option value="Qatar"> Qatar</option>
+                    <option value="Dubai"> Dubai</option>
+                  </select>
+                  <Form.Label
+                    className={`${styles.label_heading} label_heading`}
+                  >
+                    Country Of Origin<strong className="text-danger">*</strong>
+                  </Form.Label>
                   <img
                     className={`${styles.arrow} image_arrow img-fluid`}
                     src="/static/inputDropDown.svg"
                     alt="Search"
                   />
-               
-              
                 </div>
               </Form.Group>
 
@@ -187,7 +221,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   required
                   type="text"
                   name="tolerance"
-                  value={addPrefixOrSuffix(orderDetail?.tolerance,"%")}
+                  value={addPrefixOrSuffix(orderDetail?.tolerance, '%')}
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
                   }}
@@ -210,12 +244,12 @@ const Index = ({ orderDetail, saveOrderData }) => {
                       saveOrderData(e.target.name, e.target.value)
                     }}
                   />
-                  <Form.Label className={`${styles.label_heading} label_heading`}>
+                  <Form.Label
+                    className={`${styles.label_heading} label_heading`}
+                  >
                     Supplier Name<strong className="text-danger">*</strong>
                   </Form.Label>
-                
                 </div>
-
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -235,11 +269,13 @@ const Index = ({ orderDetail, saveOrderData }) => {
                       saveOrderData(e.target.name, e.target.value)
                     }}
                   />
-                  <Form.Label className={`${styles.label_heading} label_heading`}>
+                  <Form.Label
+                    className={`${styles.label_heading} label_heading`}
+                  >
                     Manufacturer / Mines name
                     {/* <strong className="text-danger">*</strong> */}
                   </Form.Label>
-                 <img
+                  <img
                     className={`${styles.search_image} img-fluid`}
                     src="/static/search-grey.svg"
                     alt="Search"
@@ -248,56 +284,76 @@ const Index = ({ orderDetail, saveOrderData }) => {
               </Form.Group>
 
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                 <div className="d-flex">
-                <select className={`${styles.input_field} ${styles.customSelect} input form-control`} value={orderDetail?.portOfDischarge} name='portOfDischarge'  onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} required>
-                 <option disabled>Select an option</option>
-                  <option value="Mumbai, India">Mumbai, India</option>
-                  <option value="Vizag, India">Vizag, India</option>
-                </select>
-                <Form.Label className={`${styles.label_heading} label_heading`}>
-                  Port Of Discharge<strong className="text-danger">*</strong>
-                </Form.Label>
-                <img
-                    className={`${styles.arrow} image_arrow img-fluid`}
-                    src="/static/inputDropDown.svg"
-                    alt="Search"
-                  />
-                 </div>
-
-              </Form.Group>
-
-              <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                 <div className="d-flex">
-                <select defaultValue={orderDetail?.incoTerm} className={`${styles.input_field}  ${styles.customSelect} input form-control`} name='incoTerm' onChange={(e) => { saveOrderData(e.target.name, e.target.value) }} required>
-                  <option disabled>Select an option</option>
-                  <option value="CFR">CFR</option>
-                  <option value="CIF">CIF</option>
-                  <option value="FOB">FOB</option>
-                </select>
-                <Form.Label className={`${styles.label_heading} label_heading`}>
-                  INCO Terms<strong className="text-danger">*</strong>
-                </Form.Label>
-             <img
+                  <select
+                    className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                    value={orderDetail?.portOfDischarge}
+                    name="portOfDischarge"
+                    onChange={(e) => {
+                      saveOrderData(e.target.name, e.target.value)
+                    }}
+                    required
+                  >
+                    <option disabled>Select an option</option>
+                    <option value="Mumbai, India">Mumbai, India</option>
+                    <option value="Vizag, India">Vizag, India</option>
+                  </select>
+                  <Form.Label
+                    className={`${styles.label_heading} label_heading`}
+                  >
+                    Port Of Discharge<strong className="text-danger">*</strong>
+                  </Form.Label>
+                  <img
                     className={`${styles.arrow} image_arrow img-fluid`}
                     src="/static/inputDropDown.svg"
                     alt="Search"
                   />
                 </div>
-
               </Form.Group>
-{/* defaultDate={orderDetail?.ExpectedDateOfShipment?.split('T')[0]} */}
+
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                 <div className="d-flex">
-                    <DateCalender name='ExpectedDateOfShipment' 
-                      defaultDate={null}
-                      saveDate={saveDate} labelName='Expected Date Of Shipment'/>
-                     <img
-                        className={`${styles.calanderIcon} img-fluid`}
-                        src="/static/caldericon.svg"
-                        alt="Search"
-                    />
-                      
-                    </div>  
+                <div className="d-flex">
+                  <select
+                    defaultValue={orderDetail?.incoTerm}
+                    className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                    name="incoTerm"
+                    onChange={(e) => {
+                      saveOrderData(e.target.name, e.target.value)
+                    }}
+                    required
+                  >
+                    <option disabled>Select an option</option>
+                    <option value="CFR">CFR</option>
+                    <option value="CIF">CIF</option>
+                    <option value="FOB">FOB</option>
+                  </select>
+                  <Form.Label
+                    className={`${styles.label_heading} label_heading`}
+                  >
+                    INCO Terms<strong className="text-danger">*</strong>
+                  </Form.Label>
+                  <img
+                    className={`${styles.arrow} image_arrow img-fluid`}
+                    src="/static/inputDropDown.svg"
+                    alt="Search"
+                  />
+                </div>
+              </Form.Group>
+              {/* defaultDate={orderDetail?.ExpectedDateOfShipment?.split('T')[0]} */}
+              <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                <div className="d-flex">
+                  <DateCalender
+                    name="ExpectedDateOfShipment"
+                    defaultDate={null}
+                    saveDate={saveDate}
+                    labelName="Expected Date Of Shipment"
+                  />
+                  <img
+                    className={`${styles.calanderIcon} img-fluid`}
+                    src="/static/caldericon.svg"
+                    alt="Search"
+                  />
+                </div>
                 {/* <div className="d-flex">
                 <input
                   className={`${styles.input_field}  ${styles.customSelect} input form-control`}
@@ -332,7 +388,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   }}
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
-                  HSN code 
+                  HSN code
                   <strong className="text-danger">*</strong>
                 </Form.Label>
               </Form.Group>
