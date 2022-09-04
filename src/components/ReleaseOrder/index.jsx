@@ -89,7 +89,7 @@ export default function Index({ ReleaseOrderData }) {
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
       let response = await Axios.post(
         `${API.corebaseUrl}${API.uploadDoc}`,

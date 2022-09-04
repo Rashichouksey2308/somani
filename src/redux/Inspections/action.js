@@ -65,7 +65,7 @@ export const GetAllInspection =
     )
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
       Axios.get(
         `${API.corebaseUrl}${API.getInspection}${payload ? payload : ''}`,
@@ -99,7 +99,7 @@ export const GetInspection = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  let headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
     Axios.get(`${API.corebaseUrl}${API.getInspection}${payload}`, {
       headers: headers,
@@ -131,7 +131,7 @@ export const UpdateInspection =
     console.log(payload, 'payload Third party23')
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
       Axios.put(`${API.corebaseUrl}${API.updateInspection}`, payload.fd, {
         headers: headers,

@@ -78,7 +78,7 @@ export const GetLcModule = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  let headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
     Axios.get(`${API.corebaseUrl}${API.getLcModule}${payload ? payload : ''}`, {
       headers: headers,
@@ -107,7 +107,7 @@ export const UpdateLcModule = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  let headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
     Axios.put(`${API.corebaseUrl}${API.updateLcModule}`, payload, {
       headers: headers,
@@ -139,7 +139,7 @@ export const UpdateLcAmendment = (payload) => async (dispatch, getState, api) =>
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  let headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
     Axios.put(`${API.corebaseUrl}${API.updateLcModuleAmendment}`, payload, {
       headers: headers,
@@ -170,7 +170,7 @@ export const UpdateAmendment = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  let headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
     Axios.put(`${API.corebaseUrl}${API.updateLcAmendmentPost}`, payload, {
       headers: headers,

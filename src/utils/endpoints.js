@@ -2,9 +2,10 @@
 import config from './config'
 
 export default {
-  baseUrl: `${config.userServerUrl}`,
+  baseUrl: `${config.baseUrl}`,
   authbaseUrl: `${config.authServerUrl}`,
   corebaseUrl: `${config.coreServerUrl}`,
+  userbaseUrl:`${config.userServerUrl}`,
 
   // auth
   login: '/login',

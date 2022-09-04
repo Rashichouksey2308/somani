@@ -52,7 +52,7 @@ export const updateGenericData =
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
       let response = await Axios.put(
         `${API.corebaseUrl}${API.updateGeneric}`,
@@ -92,7 +92,7 @@ export const getGenericData = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  let headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
     let response = await Axios.get(`${API.corebaseUrl}/api/core/generic`, {
       headers: headers,

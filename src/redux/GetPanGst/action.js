@@ -30,9 +30,9 @@ export const GetPanGst = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  let headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.post(`${API.baseUrl}${API.getPanGst}`, payload, {
+    Axios.post(`${API.userbaseUrl}${API.getPanGst}`, payload, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {

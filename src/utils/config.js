@@ -25,6 +25,7 @@
 //Https
 
 export default {
+  baseUrl:'https://api-uat.simport.global',
   authServerUrl:
     'https://api-uat.simport.global/auth',
   userServerUrl:

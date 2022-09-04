@@ -104,7 +104,7 @@ export const GetCompanyDetails = (payload) => (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
   console.log(payload.company, 'getDetails payload2')
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  let headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
 
   try {
     Axios.post(`${API.corebaseUrl}${API.getCompanyDetails}`, payload, {
@@ -135,7 +135,7 @@ export const GetCreditLimit = (payload) => (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  let headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
 
   try {
     Axios.get(
@@ -170,7 +170,7 @@ export const UpdateCompanyDetails = (payload) => (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  let headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
 
   try {
     Axios.post(`${API.corebaseUrl}${API.updateCompanyDetails}`, payload, {
@@ -205,7 +205,7 @@ export const RefetchCombineKarza = (payload) => (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  let headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
 
   try {
     Axios.post(`${API.corebaseUrl}${API.refetchCombineKarza}`, payload, {
@@ -236,7 +236,7 @@ export const GetCaseDetails = (payload) => (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  let headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
 
   try {
     Axios.post(`${API.corebaseUrl}${API.getCaseDetails}`, payload, {

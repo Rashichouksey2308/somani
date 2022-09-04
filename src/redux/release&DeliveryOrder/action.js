@@ -59,7 +59,7 @@ export const GetAllDelivery = (payload) => async (dispatch, getState, api) => {
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
       Axios.get(
         `${API.corebaseUrl}${API.delivery}${payload ? payload : ''}`,
@@ -93,7 +93,7 @@ export const GetDelivery =
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
       Axios.get(`${API.corebaseUrl}${API.delivery}${payload}`, {
         headers: headers,
@@ -123,7 +123,7 @@ export const UpdateDelivery =
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
       Axios.put(`${API.corebaseUrl}${API.delivery}`, payload, {
         headers: headers,
@@ -159,7 +159,7 @@ export const UploadCustomDoc =
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
       Axios.post(`${API.corebaseUrl}${API.delivery}`, payload, {
         headers: headers,

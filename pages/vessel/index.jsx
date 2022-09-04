@@ -412,7 +412,7 @@ export default function Home() {
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
       Axios.post(`${API.corebaseUrl}${API.uploadDocVessel}`, fd, {
         headers: headers,

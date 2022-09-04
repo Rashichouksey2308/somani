@@ -21,7 +21,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
  
   })
   const setStartDate=(val,name)=>{
-      var new_date = moment(new Date(val).toISOString()).add(1, 'days').format("DD-MM-YYYY");
+      let new_date = moment(new Date(val).toISOString()).add(1, 'days').format("DD-MM-YYYY");
       if(name=="loadPort.fromDate"){
     
       setDateStartFrom({...dateStartFrom,laycan:new_date})

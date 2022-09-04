@@ -100,7 +100,7 @@ export const GettingAllInsurance =
       const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
       let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-      var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+      let headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
       Axios.get(
         `${API.corebaseUrl}${API.getInsurance}${payload ? payload : ''}`,
         {
@@ -131,7 +131,7 @@ export const CreateInsurance = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  let headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
     Axios.get(
       `${API.corebaseUrl}${API.getInsurance}`, payload ,
@@ -167,7 +167,7 @@ export const UpdateInsurance =
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
       Axios.put(`${API.corebaseUrl}${API.getInsurance}`, payload, {
         headers: headers,
@@ -200,7 +200,7 @@ export const RenewInsurance =
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
       Axios.put(`${API.corebaseUrl}${API.renewInsurance}`, payload, {
         headers: headers,
@@ -232,7 +232,7 @@ export const UpdateQuotation =
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
       Axios.put(`${API.corebaseUrl}${API.updateQuotation}`, payload, {
         headers: headers,

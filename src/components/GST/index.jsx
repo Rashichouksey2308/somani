@@ -145,7 +145,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     // );
     console.log('cts', color2, color)
 
-    var gradient = ctx.createLinearGradient(0, 0, 0, 300)
+    let gradient = ctx.createLinearGradient(0, 0, 0, 300)
     gradient.addColorStop(0, color2)
     gradient.addColorStop(1, color)
 
