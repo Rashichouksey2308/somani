@@ -71,7 +71,16 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     gstin: '',
   })
 
+
+
   useEffect(() => {
+    if ((GstData)?.length > 0) {
+      setCredential({ ...credential, gstin: GstData[0].gstin })
+      console.log('inside GSt UseEffetc')
+      SetGstFilteredData({ ...GstData[0] })
+      GstDataHandler(GstData[0])
+    }
+
     // const filteredgstin = GstData?.filter((GstinData) => GstinData.gstin === _get(orderList, 'company.gstList[0]', ''))
     // // console.log(filteredgstin.length, 'filteredgstin')
     // if (filteredgstin?.length === 1) {
@@ -85,16 +94,16 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     //   handleShow()
     // }
 
-    const arrayFiltered = GstData?.filter(
-      (GstinData) => GstinData === credential.gstin,
-    )
-    GstData?.map((gstData) => {
-      const data = { ...gstData }
-      SetGstFilteredData(data)
-      GstDataHandler(data)
-    })
+    // const arrayFiltered = GstData?.filter(
+    //   (GstinData) => GstinData === credential.gstin,
+    // )
+    // GstData?.map((gstData) => {
+    //   const data = { ...gstData }
+    //   SetGstFilteredData(data)
+    //   GstDataHandler(data)
+    // })
   }, [GstData])
-  console.log(gstFilteredData, 'gstFilteredData')
+  // console.log(gstFilteredData, 'gstFilteredData')
 
   const gstinVerifyHandler = (e) => {
     const payload = {
@@ -637,9 +646,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
 
   const finacialYear = (text) => {
     let [startYear, endYear] = (text ? text : '').split('-')
-    let finacialYear = `MAR ${startYear ? startYear : ''} - APR ${
-      endYear ? endYear : ''
-    }`
+    let finacialYear = `MAR ${startYear ? startYear : ''} - APR ${endYear ? endYear : ''
+      }`
     return finacialYear
   }
   console.log(
@@ -676,9 +684,11 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                 >
                   <span className={styles.light}>GST :</span>
                   <select
+                    value={credential.gstin}
                     className={`${styles.gst_list}`}
                     onChange={(e) => handleChangeGstin(e)}
                   >
+                    <option value='' disabled>Select a Option</option>
                     {orderList?.company?.gstList?.map((gstin, index) => (
                       <option key={index} value={gstin}>
                         {gstin}
@@ -708,8 +718,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <div className={styles.col_body}>
 
 
-                      {moment(gstFilteredData?.detail?.summaryInformation
-                        ?.businessProfile?.rgdt, 'DD-MM-YYYY').format('DD-MM-YYYY')}
+                      {gstFilteredData?.detail?.summaryInformation
+                        ?.businessProfile?.rgdt ? moment(gstFilteredData?.detail?.summaryInformation
+                          ?.businessProfile?.rgdt, 'DD-MM-YYYY').format('DD-MM-YYYY') : ''}
                     </div>
                   </Col>
                   <Col md={3} sm={12}>
@@ -763,7 +774,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </div>
                     <div
                       className={styles.col_body}
-                    >{gstFilteredData ? `${gstFilteredData?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr1?.slice(
+                    >{gstFilteredData?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr1 ? `${gstFilteredData?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr1?.slice(
                       0,
                       2,
                     )}-${gstFilteredData?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr1?.slice(
@@ -776,7 +787,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </div>
                     <div
                       className={styles.col_body}
-                    >{gstFilteredData ? `${gstFilteredData?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr3b?.slice(
+                    >{gstFilteredData?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr3b ? `${gstFilteredData?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr3b?.slice(
                       0,
                       2,
                     )}-${gstFilteredData?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr3b?.slice(
@@ -795,101 +806,101 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
               <div className={` ${styles.body}`}>
                 <Row className={` ${styles.row}`}>
 
-                    {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map((alert, index) => {
-                      if (alert.severity === 'severe') {
+                  {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map((alert, index) => {
+                    if (alert.severity === 'severe') {
 
-                        return (
-                          <>
+                      return (
+                        <>
                           <Col
                             md={2}
                             sm={12}
                           ><div className={`${styles.gst_cancelled} d-flex align-items-center justify-content-start`}>
-                            <div
-                            className={styles.dot}
-                            style={{ backgroundColor: '#3F66EA' }}
-                          ></div>
-                            <span>{alertObj[alert.alert] ?? alert.alert}</span>
-                        </div>
-                  </Col></>
-                        )
-                      }
+                              <div
+                                className={styles.dot}
+                                style={{ backgroundColor: '#3F66EA' }}
+                              ></div>
+                              <span>{alertObj[alert.alert] ?? alert.alert}</span>
+                            </div>
+                          </Col></>
+                      )
+                    }
 
-                    })}
+                  })}
                 </Row>
                 <Row className={` ${styles.row}`}>
 
-                    {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map((alert, index) => {
-                      if (alert.severity === 'high') {
+                  {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map((alert, index) => {
+                    if (alert.severity === 'high') {
 
-                        return (
-                          <>   
+                      return (
+                        <>
                           <Col
                             md={3}
                             sm={12}
                           ><div className={`${styles.gst_cancelled} gst_profile_alerts d-flex align-items-center justify-content-start`}>
-                             <div
-                            className={styles.dot}
-                            style={{ backgroundColor: '#28BE39' }}
-                          ></div>
-                            <span>{alertObj[alert.alert] ?? alert.alert}</span>
+                              <div
+                                className={styles.dot}
+                                style={{ backgroundColor: '#28BE39' }}
+                              ></div>
+                              <span>{alertObj[alert.alert] ?? alert.alert}</span>
                             </div>
-                  </Col></>
-                        )
-                      }
+                          </Col></>
+                      )
+                    }
 
-                    })}
+                  })}
 
-                    {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map((alert, index) => {
-                      if (alert.severity === 'medium') {
+                  {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map((alert, index) => {
+                    if (alert.severity === 'medium') {
 
-                        return (
-                          <>  
+                      return (
+                        <>
                           <Col
                             md={3}
                             sm={12}
                           >
-                            <div 
-                            className={`${styles.gst_cancelled} gst_profile_alerts  d-flex align-items-center justify-content-start`}><div
-                            className={styles.dot}
-                            style={{ backgroundColor: '#EA3FD6' }}
-                          ></div>
-                            <span>{alertObj[alert.alert] ?? alert.alert}</span></div>
-                  </Col></>
-                        )
-                      }
+                            <div
+                              className={`${styles.gst_cancelled} gst_profile_alerts  d-flex align-items-center justify-content-start`}><div
+                                className={styles.dot}
+                                style={{ backgroundColor: '#EA3FD6' }}
+                              ></div>
+                              <span>{alertObj[alert.alert] ?? alert.alert}</span></div>
+                          </Col></>
+                      )
+                    }
 
-                    })}
+                  })}
 
-                    {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map((alert, index) => {
-                      if (alert.severity === 'low') {
+                  {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map((alert, index) => {
+                    if (alert.severity === 'low') {
 
-                        return (
-                          <>   
+                      return (
+                        <>
                           <Col
                             md={3}
                             sm={12}
                           >
                             <div className={`${styles.gst_cancelled} gst_profile_alerts  d-flex align-items-center justify-content-start`}><div
-                            className={styles.dot}
-                            style={{ backgroundColor: '#EA3FD6' }}
-                          ></div>
-                            <span>{alertObj[alert.alert] ?? alert.alert}</span>
+                              className={styles.dot}
+                              style={{ backgroundColor: '#EA3FD6' }}
+                            ></div>
+                              <span>{alertObj[alert.alert] ?? alert.alert}</span>
                             </div>
-                  </Col></>
-                        )
-                      }
+                          </Col></>
+                      )
+                    }
 
-                    })}
+                  })}
                   <Col
                     md={3}
                     sm={12}
                   >
                     <div className={`${styles.gst_cancelled}  gst_profile_alerts  d-flex align-items-center justify-content-start`}>
-                    <div
-                      className={styles.dot}
-                      style={{ backgroundColor: '#CBC5C5' }}
-                    ></div>
-                    <span>GST Inactive</span>
+                      <div
+                        className={styles.dot}
+                        style={{ backgroundColor: '#CBC5C5' }}
+                      ></div>
+                      <span>GST Inactive</span>
                     </div>
                   </Col>
                 </Row>
@@ -2022,7 +2033,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         { minimumFractionDigits: 2 },
                       )}
                     </td>
-                    
+
                     <td className="border-left-0">
                       {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.relatedPartyPurchase?.current?.percentage?.toFixed(2)}
                       %
@@ -2163,7 +2174,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td></td>
                     <td className="border-left-0">
                       <strong>
-                        
+
                         {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.purchasesGrowthRate?.current?.value?.toFixed(2)}
                         %
                       </strong>
@@ -2171,7 +2182,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td></td>
                     <td className="border-left-0">
                       <strong>
-                        
+
                         {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.purchasesGrowthRate?.previous?.value?.toFixed(2)}
                         %
                       </strong>
@@ -2184,7 +2195,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td></td>
                     <td className="border-left-0">
                       <strong>
-                        
+
                         {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.current?.value?.toFixed(2)}
                         %
                       </strong>
@@ -2192,7 +2203,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td></td>
                     <td className="border-left-0">
                       <strong>
-                        
+
                         {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.previous?.value?.toFixed(2)}
                         %
                       </strong>
@@ -2458,7 +2469,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       (customer, index) => (
                         <tr key={index}>
                           <td colSpan={2}>
-                            {moment(customer?.retPeriod, 'MMYYY').format(
+                            {moment(customer?.retPeriod, 'MMYYYY').format(
                               'MMMM YYYY',
                             )}
                           </td>
@@ -3397,7 +3408,7 @@ const gstPurchase = (head, gstFilteredData) => {
                             ),
                           )}
                         </tr>
-                        <tr>
+                        {/* <tr>
                           <td>B2C Purchase</td>
                           {gstFilteredData?.detail?.purchaseDetail?.purchases.map(
                             (sales, index) => (
@@ -3413,6 +3424,16 @@ const gstPurchase = (head, gstFilteredData) => {
                             (sales, index) => (
                               <td key={index}>
                                 {sales?.import?.toLocaleString()}
+                              </td>
+                            ),
+                          )}
+                        </tr> */}
+                        <tr>
+                          <td>Others</td>
+                          {gstFilteredData?.detail?.purchaseDetail?.purchases.map(
+                            (sales, index) => (
+                              <td key={index}>
+                                {sales?.others?.toLocaleString()}
                               </td>
                             ),
                           )}
