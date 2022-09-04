@@ -14,7 +14,13 @@ import _get from 'lodash/get'
 import { removePrefixOrSuffix, addPrefixOrSuffix } from 'utils/helper'
 import { toast } from 'react-toastify'
 
-export default function Index({ customData, OrderId, uploadDoc }) {
+export default function Index({
+  customData,
+  OrderId,
+  uploadDoc,
+  setComponentId,
+  componentId,
+}) {
   const isShipmentTypeBULK =
     _get(customData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk'
   const dispatch = useDispatch()
@@ -268,6 +274,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
       let task = 'submit'
 
       dispatch(UpdateCustomClearance({ fd, task }))
+      setComponentId(componentId + 1)
     }
   }
 

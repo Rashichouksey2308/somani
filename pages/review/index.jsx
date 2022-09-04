@@ -499,10 +499,7 @@ function Index() {
       }
       return false
     }
-    if (
-      orderDetails?.hsnCode === '' ||
-      orderDetails?.hsnCode == undefined
-    ) {
+    if (orderDetails?.hsnCode === '' || orderDetails?.hsnCode == undefined) {
       let toastMessage = 'the hsn code can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -1487,6 +1484,8 @@ function Index() {
   }
   console.log(gstData, 'gstDAta')
 
+  const handleGSTDownload = () => {}
+
   const deleteData = (index) => {
     //console.log("indexssd",index)
     setCompanyComment([
@@ -2018,7 +2017,7 @@ function Index() {
                   <div className={`${styles.card} card`}>
                     <div
                       className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
-                      style={{ cursor: 'default' }}
+                      // style={{ cursor: 'pointer' }}
                     >
                       <div
                         className={`${styles.detail_head_container}  d-flex align-items-center justify-content-between w-100`}
@@ -2046,7 +2045,7 @@ function Index() {
                     </div>
                     <div
                       id="compliance"
-                      className="collapse"
+                      // className="collapse"
                       aria-labelledby="compliance"
                       data-parent="#profileAccordion"
                     >
@@ -2085,7 +2084,8 @@ function Index() {
                                           <div
                                             className={`${styles.compliance_content} Compliance ml-1`}
                                           >
-                                            {alertObj[alert.alert] ?? alert.alert}
+                                            {alertObj[alert.alert] ??
+                                              alert.alert}
                                           </div>
                                         </div>
                                       )
@@ -2124,7 +2124,8 @@ function Index() {
                                           <div
                                             className={`${styles.compliance_content} Compliance ml-1`}
                                           >
-                                            {alertObj[alert.alert] ?? alert.alert}
+                                            {alertObj[alert.alert] ??
+                                              alert.alert}
                                           </div>
                                         </div>
                                       )
@@ -2165,7 +2166,8 @@ function Index() {
                                           <div
                                             className={`${styles.compliance_content} Compliance ml-1`}
                                           >
-                                            {alertObj[alert.alert] ?? alert.alert}
+                                            {alertObj[alert.alert] ??
+                                              alert.alert}
                                           </div>
                                         </div>
                                       )
@@ -2206,7 +2208,8 @@ function Index() {
                                           <div
                                             className={`${styles.compliance_content} Compliance ml-1`}
                                           >
-                                            {alertObj[alert.alert] ?? alert.alert}
+                                            {alertObj[alert.alert] ??
+                                              alert.alert}
                                           </div>
                                         </div>
                                       )
@@ -2732,6 +2735,7 @@ function Index() {
       ) : null}
       {selectedTab == 'GST' ? (
         <DownloadBar
+          handleReject={handleGSTDownload}
           downLoadButtonName={`GST Report`}
           isPrevious={true}
           isApprove={true}
