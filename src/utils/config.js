@@ -1,5 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-//Stage
+//Dev
 //  export default {
 //    authServerUrl:
 //    'http://ac201fa5ca83c425eadfafefbc540d04-1369552433.ap-south-1.elb.amazonaws.com:3001/node',
@@ -9,22 +9,28 @@
 //    'http://aebe3546d63a44165b13cdee5eae4269-1800895422.ap-south-1.elb.amazonaws.com:3003/node',
 //  }
 
-//export default {
-  //authServerUrl:
-    //'http://ac28f8eec78724f91a29a7396ffb6d94-1944199995.ap-south-1.elb.amazonaws.com:3001/node',
-  //userServerUrl:
-   // 'http://a09b213b032a34abb9085ae2492a3ea0-742790725.ap-south-1.elb.amazonaws.com:3002/node',
- // coreServerUrl:
-   // 'http://a7f61f121ede1413fb179c2d4d51763b-321841070.ap-south-1.elb.amazonaws.com:3003/node',
-//}
+
   // UAT
+// export default {
+//   authServerUrl:
+//     'http://ac28f8eec78724f91a29a7396ffb6d94-1944199995.ap-south-1.elb.amazonaws.com:3001/node',
+//   userServerUrl:
+//     'http://a09b213b032a34abb9085ae2492a3ea0-742790725.ap-south-1.elb.amazonaws.com:3002/node',
+//   coreServerUrl:
+//     'http://a7f61f121ede1413fb179c2d4d51763b-321841070.ap-south-1.elb.amazonaws.com:3003/node',
+// }
+
+
+
+//Https
+
 export default {
   authServerUrl:
-    'http://ac28f8eec78724f91a29a7396ffb6d94-1944199995.ap-south-1.elb.amazonaws.com:3001/node',
+    'https://yaua25mlee.execute-api.ap-south-1.amazonaws.com/uat/auth',
   userServerUrl:
-    'http://a09b213b032a34abb9085ae2492a3ea0-742790725.ap-south-1.elb.amazonaws.com:3002/node',
+    'https://yaua25mlee.execute-api.ap-south-1.amazonaws.com/uat/user',
   coreServerUrl:
-    'http://a7f61f121ede1413fb179c2d4d51763b-321841070.ap-south-1.elb.amazonaws.com:3003/node',
+    'https://yaua25mlee.execute-api.ap-south-1.amazonaws.com/uat/core',
 }
 
 //local
