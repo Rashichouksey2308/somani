@@ -18,10 +18,11 @@ import toast from 'react-toastify'
 import Router from 'next/router'
 import Cookies from 'js-cookie'
 import Axios from 'axios'
-import { setPageName,setDynamicName } from '../../src/redux/userData/action'
+import { setPageName, setDynamicName } from '../../src/redux/userData/action'
 
 function Index() {
   const dispatch = useDispatch()
+  const [componentId, setComponentId] = useState(1)
 
   const [darkMode, setDarkMode] = useState(false)
 
@@ -29,10 +30,10 @@ function Index() {
     let id = sessionStorage.getItem('customId')
     dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
   }, [dispatch])
-useEffect(() => {
-dispatch(setPageName('custom'))
-dispatch(setDynamicName(customData?.company?.companyName))
-},[customData])
+  useEffect(() => {
+    dispatch(setPageName('custom'))
+    dispatch(setDynamicName(customData?.company?.companyName))
+  }, [customData])
   const { allCustomClearance } = useSelector((state) => state.Custom)
 
   let customData = _get(allCustomClearance, 'data[0]', {})
@@ -84,12 +85,14 @@ dispatch(setDynamicName(customData?.company?.companyName))
     <>
       <div className={`${styles.dashboardTab} w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
-          <div className={`${styles.tab_header_inner} d-flex align-items-center`}>
+          <div
+            className={`${styles.tab_header_inner} d-flex align-items-center`}
+          >
             <img
-              src="/static/keyboard_arrow_right-3.svg" alt="arrow right"
-               className="img-fluid mr-2 image_arrow"
-               onClick={() => Router.push('/bill-of-entry')}
-
+              src="/static/keyboard_arrow_right-3.svg"
+              alt="arrow right"
+              className="img-fluid mr-2 image_arrow"
+              onClick={() => Router.push('/bill-of-entry')}
             />
             <h1 className={`${styles.title} heading`}>
               <span>{customData?.company?.companyName} - Ramal001-00002</span>
@@ -98,36 +101,48 @@ dispatch(setDynamicName(customData?.company?.companyName))
           <ul className={`${styles.navTabs} nav nav-tabs`}>
             <li className={`${styles.navItem}  nav-item`}>
               <a
-                className={`${styles.navLink} navLink  nav-link active`}
-                data-toggle="tab"
-                href="#billEntry"
-                role="tab"
-                aria-controls="billEntry"
-                aria-selected="true"
+                className={`${styles.navLink} navLink  nav-link ${
+                  componentId === 1 && 'active'
+                }`}
+                // data-toggle="tab"
+                // href="#billEntry"
+                // role="tab"
+                // aria-controls="billEntry"
+                // aria-selected="true"
+                role="button"
+                onClick={() => setComponentId(1)}
               >
                 Bill of Entry
               </a>
             </li>
             <li className={`${styles.navItem} nav-item`}>
               <a
-                className={`${styles.navLink} navLink nav-link `}
-                data-toggle="tab"
-                href="#dischargeCargo"
-                role="tab"
-                aria-controls="dischargeCargo"
-                aria-selected="false"
+                className={`${styles.navLink} navLink nav-link ${
+                  componentId === 2 && 'active'
+                } `}
+                role="button"
+                // data-toggle="tab"
+                // id="#dischargeCargo"
+                // role="tab"
+                // aria-controls="dischargeCargo"
+                // aria-selected="false"
+                onClick={() => setComponentId(2)}
               >
                 Discharge of Cargo
               </a>
             </li>
             <li className={`${styles.navItem} nav-item`}>
               <a
-                className={`${styles.navLink} navLink nav-link `}
-                data-toggle="tab"
-                href="#warehouse"
-                role="tab"
-                aria-controls="warehouse"
-                aria-selected="false"
+                className={`${styles.navLink} navLink nav-link ${
+                  componentId === 3 && 'active'
+                }`}
+                role="button"
+                // data-toggle="tab"
+                // href="#warehouse"
+                // role="tab"
+                // aria-controls="warehouse"
+                // aria-selected="false"
+                onClick={() => setComponentId(3)}
               >
                 Warehouse Details
               </a>
@@ -139,36 +154,52 @@ dispatch(setDynamicName(customData?.company?.companyName))
           <div className={`${styles.mainCard}`}>
             <div className="row">
               <div className="col-md-12 p-0 accordion_body">
-                <div className={`${styles.tabContent} tab-content`}>
-                  <div
-                    className="tab-pane show active fade"
-                    id="billEntry"
-                    role="tabpanel"
-                  >
-                    <div className={`${styles.card}  accordion_body`}>
+                <div className={`${styles.tabContent} `}>
+                  {/* <div className="fade" id="billEntry" role="tabpanel"> */}
+                  <div className={`${styles.card}  accordion_body`}>
+                    {componentId === 1 && (
                       <BillOfEntry
                         uploadDoc={uploadDoc}
                         OrderId={OrderId}
                         customData={customData}
+                        componentId={componentId}
+                        setComponentId={setComponentId}
+                        
                       />
-                    </div>
+                    )}
                   </div>
+                  {/* </div> */}
 
-                  <div
+                  {/* <div
                     className="tab-pane fade"
                     id="dischargeCargo"
                     role="tabpanel"
-                  >
-                    <div className={`${styles.card}  accordion_body`}>
-                      <DischargeCargo uploadDoc={uploadDoc} OrderId={OrderId} customData={customData} />
-                    </div>
+                  > */}
+                  <div className={`${styles.card}  accordion_body`}>
+                    {componentId === 2 && (
+                      <DischargeCargo
+                        uploadDoc={uploadDoc}
+                        OrderId={OrderId}
+                        customData={customData}
+                        componentId={componentId}
+                        setComponentId={setComponentId}
+                        
+                      />
+                    )}
                   </div>
+                  {/* </div> */}
 
-                  <div className="tab-pane fade" id="warehouse" role="tabpanel">
-                    <div className={`${styles.card}  accordion_body`}>
-                      <Warehouse uploadDoc={uploadDoc} OrderId={OrderId} customData={customData} />
-                    </div>
+                  {/* <div className="tab-pane fade" id="warehouse" role="tabpanel"> */}
+                  <div className={`${styles.card}  accordion_body`}>
+                    {componentId === 3 && (
+                      <Warehouse
+                        uploadDoc={uploadDoc}
+                        OrderId={OrderId}
+                        customData={customData}
+                      />
+                    )}
                   </div>
+                  {/* </div> */}
                 </div>
               </div>
             </div>
