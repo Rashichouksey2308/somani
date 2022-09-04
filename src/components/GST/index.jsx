@@ -794,114 +794,103 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
               </div>
               <div className={` ${styles.body}`}>
                 <Row className={` ${styles.row}`}>
-                  <Col
-                    md={2}
-                    sm={12}
-                    className={`${styles.gst_cancelled}  d-flex align-items-center justify-content-start`}
-                  >
-                    {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map(
-                      (alert, index) => {
-                        if (alert.severity === 'severe') {
-                          return (
-                            <>
-                              {' '}
-                              <div
-                                className={styles.dot}
-                                style={{ backgroundColor: '#EA3FD6' }}
-                              ></div>
-                              <span>
-                                {alertObj[alert.alert] ?? alert.alert}
-                              </span>
-                            </>
-                          )
-                        }
-                      },
-                    )}
-                  </Col>
+
+                    {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map((alert, index) => {
+                      if (alert.severity === 'severe') {
+
+                        return (
+                          <>
+                          <Col
+                            md={2}
+                            sm={12}
+                          ><div className={`${styles.gst_cancelled} d-flex align-items-center justify-content-start`}>
+                            <div
+                            className={styles.dot}
+                            style={{ backgroundColor: '#EA3FD6' }}
+                          ></div>
+                            <span>{alertObj[alert.alert] ?? alert.alert}</span>
+                        </div>
+                  </Col></>
+                        )
+                      }
+
+                    })}
                 </Row>
                 <Row className={` ${styles.row}`}>
+
+                    {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map((alert, index) => {
+                      if (alert.severity === 'high') {
+
+                        return (
+                          <>   
+                          <Col
+                            md={3}
+                            sm={12}
+                          ><div className={`${styles.gst_cancelled} gst_profile_alerts d-flex align-items-center justify-content-start`}>
+                             <div
+                            className={styles.dot}
+                            style={{ backgroundColor: '#EA3FD6' }}
+                          ></div>
+                            <span>{alertObj[alert.alert] ?? alert.alert}</span>
+                            </div>
+                  </Col></>
+                        )
+                      }
+
+                    })}
+
+                    {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map((alert, index) => {
+                      if (alert.severity === 'medium') {
+
+                        return (
+                          <>  
+                          <Col
+                            md={3}
+                            sm={12}
+                          >
+                            <div 
+                            className={`${styles.gst_cancelled} gst_profile_alerts  d-flex align-items-center justify-content-start`}><div
+                            className={styles.dot}
+                            style={{ backgroundColor: '#EA3FD6' }}
+                          ></div>
+                            <span>{alertObj[alert.alert] ?? alert.alert}</span></div>
+                  </Col></>
+                        )
+                      }
+
+                    })}
+
+                    {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map((alert, index) => {
+                      if (alert.severity === 'low') {
+
+                        return (
+                          <>   
+                          <Col
+                            md={3}
+                            sm={12}
+                          >
+                            <div className={`${styles.gst_cancelled} gst_profile_alerts  d-flex align-items-center justify-content-start`}><div
+                            className={styles.dot}
+                            style={{ backgroundColor: '#EA3FD6' }}
+                          ></div>
+                            <span>{alertObj[alert.alert] ?? alert.alert}</span>
+                            </div>
+                  </Col></>
+                        )
+                      }
+
+                    })}
                   <Col
                     md={3}
                     sm={12}
-                    className={`${styles.gst_cancelled} gst_profile_alerts  d-flex align-items-center justify-content-start`}
                   >
-                    {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map(
-                      (alert, index) => {
-                        if (alert.severity === 'high') {
-                          return (
-                            <>
-                              {' '}
-                              <div
-                                className={styles.dot}
-                                style={{ backgroundColor: '#EA3FD6' }}
-                              ></div>
-                              <span>
-                                {alertObj[alert.alert] ?? alert.alert}
-                              </span>
-                            </>
-                          )
-                        }
-                      },
-                    )}
-                  </Col>
-                  <Col
-                    md={3}
-                    sm={12}
-                    className={`${styles.gst_cancelled}  gst_profile_alerts  d-flex align-items-center justify-content-start`}
-                  >
-                    {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map(
-                      (alert, index) => {
-                        if (alert.severity === 'medium') {
-                          return (
-                            <>
-                              {' '}
-                              <div
-                                className={styles.dot}
-                                style={{ backgroundColor: '#EA3FD6' }}
-                              ></div>
-                              <span>
-                                {alertObj[alert.alert] ?? alert.alert}
-                              </span>
-                            </>
-                          )
-                        }
-                      },
-                    )}
-                  </Col>
-                  <Col
-                    md={3}
-                    sm={12}
-                    className={`${styles.gst_cancelled}  gst_profile_alerts  d-flex align-items-center justify-content-start`}
-                  >
-                    {gstFilteredData?.detail?.summaryInformation?.alertsIdentified.map(
-                      (alert, index) => {
-                        if (alert.severity === 'low') {
-                          return (
-                            <>
-                              {' '}
-                              <div
-                                className={styles.dot}
-                                style={{ backgroundColor: '#EA3FD6' }}
-                              ></div>
-                              <span>
-                                {alertObj[alert.alert] ?? alert.alert}
-                              </span>
-                            </>
-                          )
-                        }
-                      },
-                    )}
-                  </Col>
-                  <Col
-                    md={3}
-                    sm={12}
-                    className={`${styles.gst_cancelled}  gst_profile_alerts  d-flex align-items-center justify-content-start`}
-                  >
+                    <div className={`${styles.gst_cancelled}  gst_profile_alerts  d-flex align-items-center justify-content-start`}>
                     <div
                       className={styles.dot}
                       style={{ backgroundColor: '#CBC5C5' }}
                     ></div>
                     <span>GST Inactive</span>
+                    </div>
                   </Col>
                 </Row>
               </div>
@@ -3270,23 +3259,15 @@ const gstSales = (head, gstFilteredData) => {
                       <tbody>
                         <tr>
                           <td>New Customers</td>
-                          {gstFilteredData?.detail?.salesDeatail?.revenuePercentage.map(
-                            (sales, index) => (
-                              <td key={index}>
-                                {sales?.newCustomer?.toLocaleString()}
-                              </td>
-                            ),
-                          )}
+                          {gstFilteredData?.detail?.salesDeatail?.revenuePercentage.map((sales, index) => (
+                            <td key={index}>{sales?.newCustomer?.toFixed(2)}</td>
+                          ))}
                         </tr>
                         <tr>
                           <td>Recurring Customers</td>
-                          {gstFilteredData?.detail?.salesDeatail?.revenuePercentage.map(
-                            (sales, index) => (
-                              <td key={index}>
-                                {sales?.RecurringCustomer?.toLocaleString()}
-                              </td>
-                            ),
-                          )}
+                          {gstFilteredData?.detail?.salesDeatail?.revenuePercentage.map((sales, index) => (
+                            <td key={index}>{sales?.RecurringCustomer?.toFixed(2)}</td>
+                          ))}
                         </tr>
                       </tbody>
                     </table>
