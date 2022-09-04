@@ -1487,6 +1487,10 @@ function Index() {
   }
   console.log(gstData, 'gstDAta')
 
+  const handleGSTDownload = () => {
+    
+  }
+
   const deleteData = (index) => {
     //console.log("indexssd",index)
     setCompanyComment([
@@ -2732,6 +2736,7 @@ function Index() {
       ) : null}
       {selectedTab == 'GST' ? (
         <DownloadBar
+        handleReject={handleGSTDownload}
           downLoadButtonName={`GST Report`}
           isPrevious={true}
           isApprove={true}
