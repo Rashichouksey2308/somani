@@ -208,9 +208,23 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                           type="file"
                           name="myfile"
                         />
-                        <button className={`${styles.upload_btn} btn`}>
+                        <button className={`${styles.upload_btn} btn mr-3`}>
                           Upload
                         </button>
+
+                        <img
+                          src="/static/delete 2.svg"
+                          className="img-fluid mr-3"
+                          alt="delete"
+                          onClick={() => removeFromArr(clause.dropDownValue)}
+                        />
+
+                        <img
+                          src="/static/mode_edit.svg"
+                          className="img-fluid"
+                          alt="delete"
+                          onClick={() => removeFromArr(clause.dropDownValue)}
+                        />
                       </div>
                     ) : (
                       <div className={styles.certificate}>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col, Modal } from 'react-bootstrap'
 import SaveBar from '../../SaveBar'
@@ -14,6 +14,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
   console.log(customData, 'customData')
   const dispatch = useDispatch()
   const [show, setShow] = useState(false)
+  const [totalBl, setTotalBl] = useState(0)
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
@@ -76,7 +77,17 @@ export default function Index({ OrderId, customData, uploadDoc }) {
 
   const onSaveDischarge = () => {
     if (dischargeOfCargo.dischargeOfCargo.dischargeQuantity === '') {
-      let toastMessage = 'DISCHRGE QUANTITY CANNOT BE EMPTY  '
+      let toastMessage = 'DISCHARGE QUANTITY CANNOT BE EMPTY  '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    } else if (
+      dischargeOfCargo.dischargeOfCargo.dischargeQuantity >
+      customData?.order?.quantity
+    ) {
+      let toastMessage =
+        'DISCHARGE QUANTITY CANNOT BE GREATER THAN ORDER QUANTITY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
@@ -151,6 +162,14 @@ export default function Index({ OrderId, customData, uploadDoc }) {
     }
   }
 
+  useEffect(() => {
+    if (customData) {
+      let data = Number(
+        customData?.order?.transit?.BL?.billOfLanding[0]?.blQuantity,
+      )
+      setTotalBl(data)
+    }
+  }, [customData])
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -492,14 +511,14 @@ export default function Index({ OrderId, customData, uploadDoc }) {
             cellSpacing="0"
             border="0"
           >
-            <tr className="table_row">
+            <tr className="table_row text-center">
               <th width="33%">BL NUMBER</th>
               <th width="33%">BL DATE</th>
               <th width="33%">BL QUANTITY</th>
             </tr>
             {_get(customData, 'order.transit.BL.billOfLanding', [{}]).map(
               (bl, indexbl) => (
-                <tr className="table_row">
+                <tr className="table_row text-center" key={indexbl}>
                   <td className="font-weight-bold">{bl?.blNumber}</td>
                   <td>
                     {moment(
@@ -516,7 +535,11 @@ export default function Index({ OrderId, customData, uploadDoc }) {
             )}
           </table>
           <div>
-            <span className="text">Total Quantity: </span> &nbsp; 8,000 MT{' '}
+            <span className="text">Total Quantity: </span> &nbsp;{' '}
+            {isNaN(totalBl) ? '' : totalBl}{' '}
+            {isNaN(totalBl)
+              ? ''
+              : customData?.order?.unitOfQuantity.toUpperCase()}
           </div>
         </Modal.Body>
       </Modal>
