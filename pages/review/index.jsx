@@ -1479,12 +1479,15 @@ function Index() {
   // console.log(newDoc, "documents")
 
   const GstDataHandler = (data) => {
-    console.log(data, 'gst')
+    console.log(data, 'gst3234')
     setGstData(data)
   }
   console.log(gstData, 'gstDAta')
 
-  const handleGSTDownload = () => {}
+  const handleGSTDownload = () => {
+    window.open(
+      gstData?.detail?.other?.pdfLink, "_blank")
+  }
 
   const deleteData = (index) => {
     //console.log("indexssd",index)

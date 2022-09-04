@@ -630,7 +630,7 @@ export default function Index({
                       _get(TransitDetails, 'data[0].order.orderValue', ''),
                     )}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
-                    'Crores'
+                      'Crores'
                       ? 'Cr'
                       : _get(TransitDetails, 'data[0].order.unitOfValue', '')}
                   </span>
@@ -704,26 +704,26 @@ export default function Index({
                               </option>
                               {shipmentTypeBulk
                                 ? _get(
-                                    TransitDetails,
-                                    'data[0].order.vessel.vessels',
-                                    [],
-                                  ).map((vessel, index) => (
-                                    <option
-                                      value={vessel?.vesselInformation?.name}
-                                      key={index}
-                                    >
-                                      {vessel?.vesselInformation[0]?.name}
-                                    </option>
-                                  ))
+                                  TransitDetails,
+                                  'data[0].order.vessel.vessels',
+                                  [],
+                                ).map((vessel, index) => (
+                                  <option
+                                    value={vessel?.vesselInformation?.name}
+                                    key={index}
+                                  >
+                                    {vessel?.vesselInformation[0]?.name}
+                                  </option>
+                                ))
                                 : _get(
-                                    TransitDetails,
-                                    'data[0].order.vessel.vessels[0].vesselInformation',
-                                    [],
-                                  ).map((vessel, index) => (
-                                    <option value={vessel?.name} key={index}>
-                                      {vessel?.name}
-                                    </option>
-                                  ))}
+                                  TransitDetails,
+                                  'data[0].order.vessel.vessels[0].vesselInformation',
+                                  [],
+                                ).map((vessel, index) => (
+                                  <option value={vessel?.name} key={index}>
+                                    {vessel?.name}
+                                  </option>
+                                ))}
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -775,6 +775,8 @@ export default function Index({
                               selected={
                                 startBlDate ? moment(startBlDate).toDate() : ''
                               }
+                              // value={moment((bol?.blDate)?.split(0, 10)).format('DD-MM-YYYY')}
+                              defaultDate={bol?.blDate}
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startBlDate) => {
@@ -915,7 +917,7 @@ export default function Index({
                           </h5>
                           <div className="row mt-n4">
                             {bol?.containerDetails?.containerDoc ===
-                            null ? null : (
+                              null ? null : (
                               <div
                                 className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                               >
@@ -1136,7 +1138,7 @@ export default function Index({
                                       </button>
                                     </div> */}
                                     {bolList &&
-                                    bolList[index]?.containerNumberListDoc ==
+                                      bolList[index]?.containerNumberListDoc ==
                                       null ? (
                                       <>
                                         <div
@@ -1210,7 +1212,7 @@ export default function Index({
                                       </button>
                                     </div> */}
                                     {bolList &&
-                                    bolList[index]?.packingListDoc == null ? (
+                                      bolList[index]?.packingListDoc == null ? (
                                       <>
                                         <div
                                           className={styles.uploadBtnWrapper}
@@ -1356,7 +1358,7 @@ export default function Index({
                               </td>
                               <td>
                                 {bolList &&
-                                bolList[index]?.blSurrenderDoc == null ? (
+                                  bolList[index]?.blSurrenderDoc == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
