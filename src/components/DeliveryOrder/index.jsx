@@ -73,7 +73,7 @@ export default function Index(props) {
                         props,
                         'ReleaseOrder.data[0].order.unitOfQuantity',
                         '',
-                      )}
+                      ).toUpperCase()}
                     </span>
                   </div>
 
@@ -89,7 +89,7 @@ export default function Index(props) {
                         props,
                         'ReleaseOrder.data[0].order.unitOfQuantity',
                         '',
-                      )}
+                      ).toUpperCase()}
                     </span>
                   </div>
                 </div>
