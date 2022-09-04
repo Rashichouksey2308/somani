@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
+import _get from 'lodash/get'
+import { setDynamicName } from '../../../src/redux/userData/action'
+
 export default function Index({ isQuery }) {
+  const dispatch = useDispatch()
   const [show, setShow] = useState({
     units: true,
     currency: true,
@@ -70,6 +74,18 @@ export default function Index({ isQuery }) {
       setShow({ ...show })
     }
   }, [isQuery])
+
+  //use effect to call custom data here , in order to get breadcrumb to work
+  useEffect(() => {
+    dispatch(setDynamicName(customData?.company?.companyName))
+  }, [customData])
+  const { allCustomClearance } = useSelector((state) => state.Custom)
+
+  let customData = _get(allCustomClearance, 'data[0]', {})
+  let OrderId = _get(customData, 'order.orderId', {})
+  // let companyName = _get(oldCustomData,"")
+  console.log(allCustomClearance, 'old')
+  let companyName = _get(customData, 'company.companyName')
 
   const [myUrl, setUrl] = useState([])
   const [myUrlLength, setUrlLength] = useState([])
@@ -246,10 +262,11 @@ export default function Index({ isQuery }) {
       if (id !== null) {
         router.route =
           '/Custom Clearance & Warehouse' +
-          `/${id.toLowerCase()}` +
+          `/${companyName}` +
           '/Bill of Entry' +
-          '/Ramal001-00002'
+          `/${OrderId}`
         console.log('router123', router.route)
+        console.log(id, 'id123')
       } else {
         router.route = '/Custom Clearance & Warehouse'
       }
