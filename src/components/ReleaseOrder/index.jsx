@@ -363,8 +363,10 @@ export default function Index({ ReleaseOrderData }) {
                           className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                         >
                           <input
-                          onWheel={(e) => e.target.blur()}
-                            defaultValue={Number(item.netQuantityReleased)?.toLocaleString()}
+                            onWheel={(e) => e.target.blur()}
+                            defaultValue={Number(
+                              item.netQuantityReleased,
+                            )?.toLocaleString()}
                             onChange={(e) => netQuantityChange(e, index)}
                             id="netQuantityReleased"
                             className={`${styles.input_field} input form-control`}
