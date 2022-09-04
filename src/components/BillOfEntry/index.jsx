@@ -59,7 +59,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
   })
   const totalCustomDuty = () => {
     let number = 0
-    billOfEntryData.duty.forEach((val) => {
+    billOfEntryData?.duty?.forEach((val) => {
       number += Number(val.amount)
     })
     //console.log(totalCustomDuty, 'totalCustomDuty')
@@ -153,6 +153,10 @@ export default function Index({ customData, OrderId, uploadDoc }) {
 
   const handleDeleteRow = (index) => {
     setDutyData([...dutyData.slice(0, index), ...dutyData.slice(index + 1)])
+  }
+
+  const removeDoc = (name) => {
+    setBillOfEntryData({ ...billOfEntryData, [name]: null })
   }
 
   const addMoredutyDataRows = () => {
@@ -295,9 +299,44 @@ export default function Index({ customData, OrderId, uploadDoc }) {
       )
       setTotalBl(data)
     }
+
+    if (customData?.billOfEntry?.billOfEntry) {
+      let data = _get(customData, 'billOfEntry.billOfEntry[0]', [{}])
+      let tempArray = {
+        boeAssessment: data?.boeAssessment,
+        pdBond: data?.pdBond,
+        billOfEntryFor: data?.billOfEntryFor,
+        boeNumber: data?.boeNumber,
+        boeDate: data?.boeDate,
+
+        boeDetails: {
+          invoiceQuantity: data?.boeDetails?.invoiceQuantity,
+          invoiceQuantityUnit: data?.boeDetails?.invoiceQuantityUnit,
+          currency: data?.boeDetails?.currency,
+          conversionRate: data?.boeDetails?.conversionRate,
+          invoiceNumber: data?.boeDetails?.invoiceNumber,
+          invoiceValue: data?.boeDetails?.invoiceValue,
+          invoiceValueCurrency: data?.boeDetails?.invoiceValueCurrency,
+          invoiceDate: data?.boeDetails?.invoiceDate,
+          boeRate: data?.boeDetails?.boeRate,
+          bankName: data?.boeDetails?.bankName,
+        },
+        duty: data.duty,
+
+        document1: data?.document1 ?? null,
+        document2: data?.document2 ?? null,
+        document3: data?.document3 ?? null,
+      }
+      setBillOfEntryData(tempArray)
+    }
   }, [customData])
 
-  console.log(customData, 'customData')
+
+
+  // console.log(
+  //   customData,
+  //   // billOfEntryData,
+  //   'customData')
 
   return (
     <>
@@ -423,6 +462,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       onChange={(e) =>
                         saveBillOfEntryData(e.target.name, e.target.value)
                       }
+                      value={billOfEntryData?.billOfEntryFor}
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
                       <option selected>Select Bill Of Entry For</option>
@@ -449,6 +489,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                     type="number"
                     name="boeNumber"
                     required
+                    value={billOfEntryData?.boeNumber}
                     onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                     onChange={(e) =>
                       saveBillOfEntryData(e.target.name, e.target.value)
@@ -463,6 +504,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                 >
                   <div className="d-flex">
                     <DateCalender
+                      defaultDate={billOfEntryData.boeDate}
                       name="boeDate"
                       saveDate={saveDate}
                       labelName="BOE Date"
@@ -575,7 +617,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                   </span>
                 </div>
                 {_get(customData, 'order.commodity', '').toLowerCase() ===
-                'coal' ? (
+                  'coal' ? (
                   <>
                     <div
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
@@ -612,7 +654,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       onChange={(e) =>
                         saveBillOfEntryData(e.target.name, e.target.value)
                       }
-                      value={billOfEntryData.boeDetails.currency}
+                      value={billOfEntryData?.boeDetails?.currency}
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
                       <option selected>Select an option</option>
@@ -635,6 +677,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <input
+                    value={billOfEntryData?.boeDetails?.invoiceNumber}
                     className={`${styles.input_field} input form-control`}
                     type="text"
                     name="boeDetails.invoiceNumber"
@@ -653,6 +696,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                 >
                   <div className="d-flex">
                     <DateCalender
+                      defaultDate={billOfEntryData?.boeDetails?.invoiceDate}
                       name="boeDetails.invoiceDate"
                       saveDate={saveBoeDetaiDate}
                       labelName="Invoice Date"
@@ -669,6 +713,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <input
+                    value={billOfEntryData?.boeDetails?.invoiceQuantity}
                     className={`${styles.input_field} input form-control`}
                     type="number"
                     min={1}
@@ -689,6 +734,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <input
+                    value={billOfEntryData?.boeDetails?.invoiceValue}
                     className={`${styles.input_field} input form-control`}
                     type="number"
                     required
@@ -731,7 +777,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                         customData,
                         'billOfEntry.billOfEntry[0].boeDetails.invoiceValue',
                       ),
-                    ) * billOfEntryData.boeDetails.conversionRate}
+                    ) * billOfEntryData?.boeDetails?.conversionRate}
                   </span>
                 </div>
                 {/* <div
@@ -759,6 +805,8 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                       onChange={(e) =>
                         saveBillOfEntryData(e.target.name, e.target.value)
                       }
+                      value={billOfEntryData?.boeDetails?.bankName}
+
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
                       <option selected>Select Bank</option>
@@ -1115,6 +1163,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                           <div className={styles.certificate}>
                             {billOfEntryData?.document1?.originalName}
                             <img
+                              onClick={() => removeDoc('document1')}
                               className={`${styles.close_image} float-right m-2 img-fluid`}
                               src="/static/close.svg"
                               alt="Close"
@@ -1155,6 +1204,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                           <div className={styles.certificate}>
                             {billOfEntryData?.document2?.originalName}
                             <img
+                              onClick={() => removeDoc('document2')}
                               className={`${styles.close_image} float-right m-2 img-fluid`}
                               src="/static/close.svg"
                               alt="Close"
@@ -1198,6 +1248,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                             <div className={styles.certificate}>
                               {billOfEntryData?.document3?.originalName}
                               <img
+                                onClick={() => removeDoc('document3')}
                                 className={`${styles.close_image} float-right m-2 img-fluid`}
                                 src="/static/close.svg"
                                 alt="Close"
@@ -1215,7 +1266,7 @@ export default function Index({ customData, OrderId, uploadDoc }) {
           <div className="">
             <UploadOther
               orderid={OrderId}
-              module="CustomClearanceAndWarehousing"
+              module="customClearanceAndWarehousing"
               isDocumentName={true}
             />
           </div>

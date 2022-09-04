@@ -18,7 +18,7 @@ import toast from 'react-toastify'
 import Router from 'next/router'
 import Cookies from 'js-cookie'
 import Axios from 'axios'
-import { setPageName,setDynamicName } from '../../src/redux/userData/action'
+import { setPageName, setDynamicName } from '../../src/redux/userData/action'
 
 function Index() {
   const dispatch = useDispatch()
@@ -29,10 +29,13 @@ function Index() {
     let id = sessionStorage.getItem('customId')
     dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
   }, [dispatch])
-useEffect(() => {
-dispatch(setPageName('custom'))
-dispatch(setDynamicName(customData?.company?.companyName))
-},[customData])
+
+  useEffect(() => {
+    // if()
+    dispatch(setPageName('custom'))
+    dispatch(setDynamicName(customData?.company?.companyName))
+  }, [customData])
+
   const { allCustomClearance } = useSelector((state) => state.Custom)
 
   let customData = _get(allCustomClearance, 'data[0]', {})
@@ -43,6 +46,7 @@ dispatch(setDynamicName(customData?.company?.companyName))
     let fd = new FormData()
     fd.append('document', e.target.files[0])
     // dispatch(UploadCustomDoc(fd))
+    console.log(customData,'customData')
 
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -87,8 +91,8 @@ dispatch(setDynamicName(customData?.company?.companyName))
           <div className={`${styles.tab_header_inner} d-flex align-items-center`}>
             <img
               src="/static/keyboard_arrow_right-3.svg" alt="arrow right"
-               className="img-fluid mr-2 image_arrow"
-               onClick={() => Router.push('/bill-of-entry')}
+              className="img-fluid mr-2 image_arrow"
+              onClick={() => Router.push('/bill-of-entry')}
 
             />
             <h1 className={`${styles.title} heading`}>
