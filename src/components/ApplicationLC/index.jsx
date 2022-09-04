@@ -39,6 +39,301 @@ function Index() {
         <div
           className={`${styles.root_container} card shadow-none border-0 bg-transparent`}
         >
+        <table width='100%' cellPadding='0' cellSpacing='0' border='0'>
+          <tr>
+            <td valign='top'>
+              <table width='100%' bgColor='#D8EAFF' style={{fontFamily:'Arial, Helvetica, sans-serif', marginBottom:'26px', border:'1px solid #D2D7E5', borderRadius:'6px', height:'126px'}} cellPadding='10' cellSpacing='0' border='0'>
+                <tr>
+                  <td valign='top' align='left' width='25%'>
+                    <p style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', padding:'10px 0 0 25px'}}>Order ID: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>orderId</span></p>
+                    <p style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingLeft:'25px'}}>Buyer: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>companyName</span></p>
+                  </td>
+                  <td valign='top' align='center' width='50%'><h2 style={{fontSize:'34px', color:'#3687E8', lineHeight:'41px', fontWeight:'bold', textTransform:'uppercase'}}>APPLICATION FOR LETTER OF CREDIT</h2></td>
+                  <td valign='top' align='right' width='25%'>
+                    <p> <span></span></p>
+                    <p style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingRight:'25px'}}>Date: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>
+                      {
+                    moment((new Date()), 'YYYY-MM-DD', true).format("DD-MM-YYYY")
+                    }
+                    </span></p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td valign='top' align='left'>
+              <table width='100%' bgColor='#FFFFFF' style={{fontFamily:'Arial, Helvetica, sans-serif', borderRadius:'6px', boxShadow:'0 3px 6px #CAD0E2', marginBottom:'26px'}} cellPadding='0' cellSpacing='0' border='0'>
+                <tr>
+                  <td valign='top' align='left'>
+                    <table width='100%' cellPadding='0' cellSpacing='0' border='0'>
+                      <thead>
+                        <tr>
+                          <th width='33%' bgColor='#FAFAFB' align='left' style={{borderRight:'2px solid #cad6e64d'}}><h3 style={{fontSize:'22px', color:'#3687E8', lineHeight:'27px', fontWeight:'bold', padding:'20px 15px 20px 35px', marginBottom:'0'}}>Commodity Details</h3></th>
+                          <th width='67%' bgColor='#FAFAFB' align='left'></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid #cad6e64d'}}>
+                            <p style={{fontSize:'20px', color:'#111111', opacity:'0.7', lineHeight:'24px', fontWeight:'normal', padding:'23px 15px 11px 35px', marginBottom:'0'}}><span style={{display:'inline-block', width:'35px'}}>1.</span>Commodity Name</p>
+                          </td>
+                          <td align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'23px 15px 11px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid #cad6e64d'}}>
+                            <p style={{fontSize:'20px', color:'#111111', opacity:'0.7', lineHeight:'24px', fontWeight:'normal', padding:'11px 15px 11px 35px', marginBottom:'0'}}><span style={{display:'inline-block', width:'35px'}}>2.</span>Quantity Name</p>
+                          </td>
+                          <td align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'11px 15px 11px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid #cad6e64d'}}>
+                            <p style={{fontSize:'20px', color:'#111111', opacity:'0.7', lineHeight:'24px', fontWeight:'normal', padding:'11px 15px 38px 35px', marginBottom:'0'}}><span style={{display:'inline-block', width:'35px'}}>3.</span>Unit Price</p>
+                          </td>
+                          <td align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'11px 15px 38px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                      </tbody>
+                      <thead>
+                        <tr>
+                          <th width='33%' bgColor='#FAFAFB' align='left' style={{borderRight:'2px solid #cad6e64d'}}><h3 style={{fontSize:'22px', color:'#3687E8', lineHeight:'27px', fontWeight:'bold', padding:'20px 15px 20px 35px', marginBottom:'0'}}>Transaction Details</h3></th>
+                          <th width='67%' bgColor='#FAFAFB' align='left'></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid #cad6e64d'}}>
+                            <p style={{fontSize:'20px', color:'#111111', opacity:'0.7', lineHeight:'24px', fontWeight:'normal', padding:'23px 15px 11px 35px', marginBottom:'0'}}><span style={{display:'inline-block', width:'35px'}}>4.</span>LC Value</p>
+                          </td>
+                          <td align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'23px 15px 11px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid #cad6e64d'}}>
+                            <p style={{fontSize:'20px', color:'#111111', opacity:'0.7', lineHeight:'24px', fontWeight:'normal', padding:'11px 15px 11px 35px', marginBottom:'0'}}><span style={{display:'inline-block', width:'35px'}}>5.</span>LC opening Bank</p>
+                          </td>
+                          <td align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'11px 15px 11px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid #cad6e64d'}}>
+                            <p style={{fontSize:'20px', color:'#111111', opacity:'0.7', lineHeight:'24px', fontWeight:'normal', padding:'11px 15px 11px 35px', marginBottom:'0'}}><span style={{display:'inline-block', width:'35px'}}>6.</span>Margin Money as % of Import Value</p>
+                          </td>
+                          <td align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'11px 15px 11px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid #cad6e64d'}}>
+                            <p style={{fontSize:'20px', color:'#111111', opacity:'0.7', lineHeight:'24px', fontWeight:'normal', padding:'11px 15px 11px 35px', marginBottom:'0'}}><span style={{display:'inline-block', width:'35px'}}>7.</span>INCO Terms</p>
+                          </td>
+                          <td align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'11px 15px 11px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid #cad6e64d'}}>
+                            <p style={{fontSize:'20px', color:'#111111', opacity:'0.7', lineHeight:'24px', fontWeight:'normal', padding:'11px 15px 11px 35px', marginBottom:'0'}}><span style={{display:'inline-block', width:'35px'}}>8.</span>Load Port</p>
+                          </td>
+                          <td align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'11px 15px 11px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid #cad6e64d'}}>
+                            <p style={{fontSize:'20px', color:'#111111', opacity:'0.7', lineHeight:'24px', fontWeight:'normal', padding:'11px 15px 11px 35px', marginBottom:'0'}}><span style={{display:'inline-block', width:'35px'}}>9.</span>Country of Origin</p>
+                          </td>
+                          <td align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'11px 15px 11px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid #cad6e64d'}}>
+                            <p style={{fontSize:'20px', color:'#111111', opacity:'0.7', lineHeight:'24px', fontWeight:'normal', padding:'11px 15px 11px 35px', marginBottom:'0'}}><span style={{display:'inline-block', width:'35px'}}>10.</span>Shipment Type</p>
+                          </td>
+                          <td align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'11px 15px 11px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid #cad6e64d'}}>
+                            <p style={{fontSize:'20px', color:'#111111', opacity:'0.7', lineHeight:'24px', fontWeight:'normal', padding:'11px 15px 11px 35px', marginBottom:'0'}}><span style={{display:'inline-block', width:'35px'}}>11.</span>Part Shipment Allowed</p>
+                          </td>
+                          <td align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'11px 15px 11px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid #cad6e64d'}}>
+                            <p style={{fontSize:'20px', color:'#111111', opacity:'0.7', lineHeight:'24px', fontWeight:'normal', padding:'11px 15px 11px 35px', marginBottom:'0'}}><span style={{display:'inline-block', width:'35px'}}>12.</span>Port of Discharge</p>
+                          </td>
+                          <td align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'11px 15px 11px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid #cad6e64d'}}>
+                            <p style={{fontSize:'20px', color:'#111111', opacity:'0.7', lineHeight:'24px', fontWeight:'normal', padding:'11px 15px 11px 35px', marginBottom:'0'}}><span style={{display:'inline-block', width:'35px'}}>13.</span>Bill of Entry</p>
+                          </td>
+                          <td align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'11px 15px 11px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid #cad6e64d'}}>
+                            <p style={{fontSize:'20px', color:'#111111', opacity:'0.7', lineHeight:'24px', fontWeight:'normal', padding:'11px 15px 38px 35px', marginBottom:'0'}}><span style={{display:'inline-block', width:'35px'}}>14.</span>3rd Party Inspection Required</p>
+                          </td>
+                          <td align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'11px 15px 38px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                      </tbody>
+                      <thead>
+                        <tr>
+                          <th width='33%' bgColor='#FAFAFB' align='left' style={{borderRight:'2px solid #cad6e64d'}}><h3 style={{fontSize:'22px', color:'#3687E8', lineHeight:'27px', fontWeight:'bold', padding:'20px 15px 20px 35px', marginBottom:'0'}}>Storage of Goods</h3></th>
+                          <th width='67%' bgColor='#FAFAFB' align='left'></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid #cad6e64d'}}>
+                            <p style={{fontSize:'20px', color:'#111111', opacity:'0.7', lineHeight:'24px', fontWeight:'normal', padding:'23px 15px 40px 35px', marginBottom:'0'}}><span style={{display:'inline-block', width:'35px'}}>15.</span>Storage of Goods</p>
+                          </td>
+                          <td align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'23px 15px 40px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                      </tbody>
+                      <thead>
+                        <tr>
+                          <th width='33%' bgColor='#FAFAFB' align='left' style={{borderRight:'2px solid #cad6e64d'}}><h3 style={{fontSize:'22px', color:'#3687E8', lineHeight:'27px', fontWeight:'bold', padding:'20px 15px 20px 35px', marginBottom:'0'}}>Deliveries/Due Date/Payment</h3></th>
+                          <th width='67%' bgColor='#FAFAFB' align='left'></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid #cad6e64d'}}>
+                            <p style={{fontSize:'20px', color:'#111111', opacity:'0.7', lineHeight:'24px', fontWeight:'normal', padding:'23px 15px 40px 35px', marginBottom:'0'}}><span style={{display:'inline-block', width:'35px'}}>16.</span>Deliveries/Due date/Payment</p>
+                          </td>
+                          <td align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'23px 15px 40px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                      </tbody>
+                      <thead>
+                        <tr>
+                          <th width='33%' bgColor='#FAFAFB' align='left' style={{borderRight:'2px solid #cad6e64d'}}><h3 style={{fontSize:'22px', color:'#3687E8', lineHeight:'27px', fontWeight:'bold', padding:'20px 15px 20px 35px', marginBottom:'0'}}>Commercial Terms</h3></th>
+                          <th width='67%' bgColor='#FAFAFB' align='left'></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid #cad6e64d'}}>
+                            <p style={{fontSize:'20px', color:'#111111', opacity:'0.7', lineHeight:'24px', fontWeight:'normal', padding:'23px 15px 11px 35px', marginBottom:'0'}}><span style={{display:'inline-block', width:'35px'}}>17.</span>Trade Margin (%)</p>
+                          </td>
+                          <td align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'23px 15px 11px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid #cad6e64d'}}>
+                            <p style={{fontSize:'20px', color:'#111111', opacity:'0.7', lineHeight:'24px', fontWeight:'normal', padding:'11px 15px 11px 35px', marginBottom:'0'}}><span style={{display:'inline-block', width:'35px'}}>18.</span>LC Opening Charges (Minimum)</p>
+                          </td>
+                          <td align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'11px 15px 11px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid #cad6e64d'}}>
+                            <p style={{fontSize:'20px', color:'#111111', opacity:'0.7', lineHeight:'24px', fontWeight:'normal', padding:'11px 15px 11px 35px', marginBottom:'0'}}><span style={{display:'inline-block', width:'35px'}}>19.</span>LC Opening Charges (%)</p>
+                          </td>
+                          <td align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'11px 15px 11px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid #cad6e64d'}}>
+                            <p style={{fontSize:'20px', color:'#111111', opacity:'0.7', lineHeight:'24px', fontWeight:'normal', padding:'11px 15px 11px 35px', marginBottom:'0'}}><span style={{display:'inline-block', width:'35px'}}>20.</span>Usance Interest (%) For 90 Days</p>
+                          </td>
+                          <td align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'11px 15px 11px 24px', marginBottom:'0'}}>value %</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid #cad6e64d'}}>
+                            <p style={{fontSize:'20px', color:'#111111', opacity:'0.7', lineHeight:'24px', fontWeight:'normal', padding:'11px 15px 11px 35px', marginBottom:'0'}}><span style={{display:'inline-block', width:'35px'}}>21.</span>Overdue Interest per Month (%)</p>
+                          </td>
+                          <td align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'11px 15px 11px 24px', marginBottom:'0'}}>value %</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid #cad6e64d'}}>
+                            <p style={{fontSize:'20px', color:'#111111', opacity:'0.7', lineHeight:'24px', fontWeight:'normal', padding:'11px 15px 11px 35px', marginBottom:'0'}}><span style={{display:'inline-block', width:'35px'}}>22.</span>Exchange Fluctuation</p>
+                          </td>
+                          <td align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'11px 15px 11px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid #cad6e64d'}}>
+                            <p style={{fontSize:'20px', color:'#111111', opacity:'0.7', lineHeight:'24px', fontWeight:'normal', padding:'11px 15px 11px 35px', marginBottom:'0'}}><span style={{display:'inline-block', width:'35px'}}>23.</span>Forex Hedging</p>
+                          </td>
+                          <td align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'11px 15px 11px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid #cad6e64d'}}>
+                            <p style={{fontSize:'20px', color:'#111111', opacity:'0.7', lineHeight:'24px', fontWeight:'normal', padding:'11px 15px 40px 35px', marginBottom:'0'}}><span style={{display:'inline-block', width:'35px'}}>24.</span>Other Terms &amp; Conditions</p>
+                          </td>
+                          <td align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'11px 15px 40px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                      </tbody>
+                      <thead>
+                        <tr>
+                          <th width='33%' bgColor='#FAFAFB' align='left' style={{borderRight:'2px solid #cad6e64d'}}><h3 style={{fontSize:'22px', color:'#3687E8', lineHeight:'27px', fontWeight:'bold', padding:'20px 15px 20px 35px', marginBottom:'0'}}>Reimbursement of Expenses</h3></th>
+                          <th width='67%' bgColor='#FAFAFB' align='left'></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid #cad6e64d'}}>
+                            <p style={{fontSize:'20px', color:'#111111', opacity:'0.7', lineHeight:'24px', fontWeight:'normal', padding:'23px 15px 40px 35px', marginBottom:'0'}}><span style={{display:'inline-block', width:'35px'}}>25.</span>Reimbursement of Expenses</p>
+                          </td>
+                          <td align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'23px 15px 40px 24px', marginBottom:'0'}}>Post CFR expenses to be reimbursed on actual basis if applicable as attached.</p>
+                          </td>
+                        </tr>
+                      </tbody>
+                      <thead>
+                        <tr>
+                          <th colSpan={2} bgColor='#FAFAFB' align='left'><h3 style={{fontSize:'22px', color:'#3687E8', lineHeight:'27px', fontWeight:'bold', padding:'20px 15px 20px 35px', marginBottom:'0'}}>Other Terms &amp; Conditions</h3></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td colSpan={2} align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'normal', padding:'23px 15px 40px 35px', marginBottom:'0'}}>Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable. will provide proof of all expenses to the Buyer.</p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
           {/* <div className={styles.head_container}>
           <div className={styles.head_header}>
             <img
