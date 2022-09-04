@@ -668,7 +668,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           <div className={` ${styles.cardBody} card-body  border_color`}>
             <div className={` ${styles.content}`}>
               <div
-                className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-between`}
+                className={` ${styles.header}  card_sub_header border-top-0  d-flex align-items-center justify-content-between`}
               >
                 <span>Business Profile</span>
                 <span
@@ -806,7 +806,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                           ><div className={`${styles.gst_cancelled} d-flex align-items-center justify-content-start`}>
                             <div
                             className={styles.dot}
-                            style={{ backgroundColor: '#EA3FD6' }}
+                            style={{ backgroundColor: '#3F66EA' }}
                           ></div>
                             <span>{alertObj[alert.alert] ?? alert.alert}</span>
                         </div>
@@ -829,7 +829,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                           ><div className={`${styles.gst_cancelled} gst_profile_alerts d-flex align-items-center justify-content-start`}>
                              <div
                             className={styles.dot}
-                            style={{ backgroundColor: '#EA3FD6' }}
+                            style={{ backgroundColor: '#28BE39' }}
                           ></div>
                             <span>{alertObj[alert.alert] ?? alert.alert}</span>
                             </div>
@@ -1716,6 +1716,23 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td className="border-left-0"></td>
                   </tr>
                   <tr>
+                    <td colSpan={2}>Total Invoices</td>
+                    <td>
+                      {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlCustomer?.current?.value?.toLocaleString(
+                        undefined,
+                        { minimumFractionDigits: 2 },
+                      )}
+                    </td>
+                    <td className="border-left-0"></td>
+                    <td>
+                      {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlInv?.previous?.value?.toLocaleString(
+                        undefined,
+                        { minimumFractionDigits: 2 },
+                      )}
+                    </td>
+                    <td className="border-left-0"></td>
+                  </tr>
+                  <tr>
                     <td colSpan={2}>
                       <strong>Sales Growth Rate</strong>
                     </td>
@@ -2190,8 +2207,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlSuppliers?.previous?.percentage?.toLocaleString(
                         undefined,
                         { minimumFractionDigits: 2 },
-                      )}
-                      %
+                      )}-
                     </td>
                     <td>
                       {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlSuppliers?.current?.value?.toLocaleString(
@@ -2203,39 +2219,26 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlSuppliers?.current?.percentage?.toLocaleString(
                         undefined,
                         { minimumFractionDigits: 2 },
-                      )}
-                      %
+                      )}-
                     </td>
                   </tr>
 
                   <tr>
                     <td colSpan={2}>Total Invoices</td>
                     <td>
-                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.previous?.value?.toLocaleString(
+                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlCustomer?.current?.value?.toLocaleString(
                         undefined,
                         { minimumFractionDigits: 2 },
                       )}
                     </td>
-                    <td className="border-left-0">
-                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.previous?.percentage?.toLocaleString(
-                        undefined,
-                        { minimumFractionDigits: 2 },
-                      )}
-                      %
-                    </td>
+                    <td className="border-left-0">-</td>
                     <td>
-                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.current?.value?.toLocaleString(
+                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlInv?.previous?.value?.toLocaleString(
                         undefined,
                         { minimumFractionDigits: 2 },
                       )}
                     </td>
-                    <td className="border-left-0">
-                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.current?.percentage?.toLocaleString(
-                        undefined,
-                        { minimumFractionDigits: 2 },
-                      )}
-                      %
-                    </td>
+                    <td className="border-left-0">-</td>
                   </tr>
                   <tr>
                     <td colSpan={2}>
@@ -2409,7 +2412,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                 >
                   <tr>
                     <th className={`${styles.first}`}>
-                      Principal/ HSN Wise Sales
+                      Principal/ HSN Wise Purchases
                     </th>
                     <th colSpan={6}>
                       <span style={{ color: '#2837566A' }}>
@@ -2655,7 +2658,7 @@ const gstCustomerDetail = (
                         <td>PAN</td>
                         <td>SALES</td>
                         <td>% OF TOTAL SALES</td>
-                        <td>OF INVOICES</td>
+                        <td>INVOICES</td>
                         <td>SALES PER INVOICE</td>
                       </tr>
                       <tbody>
@@ -2709,7 +2712,7 @@ const gstCustomerDetail = (
                         <td>PAN</td>
                         <td>SALES</td>
                         <td>% OF TOTAL SALES</td>
-                        <td>OF INVOICES</td>
+                        <td>INVOICES</td>
                         <td>SALES PER INVOICE</td>
                       </tr>
                       <tbody>
@@ -2760,7 +2763,7 @@ const gstCustomerDetail = (
                         <td>PAN</td>
                         <td>SALES</td>
                         <td>% OF TOTAL SALES</td>
-                        <td>OF INVOICES</td>
+                        <td>INVOICES</td>
                         <td>SALES PER INVOICE</td>
                       </tr>
                       <tbody>
@@ -2810,7 +2813,7 @@ const gstCustomerDetail = (
                         <td>STATE CODE</td>
                         <td>SALES</td>
                         <td>% OF TOTAL SALES</td>
-                        <td>OF INVOICES</td>
+                        <td>INVOICES</td>
                         <td>SALES PER INVOICE</td>
                       </tr>
                       <tbody>
@@ -2911,12 +2914,12 @@ const gstSupplierDetail = (
                         </th>
                       </tr>
                       <tr className={styles.second_head}>
-                        <td>CUSTOMER NAME</td>
+                        <td>SUPPLIER NAME</td>
                         <td>PAN</td>
-                        <td>SALES</td>
-                        <td>% OF TOTAL SALES</td>
-                        <td>OF INVOICES</td>
-                        <td>SALES PER INVOICE</td>
+                        <td>PURCHASE</td>
+                        <td>% OF TOTAL PUR.</td>
+                        <td>INVOICES</td>
+                        <td>PURCHASE PER INVOICE</td>
                       </tr>
                       <tbody>
                         {gstFilteredData &&
@@ -2962,12 +2965,12 @@ const gstSupplierDetail = (
                         </th>
                       </tr>
                       <tr className={styles.second_head}>
-                        <td>CUSTOMER NAME</td>
+                        <td>SUPPLIER NAME</td>
                         <td>PAN</td>
-                        <td>SALES</td>
-                        <td>% OF TOTAL SALES</td>
-                        <td>OF INVOICES</td>
-                        <td>SALES PER INVOICE</td>
+                        <td>PURCHASE</td>
+                        <td>% OF TOTAL PUR.</td>
+                        <td>INVOICES</td>
+                        <td>PURCHASE PER INVOICE</td>
                       </tr>
                       <tbody>
                         {gstFilteredData &&
@@ -3011,12 +3014,12 @@ const gstSupplierDetail = (
                         </th>
                       </tr>
                       <tr className={styles.second_head}>
-                        <td>CUSTOMER NAME</td>
+                        <td>SUPPLIER NAME</td>
                         <td>PAN</td>
-                        <td>SALES</td>
-                        <td>% OF TOTAL SALES</td>
-                        <td>OF INVOICES</td>
-                        <td>SALES PER INVOICE</td>
+                        <td>PURCHASE</td>
+                        <td>% OF TOTAL PUR.</td>
+                        <td>INVOICES</td>
+                        <td>PURCHASE PER INVOICE</td>
                       </tr>
                       <tbody>
                         {gstFilteredData &&
@@ -3058,16 +3061,16 @@ const gstSupplierDetail = (
                     >
                       <tr>
                         <th className={`${styles.first}`} colSpan={6}>
-                          Statewise Sales
+                          Statewise Purchase
                         </th>
                       </tr>
                       <tr className={styles.second_head}>
-                        <td>STATE</td>
-                        <td>STATE CODE</td>
-                        <td>SALES</td>
-                        <td>% OF TOTAL SALES</td>
-                        <td>OF INVOICES</td>
-                        <td>SALES PER INVOICE</td>
+                        <td>SUPPLIER NAME</td>
+                        <td>PAN</td>
+                        <td>PURCHASE</td>
+                        <td>% OF TOTAL PUR.</td>
+                        <td>INVOICES</td>
+                        <td>PURCHASE PER INVOICE</td>
                       </tr>
                       <tbody>
                         {gstFilteredData &&
@@ -3147,7 +3150,7 @@ const gstSales = (head, gstFilteredData) => {
           <div
             className={` ${styles.CustomercardBody} card-body border-top-0 border_color`}
           >
-            <div className={` ${styles.content}`}>
+            <div className={` ${styles.content} mb-2 pb-0`}>
               <div className={` ${styles.body}`}>
                 <div className={`${styles.scrollouter}`}>
                   <div className={`${styles.scrollInner}`}>
@@ -3235,7 +3238,7 @@ const gstSales = (head, gstFilteredData) => {
                 </div>
               </div>
             </div>
-            <div className={` ${styles.content}`}>
+            <div className={` ${styles.content} mb-0 pb-0`}>
               <div className={` ${styles.body}`}>
                 <div className={`${styles.scrollouter}`}>
                   <div className={`${styles.scrollInner}`}>
@@ -3283,7 +3286,7 @@ const gstSales = (head, gstFilteredData) => {
                 </div>
               </div>
             </div>
-            <div className={` ${styles.content}`}>
+            <div className={` ${styles.content} mb-0 pb-0`}>
               <div className={` ${styles.body}`}>
                 <div className={`${styles.scrollouter}`}>
                   <div className={`${styles.scrollInner}`}>
@@ -3335,7 +3338,7 @@ const gstSales = (head, gstFilteredData) => {
                 </div>
               </div>
             </div>
-            <div className={` ${styles.content}`}>
+            <div className={` ${styles.content} mb-0 pb-0`}>
               <div className={` ${styles.body}`}>
                 <div className={`${styles.scrollouter}`}>
                   <div className={`${styles.scrollInner}`}>
@@ -3447,7 +3450,7 @@ const gstPurchase = (head, gstFilteredData) => {
           <div
             className={` ${styles.CustomercardBody} card-body border-top-0 border_color`}
           >
-            <div className={` ${styles.content}`}>
+            <div className={` ${styles.content} mb-0 pb-0`}>
               <div className={` ${styles.body}`}>
                 <div className={`${styles.scrollouter}`}>
                   <div className={`${styles.scrollInner}`}>
@@ -3536,7 +3539,7 @@ const gstPurchase = (head, gstFilteredData) => {
                 </div>
               </div>
             </div>
-            <div className={` ${styles.content}`}>
+            <div className={` ${styles.content} mb-0 pb-0`}>
               <div className={` ${styles.body}`}>
                 <div className={`${styles.scrollouter}`}>
                   <div className={`${styles.scrollInner}`}>
@@ -3584,7 +3587,7 @@ const gstPurchase = (head, gstFilteredData) => {
                 </div>
               </div>
             </div>
-            <div className={` ${styles.content}`}>
+            <div className={` ${styles.content} mb-0 pb-0`}>
               <div className={` ${styles.body}`}>
                 <div className={`${styles.scrollouter}`}>
                   <div className={`${styles.scrollInner}`}>
@@ -3594,6 +3597,7 @@ const gstPurchase = (head, gstFilteredData) => {
                       cellSpacing="0"
                     >
                       <tr className={styles.second_head}>
+                        <td>SUPPLIERS</td>
                         {gstFilteredData?.detail?.purchaseDetail?.suppliers?.map(
                           (month, index) => (
                             <td key={index}>
@@ -3635,7 +3639,7 @@ const gstPurchase = (head, gstFilteredData) => {
                 </div>
               </div>
             </div>
-            <div className={` ${styles.content}`}>
+            <div className={` ${styles.content} mb-0 pb-0`}>
               <div className={` ${styles.body}`}>
                 <div className={`${styles.scrollouter}`}>
                   <div className={`${styles.scrollInner}`}>
