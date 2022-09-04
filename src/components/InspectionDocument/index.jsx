@@ -53,7 +53,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
     document: [],
     order: orderId,
     name: '',
-    module: module ? module : 'Agreements, Insurance & LC Opening',
+    module: module ? module : 'Agreements&Insurance&LC&Opening',
   })
 
   const uploadDocument2 = (e) => {
