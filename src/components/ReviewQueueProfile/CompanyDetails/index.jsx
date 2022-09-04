@@ -134,7 +134,9 @@ function Index({ order, companyDetail }) {
                       : styles.warning
                   }`}
                 >
-                  {companyDetail?.activeCompliance ? 'Yes' : 'No'}
+                  {companyDetail?.activeCompliance === 'ACTIVE compliant'
+                    ? 'Yes'
+                    : 'No'}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -212,13 +214,13 @@ function Index({ order, companyDetail }) {
                 <div className={`${styles.label} label_heading`}>
                   Existing Limit (Cr)
                 </div>
-                <div className={`${styles.value} accordion_Text`}>10.00</div>
+                <div className={`${styles.value} accordion_Text`}></div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>
                   Utilized Limit (Cr)
                 </div>
-                <div className={`${styles.value} accordion_Text`}>2.00</div>
+                <div className={`${styles.value} accordion_Text`}></div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>

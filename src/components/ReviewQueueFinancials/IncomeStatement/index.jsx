@@ -316,7 +316,7 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                       </td>
                       <td className="text-center">{latestYearData?.profitLoss?.toLocaleString()}</td>
                       <td className="text-center">
-                        {previousYearData?.profitLoss}
+                        {previousYearData?.profitLoss?.toLocaleString()}
                       </td>
                       <td className="text-center">{lastYearData?.profitLoss?.toLocaleString()}</td>
                       <td className="text-center">

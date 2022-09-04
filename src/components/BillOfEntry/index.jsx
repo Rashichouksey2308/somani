@@ -250,6 +250,15 @@ export default function Index({ customData, OrderId, uploadDoc }) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
+    } else if (
+      billOfEntryData.boeDetails.invoiceQuantity > customData?.order?.quantity
+    ) {
+      let toastMessage =
+        'INVOICE QUANTITY SHOULD NOT BE MORE THAN ORDER QUANTITY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
     } else {
       const billOfEntry = { billOfEntry: [billOfEntryData] }
       const fd = new FormData()
@@ -287,6 +296,8 @@ export default function Index({ customData, OrderId, uploadDoc }) {
       setTotalBl(data)
     }
   }, [customData])
+
+  console.log(customData, 'customData')
 
   return (
     <>
@@ -714,7 +725,14 @@ export default function Index({ customData, OrderId, uploadDoc }) {
                   <div className={`${styles.label} text`}>
                     Assessable Value<strong className="text-danger">*</strong>{' '}
                   </div>
-                  <span className={styles.value}>24,000</span>
+                  <span className={styles.value}>
+                    {Number(
+                      _get(
+                        customData,
+                        'billOfEntry.billOfEntry[0].boeDetails.invoiceValue',
+                      ),
+                    ) * billOfEntryData.boeDetails.conversionRate}
+                  </span>
                 </div>
                 {/* <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
