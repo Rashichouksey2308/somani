@@ -41,7 +41,7 @@ export default function Index(props) {
             </div>
             <div
               id="lcApplication"
-              className="collapse"
+              // className="collapse"
               aria-labelledby="lcApplication"
               data-parent="#lcApplication"
             >
@@ -62,16 +62,18 @@ export default function Index(props) {
                       Invoice Quantity{' '}
                     </div>
                     <span className={styles.value}>
-                      {Number(_get(
-                        props,
-                        'ReleaseOrder.data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
-                        '',
-                      )).toLocaleString()}{' '}
+                      {Number(
+                        _get(
+                          props,
+                          'ReleaseOrder.data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
+                          '',
+                        ),
+                      ).toLocaleString()}{' '}
                       {_get(
                         props,
                         'ReleaseOrder.data[0].order.unitOfQuantity',
                         '',
-                      )}
+                      ).toUpperCase()}
                     </span>
                   </div>
 
@@ -81,11 +83,14 @@ export default function Index(props) {
                     <div className={`${styles.label} text`}>
                       Balance Quantity
                     </div>
-                    <span className={styles.value}>{props.BalanceQuantity().toLocaleString()}  {_get(
-                      props,
-                      'ReleaseOrder.data[0].order.unitOfQuantity',
-                      '',
-                    )}</span>
+                    <span className={styles.value}>
+                      {props.BalanceQuantity().toLocaleString()}{' '}
+                      {_get(
+                        props,
+                        'ReleaseOrder.data[0].order.unitOfQuantity',
+                        '',
+                      ).toUpperCase()}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -263,14 +268,17 @@ export default function Index(props) {
                                       className={`${styles.shareImg} img-fluid ml-3`}
                                       alt="add"
                                     />
-                                    {props.releaseOrderData.length === 1 ? null : <img
-                                      className={`${styles.shareImg} ml-3 img-fluid`}
-                                      src="/static/delete.svg"
-                                      alt="Search"
-                                      onClick={(e) => {
-                                        props.deleteNewDelivery(index)
-                                      }}
-                                    />}
+                                    {props.releaseOrderData.length ===
+                                    1 ? null : (
+                                      <img
+                                        className={`${styles.shareImg} ml-3 img-fluid`}
+                                        src="/static/delete.svg"
+                                        alt="Search"
+                                        onClick={(e) => {
+                                          props.deleteNewDelivery(index)
+                                        }}
+                                      />
+                                    )}
                                   </div>
                                 )}
                               </div>
