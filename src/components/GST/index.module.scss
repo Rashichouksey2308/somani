@@ -677,8 +677,9 @@
                             vertical-align: middle;
                             text-transform: uppercase !important;
                             border-bottom: 1.5px solid #dae2ed;
-                            width: auto;
                             padding: 0 15px;
+                            width: 20%;
+                            white-space: nowrap;
                         }
                     }
                     tbody {
@@ -773,8 +774,9 @@
                             vertical-align: middle;
                             text-transform: uppercase;
                             border-bottom: 1.5px solid #dae2ed;
-                            width: auto;
                             padding: 0 15px;
+                            width: 20%;
+                            white-space: nowrap;
                         }
                     }
                     tbody {
@@ -928,7 +930,6 @@
                     vertical-align: middle;
                     text-transform: uppercase;
                     border-bottom: 1.5px solid #dae2ed;
-                    width: auto;
                     padding: 0 15px;
                 }
             }
@@ -1020,7 +1021,6 @@
                     vertical-align: middle;
                     text-transform: uppercase;
                     border-bottom: 1.5px solid #dae2ed;
-                    width: auto;
                     padding: 0 15px;
                 }
             }
@@ -1111,7 +1111,6 @@
                     vertical-align: middle;
                     text-transform: uppercase;
                     border-bottom: 1.5px solid #dae2ed;
-                    width: auto;
                     padding: 0 15px;
                 }
             }
