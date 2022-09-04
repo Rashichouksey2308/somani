@@ -38,6 +38,7 @@ function Index({ shareHolding }) {
     totalEquitySharePercentage += equity.percentageShareHolding
   })
   // const top
+  console.log(equityShareNo, 'equityShareNo')
 
   const prefrenceValues = shareHolding?.filter((item) => {
     return !item.type === 'EquityShares1Member'
@@ -201,17 +202,16 @@ function Index({ shareHolding }) {
                               }}
                             />
                             <div className={`${styles.total_value} `}>
-                              <span className={styles.headSpan}>
+                              {/* <span className={styles.headSpan}>
                                 {shareHolding
                                   ? shareHolding[0]?.fullName ?? 'Name'
                                   : ''}
-                              </span>
-                              <span className={styles.subSpan}>{`${
-                                shareHolding
+                              </span> */}
+                              {/* <span className={styles.subSpan}>{`${shareHolding
                                   ? shareHolding[0]?.percentageShareHolding ??
-                                    '0'
+                                  '0'
                                   : ''
-                              }%`}</span>
+                                }%`}</span> */}
                             </div>
                           </div>
                         </th>
@@ -292,17 +292,16 @@ function Index({ shareHolding }) {
                           <div className={styles.chart}>
                             <Doughnut data={prefrencedata} options={options} />
                             <div className={`${styles.total_value} `}>
-                              <span className={styles.headSpan}>
+                              {/* <span className={styles.headSpan}>
                                 {shareHolding
                                   ? shareHolding[0]?.fullName ?? 'Name'
                                   : ''}
                               </span>
-                              <span className={styles.subSpan}>{`${
-                                shareHolding
+                              <span className={styles.subSpan}>{`${shareHolding
                                   ? shareHolding[0]?.percentageShareHolding ??
-                                    '0'
+                                  '0'
                                   : ''
-                              }%`}</span>
+                                }%`}</span> */}
                             </div>
                           </div>
                         </th>

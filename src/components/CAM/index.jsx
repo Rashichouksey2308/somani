@@ -522,7 +522,7 @@ const basicInfo = (camData) => {
   // console
   return (
     <>
-      <table
+      {/* <table
         width="100%"
         style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
         cellPadding="0"
@@ -6108,7 +6108,8 @@ const basicInfo = (camData) => {
             </table>
           </td>
         </tr>
-      </table>
+      </table> */}
+      
       <div className={`${styles.card} card`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
