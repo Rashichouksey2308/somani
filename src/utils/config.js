@@ -26,11 +26,11 @@
 
 export default {
   authServerUrl:
-    'https://yaua25mlee.execute-api.ap-south-1.amazonaws.com/uat/auth',
+    'https://api-uat.simport.global/auth',
   userServerUrl:
-    'https://yaua25mlee.execute-api.ap-south-1.amazonaws.com/uat/user',
+    'https://api-uat.simport.global/user',
   coreServerUrl:
-    'https://yaua25mlee.execute-api.ap-south-1.amazonaws.com/uat/core',
+    'https://api-uat.simport.global/core',
 }
 
 //local
