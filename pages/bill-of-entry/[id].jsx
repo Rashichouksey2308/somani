@@ -44,6 +44,7 @@ function Index() {
     let fd = new FormData()
     fd.append('document', e.target.files[0])
     // dispatch(UploadCustomDoc(fd))
+    console.log(customData,'customData')
 
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
