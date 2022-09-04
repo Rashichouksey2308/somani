@@ -763,12 +763,12 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </div>
                     <div
                       className={styles.col_body}
-                    >{`${gstFilteredData?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr1.slice(
+                    >{gstFilteredData ? `${gstFilteredData?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr1?.slice(
                       0,
                       2,
-                    )}-${gstFilteredData?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr1.slice(
+                    )}-${gstFilteredData?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr1?.slice(
                       2,
-                    )}`}</div>
+                    )}` : ''}</div>
                   </Col>
                   <Col md={3} sm={12}>
                     <div className={`${styles.col_header} label_heading`}>
@@ -776,12 +776,12 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </div>
                     <div
                       className={styles.col_body}
-                    >{`${gstFilteredData?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr3b.slice(
+                    >{gstFilteredData ? `${gstFilteredData?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr3b?.slice(
                       0,
                       2,
-                    )}-${gstFilteredData?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr3b.slice(
+                    )}-${gstFilteredData?.detail?.summaryInformation?.businessProfile?.lastReturnFiledgstr3b?.slice(
                       2,
-                    )}`}</div>
+                    )}` : ''}</div>
                   </Col>
                 </Row>
               </div>
