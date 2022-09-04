@@ -94,7 +94,7 @@ export default function Home() {
         {
           shipmentType: _get(
             Vessel,
-            "data[0].order.shipmentDetail.shipmentType",
+            "data[0].vessels[0].shipmentType",
             ""
           ),
           commodity: _get(
