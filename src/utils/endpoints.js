@@ -83,7 +83,7 @@ export default {
 
   getInsurance: '/api/core/insurance',
   updateQuotation: '/api/core/insurance/quotation',
-  renewInsurance : 'api/core/insurance/insurance-renew',
+  renewInsurance : '/api/core/insurance/insurance-renew',
 
   // Inspection
   getInspection: '/api/core/inspection',
