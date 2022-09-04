@@ -569,7 +569,7 @@ export default function Index({
                     <div className={`${styles.label} text`}>
                       Balance Quantity:
                     </div>
-                    <div className={`${styles.value} ml-2 mr-4`}>{calculateBalaceQuantity()}  {_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}{' '}</div>
+                    <div className={`${styles.value} ml-2 mr-4`}>{checkNan(calculateBalaceQuantity())}  {_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}{' '}</div>
                     <button
                       onClick={() => onigmAdd()}
                       className={styles.add_btn}
@@ -685,6 +685,7 @@ export default function Index({
                                 id="vesselName"
                                 onChange={(e) => onChangeBlDropDown(e)}
                                 className={`${styles.input_field} ${styles.customSelect}  input form-control`}
+                                value={`${blEntry.blNumber}-${index}-${index2}`}
                               >
                                 <option>Select an option</option>
                                 {_get(
@@ -808,7 +809,7 @@ export default function Index({
                                     </div>
                                     <span className={styles.value}>
                                       {moment(
-                                        blEntry?.blDate?.slice(0, 10),
+                                        blEntry?.blDate?.toLocaleString()?.slice(0, 10),
                                         'YYYY-MM-DD',
                                         true,
                                       ).format('DD-MM-YYYY')}
@@ -841,6 +842,11 @@ export default function Index({
                                     </div>
                                     <span className={styles.value}>
                                       {blEntry?.blQuantity}
+                                      {_get(
+                                    TransitDetails,
+                                    'data[0].order.unitOfQuantity',
+                                    '',
+                                  ).toUpperCase()}
                                     </span>
                                   </div>
                                   <div className="col-md-6">
@@ -928,7 +934,7 @@ export default function Index({
                               alt="Pdf"
                             />
                           </td>
-                          <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                          <td className={styles.doc_row}>{item?.document ? moment(item?.document?.Date).format(' DD-MM-YYYY , h:mm a') : ''}</td>
                           <td>
                             {item.document === null ? (
                               <>

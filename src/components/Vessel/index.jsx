@@ -101,6 +101,7 @@ function Index({
           <div className={`${styles.vessel_card} vessel_card`}>
             {list &&
               list.map((val, index) => {
+                console.log(val,'vesselMApping')
                 return (
                   <div
                     key={index}
@@ -458,9 +459,7 @@ function Index({
                           alt="Search"
                       /> */}
                             <DatePicker
-                              defaultDate={
-                                val?.transitDetails?.ETAatDischargePort
-                              }
+                              defaultDate={  val?.transitDetails?.ETAatDischargePort}
                               name="ETAatDischargePort"
                               selected={startDate}
                               dateFormat="dd-MM-yyyy"
