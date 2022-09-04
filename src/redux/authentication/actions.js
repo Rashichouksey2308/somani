@@ -264,7 +264,7 @@ export function setnewPasswordFailed() {
 export const loginUser = (payload) => async (dispatch, getState, api) => {
   dispatch(loggingUser())
   try {
-    let headers = { Cache: 'no-cache' }
+    let headers = { Cache: 'no-cache' ,'Access-Control-Allow-Origin': '*'}
     // let response = await api.post(API.login, payload);
     Axios.post(`${API.authbaseUrl}${API.login}`, payload,{
       headers: headers,
@@ -360,7 +360,7 @@ export const validateToken = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  let headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
   try {
     let response = await Axios.get(`${API.authbaseUrl}${API.verifyToken}`, {
       headers: headers,
