@@ -674,7 +674,7 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
-                            value={ addPrefixOrSuffix(insuranceData?.marineInsurance?.premiumAmount ? insuranceData?.marineInsurance?.premiumAmount : 0, 'INR', 'front')}
+                            defaultValue={ addPrefixOrSuffix(insuranceData?.marineInsurance?.premiumAmount ? insuranceData?.marineInsurance?.premiumAmount : 0, 'INR', 'front')}
                             name="premiumAmount"
                             onChange={(e) =>
                               saveMarineData(e.target.name, e.target.value)
@@ -966,7 +966,7 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             name="premiumAmount"
-                            value={ addPrefixOrSuffix(insuranceData?.storageInsurance?.premiumAmount ? insuranceData?.storageInsurance?.premiumAmount : 0, 'INR', 'front')}
+                            defaultValue={ addPrefixOrSuffix(insuranceData?.storageInsurance?.premiumAmount ? insuranceData?.storageInsurance?.premiumAmount : 0, 'INR', 'front')}
                             onChange={(e) =>
                               saveStorageData(e.target.name, e.target.value)
                             }
@@ -1252,7 +1252,7 @@ const Index = () => {
                             required
                             type="text"
                             name="premiumAmount"
-                            value={ addPrefixOrSuffix(insuranceData?.marineInsurance?.premiumAmount ? insuranceData?.marineInsurance?.premiumAmount : 0, 'INR', 'front')}
+                            defaultValue={ addPrefixOrSuffix(insuranceData?.marineInsurance?.premiumAmount ? insuranceData?.marineInsurance?.premiumAmount : 0, 'INR', 'front')}
                             onChange={(e) =>
                               saveMarineData(e.target.name, e.target.value)
                             }
@@ -1348,11 +1348,11 @@ const Index = () => {
                               Policy Number
                               <strong className="text-danger">*</strong>
                             </label>
-                            <img
+                            {/* <img
                               className={`${styles.checked_image} img-fluid`}
                               src="/static/info-circle-red.svg"
                               alt="Info circle"
-                            />
+                            /> */}
                           </div>
                         </Col>
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
@@ -1535,7 +1535,7 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             name="premiumAmount"
-                            value={ addPrefixOrSuffix(insuranceData?.storageInsurance?.premiumAmount ? insuranceData?.storageInsurance?.premiumAmount : 0, 'INR', 'front')}
+                            defaultValue={ addPrefixOrSuffix(insuranceData?.storageInsurance?.premiumAmount ? insuranceData?.storageInsurance?.premiumAmount : 0, 'INR', 'front')}
                             onChange={(e) =>
                               saveStorageData(e.target.name, e.target.value)
                             }
