@@ -4,7 +4,7 @@ import styles from './index.module.scss'
 
 function index({ leftButtonClick, onSave }) {
   return (
-    <div className={`${styles.root} card`}>
+    <div className={`${styles.root} cta_bar`}>
       <div
         id="nextbutton"
         onClick={() => onSave()}
