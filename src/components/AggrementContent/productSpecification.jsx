@@ -11,6 +11,7 @@ function Index(props) {
   const [value, setValue] = useState('')
   const [editField, setEditField] = useState(false)
   const [doc, setdoc] = useState({ attachDoc: '' })
+  console.log(excelData,"excelData",excelFile)
   useEffect(() => {
     if (props.saveData == true && props.active == 'Product Specifications') {
       let temp = []
@@ -19,6 +20,7 @@ function Index(props) {
       })
       let data = {
         addressList: temp,
+        excelData:excelFile||[]
       }
       props.sendData('Product Specifications', data)
     }
@@ -29,6 +31,7 @@ function Index(props) {
       })
       let data = {
         addressList: temp,
+        excelData:excelFile||[]
       }
 
       props.updateData('Product Specifications', data)
@@ -49,15 +52,17 @@ function Index(props) {
 
         let savedData = JSON.parse(sessionStorage.getItem('Product'))
         let temp = []
-        savedData.forEach((val, index) => {
+        savedData.list.forEach((val, index) => {
           temp.push({ value: val, action: false })
         })
+        setExcelFile(savedData.excel)
         setAddressList(temp)
       } else {
         let temp = []
         props?.data?.comments.forEach((val, index) => {
           temp.push({ value: val, action: false })
         })
+        setExcelFile(props?.data?.specificationArray)
         setAddressList(temp)
       }
     }
@@ -122,7 +127,7 @@ function Index(props) {
   return (
     <>
       <div className={`${styles.container} vessel_card`}>
-        <div className={`${styles.paymet} card-body`}>
+        <div className={`${styles.paymet} card-body p-0`}>
           <div className={`d-flex justify-content-between align-items-between`}>
             <input
               placeholder={``}

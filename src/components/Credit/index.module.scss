@@ -402,9 +402,15 @@
             }
           }
           .dropDown {
-            background: transparent;
-            border: none;
-            outline: none;
+            padding: 5px;
+            border-radius: 4px;
+                font-size: 19px;
+                  line-height: 24px;
+                  outline: none;
+                
+            // background: transparent;
+            // border: none;
+            // outline: none;
           }
         }
       }

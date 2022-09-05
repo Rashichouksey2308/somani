@@ -1360,7 +1360,7 @@ const shareHolding = (data, options, tempArr, camData) => {
                   </div>
                 </div>
                 <div className={`${styles.name} `}>
-                  {tempArr.map((val, index) => {
+                  {/* {tempArr.map((val, index) => {
                     return (
                       <div
                         key={index}
@@ -1373,7 +1373,7 @@ const shareHolding = (data, options, tempArr, camData) => {
                         <span className={` heading ml-2`}>{val.name}</span>
                       </div>
                     )
-                  })}
+                  })} */}
                 </div>
               </Col>
               <Col md={8} className={`px-0`}>
@@ -1520,7 +1520,7 @@ const chargeDetails = (data, options, tempArr, camData) => {
                   </div>
                 </div>
                 <div className={`${styles.name} `}>
-                  {tempArr.map((val, index) => {
+                  {/* {tempArr.map((val, index) => {
                     return (
                       <div
                         key={index}
@@ -1538,7 +1538,7 @@ const chargeDetails = (data, options, tempArr, camData) => {
                         </span>
                       </div>
                     )
-                  })}
+                  })} */}
                 </div>
               </Col>
               <Col md={8} className={`px-0`}>

@@ -195,10 +195,10 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
                     </div> */}
                         </>
                       ) : (
-                        <div className={styles.certificate}>
-                          {lcDoc?.lcDraftDoc?.name}
+                        <div className={`${styles.certificate} d-flex align-items-center justify-content-between`}>
+                          <span>{lcDoc?.lcDraftDoc?.name}</span>
                           <img
-                            className={`${styles.close_image} float-right ml-2 img-fluid`}
+                            className={`${styles.close_image} mr-2`}
                             src="/static/close.svg"
                             alt="Close"
                           />{' '}
@@ -226,9 +226,9 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
                   />
                   {newDoc?.document?.name ?
                     <div className={styles.certificate}>
-                      {newDoc?.document?.name}
+                      <span>{newDoc?.document?.name}</span>
                       <img
-                        className={`${styles.close_image} float-right ml-2 img-fluid`}
+                        className={`${styles.close_image} mr-2`}
                         src="/static/close.svg"
                         onClick={(e) => handleCloseDoc()}
                         alt="Close"

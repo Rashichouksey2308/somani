@@ -32,6 +32,7 @@ const index = ({
   setEditRow,
   orderDetail,
   companyData,
+  
 }) => {
   console.log(personData, 'companyData')
   console.log(creditDetail, 'debtData')
@@ -1169,6 +1170,7 @@ const index = ({
                           }}
                         >
                           <option value="Factory">Factory</option>
+                          <option value="Registered Address">Registered Address</option>
                           <option value="Warehouse">Warehouse</option>
                           <option value="Corporate Office">
                             Corporate Office
@@ -1812,7 +1814,7 @@ const index = ({
                                 index,
                               )
                             }
-                            className={`${styles.checkBox}`}
+                            className={`${styles.checkBox} `}
                             type="checkbox"
                             defaultChecked={profile?.primaryBank ? true : false}
                             disabled={!profile.actions}
@@ -1830,7 +1832,7 @@ const index = ({
                             }
                             value={profile?.bankName}
                             name="bankName"
-                            className={`${styles.dropDown} heading`}
+                            className={`${styles.dropDown} heading input`}
                             disabled={!profile.actions}
                           >
                             <option disabled>Select an option</option>
@@ -1863,7 +1865,7 @@ const index = ({
                             }
                             value={profile?.limitType}
                             name="limitType"
-                            className={`${styles.dropDown} heading`}
+                            className={`${styles.dropDown} heading input`}
                             disabled={!profile.actions}
                           >
                             <option disabled>Select an option</option>
@@ -1910,7 +1912,7 @@ const index = ({
                               )
                             }
                             name="conduct"
-                            className={`${styles.dropDown} heading`}
+                            className={`${styles.dropDown} heading input`}
                             disabled={!profile.actions}
                           >
                             <option>{profile.conduct}</option>

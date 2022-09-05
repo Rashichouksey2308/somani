@@ -125,7 +125,7 @@ export default function Home() {
               Vessel,
               "data[0].vessels[0].transitDetails.countryOfOrigin",
               ""
-            ): _get(
+            ) : _get(
               Vessel,
               "data[0].order.countryOfOrigin",
               ""
@@ -143,7 +143,7 @@ export default function Home() {
               "data[0].order.portOfLoading",
               ""
             ),
-            portOfDischarge:  _get(
+            portOfDischarge: _get(
               Vessel,
               "data[0].vessels[0].transitDetails.portOfDischarge",
               ""
@@ -151,7 +151,7 @@ export default function Home() {
               Vessel,
               "data[0].vessels[0].transitDetails.portOfDischarge",
               ""
-            ): _get(
+            ) : _get(
               Vessel,
               "data[0].order.portOfDischarge",
               ""
@@ -164,10 +164,26 @@ export default function Home() {
               Vessel,
               "data[0].vessels[0].transitDetails.laycanFrom",
               ""
+            ) !== '' ? _get(
+              Vessel,
+              "data[0].vessels[0].transitDetails.laycanFrom",
+              ""
+            ) : _get(
+              Vessel,
+              "data[0].order.shipmentDetail.loadPort.fromDate",
+              ""
             ),
             laycanTo: "" || _get(
               Vessel,
               "data[0].vessels[0].transitDetails.laycanTo",
+              ""
+            ) !== '' ? _get(
+              Vessel,
+              "data[0].vessels[0].transitDetails.laycanTo",
+              ""
+            ) : _get(
+              Vessel,
+              "data[0].order.shipmentDetail.loadPort.toDate",
               ""
             ),
             EDTatLoadPort: "" || _get(

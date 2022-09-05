@@ -1,4 +1,16 @@
 @import "../styles/Core/config";
+.card_body {
+    margin: 28px;
+    margin-bottom: 152px;
+    @include respond(sm-desktop) {
+        margin: 20px;
+        margin-bottom: 144px;
+    }
+    @include respond(phone) {
+        margin: 15px;
+        margin-bottom: 121px;
+    }
+}
 .root {
     position: relative;
     font-family: 'Times New Roman', Times, serif;
