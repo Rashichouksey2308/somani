@@ -16,6 +16,8 @@ import _get from 'lodash/get'
 function Index() {
   const dispatch = useDispatch()
 
+  let d = new Date()
+
   useEffect(() => {
     let id = sessionStorage.getItem('lcPreviewId')
     dispatch(GetLcModule(`?lcModuleId=${id}`))
@@ -415,7 +417,7 @@ function Index() {
               </div>
               <div>
                 <div className={`${styles.sub_heading} term_para mt-4`}>
-                  Date: <span className="label1">16.02.2022</span>
+                  Date: <span className="label1">{moment(d).format('DD.MM.yyyy')}</span>
                 </div>
               </div>
             </div>

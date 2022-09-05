@@ -510,6 +510,7 @@
     -webkit-appearance: none;
   }
 }
+
 .customSelect {
   appearance: none;
   // position: relative;
@@ -547,6 +548,22 @@
 .tooltip {
   position: relative;
   display: inline-block;
+  .info_circle {
+    margin-left:300px ;
+    margin-top: -140px;
+    margin-right: 50px;
+   
+    @include respond(sm-desktop) {
+      margin-left:230px ;
+      margin-top: -130px;
+    }
+    @include respond(phone) {
+      margin-left:270px ;
+      margin-top: -115px;
+      //margin-right: 50px;
+    }
+   
+  }
   .tooltiptext {
     font-size: 12px !important;
     color: #000000;
@@ -556,8 +573,8 @@
     padding: 8px 12px;
     position: absolute;
     z-index: 1;
-    right: -5px;
-    top: -45px;
+    right: 40px;
+    top: -105px;
     margin-left: -60px;
     opacity: 0;
     visibility: hidden;
