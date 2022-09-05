@@ -169,7 +169,7 @@ console.log(list,"val.dateOfExecution")
   return (
 
     <>
-      <div className={`${styles.container} vessel_card`}>
+      <div className={`${styles.container} vessel_card card-body p-0`}>
        
        
         <div className={`${styles.tableContainer} card p-0`}>

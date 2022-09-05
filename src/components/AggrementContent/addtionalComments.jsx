@@ -110,7 +110,7 @@ const handleAddressInput=()=>{
   return (
     <>
       <div className={`${styles.container} vessel_card`}>
-        <div className={`${styles.paymet} card-body p-0`}>
+        <div className={`${styles.paymet} card-body`}>
       <div className={`d-flex justify-content-between align-items-between mb-4`}>
         <input placeholder={``}
           className='input'

@@ -131,16 +131,16 @@
             }
             .dropDown {
               font-size: 20px;
-              color: #111111;
+              // color: #111111;
               line-height: 25px;
               width: 180px !important;
               height: 37px !important;
               border-radius: 4px !important;
-              background: #c3c3c31f;
+              // background: #c3c3c31f;
               letter-spacing: 0.19px;
               padding: 0 30px 0 15px;
               outline: none;
-              border: 1px solid #0000001f !important;
+              // border: 1px solid #0000001f !important;
             }
             .input {
               font-size: 20px;
@@ -203,8 +203,8 @@
       width: 68%;
       box-shadow: none;
       border-radius: 4px;
-      background: #c3c3c31f;
-      border: 1px solid #0000001f;
+      // background: #c3c3c31f;
+      // border: 1px solid #0000001f;
       @include respond(md-desktop) {
         width: 100%;
       }

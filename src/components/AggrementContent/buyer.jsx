@@ -513,7 +513,7 @@ useEffect(() => {
 console.log(addressList,"addressList")
   return (
     <>
-      <div className={`${styles.container} vessel_card`}>
+      <div className={`${styles.container} vessel_card card-body p-0`}>
         <Form className={`${styles.form}`}>
           <div className="row ">
 

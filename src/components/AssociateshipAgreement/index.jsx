@@ -78,75 +78,75 @@ const assignmentSupplier=()=>{
      <div className={`${styles.inputsContainer}`}>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Place of execution of  Assignment Letter</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Date of execution of Assignment Letter</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of Seller</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Address of Seller</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Address of Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of Supplier</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Address of Supplier</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Description of Goods</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Quantity of Goods in MT</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Date of execution of Assignment Letter</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Price of Goods / MT</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Tolerance levels</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Load Port</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Discharge Port</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Inco-Terms</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Month of loading of Cargo</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Date of Sales Contract between Supplier and Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       
      </div>
@@ -244,43 +244,43 @@ const tripartiteAgreement=()=>{
      <div className={`${styles.inputsContainer}`}>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Date of execution</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Place of execution</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of Supplier</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Address of Supplier</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Authorized signatory of Supplier</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Email ID of Supplier</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of End buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Authorized signatory of End Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Email ID of End Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Details of Goods as per Sales Contract</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
    
       
@@ -320,7 +320,7 @@ const salesContract=()=>{
       <Row className={`${styles.row}`}>
         <Col md={1} className={styles.left}>1</Col>
         <Col md={4} className={styles.left}>Seller</Col>
-        <Col md={7 } className={styles.right}><input placeholder="Indo Intertrade AgIndustriesstrasse 16,Zug 6300" className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input placeholder="Indo Intertrade AgIndustriesstrasse 16,Zug 6300" className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={1} className={styles.left}>2</Col>
@@ -330,7 +330,7 @@ Plot No-49-48-6/1, Lalitha Nagar,
 Ground Floor, Sakshi Office Road, 
 Akkayyapalem, Visakhapatnam, 
 Andhra Pradesh, 530016 India
-" className={`${styles.para}`}></input></Col>
+" className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
        <Col md={1} className={styles.left}>3</Col>
@@ -676,59 +676,59 @@ Andhra Pradesh, 530016 India
      <div className={`${styles.inputsContainer}`}>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Date of execution</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Place of execution</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Details of Manufacturer / Supplier / Shipperr</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Details of End Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Details of Commodity</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Quantity</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Unit Price</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Total Order Value</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Load Port</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Discharge Port</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Last Date of Shipment</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Shipment Term</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Additional Conditions</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Specification</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
    
       
@@ -896,51 +896,51 @@ const tpaSeller=()=>{
      <div className={`${styles.inputsContainer}`}>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Date of execution</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Place of execution</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of Collateral Manager</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Address of Collateral Manager</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Authorized Signatory of Collateral Manager</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Designated Storage Area</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Details of Commodity</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Quantity of Goods</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of Supplier</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Address of Supplier</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Financing Bank Name</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Financing Bank Address</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
     
      
@@ -988,75 +988,75 @@ const associateShip=()=>{
      <div className={`${styles.inputsContainer}`}>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Place of execution of  Assignment Letter</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Date of execution of Assignment Letter</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of Seller</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Address of Seller</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Address of Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of Supplier</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Address of Supplier</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Description of Goods</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Quantity of Goods in MT</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Date of execution of Assignment Letter</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Price of Goods / MT</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Tolerance levels</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Load Port</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Discharge Port</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Inco-Terms</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Month of loading of Cargo</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Date of Sales Contract between Supplier and Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       
      </div>
@@ -1090,13 +1090,13 @@ const associateShip=()=>{
 //      <div className="card-body">
 //             <p className="text_sales" ><strong>ASSOCIATESHIP AGREEMENT NO.</strong></p>
 //             <p className="text_sales">
-//               <strong> THIS AGREEMENT</strong> is signed at New Delhi on <GrowInput className={`${styles.para}`} placeholder="90"></GrowInput>day of<GrowInput className={`${styles.para}`} placeholder="90"></GrowInput>, 20<GrowInput className={`${styles.para}`} placeholder="90"></GrowInput> by and between:
+//               <strong> THIS AGREEMENT</strong> is signed at New Delhi on <GrowInput className={`${styles.para} input`} placeholder="90"></GrowInput>day of<GrowInput className={`${styles.para} input`} placeholder="90"></GrowInput>, 20<GrowInput className={`${styles.para} input`} placeholder="90"></GrowInput> by and between:
 //             </p>
 //              <p className="text_sales">
-//               Indo German International Private Limited, a company incorporated under the Indian Companies Act, 1956, having its Registered Office at 7A, Sagar Apartments, 6, Tilak Marg, New Delhi- 110 001, having its branch office as mentioned in <GrowInput className={`${styles.para}`} placeholder=" Schedule 1"></GrowInput>  (hereinafter called “<GrowInput className={`${styles.para}`} placeholder="Seller"></GrowInput> ”) which expression shall, unless it be repugnant to the context or meaning thereof, be deemed to mean and include its successors and permitted assigns, attorneys, herein represented by Mrs. Bhawana Jain duly authorized to enter into this Agreement, on One Part
+//               Indo German International Private Limited, a company incorporated under the Indian Companies Act, 1956, having its Registered Office at 7A, Sagar Apartments, 6, Tilak Marg, New Delhi- 110 001, having its branch office as mentioned in <GrowInput className={`${styles.para} input`} placeholder=" Schedule 1"></GrowInput>  (hereinafter called “<GrowInput className={`${styles.para} input`} placeholder="Seller"></GrowInput> ”) which expression shall, unless it be repugnant to the context or meaning thereof, be deemed to mean and include its successors and permitted assigns, attorneys, herein represented by Mrs. Bhawana Jain duly authorized to enter into this Agreement, on One Part
 //              </p>
 //             <p className="text_sales" >AND</p>
-//             <p className="text_sales" >Person(s) detailed in  <GrowInput className={`${styles.para}`} placeholder=" Schedule 1"></GrowInput> hereof (hereinafter referred to as the “ <GrowInput className={`${styles.para}`} placeholder=" Associate Buyer"></GrowInput>r”) of the other Part</p>
+//             <p className="text_sales" >Person(s) detailed in  <GrowInput className={`${styles.para} input`} placeholder=" Schedule 1"></GrowInput> hereof (hereinafter referred to as the “ <GrowInput className={`${styles.para} input`} placeholder=" Associate Buyer"></GrowInput>r”) of the other Part</p>
 //             <p className="text_sales" >Seller and the Associate Buyer, wherever required, are collectively referred to as the “Parties” and individually as the “Party.</p>
 //             <p className={`text_sales ${styles.head}`} >Recitals</p>
 //             <p className="text_sales" >WHEREAS Associate Buyer has requested Seller to arrange import purchase of Goods (Details of the Goods including quantity, quality, origin, INCO terms is annexed in Schedule 2) from the Supplier and sale of the same to the Associate Buyer on stock & sale basis. 
@@ -1478,20 +1478,20 @@ const associateShip=()=>{
 //             </ol>
 //             <Row>
 //               <Col md={6}><span>For & on behalf of Associate Buyer  </span></Col>
-//               <Col md={6}>For & on behalf <GrowInput className={`${styles.para}`} placeholder="Indo German International Private Limited"></GrowInput> </Col>
+//               <Col md={6}>For & on behalf <GrowInput className={`${styles.para} input`} placeholder="Indo German International Private Limited"></GrowInput> </Col>
 //             </Row>
-//               <p className="text_sales" >Name: <GrowInput className={`${styles.para}`} placeholder="Name"></GrowInput></p>
-//               <p className="text_sales" >  Designation:<GrowInput className={`${styles.para}`} placeholder="Name"></GrowInput></p>
-//               <p className="text_sales" >  Company Stamp:<GrowInput className={`${styles.para}`} placeholder="Name"></GrowInput></p>
+//               <p className="text_sales" >Name: <GrowInput className={`${styles.para} input`} placeholder="Name"></GrowInput></p>
+//               <p className="text_sales" >  Designation:<GrowInput className={`${styles.para} input`} placeholder="Name"></GrowInput></p>
+//               <p className="text_sales" >  Company Stamp:<GrowInput className={`${styles.para} input`} placeholder="Name"></GrowInput></p>
 //                <p className="text_sales" >  WITNESSES:  </p>
 //               <ol type="1">
-//                 <li>  <p className="text_sales" >Name Designation: <GrowInput className={`${styles.para}`} placeholder="Name"></GrowInput></p></li>
-//                  <li>  <p className="text_sales" >Name Designation: <GrowInput className={`${styles.para}`} placeholder="Name"></GrowInput></p></li>
+//                 <li>  <p className="text_sales" >Name Designation: <GrowInput className={`${styles.para} input`} placeholder="Name"></GrowInput></p></li>
+//                  <li>  <p className="text_sales" >Name Designation: <GrowInput className={`${styles.para} input`} placeholder="Name"></GrowInput></p></li>
 //               </ol>
 //               <div>
 //                  <p className="text_sales" > <strong>Schedule 2A</strong></p>
 //              <p className="text_sales" > <strong>Undertaking by Associate Buyer for Price Justification</strong></p>
-//              <p className="text_sales" >To: <GrowInput className={`${styles.para}`} placeholder="to"></GrowInput></p>
+//              <p className="text_sales" >To: <GrowInput className={`${styles.para} input`} placeholder="to"></GrowInput></p>
 //              <p className={`text_sales ${styles.center}`}>UNDERTAKING</p>
 //              <p className="text_sales" > 1. We, being the Associate Buyer have to solemnly affirm and undertake as under:</p>
 //              <ol type="a">
@@ -1509,12 +1509,12 @@ const associateShip=()=>{
 // </p>
 //                <Row>
 //               <Col md={6}> 
-//               <p className="text_sales" >For: <GrowInput className={`${styles.para}`} placeholder="Name"></GrowInput></p> 
-//               <p className="text_sales" >Date: <GrowInput className={`${styles.para}`} placeholder="Name"></GrowInput></p> 
+//               <p className="text_sales" >For: <GrowInput className={`${styles.para} input`} placeholder="Name"></GrowInput></p> 
+//               <p className="text_sales" >Date: <GrowInput className={`${styles.para} input`} placeholder="Name"></GrowInput></p> 
 //               </Col>
 //               <Col md={6}>
-//               <p className="text_sales" >Name : <GrowInput className={`${styles.para}`} placeholder="Name"></GrowInput></p> 
-//               <p className="text_sales" >Designation: <GrowInput className={`${styles.para}`} placeholder="Name"></GrowInput></p> 
+//               <p className="text_sales" >Name : <GrowInput className={`${styles.para} input`} placeholder="Name"></GrowInput></p> 
+//               <p className="text_sales" >Designation: <GrowInput className={`${styles.para} input`} placeholder="Name"></GrowInput></p> 
 //               </Col>
 //             </Row>
 //               </div>
@@ -1522,7 +1522,7 @@ const associateShip=()=>{
 //                  <p className="text_sales" > <strong>Schedule 2B</strong></p>
 //              <p className="text_sales" > <strong>Undertaking for Post Dated Cheques issued by Associate Buyer
 // </strong></p>
-//              <p className="text_sales" > <GrowInput className={`${styles.para}`} placeholder="to"></GrowInput></p>
+//              <p className="text_sales" > <GrowInput className={`${styles.para} input`} placeholder="to"></GrowInput></p>
 //              <p className={`text_sales ${styles.center}`}>UNDERTAKING</p>
              
 //              <ol type="1">
@@ -1565,10 +1565,10 @@ const associateShip=()=>{
 //                <Row>
 //               <Col md={6}> 
              
-//               <p className="text_sales" >Date: <GrowInput className={`${styles.para}`} placeholder="Name"></GrowInput></p> 
+//               <p className="text_sales" >Date: <GrowInput className={`${styles.para} input`} placeholder="Name"></GrowInput></p> 
 //               </Col>
 //               <Col md={6}>
-//               <p className="text_sales" >Name : <GrowInput className={`${styles.para}`} placeholder="Name"></GrowInput></p> 
+//               <p className="text_sales" >Name : <GrowInput className={`${styles.para} input`} placeholder="Name"></GrowInput></p> 
 //               <p className="text_sales" >MANAGING DIRECTOR</p> 
 //               </Col>
 //             </Row>
@@ -1631,9 +1631,9 @@ const associateShip=()=>{
 //              <p className="text_sales" > <strong>Pricing formula</strong></p>
               
               
-//              <p className="text_sales" > Unit Price: <GrowInput className={`${styles.para}`} placeholder="to"></GrowInput></p>
+//              <p className="text_sales" > Unit Price: <GrowInput className={`${styles.para} input`} placeholder="to"></GrowInput></p>
 //               <p className="text_sales" > Quantity:
-//                           <GrowInput className={`${styles.para}`} placeholder="to"></GrowInput></p>
+//                           <GrowInput className={`${styles.para} input`} placeholder="to"></GrowInput></p>
 //                            <p className="text_sales" > <strong>Tentative Exchange Rate for Calculation:
 //                         </strong></p>
 //                             <p className="text_sales" > <strong>Currency exchange:</strong></p>
@@ -1778,83 +1778,83 @@ obtaining gate passes,
      <div className={`${styles.inputsContainer}`}>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Date of execution</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Place of execution</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of Associate Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Address of Associate Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>GST of Associate Buyerager</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>PAN of Associate Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Signatory of Associate Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of Stevedore</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Address of Stevedore</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Signatory of Stevedore</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of CMA Agent</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Address of CMA Agent</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Signatory of CMA Agent</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Commodity Details</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Quantity</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Name of Supplier</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Details of Vessel</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Port of Loading</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Port of Discharge</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Storage Plot allotted to IGI</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
     
      
@@ -1936,83 +1936,83 @@ New Delhi
      <div className={`${styles.inputsContainer}`}>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Date of execution</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Place of execution</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of Associate Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Address of Associate Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>GST of Associate Buyerager</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>PAN of Associate Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Signatory of Associate Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of Stevedore</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Address of Stevedore</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Signatory of Stevedore</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of CMA Agent</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Address of CMA Agent</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Signatory of CMA Agent</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Commodity Details</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Quantity</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Name of Supplier</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Details of Vessel</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Port of Loading</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Port of Discharge</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Storage Plot allotted to IGI</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
     
      
@@ -2099,83 +2099,83 @@ New Delhi
      <div className={`${styles.inputsContainer}`}>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Date of execution</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Place of execution</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of Associate Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Address of Associate Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>GST of Associate Buyerager</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>PAN of Associate Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Signatory of Associate Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of Stevedore</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Address of Stevedore</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Signatory of Stevedore</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of CMA Agent</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Address of CMA Agent</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Signatory of CMA Agent</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Commodity Details</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Quantity</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Name of Supplier</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Details of Vessel</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Port of Loading</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Port of Discharge</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Storage Plot allotted to IGI</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
     
      

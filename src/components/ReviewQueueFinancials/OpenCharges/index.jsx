@@ -36,11 +36,11 @@ function Index({chargesData}) {
           <h2 className="mb-0">Charges</h2>
           <div className={`${styles.charges} form-group`}>
             <input defaultChecked type="radio" id="all" onClick={()=>{handleRadioSelect('all')}} name="charges" value="All" />
-            <label htmlFor="all">All</label>
+            <label className="text-color" htmlFor="all">All</label>
             <input type="radio" id="open" name="charges" value="Open" onClick={()=>{handleRadioSelect('open')}}/>
-            <label htmlFor="open" >Open</label>
+            <label className="text-color" htmlFor="open" >Open</label>
             <input type="radio" id="closed" name="charges" onClick={()=>{handleRadioSelect('close')}} value="Closed" />
-            <label htmlFor="closed">Closed</label>
+            <label className="text-color" htmlFor="closed">Closed</label>
           </div>
           <div className={`${styles.unit_container} d-flex align-items-center`}>
             <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>

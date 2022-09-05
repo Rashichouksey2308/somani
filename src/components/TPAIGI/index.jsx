@@ -166,51 +166,51 @@ const tpaSeller=()=>{
      <div className={`${styles.inputsContainer}`}>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Date of execution</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Place of execution</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of Collateral Manager</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Address of Collateral Manager</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Authorized Signatory of Collateral Manager</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Designated Storage Area</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Details of Commodity</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Quantity of Goods</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of Supplier</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Address of Supplier</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Financing Bank Name</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Financing Bank Address</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
     
      

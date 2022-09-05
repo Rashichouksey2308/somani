@@ -46,7 +46,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                   <thead>
                     <tr>
                       <th width="50%">
-                        <h3>Activity &amp; Profitibility Ratio</h3>
+                        <h3 className="text-color">Activity &amp; Profitibility Ratio</h3>
                       </th>
                       <th className="text-center" width="12.5%">
                         {moment(latestYearData?.financialEndDate)
@@ -287,7 +287,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                   <thead>
                     <tr>
                       <th width="50%">
-                        <h3>Coverage, Liquidity &amp; Growth Ratio</h3>
+                        <h3 className="text-color">Coverage, Liquidity &amp; Growth Ratio</h3>
                       </th>
                       <th className="text-center" width="12.5%">
                         {moment(latestYearData?.financialEndDate)
