@@ -66,7 +66,7 @@ function Index(props) {
   console.log(tempArr,"name")
   setSidebar(tempArr)
   setIsSideBarOpen(false)
-  setSideStateToLocal()
+  setSideStateToLocal(val)
   }
   const uploadDoc = async (e) => {
     console.log(e, 'response data')
@@ -168,21 +168,21 @@ function Index(props) {
      
     return true
   }
-  const setSideStateToLocal=()=>{
+  const setSideStateToLocal=(val=null)=>{
    
     sessionStorage.setItem("genericSide",JSON.stringify(sideBar))
-    // sessionStorage.setItem("setgenActive",active)
+    sessionStorage.setItem("setgenActive",val)
     console.log("ddasdasd")
   }
   useEffect(() => {
     if(window){
       if(sessionStorage.getItem("genericSide")){
         setSidebar(JSON.parse(sessionStorage.getItem("genericSide")))
-        // setActive(sessionStorage.getItem("setgenActive"))
+        setActive(sessionStorage.getItem("setgenActive"))
         
       }
     }
-  })
+  },[])
   console.log(active,"active")
   const showContent =(sellerData)=>{
     if(active=="Buyer"){
@@ -407,7 +407,7 @@ function Index(props) {
   }
   console.log("aasdaa",tempArr)
   setSidebar(tempArr)
-  setSideStateToLocal()
+  setSideStateToLocal(active)
   }
   const onRightChange=()=>{
      let tempArr=sideBar;
@@ -432,7 +432,7 @@ function Index(props) {
   }
   console.log("aasdaa",tempArr)
   setSidebar(tempArr)
-  setSideStateToLocal()
+  setSideStateToLocal(active)
   }
  console.log(sideBar,"sideBar")
 
@@ -1307,7 +1307,7 @@ const onSave=()=>{
      setSidebar(tempArr)
     })
     setSubmitData(false)
-   setSideStateToLocal()
+   setSideStateToLocal(key)
 }
 const sendData=(key,data)=>{
   console.log(data,"sendData")
@@ -1511,7 +1511,7 @@ if(key=="Additional Comments"){
   toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
     
 setSaveData(false)
-setSideStateToLocal()
+setSideStateToLocal(key)
 
 
   

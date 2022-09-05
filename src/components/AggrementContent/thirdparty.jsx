@@ -61,7 +61,7 @@ console.log(deliveryData,"deliveryData")
   return (
     
     <>
-      <div className={`${styles.container} vessel_card`}>
+      <div className={`${styles.container} vessel_card card-body p-0`}>
         <Form className={`${styles.form}`}>
           <div className="row border-color ">
            <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>

@@ -131,8 +131,8 @@ const handleRemoveRowEx=(index)=>{
           aria-labelledby="recommendations"
           data-parent="#profileAccordion"
         >
-          <hr className={styles.line} style={{ margin: '0' }}></hr>
-          <div className={`${styles.dashboard_form}`}>
+          {/* <hr className={styles.line} style={{ margin: '0' }}></hr> */}
+          <div className={`${styles.dashboard_form} card-body`}>
             <h5 className={styles.sub_heading}>Company Profile</h5>
             {companyComment &&
               companyComment.map((comment, index) => (
@@ -350,7 +350,7 @@ const handleRemoveRowEx=(index)=>{
                                 )
                                
                               }}
-                              className={styles.input}
+                              className={`${styles.input} input`}
                               pattern="^[\d,]+$"
                             />
                           </td>
@@ -379,7 +379,7 @@ const handleRemoveRowEx=(index)=>{
                                 )
                                
                               }}
-                              className={styles.input}
+                              className={`${styles.input} input`}
                             />
                           </td>
                           <td className="position-relative">

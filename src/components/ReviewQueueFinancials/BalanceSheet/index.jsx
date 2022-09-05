@@ -82,7 +82,7 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                   <thead>
                     <tr>
                       <th width="50%">
-                        <h3>Liabilities</h3>
+                        <h3 className="text-color">Liabilities</h3>
                       </th>
                       <th className="text-center" width="12.5%">
                         {moment(latestYearData?.date).format('MMM-YY').toUpperCase()}
@@ -340,7 +340,7 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                   <thead>
                     <tr>
                       <th width="50%">
-                        <h3>Assets</h3>
+                        <h3 className="text-color">Assets</h3>
                       </th>
                       <th className="text-center" width="12.5%">
                         {moment(latestYearData?.date).format('MMM-YY').toUpperCase()}

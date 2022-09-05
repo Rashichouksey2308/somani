@@ -1802,14 +1802,14 @@ function Index() {
           <Row className={styles.row}>
             <Col md={4} className={`${styles.left} align-self-end`}>
               <div>
-                <span className={`${styles.termSub_head} download-pdf-color`}>Order ID:</span>
-                <span className={`${styles.termValue} download-pdf-color`}>
+                <span className={`${styles.termSub_head} text-color`}>Order ID:</span>
+                <span className={`${styles.termValue} text-color`}>
                   {marginData?.order?.orderId}
                 </span>
               </div>
               <div>
-                <span className={`${styles.termSub_head} download-pdf-color`}>Buyer:</span>
-                <span className={`${styles.termValue} download-pdf-color`}>
+                <span className={`${styles.termSub_head} text-color`}>Buyer:</span>
+                <span className={`${styles.termValue} text-color`}>
                   {marginData?.company?.companyName}
                 </span>
               </div>
@@ -1822,8 +1822,8 @@ function Index() {
               className={`${styles.left} ${styles.right} align-self-center`}
             >
               <div>
-                <span className={`${styles.termSub_head} download-pdf-color`}>Date:</span>{' '}
-                <span className={`${styles.termValue} download-pdf-color`}>
+                <span className={`${styles.termSub_head} text-color`}>Date:</span>{' '}
+                <span className={`${styles.termValue} text-color`}>
                   {moment(marginData?.createdAt?.slice(0, 10)).format(
                     'DD-MM-yy',
                   )}

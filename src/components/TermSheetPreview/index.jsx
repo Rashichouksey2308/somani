@@ -325,26 +325,14 @@ function Index() {
                 termsheet?.data?.map((sheet, index) => (
                   <div key={index}>
                     <div>
-                      <span
-                        className={`${styles.termSub_head} download-pdf-color`}
-                      >
-                        Order ID:
-                      </span>
-                      <span
-                        className={`${styles.termValue} download-pdf-color`}
-                      >
+                      <span className={`${styles.termSub_head} text-color`}>Order ID:</span>
+                      <span className={`${styles.termValue} text-color`}>
                         {sheet.order.orderId}
                       </span>
                     </div>
                     <div className={`mt-1`}>
-                      <span
-                        className={`${styles.termSub_head} download-pdf-color`}
-                      >
-                        Buyer:
-                      </span>
-                      <span
-                        className={`${styles.termValue} download-pdf-color`}
-                      >
+                      <span className={`${styles.termSub_head} text-color`}>Buyer:</span>
+                      <span className={`${styles.termValue} text-color`}>
                         {sheet.company.companyName}
                       </span>
                     </div>
@@ -360,15 +348,8 @@ function Index() {
             <Col
               md={4}
               className={`d-flex justify-content-end  align-items-end`}
-            >
-              <div>
-                <span className={`${styles.termSub_head} download-pdf-color`}>
-                  Date:
-                </span>{' '}
-                <span className={`${styles.termValue} download-pdf-color`}>
-                  {moment(new Date(), 'YYYY-MM-DD', true).format('DD-MM-YYYY')}
-                </span>
-              </div>
+            > 
+             <div><span className={`${styles.termSub_head} text-color`}>Date:</span> <span className={`${styles.termValue} text-color`}>{moment((new Date()), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</span></div>
               {/* <div>
                 <span className={styles.termSub_head}>Date:</span>{' '}
                 <span className={styles.termValue}>
@@ -417,7 +398,7 @@ function Index() {
                   <li>{termsheetDetails?.commodityDetails?.commodity}</li>
                   <li>{termsheetDetails?.commodityDetails?.quantity} MT</li>
                   <li>
-                    USD {termsheetDetails?.commodityDetails?.perUnitPrice}
+                   {termsheetDetails?.commodityDetails?.orderCurrency}{" "}{termsheetDetails?.commodityDetails?.perUnitPrice}
                   </li>
                 </ul>
               </Col>
@@ -625,7 +606,7 @@ function Index() {
                     {termsheetDetails.commercials?.tradeMarginPercentage}%{' '}
                   </li>
                   <li>
-                    {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
+                    {`USD`}{' '}
                     {termsheetDetails.commercials?.lcOpeningChargesUnit}{' '}
                   </li>
                   <li>

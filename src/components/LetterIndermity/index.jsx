@@ -229,7 +229,7 @@ function Index({ TransitDetails }) {
               key={index1}
               className={`ml-3 d-flex justify-content-start align-items-center ${styles.salutationFeatures} `}
             >
-              <select onChange={(e) => BolDropDown(e)}>
+              <select onChange={(e) => BolDropDown(e)} className="input">
                 {bolArray.map((element, index2) => (
                   <option key={index2} value={`${index1}-${index2}`}>
                     BL-{index2 + 1}
