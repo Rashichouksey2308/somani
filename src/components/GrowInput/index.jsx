@@ -26,10 +26,10 @@ function Index(props) {
   return (
   <>
   {
-       textType == "text"? <textarea  className={`${styles.input}`}  size={state?.length > 3 ? state?.length : 3} type="text"  onChange={changeHandler2} value={state} placeholder={props.placeholder} />
+       textType == "text"? <textarea  className={`${styles.input} input`}  size={state?.length > 3 ? state?.length : 3} type="text"  onChange={changeHandler2} value={state} placeholder={props.placeholder} />
     
     :  
-    <input ref={inputEl}  className={`${styles.input}`}   
+    <input ref={inputEl}  className={`${styles.input} input`}   
       size={length}
       type="text" 
        onChange={(e)=>{changeHandler(e)

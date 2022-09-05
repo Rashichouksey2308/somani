@@ -19,7 +19,7 @@ const Index = ({ termsheetDetails, onChangeDropDown, termsheet, otherTermConditi
             <div id="otherTerm" className="collapse" aria-labelledby="otherTerm" data-parent="#otherTerm">
                 <div className={`${styles.dashboard_form} card-body`}>
                     <Form>
-                        <div className={`${styles.terms_para}`}>Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable.<select onChange={(e) => onChangeDropDown(e)} className={styles.igpl_para}>
+                        <div className={`${styles.terms_para}`}>Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable.<select onChange={(e) => onChangeDropDown(e)} className={`${styles.igpl_para} input`}>
                             <option value={`Indo German International Private Limited (IGPL)`}>Indo German International Private Limited (IGPL)</option>
                             <option value={`Emergent Industrial Solutions Limited (EISL)`}> Emergent Industrial Solutions Limited (EISL)</option>
                         </select>
@@ -140,7 +140,7 @@ const Index = ({ termsheetDetails, onChangeDropDown, termsheet, otherTermConditi
 
                                         <div className='d-flex align-items-center'>
                                             <input id="lcOpeningCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.lcOpeningCharges?.lcOpeningCharges} onChange={onChangeLcOpening} />
-                                            <label className={`${styles.checkbox_label} termsheet_Text`}>LC Opening Charges ( on LC value subject to minimum of <input disabled type="text" className={`${styles.igpl_para} ${styles.input}`} placeholder={`${termsheetDetails?.commodityDetails?.orderCurrency} ${_get(termsheetDetails, 'commercials.lcOpeningChargesUnit', '150')}`} />)</label>
+                                            <label className={`${styles.checkbox_label} termsheet_Text`}>LC Opening Charges ( on LC value subject to minimum of <input disabled type="text" className={`${styles.igpl_para} ${styles.input} input`} placeholder={`${termsheetDetails?.commodityDetails?.orderCurrency} ${_get(termsheetDetails, 'commercials.lcOpeningChargesUnit', '150')}`} />)</label>
                                         </div>
                                         <div className='pt-4 d-flex align-items-center'>
                                             <input id="lcAmendmentCost" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.lcOpeningCharges?.lcAmendmentCost} onChange={onChangeLcOpening} />
