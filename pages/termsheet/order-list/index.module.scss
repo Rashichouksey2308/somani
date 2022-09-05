@@ -18,7 +18,6 @@
         display: flex !important;
     }
     .head_header {
-        margin-left: -8px;
         display: flex;
         @include respond(phone) {
             align-items: center;
@@ -37,8 +36,14 @@
             font-weight: bold;
             font-size: 34px;
             line-height: 41px;
-            text-transform: capitalize;
             margin: 0;
+            text-transform: lowercase;
+            &:first-letter {
+              text-transform: uppercase;
+            }
+            &:first-line {
+              text-transform: capitalize;
+            }
             @include respond(phone) {
                 font-size: $font_size_mobile_head;
                 margin: 0px;
