@@ -878,9 +878,9 @@ body.light-mode .cta_bar {
   background: #ffffff;
 }
 body.dark-mode .cta_bar {
-  box-shadow: none;
   background: #232936;
   border-color: #232936;
+  box-shadow: 0 -5px 5px rgb(0, 0, 0, 0.3);
 }
 body.light-mode .directorDetails .card {
   background: #fafafa;

@@ -265,24 +265,24 @@ export const loginUser = (payload) => async (dispatch, getState, api) => {
   dispatch(loggingUser())
   try {
     // let response = await api.post(API.login, payload);
-    Axios.post(`${API.authbaseUrl}${API.login}`, payload).then((response) => {
-      if (response.data.code === 200) {
-        dispatch(loggingUserSuccess(response.data))
+    let response = await Axios.post(`${API.authbaseUrl}${API.login}`, payload)
+    console.log(response, 'response')
+    if (response.data.code === 200) {
+      dispatch(loggingUserSuccess(response.data))
 
-        // localStorage.setItem(response.data.token)
-        // Router.push("/")
-        // Cookies.set('refreshtoken', response.data.data.refreshToken)
-        // Cookies.set('jwtAccessToken', response.data.data.jwtAccessToken)
-        setAuthenticationCookie(response.data.data)
-      } else {
-        dispatch(loggingUserFailed(response.data))
-        // Cookies.remove('token')
-        let toastMessage = 'Please check your credentials and Try Again!'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+      // localStorage.setItem(response.data.token)
+      // Router.push("/")
+      // Cookies.set('refreshtoken', response.data.data.refreshToken)
+      // Cookies.set('jwtAccessToken', response.data.data.jwtAccessToken)
+      setAuthenticationCookie(response.data.data)
+    } else {
+      dispatch(loggingUserFailed(response.data))
+      // Cookies.remove('token')
+      let toastMessage = 'Please check your credentials and Try Again!'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-    })
+    }
   } catch (error) {
     console.log('API FAILED')
     dispatch(loggingUserFailed(errorMessage))
@@ -424,11 +424,13 @@ export const generateToken = () => async (dispatch, getState, api) => {
 }
 
 //****** Logout User   ********//
-let cookie = Cookies.get('SOMANI')
 
 export const logoutUser = () => async (dispatch, getState, api) => {
   // let  cookie =  Cookies.get('SOMANI')
+  let cookie = Cookies.get('SOMANI')
+  console.log(cookie, 'cookie')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+  console.log(decodedString, 'decodedString')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   try {

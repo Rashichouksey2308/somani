@@ -13,6 +13,7 @@ import LetterIndermity from '../../src/components/LetterIndermity'
 import Cookies from 'js-cookie'
 import Router from 'next/router'
 
+import { setPageName, setDynamicName,setDynamicOrder } from '../../src/redux/userData/action'
 
 //api
 import Axios from 'axios'
@@ -43,7 +44,11 @@ function Index() {
   // useEffect(() => {
   //   dispatch(GetTransitDetails(`?transitId=${transID}`))
   // }, [dispatch])
-
+ useEffect(() => {
+    dispatch(setPageName('transit'))
+    dispatch(setDynamicName(_get(TransitDetails,"data[0].company.companyName")))
+    dispatch(setDynamicOrder(_get(TransitDetails,"data[0].order.orderId")))
+  },[TransitDetails])
   useEffect( () => {
     if (transID) {
        fetchInitialData()

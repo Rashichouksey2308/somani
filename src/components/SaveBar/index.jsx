@@ -7,7 +7,7 @@ function Index({ handleSave, rightBtn, rightBtnClick, handleRoute }) {
   console.log(rightBtnClick, 'handleSave')
   // const {updatingAmendment} = useSelector((state)=>state.lc)
   return (
-    <div className={`${styles.root} card`}>
+    <div className={`${styles.root} cta_bar`}>
       <div
         onClick={() => {
           if (handleSave) {

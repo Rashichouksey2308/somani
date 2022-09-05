@@ -573,9 +573,10 @@ const Index = ({
                   id="storageOfGoods"
                   className={`${styles.value} ${styles.customSelect} input form-control`}
                   onChange={onChangeTransactionDetails}
+                  value={termsheetDetails?.transactionDetails?.storageOfGoods}
                   required
                 >
-                  <option selected>Select an option</option>
+                  <option disabled selected>Select an option</option>
                   <option value="Vishakapatnam, India">
                     Visakhapatnam, India
                   </option>
