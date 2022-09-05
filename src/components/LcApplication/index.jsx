@@ -745,7 +745,7 @@ function Index({
                         <div className={`${styles.number}`}>2.</div>
                         <h5>PRODUCT SPECIFICATION</h5>
                       </div>
-                      <div>
+                      {/* <div>
                         <img
                           src="/static/mode_edit.svg"
                           className="img-fluid"
@@ -756,29 +756,9 @@ function Index({
                           className="img-fluid ml-3"
                           alt="delete"
                         />
-                      </div>
+                      </div> */}
                     </div>
-                      <div className={styles.tableWrapper}>
-                    <table>
-                      <tr>
-                        {excelFile &&
-                          excelFile.length > 0 &&
-                          Object.keys(excelFile[0]).map((val, index) => (
-                            <th key={index}>{val}</th>
-                          ))}
-                      </tr>
-
-                      {excelFile &&
-                        excelFile.length > 0 &&
-                        excelFile.map((item, index) => (
-                          <tr>
-                            {Object.values(item).map((value, id) => (
-                              <td key={id}>{value}</td>
-                            ))}
-                          </tr>
-                        ))}
-                    </table>
-          </div>
+                      
                   </div>
                   <div className={`${styles.datatable} mb-5 ml-5 datatable `}>
                     <div className={styles.table_scroll_outer}>
@@ -791,45 +771,22 @@ function Index({
                         >
                           <tbody>
                             <tr className="table_row">
-                              <td>ELEMENTS</td>
-                              <td>TYPICAL</td>
-                              <td>GUARANTEED</td>
+                              {excelFile &&
+                                excelFile.length > 0 &&
+                                Object.keys(excelFile[0]).map((val, index) => (
+                                  <th key={index}>{val}</th>
+                                ))}
                             </tr>
-                            <tr className="table_row">
-                              <td>MN</td>
-                              <td>44.5 PCT</td>
-                              <td>43.0</td>
-                            </tr>
-                            <tr className="table_row">
-                              <td>SIO2</td>
-                              <td>8.0 PCT</td>
-                              <td>8.0 PCT</td>
-                            </tr>
-                            <tr className="table_row">
-                              <td>AL2O3</td>
-                              <td>7.6 PCT</td>
-                              <td>7.6 PCT</td>
-                            </tr>
-                            <tr className="table_row">
-                              <td>FE</td>
-                              <td>5.0 PCT</td>
-                              <td>5.0 PCT</td>
-                            </tr>
-                            <tr className="table_row">
-                              <td>P</td>
-                              <td>0.11 PCT</td>
-                              <td>0.11 PCT</td>
-                            </tr>
-                            <tr className="table_row">
-                              <td>K20</td>
-                              <td>0.99 PCT</td>
-                              <td>0.99 PCT</td>
-                            </tr>
-                            <tr className="table_row">
-                              <td>SIZE 5-75MM (AT LOADING)</td>
-                              <td>90 PCT</td>
-                              <td>90 PCT</td>
-                            </tr>
+                             {excelFile &&
+                                excelFile.length > 0 &&
+                                excelFile.map((item, index) => (
+                                  <tr>
+                                    {Object.values(item).map((value, id) => (
+                                      <td key={id}>{value}</td>
+                                    ))}
+                                  </tr>
+                                ))}
+                          
                           </tbody>
                         </table>
                       </div>
