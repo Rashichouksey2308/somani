@@ -1465,7 +1465,7 @@ function Index() {
       }),
     )
   }
-  const toPrintPdf = (camData, RevenueDetails,) => {
+  const toPrintPdf = (camData, RevenueDetails,orderList) => {
     console.log(_get, "get")
     function calcPc(n1, n2) {
       if (n1 === 0) {
@@ -1487,7 +1487,7 @@ function Index() {
               </tr>
               <tr bgColor="#F7F9FF" height="92">
                 <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', opacity: '1', paddingLeft: '35px' }}>Transaction Type</td>
-                <td colSpan={3} style={{ fontSize: '20px', color: '#111111', lineHeight: '25px' }}>{camData?.orderDetailsl}</td>
+                <td colSpan={3} style={{ fontSize: '20px', color: '#111111', lineHeight: '25px' }}>{camData?.transactionType}</td>
               </tr>
               <tr>
                 <td width="20%" style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px', paddingTop: '37px' }}>Sourcing Channel</td>
@@ -1984,12 +1984,12 @@ function Index() {
                           <tr>
                             <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px', paddingTop: '33px' }}>Net Worth</td>
                             <td style={{ fontSize: '20px', color: '#EA3F3F', lineHeight: '25px', fontWeight: '500', paddingTop: '33px' }}>
-                              {companyData?.financial?.balanceSheet[0]?.equityLiabilities.totalEquity?.toLocaleString(undefined, {
+                              {companyData?.financial?.balanceSheet[0]?.equityLiabilities?.totalEquity?.toLocaleString(undefined, {
                                 minimumFractionDigits: 2,
                               })}
                             </td>
                             <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500', paddingTop: '33px' }}>
-                              {companyData?.financial?.balanceSheet[1]?.equityLiabilities.totalEquity?.toLocaleString(undefined, {
+                              {companyData?.financial?.balanceSheet[1]?.equityLiabilities?.totalEquity?.toLocaleString(undefined, {
                                 minimumFractionDigits: 2,
                               })}
                             </td>
@@ -3789,6 +3789,7 @@ useEffect(() => {
                     approveComment={approveComment}
                     saveApprovedCreditData={saveApprovedCreditData}
                     approvedCredit={approvedCredit}
+                    orderDetails={orderList}
                   />
                 </div>
 

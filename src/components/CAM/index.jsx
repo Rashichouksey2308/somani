@@ -47,6 +47,8 @@ function Index({
   approveComment,
   saveApprovedCreditData,
   approvedCredit,
+  orderDetails
+  
 }) {
   const dispatch = useDispatch()
   console.log(camData, 'companyData')
@@ -440,7 +442,7 @@ function Index({
 
   return (
     <>
-      {basicInfo(camData)}
+      {basicInfo(camData,orderDetails)}
       {supplierInfo(camData)}
       {customerRating(camData, filteredCreditRating, rating)}
       {groupExposure(camData)}
@@ -490,7 +492,7 @@ function Index({
 
 export default Index
 
-const basicInfo = (camData) => {
+const basicInfo = (camData,orderDetails) => {
   // console
   return (
     <>
@@ -524,7 +526,9 @@ const basicInfo = (camData) => {
                   >
                     Transaction Type
                   </span>
-                  <span className={`${styles.value} value pr-5`}>Domestic</span>
+                  <span className={`${styles.value} value pr-5`}>
+                    {orderDetails?.transactionType}
+                    </span>
                 </Col>
               </Row>
             </div>

@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux'
 import _get from 'lodash/get'
 import { removePrefixOrSuffix, addPrefixOrSuffix } from 'utils/helper'
 import { toast } from 'react-toastify'
+import {checkNan} from '../../utils/helper'
 
 export default function Index({
   customData,
@@ -73,7 +74,8 @@ export default function Index({
       return number
     }
   }
-
+  console.log(billOfEntryData.boeDetails,"boeDetails")
+console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd')
   const uploadDoc1 = async (e) => {
     let name = e.target.name
     let docs = await uploadDoc(e)
@@ -644,10 +646,15 @@ export default function Index({
                     >
                       <div className={`${styles.label} text`}>CIRC Date</div>
                       <span className={styles.value}>
-                        {moment(
+                        {
+                        customData?.order?.transit?.CIMS?.cimsDetails[0]
+                            ?.circDate?
+                        moment(
                           customData?.order?.transit?.CIMS?.cimsDetails[0]
-                            ?.circNumber,
-                        ).format('DD-MM-YYYY')}
+                            ?.circDate,
+                        ).format('DD-MM-YYYY')
+                      :""
+                      }
                       </span>
                     </div>
                   </>
@@ -763,6 +770,7 @@ export default function Index({
                     type="number"
                     name="boeDetails.conversionRate"
                     required
+                    value={Number(billOfEntryData.boeDetails.conversionRate)}
                     onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                     onChange={(e) =>
                       saveBillOfEntryData(e.target.name, e.target.value)
@@ -779,12 +787,16 @@ export default function Index({
                     Assessable Value<strong className="text-danger">*</strong>{' '}
                   </div>
                   <span className={styles.value}>
-                    {Number(
+                    {checkNan(
+
+                    (Number(
                       _get(
                         customData,
                         'billOfEntry.billOfEntry[0].boeDetails.invoiceValue',
                       ),
-                    ) * billOfEntryData?.boeDetails?.conversionRate}
+                    ) * billOfEntryData?.boeDetails?.conversionRate)
+
+                    )}
                   </span>
                 </div>
                 {/* <div
