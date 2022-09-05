@@ -365,12 +365,15 @@ function Index() {
                               saveAmendmentData(e.target.name, e.target.value)
                             }
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                            value={lcData?.lcIssuingBank}
                           >
                             <option selected disabled>Select an option</option>
-                            <option value="BNP PARIBAS PARIBAS - BNPAFPPX">
-                              BNP PARIBAS PARIBAS - BNPAFPPX
+                            <option value="Reserve Bank of Spain">
+                              Reserve Bank of Spain
                             </option>
-                            <option value="Swiss Bank">Swiss Bank</option>
+                            <option value="Zurcher Kantonal Bank,Zurich">
+                              Zurcher Kantonal Bank,Zurich
+                            </option>
                           </select>
 
                           <label
@@ -825,6 +828,7 @@ function Index() {
         handleSave={handleSubmit}
         //rightBtnClick={handleRoute}
         rightBtn="Share"
+        buttonText="Submit"
       />
     </>
   )
