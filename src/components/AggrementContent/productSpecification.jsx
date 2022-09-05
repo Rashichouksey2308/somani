@@ -62,7 +62,7 @@ function Index(props) {
         props?.data?.comments.forEach((val, index) => {
           temp.push({ value: val, action: false })
         })
-        setExcelFile(props?.data?.specificationArray)
+        setExcelFile(props?.data?.specificationTable)
         setAddressList(temp)
       }
     }

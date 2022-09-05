@@ -12,6 +12,7 @@ import {
 import _get from 'lodash/get'
 import Router from 'next/router'
 import { toast } from 'react-toastify'
+import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../../../src/utils/helper'
 
 const Index = () => {
   const [insuranceType, setInsuranceType] = useState('')
@@ -303,13 +304,20 @@ const Index = () => {
     
   }
 
-  console.log(insuranceData?.marineInsurance, 'insuranceData')
+  // console.log(insuranceData?.marineInsurance, 'insuranceData')
 
   const handleInsuranceUpdate = () => {
     if (validate()) {
+
+      let marineObj = {...marineData}
+      marineObj.premiumAmount = removePrefixOrSuffix(marineData.premiumAmount)
+
+      let storageObj = {...storageData}
+      storageObj.premiumAmount = removePrefixOrSuffix(storageData.premiumAmount)
+
       let fd = new FormData()
-      fd.append('marineInsurance', JSON.stringify(marineData))
-      fd.append('storageInsurance', JSON.stringify(storageData))
+      fd.append('marineInsurance', JSON.stringify(marineObj))
+      fd.append('storageInsurance', JSON.stringify(storageObj))
       fd.append('insuranceId', insuranceData?._id)
       fd.append(
         'insuranceType',
@@ -665,8 +673,8 @@ const Index = () => {
                           <input
                             className={`${styles.input_field} input form-control`}
                             required
-                            type="number"
-                            defaultValue={insuranceData?.marineInsurance?.premiumAmount}
+                            type="text"
+                            value={ addPrefixOrSuffix(insuranceData?.marineInsurance?.premiumAmount ? insuranceData?.marineInsurance?.premiumAmount : 0, 'INR', 'front')}
                             name="premiumAmount"
                             onChange={(e) =>
                               saveMarineData(e.target.name, e.target.value)
@@ -924,6 +932,7 @@ const Index = () => {
                           <div className="d-flex">
                             <select
                               name="lossPayee"
+                              value={_get(insuranceData, 'order.termsheet.transactionDetails.lcOpeningBank', insuranceData?.quotationRequest?.lossPayee)}
                               onChange={(e) =>
                                 saveStorageData(e.target.name, e.target.value)
                               }
@@ -957,11 +966,11 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             name="premiumAmount"
-                            defaultValue={insuranceData?.storageInsurance?.premiumAmount}
+                            value={ addPrefixOrSuffix(insuranceData?.storageInsurance?.premiumAmount ? insuranceData?.storageInsurance?.premiumAmount : 0, 'INR', 'front')}
                             onChange={(e) =>
                               saveStorageData(e.target.name, e.target.value)
                             }
-                            type="number"
+                            type="text"
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -1208,6 +1217,7 @@ const Index = () => {
                           <div className="d-flex">
                             <select
                               name="lossPayee"
+                              value={_get(insuranceData, 'order.termsheet.transactionDetails.lcOpeningBank', insuranceData?.quotationRequest?.lossPayee)}
                               onChange={(e) =>
                                 saveMarineData(e.target.name, e.target.value)
                               }
@@ -1240,9 +1250,9 @@ const Index = () => {
                           <input
                             className={`${styles.input_field} input form-control`}
                             required
-                            type="number"
+                            type="text"
                             name="premiumAmount"
-                            defaultValue={insuranceData?.marineInsurance?.premiumAmount}
+                            value={ addPrefixOrSuffix(insuranceData?.marineInsurance?.premiumAmount ? insuranceData?.marineInsurance?.premiumAmount : 0, 'INR', 'front')}
                             onChange={(e) =>
                               saveMarineData(e.target.name, e.target.value)
                             }
@@ -1488,6 +1498,7 @@ const Index = () => {
                           <div className="d-flex">
                             <select
                               name="lossPayee"
+                              value={_get(insuranceData, 'order.termsheet.transactionDetails.lcOpeningBank', insuranceData?.quotationRequest?.lossPayee)}
                               onChange={(e) =>
                                 saveStorageData(e.target.name, e.target.value)
                               }
@@ -1524,11 +1535,11 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             name="premiumAmount"
-                            defaultValue={insuranceData?.storageInsurance?.premiumAmount}
+                            value={ addPrefixOrSuffix(insuranceData?.storageInsurance?.premiumAmount ? insuranceData?.storageInsurance?.premiumAmount : 0, 'INR', 'front')}
                             onChange={(e) =>
                               saveStorageData(e.target.name, e.target.value)
                             }
-                            type="number"
+                            type="text"
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}

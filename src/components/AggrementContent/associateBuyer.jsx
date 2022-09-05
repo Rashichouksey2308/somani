@@ -958,12 +958,12 @@ console.log(associateData,"associateData")
                   <th>ACTION</th>
                 </tr>
                 <tbody>
-                  <tr  className='table_row'>
+                  {/* <tr  className='table_row'>
                       <td><strong>Board Resolution Copy<span className={`danger`}>*</span></strong></td>
-                      <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/>{/* {val.designation} */}</td>
+                      <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/></td>
                       <td>{`28-02-2022,5:30 PM`}</td>
                       <td>
-                  <td style={{padding:"0"}}>
+                      <td style={{padding:"0"}}>
                     {doc.attachDoc == '' ? (
                       <div className={styles.uploadBtnWrapper}>
                         <input
@@ -984,7 +984,7 @@ console.log(associateData,"associateData")
                       </div>
                     ) : (
                       <div className={styles.certificate}>
-                        {doc.attachDoc.originalName}
+                        {doc?.attachDoc?.originalName}
                         <img
                           className={`${styles.close_image} float-right m-2 img-fluid`}
                           src="/static/close.svg"
@@ -996,10 +996,10 @@ console.log(associateData,"associateData")
                       </td>
                       </td>
                       <td>
-                        {/* <img  className={`mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
+                      
                         <img  src="/static/upload.svg" alt="upload"/>
                       </td>
-                      </tr>
+                  </tr> */}
 
                   
                 {docList.length>0 && docList.map((val,index)=>{
@@ -1028,7 +1028,7 @@ console.log(associateData,"associateData")
                       </div>
                     ) : (
                       <div className={styles.certificate}>
-                        {val.attachDoc.originalName}
+                        {val.attachDoc?.originalName}
                         <img
                           className={`${styles.close_image} float-right m-2 img-fluid`}
                           src="/static/close.svg"

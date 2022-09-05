@@ -12,7 +12,8 @@ const Index = ({submitData, darkMode, termsCheck, chanegTermsCheck}) => {
             <div className={`${styles.term_container} align-items-start`}>
                 <input className={`${styles.check_box} mt-2`} type="checkbox" checked={termsCheck} onChange={chanegTermsCheck} name="check1"/>
                 
-                <label className={`${styles.term_para} term_para`}>{`By clicking on sign-up, you agree to Simport's Terms and Conditions of Use. To learn more about how Simport collects uses, shares and protects your personal data, please see Simport's Privacy Policy.`}
+                <label className={`${styles.term_para} term_para`}>
+                    {`By signing-up, you agree to Simport's Terms and Conditions of Use. To learn more about how Simport collects, uses, shares and protects your personal data, please see Simport's Privacy Policy.`}
                 </label>
                 {/* <p className={`${styles.term_para} term_para`}></p> */}
             </div>

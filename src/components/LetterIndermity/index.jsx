@@ -158,8 +158,8 @@ function Index({ TransitDetails }) {
         <div className={`${styles.aboutLetter}`}>
           <p>
             STANDARD FORM LETTER OF INDEMNITY TO BE GIVEN IN RETURN FOR
-            DELIVERING CARGO WITHOUT PRODUCTION OF THE ORIGINAL BILL(S) OF
-            LADING.
+            DELIVERING CARGO <span style={{textTransform:'none'}}> without production of the original bills of
+            lading.</span>
           </p>
         </div>
         <div
@@ -259,7 +259,7 @@ function Index({ TransitDetails }) {
             and consigned to <span className={styles.bold}>TO ORDER</span> for
             delivery at the port of{' '}
             <span className={styles.bold}>ANY PORT (S) IN INDIA </span> but the
-            Bills of Lading has not arrived and we,{' '}
+            bill of lading has not arrived and we,{' '}
             <span className={styles.bold}>
               {' '}
               EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR,
@@ -287,7 +287,7 @@ function Index({ TransitDetails }) {
               LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM,
               ANDHRA PRADESH – 530016, INDIA at VISAKHAPATNAM PORT (VSPL), INDIA
             </span>{' '}
-            without production of the original Bill(s) of Lading.
+            without production of the original bill of lading.
           </p>
 
           <div className={`${styles.list}`}>

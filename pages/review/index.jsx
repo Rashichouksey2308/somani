@@ -1424,6 +1424,7 @@ function Index() {
         if (tempIndex < list[0].children.length) {
           setSelectedTab(list[0].children[tempIndex].children[0].innerHTML)
           list[0].children[i].children[0].classList.remove('active')
+          console.log(list[0].children[tempIndex].children[0],"okok",tab[0].children[i], tab[0].children)
           list[0].children[tempIndex].children[0].classList.add('active')
           tab[0].children[i].classList.remove('show')
           tab[0].children[i].classList.remove('active')
@@ -1434,6 +1435,7 @@ function Index() {
       }
     }
   }
+  console.log(selectedTab,"specificationTable")
   const onBack = () => {
     let list = document.getElementsByClassName('nav-tabs')
     let tab = document.getElementsByClassName('tab-content')
@@ -3765,6 +3767,18 @@ useEffect(() => {
                   />
                   <CommonSave onSave={onCreditSave} />
                 </div>
+                 <div
+                  className="tab-pane fade"
+                  id="DocumentsTab"
+                  role="tabpanel"
+                >
+                  <div className="accordion" id="profileAccordion">
+                    <UploadOther
+                      module="LeadOnboarding&OrderApproval"
+                      orderid={id}
+                    />
+                  </div>
+                </div>
                 <div className="tab-pane fade" id="cam" role="tabpanel">
                   <CAM
                     fetchingKarzaGst={fetchingKarzaGst}
@@ -3778,18 +3792,7 @@ useEffect(() => {
                   />
                 </div>
 
-                <div
-                  className="tab-pane fade"
-                  id="DocumentsTab"
-                  role="tabpanel"
-                >
-                  <div className="accordion" id="profileAccordion">
-                    <UploadOther
-                      module="LeadOnboarding&OrderApproval"
-                      orderid={id}
-                    />
-                  </div>
-                </div>
+               
               </div>
             </div>
           </div>
@@ -3821,6 +3824,7 @@ useEffect(() => {
           downLoadButtonName={`GST Report`}
           isPrevious={true}
           isApprove={true}
+           handleUpdate={onBack}
           leftButtonName={`Previous`}
           rightButtonName={`Next`}
           handleApprove={onNext}

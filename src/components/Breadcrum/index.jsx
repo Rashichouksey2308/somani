@@ -36,7 +36,8 @@ export default function Index({ isQuery }) {
       isQuery == '/transit' ||
       isQuery == '/review-queue' ||
       isQuery == '/margin-preview' ||
-      isQuery == '/generic/generic-list'
+      isQuery == '/generic/generic-list' ||
+      isQuery?.match('/forward-hedging')
     ) {
       show.units = false
       show.currency = false
@@ -54,7 +55,8 @@ export default function Index({ isQuery }) {
       isQuery?.match('/review') ||
       isQuery?.match('/vessel') ||
       isQuery?.match('/third-party') ||
-      isQuery?.match('/transit/id')
+      isQuery?.match('/transit/id') 
+ 
     ) {
       show.units = false
       show.currency = true
@@ -211,7 +213,7 @@ export default function Index({ isQuery }) {
     if ('insurance Request Letter' == pageName) {
       router.route =
         '/Agreement & Lc Module' +
-        `/${id.toLowerCase()}` +
+        `/${id?.toLowerCase()}` +
         '/Insurance' +
         '/Request Letter' +
         `/${order}`
