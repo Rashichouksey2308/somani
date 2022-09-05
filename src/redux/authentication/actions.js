@@ -264,7 +264,7 @@ export function setnewPasswordFailed() {
 export const loginUser = (payload) => async (dispatch, getState, api) => {
   dispatch(loggingUser())
   try {
-    let headers = { Cache: 'no-cache' ,'Access-Control-Allow-Origin': '*'}
+    let headers = {'Content-type':'application/json;charset=utf-8' ,Cache: 'no-cache' ,'Access-Control-Allow-Origin': '*'}
     // let response = await api.post(API.login, payload);
     Axios.post(`${API.authbaseUrl}${API.login}`, payload,{
       headers: headers,
