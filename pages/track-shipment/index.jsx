@@ -3,8 +3,10 @@ import styles from './index.module.scss'
 import Image from 'next/image'
 import DownloadBar from '../../src/components/DownloadBar'
 import Filter from '../../src/components/Filter'
-
+import { setPageName,setDynamicName ,setDynamicOrder} from '../../src/redux/userData/action'
+import { useDispatch, useSelector } from 'react-redux'
 function Index() {
+   const dispatch = useDispatch()
   useEffect(() => {
 if(window){
     sessionStorage.setItem('loadedPage',"Loading, Transit & Unloadinge")
@@ -12,6 +14,10 @@ if(window){
     sessionStorage.setItem('openList',3)
     }
 },[])
+  useEffect(() => {
+    dispatch(setPageName('track'))
+ 
+  },[])
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>

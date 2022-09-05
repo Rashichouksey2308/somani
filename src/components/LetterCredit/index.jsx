@@ -5,7 +5,7 @@ import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetLcModule } from 'redux/lcModule/action'
 import Filter from '../Filter'
-import { setPageName,setDynamicName } from '../../redux/userData/action'
+import { setPageName,setDynamicName,setDynamicOrder } from '../../redux/userData/action'
 import { SearchLeads } from 'redux/buyerProfile/action'
 
 function Index() {
@@ -27,12 +27,15 @@ function Index() {
     sessionStorage.setItem('lcCompanyId', lc.company._id)
     dispatch(GetLcModule(`?company=${lc.company._id}`))
     dispatch(setDynamicName(lc?.company?.companyName))
+   
+   
     Router.push('/lc-module')
   }
  useEffect(() => {
-    dispatch(setPageName('letter-table'))
+    dispatch(setPageName('lc'))
     dispatch(setDynamicName(null))
-  })
+    dispatch(setDynamicOrder(null))
+  },[])
 
   const handleSearch = (e) => {
     const query = `${e.target.value}`
