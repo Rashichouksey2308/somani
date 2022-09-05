@@ -45,75 +45,75 @@ const assignmentSupplier=()=>{
      <div className={`${styles.inputsContainer}`}>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Place of execution of  Assignment Letter</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Date of execution of Assignment Letter</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of Seller</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Address of Seller</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Address of Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of Supplier</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Address of Supplier</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Description of Goods</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Quantity of Goods in MT</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Date of execution of Assignment Letter</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Price of Goods / MT</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Tolerance levels</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Load Port</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Discharge Port</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Inco-Terms</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Month of loading of Cargo</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Date of Sales Contract between Supplier and Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       
      </div>
@@ -146,13 +146,13 @@ const assignmentSupplier=()=>{
 //     <div className={`${styles.card_body} card-body `}>
 //     <h5 className={styles.sub_heading}>Assignment Letter between: </h5>
 
-//       <GrowInput  type="text" className={`${styles.para} `} />
-//       <GrowInput  type="text" className={`${styles.para} `} />
+//       <GrowInput  type="text" className={`${styles.para} input `} />
+//       <GrowInput  type="text" className={`${styles.para} input `} />
       
 //       <p>and</p>
-//       <p><GrowInput type="text"/>, registered under the Trade Register of Paris under the number<GrowInput  type="text" className={`${styles.para} `}  />, whose head office is at <GrowInput  className={`${styles.para} `} eholder = "10 boulevard de Grenelle – CS 63205 – 75015 Paris – FRANCE (“the Seller or Producer”)" />.
+//       <p><GrowInput type="text"/>, registered under the Trade Register of Paris under the number<GrowInput  type="text" className={`${styles.para} input `}  />, whose head office is at <GrowInput  className={`${styles.para} input `} eholder = "10 boulevard de Grenelle – CS 63205 – 75015 Paris – FRANCE (“the Seller or Producer”)" />.
 //       </p>
-//       <p>It is hereby agreed that the Seller will accept that the payment for the commodity - approximately <GrowInput  type="text"  className={`${styles.para} `}  /> under the  <GrowInput  type="text"  className={`${styles.para} `}/> by and between the Seller and Hira Power and Steels Ltd (“Buyer”) is to be made by way of a Letter of Credit (L/C), to be issued on the applicant of Indo International Trading FZCO as per the above-mentioned Contract.  The commodity is for use by Hira Power and Steels Ltd (“the Buyer”) only under the terms and conditions contained within the Sales Contract.
+//       <p>It is hereby agreed that the Seller will accept that the payment for the commodity - approximately <GrowInput  type="text"  className={`${styles.para} input `}  /> under the  <GrowInput  type="text"  className={`${styles.para} input `}/> by and between the Seller and Hira Power and Steels Ltd (“Buyer”) is to be made by way of a Letter of Credit (L/C), to be issued on the applicant of Indo International Trading FZCO as per the above-mentioned Contract.  The commodity is for use by Hira Power and Steels Ltd (“the Buyer”) only under the terms and conditions contained within the Sales Contract.
 //       </p>
 //       <p>The Buyer hereby confirms to remain responsible for the performance of the said contact, including any failure or delay in the issuance of the L/C in accordance with the terms of the contract and this letter.  Further Hira Power and Steels Ltd (“Buyer”) shall remain ultimately responsible for payment of the price in the event that the Seller is unable to obtain payment under the L/C, and hereby agree to indemnify the Seller for any loss, damage or expense including, without limitation, any liability Eramet Marketing Services (“the Seller”) may incur to Indo International Trading FZCO by reason of the invoice being addressed to Indo International Trading FZCO.
 //       </p>
@@ -170,19 +170,19 @@ const assignmentSupplier=()=>{
 //       <br/>
 //       <strong>………………………………………………………</strong>
 //       <br/>
-//       <GrowInput type="text" className={`${styles.para}`} />
+//       <GrowInput type="text" className={`${styles.para} input`} />
 //       <br/>
 //       <br/>
       
 //       </div>
-//       <GrowInput type="text" className={`${styles.para} `} />
+//       <GrowInput type="text" className={`${styles.para} input `} />
 
 //       </div>
 //       <p className='mt-5'>
 //       <strong>………………………………………………………</strong>
      
 //       <br/>
-//       <GrowInput type="text" className={`${styles.para} `} />
+//       <GrowInput type="text" className={`${styles.para} input `} />
 
 //       </p>
 //       </div>

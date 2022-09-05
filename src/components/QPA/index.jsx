@@ -131,83 +131,83 @@ obtaining gate passes,
      <div className={`${styles.inputsContainer}`}>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Date of execution</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Place of execution</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of Associate Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Address of Associate Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>GST of Associate Buyerager</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>PAN of Associate Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Signatory of Associate Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of Stevedore</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Address of Stevedore</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Signatory of Stevedore</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of CMA Agent</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Address of CMA Agent</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Signatory of CMA Agent</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Commodity Details</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Quantity</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Name of Supplier</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Details of Vessel</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Port of Loading</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Port of Discharge</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row} ${styles.last}`}>
         <Col md={5} className={styles.left}>Storage Plot allotted to IGI</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
     
      
@@ -340,14 +340,14 @@ const qpa1 = () => {
       <br />
       <div className='d-flex justify-content-between align-items-center mr-4 ml-4 mb-5'>
         <div >
-          <p className={`${styles.below_para}`}>FOR &amp; ON BEHALF OF</p>
+          <p className={`${styles.below_para} input`}>FOR &amp; ON BEHALF OF</p>
           <GrowInput type="text" />
           <br />
           <br />
           <p>Authorised Signatory</p>
           <br />
           <br />
-          <p className={`${styles.below_para}`}>FOR &amp; ON BEHALF OF</p>
+          <p className={`${styles.below_para} input`}>FOR &amp; ON BEHALF OF</p>
           <p><GrowInput type="text" /><strong>………………………….</strong></p>
           <br />
           <br />
@@ -355,14 +355,14 @@ const qpa1 = () => {
 
         </div>
         <div className='pt-3'>
-          <p className={`${styles.below_para}`}>FOR &amp; ON BEHALF OF</p>
+          <p className={`${styles.below_para} input`}>FOR &amp; ON BEHALF OF</p>
           <p><strong>………………………………...</strong></p>
           <br />
           <br />
           <GrowInput type="text" />
           <p>(Name <span>.........</span>)</p>
           <br />
-          <p className={`${styles.below_para}`}>FOR &amp; ON BEHALF OF</p>
+          <p className={`${styles.below_para} input`}>FOR &amp; ON BEHALF OF</p>
           <GrowInput type="text" />
           <br />
           <br />

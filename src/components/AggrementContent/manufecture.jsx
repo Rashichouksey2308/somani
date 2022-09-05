@@ -591,7 +591,7 @@ setEditAddress(
  
   return (
     <>
-      <div className={`${styles.container} vessel_card`}>
+      <div className={`${styles.container} vessel_card card-body p-0`}>
         <Form className={`${styles.form} border-bottom-0`}>
           <div className="row  ">
 

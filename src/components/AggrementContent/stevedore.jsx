@@ -431,7 +431,7 @@ const addDoc=(e,index)=>{
  }
   return (
     <>
-      <div className={`${styles.container} vessel_card`}>
+      <div className={`${styles.container} vessel_card card-body p-0`}>
         <Form className={`${styles.form}`}>
           <div className="row border-color ">
        <Form.Group className={`${styles.form_group} d-flex  col-md-8 col-sm-6`}>
@@ -780,7 +780,7 @@ const addDoc=(e,index)=>{
           </div>
           <div
             id="customerDetail"
-            className={`collapse ${styles.body}  value_card card-body row`}
+            className={`collapse ${styles.body} card-body row`}
             aria-labelledby="customerDetail"
         
           >

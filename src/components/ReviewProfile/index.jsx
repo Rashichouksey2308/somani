@@ -45,12 +45,11 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
   )
   const DropDown = (values, name, disabled) => {
     return (
-      <td>
         <div className="d-flex align-items-center">
           <Form.Select
             size="sm"
             name={name}
-            className={`${styles.dropDown} ${styles.customSelect} dropDown`}
+            className={`${styles.dropDown} ${styles.customSelect} input dropDown`}
             onChange={(e) => {
               handleChange(e.target.name, e.target.value)
             }}
@@ -68,7 +67,6 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
             alt="Search"
           />
         </div>
-      </td>
     )
   }
 
@@ -187,12 +185,14 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                       />
                     ) : null}
                   </td>
-                  {!reviewedProfile?.transactionType?.apiResponse &&
-                    DropDown(
+                  <td>
+                    {!reviewedProfile?.transactionType?.apiResponse &&
+                      DropDown(
                       transactionTypeDropdown,
                       'transactionType',
                       fields[0]?.isEdit,
                     )}
+                  </td>
                 </tr>
                 <tr className={`${styles.table_row} border_color table_row`}>
                   <td>Type Of Business</td>
@@ -219,14 +219,15 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                       />
                     ) : null}
                   </td>
-                  {!reviewedProfile?.typeOfBusiness?.apiResponse &&
+                  <td>
+                    {!reviewedProfile?.typeOfBusiness?.apiResponse &&
                     DropDown(
                       typeOfBusinessDropdown,
                       'typeOfBusiness',
                       fields[1].isEdit,
                     )}
+                  </td>
                 </tr>
-
                 <tr className={`${styles.table_row} border_color table_row`}>
                   <td>Turnover (Cr)</td>
                   <td>
@@ -304,8 +305,10 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                       />
                     ) : null}
                   </td>
-                  {!reviewedProfile?.commodity?.apiResponse &&
-                    DropDown(commodityDropdown, 'commodity', fields[3].isEdit)}
+                  <td>
+                    {!reviewedProfile?.commodity?.apiResponse &&
+                    DropDown(commodityDropdown, 'commodity', fields[3].isEdit)}                  
+                  </td>
                 </tr>
 
                 <tr className={`${styles.table_row} border_color table_row`}>
@@ -384,15 +387,16 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                         type="checkbox"
                       />
                     ) : null}
-                  </td>
-                  {!reviewedProfile?.countryOfOrigin?.apiResponse &&
-                    DropDown(
+                  </td>                  
+                  <td>
+                    {!reviewedProfile?.countryOfOrigin?.apiResponse &&
+                      DropDown(
                       countryOfOriginDropdown,
                       'countryOfOrigin',
                       fields[5].isEdit,
                     )}
+                  </td>
                 </tr>
-
                 <tr className={`${styles.table_row} border_color table_row`}>
                   <td>Port Of Discharge</td>
                   <td>{reviewedProfile?.portOfDischarge?.originalValue}</td>
@@ -418,14 +422,15 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                       />
                     ) : null}
                   </td>
-                  {!reviewedProfile?.portOfDischarge?.apiResponse &&
-                    DropDown(
+                  <td>
+                    {!reviewedProfile?.portOfDischarge?.apiResponse &&
+                      DropDown(
                       portOfDischargeDropdown,
                       'portOfDischarge',
                       fields[6]?.isEdit,
                     )}
+                  </td>
                 </tr>
-
                 <tr className={`${styles.table_row} border_color table_row`}>
                   <td>Expected Date Of Shipment</td>
                   <td>
@@ -549,7 +554,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
         <Form.Control
           as="textarea"
           rows={3}
-          className={styles.remarksTextarea}
+          className={`${styles.remarksTextarea} input`}
         />
       </div>
     </div>

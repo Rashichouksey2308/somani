@@ -386,6 +386,7 @@ body.dark-mode .background1 {
   border: none;
   box-shadow: none;
   background-color: #232936;
+  border-top: 1px solid #434e61;
 }
 body.light-mode .background1 {
   // box-shadow: none;
@@ -954,10 +955,10 @@ body.dark-mode .download-pdf-bg {
   background: #3687E8;
   border: 1px solid #D2D7E5;
 }
-body.light-mode .download-pdf-color {
+body.light-mode .text-color {
   color: #111111;
 }
-body.dark-mode .download-pdf-color {
+body.dark-mode .text-color {
   color: #FFFFFF;
 }
 body.light-mode .download-pdf-title {

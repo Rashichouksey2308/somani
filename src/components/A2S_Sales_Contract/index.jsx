@@ -489,7 +489,7 @@ const salesContract = (changeHandler, data, preview,CovertvaluefromtoCR) => {
   console.log(data, "data2342")
   return (
     <>
-      <div className={`${styles.card_body} card-body`}>
+      <div className={`${styles.card_body}`}>
         {preview ?
           <div className={`${styles.inputsContainer2}`}>
             <Row className={`${styles.row} ${styles.last}`}>

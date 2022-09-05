@@ -93,43 +93,43 @@ const tripartiteAgreement=()=>{
      <div className={`${styles.inputsContainer}`}>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Date of execution</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Place of execution</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of Supplier</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Address of Supplier</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Authorized signatory of Supplier</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Email ID of Supplier</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of End buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Authorized signatory of End Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Email ID of End Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Details of Goods as per Sales Contract</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para}`}></input></Col>
+        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
       </Row>
    
       

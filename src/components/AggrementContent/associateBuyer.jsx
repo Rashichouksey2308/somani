@@ -449,7 +449,7 @@ const cancelAddress=()=>{
 console.log(associateData,"associateData")
   return (
     <>
-      <div className={`${styles.container} vessel_card`}>
+      <div className={`${styles.container} vessel_card card-body p-0`}>
         <Form className={`${styles.form}`}>
           <div className="row">
             <div className={`${styles.info} col-md-4 col-sm-6`}>

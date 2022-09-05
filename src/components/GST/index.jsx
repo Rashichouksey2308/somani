@@ -679,7 +679,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
               <div
                 className={` ${styles.header}  card_sub_header border-top-0  d-flex align-items-center justify-content-between`}
               >
-                <span>Business Profile</span>
+                <span className="text-color">Business Profile</span>
                 <span
                   className={` d-flex align-items-center justify-content-between`}
                 >
@@ -802,7 +802,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
               <div
                 className={` ${styles.header}   card_sub_header d-flex align-items-center justify-content-between`}
               >
-                <span>Alerts Indentified</span>
+                <span className="text-color">Alerts Indentified</span>
               </div>
               <div className={` ${styles.body}`}>
                 <Row className={` ${styles.row}`}>
@@ -911,7 +911,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
               <div
                 className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-between`}
               >
-                <span>Key Managerial Persons</span>
+                <span className="text-color">Key Managerial Persons</span>
               </div>
               <div className={` ${styles.body}`}>
                 <Row>
@@ -936,7 +936,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
               <div
                 className={` ${styles.header}  card_sub_header   d-flex align-items-center justify-content-between`}
               >
-                <span>Revenue Profile</span>
+                <span className="text-color">Revenue Profile</span>
                 <span
                   className={` d-flex align-items-center justify-content-between `}
                 >
@@ -1479,7 +1479,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   border="1"
                 >
                   <tr>
-                    <th className={`${styles.first}`} colSpan={2}>
+                    <th className={`${styles.first} text-color`} colSpan={2}>
                       Annual Summary
                     </th>
                     <th colSpan={2}>
@@ -1735,7 +1735,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   border="1"
                 >
                   <tr>
-                    <th className={`${styles.first}`}>Averages</th>
+                    <th className={`${styles.first} text-color`}>Averages</th>
                     <th>
                       {finacialYear(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
@@ -1842,7 +1842,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   border="1"
                 >
                   <tr>
-                    <th className={`${styles.first}`}>
+                    <th className={`${styles.first} text-color`}>
                       Principal/ HSN Wise Sales
                     </th>
                     <th colSpan={6}>
@@ -1947,7 +1947,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   border="1"
                 >
                   <tr>
-                    <th className={`${styles.first}`} colSpan={2}>
+                    <th className={`${styles.first} text-color`} colSpan={2}>
                       Annual Summary
                     </th>
                     <th colSpan={2}>
@@ -2221,7 +2221,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   border="1"
                 >
                   <tr>
-                    <th className={`${styles.first}`}>Averages</th>
+                    <th className={`${styles.first} text-color`}>Averages</th>
                     <th>
                       {finacialYear(
                         gstFilteredData?.detail?.purchaseDetailAnnual
@@ -2330,7 +2330,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   border="1"
                 >
                   <tr>
-                    <th className={`${styles.first}`}>
+                    <th className={`${styles.first} text-color`}>
                       Principal/ HSN Wise Purchases
                     </th>
                     <th colSpan={6}>
@@ -2568,7 +2568,7 @@ const gstCustomerDetail = (
                       cellSpacing="0"
                     >
                       <tr>
-                        <th className={`${styles.first}`} colSpan={6}>
+                        <th className={`${styles.first} text-color`} colSpan={6}>
                           Recurring Party Sales In Last 12 Months
                         </th>
                       </tr>
@@ -2622,7 +2622,7 @@ const gstCustomerDetail = (
                       cellSpacing="0"
                     >
                       <tr>
-                        <th className={`${styles.first}`} colSpan={6}>
+                        <th className={`${styles.first} text-color`} colSpan={6}>
                           Related Party Sales In Last 12 Months
                         </th>
                       </tr>
@@ -2673,7 +2673,7 @@ const gstCustomerDetail = (
                       cellSpacing="0"
                     >
                       <tr>
-                        <th className={`${styles.first}`} colSpan={6}>
+                        <th className={`${styles.first} text-color`} colSpan={6}>
                           Top 10 Customers
                         </th>
                       </tr>
@@ -2723,7 +2723,7 @@ const gstCustomerDetail = (
                       cellSpacing="0"
                     >
                       <tr>
-                        <th className={`${styles.first}`} colSpan={6}>
+                        <th className={`${styles.first} text-color`} colSpan={6}>
                           Statewise Sales
                         </th>
                       </tr>
@@ -2828,7 +2828,7 @@ const gstSupplierDetail = (
                       cellSpacing="0"
                     >
                       <tr>
-                        <th className={`${styles.first}`} colSpan={6}>
+                        <th className={`${styles.first} text-color`} colSpan={6}>
                           Recurring Party Purchases In Last 12 Months
                         </th>
                       </tr>
@@ -2879,7 +2879,7 @@ const gstSupplierDetail = (
                       cellSpacing="0"
                     >
                       <tr>
-                        <th className={`${styles.first}`} colSpan={6}>
+                        <th className={`${styles.first} text-color`} colSpan={6}>
                           Related Party Purchases In Last 12 Months
                         </th>
                       </tr>
@@ -2928,7 +2928,7 @@ const gstSupplierDetail = (
                       cellSpacing="0"
                     >
                       <tr>
-                        <th className={`${styles.first}`} colSpan={6}>
+                        <th className={`${styles.first} text-color`} colSpan={6}>
                           Top 10 Suppliers
                         </th>
                       </tr>
@@ -2979,7 +2979,7 @@ const gstSupplierDetail = (
                       cellSpacing="0"
                     >
                       <tr>
-                        <th className={`${styles.first}`} colSpan={6}>
+                        <th className={`${styles.first} text-color`} colSpan={6}>
                           Statewise Purchase
                         </th>
                       </tr>
@@ -3079,7 +3079,7 @@ const gstSales = (head, gstFilteredData) => {
                       cellSpacing="0"
                     >
                       <tr>
-                        <th className={`${styles.first}`} colSpan={13}>
+                        <th className={`${styles.first} text-color`} colSpan={13}>
                           Financial Period{' '}
                           {
                             gstFilteredData?.detail?.salesDetailAnnual
@@ -3371,7 +3371,7 @@ const gstPurchase = (head, gstFilteredData) => {
                       cellSpacing="0"
                     >
                       <tr>
-                        <th className={`${styles.first}`} colSpan={13}>
+                        <th className={`${styles.first} text-color`} colSpan={13}>
                           Financial Period{' '}
                           {
                             gstFilteredData?.detail?.purchaseDetailAnnual
