@@ -17,15 +17,7 @@ let cha={
           
         
 }
-//  setAddressList([...addressList,{
-//               addressType: "Registered",
-//               fullAddress: "Flat No. 303, 3rd Floor, Tirumala Plaza, Dabagarden",
-//               pinCode: "530020",
-//               country: "India",
-//               gstin: "37AABFI9574L2ZP",
-//               state: "Andhra Pradesh ",
-//               city: "Visakhapatnam"
-//         }])
+
 function Index(props) {
   const[chaState,setChaState]=useState(cha)
   const [list,setList]=useState([])
@@ -99,7 +91,15 @@ useEffect(() => {
        setAddressList(props.data?.addresses!==undefined?props.data?.addresses:[])
        setChaState(supplier)
        
-         
+          setAddressList([...addressList,{
+              addressType: "Registered",
+              fullAddress: "Flat No. 303, 3rd Floor, Tirumala Plaza, Dabagarden",
+              pinCode: "530020",
+              country: "India",
+              gstin: "37AABFI9574L2ZP",
+              state: "Andhra Pradesh ",
+              city: "Visakhapatnam"
+        }])
     }
    }
   },[props])
@@ -141,6 +141,7 @@ return newState;
   setAddressType("Registered")
 
 }
+
   useEffect(() => {
     if(props.saveData==true && props.active=="CHA"){
        let data={
