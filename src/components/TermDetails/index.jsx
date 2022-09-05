@@ -208,11 +208,13 @@ const Index = ({
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div
                 className={`${styles.suffixWrapper} d-flex text-muted`}
-                customSuffix="%"
+                // customSuffix="%"
               >
                 <input
                   id="tolerance"
-                  value={termsheetDetails?.commodityDetails?.tolerance}
+                  value={
+                    addPrefixOrSuffix(termsheetDetails?.commodityDetails?.tolerance,"%")
+                  }
                   className={`${styles.value} ${styles.customSelect} input form-control`}
                   onChange={onChangeCommodityDetails}
                   required

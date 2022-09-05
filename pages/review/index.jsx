@@ -955,7 +955,7 @@ function Index() {
       addressArr.push(element)
     })
     setKeyAddData(addressArr)
-
+   
     let personArr = []
     orderList?.company?.keyContactPerson?.forEach((element) => {
       // console.log(element,"useEE")
@@ -2831,6 +2831,21 @@ function Index() {
 
     )
   }
+useEffect(() => {
+  setKeyAddData([...keyAddData,
+    {
+      addressType:"Registered Office",
+      completeAddress:companyData?.profile?.companyDetail?.registeredAddress,
+      contact: {
+            callingCode: '+91',
+            number: companyData?.profile?.companyDetail?.contactNumber,
+        }
+     
+    
+    }
+    ])
+},
+[companyData])
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -3723,6 +3738,7 @@ function Index() {
                     setEditRow={setEditRow}
                     orderDetail={orderList}
                     companyData={companyData}
+                    
                   />
                   <Recommendations
                     creditDetail={orderList}
