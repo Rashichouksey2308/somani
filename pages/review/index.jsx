@@ -787,7 +787,7 @@ function Index() {
   const [approveComment, setApproveComment] = useState()
 
   useEffect(() => {
-    setApproveComment(orderList?.cam?.approvalRemarks)
+    setApproveComment(_get(orderList,"cam.approvalRemarks",[]))
   }, [orderList])
 
   const [strengthsComment, setStrengthsComment] = useState(
@@ -1385,8 +1385,11 @@ function Index() {
   }
 
   const handleCamApprove = () => {
+    console.log("CAAAAA")
     if (orderValidation() && creditValidation()) {
+        console.log("CAAAAA2")
       if (gettingPercentageCredit && gettingPercentageOrder) {
+        console.log("CAAAAA3",approveComment)
         const obj = {
           approvalRemarks: [...approveComment],
           approvedOrderValue: approvedCredit.approvedOrderValue,
