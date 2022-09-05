@@ -34,9 +34,15 @@
       font-size: 34px;
       line-height: 41px;
       font-weight: bold;
-      text-transform: capitalize;
       margin: 0;
       padding-left: 18px;
+      text-transform: lowercase;
+      &:first-letter {
+        text-transform: uppercase;
+      }
+      &:first-line {
+        text-transform: capitalize;
+      }
       @include respond(md-desktop) {
         font-size: 28px;
       }

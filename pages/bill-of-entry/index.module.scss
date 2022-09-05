@@ -57,6 +57,13 @@
       font-weight: bold;
       padding-left: 18px;
       margin: 0;
+      text-transform: lowercase;
+      &:first-letter {
+        text-transform: uppercase;
+      }
+      &:first-line {
+        text-transform: capitalize;
+      }
       @include respond(md-desktop) {
         font-size: 28px;
       }

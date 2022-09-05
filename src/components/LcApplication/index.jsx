@@ -348,7 +348,7 @@ function Index({
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <Row>
-                          <Col xl={8} lg={6} md={12}>
+                          <Col className={styles.small_box} xl={8} lg={6} md={12}>
                             <div className="d-flex">
                               <select
                                 name="atSight"
@@ -380,7 +380,7 @@ function Index({
                               />
                             </div>
                           </Col>
-                          <Col xl={4} lg={6} md={12}>
+                          <Col className={styles.small_box} xl={4} lg={6} md={12}>
                             <input
                               className={`${styles.input_field} input form-control`}
                               required
