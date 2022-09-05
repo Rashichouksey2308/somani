@@ -425,7 +425,7 @@ export default function Index({
             >
               <h3 className={`${styles.heading} mb-0`}>Commodity Details</h3>
             </div>
-            <div className={`${styles.dashboard_form} mt-2 mb-4 card-body`}>
+            <div className={`${styles.dashboard_form} card-body`}>
               <div className="row">
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>
@@ -490,7 +490,7 @@ export default function Index({
             >
               <h3 className={`${styles.heading} mb-0`}>Shipment Details</h3>
             </div>
-            <div className={`${styles.dashboard_form} mt-3 card-body`}>
+            <div className={`${styles.dashboard_form} card-body`}>
               <div className="row">
                 <div className="col-lg-4 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>
@@ -605,7 +605,7 @@ export default function Index({
                     </button>
                   </div>
                 </div>
-                <div className={`${styles.dashboard_form} mt-3 card-body`}>
+                <div className={`${styles.dashboard_form} card-body`}>
                   <div className="row">
                     <div
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
@@ -917,7 +917,7 @@ export default function Index({
                 <div className={styles.table_scroll_outer}>
                   <div className={styles.table_scroll_inner}>
                     <table
-                      className={`${styles.table} table mt-3`}
+                      className={`${styles.table} table my-0`}
                       cellPadding="0"
                       cellSpacing="0"
                       border="0"

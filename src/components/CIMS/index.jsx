@@ -304,14 +304,14 @@ export default function Index({
 
   return (
     <>
-      <div className={`${styles.backgroundMain} vessel_card container-fluid`}>
+      <div className={`${styles.backgroundMain} vessel_card container-fluid p-0`}>
 
         <div
 
-          className={`${styles.vessel_card} mt-3 border_color`}
+          className={`${styles.vessel_card} border_color`}
         >
           {cimsDetails.map((list, index) => (
-            <div key={index} className={`${styles.main} border_color mt-4 card `}>
+            <div key={index} className={`${styles.main} border_color card `}>
               <div
                 className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
               >
@@ -323,7 +323,7 @@ export default function Index({
                   <span className={styles.add_sign}>+</span>Add
                 </button>
               </div>
-              <div className={`${styles.dashboard_form} mt-2 card-body`}>
+              <div className={`${styles.dashboard_form} card-body`}>
                 <div className="row">
                   <div
                     className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
@@ -333,7 +333,7 @@ export default function Index({
                         <select
                         value={list.vesselName}
                           onChange={(e) => onChangeVessel(e, index)}
-                          className={`${styles.input_field} ${styles.customSelect}  input form-control`}
+                          className={`${styles.input_field} ${styles.customSelect} input form-control`}
                         >
                           <option disabled selected>Select an option</option>
                           {shipmentTypeBulk
@@ -487,7 +487,7 @@ export default function Index({
               <div className={styles.table_scroll_outer}>
                 <div className={styles.table_scroll_inner}>
                   <table
-                    className={`${styles.table} table mt-5`}
+                    className={`${styles.table} table mb-0`}
                     cellPadding="0"
                     cellSpacing="0"
                     border="0"

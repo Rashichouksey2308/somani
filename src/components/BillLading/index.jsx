@@ -583,7 +583,7 @@ export default function Index({
                 </div>
               </div>
             </div>
-            <div className={`${styles.dashboard_form} mt-2 mb-4 card-body`}>
+            <div className={`${styles.dashboard_form} card-body`}>
               <div className="row">
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>
@@ -670,7 +670,7 @@ export default function Index({
                     </button>
                   )}
                 </div>
-                <div className={`${styles.dashboard_form} mt-3 card-body`}>
+                <div className={`${styles.dashboard_form} card-body`}>
                   <div className={`${styles.bill_landing} border_color`}>
                     <div className={`${styles.vessel_card}`}>
                       <div className="row">
