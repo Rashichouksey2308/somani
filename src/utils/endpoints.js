@@ -44,7 +44,7 @@ export default {
   reviseMarginMoney: '/margin-money/revised',
 
   // companydetails
-  getCompanyDetails: '/lead/fetchCompanyDetail',
+  getCompanyDetails: '/lead/fetch-company-detail',
   updateCompanyDetails: '/lead/update-company',
 
   //complienceCase
