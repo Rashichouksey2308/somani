@@ -175,6 +175,7 @@ export default function Index({
       return newState
     })
   }
+  console.log(cimsDetails, 'khjfdfgkegfk')
   const validation = () => {
     let isOk = true
     let toastMessage = ''
@@ -413,7 +414,7 @@ export default function Index({
                     <div className="d-flex">
                       {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                       <DatePicker
-                        value={moment(list?.circDate?.split('T')[0]).format('DD-MM-YYYY')}
+                        // value={moment(list?.circDate?.split('T')[0]).format('DD-MM-YYYY')}
                         defaultDate={list?.circDate}
                         selected={startBlDate}
                         dateFormat="dd-MM-yyyy"
