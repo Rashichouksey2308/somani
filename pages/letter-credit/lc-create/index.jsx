@@ -7,6 +7,7 @@ import { GetLcModule, UpdateLcModule } from '../../../src/redux/lcModule/action'
 import {removePrefixOrSuffix} from '../../../src/utils/helper'
 import _get from 'lodash/get'
 import { toast } from 'react-toastify'
+import { setPageName,setDynamicName ,setDynamicOrder} from '../../../src/redux/userData/action'
 function Index() {
   const dispatch = useDispatch()
 
@@ -21,7 +22,11 @@ function Index() {
   }, [dispatch])
 
   const [lcData, setLcData] = useState()
-
+  useEffect(() => {
+    dispatch(setPageName('Lc'))
+  console.log(lcModule?.data?.order?.orderId,"lcModule?.data?.order?.orderId")
+  dispatch(setDynamicOrder( _get(lcModule, 'data[0].order.orderId', {})))
+  },[lcModuleData])
   // console.log(lcData, "THIS IS LC USE STATE")
 
   useEffect(() => {

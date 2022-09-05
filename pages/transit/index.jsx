@@ -3,7 +3,7 @@ import styles from './index.module.scss'
 import Router from 'next/router'
 import Filter from '../../src/components/Filter'
 import { SearchLeads } from '../../src/redux/buyerProfile/action.js'
-import { setPageName, setDynamicName } from '../../src/redux/userData/action'
+import { setPageName, setDynamicName,setDynamicOrder } from '../../src/redux/userData/action'
 import {
   GetAllTransitDetails,
   GetTransitDetails,
@@ -34,6 +34,8 @@ function Index() {
   useEffect(() => {
     dispatch(setPageName('transit'))
     dispatch(setDynamicName(null))
+  
+    dispatch(setDynamicOrder(null))
   })
 
   const handleRoute = (transaction) => {
