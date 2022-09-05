@@ -157,9 +157,9 @@ const Index = ({ orderid, module, isDocumentName }) => {
                   />
                   {newDoc?.document?.name ? (
                     <div className={styles.certificate}>
-                      {newDoc?.document?.name}
+                      <span>{newDoc?.document?.name}</span>
                       <img
-                        className={`${styles.close_image} float-right ml-2 img-fluid`}
+                        className={`${styles.close_image} mr-2`}
                         src="/static/close.svg"
                         onClick={(e) => handleCloseDoc()}
                         alt="Close"

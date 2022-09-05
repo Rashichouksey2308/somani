@@ -129,9 +129,9 @@ const Index = ({ uploadDocument1, uploadDocument2, docName, docName2 }) => {
                           </>
                         ) : (
                           <div className={styles.certificate}>
-                            {vesselCertificate?.name}
+                            <span>{vesselCertificate?.name}</span>
                             <img
-                              className={`${styles.close_image} float-right ml-2 img-fluid`}
+                              className={`${styles.close_image} mr-2`}
                               src="/static/close.svg"
                               onClick={() => handleClose(docName)}
                               alt="Close"
@@ -183,9 +183,9 @@ const Index = ({ uploadDocument1, uploadDocument2, docName, docName2 }) => {
                           </>
                         ) : (
                           <div className={styles.certificate}>
-                            {containerList?.name}
+                            <span>{containerList?.name}</span>
                             <img
-                              className={`${styles.close_image} float-right ml-2 img-fluid`}
+                              className={`${styles.close_image} mr-2`}
                               src="/static/close.svg"
                               onClick={() => handleClose(docName2)}
                               alt="Close"

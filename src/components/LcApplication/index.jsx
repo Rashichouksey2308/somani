@@ -759,7 +759,7 @@ function Index({
                       </div>
                     </div>
                   </div>
-                  {/* <div className={`${styles.datatable} mb-5 ml-5 datatable `}>
+                  <div className={`${styles.datatable} mb-5 ml-5 datatable `}>
                     <div className={styles.table_scroll_outer}>
                       <div className={styles.table_scroll_inner}>
                         <table
@@ -768,14 +768,12 @@ function Index({
                           cellSpacing="0"
                           border="0"
                         >
-                          <thead>
-                            <tr className="table_row">
-                              <th>ELEMENTS</th>
-                              <th>TYPICAL</th>
-                              <th>GUARANTEED</th>
-                            </tr>
-                          </thead>
                           <tbody>
+                            <tr className="table_row">
+                              <td>ELEMENTS</td>
+                              <td>TYPICAL</td>
+                              <td>GUARANTEED</td>
+                            </tr>
                             <tr className="table_row">
                               <td>MN</td>
                               <td>44.5 PCT</td>
@@ -815,7 +813,7 @@ function Index({
                         </table>
                       </div>
                     </div>
-                  </div> */}
+                  </div>
                 </div>
                 <div
                   className={`${styles.dashboard_form} border_color`}
