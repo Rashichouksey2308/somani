@@ -9,10 +9,15 @@ import Router from 'next/router'
 import Modal from 'react-bootstrap/Modal'
 
 export default function Index(props) {
+  const [show, setShow] = useState(false)
   const handleRoute = () => {
     Router.push('/delivery-preview')
   }
   console.log(props, 'props')
+
+  const handleClose = () => {
+
+  }
 
   return (
     <>
@@ -262,18 +267,18 @@ export default function Index(props) {
                                     />
                                     {props.releaseOrderData.length - 1 ===
                                       index && (
-                                      <img
-                                        onClick={(e) => {
-                                          props.addNewDelivery()
-                                        }}
-                                        src="/static/add.svg"
-                                        className={`${styles.shareImg} img-fluid ml-3`}
-                                        alt="add"
-                                      />
-                                    )}
+                                        <img
+                                          onClick={(e) => {
+                                            props.addNewDelivery()
+                                          }}
+                                          src="/static/add.svg"
+                                          className={`${styles.shareImg} img-fluid ml-3`}
+                                          alt="add"
+                                        />
+                                      )}
 
                                     {props.releaseOrderData.length ===
-                                    1 ? null : (
+                                      1 ? null : (
                                       <img
                                         className={`${styles.shareImg} ml-3 img-fluid`}
                                         src="/static/delete.svg"
@@ -336,12 +341,12 @@ export default function Index(props) {
         <SaveBar
           handleSave={props.onSaveHAndler}
           rightBtn="Generate Delivery Order"
-          rightBtnClick={props.onSaveHAndler}
+          rightBtnClick={() => setShow(true)}
           handleRoute={handleRoute}
         />
       </div>
 
-      {/* <Modal
+      {/*  <Modal
         show={show}
         onHide={handleClose}
         className={`${styles.root}`}
@@ -361,7 +366,7 @@ export default function Index(props) {
               </p>
               <p>CIN NO-U74899DL1994PTC063676</p>
             </div>
-            <div className={`${styles.type}`}>
+            <div onClick={() => (setShow(false))} className={`${styles.type}`}>
               <p>DELIVERY ORDER </p>
               <p>(ORIGINAL) </p>
             </div>
