@@ -3,7 +3,7 @@ import styles from './index.module.scss'
 
 function index({ openbar, leftButtonTitle, rightButtonTitle, exportPDF }) {
   return (
-    <div className={styles.root}>
+    <div className={`${styles.root} cta_bar`}>
       <div className={styles.reject} onClick={exportPDF}>
         <span>{leftButtonTitle}</span>
         <img
