@@ -345,7 +345,7 @@ export default function Index({
                                 value={vessel?.vesselInformation?.name}
                                 key={index}
                               >
-                                {vessel?.vesselInformation?.name}
+                                {vessel?.vesselInformation[0]?.name}
                               </option>
                             ))
                             : _get(
