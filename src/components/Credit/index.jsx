@@ -531,25 +531,27 @@ const index = ({
                   <label className={`${styles.label_heading} label_heading`}>
                     Commodity Contribution Senstivity
                     <strong className="text-danger">*</strong>
-                    <div className={`${styles.tooltip} `}>
-                    <img
-                      className={`ml-2 img-fluid`}
-                      src="/static/info-circle.svg"
-                      onClick={(e) => {
-                         setInfoCircle(!infoCircle)
-                      }}
-                    />
-                    {!infoCircle ? (
-                    <div className={`${styles.tooltiptext}`}>Usage of commodity in production of end product</div>
-                    ) : ' ' }
-                    </div>
+                   
                   </label>
+                 
                   <img
                     className={`${styles.arrow} image_arrow img-fluid`}
                     src="/static/inputDropDown.svg"
                     alt="Search"
                   />
+                  
                 </div>
+                <div className={`${styles.tooltip} `}>
+                    <img
+                                    style={{marginLeft:'300px', marginTop:'-140px' , marginRight:'50px' }}
+
+                      className={`${styles.info_circle} img-fluid`}
+                      src="/static/info-circle.svg"
+                    />
+                   
+                    <div className={`${styles.tooltiptext}`}>Usage of commodity in production of end product</div>
+                   
+                    </div>
               </div>
 
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -837,17 +839,19 @@ const index = ({
                 <label className={`${styles.label_heading} label_heading`}>
                   Commodity to Total Trade % -24M
                   <strong className="text-danger">*</strong>
-                  <div className={`${styles.tooltip} `}>
-                    <img
-                      className={`ml-2 img-fluid`}
-                      src="/static/info-circle.svg"
-                      onChange={(e) => handleInfo(e)}
-                    />
-                    {!infoCircle ? (
-                    <div className={`${styles.tooltiptext}`}>Usage of commodity in production of end product</div>
-                    ) : ' ' }
-                    </div>
+                 
                 </label>
+                <div className={`${styles.tooltip} `}>
+                    <img
+                    style={{marginLeft:'300px', marginTop:'-140px' , marginRight:'50px' }}
+                       className={`${styles.info_circle} img-fluid`}
+                      src="/static/info-circle.svg"
+                    />
+                   
+                    <div className={`${styles.tooltiptext}`}>Usage of commodity in production of end product</div>
+                 
+                    </div>
+               
               </div>
               <div className={`${styles.form_group} col-12 mt-4`}>
                 <textarea
