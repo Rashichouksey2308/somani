@@ -69,7 +69,7 @@ export default function Index({
     packingListDoc: null,
   }
   const dispatch = useDispatch()
-
+console.log(bolList,"bolList")
   let shipmentTypeBulk =
     _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') ==
     'Bulk'
@@ -704,7 +704,7 @@ export default function Index({
                               onChange={(e) => onChangeVessel(e, index)}
                               className={`${styles.input_field} ${styles.customSelect}   input form-control`}
                             >
-                              <option disabled selected>
+                              <option  selected>
                                 Select an option
                               </option>
                               {shipmentTypeBulk

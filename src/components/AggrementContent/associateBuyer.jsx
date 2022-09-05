@@ -71,11 +71,13 @@ if (window) {
      if(savedData.authorisedSignatoryDetails?.length > 0){
      
      savedData.authorisedSignatoryDetails.forEach((val,index)=>{
-      if(val.document){
+      if(val.document !== "new"){
+        console.log(val.document,"val.document")
        temp.push({attachDoc:val.document})
       }
      })
      }
+     console.log(temp,"temp")
      setDocList(temp)
     setAssociateData(buyer)
   }else{
@@ -100,12 +102,14 @@ if (window) {
       }
      })
      }
+     console.log("temp22")
      setDocList(temp)
 
     setAssociateData(buyer)
   }
 }
 }, [props])
+console.log(docList,"sasads")
 useEffect(() => {
 if(props.saveData==true && props.active=="Associate Buyer"){
   let data={

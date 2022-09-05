@@ -474,7 +474,7 @@ const onSave=()=>{
     }
   }
    if (dataToSend.supplier.shortName== "" || dataToSend.supplier.shortName== undefined) {
-      toastMessage = `Please add gstin  `
+      toastMessage = `Please add short Name  `
       if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       setSubmitData(false)
