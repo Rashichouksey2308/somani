@@ -35,7 +35,7 @@ export default function Index({
 
   let shipmentTypeBulk =
     _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') ===
-    'Bulk'
+      'Bulk' ? true : false
 
   const [editInput, setEditInput] = useState(true)
 
@@ -110,7 +110,7 @@ export default function Index({
     }
     return balanceQuantity
   }
-  
+
   useEffect(() => {
     let NewArr = []
     TransitDetails?.data?.forEach((element) => {
@@ -144,16 +144,16 @@ export default function Index({
     setIgmList(tempArray)
   }
 
-  const onChangeIgm = (name, text) => {
+  const onChangeIgm = (name, text,index) => {
     let newData = { ...igmList }
-    newData.igmDetails[0][name] = text
+    newData.igmDetails[index][name] = text
     setIgmList(newData)
   }
-  const saveDate = (value, name) => {
+  const saveDate = (value, name, index) => {
     // console.log(value, name, 'save date')
     const d = new Date(value)
     let text = d.toISOString()
-    onChangeIgm(name, text)
+    onChangeIgm(name, text, index)
   }
 
   const onChangeVessel = (e, index) => {
@@ -398,7 +398,7 @@ export default function Index({
                       inline
                       label="Bulk"
                       name="group1"
-                      disabled={!isShipmentTypeBULK}
+                      disabled={isShipmentTypeBULK}
                       type={type}
                       checked={shipmentTypeBulk}
                       id={`inline-${type}-1`}
@@ -408,7 +408,7 @@ export default function Index({
                       inline
                       label="Liner"
                       name="group1"
-                      disabled={isShipmentTypeBULK}
+                      disabled={!isShipmentTypeBULK}
                       type={type}
                       checked={!shipmentTypeBulk}
                       id={`inline-${type}-2`}
@@ -453,7 +453,7 @@ export default function Index({
                       _get(TransitDetails, 'data[0].order.orderValue', ''),
                     )}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
-                    'Crores'
+                      'Crores'
                       ? 'Cr'
                       : _get(TransitDetails, 'data[0].order.unitOfValue', '')}
                   </span>
@@ -621,26 +621,26 @@ export default function Index({
                         >
                           {shipmentTypeBulk
                             ? _get(
-                                TransitDetails,
-                                'data[0].order.vessel.vessels',
-                                [],
-                              ).map((vessel, index) => (
-                                <option
-                                  value={vessel?.vesselInformation[0]?.name}
-                                  key={index}
-                                >
-                                  {vessel?.vesselInformation[0]?.name}
-                                </option>
-                              ))
+                              TransitDetails,
+                              'data[0].order.vessel.vessels',
+                              [],
+                            ).map((vessel, index) => (
+                              <option
+                                value={vessel?.vesselInformation[0]?.name}
+                                key={index}
+                              >
+                                {vessel?.vesselInformation[0]?.name}
+                              </option>
+                            ))
                             : _get(
-                                TransitDetails,
-                                'data[0].order.vessel.vessels[0].vesselInformation',
-                                [],
-                              ).map((vessel, index) => (
-                                <option value={vessel?.name} key={index}>
-                                  {vessel?.name}
-                                </option>
-                              ))}
+                              TransitDetails,
+                              'data[0].order.vessel.vessels[0].vesselInformation',
+                              [],
+                            ).map((vessel, index) => (
+                              <option value={vessel?.name} key={index}>
+                                {vessel?.name}
+                              </option>
+                            ))}
                         </select>
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -661,7 +661,7 @@ export default function Index({
                         value={item.igmNumber}
                         id="igmNumber"
                         onChange={(e) =>
-                          onChangeIgm(e.target.id, e.target.value)
+                          onChangeIgm(e.target.id, e.target.value, index)
                         }
                         className={`${styles.input_field} input form-control`}
                         type="number"
@@ -681,12 +681,13 @@ export default function Index({
                     >
                       <div className="d-flex">
                         <DateCalender
+                        index={index}
                           selected={
                             item.igmFiling == null
                               ? ''
                               : moment(item.igmFiling?.split('T')[0]).format(
-                                  'DD-MM-YYYY',
-                                )
+                                'DD-MM-YYYY',
+                              )
                           }
                           defaultDate={item.igmFiling}
                           name="igmFiling"
@@ -765,7 +766,7 @@ export default function Index({
                                 </div>
                                 <span className={styles.value}>
                                   {moment(
-                                    blEntry?.blDate,
+                                    blEntry?.blDate?.slice(0, 10),
                                     'YYYY-MM-DD',
                                     true,
                                   ).format('DD-MM-YYYY')}
@@ -966,8 +967,8 @@ export default function Index({
                           <td className={styles.doc_row}>
                             {item?.document
                               ? moment(item?.document?.Date).format(
-                                  ' DD-MM-YYYY , h:mm a',
-                                )
+                                ' DD-MM-YYYY , h:mm a',
+                              )
                               : ''}
                           </td>
                           <td>

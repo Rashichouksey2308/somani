@@ -10,6 +10,7 @@ import _get from 'lodash/get'
 import { toast } from 'react-toastify'
 import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
+import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper'
 
 export default function Index({ ReleaseOrderData }) {
   const dispatch = useDispatch()
@@ -377,9 +378,16 @@ export default function Index({ ReleaseOrderData }) {
                         >
                           <input
                             onWheel={(e) => e.target.blur()}
-                            defaultValue={Number(
-                              item.netQuantityReleased,
-                            )?.toLocaleString()}
+                            defaultValue={addPrefixOrSuffix(
+                              item.netQuantityReleased
+                                ? item.netQuantityReleased
+                                : 0,
+                              'MT',
+                              '',
+                            )}
+                            // defaultValue={Number(
+                            //   item.netQuantityReleased,
+                            // )?.toLocaleString()}
                             onChange={(e) => netQuantityChange(e, index)}
                             id="netQuantityReleased"
                             className={`${styles.input_field} input form-control`}
