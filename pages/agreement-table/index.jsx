@@ -193,7 +193,7 @@ const getDate = async () =>{
                     <td >
                       {term?.order.orderId}
                     </td>
-                    <td className={`${styles.buyerName}`} onClick={() => handleRoute(term)} >{term?.buyer?.name}</td>
+                    <td className={`${styles.buyerName}`} onClick={() => handleRoute(term)} >{term?.company?.companyName}</td>
 
                   
                     <td>
