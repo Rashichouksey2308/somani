@@ -25,6 +25,7 @@ import { cssNumber } from 'jquery'
 import API from '../../../src/utils/endpoints'
 import Cookies from 'js-cookie'
 import Axios from 'axios'
+import _get from 'lodash/get'
 
 
 function Index(props) {
@@ -38,6 +39,9 @@ function Index(props) {
   const [submitData,setSubmitData]=useState(false)
   const [isSideBarOpen,setIsSideBarOpen]=useState(true)
   const [sameAsCHA,setSameAsCHA]=useState(true)
+   const { companyData } = useSelector((state) => state.companyDetails)
+   const { orderList } = useSelector((state) => state.buyer)
+   console.log(companyData,"companyData",orderList)
   useEffect(() => {
     if(window){
     props.setDate(localStorage.getItem("timeGenericUpdated"))
@@ -212,6 +216,9 @@ function Index(props) {
         uploadDoc={uploadDoc}
         addressValidation={addressValidation}
         order={props?.genericData}
+        pan={_get(companyData,"profile.companyDetail.pans[0]","")}
+        gstList={_get(orderList,"company.gstList",[])}
+        selectedGST={_get(orderList,"company.GST","")}
         
         
         />

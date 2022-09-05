@@ -191,11 +191,11 @@ export default function Home() {
               "data[0].vessels[0].transitDetails.EDTatLoadPort",
               ""
             ),
-            ETAatDischargePort: "" || _get(
+            ETAatDischargePort:  _get(
               Vessel,
               "data[0].vessels[0].transitDetails.ETAatDischargePort",
               ""
-            )
+            ) || "" 
           },
 
           vesselInformation: [{
@@ -238,6 +238,7 @@ export default function Home() {
     }
     // serVesselDataToAdd(Vessel)
   }
+  console.log(list,"besslist")
 
   const onAddVessel = () => {
     console.log(VesselToAdd, "THIS IS VESSEL TO ADD")

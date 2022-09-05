@@ -460,10 +460,10 @@ function Index({
                           alt="Search"
                       /> */}
                             <DatePicker
-                              defaultDate={  val?.transitDetails?.ETAatDischargePort}
+                              selected={moment(val?.transitDetails?.ETAatDischargePort).toDate()}
                               name="ETAatDischargePort"
-                              selected={startDate}
-                              dateFormat="dd-MM-yyyy"
+                            
+                              dateFormat="dd/MM/yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startDate) => {
                                 setStartDate(startDate)
