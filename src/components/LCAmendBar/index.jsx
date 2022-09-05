@@ -3,7 +3,7 @@ import styles from './index.module.scss'
 
 function index({ barName, openbar }) {
   return (
-    <div className={`${styles.root} border_color tabHeader `}>
+    <div className={`${styles.root} cta_bar`}>
       <div className={styles.reject}>
         <span>{barName}</span>
         <img

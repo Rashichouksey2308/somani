@@ -38,11 +38,11 @@ function Index(props) {
     setLoginDetails(credentials)
   }
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async(e) => {
      //e.preventDefault();
    
     const encodedString =  Buffer.from(`${loginDetails.email.trim()}:${loginDetails.password.trim()}`).toString('base64');
-    dispatch(loginUser({
+   await  dispatch(loginUser({
       "credentials": encodedString
     }))
     

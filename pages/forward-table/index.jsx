@@ -10,6 +10,7 @@ import {
   GetForwardHedging,
 } from '../../src/redux/ForwardHedging/action'
 import { SearchLeads } from '../../src/redux/buyerProfile/action'
+import { setPageName,setDynamicName ,setDynamicOrder} from '../../src/redux/userData/action'
 
 function Index() {
 
@@ -30,7 +31,11 @@ function Index() {
       sessionStorage.setItem('openList', 3)
     }
   }, [])
-
+  useEffect(() => {
+  dispatch(setPageName('forward'))
+  dispatch(setDynamicName(null))
+  dispatch(setDynamicOrder(null))
+  },[allForwardHedging])
   console.log(allForwardHedging, 'allForwardHedging')
 
   useEffect(() => {
