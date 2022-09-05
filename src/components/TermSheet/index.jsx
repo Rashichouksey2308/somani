@@ -89,7 +89,7 @@ const Index = () => {
               tradeMarginPercentage: sheet?.commercials?.tradeMarginPercentage,
               lcOpeningValue: sheet?.commercials?.lcOpeningValue,
               lcOpeningCurrency: sheet?.commercials?.lcOpeningCurrency,
-              lcOpeningChargesUnit: sheet?.commercials?.lcOpeningChargesUnit,
+              lcOpeningChargesUnit: sheet?.commercials?.lcOpeningChargesUnit || 1500,
               lcOpeningChargesPercentage:
                 sheet?.commercials?.lcOpeningChargesPercentage ||1.5,
               usanceInterestPercetage:

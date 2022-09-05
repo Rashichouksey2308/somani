@@ -417,7 +417,7 @@ function Index() {
                   <li>{termsheetDetails?.commodityDetails?.commodity}</li>
                   <li>{termsheetDetails?.commodityDetails?.quantity} MT</li>
                   <li>
-                    USD {termsheetDetails?.commodityDetails?.perUnitPrice}
+                   {termsheetDetails?.commodityDetails?.orderCurrency}{" "}{termsheetDetails?.commodityDetails?.perUnitPrice}
                   </li>
                 </ul>
               </Col>
@@ -625,7 +625,7 @@ function Index() {
                     {termsheetDetails.commercials?.tradeMarginPercentage}%{' '}
                   </li>
                   <li>
-                    {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
+                    {`USD`}{' '}
                     {termsheetDetails.commercials?.lcOpeningChargesUnit}{' '}
                   </li>
                   <li>
