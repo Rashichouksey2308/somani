@@ -24,6 +24,8 @@ export default function Index({ isQuery }) {
     sessionStorage.removeItem('Cma')
     sessionStorage.removeItem('Cha')
     sessionStorage.removeItem('Stevedore')
+    sessionStorage.removeItem("genericSide")
+    sessionStorage.removeItem("setgenActive")
   }
   useEffect(() => {
     if (

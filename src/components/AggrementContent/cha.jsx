@@ -4,7 +4,7 @@ import React ,{useState,useEffect} from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 let cha={
-        "name": "",
+        "name": "Integral Trading and Logistics",
         "shortName": "",
         "gstin":"",
         "addresses": [
@@ -17,6 +17,7 @@ let cha={
           
         
 }
+
 function Index(props) {
   const[chaState,setChaState]=useState(cha)
   const [list,setList]=useState([])
@@ -43,10 +44,10 @@ function Index(props) {
           "city": ""
       }
   )
-   const [docList,setDocList]=useState([])
+  const [docList,setDocList]=useState([])
   const [doc,setdoc]=useState({attachDoc:""})
   const [addressType,setAddressType]=useState("Registered")
-   const [addressEditType,setAddressEditType]=useState("Registered")
+  const [addressEditType,setAddressEditType]=useState("Registered")
  
 
   // useEffect(() => {
@@ -65,9 +66,9 @@ useEffect(() => {
     if(sessionStorage.getItem("Cha")){
       let savedData=JSON.parse(sessionStorage.getItem("Cha"))
       let supplier={
-        "name": savedData.name,
+        "name": savedData.name ||"Integral Trading and Logistics",
         "shortName": savedData.shortName,
-        "gstin": savedData.gstin ,
+        "gstin": savedData.gstin |"37AABFI9574L2ZP" ,
         "addresses": savedData.addresses,
         "authorisedSignatoryDetails": savedData.authorisedSignatoryDetails,
        
@@ -78,20 +79,32 @@ useEffect(() => {
        setChaState(supplier)
     }else{
        let supplier={
-        "name": props.data?.name,
+        "name": props.data?.name||"Integral Trading and Logistics",
         "shortName": props.data?.shortName,
-        "gstin": props.data?.gstin ,
+        "gstin": props.data?.gstin ||"37AABFI9574L2ZP" ,
         "addresses": props.data?.addresses,
         "authorisedSignatoryDetails": props.data?.authorisedSignatoryDetails,
        
         
        }
        setList(props.data?.authorisedSignatoryDetails?props.data?.authorisedSignatoryDetails:[])
-       setAddressList(props.data?.addresses)
+       setAddressList(props.data?.addresses!==undefined?props.data?.addresses:[])
        setChaState(supplier)
+       
+          setAddressList([...addressList,{
+              addressType: "Registered",
+              fullAddress: "Flat No. 303, 3rd Floor, Tirumala Plaza, Dabagarden",
+              pinCode: "530020",
+              country: "India",
+              gstin: "37AABFI9574L2ZP",
+              state: "Andhra Pradesh ",
+              city: "Visakhapatnam"
+        }])
     }
    }
   },[props])
+
+  
   let masterList=[
     {name:"Bhawana Jain",designation:"Vice President (Finance & Accounts)",email:"bhawanajain@somanigroup.com",phoneNo:""},
     {name:"Vipin Kumar",designation:"Manager Accounts",email:"vipinrajput@somanigroup.com",phoneNo:""},
@@ -128,6 +141,7 @@ return newState;
   setAddressType("Registered")
 
 }
+
   useEffect(() => {
     if(props.saveData==true && props.active=="CHA"){
        let data={
@@ -151,6 +165,7 @@ return newState;
  
    
   },[props.saveData,props.submitData])
+
   const onEdit=(index)=>{
     let tempArr=list;
     setList(prevState => {
@@ -465,7 +480,7 @@ setEditAddress(
                   }}
                 >
                    <option>Select an option</option>
-                  <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                  <option value="37AABFI9574L2ZP">37AABFI9574L2ZP</option>
                 
                 </select>
                 <Form.Label
@@ -628,7 +643,7 @@ setEditAddress(
                           }}
                         >
                            <option>Select an option</option>
-                          <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                          <option value="37AABFI9574L2ZP">37AABFI9574L2ZP</option>
                           
                         </select>
                         <Form.Label
@@ -1119,7 +1134,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                           }}
                         >
                            <option>Select an option</option>
-                          <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                          <option value="37AABFI9574L2ZP">37AABFI9574L2ZP</option>
                           
                         </select>
                         <Form.Label
