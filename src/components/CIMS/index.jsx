@@ -334,7 +334,7 @@ export default function Index({
                           onChange={(e) => onChangeVessel(e, index)}
                           className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                         >
-                          <option>Select an option</option>
+                          <option disabled selected>Select an option</option>
                           {shipmentTypeBulk
                             ? _get(
                               TransitDetails,
@@ -345,7 +345,7 @@ export default function Index({
                                 value={vessel?.vesselInformation?.name}
                                 key={index}
                               >
-                                {vessel?.vesselInformation?.name}
+                                {vessel?.vesselInformation[0]?.name}
                               </option>
                             ))
                             : _get(
@@ -555,9 +555,9 @@ export default function Index({
                               </>
                             ) : (
                               <div className={styles.certificate}>
-                                {cimsDetails[index]?.coalImportRegistrationDoc?.originalName}
+                                <span>{cimsDetails[index]?.coalImportRegistrationDoc?.originalName}</span>
                                 <img
-                                  className={`${styles.close_image} float-right ml-2 img-fluid`}
+                                  className={`${styles.close_image} mr-2`}
                                   src="/static/close.svg"
                                   onClick={(e) => handleCloseDoc('coalImportRegistrationDoc', index)}
                                   alt="Close"
@@ -601,9 +601,9 @@ export default function Index({
                               </>
                             ) : (
                               <div className={styles.certificate}>
-                                {cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName}
+                                <span>{cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName}</span>
                                 <img
-                                  className={`${styles.close_image} float-right ml-2 img-fluid`}
+                                  className={`${styles.close_image} mr-2`}
                                   src="/static/close.svg"
                                   onClick={(e) => handleCloseDoc('cimsPaymentReceiptDoc', index)}
                                   alt="Close"

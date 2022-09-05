@@ -11,6 +11,7 @@ function Index(props) {
   const [value, setValue] = useState('')
   const [editField, setEditField] = useState(false)
   const [doc, setdoc] = useState({ attachDoc: '' })
+  console.log(excelData,"excelData",excelFile)
   useEffect(() => {
     if (props.saveData == true && props.active == 'Product Specifications') {
       let temp = []
@@ -19,6 +20,7 @@ function Index(props) {
       })
       let data = {
         addressList: temp,
+        excelData:excelFile||[]
       }
       props.sendData('Product Specifications', data)
     }
@@ -29,6 +31,7 @@ function Index(props) {
       })
       let data = {
         addressList: temp,
+        excelData:excelFile||[]
       }
 
       props.updateData('Product Specifications', data)
@@ -49,15 +52,17 @@ function Index(props) {
 
         let savedData = JSON.parse(sessionStorage.getItem('Product'))
         let temp = []
-        savedData.forEach((val, index) => {
+        savedData.list.forEach((val, index) => {
           temp.push({ value: val, action: false })
         })
+        setExcelFile(savedData.excel)
         setAddressList(temp)
       } else {
         let temp = []
         props?.data?.comments.forEach((val, index) => {
           temp.push({ value: val, action: false })
         })
+        setExcelFile(props?.data?.specificationTable)
         setAddressList(temp)
       }
     }
@@ -122,7 +127,7 @@ function Index(props) {
   return (
     <>
       <div className={`${styles.container} vessel_card`}>
-        <div className={`${styles.paymet} card-body`}>
+        <div className={`${styles.paymet} card-body p-0`}>
           <div className={`d-flex justify-content-between align-items-between`}>
             <input
               placeholder={``}
@@ -180,29 +185,33 @@ function Index(props) {
               </span>
             </div>
           </div>
-          <span>Comments</span>
           <div className={styles.tableWrapper}>
-            <table>
-              <tr>
-                {excelFile &&
-                  excelFile.length > 0 &&
-                  Object.keys(excelFile[0]).map((val, index) => (
-                    <th key={index}>{val}</th>
-                  ))}
-              </tr>
-
-              {excelFile &&
-                excelFile.length > 0 &&
-                excelFile.map((item, index) => (
+            <div className={styles.table_scroll_outer}>
+              <div className={styles.table_scroll_inner}>
+                <table>
                   <tr>
-                    {Object.values(item).map((value, id) => (
-                      <td key={id}>{value}</td>
-                    ))}
+                    {excelFile &&
+                      excelFile.length > 0 &&
+                      Object.keys(excelFile[0]).map((val, index) => (
+                        <th key={index}>{val}</th>
+                      ))}
                   </tr>
-                ))}
-            </table>
+
+                  {excelFile &&
+                    excelFile.length > 0 &&
+                    excelFile.map((item, index) => (
+                      <tr>
+                        {Object.values(item).map((value, id) => (
+                          <td key={id}>{value}</td>
+                        ))}
+                      </tr>
+                    ))}
+                </table>
+              </div>
+            </div>
           </div>
 
+          <span>Comments</span>
           {addressList?.length > 0 &&
             addressList.map((val, index) => {
               return (

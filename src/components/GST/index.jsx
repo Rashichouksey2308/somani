@@ -128,6 +128,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         const data = { ...gstData }
         SetGstFilteredData(data)
         GstDataHandler(data)
+        setCredential({ ...credential, gstin: data.gstin })
       })
     } else {
       setCredential({ ...credential, gstin: e.target.value })
@@ -341,7 +342,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     setChartData(data)
     setChartData2(data2)
     setChartData3(data3)
-  }, [chartRef.current, chartRef2.current, chartRef3.current])
+  }, [chartRef.current, chartRef2.current, chartRef3.current, gstFilteredData])
 
   // const getOrCreateTooltip = (chart) => {
   //   let tooltipEl = chart.canvas.parentNode.querySelector('div');
@@ -1262,6 +1263,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
               aria-label="Default select example"
             >
               <option selected value="Quarterly">
+                Monthly
+              </option>
+              <option disabled  value="Quarterly">
                 Quarterly
               </option>
             </select>
@@ -2846,15 +2850,15 @@ const gstSupplierDetail = (
                                 <td>
                                   {(
                                     customer?.ttlVal / customerDetailsUnit
-                                  )?.toLocaleString()}
+                                  )?.toFixed(2)}
                                 </td>
                                 <td>
-                                  {customer?.percentageOfTotalPurchase?.toLocaleString()}
+                                  {customer?.percentageOfTotalPurchase?.toFixed(2)}
                                   %
                                 </td>
                                 <td>{customer?.invoice}</td>
                                 <td>
-                                  {customer?.purchasePerInvoice?.toLocaleString()}
+                                  {customer?.purchasePerInvoice?.toFixed(2)}
                                 </td>
                               </tr>
                             ),
@@ -3090,7 +3094,7 @@ const gstSales = (head, gstFilteredData) => {
                           (month, index) => (
                             <td key={index}>
                               {moment(month.retPeriod, 'MMYYYY').format(
-                                'MMM"YY',
+                                `MMM'YY`,
                               )}
                             </td>
                           ),

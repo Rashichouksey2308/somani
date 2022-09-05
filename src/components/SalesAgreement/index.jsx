@@ -474,7 +474,7 @@ const onSave=()=>{
     }
   }
    if (dataToSend.supplier.shortName== "" || dataToSend.supplier.shortName== undefined) {
-      toastMessage = `Please add gstin  `
+      toastMessage = `Please add short Name  `
       if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       setSubmitData(false)
@@ -1090,13 +1090,24 @@ const onSave=()=>{
     genericId:props.genericData?._id,
     productSpecifications:{
     "comments":data.addressList,
+    "specificationTable": data?.excelData
 
 
     }
     }
-    sessionStorage.setItem("Product",JSON.stringify(data.addressList))
+   sessionStorage.setItem("Product",JSON.stringify({list:data.addressList,excel:data?.excelData}))
     if (dataToSend.productSpecifications.comments.length <= 0 || dataToSend.productSpecifications.comments == undefined) {
     toastMessage = `Please add comments `
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    setSubmitData(false)
+    return
+
+
+    }
+    }
+    if (dataToSend?.productSpecifications?.specificationTable?.length <= 0 || dataToSend?.productSpecifications?.specificationTable == undefined) {
+    toastMessage = `Please add product specification `
     if (!toast.isActive(toastMessage.toUpperCase())) {
     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     setSubmitData(false)
@@ -1433,7 +1444,7 @@ const sendData=(key,data)=>{
 
   if(key=="Product Specifications"){
   
-    sessionStorage.setItem("Product",JSON.stringify(data.addressList))
+    sessionStorage.setItem("Product",JSON.stringify({list:data.addressList,excel:data?.excelData}))
     }
     if(key=="Place of Execution"){
   

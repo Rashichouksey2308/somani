@@ -42,8 +42,8 @@ function Index() {
         <div className={`${styles.aboutLetter}`}>
           <p>
             STANDARD FORM LETTER OF INDEMNITY TO BE GIVEN IN RETURN FOR
-            DELIVERING CARGO WITHOUT PRODUCTION OF THE ORIGINAL BILL(S) OF
-            LADING.
+            DELIVERING CARGO <span style={{textTransform:'none'}}> WITHOUT PRODUCTION OF THE ORIGINAL BILL(S) OF
+            LADING.</span>
           </p>
         </div>
         <div
@@ -99,7 +99,7 @@ function Index() {
           </div>
         </div>
         <div className={`d-flex ${styles.salutations}`}>
-          <span>Bill(s) of Lading:</span>
+          <span>bill of Lading:</span>
           {'  '}
           <div
             className={`ml-3 d-flex justify-content-start align-items-center ${styles.salutationFeatures} `}

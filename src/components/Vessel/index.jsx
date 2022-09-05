@@ -101,6 +101,7 @@ function Index({
           <div className={`${styles.vessel_card} vessel_card`}>
             {list &&
               list.map((val, index) => {
+                console.log(val,'vesselMApping')
                 return (
                   <div
                     key={index}
@@ -181,7 +182,8 @@ function Index({
                           className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
                         >
                           <div className="d-flex">
-                            <select
+                            <select 
+                            disabled
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               onChange={(e) =>
                                 shipmentTypeChangeHandler(e, index)
@@ -458,9 +460,7 @@ function Index({
                           alt="Search"
                       /> */}
                             <DatePicker
-                              defaultDate={
-                                val?.transitDetails?.ETAatDischargePort
-                              }
+                              defaultDate={  val?.transitDetails?.ETAatDischargePort}
                               name="ETAatDischargePort"
                               selected={startDate}
                               dateFormat="dd-MM-yyyy"
@@ -894,9 +894,9 @@ function Index({
                             </div> :
 
                               <div className={styles.certificate}>
-                                {containerExcel?.name}
+                                <span>{containerExcel?.name}</span>
                                 <img
-                                  className={`${styles.close_image} float-right ml-2 img-fluid`}
+                                  className={`${styles.close_image} mr-2`}
                                   src="/static/close.svg"
                                   onClick={() => handleClose(docName2)}
                                   alt="Close"

@@ -69,7 +69,7 @@ export default function Index({
     packingListDoc: null,
   }
   const dispatch = useDispatch()
-
+console.log(bolList,"bolList")
   let shipmentTypeBulk =
     _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') ==
     'Bulk'
@@ -485,28 +485,6 @@ export default function Index({
             break
           }
         }
-        if (
-          bolList[i]?.containerDetails.numberOfContainers == '' ||
-          bolList[i]?.containerDetails.numberOfContainers == undefined
-        ) {
-          toastMessage = `Please mention number of containers in Bill of lading ${i}  `
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-            isOk = false
-            break
-          }
-        }
-        if (
-          bolList[i]?.containerDetails.freeDetentionPeriod == '' ||
-          bolList[i]?.containerDetails.freeDetentionPeriod == undefined
-        ) {
-          toastMessage = `FREE DETENTION DAYS ARE MANDATORY IN BILL OF LADING ${i}  `
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-            isOk = false
-            break
-          }
-        }
         if (bolList[i]?.blDoc == null || bolList[i]?.blDoc == undefined) {
           toastMessage = `Bl DOC IS MANDATORY IN BILL OF LADING ${i}  `
           if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -704,7 +682,7 @@ export default function Index({
                               onChange={(e) => onChangeVessel(e, index)}
                               className={`${styles.input_field} ${styles.customSelect}   input form-control`}
                             >
-                              <option disabled selected>
+                              <option  selected>
                                 Select an option
                               </option>
                               {shipmentTypeBulk
@@ -1138,9 +1116,9 @@ export default function Index({
                                   </>
                                 ) : (
                                   <div className={styles.certificate}>
-                                    {bolList[index]?.blDoc?.originalName}
+                                    <span>{bolList[index]?.blDoc?.originalName}</span>
                                     <img
-                                      className={`${styles.close_image} float-right ml-2 img-fluid`}
+                                      className={`${styles.close_image} mr-2`}
                                       src="/static/close.svg"
                                       onClick={(e) =>
                                         handleCloseDoc('blDoc', index)
@@ -1208,12 +1186,13 @@ export default function Index({
                                       </>
                                     ) : (
                                       <div className={styles.certificate}>
-                                        {
+                                        <span>{
                                           bolList[index]?.containerNumberListDoc
                                             ?.originalName
-                                        }
+                                          }
+                                        </span>
                                         <img
-                                          className={`${styles.close_image} float-right ml-2 img-fluid`}
+                                          className={`${styles.close_image} mr-2`}
                                           src="/static/close.svg"
                                           onClick={(e) =>
                                             handleCloseDoc(
@@ -1281,12 +1260,13 @@ export default function Index({
                                       </>
                                     ) : (
                                       <div className={styles.certificate}>
-                                        {
+                                        <span>{
                                           bolList[index]?.packingListDoc
                                             ?.originalName
-                                        }
+                                          }
+                                        </span>
                                         <img
-                                          className={`${styles.close_image} float-right ml-2 img-fluid`}
+                                          className={`${styles.close_image} mr-2`}
                                           src="/static/close.svg"
                                           onClick={(e) =>
                                             handleCloseDoc(
@@ -1423,12 +1403,13 @@ export default function Index({
                                   </>
                                 ) : (
                                   <div className={styles.certificate}>
-                                    {
+                                    <span>{
                                       bolList[index]?.blSurrenderDoc
                                         ?.originalName
-                                    }
+                                      }
+                                    </span>
                                     <img
-                                      className={`${styles.close_image} float-right ml-2 img-fluid`}
+                                      className={`${styles.close_image} mr-2`}
                                       src="/static/close.svg"
                                       onClick={(e) => handleCloseDoc(e, index)}
                                       alt="Close"

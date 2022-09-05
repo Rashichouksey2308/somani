@@ -19,7 +19,9 @@ function index({
         <div
           className={`${styles.reject} `}
           onClick={() => {
-            handleReject()
+            if(handleReject){
+              handleReject()
+            }
           }}
         >
           <span className={`mr-2`}>{downLoadButtonName}</span>
@@ -36,7 +38,9 @@ function index({
           <div
             className={`${styles.reject} ml-3`}
             onClick={() => {
-              handleUpdate()
+               if(handleUpdate){
+                  handleUpdate()
+               }
             }}
           >
             <span>{leftButtonName}</span>
@@ -46,7 +50,9 @@ function index({
           <div
             className={`${styles.approve} ml-3`}
             onClick={() => {
-              handleApprove()
+              if(handleApprove){
+                handleApprove()
+              }
             }}
           >
             <span>{rightButtonName}</span>

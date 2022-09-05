@@ -27,6 +27,13 @@
       line-height: 41px;
       padding-left: 18px;
       margin: 0;
+      text-transform: lowercase;
+      &:first-letter {
+        text-transform: uppercase;
+      }
+      &:first-line {
+        text-transform: capitalize;
+      }
       @include respond(md-desktop) {
         font-size: 28px;
       }
@@ -103,6 +110,16 @@
       }
       .body {
         padding: 25px 35px;
+        .small_box {       
+          @include respond(lg-desktop) {
+            flex: 0 0 50%;
+            max-width: 50%;
+          }
+          @include respond(md-desktop) {
+            flex: 0 0 50%;
+            max-width: 50%;
+          }
+        }
         .document_label {
           @include respond(lg-desktop) {
             flex: 0 0 60%;
@@ -325,12 +342,12 @@
         }
       }
       .datatable {
-        width: 879px;
+        width: 100%;
         margin: 0 12px 0 12px;
         box-shadow: none !important;
         border: none !important;
         .table_scroll_outer {
-          width: 100%;
+          width: 90%;
           display: table;
           table-layout: fixed;
           .table_scroll_inner {
@@ -442,4 +459,22 @@
 .customSelect {
   appearance: none;
   // position: relative;
+}
+.tableWrapper {
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  td,
+  th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
 }
