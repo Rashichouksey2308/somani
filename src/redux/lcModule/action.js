@@ -109,11 +109,14 @@ export const UpdateLcModule = (payload) => async (dispatch, getState, api) => {
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.put(`${API.corebaseUrl}${API.updateLcModule}`, payload, {
+    Axios.put(`${API.corebaseUrl}${API.updateLcModule}`, payload.obj, {
       headers: headers,
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(updateLcModuleSuccess(response.data.data))
+        if(payload.task === 'preview'){
+          Router.push('/letter-table/letter-amend/id')
+        }
         let toastMessage = 'SAVED SUCCESSFULLY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage }) }

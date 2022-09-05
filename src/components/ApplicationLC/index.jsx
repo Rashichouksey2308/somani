@@ -39,7 +39,7 @@ function Index() {
         <div
           className={`${styles.root_container} card shadow-none border-0 bg-transparent`}
         >
-        <table width='100%' cellPadding='0' cellSpacing='0' border='0'>
+        {/* <table width='100%' cellPadding='0' cellSpacing='0' border='0'>
           <tr>
             <td valign='top'>
               <table width='100%' bgColor='#D8EAFF' style={{fontFamily:'Arial, Helvetica, sans-serif', marginBottom:'26px', border:'1px solid #D2D7E5', borderRadius:'6px', height:'126px'}} cellPadding='10' cellSpacing='0' border='0'>
@@ -377,7 +377,7 @@ function Index() {
               </table>
             </td>
           </tr>
-        </table>
+        </table> */}
           {/* <div className={styles.head_container}>
           <div className={styles.head_header}>
             <img
