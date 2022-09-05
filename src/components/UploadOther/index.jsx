@@ -76,6 +76,8 @@ const Index = ({ orderid, module, isDocumentName }) => {
     }
   }
 
+  console.log(newDoc,'uploadother')
+
   const handleCloseDoc = () => {
     setNewDoc({
       document: [],
