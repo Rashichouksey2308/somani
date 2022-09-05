@@ -151,7 +151,7 @@ export default function Index({ addButton, inspectionData }) {
     const newUploadDoc = { ...documents }
     newUploadDoc.certificateOfQuality = e.target.files[0]
 
-    setDocuments({ newUploadDoc })
+    setDocuments(newUploadDoc)
     sethaveDoc(true)
   }
   const uploadDocument2 = (e) => {
@@ -1018,7 +1018,6 @@ export default function Index({ addButton, inspectionData }) {
                 handleShow,
               )
             : ''}
-
           <div className={`${styles.main} vessel_card card border-color`}>
             <div
               className={`${styles.head_container} border_color align-items-center head_container d-flex justify-content-between`}
