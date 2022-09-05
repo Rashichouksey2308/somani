@@ -510,6 +510,7 @@
     -webkit-appearance: none;
   }
 }
+
 .customSelect {
   appearance: none;
   // position: relative;
@@ -547,6 +548,9 @@
 .tooltip {
   position: relative;
   display: inline-block;
+  .info_circle {
+   
+  }
   .tooltiptext {
     font-size: 12px !important;
     color: #000000;
@@ -556,8 +560,8 @@
     padding: 8px 12px;
     position: absolute;
     z-index: 1;
-    right: -5px;
-    top: -45px;
+    right: 40px;
+    top: -105px;
     margin-left: -60px;
     opacity: 0;
     visibility: hidden;
