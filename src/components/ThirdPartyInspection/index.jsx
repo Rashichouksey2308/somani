@@ -17,7 +17,7 @@ import { ViewDocument } from 'redux/ViewDoc/action'
 
 export default function Index({ addButton, inspectionData }) {
   const dispatch = useDispatch()
-
+ const [excelFile, setExcelFile] = useState([])
   let orderid = _get(inspectionData, 'order._id', '')
 
   const [editInput, setEditInput] = useState(true)
@@ -45,8 +45,13 @@ export default function Index({ addButton, inspectionData }) {
   }
   const [show, setShow] = useState(false)
 
-  // useEffect(() => {}, [])
-
+  useEffect(() => {
+    if(inspectionData){
+      console.log(inspectionData,"orderid")
+      setExcelFile(_get(inspectionData,"order.generic.productSpecifications.specificationTable",[]))
+    }
+  }, [inspectionData])
+ console.log(excelFile,"excelFile")
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
@@ -1726,49 +1731,27 @@ useEffect((
                   border="0"
                 >
                   <thead>
-                    <tr>
-                      <th width={44}></th>
-                      <th>S.NO.</th>
-                      <th>ELEMENTS</th>
-                      <th>TYPICAL (IN PCT)</th>
-                      <th>GUARANTEED (IN PCT)</th>
-                      <th width={44}></th>
-                    </tr>
+                   <tr className="table_row">
+                      {excelFile &&
+                        excelFile.length > 0 &&
+                        Object.keys(excelFile[0]).map((val, index) => (
+                          <th key={index}>{val}</th>
+                        ))}
+                     </tr>
                   </thead>
-                  <tbody>
-                    <tr className="table_row">
-                      <th></th>
-                      <td>01</td>
-                      <td>SiO2</td>
-                      <td>44.50</td>
-                      <td>44.50</td>
-                      <td></td>
-                    </tr>
-                    <tr className="table_row">
-                      <th></th>
-                      <td>02</td>
-                      <td>Al2O3</td>
-                      <td>44.50</td>
-                      <td>44.50</td>
-                      <td></td>
-                    </tr>
-                    <tr className="table_row">
-                      <th></th>
-                      <td>03</td>
-                      <td>SiO2</td>
-                      <td>44.50</td>
-                      <td>44.50</td>
-                      <td></td>
-                    </tr>
-                    <tr className="table_row">
-                      <th></th>
-                      <td>04</td>
-                      <td>Al2O3</td>
-                      <td>44.50</td>
-                      <td>44.50</td>
-                      <td></td>
-                    </tr>
-                  </tbody>
+                    <tbody>
+                           
+                             {excelFile &&
+                                excelFile.length > 0 &&
+                                excelFile.map((item, index) => (
+                                  <tr>
+                                    {Object.values(item).map((value, id) => (
+                                      <td key={id}>{value}</td>
+                                    ))}
+                                  </tr>
+                                ))}
+                          
+                          </tbody>
                 </table>
               </div>
             </div>

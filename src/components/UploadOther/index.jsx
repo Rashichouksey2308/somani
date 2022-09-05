@@ -30,9 +30,10 @@ const Index = ({ orderid, module, isDocumentName }) => {
   const [moduleSelected, setModuleSelected] = useState(
     'LeadOnboarding&OrderApproval',
   )
+
   const [filteredDoc, setFilteredDoc] = useState([])
   const [currentDoc, setCurrentDoc] = useState('')
-  console.log(newDoc, 'newDOc')
+  console.log(moduleSelected, 'newDOc')
   useEffect(() => {
     sessionStorage.setItem('docFetchID', orderid)
     const tempArray = documentsFetched?.documents?.filter((doc) => {
