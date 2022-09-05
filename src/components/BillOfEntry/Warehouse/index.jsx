@@ -26,7 +26,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
     let data = _get(customData, 'warehouseDetails', {})
     let tempData = {
       wareHouseDetails: {
-        quantity: data?.wareHouseDetails?.quantity,
+        quantity: data?.wareHouseDetails?.quantity || '',
         quantityUnit: '',
         dateOfStorage: data?.wareHouseDetails?.dateOfStorage,
 

@@ -816,7 +816,8 @@ const Index = ({
                   onChange={onChangeCommercialTerms}
                   required
                 >
-                  <option value="yes">Yes</option>
+                   <option disabled>Select an option</option>
+                  <option value="Yes">Yes</option>
                   <option value="No">No</option>
                 </select>
                 <label className={`${styles.label} label_heading`}>

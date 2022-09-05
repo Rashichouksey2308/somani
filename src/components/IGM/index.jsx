@@ -20,31 +20,39 @@ import { checkNan, CovertvaluefromtoCR } from '../../utils/helper'
 import moment from 'moment'
 import { toast } from 'react-toastify'
 
-
-
-
 export default function Index({
   isShipmentTypeBULK,
   TransitDetails,
   orderId,
   docUploadFunction,
 }) {
+
   let transId = _get(TransitDetails, `data[0]`, '')
+
   const dispatch = useDispatch()
+
   console.log(TransitDetails, 'TransitDetails')
+
   let shipmentTypeBulk =
     _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') ===
     'Bulk'
+
   const [editInput, setEditInput] = useState(true)
+
   const [shipmentType, setShipmentType] = useState(true)
+
   const [startBlDate, setBlDate] = useState(null)
+
   const [lastDate, setlastDate] = useState(new Date())
-  const [consigneeName, setConsigneeName] = useState("")
+
+  const [consigneeName, setConsigneeName] = useState('')
+
   const [consigneeInfo, setConsigneeInfo] = useState({
     name: '',
     branch: '',
     address: '',
   })
+
   const [igmList, setIgmList] = useState({
     shipmentType: '',
     shipmentDetails: {
@@ -62,7 +70,7 @@ export default function Index({
             blNumber: number,
             blDate: new Date(),
             blQuantity: '',
-            noOfContainers: ''
+            noOfContainers: '',
           },
         ],
       },
@@ -75,9 +83,9 @@ export default function Index({
     BlDate: new Date(),
     quantity: '',
   })
+
   const [orderData, setOrderData] = useState()
   // let balanceQuantity = _get(TransitDetails, 'data[0].order.quantity', '')
-
 
   const calculateBalaceQuantity = () => {
     let balanceQuantity = _get(TransitDetails, 'data[0].order.quantity', '')
@@ -92,20 +100,17 @@ export default function Index({
     igmList.igmDetails.forEach((item) => {
       item.blNumber.forEach((item2) => {
         balanceQuantity = balanceQuantity - item2.blQuantity
-
       })
-
-
     })
     if (balanceQuantity >= 0) {
-      const toastMessage =
-        'IGM can not exceed to gross BL quantity'
+      const toastMessage = 'IGM can not exceed to gross BL quantity'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     }
     return balanceQuantity
   }
+  
   useEffect(() => {
     let NewArr = []
     TransitDetails?.data?.forEach((element) => {
@@ -220,7 +225,7 @@ export default function Index({
         branch: 'DELHI',
         address: '7A , SAGAR APARTMENTS, 6 TILAK MARG, NEW DELHI-110001',
       })
-      setConsigneeName("indoGerman")
+      setConsigneeName('indoGerman')
     } else if (e.target.value === 'EMERGENT') {
       setConsigneeInfo({
         name: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
@@ -228,45 +233,63 @@ export default function Index({
         address:
           '49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016',
       })
-      setConsigneeName("EMERGENT")
+      setConsigneeName('EMERGENT')
     } else {
       setConsigneeInfo({ name: '', branch: '', address: '' })
-      setConsigneeName("")
+      setConsigneeName('')
     }
   }
-  console.log(TransitDetails, `data[0]`,"sasasdasdasdasdas")
+  console.log(TransitDetails, `data[0]`, 'sasasdasdasdasdas')
   useEffect(() => {
     if (_get(TransitDetails, `data[0].IGM`, {})) {
       setConsigneeInfo({
-        name: _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, ''),
-        branch: _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeBranch`, ''),
-        address:
-          _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeAddress`, ''),
+        name: _get(
+          TransitDetails,
+          `data[0].IGM.shipmentDetails.consigneeName`,
+          '',
+        ),
+        branch: _get(
+          TransitDetails,
+          `data[0].IGM.shipmentDetails.consigneeBranch`,
+          '',
+        ),
+        address: _get(
+          TransitDetails,
+          `data[0].IGM.shipmentDetails.consigneeAddress`,
+          '',
+        ),
       })
-      if (_get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') == "EMERGENT INDUSTRIAL SOLUTIONS LIMITED") {
-        setConsigneeName("EMERGENT")
+      if (
+        _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
+        'EMERGENT INDUSTRIAL SOLUTIONS LIMITED'
+      ) {
+        setConsigneeName('EMERGENT')
       }
-      if (_get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') == "INDO GERMAN INTERNATIONAL PRIVATE LIMITED") {
-        setConsigneeName("indoGerman")
+      if (
+        _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') ==
+        'INDO GERMAN INTERNATIONAL PRIVATE LIMITED'
+      ) {
+        setConsigneeName('indoGerman')
       }
-      let existingData = _get(TransitDetails, `data[0].IGM.igmDetails`, [{
-        vesselName: '',
-        igmNumber: '',
-        igmFiling: null,
-        document: null,
-        blNumber: [
-          {
-            blNumber: number,
-            BlDate: '',
-            quantity: '',
-            noOfContainers: 0,
-          },
-        ],
-      }])
+      let existingData = _get(TransitDetails, `data[0].IGM.igmDetails`, [
+        {
+          vesselName: '',
+          igmNumber: '',
+          igmFiling: null,
+          document: null,
+          blNumber: [
+            {
+              blNumber: number,
+              BlDate: '',
+              quantity: '',
+              noOfContainers: 0,
+            },
+          ],
+        },
+      ])
       let tempArray = { ...igmList }
       tempArray.igmDetails = [...existingData]
       setIgmList(tempArray)
-
     }
   }, [TransitDetails])
 
@@ -430,7 +453,7 @@ export default function Index({
                       _get(TransitDetails, 'data[0].order.orderValue', ''),
                     )}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
-                      'Crores'
+                    'Crores'
                       ? 'Cr'
                       : _get(TransitDetails, 'data[0].order.unitOfValue', '')}
                   </span>
@@ -570,7 +593,10 @@ export default function Index({
                     <div className={`${styles.label} text`}>
                       Balance Quantity:
                     </div>
-                    <div className={`${styles.value} ml-2 mr-4`}>{checkNan(calculateBalaceQuantity())}  {_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}{' '}</div>
+                    <div className={`${styles.value} ml-2 mr-4`}>
+                      {checkNan(calculateBalaceQuantity())}{' '}
+                      {_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}{' '}
+                    </div>
                     <button
                       onClick={() => onigmAdd()}
                       className={styles.add_btn}
@@ -595,26 +621,26 @@ export default function Index({
                         >
                           {shipmentTypeBulk
                             ? _get(
-                              TransitDetails,
-                              'data[0].order.vessel.vessels',
-                              [],
-                            ).map((vessel, index) => (
-                              <option
-                                value={vessel?.vesselInformation[0]?.name}
-                                key={index}
-                              >
-                                {vessel?.vesselInformation[0]?.name}
-                              </option>
-                            ))
+                                TransitDetails,
+                                'data[0].order.vessel.vessels',
+                                [],
+                              ).map((vessel, index) => (
+                                <option
+                                  value={vessel?.vesselInformation[0]?.name}
+                                  key={index}
+                                >
+                                  {vessel?.vesselInformation[0]?.name}
+                                </option>
+                              ))
                             : _get(
-                              TransitDetails,
-                              'data[0].order.vessel.vessels[0].vesselInformation',
-                              [],
-                            ).map((vessel, index) => (
-                              <option value={vessel?.name} key={index}>
-                                {vessel?.name}
-                              </option>
-                            ))}
+                                TransitDetails,
+                                'data[0].order.vessel.vessels[0].vesselInformation',
+                                [],
+                              ).map((vessel, index) => (
+                                <option value={vessel?.name} key={index}>
+                                  {vessel?.name}
+                                </option>
+                              ))}
                         </select>
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -655,11 +681,12 @@ export default function Index({
                     >
                       <div className="d-flex">
                         <DateCalender
-
                           selected={
                             item.igmFiling == null
                               ? ''
-                              : moment(item.igmFiling?.split('T')[0]).format('DD-MM-YYYY')
+                              : moment(item.igmFiling?.split('T')[0]).format(
+                                  'DD-MM-YYYY',
+                                )
                           }
                           defaultDate={item.igmFiling}
                           name="igmFiling"
@@ -810,7 +837,9 @@ export default function Index({
                                     </div>
                                     <span className={styles.value}>
                                       {moment(
-                                        blEntry?.blDate?.toLocaleString()?.slice(0, 10),
+                                        blEntry?.blDate
+                                          ?.toLocaleString()
+                                          ?.slice(0, 10),
                                         'YYYY-MM-DD',
                                         true,
                                       ).format('DD-MM-YYYY')}
@@ -844,10 +873,10 @@ export default function Index({
                                     <span className={styles.value}>
                                       {blEntry?.blQuantity}
                                       {_get(
-                                    TransitDetails,
-                                    'data[0].order.unitOfQuantity',
-                                    '',
-                                  ).toUpperCase()}
+                                        TransitDetails,
+                                        'data[0].order.unitOfQuantity',
+                                        '',
+                                      ).toUpperCase()}
                                     </span>
                                   </div>
                                   <div className="col-md-6">
@@ -922,7 +951,6 @@ export default function Index({
                         </tr>
                       </thead>
                       <tbody>
-
                         <tr className="table_row">
                           <td className={styles.doc_name}>
                             IGM Copy
@@ -935,7 +963,13 @@ export default function Index({
                               alt="Pdf"
                             />
                           </td>
-                          <td className={styles.doc_row}>{item?.document ? moment(item?.document?.Date).format(' DD-MM-YYYY , h:mm a') : ''}</td>
+                          <td className={styles.doc_row}>
+                            {item?.document
+                              ? moment(item?.document?.Date).format(
+                                  ' DD-MM-YYYY , h:mm a',
+                                )
+                              : ''}
+                          </td>
                           <td>
                             {item.document === null ? (
                               <>
@@ -959,9 +993,7 @@ export default function Index({
                                 <img
                                   className={`${styles.close_image} float-right ml-2 img-fluid`}
                                   src="/static/close.svg"
-                                  onClick={(e) =>
-                                    handleCloseDoc('', index)
-                                  }
+                                  onClick={(e) => handleCloseDoc('', index)}
                                   alt="Close"
                                 />{' '}
                               </div>
@@ -984,7 +1016,11 @@ export default function Index({
             /> */}
           </div>
         </div>
-        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />
+        <SaveBar
+          handleSave={handleSave}
+          rightBtn="Submit"
+          rightBtnClick={handleSubmit}
+        />
       </div>
     </>
   )

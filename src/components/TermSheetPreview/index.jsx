@@ -268,7 +268,7 @@ function Index() {
         })
     }
   }, [termsheet])
-
+console.log(termsheetDetails.commercials?.forexHedging,"ss12312212sasdasda")
   const [open, setOpen] = useState(false)
   const openbar = () => {
     setOpen(true)

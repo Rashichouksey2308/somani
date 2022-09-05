@@ -167,7 +167,7 @@ const Index = () => {
         </div>
       </div>
 
-      <div className={`${styles.vessel_card} mt-3 border_color`}>
+      <div className={`${styles.vessel_card}  vessel_card mt-3 border_color`}>
         <div className={`${styles.wrapper} border_color mt-4 card`}>
           <div
             className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
@@ -518,7 +518,7 @@ const Index = () => {
             </>
           )}
         </div>
-        <div>
+        <div className='mt-4'>
                 {' '}
                 <UploadDocument
                   docName={`Policy Document ${

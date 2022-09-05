@@ -334,7 +334,7 @@ export default function Index({
                           onChange={(e) => onChangeVessel(e, index)}
                           className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                         >
-                          <option>Select an option</option>
+                          <option disabled selected>Select an option</option>
                           {shipmentTypeBulk
                             ? _get(
                               TransitDetails,
@@ -345,7 +345,7 @@ export default function Index({
                                 value={vessel?.vesselInformation?.name}
                                 key={index}
                               >
-                                {vessel?.vesselInformation?.name}
+                                {vessel?.vesselInformation[0]?.name}
                               </option>
                             ))
                             : _get(
