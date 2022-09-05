@@ -689,7 +689,7 @@ function Index() {
                   >
                     <div
                       className={`${styles.cardHeader} d-flex align-items-center justify-content-between`}
-                      style={{ cursor: 'default' }}
+                      style={{ cursor: 'pointer' }}
                     >
                       <div className={`${styles.commodity}`}>
                         <span className={`${styles.comm_head} sub_heading`}>
@@ -762,7 +762,7 @@ function Index() {
                     </div>
                     <div
                       id="commodityAccordion"
-                      className="collapse"
+                      // className="collapse"
                       aria-labelledby="commodityAccordion"
                       data-parent="#commodityAccordion"
                     >
@@ -1206,7 +1206,7 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {marginData?.order?.orderCurrency}{' '}
-                                  {checkNan(Number(finalCal.orderValue),true)}
+                                  {checkNan(Number(finalCal.orderValue), true)}
                                 </div>
                               </div>
                             </div>
@@ -1231,7 +1231,10 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.orderValueInINR?.toLocaleString()} */}
-                                  {checkNan(Number(finalCal.orderValueInINR),true)}
+                                  {checkNan(
+                                    Number(finalCal.orderValueInINR),
+                                    true,
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -1265,7 +1268,10 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   ₹ {/* {finalCal.usanceInterest} */}
-                                  {checkNan(Number(finalCal.usanceInterest),true)}
+                                  {checkNan(
+                                    Number(finalCal.usanceInterest),
+                                    true,
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -1289,7 +1295,8 @@ function Index() {
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  ₹ {checkNan(Number(finalCal.tradeMargin),true)}
+                                  ₹{' '}
+                                  {checkNan(Number(finalCal.tradeMargin), true)}
                                   {/* {finalCal.tradeMargin?.toLocaleString()} */}
                                 </div>
                               </div>
@@ -1315,7 +1322,11 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.grossOrderValue?.toLocaleString()} */}
-                                  ₹ {checkNan(Number(finalCal.grossOrderValue),true)}
+                                  ₹{' '}
+                                  {checkNan(
+                                    Number(finalCal.grossOrderValue),
+                                    true,
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -1340,7 +1351,10 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.toleranceValue} */}₹{' '}
-                                  {checkNan(Number(finalCal.toleranceValue),true)}
+                                  {checkNan(
+                                    Number(finalCal.toleranceValue),
+                                    true,
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -1365,7 +1379,10 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.totalOrderValue} */}₹{' '}
-                                  {checkNan(Number(finalCal.totalOrderValue),true)}
+                                  {checkNan(
+                                    Number(finalCal.totalOrderValue),
+                                    true,
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -1391,7 +1408,8 @@ function Index() {
                                 <div className={`${styles.val} heading`}>
                                   ₹{' '}
                                   {checkNan(
-                                    Number(finalCal.provisionalUnitPricePerTon),true
+                                    Number(finalCal.provisionalUnitPricePerTon),
+                                    true,
                                   )}
                                   {/* {finalCal.provisionalUnitPricePerTon} */}
                                 </div>
@@ -1418,7 +1436,7 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.marginMoney} */}₹{' '}
-                                  {checkNan(Number(finalCal.marginMoney),true)}
+                                  {checkNan(Number(finalCal.marginMoney), true)}
                                 </div>
                               </div>
                             </div>
@@ -1443,7 +1461,7 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.totalSPDC} */}₹{' '}
-                                  {checkNan(Number(finalCal.totalSPDC),true)}
+                                  {checkNan(Number(finalCal.totalSPDC), true)}
                                 </div>
                               </div>
                             </div>
@@ -1467,7 +1485,11 @@ function Index() {
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  ₹ {checkNan(Number(finalCal.amountPerSPDC),true)}
+                                  ₹{' '}
+                                  {checkNan(
+                                    Number(finalCal.amountPerSPDC),
+                                    true,
+                                  )}
                                   {/* {finalCal.amountPerSPDC} */}
                                 </div>
                               </div>

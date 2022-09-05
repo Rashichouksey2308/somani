@@ -70,7 +70,9 @@ export default function Index({
   }
   const dispatch = useDispatch()
 
-  let shipmentTypeBulk = _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') == 'Bulk'
+  let shipmentTypeBulk =
+    _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') ==
+    'Bulk'
 
   const existingBlData = _get(TransitDetails, `data[0].BL.billOfLanding`, [])
 
@@ -108,7 +110,6 @@ export default function Index({
     if (_get(TransitDetails, `data[0].BL.billOfLanding`, []).length > 0) {
       setBolList(_get(TransitDetails, `data[0].BL.billOfLanding`, []))
     }
-
   }, [TransitDetails])
 
   const partShipmentAllowed = _get(
@@ -154,15 +155,16 @@ export default function Index({
   }
 
   const handleCloseDoc = (e, index) => {
-
     let tempArr = [...bolList]
 
     tempArr[index][e] = null
     console.log(tempArr, 'temp arr', e)
-    setBolList(
-      tempArr
-    );
-
+    setBolList(tempArr)
+  }
+  const handleCloseContanierDoc = (e, index) => {
+    let tempArr = [...bolList]
+    tempArr[index].containerDetails.containerDoc = null
+    setBolList(tempArr)
   }
 
   const onChangeVessel = (e, index) => {
@@ -311,12 +313,13 @@ export default function Index({
     let isOk = true
     let toastMessage = ''
 
-    if (_get(
-      TransitDetails,
-      'data[0].order.vessel.vessels[0].shipmentType',
-      '',
-    ) === 'Liner') {
-
+    if (
+      _get(
+        TransitDetails,
+        'data[0].order.vessel.vessels[0].shipmentType',
+        '',
+      ) === 'Liner'
+    ) {
       for (let i = 0; i <= bolList.length - 1; i++) {
         console.log(i, 'INSIDE FOR LOOP', bolList.length)
         if (
@@ -330,10 +333,7 @@ export default function Index({
             break
           }
         }
-        if (
-          bolList[i]?.blNumber == '' ||
-          bolList[i]?.blNumber == undefined
-        ) {
+        if (bolList[i]?.blNumber == '' || bolList[i]?.blNumber == undefined) {
           toastMessage = `BL NUMBER IS MANDATORY IN BILL OF LADING ${i}  `
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -341,10 +341,7 @@ export default function Index({
             break
           }
         }
-        if (
-          bolList[i]?.blDate == '' ||
-          bolList[i]?.blDate == undefined
-        ) {
+        if (bolList[i]?.blDate == '' || bolList[i]?.blDate == undefined) {
           toastMessage = `BL DATE IS MANDATORY IN BILL OF LADING ${i}  `
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -407,10 +404,7 @@ export default function Index({
             break
           }
         }
-        if (
-          bolList[i]?.blDoc == null ||
-          bolList[i]?.blDoc == undefined
-        ) {
+        if (bolList[i]?.blDoc == null || bolList[i]?.blDoc == undefined) {
           toastMessage = `Bl DOC IS MANDATORY IN BILL OF LADING ${i}  `
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -418,16 +412,16 @@ export default function Index({
             break
           }
         }
-
       }
 
       return isOk
-    }
-    else if (_get(
-      TransitDetails,
-      'data[0].order.vessel.vessels[0].shipmentType',
-      '',
-    ) === 'Bulk') {
+    } else if (
+      _get(
+        TransitDetails,
+        'data[0].order.vessel.vessels[0].shipmentType',
+        '',
+      ) === 'Bulk'
+    ) {
       for (let i = 0; i <= bolList.length - 1; i++) {
         console.log(i, 'INSIDE FOR LOOP', bolList.length, bolList)
 
@@ -442,10 +436,7 @@ export default function Index({
             break
           }
         }
-        if (
-          bolList[i]?.blNumber == '' ||
-          bolList[i]?.blNumber == undefined
-        ) {
+        if (bolList[i]?.blNumber == '' || bolList[i]?.blNumber == undefined) {
           toastMessage = `BL NUMBER IS MANDATORY IN BILL OF LADING ${i}  `
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -453,10 +444,7 @@ export default function Index({
             break
           }
         }
-        if (
-          bolList[i]?.blDate == '' ||
-          bolList[i]?.blDate == undefined
-        ) {
+        if (bolList[i]?.blDate == '' || bolList[i]?.blDate == undefined) {
           toastMessage = `BL DATE IS MANDATORY IN BILL OF LADING ${i}  `
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -519,10 +507,7 @@ export default function Index({
             break
           }
         }
-        if (
-          bolList[i]?.blDoc == null ||
-          bolList[i]?.blDoc == undefined
-        ) {
+        if (bolList[i]?.blDoc == null || bolList[i]?.blDoc == undefined) {
           toastMessage = `Bl DOC IS MANDATORY IN BILL OF LADING ${i}  `
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -595,7 +580,6 @@ export default function Index({
                       //   ) == 'Liner' ? 'checked' : ''
                       // }
                       checked={!shipmentTypeBulk ? 'checked' : ''}
-
                       type={type}
                       id={`inline-${type}-2`}
                     />
@@ -683,7 +667,7 @@ export default function Index({
             </div>
           </div>
           {bolList?.map((bol, index) => {
-            console.log(bol, 'existingBlDataindi')
+            // console.log(bol, `existingBlDataindi${index}`)
             return (
               <div
                 key={index}
@@ -716,11 +700,13 @@ export default function Index({
                           <div className="d-flex">
                             <select
                               value={bol?.vesselName}
-                              id='vesselName'
+                              id="vesselName"
                               onChange={(e) => onChangeVessel(e, index)}
                               className={`${styles.input_field} ${styles.customSelect}   input form-control`}
                             >
-                              <option disabled selected>Select an option</option>
+                              <option disabled selected>
+                                Select an option
+                              </option>
                               {shipmentTypeBulk
                                 ? _get(
                                   TransitDetails,
@@ -743,7 +729,6 @@ export default function Index({
                                     {vessel?.name}
                                   </option>
                                 ))}
-                              <option value="option">option</option>
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -792,8 +777,11 @@ export default function Index({
                           <div className="d-flex">
                             {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                             <DatePicker
-
-                              selected={startBlDate ? moment(startBlDate).toDate() : ""}
+                              selected={
+                                startBlDate ? moment(startBlDate).toDate() : ''
+                              }
+                              // value={moment((bol?.blDate)?.split(0, 10)).format('DD-MM-YYYY')}
+                              defaultDate={bol?.blDate}
                               dateFormat="dd-MM-yyyy"
                               className={`${styles.input_field} ${styles.cursor} input form-control`}
                               onChange={(startBlDate) => {
@@ -933,32 +921,35 @@ export default function Index({
                             <strong className="text-danger">*</strong>
                           </h5>
                           <div className="row mt-n4">
-                            {bol?.containerDetails?.containerDoc === null ? null : <div
-                              className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                            >
-                              <input
-                                disabled
-                                // onChange={(e) =>
-                                // onChangeContainerDetailsHandler(e, index)
-                                // }
-                                value={
-                                  bol?.containerDetails?.numberOfContainers
-                                }
-                                className={`${styles.input_field} input form-control`}
-                                required
-                                id='numberOfContainers'
-                                type="number"
-                                onKeyDown={(evt) =>
-                                  evt.key === 'e' && evt.preventDefault()
-                                }
-                              />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
+                            {bol?.containerDetails?.containerDoc ===
+                              null ? null : (
+                              <div
+                                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                               >
-                                Number of Containers
-                                <strong className="text-danger">*</strong>
-                              </label>
-                            </div>}
+                                <input
+                                  disabled
+                                  // onChange={(e) =>
+                                  // onChangeContainerDetailsHandler(e, index)
+                                  // }
+                                  value={
+                                    bol?.containerDetails?.numberOfContainers
+                                  }
+                                  className={`${styles.input_field} input form-control`}
+                                  required
+                                  id="numberOfContainers"
+                                  type="number"
+                                  onKeyDown={(evt) =>
+                                    evt.key === 'e' && evt.preventDefault()
+                                  }
+                                />
+                                <label
+                                  className={`${styles.label_heading} label_heading`}
+                                >
+                                  Number of Containers
+                                  <strong className="text-danger">*</strong>
+                                </label>
+                              </div>
+                            )}
                             <div
                               className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                             >
@@ -971,7 +962,7 @@ export default function Index({
                                 }
                                 className={`${styles.input_field} input form-control`}
                                 required
-                                id='freeDetentionPeriod'
+                                id="freeDetentionPeriod"
                                 type="number"
                                 onKeyDown={(evt) =>
                                   evt.key === 'e' && evt.preventDefault()
@@ -987,14 +978,60 @@ export default function Index({
                             <div
                               className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                             >
-                              <div className="d-flex justify-content-start">
+                              {bol?.containerDetails?.containerDoc == null ? (
+                                <>
+                                  <div className={styles.uploadBtnWrapper}>
+                                    <div className={styles.uploadBtnWrapper}>
+                                      <input
+                                        name={`containerDoc`}
+                                        id="containerDoc"
+                                        onChange={(e) =>
+                                          onChangeContainerDetailsDocHandler(
+                                            e,
+                                            index,
+                                          )
+                                        }
+                                        accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                        type="file"
+                                      />
+                                      <button
+                                        className={`${styles.upload_btn} btn`}
+                                      >
+                                        Upload Excel
+                                      </button>
+                                    </div>
+
+                                    <div className={`${styles.upload_text}`}>
+                                      ONLY .XLSX FILES ARE ALLOWED
+                                      <br /> &amp; MAX FILE SIZE UP TO 50MB
+                                    </div>
+                                  </div>
+                                </>
+                              ) : (
+                                <div className={styles.certificate}>
+                                  {bol?.containerDetails?.containerDoc?.originalName}
+                                  <img
+                                    className={`${styles.close_image} float-right ml-2 img-fluid`}
+                                    src="/static/close.svg"
+                                    onClick={(e) =>
+                                      handleCloseContanierDoc('', index)
+                                    }
+                                    alt="Close"
+                                  />{' '}
+                                </div>
+                              )}
+                              {/* <div className="d-flex justify-content-start">
                                 <div className={styles.uploadBtnWrapper}>
                                   <input
                                     name={`containerDoc`}
                                     id="containerDoc"
-                                    onChange={(e) => onChangeContainerDetailsDocHandler(e, index)}
+                                    onChange={(e) =>
+                                      onChangeContainerDetailsDocHandler(
+                                        e,
+                                        index,
+                                      )
+                                    }
                                     accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-
                                     type="file"
                                   />
                                   <button
@@ -1008,7 +1045,7 @@ export default function Index({
                                   ONLY .XLSX FILES ARE ALLOWED
                                   <br /> &amp; MAX FILE SIZE UP TO 50MB
                                 </div>
-                              </div>
+                              </div> */}
                             </div>
                           </div>
                         </div>
@@ -1105,7 +1142,9 @@ export default function Index({
                                     <img
                                       className={`${styles.close_image} float-right ml-2 img-fluid`}
                                       src="/static/close.svg"
-                                      onClick={(e) => handleCloseDoc('blDoc', index)}
+                                      onClick={(e) =>
+                                        handleCloseDoc('blDoc', index)
+                                      }
                                       alt="Close"
                                     />{' '}
                                   </div>
@@ -1176,7 +1215,12 @@ export default function Index({
                                         <img
                                           className={`${styles.close_image} float-right ml-2 img-fluid`}
                                           src="/static/close.svg"
-                                          onClick={(e) => handleCloseDoc('containerNumberListDoc', index)}
+                                          onClick={(e) =>
+                                            handleCloseDoc(
+                                              'containerNumberListDoc',
+                                              index,
+                                            )
+                                          }
                                           alt="Close"
                                         />{' '}
                                       </div>
@@ -1244,7 +1288,12 @@ export default function Index({
                                         <img
                                           className={`${styles.close_image} float-right ml-2 img-fluid`}
                                           src="/static/close.svg"
-                                          onClick={(e) => handleCloseDoc('packingListDoc', index)}
+                                          onClick={(e) =>
+                                            handleCloseDoc(
+                                              'packingListDoc',
+                                              index,
+                                            )
+                                          }
                                           alt="Close"
                                         />{' '}
                                       </div>
@@ -1374,7 +1423,10 @@ export default function Index({
                                   </>
                                 ) : (
                                   <div className={styles.certificate}>
-                                    {bolList[index]?.blSurrenderDoc?.originalName}
+                                    {
+                                      bolList[index]?.blSurrenderDoc
+                                        ?.originalName
+                                    }
                                     <img
                                       className={`${styles.close_image} float-right ml-2 img-fluid`}
                                       src="/static/close.svg"

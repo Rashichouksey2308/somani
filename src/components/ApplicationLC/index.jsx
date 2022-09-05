@@ -39,6 +39,345 @@ function Index() {
         <div
           className={`${styles.root_container} card shadow-none border-0 bg-transparent`}
         >
+        <table width='100%' cellPadding='0' cellSpacing='0' border='0'>
+          <tr>
+            <td valign='top'>
+              <table width='100%' bgColor='#D8EAFF' style={{fontFamily:'Arial, Helvetica, sans-serif', marginBottom:'26px', border:'1px solid #D2D7E5', borderRadius:'6px', height:'126px'}} cellPadding='10' cellSpacing='0' border='0'>
+                <tr>
+                  <td valign='bottom' align='left' width='25%'>
+                    <p style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', padding:'10px 0 0 25px', marginBottom:'0'}}>Order ID: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>CITII001000007</span></p>
+                    <p style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingLeft:'25px', marginBottom:'0'}}>Buyer: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>CITI BANK</span></p>
+                  </td>
+                  <td valign='top' align='center' width='50%'><h2 style={{fontSize:'34px', color:'#3687E8', lineHeight:'41px', fontWeight:'bold', textTransform:'uppercase'}}>APPLICATION FOR LETTER OF CREDIT</h2></td>
+                  <td valign='bottom' align='right' width='25%'>
+                    <p style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingRight:'25px', marginBottom:'0'}}>Date: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>16.02.2022</span></p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td valign='top' align='left'>
+              <table width='100%' bgColor='#FFFFFF' style={{fontFamily:'Arial, Helvetica, sans-serif', borderRadius:'6px', boxShadow:'0 3px 6px #CAD0E2', marginBottom:'26px'}} cellPadding='0' cellSpacing='0' border='0'>
+                <tr>
+                  <td valign='top' align='left'>
+                    <table width='100%' cellPadding='0' cellSpacing='0' border='0'>
+                      <tbody>
+                        <tr>
+                          <td width="40%" align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', width:'66px', color:'#111111', fontWeight:'500', color:'#111111', fontWeight:'500'}}>40A</span>FORM OF DOCUMENTARY CREDIT</p>
+                          </td>
+                          <td width="60%" align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>40E</span>APPLICABLE RULES</p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>                          
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>31D</span>DATE OF EXPIRY</p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>                          
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>31D</span>PLACE OF EXPIRY</p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>                          
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>51D</span>LC ISSUING BANK</p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>                          
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>50</span>APPLICANT</p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>                          
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>59</span>BENEFICIARY</p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>                          
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>32B</span>CURRENCY CODE &amp; AMOUNT</p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>                          
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>39A</span>TOLERANCE (+/-) PERCENTAGE</p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>                          
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>41A</span>CREDIT AVAILABLE WITH<br/>BY</p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value<br/>value</p>
+                          </td>
+                        </tr>
+                        <tr>                          
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>42C</span>AT SIGHT<br/>NO. OF DAYS</p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value<br/>value</p>
+                          </td>
+                        </tr>
+                        <tr>                          
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>42A</span>DRAWEE</p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>                          
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>42P</span>DEFERRED PAYMENT</p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>                          
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>43P</span>PARTIAL SHIPMENT</p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>                          
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>43T</span>TRANSHIPMENTS</p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>                          
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>44A</span>SHIPMENT FROM</p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                      </tbody>
+                      <tbody>
+                        <tr>                          
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>44E</span>PORT OF LOADING</p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>                          
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>44F</span>PORT OF LOADING</p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>                          
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>45A</span>DESCRIPTION OF THE GOODS</p>
+                          </td>
+                          <td align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr height="67">
+                          <th colSpan={2} bgColor='#FAFAFB' align='left'><h3 style={{fontSize:'22px', color:'#3687E8', lineHeight:'27px', fontWeight:'bold', padding:'20px 15px 20px 35px', marginBottom:'0'}}>46A DOCUMENT REQUIRED:</h3></th>
+                        </tr>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>1</span></p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>                          
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>2</span></p>
+                          </td>
+                          <td align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr height="67">
+                          <th colSpan={2} bgColor='#FAFAFB' align='left'><h3 style={{fontSize:'22px', color:'#3687E8', lineHeight:'27px', fontWeight:'bold', padding:'20px 15px 20px 35px', marginBottom:'0'}}>47A ADDITIONAL CONDITIONS:</h3></th>
+                        </tr>
+                        <tr>                          
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>1</span></p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>                          
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'19px 15px 34px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>2</span></p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'19px 15px 34px 24px', marginBottom:'0'}}>
+                              <table width="80%" cellPadding="10" cellSpacing="0" border="0" style={{border:'1px solid #CAD6E6'}}>
+                                <tr>
+                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>ELEMENTS</td>
+                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>TYPICAL</td>
+                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6'}}>GUARANTEED</td>
+                                </tr>
+                                <tr>
+                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>MN</td>
+                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>44.5 PCT</td>
+                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6'}}>43.0</td>
+                                </tr>
+                                <tr>
+                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>SIO2</td>
+                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>8.0 PCT</td>
+                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6'}}>8.0 PCT</td>
+                                </tr>
+                                <tr>
+                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>AL2O3</td>
+                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>7.6 PCT</td>
+                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6'}}>8.0 PCT</td>
+                                </tr>
+                                <tr>
+                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>FE</td>
+                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>44.5 PCT</td>
+                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6'}}>4.5 PCT</td>
+                                </tr>
+                                <tr>
+                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>P</td>
+                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>4.5 PCT</td>
+                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6'}}>4.5 PCT</td>
+                                </tr>
+                                <tr>
+                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>K20</td>
+                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6', borderRight:'1px solid #CAD6E6'}}>4.5 PCT</td>
+                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderBottom:'1px solid #CAD6E6'}}>4.5 PCT</td>
+                                </tr>
+                                <tr>
+                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderRight:'1px solid #CAD6E6'}}>SIZE 5-75MM (AT LOADING)</td>
+                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', borderRight:'1px solid #CAD6E6'}}>44.5 PCT</td>
+                                  <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px'}}>4.5 PCT</td>
+                                </tr>
+                              </table>
+                            </p>
+                          </td>
+                        </tr>
+                        <tr>                          
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>48</span>PRESENTATION PERIOD</p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>                          
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>49</span>CONFIRMATION INSTRUCTIONS</p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>                          
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>53A</span>REIMBURSING BANK</p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>57</span>ADVISE THROUGH BANK</p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>57A</span>SECOND ADVISING BANK, IF APPLICABLE</p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>58A</span>REQUESTED CONFIRMATION PARTY</p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>71B</span>CHARGES</p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>78</span>INSTRUCTIONS TO PAYING / ACCEPTING / NEGOTIATING BANK</p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>72</span>SENDER TO RECEIVER INFORMATION</p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
           {/* <div className={styles.head_container}>
           <div className={styles.head_header}>
             <img

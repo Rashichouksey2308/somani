@@ -101,6 +101,7 @@ function Index({
           <div className={`${styles.vessel_card} vessel_card`}>
             {list &&
               list.map((val, index) => {
+                console.log(val,'vesselMApping')
                 return (
                   <div
                     key={index}
@@ -181,7 +182,7 @@ function Index({
                           className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
                         >
                           <div className="d-flex">
-                            <select
+                            <select disabled
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               onChange={(e) =>
                                 shipmentTypeChangeHandler(e, index)
@@ -458,9 +459,7 @@ function Index({
                           alt="Search"
                       /> */}
                             <DatePicker
-                              defaultDate={
-                                val?.transitDetails?.ETAatDischargePort
-                              }
+                              defaultDate={  val?.transitDetails?.ETAatDischargePort}
                               name="ETAatDischargePort"
                               selected={startDate}
                               dateFormat="dd-MM-yyyy"

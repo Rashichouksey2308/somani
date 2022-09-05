@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col, Modal } from 'react-bootstrap'
 import SaveBar from '../../SaveBar'
@@ -10,14 +10,23 @@ import { useDispatch } from 'react-redux'
 import moment from 'moment'
 import { toast } from 'react-toastify'
 
-
-export default function Index({ OrderId, customData, uploadDoc }) {
+export default function Index({
+  OrderId,
+  customData,
+  uploadDoc,
+  componentId,
+  setComponentId,
+}) {
   console.log(customData, 'customData')
   const dispatch = useDispatch()
   const [show, setShow] = useState(false)
+  const [totalBl, setTotalBl] = useState(0)
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
+
+  let shipmentTypeBulk =
+    _get(customData, `order.vessel.vessels[0].shipmentType`, '') == 'Bulk'
 
   const [dischargeOfCargo, setDischargeOfCargo] = useState({
     dischargeOfCargo: {
@@ -40,12 +49,6 @@ export default function Index({ OrderId, customData, uploadDoc }) {
     document1: null,
     document2: null,
   })
-
-  const ShipmentType = _get(
-    customData,
-    'customData?.order?.vessel?.vessels[0]?.shipmentType',
-    'Bulk',
-  )
 
   const saveDate = (value, name) => {
     // console.log(value, name, 'save date')
@@ -78,11 +81,23 @@ export default function Index({ OrderId, customData, uploadDoc }) {
   }
   console.log(dischargeOfCargo, 'dischargeOfCargo3')
 
+  const onRemoveDoc = (name) => {
+    setDischargeOfCargo({ ...dischargeOfCargo, [name]: null })
+  }
 
   const onSaveDischarge = () => {
     if (dischargeOfCargo.dischargeOfCargo.dischargeQuantity === '') {
-
-      let toastMessage = 'DISCHRGE QUANTITY CANNOT BE EMPTY  '
+      let toastMessage = 'DISCHARGE QUANTITY CANNOT BE EMPTY  '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    } else if (
+      dischargeOfCargo.dischargeOfCargo.dischargeQuantity >
+      customData?.order?.quantity
+    ) {
+      let toastMessage =
+        'DISCHARGE QUANTITY CANNOT BE GREATER THAN ORDER QUANTITY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
@@ -97,44 +112,56 @@ export default function Index({ OrderId, customData, uploadDoc }) {
     //   return
     // }
     else if (dischargeOfCargo.dischargeOfCargo.vesselArrivaldate === '') {
-
       let toastMessage = 'vessel Arrival date CANNOT BE EMPTY  '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
-    }
-    else if (dischargeOfCargo.dischargeOfCargo.dischargeStartDate === '') {
-
+    } else if (dischargeOfCargo.dischargeOfCargo.dischargeStartDate === '') {
       let toastMessage = 'discharge Start Date CANNOT BE EMPTY  '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
-    }
-    else if (dischargeOfCargo.dischargeOfCargo.dischargeEndDate === '') {
-
+    } else if (
+      dischargeOfCargo.dischargeOfCargo.dischargeStartDate <
+      dischargeOfCargo.dischargeOfCargo.vesselArrivaldate
+    ) {
+      let toastMessage =
+        'discharge Start Date Cannot Be Before Vessel Arrival Date'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    } else if (
+      dischargeOfCargo.dischargeOfCargo.dischargeEndDate <
+      dischargeOfCargo.dischargeOfCargo.dischargeStartDate
+    ) {
+      let toastMessage =
+        'discharge End Date Cannot Be Before Discharge Start Date '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    } else if (dischargeOfCargo.dischargeOfCargo.dischargeEndDate === '') {
       let toastMessage = 'discharge End Date CANNOT BE EMPTY  '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     } else if (dischargeOfCargo.document1 === null) {
-
       let toastMessage = 'Statement Of Facts must be uploaded'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
     } else if (dischargeOfCargo.document2 === null) {
-
       let toastMessage = 'Draft Survey Report must be uploaded '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
-    }
-    else {
+    } else {
       let fd = new FormData()
       fd.append('dischargeOfCargo', JSON.stringify(dischargeOfCargo))
       fd.append('customClearanceId', customData._id)
@@ -142,7 +169,8 @@ export default function Index({ OrderId, customData, uploadDoc }) {
       fd.append('document2', dischargeOfCargo.document2)
 
       let task = 'save'
-      dispatch(UpdateCustomClearance({fd, task}))
+      dispatch(UpdateCustomClearance({ fd, task }))
+      setComponentId(componentId + 1)
     }
   }
   console.log(dischargeOfCargo, 'dischargeOfCargo')
@@ -155,9 +183,46 @@ export default function Index({ OrderId, customData, uploadDoc }) {
     fd.append('document2', dischargeOfCargo.document2)
 
     let task = 'save'
-    dispatch(UpdateCustomClearance({fd, task}))
+    dispatch(UpdateCustomClearance({ fd, task }))
   }
 
+  // fuction to prevent negative values in input
+  const preventMinus = (e) => {
+    if (e.code === 'Minus') {
+      e.preventDefault()
+    }
+  }
+
+  useEffect(() => {
+    if (customData) {
+      let data = Number(
+        customData?.order?.transit?.BL?.billOfLanding[0]?.blQuantity,
+      )
+      setTotalBl(data)
+    }
+    if (customData?.dischargeOfCargo) {
+      let data = _get(customData, 'dischargeOfCargo', {})
+      console.log(data,'customData1')
+      let tempData = {
+        dischargeOfCargo: {
+          vesselName: data?.dischargeOfCargo?.vesselName,
+          portOfDischarge: _get(customData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', ''),
+          dischargeQuantity: data?.dischargeOfCargo?.dischargeQuantity,
+          vesselArrivaldate: data?.dischargeOfCargo?.vesselArrivaldate,
+          dischargeStartDate: data?.dischargeOfCargo?.dischargeStartDate,
+          dischargeEndDate: data?.dischargeOfCargo?.dischargeEndDate,
+        },
+        document1: data?.document1 ?? null,
+        document2: data?.document2 ?? null,
+      }
+      setDischargeOfCargo(tempData)
+    }
+  }, [customData])
+
+  console.log(
+    customData,
+    dischargeOfCargo,
+    'customData')
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -192,9 +257,31 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                 >
                   <div className="d-flex">
                     <select
+                      onChange={(e) => onChangeDischargeOfCargo('vesselName', e.target.value)}
+                      value={dischargeOfCargo?.dischargeOfCargo?.vesselName}
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
                       <option value="">Please select a vessel</option>
+                      {shipmentTypeBulk
+                        ? _get(customData, 'order.vessel.vessels', []).map(
+                          (vessel, index) => (
+                            <option
+                              value={vessel?.vesselInformation?.name}
+                              key={index}
+                            >
+                              {vessel?.vesselInformation[0]?.name}
+                            </option>
+                          ),
+                        )
+                        : _get(
+                          customData,
+                          'order.vessel.vessels[0].vesselInformation',
+                          [],
+                        ).map((vessel, index) => (
+                          <option value={vessel?.name} key={index}>
+                            {vessel?.name}
+                          </option>
+                        ))}
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Vessel Name<strong className="text-danger">*</strong>
@@ -214,7 +301,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                     Port of Discharge
                   </div>
                   <span className={styles.value}>
-                    {dischargeOfCargo.dischargeOfCargo.portOfDischarge}
+                    {dischargeOfCargo?.dischargeOfCargo?.portOfDischarge}
                   </span>
                 </div>
                 <div
@@ -222,7 +309,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                 >
                   <input
                     defaultValue={
-                      dischargeOfCargo.dischargeOfCargo.dischargeQuantity
+                      dischargeOfCargo?.dischargeOfCargo?.dischargeQuantity
                     }
                     onChange={(e) =>
                       onChangeDischargeOfCargo(e.target.id, e.target.value)
@@ -230,6 +317,8 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                     id="dischargeQuantity"
                     className={`${styles.input_field} input form-control`}
                     type="number"
+                    min={0}
+                    onKeyPress={preventMinus}
                     onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                     required
                   />
@@ -242,6 +331,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                 >
                   <div className="d-flex">
                     <DateCalender
+                    defaultDate={dischargeOfCargo?.dischargeOfCargo?.vesselArrivaldate}
                       name="vesselArrivaldate"
                       saveDate={saveDate}
                       labelName="Vessel Arrival Date"
@@ -258,6 +348,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                 >
                   <div className="d-flex">
                     <DateCalender
+                    defaultDate={dischargeOfCargo?.dischargeOfCargo?.dischargeStartDate}
                       name="dischargeStartDate"
                       saveDate={saveDate}
                       labelName="Discharge Start Date"
@@ -274,6 +365,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                 >
                   <div className="d-flex">
                     <DateCalender
+                    defaultDate={dischargeOfCargo?.dischargeOfCargo?.dischargeEndDate}
                       name="dischargeEndDate"
                       saveDate={saveDate}
                       labelName="Discharge End Date"
@@ -340,7 +432,8 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                         </td>
                         <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                         <td>
-                          {dischargeOfCargo && dischargeOfCargo.document1 === null ? (
+                          {dischargeOfCargo &&
+                            dischargeOfCargo.document1 === null ? (
                             <>
                               <div className={styles.uploadBtnWrapper}>
                                 <input
@@ -355,12 +448,12 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                                   Upload
                                 </button>
                               </div>
-
                             </>
                           ) : (
                             <div className={styles.certificate}>
                               {dischargeOfCargo.document1?.originalName}
                               <img
+                                onClick={() => onRemoveDoc('document1')}
                                 className={`${styles.close_image} float-right m-2 img-fluid`}
                                 src="/static/close.svg"
                                 alt="Close"
@@ -384,7 +477,8 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                         </td>
                         <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                         <td>
-                          {dischargeOfCargo && dischargeOfCargo.document2 === null ? (
+                          {dischargeOfCargo &&
+                            dischargeOfCargo.document2 === null ? (
                             <>
                               <div className={styles.uploadBtnWrapper}>
                                 <input
@@ -415,6 +509,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                             <div className={styles.certificate}>
                               {dischargeOfCargo.document2?.originalName}
                               <img
+                                onClick={() => onRemoveDoc('document2')}
                                 className={`${styles.close_image} float-right m-2 img-fluid`}
                                 src="/static/close.svg"
                                 alt="Close"
@@ -433,11 +528,15 @@ export default function Index({ OrderId, customData, uploadDoc }) {
             <UploadOther
               isDocumentName={true}
               orderid={OrderId}
-              module="CustomClearanceAndWarehousing"
+              module="customClearanceAndWarehousing"
             />
           </div>
         </div>
-        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={onSaveDischarge} />
+        <SaveBar
+          handleSave={handleSave}
+          rightBtn="Submit"
+          rightBtnClick={onSaveDischarge}
+        />
       </div>
       <Modal
         show={show}
@@ -472,19 +571,35 @@ export default function Index({ OrderId, customData, uploadDoc }) {
             cellSpacing="0"
             border="0"
           >
-            <tr className="table_row">
+            <tr className="table_row text-center">
               <th width="33%">BL NUMBER</th>
               <th width="33%">BL DATE</th>
               <th width="33%">BL QUANTITY</th>
             </tr>
-            {_get(customData, 'order.transit.BL.billOfLanding', [{}]).map((bl, indexbl) => (<tr className="table_row">
-              <td className="font-weight-bold">{bl?.blNumber}</td>
-              <td>{moment((bl?.blDate)?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</td>
-              <td>{bl?.blQuantity} {customData?.order?.unitOfQuantity}</td>
-            </tr>))}
+            {_get(customData, 'order.transit.BL.billOfLanding', [{}]).map(
+              (bl, indexbl) => (
+                <tr className="table_row text-center" key={indexbl}>
+                  <td className="font-weight-bold">{bl?.blNumber}</td>
+                  <td>
+                    {moment(
+                      bl?.blDate?.slice(0, 10),
+                      'YYYY-MM-DD',
+                      true,
+                    ).format('DD-MM-YYYY')}
+                  </td>
+                  <td>
+                    {bl?.blQuantity} {customData?.order?.unitOfQuantity}
+                  </td>
+                </tr>
+              ),
+            )}
           </table>
           <div>
-            <span className="text">Total Quantity: </span> &nbsp; 8,000 MT{' '}
+            <span className="text">Total Quantity: </span> &nbsp;{' '}
+            {isNaN(totalBl) ? '' : totalBl}{' '}
+            {isNaN(totalBl)
+              ? ''
+              : customData?.order?.unitOfQuantity.toUpperCase()}
           </div>
         </Modal.Body>
       </Modal>

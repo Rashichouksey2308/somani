@@ -501,10 +501,7 @@ function Index() {
       }
       return false
     }
-    if (
-      orderDetails?.hsnCode === '' ||
-      orderDetails?.hsnCode == undefined
-    ) {
+    if (orderDetails?.hsnCode === '' || orderDetails?.hsnCode == undefined) {
       let toastMessage = 'the hsn code can not be Empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -1484,10 +1481,24 @@ function Index() {
   // console.log(newDoc, "documents")
 
   const GstDataHandler = (data) => {
-    console.log(data, 'gst')
+    console.log(data, 'gst3234')
     setGstData(data)
   }
   console.log(gstData, 'gstDAta')
+
+  const handleGSTDownload = () => {
+    // console.log(gstData?.detail?.other?.pdfLink ,'efgilegleghlui')
+    if (!gstData?.detail?.other?.pdfLink || gstData?.detail?.other?.pdfLink !== '') {
+      let toastMessage = 'GST report not Available'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+    } else {
+      window.open(
+        gstData?.detail?.other?.pdfLink, "_blank")
+    }
+
+  }
 
   const deleteData = (index) => {
     //console.log("indexssd",index)
@@ -1687,8 +1698,8 @@ function Index() {
           val.caseStatus == filterType.pending
             ? 'Pending'
             : null || val.caseStatus == filterType.disposed
-            ? 'Disposed'
-            : null
+              ? 'Disposed'
+              : null
         ) {
           return val
         } else {
@@ -1702,8 +1713,8 @@ function Index() {
           val.caseStatus == filterType.pending
             ? 'Pending'
             : null || val.caseStatus == filterType.disposed
-            ? 'Disposed'
-            : null
+              ? 'Disposed'
+              : null
         ) {
           return val
         } else {
@@ -1716,8 +1727,8 @@ function Index() {
         val.caseStatus == filterType.pending
           ? 'Pending'
           : null || val.caseStatus == filterType.disposed
-          ? 'Disposed'
-          : null
+            ? 'Disposed'
+            : null
       ) {
         return val
       } else {
@@ -1730,8 +1741,8 @@ function Index() {
           val.caseStatus == filterType.pending
             ? 'Pending'
             : null || val.caseStatus == filterType.disposed
-            ? 'Disposed'
-            : null
+              ? 'Disposed'
+              : null
         ) {
           return val
         } else {
@@ -2036,7 +2047,7 @@ function Index() {
                   <div className={`${styles.card} card`}>
                     <div
                       className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
-                      style={{ cursor: 'default' }}
+                    // style={{ cursor: 'pointer' }}
                     >
                       <div
                         className={`${styles.detail_head_container}  d-flex align-items-center justify-content-between w-100`}
@@ -2064,7 +2075,7 @@ function Index() {
                     </div>
                     <div
                       id="compliance"
-                      className="collapse"
+                      // className="collapse"
                       aria-labelledby="compliance"
                       data-parent="#profileAccordion"
                     >
@@ -2103,7 +2114,8 @@ function Index() {
                                           <div
                                             className={`${styles.compliance_content} Compliance ml-1`}
                                           >
-                                            {alertObj[alert.alert]}
+                                            {alertObj[alert.alert] ??
+                                              alert.alert}
                                           </div>
                                         </div>
                                       )
@@ -2142,7 +2154,8 @@ function Index() {
                                           <div
                                             className={`${styles.compliance_content} Compliance ml-1`}
                                           >
-                                            {alertObj[alert.alert]}
+                                            {alertObj[alert.alert] ??
+                                              alert.alert}
                                           </div>
                                         </div>
                                       )
@@ -2183,7 +2196,8 @@ function Index() {
                                           <div
                                             className={`${styles.compliance_content} Compliance ml-1`}
                                           >
-                                            {alertObj[alert.alert]}
+                                            {alertObj[alert.alert] ??
+                                              alert.alert}
                                           </div>
                                         </div>
                                       )
@@ -2224,7 +2238,8 @@ function Index() {
                                           <div
                                             className={`${styles.compliance_content} Compliance ml-1`}
                                           >
-                                            {alertObj[alert.alert]}
+                                            {alertObj[alert.alert] ??
+                                              alert.alert}
                                           </div>
                                         </div>
                                       )
@@ -2316,7 +2331,7 @@ function Index() {
                             className={`${styles.form_control} form-control`}
                           >
                             {orderList?.company?.litigationStatus !==
-                            'Pending' ? (
+                              'Pending' ? (
                               <>
                                 <option selected value="All">
                                   All
@@ -2729,10 +2744,10 @@ function Index() {
         </div>
       </div>
       {selectedTab == 'Financials' ||
-      'Compliance' ||
-      'Orders' ||
-      'Credit' ||
-      'DocumentsTab' ? (
+        'Compliance' ||
+        'Orders' ||
+        'Credit' ||
+        'DocumentsTab' ? (
         <PreviousBar rightButtonClick={onNext} leftButtonClick={onBack} />
       ) : null}
       {selectedTab == 'Profile' ? (
@@ -2750,6 +2765,7 @@ function Index() {
       ) : null}
       {selectedTab == 'GST' ? (
         <DownloadBar
+          handleReject={handleGSTDownload}
           downLoadButtonName={`GST Report`}
           isPrevious={true}
           isApprove={true}
@@ -2856,8 +2872,8 @@ const table2 = (sat, balance, complienceFilter) => {
             {complienceFilter == 'StatutoryCompliance'
               ? `Statutory Compliance`
               : complienceFilter == 'All'
-              ? 'All'
-              : `Banking Defaults`}
+                ? 'All'
+                : `Banking Defaults`}
           </td>
           {/* <td></td>
           <td></td>
@@ -2867,29 +2883,29 @@ const table2 = (sat, balance, complienceFilter) => {
         </tr>
         {complienceFilter == 'StatutoryCompliance'
           ? sat.length &&
-            sat?.map((alert, index) => {
-              return (
-                <tr key={index}>
-                  <td> {alert.alert}</td>
-                  <td> {alert.severity}</td>
-                  <td> {alert.source}</td>
-                  <td> {alert.idType}</td>
-                  <td> {alert.value}</td>
-                </tr>
-              )
-            })
+          sat?.map((alert, index) => {
+            return (
+              <tr key={index}>
+                <td> {alert.alert}</td>
+                <td> {alert.severity}</td>
+                <td> {alert.source}</td>
+                <td> {alert.idType}</td>
+                <td> {alert.value}</td>
+              </tr>
+            )
+          })
           : balance.length > 0 &&
-            balance?.map((alert, index) => {
-              return (
-                <tr key={index}>
-                  <td> {alert.alert}</td>
-                  <td> {alert.severity}</td>
-                  <td> {alert.source}</td>
-                  <td> {alert.idType}</td>
-                  <td> {alert.value}</td>
-                </tr>
-              )
-            })}
+          balance?.map((alert, index) => {
+            return (
+              <tr key={index}>
+                <td> {alert.alert}</td>
+                <td> {alert.severity}</td>
+                <td> {alert.source}</td>
+                <td> {alert.idType}</td>
+                <td> {alert.value}</td>
+              </tr>
+            )
+          })}
         {complienceFilter == 'All' ? (
           <>
             {sat.length &&

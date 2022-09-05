@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../../SaveBar'
@@ -22,7 +22,24 @@ export default function Index({ OrderId, customData, uploadDoc }) {
     document: null,
   })
 
+  useEffect(() => {
+    let data = _get(customData, 'warehouseDetails', {})
+    let tempData = {
+      wareHouseDetails: {
+        quantity: data?.wareHouseDetails?.quantity,
+        quantityUnit: '',
+        dateOfStorage: data?.wareHouseDetails?.dateOfStorage,
+
+      },
+      document: data?.document,
+    }
+    setWarehouseDetails(tempData)
+  }, [customData])
+
   const [plotInspectionData, setPlotInspectionData] = useState('')
+  const [isWarehouseQuantityInFocus, setIsWarehouseQuantityInFocus] =
+    useState(false)
+
   const uploadDocument1 = (e) => {
     const newUploadDoc1 = { ...plotInspectionData }
     newUploadDoc1.plotInspectionReport = e.target.files[0]
@@ -54,6 +71,8 @@ export default function Index({ OrderId, customData, uploadDoc }) {
   const onSaveDocument = async (e) => {
     let name = e.target.id
     let doc = await uploadDoc(e)
+
+    // onChangeWarehouseDetails('document', doc)
     let tempData = { ...warehouseDetails }
     tempData[name] = doc
     setWarehouseDetails(tempData)
@@ -78,18 +97,17 @@ export default function Index({ OrderId, customData, uploadDoc }) {
       let fd = new FormData()
       fd.append('wareHouseDetails', JSON.stringify(warehouseDetailpayload))
       fd.append('customClearanceId', customData._id)
-      fd.append('document', warehouseDetails.document)
+      // fd.append('document', warehouseDetails.document)
       let task = 'submit'
       dispatch(UpdateCustomClearance({ fd, task }))
     }
   }
 
   const handleSave = () => {
-    let warehouseDetailpayload = warehouseDetails.wareHouseDetails
     let fd = new FormData()
-    fd.append('wareHouseDetails', JSON.stringify(warehouseDetailpayload))
+    fd.append('warehouseDetails', JSON.stringify({ ...warehouseDetails }))
     fd.append('customClearanceId', customData._id)
-    fd.append('document', warehouseDetails.document)
+    // fd.append('document', warehouseDetails.document)
 
     let task = 'save'
     dispatch(UpdateCustomClearance({ fd, task }))
@@ -103,6 +121,13 @@ export default function Index({ OrderId, customData, uploadDoc }) {
     }
   }
 
+  // fuction to prevent negative values in input
+  const preventMinus = (e) => {
+    if (e.code === 'Minus') {
+      e.preventDefault()
+    }
+  }
+console.log(warehouseDetails,'warehouseDetails')
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -154,13 +179,28 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                     className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 mt-5`}
                   >
                     <input
+                      // value={warehouseDetails?.wareHouseDetails?.quantity}
                       id="quantity"
                       onChange={(e) =>
                         onChangeWarehouseDetails(e.target.id, e.target.value)
                       }
                       className={`${styles.input_field} input form-control`}
-                      type="number"
-                      required
+                      type="text"
+                      min={0}
+                      onKeyPress={preventMinus}
+                      onFocus={(e) => {
+                        setIsWarehouseQuantityInFocus(true),
+                          e.target.type === 'number'
+                      }}
+                      onBlur={(e) => {
+                        setIsWarehouseQuantityInFocus(false),
+                          e.target.type === 'text'
+                      }}
+                      value={
+                        isWarehouseQuantityInFocus
+                          ? warehouseDetails?.wareHouseDetails?.quantity
+                          : warehouseDetails?.wareHouseDetails?.quantity + ' MT'
+                      }
                       onKeyDown={(evt) =>
                         evt.key === 'e' && evt.preventDefault()
                       }
@@ -174,6 +214,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                   >
                     <div className="d-flex">
                       <DateCalender
+                        defaultDate={warehouseDetails?.wareHouseDetails?.dateOfStorage}
                         name="dateOfStorage"
                         saveDate={saveDate}
                         labelName="Date of Storage"
@@ -199,9 +240,23 @@ export default function Index({ OrderId, customData, uploadDoc }) {
                           type="file"
                           name="myfile"
                         />
-                        <button className={`${styles.upload_btn} btn`}>
+                        <button className={`${styles.upload_btn} btn mr-3`}>
                           Upload
                         </button>
+
+                        <img
+                          src="/static/delete 2.svg"
+                          className="img-fluid mr-3"
+                          alt="delete"
+                          onClick={() => removeFromArr(clause.dropDownValue)}
+                        />
+
+                        <img
+                          src="/static/mode_edit.svg"
+                          className="img-fluid"
+                          alt="delete"
+                          onClick={() => removeFromArr(clause.dropDownValue)}
+                        />
                       </div>
                     ) : (
                       <div className={styles.certificate}>
@@ -223,7 +278,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
           <div className="">
             <UploadOther
               orderid={OrderId}
-              module="CustomClearanceAndWarehousing"
+              module="customClearanceAndWarehousing"
               isDocumentName={true}
             />
           </div>

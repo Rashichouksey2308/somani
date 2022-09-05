@@ -185,18 +185,17 @@ export default function Index({ ReleaseOrderData }) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     }
-    // if (netBalanceQuantity > e.target.value) {
-    //   // let temp = Number(e.target.value)
-    //   // if (e.target.value == "") {
-    //   //   temp = 0
-    //   // }
+    if (Number(e.target.value) < 0) {
+      // let temp = Number(e.target.value)
+      // if (e.target.value == "") {
+      //   temp = 0
+      // }
 
-    //   const toastMessage =
-    //     'Net Quantity Realesed cannot be Greater than net bALance Quantity'
-    //   if (!toast.isActive(toastMessage.toUpperCase())) {
-    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //   }
-    // }
+      const toastMessage = 'Net Quantity Realesed cannot be Negative'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+    }
     handlereleaseDetailChange(e.target.id, e.target.value, index)
     // getData()
   }
@@ -286,7 +285,12 @@ export default function Index({ ReleaseOrderData }) {
                           'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
                           0,
                         ),
-                      )?.toLocaleString()}
+                      )?.toLocaleString()}{' '}
+                      {_get(
+                        ReleaseOrderData,
+                        'data[0].order.unitOfQuantity',
+                        '',
+                      ).toUpperCase()}
                     </span>
                   </div>
                   <div
@@ -328,7 +332,7 @@ export default function Index({ ReleaseOrderData }) {
                 <div className={styles.table_scroll_outer}>
                   <div className={styles.table_scroll_inner}>
                     {releaseDetail.map((item, index) => (
-                      <div key={index} className="row mb-3 ml-lg-auto">
+                      <div key={index} className="row mb-3 ">
                         <div
                           className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                         >
@@ -363,8 +367,10 @@ export default function Index({ ReleaseOrderData }) {
                           className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                         >
                           <input
-                          onWheel={(e) => e.target.blur()}
-                            defaultValue={Number(item.netQuantityReleased)?.toLocaleString()}
+                            onWheel={(e) => e.target.blur()}
+                            defaultValue={Number(
+                              item.netQuantityReleased,
+                            )?.toLocaleString()}
                             onChange={(e) => netQuantityChange(e, index)}
                             id="netQuantityReleased"
                             className={`${styles.input_field} input form-control`}
@@ -507,7 +513,11 @@ export default function Index({ ReleaseOrderData }) {
                       {Number(netBalanceQuantity) > 0
                         ? netBalanceQuantity?.toLocaleString()
                         : 0}{' '}
-                      MT
+                      {_get(
+                        ReleaseOrderData,
+                        'data[0].order.unitOfQuantity',
+                        '',
+                      ).toUpperCase()}
                     </span>
                   </div>
                 </div>

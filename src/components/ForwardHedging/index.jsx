@@ -30,59 +30,64 @@ export default function Index() {
 
   let hedgingData = _get(allForwardHedging, 'data[0]', '')
   let hedgingDataDetail = _get(allForwardHedging, 'data[0].detail[0]', {})
-  console.log(hedgingDataDetail, "THIS IS HEDGING DATA")
+  console.log(hedgingDataDetail, 'THIS IS HEDGING DATA')
 
-  const [list, setList] = useState([{
-    bankName: '',
-    currency: 'INR',
-    bookedRate: '',
-    bookedRateCurrency: 'INR',
-    bookedAmount: '',
-    validityFrom: '',
-    validityTo: '',
-    closingDate: '',
-    closingRate: '',
-    remarks: '',
-    balanceAmount: '',
-    forwardSalesContract: null,
-  }])
-
-  useEffect(() => {
-    setList([{
-
-      bankName: hedgingDataDetail?.bankName ?? 'Bank of America',
-      currency: hedgingDataDetail?.currency || "INR",
-      bookedRate: hedgingDataDetail?.bookedRate,
-      bookedRateCurrency: hedgingDataDetail?.bookedRateCurrency || "INR",
-      bookedAmount: hedgingDataDetail?.bookedAmount,
-      validityFrom: hedgingDataDetail?.validityFrom,
-      validityTo: hedgingDataDetail?.validityTo,
+  const [list, setList] = useState([
+    {
+      bankName: '',
+      currency: 'INR',
+      bookedRate: '',
+      bookedRateCurrency: 'INR',
+      bookedAmount: '',
+      validityFrom: '',
+      validityTo: '',
       closingDate: '',
       closingRate: '',
-      remarks: hedgingDataDetail?.remarks,
-      balanceAmount: hedgingDataDetail?.balanceAmount,
-      forwardSalesContract: hedgingDataDetail?.forwardSalesContract,
+      remarks: '',
+      balanceAmount: '',
+      forwardSalesContract: null,
+    },
+  ])
 
-    }])
-  }, [hedgingData])
-
-  console.log(list,"list")
-  const onAddForwardHedging = () => {
-    setList(prevState => {
-      return [...prevState, {
-        bankName: '',
-        currency: 'INR',
-        bookedRate: '',
-        bookedRateCurrency: 'INR',
-        bookedAmount: '',
-        validityFrom: '',
-        validityTo: '',
+  useEffect(() => {
+    setList([
+      {
+        bankName: hedgingDataDetail?.bankName ?? 'Bank of America',
+        currency: hedgingDataDetail?.currency || 'INR',
+        bookedRate: hedgingDataDetail?.bookedRate,
+        bookedRateCurrency: hedgingDataDetail?.bookedRateCurrency || 'INR',
+        bookedAmount: hedgingDataDetail?.bookedAmount,
+        validityFrom: hedgingDataDetail?.validityFrom,
+        validityTo: hedgingDataDetail?.validityTo,
         closingDate: '',
         closingRate: '',
-        remarks: '',
-        balanceAmount: '',
-        forwardSalesContract: null,
-      }]
+        remarks: hedgingDataDetail?.remarks,
+        balanceAmount: hedgingDataDetail?.balanceAmount,
+        forwardSalesContract: hedgingDataDetail?.forwardSalesContract,
+      },
+    ])
+  }, [hedgingData])
+
+  console.log(list, 'list')
+  const onAddForwardHedging = () => {
+    setList((prevState) => {
+      return [
+        ...prevState,
+        {
+          bankName: '',
+          currency: 'INR',
+          bookedRate: '',
+          bookedRateCurrency: 'INR',
+          bookedAmount: '',
+          validityFrom: '',
+          validityTo: '',
+          closingDate: '',
+          closingRate: '',
+          remarks: '',
+          balanceAmount: '',
+          forwardSalesContract: null,
+        },
+      ]
     })
   }
 
@@ -122,14 +127,18 @@ export default function Index() {
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
-      let response = await Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, fd, {
-        headers: headers,
-      })
+      let response = await Axios.post(
+        `${API.corebaseUrl}${API.customClearanceDoc}`,
+        fd,
+        {
+          headers: headers,
+        },
+      )
       // console.log(response.data.data, 'response data123')
       if (response.data.code === 200) {
         // dispatch(getCustomClearanceSuccess(response.data.data))
 
-        return response.data.data;
+        return response.data.data
       } else {
         // dispatch(getCustomClearanceFailed(response.data.data))
         // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
@@ -138,7 +147,6 @@ export default function Index() {
       }
     } catch (error) {
       // dispatch(getCustomClearanceFailed())
-
       // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
       // if (!toast.isActive(toastMessage.toUpperCase())) {
       //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -173,7 +181,7 @@ export default function Index() {
   }
 
   const handleClose = () => {
-    setList(doc => {
+    setList((doc) => {
       return { ...doc, forwardSalesContract: null }
     })
   }
@@ -220,7 +228,7 @@ export default function Index() {
     // fd.append('forwardSalesContract', list?.forwardSalesContract)
     let obj = {
       forwardHedgingId: hedgingData?._id,
-      detail: [hedgingObj]
+      detail: [hedgingObj],
     }
     let task = 'save'
     dispatch(UpdateForwardHedging({ obj, task }))
@@ -236,12 +244,12 @@ export default function Index() {
     // fd.append('forwardSalesContract', list?.forwardSalesContract)
     let obj = {
       forwardHedgingId: hedgingData?._id,
-      detail: [hedgingObj]
+      detail: [hedgingObj],
     }
     let task = 'submit'
     dispatch(UpdateForwardHedging({ obj, task }))
   }
-  console.log(list, "list")
+  console.log(list, 'list')
 
   return (
     <>
@@ -253,192 +261,126 @@ export default function Index() {
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
               onClick={() => Router.push('/forward-table')}
-
             />
-            <h1 className={`${styles.heading}`}>{hedgingData?.company?.companyName} </h1>
+            <h1 className={`${styles.heading}`}>
+              {hedgingData?.company?.companyName}{' '}
+            </h1>
           </div>
-          <div
-            className={`${styles.vessel_card} vessel_card border_color`}
-          >
+          <div className={`${styles.vessel_card} vessel_card border_color`}>
             <div className={`${styles.main}  border_color card `}>
               {list.map((item, index) => {
-                return (<>
-                  <div key={index}
-                    className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
-                  >
-                    <h3 className={`${styles.heading}`}>Forward Hedging</h3>
-                    <button
-                      className={styles.add_btn}
-                      onClick={() => {
-                        onAddForwardHedging()
-                      }}
+                return (
+                  <>
+                    <div
+                      key={index}
+                      className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
                     >
-                      <span className={styles.add_sign}>+</span>Add
-                    </button>
-                  </div>
-                  <div className={`${styles.dashboard_form} mt-2 card-body`}>
-                    <div className="row">
-                      <div
-                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                      <h3 className={`${styles.heading}`}>Forward Hedging</h3>
+                      <button
+                        className={styles.add_btn}
+                        onClick={() => {
+                          onAddForwardHedging()
+                        }}
                       >
-                        <div className="d-flex">
-                          <select
-                            name="bankName"
-                            onChange={(e) =>
-                              saveHedgingData(e.target.name, e.target.value, index)
-                            }
-                            className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                          >
-                            <option selected>Select an option</option>
-                            <option value='Indo German'>Indo German</option>
-                            <option value='Emergent Solutions'>Emergent Solutions</option>
-                          </select>
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            Bank Name
-                            <strong className="text-danger">*</strong>
-                          </label>
-                          <img
-                            className={`${styles.arrow} image_arrow img-fluid`}
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`}
-                      >
-                        <div className="d-flex">
-                          <select
-                            value={item.currency}
-                            name="currency"
-                            onChange={(e) =>
-                              saveHedgingData(e.target.name, e.target.value, index)
-                            }
-                            className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                          >
-                            <option selected>Select an option</option>
-                            <option value="INR">INR</option>
-                            <option value="USD">USD</option>
-                            <option value="EURO">EURO</option>
-                            <option value="POUND">POUND</option>
-                          </select>
-                          <label
-                            className={`${styles.label_heading} label_heading`}
-                          >
-                            Currency<strong className="text-danger">*</strong>
-                          </label>
-                          <img
-                            className={`${styles.arrow} image_arrow img-fluid`}
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`}
-                      >
-                        <input
-                          className={`${styles.input_field} input form-control`}
-                          required
-                          type="number"
-                          name="bookedRate"
-                          defaultValue={list?.bookedRate}
-                          onKeyDown={(evt) =>
-                            evt.key === 'e' && evt.preventDefault()
-                          }
-                          onChange={(e) =>
-                            saveHedgingData(e.target.name, e.target.value, index)
-                          }
-                        />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          Booked @<strong className="text-danger">*</strong>
-                        </label>
-                      </div>
-                      <div
-                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                      >
-                        <input
-                          className={`${styles.input_field} input form-control`}
-                          type="number"
-                          required
-                          name="bookedAmount"
-                          defaultValue={list?.bookedAmount}
-                          onKeyDown={(evt) =>
-                            evt.key === 'e' && evt.preventDefault()
-                          }
-                          onChange={(e) =>
-                            saveHedgingData(e.target.name, e.target.value, index)
-                          }
-                        />
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          Booked Amount
-                          <strong className="text-danger">*</strong>
-                        </label>
-                      </div>
-
-                      <div
-                        className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6`}
-                      >
-                        <div className="d-flex">
-                          <DateCalender
-                            name="validityFrom"
-                            // defaultDate={list?.validityFrom?.split('T')[0]}
-                            saveDate={saveDate}
-                            labelName="Validity from"
-                          />
-                          <img
-                            className={`${styles.calanderIcon} image_arrow img-fluid`}
-                            src="/static/caldericon.svg"
-                            alt="Search"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6`}
-                      >
-                        <div className="d-flex">
-                          <DateCalender
-                            name="validityTo"
-                            // defaultDate={list?.validityTo}
-                            saveDate={saveDate}
-                            labelName="Validity to"
-                          />
-                          <img
-                            className={`${styles.calanderIcon} image_arrow img-fluid`}
-                            src="/static/caldericon.svg"
-                            alt="Search"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
-                      >
-                        <button
-                          // onClick={() => handleCancel()}
-                          className={`${styles.cancel_btn}`}
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                      <div
-                        className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
-                      >
-                        <div className={`${styles.label} text mt-n1`}>
-                          Balance Amount
-                        </div>
-                        <span className={`${styles.value}`}>
-                          {list?.bookedAmount}
-                        </span>
-                      </div>
+                        <span className={styles.add_sign}>+</span>Add
+                      </button>
                     </div>
-                    {cancel ? (
-                      <Row>
+                    <div className={`${styles.dashboard_form} mt-2 card-body`}>
+                      <div className="row">
+                        <div
+                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                        >
+                          <div className="d-flex">
+                            <select
+                              name="bankName"
+                              onChange={(e) =>
+                                saveHedgingData(
+                                  e.target.name,
+                                  e.target.value,
+                                  index,
+                                )
+                              }
+                              className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                            >
+                              <option selected>Select an option</option>
+                              <option value="Indo German">Indo German</option>
+                              <option value="Emergent Solutions">
+                                Emergent Solutions
+                              </option>
+                            </select>
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              Bank Name
+                              <strong className="text-danger">*</strong>
+                            </label>
+                            <img
+                              className={`${styles.arrow} image_arrow img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                          </div>
+                        </div>
+                        <div
+                          className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`}
+                        >
+                          <div className="d-flex">
+                            <select
+                              value={item.currency}
+                              name="currency"
+                              onChange={(e) =>
+                                saveHedgingData(
+                                  e.target.name,
+                                  e.target.value,
+                                  index,
+                                )
+                              }
+                              className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                            >
+                              <option selected>Select an option</option>
+                              <option value="INR">INR</option>
+                              <option value="USD">USD</option>
+                              <option value="EURO">EURO</option>
+                              <option value="POUND">POUND</option>
+                            </select>
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              Currency<strong className="text-danger">*</strong>
+                            </label>
+                            <img
+                              className={`${styles.arrow} image_arrow img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                          </div>
+                        </div>
+                        <div
+                          className={`${styles.form_group} col-lg-2 col-md-4 col-sm-6`}
+                        >
+                          <input
+                            className={`${styles.input_field} input form-control`}
+                            required
+                            type="number"
+                            name="bookedRate"
+                            defaultValue={list?.bookedRate}
+                            onKeyDown={(evt) =>
+                              evt.key === 'e' && evt.preventDefault()
+                            }
+                            onChange={(e) =>
+                              saveHedgingData(
+                                e.target.name,
+                                e.target.value,
+                                index,
+                              )
+                            }
+                          />
+                          <label
+                            className={`${styles.label_heading} label_heading`}
+                          >
+                            Booked @<strong className="text-danger">*</strong>
+                          </label>
+                        </div>
                         <div
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                         >
@@ -446,29 +388,36 @@ export default function Index() {
                             className={`${styles.input_field} input form-control`}
                             type="number"
                             required
-                            name="closingRate"
+                            name="bookedAmount"
+                            defaultValue={list?.bookedAmount}
                             onKeyDown={(evt) =>
                               evt.key === 'e' && evt.preventDefault()
                             }
                             onChange={(e) =>
-                              saveHedgingData(e.target.name, e.target.value, index)
+                              saveHedgingData(
+                                e.target.name,
+                                e.target.value,
+                                index,
+                              )
                             }
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            Closing Rate
+                            Booked Amount
                             <strong className="text-danger">*</strong>
                           </label>
                         </div>
+
                         <div
-                          className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                          className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6`}
                         >
                           <div className="d-flex">
                             <DateCalender
-                              name="closingDate"
+                              name="validityFrom"
+                              // defaultDate={list?.validityFrom?.split('T')[0]}
                               saveDate={saveDate}
-                              labelName="Closing Date"
+                              labelName="Validity from"
                             />
                             <img
                               className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -477,88 +426,176 @@ export default function Index() {
                             />
                           </div>
                         </div>
-                      </Row>
-                    ) : (
-                      ''
-                    )}
-
-                    <div className="mt-5">
-                      <div className="position-relative">
-                        <input
-                          as="textarea"
-                          rows={3}
-                          name="remarks"
-                          defaultValue={list?.remarks}
-                          required
-                          onChange={(e) =>
-                            saveHedgingData(e.target.name, e.target.value, index)
-                          }
-                          className={`${styles.comment_field} input form-control`}
-                        />
-                        <label
-                          className={`${styles.label_comment} ${styles.label_heading} label_heading`}
+                        <div
+                          className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6`}
                         >
-                          Remarks
-                        </label>
+                          <div className="d-flex">
+                            <DateCalender
+                              name="validityTo"
+                              // defaultDate={list?.validityTo}
+                              saveDate={saveDate}
+                              labelName="Validity to"
+                            />
+                            <img
+                              className={`${styles.calanderIcon} image_arrow img-fluid`}
+                              src="/static/caldericon.svg"
+                              alt="Search"
+                            />
+                          </div>
+                        </div>
+                        <div
+                          className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
+                        >
+                          <button
+                            onClick={() => handleCancel()}
+                            className={`${styles.cancel_btn}`}
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                        <div
+                          className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
+                        >
+                          <div className={`${styles.label} text mt-n1`}>
+                            Balance Amount
+                          </div>
+                          <span className={`${styles.value}`}>
+                            {list?.bookedAmount}
+                          </span>
+                        </div>
+                      </div>
+                      {cancel ? (
+                        <Row>
+                          <div
+                            className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                          >
+                            <input
+                              className={`${styles.input_field} input form-control`}
+                              type="number"
+                              required
+                              name="closingRate"
+                              onKeyDown={(evt) =>
+                                evt.key === 'e' && evt.preventDefault()
+                              }
+                              onChange={(e) =>
+                                saveHedgingData(
+                                  e.target.name,
+                                  e.target.value,
+                                  index,
+                                )
+                              }
+                            />
+                            <label
+                              className={`${styles.label_heading} label_heading`}
+                            >
+                              Closing Rate
+                              <strong className="text-danger">*</strong>
+                            </label>
+                          </div>
+                          <div
+                            className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                          >
+                            <div className="d-flex">
+                              <DateCalender
+                                name="closingDate"
+                                saveDate={saveDate}
+                                labelName="Closing Date"
+                              />
+                              <img
+                                className={`${styles.calanderIcon} image_arrow img-fluid`}
+                                src="/static/caldericon.svg"
+                                alt="Search"
+                              />
+                            </div>
+                          </div>
+                        </Row>
+                      ) : (
+                        ''
+                      )}
+
+                      <div className="mt-5">
+                        <div className="position-relative">
+                          <input
+                            as="textarea"
+                            rows={3}
+                            name="remarks"
+                            defaultValue={list?.remarks}
+                            required
+                            onChange={(e) =>
+                              saveHedgingData(
+                                e.target.name,
+                                e.target.value,
+                                index,
+                              )
+                            }
+                            className={`${styles.comment_field} input form-control`}
+                          />
+                          <label
+                            className={`${styles.label_comment} ${styles.label_heading} label_heading`}
+                          >
+                            Remarks
+                          </label>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className={`${styles.table_container} mt-4`}>
-                    <div className={styles.table_scroll_outer}>
-                      <div className={styles.table_scroll_inner}>
-                        <table
-                          className={`${styles.table} table`}
-                          cellPadding="0"
-                          cellSpacing="0"
-                          border="0"
-                        >
-                          <thead>
-                            <tr>
-                              <th>
-                                DOCUMENT NAME{' '}
-                                <img
-                                  className={`${styles.sort_image} mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
-                              </th>
-                              <th>
-                                FORMAT{' '}
-                                <img
-                                  className={`${styles.sort_image} mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
-                              </th>
-                              <th>
-                                DOCUMENT DATE{' '}
-                                <img
-                                  className={`${styles.sort_image} mb-1`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
-                              </th>
-                              <th width="30%">ACTION</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr className="table_row">
-                              <td className={styles.doc_name}>
-                                Forward Sales Contract
-                                <strong className="text-danger ml-1">*</strong>
-                              </td>
-                              <td>
-                                <img
-                                  src="/static/pdf.svg"
-                                  className={`${styles.pdfImage} img-fluid`}
-                                  alt="Pdf"
-                                />
-                              </td>
-                              <td className={styles.doc_row}>
-                                28-02-2022,5:30 PM
-                              </td>
-                              <td>
-                                {/* <div className={styles.uploadBtnWrapper}>
+                    <div className={`${styles.table_container} mt-4`}>
+                      <div className={styles.table_scroll_outer}>
+                        <div className={styles.table_scroll_inner}>
+                          <table
+                            className={`${styles.table} table`}
+                            cellPadding="0"
+                            cellSpacing="0"
+                            border="0"
+                          >
+                            <thead>
+                              <tr>
+                                <th>
+                                  DOCUMENT NAME{' '}
+                                  <img
+                                    className={`${styles.sort_image} mb-1`}
+                                    src="/static/icons8-sort-24.svg"
+                                    alt="Sort icon"
+                                  />
+                                </th>
+                                <th>
+                                  FORMAT{' '}
+                                  <img
+                                    className={`${styles.sort_image} mb-1`}
+                                    src="/static/icons8-sort-24.svg"
+                                    alt="Sort icon"
+                                  />
+                                </th>
+                                <th>
+                                  DOCUMENT DATE{' '}
+                                  <img
+                                    className={`${styles.sort_image} mb-1`}
+                                    src="/static/icons8-sort-24.svg"
+                                    alt="Sort icon"
+                                  />
+                                </th>
+                                <th width="30%">ACTION</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr className="table_row">
+                                <td className={styles.doc_name}>
+                                  Forward Sales Contract
+                                  <strong className="text-danger ml-1">
+                                    *
+                                  </strong>
+                                </td>
+                                <td>
+                                  <img
+                                    src="/static/pdf.svg"
+                                    className={`${styles.pdfImage} img-fluid`}
+                                    alt="Pdf"
+                                  />
+                                </td>
+                                <td className={styles.doc_row}>
+                                  28-02-2022,5:30 PM
+                                </td>
+                                <td>
+                                  {/* <div className={styles.uploadBtnWrapper}>
                                 <button className={`${styles.uploadDoc} btn`}>
                                   Upload
                                 </button>
@@ -568,22 +605,25 @@ export default function Index() {
                                   name="myfile"
                                 />
                               </div> */}
-                                {item && item?.forwardSalesContract == null ? (
-                                  <>
-                                    <div className={styles.uploadBtnWrapper}>
-                                      <input
-                                        type="file"
-                                        name="myfile"
-                                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
-                                        onChange={(e) => uploadDocument1(e, index)}
-                                      />
-                                      <button
-                                        className={`${styles.button_upload} btn`}
-                                      >
-                                        Upload
-                                      </button>
-                                    </div>
-                                    {/* <div className={styles.uploadBtnWrapper}>
+                                  {item &&
+                                  item?.forwardSalesContract == null ? (
+                                    <>
+                                      <div className={styles.uploadBtnWrapper}>
+                                        <input
+                                          type="file"
+                                          name="myfile"
+                                          accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                          onChange={(e) =>
+                                            uploadDocument1(e, index)
+                                          }
+                                        />
+                                        <button
+                                          className={`${styles.button_upload} btn`}
+                                        >
+                                          Upload
+                                        </button>
+                                      </div>
+                                      {/* <div className={styles.uploadBtnWrapper}>
                                 <input
                                   type="file"
                                   accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
@@ -594,37 +634,44 @@ export default function Index() {
                                   Upload
                                 </button>
                                 </div> */}
-                                  </>
-                                ) : (
-                                  <div className={styles.certificate}>
-                                    {item?.forwardSalesContract?.originalName}
-                                    <img
-                                      className={`${styles.close_image} float-right m-2 img-fluid`}
-                                      src="/static/close.svg"
-                                      onClick={() => handleClose()}
-                                      alt="Close"
-                                    />{' '}
-                                  </div>
-                                )}
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                                    </>
+                                  ) : (
+                                    <div className={styles.certificate}>
+                                      {item?.forwardSalesContract?.originalName}
+                                      <img
+                                        className={`${styles.close_image} float-right m-2 img-fluid`}
+                                        src="/static/close.svg"
+                                        onClick={() => handleClose()}
+                                        alt="Close"
+                                      />{' '}
+                                    </div>
+                                  )}
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </>)
+                  </>
+                )
               })}
             </div>
 
             <div className="mt-4">
-              <UploadOther module="Loading-Transit-Unloading"
-                orderid={hedgingData?.order?._id} />
+              <UploadOther
+                module="Loading-Transit-Unloading"
+                orderid={hedgingData?.order?._id}
+              />
             </div>
           </div>
         </div>
 
-        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />
+        <SaveBar
+          handleSave={handleSave}
+          rightBtn="Submit"
+          rightBtnClick={handleSubmit}
+        />
       </div>
     </>
   )

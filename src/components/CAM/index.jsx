@@ -508,7 +508,7 @@ const basicInfo = (camData) => {
         </div>
         <div
           id="basicInfo"
-          className="collapse"
+          // className="collapse"
           aria-labelledby="basicInfo"
           data-parent="#profileAccordion"
         >
@@ -1284,7 +1284,7 @@ const directorDetails = (camData) => {
               cellSpacing="0"
             >
               <tr>
-                <th className='40%'>NAME</th>
+                <th className="40%">NAME</th>
                 <th>PAN</th>
                 <th>DIN NUMBER</th>
                 <th>DATE OF APPOINTMENT</th>
@@ -1530,9 +1530,12 @@ const chargeDetails = (data, options, tempArr, camData) => {
                           className={styles.round}
                           style={{ backgroundColor: `${val.color}` }}
                         ></div>
-                        <span className={` heading ml-2 mr-3`}
-                           style= {{whiteSpace:'nowrap'}}  
-                              >{val.name}</span>
+                        <span
+                          className={` heading ml-2 mr-3`}
+                          style={{ whiteSpace: 'nowrap' }}
+                        >
+                          {val.name}
+                        </span>
                       </div>
                     )
                   })}
@@ -1545,7 +1548,7 @@ const chargeDetails = (data, options, tempArr, camData) => {
                   cellSpacing="0"
                 >
                   <tr>
-                    <th width='50%'>BANK NAME</th>
+                    <th width="50%">BANK NAME</th>
                     <th>CHARGE AMOUNT</th>
                     <th>DATE OF CREATION</th>
                   </tr>
@@ -2608,14 +2611,18 @@ const financeDetails = (
                         companyData,
                         'financial.cashFlowStatement[0].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
                         '',
-                      )?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                      )?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                      })}
                     </td>
                     <td>
                       {_get(
                         companyData,
                         'financial.cashFlowStatement[1].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
                         '',
-                      )?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                      )?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                      })}
                     </td>
                   </tr>
                   <tr>
@@ -2625,14 +2632,18 @@ const financeDetails = (
                         companyData,
                         'financial.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
                         '',
-                      )?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                      )?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                      })}
                     </td>
                     <td>
                       {_get(
                         companyData,
                         'financial.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
                         '',
-                      )?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                      )?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                      })}
                     </td>
                   </tr>
                   <tr>
@@ -2642,14 +2653,18 @@ const financeDetails = (
                         companyData,
                         'financial.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
                         '',
-                      )?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                      )?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                      })}
                     </td>
                     <td>
                       {_get(
                         companyData,
                         'financial.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
                         '',
-                      )?.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                      )?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                      })}
                     </td>
                   </tr>
 
@@ -3098,7 +3113,12 @@ const sectionTerms = (
                         {filteredCreditRating &&
                           filteredCreditRating.length > 0 &&
                           filteredCreditRating.map((val, index) => (
-                            <td key={index}>{checkNan(CovertvaluefromtoCR(val?.suggested?.value))} Cr</td>
+                            <td key={index}>
+                              {checkNan(
+                                CovertvaluefromtoCR(val?.suggested?.value),
+                              )}{' '}
+                              Cr
+                            </td>
                           ))}{' '}
                       </>
                     ) : (
@@ -3132,7 +3152,10 @@ const sectionTerms = (
                     <td>{camData?.orderValue}</td>
                     <td>-</td>
                     <td>
-                      {checkNan(CovertvaluefromtoCR(camData?.suggestedOrderValue))} Cr
+                      {checkNan(
+                        CovertvaluefromtoCR(camData?.suggestedOrderValue),
+                      )}{' '}
+                      Cr
                       {/* {camData?.suggestedOrderValue} */}
                     </td>
                     <td>

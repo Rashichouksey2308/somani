@@ -39,7 +39,7 @@ export default function Index({
   const [shipmentType, setShipmentType] = useState(true)
   const [startBlDate, setBlDate] = useState(null)
   const [lastDate, setlastDate] = useState(new Date())
-   const [consigneeName, setConsigneeName] = useState("")
+  const [consigneeName, setConsigneeName] = useState("")
   const [consigneeInfo, setConsigneeInfo] = useState({
     name: '',
     branch: '',
@@ -126,6 +126,7 @@ export default function Index({
       vesselName: '',
       igmNumber: '',
       igmFiling: null,
+      document: null,
       blNumber: [
         {
           blNumber: number,
@@ -234,22 +235,39 @@ export default function Index({
     }
   }
   useEffect(() => {
-    if(TransitDetails){
-       setConsigneeInfo({
+    if (_get(TransitDetails, `data[0].IGM`, {})) {
+      setConsigneeInfo({
         name: _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, ''),
-        branch:_get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeBranch`, ''),
+        branch: _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeBranch`, ''),
         address:
           _get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeAddress`, ''),
       })
-      if(_get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '')=="EMERGENT INDUSTRIAL SOLUTIONS LIMITED"){
+      if (_get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') == "EMERGENT INDUSTRIAL SOLUTIONS LIMITED") {
         setConsigneeName("EMERGENT")
       }
-       if(_get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '')=="INDO GERMAN INTERNATIONAL PRIVATE LIMITED"){
+      if (_get(TransitDetails, `data[0].IGM.shipmentDetails.consigneeName`, '') == "INDO GERMAN INTERNATIONAL PRIVATE LIMITED") {
         setConsigneeName("indoGerman")
       }
-       
+      let existingData = _get(TransitDetails, `data[0].IGM.igmDetails`, [{
+        vesselName: '',
+        igmNumber: '',
+        igmFiling: null,
+        document: null,
+        blNumber: [
+          {
+            blNumber: number,
+            BlDate: '',
+            quantity: '',
+            noOfContainers: 0,
+          },
+        ],
+      }])
+      let tempArray = { ...igmList }
+      tempArray.igmDetails = [...existingData]
+      setIgmList(tempArray)
+
     }
-  },[TransitDetails])
+  }, [TransitDetails])
 
   const onChangeBlDropDown = (e) => {
     const text = e.target.value
@@ -285,14 +303,21 @@ export default function Index({
       setIgmList(tempArray)
     }
   }
-  console.log(igmList, 'igmList')
+  console.log(igmList, 'igmList234')
 
-  const onDocumentSelect = (e, index) => {
-    const docData = docUploadFunction(e.target.files[0])
-    const name = e.target.id
-    setIgmList((prevState) => {
-      return [...prevState, { ...igmList[index], [name]: docData }]
-    })
+  const onDocumentSelect = async (e, index) => {
+    console.log('igmList2345')
+    const docData = await docUploadFunction(e)
+    // const name = e.target.id
+    let temparray = { ...igmList }
+    // console.log(temparray, docData, 'temparray')
+    temparray.igmDetails[index].document = docData
+    setIgmList(temparray)
+  }
+
+  const handleCloseDoc = (e, index) => {
+    let temparray = { ...igmList }
+    temparray.igmDetails[index].document = null
   }
 
   const handleSave = () => {
@@ -489,7 +514,7 @@ export default function Index({
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       value={consigneeName}
                     >
-                      <option value = "">Select an option</option>
+                      <option value="">Select an option</option>
                       <option value="indoGerman">
                         INDO GERMAN INTERNATIONAL PRIVATE LIMITED
                       </option>
@@ -530,6 +555,7 @@ export default function Index({
             </div>
           </div>
           {igmList.igmDetails.map((item, index) => {
+            console.log(item, `igmMAp- ${index}`)
             return (
               <div
                 key={index}
@@ -543,7 +569,7 @@ export default function Index({
                     <div className={`${styles.label} text`}>
                       Balance Quantity:
                     </div>
-                    <div className={`${styles.value} ml-2 mr-4`}>{calculateBalaceQuantity()}  {_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}{' '}</div>
+                    <div className={`${styles.value} ml-2 mr-4`}>{checkNan(calculateBalaceQuantity())}  {_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}{' '}</div>
                     <button
                       onClick={() => onigmAdd()}
                       className={styles.add_btn}
@@ -564,6 +590,7 @@ export default function Index({
                             onChangeIgm(e.target.id, e.target.value)
                           }
                           className={`${styles.input_field} ${styles.customSelect}  input form-control`}
+                          value={item.vesselName}
                         >
                           {shipmentTypeBulk
                             ? _get(
@@ -604,6 +631,7 @@ export default function Index({
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                     >
                       <input
+                        value={item.igmNumber}
                         id="igmNumber"
                         onChange={(e) =>
                           onChangeIgm(e.target.id, e.target.value)
@@ -626,6 +654,13 @@ export default function Index({
                     >
                       <div className="d-flex">
                         <DateCalender
+
+                          selected={
+                            item.igmFiling == null
+                              ? ''
+                              : moment(item.igmFiling?.split('T')[0]).format('DD-MM-YYYY')
+                          }
+                          defaultDate={item.igmFiling}
                           name="igmFiling"
                           saveDate={saveDate}
                           labelName="IGM Filing Date"
@@ -650,6 +685,7 @@ export default function Index({
                                 id="vesselName"
                                 onChange={(e) => onChangeBlDropDown(e)}
                                 className={`${styles.input_field} ${styles.customSelect}  input form-control`}
+                                value={`${blEntry.blNumber}-${index}-${index2}`}
                               >
                                 <option>Select an option</option>
                                 {_get(
@@ -773,7 +809,7 @@ export default function Index({
                                     </div>
                                     <span className={styles.value}>
                                       {moment(
-                                        blEntry?.blDate,
+                                        blEntry?.blDate?.toLocaleString()?.slice(0, 10),
                                         'YYYY-MM-DD',
                                         true,
                                       ).format('DD-MM-YYYY')}
@@ -806,6 +842,11 @@ export default function Index({
                                     </div>
                                     <span className={styles.value}>
                                       {blEntry?.blQuantity}
+                                      {_get(
+                                    TransitDetails,
+                                    'data[0].order.unitOfQuantity',
+                                    '',
+                                  ).toUpperCase()}
                                     </span>
                                   </div>
                                   <div className="col-md-6">
@@ -880,6 +921,7 @@ export default function Index({
                         </tr>
                       </thead>
                       <tbody>
+
                         <tr className="table_row">
                           <td className={styles.doc_name}>
                             IGM Copy
@@ -892,18 +934,37 @@ export default function Index({
                               alt="Pdf"
                             />
                           </td>
-                          <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                          <td className={styles.doc_row}>{item?.document ? moment(item?.document?.Date).format(' DD-MM-YYYY , h:mm a') : ''}</td>
                           <td>
-                            <div className={styles.uploadBtnWrapper}>
-                              <input
-                                onChange={(e) => onDocumentSelect(e)}
-                                type="file"
-                                name="myfile"
-                              />
-                              <button className={`${styles.upload_btn} btn`}>
-                                Upload
-                              </button>
-                            </div>
+                            {item.document === null ? (
+                              <>
+                                <div className={styles.uploadBtnWrapper}>
+                                  <input
+                                    type="file"
+                                    name={`blDoc`}
+                                    accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                    onChange={(e) => onDocumentSelect(e, index)}
+                                  />
+                                  <button
+                                    className={`${styles.upload_btn} btn`}
+                                  >
+                                    Upload
+                                  </button>
+                                </div>
+                              </>
+                            ) : (
+                              <div className={styles.certificate}>
+                                {item.document?.originalName}
+                                <img
+                                  className={`${styles.close_image} float-right ml-2 img-fluid`}
+                                  src="/static/close.svg"
+                                  onClick={(e) =>
+                                    handleCloseDoc('', index)
+                                  }
+                                  alt="Close"
+                                />{' '}
+                              </div>
+                            )}
                           </td>
                         </tr>
                       </tbody>

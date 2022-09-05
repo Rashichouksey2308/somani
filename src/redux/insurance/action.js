@@ -57,6 +57,23 @@ function updateInsuranceFailed() {
   }
 }
 
+function renewingInsurance() {
+  return {
+    type: types.RENEW_INSURANCE,
+  }
+}
+function renewInsuranceSuccess(payload) {
+  return {
+    type: types.RENEW_INSURANCE_SUCCESSFULL,
+    payload,
+  }
+}
+function renewInsuranceFailed() {
+  return {
+    type: types.RENEW_INSURANCE_FAILED,
+  }
+}
+
 function updateQuotation() {
   return {
     type: types.UPDATE_QUOTATION,
@@ -171,6 +188,39 @@ export const UpdateInsurance =
     } catch (error) {
       dispatch(updateInsuranceFailed())
       let toastMessage = 'UPDATE INSURANCE REQUEST FAILED'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+    }
+  }
+
+export const RenewInsurance =
+  (payload) => async (dispatch, getState, api) => {
+    let cookie = Cookies.get('SOMANI')
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    try {
+      Axios.put(`${API.corebaseUrl}${API.renewInsurance}`, payload, {
+        headers: headers,
+      }).then((response) => {
+        if (response.data.code === 200) {
+          dispatch(renewInsuranceSuccess(response.data.data))
+          let toastMessage = 'REQUEST SENT SUCCESSFULLY'
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })   }
+        //   router.push('/margin-money')
+        } else {
+          dispatch(renewInsuranceFailed(response.data.data))
+          let toastMessage = 'RENEW REQUEST FAILED'
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
+        }
+      })
+    } catch (error) {
+      dispatch(renewInsuranceFailed())
+      let toastMessage = 'RENEW INSURANCE REQUEST FAILED'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
