@@ -159,7 +159,7 @@ function Index({
                           className={`${styles.label_heading} label_heading`}
                         >
                           (31D) Place Of Expiry
-                          {/* <strong className="text-danger">*</strong> */}
+                          <strong className="text-danger">*</strong> 
                         </label>
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
