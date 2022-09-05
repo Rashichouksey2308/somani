@@ -14,7 +14,7 @@ function Index() {
 
   const lcModuleData = _get(lcModule, 'data[0]', {})
 
-
+ const [excelFile, setExcelFile] = useState(null)
   useEffect(() => {
     let id = sessionStorage.getItem('lcOrder')
     dispatch(GetLcModule(`?lcModuleId=${id}`))
@@ -59,7 +59,8 @@ function Index() {
     instructionToBank: lcModuleData?.lcApplication?.instructionToBank,
     senderToReceiverInformation: lcModuleData?.lcApplication?.senderToReceiverInformation,
     })
-  }, [lcModuleData])
+    setExcelFile(_get(lcModule,"data[0].order.generic.productSpecifications.specificationTable",[]))
+  }, [lcModuleData,lcModule])
 
   console.log(lcData, "THIS IS LC DATA")
   
@@ -370,6 +371,7 @@ function Index() {
         lcConditionEdit={lcConditionEdit}
         addConditionComment={addConditionComment}
         lcCondition={lcCondition}
+        excelFile={excelFile}
         
         currentComment2={currentComment2}
       />

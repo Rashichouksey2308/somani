@@ -23,7 +23,7 @@ function Index({
   addConditionComment,
   lcConditionEdit,
   currentComment2,
-
+  excelFile,
   addConditionArr,
 }) {
   console.log(lcCondition, 'lcCondition12234')
@@ -758,6 +758,27 @@ function Index({
                         />
                       </div>
                     </div>
+                      <div className={styles.tableWrapper}>
+                    <table>
+                      <tr>
+                        {excelFile &&
+                          excelFile.length > 0 &&
+                          Object.keys(excelFile[0]).map((val, index) => (
+                            <th key={index}>{val}</th>
+                          ))}
+                      </tr>
+
+                      {excelFile &&
+                        excelFile.length > 0 &&
+                        excelFile.map((item, index) => (
+                          <tr>
+                            {Object.values(item).map((value, id) => (
+                              <td key={id}>{value}</td>
+                            ))}
+                          </tr>
+                        ))}
+                    </table>
+          </div>
                   </div>
                   {/* <div className={`${styles.datatable} mb-5 ml-5 datatable `}>
                     <div className={styles.table_scroll_outer}>
