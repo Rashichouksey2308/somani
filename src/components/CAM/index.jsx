@@ -660,7 +660,7 @@ const basicInfo = (camData,orderDetails) => {
                     Port of Loading
                   </span>
                   <span className={`${styles.value} value pr-5`}>
-                    {camData?.portOfLoading}
+                    {camData?.shipmentDetail?.portOfLoading}
                   </span>
                 </Col>
                 <Col
