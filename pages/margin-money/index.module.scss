@@ -21,6 +21,13 @@
         letter-spacing: 0.53px;
         margin: 0;
         padding-left: 18px;
+        text-transform: lowercase;
+        &:first-letter {
+          text-transform: uppercase;
+        }
+        &:first-line {
+          text-transform: capitalize;
+        }
         span {
           @include respond(phone) {
             font-size: 13px;
