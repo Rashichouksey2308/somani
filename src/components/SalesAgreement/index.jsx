@@ -169,15 +169,16 @@ function Index(props) {
     return true
   }
   const setSideStateToLocal=()=>{
+   
     sessionStorage.setItem("genericSide",JSON.stringify(sideBar))
-    sessionStorage.setItem("setgenActive",JSON.stringify(active))
+    // sessionStorage.setItem("setgenActive",active)
     console.log("ddasdasd")
   }
   useEffect(() => {
     if(window){
       if(sessionStorage.getItem("genericSide")){
         setSidebar(JSON.parse(sessionStorage.getItem("genericSide")))
-        setActive(JSON.parse(sessionStorage.getItem("setgenActive")))
+        // setActive(sessionStorage.getItem("setgenActive"))
         
       }
     }
