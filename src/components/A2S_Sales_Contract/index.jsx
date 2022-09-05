@@ -69,9 +69,11 @@ function Index(props) {
           curr:data?.orderCurrency
         })
       } else {
+        
         const data = JSON.parse(sessionStorage.getItem("genericSelected"))
+        console.log(data,"data22222")
         let exe;
-        let dat=new Date();
+        let dat = "";
         data?.placeOfExecution?.execution?.forEach((val, index) => {
           if (val.agreementName == "Sales Agreement") {
             exe = val.place
@@ -81,7 +83,7 @@ function Index(props) {
           }
         })
        
-        console.log(dat,"datasallelll")
+       console.log(dat,exe,"exedasa")
 
         setData({
           seller: data?.seller?.name,
@@ -870,7 +872,7 @@ const salesContract = (changeHandler, data, preview,CovertvaluefromtoCR) => {
         <div className={`${styles.inputsContainer}`}>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Date of Execution</Col>
-            <Col md={7} className={styles.right}>{moment(data.dat).format("DD-MM-YYYY")}</Col>
+            <Col md={7} className={styles.right}>{data.dateOfExecution}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Place of Execution</Col>

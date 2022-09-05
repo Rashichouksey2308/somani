@@ -419,7 +419,7 @@ const Index = ({
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div className="d-flex">
                 <select
-                  selected={
+                  value={
                     termsheetDetails?.transactionDetails?.partShipmentAllowed
                   }
                   id="partShipmentAllowed"
@@ -427,6 +427,7 @@ const Index = ({
                   onChange={onChangeTransactionDetails}
                   required
                 >
+                  <option>Select an option</option>
                   {termsheetDetails?.transactionDetails?.partShipmentAllowed ===
                   'Yes' ? (
                     <>
@@ -436,7 +437,7 @@ const Index = ({
                     </>
                   ) : (
                     <>
-                      <option value="NO">No</option>{' '}
+                      <option value="No">No</option>{' '}
                       <option value="Yes">Yes</option>{' '}
                     </>
                   )}
@@ -817,7 +818,7 @@ const Index = ({
                   onChange={onChangeCommercialTerms}
                   required
                 >
-                   <option disabled>Select an option</option>
+                  <option >Select an option</option>
                   <option value="Yes">Yes</option>
                   <option value="No">No</option>
                 </select>
