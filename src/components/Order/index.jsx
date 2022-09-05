@@ -264,7 +264,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                     required
                     type="text"
                     name="manufacturerName"
-                    // defaultValue={orderDetail?.manufacturerName}
+                    defaultValue={orderDetail?.manufacturerName}
                     onChange={(e) => {
                       saveOrderData(e.target.name, e.target.value)
                     }}
@@ -344,7 +344,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                 <div className="d-flex">
                   <DateCalender
                     name="ExpectedDateOfShipment"
-                    defaultDate={null}
+                    defaultDate={orderDetail?.ExpectedDateOfShipment?.split('T')[0]}
                     saveDate={saveDate}
                     labelName="Expected Date Of Shipment"
                   />
