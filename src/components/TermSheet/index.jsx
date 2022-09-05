@@ -280,10 +280,10 @@ const Index = () => {
   console.log(termsheetDetails.paymentDueDate,"herer1234")
 
   const onChangeCommercialTerms = (e) => {
-    
+      console.log(e.target.id,e.target.value,"sdfsdf")
     const Key = e.target.id
     const value = e.target.value
-    
+   
     setTermsheetDetails((prev) => ({
       ...prev,
       commercials: { ...prev.commercials, [Key]: value },
