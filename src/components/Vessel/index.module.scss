@@ -751,32 +751,47 @@ img {
   appearance: none;
   // position: relative;
 }
-    .uploadBtnWrapper {
-      overflow: hidden;
-      position: relative;
-      display: block;
-      line-height: 60px;
-  
-      input {
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        opacity: 0;
-        cursor: pointer;
-        position: absolute;
-      }
-    }
-  
-    .upload_btn {
-      width: 106px;
-      height: 38px;
-      border: 3px solid #3687E8;
-      border-radius: 5px;
-      text-align: center;
-      font-weight: bold;
-      font-size: 18px;
-      color: #3687E8;
-      line-height: 23px;
-      text-transform: capitalize;
-    }
+.certificate {
+  font-size: 20px;
+  letter-spacing: 0.19px;
+  color: #111111;
+  background-color: #C3C3C31F;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 7px 0;
+  span {
+      max-width: 92%;
+      overflow-x: hidden;
+      display: inline-block;
+      text-overflow: ellipsis;
+  }
+}
+.uploadBtnWrapper {
+  overflow: hidden;
+  position: relative;
+  display: block;
+  line-height: 60px;
+
+  input {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    cursor: pointer;
+    position: absolute;
+  }
+}
+
+.upload_btn {
+  width: 106px;
+  height: 38px;
+  border: 3px solid #3687E8;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  color: #3687E8;
+  line-height: 23px;
+  text-transform: capitalize;
+}

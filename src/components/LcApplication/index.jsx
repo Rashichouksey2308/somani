@@ -169,7 +169,7 @@ function Index({
                             onChange={(e) => {
                               saveLcData(e.target.name, e.target.value)
                             }}
-                            // value={lcData?.lcIssuingBank}
+                            value={lcData?.lcIssuingBank}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
                             <option selected disabled>Select an option</option>
@@ -694,7 +694,7 @@ function Index({
                         onClick={() => addConditionArr()}
                       />
                     </div>
-                    {lcCondition?.map((comment, index) => (
+                    {lcComments?.map((comment, index) => (
                       <div
                         key={index}
                         className="d-flex justify-content-between pt-4 pb-3"
@@ -759,7 +759,7 @@ function Index({
                       </div>
                     </div>
                   </div>
-                  {/* <div className={`${styles.datatable} mb-5 ml-5 datatable `}>
+                  <div className={`${styles.datatable} mb-5 ml-5 datatable `}>
                     <div className={styles.table_scroll_outer}>
                       <div className={styles.table_scroll_inner}>
                         <table
@@ -768,14 +768,12 @@ function Index({
                           cellSpacing="0"
                           border="0"
                         >
-                          <thead>
-                            <tr className="table_row">
-                              <th>ELEMENTS</th>
-                              <th>TYPICAL</th>
-                              <th>GUARANTEED</th>
-                            </tr>
-                          </thead>
                           <tbody>
+                            <tr className="table_row">
+                              <td>ELEMENTS</td>
+                              <td>TYPICAL</td>
+                              <td>GUARANTEED</td>
+                            </tr>
                             <tr className="table_row">
                               <td>MN</td>
                               <td>44.5 PCT</td>
@@ -815,7 +813,7 @@ function Index({
                         </table>
                       </div>
                     </div>
-                  </div> */}
+                  </div>
                 </div>
                 <div
                   className={`${styles.dashboard_form} border_color`}
@@ -870,7 +868,7 @@ function Index({
                                 onChange={(e) => {
                                   saveLcData(e.target.name, e.target.value)
                                 }}
-                                value={lcData?.reimbursingBan}
+                                value={lcData?.reimbursingBank}
                                 className={`${styles.input_labels}  ${styles.customSelect} input form-control`}
                               >
                                 <option selected disabled>Select an option</option>

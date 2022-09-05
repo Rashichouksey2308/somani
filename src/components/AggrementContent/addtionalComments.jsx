@@ -128,44 +128,46 @@ const handleAddressInput=()=>{
      </div>
    
      <span>Additional Comments</span>
-     <ol className='p-0 m-0'>
-     {addressList?.length>0 && addressList.map((val,index)=>{
-     return(
-      <>
-       <li  className={`d-flex justify-content-between align-items-center ${styles.comment}`}>
-          <input
-            required
-            type="text"
-            name="bankName"
-            className='input'
-            value={val.value}
-            onChange={(e) => {
-            handleEditAddressInput(e.target.value,index)
-            }}
-            readOnly={val.isEdit}
-          />
-       <div className={`d-flex justify-content-end align-items-center`}>
-         
-            {val.isEdit? <img className={`${styles.image}`} src="/static/mode_edit.svg" alt="edit"
-            onClick={()=>{
-            changeEdit(index)
-            }}
-            />: <img className={`${styles.image}`} src="/static/save-3.svg" alt="edit"
-            onClick={()=>{
-            changeEdit(index)
-            }}
-            />}
-         <img src="/static/delete 2.svg" className="img-fluid ml-3" alt="delete"
-         onClick={()=>{
-                    onAddressRemove(index)
-        }}
-         />
-       </div>
-     </li>
-      </>
-     )
-     })}
-     </ol>
+      <div>
+        <ol className='p-0 m-0'>
+          {addressList?.length>0 && addressList.map((val,index)=>{
+          return(
+            <>
+            <li  className={`d-flex justify-content-between align-items-center ${styles.comment}`}>
+                <input
+                  required
+                  type="text"
+                  name="bankName"
+                  className='input'
+                  value={val.value}
+                  onChange={(e) => {
+                  handleEditAddressInput(e.target.value,index)
+                  }}
+                  readOnly={val.isEdit}
+                />
+            <div className={`d-flex justify-content-end align-items-center`}>
+              
+                  {val.isEdit? <img className={`${styles.image} ml-4 mr-3`} src="/static/mode_edit.svg" alt="edit"
+                  onClick={()=>{
+                  changeEdit(index)
+                  }}
+                  />: <img className={`${styles.image} ml-4 mr-3`} src="/static/save-3.svg" alt="edit"
+                  onClick={()=>{
+                  changeEdit(index)
+                  }}
+                  />}
+              <img src="/static/delete 2.svg" className="img-fluid" alt="delete"
+              onClick={()=>{
+                          onAddressRemove(index)
+              }}
+              />
+            </div>
+          </li>
+            </>
+          )
+          })}
+        </ol>
+      </div>
      </div>
  
       </div>

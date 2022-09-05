@@ -79,7 +79,7 @@ function Index() {
     lcModuleData?.additionalConditions,
   )
   const [lcCondition, setLcCondition] = useState(
-    [lcModuleData?.additionalConditions]
+    lcModuleData?.additionalConditions
   )
   console.log(lcCondition,"lcCondition1223")
   const [currentComment2,setCurrentComment2]=useState("")
@@ -116,19 +116,20 @@ function Index() {
     setCurrentComment2(val)
   }
   const addConditionArr = () => {
-  console.log("thsbhjsbdjh",lcCondition,currentComment2)
-   setLcCondition([...lcCondition,currentComment2])
+  // console.log("thsbhjsbdjh",lcCondition,currentComment2)
+   setLcComments([...lcComments,currentComment2])
    setCurrentComment2("")
   }
   const deleteLcCondition=(index)=>{
-    setLcCondition([...lcCondition.slice(0,index), ...lcCondition.slice(index+1)])
+    setLcComments([...lcComments.slice(0,index), ...lcComments.slice(index+1)])
   }
   const lcConditionEdit=(e,index)=>{
-    let tempArr=[...lcCondition]
+    let tempArr=[...lcComments]
   
     tempArr[index]=e.target.value
-    setLcCondition(tempArr)
+    setLcComments(tempArr)
   }
+
   useEffect(() => {
     let commentLcArr = []
     lcModuleData?.additionalConditions?.forEach((element) => {
@@ -341,7 +342,7 @@ function Index() {
       documentRequired: [...lcDocuments],
       lcModuleId: lcModuleData._id,
     }
-    dispatch(UpdateLcModule(obj))
+    dispatch(UpdateLcModule({obj: obj}))
   }
   }
 
