@@ -8,7 +8,8 @@ import ShipmentDetails from '../../src/components/ShipmentDetails'
 import ComplianceLigitations from '../../src/components/CompilanceLigitation'
 import LigitationsTable from '../../src/components/LigitationsTable'
 import GST from '../../src/components/GST'
-
+import jsPDF from 'jspdf'
+import ReactDOMServer from 'react-dom/server'
 import Credit from '../../src/components/Credit'
 import Recommendations from '../../src/components/Recommendations'
 import CAM from '../../src/components/CAM'
@@ -34,6 +35,7 @@ import Ratios from '../../src/components/ReviewQueueFinancials/Ratios'
 import {
   removePrefixOrSuffix,
   CovertvaluefromtoCR,
+  checkNan
 } from '../../src/utils/helper'
 //redux
 import { UpdateCompanyDetails } from '../../src/redux/companyDetail/action'
@@ -1766,6 +1768,22 @@ function Index() {
   }, [companyData?.profile?.directorDetai])
   console.log(personData, 'per')
   console.log(companyData?.profile?.directorDetail, 'director')
+    const exportPDF = () => {
+    console.log(orderList,"orderList")
+    const doc = new jsPDF('p', 'pt', [1000,1000])
+    doc.html(ReactDOMServer.renderToString(toPrintPdf(orderList,moment,checkNan,gstData?.detail?.salesDetailAnnual?.saleSummary)), {
+      callback: function (doc) {
+        doc.save('sample.pdf')
+      },
+    // margin:margins,
+    autoPaging:"text",
+    
+
+    },
+   
+    
+    )
+  }
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -2746,7 +2764,8 @@ function Index() {
           isPrevious={true}
           isApprove={true}
           handleApprove={handleCamApprove}
-          handleReject={handleCamReject}
+          handleUpdate={handleCamReject}
+          handleReject={exportPDF}
           leftButtonName={`Decline`}
           rightButtonName={`Approve`}
         />
@@ -2901,5 +2920,909 @@ const table2 = (sat, balance, complienceFilter) => {
         ) : null}
       </tbody>
     </table>
+  )
+}
+
+const toPrintPdf=(camData,moment,checkNan,RevenueDetails)=>{
+    function calcPc(n1, n2) {
+    if (n1 === 0) {
+      return 0
+    }
+    return ((n2 - n1) / n1) * 100
+  }
+  return (
+    
+ <table width="1000px" style={{fontFamily:'Arial, Helvetica, sans-serif'}} cellPadding="0" cellSpacing="0" border="0">
+        <tr>
+          <td valign="top">
+            <table width="100%" bgColor="#ffffff" cellPadding="12" cellSpacing="0" border="0" style={{border:'1px solid #D2D7E5', borderRadius:'6px', boxShadow:'0 3px 6px #CAD0E2', marginBottom:'26px'}}>
+              <tr>
+                <td colSpan={4} height="78" 
+                style={{padding:'0 35px', borderBottom:'2px solid #CAD6E6'}}><h3 style={{fontSize:'22px', color:'#3687E8', lineHeight:'27px', fontWeight:'bold'}}>
+                  Basic Info
+                  </h3></td>
+              </tr>
+              <tr bgColor="#F7F9FF" height="92">
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', opacity:'1', paddingLeft:'35px'}}>Transaction Type</td>
+                <td colSpan={3} style={{fontSize:'20px', color:'#111111', lineHeight:'25px'}}>{camData?.orderDetailsl}</td>
+              </tr>
+              <tr>
+                <td width="20%" style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px', paddingTop:'37px'}}>Sourcing Channel</td>
+                <td width="30%" style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px', paddingTop:'37px'}}>{camData?.company?.sourceChanel}</td>
+                <td width="20%" style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingTop:'37px'}}>City</td>
+                <td width="30%" style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px', paddingTop:'37px'}}>
+                  {
+                      camData?.company?.detailedCompanyInfo?.profile
+                        ?.companyDetail?.city
+                    }</td>
+              </tr>
+              <tr>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px'}}>Buyer</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px'}}>{camData?.company?.companyName}</td>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px'}}>State</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px'}}>
+                  {
+                      camData?.company?.detailedCompanyInfo?.profile
+                        ?.companyDetail?.state
+                    }</td>
+              </tr>
+              <tr>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px', paddingBottom:'40px'}}>Type of Business</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px', paddingBottom:'40px'}}> {camData?.company?.typeOfBusiness}</td>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingBottom:'40px'}}>Industry</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px', paddingBottom:'40px'}}> {camData?.company?.typeOfBusiness}</td>
+              </tr>
+              <tr bgColor="#F7F9FF">
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px', paddingTop:'29px'}}>Order Value</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px', paddingTop:'29px'}}>{camData?.orderValue}   {camData?.unitOfValue == 'Crores'
+                      ? 'Cr'
+                      : camData?.unitOfValue}
+                      </td>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingTop:'29px'}}>Commodity</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px', paddingTop:'29px'}}> {camData?.commodity}</td>
+              </tr>
+              <tr bgColor="#F7F9FF">
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px'}}>Quantity</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px'}}>{camData?.quantity} {camData?.unitOfQuantity.toUpperCase()}</td>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px'}}>Supplier</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px'}}> {camData?.supplierName}</td>
+              </tr>
+              <tr bgColor="#F7F9FF">
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px', paddingBottom:'31px'}}>Country of Origin</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px', paddingBottom:'31px'}}>{camData?.countryOfOrigin}</td>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingBottom:'31px'}}>Transaction Period</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px', paddingBottom:'31px'}}>{camData?.transactionPeriodDays}</td>
+              </tr>
+              <tr>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px', paddingTop:'36px'}}>Port of Loading</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px', paddingTop:'36px'}}>  {camData?.portOfLoading}</td>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingTop:'36px'}}>Port of Discharge</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px', paddingTop:'36px'}}>{camData?.portOfDischarge}</td>
+              </tr>
+              <tr>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px'}}>Exp. Date of Shipment</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px'}}>
+                   {moment(
+                      camData?.ExpectedDateOfShipment?.slice(0, 10),
+                      'YYYY-MM-DD',
+                      true,
+                    ).format('DD-MM-YYYY')}</td>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px'}}>ETA at Discharge port</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px'}}>
+                  {moment(
+                      camData?.shipmentDetail?.ETAofDischarge?.fromDate?.slice(
+                        0,
+                        10,
+                      ),
+                      'YYYY-MM-DD',
+                      true,
+                    ).format('DD-MM-YYYY')}</td>
+              </tr>
+              <tr>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px', paddingBottom:'50px'}}>Laycan from</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px', paddingBottom:'50px'}}>{moment(
+                      camData?.shipmentDetail?.loadPort?.fromDate?.slice(0, 10),
+                      'YYYY-MM-DD',
+                      true,
+                    ).format('DD-MM-YYYY')}</td>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingBottom:'50px'}}>Laycan to</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px', paddingBottom:'50px'}}>{moment(
+                      camData?.shipmentDetail?.loadPort?.toDate?.slice(0, 10),
+                      'YYYY-MM-DD',
+                      true,
+                    ).format('DD-MM-YYYY')}</td>
+              </tr>
+            </table>
+            <table width="100%" bgColor="#ffffff" cellPadding="12" cellSpacing="0" border="0" style={{border:'1px solid #D2D7E5', borderRadius:'6px', boxShadow:'0 3px 6px #CAD0E2', marginBottom:'26px'}}>
+              <tr>
+                <td colSpan={4} height="78" style={{padding:'0 35px', borderBottom:'2px solid #CAD6E6'}}><h3 style={{fontSize:'22px', color:'#3687E8', lineHeight:'27px', fontWeight:'bold'}}>Supplier Info</h3></td>
+              </tr>
+              <tr>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px', paddingTop:'27px'}}>No. of Shipments</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px', paddingTop:'27px'}}> {camData?.supplierCredential?.shipmentNumber}</td>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingTop:'27px'}}>Port of Destination</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px', paddingTop:'27px'}}> {camData?.supplierCredential?.portOfDestination}</td>
+              </tr>
+              <tr>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px'}}>No. of Consignees</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px'}}> {camData?.supplierCredential?.consigneesNumber}</td>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px'}}>Latest Shipment date</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px'}}>{
+                      camData?.supplierCredential?.latestShipmentDate?.split(
+                        'T',
+                      )[0]
+                    }</td>
+              </tr>
+              <tr>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px'}}>No. of HS codes</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px'}}>{camData?.supplierCredential?.HSCodesNumber}</td>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px'}}>Oldest shipment date</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px'}}> {
+                      camData?.supplierCredential?.oldestShipmentDate?.split(
+                        'T',
+                      )[0]
+                    }</td>
+              </tr>
+              <tr>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px', paddingBottom:'20px'}}>Country of Origins</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px', paddingBottom:'20px'}}>{camData?.supplierCredential?.countryOfOrigin}</td>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingBottom:'20px'}}>Commodity to total trade (24 months)</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px', paddingBottom:'20px'}}>{camData?.supplierCredential?.commodityOfTotalTrade} %</td>
+              </tr>
+              <tr>
+                <td colSpan={4} style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px', paddingTop:'25px'}}>Country of Origins</td>
+              </tr>
+              <tr>
+                <td colSpan={4} style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px', paddingLeft:'35px', paddingBottom:'53px'}}> {camData?.supplierCredential?.countryOfOrigin}</td>
+              </tr>
+            </table>
+            <table width="100%" bgColor="#ffffff" cellPadding="0" cellSpacing="0" border="0" style={{border:'1px solid #D2D7E5', borderRadius:'6px', boxShadow:'0 3px 6px #CAD0E2', marginBottom:'26px'}}>
+              <tr>
+                <td colSpan={3} height="78" style={{padding:'0 35px', borderBottom:'2px solid #CAD6E6'}}><h3 style={{fontSize:'22px', color:'#3687E8', lineHeight:'27px', fontWeight:'bold'}}>Group Exposure Details</h3></td>
+              </tr>
+              <tr>
+                <td valign="top" style={{padding:'27px'}}>
+                  <table width="100%" cellPadding="15" cellSpacing="0" border="0">
+                    <tr>
+                      <td valign='top' width="33.33%">
+                        <table width="100%" cellPadding="0" cellSpacing="0" border="0" style={{border:'1px solid #D2D7E5', borderRadius:'6px'}}>
+                          <tr>
+                            <td height="60" colSpan={2} style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', padding:'32px 22px 19px'}}><span style={{fontSize:'28px', color:'#FF9D00', lineHeight:'34px', fontWeight:'bold', background:'#FFECCF', borderRadius:'8px', marginRight:'22px', padding:'13px', display:'inline-block'}}>ET</span>Emerging Traders</td>
+                          </tr>
+                          <tr>
+                            <td height="33" style={{padding:'19px 0 19px 22px'}}><span style={{fontSize:'16px', color:'#111111', lineHeight:'19px', fontWeight:'bold', background:'rgba(186, 186, 186, 0.1)', borderRadius:'5px', padding:'6px 12px', display:'inline-block'}}>LIMIT</span></td>
+                            <td align="right" style={{fontSize:'19px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'19px 22px 19px 0'}}>1,900.00</td>
+                          </tr>
+                          <tr>
+                            <td colSpan={2} style={{padding:'0 22px 19px'}}><span style={{background:'#F3F4F7', borderRadius:'2px', height:'12px', width:'100%', display:'inline-block'}}><span style={{background:'#3687E8', width:'90%', height:'12px', borderRadius:'2px', display:'inline-block', float:'left'}}></span></span></td>
+                          </tr>
+                          <tr>
+                            <td height="33" style={{padding:'19px 0 19px 22px'}}><span style={{fontSize:'16px', color:'#111111', lineHeight:'19px', fontWeight:'bold', background:'rgba(186, 186, 186, 0.1)', borderRadius:'5px', padding:'6px 12px', display:'inline-block'}}>O/S LIMIT</span></td>
+                            <td align="right" style={{fontSize:'19px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'19px 22px 19px 0'}}>1,900.00</td>
+                          </tr>
+                          <tr>
+                            <td colSpan={2} style={{padding:'0 22px 19px'}}><span style={{background:'#F3F4F7', borderRadius:'2px', height:'12px', width:'100%', display:'inline-block'}}><span style={{background:'#3687E8', width:'90%', height:'12px', borderRadius:'2px', display:'inline-block', float:'left'}}></span></span></td>
+                          </tr>
+                          <tr>
+                            <td colSpan={2} height="33" style={{padding:'19px 22px'}}><span style={{fontSize:'16px', color:'#111111', lineHeight:'19px', fontWeight:'bold', background:'rgba(186, 186, 186, 0.1)', borderRadius:'5px', padding:'6px 12px', display:'inline-block'}}>CONDUCT</span></td>
+                          </tr>
+                          <tr>
+                            <td colSpan={2} style={{padding:'0 22px 19px', fontSize:'18px', color:'#111111', lineHeight:'28px'}}>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam</td>
+                          </tr>
+                        </table>
+                      </td>
+                      <td valign='top' width="33.33%">
+                        <table width="100%" cellPadding="22" cellSpacing="0" border="0" style={{border:'1px solid #D2D7E5', borderRadius:'6px'}}>
+                          <tr>
+                            <td height="60" colSpan={2} style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', paddingTop:'32px'}}><span style={{fontSize:'28px', color:'#EA3F3F', lineHeight:'34px', fontWeight:'bold', background:'rgba(234, 63, 63, 0.1)', borderRadius:'8px', marginRight:'22px', padding:'13px', display:'inline-block'}}>BT</span>Bhutani Traders</td>
+                          </tr>                          
+                          <tr>
+                            <td height="33" style={{padding:'19px 0 19px 22px'}}><span style={{fontSize:'16px', color:'#111111', lineHeight:'19px', fontWeight:'bold', background:'rgba(186, 186, 186, 0.1)', borderRadius:'5px', padding:'6px 12px', display:'inline-block'}}>LIMIT</span></td>
+                            <td align="right" style={{fontSize:'19px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'19px 22px 19px 0'}}>1,900.00</td>
+                          </tr>
+                          <tr>
+                            <td colSpan={2} style={{padding:'0 22px 19px'}}><span style={{background:'#F3F4F7', borderRadius:'2px', height:'12px', width:'100%', display:'inline-block'}}><span style={{background:'#3687E8', width:'90%', height:'12px', borderRadius:'2px', display:'inline-block', float:'left'}}></span></span></td>
+                          </tr>
+                          <tr>
+                            <td height="33" style={{padding:'19px 0 19px 22px'}}><span style={{fontSize:'16px', color:'#111111', lineHeight:'19px', fontWeight:'bold', background:'rgba(186, 186, 186, 0.1)', borderRadius:'5px', padding:'6px 12px', display:'inline-block'}}>O/S LIMIT</span></td>
+                            <td align="right" style={{fontSize:'19px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'19px 22px 19px 0'}}>1,900.00</td>
+                          </tr>
+                          <tr>
+                            <td colSpan={2} style={{padding:'0 22px 19px'}}><span style={{background:'#F3F4F7', borderRadius:'2px', height:'12px', width:'100%', display:'inline-block'}}><span style={{background:'#3687E8', width:'90%', height:'12px', borderRadius:'2px', display:'inline-block', float:'left'}}></span></span></td>
+                          </tr>
+                          <tr>
+                            <td colSpan={2} height="33" style={{padding:'19px 22px'}}><span style={{fontSize:'16px', color:'#111111', lineHeight:'19px', fontWeight:'bold', background:'rgba(186, 186, 186, 0.1)', borderRadius:'5px', padding:'6px 12px', display:'inline-block'}}>CONDUCT</span></td>
+                          </tr>
+                          <tr>
+                            <td colSpan={2} style={{padding:'0 22px 19px', fontSize:'18px', color:'#111111', lineHeight:'28px'}}>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam</td>
+                          </tr>
+                        </table>
+                      </td>
+                      <td valign='top' width="33.33%">
+                        <table width="100%" cellPadding="22" cellSpacing="0" border="0" style={{border:'1px solid #D2D7E5', borderRadius:'6px'}}>
+                          <tr>
+                            <td height="60" colSpan={2} style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', paddingTop:'32px'}}><span style={{fontSize:'28px', color:'#43C34D', lineHeight:'34px', fontWeight:'bold', background:'rgba(67, 195, 77, 0.1)', borderRadius:'8px', marginRight:'22px', padding:'13px', display:'inline-block'}}>KT</span>Krishna Traders</td>
+                          </tr>
+                          <tr>
+                            <td height="33" style={{padding:'19px 0 19px 22px'}}><span style={{fontSize:'16px', color:'#111111', lineHeight:'19px', fontWeight:'bold', background:'rgba(186, 186, 186, 0.1)', borderRadius:'5px', padding:'6px 12px', display:'inline-block'}}>LIMIT</span></td>
+                            <td align="right" style={{fontSize:'19px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'19px 22px 19px 0'}}>1,900.00</td>
+                          </tr>
+                          <tr>
+                            <td colSpan={2} style={{padding:'0 22px 19px'}}><span style={{background:'#F3F4F7', borderRadius:'2px', height:'12px', width:'100%', display:'inline-block'}}><span style={{background:'#3687E8', width:'90%', height:'12px', borderRadius:'2px', display:'inline-block', float:'left'}}></span></span></td>
+                          </tr>
+                          <tr>
+                            <td height="33" style={{padding:'19px 0 19px 22px'}}><span style={{fontSize:'16px', color:'#111111', lineHeight:'19px', fontWeight:'bold', background:'rgba(186, 186, 186, 0.1)', borderRadius:'5px', padding:'6px 12px', display:'inline-block'}}>O/S LIMIT</span></td>
+                            <td align="right" style={{fontSize:'19px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'19px 22px 19px 0'}}>1,900.00</td>
+                          </tr>
+                          <tr>
+                            <td colSpan={2} style={{padding:'0 22px 19px'}}><span style={{background:'#F3F4F7', borderRadius:'2px', height:'12px', width:'100%', display:'inline-block'}}><span style={{background:'#3687E8', width:'90%', height:'12px', borderRadius:'2px', display:'inline-block', float:'left'}}></span></span></td>
+                          </tr>
+                          <tr>
+                            <td colSpan={2} height="33" style={{padding:'19px 22px'}}><span style={{fontSize:'16px', color:'#111111', lineHeight:'19px', fontWeight:'bold', background:'rgba(186, 186, 186, 0.1)', borderRadius:'5px', padding:'6px 12px', display:'inline-block'}}>CONDUCT</span></td>
+                          </tr>
+                          <tr>
+                            <td colSpan={2} style={{padding:'0 22px 19px', fontSize:'18px', color:'#111111', lineHeight:'28px'}}>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam</td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+            <table width="100%" bgColor="#ffffff" cellPadding="12" cellSpacing="0" border="0" style={{border:'1px solid #D2D7E5', borderRadius:'6px', boxShadow:'0 3px 6px #CAD0E2', marginBottom:'26px'}}>              
+              <tr>
+                <td colSpan={7} height="78" style={{padding:'0 35px', borderBottom:'2px solid #CAD6E6'}}><h3 style={{fontSize:'22px', color:'#3687E8', lineHeight:'27px', fontWeight:'bold'}}>Order Summary - Last 6 Orders</h3></td>
+              </tr>
+              <tr bgColor="#FAFAFB" style={{height:'67px'}}>
+                <th width="25%" style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', paddingLeft:'35px', textTransform:'uppercase'}}>SUPPLIER NAME</th>
+                <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', textTransform:'uppercase'}}>ORDER NO</th>
+                <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', textTransform:'uppercase'}}>ORDER DATE</th>
+                <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', textTransform:'uppercase'}}>ORDER VALUE</th>
+                <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', textTransform:'uppercase'}}>COMMODITY</th>
+                <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', textTransform:'uppercase'}}>STATUS</th>
+                <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', textTransform:'uppercase', textAlign:'center'}}>DAYS DUE</th>
+              </tr>
+              <tr>
+                <td colSpan={7} style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', padding:'21px 35px 13px', textTransform:'uppercase'}}>2022<span style={{float:'right', height:'8px', width:'97%', display:'inline-block', borderBottom:'1px dashed #D2D7E5'}}></span></td>
+              </tr>
+              <tr>
+                <td height="60" style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', padding:'18px 12px 18px 35px'}}><span style={{fontSize:'28px', color:'#FF9D00', lineHeight:'34px', fontWeight:'bold', background:'#FFECCF', borderRadius:'8px', marginRight:'22px', padding:'13px', display:'inline-block'}}>ET</span>Emerging Traders</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'18px', paddingBottom:'18px'}}>2765470865</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'18px', paddingBottom:'18px'}}>22-02-2022</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'18px', paddingBottom:'18px'}}>1,900.00</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'18px', paddingBottom:'18px'}}>Iron</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', fontWeight:'500', paddingTop:'18px', paddingBottom:'18px'}}><span style={{padding:'7.5px', display:'inline-block', background:'#FF9D00', borderRadius:'50%', marginRight:'10px'}}></span>In Process</td>
+                <td align='center' style={{fontSize:'19px', color:'#EA3F3F', lineHeight:'24px', fontWeight:'bold', paddingTop:'18px', paddingBottom:'18px'}}>8</td>
+              </tr>
+              <tr>
+                <td height="60" style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', padding:'18px 12px 18px 35px'}}><span style={{fontSize:'28px', color:'#EA3F3F', lineHeight:'34px', fontWeight:'bold', background:'rgba(234, 63, 63, 0.1)', borderRadius:'8px', marginRight:'22px', padding:'13px', display:'inline-block'}}>BT</span>Bhutani Traders</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'18px', paddingBottom:'18px'}}>2765470865</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'18px', paddingBottom:'18px'}}>22-02-2022</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'18px', paddingBottom:'18px'}}>1,900.00</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'18px', paddingBottom:'18px'}}>Iron</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', fontWeight:'500', paddingTop:'18px', paddingBottom:'18px'}}><span style={{padding:'7.5px', display:'inline-block', background:'#FF9D00', borderRadius:'50%', marginRight:'10px'}}></span>In Process</td>
+                <td align='center' style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'18px', paddingBottom:'18px'}}>7</td>
+              </tr>
+              <tr>
+                <td height="60" style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', padding:'18px 12px 36px 35px'}}><span style={{fontSize:'28px', color:'#43C34D', lineHeight:'34px', fontWeight:'bold', background:'rgba(67, 195, 77, 0.1)', borderRadius:'8px', marginRight:'22px', padding:'13px', display:'inline-block'}}>KT</span>Krishna Traders</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'18px', paddingBottom:'36px'}}>2765470865</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'18px', paddingBottom:'36px'}}>22-02-2022</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'18px', paddingBottom:'36px'}}>1,900.00</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'18px', paddingBottom:'36px'}}>Iron</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', fontWeight:'500', paddingTop:'18px', paddingBottom:'36px'}}><span style={{padding:'7.5px', display:'inline-block', background:'#FF9D00', borderRadius:'50%', marginRight:'10px'}}></span>In Process</td>
+                <td align='center' style={{fontSize:'19px', color:'#EA3F3F', lineHeight:'24px', fontWeight:'bold', paddingTop:'18px', paddingBottom:'36px'}}>11</td>
+              </tr>
+            </table>
+            <table width="100%" bgColor="#ffffff" cellPadding="8" cellSpacing="0" border="0" style={{border:'1px solid #D2D7E5', borderRadius:'6px', boxShadow:'0 3px 6px #CAD0E2', marginBottom:'26px'}}>
+              <tr>
+                <td colSpan={4} height="78" style={{padding:'0 35px', borderBottom:'2px solid #CAD6E6'}}><h3 style={{fontSize:'22px', color:'#3687E8', lineHeight:'27px', fontWeight:'bold'}}>Operational Details</h3></td>
+              </tr>
+              <tr>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px', paddingTop:'31px'}}>Main Banker</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px', paddingTop:'31px'}}>value</td>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingTop:'31px'}}>External Credit Rating</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px', paddingTop:'31px'}}>value</td>
+              </tr>
+              <tr>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px'}}>Open Charges</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px'}}>value</td>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px'}}>Credit Rating Agency</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px'}}>value</td>
+              </tr>
+              <tr>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px', paddingBottom:'61px'}}>Name of Auditor</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px', paddingBottom:'61px'}}>value</td>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingBottom:'61px'}}>Change in Auditor</td>
+                <td style={{fontSize:'20px', color:'#EA3F3F', fontWeight:'500', lineHeight:'25px', paddingBottom:'61px'}}>value</td>
+              </tr>
+            </table>
+            <table width="100%" bgColor="#ffffff" cellPadding="12" cellSpacing="0" border="0" style={{border:'1px solid #D2D7E5', borderRadius:'6px', boxShadow:'0 3px 6px #CAD0E2', marginBottom:'26px'}}>              
+              <tr>
+                <td colSpan={5} height="78" style={{padding:'0 35px', borderBottom:'2px solid #CAD6E6'}}><h3 style={{fontSize:'22px', color:'#3687E8', lineHeight:'27px', fontWeight:'bold'}}>Director Details</h3></td>
+              </tr>
+              <tr bgColor="#FAFAFB" style={{height:'67px'}}>
+                <th width="30%" style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', paddingLeft:'35px', textTransform:'uppercase'}}>NAME</th>
+                <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', textTransform:'uppercase'}}>PAN</th>
+                <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', textTransform:'uppercase'}}>DIN NUMBER</th>
+                <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', textTransform:'uppercase'}}>DATE OF APPOINTMENT</th>
+                <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', textTransform:'uppercase'}}>% SHAREHOLDING</th>
+              </tr>
+              <tr>
+                <td height="60" style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', padding:'26px 12px 18px 35px'}}><span style={{fontSize:'28px', color:'#FF9D00', lineHeight:'34px', fontWeight:'bold', background:'#FFECCF', borderRadius:'8px', marginRight:'22px', padding:'13px', display:'inline-block'}}>AJ</span>Arv Jay</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'26px', paddingBottom:'18px'}}>27AAATW4183</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'26px', paddingBottom:'18px'}}>17872982008</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'26px', paddingBottom:'18px'}}>20-08-2011</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'24px', paddingTop:'26px', paddingBottom:'18px'}}>30%</td>
+              </tr>
+              <tr>
+                <td height="60" style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', padding:'18px 12px 18px 35px'}}><span style={{fontSize:'28px', color:'#EA3F3F', lineHeight:'34px', fontWeight:'bold', background:'rgba(234, 63, 63, 0.1)', borderRadius:'8px', marginRight:'22px', padding:'13px', display:'inline-block'}}>RS</span>Radhe Singh</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'18px', paddingBottom:'18px'}}>27AAATW4183</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'18px', paddingBottom:'18px'}}>17872982008</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'18px', paddingBottom:'18px'}}>20-08-2011</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'18px', paddingBottom:'18px'}}>40%</td>
+              </tr>
+              <tr>
+                <td height="60" style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', padding:'18px 12px 67px 35px'}}><span style={{fontSize:'28px', color:'#43C34D', lineHeight:'34px', fontWeight:'bold', background:'rgba(67, 195, 77, 0.1)', borderRadius:'8px', marginRight:'22px', padding:'13px', display:'inline-block'}}>SS</span>Sagar Sinha</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'18px', paddingBottom:'67px'}}>27AAATW4183</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'18px', paddingBottom:'67px'}}>17872982008</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'18px', paddingBottom:'67px'}}>20-08-2011</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'24px', paddingTop:'18px', paddingBottom:'67px'}}>20%</td>
+              </tr>
+            </table>
+            <table width="100%" bgColor="#ffffff" cellPadding="0" cellSpacing="0" border="0" style={{border:'1px solid #D2D7E5', borderRadius:'6px', boxShadow:'0 3px 6px #CAD0E2', marginBottom:'26px'}}>              
+              <tr>
+                <td colSpan={2} height="78" style={{padding:'0 35px', borderBottom:'2px solid #CAD6E6'}}><h3 style={{fontSize:'22px', color:'#3687E8', lineHeight:'27px', fontWeight:'bold'}}>Debt Profile</h3></td>
+              </tr>
+              <tr>
+                <td width="33%" valign="top">
+                  <table width="100%" cellPadding="6" cellSpacing="0" border="0">
+                    <tr>
+                      <td style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', textTransform:'uppercase', padding:'32px 6px 6px 35px'}}>TOTAL LIMIT</td>
+                      <td align="right" style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', padding:'32px 35px 6px 6px'}}>1,900.00</td>
+                    </tr>
+                    <tr>
+                      <td colSpan={2} style={{padding:'6px 35px 0'}}><span style={{background:'#E4ECF7', borderRadius:'2px', height:'18px', width:'100%', display:'inline-block'}}><span style={{background:'#3687E8', width:'90%', height:'18px', borderRadius:'2px', display:'inline-block', float:'left'}}></span></span></td>
+                    </tr>
+                    <tr>
+                      <td style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', textTransform:'uppercase', padding:'40px 6px 0 35px'}}>ICICI BANK</td>
+                      <td align="right" style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', padding:'40px 35px 0 6px'}}>1,900.00</td>
+                    </tr>
+                    <tr>
+                      <td colSpan={2} style={{padding:'0 35px'}}><span style={{background:'#E4ECF7', borderRadius:'2px', height:'10px', width:'100%', display:'inline-block'}}><span style={{background:'#EA3F3F', width:'90%', height:'10px', borderRadius:'2px', display:'inline-block', float:'left'}}></span></span></td>
+                    </tr>
+                    <tr>
+                      <td align='right' colSpan={2} style={{fontSize:'17px', color:'#EA3F3F', lineHeight:'21px', fontWeight:'bold', textTransform:'capitalize', padding:'6px 35px 0'}}>Cash Credit</td>
+                    </tr>
+                    <tr>
+                      <td style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', textTransform:'uppercase', padding:'19px 6px 0 35px'}}>HDFC BANK</td>
+                      <td align="right" style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', padding:'19px 35px 0 6px'}}>1,900.00</td>
+                    </tr>
+                    <tr>
+                      <td colSpan={2} style={{padding:'0 35px'}}><span style={{background:'#E4ECF7', borderRadius:'2px', height:'10px', width:'100%', display:'inline-block'}}><span style={{background:'#43C34D', width:'20%', height:'10px', borderRadius:'2px', display:'inline-block', float:'left'}}></span></span></td>
+                    </tr>
+                    <tr>
+                      <td align='right' colSpan={2} style={{fontSize:'17px', color:'#43C34D', lineHeight:'21px', fontWeight:'bold', textTransform:'capitalize', padding:'6px 35px 0'}}>Post Ship Credit</td>
+                    </tr>
+                    <tr>
+                      <td style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', textTransform:'uppercase', padding:'19px 6px 0 35px'}}>SBI BANK</td>
+                      <td align="right" style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', padding:'19px 35px 0 6px'}}>1,900.00</td>
+                    </tr>
+                    <tr>
+                      <td colSpan={2} style={{padding:'0 35px'}}><span style={{background:'#E4ECF7', borderRadius:'2px', height:'10px', width:'100%', display:'inline-block'}}><span style={{background:'#FF9D00', width:'40%', height:'10px', borderRadius:'2px', display:'inline-block', float:'left'}}></span></span></td>
+                    </tr>
+                    <tr>
+                      <td align='right' colSpan={2} style={{fontSize:'17px', color:'#FF9D00', lineHeight:'21px', fontWeight:'bold', textTransform:'capitalize', padding:'6px 35px 43px'}}>Bank Guarantee</td>
+                    </tr>
+                  </table>
+                </td>
+                <td valign="top" style={{borderLeft:'2px solid #CAD6E6'}}>
+                  <table width="100%" cellPadding="12" cellSpacing="0" border="0">
+                    <tr bgColor="#FAFAFB" style={{height:'67px'}}>
+                      <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', paddingLeft:'35px', textTransform:'uppercase'}}>BANK NAME</th>
+                      <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', textTransform:'uppercase'}}>LIMIT TYPE</th>
+                      <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', textTransform:'uppercase'}}>LIMITS</th>
+                      <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', textTransform:'uppercase'}}>CONDUCT</th>
+                    </tr>
+                    <tr>
+                      <td style={{fontSize:'20px', color:'#111111', lineHeight:'27px', fontWeight:'bold', padding:'26px 12px 25px 35px'}}>ICICI Bank</td>
+                      <td style={{fontSize:'22px', color:'#111111', lineHeight:'25px', letterSpacing:'0.19px', paddingTop:'25px', paddingBottom:'25px'}}>Cash Credit</td>
+                      <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'25px', paddingBottom:'25px'}}>₹ 800.00</td>
+                      <td style={{fontSize:'19px', color:'#EA3F3F', lineHeight:'24px', fontWeight:'bold', paddingTop:'25px', paddingBottom:'25px'}}>Poor</td>
+                    </tr>
+                    <tr>
+                      <td style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', padding:'26px 12px 25px 35px'}}>HDFC Bank</td>
+                      <td style={{fontSize:'22px', color:'#111111', lineHeight:'25px', letterSpacing:'0.19px', paddingTop:'25px', paddingBottom:'25px'}}>Post Ship Credit</td>
+                      <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'25px', paddingBottom:'25px'}}>₹ 300.00</td>
+                      <td style={{fontSize:'19px', color:'#43C34D', lineHeight:'24px', fontWeight:'bold', paddingTop:'25px', paddingBottom:'25px'}}>Good</td>
+                    </tr>
+                    <tr>
+                      <td style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', padding:'26px 12px 64px 35px'}}>SBI Bank</td>
+                      <td style={{fontSize:'22px', color:'#111111', lineHeight:'25px', letterSpacing:'0.19px', paddingTop:'25px', paddingBottom:'64px'}}>Bank Guarantee</td>
+                      <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'25px', paddingBottom:'64px'}}>₹ 800.00</td>
+                      <td style={{fontSize:'19px', color:'#FF9D00', lineHeight:'24px', fontWeight:'bold', paddingTop:'25px', paddingBottom:'64px'}}>Satisfactory</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+            <table width="100%" bgColor="#ffffff" cellPadding="8" cellSpacing="0" border="0" style={{border:'1px solid #D2D7E5', borderRadius:'6px', boxShadow:'0 3px 6px #CAD0E2', marginBottom:'26px'}}>
+              <tr>
+                <td colSpan={4} height="78" style={{padding:'0 35px', borderBottom:'2px solid #CAD6E6'}}><h3 style={{fontSize:'22px', color:'#3687E8', lineHeight:'27px', fontWeight:'bold'}}>Operational Details</h3></td>
+              </tr>
+              <tr>
+                <td width="30%" style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px', paddingTop:'31px'}}>Plant Production Capacity</td>
+                <td width="20%" style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px', paddingTop:'31px'}}> {camData?.productSummary?.monthlyProductionCapacity}</td>
+                <td width="30%" style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingTop:'31px'}}>Stock in Transit - Commodity</td>
+                <td width="20%" style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px', paddingTop:'31px'}}> {camData?.productSummary?.averageStockInTransit}</td>
+              </tr>
+              <tr>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px'}}>Capacity Utilization</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px'}}> {camData?.productSummary?.capacityUtilization}</td>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px'}}>Stock Coverage of Commodity</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px'}}>{camData?.productSummary?.averageStockOfCommodity}</td>
+              </tr>
+              <tr>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px'}}>Available Stock of Commodity</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px'}}> {camData?.productSummary?.availableStock}</td>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px'}}>Avg Monthly Electricity Bill</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px'}}> {camData?.productSummary?.AvgMonthlyElectricityBill}</td>
+              </tr>
+              <tr>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px', paddingBottom:'70px'}}>Daily Consumption of Commodity</td>
+                <td colSpan={3} style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px', paddingBottom:'70px'}}> {camData?.productSummary?.dailyConsumptionOfCommodity}</td>
+              </tr>
+            </table>
+            <table width="100%" bgColor="#ffffff" cellPadding="15" cellSpacing="0" border="0" style={{border:'1px solid #D2D7E5', borderRadius:'6px', boxShadow:'0 3px 6px #CAD0E2', marginBottom:'26px'}}>
+              <tr>
+                <td colSpan={5} height="78" style={{padding:'0 35px', borderBottom:'2px solid #CAD6E6'}}><h3 style={{fontSize:'22px', color:'#3687E8', lineHeight:'27px', fontWeight:'bold'}}>Revenue Details</h3></td>
+              </tr>
+              <tr bgColor="#FAFAFB" style={{height:'67px'}}>
+                <th width="50%" style={{paddingLeft:'35px'}}></th>
+                <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', textTransform:'uppercase', textAlign:'center'}}>TREND</th>
+                <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', textTransform:'uppercase'}}>LATEST YEAR</th>
+                <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', textTransform:'uppercase'}}>PREVIOUS YEAR</th>
+                <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', textTransform:'uppercase'}}>GROWTH</th>
+              </tr>
+              <tr>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'23px', paddingLeft:'35px'}}>Gross Revenue</td>
+                <td align='center' style={{paddingTop:'23px'}}><img src="/static/arrow-up-green.svg" alt="Arrow Green" /></td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'23px'}}>{checkNan(RevenueDetails?.grossTurnover?.current?.value)}</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'23px'}}> {checkNan(RevenueDetails?.grossTurnover?.previous?.value)}</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingTop:'23px'}}>{checkNan(
+                    calcPc(
+                      RevenueDetails?.grossTurnover?.previous?.value,
+                      RevenueDetails?.grossTurnover?.current?.value,
+                    ),
+                  ) + '%'}</td>
+              </tr>
+              <tr>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingLeft:'35px'}}>Related Party Sales</td>
+                <td align='center'><img src="/static/arrow-up-green.svg" alt="Arrow Green" /></td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}> {RevenueDetails?.relatedPartySales?.current?.value
+                    .toFixed(2)
+                    ?.toLocaleString()}</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>{RevenueDetails?.relatedPartySales?.previous?.value
+                    .toFixed(2)
+                    ?.toLocaleString()}</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>{checkNan(
+                    calcPc(
+                      RevenueDetails?.relatedPartySales?.previous?.value,
+                      RevenueDetails?.relatedPartySales?.current?.value,
+                    ),
+                  ) + '%'}</td>
+              </tr>
+              <tr>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingLeft:'35px'}}>Intra Organization Sales</td>
+                <td align='center'><img src="/static/arrow-down-red.svg" alt="Arrow Red" /></td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>{RevenueDetails?.intraOrgSalesPercent?.current?.value
+                    .toFixed(2)
+                    ?.toLocaleString()}</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>{RevenueDetails?.intraOrgSalesPercent?.previous?.value
+                    .toFixed(2)
+                    ?.toLocaleString()}</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>  {checkNan(
+                    calcPc(
+                      RevenueDetails?.intraOrgSalesPercent?.previous?.value,
+                      RevenueDetails?.intraOrgSalesPercent?.current?.value,
+                    ),
+                  ) + '%'}</td>
+              </tr>
+              <tr>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingLeft:'35px'}}>B2B Sales</td>
+                <td align='center'><img src="/static/arrow-up-green.svg" alt="Arrow Green" /></td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>83.80%</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>83.80%</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>40%</td>
+              </tr>
+              <tr>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingLeft:'35px'}}>B2C Sales</td>
+                
+                <td align='center'><img src="/static/arrow-up-green.svg" alt="Arrow Green" /></td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>83.80%</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>83.80%</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>40%</td>
+              </tr>
+              <tr>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingLeft:'35px'}}>Export Sales</td>
+                
+                <td align='center'><img src="/static/arrow-up-green.svg" alt="Arrow Green" /></td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>83.80%</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>83.80%</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>40%</td>
+              </tr>
+              <tr>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingLeft:'35px'}}>Total Customers</td>
+                
+                <td align='center'><img src="/static/arrow-up-green.svg" alt="Arrow Green" /></td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>1,900.00</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>1,900.00</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>40%</td>
+              </tr>
+              <tr>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingLeft:'35px'}}>Total Invoices</td>
+                
+                <td align='center'><img src="/static/arrow-up-green.svg" alt="Arrow Green" /></td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>1,900.00</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>1,900.00</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>40%</td>
+              </tr>
+              <tr>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingLeft:'35px', paddingBottom:'78px'}}>Gross Margin</td>
+                <td align='center' style={{paddingBottom:'78px'}}><img src="/static/arrow-up-green.svg" alt="Arrow Green" /></td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingBottom:'78px'}}>83.80%</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingBottom:'78px'}}>83.80%</td>
+                <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', paddingBottom:'78px'}}>40%</td>
+              </tr>
+            </table>
+            <table width="100%" bgColor="#ffffff" cellPadding="0" cellSpacing="0" border="0" style={{border:'1px solid #D2D7E5', borderRadius:'6px', boxShadow:'0 3px 6px #CAD0E2', marginBottom:'26px'}}>
+              <tr>
+                <td colSpan={2} height="78" style={{padding:'0 35px', borderBottom:'2px solid #CAD6E6'}}><h3 style={{fontSize:'22px', color:'#3687E8', lineHeight:'27px', fontWeight:'bold'}}>Financial Summary</h3></td>
+              </tr>
+              <tr>
+                <td valign='top' width="50%" style={{borderRight:'2px solid #CAD6E6'}}>
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+                    <tr>
+                      <td valign='top'>
+                        <table width="100%" cellPadding="13" cellSpacing="0" border="0">
+                          <tr bgColor="#FAFAFB" style={{height:'67px'}}>
+                            <th width="50%" style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', paddingLeft:'35px'}}>Liabilities</th>
+                            <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', textTransform:'uppercase'}}>MAR-20</th>
+                            <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', textTransform:'uppercase'}}>MAR-19</th>
+                          </tr>
+                          <tr>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px', paddingTop:'33px'}}>Net Worth</td>
+                            <td style={{fontSize:'20px', color:'#EA3F3F', lineHeight:'25px', fontWeight:'500', paddingTop:'33px'}}>- 2,988.00</td>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingTop:'33px'}}>2,988.00</td>
+                          </tr>
+                          <tr>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px'}}>Total Borrowings</td>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500'}}>2,988.00</td>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500'}}>2,988.00</td>
+                          </tr>
+                          <tr>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px'}}>Creditors</td>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500'}}>2,988.00</td>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500'}}>2,988.00</td>
+                          </tr>
+                          <tr>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px', paddingBottom:'38px'}}>Other Current Liabilities</td>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingBottom:'38px'}}>2,988.00</td>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingBottom:'38px'}}>2,988.00</td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td valign='top'>
+                        <table width="100%" cellPadding="13" cellSpacing="0" border="0">
+                          <tr bgColor="#FAFAFB" style={{height:'67px', borderTop:'2px solid #CAD6E6'}}>
+                            <th colSpan={3} style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', paddingLeft:'35px'}}>Assets</th>
+                          </tr>
+                          <tr>
+                            <td width="50%" style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px', paddingTop:'33px'}}>Fixed Assets</td>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingTop:'33px'}}>2,988.00</td>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingTop:'33px'}}>2,988.00</td>
+                          </tr>
+                          <tr>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px'}}>Investment</td>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500'}}>2,988.00</td>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500'}}>2,988.00</td>
+                          </tr>
+                          <tr>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px'}}>Debtors</td>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500'}}>2,988.00</td>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500'}}>2,988.00</td>
+                          </tr>
+                          <tr>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px'}}>Inventory</td>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500'}}>2,988.00</td>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500'}}>2,988.00</td>
+                          </tr>
+                          <tr>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px', paddingBottom:'38px'}}>Other Current Assets</td>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingBottom:'38px'}}>2,988.00</td>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingBottom:'38px'}}>2,988.00</td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td valign='top'>
+                        <table width="100%" cellPadding="13" cellSpacing="0" border="0">
+                          <tr bgColor="#FAFAFB" style={{height:'67px', borderTop:'2px solid #CAD6E6'}}>
+                            <th colSpan={3} style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', paddingLeft:'35px'}}>P/L</th>
+                          </tr>
+                          <tr>
+                            <td width="50%" style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px', paddingTop:'33px'}}>Revenue</td>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingTop:'33px'}}>2,988.00</td>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingTop:'33px'}}>2,988.00</td>
+                          </tr>
+                          <tr>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px', paddingBottom:'52px'}}>EBIDTA</td>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingBottom:'52px'}}>2,988.00</td>
+                            <td style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingBottom:'52px'}}>2,988.00</td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td valign='top' width="50%">
+                  <table width="100%" cellPadding="15" cellSpacing="0" border="0">
+                    <tr bgColor="#FAFAFB" style={{height:'67px'}}>
+                      <th width="50%" style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', paddingLeft:'35px'}}>Ratios</th>
+                      <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', textTransform:'uppercase'}}>MAR-20</th>
+                      <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', fontWeight:'bold', textTransform:'uppercase'}}>MAR-19</th>
+                    </tr>
+                    <tr>
+                      <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px', paddingTop:'33px'}}>Cash from Operations</td>
+                      <td style={{fontSize:'20px', color:'#EA3F3F', lineHeight:'25px', fontWeight:'500', paddingTop:'33px'}}>- 2,988.00</td>
+                      <td style={{fontSize:'19px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingTop:'33px'}}>2,988.00</td>
+                    </tr>
+                    <tr>
+                      <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px'}}>Cash from Financing</td>
+                      <td style={{fontSize:'20px', color:'#EA3F3F', lineHeight:'25px', fontWeight:'500'}}>- 2,988.00</td>
+                      <td style={{fontSize:'19px', color:'#111111', lineHeight:'25px', fontWeight:'500'}}>2,988.00</td>
+                    </tr>
+                    <tr>
+                      <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px', paddingBottom:'57px'}}>Cash from Investing</td>
+                      <td style={{fontSize:'20px', color:'#EA3F3F', lineHeight:'25px', fontWeight:'500', paddingBottom:'57px'}}>- 2,988.00</td>
+                      <td style={{fontSize:'19px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingBottom:'57px'}}>2,988.00</td>
+                    </tr>
+                    <tr>
+                      <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px'}}>Working Capital Turnover Ratio</td>
+                      <td style={{fontSize:'20px', color:'#EA3F3F', lineHeight:'25px', fontWeight:'500'}}>- 2,988.00</td>
+                      <td style={{fontSize:'19px', color:'#111111', lineHeight:'25px', fontWeight:'500'}}>2,988.00</td>
+                    </tr>
+                    <tr>
+                      <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px'}}>Debtors Period</td>
+                      <td style={{fontSize:'20px', color:'#EA3F3F', lineHeight:'25px', fontWeight:'500'}}>- 2,988.00</td>
+                      <td style={{fontSize:'19px', color:'#111111', lineHeight:'25px', fontWeight:'500'}}>2,988.00</td>
+                    </tr>
+                    <tr>
+                      <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px'}}>Creditors Period</td>
+                      <td style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500'}}>2,988.00</td>
+                      <td style={{fontSize:'19px', color:'#111111', lineHeight:'25px', fontWeight:'500'}}>2,988.00</td>
+                    </tr>
+                    <tr>
+                      <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px', paddingBottom:'57px'}}>Inventory Period</td>
+                      <td style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingBottom:'57px'}}>2,988.00</td>
+                      <td style={{fontSize:'19px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingBottom:'57px'}}>2,988.00</td>
+                    </tr>
+                    <tr>
+                      <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px'}}>Operating margin</td>
+                      <td style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500'}}>2,988.00</td>
+                      <td style={{fontSize:'19px', color:'#111111', lineHeight:'25px', fontWeight:'500'}}>2,988.00</td>
+                    </tr>
+                    <tr>
+                      <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px', paddingBottom:'57px'}}>Return on Total Assets</td>
+                      <td style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingBottom:'57px'}}>2,988.00</td>
+                      <td style={{fontSize:'19px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingBottom:'57px'}}>2,988.00</td>
+                    </tr>
+                    <tr>
+                      <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px'}}>Interest Coverage</td>
+                      <td style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500'}}>2,988.00</td>
+                      <td style={{fontSize:'19px', color:'#111111', lineHeight:'25px', fontWeight:'500'}}>2,988.00</td>
+                    </tr>
+                    <tr>
+                      <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px'}}>Current Ratio</td>
+                      <td style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500'}}>2,988.00</td>
+                      <td style={{fontSize:'19px', color:'#111111', lineHeight:'25px', fontWeight:'500'}}>2,988.00</td>
+                    </tr>
+                    <tr>
+                      <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px'}}>Debt Equity</td>
+                      <td style={{fontSize:'20px', color:'#EA3F3F', lineHeight:'25px', fontWeight:'500'}}>2,988.00</td>
+                      <td style={{fontSize:'19px', color:'#111111', lineHeight:'25px', fontWeight:'500'}}>2,988.00</td>
+                    </tr>
+                    <tr>
+                      <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px', paddingBottom:'54px'}}>Debt to Turnover</td>
+                      <td style={{fontSize:'20px', color:'#EA3F3F', lineHeight:'25px', fontWeight:'500', paddingBottom:'54px'}}>80.98%</td>
+                      <td style={{fontSize:'19px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingBottom:'54px'}}>80.98%</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+            <table width="100%" bgColor="#ffffff" cellPadding="8" cellSpacing="0" border="0" style={{border:'1px solid #D2D7E5', borderRadius:'6px', boxShadow:'0 3px 6px #CAD0E2', marginBottom:'26px'}}>
+              <tr>
+                <td colSpan={4} height="78" style={{padding:'0 35px', borderBottom:'2px solid #CAD6E6'}}><h3 style={{fontSize:'22px', color:'#3687E8', lineHeight:'27px', fontWeight:'bold'}}>Compliance Status</h3></td>
+              </tr>
+              <tr>
+                <td width="30%" style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px', paddingTop:'31px'}}>GST Return Filing</td>
+                <td width="20%" style={{fontSize:'20px', color:'#EA3F3F', fontWeight:'500', lineHeight:'25px', paddingTop:'31px'}}>value</td>
+                <td width="30%" style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingTop:'31px'}}>NCLT</td>
+                <td width="20%" style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px', paddingTop:'31px'}}>value</td>
+              </tr>
+              <tr>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px'}}>EPF Status</td>
+                <td style={{fontSize:'20px', color:'#EA3F3F', fontWeight:'500', lineHeight:'25px'}}>value</td>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px'}}>BIFR</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px'}}>value</td>
+              </tr>
+              <tr>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px'}}>Litigation Status</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px'}}>value</td>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px'}}>Defaulter Company</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px'}}>value</td>
+              </tr>
+              <tr>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingLeft:'35px', paddingBottom:'69px'}}>Last Balance Sheet Date</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px', paddingBottom:'69px'}}>value</td>
+                <td style={{fontSize:'20px', color:'#111111', lineHeight:'24px', paddingBottom:'69px'}}>Active Directors</td>
+                <td style={{fontSize:'20px', color:'#111111', fontWeight:'500', lineHeight:'25px', paddingBottom:'69px'}}>value</td>
+              </tr>
+            </table>
+            <table width="100%" bgColor="#ffffff" cellPadding="8" cellSpacing="0" border="0" style={{border:'1px solid #D2D7E5', borderRadius:'6px', boxShadow:'0 3px 6px #CAD0E2', marginBottom:'26px'}}>
+              <tr>
+                <td colSpan={2} height="78" style={{padding:'0 35px', borderBottom:'2px solid #CAD6E6'}}><h3 style={{fontSize:'22px', color:'#3687E8', lineHeight:'27px', fontWeight:'bold'}}>Strength &amp; Weakness</h3></td>
+              </tr>
+              <tr>
+                <td valign="top" width="50%" style={{fontSize:'22px', color:'#43C34D', lineHeight:'27px', fontWeight:'bold', borderRight:'2px solid #CAD6E6', padding:'43px 35px 60px'}}><span style={{background:'rgba(67, 195, 77, 0.1)', width:'64px', height:'64px', lineHeight:'22px', textAlign:'center', borderRadius:'8px', marginRight:'15px', padding:'21px 17px', display:'inline-block'}}><img src="/static/check-2.svg" alt="Check Green" /></span>Strength
+                  <ul style={{fontSize:'19px', color:'#111111', lineHeight:'23px', fontWeight:'normal', listStyle:'none', paddingLeft:'0', paddingTop:'28px'}}>
+                    <li style={{padding:'15px 0'}}>— Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam</li>
+                    <li style={{padding:'15px 0'}}>— Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam</li>
+                    <li style={{padding:'15px 0'}}>— Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam</li>
+                    <li style={{padding:'15px 0'}}>— Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam</li>
+                    <li style={{padding:'15px 0'}}>— Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam</li>
+                  </ul>
+                </td>
+                <td valign="top" width="50%" style={{fontSize:'22px', color:'#EA3F3F', lineHeight:'27px', fontWeight:'bold', borderRight:'2px solid #CAD6E6', padding:'43px 35px 60px'}}><span style={{background:'rgba(234, 63, 63, 0.1)', width:'64px', height:'64px', lineHeight:'22px', textAlign:'center', borderRadius:'8px', marginRight:'15px', padding:'21px 17px', display:'inline-block'}}><img src="/static/close-b.svg" width="27" alt="Cross Red" /></span>Weakness
+                  <ul style={{fontSize:'19px', color:'#111111', lineHeight:'23px', fontWeight:'normal', listStyle:'none', paddingLeft:'0', paddingTop:'28px'}}>
+                    <li style={{padding:'15px 0'}}>— Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam</li>
+                    <li style={{padding:'15px 0'}}>— Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam</li>
+                    <li style={{padding:'15px 0'}}>— Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam</li>
+                    <li style={{padding:'15px 0'}}>— Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam</li>
+                    <li style={{padding:'15px 0'}}>— Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam</li>
+                  </ul>
+                </td>
+              </tr>
+            </table>
+            <table width="100%" bgColor="#ffffff" cellPadding="0" cellSpacing="0" border="0" style={{border:'1px solid #D2D7E5', borderRadius:'6px', boxShadow:'0 3px 6px #CAD0E2', marginBottom:'26px'}}>
+              <tr style={{borderBottom:'2px solid #CAD6E6'}}>
+                <td width="40%" height="78" style={{padding:'0 35px'}}><h3 style={{fontSize:'22px', color:'#3687E8', lineHeight:'27px', fontWeight:'bold'}}>Sanction Terms</h3></td>
+                <td height="78" style={{fontSize:'18px', color:'#2837566A', lineHeight:'23px', fontWeight:'bold'}}>Total Limit:<span style={{fontSize:'19px', color:'#111111', lineHeight:'24px', fontWeight:'500', display:'inline-block', marginLeft:'15px'}}>1,900.00</span></td>
+                <td height="78" style={{fontSize:'18px', color:'#2837566A', lineHeight:'23px', fontWeight:'bold'}}>Utilised Limit:<span style={{fontSize:'19px', color:'#111111', lineHeight:'24px', fontWeight:'500', display:'inline-block', marginLeft:'15px'}}>1,900.00</span></td>
+                <td height="78" style={{fontSize:'18px', color:'#2837566A', lineHeight:'23px', fontWeight:'bold'}}>Available Limit:<span style={{fontSize:'19px', color:'#111111', lineHeight:'24px', fontWeight:'500', display:'inline-block', marginLeft:'15px'}}>1,900.00</span></td>
+              </tr>
+              <tr>
+                <td colSpan={4} valign="top">
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+                    <tr bgColor="#FAFAFB" style={{height:'67px'}}>
+                      <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', textTransform:'uppercase'}}></th>
+                      <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', textTransform:'uppercase', textAlign:'center'}}>PREVIOUS LIMIT</th>
+                      <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', textTransform:'uppercase', textAlign:'center'}}>APPLIED VALUE</th>
+                      <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', textTransform:'uppercase', textAlign:'center'}}>DERIVED VALUE</th>
+                      <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', textTransform:'uppercase', textAlign:'center'}}>SUGGESTED VALUE</th>
+                      <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', textTransform:'uppercase', textAlign:'center'}}>REVISED</th>
+                      <th style={{fontSize:'15px', color:'#8492A6', lineHeight:'18px', textTransform:'uppercase', textAlign:'center'}}>APPROVED VALUE</th>
+                    </tr>
+                    <tr>
+                      <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', padding:'36px 10px 24px 35px'}}>Limit Value</td>
+                      <td align="center" style={{fontSize:'19px', color:'#111111', lineHeight:'23px', padding:'36px 10px 24px'}}>1,200.00</td>
+                      <td align="center" style={{fontSize:'19px', color:'#111111', lineHeight:'23px', padding:'36px 10px 24px'}}>-</td>
+                      <td align="center" style={{fontSize:'19px', color:'#111111', lineHeight:'23px', padding:'36px 10px 24px'}}>1,200.00</td>
+                      <td align="center" style={{fontSize:'19px', color:'#111111', lineHeight:'23px', padding:'36px 10px 24px'}}>1,900.00</td>
+                      <td align="center" style={{fontSize:'19px', color:'#111111', lineHeight:'23px', padding:'36px 10px 24px'}}><input type="checkbox"/></td>
+                      <td align="center" style={{fontSize:'19px', color:'#111111', lineHeight:'23px', padding:'36px 10px 24px'}}>1,900.00</td>
+                    </tr>
+                    <tr>
+                      <td style={{fontSize:'19px', color:'#111111', lineHeight:'23px', padding:'24px 10px 54px 35px'}}>Order Value</td>
+                      <td align="center" style={{fontSize:'19px', color:'#111111', lineHeight:'23px', padding:'24px 10px 54px'}}>-</td>
+                      <td align="center" style={{fontSize:'19px', color:'#111111', lineHeight:'23px', padding:'24px 10px 54px'}}>1,200.00</td>
+                      <td align="center" style={{fontSize:'19px', color:'#111111', lineHeight:'23px', padding:'24px 10px 54px'}}>-</td>
+                      <td align="center" style={{fontSize:'19px', color:'#111111', lineHeight:'23px', padding:'24px 10px 54px'}}>1,900.00</td>
+                      <td align="center" style={{fontSize:'19px', color:'#111111', lineHeight:'23px', padding:'24px 10px 54px'}}><input type="checkbox"/></td>
+                      <td align="center" style={{fontSize:'19px', color:'#111111', lineHeight:'23px', padding:'24px 10px 54px'}}>1,900.00</td>
+                    </tr>
+                    <tr bgColor="#FAFAFB" style={{height:'67px'}}>
+                      <td colSpan={7} style={{fontSize:'22px', color:'#111111',
+                      fontWeight:'bold', lineHeight:'27px', textTransform:'capitalize', paddingLeft:'35px'}}>Sanction Conditions</td>
+                    </tr>
+                    <tr>
+                      <td colSpan={7}>
+                        <ul style={{fontSize:'19px', color:'#111111', lineHeight:'23px', fontWeight:'normal', listStyle:'none', padding:'11px 35px 48px', paddingTop:''}}>
+                          <li style={{padding:'15px 0'}}>● Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam sadipscing elitr, sed diam</li>
+                          <li style={{padding:'15px 0'}}>● Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diamLorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam</li>
+                          <li style={{padding:'15px 0'}}>● Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam elitr, sed diam</li>
+                          <li style={{padding:'15px 0'}}>● Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam</li>
+                        </ul>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colSpan={7} style={{fontSize:'22px', color:'#111111',
+                      fontWeight:'bold', lineHeight:'27px', paddingLeft:'35px', paddingBottom:'50px'}}>Sanction Conditions<br/><br/>
+                      <span style={{fontSize:'20px', fontWeight:'normal', lineHeight:'30px', letterSpacing:'0.19px'}}>Signed provisional / commercial invoice in 1 original and 3 copies, based on the dry weight and the manganese content shown on the certificate of typical analysis.</span></td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+            <table width="100%" bgColor="#ffffff" cellPadding="0" cellSpacing="0" border="0" style={{border:'1px solid #D2D7E5', borderRadius:'6px', boxShadow:'0 3px 6px #CAD0E2', marginBottom:'26px'}}>
+              <tr>
+                <td height="78" style={{padding:'0 35px', borderBottom:'2px solid #CAD6E6'}}><h3 style={{fontSize:'22px', color:'#3687E8', lineHeight:'27px', fontWeight:'bold'}}>Documents Available</h3></td>
+              </tr>
+              <tr>
+                <td valign="top" style={{paddingBottom:'50px'}}>
+                  <table width="100%" cellPadding="16" cellSpacing="0" border="0">
+                    <tr>
+                      <td width="25%" style={{paddingLeft:'35px', paddingTop:'35px'}}>
+                        <table width="100%" cellPadding="13" cellSpacing="0" border="0" style={{border:'1px solid #D2D7E5', borderRadius:'6px'}}>
+                          <tr>
+                            <td width="20%" align='center'><img src="/static/icon file copy.svg" alt="Doc icon"></img></td>
+                            <td style={{fontSize:'21px', color:'#111111', lineHeight:'26px', fontWeight:'500'}}>Insurance Certificate<br/><span style={{fontSize:'16px', color:'#8492A6', lineHeight:'19px', fontWeight:'bold', textTransform: 'uppercase'}}>VIEW</span></td>
+                          </tr>
+                        </table>
+                      </td>
+                      <td width="25%" style={{paddingTop:'35px'}}>
+                        <table width="100%" cellPadding="13" cellSpacing="0" border="0" style={{border:'1px solid #D2D7E5', borderRadius:'6px'}}>
+                          <tr>
+                            <td width="20%" align='center'><img src="/static/icon file copy.svg" alt="Doc icon"></img></td>
+                            <td style={{fontSize:'21px', color:'#111111', lineHeight:'26px', fontWeight:'500'}}>Insurance Certificate<br/><span style={{fontSize:'16px', color:'#8492A6', lineHeight:'19px', fontWeight:'bold', textTransform: 'uppercase'}}>VIEW</span></td>
+                          </tr>
+                        </table>
+                      </td>
+                      <td width="25%" style={{paddingTop:'35px'}}>
+                        <table width="100%" cellPadding="13" cellSpacing="0" border="0" style={{border:'1px solid #D2D7E5', borderRadius:'6px'}}>
+                          <tr>
+                            <td width="20%" align='center'><img src="/static/icon file copy.svg" alt="Doc icon"></img></td>
+                            <td style={{fontSize:'21px', color:'#111111', lineHeight:'26px', fontWeight:'500'}}>Insurance Certificate<br/><span style={{fontSize:'16px', color:'#8492A6', lineHeight:'19px', fontWeight:'bold', textTransform: 'uppercase'}}>VIEW</span></td>
+                          </tr>
+                        </table>
+                      </td>
+                      <td width="25%" style={{paddingTop:'35px'}}>
+                        <table width="100%" cellPadding="13" cellSpacing="0" border="0" style={{border:'1px solid #D2D7E5', borderRadius:'6px'}}>
+                          <tr>
+                            <td width="20%" align='center'><img src="/static/icon file copy.svg" alt="Doc icon"></img></td>
+                            <td style={{fontSize:'21px', color:'#111111', lineHeight:'26px', fontWeight:'500'}}>Insurance Certificate<br/><span style={{fontSize:'16px', color:'#8492A6', lineHeight:'19px', fontWeight:'bold', textTransform: 'uppercase'}}>VIEW</span></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="25%" style={{paddingLeft:'35px'}}>
+                        <table width="100%" cellPadding="13" cellSpacing="0" border="0" style={{border:'1px solid #D2D7E5', borderRadius:'6px'}}>
+                          <tr>
+                            <td width="20%" align='center'><img src="/static/icon file copy.svg" alt="Doc icon"></img></td>
+                            <td style={{fontSize:'21px', color:'#111111', lineHeight:'26px', fontWeight:'500'}}>Insurance Certificate<br/><span style={{fontSize:'16px', color:'#8492A6', lineHeight:'19px', fontWeight:'bold', textTransform: 'uppercase'}}>VIEW</span></td>
+                          </tr>
+                        </table>
+                      </td>
+                      <td width="25%">
+                        <table width="100%" cellPadding="13" cellSpacing="0" border="0" style={{border:'1px solid #D2D7E5', borderRadius:'6px'}}>
+                          <tr>
+                            <td width="20%" align='center'><img src="/static/icon file copy.svg" alt="Doc icon"></img></td>
+                            <td style={{fontSize:'21px', color:'#111111', lineHeight:'26px', fontWeight:'500'}}>Insurance Certificate<br/><span style={{fontSize:'16px', color:'#8492A6', lineHeight:'19px', fontWeight:'bold', textTransform: 'uppercase'}}>VIEW</span></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+ </table>
   )
 }
