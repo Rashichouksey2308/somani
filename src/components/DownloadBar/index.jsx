@@ -36,7 +36,9 @@ function index({
           <div
             className={`${styles.reject} ml-3`}
             onClick={() => {
-              handleUpdate()
+               if(handleUpdate){
+                  handleUpdate()
+               }
             }}
           >
             <span>{leftButtonName}</span>

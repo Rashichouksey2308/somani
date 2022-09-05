@@ -36,6 +36,14 @@ export default function Index({ ReleaseOrderData }) {
       document: null,
     },
   ])
+  console.log(releaseDetail, '11')
+  console.log(releaseDetail.length - 1, '111')
+  useEffect(() => {
+    if (releaseDetail) {
+      let index = releaseDetail.length - 1
+      setReleaseOrderButtonIndex(index)
+    }
+  }, [releaseDetail])
 
   useEffect(() => {
     let tempArr = [...releaseDetail]
@@ -144,7 +152,7 @@ export default function Index({ ReleaseOrderData }) {
   }
 
   // console.log(releaseDetail, 'temparr')
-
+  const [releaseOrderButtonIndex, setReleaseOrderButtonIndex] = useState(0)
   const addMorereleaseDetailDataRows = (index) => {
     setReleaseDetail([
       ...releaseDetail,
@@ -156,6 +164,7 @@ export default function Index({ ReleaseOrderData }) {
         document: null,
       },
     ])
+    setReleaseOrderButtonIndex(index)
   }
   const saveDate = (value, name, index) => {
     // console.log(value, name, 'save date')
@@ -427,16 +436,18 @@ export default function Index({ ReleaseOrderData }) {
                                       alt="Delete"
                                     />
                                   )}
-                                  {Number(netBalanceQuantity) >= 0 && (
-                                    <img
-                                      onClick={() =>
-                                        addMorereleaseDetailDataRows(index)
-                                      }
-                                      src="/static/add-btn.svg"
-                                      className={`${styles.delete_image} ml-2 img-fluid`}
-                                      alt="Add button"
-                                    />
-                                  )}
+
+                                  {Number(netBalanceQuantity) >= 0 &&
+                                    releaseDetail.length - 1 === index && (
+                                      <img
+                                        onClick={() =>
+                                          addMorereleaseDetailDataRows(index)
+                                        }
+                                        src="/static/add-btn.svg"
+                                        className={`${styles.delete_image} ml-2 img-fluid`}
+                                        alt="Add button"
+                                      />
+                                    )}
                                 </div>
                               </div>
                               {/* <div className={styles.uploadBtnWrapper}>

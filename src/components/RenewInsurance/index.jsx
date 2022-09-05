@@ -349,15 +349,17 @@ const Index = () => {
                   </div>
                 </div>
               </div>
-              <div>
+              {/* <div>
                 {' '}
+             
                 <UploadDocument
                   docName={`Policy Document ${
                     insuranceType == false ? `- Marine` : `- Storage`
                   } `}
                   uploadDocument1={uploadDocument1}
                 />
-              </div>
+            
+              </div> */}
             </>
           ) : (
             <>
@@ -512,7 +514,11 @@ const Index = () => {
                   </div>
                 </div>
               </div>
-              <div>
+             
+            </>
+          )}
+        </div>
+        <div>
                 {' '}
                 <UploadDocument
                   docName={`Policy Document ${
@@ -521,9 +527,6 @@ const Index = () => {
                   uploadDocument1={uploadDocument2}
                 />
               </div>
-            </>
-          )}
-        </div>
       </div>
       {/* <InspectionDocument
         lcDoc={insuranceDocument}

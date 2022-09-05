@@ -260,14 +260,18 @@ export default function Index(props) {
                                         props.onEdit(index, true)
                                       }}
                                     />
-                                    <img
-                                      onClick={(e) => {
-                                        props.addNewDelivery()
-                                      }}
-                                      src="/static/add.svg"
-                                      className={`${styles.shareImg} img-fluid ml-3`}
-                                      alt="add"
-                                    />
+                                    {props.releaseOrderData.length - 1 ===
+                                      index && (
+                                      <img
+                                        onClick={(e) => {
+                                          props.addNewDelivery()
+                                        }}
+                                        src="/static/add.svg"
+                                        className={`${styles.shareImg} img-fluid ml-3`}
+                                        alt="add"
+                                      />
+                                    )}
+
                                     {props.releaseOrderData.length ===
                                     1 ? null : (
                                       <img
