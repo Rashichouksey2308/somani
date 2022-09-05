@@ -319,7 +319,8 @@ function Index() {
     manufacturerName: orderList?.manufacturerName,
   })
   useEffect(() => {
-    setOrderDetails({
+
+    let newObj = {
       transactionType: orderList?.transactionType,
       commodity: orderList?.commodity,
       quantity: orderList?.quantity,
@@ -336,7 +337,8 @@ function Index() {
       tolerance: orderList?.tolerance,
       hsnCode: orderList?.hsnCode,
       manufacturerName: orderList?.manufacturerName,
-    })
+    }
+    setOrderDetails({ ...newObj })
 
     setShipment({
       ETAofDischarge: {
@@ -1098,7 +1100,7 @@ function Index() {
   const addPersonArr = (keyPersonData) => {
     // let newArr = [...personData]
     // newArr.push(keyPersonData)
-    console.log(keyPersonData, 'This IS KEY PETDHDH')
+    // console.log(keyPersonData, 'This IS KEY PETDHDH')
     setPersonData([
       ...keyPersonData,
       {
@@ -1293,7 +1295,17 @@ function Index() {
       supplierData.commodityOfTotalTrade = removePrefixOrSuffix(
         supplierCred.commodityOfTotalTrade,
       )
+      // let tempArray = [...groupExposureData]
+      // // console.log(tempArray, 'groupExposure')
+      // tempArray.forEach((e) => {
+      //   if (e.limit === NaN) {
+      //     let oldValue = e?.limit?.replace(/,/g, '')
+      //     e.limit = oldValue
+      //     return Number(e)
+      //   }
+      // })
 
+      // console.log(tempArray, 'groupExposure')
       let obj = {
         productSummary: { ...data },
         supplierCredential: { ...supplierData },
@@ -1435,7 +1447,7 @@ function Index() {
       }
     }
   }
-  console.log(selectedTab,"specificationTable")
+  console.log(selectedTab, "specificationTable")
   const onBack = () => {
     let list = document.getElementsByClassName('nav-tabs')
     let tab = document.getElementsByClassName('tab-content')
