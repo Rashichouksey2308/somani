@@ -169,7 +169,7 @@ function Index({
                             onChange={(e) => {
                               saveLcData(e.target.name, e.target.value)
                             }}
-                            // value={lcData?.lcIssuingBank}
+                            value={lcData?.lcIssuingBank}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
                             <option selected disabled>Select an option</option>
@@ -694,7 +694,7 @@ function Index({
                         onClick={() => addConditionArr()}
                       />
                     </div>
-                    {lcCondition?.map((comment, index) => (
+                    {lcComments?.map((comment, index) => (
                       <div
                         key={index}
                         className="d-flex justify-content-between pt-4 pb-3"
@@ -868,7 +868,7 @@ function Index({
                                 onChange={(e) => {
                                   saveLcData(e.target.name, e.target.value)
                                 }}
-                                value={lcData?.reimbursingBan}
+                                value={lcData?.reimbursingBank}
                                 className={`${styles.input_labels}  ${styles.customSelect} input form-control`}
                               >
                                 <option selected disabled>Select an option</option>
