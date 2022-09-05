@@ -517,9 +517,9 @@ function Index() {
                           disabled
                           type="text"
                           value={clauseObj?.existingValue}
-                          // onChange={(e)=>{
+                        // onChange={(e)=>{
 
-                          // }}
+                        // }}
                         />
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -549,7 +549,7 @@ function Index() {
                                 name="newValue"
                                 // defaultDate={lcData?.dateOfIssue?.split('T')[0]}
                                 saveDate={saveDropDownDate}
-                                // labelName="New Value"
+                              // labelName="New Value"
                               />
                               <img
                                 className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -742,7 +742,7 @@ function Index() {
                                                   name="newValue"
                                                   // defaultDate={lcData?.dateOfIssue?.split('T')[0]}
                                                   saveDate={saveDropDownDate}
-                                                  // labelName="New Value"
+                                                // labelName="New Value"
                                                 />
                                               </>
                                             )}
@@ -814,6 +814,7 @@ function Index() {
           {/* Document*/}
           <div className="mt-4 mb-5">
             <InspectionDocument
+              setLcDoc={setLcDoc}
               lcDoc={lcDoc}
               orderId={lcModuleData?.order?._id}
               uploadDocument1={uploadDocument1}

@@ -391,7 +391,7 @@ export default function Index({ ReleaseOrderData }) {
                             onChange={(e) => netQuantityChange(e, index)}
                             id="netQuantityReleased"
                             className={`${styles.input_field} input form-control`}
-                            type="number"
+                            type="text"
                             onKeyDown={(evt) =>
                               evt.key === 'e' && evt.preventDefault()
                             }
