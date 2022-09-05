@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { GetLcModule } from 'redux/lcModule/action'
 import Filter from '../Filter'
 import _get from 'lodash/get'
+import { setPageName,setDynamicName,setDynamicOrder } from '../../redux/userData/action'
 
 function Index() {
   const [edit, setEdit] = useState(false)
@@ -20,7 +21,9 @@ function Index() {
   useEffect(() => {
     let id = sessionStorage.getItem('lcCompanyId')
     dispatch(GetLcModule(`?company=${id}`))
+   
   }, [dispatch])
+
 
   const handleRoute = (lc) => {
     dispatch(GetLcModule(`?lcModuleId=${lc.order.lc}`))

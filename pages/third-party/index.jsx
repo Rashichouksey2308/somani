@@ -7,7 +7,7 @@ import ThirdPartyInspection from '../../src/components/ThirdPartyInspection'
 import PlotInspection from '../../src/components/PlotInspection'
 import Appointment from '../../src/components/Appointment'
 import { useDispatch, useSelector } from 'react-redux'
-import { setPageName, setDynamicName } from '../../src/redux/userData/action'
+import { setPageName, setDynamicName,setDynamicOrder } from '../../src/redux/userData/action'
 import _get from 'lodash/get'
 import { GetAllInspection } from '../../src/redux/Inspections/action'
 import Router from 'next/router'
@@ -19,9 +19,7 @@ function Index() {
   const [darkMode, setDarkMode] = useState(false)
 
  
-  useEffect(() => {
-    dispatch(setPageName('inception2'))
-  })
+ 
 
   useEffect(()=> {
     let id = sessionStorage.getItem('inspectionId')
@@ -31,7 +29,11 @@ function Index() {
   const {allInspection} = useSelector((state)=>state.Inspection)
 
   let inspectionData = _get(allInspection, 'data[0]', {})
-
+ useEffect(() => {
+    dispatch(setPageName('inception2'))
+    dispatch(setDynamicName(_get(inspectionData,"company.companyName")))
+    dispatch(setDynamicOrder(_get(inspectionData,"order.orderId")))
+  },[inspectionData])
   // console.log(inspectionData, 'THIS IS INSPECTION DATA')
 
   const [addTPI, setAddTPI] = useState([{}])

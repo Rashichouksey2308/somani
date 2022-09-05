@@ -4,7 +4,7 @@ import styles from './inspection.module.scss'
 import Router from 'next/router'
 import Filter from '../../src/components/Filter'
 import { useDispatch, useSelector } from 'react-redux'
-import { setPageName, setDynamicName } from '../../src/redux/userData/action'
+import { setPageName, setDynamicName,setDynamicOrder } from '../../src/redux/userData/action'
 import { GetAllInspection } from '../../src/redux/Inspections/action'
 import { SearchLeads } from '../../src/redux/buyerProfile/action'
 
@@ -37,7 +37,9 @@ if(window){
   }
 
   useEffect(() => {
-    dispatch(setPageName('inception'))
+    dispatch(setPageName('inception2'))
+    dispatch(setDynamicName(null))
+    dispatch(setDynamicOrder(null))
   })
 
   useEffect(() => {
