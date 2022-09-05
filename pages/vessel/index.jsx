@@ -64,7 +64,7 @@ export default function Home() {
   const setData = (Vessel) => {
 
     console.log(
-      Vessel.data[0], "Vessel123")
+      Vessel?.data[0], "Vessel123")
 
     setCurrency(_get(
       Vessel,
@@ -94,7 +94,7 @@ export default function Home() {
         {
           shipmentType: _get(
             Vessel,
-            "data[0].order.shipmentDetail.shipmentType",
+            "data[0].order.termsheet.transactionDetails.shipmentType",
             ""
           ),
           commodity: _get(
@@ -119,6 +119,14 @@ export default function Home() {
           ), transitDetails: {
             countryOfOrigin: _get(
               Vessel,
+              "data[0].vessels[0].transitDetails.countryOfOrigin",
+              ""
+            ) !== '' ? _get(
+              Vessel,
+              "data[0].vessels[0].transitDetails.countryOfOrigin",
+              ""
+            ) : _get(
+              Vessel,
               "data[0].order.countryOfOrigin",
               ""
             ),
@@ -126,8 +134,24 @@ export default function Home() {
               Vessel,
               "data[0].vessels[0].transitDetails.portOfLoading",
               ""
+            ) !== '' ? _get(
+              Vessel,
+              "data[0].vessels[0].transitDetails.portOfLoading",
+              ""
+            ) : _get(
+              Vessel,
+              "data[0].order.portOfLoading",
+              ""
             ),
             portOfDischarge: _get(
+              Vessel,
+              "data[0].vessels[0].transitDetails.portOfDischarge",
+              ""
+            ) !== '' ? _get(
+              Vessel,
+              "data[0].vessels[0].transitDetails.portOfDischarge",
+              ""
+            ) : _get(
               Vessel,
               "data[0].order.portOfDischarge",
               ""
@@ -140,10 +164,26 @@ export default function Home() {
               Vessel,
               "data[0].vessels[0].transitDetails.laycanFrom",
               ""
+            ) !== '' ? _get(
+              Vessel,
+              "data[0].vessels[0].transitDetails.laycanFrom",
+              ""
+            ) : _get(
+              Vessel,
+              "data[0].order.shipmentDetail.loadPort.fromDate",
+              ""
             ),
             laycanTo: "" || _get(
               Vessel,
               "data[0].vessels[0].transitDetails.laycanTo",
+              ""
+            ) !== '' ? _get(
+              Vessel,
+              "data[0].vessels[0].transitDetails.laycanTo",
+              ""
+            ) : _get(
+              Vessel,
+              "data[0].order.shipmentDetail.loadPort.toDate",
               ""
             ),
             EDTatLoadPort: "" || _get(
@@ -667,14 +707,14 @@ export default function Home() {
       }
       // console.log(payload, 'vessels123456')
       // console.log("check 3")
-      let data=await dispatch(UpdateVessel(payload))
-      if(data==200){
-      let toastMessage = 'VESSEL UPDATED SUCCESSFULLY'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+      let data = await dispatch(UpdateVessel(payload))
+      if (data == 200) {
+        let toastMessage = 'VESSEL UPDATED SUCCESSFULLY'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
       }
-      }
-    
+
       fetchInitialData()
     }
   }
@@ -719,47 +759,47 @@ export default function Home() {
       toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
-  
-return (
-  <>
-    <Vessels
-      vesselData={vesselData}
-      vesselUpdatedAt={vesselUpdatedAt}
-      containerExcel={containerExcel}
-      vesselCertificate={vesselCertificate}
-      setVesselCertificate={setVesselCertificate}
-      setContainerListDocument={setContainerListDocument}
-      containerListDocument={containerListDocument}
-      partShipmentAllowed={partShipmentAllowed}
-      setPartShipmentAllowed={setPartShipmentAllowed}
-      id1={id1}
-      orderID={orderID}
-      list={list}
-      companyName={companyName}
-      onAddVessel={onAddVessel}
-      OnAddvesselInformation={OnAddvesselInformation}
-      startDate={startDate}
-      setStartDate={setStartDate}
-      lastDate={lastDate}
-      setlastDate={setlastDate}
-      shipmentTypeChangeHandler={shipmentTypeChangeHandler}
-      OnVesselBasicFieldsChangeHandler={OnVesselBasicFieldsChangeHandler}
-      OnVesselTransitFieldsChangeHandler={OnVesselTransitFieldsChangeHandler}
-      saveDate={saveDate}
-      onVesselInfoChangeHandlerForBulk={onVesselInfoChangeHandlerForBulk}
-      onVesselInfoChangeHandlerForLiner={onVesselInfoChangeHandlerForLiner}
-      uploadDocHandler={uploadDocHandler}
-      shippingInfoChangeHandler={shippingInfoChangeHandler}
-      onDeleteVessel={onDeleteVessel}
-      OnAddvesselInformationDelete={OnAddvesselInformationDelete}
-      shipmentTypeBulk={shipmentTypeBulk}
-      currency={currency}
-    />
-    <div className="mt-5">
-      <VesselSaveBar handleSave={onSaveHandler} rightBtn="Submit" rightBtnClick={onSubmitHanler} />
-    </div>
-  </>
-)
+
+  return (
+    <>
+      <Vessels
+        vesselData={vesselData}
+        vesselUpdatedAt={vesselUpdatedAt}
+        containerExcel={containerExcel}
+        vesselCertificate={vesselCertificate}
+        setVesselCertificate={setVesselCertificate}
+        setContainerListDocument={setContainerListDocument}
+        containerListDocument={containerListDocument}
+        partShipmentAllowed={partShipmentAllowed}
+        setPartShipmentAllowed={setPartShipmentAllowed}
+        id1={id1}
+        orderID={orderID}
+        list={list}
+        companyName={companyName}
+        onAddVessel={onAddVessel}
+        OnAddvesselInformation={OnAddvesselInformation}
+        startDate={startDate}
+        setStartDate={setStartDate}
+        lastDate={lastDate}
+        setlastDate={setlastDate}
+        shipmentTypeChangeHandler={shipmentTypeChangeHandler}
+        OnVesselBasicFieldsChangeHandler={OnVesselBasicFieldsChangeHandler}
+        OnVesselTransitFieldsChangeHandler={OnVesselTransitFieldsChangeHandler}
+        saveDate={saveDate}
+        onVesselInfoChangeHandlerForBulk={onVesselInfoChangeHandlerForBulk}
+        onVesselInfoChangeHandlerForLiner={onVesselInfoChangeHandlerForLiner}
+        uploadDocHandler={uploadDocHandler}
+        shippingInfoChangeHandler={shippingInfoChangeHandler}
+        onDeleteVessel={onDeleteVessel}
+        OnAddvesselInformationDelete={OnAddvesselInformationDelete}
+        shipmentTypeBulk={shipmentTypeBulk}
+        currency={currency}
+      />
+      <div className="mt-5">
+        <VesselSaveBar handleSave={onSaveHandler} rightBtn="Submit" rightBtnClick={onSubmitHanler} />
+      </div>
+    </>
+  )
 }
 
 

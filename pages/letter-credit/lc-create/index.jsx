@@ -347,9 +347,20 @@ function Index() {
 
   const changeRoute = () => {
     if(checkValidation()){
+      let task = 'preview'
+      let lcObj={ ...lcData }
+      lcObj.currecyCodeAndAmountValue= removePrefixOrSuffix(lcData?.currecyCodeAndAmountValue)
+      lcObj.tolerancePercentage = removePrefixOrSuffix(lcData?.tolerancePercentage)
+      let obj = {
+        lcApplication: { ...lcObj },
+        additionalConditions: [...lcComments],
+        documentRequired: [...lcDocuments],
+        lcModuleId: lcModuleData._id,
+      }
+      dispatch(UpdateLcModule({obj : obj, task: task}))
     dispatch(GetLcModule(`?lcModuleId=${lcModuleData?.order?.lc}`))
     sessionStorage.setItem('lcPreviewId', lcModuleData?.order?.lc)
-    Router.push('/letter-table/letter-amend/id')
+    // Router.push('/letter-table/letter-amend/id')
     }
   }
   return (

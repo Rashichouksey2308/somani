@@ -69,7 +69,7 @@ export default function Index({
     packingListDoc: null,
   }
   const dispatch = useDispatch()
-
+console.log(bolList,"bolList")
   let shipmentTypeBulk =
     _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') ==
     'Bulk'
@@ -159,6 +159,11 @@ export default function Index({
 
     tempArr[index][e] = null
     console.log(tempArr, 'temp arr', e)
+    setBolList(tempArr)
+  }
+  const handleCloseContanierDoc = (e, index) => {
+    let tempArr = [...bolList]
+    tempArr[index].containerDetails.containerDoc = null
     setBolList(tempArr)
   }
 
@@ -662,7 +667,7 @@ export default function Index({
             </div>
           </div>
           {bolList?.map((bol, index) => {
-            console.log(bol, 'existingBlDataindi')
+            // console.log(bol, `existingBlDataindi${index}`)
             return (
               <div
                 key={index}
@@ -699,7 +704,7 @@ export default function Index({
                               onChange={(e) => onChangeVessel(e, index)}
                               className={`${styles.input_field} ${styles.customSelect}   input form-control`}
                             >
-                              <option disabled selected>
+                              <option  selected>
                                 Select an option
                               </option>
                               {shipmentTypeBulk
@@ -973,7 +978,49 @@ export default function Index({
                             <div
                               className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                             >
-                              <div className="d-flex justify-content-start">
+                              {bol?.containerDetails?.containerDoc == null ? (
+                                <>
+                                  <div className={styles.uploadBtnWrapper}>
+                                    <div className={styles.uploadBtnWrapper}>
+                                      <input
+                                        name={`containerDoc`}
+                                        id="containerDoc"
+                                        onChange={(e) =>
+                                          onChangeContainerDetailsDocHandler(
+                                            e,
+                                            index,
+                                          )
+                                        }
+                                        accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                        type="file"
+                                      />
+                                      <button
+                                        className={`${styles.upload_btn} btn`}
+                                      >
+                                        Upload Excel
+                                      </button>
+                                    </div>
+
+                                    <div className={`${styles.upload_text}`}>
+                                      ONLY .XLSX FILES ARE ALLOWED
+                                      <br /> &amp; MAX FILE SIZE UP TO 50MB
+                                    </div>
+                                  </div>
+                                </>
+                              ) : (
+                                <div className={styles.certificate}>
+                                  {bol?.containerDetails?.containerDoc?.originalName}
+                                  <img
+                                    className={`${styles.close_image} float-right ml-2 img-fluid`}
+                                    src="/static/close.svg"
+                                    onClick={(e) =>
+                                      handleCloseContanierDoc('', index)
+                                    }
+                                    alt="Close"
+                                  />{' '}
+                                </div>
+                              )}
+                              {/* <div className="d-flex justify-content-start">
                                 <div className={styles.uploadBtnWrapper}>
                                   <input
                                     name={`containerDoc`}
@@ -998,7 +1045,7 @@ export default function Index({
                                   ONLY .XLSX FILES ARE ALLOWED
                                   <br /> &amp; MAX FILE SIZE UP TO 50MB
                                 </div>
-                              </div>
+                              </div> */}
                             </div>
                           </div>
                         </div>

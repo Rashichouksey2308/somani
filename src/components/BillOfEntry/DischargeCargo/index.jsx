@@ -258,7 +258,7 @@ export default function Index({
                   <div className="d-flex">
                     <select
                       onChange={(e) => onChangeDischargeOfCargo('vesselName', e.target.value)}
-                      defaultValue={dischargeOfCargo?.dischargeOfCargo?.vesselName}
+                      value={dischargeOfCargo?.dischargeOfCargo?.vesselName}
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
                       <option value="">Please select a vessel</option>

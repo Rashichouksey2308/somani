@@ -127,7 +127,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
       e.preventDefault()
     }
   }
-
+console.log(warehouseDetails,'warehouseDetails')
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
