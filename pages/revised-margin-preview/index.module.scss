@@ -37,8 +37,8 @@
     min-height: 126px;
     border-radius: 6px;
     margin-bottom: 26px;
-    background: #d8eaff;
-    border: 1px solid #d2d7e5;
+    // background: #d8eaff;
+    // border: 1px solid #d2d7e5;
     padding: 18px 36px 13px 36px;
     @include respond(phone) {
       height: auto;
@@ -55,22 +55,23 @@
       div {
         .termSub_head {
           font-size: 20px;
-          color: #111111;
+          // color: #111111;
           font-weight: 500;
           line-height: 25px;
           margin-right: 7px;
         }
         .termValue {
           font-size: 20px;
-          color: rgba(17, 17, 17, 0.7);
+          // color: #111111;
           font-weight: normal;
           line-height: 24px;
+          opacity: 0.7;
         }
       }
     }
     span {
       font-size: 34px;
-      color: #3687e8;
+      // color: #3687e8;
       font-weight: bold;
       line-height: 41px;
       @include respond(phone) {

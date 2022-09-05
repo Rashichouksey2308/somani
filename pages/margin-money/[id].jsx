@@ -1878,8 +1878,10 @@ function Index() {
                                   }
                                 >
                                   <option>Select an option</option>
-                                  <option value="HDFC">HDFC</option>
-                                  <option value="ICICI">ICICI</option>
+                                  <option value="CANARA">
+                                    CANARA Bank Ltd
+                                  </option>
+                                  <option value="ICICI">ICICI Bank Ltd</option>
                                 </select>
                                 <label
                                   className={`${styles.label_heading} label_heading`}
@@ -1913,12 +1915,12 @@ function Index() {
                                     )
                                   }
                                 >
-                                  <option>Select an option</option>
-                                  <option value="DELHI, INDIA">
-                                    DELHI, INDIA
+                                  {/* <option>Select an option</option> */}
+                                  <option value="Connaught Place, DELHI">
+                                    Connaught Place, DELHI
                                   </option>
-                                  <option value="VIZAG, INDIA">
-                                    VIZAG, INDIA
+                                  <option value="Connaught Place, DELHI">
+                                    Connaught Place, DELHI
                                   </option>
                                 </select>
                                 <label
@@ -1962,26 +1964,31 @@ function Index() {
                             <div
                               className={`${styles.each_input} col-md-3 col-sm-6`}
                             >
-                              <input
-                                type="text"
-                                id="textInput"
-                                name="IFSCcode"
-                                onChange={(e) =>
-                                  saveInvoiceData(e.target.name, e.target.value)
-                                }
-                                defaultValue={
-                                  marginData?.invoiceDetail?.IFSCcode
-                                }
-                                className={`${styles.input_field} input form-control`}
-                                required
-                              />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                                id="textInput"
-                              >
-                                IFSC Code
-                                <strong className="text-danger">*</strong>
-                              </label>
+                            <input
+                                    id="textInput"
+                                    name="IFSCcode"
+                                    onChange={(e) =>
+                                      saveInvoiceData(
+                                        e.target.name,
+                                        e.target.value,
+                                      )
+                                    }
+                                    defaultValue=
+                                    // {
+                                    //   marginData?.invoiceDetail?.IFSCcode
+                                    // }
+                                    "ICIC0000251"
+                                    className={`${styles.input_field} input form-control`}
+                                    required
+                                  />
+                                  
+                                  <label
+                                    className={`${styles.label_heading} label_heading`}
+                                    id="textInput"
+                                  >
+                                    IFSC Code
+                                    <strong className="text-danger">*</strong>
+                                  </label>
                             </div>
                             <div
                               className={`${styles.each_input} col-md-3 col-sm-6`}
@@ -1993,9 +2000,11 @@ function Index() {
                                 onChange={(e) =>
                                   saveInvoiceData(e.target.name, e.target.value)
                                 }
-                                defaultValue={
-                                  marginData?.invoiceDetail?.accountNo
-                                }
+                                defaultValue=
+                                // {
+                                //   marginData?.invoiceDetail?.accountNo
+                                // }
+                                "123456789"
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
