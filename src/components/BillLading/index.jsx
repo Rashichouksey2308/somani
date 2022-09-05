@@ -1138,9 +1138,9 @@ console.log(bolList,"bolList")
                                   </>
                                 ) : (
                                   <div className={styles.certificate}>
-                                    {bolList[index]?.blDoc?.originalName}
+                                    <span>{bolList[index]?.blDoc?.originalName}</span>
                                     <img
-                                      className={`${styles.close_image} float-right ml-2 img-fluid`}
+                                      className={`${styles.close_image} mr-2`}
                                       src="/static/close.svg"
                                       onClick={(e) =>
                                         handleCloseDoc('blDoc', index)
@@ -1208,12 +1208,13 @@ console.log(bolList,"bolList")
                                       </>
                                     ) : (
                                       <div className={styles.certificate}>
-                                        {
+                                        <span>{
                                           bolList[index]?.containerNumberListDoc
                                             ?.originalName
-                                        }
+                                          }
+                                        </span>
                                         <img
-                                          className={`${styles.close_image} float-right ml-2 img-fluid`}
+                                          className={`${styles.close_image} mr-2`}
                                           src="/static/close.svg"
                                           onClick={(e) =>
                                             handleCloseDoc(
@@ -1281,12 +1282,13 @@ console.log(bolList,"bolList")
                                       </>
                                     ) : (
                                       <div className={styles.certificate}>
-                                        {
+                                        <span>{
                                           bolList[index]?.packingListDoc
                                             ?.originalName
-                                        }
+                                          }
+                                        </span>
                                         <img
-                                          className={`${styles.close_image} float-right ml-2 img-fluid`}
+                                          className={`${styles.close_image} mr-2`}
                                           src="/static/close.svg"
                                           onClick={(e) =>
                                             handleCloseDoc(
@@ -1423,12 +1425,13 @@ console.log(bolList,"bolList")
                                   </>
                                 ) : (
                                   <div className={styles.certificate}>
-                                    {
+                                    <span>{
                                       bolList[index]?.blSurrenderDoc
                                         ?.originalName
-                                    }
+                                      }
+                                    </span>
                                     <img
-                                      className={`${styles.close_image} float-right ml-2 img-fluid`}
+                                      className={`${styles.close_image} mr-2`}
                                       src="/static/close.svg"
                                       onClick={(e) => handleCloseDoc(e, index)}
                                       alt="Close"

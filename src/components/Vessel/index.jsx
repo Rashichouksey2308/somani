@@ -894,9 +894,9 @@ function Index({
                             </div> :
 
                               <div className={styles.certificate}>
-                                {containerExcel?.name}
+                                <span>{containerExcel?.name}</span>
                                 <img
-                                  className={`${styles.close_image} float-right ml-2 img-fluid`}
+                                  className={`${styles.close_image} mr-2`}
                                   src="/static/close.svg"
                                   onClick={() => handleClose(docName2)}
                                   alt="Close"

@@ -254,6 +254,12 @@
     border-radius: 4px;
     padding: 8px;
     margin: 7px 0;
+    span {
+        max-width: 92%;
+        overflow-x: hidden;
+        display: inline-block;
+        text-overflow: ellipsis;
+    }
 }
 .certificate2 {
     display: flex;
