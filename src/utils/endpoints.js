@@ -43,7 +43,7 @@ export default {
   reviseMarginMoney: '/api/core/margin-money/revised',
 
   // companydetails
-  getCompanyDetails: '/api/core/lead/fetchCompanyDetail',
+  getCompanyDetails: '/api/core/lead/fetch-company-detail',
   updateCompanyDetails: '/api/core/lead/update-company',
 
   //complienceCase

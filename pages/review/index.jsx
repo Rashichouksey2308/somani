@@ -294,8 +294,7 @@ function Index() {
   console.log(orderList, 'termsheetOrder')
   // useEffect(() => {
 
-  //   dispatch(GetDocuments(`?order=${id}`))
-  // }, [dispatch, companyData, orderList?.termsheet?.order])
+  
   const id = sessionStorage.getItem('orderID')
 
   const [selectedTab, setSelectedTab] = useState('Profile')
@@ -2872,7 +2871,7 @@ useEffect(() => {
                 className="img-fluid image_arrow mr-2"
               />
               <h1 className={`${styles.title} heading`}>
-                {orderList?.company?.companyName}
+                {orderList?.company?.companyName?orderList?.company?.companyName:""}
               </h1>
             </div>
             {selectedTab == 'CAM' ? (
