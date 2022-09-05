@@ -310,7 +310,7 @@ console.log(termsheetDetails.commercials?.forexHedging,"ss12312212sasdasda")
         </div>
       </div>
        
-         <div className={`${styles.term_container} container-fluid`}>
+         <div className={`${styles.term_container} download-pdf-bg container-fluid`}>
           <Row className={`h-50`}>
             <Col
               md={4}
@@ -320,14 +320,14 @@ console.log(termsheetDetails.commercials?.forexHedging,"ss12312212sasdasda")
                 termsheet?.data?.map((sheet, index) => (
                   <div key={index}>
                     <div>
-                      <span className={styles.termSub_head}>Order ID:</span>
-                      <span className={styles.termValue}>
+                      <span className={`${styles.termSub_head} download-pdf-color`}>Order ID:</span>
+                      <span className={`${styles.termValue} download-pdf-color`}>
                         {sheet.order.orderId}
                       </span>
                     </div>
                     <div className={`mt-1`}>
-                      <span className={styles.termSub_head}>Buyer:</span>
-                      <span className={styles.termValue}>
+                      <span className={`${styles.termSub_head} download-pdf-color`}>Buyer:</span>
+                      <span className={`${styles.termValue} download-pdf-color`}>
                         {sheet.company.companyName}
                       </span>
                     </div>
@@ -338,13 +338,13 @@ console.log(termsheetDetails.commercials?.forexHedging,"ss12312212sasdasda")
               md={4}
               className={`d-flex justify-content-center align-items-center`}
             >
-              <span>TERMSHEET</span>
+              <span className='download-pdf-title'>TERMSHEET</span>
             </Col>
             <Col
               md={4}
               className={`d-flex justify-content-end  align-items-end`}
             > 
-             <div><span className={styles.termSub_head}>Date:</span> <span className={styles.termValue}>{moment((new Date()), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</span></div>
+             <div><span className={`${styles.termSub_head} download-pdf-color`}>Date:</span> <span className={`${styles.termValue} download-pdf-color`}>{moment((new Date()), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</span></div>
               {/* <div>
                 <span className={styles.termSub_head}>Date:</span>{' '}
                 <span className={styles.termValue}>

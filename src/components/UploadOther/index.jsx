@@ -381,7 +381,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                 <div className="d-flex align-items-center">
                   <select
                     onChange={(e) => setModuleSelected(e.target.value)}
-                    className={`${styles.dropDown} ${styles.customSelect} statusBox input form-control`}
+                    className={`${styles.dropDown} ${styles.customSelect} input form-control`}
                   >
                     <option>Select an option</option>
                     <option value="LeadOnboarding&OrderApproval">
@@ -416,7 +416,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                     alt="Search"
                   ></img>
                   <input
-                    className={`${styles.searchBar}  statusBox border_color input form-control`}
+                    className={`${styles.searchBar} border_color input form-control`}
                     placeholder="Search"
                     onChange={(e) => {
                       filterDocBySearch(e.target.value)
