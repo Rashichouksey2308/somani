@@ -325,12 +325,12 @@
         }
       }
       .datatable {
-        width: 879px;
+        width: 100%;
         margin: 0 12px 0 12px;
         box-shadow: none !important;
         border: none !important;
         .table_scroll_outer {
-          width: 100%;
+          width: 90%;
           display: table;
           table-layout: fixed;
           .table_scroll_inner {
