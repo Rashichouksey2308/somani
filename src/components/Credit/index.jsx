@@ -528,7 +528,7 @@ const index = ({
                     <option value="Low">Low</option>
                     <option value="Very Low">Very Low</option>
                   </select>
-                  <label className={`${styles.label_heading} label_heading`}>
+                  <label className={`${styles.label_heading} label_heading`} style={{top:'20px'}}>
                     Commodity Contribution Senstivity
                     <strong className="text-danger">*</strong>
                    
@@ -836,7 +836,7 @@ const index = ({
                     saveSupplierData(e.target.name, e.target.value)
                   }}
                 />
-                <label className={`${styles.label_heading} label_heading`}>
+                <label className={`${styles.label_heading} label_heading`} style={{top:'20px'}}>
                   Commodity to Total Trade % -24M
                   <strong className="text-danger">*</strong>
                  

@@ -1494,29 +1494,29 @@ function Index() {
             </h1>
           </div>
         </div>
-        <div className={`${styles.term_container} container-fluid`}>
+        <div className={`${styles.term_container} download-pdf-bg container-fluid`}>
           <Row>
             <Col md={4} className={`${styles.left}`}>
               <div>
-                <span className={styles.termSub_head}>Order ID:</span>
-                <span className={styles.termValue}>
+                <span className={`${styles.termSub_head} download-pdf-color`}>Order ID:</span>
+                <span className={`${styles.termValue} download-pdf-color`}>
                   {marginData?.order?.orderId}
                 </span>
               </div>
               <div>
-                <span className={styles.termSub_head}>Buyer:</span>
-                <span className={styles.termValue}>
+                <span className={`${styles.termSub_head} download-pdf-color`}>Buyer:</span>
+                <span className={`${styles.termValue} download-pdf-color`}>
                   {marginData?.company?.companyName}
                 </span>
               </div>
             </Col>
             <Col md={4} className="text-center">
-              <span>MARGIN MONEY</span>
+              <span className='download-pdf-title'>MARGIN MONEY</span>
             </Col>
             <Col md={4} className={`${styles.left} ${styles.right}`}>
               <div>
-                <span className={styles.termSub_head}>Date:</span>{' '}
-                <span className={styles.termValue}>
+                <span className={`${styles.termSub_head} download-pdf-color`}>Date:</span>{' '}
+                <span className={`${styles.termValue} download-pdf-color`}>
                   {moment(marginData?.createdAt?.slice(0, 10)).format(
                     'DD-MM-yy',
                   )}

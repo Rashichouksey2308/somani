@@ -30,9 +30,10 @@ const Index = ({ orderid, module, isDocumentName }) => {
   const [moduleSelected, setModuleSelected] = useState(
     'LeadOnboarding&OrderApproval',
   )
+
   const [filteredDoc, setFilteredDoc] = useState([])
   const [currentDoc, setCurrentDoc] = useState('')
-  console.log(newDoc, 'newDOc')
+  console.log(moduleSelected, 'newDOc')
   useEffect(() => {
     sessionStorage.setItem('docFetchID', orderid)
     const tempArray = documentsFetched?.documents?.filter((doc) => {
@@ -75,6 +76,8 @@ const Index = ({ orderid, module, isDocumentName }) => {
       setNewDoc({ ...newDoc, name: e.target.value })
     }
   }
+
+  console.log(newDoc,'uploadother')
 
   const handleCloseDoc = () => {
     setNewDoc({
@@ -381,7 +384,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                 <div className="d-flex align-items-center">
                   <select
                     onChange={(e) => setModuleSelected(e.target.value)}
-                    className={`${styles.dropDown} ${styles.customSelect} statusBox input form-control`}
+                    className={`${styles.dropDown} ${styles.customSelect} input form-control`}
                   >
                     <option>Select an option</option>
                     <option value="LeadOnboarding&OrderApproval">
@@ -416,7 +419,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                     alt="Search"
                   ></img>
                   <input
-                    className={`${styles.searchBar}  statusBox border_color input form-control`}
+                    className={`${styles.searchBar} border_color input form-control`}
                     placeholder="Search"
                     onChange={(e) => {
                       filterDocBySearch(e.target.value)
