@@ -689,7 +689,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     className={`${styles.gst_list}`}
                     onChange={(e) => handleChangeGstin(e)}
                   >
-                    <option value='' disabled>Select a Option</option>
+                    <option value='' disabled>Select an Option</option>
                     {orderList?.company?.gstList?.map((gstin, index) => (
                       <option key={index} value={gstin}>
                         {gstin}
