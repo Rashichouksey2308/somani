@@ -86,13 +86,29 @@ useEffect(() => {
         "name": savedData?.name || "Integral Trading and Logistics",
         "shortName": savedData?.shortName || "",
         "gstin": savedData?.gstin ||"27AAACA3912A2ZE",
-        "addresses": savedData?.addresses|| [],
+        "addresses": savedData?.addresses|| [{
+              addressType: "Registered",
+              fullAddress: "Flat No. 303, 3rd Floor, Tirumala Plaza, Dabagarden",
+              pinCode: "530020",
+              country: "India",
+              gstin: "37AABFI9574L2ZP",
+              state: "Andhra Pradesh ",
+              city: "Visakhapatnam"
+        }],
         "authorisedSignatoryDetails": savedData?.authorisedSignatoryDetails || [],
        
         
        }
        setList(savedData?.authorisedSignatoryDetails|| [])
-       setAddressList(savedData?.addresses|| [])
+       setAddressList(savedData?.addresses|| [{
+              addressType: "Registered",
+              fullAddress: "Flat No. 303, 3rd Floor, Tirumala Plaza, Dabagarden",
+              pinCode: "530020",
+              country: "India",
+              gstin: "37AABFI9574L2ZP",
+              state: "Andhra Pradesh ",
+              city: "Visakhapatnam"
+        }])
        setSeteveState(supplier)
     }
     else if(sessionStorage.getItem("Stevedore")){

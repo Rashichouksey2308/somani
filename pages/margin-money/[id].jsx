@@ -272,15 +272,55 @@ function Index() {
     IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
     accountNo: marginData?.invoiceDetail?.accountNo || '',
   })
+  useEffect(() => {
+ if(marginData){
+  setInvoiceData({
+    buyerName: marginData?.company?.companyName || '',
+    buyerGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
+    buyerAddress: marginData?.invoiceDetail?.buyerAddress || '',
+    isConsigneeSameAsBuyer: marginData?.invoiceDetail?.isConsigneeSameAsBuyer || false,
+    consigneeName: marginData?.invoiceDetail?.consigneeName || '',
+    consigneeGSTIN: marginData?.invoiceDetail?.consigneeGSTIN || '',
+    consigneeAddress: marginData?.invoiceDetail?.consigneeAddress || '',
+    importerName: marginData?.invoiceDetail?.importerName || '',
+    branchOffice: marginData?.invoiceDetail?.branchOffice || '',
+    companyAddress: marginData?.invoiceDetail?.companyAddress || '',
+    importerGSTIN: marginData?.invoiceDetail?.importerGSTIN || '',
+    bankName: marginData?.invoiceDetail?.bankName || '',
+    branch: marginData?.invoiceDetail?.branch || '',
+    branchAddress: marginData?.invoiceDetail?.branchAddress || '',
+    IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
+    accountNo: marginData?.invoiceDetail?.accountNo || '',
+  })
+ }
+  },[marginData])
   // console.log(invoiceData, 'invoiceData')
 
   const saveInvoiceData = (name, value) => {
-    console.log(value, 'invoice data value', name)
+    // console.log(value, 'invoice data value', name)
     const newInput = { ...invoiceData }
+  
     newInput[name] = value
+    
     // console.log(newInput, 'nnto', name, value)
 
-    setInvoiceData({ ...newInput })
+   
+    if(invoiceData?.isConsigneeSameAsBuyer==true){
+      if(name=="buyerName"){
+       let a="consigneeName"
+      newInput[a] = value
+      }
+      if(name=="buyerGSTIN"){
+       let a="consigneeGSTIN"
+      newInput[a] = value
+      }
+      if(name=="buyerAddress"){
+       let a="consigneeAddress"
+      newInput[a] = value
+      }
+       
+    }
+     setInvoiceData({ ...newInput })
   }
 
   console.log(invoiceData, 'invoice data value')
@@ -1623,15 +1663,13 @@ function Index() {
                                       className={`${styles.radio} radio`}
                                       inline
                                       label="Yes"
-                                      defaultChecked={
-                                        invoiceData?.isConsigneeSameAsBuyer ==
-                                        true
-                                      }
-                                      onChange={() => {
-                                        saveInvoiceData(
-                                          'isConsigneeSameAsBuyer',
-                                          true,
-                                        )
+                                     
+                                      onChange={(e) => {
+                                         setInvoiceData({ ...invoiceData,isConsigneeSameAsBuyer:true })
+                                        // saveInvoiceData(
+                                        //   'isConsigneeSameAsBuyer',
+                                        //   true,
+                                        // )
                                         setSame(true)
                                       }}
                                       name="group1"
@@ -1642,15 +1680,13 @@ function Index() {
                                       className={`${styles.radio} radio`}
                                       inline
                                       label="No"
-                                      defaultChecked={
-                                        invoiceData?.isConsigneeSameAsBuyer ==
-                                        false
-                                      }
-                                      onChange={() => {
-                                        saveInvoiceData(
-                                          'isConsigneeSameAsBuyer',
-                                          false,
-                                        )
+                                     
+                                      onChange={(e) => {
+                                        // saveInvoiceData(
+                                        //   'isConsigneeSameAsBuyer',
+                                        //   false,
+                                        // )
+                                         setInvoiceData({ ...invoiceData,isConsigneeSameAsBuyer:false })
                                         setSame(false)
                                       }}
                                       name="group1"
