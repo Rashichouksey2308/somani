@@ -460,11 +460,17 @@ body.dark-mode .statusBox {
   box-shadow: none;
   //border: 1px solid #434E61;
 }
+body.light-mode .statusBox h3 {
+  color: #111111;
+}
 body.dark-mode .statusBox h3 {
   color: #ffffff;
 }
-body.light-mode .statusBox h3 {
-  color: #111111;
+body.light-mode .statusBox h3 span {
+  color: #8492A6;
+}
+body.dark-mode .statusBox h3 span {
+  color: rgba(255, 255, 255, 0.7);
 }
 body.light-mode .status_number {
   color: #000000;
@@ -939,4 +945,24 @@ body.light-mode .filter label {
 }
 body.dark-mode .filter label {
   color: rgba(255, 255, 255, 0.8);
+}
+body.light-mode .download-pdf-bg {
+  background: #D8EAFF;
+  border: 1px solid #D2D7E5;
+}
+body.dark-mode .download-pdf-bg {
+  background: #3687E8;
+  border: 1px solid #D2D7E5;
+}
+body.light-mode .download-pdf-color {
+  color: #111111;
+}
+body.dark-mode .download-pdf-color {
+  color: #FFFFFF;
+}
+body.light-mode .download-pdf-title {
+  color: #3687E8;
+}
+body.dark-mode .download-pdf-title {
+  color: #FFFFFF;
 }

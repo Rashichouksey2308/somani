@@ -17,17 +17,17 @@ import { ViewDocument } from 'redux/ViewDoc/action'
 
 export default function Index({ addButton, inspectionData }) {
   const dispatch = useDispatch()
-
+ const [excelFile, setExcelFile] = useState([])
   let orderid = _get(inspectionData, 'order._id', '')
 
   const [editInput, setEditInput] = useState(true)
   const [bothField, setBothField] = useState(false)
-  const [haveDoc,sethaveDoc]=useState(false)
+  const [haveDoc, sethaveDoc] = useState(false)
   const [portType, setPortType] = useState({
     loadPortInspection: false,
     dischargePortInspection: false,
   })
-  console.log(portType, "inspectionData")
+  console.log(portType, 'inspectionData')
   const handlePortType = (name, value) => {
     let newInput = { ...portType }
     newInput[name] = !value
@@ -45,8 +45,13 @@ export default function Index({ addButton, inspectionData }) {
   }
   const [show, setShow] = useState(false)
 
-  // useEffect(() => {}, [])
-
+  useEffect(() => {
+    if(inspectionData){
+      console.log(inspectionData,"orderid")
+      setExcelFile(_get(inspectionData,"order.generic.productSpecifications.specificationTable",[]))
+    }
+  }, [inspectionData])
+ console.log(excelFile,"excelFile")
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
@@ -87,44 +92,42 @@ export default function Index({ addButton, inspectionData }) {
     },
   })
   useEffect(() => {
-    setInspectionDetails(
-      {
-        loadPortInspectionDetails: {
-          numberOfContainer:
-            inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-              ?.numberOfContainer,
-          inspectionPort:
-            inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-              ?.inspectionPort,
-          inspectedBy:
-            inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-              ?.inspectedBy,
-          startDate:
-            inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-              ?.startDate,
-          specialMention:
-            inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-              ?.specialMention,
-        },
-        dischargePortInspectionDetails: {
-          numberOfContainer:
-            inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-              ?.numberOfContainer,
-          inspectionPort:
-            inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-              ?.inspectionPort,
-          inspectedBy:
-            inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-              ?.inspectedBy,
-          startDate:
-            inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-              ?.startDate,
-          specialMention:
-            inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-              ?.specialMention,
-        },
-      }
-    )
+    setInspectionDetails({
+      loadPortInspectionDetails: {
+        numberOfContainer:
+          inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+            ?.numberOfContainer,
+        inspectionPort:
+          inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+            ?.inspectionPort,
+        inspectedBy:
+          inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+            ?.inspectedBy,
+        startDate:
+          inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+            ?.startDate,
+        specialMention:
+          inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
+            ?.specialMention,
+      },
+      dischargePortInspectionDetails: {
+        numberOfContainer:
+          inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+            ?.numberOfContainer,
+        inspectionPort:
+          inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+            ?.inspectionPort,
+        inspectedBy:
+          inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+            ?.inspectedBy,
+        startDate:
+          inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+            ?.startDate,
+        specialMention:
+          inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
+            ?.specialMention,
+      },
+    })
   }, [inspectionData])
 
   const [documents, setDocuments] = useState({
@@ -135,30 +138,31 @@ export default function Index({ addButton, inspectionData }) {
     certificateOfOrigin:
       inspectionData?.thirdPartyInspection?.certificateOfOrigin || null,
   })
-   console.log("sethave",documents)
-useEffect((
- 
-) => {
-   
- 
-   if(documents.certificateOfQuality==null && documents.certificateOfWeight==null && documents.certificateOfOrigin==null){
-    
-     sethaveDoc(false)
-  }
-},[
-  documents.certificateOfQuality,documents.certificateOfWeight, documents.certificateOfOrigin
-])
+  console.log('sethave', documents)
+  useEffect(() => {
+    if (
+      documents.certificateOfQuality == null &&
+      documents.certificateOfWeight == null &&
+      documents.certificateOfOrigin == null
+    ) {
+      sethaveDoc(false)
+    }
+  }, [
+    documents.certificateOfQuality,
+    documents.certificateOfWeight,
+    documents.certificateOfOrigin,
+  ])
   const uploadDocument1 = (e) => {
     const newUploadDoc = { ...documents }
     newUploadDoc.certificateOfQuality = e.target.files[0]
-   
-    setDocuments({newUploadDoc})
+
+    setDocuments({ newUploadDoc })
     sethaveDoc(true)
   }
   const uploadDocument2 = (e) => {
     const newUploadDoc1 = { ...documents }
     newUploadDoc1.certificateOfWeight = e.target.files[0]
- 
+
     setDocuments(newUploadDoc1)
     sethaveDoc(true)
   }
@@ -168,7 +172,7 @@ useEffect((
     newUploadDoc1.certificateOfOrigin = e.target.files[0]
 
     setDocuments(newUploadDoc1)
-     sethaveDoc(true)
+    sethaveDoc(true)
   }
 
   const handleCloseW = () => {
@@ -224,27 +228,27 @@ useEffect((
     }
   }
 
-   const handleSave = () => {
-    console.log("dsaasdad",haveDoc)
-    if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Liner') {
+  const handleSave = () => {
+    console.log('dsaasdad', haveDoc)
+    if (
+      _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') ==
+      'Liner'
+    ) {
       if (
         portType.loadPortInspection == true &&
         portType.dischargePortInspection == false
       ) {
-        
-      
-          let fd = new FormData()
-          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
-          fd.append('loadPortInspection', portType.loadPortInspection)
-          fd.append('inspectionId', inspectionData?._id)
-          fd.append('certificateOfOrigin', documents.certificateOfOrigin)
-          fd.append('certificateOfQuality', documents.certificateOfQuality)
-          fd.append('certificateOfWeight', documents.certificateOfWeight)
+        let fd = new FormData()
+        fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
+        fd.append('loadPortInspection', portType.loadPortInspection)
+        fd.append('inspectionId', inspectionData?._id)
+        fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+        fd.append('certificateOfQuality', documents.certificateOfQuality)
+        fd.append('certificateOfWeight', documents.certificateOfWeight)
 
-          let task = 'save'
+        let task = 'save'
 
-          dispatch(UpdateInspection({fd, task}))
-        
+        dispatch(UpdateInspection({ fd, task }))
       } else if (
         portType.dischargePortInspection == true &&
         portType.loadPortInspection == false
@@ -257,95 +261,89 @@ useEffect((
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
-        } 
-          let fd = new FormData()
-          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
-          fd.append('dischargePortInspection', portType.dischargePortInspection)
-          fd.append('inspectionId', inspectionData?._id)
-          fd.append('certificateOfOrigin', documents.certificateOfOrigin)
-          fd.append('certificateOfQuality', documents.certificateOfQuality)
-          fd.append('certificateOfWeight', documents.certificateOfWeight)
+        }
+        let fd = new FormData()
+        fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
+        fd.append('dischargePortInspection', portType.dischargePortInspection)
+        fd.append('inspectionId', inspectionData?._id)
+        fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+        fd.append('certificateOfQuality', documents.certificateOfQuality)
+        fd.append('certificateOfWeight', documents.certificateOfWeight)
 
-          let task = 'save'
+        let task = 'save'
 
-          dispatch(UpdateInspection({fd, task}))
-       
+        dispatch(UpdateInspection({ fd, task }))
       } else {
-        
-          let fd = new FormData()
-          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
-          fd.append('dischargePortInspection', portType.dischargePortInspection)
-          fd.append('loadPortInspection', portType.loadPortInspection)
-          fd.append('inspectionId', inspectionData?._id)
-          fd.append('certificateOfOrigin', documents.certificateOfOrigin)
-          fd.append('certificateOfQuality', documents.certificateOfQuality)
-          fd.append('certificateOfWeight', documents.certificateOfWeight)
+        let fd = new FormData()
+        fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
+        fd.append('dischargePortInspection', portType.dischargePortInspection)
+        fd.append('loadPortInspection', portType.loadPortInspection)
+        fd.append('inspectionId', inspectionData?._id)
+        fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+        fd.append('certificateOfQuality', documents.certificateOfQuality)
+        fd.append('certificateOfWeight', documents.certificateOfWeight)
 
-          let task = 'save'
+        let task = 'save'
 
-          dispatch(UpdateInspection({fd, task}))
-        
+        dispatch(UpdateInspection({ fd, task }))
       }
-    } 
-    if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk') {
-      
+    }
+    if (
+      _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk'
+    ) {
       if (
         portType.loadPortInspection == true &&
         portType.dischargePortInspection == false
       ) {
-        
-          let fd = new FormData()
-          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
-          fd.append('loadPortInspection', portType.loadPortInspection)
-          fd.append('inspectionId', inspectionData?._id)
-          fd.append('certificateOfOrigin', documents.certificateOfOrigin)
-          fd.append('certificateOfQuality', documents.certificateOfQuality)
-          fd.append('certificateOfWeight', documents.certificateOfWeight)
+        let fd = new FormData()
+        fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
+        fd.append('loadPortInspection', portType.loadPortInspection)
+        fd.append('inspectionId', inspectionData?._id)
+        fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+        fd.append('certificateOfQuality', documents.certificateOfQuality)
+        fd.append('certificateOfWeight', documents.certificateOfWeight)
 
-          let task = 'save'
+        let task = 'save'
 
-          dispatch(UpdateInspection({fd, task}))
-        
+        dispatch(UpdateInspection({ fd, task }))
       } else if (
         portType.dischargePortInspection == true &&
         portType.loadPortInspection == false
       ) {
-       
-          let fd = new FormData()
-          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
-          fd.append('dischargePortInspection', portType.dischargePortInspection)
-          fd.append('inspectionId', inspectionData?._id)
-          fd.append('certificateOfOrigin', documents.certificateOfOrigin)
-          fd.append('certificateOfQuality', documents.certificateOfQuality)
-          fd.append('certificateOfWeight', documents.certificateOfWeight)
+        let fd = new FormData()
+        fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
+        fd.append('dischargePortInspection', portType.dischargePortInspection)
+        fd.append('inspectionId', inspectionData?._id)
+        fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+        fd.append('certificateOfQuality', documents.certificateOfQuality)
+        fd.append('certificateOfWeight', documents.certificateOfWeight)
 
-          let task = 'save'
+        let task = 'save'
 
-          dispatch(UpdateInspection({fd, task}))
-        
+        dispatch(UpdateInspection({ fd, task }))
       } else {
-        
-         
-          let fd = new FormData()
-          fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
-          fd.append('dischargePortInspection', portType.dischargePortInspection)
-          fd.append('loadPortInspection', portType.loadPortInspection)
-          fd.append('inspectionId', inspectionData?._id)
-          fd.append('certificateOfOrigin', documents.certificateOfOrigin)
-          fd.append('certificateOfQuality', documents.certificateOfQuality)
-          fd.append('certificateOfWeight', documents.certificateOfWeight)
+        let fd = new FormData()
+        fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
+        fd.append('dischargePortInspection', portType.dischargePortInspection)
+        fd.append('loadPortInspection', portType.loadPortInspection)
+        fd.append('inspectionId', inspectionData?._id)
+        fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+        fd.append('certificateOfQuality', documents.certificateOfQuality)
+        fd.append('certificateOfWeight', documents.certificateOfWeight)
 
-          let task = 'save'
+        let task = 'save'
 
-          dispatch(UpdateInspection({fd, task}))
-        
+        dispatch(UpdateInspection({ fd, task }))
       }
     }
   }
-  console.log(haveDoc,"sethaveDoc")
-   const handleSubmit = () => {
-    console.log("dsaasdad",haveDoc)
-    if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Liner') {
+  console.log(haveDoc, 'sethaveDoc')
+  const handleSubmit = () => {
+    console.log('dsaasdad', haveDoc)
+    if (
+      _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') ==
+      'Liner'
+    ) {
       if (
         portType.loadPortInspection == true &&
         portType.dischargePortInspection == false
@@ -378,9 +376,7 @@ useEffect((
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
-        } else if (
-            haveDoc==false
-        ) {
+        } else if (haveDoc == false) {
           let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
@@ -396,7 +392,7 @@ useEffect((
 
           let task = 'submit'
 
-          dispatch(UpdateInspection({fd, task}))
+          dispatch(UpdateInspection({ fd, task }))
         }
       } else if (
         portType.dischargePortInspection == true &&
@@ -432,9 +428,7 @@ useEffect((
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
-        } else if (
-            haveDoc==false
-        ) {
+        } else if (haveDoc == false) {
           let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
@@ -450,7 +444,7 @@ useEffect((
 
           let task = 'submit'
 
-          dispatch(UpdateInspection({fd, task}))
+          dispatch(UpdateInspection({ fd, task }))
         }
       } else {
         if (
@@ -481,9 +475,7 @@ useEffect((
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
-        } else if (
-            haveDoc==false
-        ) {
+        } else if (haveDoc == false) {
           let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
@@ -518,9 +510,7 @@ useEffect((
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
-        } else if (
-            haveDoc==false
-        ) {
+        } else if (haveDoc == false) {
           let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
@@ -537,12 +527,13 @@ useEffect((
 
           let task = 'submit'
 
-          dispatch(UpdateInspection({fd, task}))
+          dispatch(UpdateInspection({ fd, task }))
         }
       }
-    } 
-    if (_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk') {
-      
+    }
+    if (
+      _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk'
+    ) {
       if (
         portType.loadPortInspection == true &&
         portType.dischargePortInspection == false
@@ -566,9 +557,7 @@ useEffect((
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
-        } else if (
-          haveDoc==false
-        ) {
+        } else if (haveDoc == false) {
           let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
@@ -584,7 +573,7 @@ useEffect((
 
           let task = 'submit'
 
-          dispatch(UpdateInspection({fd, task}))
+          dispatch(UpdateInspection({ fd, task }))
         }
       } else if (
         portType.dischargePortInspection == true &&
@@ -612,9 +601,7 @@ useEffect((
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
-        } else if (
-            haveDoc==false
-        ) {
+        } else if (haveDoc == false) {
           let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
@@ -630,7 +617,7 @@ useEffect((
 
           let task = 'submit'
 
-          dispatch(UpdateInspection({fd, task}))
+          dispatch(UpdateInspection({ fd, task }))
         }
       } else {
         if (inspectionDetails?.loadPortInspectionDetails?.inspectedBy === '') {
@@ -652,9 +639,7 @@ useEffect((
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
-        } else if (
-           haveDoc==false
-        ) {
+        } else if (haveDoc == false) {
           let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
@@ -681,9 +666,7 @@ useEffect((
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
           }
-        } else if (
-           haveDoc==false
-        ) {
+        } else if (haveDoc == false) {
           let toastMessage = 'ANY ONE DOCUMENT IS MANDATORY'
           if (!toast.isActive(toastMessage)) {
             toast.error(toastMessage, { toastId: toastMessage })
@@ -700,7 +683,7 @@ useEffect((
 
           let task = 'submit'
 
-          dispatch(UpdateInspection({fd, task}))
+          dispatch(UpdateInspection({ fd, task }))
         }
       }
     }
@@ -744,7 +727,11 @@ useEffect((
                     Shipment Type:
                   </label>
                   <div className={`${styles.dropDown} input`} value="Bulk">
-                    {_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '')}
+                    {_get(
+                      inspectionData,
+                      'order.vessel.vessels[0].shipmentType',
+                      '',
+                    )}
                   </div>
                 </div>
 
@@ -838,11 +825,14 @@ useEffect((
                   </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
-                  <div className={`${styles.label} text`}>Vessel Name
-                  {!portType.loadPortInspection ? (
-                  <strong className="text-danger">*</strong>
-                  ) : ''}
-</div>
+                  <div className={`${styles.label} text`}>
+                    Vessel Name
+                    {!portType.loadPortInspection ? (
+                      <strong className="text-danger">*</strong>
+                    ) : (
+                      ''
+                    )}
+                  </div>
                   <span className={styles.value}>
                     {_get(
                       inspectionData,
@@ -883,7 +873,7 @@ useEffect((
                   </h5>
 
                   <div className="row">
-                    {inspectionData?.order?.shipmentDetail?.shipmentType ===
+                    {/* {inspectionData?.order?.shipmentDetail?.shipmentType ===
                       'Liner' ? (
                       <div
                         className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
@@ -913,7 +903,7 @@ useEffect((
                       </div>
                     ) : (
                       ''
-                    )}
+                    )} */}
                     <div
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                     >
@@ -1009,7 +999,7 @@ useEffect((
                           rows={3}
                           required
                           className={`${styles.comment_field} ${styles.input_field} input form-control`}
-                        // style={{ backgroundColor: 'none' }}
+                          // style={{ backgroundColor: 'none' }}
                         />
                         <label
                           className={`${styles.comment_heading} ${styles.label_heading} label_heading`}
@@ -1025,13 +1015,13 @@ useEffect((
           ) : null}
           {portType.dischargePortInspection
             ? Discharge(
-              inspectionData,
-              saveInspectionDetails,
-              saveDate,
-              setStartDate,
-              setDateStartFrom,
-              handleShow
-            )
+                inspectionData,
+                saveInspectionDetails,
+                saveDate,
+                setStartDate,
+                setDateStartFrom,
+                handleShow,
+              )
             : ''}
 
           <div className={`${styles.main} vessel_card card border-color`}>
@@ -1175,7 +1165,7 @@ useEffect((
                             </td>
                             <td>
                               {documents &&
-                                documents?.certificateOfOrigin == null ? (
+                              documents?.certificateOfOrigin == null ? (
                                 <>
                                   <div className={styles.uploadBtnWrapper}>
                                     <input
@@ -1298,7 +1288,7 @@ useEffect((
                             </td>
                             <td>
                               {documents &&
-                                documents?.certificateOfQuality == null ? (
+                              documents?.certificateOfQuality == null ? (
                                 <>
                                   <div className={styles.uploadBtnWrapper}>
                                     <input
@@ -1422,7 +1412,7 @@ useEffect((
                             </td>
                             <td>
                               {documents &&
-                                documents?.certificateOfWeight == null ? (
+                              documents?.certificateOfWeight == null ? (
                                 <>
                                   <div className={styles.uploadBtnWrapper}>
                                     <input
@@ -1697,7 +1687,11 @@ useEffect((
             <UploadOther orderid={orderid} module="Loading-Transit-Unloading" />
           </div>
         </div>
-        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />
+        <SaveBar
+          handleSave={handleSave}
+          rightBtn="Submit"
+          rightBtnClick={handleSubmit}
+        />
       </div>
       <Modal
         show={show}
@@ -1726,49 +1720,27 @@ useEffect((
                   border="0"
                 >
                   <thead>
-                    <tr>
-                      <th width={44}></th>
-                      <th>S.NO.</th>
-                      <th>ELEMENTS</th>
-                      <th>TYPICAL (IN PCT)</th>
-                      <th>GUARANTEED (IN PCT)</th>
-                      <th width={44}></th>
-                    </tr>
+                   <tr className="table_row">
+                      {excelFile &&
+                        excelFile.length > 0 &&
+                        Object.keys(excelFile[0]).map((val, index) => (
+                          <th key={index}>{val}</th>
+                        ))}
+                     </tr>
                   </thead>
-                  <tbody>
-                    <tr className="table_row">
-                      <th></th>
-                      <td>01</td>
-                      <td>SiO2</td>
-                      <td>44.50</td>
-                      <td>44.50</td>
-                      <td></td>
-                    </tr>
-                    <tr className="table_row">
-                      <th></th>
-                      <td>02</td>
-                      <td>Al2O3</td>
-                      <td>44.50</td>
-                      <td>44.50</td>
-                      <td></td>
-                    </tr>
-                    <tr className="table_row">
-                      <th></th>
-                      <td>03</td>
-                      <td>SiO2</td>
-                      <td>44.50</td>
-                      <td>44.50</td>
-                      <td></td>
-                    </tr>
-                    <tr className="table_row">
-                      <th></th>
-                      <td>04</td>
-                      <td>Al2O3</td>
-                      <td>44.50</td>
-                      <td>44.50</td>
-                      <td></td>
-                    </tr>
-                  </tbody>
+                    <tbody>
+                           
+                             {excelFile &&
+                                excelFile.length > 0 &&
+                                excelFile.map((item, index) => (
+                                  <tr>
+                                    {Object.values(item).map((value, id) => (
+                                      <td key={id}>{value}</td>
+                                    ))}
+                                  </tr>
+                                ))}
+                          
+                          </tbody>
                 </table>
               </div>
             </div>
@@ -1787,7 +1759,6 @@ const Discharge = (
   setStartDate,
   handleShow,
 ) => {
-  
   return (
     <div className={`${styles.main} vessel_card card border-color`}>
       <div
@@ -1812,7 +1783,7 @@ const Discharge = (
         <h5 className={styles.sub_heading}>Inspection at Discharge Port</h5>
 
         <div className="row">
-          {inspectionData?.order?.shipmentDetail?.shipmentType === 'Liner' ? (
+          {/* {inspectionData?.order?.shipmentDetail?.shipmentType === 'Liner' ? (
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <input
                 className={`${styles.input_field} input form-control`}
@@ -1834,7 +1805,7 @@ const Discharge = (
             </div>
           ) : (
             ''
-          )}
+          )} */}
 
           <div className={`${styles.form_group} col-md-4 col-sm-6`}>
             <div className="d-flex">
@@ -1921,7 +1892,7 @@ const Discharge = (
                 }
                 required
                 className={`${styles.comment_field} ${styles.input_field} input form-control`}
-              // style={{ backgroundColor: 'none' }}
+                // style={{ backgroundColor: 'none' }}
               />
               <label
                 className={`${styles.comment_heading} ${styles.label_heading} label_heading`}

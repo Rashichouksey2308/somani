@@ -516,7 +516,7 @@ console.log(bolList,"bolList")
     console.log(fd, bol, 'filteredVessel')
   }
   // console.log(bolList, 'filteredVessel', startetaAtDischargePortFrom)
-  // console.log(TransitDetails, 'TransitDetails')
+  console.log(TransitDetails, 'TransitDetails')
   return (
     <>
       <div className={`${styles.backgroundMain} p-0 container-fluid`}>
