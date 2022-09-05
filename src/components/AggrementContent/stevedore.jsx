@@ -83,45 +83,45 @@ useEffect(() => {
     if(props.sameAsCHA==false){
       let savedData=JSON.parse(sessionStorage.getItem("Cha"))
       let supplier={
-        "name": savedData.name,
-        "shortName": savedData.shortName,
-        "gstin": savedData.gstin ,
-        "addresses": savedData.addresses,
-        "authorisedSignatoryDetails": savedData.authorisedSignatoryDetails,
+        "name": savedData?.name || "Integral Trading and Logistics",
+        "shortName": savedData?.shortName || "",
+        "gstin": savedData?.gstin ||"27AAACA3912A2ZE",
+        "addresses": savedData?.addresses|| [],
+        "authorisedSignatoryDetails": savedData?.authorisedSignatoryDetails || [],
        
         
        }
-       setList(savedData.authorisedSignatoryDetails)
-       setAddressList(savedData.addresses)
+       setList(savedData?.authorisedSignatoryDetails|| [])
+       setAddressList(savedData?.addresses|| [])
        setSeteveState(supplier)
     }
     else if(sessionStorage.getItem("Stevedore")){
       console.log("s")
       let savedData=JSON.parse(sessionStorage.getItem("Stevedore"))
       let supplier={
-        "name": savedData.name,
-        "shortName": savedData.shortName,
-        "gstin": savedData.gstin ,
-        "addresses": savedData.addresses,
-        "authorisedSignatoryDetails": savedData.authorisedSignatoryDetails,
+        "name": savedData.name|| "",
+        "shortName": savedData.shortName|| "",
+        "gstin": savedData.gstin|| "" ,
+        "addresses": savedData.addresses|| [],
+        "authorisedSignatoryDetails": savedData.authorisedSignatoryDetails|| [],
        
         
        }
-       setList(savedData.authorisedSignatoryDetails)
-       setAddressList(savedData.addresses)
+       setList(savedData.authorisedSignatoryDetails|| [])
+       setAddressList(savedData.addresses|| [])
        setSeteveState(supplier)
     }else{
          let supplier={
-        "name": props.data?.name,
-        "shortName": props.data?.shortName,
-        "gstin": props.data?.gstin ,
-        "addresses": props.data?.addresses,
-        "authorisedSignatoryDetails": props.data?.authorisedSignatoryDetails,
+        "name": props.data?.name || "",
+        "shortName": props.data?.shortName || "",
+        "gstin": props.data?.gstin|| "" ,
+        "addresses": props.data?.addresses|| [],
+        "authorisedSignatoryDetails": props.data?.authorisedSignatoryDetails|| [],
        
         
        }
-       setList(props.data?.authorisedSignatoryDetails)
-       setAddressList(props.data?.addresses)
+       setList(props.data?.authorisedSignatoryDetails|| [])
+       setAddressList(props.data?.addresses|| [])
        setSeteveState(supplier)
     }
    }
@@ -480,7 +480,7 @@ const addDoc=(e,index)=>{
                   }}
                 >
                    <option>Select an option</option>
-                  <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                  <option value="27AAACA3912A2ZE">27AAACA3912A2ZE</option>
                 
                 </select>
                 <Form.Label
