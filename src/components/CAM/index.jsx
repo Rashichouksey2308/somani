@@ -2532,7 +2532,8 @@ const financeDetails = (
                   </tr>
                   <tr>
                     <td>Inventory Period</td>
-                    <td>{latestYearData?.daysOfInventoryOutstanding}</td>
+                    <td>
+                      {latestYearData?.daysOfInventoryOutstanding}</td>
                     <td>{previousYearData?.daysOfInventoryOutstanding}</td>
                   </tr>
                   <tr>

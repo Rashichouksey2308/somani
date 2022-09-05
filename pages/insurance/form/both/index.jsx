@@ -143,7 +143,7 @@ const Index = () => {
 
   const validate = () => {
     let toastMessage = ''
-
+    console.log(marineData,"marineData")
     if (insuranceData?.quotationRequest?.insuranceType == 'Marine Insurance') {
       if (
         marineData.insuranceFromType == 'Domestic' &&
@@ -174,6 +174,7 @@ const Index = () => {
           return false
         }
       }
+    
       if (
         marineData.insuranceTo == ''
       ) {
@@ -190,6 +191,7 @@ const Index = () => {
           return false
         }
       }
+      
       return true
     } 
      if (
@@ -233,6 +235,7 @@ const Index = () => {
           return false
         }
       }
+      
       if (insuranceDocument.storagePolicyDocument == null) {
         toastMessage = 'Documents are Mandatory'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -296,6 +299,7 @@ const Index = () => {
       }
       return true
     }
+   
     
   }
 
@@ -526,7 +530,7 @@ const Index = () => {
                           
                               type="text"
                               name="gstOfInsurer"
-                              defaultValue={insuranceData?.marineInsurance?.gstOfInsurer}
+                              value={marineData?.gstOfInsurer}
                               onChange={(e) =>
                                 saveMarineData(e.target.name, e.target.value)
                               }

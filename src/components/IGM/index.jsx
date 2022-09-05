@@ -234,6 +234,7 @@ export default function Index({
       setConsigneeName("")
     }
   }
+  console.log(TransitDetails, `data[0]`,"sasasdasdasdasdas")
   useEffect(() => {
     if (_get(TransitDetails, `data[0].IGM`, {})) {
       setConsigneeInfo({

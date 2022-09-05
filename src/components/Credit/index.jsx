@@ -1770,7 +1770,7 @@ const index = ({
                     <tr>
                       <th>S.NO.</th>
                       <th>Primary Account</th>
-                      <th>BANK NAME</th>
+                      <th>LENDER NAME</th>
                       <th>LIMIT TYPE</th>
                       <th>LIMIT</th>
                       <th>CONDUCT</th>
