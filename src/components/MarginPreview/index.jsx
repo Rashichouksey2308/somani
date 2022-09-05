@@ -62,7 +62,7 @@ function Index() {
 
     //  ];
     let element = (
-      <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+      <table width="1000px" cellPadding="0" cellSpacing="0" border="0">
         <tr>
           <td valign="top">
             <table
@@ -97,7 +97,10 @@ function Index() {
                         fontWeight: 'normal',
                         opacity: '0.7',
                       }}
-                    ></span>
+                       
+                    >
+                       {marginData?.order?.orderId}
+                    </span>
                   </p>
                   <p
                     style={{
@@ -116,6 +119,7 @@ function Index() {
                         opacity: '0.7',
                       }}
                     >
+                      {marginData?.company?.companyName}
                       {/* {_get(termsheet, 'data[0].company.companyName', '')} */}
                     </span>
                   </p>
@@ -155,7 +159,9 @@ function Index() {
                         opacity: '0.7',
                       }}
                     >
-                      22-02-2022
+                      {moment(marginData?.createdAt?.slice(0, 10)).format(
+                    'DD-MM-yy',
+                  )}
                     </span>
                   </p>
                 </td>
@@ -261,7 +267,13 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            75000 MT
+                            {addPrefixOrSuffix(
+                        marginData?.order?.quantity
+                          ? marginData?.order?.quantity
+                          : 0,
+                        'MT',
+                        '',
+                      )}
                           </p>
                         </td>
                       </tr>
@@ -303,7 +315,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            5000 MT (± 10%)
+                             {(marginData?.order?.perUnitPrice)?.toLocaleString() ?? 0}
                           </p>
                         </td>
                       </tr>
@@ -345,7 +357,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            USD 192.09/MT
+                            {marginData?.conversionRate}
                           </p>
                         </td>
                       </tr>
@@ -387,7 +399,12 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            USD 192.09/MT
+                            {addPrefixOrSuffix(
+                        marginData?.order?.termsheet?.commercials
+                          ?.usanceInterestPercetage,
+                        '%',
+                        '',
+                      )}
                           </p>
                         </td>
                       </tr>
@@ -429,7 +446,12 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            USD 192.09/MT
+                             {addPrefixOrSuffix(
+                        marginData?.order?.termsheet?.commercials
+                          ?.tradeMarginPercentage,
+                        '%',
+                        '',
+                      )}
                           </p>
                         </td>
                       </tr>
@@ -471,7 +493,13 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            USD 192.09/MT
+                            {addPrefixOrSuffix(
+                        marginData?.order?.tolerance
+                          ? marginData?.order?.tolerance
+                          : 0,
+                        '%',
+                        '',
+                      )}
                           </p>
                         </td>
                       </tr>
@@ -513,7 +541,15 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            USD 192.09/MT
+                           {addPrefixOrSuffix(
+                        marginData?.order?.termsheet?.transactionDetails
+                          ?.marginMoney
+                          ? marginData?.order?.termsheet?.transactionDetails
+                              ?.marginMoney
+                          : 0,
+                        '%',
+                        '',
+                      )}
                           </p>
                         </td>
                       </tr>
@@ -555,7 +591,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            USD 192.09/MT
+                            {marginData?.numberOfPDC?.toLocaleString() ?? 0}
                           </p>
                         </td>
                       </tr>
@@ -597,7 +633,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            USD 192.09/MT
+                           {marginData?.additionalPDC}
                           </p>
                         </td>
                       </tr>
@@ -673,7 +709,8 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            USD 38,50,000.00
+                            {marginData?.calculation?.orderValue?.toLocaleString() ??
+                        0}
                           </p>
                         </td>
                       </tr>
@@ -723,7 +760,8 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            value
+                            {marginData?.calculation?.orderValueInINR?.toLocaleString() ??
+                        0}
                           </p>
                         </td>
                       </tr>
@@ -773,7 +811,8 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            value
+                           {marginData?.calculation?.usanceInterest?.toLocaleString() ??
+                        0}
                           </p>
                         </td>
                       </tr>
@@ -823,7 +862,8 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            value
+                            {marginData?.calculation?.tradeMargin?.toLocaleString() ??
+                        0}
                           </p>
                         </td>
                       </tr>
@@ -873,7 +913,8 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            value
+                             {marginData?.calculation?.grossOrderValue?.toLocaleString() ??
+                        0}
                           </p>
                         </td>
                       </tr>
@@ -923,7 +964,8 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            value
+                           {marginData?.calculation?.toleranceValue?.toLocaleString() ??
+                        0}
                           </p>
                         </td>
                       </tr>
@@ -973,7 +1015,8 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            value
+                             {marginData?.calculation?.totalOrderValue?.toLocaleString() ??
+                        0}
                           </p>
                         </td>
                       </tr>
@@ -1023,7 +1066,8 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            value
+                            {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString() ??
+                        0}
                           </p>
                         </td>
                       </tr>
@@ -1073,7 +1117,8 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            value
+                            {marginData?.calculation?.marginMoney?.toLocaleString() ??
+                        0}
                           </p>
                         </td>
                       </tr>
@@ -1123,11 +1168,12 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            value
+                            {marginData?.calculation?.totalSPDC?.toLocaleString() ??
+                        0}
                           </p>
                         </td>
                       </tr>
-                      <tr>
+                      {/* <tr>
                         <td
                           align="left"
                           style={{ borderRight: '2px solid #cad6e64d' }}
@@ -1176,8 +1222,8 @@ function Index() {
                             value
                           </p>
                         </td>
-                      </tr>
-                      <tr>
+                      </tr> */}
+                      {/* <tr>
                         <td
                           align="left"
                           style={{ borderRight: '2px solid #cad6e64d' }}
@@ -1226,8 +1272,8 @@ function Index() {
                             value
                           </p>
                         </td>
-                      </tr>
-                      <tr>
+                      </tr> */}
+                      {/* <tr>
                         <td
                           align="left"
                           style={{ borderRight: '2px solid #cad6e64d' }}
@@ -1318,8 +1364,8 @@ function Index() {
                             value
                           </p>
                         </td>
-                      </tr>
-                      <tr>
+                      </tr> */}
+                      {/* <tr>
                         <td
                           align="left"
                           style={{ borderRight: '2px solid #cad6e64d' }}
@@ -1410,7 +1456,7 @@ function Index() {
                             value
                           </p>
                         </td>
-                      </tr>
+                      </tr> */}
                     </tbody>
                   </table>
                 </td>
@@ -1420,7 +1466,7 @@ function Index() {
         </tr>
       </table>
     )
-    const doc = new jsPDF('p', 'pt', 'a4')
+    const doc = new jsPDF('p', 'pt', [1000,1000])
     doc.html(ReactDOMServer.renderToString(element), {
       callback: function (doc) {
         doc.save('sample.pdf')
@@ -1448,29 +1494,29 @@ function Index() {
             </h1>
           </div>
         </div>
-        <div className={`${styles.term_container} container-fluid`}>
+        <div className={`${styles.term_container} download-pdf-bg container-fluid`}>
           <Row>
             <Col md={4} className={`${styles.left}`}>
               <div>
-                <span className={styles.termSub_head}>Order ID:</span>
-                <span className={styles.termValue}>
+                <span className={`${styles.termSub_head} download-pdf-color`}>Order ID:</span>
+                <span className={`${styles.termValue} download-pdf-color`}>
                   {marginData?.order?.orderId}
                 </span>
               </div>
               <div>
-                <span className={styles.termSub_head}>Buyer:</span>
-                <span className={styles.termValue}>
+                <span className={`${styles.termSub_head} download-pdf-color`}>Buyer:</span>
+                <span className={`${styles.termValue} download-pdf-color`}>
                   {marginData?.company?.companyName}
                 </span>
               </div>
             </Col>
             <Col md={4} className="text-center">
-              <span>MARGIN MONEY</span>
+              <span className='download-pdf-title'>MARGIN MONEY</span>
             </Col>
             <Col md={4} className={`${styles.left} ${styles.right}`}>
               <div>
-                <span className={styles.termSub_head}>Date:</span>{' '}
-                <span className={styles.termValue}>
+                <span className={`${styles.termSub_head} download-pdf-color`}>Date:</span>{' '}
+                <span className={`${styles.termValue} download-pdf-color`}>
                   {moment(marginData?.createdAt?.slice(0, 10)).format(
                     'DD-MM-yy',
                   )}

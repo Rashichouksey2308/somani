@@ -62,7 +62,7 @@ function Index(props) {
         props?.data?.comments.forEach((val, index) => {
           temp.push({ value: val, action: false })
         })
-        setExcelFile(props?.data?.specificationArray)
+        setExcelFile(props?.data?.specificationTable)
         setAddressList(temp)
       }
     }
@@ -185,29 +185,33 @@ function Index(props) {
               </span>
             </div>
           </div>
-          <span>Comments</span>
           <div className={styles.tableWrapper}>
-            <table>
-              <tr>
-                {excelFile &&
-                  excelFile.length > 0 &&
-                  Object.keys(excelFile[0]).map((val, index) => (
-                    <th key={index}>{val}</th>
-                  ))}
-              </tr>
-
-              {excelFile &&
-                excelFile.length > 0 &&
-                excelFile.map((item, index) => (
+            <div className={styles.table_scroll_outer}>
+              <div className={styles.table_scroll_inner}>
+                <table>
                   <tr>
-                    {Object.values(item).map((value, id) => (
-                      <td key={id}>{value}</td>
-                    ))}
+                    {excelFile &&
+                      excelFile.length > 0 &&
+                      Object.keys(excelFile[0]).map((val, index) => (
+                        <th key={index}>{val}</th>
+                      ))}
                   </tr>
-                ))}
-            </table>
+
+                  {excelFile &&
+                    excelFile.length > 0 &&
+                    excelFile.map((item, index) => (
+                      <tr>
+                        {Object.values(item).map((value, id) => (
+                          <td key={id}>{value}</td>
+                        ))}
+                      </tr>
+                    ))}
+                </table>
+              </div>
+            </div>
           </div>
 
+          <span>Comments</span>
           {addressList?.length > 0 &&
             addressList.map((val, index) => {
               return (

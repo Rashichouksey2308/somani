@@ -341,7 +341,7 @@ const handleRemoveRowEx=(index)=>{
                                 
                               }
                               onChange={(e) => {
-                              e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0).toLocaleString('en-IN')
+                              // e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0).toLocaleString('en-IN')
                                
                                    handleGroupExpChange(
                                    e.target.name,
@@ -370,7 +370,7 @@ const handleRemoveRowEx=(index)=>{
                                 
                               }
                             onChange={(e) => {
-                              e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0).toLocaleString('en-IN')
+                              // e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0).toLocaleString('en-IN')
                                
                                    handleGroupExpChange(
                                    e.target.name,

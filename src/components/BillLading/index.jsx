@@ -485,28 +485,6 @@ console.log(bolList,"bolList")
             break
           }
         }
-        if (
-          bolList[i]?.containerDetails.numberOfContainers == '' ||
-          bolList[i]?.containerDetails.numberOfContainers == undefined
-        ) {
-          toastMessage = `Please mention number of containers in Bill of lading ${i}  `
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-            isOk = false
-            break
-          }
-        }
-        if (
-          bolList[i]?.containerDetails.freeDetentionPeriod == '' ||
-          bolList[i]?.containerDetails.freeDetentionPeriod == undefined
-        ) {
-          toastMessage = `FREE DETENTION DAYS ARE MANDATORY IN BILL OF LADING ${i}  `
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-            isOk = false
-            break
-          }
-        }
         if (bolList[i]?.blDoc == null || bolList[i]?.blDoc == undefined) {
           toastMessage = `Bl DOC IS MANDATORY IN BILL OF LADING ${i}  `
           if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -538,7 +516,7 @@ console.log(bolList,"bolList")
     console.log(fd, bol, 'filteredVessel')
   }
   // console.log(bolList, 'filteredVessel', startetaAtDischargePortFrom)
-  // console.log(TransitDetails, 'TransitDetails')
+  console.log(TransitDetails, 'TransitDetails')
   return (
     <>
       <div className={`${styles.backgroundMain} p-0 container-fluid`}>
