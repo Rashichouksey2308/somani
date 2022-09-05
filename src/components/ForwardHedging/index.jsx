@@ -17,6 +17,7 @@ import _get from 'lodash/get'
 import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
 import Axios from 'axios'
+import { setPageName,setDynamicName,setDynamicOrder } from '../../redux/userData/action'
 
 export default function Index() {
   const dispatch = useDispatch()
@@ -31,7 +32,11 @@ export default function Index() {
   let hedgingData = _get(allForwardHedging, 'data[0]', '')
   let hedgingDataDetail = _get(allForwardHedging, 'data[0].detail[0]', {})
   console.log(hedgingDataDetail, 'THIS IS HEDGING DATA')
-
+ useEffect(() => {
+    dispatch(setPageName('forward'))
+    dispatch(setDynamicName(_get(allForwardHedging, 'data[0].company.companyName')))
+    dispatch(setDynamicOrder(_get(allForwardHedging, 'data[0].order.orderId', {})))
+  },[allForwardHedging])
   const [list, setList] = useState([
     {
       bankName: '',

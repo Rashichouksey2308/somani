@@ -25,7 +25,7 @@ function Index(props) {
   console.log(generic,"generic")
 
  useEffect(() => {
-    dispatch(setPageName('agreemnent'))
+    dispatch(setPageName('agreement'))
     dispatch(setDynamicName(null))
     dispatch(setDynamicOrder(null))
   })
@@ -53,7 +53,8 @@ const getDate = async () =>{
     console.log(term,"adasdsdads")
     sessionStorage.setItem('genericSelected', JSON.stringify(term))
     Router.push("/agreement")
-    dispatch(setDynamicName(term))
+    dispatch(setDynamicName(term.company.companyName))
+    dispatch(setDynamicOrder(term.order.orderId))
     // Router.push('/lc-module')
   }
 

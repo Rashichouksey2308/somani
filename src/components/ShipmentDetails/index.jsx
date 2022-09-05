@@ -8,7 +8,7 @@ import moment from 'moment'
 const index = ({ orderDetail, saveShipmentData }) => {
   // const {shipmentDetail}= orderDetail;
 
-  console.log(orderDetail, 'THIS IS ORDER DETAIL')
+  // console.log(orderDetail, 'THIS IS ORDER DETAIL')
 
   const saveDate = (value, name) => {
     const d = new Date(value)
@@ -225,7 +225,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
                 <div className="d-flex">
                   <select
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                    defaultValue={orderDetail?.shipmentDetail?.portOfLoading}
+                    value={orderDetail?.shipmentDetail?.portOfLoading}
                     name="portOfLoading"
                     onChange={(e) => {
                       saveShipmentData(e.target.name, e.target.value)
@@ -234,7 +234,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
                     {/* <option value="volvo">
                       {orderDetail?.shipmentDetail?.shipmentType}
                     </option> */}
-                    <option disabled >Select an option</option>
+                    <option selected disabled >Select an option</option>
                    <option value="Westshore Terminals,Canada">Westshore Terminals,Canada</option>
                    <option value="Abbot Point,Australia">Abbot Point,Australia</option>
                     {/* <option value="Bulk">Bulk</option> */}

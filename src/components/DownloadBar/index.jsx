@@ -14,7 +14,7 @@ function index({
   handleUpdate,
 }) {
   return (
-    <div className={`${styles.root} card`}>
+    <div className={`${styles.root} cta_bar`}>
       <div className="d-flex justify-content-between align-items-center w-100">
         <div
           className={`${styles.reject} `}

@@ -186,15 +186,38 @@ export default function Index({ isQuery }) {
         router.route = '/Agreements & LC Module' + '/Generic'
       }
     }
+     if ('agreement' == pageName) {
+      if (id !== null) {
+        router.route =
+          '/Agreements & LC Module' + '/Agreement' + `/${id}` + `/${order}`
+        console.log('router123', router.route)
+      } else {
+        router.route = '/Agreements & LC Module' + '/Agreement'
+      }
+    }
+     if ('Lc' == pageName) {
+      if (order != null) {
+        router.route =
+         '/Agreements & LC Module' + '/Lc Module' + `/${id}` + `/${order}`
+        console.log('router1234', router.route)
+      } else
+      if (id !== null) {
+        router.route =
+          '/Agreements & LC Module' + '/Lc Module' + `/${id}` 
+        console.log('router123', router.route)
+      } else {
+        router.route = '/Agreements & LC Module' + '/Lc Module'
+      }
+    }
     if ('vessel' == pageName) {
       if (order != null) {
         router.route =
-          '/Vessel Nomination' + `/${id.toLowerCase()}` + `/${order}`
+        '/Agreement & Lc Module' +  '/Vessel Nomination' + `/${id}` + `/${order}`
       } else if (id != null) {
         router.route =
           '/Agreement & Lc Module' +
           '/Vessel Nomination' +
-          `/${id.toLowerCase()}`
+          `/${id}`
       } else {
         router.route = '/Agreement & Lc Module' + '/Vessel Nomination'
       }
@@ -228,36 +251,70 @@ export default function Index({ isQuery }) {
         router.route = '/Loading, Transit & Unloading'
       }
     }
-    if ('inception' == pageName) {
-      if (id !== null) {
-        router.route = '/Loading, Transit & Unloading' + `/${id.toLowerCase()}`
-        console.log('router123', router.route)
-      } else {
-        router.route = '/Loading, Transit & Unloading'
-      }
-    }
+    // if ('inception' == pageName) {
+    //   if (id !== null) {
+    //     router.route = '/Loading, Transit & Unloading' + `/${id.toLowerCase()}`
+    //     console.log('router123', router.route)
+    //   } else {
+    //     router.route = '/Loading, Transit & Unloading'
+    //   }
+    // }
     if ('inception2' == pageName) {
-      if (id !== null) {
+       if (order != null) {
+        router.route =
+         '/Loading, Transit & Unloading' +
+          `/Inception` +
+          '/Third Party Inspection' +
+          `/${id}` +
+         `/${order}`
+      }
+      else if (id !== null) {
         router.route =
           '/Loading, Transit & Unloading' +
-          `/${id.toLowerCase()}` +
+          `Inception` +
           '/Third Party Inspection' +
-          '/110E67FGD566' +
-          '/Order Id'
+          `/${id}` +
+        
         console.log('router123', router.route)
       } else {
-        router.route = '/Loading, Transit & Unloading'
+        router.route = '/Loading, Transit & Unloading'+ "/Inception"
       }
     }
     if ('transit' == pageName) {
       if (id !== null) {
         router.route =
-          '/Loading, Transit & Unloading' +
-          '/Bill of Loading' +
-          `/${id.toLowerCase()}`
+          `/Loading, Transit & Unloading` +
+          '/Transit Details'+
+          `/${id}`+
+          `/Bill of Loading` +
+          `/${order}`
         console.log('router123', router.route)
       } else {
         router.route = '/Loading, Transit & Unloading' + '/Transit Details'
+      }
+    }
+     if ('forward' == pageName) {
+      if (order != null) {
+        router.route =
+          '/Loading, Transit & Unloading' + '/Forward Hedging' + `/${id}` + `/${order}`
+        console.log('router1234', router.route)
+      } else if (id !== null) {
+        router.route = '/Loading, Transit & Unloading'  + '/Forward Hedging' + `/${id} `
+        console.log('router123', router.route)
+      } else {
+        router.route = '/Loading, Transit & Unloading' + '/Forward Hedging'
+      }
+    }
+     if ('track' == pageName) {
+      if (order != null) {
+        router.route =
+          '/Loading, Transit & Unloading' + '/Track Shipments' + `/${id}` + `/${order}`
+        console.log('router1234', router.route)
+      } else if (id !== null) {
+        router.route = '/Loading, Transit & Unloading'  + '/Track Shipments' + `/${id} `
+        console.log('router123', router.route)
+      } else {
+        router.route = '/Loading, Transit & Unloading' + '/Track Shipments'
       }
     }
     if ('custom' == pageName) {
