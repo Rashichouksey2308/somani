@@ -4,9 +4,9 @@ import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 let cma = {
-  "name": "Dr. Amin",
+  "name": "Dr. Amin Controllers Private Limited",
   "shortName": "",
-  "gstin": "",
+  "gstin": "27AAACA3912A2ZE",
  
 
 
@@ -78,9 +78,9 @@ const cancelAddress=()=>{
       if (sessionStorage.getItem("Cma")) {
         let savedData = JSON.parse(sessionStorage.getItem("Cma"))
         let cma = {
-          "name": savedData.name || "Dr. Amin",
+          "name": savedData.name || "Dr. Amin Controllers Private Limited",
           "shortName": savedData.shortName,
-          "gstin": savedData.gstin,
+          "gstin": savedData.gstin ||"27AAACA3912A2ZE",
 
           "addresses": savedData.addresses,
           "authorisedSignatoryDetails": savedData.authorisedSignatoryDetails,
@@ -90,11 +90,12 @@ const cancelAddress=()=>{
         setList(savedData?.authorisedSignatoryDetails!==undefined?savedData.authorisedSignatoryDetails:[])
         setAddressList(savedData.addresses!==undefined?savedData.addresses:[])
         setCmaState(cma)
+        
       }else{
          let cma = {
-          "name": props.data?.name || "Dr. Amin",
+          "name": props.data?.name || "Dr. Amin Controllers Private Limited",
           "shortName": props.data?.shortName,
-          "gstin": props.data?.gstin,
+          "gstin": props.data?.gstin||"27AAACA3912A2ZE",
 
           "addresses": props.data?.addresses,
           "authorisedSignatoryDetails": props?.data?.authorisedSignatoryDetails,
@@ -104,6 +105,15 @@ const cancelAddress=()=>{
         setList(props.data?.authorisedSignatoryDetails!==undefined?props.data?.authorisedSignatoryDetails:[])
         setAddressList(props.data?.addresses!==undefined?props.data?.addresses:[])
         setCmaState(cma)
+        setAddressList([...addressList,{
+              addressType: "Registered",
+              fullAddress: "Embassy Chambers, 6th Floor, Plot No. 5, Road No. 3",
+              pinCode: "400 052",
+              country: "India",
+              gstin: "27AAACA3912A2ZE",
+              state: "Maharashtra ",
+              city: "Khar (West) Mumba"
+        }])
       }
     }
   }, [])
@@ -429,7 +439,7 @@ setEditAddress(
                   
                 >
                  <option>Select an option</option>
-                  <option value="Dr. Amin">Dr. Amin</option>
+                  <option value="Dr. Amin Controllers Private Limited">Dr. Amin Controllers Private Limited</option>
 
                 </select>
                 <Form.Label
@@ -470,7 +480,7 @@ setEditAddress(
                    name="gstin"
                 >
                    <option>Select an option</option>
-                  <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                  <option value="27AAACA3912A2ZE">27AAACA3912A2ZE</option>
 
                 </select>
                 <Form.Label
@@ -633,7 +643,7 @@ setEditAddress(
                           }}
                         >
                            <option>Select an option</option>
-                          <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                          <option value="27AAACA3912A2ZE">27AAACA3912A2ZE</option>
                           
                         </select>
                         <Form.Label
@@ -1124,7 +1134,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                           }}
                         >
                            <option>Select an option</option>
-                          <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                          <option value="27AAACA3912A2ZE">27AAACA3912A2ZE</option>
                           
                         </select>
                         <Form.Label

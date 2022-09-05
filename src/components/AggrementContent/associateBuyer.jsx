@@ -27,6 +27,7 @@ function Index(props) {
           "city": ""
       }
   )
+  console.log(props.order,"companyName23243534")
   const [EditAddress,setEditAddress]=useState(
           {
           "addressType": "",
@@ -456,7 +457,7 @@ console.log(associateData,"associateData")
               <span>Name
                 {/* <strong className="text-danger">*</strong> */}
                 </span>
-              <p>Jaiswal Nico</p>
+              <p>{props?.order?.company?.companyName}</p>
             </div>
             <div className={`${styles.info} col-md-4 col-sm-6`}>
               <span>PAN No.</span>

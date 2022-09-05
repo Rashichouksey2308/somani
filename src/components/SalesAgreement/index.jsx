@@ -170,11 +170,15 @@ function Index(props) {
   }
   const setSideStateToLocal=()=>{
     sessionStorage.setItem("genericSide",JSON.stringify(sideBar))
+    sessionStorage.setItem("setgenActive",JSON.stringify(active))
+    console.log("ddasdasd")
   }
   useEffect(() => {
     if(window){
       if(sessionStorage.getItem("genericSide")){
         setSidebar(JSON.parse(sessionStorage.getItem("genericSide")))
+        setActive(JSON.parse(sessionStorage.getItem("setgenActive")))
+        
       }
     }
   })
@@ -206,6 +210,7 @@ function Index(props) {
         data={props?.genericData?.associateBuyer}
         uploadDoc={uploadDoc}
         addressValidation={addressValidation}
+        order={props?.genericData}
         
         
         />
@@ -1694,33 +1699,3 @@ const onShowSideBar=()=>{
 }
 
 export default Index
-
-const sales=()=>{
-  return(
-     <div className="card-body">
-            <p className="text_sales" >A. All the custom clearance formalities, Duties, Taxes and other charges related to import of cargo and custom clearance shall be to Buyer’s account and shall be solely the Buyer’s responsibility.</p>
-            <p  className="text_sales">
-                B. The Buyer shall pay for entire cargo within <GrowInput placeholder={90}/> days from the date of <GrowInput placeholder={`B/L`}/> or <GrowInput placeholder={60}/> from the date of discharge of vessel at discharge port, whichever is earlier. The Buyer shall make full payment of the material to be lifted through TT remittance. The Seller shall release the part material to Buyer upon receipt of part payment for the part quantity of material to be lifted after obtaining delivery order or Written Release Order from the LC opening bank as per CMA. The delivery order instructions shall be issued for the part material, for which the payment has been made within one banking day. However, Seller will provide first delivery order in Advance as per buyer’s request.
-            </p>
-            < p  className="text_sales">
-                C. The material shall be stored at <GrowInput placeholder={`Visakhapatnam Port, India`}/> for which the cost of such Rent, Claim, and penalty shall be fully borne by the End User. Upon release of payment for the value of each B/L Quantity Release Order from the Lending Bank shall be sent to the CMA Agent <GrowInput placeholder={`Dr. Amin Controllers Pvt. Ltd.`}/>, within one banking day.
-            </p>
-            <p  className="text_sales">D. Documents to be provided to Buyer.
-                <br/> 
-                (1). The Seller‘s Commercial Invoice;. 
-                 <br/>
-                (2). Full set of 3/3 originals of Bills of Lading, 
-                 <br/>
-                (3). Certificate of Quality 
-                 <br/>
-                (4). Certificate of Weight, 
-                 <br/>
-                (5). Certificate of Origin. 
-                 <br/>
-                (6). Copy of Marine Insurance Certificate / Insurance Policy
-                 <br/>
-                
-             All the above documents are subject to receipt from shipper.</p>
-     </div>
-  )
-}
