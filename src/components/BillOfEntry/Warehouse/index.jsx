@@ -264,7 +264,7 @@ console.log(warehouseDetails,'warehouseDetails')
                           {warehouseDetails?.document?.originalName}
                         </span>
                         <img
-                          className={`${styles.close_image} float-right m-2 img-fluid`}
+                          className={`${styles.close_image}`}
                           src="/static/close.svg"
                           onClick={() => handleClose()}
                           alt="Close"

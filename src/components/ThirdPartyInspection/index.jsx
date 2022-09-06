@@ -1197,7 +1197,7 @@ export default function Index({ addButton, inspectionData }) {
                                     {documents?.certificateOfOrigin?.name}                                    
                                   </span>
                                   <img
-                                    className={`${styles.close_image} float-right m-2 img-fluid`}
+                                    className={`${styles.close_image}`}
                                     src="/static/close.svg"
                                     onClick={() => handleCloseO()}
                                     alt="Close"
@@ -1322,7 +1322,7 @@ export default function Index({ addButton, inspectionData }) {
                                     {documents?.certificateOfQuality?.name}
                                   </span>
                                   <img
-                                    className={`${styles.close_image} float-right m-2 img-fluid`}
+                                    className={`${styles.close_image}`}
                                     src="/static/close.svg"
                                     onClick={() => handleCloseQ()}
                                     alt="Close"
@@ -1448,7 +1448,7 @@ export default function Index({ addButton, inspectionData }) {
                                     {documents?.certificateOfWeight?.name}
                                   </span>
                                   <img
-                                    className={`${styles.close_image} float-right m-2 img-fluid`}
+                                    className={`${styles.close_image}`}
                                     src="/static/close.svg"
                                     onClick={() => handleCloseW()}
                                     alt="Close"
