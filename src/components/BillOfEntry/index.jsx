@@ -52,6 +52,7 @@ export default function Index({
       invoiceDate: '',
       boeRate: '',
       bankName: '',
+      accessibleValue: accessibleValueCalc
     },
     duty: [
       {
@@ -202,23 +203,7 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
   // }
 
   const handleSubmit = () => {
-    // [{ id: 'conversionRate', value: 'CONVERSION RATE' },
-    //  { id: 'invoiceDate', value: ' INVOICE DATE' },
-    //   { id: 'invoiceValue', value: 'INVOICE VALUE' },
-    //    { id: 'invoiceQuantity', value: 'INVOICE QUANTITY' },
-    //     { id: 'invoiceNumber', value: 'INVOICE NUMBER' },
-    //      { id: 'currency', value: 'CURRENCY' }].forEach((val) => {
-    //   console.log(val, 'boeValidation')
-    //   if (billOfEntryData.boeDetails[val.id] === '') {
-    //     let toastMessage = `${val.value} CANNOT BE AN EMPTY FIELD`
-    //     if (!toast.isActive(toastMessage.toUpperCase())) {
-    //       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    //     }
-    //     return
-    //   }
-
-    // })
-
+ 
     if (billOfEntryData.boeDetails.currency === '') {
       let toastMessage = 'CURRENCY CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -301,6 +286,9 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
       e.preventDefault()
     }
   }
+
+ let accessibleValueCalc =  checkNan((Number(_get(customData,'billOfEntry.billOfEntry[0].boeDetails.invoiceValue',),) * billOfEntryData?.boeDetails?.conversionRate))
+
   useEffect(() => {
     if (customData) {
       let data = Number(
@@ -329,6 +317,7 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
           invoiceDate: data?.boeDetails?.invoiceDate,
           boeRate: data?.boeDetails?.boeRate,
           bankName: data?.boeDetails?.bankName,
+          accessibleValue : accessibleValueCalc ? accessibleValueCalc : data?.boeDetails?.accessibleValue
         },
         duty: data.duty,
 
@@ -338,7 +327,7 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
       }
       setBillOfEntryData(tempArray)
     }
-  }, [customData])
+  }, [customData, accessibleValueCalc])
 
 
 
@@ -783,21 +772,19 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
-                  <div className={`${styles.label} text`}>
-                    Assessable Value<strong className="text-danger">*</strong>{' '}
-                  </div>
-                  <span className={styles.value}>
-                    {checkNan(
-
-                    (Number(
-                      _get(
-                        customData,
-                        'billOfEntry.billOfEntry[0].boeDetails.invoiceValue',
-                      ),
-                    ) * billOfEntryData?.boeDetails?.conversionRate)
-
-                    )}
-                  </span>
+                  <input
+                    className={`${styles.input_field} input form-control`}
+                    type="text"
+                    name="boeDetails.accessibleValue"
+                    disabled
+                    required
+                    value={accessibleValueCalc}
+                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                    
+                  />
+                  <label className={`${styles.label_heading} label_heading`}>
+                    Accessible Value <strong className="text-danger">*</strong>
+                  </label>
                 </div>
                 {/* <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
