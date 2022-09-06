@@ -11,6 +11,7 @@ import { toast } from 'react-toastify'
 import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
 import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper'
+import Axios from 'axios'
 
 export default function Index({ ReleaseOrderData }) {
   const dispatch = useDispatch()
@@ -18,8 +19,12 @@ export default function Index({ ReleaseOrderData }) {
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
+  const [orderid,setorderId]=useState("")
   console.log(ReleaseOrderData, 'ReleaseOrderData123')
-  let orderid = _get(ReleaseOrderData, 'data[0].order._id', '')
+  // let orderid = _get(ReleaseOrderData, 'data[0].order._id', '')
+  useEffect(() => {
+   setorderId( _get(ReleaseOrderData, 'data[0].order._id', ''))
+  },[ReleaseOrderData])
   let InvoiceQuantity = _get(
     ReleaseOrderData,
     'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
@@ -48,9 +53,18 @@ export default function Index({ ReleaseOrderData }) {
 
   useEffect(() => {
     let tempArr = [...releaseDetail]
-
+    // let temparr = []
+    // let existingData = _get(ReleaseOrderData, 'data[0].releaseDetail', [])
+    // console.log(releaseDetail, existingData, 'realseOrderState')
+    // if (existingData.length > 0) {
+    //   existingData.forEach((order) => {
+    //     temparr.push(order)
+    //   })
+    //   setReleaseDetail(temparr)
+    // }
     setReleaseDetail(tempArr)
-  }, [])
+
+  }, [ReleaseOrderData])
 
   // console.log(releaseDetail, netBalanceQuantity, 'Release')
 
@@ -232,7 +246,8 @@ export default function Index({ ReleaseOrderData }) {
     // console.log(e.target.id, index, 'UploadDocRealeseORder')
     let name = e.target.id
     let doc = await uploadDoc(e)
-    handlereleaseDetailChange(name, e.target.files[0], index)
+    console.log(e.target.id, doc, index, 'UploadDocRealeseORder')
+    handlereleaseDetailChange(name, doc, index)
   }
 
   const handleCloseO = () => {
@@ -378,7 +393,7 @@ export default function Index({ ReleaseOrderData }) {
                         >
                           <input
                             onWheel={(e) => e.target.blur()}
-                            defaultValue={addPrefixOrSuffix(
+                            value={addPrefixOrSuffix(
                               item.netQuantityReleased
                                 ? item.netQuantityReleased
                                 : 0,
@@ -388,7 +403,10 @@ export default function Index({ ReleaseOrderData }) {
                             // defaultValue={Number(
                             //   item.netQuantityReleased,
                             // )?.toLocaleString()}
-                            onChange={(e) => netQuantityChange(e, index)}
+                            onChange={(e) => {
+                              e.target.value = removePrefixOrSuffix(e.target.value)
+                              netQuantityChange(e, index)
+                            }}
                             id="netQuantityReleased"
                             className={`${styles.input_field} input form-control`}
                             type="text"
@@ -476,7 +494,7 @@ export default function Index({ ReleaseOrderData }) {
                             <>
                               <div className={`${styles.certificate} d-flex justify-content-between`}>
                                 <span>
-                                  {item?.document?.name}
+                                {item?.document?.originalName}
                                 </span>
                                 <img
                                   onClick={(e) => closeDoc(index)}

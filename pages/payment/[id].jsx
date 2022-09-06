@@ -26,18 +26,31 @@ import {
   setPageTabName,
 } from '../../src/redux/userData/action'
 function Index() {
+
   const dispatch = useDispatch()
+
   const { allLiftingData } = useSelector((state) => state.Lifting)
   const { ReleaseOrderData } = useSelector((state) => state.Release)
-  console.log(ReleaseOrderData, 'ReleaseOrderData')
+  console.log(ReleaseOrderData, 'ReleaseOrderDataMain')
   const [darkMode, setDarkMode] = useState(false)
+
   useEffect(() => {
     dispatch(setPageName('payment'))
     dispatch(setDynamicName(ReleaseOrderData?.data[0]?.company.companyName))
-  }, [ReleaseOrderData])
-  useEffect(() => {
     dispatch(setPageTabName('release'))
-  }, [])
+
+
+
+  }, [ReleaseOrderData])
+
+
+
+  // useEffect(() => {
+  //   dispatch(setPageTabName('release'))
+  // }, [])
+
+
+
   useEffect(() => {
     let id = sessionStorage.getItem('ROrderID')
     let orderid = _get(ReleaseOrderData, 'data[0].order._id', '')
