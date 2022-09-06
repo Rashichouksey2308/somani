@@ -314,6 +314,7 @@ export default function Index(props) {
                         onChange={(e) =>
                           props.setLastMileDelivery(e.target.value)
                         }
+                        value={props.lastMileDelivery}
                         className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                       >
                         <option>Select an option</option>

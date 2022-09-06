@@ -628,7 +628,7 @@ setEditAddress(
                 }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
-                Short Name
+                Short Name <strong className="text-danger">*</strong>
               </Form.Label>
             </Form.Group>
 
