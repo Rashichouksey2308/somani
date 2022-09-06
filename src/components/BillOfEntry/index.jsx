@@ -266,7 +266,12 @@ console.log(customData,'sdasd')
       }
       return
     } else {
-      const billOfEntry = { billOfEntry: [billOfEntryData] }
+      let tempData={...billOfEntryData}
+      tempData.boeDetails.conversionRate=removePrefixOrSuffix(billOfEntryData.boeDetails.conversionRate)
+      tempData.boeDetails.invoiceQuantity=removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceQuantity)
+      tempData.boeDetails.invoiceValue=removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceValue)
+      const billOfEntry = { billOfEntry: [tempData] }
+     
       const fd = new FormData()
       fd.append('customClearanceId', customData?._id)
       fd.append('billOfEntry', JSON.stringify(billOfEntry))
