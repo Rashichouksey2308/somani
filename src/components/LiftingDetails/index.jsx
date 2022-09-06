@@ -10,6 +10,7 @@ import Cookies from 'js-cookie'
 import Axios from 'axios'
 import UploadOther from '../UploadOther'
 import _get from 'lodash/get'
+import { checkNan } from 'utils/helper'
 
 export default function Index(props) {
   console.log(props.data, 'liftingdata')
@@ -185,7 +186,7 @@ export default function Index(props) {
                           DO Quantity
                         </div>
                         <div className={`${styles.do_number} mr-4`}>
-                          {props.returnLiftingData(val.deliveryOrder)?.doQuantity?.toLocaleString()}   {_get(
+                          {checkNan(props.returnLiftingData(val.deliveryOrder)?.doQuantity)?.toLocaleString()}   {_get(
                             props,
                             'data.data[0].order.unitOfQuantity',
                             '',
@@ -199,7 +200,7 @@ export default function Index(props) {
                           Balance Quantity
                         </div>
                         <div className={`${styles.do_number} mr-4`}>
-                          {props.returnLiftingData(val.deliveryOrder)?.balaceQuantity?.toLocaleString()}  {_get(
+                          {checkNan(props.returnLiftingData(val.deliveryOrder)?.balaceQuantity)?.toLocaleString()}  {_get(
                             props,
                             'data.data[0].order.unitOfQuantity',
                             '',
