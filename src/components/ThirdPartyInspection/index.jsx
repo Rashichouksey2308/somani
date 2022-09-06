@@ -17,7 +17,7 @@ import { ViewDocument } from 'redux/ViewDoc/action'
 
 export default function Index({ addButton, inspectionData }) {
   const dispatch = useDispatch()
- const [excelFile, setExcelFile] = useState([])
+  const [excelFile, setExcelFile] = useState([])
   let orderid = _get(inspectionData, 'order._id', '')
 
   const [editInput, setEditInput] = useState(true)
@@ -29,10 +29,10 @@ export default function Index({ addButton, inspectionData }) {
   })
   console.log(portType, 'inspectionData')
   const handlePortType = (name, value) => {
-    let newInput = { ...portType }
+    let newInput = { ...inspectionDetails }
     newInput[name] = !value
     // console.log(name, value, 'cak')
-    setPortType(newInput)
+    setInspectionDetails(newInput)
   }
 
   // console.log(portType, 'This is Load')
@@ -46,16 +46,25 @@ export default function Index({ addButton, inspectionData }) {
   const [show, setShow] = useState(false)
 
   useEffect(() => {
-    if(inspectionData){
-      console.log(inspectionData,"orderid")
-      setExcelFile(_get(inspectionData,"order.generic.productSpecifications.specificationTable",[]))
+    if (inspectionData) {
+      console.log(inspectionData, 'orderid')
+      setExcelFile(
+        _get(
+          inspectionData,
+          'order.generic.productSpecifications.specificationTable',
+          [],
+        ),
+      )
     }
   }, [inspectionData])
- console.log(excelFile,"excelFile")
+
+  // console.log(excelFile, 'excelFile')
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
   const [inspectionDetails, setInspectionDetails] = useState({
+    loadPortInspection: inspectionData?.thirdPartyInspection?.loadPortInspection,
+    dischargePortInspection: inspectionData?.thirdPartyInspection?.dischargePortInspection,
     loadPortInspectionDetails: {
       numberOfContainer:
         inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
@@ -91,8 +100,11 @@ export default function Index({ addButton, inspectionData }) {
           ?.specialMention,
     },
   })
+
   useEffect(() => {
     setInspectionDetails({
+      loadPortInspection: inspectionData?.thirdPartyInspection?.loadPortInspection,
+      dischargePortInspection: inspectionData?.thirdPartyInspection?.dischargePortInspection,
       loadPortInspectionDetails: {
         numberOfContainer:
           inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
@@ -138,7 +150,9 @@ export default function Index({ addButton, inspectionData }) {
     certificateOfOrigin:
       inspectionData?.thirdPartyInspection?.certificateOfOrigin || null,
   })
-  console.log('sethave', documents)
+
+  // console.log('sethave', documents)
+
   useEffect(() => {
     if (
       documents.certificateOfQuality == null &&
@@ -152,6 +166,7 @@ export default function Index({ addButton, inspectionData }) {
     documents.certificateOfWeight,
     documents.certificateOfOrigin,
   ])
+
   const uploadDocument1 = (e) => {
     const newUploadDoc = { ...documents }
     newUploadDoc.certificateOfQuality = e.target.files[0]
@@ -159,6 +174,7 @@ export default function Index({ addButton, inspectionData }) {
     setDocuments(newUploadDoc)
     sethaveDoc(true)
   }
+
   const uploadDocument2 = (e) => {
     const newUploadDoc1 = { ...documents }
     newUploadDoc1.certificateOfWeight = e.target.files[0]
@@ -205,15 +221,11 @@ export default function Index({ addButton, inspectionData }) {
     saveInspectionDetails(name, text)
   }
 
-  // const saveDate = (value, name) => {
-  //   const d = new Date(value)
-  //   let text = d.toISOString()
-  //   saveShipmentData(name, text)
-  // }
   const [dateStartFrom, setDateStartFrom] = useState({
     inspectionDateAtLoad: '',
     inspectionDateAtDischarge: '',
   })
+
   const setStartDate = (val, name) => {
     var new_date = moment(new Date(val).toISOString())
       .add(1, 'days')
@@ -235,12 +247,12 @@ export default function Index({ addButton, inspectionData }) {
       'Liner'
     ) {
       if (
-        portType.loadPortInspection == true &&
-        portType.dischargePortInspection == false
+        inspectionDetails.loadPortInspection == true &&
+        inspectionDetails.dischargePortInspection == false
       ) {
         let fd = new FormData()
         fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
-        fd.append('loadPortInspection', portType.loadPortInspection)
+        // fd.append('loadPortInspection', portType.loadPortInspection)
         fd.append('inspectionId', inspectionData?._id)
         fd.append('certificateOfOrigin', documents.certificateOfOrigin)
         fd.append('certificateOfQuality', documents.certificateOfQuality)
@@ -250,8 +262,8 @@ export default function Index({ addButton, inspectionData }) {
 
         dispatch(UpdateInspection({ fd, task }))
       } else if (
-        portType.dischargePortInspection == true &&
-        portType.loadPortInspection == false
+        inspectionDetails.dischargePortInspection == true &&
+        inspectionDetails.loadPortInspection == false
       ) {
         if (
           inspectionDetails?.dischargePortInspectionDetails
@@ -264,7 +276,7 @@ export default function Index({ addButton, inspectionData }) {
         }
         let fd = new FormData()
         fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
-        fd.append('dischargePortInspection', portType.dischargePortInspection)
+        // fd.append('dischargePortInspection', portType.dischargePortInspection)
         fd.append('inspectionId', inspectionData?._id)
         fd.append('certificateOfOrigin', documents.certificateOfOrigin)
         fd.append('certificateOfQuality', documents.certificateOfQuality)
@@ -276,8 +288,8 @@ export default function Index({ addButton, inspectionData }) {
       } else {
         let fd = new FormData()
         fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
-        fd.append('dischargePortInspection', portType.dischargePortInspection)
-        fd.append('loadPortInspection', portType.loadPortInspection)
+        // fd.append('dischargePortInspection', portType.dischargePortInspection)
+        // fd.append('loadPortInspection', portType.loadPortInspection)
         fd.append('inspectionId', inspectionData?._id)
         fd.append('certificateOfOrigin', documents.certificateOfOrigin)
         fd.append('certificateOfQuality', documents.certificateOfQuality)
@@ -292,12 +304,12 @@ export default function Index({ addButton, inspectionData }) {
       _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk'
     ) {
       if (
-        portType.loadPortInspection == true &&
-        portType.dischargePortInspection == false
+        inspectionDetails.loadPortInspection == true &&
+        inspectionDetails.dischargePortInspection == false
       ) {
         let fd = new FormData()
         fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
-        fd.append('loadPortInspection', portType.loadPortInspection)
+        // fd.append('loadPortInspection', portType.loadPortInspection)
         fd.append('inspectionId', inspectionData?._id)
         fd.append('certificateOfOrigin', documents.certificateOfOrigin)
         fd.append('certificateOfQuality', documents.certificateOfQuality)
@@ -307,12 +319,12 @@ export default function Index({ addButton, inspectionData }) {
 
         dispatch(UpdateInspection({ fd, task }))
       } else if (
-        portType.dischargePortInspection == true &&
-        portType.loadPortInspection == false
+        inspectionDetails.dischargePortInspection == true &&
+        inspectionDetails.loadPortInspection == false
       ) {
         let fd = new FormData()
         fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
-        fd.append('dischargePortInspection', portType.dischargePortInspection)
+        // fd.append('dischargePortInspection', portType.dischargePortInspection)
         fd.append('inspectionId', inspectionData?._id)
         fd.append('certificateOfOrigin', documents.certificateOfOrigin)
         fd.append('certificateOfQuality', documents.certificateOfQuality)
@@ -324,8 +336,8 @@ export default function Index({ addButton, inspectionData }) {
       } else {
         let fd = new FormData()
         fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
-        fd.append('dischargePortInspection', portType.dischargePortInspection)
-        fd.append('loadPortInspection', portType.loadPortInspection)
+        // fd.append('dischargePortInspection', portType.dischargePortInspection)
+        // fd.append('loadPortInspection', portType.loadPortInspection)
         fd.append('inspectionId', inspectionData?._id)
         fd.append('certificateOfOrigin', documents.certificateOfOrigin)
         fd.append('certificateOfQuality', documents.certificateOfQuality)
@@ -337,7 +349,9 @@ export default function Index({ addButton, inspectionData }) {
       }
     }
   }
-  console.log(haveDoc, 'sethaveDoc')
+
+  // console.log(haveDoc, 'sethaveDoc')
+
   const handleSubmit = () => {
     console.log('dsaasdad', haveDoc)
     if (
@@ -345,8 +359,8 @@ export default function Index({ addButton, inspectionData }) {
       'Liner'
     ) {
       if (
-        portType.loadPortInspection == true &&
-        portType.dischargePortInspection == false
+        inspectionDetails.loadPortInspection == true &&
+        inspectionDetails.dischargePortInspection == false
       ) {
         if (
           inspectionDetails?.loadPortInspectionDetails?.numberOfContainer === ''
@@ -384,7 +398,7 @@ export default function Index({ addButton, inspectionData }) {
         } else {
           let fd = new FormData()
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
-          fd.append('loadPortInspection', portType.loadPortInspection)
+          // fd.append('loadPortInspection', portType.loadPortInspection)
           fd.append('inspectionId', inspectionData?._id)
           fd.append('certificateOfOrigin', documents.certificateOfOrigin)
           fd.append('certificateOfQuality', documents.certificateOfQuality)
@@ -395,8 +409,8 @@ export default function Index({ addButton, inspectionData }) {
           dispatch(UpdateInspection({ fd, task }))
         }
       } else if (
-        portType.dischargePortInspection == true &&
-        portType.loadPortInspection == false
+        inspectionDetails.dischargePortInspection == true &&
+        inspectionDetails.loadPortInspection == false
       ) {
         if (
           inspectionDetails?.dischargePortInspectionDetails
@@ -436,7 +450,7 @@ export default function Index({ addButton, inspectionData }) {
         } else {
           let fd = new FormData()
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
-          fd.append('dischargePortInspection', portType.dischargePortInspection)
+          // fd.append('dischargePortInspection', portType.dischargePortInspection)
           fd.append('inspectionId', inspectionData?._id)
           fd.append('certificateOfOrigin', documents.certificateOfOrigin)
           fd.append('certificateOfQuality', documents.certificateOfQuality)
@@ -518,8 +532,8 @@ export default function Index({ addButton, inspectionData }) {
         } else {
           let fd = new FormData()
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
-          fd.append('dischargePortInspection', portType.dischargePortInspection)
-          fd.append('loadPortInspection', portType.loadPortInspection)
+          // fd.append('dischargePortInspection', portType.dischargePortInspection)
+          // fd.append('loadPortInspection', portType.loadPortInspection)
           fd.append('inspectionId', inspectionData?._id)
           fd.append('certificateOfOrigin', documents.certificateOfOrigin)
           fd.append('certificateOfQuality', documents.certificateOfQuality)
@@ -535,8 +549,8 @@ export default function Index({ addButton, inspectionData }) {
       _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk'
     ) {
       if (
-        portType.loadPortInspection == true &&
-        portType.dischargePortInspection == false
+        inspectionDetails.loadPortInspection == true &&
+        inspectionDetails.dischargePortInspection == false
       ) {
         if (inspectionDetails?.loadPortInspectionDetails?.inspectedBy === '') {
           let toastMessage = 'INSPECTED BY CANNOT BE EMPTY'
@@ -565,7 +579,7 @@ export default function Index({ addButton, inspectionData }) {
         } else {
           let fd = new FormData()
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
-          fd.append('loadPortInspection', portType.loadPortInspection)
+          // fd.append('loadPortInspection', portType.loadPortInspection)
           fd.append('inspectionId', inspectionData?._id)
           fd.append('certificateOfOrigin', documents.certificateOfOrigin)
           fd.append('certificateOfQuality', documents.certificateOfQuality)
@@ -576,8 +590,8 @@ export default function Index({ addButton, inspectionData }) {
           dispatch(UpdateInspection({ fd, task }))
         }
       } else if (
-        portType.dischargePortInspection == true &&
-        portType.loadPortInspection == false
+        inspectionDetails.dischargePortInspection == true &&
+        inspectionDetails.loadPortInspection == false
       ) {
         if (
           inspectionDetails?.dischargePortInspectionDetails?.inspectedBy === ''
@@ -609,7 +623,7 @@ export default function Index({ addButton, inspectionData }) {
         } else {
           let fd = new FormData()
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
-          fd.append('dischargePortInspection', portType.dischargePortInspection)
+          // fd.append('dischargePortInspection', portType.dischargePortInspection)
           fd.append('inspectionId', inspectionData?._id)
           fd.append('certificateOfOrigin', documents.certificateOfOrigin)
           fd.append('certificateOfQuality', documents.certificateOfQuality)
@@ -674,8 +688,8 @@ export default function Index({ addButton, inspectionData }) {
         } else {
           let fd = new FormData()
           fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
-          fd.append('dischargePortInspection', portType.dischargePortInspection)
-          fd.append('loadPortInspection', portType.loadPortInspection)
+          // fd.append('dischargePortInspection', portType.dischargePortInspection)
+          // fd.append('loadPortInspection', portType.loadPortInspection)
           fd.append('inspectionId', inspectionData?._id)
           fd.append('certificateOfOrigin', documents.certificateOfOrigin)
           fd.append('certificateOfQuality', documents.certificateOfQuality)
@@ -689,27 +703,29 @@ export default function Index({ addButton, inspectionData }) {
     }
   }
   // console.log(portType, 'portType')
+
   useEffect(() => {
     if (inspectionData) {
       if (
         inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort ==
         'Load Port'
       ) {
-        setPortType({ ...portType, loadPortInspection: true })
+        setInspectionDetails({ ...inspectionDetails, loadPortInspection: true })
       } else if (
         inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort ==
         'Both'
       ) {
-        setPortType({
-          ...portType,
+        setInspectionDetails({
+          ...inspectionDetails,
           loadPortInspection: true,
           dischargePortInspection: true,
         })
       } else {
-        setPortType({ ...portType, dischargePortInspection: true })
+        setInspectionDetails({ ...inspectionDetails, dischargePortInspection: true })
       }
     }
   }, [inspectionData])
+
   return (
     <>
       <div
@@ -768,11 +784,11 @@ export default function Index({ addButton, inspectionData }) {
                     name="loadPortInspection"
                     type={type}
                     onChange={(e) => {
-                      handlePortType(e.target.name, portType.loadPortInspection)
+                      handlePortType(e.target.name, inspectionDetails.loadPortInspection)
 
                       // setBothField(!bothField)
                     }}
-                    checked={portType.loadPortInspection ? 'checked' : ''}
+                    defaultChecked={inspectionDetails.loadPortInspection ? 'checked' : ''}
                     id={`inline-${type}-1`}
                   />
                   <Form.Check
@@ -784,11 +800,11 @@ export default function Index({ addButton, inspectionData }) {
                     onChange={(e) => {
                       handlePortType(
                         e.target.name,
-                        portType.dischargePortInspection,
+                        inspectionDetails.dischargePortInspection,
                       )
                       // setBothField(!bothField)
                     }}
-                    checked={portType.dischargePortInspection ? 'checked' : ''}
+                    defaultChecked={inspectionDetails.dischargePortInspection ? 'checked' : ''}
                     type={type}
                     id={`inline-${type}-2`}
                   />
@@ -827,7 +843,7 @@ export default function Index({ addButton, inspectionData }) {
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>
                     Vessel Name
-                    {!portType.loadPortInspection ? (
+                    {!inspectionDetails.loadPortInspection ? (
                       <strong className="text-danger">*</strong>
                     ) : (
                       ''
@@ -844,7 +860,7 @@ export default function Index({ addButton, inspectionData }) {
               </div>
             </div>
           </div>
-          {portType.loadPortInspection ? (
+          {inspectionDetails.loadPortInspection ? (
             <>
               <div className={`${styles.main} vessel_card card border-color`}>
                 <div
@@ -1013,7 +1029,7 @@ export default function Index({ addButton, inspectionData }) {
               </div>
             </>
           ) : null}
-          {portType.dischargePortInspection
+          {inspectionDetails.dischargePortInspection
             ? Discharge(
                 inspectionData,
                 saveInspectionDetails,
@@ -1192,9 +1208,11 @@ export default function Index({ addButton, inspectionData }) {
                               </div> */}
                                 </>
                               ) : (
-                                <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                <div
+                                  className={`${styles.certificate} d-flex justify-content-between`}
+                                >
                                   <span>
-                                    {documents?.certificateOfOrigin?.name}                                    
+                                    {documents?.certificateOfOrigin?.name}
                                   </span>
                                   <img
                                     className={`${styles.close_image}`}
@@ -1317,7 +1335,9 @@ export default function Index({ addButton, inspectionData }) {
                               </div> */}
                                 </>
                               ) : (
-                                <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                <div
+                                  className={`${styles.certificate} d-flex justify-content-between`}
+                                >
                                   <span>
                                     {documents?.certificateOfQuality?.name}
                                   </span>
@@ -1443,7 +1463,9 @@ export default function Index({ addButton, inspectionData }) {
                               </div> */}
                                 </>
                               ) : (
-                                <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                <div
+                                  className={`${styles.certificate} d-flex justify-content-between`}
+                                >
                                   <span>
                                     {documents?.certificateOfWeight?.name}
                                   </span>
@@ -1725,27 +1747,25 @@ export default function Index({ addButton, inspectionData }) {
                   border="0"
                 >
                   <thead>
-                   <tr className="table_row">
+                    <tr className="table_row">
                       {excelFile &&
                         excelFile.length > 0 &&
                         Object.keys(excelFile[0]).map((val, index) => (
                           <th key={index}>{val}</th>
                         ))}
-                     </tr>
+                    </tr>
                   </thead>
-                    <tbody>
-                           
-                             {excelFile &&
-                                excelFile.length > 0 &&
-                                excelFile.map((item, index) => (
-                                  <tr>
-                                    {Object.values(item).map((value, id) => (
-                                      <td key={id}>{value}</td>
-                                    ))}
-                                  </tr>
-                                ))}
-                          
-                          </tbody>
+                  <tbody>
+                    {excelFile &&
+                      excelFile.length > 0 &&
+                      excelFile.map((item, index) => (
+                        <tr>
+                          {Object.values(item).map((value, id) => (
+                            <td key={id}>{value}</td>
+                          ))}
+                        </tr>
+                      ))}
+                  </tbody>
                 </table>
               </div>
             </div>
