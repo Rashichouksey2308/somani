@@ -47,7 +47,7 @@ function Index({ directorData }) {
             data-parent="#profileAccordion"
           >
             <div
-              className={`${styles.directorDetails} ${styles.cardBody} directorDetails bg-transparent card-body border_color`}
+              className={`${styles.directorDetails} ${styles.cardBody} directorDetails card-body border_color`}
             >
               <div className="accordion shadow-none" id="directorDetails3">
                 <div className={`${styles.card} border_color card`}>

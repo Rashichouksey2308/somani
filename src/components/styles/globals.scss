@@ -792,12 +792,15 @@ body.light-mode .image_arrow {
 }
 
 body.light-mode .accordion_DropDown {
+  outline: none;
   color: #3687e8;
   background: #f3f4f7;
 }
 
 body.dark-mode .accordion_DropDown {
-  background: #1d2530;
+  outline: none;
+  color: #3687E8;
+  background: #293141;
 }
 body.dark-mode .card_sub_header {
   background-color: #232936 !important;

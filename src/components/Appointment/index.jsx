@@ -9,6 +9,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { useDispatch } from 'react-redux'
 import { UpdateInspection } from 'redux/Inspections/action'
 import moment from 'moment'
+import { toast } from 'react-toastify'
 
 export default function Index({ inspectionData }) {
   const dispatch = useDispatch()
@@ -96,6 +97,19 @@ export default function Index({ inspectionData }) {
     setAppointmentData(addressData)
   }
 
+  const validation = () => {
+    let toastMessage = ''
+    if(appointmentData.name == '' || appointmentData.name == undefined){
+
+      toastMessage = 'NAME IS MANDATORY'
+      if(!toast.isActive(toastMessage)){
+        toast.error(toastMessage, {toastId: toastMessage})
+      }
+      return false
+    }
+    return true
+  }
+
   const handleSave = () => {
     console.log("SAvee")
     const fd = new FormData()
@@ -107,6 +121,7 @@ export default function Index({ inspectionData }) {
   }
 
   const handleSubmit = () => {
+    if(!validation()) return
     console.log("SAvee")
     const fd = new FormData()
     fd.append('thirdPartyAppointment', JSON.stringify(appointmentData))

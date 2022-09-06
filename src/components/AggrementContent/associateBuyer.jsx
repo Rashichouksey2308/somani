@@ -452,7 +452,7 @@ console.log(associateData.gstin,"associateData")
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
-        <Form className={`${styles.form}`}>
+        <Form className={`${styles.form} border_color`}>
           <div className="row">
             <div className={`${styles.info} col-md-4 col-sm-6`}>
               <span>Name
