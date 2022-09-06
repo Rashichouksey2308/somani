@@ -776,3 +776,24 @@
   appearance: none;
   // position: relative;
 }
+.certificate {
+  font-size: 20px;
+  letter-spacing: 0.19px;
+  color: #111111;
+  background-color: #c3c3c31f;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 7px 0;
+  
+  span {
+    max-width: 92%;
+    overflow-x: hidden;
+    display: inline-block;
+    text-overflow: ellipsis;
+  }
+}
+.close_image {
+  margin-left: -30px;
+  @include respond(phone) {
+  }
+}

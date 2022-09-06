@@ -865,6 +865,11 @@
     }
   }
 }
+.close_image {
+  margin-left: -30px;
+  @include respond(phone) {
+  }
+}
 .updated_successfully {
   top: 50%;
   left: 50%;
