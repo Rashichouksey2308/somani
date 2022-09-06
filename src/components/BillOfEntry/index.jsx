@@ -14,6 +14,7 @@ import _get from 'lodash/get'
 import { removePrefixOrSuffix, addPrefixOrSuffix } from 'utils/helper'
 import { toast } from 'react-toastify'
 import {checkNan} from '../../utils/helper'
+import { set } from 'lodash'
 
 export default function Index({
   customData,
@@ -75,7 +76,7 @@ export default function Index({
       return number
     }
   }
-  console.log(billOfEntryData.boeDetails,"boeDetails")
+  console.log(billOfEntryData,"boeDetails")
 console.log(customData,'sdasd')
   const uploadDoc1 = async (e) => {
     let name = e.target.name
@@ -110,7 +111,17 @@ console.log(customData,'sdasd')
     namesplit.length > 1
       ? (newInput[namesplit[0]][namesplit[1]] = value)
       : (newInput[name] = value)
-    setBillOfEntryData(newInput)
+     console.log(newInput,"newInput")
+
+    setBillOfEntryData({...newInput})
+  }
+  const conversionRateChange=(name, value)=>{
+    
+     const newInput = { ...billOfEntryData }
+    newInput['boeDetails']['conversionRate'] = value
+     console.log(newInput,"newInput")
+
+    setBillOfEntryData({...newInput})
   }
 
   const [pfCheckBox, setPfCheckBox] = useState(true)
@@ -198,26 +209,7 @@ console.log(customData,'sdasd')
     ])
   }
 
-  // const [list, setList] = useState([
-  //   {
-  //     sNo: '',
-  //     duty: '',
-  //     amount: '',
-  //     action: '',
-  //   },
-  // ])
 
-  // const onAddClick = () => {
-  //   setDutyData([
-  //     ...dutyData,
-  //     {
-  //       sNo: '',
-  //       duty: '',
-  //       amount: '',
-  //       action: '',
-  //     },
-  //   ])
-  // }
 
   const handleSubmit = () => {
  
@@ -287,7 +279,11 @@ console.log(customData,'sdasd')
   }
 
   const handleSave = () => {
-    const billOfEntry = { billOfEntry: [billOfEntryData] }
+    let tempData={...billOfEntryData}
+    tempData.boeDetails.conversionRate=removePrefixOrSuffix(billOfEntryData.boeDetails.conversionRate)
+     tempData.boeDetails.invoiceQuantity=removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceQuantity)
+      tempData.boeDetails.invoiceValue=removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceValue)
+    const billOfEntry = { billOfEntry: [tempData] }
     const fd = new FormData()
     fd.append('customClearanceId', customData?._id)
     fd.append('billOfEntry', JSON.stringify(billOfEntry))
@@ -304,8 +300,14 @@ console.log(customData,'sdasd')
     }
   }
 
- let accessibleValueCalc =  checkNan((Number(_get(customData,'billOfEntry.billOfEntry[0].boeDetails.invoiceValue',),) * billOfEntryData?.boeDetails?.conversionRate))
-
+const [accessibleValueCalc,setAcc]=useState(0)
+ useEffect(() => {
+ 
+  setAcc(checkNan((Number(_get(customData,'billOfEntry.billOfEntry[0].boeDetails.invoiceValue',),) 
+    
+    * removePrefixOrSuffix(billOfEntryData?.boeDetails?.conversionRate))))
+    
+ },[billOfEntryData.boeDetails.conversionRate,billOfEntryData.boeDetails.invoiceValue])
   useEffect(() => {
     if (customData) {
       let data = Number(
@@ -327,7 +329,7 @@ console.log(customData,'sdasd')
           invoiceQuantity: data?.boeDetails?.invoiceQuantity,
           invoiceQuantityUnit: data?.boeDetails?.invoiceQuantityUnit,
           currency: data?.boeDetails?.currency,
-          conversionRate: data?.boeDetails?.conversionRate,
+          conversionRate: data?.boeDetails?.conversionRate || "",
           invoiceNumber: data?.boeDetails?.invoiceNumber,
           invoiceValue: data?.boeDetails?.invoiceValue,
           invoiceValueCurrency: data?.boeDetails?.invoiceValueCurrency,
@@ -344,7 +346,7 @@ console.log(customData,'sdasd')
       }
       setBillOfEntryData(tempArray)
     }
-  }, [customData, accessibleValueCalc])
+  }, [customData])
 
 
 
@@ -736,17 +738,18 @@ console.log(customData,'sdasd')
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <input
-                    value={billOfEntryData?.boeDetails?.invoiceQuantity}
+                    // value={billOfEntryData?.boeDetails?.invoiceQuantity}
                     className={`${styles.input_field} input form-control`}
-                    type="number"
-                    min={1}
-                    onKeyPress={preventMinus}
+                    type="text"
+                   
+                    // onKeyPress={preventMinus}
+                    value={addPrefixOrSuffix(billOfEntryData?.boeDetails?.invoiceQuantity,"MT")}
                     name="boeDetails.invoiceQuantity"
                     onChange={(e) =>
                       saveBillOfEntryData(e.target.name, e.target.value)
                     }
                     required
-                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                    // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Invoice Quantity<strong className="text-danger">*</strong>
@@ -757,11 +760,12 @@ console.log(customData,'sdasd')
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <input
-                    value={billOfEntryData?.boeDetails?.invoiceValue}
+                    // value={billOfEntryData?.boeDetails?.invoiceValue}
                     className={`${styles.input_field} input form-control`}
-                    type="number"
+                    type="text"
                     required
-                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                  
+                    value={addPrefixOrSuffix(billOfEntryData?.boeDetails?.invoiceValue,"INR","front")}
                     name="boeDetails.invoiceValue"
                     onChange={(e) =>
                       saveBillOfEntryData(e.target.name, e.target.value)
@@ -774,17 +778,20 @@ console.log(customData,'sdasd')
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
+                 
                   <input
+                   
                     className={`${styles.input_field} input form-control`}
-                    type="number"
-                    name="boeDetails.conversionRate"
+                    type="text"
                     required
-                    value={Number(billOfEntryData.boeDetails.conversionRate)}
-                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                    value={addPrefixOrSuffix(billOfEntryData?.boeDetails?.conversionRate,"INR","front")}
+                   
+                    name="boeDetails.conversionRate"
                     onChange={(e) =>
-                      saveBillOfEntryData(e.target.name, e.target.value)
+                      conversionRateChange(e.target.name, e.target.value)
                     }
                   />
+                 
                   <label className={`${styles.label_heading} label_heading`}>
                     Conversion Rate<strong className="text-danger">*</strong>
                   </label>
