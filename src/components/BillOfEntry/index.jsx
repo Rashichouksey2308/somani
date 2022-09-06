@@ -803,7 +803,7 @@ console.log(customData,'sdasd')
                     
                   />
                   <label className={`${styles.label_heading} label_heading`}>
-                    Accessible Value <strong className="text-danger">*</strong>
+                     Assessable Value <strong className="text-danger">*</strong>
                   </label>
                 </div>
                 {/* <div

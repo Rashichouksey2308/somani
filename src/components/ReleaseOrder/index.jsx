@@ -380,12 +380,10 @@ export default function Index({ ReleaseOrderData }) {
                           </label>
                         </div>
                         <div
-                          className="col-lg-3 col-md-4 col-sm-6 text-center"
-                          style={{ top: '40px' }}
-                        >
+                          className={`${styles.form_group} col-lg-3 col-md-4 col-sm-6 d-flex align-items-center text-center`}>
                           {item?.document === null ? (
                             <>
-                              <div className="d-flex">
+                              <div className="d-flex align-items-center">
                                 <div className={styles.uploadBtnWrapper}>
                                   <input
                                     id="document"
@@ -413,12 +411,12 @@ export default function Index({ ReleaseOrderData }) {
                                   />{' '}
                                 </div>   */}
 
-                                <div style={{ marginTop: '12px' }}>
+                                <div>
                                   {releaseDetail.length === 1 ? null : (
                                     <img
                                       onClick={() => handleDeleteRow(index)}
                                       src="/static/delete 2.svg"
-                                      className={`${styles.delete_image} img-fluid ml-3 mr-2`}
+                                      className={`${styles.delete_image} img-fluid ml-3 mr-3`}
                                       alt="Delete"
                                     />
                                   )}
@@ -430,7 +428,7 @@ export default function Index({ ReleaseOrderData }) {
                                           addMorereleaseDetailDataRows(index)
                                         }
                                         src="/static/add-btn.svg"
-                                        className={`${styles.delete_image} ml-2 img-fluid`}
+                                        className={`${styles.delete_image} ml-3 img-fluid`}
                                         alt="Add button"
                                       />
                                     )}
@@ -450,7 +448,7 @@ export default function Index({ ReleaseOrderData }) {
                             </>
                           ) : (
                             <>
-                              <div className={`${styles.certificate} d-flex justify-content-between`}>
+                              <div className={`${styles.certificate} m-0 d-flex justify-content-between`}>
                                 <span>
                                 {item?.document?.originalName}
                                 </span>
@@ -468,13 +466,13 @@ export default function Index({ ReleaseOrderData }) {
                                       addMorereleaseDetailDataRows(index)
                                     }
                                     src="/static/add-btn.svg"
-                                    className={`${styles.delete_image} mt-n4 img-fluid`}
+                                    className={`${styles.delete_image} ml-3 mr-3`}
                                     alt="Add button"
                                   />
                                   <img
                                     onClick={() => handleDeleteRow(index)}
                                     src="/static/delete 2.svg"
-                                    className={`${styles.delete_image} ml-1 mt-n4 img-fluid mr-2`}
+                                    className={`${styles.delete_image}`}
                                     alt="Delete"
                                   />
                                 </>

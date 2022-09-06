@@ -33,6 +33,16 @@ export const CovertvaluefromtoCR = (value, conversionValue = 10000000) => {
   return newValue
 }
 
+
+export const convertValue = (value, coversionRate = 10000000) => {
+  let newValue = Number(value / coversionRate)
+  if (!newValue) {
+    console.log(newValue,value,'inspectionData231')
+    return ''
+  } else {
+    return newValue
+  }
+}
 export const predictiveSearch = (text) => {
   var regex = /[a-zA-Z0-9]{4}/
   return regex.test(text)
