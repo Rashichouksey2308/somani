@@ -1120,7 +1120,7 @@ export default function Index({
                                   <div className={styles.certificate}>
                                     <span>{bolList[index]?.blDoc?.originalName}</span>
                                     <img
-                                      className={`${styles.close_image} mr-2`}
+                                     className={`${styles.close_image} float-right m-2 img-fluid`}
                                       src="/static/close.svg"
                                       onClick={(e) =>
                                         handleCloseDoc('blDoc', index)
@@ -1194,7 +1194,7 @@ export default function Index({
                                         }
                                         </span>
                                         <img
-                                          className={`${styles.close_image} mr-2`}
+                                          className={`${styles.close_image} float-right m-2 img-fluid`}
                                           src="/static/close.svg"
                                           onClick={(e) =>
                                             handleCloseDoc(
@@ -1268,7 +1268,7 @@ export default function Index({
                                         }
                                         </span>
                                         <img
-                                          className={`${styles.close_image} mr-2`}
+                                           className={`${styles.close_image} float-right m-2 img-fluid`}
                                           src="/static/close.svg"
                                           onClick={(e) =>
                                             handleCloseDoc(
@@ -1411,7 +1411,7 @@ export default function Index({
                                     }
                                     </span>
                                     <img
-                                      className={`${styles.close_image} mr-2`}
+                                       className={`${styles.close_image} float-right m-2 img-fluid`}
                                       src="/static/close.svg"
                                       onClick={(e) => handleCloseDoc(e, index)}
                                       alt="Close"

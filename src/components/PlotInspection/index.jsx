@@ -47,6 +47,8 @@ export default function Index({ inspectionData }) {
     })
   }
 
+
+
   const handleSubmit = () => {
     console.log('payload Third party1')
     if (plotInspectionData.plotInspectionDate == '') {
