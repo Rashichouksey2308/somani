@@ -448,7 +448,7 @@ export default function Index({ ReleaseOrderData }) {
                                     release.pdf
                                   </span>
                                   <img
-                                    className={`${styles.close_image} float-right m-2 img-fluid`}
+                                    className={`${styles.close_image}`}
                                     src="/static/close.svg"
                                     onClick={() => handleCloseO()}
                                     alt="Close"
@@ -498,7 +498,7 @@ export default function Index({ ReleaseOrderData }) {
                                 </span>
                                 <img
                                   onClick={(e) => closeDoc(index)}
-                                  className={`${styles.close_image} float-right m-2 img-fluid`}
+                                  className={`${styles.close_image}`}
                                   src="/static/close.svg"
                                   alt="Close"
                                 />{' '}

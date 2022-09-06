@@ -972,7 +972,7 @@ const addDoc=(e,index)=>{
                           {doc.attachDoc.originalName}
                         </span>
                         <img
-                          className={`${styles.close_image} float-right m-2 img-fluid`}
+                          className={`${styles.close_image}`}
                           src="/static/close.svg"
                           onClick={() =>setdoc({attachDoc:""})}
                           alt="Close"
@@ -1017,7 +1017,7 @@ const addDoc=(e,index)=>{
                           {val.attachDoc.originalName}
                         </span>
                         <img
-                          className={`${styles.close_image} float-right m-2 img-fluid`}
+                          className={`${styles.close_image}`}
                           src="/static/close.svg"
                           onClick={() => removeDoc(index)}
                           alt="Close"
