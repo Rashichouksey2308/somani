@@ -432,7 +432,7 @@ setEditAddress(
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
-        <Form className={`${styles.form}`}>
+        <Form className={`${styles.form} border_color`}>
           <div className="row border-color ">
        <Form.Group className={`${styles.form_group} d-flex  col-md-8 col-sm-6`}>
               <Form.Control
