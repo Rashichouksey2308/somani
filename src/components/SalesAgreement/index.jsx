@@ -911,7 +911,7 @@ const onSave=()=>{
     }
     }
     if (dataToSend.CHA.gstin== "" || dataToSend.CHA.gstin== undefined) {
-    toastMessage = `Please add short name  `
+    toastMessage = `Please add gstin name  `
     if (!toast.isActive(toastMessage.toUpperCase())) {
     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     setSubmitData(false)
