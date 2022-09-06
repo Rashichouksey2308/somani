@@ -13,7 +13,7 @@ import Cookies from 'js-cookie'
 import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper'
 import Axios from 'axios'
 
-export default function Index({ ReleaseOrderData }) {
+export default function Index({ ReleaseOrderData ,releaseDetail,setReleaseDetail}) {
   const dispatch = useDispatch()
   const [show, setShow] = useState(false)
 
@@ -30,18 +30,10 @@ export default function Index({ ReleaseOrderData }) {
     'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
     0,
   )
-  const { releaseDetails } = useSelector((state) => state.user)
+ 
   const [editInput, setEditInput] = useState(true)
   const [netBalanceQuantity, setNetBalanceQuantity] = useState(InvoiceQuantity)
-  const [releaseDetail, setReleaseDetail] = useState([
-    {
-      orderNumber: 1,
-      releaseOrderDate: '',
-      netQuantityReleased: 0,
-      unitOfMeasure: '',
-      document: null,
-    },
-  ])
+
   console.log(releaseDetail, '11')
   console.log(releaseDetail.length - 1, '111')
   useEffect(() => {
@@ -51,21 +43,7 @@ export default function Index({ ReleaseOrderData }) {
     }
   }, [releaseDetail])
 
-  useEffect(() => {
-    // let tempArr = [...releaseDetail]
-    // let tempArr = _get(ReleaseOrderData, "data[0].releaseDetail", [])
 
-    if (_get(ReleaseOrderData, "data[0].releaseDetail", []).length > 0) {
-      // let TempArr2 = []
-      // _get(ReleaseOrderData, "data[0].releaseDetail", []).forEach((item) => {
-      //   TempArr2.push(item)
-      // })
-      setReleaseDetail(_get(ReleaseOrderData, "data[0].releaseDetail", []))
-    }
-
-    //  setReleaseDetail(_get(ReleaseOrderData, "data[0].releaseDetail", []))
-
-  }, [ReleaseOrderData])
 
 
   const closeDoc = (index) => {
@@ -227,13 +205,13 @@ export default function Index({ ReleaseOrderData }) {
       return { ...doc, certificateOfOrigin: null }
     })
   }
-  const onSaveHAndler = () => {
+  const onSaveHAndler = async () => {
     let payload = {
       deliveryId: _get(ReleaseOrderData, 'data[0]._id', ''),
       releaseDetail: [...releaseDetail],
     }
     // console.log(payload)
-    dispatch(UpdateDelivery(payload))
+    await dispatch(UpdateDelivery(payload))
   }
   // console.log(netBalanceQuantity, 'netBalanceQuantity')
 
@@ -363,7 +341,7 @@ export default function Index({ ReleaseOrderData }) {
                         <div
                           className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                         >
-                          {console.log(item.netQuantityRelease, "item.netQuantityRelease")}
+                         
                           <input
                             // onWheel={(e) => e.target.blur()}
 
