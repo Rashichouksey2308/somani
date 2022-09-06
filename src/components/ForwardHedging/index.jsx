@@ -57,7 +57,7 @@ export default function Index() {
   useEffect(() => {
     setList([
       {
-        bankName: hedgingDataDetail?.bankName ?? 'Bank of America',
+        bankName: hedgingDataDetail?.bankName ?? '',
         currency: hedgingDataDetail?.currency || 'INR',
         bookedRate: hedgingDataDetail?.bookedRate,
         bookedRateCurrency: hedgingDataDetail?.bookedRateCurrency || 'INR',
@@ -84,7 +84,7 @@ export default function Index() {
           bookedRate: '',
           bookedRateCurrency: 'INR',
           bookedAmount: '',
-          validityFrom: '',
+          validityFrom : '',
           validityTo: '',
           closingDate: '',
           closingRate: '',
@@ -96,9 +96,10 @@ export default function Index() {
     })
   }
 
-  const saveHedgingData = (name, value, index) => {
+  const saveHedgingData = (name, value, index=0) => {
     // const name = name
     // const value = value
+    console.log(name,value,"Dsdff")
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -223,7 +224,7 @@ export default function Index() {
   }
 
   const handleSave = () => {
-    let hedgingObj = { ...list }
+    let hedgingObj = [ ...list ]
 
     hedgingObj.balanceAmount = list.bookedAmount
 
@@ -233,23 +234,20 @@ export default function Index() {
     // fd.append('forwardSalesContract', list?.forwardSalesContract)
     let obj = {
       forwardHedgingId: hedgingData?._id,
-      detail: [hedgingObj],
+      detail: hedgingObj,
     }
     let task = 'save'
     dispatch(UpdateForwardHedging({ obj, task }))
   }
   const handleSubmit = () => {
-    let hedgingObj = { ...list }
+    let hedgingObj = [ ...list ]
 
-    hedgingObj.balanceAmount = list.bookedAmount
-
-    // let fd = new FormData()
-    // fd.append('forwardHedgingId', hedgingData?._id)
-    // fd.append('detail', JSON.stringify(list))
-    // fd.append('forwardSalesContract', list?.forwardSalesContract)
+    // hedgingObj.balanceAmount = list.bookedAmount
+    console.log(hedgingObj,"dasd")
+   
     let obj = {
       forwardHedgingId: hedgingData?._id,
-      detail: [hedgingObj],
+      detail: hedgingObj,
     }
     let task = 'submit'
     dispatch(UpdateForwardHedging({ obj, task }))
@@ -306,6 +304,7 @@ export default function Index() {
                                   index,
                                 )
                               }
+                              value={item.bankName}
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
                               <option selected>Select an option</option>
@@ -369,10 +368,11 @@ export default function Index() {
                             required
                             type="number"
                             name="bookedRate"
-                            defaultValue={list?.bookedRate}
+                            value={item.bookedRate}
                             onKeyDown={(evt) =>
                               evt.key === 'e' && evt.preventDefault()
                             }
+
                             onChange={(e) =>
                               saveHedgingData(
                                 e.target.name,
@@ -395,7 +395,8 @@ export default function Index() {
                             type="number"
                             required
                             name="bookedAmount"
-                            defaultValue={list?.bookedAmount}
+                            value={item.bookedAmount}
+                          
                             onKeyDown={(evt) =>
                               evt.key === 'e' && evt.preventDefault()
                             }
@@ -421,7 +422,7 @@ export default function Index() {
                           <div className="d-flex">
                             <DateCalender
                               name="validityFrom"
-                              // defaultDate={list?.validityFrom?.split('T')[0]}
+                              defaultDate={item?.validityFrom?.split('T')[0]}
                               saveDate={saveDate}
                               labelName="Validity from"
                             />
@@ -438,6 +439,7 @@ export default function Index() {
                           <div className="d-flex">
                             <DateCalender
                               name="validityTo"
+                               defaultDate={item?.validityTo?.split('T')[0]}
                               // defaultDate={list?.validityTo}
                               saveDate={saveDate}
                               labelName="Validity to"
@@ -466,7 +468,7 @@ export default function Index() {
                             Balance Amount
                           </div>
                           <span className={`${styles.value}`}>
-                            {list?.bookedAmount}
+                            {item?.bookedAmount}
                           </span>
                         </div>
                       </div>
@@ -480,6 +482,7 @@ export default function Index() {
                               type="number"
                               required
                               name="closingRate"
+                              value={item?.closingRate}
                               onKeyDown={(evt) =>
                                 evt.key === 'e' && evt.preventDefault()
                               }
