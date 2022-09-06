@@ -543,7 +543,7 @@ export default function Index({
                       //     '',
                       //   ) == 'Bulk' ? 'checked' : ''
                       // }
-                      checked={shipmentTypeBulk}
+                      checked={shipmentTypeBulk }
                       id={`inline-${type}-1`}
                     />
                     <Form.Check
@@ -559,7 +559,7 @@ export default function Index({
                       //     '',
                       //   ) == 'Liner' ? 'checked' : ''
                       // }
-                      checked={!shipmentTypeBulk ? 'checked' : ''}
+                      checked={!shipmentTypeBulk}
                       type={type}
                       id={`inline-${type}-2`}
                     />
@@ -598,7 +598,7 @@ export default function Index({
                     Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {_get(TransitDetails, 'data[0].order.quantity', '')}{' '}
+                    {_get(TransitDetails, 'data[0].order.quantity', '').toLocaleString()}{' '}
                     {_get(
                       TransitDetails,
                       'data[0].order.unitOfQuantity',
@@ -613,7 +613,7 @@ export default function Index({
                   <span className={styles.value}>
                     {CovertvaluefromtoCR(
                       _get(TransitDetails, 'data[0].order.orderValue', ''),
-                    )}{' '}
+                    ).toLocaleString()}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
                       'Crores'
                       ? 'Cr'
