@@ -989,8 +989,10 @@ export default function Index({
                                 </div>
                               </>
                             ) : (
-                              <div className={styles.certificate}>
-                                {item.document?.originalName}
+                              <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                <span>
+                                  {item.document?.originalName}
+                                </span>
                                 <img
                                   className={`${styles.close_image} float-right ml-2 img-fluid`}
                                   src="/static/close.svg"

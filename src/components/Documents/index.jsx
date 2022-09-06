@@ -107,8 +107,10 @@ const Index = ({
                         </button>
                       </div>
                     ) : (
-                      <div className={styles.certificate}>
-                        {val.attachDoc.name}
+                      <div className={`${styles.certificate} d-flex justify-content-between`}>
+                        <span>
+                          {val.attachDoc.name}
+                        </span>
                         <img
                           className={`${styles.close_image} float-right m-2 img-fluid`}
                           src="/static/close.svg"
@@ -190,8 +192,10 @@ const Index = ({
                       </button>
                     </div>
                   ) : (
-                    <div className={styles.certificate}>
-                      {secondDocName}
+                    <div className={`${styles.certificate} d-flex justify-content-between`}>
+                      <span>
+                        {secondDocName}
+                      </span>
                       <img
                         className={`${styles.close_image} float-right m-2 img-fluid`}
                         src="/static/close.svg"
@@ -258,8 +262,10 @@ const Index = ({
               <button className={`${styles.button_upload} btn`}>Upload</button>
             </div>
           ) : (
-            <div className={styles.certificate}>
-              {secondDocName}
+            <div className={`${styles.certificate} d-flex justify-content-between`}>
+              <span>
+                {secondDocName}
+              </span>
               <img
                 className={`${styles.close_image} float-right m-2 img-fluid`}
                 src="/static/close.svg"
