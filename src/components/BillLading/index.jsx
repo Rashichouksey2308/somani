@@ -543,7 +543,7 @@ export default function Index({
                       //     '',
                       //   ) == 'Bulk' ? 'checked' : ''
                       // }
-                      checked={shipmentTypeBulk }
+                      checked={shipmentTypeBulk}
                       id={`inline-${type}-1`}
                     />
                     <Form.Check
@@ -757,8 +757,13 @@ export default function Index({
                           <div className="d-flex">
                             {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                             <DatePicker
+                              // selected={
+                              //   startBlDate ? moment(startBlDate).toDate() : ''
+                              // }
                               selected={
-                                startBlDate ? moment(startBlDate).toDate() : ''
+                                bol?.blDate == null
+                                  ? ''
+                                  : moment(bol?.blDate).toDate()
                               }
                               // value={moment((bol?.blDate)?.split(0, 10)).format('DD-MM-YYYY')}
                               defaultDate={bol?.blDate}
@@ -1388,7 +1393,7 @@ export default function Index({
                                 />
                               </td>
                               <td className={styles.doc_row}>
-                               { bolList[index]?.blSurrenderDoc === null ? '' : moment( bolList[index]?.blSurrenderDoc?.Date).format(' DD-MM-YYYY , h:mm a')}
+                                {bolList[index]?.blSurrenderDoc === null ? '' : moment(bolList[index]?.blSurrenderDoc?.Date).format(' DD-MM-YYYY , h:mm a')}
                               </td>
                               <td>
                                 {bolList &&
