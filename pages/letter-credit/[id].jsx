@@ -635,6 +635,8 @@ console.log(lcModuleData,"lcModuleData")
         handleSave={handleSubmit}
         rightBtnClick={handleRightButton}
         rightBtn="Share"
+        buttonText="Submit"
+        
       />
     </>
   )

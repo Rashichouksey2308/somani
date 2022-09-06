@@ -3,7 +3,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import styles from './index.module.scss'
 
-function Index({ handleSave, rightBtn, rightBtnClick, handleRoute }) {
+function Index({ handleSave, rightBtn, rightBtnClick, handleRoute ,buttonText="Save" }) {
   console.log(rightBtnClick, 'handleSave')
   // const {updatingAmendment} = useSelector((state)=>state.lc)
   return (
@@ -17,7 +17,7 @@ function Index({ handleSave, rightBtn, rightBtnClick, handleRoute }) {
         }}
         className={`${styles.reject} ml-3`}
       >
-        <span>Save</span>
+        <span>{buttonText}</span>
       </div>
       <div
         className={`${styles.approve} ml-3`}

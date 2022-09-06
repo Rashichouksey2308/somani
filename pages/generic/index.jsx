@@ -8,7 +8,12 @@ import API from '../../src/utils/endpoints'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPageName,setDynamicName ,setDynamicOrder} from '../../src/redux/userData/action'
 import Router from 'next/router';
+import {GetCompanyDetails} from '../../src/redux/companyDetail/action'
+import {
 
+  GetAllOrders,
+  
+} from '../../src/redux/registerBuyer/action'
 
 
 
@@ -23,8 +28,10 @@ function Index(props) {
     dispatch(setPageName('generic'))
     dispatch(setDynamicOrder(sessionStorage.getItem('genericID')))
     let data=JSON.parse(sessionStorage.getItem("genericSelected"))
-    console.log(data.company.companyName,"data.company.companyName")
-    dispatch(setDynamicName(data.company.companyName))
+     
+    dispatch(setDynamicName(data?.company?.companyName))
+    dispatch(GetCompanyDetails( {company : data?.company._id}))
+    dispatch(GetAllOrders({ orderId: data?.order?._id }))
    }
 
     
