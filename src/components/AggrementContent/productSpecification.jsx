@@ -186,10 +186,13 @@ function Index(props) {
                 ARE ALLOWED <br /> &nbsp; &nbsp; &amp; MAX FILE SIZE UP TO 50 MB
               </span>
             </div>
+            <div className={`${styles.excel_close} d-flex align-items-center justify-content-center ml-auto`}>
+              <img src="/static/close-b.svg" alt="Close" />
+            </div>
           </div>
           <div className={styles.tableWrapper}>
             <div className={styles.table_scroll_outer}>
-              <div className={styles.table_scroll_inner}>
+              <div className={styles.table_scroll_inner}>                
                 <table>
                   <tr>
                     {excelFile &&
@@ -198,7 +201,6 @@ function Index(props) {
                         <th key={index}>{val}</th>
                       ))}
                   </tr>
-
                   {excelFile &&
                     excelFile.length > 0 &&
                     excelFile.map((item, index) => (
