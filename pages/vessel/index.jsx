@@ -272,17 +272,17 @@ export default function Home() {
             "data[0].order.portOfDischarge",
             ""
           ),
-          laycanFrom: "",
-          laycanTo: "",
-          EDTatLoadPort: "",
-          ETAatDischargePort: ""
+          laycanFrom: null,
+          laycanTo: null,
+          EDTatLoadPort: null,
+          ETAatDischargePort: null
         },
 
         vesselInformation: [{
           name: '',
           IMONumber: '',
           flag: '',
-          yearOfBuilt: '',
+          yearOfBuilt: null,
           shippingLineOrCharter: '',
         }]
       },
@@ -392,10 +392,10 @@ export default function Home() {
   const onVesselInfoChangeHandlerForBulk = (e, index) => {
     const name = e.target.id
     let value = e.target.value
-    if (name === 'yearOfBuilt' && value.length === 4) {
-      value = new Date(e.target.value)
-      // console.log(value, 'fghfhf')
-    }
+    // if (name === 'yearOfBuilt' && value.length === 4) {
+    //   // value = new Date(e.target.value)
+    //   // console.log(value, 'fghfhf')
+    // }
     // console.log(name, value, 'arrayvesselbulk')
     if (name.trim() === 'yearOfBuilt' && !value.length === 4) {
       let toastMessage = 'provide a valid year'
@@ -424,11 +424,11 @@ export default function Home() {
   const onVesselInfoChangeHandlerForLiner = (e, index) => {
     const name = e.target.id
     let value = e.target.value
-    if (name === 'yearOfBuilt' && value.length === 4) {
-      value = new Date(e.target.value)
+    // if (name === 'yearOfBuilt' && value.length === 4) {
+      // value = new Date(e.target.value)
 
 
-    }
+    // }
 
 
     let tempArr = [...list]
