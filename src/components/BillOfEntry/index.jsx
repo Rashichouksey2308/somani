@@ -32,7 +32,7 @@ export default function Index({
   const { customClearance } = useSelector((state) => state.Custom)
 
   console.log(customClearance, 'this is custom doc')
-  console.log(customData, 'customData')
+  console.log(dutyData, 'dutyData')
 
   const [billOfEntryData, setBillOfEntryData] = useState({
     boeAssessment: '',
@@ -76,7 +76,7 @@ export default function Index({
     }
   }
   console.log(billOfEntryData.boeDetails,"boeDetails")
-console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd')
+console.log(customData,'sdasd')
   const uploadDoc1 = async (e) => {
     let name = e.target.name
     let docs = await uploadDoc(e)
@@ -131,9 +131,25 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
   //   setDutyData(dutyDataArr)
   // }, [customData])
 
+  useEffect(() => {
+    let temp=[]
+   if(_get(customData,"billOfEntry.billOfEntry[0].duty",[]).length>0){
+      _get(customData,"billOfEntry.billOfEntry[0].duty",[]).forEach((val,index)=>{
+        temp.push(
+          {
+            percentage: val.percentage || "",
+            duty: val.duty,
+            amount: val.amount,
+            action: false,
+          }
+        )
+      })
+      setDutyData(temp)
+   }
+  },[customData])
   const handleDutyChange = (name, value, index) => {
     // console.log(name,value,index,"name,value")
-    let tempArr = dutyData
+    let tempArr = [...dutyData]
     tempArr.forEach((val, i) => {
       if (i == index) {
         val[name] = value
@@ -142,6 +158,7 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
     // console.log(tempArr,"tempArr")
     setDutyData(tempArr)
   }
+
 
   const setActions = (index, val) => {
     setDutyData((prevState) => {
@@ -173,7 +190,7 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
       ...dutyData,
 
       {
-        sNo: '',
+        percentage: '',
         duty: '',
         amount: '',
         action: false,
@@ -335,7 +352,10 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
   //   customData,
   //   // billOfEntryData,
   //   'customData')
+ const getIndex=(index)=>{
+  return index+1;
 
+ }
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -863,60 +883,30 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
                         </tr>
                       </thead>
                       <tbody>
-                        {/* <tr className="table_row">
-                          <td className={styles.doc_name}>1</td>
-                          <td>BCD</td>
-                          <td>24,000</td>
-                          <td className="text-right">
-                            <div>
-                              {!saveContactTable ? (
-                                <img
-                                  src="/static/mode_edit.svg"
-                                  className={`${styles.edit_image} mr-3 img-fluid`}
-                                  onClick={() => {
-                                    setContactTable(true)
-                                  }}
-                                />
-                              ) : (
-                                <img
-                                  src="/static/save-3.svg"
-                                  className={`${styles.edit_image} mr-3 img-fluid`}
-                                  alt="save"
-                                  onClick={(e) => {
-                                    setContactTable(false)
-                                  }}
-                                />
-                              )}
-                              <img
-                                src="/static/delete 2.svg"
-                                className="img-fluid"
-                                style={{ cursor: 'pointer' }}
-                                alt="delete"
-                                onClick={() => handleDeleteRow(index)}
-                              />
-                            </div>
-                          </td>
-                        </tr> */}
+                      
 
                         {dutyData.length > 0 &&
                           dutyData.map((val, index) => (
                             <tr key={index} className="table_row">
                               {!val.actions ? (
                                 <>
-                                  <td className={styles.doc_name}>1</td>
-                                  <td>BCD</td>
-                                  <td>24,000</td>
-                                  <td className="text-right"></td>
+                                
+        
+                                  <td className={styles.doc_name}>{getIndex(index)}</td>
+                                  <td>{val.duty}</td>
+                                  <td>{val.amount}</td>
+                                  <td>{val.percentage}</td>
                                 </>
                               ) : (
                                 <>
                                   {' '}
                                   <td className={styles.doc_name}>
-                                    {index + 1}
+                                    {getIndex(index)}
                                   </td>
                                   <td>
                                     <select
                                       name="duty"
+                                      value={val.duty}
                                       onChange={(e) =>
                                         handleDutyChange(
                                           e.target.name,
@@ -928,7 +918,7 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
                                       className={`${styles.dutyDropdown}`}
                                     >
                                       <option>Select an option</option>
-                                      <option>{val.duty}</option>
+                                     
                                       <option value="BCD">BCD</option>
                                       <option value="IGST">IGST</option>
                                     </select>
@@ -937,6 +927,7 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
                                     <input
                                       className={`${styles.dutyDropdown}`}
                                       name="amount"
+                                       value={val.amount}
                                       disabled={!val.actions}
                                       onChange={(e) =>
                                         handleDutyChange(
@@ -950,6 +941,8 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
                                   <td>
                                     <input
                                       className={`${styles.dutyDropdown}`}
+                                      name="percentage"
+                                      value={val.percentage}
                                       onChange={(e) =>
                                         handleDutyChange(
                                           e.target.name,
