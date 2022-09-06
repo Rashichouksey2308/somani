@@ -279,7 +279,7 @@ export default function Index({ inspectionData }) {
                                       }
                                     </span>
                                     <img
-                                      className={`${styles.close_image} float-right m-2 img-fluid`}
+                                      className={`${styles.close_image}`}
                                       src="/static/close.svg"
                                       onClick={() => handleClose()}
                                       alt="Close"
