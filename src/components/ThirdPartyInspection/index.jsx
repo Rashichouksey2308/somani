@@ -28,10 +28,11 @@ export default function Index({ addButton, inspectionData }) {
     dischargePortInspection: false,
   })
   console.log(portType, 'inspectionData')
+  
   const handlePortType = (name, value) => {
     let newInput = { ...inspectionDetails }
-    newInput[name] = !value
-    // console.log(name, value, 'cak')
+    newInput[name] = value
+    console.log(name, value, 'cak')
     setInspectionDetails(newInput)
   }
 
@@ -63,8 +64,8 @@ export default function Index({ addButton, inspectionData }) {
   const handleShow = () => setShow(true)
 
   const [inspectionDetails, setInspectionDetails] = useState({
-    loadPortInspection: inspectionData?.thirdPartyInspection?.loadPortInspection,
-    dischargePortInspection: inspectionData?.thirdPartyInspection?.dischargePortInspection,
+    loadPortInspection: inspectionData?.thirdPartyInspection?.loadPortInspection ? inspectionData?.thirdPartyInspection?.loadPortInspection : false,
+    dischargePortInspection: inspectionData?.thirdPartyInspection?.dischargePortInspection ? inspectionData?.thirdPartyInspection?.dischargePortInspection : false,
     loadPortInspectionDetails: {
       numberOfContainer:
         inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
@@ -240,8 +241,25 @@ export default function Index({ addButton, inspectionData }) {
     }
   }
 
+  const validation = () => {
+    let toastMessage = ''
+    if (
+      _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') ==
+      null || _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') ==
+      ''
+    ){
+      toastMessage = 'PLEASE SELECT SHIPMENT TYPE FROM A PREVIOUS MODULE'
+      if(!toast.isActive(toastMessage)){
+        toast.error(toastMessage, {toastId: toastMessage})
+      }
+      return false
+    }
+    return true
+  }
+
   const handleSave = () => {
     console.log('dsaasdad', haveDoc)
+    if(!validation()) return
     if (
       _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') ==
       'Liner'
@@ -354,6 +372,7 @@ export default function Index({ addButton, inspectionData }) {
 
   const handleSubmit = () => {
     console.log('dsaasdad', haveDoc)
+    if(!validation()) return
     if (
       _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') ==
       'Liner'
@@ -784,13 +803,15 @@ export default function Index({ addButton, inspectionData }) {
                     name="loadPortInspection"
                     type={type}
                     onChange={(e) => {
-                      handlePortType(e.target.name, inspectionDetails.loadPortInspection)
+                      handlePortType(e.target.name, e.target.checked)
 
                       // setBothField(!bothField)
                     }}
-                    defaultChecked={inspectionDetails.loadPortInspection ? 'checked' : ''}
+                    defaultChecked={inspectionData?.thirdPartyInspection?.loadPortInspection ? true : false}
+
                     id={`inline-${type}-1`}
                   />
+                 {console.log( inspectionData?.thirdPartyInspection?.loadPortInspection, 'jdjdjjd')}
                   <Form.Check
                     className={styles.radio}
                     inline
@@ -798,13 +819,10 @@ export default function Index({ addButton, inspectionData }) {
                     name="dischargePortInspection"
                     value="Discharge"
                     onChange={(e) => {
-                      handlePortType(
-                        e.target.name,
-                        inspectionDetails.dischargePortInspection,
-                      )
+                      handlePortType(e.target.name, e.target.checked)
                       // setBothField(!bothField)
                     }}
-                    defaultChecked={inspectionDetails.dischargePortInspection ? 'checked' : ''}
+                    defaultChecked={inspectionData?.thirdPartyInspection?.dischargePortInspection ? true : false}
                     type={type}
                     id={`inline-${type}-2`}
                   />
