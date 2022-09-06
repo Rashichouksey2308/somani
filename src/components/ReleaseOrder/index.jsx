@@ -18,8 +18,12 @@ export default function Index({ ReleaseOrderData }) {
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
+  const [orderid,setorderId]=useState("")
   console.log(ReleaseOrderData, 'ReleaseOrderData123')
-  let orderid = _get(ReleaseOrderData, 'data[0].order._id', '')
+  // let orderid = _get(ReleaseOrderData, 'data[0].order._id', '')
+  useEffect(() => {
+   setorderId( _get(ReleaseOrderData, 'data[0].order._id', ''))
+  },[ReleaseOrderData])
   let InvoiceQuantity = _get(
     ReleaseOrderData,
     'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',

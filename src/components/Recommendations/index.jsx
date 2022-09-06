@@ -677,7 +677,7 @@ const handleRemoveRowEx=(index)=>{
                   </tr>
                   <tr>
                     <td>Limit Value</td>
-                    <td>{creditDetail?.company?.creditLimit?.availableLimit}</td>
+                    <td>{creditDetail?.company?.creditLimit?.availableLimit?.toLocaleString("en-In")}</td>
                     <td>-</td>
 
                     {filteredCreditRating ? (
@@ -713,7 +713,7 @@ const handleRemoveRowEx=(index)=>{
                     <td>-</td>
                     <td>
                       
-                      {creditDetail?.orderValue}</td>
+                      {creditDetail?.orderValue?.toLocaleString("en-In")}</td>
 
                     <td>-</td>
 
