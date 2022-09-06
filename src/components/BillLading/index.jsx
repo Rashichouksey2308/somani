@@ -34,7 +34,7 @@ export default function Index({
     vesselName: '',
     imoNumber: '',
     blNumber: '',
-    blDate: '',
+    blDate: null,
     blQuantity: '',
     blQuantityUnit: '',
     etaAtDischargePortFrom: null,
@@ -56,7 +56,7 @@ export default function Index({
     vesselName: '',
     imoNumber: '',
     blNumber: '',
-    blDate: '',
+    blDate: null,
     blQuantity: '',
     blQuantityUnit: '',
     etaAtDischargePortFrom: null,
@@ -762,7 +762,7 @@ export default function Index({
                               // }
                               selected={
                                 bol?.blDate == null
-                                  ? ''
+                                  ? null
                                   : moment(bol?.blDate).toDate()
                               }
                               // value={moment((bol?.blDate)?.split(0, 10)).format('DD-MM-YYYY')}
