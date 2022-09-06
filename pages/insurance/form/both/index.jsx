@@ -427,10 +427,7 @@ const Index = () => {
             >
               <div
                 className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
-                data-toggle="collapse"
-                data-target="#marineInsurance"
-                aria-expanded="true"
-                aria-controls="marineInsurance"
+                style={{ cursor: 'default' }}
               >
                 <h2 className="mb-0">Marine Insurance Policy Details</h2>
                 <div className="d-flex justify-content-between align-items-center">
@@ -472,12 +469,16 @@ const Index = () => {
                     ))}
                   </div>
 
-                  <span>+</span>
+                  <span  data-toggle="collapse"
+                data-target="#marineInsurance"
+                aria-expanded="true"
+                aria-controls="marineInsurance"
+                style={{ cursor: 'pointer' }}>+</span>
                 </div>
               </div>
               <div
                 id="marineInsurance"
-                className="collapse"
+                //className="collapse"
                 aria-labelledby="marineInsurance"
               >
                 <div className={` ${styles.cardBody} card-body  border_color`}>
@@ -674,7 +675,7 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
-                            defaultValue={ addPrefixOrSuffix(insuranceData?.marineInsurance?.premiumAmount ? insuranceData?.marineInsurance?.premiumAmount : 0, 'INR', 'front')}
+                            defaultValue={addPrefixOrSuffix(insuranceData?.marineInsurance?.premiumAmount ? insuranceData?.marineInsurance?.premiumAmount : 0, 'INR', 'front', true)}
                             name="premiumAmount"
                             onChange={(e) =>
                               saveMarineData(e.target.name, e.target.value)

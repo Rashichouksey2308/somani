@@ -449,7 +449,7 @@ export default function Index() {
                             />
                           </div>
                         </div>
-                        <div
+                        {/* <div
                           className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
                         >
                           <button
@@ -458,7 +458,7 @@ export default function Index() {
                           >
                             Cancel
                           </button>
-                        </div>
+                        </div> */}
                         <div
                           className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
                         >
@@ -642,8 +642,10 @@ export default function Index() {
                                 </div> */}
                                     </>
                                   ) : (
-                                    <div className={styles.certificate}>
-                                      {item?.forwardSalesContract?.originalName}
+                                    <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                      <span>
+                                        {item?.forwardSalesContract?.originalName}
+                                      </span>
                                       <img
                                         className={`${styles.close_image} float-right m-2 img-fluid`}
                                         src="/static/close.svg"

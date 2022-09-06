@@ -555,8 +555,10 @@ export default function Index({
                                 </div>
                               </>
                             ) : (
-                              <div className={styles.certificate}>
-                                <span>{cimsDetails[index]?.coalImportRegistrationDoc?.originalName}</span>
+                              <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                <span>
+                                  {cimsDetails[index]?.coalImportRegistrationDoc?.originalName}
+                                </span>
                                 <img
                                   className={`${styles.close_image} mr-2`}
                                   src="/static/close.svg"
@@ -601,8 +603,10 @@ export default function Index({
                                 </div>
                               </>
                             ) : (
-                              <div className={styles.certificate}>
-                                <span>{cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName}</span>
+                              <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                <span>
+                                  {cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName}
+                                </span>
                                 <img
                                   className={`${styles.close_image} mr-2`}
                                   src="/static/close.svg"

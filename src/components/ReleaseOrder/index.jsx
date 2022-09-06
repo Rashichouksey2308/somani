@@ -439,8 +439,10 @@ export default function Index({ ReleaseOrderData }) {
                                   </button>
                                 </div>
 
-                                {/* <div className={styles.certificate}>
-                                 release.pdf
+                                {/* <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                  <span>
+                                    release.pdf
+                                  </span>
                                   <img
                                     className={`${styles.close_image} float-right m-2 img-fluid`}
                                     src="/static/close.svg"
@@ -486,8 +488,10 @@ export default function Index({ ReleaseOrderData }) {
                             </>
                           ) : (
                             <>
-                              <div className={styles.certificate}>
+                              <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                <span>
                                 {item?.document?.originalName}
+                                </span>
                                 <img
                                   onClick={(e) => closeDoc(index)}
                                   className={`${styles.close_image} float-right m-2 img-fluid`}

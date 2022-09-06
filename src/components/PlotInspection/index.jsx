@@ -47,6 +47,8 @@ export default function Index({ inspectionData }) {
     })
   }
 
+
+
   const handleSubmit = () => {
     console.log('payload Third party1')
     if (plotInspectionData.plotInspectionDate == '') {
@@ -269,11 +271,13 @@ export default function Index({ inspectionData }) {
                                     </div>
                                   </>
                                 ) : (
-                                  <div className={styles.certificate}>
-                                    {
-                                      plotInspectionData?.plotInspectionReport
+                                  <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                    <span>
+                                      {
+                                        plotInspectionData?.plotInspectionReport
                                         ?.name
-                                    }
+                                      }
+                                    </span>
                                     <img
                                       className={`${styles.close_image} float-right m-2 img-fluid`}
                                       src="/static/close.svg"
