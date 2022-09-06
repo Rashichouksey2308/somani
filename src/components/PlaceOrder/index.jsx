@@ -243,15 +243,15 @@ const Index = () => {
             <div className="row">
               <div className="col-md-2 col-sm-4">
                 <div className={`${styles.label} text`}>Total Limit</div>
-                <span className={styles.value}>{(creditData?.data?.totalLimit)?.toLocaleString()}</span>
+                <span className={styles.value}>{(creditData?.data?.totalLimit ?? '')?.toLocaleString()}</span>
               </div>
               <div className="col-md-2 col-sm-4">
                 <div className={`${styles.label} text`}>Utilised Limit</div>
-                <span className={styles.value}>{(creditData?.data?.utilizedLimit)?.toLocaleString()}</span>
+                <span className={styles.value}>{(creditData?.data?.utilizedLimit ?? '')?.toLocaleString()}</span>
               </div>
               <div className="col-md-2 col-sm-4">
                 <div className={`${styles.label} text`}>Available Limit </div>
-                <span className={styles.value}>{(creditData?.data?.availableLimit)?.toLocaleString()}</span>
+                <span className={styles.value}>{(creditData?.data?.availableLimit ?? '')?.toLocaleString()}</span>
               </div>
               <div className="col-md-2 col-sm-4">
                 <div className={`${styles.label} text`}>Limit Expiry Date</div>
@@ -259,7 +259,7 @@ const Index = () => {
               </div>
               <div className="col-md-2 col-sm-4">
                 <div className={`${styles.label} text`}>Last Order Value</div>
-                <span className={styles.value}>{(creditData?.lastOrder?.orderValue)?.toLocaleString()}</span>
+                <span className={styles.value}>{(creditData?.lastOrder?.orderValue ?? '')?.toLocaleString()}</span>
               </div>
             </div>
           </div>
