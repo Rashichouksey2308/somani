@@ -48,7 +48,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
         className="collapse"
         aria-labelledby="shipmentDetails"
       >
-        <div className={`${styles.dashboard_form}`}>
+        <div className={`${styles.dashboard_form} card-body`}>
           <Form>
             <div className="row">
               <Form.Group className={`${styles.form_group} col-lg-4 col-md-6`}>
