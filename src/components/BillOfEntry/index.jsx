@@ -15,7 +15,10 @@ import { removePrefixOrSuffix, addPrefixOrSuffix } from 'utils/helper'
 import { toast } from 'react-toastify'
 import {checkNan} from '../../utils/helper'
 import { set } from 'lodash'
-
+import {
+  GetAllCustomClearance,
+  UploadCustomDoc,
+} from '../../redux/CustomClearance&Warehousing/action'
 export default function Index({
   customData,
   OrderId,
@@ -34,7 +37,10 @@ export default function Index({
 
   console.log(customClearance, 'this is custom doc')
   console.log(dutyData, 'dutyData')
-
+ useEffect(() => {
+    let id = sessionStorage.getItem('customId')
+    dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
+  }, [dispatch])
   const [billOfEntryData, setBillOfEntryData] = useState({
     boeAssessment: '',
     pdBond: true,
@@ -266,7 +272,12 @@ console.log(customData,'sdasd')
       }
       return
     } else {
-      const billOfEntry = { billOfEntry: [billOfEntryData] }
+      let tempData={...billOfEntryData}
+      tempData.boeDetails.conversionRate=removePrefixOrSuffix(billOfEntryData.boeDetails.conversionRate)
+      tempData.boeDetails.invoiceQuantity=removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceQuantity)
+      tempData.boeDetails.invoiceValue=removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceValue)
+      const billOfEntry = { billOfEntry: [tempData] }
+     
       const fd = new FormData()
       fd.append('customClearanceId', customData?._id)
       fd.append('billOfEntry', JSON.stringify(billOfEntry))
