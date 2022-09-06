@@ -72,7 +72,7 @@ export default function Index({
   console.log(bolList, "bolList")
   let shipmentTypeBulk =
     _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') ===
-    'Bulk' ? true : false
+      'Bulk' ? true : false
 
   const existingBlData = _get(TransitDetails, `data[0].BL.billOfLanding`, [])
 
@@ -1124,7 +1124,7 @@ export default function Index({
                                       {bolList[index]?.blDoc?.originalName}
                                     </span>
                                     <img
-                                     className={`${styles.close_image}`}
+                                      className={`${styles.close_image}`}
                                       src="/static/close.svg"
                                       onClick={(e) =>
                                         handleCloseDoc('blDoc', index)
@@ -1268,12 +1268,12 @@ export default function Index({
                                       <div className={`${styles.certificate} d-flex justify-content-between`}>
                                         <span>
                                           {
-                                          bolList[index]?.packingListDoc
-                                            ?.originalName
+                                            bolList[index]?.packingListDoc
+                                              ?.originalName
                                           }
                                         </span>
                                         <img
-                                           className={`${styles.close_image}`}
+                                          className={`${styles.close_image}`}
                                           src="/static/close.svg"
                                           onClick={(e) =>
                                             handleCloseDoc(
@@ -1412,12 +1412,12 @@ export default function Index({
                                   <div className={`${styles.certificate} d-flex justify-content-between`}>
                                     <span>
                                       {
-                                      bolList[index]?.blSurrenderDoc
-                                        ?.originalName
+                                        bolList[index]?.blSurrenderDoc
+                                          ?.originalName
                                       }
                                     </span>
                                     <img
-                                       className={`${styles.close_image}`}
+                                      className={`${styles.close_image}`}
                                       src="/static/close.svg"
                                       onClick={(e) => handleCloseDoc(e, index)}
                                       alt="Close"
