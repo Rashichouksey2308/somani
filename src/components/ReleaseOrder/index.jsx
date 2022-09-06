@@ -52,38 +52,13 @@ export default function Index({ ReleaseOrderData }) {
   }, [releaseDetail])
 
   useEffect(() => {
-    let tempArr = [...releaseDetail]
-    // let temparr = []
-    // let existingData = _get(ReleaseOrderData, 'data[0].releaseDetail', [])
-    // console.log(releaseDetail, existingData, 'realseOrderState')
-    // if (existingData.length > 0) {
-    //   existingData.forEach((order) => {
-    //     temparr.push(order)
-    //   })
-    //   setReleaseDetail(temparr)
-    // }
-    setReleaseDetail(tempArr)
+    // let tempArr = [...releaseDetail]
+ 
+    setReleaseDetail(_get(ReleaseOrderData,"data[0].releaseDetail",[]))
 
   }, [ReleaseOrderData])
 
-  // console.log(releaseDetail, netBalanceQuantity, 'Release')
 
-  // useEffect(() => {
-  //   let realseOrderState = _get(ReleaseOrderData, 'data[0].releaseDetail', [])
-  //   console.log(realseOrderState, 'realseOrderStateprev')
-  //   if (realseOrderState.length > 0) {
-  //     setReleaseDetail((prevState) => [...realseOrderState]
-  //     )
-  //   }
-  // }, [ReleaseOrderData])
-  // console.log(releaseDetail, 'realseOrderStatecurre')
-
-  // const handleDocUplaod = async (name, e, index) => {
-  //   console.log(e, name, index, 'name,value,index1')
-  //   const doc = await uploadDoc(e)
-  //   console.log(doc, 'name,value,index2.1')
-  //   handlereleaseDetailChange(name, doc, index)
-  // }
   const closeDoc = (index) => {
     let tempArr = [...releaseDetail]
     tempArr[index].document = null
@@ -92,13 +67,14 @@ export default function Index({ ReleaseOrderData }) {
 
   const handlereleaseDetailChange = (name, value, index) => {
     console.log(name, value, index, 'name,value,index2')
-    let tempArr = releaseDetail
+    let tempArr = [...releaseDetail]
     tempArr.forEach((val, i) => {
       if (i == index) {
         val[name] = value
       }
     })
     // console.log(tempArr,"tempArr")
+  
     setReleaseDetail([...tempArr])
   }
 
@@ -144,20 +120,7 @@ export default function Index({ ReleaseOrderData }) {
       // }
     }
   }
-  // const setActions = (index, val) => {
-  //   setReleaseDetail((prevState) => {
-  //     const newState = prevState.map((obj, i) => {
-  //       if (i == index) {
-  //         return { ...obj, actions: val }
-  //       }
-  //       return obj
-  //     })
-  //     return newState
-  //   })
-  //   let newInput = { ...billOfEntryData }
-  //   newInput.releaseDetail = releaseDetailData
-  //   setBillOfEntryData(newInput)
-  // }
+ 
 
   const handleDeleteRow = (index) => {
     // console.log(index, 'temparr')
@@ -380,7 +343,7 @@ export default function Index({ ReleaseOrderData }) {
                               name="releaseOrderDate"
                               labelName="Release Order Date"
                             />
-                            {console.log('release Details', releaseDetail)}
+                            {console.log('release Details', item.releaseOrderDate)}
                             <img
                               className={`${styles.calanderIcon} image_arrow img-fluid`}
                               src="/static/caldericon.svg"
@@ -391,28 +354,23 @@ export default function Index({ ReleaseOrderData }) {
                         <div
                           className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                         >
+                          {console.log(item.netQuantityRelease,"item.netQuantityRelease")}
                           <input
-                            onWheel={(e) => e.target.blur()}
-                            value={addPrefixOrSuffix(
-                              item.netQuantityReleased
-                                ? item.netQuantityReleased
-                                : 0,
-                              'MT',
-                              '',
-                            )}
-                            // defaultValue={Number(
-                            //   item.netQuantityReleased,
-                            // )?.toLocaleString()}
+                            // onWheel={(e) => e.target.blur()}
+                            
+                            type="text"
                             onChange={(e) => {
                               e.target.value = removePrefixOrSuffix(e.target.value)
+                              // console.log( e.target.value,"333")
                               netQuantityChange(e, index)
                             }}
                             id="netQuantityReleased"
+                            value={addPrefixOrSuffix(item.netQuantityReleased,'MT' )}
                             className={`${styles.input_field} input form-control`}
-                            type="text"
-                            onKeyDown={(evt) =>
-                              evt.key === 'e' && evt.preventDefault()
-                            }
+                            
+                            // onKeyDown={(evt) =>
+                            //   evt.key === 'e' && evt.preventDefault()
+                            // }
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
