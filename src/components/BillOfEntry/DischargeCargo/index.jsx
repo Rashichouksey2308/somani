@@ -450,8 +450,10 @@ export default function Index({
                               </div>
                             </>
                           ) : (
-                            <div className={styles.certificate}>
-                              {dischargeOfCargo.document1?.originalName}
+                            <div className={`${styles.certificate} d-flex justify-content-between`}>
+                              <span>
+                                {dischargeOfCargo.document1?.originalName}
+                              </span>
                               <img
                                 onClick={() => onRemoveDoc('document1')}
                                 className={`${styles.close_image} float-right m-2 img-fluid`}
@@ -506,8 +508,10 @@ export default function Index({
                           </div> */}
                             </>
                           ) : (
-                            <div className={styles.certificate}>
-                              {dischargeOfCargo.document2?.originalName}
+                            <div className={`${styles.certificate} d-flex justify-content-between`}>
+                              <span>
+                                {dischargeOfCargo.document2?.originalName}
+                              </span>
                               <img
                                 onClick={() => onRemoveDoc('document2')}
                                 className={`${styles.close_image} float-right m-2 img-fluid`}

@@ -986,8 +986,10 @@ console.log(bolList,"bolList")
                                   </div>
                                 </>
                               ) : (
-                                <div className={styles.certificate}>
-                                  {bol?.containerDetails?.containerDoc?.originalName}
+                                <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                  <span>
+                                    {bol?.containerDetails?.containerDoc?.originalName}
+                                  </span>
                                   <img
                                     className={`${styles.close_image} float-right ml-2 img-fluid`}
                                     src="/static/close.svg"
@@ -1115,8 +1117,10 @@ console.log(bolList,"bolList")
                                     </div>
                                   </>
                                 ) : (
-                                  <div className={styles.certificate}>
-                                    <span>{bolList[index]?.blDoc?.originalName}</span>
+                                  <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                    <span>
+                                      {bolList[index]?.blDoc?.originalName}
+                                    </span>
                                     <img
                                       className={`${styles.close_image} mr-2`}
                                       src="/static/close.svg"
@@ -1185,7 +1189,7 @@ console.log(bolList,"bolList")
                                         </div>
                                       </>
                                     ) : (
-                                      <div className={styles.certificate}>
+                                      <div className={`${styles.certificate} d-flex justify-content-between`}>
                                         <span>{
                                           bolList[index]?.containerNumberListDoc
                                             ?.originalName
@@ -1259,7 +1263,7 @@ console.log(bolList,"bolList")
                                         </div>
                                       </>
                                     ) : (
-                                      <div className={styles.certificate}>
+                                      <div className={`${styles.certificate} d-flex justify-content-between`}>
                                         <span>{
                                           bolList[index]?.packingListDoc
                                             ?.originalName
@@ -1402,7 +1406,7 @@ console.log(bolList,"bolList")
                                     </div>
                                   </>
                                 ) : (
-                                  <div className={styles.certificate}>
+                                  <div className={`${styles.certificate} d-flex justify-content-between`}>
                                     <span>{
                                       bolList[index]?.blSurrenderDoc
                                         ?.originalName

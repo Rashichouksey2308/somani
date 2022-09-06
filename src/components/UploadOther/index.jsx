@@ -159,8 +159,10 @@ const Index = ({ orderid, module, isDocumentName }) => {
                     alt="Browse"
                   />
                   {newDoc?.document?.name ? (
-                    <div className={styles.certificate}>
-                      <span>{newDoc?.document?.name}</span>
+                    <div className={`${styles.certificate} d-flex justify-content-between`}>
+                      <span>
+                        {newDoc?.document?.name}
+                      </span>
                       <img
                         className={`${styles.close_image} mr-2`}
                         src="/static/close.svg"

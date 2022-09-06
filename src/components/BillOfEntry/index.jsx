@@ -1179,8 +1179,10 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
                             </div>
                           </>
                         ) : (
-                          <div className={styles.certificate}>
-                            {billOfEntryData?.document1?.originalName}
+                          <div className={`${styles.certificate} d-flex justify-content-between`}>
+                            <span>
+                              {billOfEntryData?.document1?.originalName}
+                            </span>
                             <img
                               onClick={() => removeDoc('document1')}
                               className={`${styles.close_image} float-right m-2 img-fluid`}
@@ -1220,8 +1222,10 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
                             </div>
                           </>
                         ) : (
-                          <div className={styles.certificate}>
-                            {billOfEntryData?.document2?.originalName}
+                          <div className={`${styles.certificate} d-flex justify-content-between`}>
+                            <span>
+                              {billOfEntryData?.document2?.originalName}
+                            </span>
                             <img
                               onClick={() => removeDoc('document2')}
                               className={`${styles.close_image} float-right m-2 img-fluid`}
@@ -1264,8 +1268,10 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
                               </div>
                             </>
                           ) : (
-                            <div className={styles.certificate}>
-                              {billOfEntryData?.document3?.originalName}
+                            <div className={`${styles.certificate} d-flex justify-content-between`}>
+                              <span>
+                                {billOfEntryData?.document3?.originalName}
+                              </span>
                               <img
                                 onClick={() => removeDoc('document3')}
                                 className={`${styles.close_image} float-right m-2 img-fluid`}
