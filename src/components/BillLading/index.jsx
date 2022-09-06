@@ -559,7 +559,7 @@ export default function Index({
                       //     '',
                       //   ) == 'Liner' ? 'checked' : ''
                       // }
-                      checked={!shipmentTypeBulk ? 'checked' : ''}
+                      checked={!shipmentTypeBulk}
                       type={type}
                       id={`inline-${type}-2`}
                     />
@@ -598,7 +598,7 @@ export default function Index({
                     Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {_get(TransitDetails, 'data[0].order.quantity', '')}{' '}
+                    {_get(TransitDetails, 'data[0].order.quantity', '').toLocaleString()}{' '}
                     {_get(
                       TransitDetails,
                       'data[0].order.unitOfQuantity',
@@ -613,7 +613,7 @@ export default function Index({
                   <span className={styles.value}>
                     {CovertvaluefromtoCR(
                       _get(TransitDetails, 'data[0].order.orderValue', ''),
-                    )}{' '}
+                    ).toLocaleString()}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
                       'Crores'
                       ? 'Cr'
@@ -757,8 +757,13 @@ export default function Index({
                           <div className="d-flex">
                             {/* <DateCalender labelName="From" dateFormat={"dd-MM-yyyy"} saveDate={saveData} /> */}
                             <DatePicker
+                              // selected={
+                              //   startBlDate ? moment(startBlDate).toDate() : ''
+                              // }
                               selected={
-                                startBlDate ? moment(startBlDate).toDate() : ''
+                                bol?.blDate == null
+                                  ? ''
+                                  : moment(bol?.blDate).toDate()
                               }
                               // value={moment((bol?.blDate)?.split(0, 10)).format('DD-MM-YYYY')}
                               defaultDate={bol?.blDate}
@@ -1388,7 +1393,7 @@ export default function Index({
                                 />
                               </td>
                               <td className={styles.doc_row}>
-                                28-02-2022,5:30 PM
+                                {bolList[index]?.blSurrenderDoc === null ? '' : moment(bolList[index]?.blSurrenderDoc?.Date).format(' DD-MM-YYYY , h:mm a')}
                               </td>
                               <td>
                                 {bolList &&

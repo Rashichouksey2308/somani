@@ -145,6 +145,7 @@ export default function Index({
   }
 
   const onChangeIgm = (name, text,index) => {
+    // console.log(name, text, index,'igmOnChange')
     let newData = { ...igmList }
     newData.igmDetails[index][name] = text
     setIgmList(newData)
@@ -614,7 +615,7 @@ export default function Index({
                         <select
                           id="vesselName"
                           onChange={(e) =>
-                            onChangeIgm(e.target.id, e.target.value)
+                            onChangeIgm(e.target.id, e.target.value,index)
                           }
                           className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                           value={item.vesselName}
@@ -765,11 +766,11 @@ export default function Index({
                                   </strong>
                                 </div>
                                 <span className={styles.value}>
-                                  {moment(
+                                  {blEntry?.blDate ? moment(
                                     blEntry?.blDate?.slice(0, 10),
                                     'YYYY-MM-DD',
                                     true,
-                                  ).format('DD-MM-YYYY')}
+                                  ).format('DD-MM-YYYY') : ''}
                                 </span>
                               </div>
                               <div

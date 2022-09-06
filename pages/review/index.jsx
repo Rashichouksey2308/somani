@@ -3331,7 +3331,7 @@ useEffect(() => {
                         <label className={styles.label}>Categories:</label>
                         <select
                           onChange={(e) => setComplienceFilter(e.target.value)}
-                          className={`${styles.form_control} form-control`}
+                          className={`${styles.form_control} input form-control`}
                         >
                           <option>Select an option</option>
 
@@ -3393,7 +3393,7 @@ useEffect(() => {
                           </label>
                           <select
                             onChange={updateLitigationStatus}
-                            className={`${styles.form_control} form-control`}
+                            className={`${styles.form_control} input form-control`}
                           >
                             {orderList?.company?.litigationStatus !==
                               'Pending' ? (

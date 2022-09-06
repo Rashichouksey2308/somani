@@ -530,7 +530,7 @@ const index = ({
                     <option value="Low">Low</option>
                     <option value="Very Low">Very Low</option>
                   </select>
-                  <label className={`${styles.label_heading} label_heading`} style={{top:'20px'}}>
+                  <label className={`${styles.label_heading} label_heading`}>
                     Commodity Contribution Senstivity
                     <strong className="text-danger">*</strong>
                    
@@ -837,7 +837,7 @@ const index = ({
                     saveSupplierData(e.target.name, e.target.value)
                   }}
                 />
-                <label className={`${styles.label_heading} label_heading`} style={{top:'20px'}}>
+                <label className={`${styles.label_heading} label_heading`}>
                   Commodity to Total Trade % -24M
                   <strong className="text-danger">*</strong>
                  
@@ -1088,7 +1088,7 @@ const index = ({
         <div id="keyAddress" className="collapse" aria-labelledby="keyAddress">
           <div className={`${styles.dashboard_form} card-body`}>
             <div
-              className={`w-100 d-flex justify-content-between align-items-center`}
+              className={`w-100 d-flex justify-content-between align-items-start`}
             >
               {keyAddData.map((address, index) => {
                 return (

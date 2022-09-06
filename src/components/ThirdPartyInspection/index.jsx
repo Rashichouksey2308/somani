@@ -23,6 +23,10 @@ export default function Index({ addButton, inspectionData }) {
   const [editInput, setEditInput] = useState(true)
   const [bothField, setBothField] = useState(false)
   const [haveDoc, sethaveDoc] = useState(false)
+  const [documentAction, setDocumentAction] = useState("");
+  const [documentAction1, setDocumentAction1] = useState("");
+  const [documentAction2, setDocumentAction2] = useState("");
+
   const [portType, setPortType] = useState({
     loadPortInspection: false,
     dischargePortInspection: false,
@@ -44,6 +48,11 @@ export default function Index({ addButton, inspectionData }) {
       setEditInput(true)
     }
   }
+
+  const ChangeValue = (item) => {
+    document.getElementById('dropdownMenuButton').value=item;}
+
+  
   const [show, setShow] = useState(false)
 
   useEffect(() => {
@@ -1151,9 +1160,8 @@ export default function Index({ addButton, inspectionData }) {
                                   type="button"
                                   id="dropdownMenuButton"
                                   data-toggle="dropdown"
-                                  aria-haspopup="true"
-                                  aria-expanded="false"
-                                >
+                                  
+                                 >
                                   Please Specify
                                 </button>
                                 <div
@@ -1162,7 +1170,8 @@ export default function Index({ addButton, inspectionData }) {
                                 >
                                   <a
                                     className={`${styles.hold_field} ${styles.dropdown_item} dropdown-item`}
-                                    href="#"
+                                    onClick={()=>ChangeValue("on Hold")}
+                                    
                                   >
                                     <img
                                       src="/static/hold-white.svg"
@@ -1173,7 +1182,7 @@ export default function Index({ addButton, inspectionData }) {
                                   </a>
                                   <a
                                     className={`${styles.rejected_field} ${styles.dropdown_item} dropdown-item`}
-                                    href="#"
+                                    onClick={()=>setDocumentAction("Rejected")}
                                   >
                                     <img
                                       src="/static/close-white.svg"
@@ -1182,9 +1191,12 @@ export default function Index({ addButton, inspectionData }) {
                                     />{' '}
                                     Rejected
                                   </a>
+                                  {
+                                  console.log("valueeee",documentAction)
+                                  }
                                   <a
                                     className={`${styles.approved_field} ${styles.dropdown_item} dropdown-item`}
-                                    href="#"
+                                    onClick={()=>setDocumentAction("Approved")}
                                   >
                                     <img
                                       src="/static/check.svg"
@@ -1289,7 +1301,7 @@ export default function Index({ addButton, inspectionData }) {
                                 >
                                   <a
                                     className={`${styles.hold_field} ${styles.dropdown_item} dropdown-item`}
-                                    href="#"
+                                  
                                   >
                                     <img
                                       src="/static/hold-white.svg"
@@ -1300,7 +1312,7 @@ export default function Index({ addButton, inspectionData }) {
                                   </a>
                                   <a
                                     className={`${styles.rejected_field} ${styles.dropdown_item} dropdown-item`}
-                                    href="#"
+                                   
                                   >
                                     <img
                                       src="/static/close-white.svg"
@@ -1311,7 +1323,7 @@ export default function Index({ addButton, inspectionData }) {
                                   </a>
                                   <a
                                     className={`${styles.approved_field} ${styles.dropdown_item} dropdown-item`}
-                                    href="#"
+                                   
                                   >
                                     <img
                                       src="/static/check.svg"
@@ -1417,8 +1429,8 @@ export default function Index({ addButton, inspectionData }) {
                                 >
                                   <a
                                     className={`${styles.hold_field} ${styles.dropdown_item} dropdown-item`}
-                                    href="#"
-                                  >
+                                    
+ >
                                     <img
                                       src="/static/hold-white.svg"
                                       className="img-fluid mr-2"
@@ -1428,7 +1440,7 @@ export default function Index({ addButton, inspectionData }) {
                                   </a>
                                   <a
                                     className={`${styles.rejected_field} ${styles.dropdown_item} dropdown-item`}
-                                    href="#"
+                                   
                                   >
                                     <img
                                       src="/static/close-white.svg"
@@ -1439,7 +1451,7 @@ export default function Index({ addButton, inspectionData }) {
                                   </a>
                                   <a
                                     className={`${styles.approved_field} ${styles.dropdown_item} dropdown-item`}
-                                    href="#"
+                                   
                                   >
                                     <img
                                       src="/static/check.svg"
