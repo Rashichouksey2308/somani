@@ -1388,7 +1388,7 @@ export default function Index({
                                 />
                               </td>
                               <td className={styles.doc_row}>
-                                28-02-2022,5:30 PM
+                               { bolList[index]?.blSurrenderDoc === null ? '' : moment( bolList[index]?.blSurrenderDoc?.Date).format(' DD-MM-YYYY , h:mm a')}
                               </td>
                               <td>
                                 {bolList &&
