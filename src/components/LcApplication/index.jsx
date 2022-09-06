@@ -26,7 +26,7 @@ function Index({
   excelFile,
   addConditionArr,
 }) {
-  console.log(lcCondition, 'lcCondition12234')
+  console.log(lcData, 'lcCondition12234')
   const [editStren, setEditStren] = useState(false)
   const [edit, setEdit] = useState(false)
 

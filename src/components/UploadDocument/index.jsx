@@ -128,7 +128,7 @@ const Index = ({ uploadDocument1, uploadDocument2, docName, docName2 }) => {
                     </div> */}
                           </>
                         ) : (
-                          <div className={styles.certificate}>
+                          <div className={`${styles.certificate} d-flex justify-content-between`}>
                             <span>{vesselCertificate?.name}</span>
                             <img
                               className={`${styles.close_image} mr-2`}
@@ -182,7 +182,7 @@ const Index = ({ uploadDocument1, uploadDocument2, docName, docName2 }) => {
                     </div> */}
                           </>
                         ) : (
-                          <div className={styles.certificate}>
+                          <div className={`${styles.certificate} d-flex justify-content-between`}>
                             <span>{containerList?.name}</span>
                             <img
                               className={`${styles.close_image} mr-2`}

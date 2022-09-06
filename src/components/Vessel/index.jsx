@@ -893,8 +893,10 @@ function Index({
                               </button>
                             </div> :
 
-                              <div className={styles.certificate}>
-                                <span>{containerExcel?.name}</span>
+                              <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                <span>
+                                  {containerExcel?.name}
+                                </span>
                                 <img
                                   className={`${styles.close_image} mr-2`}
                                   src="/static/close.svg"

@@ -32,6 +32,8 @@ const index = ({
   setEditRow,
   orderDetail,
   companyData,
+  suggestedCredit
+  
   
 }) => {
   console.log(personData, 'companyData')
@@ -101,7 +103,7 @@ const index = ({
     ])
   }
 
-  console.log(debtData, 'THIS IS DEBT')
+  console.log(keyNameList, 'THIS IS DEBT')
 
   const handleDebtChange = (name, value, index) => {
     console.log(name, value, index, 'name,value')
@@ -140,7 +142,7 @@ const index = ({
     ]
     return unique
   }
-  // console.log(FilterUniqueBank(),filtered, 'dghjfdkjhsgfhdsgfjk')
+
 
   const [keyPersonData, setKeyPersonData] = useState(personData, {
     contact: {

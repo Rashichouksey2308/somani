@@ -168,8 +168,10 @@ function Index(props) {
                 </button>
               </div>
             ) : (
-              <div className={styles.certificate}>
-                {doc.attachDoc}
+              <div className={`${styles.certificate} d-flex justify-content-between`}>
+                <span>
+                  {doc.attachDoc}
+                </span>
                 <img
                   className={`${styles.close_image} float-right m-2 img-fluid`}
                   src="/static/close.svg"

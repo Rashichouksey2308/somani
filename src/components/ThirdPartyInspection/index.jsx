@@ -1192,8 +1192,10 @@ export default function Index({ addButton, inspectionData }) {
                               </div> */}
                                 </>
                               ) : (
-                                <div className={styles.certificate}>
-                                  {documents?.certificateOfOrigin?.name}
+                                <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                  <span>
+                                    {documents?.certificateOfOrigin?.name}                                    
+                                  </span>
                                   <img
                                     className={`${styles.close_image} float-right m-2 img-fluid`}
                                     src="/static/close.svg"
@@ -1315,8 +1317,10 @@ export default function Index({ addButton, inspectionData }) {
                               </div> */}
                                 </>
                               ) : (
-                                <div className={styles.certificate}>
-                                  {documents?.certificateOfQuality?.name}
+                                <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                  <span>
+                                    {documents?.certificateOfQuality?.name}
+                                  </span>
                                   <img
                                     className={`${styles.close_image} float-right m-2 img-fluid`}
                                     src="/static/close.svg"
@@ -1439,8 +1443,10 @@ export default function Index({ addButton, inspectionData }) {
                               </div> */}
                                 </>
                               ) : (
-                                <div className={styles.certificate}>
-                                  {documents?.certificateOfWeight?.name}
+                                <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                  <span>
+                                    {documents?.certificateOfWeight?.name}
+                                  </span>
                                   <img
                                     className={`${styles.close_image} float-right m-2 img-fluid`}
                                     src="/static/close.svg"

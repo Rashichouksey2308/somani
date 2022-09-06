@@ -674,7 +674,7 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
-                            defaultValue={ addPrefixOrSuffix(insuranceData?.marineInsurance?.premiumAmount ? insuranceData?.marineInsurance?.premiumAmount : 0, 'INR', 'front')}
+                            defaultValue={addPrefixOrSuffix(insuranceData?.marineInsurance?.premiumAmount ? insuranceData?.marineInsurance?.premiumAmount : 0, 'INR', 'front', true)}
                             name="premiumAmount"
                             onChange={(e) =>
                               saveMarineData(e.target.name, e.target.value)
