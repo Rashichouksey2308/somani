@@ -783,7 +783,7 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
                     
                   />
                   <label className={`${styles.label_heading} label_heading`}>
-                    Accessible Value <strong className="text-danger">*</strong>
+                     Assessable Value <strong className="text-danger">*</strong>
                   </label>
                 </div>
                 {/* <div
@@ -1172,7 +1172,7 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
                             </span>
                             <img
                               onClick={() => removeDoc('document1')}
-                              className={`${styles.close_image} float-right m-2 img-fluid`}
+                              className={`${styles.close_image}`}
                               src="/static/close.svg"
                               alt="Close"
                             />{' '}
@@ -1215,7 +1215,7 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
                             </span>
                             <img
                               onClick={() => removeDoc('document2')}
-                              className={`${styles.close_image} float-right m-2 img-fluid`}
+                              className={`${styles.close_image}`}
                               src="/static/close.svg"
                               alt="Close"
                             />{' '}
@@ -1261,7 +1261,7 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
                               </span>
                               <img
                                 onClick={() => removeDoc('document3')}
-                                className={`${styles.close_image} float-right m-2 img-fluid`}
+                                className={`${styles.close_image}`}
                                 src="/static/close.svg"
                                 alt="Close"
                               />{' '}

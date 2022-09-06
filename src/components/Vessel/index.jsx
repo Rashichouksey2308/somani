@@ -70,7 +70,7 @@ function Index({
   const handleClose = (e) => {
     setVesselCertificate(null)
   }
- 
+
   // console.log(vesselData,'vesselData')
   return (
     <>
@@ -101,7 +101,7 @@ function Index({
           <div className={`${styles.vessel_card} vessel_card`}>
             {list &&
               list.map((val, index) => {
-                console.log(val,'vesselMApping')
+                console.log(val, 'vesselMApping')
                 return (
                   <div
                     key={index}
@@ -152,13 +152,13 @@ function Index({
 
                         {list[index].shipmentType === 'Bulk' ? (
                           <>
-                          <button
-                                className={styles.add_btn}
-                                onClick={(e) => {
-                                  onAddVessel()
-                                }}
-                              >
-                                Add
+                            <button
+                              className={styles.add_btn}
+                              onClick={(e) => {
+                                onAddVessel()
+                              }}
+                            >
+                              Add
                             </button>
                             {index > 0 ? (
                               <button
@@ -182,8 +182,8 @@ function Index({
                           className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
                         >
                           <div className="d-flex">
-                            <select 
-                            disabled
+                            <select
+                              disabled
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               onChange={(e) =>
                                 shipmentTypeChangeHandler(e, index)
@@ -453,12 +453,27 @@ function Index({
                           className={`${styles.form_group} col-lg-4 col-md-6 col-md-6`}
                         >
                           <div className="d-flex">
-                            {/* <DateCalender labelName='ETA at Discharge Port'/>
+                            <DateCalender
+                              dateFormat={`dd-MM-yyyy`}
+                              defaultDate={val?.transitDetails?.ETAatDischargePort}
+                              name="ETAatDischargePort"
+                              index={index}
+                              saveDate={saveDate}
+                              labelName="ETD at Discharge Port"
+                            />
+                            <img
+                              className={`${styles.calanderIcon} image_arrow img-fluid`}
+                              src="/static/caldericon.svg"
+                              alt="Search"
+                            />
+                          </div>
+                          {/* <div className="d-flex">
+                             <DateCalender labelName='ETA at Discharge Port'/>
                       <img
                           className={`${styles.calanderIcon} img-fluid`}
                           src="/static/caldericon.svg"
                           alt="Search"
-                      /> */}
+                      /> 
                             <DatePicker
                               selected={moment(val?.transitDetails?.ETAatDischargePort).toDate()}
                               name="ETAatDischargePort"
@@ -481,7 +496,7 @@ function Index({
                             >
                               ETD at Discharge Port
                             </label>
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     </div>
@@ -757,11 +772,11 @@ function Index({
                                   Vessel Information
                                 </h3>
                                 <button
-                                    onClick={() => OnAddvesselInformation()}
-                                    className={styles.add_btn}
-                                  >
-                                    Add
-                                  </button>
+                                  onClick={() => OnAddvesselInformation()}
+                                  className={styles.add_btn}
+                                >
+                                  Add
+                                </button>
                                 {index > 0 ? (
                                   <button
                                     onClick={() =>

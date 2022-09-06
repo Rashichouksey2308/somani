@@ -3,11 +3,12 @@ import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 import styles from '../index.module.scss'
 import _get from 'lodash/get'
-import {checkNan} from '../../../utils/helper'
-function Index({ balanceData,rtrnChartIndiaction }) {
+import { checkNan, convertValue } from '../../../utils/helper'
+function Index({ balanceData, rtrnChartIndiaction }) {
   // console.log(balanceData, 'THIS IS BALANCE ARRAY')
 
   const [darkMode, setDarkMode] = useState(false)
+  const [unit, setUnit] = useState(10000000)
 
   useEffect(() => {
     if (
@@ -66,8 +67,9 @@ function Index({ balanceData,rtrnChartIndiaction }) {
           <h2 className="mb-0">Balance Sheet</h2>
           <div className={`${styles.unit_container} d-flex align-items-center`}>
             <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
-            <select className={`${styles.options} accordion_DropDown`}>
-              <option>Crores</option>
+            <select onChange={(e) => setUnit(e.target.value)} className={`${styles.options} accordion_DropDown`}>
+              <option value={10000000}>Crores</option>
+              <option value={100000}>Lakhs</option>
             </select>
             <span data-toggle="collapse" data-target="#balanceSheet1"
               aria-expanded="true" aria-controls="balanceSheet1">+</span>
@@ -104,13 +106,21 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                     <tr>
                       <td>Capital</td>
                       <td className="text-center">
-                        {latestYearData?.equityLiabilities?.shareCap?.toLocaleString()}
+                        {convertValue(latestYearData?.equityLiabilities?.shareCap, unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.equityLiabilities?.shareCap?.toLocaleString()}
+                        {/* {previousYearData?.equityLiabilities?.shareCap?.toLocaleString()} */}
+                        {convertValue(previousYearData?.equityLiabilities?.shareCap, unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.equityLiabilities?.shareCap?.toLocaleString()}
+                        {/* {lastYearData?.equityLiabilities?.shareCap?.toLocaleString()} */}
+                        {convertValue(lastYearData?.equityLiabilities?.shareCap, unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.equityLiabilities?.shareCap, previousYearData?.equityLiabilities?.shareCap, lastYearData?.equityLiabilities?.shareCap)}
@@ -119,13 +129,22 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                     <tr>
                       <td>Reserves</td>
                       <td className="text-center">
-                        {latestYearData?.equityLiabilities?.otherEquity?.toLocaleString()}
+                        {/* {latestYearData?.equityLiabilities?.otherEquity?.toLocaleString()} */}
+                        {convertValue(latestYearData?.equityLiabilities?.otherEquity, unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.equityLiabilities?.otherEquity?.toLocaleString()}
+                        {/* {previousYearData?.equityLiabilities?.otherEquity?.toLocaleString()} */}
+                        {convertValue(previousYearData?.equityLiabilities?.otherEquity, unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.equityLiabilities?.otherEquity?.toLocaleString()}
+                        {/* {lastYearData?.equityLiabilities?.otherEquity?.toLocaleString()} */}
+                        {convertValue(lastYearData?.equityLiabilities?.otherEquity, unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.equityLiabilities?.otherEquity, previousYearData?.equityLiabilities?.otherEquity, lastYearData?.equityLiabilities?.otherEquity)}
@@ -137,17 +156,26 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                       </td>
                       <td className="text-center">
                         <strong>
-                          {latestYearData?.equityLiabilities?.totalEquity?.toLocaleString()}
+                          {/* {latestYearData?.equityLiabilities?.totalEquity?.toLocaleString()} */}
+                          {convertValue(latestYearData?.equityLiabilities?.totalEquity, unit)?.toLocaleString(undefined, {
+                            maximumFractionDigits: 2,
+                          })}
                         </strong>
                       </td>
                       <td className="text-center">
                         <strong>
-                          {previousYearData?.equityLiabilities?.totalEquity?.toLocaleString()}
+                          {/* {previousYearData?.equityLiabilities?.totalEquity?.toLocaleString()} */}
+                          {convertValue(previousYearData?.equityLiabilities?.totalEquity, unit)?.toLocaleString(undefined, {
+                            maximumFractionDigits: 2,
+                          })}
                         </strong>
                       </td>
                       <td className="text-center">
                         <strong>
-                          {lastYearData?.equityLiabilities?.totalEquity?.toLocaleString()}
+                          {/* {lastYearData?.equityLiabilities?.totalEquity?.toLocaleString()} */}
+                          {convertValue(lastYearData?.equityLiabilities?.totalEquity, unit)?.toLocaleString(undefined, {
+                            maximumFractionDigits: 2,
+                          })}
                         </strong>
                       </td>
                       <td className="text-center">
@@ -161,13 +189,25 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                     <tr>
                       <td>Long Term Borrowings</td>
                       <td className="text-center">
-                        {latestYearData?.equityLiabilities?.borrowingsNonCurrent?.toLocaleString()}
+                        {/* {latestYearData?.equityLiabilities?.borrowingsNonCurrent?.toLocaleString()} */}
+                        {convertValue(latestYearData?.equityLiabilities?.borrowingsNonCurrent, unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+
                       </td>
                       <td className="text-center">
-                        {previousYearData?.equityLiabilities?.borrowingsNonCurrent?.toLocaleString()}
+                        {/* {previousYearData?.equityLiabilities?.borrowingsNonCurrent?.toLocaleString()} */}
+                        {convertValue(previousYearData?.equityLiabilities?.borrowingsNonCurrent, unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+
                       </td>
                       <td className="text-center">
-                        {lastYearData?.equityLiabilities?.borrowingsNonCurrent?.toLocaleString()}
+                        {/* {lastYearData?.equityLiabilities?.borrowingsNonCurrent?.toLocaleString()} */}
+                        {convertValue(lastYearData?.equityLiabilities?.borrowingsNonCurrent, unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.equityLiabilities?.borrowingsNonCurrent, previousYearData?.equityLiabilities?.borrowingsNonCurrent, lastYearData?.equityLiabilities?.borrowingsNonCurrent)}
@@ -177,13 +217,23 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                     <tr>
                       <td>Short Term Borrowings</td>
                       <td className="text-center">
-                        {latestYearData?.equityLiabilities?.borrowingsCurrent?.toLocaleString()}
+                        {/* {latestYearData?.equityLiabilities?.borrowingsCurrent?.toLocaleString()} */}
+                        {convertValue(latestYearData?.equityLiabilities?.borrowingsCurrent, unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+
                       </td>
                       <td className="text-center">
-                        {previousYearData?.equityLiabilities?.borrowingsCurrent?.toLocaleString()}
+                        {/* {previousYearData?.equityLiabilities?.borrowingsCurrent?.toLocaleString()} */}
+                        {convertValue(previousYearData?.equityLiabilities?.borrowingsCurrent, unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.equityLiabilities?.borrowingsCurrent?.toLocaleString()}
+                        {/* {lastYearData?.equityLiabilities?.borrowingsCurrent?.toLocaleString()} */}
+                        {convertValue(lastYearData?.equityLiabilities?.borrowingsCurrent, unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.borrowingsCurrent?.totalEquity, previousYearData?.borrowingsCurrent?.totalEquity, lastYearData?.borrowingsCurrent?.totalEquity)}
@@ -196,29 +246,44 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                       </td>
                       <td className="text-center">
                         <strong>
-                          {checkNan(
+                          {/* {checkNan(
                             (latestYearData?.equityLiabilities?.borrowingsCurrent +
-                            latestYearData?.equityLiabilities?.borrowingsNonCurrent),true
-                            )}
-                          
+                              latestYearData?.equityLiabilities?.borrowingsNonCurrent), true
+                          )} */}
+                          {convertValue((latestYearData?.equityLiabilities?.borrowingsCurrent +
+                            latestYearData?.equityLiabilities?.borrowingsNonCurrent), unit)?.toLocaleString(undefined, {
+                              maximumFractionDigits: 2,
+                            })}
+
                         </strong>
                       </td>
                       <td className="text-center">
                         <strong>
-                          {checkNan(
+                          {/* {checkNan(
                             (previousYearData?.equityLiabilities?.borrowingsCurrent +
+                              previousYearData?.equityLiabilities
+                                ?.borrowingsNonCurrent), true
+                          )} */}
+                          {convertValue((previousYearData?.equityLiabilities?.borrowingsCurrent +
                             previousYearData?.equityLiabilities
-                              ?.borrowingsNonCurrent),true
-                            )}
+                              ?.borrowingsNonCurrent), unit)?.toLocaleString(undefined, {
+                                maximumFractionDigits: 2,
+                              })}
                         </strong>
                       </td>
                       <td className="text-center">
                         <strong>
-                          {checkNan(
+                          {/* {checkNan(
                             (lastYearData?.equityLiabilities?.borrowingsCurrent +
-                            lastYearData?.equityLiabilities?.borrowingsNonCurrent),true
-                            )}
-                         
+                              lastYearData?.equityLiabilities?.borrowingsNonCurrent), true
+                          )} */}
+
+                          {convertValue((lastYearData?.equityLiabilities?.borrowingsCurrent +
+                            lastYearData?.equityLiabilities?.borrowingsNonCurrent), unit)?.toLocaleString(undefined, {
+                              maximumFractionDigits: 2,
+                            })}
+
+
                         </strong>
                       </td>
                       <td className="text-center">
@@ -235,36 +300,51 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                     <tr>
                       <td>Creditors</td>
                       <td className="text-center">
-                        {
-                        checkNan(
-                        latestYearData?.equityLiabilities?.tradePay +
+                        {/* {
+                          checkNan(
+                            latestYearData?.equityLiabilities?.tradePay +
+                            latestYearData?.equityLiabilities
+                              ?.tradePayablesNoncurrent,
+                            true,
+                          )
+                        } */}
+
+                        {convertValue((latestYearData?.equityLiabilities?.tradePay +
                           latestYearData?.equityLiabilities
-                            ?.tradePayablesNoncurrent,
-                          true,
-                        )
-                      }
-                       
+                            ?.tradePayablesNoncurrent), unit)?.toLocaleString(undefined, {
+                              maximumFractionDigits: 2,
+                            })}
+
                       </td>
                       <td className="text-center">
-                           {
-                      checkNan(
-                       (previousYearData?.equityLiabilities?.tradePay +
+                        {/* {
+                          checkNan(
+                            (previousYearData?.equityLiabilities?.tradePay +
+                              previousYearData?.equityLiabilities
+                                ?.tradePayablesNoncurrent),
+                            true,
+                          )
+                        } */}
+                        {convertValue((previousYearData?.equityLiabilities?.tradePay +
                           previousYearData?.equityLiabilities
-                            ?.tradePayablesNoncurrent),
-                          true,
-                        )
-                      }
-                    
+                            ?.tradePayablesNoncurrent), unit)?.toLocaleString(undefined, {
+                              maximumFractionDigits: 2,
+                            })}
+
                       </td>
                       <td className="text-center">
-                      {
-                      checkNan(
-                       (lastYearData?.equityLiabilities?.tradePay +
-                          lastYearData?.equityLiabilities?.tradePayablesNoncurrent),
-                          true,
-                        )
-                      }
-                      
+                        {/* {
+                          checkNan(
+                            (lastYearData?.equityLiabilities?.tradePay +
+                              lastYearData?.equityLiabilities?.tradePayablesNoncurrent),
+                            true,
+                          )
+                        } */}
+                        {convertValue((lastYearData?.equityLiabilities?.tradePay +
+                          lastYearData?.equityLiabilities?.tradePayablesNoncurrent), unit)?.toLocaleString(undefined, {
+                            maximumFractionDigits: 2,
+                          })}
+
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction((latestYearData?.equityLiabilities?.tradePay +
@@ -280,23 +360,33 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                     <tr>
                       <td>Other Current Liabilities</td>
                       <td className="text-center">
-                        {checkNan(
-                            (latestYearData?.equityLiabilities?.otherCurrentLiabilities),true
-                            )}
-                        
+                        {/* {checkNan(
+                          (latestYearData?.equityLiabilities?.otherCurrentLiabilities), true
+                        )} */}
+                        {convertValue((latestYearData?.equityLiabilities?.otherCurrentLiabilities), unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+
                       </td>
                       <td className="text-center">
-                        {checkNan(
-                            (previousYearData?.equityLiabilities
-                            ?.otherCurrentLiabilities),true
-                            )}
-     
+                        {/* {checkNan(
+                          (previousYearData?.equityLiabilities
+                            ?.otherCurrentLiabilities), true
+                        )} */}
+                        {convertValue((previousYearData?.equityLiabilities
+                          ?.otherCurrentLiabilities), unit)?.toLocaleString(undefined, {
+                            maximumFractionDigits: 2,
+                          })}
+
                       </td>
                       <td className="text-center">
-                        {checkNan(
-                            (lastYearData?.equityLiabilities?.otherCurrentLiabilities),true
-                            )}
-                        
+                        {/* {checkNan(
+                          (lastYearData?.equityLiabilities?.otherCurrentLiabilities), true
+                        )} */}
+                        {convertValue((lastYearData?.equityLiabilities?.otherCurrentLiabilities), unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.borrowingsCurrent?.totalEquity, previousYearData?.borrowingsCurrent?.totalEquity, lastYearData?.borrowingsCurrent?.totalEquity)}
@@ -312,17 +402,26 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                       </td>
                       <td className="text-center border-top">
                         <strong>
-                          {latestYearData?.equityLiabilities?.totalLiabilities?.toLocaleString()}
+                          {/* {latestYearData?.equityLiabilities?.totalLiabilities?.toLocaleString()} */}
+                          {convertValue((latestYearData?.equityLiabilities?.totalLiabilities), unit)?.toLocaleString(undefined, {
+                            maximumFractionDigits: 2,
+                          })}
                         </strong>
                       </td>
                       <td className="text-center border-top">
                         <strong>
-                          {previousYearData?.equityLiabilities?.totalLiabilities?.toLocaleString()}
+                          {/* {previousYearData?.equityLiabilities?.totalLiabilities?.toLocaleString()} */}
+                          {convertValue((previousYearData?.equityLiabilities?.totalLiabilities), unit)?.toLocaleString(undefined, {
+                            maximumFractionDigits: 2,
+                          })}
                         </strong>
                       </td>
                       <td className="text-center border-top">
                         <strong>
-                          {lastYearData?.equityLiabilities?.totalLiabilities?.toLocaleString()}
+                          {/* {lastYearData?.equityLiabilities?.totalLiabilities?.toLocaleString()} */}
+                          {convertValue((lastYearData?.equityLiabilities?.totalLiabilities), unit)?.toLocaleString(undefined, {
+                            maximumFractionDigits: 2,
+                          })}
                         </strong>
                       </td>
                       <td className="text-center border-top">
@@ -362,13 +461,22 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                     <tr>
                       <td>Net Block (Land, Building, Plant &amp; Machinery)</td>
                       <td className="text-center">
-                        {latestYearData?.assets?.propertyPlantAndEquipment?.toLocaleString()}
+                        {/* {latestYearData?.assets?.propertyPlantAndEquipment?.toLocaleString()} */}
+                        {convertValue((latestYearData?.assets?.propertyPlantAndEquipment), unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.assets?.propertyPlantAndEquipment?.toLocaleString()}
+                        {/* {previousYearData?.assets?.propertyPlantAndEquipment?.toLocaleString()} */}
+                        {convertValue((previousYearData?.assets?.propertyPlantAndEquipment), unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.assets?.propertyPlantAndEquipment?.toLocaleString()}
+                        {/* {lastYearData?.assets?.propertyPlantAndEquipment?.toLocaleString()} */}
+                        {convertValue((lastYearData?.assets?.propertyPlantAndEquipment), unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.assets?.propertyPlantAndEquipment, previousYearData?.assets?.propertyPlantAndEquipment, lastYearData?.assets?.propertyPlantAndEquipment)}
@@ -378,46 +486,70 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                     <tr>
                       <td>Net Block (Other Assets)</td>
                       <td className="text-center">
-                         {
-                      checkNan(
-                       (latestYearData?.assets
+                        {/* {
+                          checkNan(
+                            (latestYearData?.assets
+                              ?.biologicalAssetsOtherThanBearerPlants +
+                              latestYearData?.assets?.goodwill +
+                              latestYearData?.assets?.intangAsset +
+                              latestYearData?.assets?.intangAssetAud +
+                              latestYearData?.assets?.investmentProperty),
+                            true,
+                          )
+                        } */}
+                        {convertValue((latestYearData?.assets
                           ?.biologicalAssetsOtherThanBearerPlants +
                           latestYearData?.assets?.goodwill +
                           latestYearData?.assets?.intangAsset +
                           latestYearData?.assets?.intangAssetAud +
-                          latestYearData?.assets?.investmentProperty),
-                          true,
-                      )
-                      }
-                       
+                          latestYearData?.assets?.investmentProperty), unit)?.toLocaleString(undefined, {
+                            maximumFractionDigits: 2,
+                          })}
+
                       </td>
                       <td className="text-center">
-                          {
-                      checkNan(
-                       (previousYearData?.assets
+                        {/* {
+                          checkNan(
+                            (previousYearData?.assets
+                              ?.biologicalAssetsOtherThanBearerPlants +
+                              previousYearData?.assets?.goodwill +
+                              previousYearData?.assets?.intangAsset +
+                              previousYearData?.assets?.intangAssetAud +
+                              previousYearData?.assets?.investmentProperty),
+                            true,
+                          )
+                        } */}
+                        {convertValue((previousYearData?.assets
                           ?.biologicalAssetsOtherThanBearerPlants +
                           previousYearData?.assets?.goodwill +
                           previousYearData?.assets?.intangAsset +
                           previousYearData?.assets?.intangAssetAud +
-                          previousYearData?.assets?.investmentProperty),
-                          true,
-                      )
-                      }
-                       
+                          previousYearData?.assets?.investmentProperty), unit)?.toLocaleString(undefined, {
+                            maximumFractionDigits: 2,
+                          })}
+
                       </td>
                       <td className="text-center">
-                           {
-                      checkNan(
-                       (lastYearData?.assets
+                        {/* {
+                          checkNan(
+                            (lastYearData?.assets
+                              ?.biologicalAssetsOtherThanBearerPlants +
+                              lastYearData?.assets?.goodwill +
+                              lastYearData?.assets?.intangAsset +
+                              lastYearData?.assets?.intangAssetAud +
+                              lastYearData?.assets?.investmentProperty),
+                            true,
+                          )
+                        } */}
+                        {convertValue((lastYearData?.assets
                           ?.biologicalAssetsOtherThanBearerPlants +
                           lastYearData?.assets?.goodwill +
                           lastYearData?.assets?.intangAsset +
                           lastYearData?.assets?.intangAssetAud +
-                          lastYearData?.assets?.investmentProperty),
-                          true,
-                      )
-                      }
-                     
+                          lastYearData?.assets?.investmentProperty), unit)?.toLocaleString(undefined, {
+                            maximumFractionDigits: 2,
+                          })}
+
                       </td>
                       <td className="text-center">
 
@@ -443,13 +575,22 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                     <tr>
                       <td>CWIP</td>
                       <td className="text-center">
-                        {latestYearData?.assets?.capWip?.toLocaleString()}
+                        {/* {latestYearData?.assets?.capWip?.toLocaleString()} */}
+                        {convertValue((latestYearData?.assets?.capWip), unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.assets?.capWip?.toLocaleString()}
+                        {/* {previousYearData?.assets?.capWip?.toLocaleString()} */}
+                        {convertValue((previousYearData?.assets?.capWip), unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.assets?.capWip?.toLocaleString()}
+                        {/* {lastYearData?.assets?.capWip?.toLocaleString()} */}
+                        {convertValue((lastYearData?.assets?.capWip), unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.assets?.capWip, previousYearData?.assets?.capWip, lastYearData?.assets?.capWip)}
@@ -459,34 +600,46 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                     <tr>
                       <td>Investment</td>
                       <td className="text-center">
-                              {
-                                  checkNan(
-                              (latestYearData?.assets?.currInv +
-                                  latestYearData?.assets?.nonCurrInv),
-                                  true,
-                              )
-                              }
-                       
+                        {/* {
+                          checkNan(
+                            (latestYearData?.assets?.currInv +
+                              latestYearData?.assets?.nonCurrInv),
+                            true,
+                          )
+                        } */}
+                        {convertValue((latestYearData?.assets?.currInv +
+                          latestYearData?.assets?.nonCurrInv), unit)?.toLocaleString(undefined, {
+                            maximumFractionDigits: 2,
+                          })}
+
                       </td>
                       <td className="text-center">
-                          {
+                        {/* {
                           checkNan(
-                          (previousYearData?.assets?.currInv +
-                          previousYearData?.assets?.nonCurrInv),
-                           true,
-                            )
-                          }
-                        
+                            (previousYearData?.assets?.currInv +
+                              previousYearData?.assets?.nonCurrInv),
+                            true,
+                          )
+                        } */}
+                        {convertValue((previousYearData?.assets?.currInv +
+                          previousYearData?.assets?.nonCurrInv), unit)?.toLocaleString(undefined, {
+                            maximumFractionDigits: 2,
+                          })}
+
                       </td>
                       <td className="text-center">
-                        {
+                        {/* {
                           checkNan(
-                          (lastYearData?.assets?.currInv +
-                          lastYearData?.assets?.nonCurrInv),
-                           true,
-                            )
-                          }
-                      
+                            (lastYearData?.assets?.currInv +
+                              lastYearData?.assets?.nonCurrInv),
+                            true,
+                          )
+                        } */}
+                        {convertValue((lastYearData?.assets?.currInv +
+                          lastYearData?.assets?.nonCurrInv), unit)?.toLocaleString(undefined, {
+                            maximumFractionDigits: 2,
+                          })}
+
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction((latestYearData?.assets?.currInv +
@@ -502,17 +655,26 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                       </td>
                       <td className="text-center">
                         <strong>
-                          {latestYearData?.assets?.totalNonCurrentAssets?.toLocaleString()}
+                          {/* {latestYearData?.assets?.totalNonCurrentAssets?.toLocaleString()} */}
+                          {convertValue((latestYearData?.assets?.totalNonCurrentAssets), unit)?.toLocaleString(undefined, {
+                            maximumFractionDigits: 2,
+                          })}
                         </strong>
                       </td>
                       <td className="text-center">
                         <strong>
-                          {previousYearData?.assets?.totalNonCurrentAssets?.toLocaleString()}
+                          {/* {previousYearData?.assets?.totalNonCurrentAssets?.toLocaleString()} */}
+                          {convertValue((previousYearData?.assets?.totalNonCurrentAssets), unit)?.toLocaleString(undefined, {
+                            maximumFractionDigits: 2,
+                          })}
                         </strong>
                       </td>
                       <td className="text-center">
                         <strong>
-                          {lastYearData?.assets?.totalNonCurrentAssets?.toLocaleString()?.toLocaleString()}
+                          {/* {lastYearData?.assets?.totalNonCurrentAssets?.toLocaleString()?.toLocaleString()} */}
+                          {convertValue((lastYearData?.assets?.totalNonCurrentAssets), unit)?.toLocaleString(undefined, {
+                            maximumFractionDigits: 2,
+                          })}
                         </strong>
                       </td>
                       <td className="text-center">
@@ -525,9 +687,24 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                     </tr>
                     <tr>
                       <td>Inventories</td>
-                      <td className="text-center">{latestYearData?.assets?.inventory?.toLocaleString()}</td>
-                      <td className="text-center">{previousYearData?.assets?.inventory?.toLocaleString()}</td>
-                      <td className="text-center">{lastYearData?.assets?.inventory?.toLocaleString()}</td>
+                      <td className="text-center">
+                        {convertValue((latestYearData?.assets?.inventory), unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+                        {/* {latestYearData?.assets?.inventory?.toLocaleString()} */}
+                      </td>
+                      <td className="text-center">
+                        {/* {previousYearData?.assets?.inventory?.toLocaleString()} */}
+                        {convertValue((previousYearData?.assets?.inventory), unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+                      </td>
+                      <td className="text-center">
+                        {/* {lastYearData?.assets?.inventory?.toLocaleString()} */}
+                        {convertValue((lastYearData?.assets?.inventory), unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+                      </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.assets?.inventory, previousYearData?.assets?.inventory, lastYearData?.assets?.inventory)}
 
@@ -536,35 +713,44 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                     <tr>
                       <td>Trade Receivables (Debtors)</td>
                       <td className="text-center">
-                        {
+                        {/* {
                           checkNan(
-                         (latestYearData?.assets?.tradeRec + latestYearData?.assets?.tradeReceivablesNonCurrent),
-                           true,
-                            )
-                          }
-                       
-                        
-                        </td>
+                            (latestYearData?.assets?.tradeRec + latestYearData?.assets?.tradeReceivablesNonCurrent),
+                            true,
+                          )
+                        } */}
+                        {convertValue((latestYearData?.assets?.tradeRec + latestYearData?.assets?.tradeReceivablesNonCurrent), unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+
+
+                      </td>
                       <td className="text-center">
-                        {
+                        {/* {
                           checkNan(
-                         (previousYearData?.assets?.tradeRec + previousYearData?.assets?.tradeReceivablesNonCurrent),
-                           true,
-                            )
-                          }
-                        
-                        
-                        </td>
+                            (previousYearData?.assets?.tradeRec + previousYearData?.assets?.tradeReceivablesNonCurrent),
+                            true,
+                          )
+                        } */}
+                        {convertValue((previousYearData?.assets?.tradeRec + previousYearData?.assets?.tradeReceivablesNonCurrent), unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+
+
+                      </td>
                       <td className="text-center">
-                         {
+                        {/* {
                           checkNan(
-                         (lastYearData?.assets?.tradeRec + lastYearData?.assets?.tradeReceivablesNonCurrent),
-                           true,
-                            )
-                          }
-                        
-                        
-                        </td>
+                            (lastYearData?.assets?.tradeRec + lastYearData?.assets?.tradeReceivablesNonCurrent),
+                            true,
+                          )
+                        } */}
+                        {convertValue((lastYearData?.assets?.tradeRec + lastYearData?.assets?.tradeReceivablesNonCurrent), unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+
+
+                      </td>
                       <td className="text-center">
                         {rtrnChartIndiaction((latestYearData?.assets?.tradeRec + latestYearData?.assets?.tradeReceivablesNonCurrent), (previousYearData?.assets?.tradeRec + previousYearData?.assets?.tradeReceivablesNonCurrent), (lastYearData?.assets?.tradeRec + lastYearData?.assets?.tradeReceivablesNonCurrent))}
 
@@ -573,31 +759,40 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                     <tr>
                       <td>Cash &amp; Bank Balance</td>
                       <td className="text-center">
-                        {
+                        {/* {
                           checkNan(
-                       (latestYearData?.assets?.cashEqui + latestYearData?.assets?.bankBalanceOtherThanCashAndCashEquivalents),
-                           true,
-                            )
-                          }
-                        </td>
-                      <td className="text-center">
-                         {
-                        checkNan(
-                       (previousYearData?.assets?.cashEqui + previousYearData?.assets?.bankBalanceOtherThanCashAndCashEquivalents),
-                        true,
-                        )
-                        }
+                            (latestYearData?.assets?.cashEqui + latestYearData?.assets?.bankBalanceOtherThanCashAndCashEquivalents),
+                            true,
+                          )
+                        } */}
+                        {convertValue((latestYearData?.assets?.cashEqui + latestYearData?.assets?.bankBalanceOtherThanCashAndCashEquivalents), unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
                       </td>
                       <td className="text-center">
-                          {
-                        checkNan(
-                       (lastYearData?.assets?.cashEqui + lastYearData?.assets?.bankBalanceOtherThanCashAndCashEquivalents),
-                        true,
-                        )
-                        }
-                        
-                        
-                        </td>
+                        {/* {
+                          checkNan(
+                            (previousYearData?.assets?.cashEqui + previousYearData?.assets?.bankBalanceOtherThanCashAndCashEquivalents),
+                            true,
+                          )
+                        } */}
+                        {convertValue((previousYearData?.assets?.cashEqui + previousYearData?.assets?.bankBalanceOtherThanCashAndCashEquivalents), unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+                      </td>
+                      <td className="text-center">
+                        {/* {
+                          checkNan(
+                            (lastYearData?.assets?.cashEqui + lastYearData?.assets?.bankBalanceOtherThanCashAndCashEquivalents),
+                            true,
+                          )
+                        } */}
+                        {convertValue((lastYearData?.assets?.cashEqui + lastYearData?.assets?.bankBalanceOtherThanCashAndCashEquivalents), unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+
+
+                      </td>
                       <td className="text-center">
                         {rtrnChartIndiaction((latestYearData?.assets?.cashEqui + latestYearData?.assets?.bankBalanceOtherThanCashAndCashEquivalents), (previousYearData?.assets?.cashEqui + previousYearData?.assets?.bankBalanceOtherThanCashAndCashEquivalents), (lastYearData?.assets?.cashEqui + lastYearData?.assets?.bankBalanceOtherThanCashAndCashEquivalents))}
 
@@ -606,25 +801,37 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                     <tr>
                       <td>Loans &amp; Advances</td>
                       <td className="text-center">
-                          {
-                        checkNan(
-                       (latestYearData?.assets?.loansCurrent + latestYearData?.assets?.loansNonCurrent),
-                        true,
-                        )}
-                        </td>
+                        {/* {
+                          checkNan(
+                            (latestYearData?.assets?.loansCurrent + latestYearData?.assets?.loansNonCurrent),
+                            true,
+                          )} */}
+                        {convertValue((latestYearData?.assets?.loansCurrent + latestYearData?.assets?.loansNonCurrent), unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+
+                      </td>
                       <td className="text-center">
-                          {
-                        checkNan(
-                       (previousYearData?.assets?.loansCurrent + previousYearData?.assets?.loansNonCurrent),
-                        true,
-                        )}
-                        </td>
+                        {/* {
+                          checkNan(
+                            (previousYearData?.assets?.loansCurrent + previousYearData?.assets?.loansNonCurrent),
+                            true,
+                          )} */}
+                        {convertValue((previousYearData?.assets?.loansCurrent + previousYearData?.assets?.loansNonCurrent), unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+
+                      </td>
                       <td className="text-center">
-                       { checkNan(
-                       (lastYearData?.assets?.loansCurrent + lastYearData?.assets?.loansNonCurrent),
-                        true,
-                        )}
-                        </td>
+                        {/* {checkNan(
+                          (lastYearData?.assets?.loansCurrent + lastYearData?.assets?.loansNonCurrent),
+                          true,
+                        )} */}
+                        {convertValue((lastYearData?.assets?.loansCurrent + lastYearData?.assets?.loansNonCurrent), unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+
+                      </td>
                       <td className="text-center">
                         {rtrnChartIndiaction((latestYearData?.assets?.loansCurrent + latestYearData?.assets?.loansNonCurrent), (previousYearData?.assets?.loansCurrent + previousYearData?.assets?.loansNonCurrent), (lastYearData?.assets?.loansCurrent + lastYearData?.assets?.loansNonCurrent))}
 
@@ -632,9 +839,24 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                     </tr>
                     <tr>
                       <td>Other Current Assets</td>
-                      <td className="text-center">{latestYearData?.assets?.othCurrAsset?.toLocaleString()}</td>
-                      <td className="text-center">{previousYearData?.assets?.othCurrAsset?.toLocaleString()}</td>
-                      <td className="text-center">{lastYearData?.assets?.othCurrAsset?.toLocaleString()}</td>
+                      <td className="text-center">
+                        {/* {latestYearData?.assets?.othCurrAsset?.toLocaleString()} */}
+                        {convertValue((latestYearData?.assets?.othCurrAsset), unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+                      </td>
+                      <td className="text-center">
+                        {/* {previousYearData?.assets?.othCurrAsset?.toLocaleString()} */}
+                        {convertValue((previousYearData?.assets?.othCurrAsset), unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+                      </td>
+                      <td className="text-center">
+                        {/* {lastYearData?.assets?.othCurrAsset?.toLocaleString()} */}
+                        {convertValue((lastYearData?.assets?.othCurrAsset), unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+                      </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.assets?.othCurrAsset, previousYearData?.assets?.othCurrAsset, lastYearData?.assets?.othCurrAsset)}
 
@@ -644,9 +866,25 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                       <td>
                         <strong>Total Current Assets</strong>
                       </td>
-                      <td className="text-center">{latestYearData?.assets?.totalCurrentAssets?.toLocaleString()}</td>
-                      <td className="text-center">{previousYearData?.assets?.totalCurrentAssets?.toLocaleString()}</td>
-                      <td className="text-center">{lastYearData?.assets?.totalCurrentAssets?.toLocaleString()}</td>
+                      <td className="text-center">
+                        {/* {latestYearData?.assets?.totalCurrentAssets?.toLocaleString()} */}
+                        {convertValue((latestYearData?.assets?.totalCurrentAssets), unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+
+                      </td>
+                      <td className="text-center">
+                        {/* {previousYearData?.assets?.totalCurrentAssets?.toLocaleString()} */}
+                        {convertValue((previousYearData?.assets?.totalCurrentAssets), unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+                      </td>
+                      <td className="text-center">
+                        {/* {lastYearData?.assets?.totalCurrentAssets?.toLocaleString()} */}
+                        {convertValue((lastYearData?.assets?.totalCurrentAssets), unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+                      </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.assets?.totalCurrentAssets, previousYearData?.assets?.totalCurrentAssets, lastYearData?.assets?.totalCurrentAssets)}
 
@@ -660,13 +898,28 @@ function Index({ balanceData,rtrnChartIndiaction }) {
                         <strong>Total Assets</strong>
                       </td>
                       <td className="text-center border-top">
-                        <strong>{latestYearData?.assets?.totalAssets?.toLocaleString()}</strong>
+                        <strong>
+                          {/* {latestYearData?.assets?.totalAssets?.toLocaleString()} */}
+                          {convertValue((latestYearData?.assets?.totalAssets), unit)?.toLocaleString(undefined, {
+                            maximumFractionDigits: 2,
+                          })}
+                        </strong>
                       </td>
                       <td className="text-center border-top">
-                        <strong>{previousYearData?.assets?.totalAssets?.toLocaleString()}</strong>
+                        <strong>
+                          {/* {previousYearData?.assets?.totalAssets?.toLocaleString()} */}
+                          {convertValue((previousYearData?.assets?.totalAssets), unit)?.toLocaleString(undefined, {
+                            maximumFractionDigits: 2,
+                          })}
+                        </strong>
                       </td>
                       <td className="text-center border-top">
-                        <strong>{lastYearData?.assets?.totalAssets?.toLocaleString()}</strong>
+                        <strong>
+                          {/* {lastYearData?.assets?.totalAssets?.toLocaleString()} */}
+                          {convertValue((lastYearData?.assets?.totalAssets), unit)?.toLocaleString(undefined, {
+                            maximumFractionDigits: 2,
+                          })}
+                        </strong>
                       </td>
                       <td className="text-center border-top">
                         {rtrnChartIndiaction(latestYearData?.assets?.totalAssets, previousYearData?.assets?.totalAssets, lastYearData?.assets?.totalAssets)}

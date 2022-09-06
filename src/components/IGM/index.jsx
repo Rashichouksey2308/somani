@@ -994,7 +994,7 @@ export default function Index({
                                   {item.document?.originalName}
                                 </span>
                                 <img
-                                  className={`${styles.close_image} float-right ml-2 img-fluid`}
+                                  className={`${styles.close_image}`}
                                   src="/static/close.svg"
                                   onClick={(e) => handleCloseDoc('', index)}
                                   alt="Close"

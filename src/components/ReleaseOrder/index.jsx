@@ -52,38 +52,13 @@ export default function Index({ ReleaseOrderData }) {
   }, [releaseDetail])
 
   useEffect(() => {
-    let tempArr = [...releaseDetail]
-    // let temparr = []
-    // let existingData = _get(ReleaseOrderData, 'data[0].releaseDetail', [])
-    // console.log(releaseDetail, existingData, 'realseOrderState')
-    // if (existingData.length > 0) {
-    //   existingData.forEach((order) => {
-    //     temparr.push(order)
-    //   })
-    //   setReleaseDetail(temparr)
-    // }
-    setReleaseDetail(tempArr)
+    // let tempArr = [...releaseDetail]
+ 
+    setReleaseDetail(_get(ReleaseOrderData,"data[0].releaseDetail",[]))
 
   }, [ReleaseOrderData])
 
-  // console.log(releaseDetail, netBalanceQuantity, 'Release')
 
-  // useEffect(() => {
-  //   let realseOrderState = _get(ReleaseOrderData, 'data[0].releaseDetail', [])
-  //   console.log(realseOrderState, 'realseOrderStateprev')
-  //   if (realseOrderState.length > 0) {
-  //     setReleaseDetail((prevState) => [...realseOrderState]
-  //     )
-  //   }
-  // }, [ReleaseOrderData])
-  // console.log(releaseDetail, 'realseOrderStatecurre')
-
-  // const handleDocUplaod = async (name, e, index) => {
-  //   console.log(e, name, index, 'name,value,index1')
-  //   const doc = await uploadDoc(e)
-  //   console.log(doc, 'name,value,index2.1')
-  //   handlereleaseDetailChange(name, doc, index)
-  // }
   const closeDoc = (index) => {
     let tempArr = [...releaseDetail]
     tempArr[index].document = null
@@ -92,13 +67,14 @@ export default function Index({ ReleaseOrderData }) {
 
   const handlereleaseDetailChange = (name, value, index) => {
     console.log(name, value, index, 'name,value,index2')
-    let tempArr = releaseDetail
+    let tempArr = [...releaseDetail]
     tempArr.forEach((val, i) => {
       if (i == index) {
         val[name] = value
       }
     })
     // console.log(tempArr,"tempArr")
+  
     setReleaseDetail([...tempArr])
   }
 
@@ -144,20 +120,7 @@ export default function Index({ ReleaseOrderData }) {
       // }
     }
   }
-  // const setActions = (index, val) => {
-  //   setReleaseDetail((prevState) => {
-  //     const newState = prevState.map((obj, i) => {
-  //       if (i == index) {
-  //         return { ...obj, actions: val }
-  //       }
-  //       return obj
-  //     })
-  //     return newState
-  //   })
-  //   let newInput = { ...billOfEntryData }
-  //   newInput.releaseDetail = releaseDetailData
-  //   setBillOfEntryData(newInput)
-  // }
+ 
 
   const handleDeleteRow = (index) => {
     // console.log(index, 'temparr')
@@ -380,7 +343,7 @@ export default function Index({ ReleaseOrderData }) {
                               name="releaseOrderDate"
                               labelName="Release Order Date"
                             />
-                            {console.log('release Details', releaseDetail)}
+                            {console.log('release Details', item.releaseOrderDate)}
                             <img
                               className={`${styles.calanderIcon} image_arrow img-fluid`}
                               src="/static/caldericon.svg"
@@ -391,28 +354,23 @@ export default function Index({ ReleaseOrderData }) {
                         <div
                           className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                         >
+                          {console.log(item.netQuantityRelease,"item.netQuantityRelease")}
                           <input
-                            onWheel={(e) => e.target.blur()}
-                            value={addPrefixOrSuffix(
-                              item.netQuantityReleased
-                                ? item.netQuantityReleased
-                                : 0,
-                              'MT',
-                              '',
-                            )}
-                            // defaultValue={Number(
-                            //   item.netQuantityReleased,
-                            // )?.toLocaleString()}
+                            // onWheel={(e) => e.target.blur()}
+                            
+                            type="text"
                             onChange={(e) => {
                               e.target.value = removePrefixOrSuffix(e.target.value)
+                              // console.log( e.target.value,"333")
                               netQuantityChange(e, index)
                             }}
                             id="netQuantityReleased"
+                            value={addPrefixOrSuffix(item.netQuantityReleased,'MT' )}
                             className={`${styles.input_field} input form-control`}
-                            type="text"
-                            onKeyDown={(evt) =>
-                              evt.key === 'e' && evt.preventDefault()
-                            }
+                            
+                            // onKeyDown={(evt) =>
+                            //   evt.key === 'e' && evt.preventDefault()
+                            // }
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -422,12 +380,10 @@ export default function Index({ ReleaseOrderData }) {
                           </label>
                         </div>
                         <div
-                          className="col-lg-3 col-md-4 col-sm-6 text-center"
-                          style={{ top: '40px' }}
-                        >
+                          className={`${styles.form_group} col-lg-3 col-md-4 col-sm-6 d-flex align-items-center text-center`}>
                           {item?.document === null ? (
                             <>
-                              <div className="d-flex">
+                              <div className="d-flex align-items-center">
                                 <div className={styles.uploadBtnWrapper}>
                                   <input
                                     id="document"
@@ -448,19 +404,19 @@ export default function Index({ ReleaseOrderData }) {
                                     release.pdf
                                   </span>
                                   <img
-                                    className={`${styles.close_image} float-right m-2 img-fluid`}
+                                    className={`${styles.close_image}`}
                                     src="/static/close.svg"
                                     onClick={() => handleCloseO()}
                                     alt="Close"
                                   />{' '}
                                 </div>   */}
 
-                                <div style={{ marginTop: '12px' }}>
+                                <div>
                                   {releaseDetail.length === 1 ? null : (
                                     <img
                                       onClick={() => handleDeleteRow(index)}
                                       src="/static/delete 2.svg"
-                                      className={`${styles.delete_image} img-fluid ml-3 mr-2`}
+                                      className={`${styles.delete_image} img-fluid ml-3 mr-3`}
                                       alt="Delete"
                                     />
                                   )}
@@ -472,7 +428,7 @@ export default function Index({ ReleaseOrderData }) {
                                           addMorereleaseDetailDataRows(index)
                                         }
                                         src="/static/add-btn.svg"
-                                        className={`${styles.delete_image} ml-2 img-fluid`}
+                                        className={`${styles.delete_image} ml-3 img-fluid`}
                                         alt="Add button"
                                       />
                                     )}
@@ -492,13 +448,13 @@ export default function Index({ ReleaseOrderData }) {
                             </>
                           ) : (
                             <>
-                              <div className={`${styles.certificate} d-flex justify-content-between`}>
+                              <div className={`${styles.certificate} m-0 d-flex justify-content-between`}>
                                 <span>
                                 {item?.document?.originalName}
                                 </span>
                                 <img
                                   onClick={(e) => closeDoc(index)}
-                                  className={`${styles.close_image} float-right m-2 img-fluid`}
+                                  className={`${styles.close_image}`}
                                   src="/static/close.svg"
                                   alt="Close"
                                 />{' '}
@@ -510,13 +466,13 @@ export default function Index({ ReleaseOrderData }) {
                                       addMorereleaseDetailDataRows(index)
                                     }
                                     src="/static/add-btn.svg"
-                                    className={`${styles.delete_image} mt-n4 img-fluid`}
+                                    className={`${styles.delete_image} ml-3 mr-3`}
                                     alt="Add button"
                                   />
                                   <img
                                     onClick={() => handleDeleteRow(index)}
                                     src="/static/delete 2.svg"
-                                    className={`${styles.delete_image} ml-1 mt-n4 img-fluid mr-2`}
+                                    className={`${styles.delete_image}`}
                                     alt="Delete"
                                   />
                                 </>

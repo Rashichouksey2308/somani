@@ -257,8 +257,13 @@
     span {
         max-width: 92%;
         overflow-x: hidden;
+        white-space: nowrap;
         display: inline-block;
         text-overflow: ellipsis;
+    }
+    img {
+        width: auto;
+        height: auto;
     }
 }
 .certificate2 {
