@@ -60,7 +60,7 @@ const Index = () => {
     (Number(insuranceData?.order?.orderValue) * 110) / 100,
   )
   // console.log(sumInsuredCalc, "THIS IS SUM INSURED CAL")
-  console.log(quotationData.expectedTimeOfDispatch, 'insuranceData')
+  // console.log(quotationData.expectedTimeOfDispatch, 'insuranceData')
   useEffect(() => {
     dispatch(setPageName('insurance'))
     dispatch(
@@ -91,12 +91,12 @@ const Index = () => {
           insuranceData?.quotationRequest?.storageDetails?.storagePlotAddress ||
           '',
       },
-      sumInsured: insuranceData?.quotationRequest?.sumInsured || '',
+      sumInsured: sumInsuredCalc ? sumInsuredCalc : insuranceData?.quotationRequest?.sumInsured,
     })
-  }, [insuranceData])
+  }, [insuranceData, sumInsuredCalc])
 
   const saveQuotationData = (name, value) => {
-    console.log(value, 'dhjsgfksjdghf')
+    // console.log(value, 'dhjsgfksjdghf')
     const newInput = { ...quotationData }
     const namesplit = name.split('.')
     namesplit.length > 1
