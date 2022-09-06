@@ -327,24 +327,24 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Effective Tax Rate %</td>
                       <td className="text-center">
-                         {checkNan(
+                         {(checkNan(
                             (latestYearData?.totalTaxExpense /
                           latestYearData?.profLossBefTax),true
-                            )*100}%
+                            )*100).toFixed(2)}%
                         
                       </td>
                       <td className="text-center">
-                        {checkNan(
+                        {(checkNan(
                             (previousYearData?.totalTaxExpense /
                           previousYearData?.profLossBefTax),true
-                            )*100}%
+                            )*100).toFixed(2)}%
                        
                       </td>
                       <td className="text-center">
-                          {checkNan(
+                          {(checkNan(
                             (lastYearData?.totalTaxExpense /
                           lastYearData?.profLossBefTax),true
-                            )*100}%
+                            )*100).toFixed(2)}%
                         
                       </td>
                       <td className="text-center">
