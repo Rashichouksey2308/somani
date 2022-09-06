@@ -259,8 +259,10 @@ console.log(warehouseDetails,'warehouseDetails')
                         />
                       </div>
                     ) : (
-                      <div className={styles.certificate}>
-                        {warehouseDetails?.document?.originalName}
+                      <div className={`${styles.certificate} d-flex justify-content-between`}>
+                        <span>
+                          {warehouseDetails?.document?.originalName}
+                        </span>
                         <img
                           className={`${styles.close_image} float-right m-2 img-fluid`}
                           src="/static/close.svg"

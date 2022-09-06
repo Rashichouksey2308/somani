@@ -36,7 +36,7 @@ const Index = () => {
 
   let insuranceData = _get(insuranceResponse, 'data[0]', {})
   console.log(
-    insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.laycanFrom,
+    insuranceData,
     'This is InsuranceData',
   )
 

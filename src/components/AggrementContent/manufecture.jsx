@@ -1172,8 +1172,10 @@ setEditAddress(
                         </button>
                       </div>
                     ) : (
-                      <div className={styles.certificate}>
-                        {doc.attachDoc.originalName}
+                      <div className={`${styles.certificate} d-flex justify-content-between`}>
+                        <span>
+                          {doc.attachDoc.originalName}
+                        </span>
                         <img
                           className={`${styles.close_image} float-right m-2 img-fluid`}
                           src="/static/close.svg"
@@ -1217,8 +1219,10 @@ setEditAddress(
                         </button>
                       </div>
                     ) : (
-                      <div className={styles.certificate}>
-                        {val.attachDoc.originalName}
+                      <div className={`${styles.certificate} d-flex justify-content-between`}>
+                        <span>
+                          {val.attachDoc.originalName}
+                        </span>
                         <img
                           className={`${styles.close_image} float-right m-2 img-fluid`}
                           src="/static/close.svg"
