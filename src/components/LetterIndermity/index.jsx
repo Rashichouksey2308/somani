@@ -12,6 +12,7 @@ import {
   GetTransitDetails,
 } from '../../redux/TransitDetails/action'
 import { toast } from 'react-toastify'
+// import { on } from 'nodemon'
 
 function Index({ TransitDetails }) {
   const dispatch = useDispatch()
@@ -33,6 +34,14 @@ function Index({ TransitDetails }) {
     },
   })
 
+  const onAddClick = () => {
+    setBillsofLanding([
+      ...billsofLanding, {
+        blnumber: '',
+      loadingPort: '',
+      }
+    ])
+  }
   useEffect(() => {
     let existingData = _get(TransitDetails, `data[0].LOI`, {})
     if (existingData?.authorizedSignatory) {
@@ -220,7 +229,7 @@ function Index({ TransitDetails }) {
             TO ANY PORT(S) IN INDIA
           </div>
         </div>
-        <div className={`d-flex ${styles.salutations}`}>
+        <div className={`d-flex  ${styles.salutations}`}>
           <span>Cargo:</span>
           {'  '}
           <div className={`ml-3`}>
@@ -237,14 +246,18 @@ function Index({ TransitDetails }) {
             {_get(TransitDetails, 'data[0].order.commodity', '').toUpperCase()}
           </div>
         </div>
-        <div className={`d-flex ${styles.salutations}`}>
+        <div className={`d-flex flex-wrap ${styles.salutations}`}>
           <span>Bill(s) of Lading:</span>
           {'  '}
+          <div>
           {billsofLanding.map((bills, index1) => (
+          <>
+          
             <div
               key={index1}
-              className={`ml-3 d-flex justify-content-start align-items-center ${styles.salutationFeatures} `}
+              className={`ml-3 word-wrap d-flex justify-content-start align-items-center ${styles.salutationFeatures} `}
             >
+              
               <select onChange={(e) => BolDropDown(e)} className="input">
                 {bolArray.map((element, index2) => (
                   <option key={index2} value={`${index1}-${index2}`}>
@@ -259,11 +272,13 @@ function Index({ TransitDetails }) {
                 '',
               ).toUpperCase()}{' '}
               {index1}
-              <button onClick={() => OnAddHandler()} className={styles.add_btn}>
+              <button onClick={() => onAddClick()} className={styles.add_btn}>
                 <span className={styles.add_sign}>+</span>Add
               </button>
             </div>
+            </>
           ))}
+          </div>
         </div>
 
         <div className={styles.body}>
