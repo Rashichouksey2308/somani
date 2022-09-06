@@ -3,7 +3,8 @@
 import React, { useState } from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
-import {CovertvaluefromtoCR} from '../../utils/helper'
+import {CovertvaluefromtoCR,checkNan,addPrefixOrSuffix} from '../../utils/helper'
+import { add } from 'lodash'
 
 const Index = ({
   financialsComment,
@@ -27,6 +28,7 @@ const Index = ({
   addGroupExpArr,
   saveSuggestedCreditData,
   deleteData,
+  suggestedCredit
   
 }) => {
   const [editProfile, setEditProfile] = useState(false)
@@ -43,7 +45,7 @@ const Index = ({
   const [sanctionComments, setSanctionComments] = useState('')
   const [weaknessComments, setWeaknessComments] = useState('')
 
-  console.log(groupExposureData, 'THIS IS CREDIT DETAIL')
+  console.log(creditDetail, 'THIS IS CREDIT DETAIL')
 
   const filteredCreditRating =
     creditDetail?.company?.creditLimit?.creditRating?.filter((rating) => {
@@ -696,11 +698,11 @@ const handleRemoveRowEx=(index)=>{
                         className={`${styles.text} input`}
                         type="text"
                         name="suggestedCreditLimit"
-                        defaultValue={creditDetail?.suggestedCreditLimit}
+                        value={addPrefixOrSuffix(suggestedCredit?.suggestedCreditLimit," ")}
                         onChange={(e) => {
                           saveSuggestedCreditData(
                             e.target.name,
-                            Number(e.target.value * 10000000),
+                            e.target.value ,
                           )
                         }}
                       ></input>
@@ -718,14 +720,15 @@ const handleRemoveRowEx=(index)=>{
                     <td>
                       <input
                         className={`${styles.text} input`}
-                        type="number"
+                        type="text"
                         onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                         name="suggestedOrderValue"
-                        defaultValue={creditDetail?.suggestedOrderValue}
+                        value={addPrefixOrSuffix(suggestedCredit?.suggestedOrderValue," ")}
+                        // defaultValue={creditDetail?.suggestedOrderValue}
                         onChange={(e) => {
                           saveSuggestedCreditData(
                             e.target.name,
-                            Number(e.target.value * 10000000),
+                            e.target.value,
                           )
                         }}
                       ></input>

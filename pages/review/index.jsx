@@ -1013,6 +1013,7 @@ function Index() {
   })
 
   const saveSuggestedCreditData = (name, value) => {
+    console.log(name,value,"")
     const newInput = { ...suggestedCredit }
     newInput[name] = value
     // console.log(newInput)
@@ -1320,8 +1321,8 @@ function Index() {
         },
         debtProfile: [...debtData],
         groupExposureDetail: [...groupExposureData],
-        suggestedOrderValue: suggestedCredit.suggestedOrderValue,
-        suggestedCreditLimit: suggestedCredit.suggestedCreditLimit,
+        suggestedOrderValue:removePrefixOrSuffix(suggestedCredit.suggestedOrderValue)*10000000,
+        suggestedCreditLimit:removePrefixOrSuffix(suggestedCredit.suggestedCreditLimit)*10000000,
       }
       // console.log(obj, "credit obj")
       dispatch(UpdateCredit(obj))
@@ -3752,6 +3753,7 @@ useEffect(() => {
                     orderDetail={orderList}
                     companyData={companyData}
                     
+                    
                   />
                   <Recommendations
                     creditDetail={orderList}
@@ -3774,6 +3776,7 @@ useEffect(() => {
                     strengthsComment={strengthsComment}
                     weaknessComment={weaknessComment}
                     deleteData={deleteData}
+                    suggestedCredit={suggestedCredit}
                     setGroupExposureData={setGroupExposureData}
                   />
                   <CommonSave onSave={onCreditSave} />
@@ -3801,6 +3804,7 @@ useEffect(() => {
                     saveApprovedCreditData={saveApprovedCreditData}
                     approvedCredit={approvedCredit}
                     orderDetails={orderList}
+                    
                   />
                 </div>
 
