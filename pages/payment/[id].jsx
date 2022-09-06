@@ -33,7 +33,15 @@ function Index() {
   const { ReleaseOrderData } = useSelector((state) => state.Release)
   console.log(ReleaseOrderData, 'ReleaseOrderDataMain')
   const [darkMode, setDarkMode] = useState(false)
-
+  const [releaseDetail, setReleaseDetail] = useState([
+    {
+      orderNumber: 1,
+      releaseOrderDate: '',
+      netQuantityReleased: 0,
+      unitOfMeasure: '',
+      document: null,
+    },
+  ])
   useEffect(() => {
     dispatch(setPageName('payment'))
     dispatch(setDynamicName(ReleaseOrderData?.data[0]?.company.companyName))
@@ -60,15 +68,7 @@ function Index() {
   console.log(allLiftingData, 'allLiftingData')
   const liftingData = _get(allLiftingData, 'data[0]', '')
   const [lifting, setLifting] = useState([])
-  // useEffect(() => {
-  //   if(ReleaseOrderData){
-  //     setLifting([...lifting,{
 
-  //   }])
-  //   }
-  // },[
-  //   ReleaseOrderData
-  // ])
   const addNewLifting = (value) => {
     setLifting([
       ...lifting,
@@ -198,20 +198,39 @@ function Index() {
     },
       )
       })
+     
+
        setDeliveryOrder(tempArr)
+       
+      
+    }
+      let tempArr2=[]
+    if(_get(ReleaseOrderData,"data[0].releaseDetail",[]).length>0){
+      _get(ReleaseOrderData,"data[0].releaseDetail",[]).forEach((val,index)=>{
+      tempArr2.push(
+     {
+        orderNumber: val.orderNumber || 1,
+        releaseOrderDate: val.releaseOrderDate,
+        netQuantityReleased: val.netQuantityReleased,
+        unitOfMeasure: val.unitOfMeasure||'MT',
+        document: val.document,
+     
+    
+    
+      },
+      )
+      })
+     
+
+       setReleaseDetail(tempArr2)
+       
+      
     }
      
     setLastMileDelivery(_get(ReleaseOrderData,"data[0].lastMileDelivery",[]))
-  console.log(ReleaseOrderData, 'ReleaseOrderDataMain')
+  
   },[ReleaseOrderData])
-  // useEffect(() => {
-  //   let deliveryOrderState = _get(ReleaseOrderData, 'data[0].deliveryDetail', [])
-  //   console.log(deliveryOrderState, 'deliveryOrderStateprev')
-  //   if (deliveryOrderState.length > 0) {
-  //     setDeliveryOrder((prevState) => [...deliveryOrderState]
-  //     )
-  //   }
-  // }, [ReleaseOrderData])
+ 
   const [quantity, setQuantity] = useState(0)
   //console.log(deliveryOrder, "deliveryOrder")
   const addNewDelivery = (value) => {
@@ -475,7 +494,7 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <ReleaseOrder ReleaseOrderData={ReleaseOrderData} />
+                    <ReleaseOrder ReleaseOrderData={ReleaseOrderData} releaseDetail={releaseDetail}  setReleaseDetail={setReleaseDetail}/>
                   </div>
                 </div>
 
