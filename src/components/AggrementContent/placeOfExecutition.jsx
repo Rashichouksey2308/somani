@@ -187,7 +187,7 @@ console.log(list,"val.dateOfExecution")
           </div> */}
           <div
             id="customerDetail"
-            className={` ${styles.body}  value_card card-body row`}
+            className={` ${styles.body} card-body row`}
            
 
           >
@@ -255,7 +255,7 @@ console.log(list,"val.dateOfExecution")
                                 />
                               </td>   
                                <td>
-                              <div className="d-flex">
+                              <div className="d-flex align-items-center">
                                <DateCalender
                                 name="dateOfExecution"
                                 saveDate={ (val,name,index)=>{
@@ -264,13 +264,13 @@ console.log(list,"val.dateOfExecution")
                                 defaultDate={
                                   val.dateOfExecution==null?null:moment(val.dateOfExecution).toDate()
                                   }
-                                small={true}
+                                // small={true}
                                 index={index}
                                 
                                 
                               />
                               <img
-                                className={`${styles.calanderIcon} image_arrow img-fluid`}
+                                className={`${styles.calanderIcon} border-0 mt-0 p-0 form-control image_arrow`}
                                 src="/static/caldericon.svg"
                                 alt="Search"
                               />
@@ -278,7 +278,7 @@ console.log(list,"val.dateOfExecution")
                                
                               </td>                         
                               <td className={`d-flex`}>
-                                <img className={`${styles.image} img-fluid mr-3`} onClick={() => (onEditRemove(index))} src="/static/save-3.svg" alt="save" />
+                                <img className={`${styles.image} mr-3`} onClick={() => (onEditRemove(index))} src="/static/save-3.svg" alt="save" />
                                 <img onClick={() => (handleRemove(index))} src="/static/delete 2.svg"></img>
                               </td>
 

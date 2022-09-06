@@ -685,10 +685,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                 <span
                   className={` d-flex align-items-center justify-content-between`}
                 >
-                  <span className={styles.light}>GST :</span>
+                  <span className={`${styles.light} accordion_Text`}>GST :</span>
                   <select
                     value={credential.gstin}
-                    className={`${styles.gst_list}`}
+                    className={`${styles.gst_list} input`}
                     onChange={(e) => handleChangeGstin(e)}
                   >
                     <option value='' disabled>Select an Option</option>
@@ -2520,25 +2520,25 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           <h2 className="mb-0">Compliance</h2>
           <div className={`${styles.subHeadContainer} d-flex mr-4 ml-auto`}>
             <div
-              className={` ${styles.complaintExtra} d-flex align-items-center`}
+              className={` ${styles.complaintExtra} text-color d-flex align-items-center`}
             >
-              <div className={`${styles.lightCompliance} ml-4 mr-2`}>
+              <div className={`${styles.lightCompliance} accordion_Text ml-4 mr-2`}>
                 Filing History:
               </div>
               {gstFilteredData?.detail?.complianceDetail?.filingHistory?.toLocaleString()}
             </div>
             <div
-              className={`${styles.complaintExtra} d-flex align-items-center`}
+              className={`${styles.complaintExtra} text-color d-flex align-items-center`}
             >
-              <div className={`${styles.lightCompliance} ml-4 mr-2`}>
+              <div className={`${styles.lightCompliance} accordion_Text ml-4 mr-2`}>
                 Filing Frequency:
               </div>
               {gstFilteredData?.detail?.complianceDetail?.filingFrequency?.toLocaleString()}
             </div>
             <div
-              className={`${styles.complaintExtra} d-flex align-items-center`}
+              className={`${styles.complaintExtra} text-color d-flex align-items-center`}
             >
-              <div className={`${styles.lightCompliance} ml-4 mr-2`}>
+              <div className={`${styles.lightCompliance} accordion_Text ml-4 mr-2`}>
                 Financial Period:
               </div>
               {gstFilteredData?.detail?.complianceDetail?.financialPeriod?.toLocaleString()}

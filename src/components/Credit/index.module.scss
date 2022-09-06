@@ -83,7 +83,7 @@
       }
     }
     .form_group {
-      margin-top: 20px;
+      margin-top: 21px;
       position: relative;
       margin-bottom: 27px;
       @include respond(phone) {
@@ -296,6 +296,7 @@
           line-height: 32px;
           //color: #111111;
           text-transform: capitalize;
+          margin-bottom: 5px;
           span {
             font-size: 20px;
             line-height: 25px;

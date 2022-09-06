@@ -451,7 +451,7 @@ const cancelAddress=()=>{
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
-        <Form className={`${styles.form}`}>
+        <Form className={`${styles.form} border_color`}>
           <div className="row  ">
 
             <Form.Group className={`${styles.form_group} col-md-8 col-sm-6`}>

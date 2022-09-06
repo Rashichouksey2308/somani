@@ -1594,7 +1594,7 @@ function Index(props) {
                 className={`${styles.switchContainer} d-flex align-items-center`}
               >
                 <span>Same as CHA</span>
-                <span className={` ${styles.yes}`}>Yes</span>
+                <span className={` ${styles.yes} text-color`}>Yes</span>
                 <label className={styles.switch}>
                   <input
                     type="checkbox"
@@ -1605,7 +1605,7 @@ function Index(props) {
                   ></input>
                   <span className={`${styles.slider} ${styles.round}`}></span>
                 </label>
-                <span className={`${styles.no}`}>No</span>
+                <span className={`${styles.no} text-color`}>No</span>
               </div>
             ) : null}
             <a

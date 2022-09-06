@@ -514,7 +514,7 @@ console.log(addressList,"addressList")
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
-        <Form className={`${styles.form}`}>
+        <Form className={`${styles.form} border_color`}>
           <div className="row ">
 
             <Form.Group className={`${styles.form_group} col-md-8 col-sm-6`}>
@@ -580,16 +580,16 @@ console.log(addressList,"addressList")
               </div>
             </Form.Group>
             <div className={`${styles.info} col-md-4 col-sm-6`}>
-              <span>PAN NO.</span>
-              <p>{pan}</p>
+              <span className='label_heading'>PAN NO.</span>
+              <p className='text-color'>{pan}</p>
             </div>
             <div className={` ${styles.info} col-md-4 col-sm-6`}>
-              <span>GSTIN.</span>
-              <p>{gstin}</p>
+              <span className='label_heading'>GSTIN.</span>
+              <p className='text-color'>{gstin}</p>
             </div>
             <div className={` ${styles.info} col-md-4 col-sm-6`}>
-              <span>Short Name</span>
-              <p>{shortName}</p>
+              <span className='label_heading'>Short Name</span>
+              <p className='text-color'>{shortName}</p>
             </div>
 
           </div>

@@ -128,13 +128,13 @@ const[financeData,setFinanceData]=useState(finance)
               </div>
             </Form.Group>
 
-              <div className={` ${styles.info} col-md-4 col-sm-6`}>
-              <span>Country</span>
-              <p>India</p>
+            <div className={` ${styles.info} col-md-4 col-sm-6`}>
+              <span className='label_heading'>Country</span>
+              <p className='text-color'>India</p>
             </div>
-              <div className={` ${styles.info} col-md-4 col-sm-6`}>
-              <span>Swift Code</span>
-              <p>FWE56D3R4</p>
+            <div className={` ${styles.info} col-md-4 col-sm-6`}>
+              <span className='label_heading'>Swift Code</span>
+              <p className='text-color'>FWE56D3R4</p>
             </div>
           </div>
         </Form>
