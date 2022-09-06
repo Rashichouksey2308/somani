@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
-import {CovertvaluefromtoCR,checkNan,addPrefixOrSuffix} from '../../utils/helper'
+import { CovertvaluefromtoCR, checkNan, addPrefixOrSuffix } from '../../utils/helper'
 import { add } from 'lodash'
 
 const Index = ({
@@ -29,7 +29,7 @@ const Index = ({
   saveSuggestedCreditData,
   deleteData,
   suggestedCredit
-  
+
 }) => {
   const [editProfile, setEditProfile] = useState(false)
   const [editFinance, setEditFinance] = useState(false)
@@ -86,7 +86,7 @@ const Index = ({
 
   const handleGroupExpChange = (name, value, index) => {
     console.log(name, value, index, 'name,value')
-    let tempArr =[...groupExposureData]
+    let tempArr = [...groupExposureData]
     tempArr.forEach((val, i) => {
       if (i == index) {
         val[name] = value
@@ -95,10 +95,10 @@ const Index = ({
     // console.log(tempArr, 'tempArr')
     setGroupExposureData(tempArr)
   }
-const handleRemoveRowEx=(index)=>{
-  
-  setGroupExposureData([...groupExposureData.slice(0,index), ...groupExposureData.slice(index+1)])
- }
+  const handleRemoveRowEx = (index) => {
+
+    setGroupExposureData([...groupExposureData.slice(0, index), ...groupExposureData.slice(index + 1)])
+  }
 
   const setActions = (index, val) => {
     setGroupExposureData((prevState) => {
@@ -185,11 +185,10 @@ const handleRemoveRowEx=(index)=>{
                 className="img-fluid ml-4" role="button"
                 src="/static/add-btn.svg"
                 alt="add button"
-                onClick={() =>
-                  {
+                onClick={() => {
                   companyComments.length > 0 &&
-                  addCompanyCommentArr(companyComments)
-                  setCompanyComments("")  
+                    addCompanyCommentArr(companyComments)
+                  setCompanyComments("")
                 }
                 }
               />
@@ -243,13 +242,12 @@ const handleRemoveRowEx=(index)=>{
                 className="img-fluid ml-4" role="button"
                 src="/static/add-btn.svg"
                 alt="add button"
-                onClick={() =>
-                 {
-                   financialsComments.length > 0 &&
-                   addFinancialsCommentArr(financialsComments)
-                
-                   setFinancialsComments("")
-                  }
+                onClick={() => {
+                  financialsComments.length > 0 &&
+                    addFinancialsCommentArr(financialsComments)
+
+                  setFinancialsComments("")
+                }
                 }
               />
             </div>
@@ -333,24 +331,24 @@ const handleRemoveRowEx=(index)=>{
                               type="text"
                               value={profile?.limit}
                               disabled={!profile.actions}
-                               onKeyDown={(evt) =>{
+                              onKeyDown={(evt) => {
                                 const re = /^[0-9\b]+$/;
-                                console.log(re.test(evt.target.value),"keydone",evt.target.value)
+                                console.log(re.test(evt.target.value), "keydone", evt.target.value)
                                 if (re.test(evt.target.value) == false) {
                                   // evt.preventDefault()
                                 }
-                               }
-                                
+                              }
+
                               }
                               onChange={(e) => {
-                              // e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0).toLocaleString('en-IN')
-                               
-                                   handleGroupExpChange(
-                                   e.target.name,
-                                   e.target.value.toString(),
+                                // e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0).toLocaleString('en-IN')
+
+                                handleGroupExpChange(
+                                  e.target.name,
+                                  e.target.value.toString(),
                                   index,
                                 )
-                               
+
                               }}
                               className={`${styles.input} input`}
                               pattern="^[\d,]+$"
@@ -362,24 +360,24 @@ const handleRemoveRowEx=(index)=>{
                               type="text"
                               value={profile?.outstandingLimit}
                               disabled={!profile.actions}
-                                onKeyDown={(evt) =>{
+                              onKeyDown={(evt) => {
                                 const re = /^[0-9\b]+$/;
-                                console.log(re.test(evt.target.value),"keydone",evt.target.value)
+                                console.log(re.test(evt.target.value), "keydone", evt.target.value)
                                 if (re.test(evt.target.value) == false) {
                                   // evt.preventDefault()
                                 }
-                               }
-                                
                               }
-                            onChange={(e) => {
-                              // e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0).toLocaleString('en-IN')
-                               
-                                   handleGroupExpChange(
-                                   e.target.name,
-                                   e.target.value.toString(),
+
+                              }
+                              onChange={(e) => {
+                                // e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0).toLocaleString('en-IN')
+
+                                handleGroupExpChange(
+                                  e.target.name,
+                                  e.target.value.toString(),
                                   index,
                                 )
-                               
+
                               }}
                               className={`${styles.input} input`}
                             />
@@ -482,9 +480,9 @@ const handleRemoveRowEx=(index)=>{
                   className="img-fluid ml-4" role="button"
                   src="/static/add-btn.svg"
                   alt="add button"
-                  onClick={() =>{
+                  onClick={() => {
                     strengthsComments.length > 0 &&
-                    addStrengthsCommentArr(strengthsComments)
+                      addStrengthsCommentArr(strengthsComments)
                     setStrengthsComments("")
                   }
                   }
@@ -492,35 +490,35 @@ const handleRemoveRowEx=(index)=>{
               </div>
               {/* <div className={`${styles.strength} value`}>Strengths</div> */}
               {strengthsComment &&
-              strengthsComment.map((strengths, index) => (
-              <div
-                key={index}
-                className={`${styles.textarea_main} d-flex justify-content-between`}
-              >
-                <Form.Control
-                  className={`${styles.paragraph} input pl-0`}
-                  defaultValue={strengths}
-                  as="textarea"
-                  rows={3}
-                  readOnly={!editStren}
-                />
-                <div className="mt-3">
-                  <img
-                    src="/static/mode_edit.svg" role="button"
-                    className={`${styles.edit_image} mr-4`}
-                    alt="edit"
-                    onClick={(e) => {
-                      setEditStren(!editStren)
-                    }}
-                  />
-                  <img
-                    src="/static/delete 2.svg" role="button"
-                    alt="delete"
-                    onClick={() => dltStrengthsCommentArr(index)}
-                  />
-                </div>
-              </div>
-              ))}
+                strengthsComment.map((strengths, index) => (
+                  <div
+                    key={index}
+                    className={`${styles.textarea_main} d-flex justify-content-between`}
+                  >
+                    <Form.Control
+                      className={`${styles.paragraph} input pl-0`}
+                      defaultValue={strengths}
+                      as="textarea"
+                      rows={3}
+                      readOnly={!editStren}
+                    />
+                    <div className="mt-3">
+                      <img
+                        src="/static/mode_edit.svg" role="button"
+                        className={`${styles.edit_image} mr-4`}
+                        alt="edit"
+                        onClick={(e) => {
+                          setEditStren(!editStren)
+                        }}
+                      />
+                      <img
+                        src="/static/delete 2.svg" role="button"
+                        alt="delete"
+                        onClick={() => dltStrengthsCommentArr(index)}
+                      />
+                    </div>
+                  </div>
+                ))}
             </div>
             {/* <hr></hr> */}
             {/* <div className="d-flex justify-content-between">
@@ -566,9 +564,9 @@ const handleRemoveRowEx=(index)=>{
                   className="img-fluid ml-4" role="button"
                   src="/static/add-btn.svg"
                   alt="add button"
-                  onClick={() =>{
+                  onClick={() => {
                     weaknessComments.length > 0 &&
-                    addWeaknessCommentArr(weaknessComments)
+                      addWeaknessCommentArr(weaknessComments)
                     setWeaknessComments("")
                   }
                   }
@@ -577,36 +575,36 @@ const handleRemoveRowEx=(index)=>{
               {/* <div className={`${styles.strength} value`}>Weakness</div> */}
               {weaknessComment &&
                 weaknessComment.map((weakness, index) => (
-                <div
-                  key={index}
-                  className={`${styles.textarea_main} d-flex justify-content-between`}
-                >
-                  <Form.Control
-                    className={`${styles.paragraph} input pl-0`}
-                    defaultValue={weakness}
-                    as="textarea"
-                    rows={3}
-                    readOnly={!editWeak}
-                  />
-                  <div className="mt-3">
-                    <img
-                      src="/static/mode_edit.svg" role="button"
-                      className={`${styles.edit_image} mr-4`}
-                      alt="edit"
-                      onClick={(e) => {
-                        setEditWeak(!editWeak)
-                      }}
+                  <div
+                    key={index}
+                    className={`${styles.textarea_main} d-flex justify-content-between`}
+                  >
+                    <Form.Control
+                      className={`${styles.paragraph} input pl-0`}
+                      defaultValue={weakness}
+                      as="textarea"
+                      rows={3}
+                      readOnly={!editWeak}
                     />
-                    <img
-                      src="/static/delete 2.svg" role="button"
-                      alt="delete"
-                      onClick={(e) => {
-                        dltWeaknessCommentArr(index)
-                      }}
-                    />
+                    <div className="mt-3">
+                      <img
+                        src="/static/mode_edit.svg" role="button"
+                        className={`${styles.edit_image} mr-4`}
+                        alt="edit"
+                        onClick={(e) => {
+                          setEditWeak(!editWeak)
+                        }}
+                      />
+                      <img
+                        src="/static/delete 2.svg" role="button"
+                        alt="delete"
+                        onClick={(e) => {
+                          dltWeaknessCommentArr(index)
+                        }}
+                      />
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
             {/* <div className="d-flex justify-content-between">
               <Form.Control
@@ -632,7 +630,7 @@ const handleRemoveRowEx=(index)=>{
               </div>
             </div> */}
 
-            <hr className={styles.line} style={{margin:'-1px 0 0'}}></hr>
+            <hr className={styles.line} style={{ margin: '-1px 0 0' }}></hr>
             <div
               className={`${styles.sanction_terms} d-flex justify-content-between align-items-center`}
             >
@@ -644,18 +642,18 @@ const handleRemoveRowEx=(index)=>{
               >
                 <div className={styles.limit}>
                   Total Limit:{' '}
-                  <span>{creditDetail?.company?.creditLimit?.totalLimit}</span>
+                  <span>{(creditDetail?.company?.creditLimit?.totalLimit ?? '')?.toLocaleString()}</span>
                 </div>
                 <div className={styles.limit}>
                   Utilised Limit:{' '}
                   <span>
-                    {creditDetail?.company?.creditLimit?.utilizedLimit}
+                    {(creditDetail?.company?.creditLimit?.utilizedLimit ?? '')?.toLocaleString()}
                   </span>
                 </div>
                 <div className={styles.limit}>
                   Available Limit:{' '}
                   <span>
-                    {creditDetail?.company?.creditLimit?.availableLimit}
+                    {(creditDetail?.company?.creditLimit?.availableLimit ?? '')?.toLocaleString()}
                   </span>
                 </div>
               </div>
@@ -677,7 +675,7 @@ const handleRemoveRowEx=(index)=>{
                   </tr>
                   <tr>
                     <td>Limit Value</td>
-                    <td>{creditDetail?.company?.creditLimit?.availableLimit?.toLocaleString("en-In")}</td>
+                    <td>{(creditDetail?.company?.creditLimit?.availableLimit ?? '')?.toLocaleString()?.toLocaleString("en-In")}</td>
                     <td>-</td>
 
                     {filteredCreditRating ? (
@@ -686,7 +684,9 @@ const handleRemoveRowEx=(index)=>{
                         {filteredCreditRating &&
                           filteredCreditRating.length > 0 &&
                           filteredCreditRating.map((val, index) => (
-                            <td key={index}>{val.derived.value}</td>
+                            <td key={index}>{(val.derived.value ?? '')?.toLocaleString(undefined, {
+                              minimumFractionDigits: 2,
+                            })}</td>
                           ))}{' '}
                       </>
                     ) : (
@@ -698,11 +698,13 @@ const handleRemoveRowEx=(index)=>{
                         className={`${styles.text} input`}
                         type="text"
                         name="suggestedCreditLimit"
-                        value={addPrefixOrSuffix(suggestedCredit?.suggestedCreditLimit," ")}
+                        value={(addPrefixOrSuffix(suggestedCredit?.suggestedCreditLimit, " "))?.toLocaleString(undefined, {
+                          minimumFractionDigits: 2,
+                        })}
                         onChange={(e) => {
                           saveSuggestedCreditData(
                             e.target.name,
-                            e.target.value ,
+                            e.target.value,
                           )
                         }}
                       ></input>
@@ -712,8 +714,10 @@ const handleRemoveRowEx=(index)=>{
                     <td>Order Value</td>
                     <td>-</td>
                     <td>
-                      
-                      {creditDetail?.orderValue?.toLocaleString("en-In")}</td>
+
+                      {((creditDetail?.orderValue) ?? '')?.toLocaleString(undefined, {
+                                minimumFractionDigits: 2,
+                              })}</td>
 
                     <td>-</td>
 
@@ -723,7 +727,9 @@ const handleRemoveRowEx=(index)=>{
                         type="text"
                         onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                         name="suggestedOrderValue"
-                        value={addPrefixOrSuffix(suggestedCredit?.suggestedOrderValue," ")}
+                        value={(addPrefixOrSuffix(suggestedCredit?.suggestedOrderValue, " ") ??'')?.toLocaleString(undefined, {
+                          minimumFractionDigits: 2,
+                        })}
                         // defaultValue={creditDetail?.suggestedOrderValue}
                         onChange={(e) => {
                           saveSuggestedCreditData(
@@ -755,9 +761,9 @@ const handleRemoveRowEx=(index)=>{
                   className="img-fluid ml-4" role="button"
                   src="/static/add-btn.svg"
                   alt="add button"
-                  onClick={() =>{
+                  onClick={() => {
                     sanctionComments.length > 0 &&
-                    addSanctionCommentArr(sanctionComments)
+                      addSanctionCommentArr(sanctionComments)
                     setSanctionComments("")
                   }
                   }
@@ -766,36 +772,36 @@ const handleRemoveRowEx=(index)=>{
               {/* <div className={`${styles.strength} value`}>Weakness</div> */}
               {sanctionComment &&
                 sanctionComment.map((sanction, index) => (
-                <div
-                  key={index}
-                  className={`${styles.textarea_main} d-flex justify-content-between`}
-                >
-                  <Form.Control
-                    className={`${styles.paragraph} input pl-0`}
-                    defaultValue={sanction}
-                    as="textarea"
-                    rows={3}
-                    readOnly={!editSanc}
-                  />
-                  <div className="mt-3">
-                    <img
-                      src="/static/mode_edit.svg" role="button"
-                      className={`${styles.edit_image} mr-4`}
-                      alt="edit"
-                      onClick={(e) => {
-                        setEditSanc(!editSanc)
-                      }}
+                  <div
+                    key={index}
+                    className={`${styles.textarea_main} d-flex justify-content-between`}
+                  >
+                    <Form.Control
+                      className={`${styles.paragraph} input pl-0`}
+                      defaultValue={sanction}
+                      as="textarea"
+                      rows={3}
+                      readOnly={!editSanc}
                     />
-                    <img
-                      src="/static/delete 2.svg" role="button"
-                      alt="delete"
-                      onClick={(e) => {
-                        dltSanctionCommentArr(index)
-                      }}
-                    />
+                    <div className="mt-3">
+                      <img
+                        src="/static/mode_edit.svg" role="button"
+                        className={`${styles.edit_image} mr-4`}
+                        alt="edit"
+                        onClick={(e) => {
+                          setEditSanc(!editSanc)
+                        }}
+                      />
+                      <img
+                        src="/static/delete 2.svg" role="button"
+                        alt="delete"
+                        onClick={(e) => {
+                          dltSanctionCommentArr(index)
+                        }}
+                      />
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
             {/*<div className="d-flex justify-content-start align-items-center pt-5 pl-5">
                <div className={`${styles.form_group} mr-5`}>
@@ -889,8 +895,8 @@ const handleRemoveRowEx=(index)=>{
               </div>
             </div> 
           </div>*/}
+          </div>
         </div>
-      </div>
       </div>
     </>
   )

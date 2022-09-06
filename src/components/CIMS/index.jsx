@@ -534,7 +534,7 @@ export default function Index({
                             alt="Pdf"
                           />
                         </td>
-                        <td className={styles.doc_row}>{moment(list?.coalImportRegistrationDoc?.Date).format(' DD-MM-YYYY , h:mm a')}</td>
+                        <td className={styles.doc_row}>{cimsDetails[index]?.coalImportRegistrationDoc == null ? '' : moment(list?.coalImportRegistrationDoc?.Date).format(' DD-MM-YYYY , h:mm a')}</td>
                         <td>
                           <div className={styles.uploadBtnWrapper}>
                             {cimsDetails &&

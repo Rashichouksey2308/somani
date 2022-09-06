@@ -59,7 +59,7 @@ function Index(props) {
   //   let tempArr2=chaState.addresses
   //   setAddressList(tempArr2)
   // },[])
- 
+ console.log(chaState,"chaState")
 useEffect(() => {
    if(window){
     console.log(sessionStorage.getItem("Cha"),".getItem")
@@ -68,7 +68,7 @@ useEffect(() => {
       let supplier={
         "name": savedData.name ||"Integral Trading and Logistics",
         "shortName": savedData.shortName,
-        "gstin": savedData.gstin |"37AABFI9574L2ZP" ,
+        "gstin": savedData.gstin || "37AABFI9574L2ZP" ,
         "addresses": savedData.addresses,
         "authorisedSignatoryDetails": savedData.authorisedSignatoryDetails,
        
@@ -81,7 +81,7 @@ useEffect(() => {
        let supplier={
         "name": props.data?.name||"Integral Trading and Logistics",
         "shortName": props.data?.shortName,
-        "gstin": props.data?.gstin ||"37AABFI9574L2ZP" ,
+        "gstin": props.data?.gstin || "37AABFI9574L2ZP" ,
         "addresses": props.data?.addresses,
         "authorisedSignatoryDetails": props.data?.authorisedSignatoryDetails,
        

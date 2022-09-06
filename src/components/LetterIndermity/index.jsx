@@ -12,6 +12,7 @@ import {
   GetTransitDetails,
 } from '../../redux/TransitDetails/action'
 import { toast } from 'react-toastify'
+// import { on } from 'nodemon'
 
 function Index({ TransitDetails }) {
   const dispatch = useDispatch()
@@ -32,6 +33,30 @@ function Index({ TransitDetails }) {
       designation: '',
     },
   })
+
+  const onAddClick = () => {
+    setBillsofLanding([
+      ...billsofLanding, {
+        blnumber: '',
+      loadingPort: '',
+      }
+    ])
+  }
+  useEffect(() => {
+    let existingData = _get(TransitDetails, `data[0].LOI`, {})
+    if (existingData?.authorizedSignatory) {
+      setLOI({
+        loiIssueDate: new Date(),
+        blSurrenderDate: null,
+        billOfLanding: billsofLanding,
+        document: null,
+        authorizedSignatory: {
+          name: existingData.authorizedSignatory.name,
+          designation: existingData.authorizedSignatory.designation,
+        },
+      })
+    }
+  }, [TransitDetails])
   const bolArray = _get(TransitDetails, `data[0].BL.billOfLanding`, [])
   console.log(loi, bolArray, 'bolArray')
 
@@ -42,8 +67,8 @@ function Index({ TransitDetails }) {
     if (e.target.value == '') {
       setLOI({ ...loi, authorizedSignatory: { name: '', designation: '' } })
     } else {
-      if (e.target.value.toLowerCase() === 'bhawanajain') {
-        console.log(e.target.value.toLowerCase(), 'bhawanajain')
+      if (e.target.value.toLowerCase() === 'Bhawana Jain') {
+        console.log(e.target.value.toLowerCase(), 'Bhawana Jain')
 
         setLOI({
           ...loi,
@@ -53,8 +78,8 @@ function Index({ TransitDetails }) {
           },
         })
       }
-      if (e.target.value.toLowerCase() === 'vipinkumar') {
-        console.log('vipinkumar')
+      if (e.target.value.toLowerCase() === 'Vipin Kumar') {
+        console.log('Vipin Kumar')
         setLOI({
           ...loi,
           authorizedSignatory: {
@@ -63,8 +88,8 @@ function Index({ TransitDetails }) {
           },
         })
       }
-      if (e.target.value.toLowerCase() === 'deveshjain') {
-        console.log('DeveshJain')
+      if (e.target.value.toLowerCase() === 'Devesh Jain') {
+        console.log('Devesh Jain')
         setLOI((prevState) => {
           return {
             ...prevState,
@@ -75,8 +100,8 @@ function Index({ TransitDetails }) {
           }
         })
       }
-      if (e.target.value.toLowerCase() === 'fatimayannoulis') {
-        console.log('Fatimayannoulis')
+      if (e.target.value.toLowerCase() === 'Fatima Yannoulis') {
+        console.log('Fatima Yannoulis')
         setLOI((prevState) => {
           return {
             ...prevState,
@@ -90,16 +115,16 @@ function Index({ TransitDetails }) {
     }
 
     // let tempArray = { ...loi }
-    // if (e.target.value === 'BhawanaJain') {
+    // if (e.target.value === 'Bhawana Jain') {
     //   tempArray.authorizedSignatory = { name: 'Bhawana Jain', designation: 'Vice President Finance & Accounts' }
     // }
-    // if (e.target.value === 'VipinKumar') {
+    // if (e.target.value === 'Vipin Kumar') {
     //   tempArray.authorizedSignatory = { name: 'Vipin Kumar', designation: 'Manager Accounts ' }
     // }
-    // if (e.target.value === 'DeveshJain') {
+    // if (e.target.value === 'Devesh Jain') {
     //   tempArray.authorizedSignatory = { name: 'Devesh Jain', designation: 'Director' }
     // }
-    // if (e.target.value === 'FatimaYannoulis') {
+    // if (e.target.value === 'Fatima Yannoulis') {
     //   tempArray.authorizedSignatory = { name: 'Fatima Yannoulis', designation: 'Chief Financial Officer' }
     // }
     // else {
@@ -158,8 +183,8 @@ function Index({ TransitDetails }) {
         <div className={`${styles.aboutLetter}`}>
           <p>
             STANDARD FORM LETTER OF INDEMNITY TO BE GIVEN IN RETURN FOR
-            DELIVERING CARGO <span style={{textTransform:'none'}}> without production of the original bills of
-            lading.</span>
+            DELIVERING CARGO <span style={{ textTransform: 'none' }}> without production of the original bills of
+              lading.</span>
           </p>
         </div>
         <div
@@ -204,7 +229,7 @@ function Index({ TransitDetails }) {
             TO ANY PORT(S) IN INDIA
           </div>
         </div>
-        <div className={`d-flex ${styles.salutations}`}>
+        <div className={`d-flex  ${styles.salutations}`}>
           <span>Cargo:</span>
           {'  '}
           <div className={`ml-3`}>
@@ -221,14 +246,18 @@ function Index({ TransitDetails }) {
             {_get(TransitDetails, 'data[0].order.commodity', '').toUpperCase()}
           </div>
         </div>
-        <div className={`d-flex ${styles.salutations}`}>
+        <div className={`d-flex flex-wrap ${styles.salutations}`}>
           <span>Bill(s) of Lading:</span>
           {'  '}
+          <div>
           {billsofLanding.map((bills, index1) => (
+          <>
+          
             <div
               key={index1}
-              className={`ml-3 d-flex justify-content-start align-items-center ${styles.salutationFeatures} `}
+              className={`ml-3 word-wrap d-flex justify-content-start align-items-center ${styles.salutationFeatures} `}
             >
+              
               <select onChange={(e) => BolDropDown(e)} className="input">
                 {bolArray.map((element, index2) => (
                   <option key={index2} value={`${index1}-${index2}`}>
@@ -243,11 +272,13 @@ function Index({ TransitDetails }) {
                 '',
               ).toUpperCase()}{' '}
               {index1}
-              <button onClick={() => OnAddHandler()} className={styles.add_btn}>
+              <button onClick={() => onAddClick()} className={styles.add_btn}>
                 <span className={styles.add_sign}>+</span>Add
               </button>
             </div>
+            </>
           ))}
+          </div>
         </div>
 
         <div className={styles.body}>
@@ -367,14 +398,15 @@ function Index({ TransitDetails }) {
             <p>
               Name:{' '}
               <select
+              value= {loi.authorizedSignatory.name}
                 onChange={(e) => SetAuthorisedSignatoryHanlder(e)}
                 className={`${styles.input_field} ${styles.customSelect} input mt-4 pl-3`}
               >
                 <option value="">Select an option</option>
-                <option value="bhawanajain">Bhawana Jain </option>
-                <option value="vipinkumar">Vipin Kumar </option>
-                <option value="DeveshJain">Devesh Jain </option>
-                <option value="fatimayannoulis">Fatima Yannoulis </option>
+                <option value="Bhawana Jain">Bhawana Jain </option>
+                <option value="Vipin Kumar">Vipin Kumar </option>
+                <option value="Devesh Jain">Devesh Jain </option>
+                <option value="Fatima Yannoulis">Fatima Yannoulis </option>
               </select>
               <img
                 className={`${styles.arrow} image_arrow img-fluid`}
