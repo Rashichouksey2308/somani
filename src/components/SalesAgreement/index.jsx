@@ -1075,9 +1075,9 @@ function Index(props) {
       let dataToSend2 = {
         deliveryTerms: data.deliveryData,
       }
-      sessionStorage.setItem('Delivery', JSON.stringify(data.deliveryData))
+     
       sessionStorage.setItem('Delivery', JSON.stringify(dataToSend2))
-       if (dataToSend?.delivery?.deliveryTerms == "" || dataToSend?.delivery?.deliveryTerms == undefined) {
+       if (dataToSend?.deliveryTerms?.deliveryTerm == "" || dataToSend?.deliveryTerms?.deliveryTerm == undefined) {
       toastMessage = `Please select delivery Terms  `
       if (!toast.isActive(toastMessage.toUpperCase())) {
       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
