@@ -17,7 +17,7 @@ import _get from 'lodash/get'
 import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
 import Axios from 'axios'
-import { setPageName,setDynamicName,setDynamicOrder } from '../../redux/userData/action'
+import { setPageName, setDynamicName, setDynamicOrder } from '../../redux/userData/action'
 
 export default function Index() {
   const dispatch = useDispatch()
@@ -32,11 +32,11 @@ export default function Index() {
   let hedgingData = _get(allForwardHedging, 'data[0]', '')
   let hedgingDataDetail = _get(allForwardHedging, 'data[0].detail[0]', {})
   console.log(hedgingDataDetail, 'THIS IS HEDGING DATA')
- useEffect(() => {
+  useEffect(() => {
     dispatch(setPageName('forward'))
     dispatch(setDynamicName(_get(allForwardHedging, 'data[0].company.companyName')))
     dispatch(setDynamicOrder(_get(allForwardHedging, 'data[0].order.orderId', {})))
-  },[allForwardHedging])
+  }, [allForwardHedging])
   const [list, setList] = useState([
     {
       bankName: '',
@@ -84,7 +84,7 @@ export default function Index() {
           bookedRate: '',
           bookedRateCurrency: 'INR',
           bookedAmount: '',
-          validityFrom : '',
+          validityFrom: '',
           validityTo: '',
           closingDate: '',
           closingRate: '',
@@ -96,10 +96,10 @@ export default function Index() {
     })
   }
 
-  const saveHedgingData = (name, value, index=0) => {
+  const saveHedgingData = (name, value, index = 0) => {
     // const name = name
     // const value = value
-    console.log(name,value,"Dsdff")
+    console.log(name, value, "Dsdff")
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -186,10 +186,12 @@ export default function Index() {
     setCancel(true)
   }
 
-  const handleClose = () => {
-    setList((doc) => {
-      return { ...doc, forwardSalesContract: null }
-    })
+  const handleClose = (index) => {
+    console.log(index, 'forward Hedging')
+    let tempArr = [...list]
+    tempArr[index].forwardSalesContract = null
+    setList(tempArr)
+    // setList([...list, { ...list[index], forwardSalesContract: null }])
   }
 
   // const onAddClick = () => {
@@ -224,7 +226,7 @@ export default function Index() {
   }
 
   const handleSave = () => {
-    let hedgingObj = [ ...list ]
+    let hedgingObj = [...list]
 
     hedgingObj.balanceAmount = list.bookedAmount
 
@@ -240,11 +242,11 @@ export default function Index() {
     dispatch(UpdateForwardHedging({ obj, task }))
   }
   const handleSubmit = () => {
-    let hedgingObj = [ ...list ]
+    let hedgingObj = [...list]
 
     // hedgingObj.balanceAmount = list.bookedAmount
-    console.log(hedgingObj,"dasd")
-   
+    console.log(hedgingObj, "dasd")
+
     let obj = {
       forwardHedgingId: hedgingData?._id,
       detail: hedgingObj,
@@ -258,13 +260,13 @@ export default function Index() {
     <>
       <div className={`${styles.backgroundMain} p-0 container-fluid`}>
         <div className={styles.main_page}>
-          <div  className={`${styles.head_header} align-items-center`}>
+          <div className={`${styles.head_header} align-items-center`}>
             <img
               className={`${styles.arrow} image_arrow mr-2 img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
               onClick={() => Router.push('/forward-table')}
-              
+
             />
             <h1 className={`${styles.heading}`}>
               {hedgingData?.company?.companyName}{' '}
@@ -396,7 +398,7 @@ export default function Index() {
                             required
                             name="bookedAmount"
                             value={item.bookedAmount}
-                          
+
                             onKeyDown={(evt) =>
                               evt.key === 'e' && evt.preventDefault()
                             }
@@ -439,7 +441,7 @@ export default function Index() {
                           <div className="d-flex">
                             <DateCalender
                               name="validityTo"
-                               defaultDate={item?.validityTo?.split('T')[0]}
+                              defaultDate={item?.validityTo?.split('T')[0]}
                               // defaultDate={list?.validityTo}
                               saveDate={saveDate}
                               labelName="Validity to"
@@ -615,7 +617,7 @@ export default function Index() {
                                 />
                               </div> */}
                                   {item &&
-                                  item?.forwardSalesContract == null ? (
+                                    item?.forwardSalesContract == null ? (
                                     <>
                                       <div className={styles.uploadBtnWrapper}>
                                         <input
@@ -652,7 +654,7 @@ export default function Index() {
                                       <img
                                         className={`${styles.close_image}`}
                                         src="/static/close.svg"
-                                        onClick={() => handleClose()}
+                                        onClick={() => handleClose(index)}
                                         alt="Close"
                                       />{' '}
                                     </div>
