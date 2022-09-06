@@ -45,9 +45,7 @@ function Index() {
 
 
 
-  // useEffect(() => {
-  //   dispatch(setPageTabName('release'))
-  // }, [])
+ 
 
 
 
@@ -184,6 +182,28 @@ function Index() {
       status: '',
     },
   ])
+  useEffect(() => {
+    let tempArr=[]
+    if(_get(ReleaseOrderData,"data[0].deliveryDetail",[]).length>0){
+      _get(ReleaseOrderData,"data[0].deliveryDetail",[]).forEach((val,index)=>{
+      tempArr.push(
+     {
+      orderNumber: val.orderNumber || 1,
+      unitOfMeasure: val.unitOfMeasure||'MT',
+      isDelete: false,
+      Quantity: val.netQuantityReleased,
+      deliveryOrderNo: val.deliveryOrderNumber,
+      deliveryOrderDate: val.deliveryOrderDate,
+      status: val.deliveryStatus,
+    },
+      )
+      })
+       setDeliveryOrder(tempArr)
+    }
+     
+    setLastMileDelivery(_get(ReleaseOrderData,"data[0].lastMileDelivery",[]))
+  console.log(ReleaseOrderData, 'ReleaseOrderDataMain')
+  },[ReleaseOrderData])
   // useEffect(() => {
   //   let deliveryOrderState = _get(ReleaseOrderData, 'data[0].deliveryDetail', [])
   //   console.log(deliveryOrderState, 'deliveryOrderStateprev')
@@ -468,6 +488,7 @@ function Index() {
                     <DeliveryOrder
                       BalanceQuantity={BalanceQuantity}
                       setLastMileDelivery={setLastMileDelivery}
+                      lastMileDelivery={lastMileDelivery}
                       onSaveHAndler={onSaveDoHAndler}
                       quantity={quantity}
                       ReleaseOrder={ReleaseOrderData}
