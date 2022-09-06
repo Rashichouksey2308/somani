@@ -449,7 +449,7 @@ export default function Index() {
                             />
                           </div>
                         </div>
-                        <div
+                        {/* <div
                           className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
                         >
                           <button
@@ -458,7 +458,7 @@ export default function Index() {
                           >
                             Cancel
                           </button>
-                        </div>
+                        </div> */}
                         <div
                           className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
                         >

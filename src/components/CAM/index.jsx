@@ -539,7 +539,7 @@ const basicInfo = (camData,orderDetails) => {
                     Sourcing Channel
                   </span>
                   <span className={`${styles.value} value pr-5`}>
-                    {camData?.company?.sourceChanel}
+                    {orderDetails?.company?.sourceChanel}
                   </span>
                 </Col>
                 <Col

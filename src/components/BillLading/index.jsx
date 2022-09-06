@@ -69,10 +69,10 @@ export default function Index({
     packingListDoc: null,
   }
   const dispatch = useDispatch()
-console.log(bolList,"bolList")
+  console.log(bolList, "bolList")
   let shipmentTypeBulk =
-    _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') ==
-    'Bulk'
+    _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') ===
+    'Bulk' ? true : false
 
   const existingBlData = _get(TransitDetails, `data[0].BL.billOfLanding`, [])
 
@@ -225,12 +225,14 @@ console.log(bolList,"bolList")
       'transitDetails.ETAatDischargePort',
       null,
     )
+    if (!shipmentTypeBulk) {
+      newArray[index].containerDetails.numberOfContainers = _get(
+        filteredVessel,
+        'shippingInformation.numberOfContainers',
+        '',
+      )
+    }
 
-    newArray[index].containerDetails.numberOfContainers = _get(
-      filteredVessel,
-      'shippingInformation.numberOfContainers',
-      '',
-    )
 
     setBolList(newArray)
   }
@@ -682,7 +684,7 @@ console.log(bolList,"bolList")
                               onChange={(e) => onChangeVessel(e, index)}
                               className={`${styles.input_field} ${styles.customSelect}   input form-control`}
                             >
-                              <option  selected>
+                              <option selected>
                                 Select an option
                               </option>
                               {shipmentTypeBulk
@@ -1193,7 +1195,7 @@ console.log(bolList,"bolList")
                                         <span>{
                                           bolList[index]?.containerNumberListDoc
                                             ?.originalName
-                                          }
+                                        }
                                         </span>
                                         <img
                                           className={`${styles.close_image} mr-2`}
@@ -1267,7 +1269,7 @@ console.log(bolList,"bolList")
                                         <span>{
                                           bolList[index]?.packingListDoc
                                             ?.originalName
-                                          }
+                                        }
                                         </span>
                                         <img
                                           className={`${styles.close_image} mr-2`}
@@ -1410,7 +1412,7 @@ console.log(bolList,"bolList")
                                     <span>{
                                       bolList[index]?.blSurrenderDoc
                                         ?.originalName
-                                      }
+                                    }
                                     </span>
                                     <img
                                       className={`${styles.close_image} mr-2`}

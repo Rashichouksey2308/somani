@@ -12,6 +12,7 @@ import { Form, Row, Col } from 'react-bootstrap'
         
  }
 function Index(props) {
+  console.log(props.selectedGST,props.gstList,"asdasda")
   const[associateData,setAssociateData]=useState(associate)
   const [addressList,setAddressList]=useState([])
   const [docList,setDocList]=useState([])
@@ -87,7 +88,7 @@ if (window) {
       "branchName": props?.data?.branch,
       "shortName": props?.data?.shortName,
       
-        "gstin": props?.data?.gstin,
+        "gstin": props?.data?.gstin || props?.selectedGST,
 
 
 
@@ -447,7 +448,7 @@ const cancelAddress=()=>{
   setAddressType("Registered")
 
 }
-console.log(associateData,"associateData")
+console.log(associateData.gstin,"associateData")
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
@@ -461,7 +462,7 @@ console.log(associateData,"associateData")
             </div>
             <div className={`${styles.info} col-md-4 col-sm-6`}>
               <span>PAN No.</span>
-              <p>27AAATW4183C2ZG</p>
+              <p>{props?.pan}</p>
             </div>
             <div className={`col-md-4 col-sm-6`}>
               <span></span>
@@ -493,8 +494,10 @@ console.log(associateData,"associateData")
                   value={associateData.gstin}
                 >  
                 <option>Select an option</option>
-                
-                  <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
+                 {props.gstList && props.gstList.map((val,index)=>{
+                  return <option value={val}>{val}</option>
+                 })}
+                  
                   
                 </select>
                 <Form.Label

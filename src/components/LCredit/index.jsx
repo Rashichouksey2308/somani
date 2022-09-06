@@ -365,12 +365,15 @@ function Index() {
                               saveAmendmentData(e.target.name, e.target.value)
                             }
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                            value={lcData?.lcIssuingBank}
                           >
-                            <option disabled>Select an option</option>
-                            <option value="BNP PARIBAS PARIBAS - BNPAFPPX">
-                              BNP PARIBAS PARIBAS - BNPAFPPX
+                            <option selected disabled>Select an option</option>
+                            <option value="Reserve Bank of Spain">
+                              Reserve Bank of Spain
                             </option>
-                            <option value="Swiss Bank">Swiss Bank</option>
+                            <option value="Zurcher Kantonal Bank,Zurich">
+                              Zurcher Kantonal Bank,Zurich
+                            </option>
                           </select>
 
                           <label
@@ -514,9 +517,9 @@ function Index() {
                           disabled
                           type="text"
                           value={clauseObj?.existingValue}
-                          // onChange={(e)=>{
+                        // onChange={(e)=>{
 
-                          // }}
+                        // }}
                         />
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -546,7 +549,7 @@ function Index() {
                                 name="newValue"
                                 // defaultDate={lcData?.dateOfIssue?.split('T')[0]}
                                 saveDate={saveDropDownDate}
-                                // labelName="New Value"
+                              // labelName="New Value"
                               />
                               <img
                                 className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -739,7 +742,7 @@ function Index() {
                                                   name="newValue"
                                                   // defaultDate={lcData?.dateOfIssue?.split('T')[0]}
                                                   saveDate={saveDropDownDate}
-                                                  // labelName="New Value"
+                                                // labelName="New Value"
                                                 />
                                               </>
                                             )}
@@ -811,6 +814,7 @@ function Index() {
           {/* Document*/}
           <div className="mt-4 mb-5">
             <InspectionDocument
+              setLcDoc={setLcDoc}
               lcDoc={lcDoc}
               orderId={lcModuleData?.order?._id}
               uploadDocument1={uploadDocument1}
@@ -824,6 +828,7 @@ function Index() {
         handleSave={handleSubmit}
         //rightBtnClick={handleRoute}
         rightBtn="Share"
+        buttonText="Submit"
       />
     </>
   )

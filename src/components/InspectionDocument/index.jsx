@@ -11,7 +11,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { ViewDocument } from 'redux/ViewDoc/action'
 
-const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
+const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc }) => {
   const dispatch = useDispatch()
 
   const [editInput, setEditInput] = useState(true)
@@ -167,7 +167,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
                         alt="Pdf"
                       />
                     </td>
-                    <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                    <td className={styles.doc_row}></td>
                     <td colSpan={2}>
                       {lcDoc && lcDoc.lcDraftDoc === null ? (
                         <>
@@ -198,6 +198,9 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc }) => {
                         <div className={`${styles.certificate} d-flex align-items-center justify-content-between`}>
                           <span>{lcDoc?.lcDraftDoc?.name}</span>
                           <img
+                          onClick={(e) => setLcDoc({
+                            lcDraftDoc: null,
+                          })}
                             className={`${styles.close_image} mr-2`}
                             src="/static/close.svg"
                             alt="Close"
