@@ -194,6 +194,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                       id="name"
                       onChange={(e) => handleNewDocModule(e)}
                     >
+                       <option disabled selected>Select an option </option>
                       {module === 'LeadOnboarding&OrderApproval' ? (
                         <>
                           {' '}

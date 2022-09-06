@@ -36,7 +36,7 @@ const Index = () => {
 
   let insuranceData = _get(insuranceResponse, 'data[0]', {})
   console.log(
-    insuranceData?.order?.vessel?.vessels[0]?.transitDetails?.laycanFrom,
+    insuranceData,
     'This is InsuranceData',
   )
 
@@ -60,7 +60,7 @@ const Index = () => {
     (Number(insuranceData?.order?.orderValue) * 110) / 100,
   )
   // console.log(sumInsuredCalc, "THIS IS SUM INSURED CAL")
-  console.log(quotationData.expectedTimeOfDispatch, 'insuranceData')
+  console.log(insuranceData?.quotationRequest, 'insuranceData')
   useEffect(() => {
     dispatch(setPageName('insurance'))
     dispatch(
