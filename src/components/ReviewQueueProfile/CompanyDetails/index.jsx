@@ -129,14 +129,19 @@ function Index({ order, companyDetail }) {
                 </div>
                 <div
                   className={`${`${styles.value} accordion_Text`} ${
-                    companyDetail?.profile?.companyDetail?.activeCompliance
+                    companyDetail?.profile?.companyDetail?.activeCompliance?.toLowerCase()?.trim() == 'activecompliant'
                       ? styles.success
                       : styles.warning
                   }`}
                 >
-                  {companyDetail?.activeCompliance === 'ACTIVE compliant'
+                  {
+                  companyDetail?.activeCompliance==null
+                  ? ""
+                  :
+                  companyDetail?.activeCompliance?.toLowerCase()?.trim() == 'activecompliant'
                     ? 'Yes'
-                    : 'No'}
+                    : 'No'
+                  }
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -214,13 +219,18 @@ function Index({ order, companyDetail }) {
                 <div className={`${styles.label} label_heading`}>
                   Existing Limit (Cr)
                 </div>
-                <div className={`${styles.value} accordion_Text`}></div>
+                <div className={`${styles.value} accordion_Text`}>
+                    {CovertvaluefromtoCR(order?.creditLimit?.totalLimit)}
+                </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>
                   Utilized Limit (Cr)
                 </div>
-                <div className={`${styles.value} accordion_Text`}></div>
+                <div className={`${styles.value} accordion_Text`}>
+
+                  {CovertvaluefromtoCR(order?.creditLimit?.utilizedLimit)}
+                </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>

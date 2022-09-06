@@ -14,6 +14,7 @@ import _get from 'lodash/get'
 import { removePrefixOrSuffix, addPrefixOrSuffix } from 'utils/helper'
 import { toast } from 'react-toastify'
 import {checkNan} from '../../utils/helper'
+import { set } from 'lodash'
 
 export default function Index({
   customData,
@@ -32,7 +33,7 @@ export default function Index({
   const { customClearance } = useSelector((state) => state.Custom)
 
   console.log(customClearance, 'this is custom doc')
-  console.log(customData, 'customData')
+  console.log(dutyData, 'dutyData')
 
   const [billOfEntryData, setBillOfEntryData] = useState({
     boeAssessment: '',
@@ -75,8 +76,8 @@ export default function Index({
       return number
     }
   }
-  console.log(billOfEntryData.boeDetails,"boeDetails")
-console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd')
+  console.log(billOfEntryData,"boeDetails")
+console.log(customData,'sdasd')
   const uploadDoc1 = async (e) => {
     let name = e.target.name
     let docs = await uploadDoc(e)
@@ -110,7 +111,17 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
     namesplit.length > 1
       ? (newInput[namesplit[0]][namesplit[1]] = value)
       : (newInput[name] = value)
-    setBillOfEntryData(newInput)
+     console.log(newInput,"newInput")
+
+    setBillOfEntryData({...newInput})
+  }
+  const conversionRateChange=(name, value)=>{
+    
+     const newInput = { ...billOfEntryData }
+    newInput['boeDetails']['conversionRate'] = value
+     console.log(newInput,"newInput")
+
+    setBillOfEntryData({...newInput})
   }
 
   const [pfCheckBox, setPfCheckBox] = useState(true)
@@ -131,9 +142,25 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
   //   setDutyData(dutyDataArr)
   // }, [customData])
 
+  useEffect(() => {
+    let temp=[]
+   if(_get(customData,"billOfEntry.billOfEntry[0].duty",[]).length>0){
+      _get(customData,"billOfEntry.billOfEntry[0].duty",[]).forEach((val,index)=>{
+        temp.push(
+          {
+            percentage: val.percentage || "",
+            duty: val.duty,
+            amount: val.amount,
+            action: false,
+          }
+        )
+      })
+      setDutyData(temp)
+   }
+  },[customData])
   const handleDutyChange = (name, value, index) => {
     // console.log(name,value,index,"name,value")
-    let tempArr = dutyData
+    let tempArr = [...dutyData]
     tempArr.forEach((val, i) => {
       if (i == index) {
         val[name] = value
@@ -142,6 +169,7 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
     // console.log(tempArr,"tempArr")
     setDutyData(tempArr)
   }
+
 
   const setActions = (index, val) => {
     setDutyData((prevState) => {
@@ -173,7 +201,7 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
       ...dutyData,
 
       {
-        sNo: '',
+        percentage: '',
         duty: '',
         amount: '',
         action: false,
@@ -181,26 +209,7 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
     ])
   }
 
-  // const [list, setList] = useState([
-  //   {
-  //     sNo: '',
-  //     duty: '',
-  //     amount: '',
-  //     action: '',
-  //   },
-  // ])
 
-  // const onAddClick = () => {
-  //   setDutyData([
-  //     ...dutyData,
-  //     {
-  //       sNo: '',
-  //       duty: '',
-  //       amount: '',
-  //       action: '',
-  //     },
-  //   ])
-  // }
 
   const handleSubmit = () => {
  
@@ -270,7 +279,11 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
   }
 
   const handleSave = () => {
-    const billOfEntry = { billOfEntry: [billOfEntryData] }
+    let tempData={...billOfEntryData}
+    tempData.boeDetails.conversionRate=removePrefixOrSuffix(billOfEntryData.boeDetails.conversionRate)
+     tempData.boeDetails.invoiceQuantity=removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceQuantity)
+      tempData.boeDetails.invoiceValue=removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceValue)
+    const billOfEntry = { billOfEntry: [tempData] }
     const fd = new FormData()
     fd.append('customClearanceId', customData?._id)
     fd.append('billOfEntry', JSON.stringify(billOfEntry))
@@ -287,8 +300,14 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
     }
   }
 
- let accessibleValueCalc =  checkNan((Number(_get(customData,'billOfEntry.billOfEntry[0].boeDetails.invoiceValue',),) * billOfEntryData?.boeDetails?.conversionRate))
-
+const [accessibleValueCalc,setAcc]=useState(0)
+ useEffect(() => {
+ 
+  setAcc(checkNan((Number(_get(customData,'billOfEntry.billOfEntry[0].boeDetails.invoiceValue',),) 
+    
+    * removePrefixOrSuffix(billOfEntryData?.boeDetails?.conversionRate))))
+    
+ },[billOfEntryData.boeDetails.conversionRate,billOfEntryData.boeDetails.invoiceValue])
   useEffect(() => {
     if (customData) {
       let data = Number(
@@ -310,7 +329,7 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
           invoiceQuantity: data?.boeDetails?.invoiceQuantity,
           invoiceQuantityUnit: data?.boeDetails?.invoiceQuantityUnit,
           currency: data?.boeDetails?.currency,
-          conversionRate: data?.boeDetails?.conversionRate,
+          conversionRate: data?.boeDetails?.conversionRate || "",
           invoiceNumber: data?.boeDetails?.invoiceNumber,
           invoiceValue: data?.boeDetails?.invoiceValue,
           invoiceValueCurrency: data?.boeDetails?.invoiceValueCurrency,
@@ -327,7 +346,7 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
       }
       setBillOfEntryData(tempArray)
     }
-  }, [customData, accessibleValueCalc])
+  }, [customData])
 
 
 
@@ -335,7 +354,10 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
   //   customData,
   //   // billOfEntryData,
   //   'customData')
+ const getIndex=(index)=>{
+  return index+1;
 
+ }
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -716,17 +738,18 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <input
-                    value={billOfEntryData?.boeDetails?.invoiceQuantity}
+                    // value={billOfEntryData?.boeDetails?.invoiceQuantity}
                     className={`${styles.input_field} input form-control`}
-                    type="number"
-                    min={1}
-                    onKeyPress={preventMinus}
+                    type="text"
+                   
+                    // onKeyPress={preventMinus}
+                    value={addPrefixOrSuffix(billOfEntryData?.boeDetails?.invoiceQuantity,"MT")}
                     name="boeDetails.invoiceQuantity"
                     onChange={(e) =>
                       saveBillOfEntryData(e.target.name, e.target.value)
                     }
                     required
-                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                    // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Invoice Quantity<strong className="text-danger">*</strong>
@@ -737,11 +760,12 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <input
-                    value={billOfEntryData?.boeDetails?.invoiceValue}
+                    // value={billOfEntryData?.boeDetails?.invoiceValue}
                     className={`${styles.input_field} input form-control`}
-                    type="number"
+                    type="text"
                     required
-                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                  
+                    value={addPrefixOrSuffix(billOfEntryData?.boeDetails?.invoiceValue,"INR","front")}
                     name="boeDetails.invoiceValue"
                     onChange={(e) =>
                       saveBillOfEntryData(e.target.name, e.target.value)
@@ -754,17 +778,20 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
+                 
                   <input
+                   
                     className={`${styles.input_field} input form-control`}
-                    type="number"
-                    name="boeDetails.conversionRate"
+                    type="text"
                     required
-                    value={Number(billOfEntryData.boeDetails.conversionRate)}
-                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                    value={addPrefixOrSuffix(billOfEntryData?.boeDetails?.conversionRate,"INR","front")}
+                   
+                    name="boeDetails.conversionRate"
                     onChange={(e) =>
-                      saveBillOfEntryData(e.target.name, e.target.value)
+                      conversionRateChange(e.target.name, e.target.value)
                     }
                   />
+                 
                   <label className={`${styles.label_heading} label_heading`}>
                     Conversion Rate<strong className="text-danger">*</strong>
                   </label>
@@ -863,60 +890,30 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
                         </tr>
                       </thead>
                       <tbody>
-                        {/* <tr className="table_row">
-                          <td className={styles.doc_name}>1</td>
-                          <td>BCD</td>
-                          <td>24,000</td>
-                          <td className="text-right">
-                            <div>
-                              {!saveContactTable ? (
-                                <img
-                                  src="/static/mode_edit.svg"
-                                  className={`${styles.edit_image} mr-3 img-fluid`}
-                                  onClick={() => {
-                                    setContactTable(true)
-                                  }}
-                                />
-                              ) : (
-                                <img
-                                  src="/static/save-3.svg"
-                                  className={`${styles.edit_image} mr-3 img-fluid`}
-                                  alt="save"
-                                  onClick={(e) => {
-                                    setContactTable(false)
-                                  }}
-                                />
-                              )}
-                              <img
-                                src="/static/delete 2.svg"
-                                className="img-fluid"
-                                style={{ cursor: 'pointer' }}
-                                alt="delete"
-                                onClick={() => handleDeleteRow(index)}
-                              />
-                            </div>
-                          </td>
-                        </tr> */}
+                      
 
                         {dutyData.length > 0 &&
                           dutyData.map((val, index) => (
                             <tr key={index} className="table_row">
                               {!val.actions ? (
                                 <>
-                                  <td className={styles.doc_name}>1</td>
-                                  <td>BCD</td>
-                                  <td>24,000</td>
-                                  <td className="text-right"></td>
+                                
+        
+                                  <td className={styles.doc_name}>{getIndex(index)}</td>
+                                  <td>{val.duty}</td>
+                                  <td>{val.amount}</td>
+                                  <td>{val.percentage}</td>
                                 </>
                               ) : (
                                 <>
                                   {' '}
                                   <td className={styles.doc_name}>
-                                    {index + 1}
+                                    {getIndex(index)}
                                   </td>
                                   <td>
                                     <select
                                       name="duty"
+                                      value={val.duty}
                                       onChange={(e) =>
                                         handleDutyChange(
                                           e.target.name,
@@ -928,7 +925,7 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
                                       className={`${styles.dutyDropdown}`}
                                     >
                                       <option>Select an option</option>
-                                      <option>{val.duty}</option>
+                                     
                                       <option value="BCD">BCD</option>
                                       <option value="IGST">IGST</option>
                                     </select>
@@ -937,6 +934,7 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
                                     <input
                                       className={`${styles.dutyDropdown}`}
                                       name="amount"
+                                       value={val.amount}
                                       disabled={!val.actions}
                                       onChange={(e) =>
                                         handleDutyChange(
@@ -950,6 +948,8 @@ console.log(customData?.order?.transit?.CIMS?.cimsDetails[0]?.circNumber,'sdasd'
                                   <td>
                                     <input
                                       className={`${styles.dutyDropdown}`}
+                                      name="percentage"
+                                      value={val.percentage}
                                       onChange={(e) =>
                                         handleDutyChange(
                                           e.target.name,
