@@ -54,14 +54,19 @@
     }
     div {
       white-space: nowrap;
-      width: 413px;
+      // width: 413px;
       font-weight: bold;
       font-size: 22px;
       line-height: 36px;
       letter-spacing: 0;
     }
     .salutationFeatures {
-      flex-grow: 1;
+      //width: 100%;
+     // flex-grow: 1;
+     &:nth-child(n) {
+        margin-bottom: 15px;
+      }
+   
       select {
         margin-right: 1rem;
         // background: #c3c3c31f;
@@ -110,7 +115,7 @@
       margin: 0rem !important;
     }
     .athorised {
-      margin-top: 4rem;
+      margin-top: 2.5rem;
       p {
         //margin: 1rem !important;
       }
