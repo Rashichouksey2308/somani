@@ -675,7 +675,7 @@ const Index = ({
                   </tr>
                   <tr>
                     <td>Limit Value</td>
-                    <td>{(creditDetail?.company?.creditLimit?.availableLimit ?? '')?.toLocaleString()}</td>
+                    <td>{(creditDetail?.company?.creditLimit?.availableLimit ?? '')?.toLocaleString()?.toLocaleString("en-In")}</td>
                     <td>-</td>
 
                     {filteredCreditRating ? (

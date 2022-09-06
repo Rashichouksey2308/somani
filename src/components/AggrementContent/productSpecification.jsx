@@ -110,7 +110,7 @@ function Index(props) {
       console.log('please select file')
     }
   }
-  console.log(excelData, 'test1234')
+  console.log(excelData, 'test1234',excelFile)
   console.log(excelFile, 'file')
 
   useEffect(() => {
@@ -173,7 +173,7 @@ function Index(props) {
                   {doc.attachDoc}
                 </span>
                 <img
-                  className={`${styles.close_image} float-right m-2 img-fluid`}
+                  className={`${styles.close_image}`}
                   src="/static/close.svg"
                   onClick={() => setdoc({ attachDoc: '' })}
                   alt="Close"
@@ -186,9 +186,15 @@ function Index(props) {
                 ARE ALLOWED <br /> &nbsp; &nbsp; &amp; MAX FILE SIZE UP TO 50 MB
               </span>
             </div>
-            <div className={`${styles.excel_close} d-flex align-items-center justify-content-center ml-auto`}>
+            {excelFile?<div className={`${styles.excel_close}
+             d-flex align-items-center justify-content-center ml-auto`}
+             onClick={()=>{
+              setExcelFile(null) 
+              setExcelData(null)
+             }}
+             >
               <img src="/static/close-b.svg" alt="Close" />
-            </div>
+            </div>:null}
           </div>
           <div className={styles.tableWrapper}>
             <div className={styles.table_scroll_outer}>

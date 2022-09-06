@@ -1053,7 +1053,7 @@ console.log(addressList,"addressList")
                           {doc.attachDoc.originalName}
                         </span>
                         <img
-                          className={`${styles.close_image} float-right m-2 img-fluid`}
+                          className={`${styles.close_image}`}
                           src="/static/close.svg"
                           onClick={() =>setdoc({attachDoc:""})}
                           alt="Close"
@@ -1098,7 +1098,7 @@ console.log(addressList,"addressList")
                           {val.attachDoc.originalName}
                         </span>
                         <img
-                          className={`${styles.close_image} float-right m-2 img-fluid`}
+                          className={`${styles.close_image}`}
                           src="/static/close.svg"
                           onClick={() => removeDoc(index)}
                           alt="Close"

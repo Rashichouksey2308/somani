@@ -112,7 +112,7 @@ const Index = ({
                           {val.attachDoc.name}
                         </span>
                         <img
-                          className={`${styles.close_image} float-right m-2 img-fluid`}
+                          className={`${styles.close_image}`}
                           src="/static/close.svg"
                           onClick={() => removeDoc(index)}
                           alt="Close"
@@ -197,7 +197,7 @@ const Index = ({
                         {secondDocName}
                       </span>
                       <img
-                        className={`${styles.close_image} float-right m-2 img-fluid`}
+                        className={`${styles.close_image}`}
                         src="/static/close.svg"
                         onClick={() => setSecondDocName(null)}
                         alt="Close"
@@ -267,7 +267,7 @@ const Index = ({
                 {secondDocName}
               </span>
               <img
-                className={`${styles.close_image} float-right m-2 img-fluid`}
+                className={`${styles.close_image}`}
                 src="/static/close.svg"
                 onClick={() => setSecondDocName(null)}
                 alt="Close"

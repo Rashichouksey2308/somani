@@ -232,21 +232,21 @@ export default function Index(props) {
                                   >
                                     <img
                                       src="/static/share.svg"
-                                      className={`${styles.shareImg} img-fluid`}
+                                      className={`${styles.shareImg}`}
                                       alt="Share"
                                       onClick={(e) => handleRoute()}
                                     />
                                     <img
                                       src="/static/cancel-3.svg"
-                                      className={`${styles.shareImg} img-fluid ml-3`}
+                                      className={`${styles.shareImg} ml-3`}
                                       alt="Cancel"
                                       onClick={(e) => {
                                         props.onEdit(index, false)
                                       }}
                                     />
                                     <img
-                                      className={`${styles.shareImg} ml-3 img-fluid`}
-                                      src="/static/delete.svg"
+                                      className={`${styles.shareImg} border-0 p-0 bg-transparent ml-3`}
+                                      src="/static/delete 2.svg"
                                       alt="Search"
                                       onClick={(e) => {
                                         props.deleteNewDelivery(index)
@@ -259,7 +259,7 @@ export default function Index(props) {
                                   >
                                     <img
                                       src="/static/mode_edit.svg"
-                                      className={`${styles.shareImg} img-fluid`}
+                                      className={`${styles.shareImg}`}
                                       alt="Edit"
                                       onClick={(e) => {
                                         props.onEdit(index, true)
@@ -271,8 +271,8 @@ export default function Index(props) {
                                           onClick={(e) => {
                                             props.addNewDelivery()
                                           }}
-                                          src="/static/add.svg"
-                                          className={`${styles.shareImg} img-fluid ml-3`}
+                                          src="/static/add-btn.svg"
+                                          className={`${styles.shareImg} border-0 p-0 bg-transparent ml-3`}
                                           alt="add"
                                         />
                                       )}
@@ -280,8 +280,8 @@ export default function Index(props) {
                                     {props.releaseOrderData.length ===
                                       1 ? null : (
                                       <img
-                                        className={`${styles.shareImg} ml-3 img-fluid`}
-                                        src="/static/delete.svg"
+                                        className={`${styles.shareImg} border-0 p-0 bg-transparent ml-3`}
+                                        src="/static/delete 2.svg"
                                         alt="Search"
                                         onClick={(e) => {
                                           props.deleteNewDelivery(index)
@@ -314,6 +314,7 @@ export default function Index(props) {
                         onChange={(e) =>
                           props.setLastMileDelivery(e.target.value)
                         }
+                        value={props.lastMileDelivery}
                         className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                       >
                         <option>Select an option</option>

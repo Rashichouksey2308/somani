@@ -482,7 +482,7 @@ const addDoc=(e,index)=>{
                 }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
-                Short Name
+                Short Name <strong className="text-danger">*</strong>
               </Form.Label>
             </Form.Group>
             <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -972,7 +972,7 @@ const addDoc=(e,index)=>{
                           {doc.attachDoc.originalName}
                         </span>
                         <img
-                          className={`${styles.close_image} float-right m-2 img-fluid`}
+                          className={`${styles.close_image}`}
                           src="/static/close.svg"
                           onClick={() =>setdoc({attachDoc:""})}
                           alt="Close"
@@ -1017,7 +1017,7 @@ const addDoc=(e,index)=>{
                           {val.attachDoc.originalName}
                         </span>
                         <img
-                          className={`${styles.close_image} float-right m-2 img-fluid`}
+                          className={`${styles.close_image}`}
                           src="/static/close.svg"
                           onClick={() => removeDoc(index)}
                           alt="Close"
