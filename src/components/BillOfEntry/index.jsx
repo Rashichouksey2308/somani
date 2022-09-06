@@ -776,7 +776,7 @@ const [accessibleValueCalc,setAcc]=useState(0)
                     type="text"
                     required
                   
-                    value={addPrefixOrSuffix(billOfEntryData?.boeDetails?.invoiceValue,"INR","front")}
+                    value={addPrefixOrSuffix(billOfEntryData?.boeDetails?.invoiceValue,"USD")}
                     name="boeDetails.invoiceValue"
                     onChange={(e) =>
                       saveBillOfEntryData(e.target.name, e.target.value)
