@@ -23,16 +23,16 @@ export default function Index({ addButton, inspectionData }) {
   const [editInput, setEditInput] = useState(true)
   const [bothField, setBothField] = useState(false)
   const [haveDoc, sethaveDoc] = useState(false)
-  const [documentAction, setDocumentAction] = useState("");
-  const [documentAction1, setDocumentAction1] = useState("");
-  const [documentAction2, setDocumentAction2] = useState("");
+  const [documentAction, setDocumentAction] = useState('')
+  const [documentAction1, setDocumentAction1] = useState('')
+  const [documentAction2, setDocumentAction2] = useState('')
 
   const [portType, setPortType] = useState({
     loadPortInspection: false,
     dischargePortInspection: false,
   })
   console.log(portType, 'inspectionData')
-  
+
   const handlePortType = (name, value) => {
     let newInput = { ...inspectionDetails }
     newInput[name] = value
@@ -50,9 +50,9 @@ export default function Index({ addButton, inspectionData }) {
   }
 
   const ChangeValue = (item) => {
-    document.getElementById('dropdownMenuButton').value=item;}
+    document.getElementById('dropdownMenuButton').value = item
+  }
 
-  
   const [show, setShow] = useState(false)
 
   useEffect(() => {
@@ -73,8 +73,13 @@ export default function Index({ addButton, inspectionData }) {
   const handleShow = () => setShow(true)
 
   const [inspectionDetails, setInspectionDetails] = useState({
-    loadPortInspection: inspectionData?.thirdPartyInspection?.loadPortInspection ? inspectionData?.thirdPartyInspection?.loadPortInspection : false,
-    dischargePortInspection: inspectionData?.thirdPartyInspection?.dischargePortInspection ? inspectionData?.thirdPartyInspection?.dischargePortInspection : false,
+    loadPortInspection: inspectionData?.thirdPartyInspection?.loadPortInspection
+      ? inspectionData?.thirdPartyInspection?.loadPortInspection
+      : false,
+    dischargePortInspection: inspectionData?.thirdPartyInspection
+      ?.dischargePortInspection
+      ? inspectionData?.thirdPartyInspection?.dischargePortInspection
+      : false,
     loadPortInspectionDetails: {
       numberOfContainer:
         inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
@@ -113,8 +118,10 @@ export default function Index({ addButton, inspectionData }) {
 
   useEffect(() => {
     setInspectionDetails({
-      loadPortInspection: inspectionData?.thirdPartyInspection?.loadPortInspection,
-      dischargePortInspection: inspectionData?.thirdPartyInspection?.dischargePortInspection,
+      loadPortInspection:
+        inspectionData?.thirdPartyInspection?.loadPortInspection,
+      dischargePortInspection:
+        inspectionData?.thirdPartyInspection?.dischargePortInspection,
       loadPortInspectionDetails: {
         numberOfContainer:
           inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
@@ -254,12 +261,12 @@ export default function Index({ addButton, inspectionData }) {
     let toastMessage = ''
     if (
       _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') ==
-      null || _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') ==
-      ''
-    ){
+        null ||
+      _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == ''
+    ) {
       toastMessage = 'PLEASE SELECT SHIPMENT TYPE FROM A PREVIOUS MODULE'
-      if(!toast.isActive(toastMessage)){
-        toast.error(toastMessage, {toastId: toastMessage})
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
       }
       return false
     }
@@ -268,7 +275,7 @@ export default function Index({ addButton, inspectionData }) {
 
   const handleSave = () => {
     console.log('dsaasdad', haveDoc)
-    if(!validation()) return
+    if (!validation()) return
     if (
       _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') ==
       'Liner'
@@ -381,7 +388,7 @@ export default function Index({ addButton, inspectionData }) {
 
   const handleSubmit = () => {
     console.log('dsaasdad', haveDoc)
-    if(!validation()) return
+    if (!validation()) return
     if (
       _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') ==
       'Liner'
@@ -749,7 +756,10 @@ export default function Index({ addButton, inspectionData }) {
           dischargePortInspection: true,
         })
       } else {
-        setInspectionDetails({ ...inspectionDetails, dischargePortInspection: true })
+        setInspectionDetails({
+          ...inspectionDetails,
+          dischargePortInspection: true,
+        })
       }
     }
   }, [inspectionData])
@@ -816,11 +826,17 @@ export default function Index({ addButton, inspectionData }) {
 
                       // setBothField(!bothField)
                     }}
-                    defaultChecked={inspectionData?.thirdPartyInspection?.loadPortInspection ? true : false}
-
+                    defaultChecked={
+                      inspectionData?.thirdPartyInspection?.loadPortInspection
+                        ? true
+                        : false
+                    }
                     id={`inline-${type}-1`}
                   />
-                 {console.log( inspectionData?.thirdPartyInspection?.loadPortInspection, 'jdjdjjd')}
+                  {console.log(
+                    inspectionData?.thirdPartyInspection?.loadPortInspection,
+                    'jdjdjjd',
+                  )}
                   <Form.Check
                     className={styles.radio}
                     inline
@@ -831,7 +847,12 @@ export default function Index({ addButton, inspectionData }) {
                       handlePortType(e.target.name, e.target.checked)
                       // setBothField(!bothField)
                     }}
-                    defaultChecked={inspectionData?.thirdPartyInspection?.dischargePortInspection ? true : false}
+                    defaultChecked={
+                      inspectionData?.thirdPartyInspection
+                        ?.dischargePortInspection
+                        ? true
+                        : false
+                    }
                     type={type}
                     id={`inline-${type}-2`}
                   />
@@ -970,11 +991,11 @@ export default function Index({ addButton, inspectionData }) {
                           Inspection Port
                           <strong className="text-danger">*</strong>
                         </label>
-                        <img
+                        {/* <img
                           className={`${styles.search_image} img-fluid`}
                           src="/static/search-grey.svg"
                           alt="Search"
-                        />
+                        /> */}
                       </div>
                     </div>
                     <div
@@ -1126,7 +1147,7 @@ export default function Index({ addButton, inspectionData }) {
                         <tbody>
                           <tr className="table_row">
                             <td className={styles.doc_name}>
-                              Certificate of Origin
+                              Certificate of Origin{' '}
                               <strong className="text-danger ml-1">*</strong>
                               <span
                                 onClick={() =>
@@ -1160,8 +1181,7 @@ export default function Index({ addButton, inspectionData }) {
                                   type="button"
                                   id="dropdownMenuButton"
                                   data-toggle="dropdown"
-                                  
-                                 >
+                                >
                                   Please Specify
                                 </button>
                                 <div
@@ -1170,8 +1190,7 @@ export default function Index({ addButton, inspectionData }) {
                                 >
                                   <a
                                     className={`${styles.hold_field} ${styles.dropdown_item} dropdown-item`}
-                                    onClick={()=>ChangeValue("on Hold")}
-                                    
+                                    onClick={() => ChangeValue('on Hold')}
                                   >
                                     <img
                                       src="/static/hold-white.svg"
@@ -1182,7 +1201,9 @@ export default function Index({ addButton, inspectionData }) {
                                   </a>
                                   <a
                                     className={`${styles.rejected_field} ${styles.dropdown_item} dropdown-item`}
-                                    onClick={()=>setDocumentAction("Rejected")}
+                                    onClick={() =>
+                                      setDocumentAction('Rejected')
+                                    }
                                   >
                                     <img
                                       src="/static/close-white.svg"
@@ -1191,12 +1212,12 @@ export default function Index({ addButton, inspectionData }) {
                                     />{' '}
                                     Rejected
                                   </a>
-                                  {
-                                  console.log("valueeee",documentAction)
-                                  }
+                                  {console.log('valueeee', documentAction)}
                                   <a
                                     className={`${styles.approved_field} ${styles.dropdown_item} dropdown-item`}
-                                    onClick={()=>setDocumentAction("Approved")}
+                                    onClick={() =>
+                                      setDocumentAction('Approved')
+                                    }
                                   >
                                     <img
                                       src="/static/check.svg"
@@ -1301,7 +1322,6 @@ export default function Index({ addButton, inspectionData }) {
                                 >
                                   <a
                                     className={`${styles.hold_field} ${styles.dropdown_item} dropdown-item`}
-                                  
                                   >
                                     <img
                                       src="/static/hold-white.svg"
@@ -1312,7 +1332,6 @@ export default function Index({ addButton, inspectionData }) {
                                   </a>
                                   <a
                                     className={`${styles.rejected_field} ${styles.dropdown_item} dropdown-item`}
-                                   
                                   >
                                     <img
                                       src="/static/close-white.svg"
@@ -1323,7 +1342,6 @@ export default function Index({ addButton, inspectionData }) {
                                   </a>
                                   <a
                                     className={`${styles.approved_field} ${styles.dropdown_item} dropdown-item`}
-                                   
                                   >
                                     <img
                                       src="/static/check.svg"
@@ -1429,8 +1447,7 @@ export default function Index({ addButton, inspectionData }) {
                                 >
                                   <a
                                     className={`${styles.hold_field} ${styles.dropdown_item} dropdown-item`}
-                                    
- >
+                                  >
                                     <img
                                       src="/static/hold-white.svg"
                                       className="img-fluid mr-2"
@@ -1440,7 +1457,6 @@ export default function Index({ addButton, inspectionData }) {
                                   </a>
                                   <a
                                     className={`${styles.rejected_field} ${styles.dropdown_item} dropdown-item`}
-                                   
                                   >
                                     <img
                                       src="/static/close-white.svg"
@@ -1451,7 +1467,6 @@ export default function Index({ addButton, inspectionData }) {
                                   </a>
                                   <a
                                     className={`${styles.approved_field} ${styles.dropdown_item} dropdown-item`}
-                                   
                                   >
                                     <img
                                       src="/static/check.svg"
