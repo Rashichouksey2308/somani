@@ -343,7 +343,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                   value={addPrefixOrSuffix(
                     creditDetail?.averageStockOfCommodity,
                     creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
@@ -364,7 +364,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                   value={addPrefixOrSuffix(
                     creditDetail?.averageStockInTransit,
                     creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
@@ -403,7 +403,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                   value={addPrefixOrSuffix(
                     creditDetail?.dailyConsumptionOfCommodity,
                     creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
@@ -672,7 +672,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
-                  onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                   value={supplierCred?.shipmentNumber}
                   name="shipmentNumber"
                   onChange={(e) => {
@@ -691,7 +691,7 @@ const index = ({
                   type="number"
                   value={supplierCred?.consigneesNumber}
                   name="consigneesNumber"
-                  onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                   onChange={(e) => {
                     saveSupplierData(e.target.name, e.target.value)
                   }}
@@ -706,7 +706,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
-                  onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                   value={supplierCred?.HSCodesNumber}
                   name="HSCodesNumber"
                   onChange={(e) => {

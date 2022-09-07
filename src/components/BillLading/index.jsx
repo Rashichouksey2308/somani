@@ -754,9 +754,8 @@ export default function Index({
                             className={`${styles.input_field} input form-control`}
                             required
                             type="number"
-                            onKeyDown={(evt) =>
-                              evt.key === 'e' && evt.preventDefault()
-                            }
+                            onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -936,9 +935,8 @@ export default function Index({
                                   required
                                   id="numberOfContainers"
                                   type="number"
-                                  onKeyDown={(evt) =>
-                                    evt.key === 'e' && evt.preventDefault()
-                                  }
+                                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                                 />
                                 <label
                                   className={`${styles.label_heading} label_heading`}
@@ -962,9 +960,8 @@ export default function Index({
                                 required
                                 id="freeDetentionPeriod"
                                 type="number"
-                                onKeyDown={(evt) =>
-                                  evt.key === 'e' && evt.preventDefault()
-                                }
+                                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                               />
                               <label
                                 className={`${styles.label_heading} label_heading`}

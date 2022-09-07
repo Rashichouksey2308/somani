@@ -476,9 +476,8 @@ const Index = () => {
                             type="number"
                             name= 'periodOfInsurance'
                             onChange={(e)=>saveStorageData(e.target.name, e.target.value)}
-                            onKeyDown={(evt) =>
-                              evt.key === 'e' && evt.preventDefault()
-                            }
+                            onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
