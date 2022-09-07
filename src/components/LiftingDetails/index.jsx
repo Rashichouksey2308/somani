@@ -457,6 +457,20 @@ export default function Index(props) {
                                           <div
                                             className={styles.uploadBtnWrapper}
                                           >
+                                           
+                                            {val2?.LRorRRDoc?.originalName?
+                                             <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                            <span>
+                                              {val2?.LRorRRDoc?.originalName}
+                                            </span>
+                                            <img
+                                              className={`${styles.close_image}`}
+                                              src="/static/close.svg"
+                                              onClick={() =>props.removeLiftinDoc("lr",index,index2)}
+                                              alt="Close"
+                                            />{' '}
+                                          </div>
+                                           :
                                             <div
                                               className={
                                                 styles.uploadBtnWrapper
@@ -481,6 +495,8 @@ export default function Index(props) {
                                                 Upload
                                               </button>
                                             </div>
+                                            }
+                                            
                                           </div>
                                         </td>
                                       </tr>
@@ -503,6 +519,19 @@ export default function Index(props) {
                                         </td>
 
                                         <td colSpan="2">
+                                          {val2?.eWayBillDoc?.originalName?
+                                           <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                            <span>
+                                              {val2?.eWayBillDoc?.originalName}
+                                            </span>
+                                            <img
+                                              className={`${styles.close_image}`}
+                                              src="/static/close.svg"
+                                              onClick={() =>props.removeLiftinDoc("eway",index,index2)}
+                                              alt="Close"
+                                            />{' '}
+                                          </div>
+                                          :
                                           <div
                                             className={styles.uploadBtnWrapper}
                                           >
@@ -538,6 +567,7 @@ export default function Index(props) {
                                     Upload
                                   </button> */}
                                           </div>
+                                          }
                                         </td>
                                       </tr>
                                     </tbody>

@@ -33,7 +33,15 @@ function Index() {
   const { ReleaseOrderData } = useSelector((state) => state.Release)
   console.log(ReleaseOrderData, 'ReleaseOrderDataMain')
   const [darkMode, setDarkMode] = useState(false)
-
+  const [releaseDetail, setReleaseDetail] = useState([
+    {
+      orderNumber: 1,
+      releaseOrderDate: '',
+      netQuantityReleased: 0,
+      unitOfMeasure: '',
+      document: null,
+    },
+  ])
   useEffect(() => {
     dispatch(setPageName('payment'))
     dispatch(setDynamicName(ReleaseOrderData?.data[0]?.company.companyName))
@@ -43,6 +51,16 @@ function Index() {
 
   }, [ReleaseOrderData])
 
+    useEffect(() => {
+     
+      if (_get(allLiftingData, 'data', []).length > 0) {
+        let temp=[];
+       console.log( _get(allLiftingData, 'data', ''),"asdasd")
+      }
+
+  
+
+  }, [allLiftingData])
 
 
  
@@ -50,25 +68,28 @@ function Index() {
 
 
   useEffect(() => {
-    let id = sessionStorage.getItem('ROrderID')
+   
+    getOrderData()
+  }, [dispatch])
+const getOrderData =async()=>{
+   let id = sessionStorage.getItem('ROrderID')
     let orderid = _get(ReleaseOrderData, 'data[0].order._id', '')
     sessionStorage.setItem('orderid', orderid)
-    dispatch(GetDelivery(`?deliveryId=${id}`))
-    dispatch(GetAllLifting())
-  }, [dispatch])
+    await dispatch(GetDelivery(`?deliveryId=${id}`))
+    
+}
+useEffect(() => {
+  let id = sessionStorage.getItem('ROrderID')
 
+  if( _get(ReleaseOrderData, 'data[0].order.lifting', '')!==""){
+   dispatch(GetAllLifting(`?deliveryId=${id}`))
+  }
+  
+},[ReleaseOrderData])
   console.log(allLiftingData, 'allLiftingData')
   const liftingData = _get(allLiftingData, 'data[0]', '')
   const [lifting, setLifting] = useState([])
-  // useEffect(() => {
-  //   if(ReleaseOrderData){
-  //     setLifting([...lifting,{
 
-  //   }])
-  //   }
-  // },[
-  //   ReleaseOrderData
-  // ])
   const addNewLifting = (value) => {
     setLifting([
       ...lifting,
@@ -80,8 +101,8 @@ function Index() {
             liftingQuant: '',
             modeOfTransportation: 'RR',
             eWayBill: '',
-            LRorRRDoc: '',
-            eWayBillDoc: '',
+            LRorRRDoc: {},
+            eWayBillDoc: {},
           },
         ],
       },
@@ -97,8 +118,8 @@ function Index() {
           liftingQuant: '',
           modeOfTransportation: 'RR',
           eWayBill: '',
-          LRorRRDoc: '',
-          eWayBillDoc: '',
+          LRorRRDoc: {},
+          eWayBillDoc: {},
         })
       }
     })
@@ -135,8 +156,8 @@ function Index() {
             unitOfQuantity: val2.unitOfQuantity,
             modeOfTransport: val2.modeOfTransportation,
             ewayBillNo: val2.eWayBill,
-            ewayBillDocument: val2.eWayBillDoc,
-            RRDocument: val2.LRorRRDoc,
+            ewayBillDocument: val2.eWayBillDoc ||{},
+            RRDocument: val2.LRorRRDoc|| {},
           })
         })
         tempArr.push({
@@ -151,8 +172,8 @@ function Index() {
             unitOfQuantity: val2.unitOfQuantity,
             modeOfTransport: val2.modeOfTransportation,
             ewayBillNo: val2.eWayBill,
-            ewayBillDocument: val2.eWayBillDoc,
-            LRDocument: val2.LRorRRDoc,
+            ewayBillDocument: val2.eWayBillDoc ||{},
+            LRDocument: val2.LRorRRDoc || {},
           })
         })
         tempArr.push({
@@ -198,20 +219,39 @@ function Index() {
     },
       )
       })
+     
+
        setDeliveryOrder(tempArr)
+       
+      
+    }
+      let tempArr2=[]
+    if(_get(ReleaseOrderData,"data[0].releaseDetail",[]).length>0){
+      _get(ReleaseOrderData,"data[0].releaseDetail",[]).forEach((val,index)=>{
+      tempArr2.push(
+     {
+        orderNumber: val.orderNumber || 1,
+        releaseOrderDate: val.releaseOrderDate,
+        netQuantityReleased: val.netQuantityReleased,
+        unitOfMeasure: val.unitOfMeasure||'MT',
+        document: val.document,
+     
+    
+    
+      },
+      )
+      })
+     
+
+       setReleaseDetail(tempArr2)
+       
+      
     }
      
     setLastMileDelivery(_get(ReleaseOrderData,"data[0].lastMileDelivery",[]))
-  console.log(ReleaseOrderData, 'ReleaseOrderDataMain')
+  
   },[ReleaseOrderData])
-  // useEffect(() => {
-  //   let deliveryOrderState = _get(ReleaseOrderData, 'data[0].deliveryDetail', [])
-  //   console.log(deliveryOrderState, 'deliveryOrderStateprev')
-  //   if (deliveryOrderState.length > 0) {
-  //     setDeliveryOrder((prevState) => [...deliveryOrderState]
-  //     )
-  //   }
-  // }, [ReleaseOrderData])
+ 
   const [quantity, setQuantity] = useState(0)
   //console.log(deliveryOrder, "deliveryOrder")
   const addNewDelivery = (value) => {
@@ -387,6 +427,39 @@ function Index() {
     //console.log(payload,ReleaseOrderData, 'releaseOrderDate')
     await dispatch(UpdateDelivery(payload))
   }
+  const removeLiftinDoc=(type,index1,index2)=>{
+    let temp=[...lifting]
+
+    temp.forEach((val,i)=>{
+      if(i==index1){
+        console.log(val,"temppp")
+        val.detail.forEach((val2,i2)=>{
+          if(i2==index2){
+             if(type=="lr"){
+            val2.LRorRRDoc={}
+          }
+          if(type=="eway"){
+            val2.eWayBillDoc={}
+          }
+          }
+        })
+      }
+    })
+
+    setLifting([...temp])
+    
+    console.log(temp,"temppp")
+        
+    //   setList(prevState => {
+    //   const newState = prevState.map((obj, i) => {
+    //     if (i == index) {
+    //       return { ...obj, shipmentType: e.target.value };
+    //     }
+    //     return obj;
+    //   });
+    //   return newState;
+    // })
+  }
 
   // const tabNameHandler = (value) => {
   //   dispatch(setPageTabName(value))
@@ -475,7 +548,7 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <ReleaseOrder ReleaseOrderData={ReleaseOrderData} />
+                    <ReleaseOrder ReleaseOrderData={ReleaseOrderData} releaseDetail={releaseDetail}  setReleaseDetail={setReleaseDetail}/>
                   </div>
                 </div>
 
@@ -515,6 +588,7 @@ function Index() {
                       addNewSubLifting={addNewSubLifting}
                       handleChange={handleChange}
                       handleLiftingSubmit={handleLiftingSubmit}
+                      removeLiftinDoc={removeLiftinDoc}
                     />
                   </div>
                 </div>

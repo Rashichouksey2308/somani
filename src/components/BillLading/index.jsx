@@ -34,7 +34,7 @@ export default function Index({
     vesselName: '',
     imoNumber: '',
     blNumber: '',
-    blDate: '',
+    blDate: null,
     blQuantity: '',
     blQuantityUnit: '',
     etaAtDischargePortFrom: null,
@@ -56,7 +56,7 @@ export default function Index({
     vesselName: '',
     imoNumber: '',
     blNumber: '',
-    blDate: '',
+    blDate: null,
     blQuantity: '',
     blQuantityUnit: '',
     etaAtDischargePortFrom: null,
@@ -69,10 +69,12 @@ export default function Index({
     packingListDoc: null,
   }
   const dispatch = useDispatch()
-  console.log(bolList, "bolList")
+  console.log(bolList, 'bolList')
   let shipmentTypeBulk =
     _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') ===
-      'Bulk' ? true : false
+    'Bulk'
+      ? true
+      : false
 
   const existingBlData = _get(TransitDetails, `data[0].BL.billOfLanding`, [])
 
@@ -232,7 +234,6 @@ export default function Index({
         '',
       )
     }
-
 
     setBolList(newArray)
   }
@@ -598,7 +599,11 @@ export default function Index({
                     Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {_get(TransitDetails, 'data[0].order.quantity', '').toLocaleString()}{' '}
+                    {_get(
+                      TransitDetails,
+                      'data[0].order.quantity',
+                      '',
+                    ).toLocaleString()}{' '}
                     {_get(
                       TransitDetails,
                       'data[0].order.unitOfQuantity',
@@ -615,7 +620,7 @@ export default function Index({
                       _get(TransitDetails, 'data[0].order.orderValue', ''),
                     ).toLocaleString()}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
-                      'Crores'
+                    'Crores'
                       ? 'Cr'
                       : _get(TransitDetails, 'data[0].order.unitOfValue', '')}
                   </span>
@@ -684,37 +689,39 @@ export default function Index({
                               onChange={(e) => onChangeVessel(e, index)}
                               className={`${styles.input_field} ${styles.customSelect}   input form-control`}
                             >
-                              <option selected>
-                                Select an option
-                              </option>
+                              <option selected>Select an option</option>
                               {shipmentTypeBulk
                                 ? _get(
-                                  TransitDetails,
-                                  'data[0].order.vessel.vessels',
-                                  [],
-                                ).map((vessel, index) => (
-                                  <option
-                                    value={vessel?.vesselInformation?.name}
-                                    key={index}
-                                  >
-                                    {vessel?.vesselInformation[0]?.name}
-                                  </option>
-                                ))
+                                    TransitDetails,
+                                    'data[0].order.vessel.vessels',
+                                    [],
+                                  ).map((vessel, index) => (
+                                    <option
+                                      value={vessel?.vesselInformation?.name}
+                                      key={index}
+                                    >
+                                      {vessel?.vesselInformation[0]?.name}
+                                    </option>
+                                  ))
                                 : _get(
-                                  TransitDetails,
-                                  'data[0].order.vessel.vessels[0].vesselInformation',
-                                  [],
-                                ).map((vessel, index) => (
-                                  <option value={vessel?.name} key={index}>
-                                    {vessel?.name}
-                                  </option>
-                                ))}
+                                    TransitDetails,
+                                    'data[0].order.vessel.vessels[0].vesselInformation',
+                                    [],
+                                  ).map((vessel, index) => (
+                                    <option value={vessel?.name} key={index}>
+                                      {vessel?.name}
+                                    </option>
+                                  ))}
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
                               Vessel Name
-                              <strong className="text-danger">*</strong>
+                              {shipmentTypeBulk ? (
+                                <strong className="text-danger">*</strong>
+                              ) : (
+                                ''
+                              )}
                             </label>
                             <img
                               className={`${styles.arrow} image_arrow img-fluid`}
@@ -725,9 +732,15 @@ export default function Index({
                         </div>
                         <div
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                          style={{ marginTop: '31px' }}
                         >
                           <p className={` label_heading`}>
-                            IMO Number<strong className="text-danger">*</strong>
+                            IMO Number
+                            {shipmentTypeBulk ? (
+                              <strong className="text-danger">*</strong>
+                            ) : (
+                              ''
+                            )}
                           </p>
                           <span>{bol?.imoNumber}</span>
                         </div>
@@ -762,7 +775,7 @@ export default function Index({
                               // }
                               selected={
                                 bol?.blDate == null
-                                  ? ''
+                                  ? null
                                   : moment(bol?.blDate).toDate()
                               }
                               // value={moment((bol?.blDate)?.split(0, 10)).format('DD-MM-YYYY')}
@@ -786,6 +799,7 @@ export default function Index({
                               className={`${styles.label_heading} label_heading`}
                             >
                               BL Date
+                              <strong className="text-danger">*</strong>
                             </label>
                           </div>
                         </div>
@@ -906,8 +920,7 @@ export default function Index({
                             <strong className="text-danger">*</strong>
                           </h5>
                           <div className="row mt-n4">
-                            {bol?.containerDetails?.containerDoc ===
-                              null ? null : (
+                            {bol?.containerDetails?.containerDoc === null ? (
                               <div
                                 className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                               >
@@ -934,7 +947,7 @@ export default function Index({
                                   <strong className="text-danger">*</strong>
                                 </label>
                               </div>
-                            )}
+                            ) : null}
                             <div
                               className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                             >
@@ -965,7 +978,9 @@ export default function Index({
                             >
                               {bol?.containerDetails?.containerDoc == null ? (
                                 <>
-                                  <div className={styles.uploadBtnWrapper}>
+                                  <div
+                                    className={`${styles.uploadBtnWrapper} d-flex`}
+                                  >
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
                                         name={`containerDoc`}
@@ -993,9 +1008,14 @@ export default function Index({
                                   </div>
                                 </>
                               ) : (
-                                <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                <div
+                                  className={`${styles.certificate} d-flex justify-content-between`}
+                                >
                                   <span>
-                                    {bol?.containerDetails?.containerDoc?.originalName}
+                                    {
+                                      bol?.containerDetails?.containerDoc
+                                        ?.originalName
+                                    }
                                   </span>
                                   <img
                                     className={`${styles.close_image}`}
@@ -1124,7 +1144,9 @@ export default function Index({
                                     </div>
                                   </>
                                 ) : (
-                                  <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                  <div
+                                    className={`${styles.certificate} d-flex justify-content-between`}
+                                  >
                                     <span>
                                       {bolList[index]?.blDoc?.originalName}
                                     </span>
@@ -1174,7 +1196,7 @@ export default function Index({
                                       </button>
                                     </div> */}
                                     {bolList &&
-                                      bolList[index]?.containerNumberListDoc ==
+                                    bolList[index]?.containerNumberListDoc ==
                                       null ? (
                                       <>
                                         <div
@@ -1196,11 +1218,15 @@ export default function Index({
                                         </div>
                                       </>
                                     ) : (
-                                      <div className={`${styles.certificate} d-flex justify-content-between`}>
-                                        <span>{
-                                          bolList[index]?.containerNumberListDoc
-                                            ?.originalName
-                                        }
+                                      <div
+                                        className={`${styles.certificate} d-flex justify-content-between`}
+                                      >
+                                        <span>
+                                          {
+                                            bolList[index]
+                                              ?.containerNumberListDoc
+                                              ?.originalName
+                                          }
                                         </span>
                                         <img
                                           className={`${styles.close_image}`}
@@ -1249,7 +1275,7 @@ export default function Index({
                                       </button>
                                     </div> */}
                                     {bolList &&
-                                      bolList[index]?.packingListDoc == null ? (
+                                    bolList[index]?.packingListDoc == null ? (
                                       <>
                                         <div
                                           className={styles.uploadBtnWrapper}
@@ -1270,7 +1296,9 @@ export default function Index({
                                         </div>
                                       </>
                                     ) : (
-                                      <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                      <div
+                                        className={`${styles.certificate} d-flex justify-content-between`}
+                                      >
                                         <span>
                                           {
                                             bolList[index]?.packingListDoc
@@ -1393,11 +1421,15 @@ export default function Index({
                                 />
                               </td>
                               <td className={styles.doc_row}>
-                                {bolList[index]?.blSurrenderDoc === null ? '' : moment(bolList[index]?.blSurrenderDoc?.Date).format(' DD-MM-YYYY , h:mm a')}
+                                {bolList[index]?.blSurrenderDoc === null
+                                  ? ''
+                                  : moment(
+                                      bolList[index]?.blSurrenderDoc?.Date,
+                                    ).format(' DD-MM-YYYY , h:mm a')}
                               </td>
                               <td>
                                 {bolList &&
-                                  bolList[index]?.blSurrenderDoc == null ? (
+                                bolList[index]?.blSurrenderDoc == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
@@ -1414,7 +1446,9 @@ export default function Index({
                                     </div>
                                   </>
                                 ) : (
-                                  <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                  <div
+                                    className={`${styles.certificate} d-flex justify-content-between`}
+                                  >
                                     <span>
                                       {
                                         bolList[index]?.blSurrenderDoc

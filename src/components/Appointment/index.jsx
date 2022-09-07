@@ -9,6 +9,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { useDispatch } from 'react-redux'
 import { UpdateInspection } from 'redux/Inspections/action'
 import moment from 'moment'
+import { toast } from 'react-toastify'
 
 export default function Index({ inspectionData }) {
   const dispatch = useDispatch()
@@ -77,7 +78,6 @@ export default function Index({ inspectionData }) {
     setIsEdit(true)
   }
 
-
   const handleEditInput = (name, value) => {
     const newInput = { ...addressData }
     const namesplit = name.split('.')
@@ -96,8 +96,20 @@ export default function Index({ inspectionData }) {
     setAppointmentData(addressData)
   }
 
+  const validation = () => {
+    let toastMessage = ''
+    if (appointmentData.name == '' || appointmentData.name == undefined) {
+      toastMessage = 'NAME IS MANDATORY'
+      if (!toast.isActive(toastMessage)) {
+        toast.error(toastMessage, { toastId: toastMessage })
+      }
+      return false
+    }
+    return true
+  }
+
   const handleSave = () => {
-    console.log("SAvee")
+    console.log('SAvee')
     const fd = new FormData()
     fd.append('thirdPartyAppointment', JSON.stringify(appointmentData))
     fd.append('inspectionId', inspectionData?._id)
@@ -107,7 +119,8 @@ export default function Index({ inspectionData }) {
   }
 
   const handleSubmit = () => {
-    console.log("SAvee")
+    if (!validation()) return
+    console.log('SAvee')
     const fd = new FormData()
     fd.append('thirdPartyAppointment', JSON.stringify(appointmentData))
     fd.append('inspectionId', inspectionData?._id)
@@ -147,11 +160,11 @@ export default function Index({ inspectionData }) {
                     <label className={`${styles.label_heading} label_heading`}>
                       Name<strong className="text-danger">*</strong>
                     </label>
-                    <img
+                    {/* <img
                       className={`${styles.search_image} img-fluid`}
                       src="/static/search-grey.svg"
                       alt="Search"
-                    />
+                    /> */}
                   </div>
                 </div>
                 <div className={`${styles.form_group} col-lg-6 col-md-6 `}>
@@ -169,8 +182,8 @@ export default function Index({ inspectionData }) {
                           appointmentData?.dateOfAppointment?.split('T')[0],
                         ).toDate()
                           ? moment(
-                            appointmentData?.dateOfAppointment?.split('T')[0],
-                          ).toDate()
+                              appointmentData?.dateOfAppointment?.split('T')[0],
+                            ).toDate()
                           : startDate
                       }
                       defaultDate={moment(
@@ -208,8 +221,8 @@ export default function Index({ inspectionData }) {
                         {appointmentData?.address?.addressType}
                       </div>
                       <div className={`${styles.address_detail} mt-3`}>
-                        {appointmentData?.address?.fullAddress},{' '}
-                        {appointmentData?.address?.pinCode},{' '}
+                        {appointmentData?.address?.fullAddress}{' '}
+                        {appointmentData?.address?.pinCode}{' '}
                         {appointmentData?.address?.country}
                       </div>
                     </div>
@@ -235,7 +248,11 @@ export default function Index({ inspectionData }) {
             </div>
           </div>
         </div>
-        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />
+        <SaveBar
+          handleSave={handleSave}
+          rightBtn="Submit"
+          rightBtnClick={handleSubmit}
+        />
       </div>
     </>
   )
