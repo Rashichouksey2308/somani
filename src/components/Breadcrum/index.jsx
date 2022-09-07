@@ -259,7 +259,7 @@ export default function Index({ isQuery }) {
     //     router.route = '/Loading, Transit & Unloading'
     //   }
     // }
-    if ('inception2' == pageName) {
+    if ('inspection2' == pageName) {
       if (order != null) {
         router.route =
           '/Loading, Transit & Unloading' +
