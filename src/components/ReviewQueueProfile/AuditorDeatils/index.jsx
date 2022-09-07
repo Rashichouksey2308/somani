@@ -178,8 +178,8 @@ function Index({ directorData }) {
                           </div>
                         </div>
                       </div>
-                      <div className={`${styles.entities} border-color`}>
-                        <div className={`${styles.entities_content}`}>
+                      <div className={`${styles.entities} border_color`}>
+                        <div className={`${styles.entities_content} border_color table_container`}>
                           <p>Other Associated Entities</p>
                           <div
                             className={`${styles.row}  d-flex justify-content-between align-items-center`}
@@ -275,17 +275,17 @@ function Index({ directorData }) {
                           <span></span>
                           <div className={`${styles.table}`}>
                             <table
-                              className={`${styles.table_details} table border-color`}
+                              className={`${styles.table_details} table border_color`}
                               cellPadding="0"
                               cellSpacing="0"
                               border="0"
                             >
                               <thead>
                                 <tr>
-                                  <th>CIN</th>
-                                  <th>ENTITY NAME</th>
-                                  <th>TENURE START DATE</th>
-                                  <th>TENURE END DATE</th>
+                                  <th className="text_light">CIN</th>
+                                  <th className="text_light">ENTITY NAME</th>
+                                  <th className="text_light">TENURE START DATE</th>
+                                  <th className="text_light">TENURE END DATE</th>
                                 </tr>
                               </thead>
                               {/* <tbody>
@@ -535,8 +535,8 @@ function Index({ directorData }) {
                                 </div>
                               </div>
                             </div>
-                            <div className={`${styles.entities} border-color`}>
-                              <div className={`${styles.entities_content}`}>
+                            <div className={`${styles.entities} border_color`}>
+                              <div className={`${styles.entities_content} border_color table_container`}>
                                 <p>Other Associated Entities</p>
                                 <div
                                   className={`${styles.row}  d-flex justify-content-between align-items-center`}
@@ -642,7 +642,7 @@ function Index({ directorData }) {
                                     </label>
                                   </div>
                                 </div>
-                                <hr className={styles.hr}></hr>
+                                <hr className={`${styles.hr} border_color`}></hr>
                                 <span>
                                   {otherAssociates} (
                                   {
@@ -656,17 +656,17 @@ function Index({ directorData }) {
                                 </span>
                                 <div className={`${styles.table}`}>
                                   <table
-                                    className={`${styles.table_details} table border-color`}
+                                    className={`${styles.table_details} table border_color`}
                                     cellPadding="0"
                                     cellSpacing="0"
                                     border="0"
                                   >
                                     <thead>
                                       <tr>
-                                        <th>CIN</th>
-                                        <th>ENTITY NAME</th>
-                                        <th>TENURE START DATE</th>
-                                        <th>TENURE END DATE</th>
+                                        <th className="text_light">CIN</th>                                        
+                                        <th className="text_light">ENTITY NAME</th>
+                                        <th className="text_light">TENURE START DATE</th>
+                                        <th className="text_light">TENURE END DATE</th>
                                       </tr>
                                     </thead>
                                     <tbody>
@@ -681,9 +681,9 @@ function Index({ directorData }) {
 
                                           return (
                                             <tr key={index}>
-                                              <td>{associates?.entityId}</td>
-                                              <td>{associates?.entityName}</td>
-                                              <td>
+                                              <td className='text-color'>{associates?.entityId}</td>
+                                              <td className='text-color'>{associates?.entityName}</td>
+                                              <td className='text-color'>
                                                 {' '}
                                                 {fromDate
                                                   ? moment(
@@ -693,7 +693,7 @@ function Index({ directorData }) {
                                                     ).format('DD-MM-YYYY')
                                                   : ''}
                                               </td>
-                                              <td>
+                                              <td className='text-color'>
                                                 {toDate
                                                   ? moment(
                                                       toDate?.slice(0, 10),

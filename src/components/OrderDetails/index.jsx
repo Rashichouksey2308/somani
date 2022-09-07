@@ -40,11 +40,11 @@ const Index = ({ saveOrderData, darkMode,orderDetails }) => {
               >
                 Commodity<strong className="text-danger">*</strong>
               </label>
-              <img
+              {/* <img
                 className={`${styles.search_image} img-fluid`}
                 src="/static/search-grey.svg"
                 alt="Search"
-              />
+              /> */}
             </div>
           </div>
           <div

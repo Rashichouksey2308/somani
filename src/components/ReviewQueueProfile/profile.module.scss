@@ -452,7 +452,7 @@
     margin-top: 5rem;
     .entities_content {
       margin-top: 1.5rem;
-      background: #ffffff;
+      // background: #ffffff;
       border: 2px solid #e6eaf0;
       border-radius: 6px;
       p {
@@ -496,10 +496,13 @@
                 font-weight: bold;
                 font-size: 16px;
                 line-height: 17px;
-                color: #00000080;
+                // color: #00000080;
                 border-top: none;
                 border-bottom: 2px solid #e6eaf0;
                 background: none !important;
+                &:first-child {
+                  padding-left: 0;
+                }
               }
             }
           }
@@ -511,6 +514,9 @@
               font-weight: 500;
               td {
                 border: none;
+                &:first-child {
+                  padding-left: 0;
+                }
               }
             }
           }
@@ -592,7 +598,7 @@
         // border: none;
         font-weight: bold;
         font-size: 15px;
-        color: #3687e8;
+        // color: #3687e8;
       }
     }
   }

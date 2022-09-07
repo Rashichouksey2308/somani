@@ -457,7 +457,7 @@ body.light-mode .statusBox {
   //border: 1px solid #d2d7e5;
 }
 body.dark-mode .statusBox {
-  background: #434e61;
+  background: #232936;
   box-shadow: none;
   //border: 1px solid #434E61;
 }
@@ -467,6 +467,8 @@ body.light-mode .statusBox h3 {
 body.dark-mode .statusBox h3 {
   color: #ffffff;
 }
+body.light-mode .statusBox {}
+body.dark-mode .statusBox {}
 body.light-mode .statusBox h3 span {
   color: #8492A6;
 }
@@ -963,6 +965,12 @@ body.light-mode .text-color {
 }
 body.dark-mode .text-color {
   color: #FFFFFF;
+}
+body.light-mode .text_light {
+  color: #8492a6;
+}
+body.dark-mode .text_light {
+  color: rgba(255, 255, 255, 0.8);
 }
 body.light-mode .download-pdf-title {
   color: #3687E8;

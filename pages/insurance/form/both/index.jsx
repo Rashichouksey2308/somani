@@ -596,7 +596,7 @@ const Index = () => {
                           <div className="d-flex">
                             <DateCalender
                               name="insuranceFrom"
-                              defaultDate={insuranceData?.marineInsurance?.insuranceFrom?.split('T')[0]}
+                              defaultDate={insuranceData?.marineInsurance?.insuranceFrom}
                               saveDate={saveDate}
                               labelName="Insurance from"
                             />
@@ -611,7 +611,7 @@ const Index = () => {
                           <div className="d-flex">
                             <DateCalender
                               name="insuranceTo"
-                              defaultDate={insuranceData?.marineInsurance?.insuranceTo?.split('T')[0]}
+                              defaultDate={insuranceData?.marineInsurance?.insuranceTo}
                               saveDate={saveDate}
                               labelName="Insurance to"
                             />

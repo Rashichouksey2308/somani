@@ -277,12 +277,12 @@ function Index() {
                               handleRoute(buyer)
                             }}
                           >
-                            {buyer.commodity}
+                            {buyer?.commodity}
                           </td>
-                          <td>{buyer.createdBy.fName}</td>
+                          <td>{buyer?.createdBy?.fName}</td>
 
                           <td>
-                            {moment(buyer.createdAt.split('T')[0]).format(
+                            {moment(buyer?.createdAt?.split('T')[0]).format(
                               'DD-MM-YYYY',
                             )}
                           </td>
