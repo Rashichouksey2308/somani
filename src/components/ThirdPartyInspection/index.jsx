@@ -860,10 +860,7 @@ export default function Index({ addButton, inspectionData }) {
                     }
                     id={`inline-${type}-1`}
                   />
-                  {console.log(
-                    inspectionData?.thirdPartyInspection?.loadPortInspection,
-                    'jdjdjjd',
-                  )}
+                 
                   <Form.Check
                     className={styles.radio}
                     inline
