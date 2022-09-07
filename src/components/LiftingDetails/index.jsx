@@ -107,17 +107,17 @@ export default function Index(props) {
               <div className="row">
                 <div className="col-lg-4 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>Commodity</div>
-                  <span className={styles.value}>Coal</span>
+                  <span className={styles.value}>{_get(props.ReleaseOrderData, 'data[0].order.commodity', '')}</span>
                 </div>
                 <div className="col-lg-4 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>Consignor Name</div>
                   <span className={styles.value}>
-                    Indo German International Pvt Ltd
+                    
                   </span>
                 </div>
                 <div className="col-lg-4 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>Consignee Name</div>
-                  <span className={styles.value}>Bengal Energy Limited</span>
+                  <span className={styles.value}></span>
                 </div>
               </div>
             </div>

@@ -1467,7 +1467,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
               <option selected value={10000000}>
                 Crores
               </option>
-              <option selected value={100000}>
+              <option  value={100000}>
                 Lakhs
               </option>
             </select>
