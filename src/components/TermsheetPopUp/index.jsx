@@ -26,7 +26,7 @@ function index(props) {
         <Modal.Title id="contained-modal-title-vcenter">
           Share termsheet with buyer
         </Modal.Title>
-        <img src="/static/close-2.svg"></img>
+        <img onClick={()=> props.close()} src="/static/close-2.svg"></img>
       </Modal.Header>
       <Modal.Body className={`${styles.body} container-fluid`} >
        <Row>
