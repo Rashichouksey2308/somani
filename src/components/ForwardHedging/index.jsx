@@ -261,13 +261,15 @@ export default function Index() {
       <div className={`${styles.backgroundMain} p-0 container-fluid`}>
         <div className={styles.main_page}>
           <div className={`${styles.head_header} align-items-center`}>
+            <div  onClick={() => Router.push('/forward-table')}>
             <img
               className={`${styles.arrow} image_arrow mr-2 img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
-              onClick={() => Router.push('/forward-table')}
+             
 
             />
+            </div>
             <h1 className={`${styles.heading}`}>
               {hedgingData?.company?.companyName}{' '}
             </h1>
