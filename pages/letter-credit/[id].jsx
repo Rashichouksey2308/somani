@@ -372,9 +372,8 @@ console.log(lcModuleData,"lcModuleData")
                           className={`${styles.input_field} input form-control`}
                           type="number"
                           defaultValue={lcData?.numberOfAmendment}
-                          onKeyDown={(evt) =>
-                            evt.key === 'e' && evt.preventDefault()
-                          }
+                          onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                           required
                           name="numberOfAmendment"
                           onChange={(e) =>

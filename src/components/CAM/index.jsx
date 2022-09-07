@@ -3153,9 +3153,8 @@ const sectionTerms = (
                         type="number"
                         defaultValue={camData?.cam?.approvedCreditValue}
                         name="approvedCreditValue"
-                        onKeyDown={(evt) =>
-                          evt.key === 'e' && evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                         onChange={(e) => {
                           onApprove(
                             e.target.name,
@@ -3184,9 +3183,8 @@ const sectionTerms = (
                       <input
                         className={`${styles.text} input`}
                         type="number"
-                        onKeyDown={(evt) =>
-                          evt.key === 'e' && evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                         name="approvedOrderValue"
                         defaultValue={camData?.cam?.approvedOrderValue}
                         onChange={(e) => {

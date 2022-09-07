@@ -666,9 +666,8 @@ export default function Index({
                         }
                         className={`${styles.input_field} input form-control`}
                         type="number"
-                        onKeyDown={(evt) =>
-                          evt.key === 'e' && evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                       />
                       <label
                         className={`${styles.label_heading} label_heading`}
