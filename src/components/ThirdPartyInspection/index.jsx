@@ -267,8 +267,8 @@ export default function Index({ addButton, inspectionData }) {
   }
 
   const handleSave = () => {
-    console.log('dsaasdad', haveDoc)
-    if(!validation()) return
+    console.log( _get(inspectionData, 'order.vessel.vessels[0].shipmentType', ''),"asdasd")
+
     if (
       _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') ==
       'Liner'
@@ -326,6 +326,19 @@ export default function Index({ addButton, inspectionData }) {
 
         dispatch(UpdateInspection({ fd, task }))
       }
+    }else{
+       let fd = new FormData()
+        fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
+        // fd.append('dischargePortInspection', portType.dischargePortInspection)
+        // fd.append('loadPortInspection', portType.loadPortInspection)
+        fd.append('inspectionId', inspectionData?._id)
+        fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+        fd.append('certificateOfQuality', documents.certificateOfQuality)
+        fd.append('certificateOfWeight', documents.certificateOfWeight)
+
+        let task = 'save'
+
+        dispatch(UpdateInspection({ fd, task }))
     }
     if (
       _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') == 'Bulk'
@@ -374,10 +387,23 @@ export default function Index({ addButton, inspectionData }) {
 
         dispatch(UpdateInspection({ fd, task }))
       }
+    }else{
+       let fd = new FormData()
+       fd.append('thirdPartyInspection', JSON.stringify(inspectionDetails))
+        // fd.append('dischargePortInspection', portType.dischargePortInspection)
+        // fd.append('loadPortInspection', portType.loadPortInspection)
+        fd.append('inspectionId', inspectionData?._id)
+        fd.append('certificateOfOrigin', documents.certificateOfOrigin)
+        fd.append('certificateOfQuality', documents.certificateOfQuality)
+        fd.append('certificateOfWeight', documents.certificateOfWeight)
+
+        let task = 'save'
+
+        dispatch(UpdateInspection({ fd, task }))
     }
   }
 
-  // console.log(haveDoc, 'sethaveDoc')
+  
 
   const handleSubmit = () => {
     console.log('dsaasdad', haveDoc)
