@@ -11,6 +11,7 @@ import Router from 'next/router'
 import { removePrefixOrSuffix } from '../../src/utils/helper'
 import _get from 'lodash/get'
 import { toast } from 'react-toastify'
+import moment from 'moment/moment'
 
 function Index() {
   const dispatch = useDispatch()
@@ -164,9 +165,9 @@ console.log(lcModuleData,"lcModuleData")
     let val2 = e.target.value
     setDrop(val2)
 
-    newInput['existingValue'] = lcData[e.target.value]
-    newInput['dropDownValue'] = val1
-
+    newInput['existingValue'] = lcData[e.target.value]||""
+    newInput['dropDownValue'] = val1 || ""
+    console.log(newInput,"dropDownChange")
     setClauseObj(newInput)
   }
 
@@ -184,6 +185,7 @@ console.log(lcModuleData,"lcModuleData")
   const saveDropDownDate = (value, name) => {
     const d = new Date(value)
     let text = d.toISOString()
+    console.log(text,"dateee")
     arrChange(name, text)
   }
 
@@ -273,8 +275,16 @@ console.log(lcModuleData,"lcModuleData")
         toast.error(toastMessage, { toastId: toastMessage })
       }
     } else {
+      let tempData={...lcData}
+      // if(lcData.latestDateOfShipment){
+      //   console.log(lcData?.latestDateOfShipment,"lcData?.latestDateOfShipment")
+      //     let d=new Date(lcData?.latestDateOfShipment)
+      //      tempData.latestDateOfShipment= d?.toISOString()
+      // }
+      
+      console.log(tempData,"tempData",clauseArr)
       let fd = new FormData()
-      fd.append('lcApplication', JSON.stringify(lcData))
+      fd.append('lcApplication', JSON.stringify(tempData))
       fd.append('lcModuleId', JSON.stringify(lcModuleData._id))
       fd.append('document1', lcDoc.lcDraftDoc)
 
@@ -282,6 +292,24 @@ console.log(lcModuleData,"lcModuleData")
     }
   }
 
+  const getData=(value,type) => {
+    console.log(value,"775456")
+    if(type=="(44C) Latest Date Of Shipment"){
+      return moment(value).format("DD-MM-YYYY")
+    }else{
+      return value
+    }
+
+  }
+    const getDataFormDropDown=(value) => {
+    console.log(value,"ssdsdsdsd")
+    if(fieldType){
+      return moment(value).format("DD-MM-YYYY")
+    }else{
+      return value
+    }
+
+  }
   return (
     <>
       {' '}
@@ -349,7 +377,7 @@ console.log(lcModuleData,"lcModuleData")
                           <strong className="text-danger ml-n1">*</strong>{' '}
                         </div>
                         <span className={styles.value}>
-                          {lcData?.dateOfIssue?.split('T')[0]}
+                          {lcData?.dateOfIssue?moment(lcData?.dateOfIssue?.split('T')[0]).format("DD-MM-YYYY"):""}
                         </span>
                       </div>
                       <Col className="mb-4 mt-4" lg={3} md={6} sm={6}>
@@ -483,9 +511,10 @@ console.log(lcModuleData,"lcModuleData")
                           disabled
                           type="text"
                           value={
-                            editInput
+                           getDataFormDropDown( editInput
                               ? editCurrent.existingValue
                               : clauseObj?.existingValue
+                              )
                           }
                         />
                         <label
@@ -571,15 +600,15 @@ console.log(lcModuleData,"lcModuleData")
                                 clauseArr?.map((clause, index) => (
                                   <tr key={index} className="table_row">
                                     <td>{clause.dropDownValue}</td>
-                                    <td>{clause.existingValue} </td>
-                                    <td>{clause.newValue}</td>
+                                    <td>{getData(clause.existingValue,clause.dropDownValue)} </td>
+                                    <td>{getData(clause.newValue,clause.dropDownValue)}</td>
                                     <td>
-                                      <img
+                                      {/* <img
                                         src="/static/mode_edit.svg"
                                         className="img-fluid ml-n5"
                                         alt="edit"
                                         onClick={() => handleEdit(clause)}
-                                      />
+                                      /> */}
                                       <img
                                         src="/static/delete 2.svg"
                                         className="img-fluid ml-3 mr-n5"
