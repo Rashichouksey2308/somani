@@ -64,6 +64,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
                     {/* <option value="volvo">
                       {orderDetail?.shipmentDetail?.shipmentType}
                     </option> */}
+                    <option selected disabled>Select</option>
                     <option value="Liner">Liner</option>
                     <option value="Bulk">Bulk</option>
                   </select>
@@ -235,7 +236,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
                     {/* <option value="volvo">
                       {orderDetail?.shipmentDetail?.shipmentType}
                     </option> */}
-                    <option selected disabled >Select an option</option>
+                    <option selected disabled >Select</option>
                    <option value="Westshore Terminals,Canada">Westshore Terminals,Canada</option>
                    <option value="Abbot Point,Australia">Abbot Point,Australia</option>
                     {/* <option value="Bulk">Bulk</option> */}
