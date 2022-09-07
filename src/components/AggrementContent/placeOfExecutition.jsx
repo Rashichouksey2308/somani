@@ -172,7 +172,7 @@ console.log(list,"val.dateOfExecution")
       <div className={`${styles.container} vessel_card card-body p-0`}>
        
        
-        <div className={`${styles.tableContainer} card p-0`}>
+        <div className={`${styles.tableContainer} border_color card p-0`}>
           {/* <div
             className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
            
