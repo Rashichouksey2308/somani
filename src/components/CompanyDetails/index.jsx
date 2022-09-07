@@ -397,7 +397,7 @@ const Index = ({
                 <input
                   className={`${styles.input_container} form-control input`}
                   type="text"
-                  onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                   value={sliderWithCr || slider}
                   onFocus={(e) => {
                     e.target.type === 'number',

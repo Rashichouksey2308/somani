@@ -371,9 +371,8 @@ export default function Index() {
                             type="number"
                             name="bookedRate"
                             value={item.bookedRate}
-                            onKeyDown={(evt) =>
-                              evt.key === 'e' && evt.preventDefault()
-                            }
+                            onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
 
                             onChange={(e) =>
                               saveHedgingData(
@@ -399,9 +398,7 @@ export default function Index() {
                             name="bookedAmount"
                             value={item.bookedAmount}
 
-                            onKeyDown={(evt) =>
-                              evt.key === 'e' && evt.preventDefault()
-                            }
+                            onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                             onChange={(e) =>
                               saveHedgingData(
                                 e.target.name,
@@ -485,9 +482,8 @@ export default function Index() {
                               required
                               name="closingRate"
                               value={item?.closingRate}
-                              onKeyDown={(evt) =>
-                                evt.key === 'e' && evt.preventDefault()
-                              }
+                              onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                               onChange={(e) =>
                                 saveHedgingData(
                                   e.target.name,

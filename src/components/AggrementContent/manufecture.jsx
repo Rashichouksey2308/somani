@@ -813,9 +813,8 @@ setEditAddress(
                     required
                     type="number"
                     name="pinCode"
-                    onKeyDown={(evt) =>
-                      evt.key === 'e' && evt.preventDefault()
-                    }
+                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                     value={newAddress.pinCode}
                     onChange={(e) => {
                       setAddress(e.target.name,e.target.value)
@@ -885,9 +884,8 @@ setEditAddress(
                     type="number"
                     name="pinCode"
                     value={newAddress.pinCode}
-                    onKeyDown={(evt) =>
-                      evt.key === 'e' && evt.preventDefault()
-                    }
+                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                     onChange={(e) => {
                       setAddress(e.target.name,e.target.value)
                     }}
@@ -1373,9 +1371,8 @@ setEditAddress(
                         type="number"
                         name="pinCode"
                         value={newMultiAddress.pinCode}
-                        onKeyDown={(evt) =>
-                          evt.key === 'e' && evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                         onChange={(e) => {
                           setMultiAddress(e.target.name,e.target.value)
                         }}
@@ -1444,9 +1441,8 @@ setEditAddress(
                         type="number"
                         name="pinCode"
                         value={newMultiAddress.pinCode}
-                        onKeyDown={(evt) =>
-                          evt.key === 'e' && evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                         onChange={(e) => {
                           setMultiAddress(e.target.name,e.target.value)
                         }}
@@ -1615,9 +1611,8 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         type="number"
                         name="pinCode"
                         value={EditAddress.pinCode}
-                        onKeyDown={(evt) =>
-                          evt.key === 'e' && evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                         onChange={(e) => {
                           editNewAddress(e.target.name,e.target.value)
                         }}
@@ -1686,9 +1681,8 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         type="number"
                         name="pinCode"
                          value={EditAddress.pinCode}
-                         onKeyDown={(evt) =>
-                          evt.key === 'e' && evt.preventDefault()
-                        }
+                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                         onChange={(e) => {
                           editNewAddress(e.target.name,e.target.value)
                         }}
