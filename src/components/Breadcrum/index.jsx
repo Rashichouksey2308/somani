@@ -83,11 +83,13 @@ export default function Index({ isQuery }) {
     dispatch(setDynamicName(customData?.company?.companyName))
   }, [customData])
   const { allCustomClearance } = useSelector((state) => state.Custom)
+  const { upperTabs, companyId } = useSelector(
+    (state) => state.Breadcrumb.breadCrumbData,
+  )
+  console.log(upperTabs, companyName, companyId, '12222')
 
   let customData = _get(allCustomClearance, 'data[0]', {})
   let OrderId = _get(customData, 'order.orderId', {})
-  // let companyName = _get(oldCustomData,"")
-  console.log(allCustomClearance, 'old')
   let companyName = _get(customData, 'company.companyName')
 
   const [myUrl, setUrl] = useState([])
@@ -284,7 +286,7 @@ export default function Index({ isQuery }) {
           `/Loading, Transit & Unloading` +
           '/Transit Details' +
           `/${id}` +
-          `/Bill of Loading` +
+          `/${upperTabs}` +
           `/${order}`
         console.log('router123', router.route)
       } else {
@@ -309,13 +311,12 @@ export default function Index({ isQuery }) {
     }
     if ('track' == pageName) {
       if (order != null) {
-        router.route =
-          '/Loading, Transit & Unloading' +
-          '/Track Shipments' +
-          `/${id}` +
-          `/${order}`
+        router.route = '/Loading, Transit & Unloading' + '/Track Shipments'
+        // `/${id}` +
+        // `/${order}`
         console.log('router1234', router.route)
       } else if (id !== null) {
+        f
         router.route =
           '/Loading, Transit & Unloading' + '/Track Shipments' + `/${id} `
         console.log('router123', router.route)
@@ -328,7 +329,7 @@ export default function Index({ isQuery }) {
         router.route =
           '/Custom Clearance & Warehouse' +
           `/${companyName}` +
-          '/Bill of Entry' +
+          `/${upperTabs}` +
           `/${OrderId}`
         console.log('router123', router.route)
         console.log(id, 'id123')
@@ -339,26 +340,11 @@ export default function Index({ isQuery }) {
     console.log('tabname', pageTabName)
     if ('payment' == pageName) {
       if (id !== null) {
-        if ('release' == pageTabName) {
-          router.route =
-            '/Payment, Invoicing & Delivery' +
-            `/${id.toLowerCase()}` +
-            '/Release Order' +
-            '/Ramal001-00002'
-          console.log('tabname', pageTabName)
-        } else if ('delivery' == pageTabName) {
-          router.route =
-            '/Payment, Invoicing & Delivery' +
-            `/${id.toLowerCase()}` +
-            '/Delivery Order' +
-            '/Ramal001-00002'
-        } else if ('lifting' == pageTabName) {
-          router.route =
-            '/Payment, Invoicing & Delivery' +
-            `/${id.toLowerCase()}` +
-            '/Lifting Order' +
-            '/Ramal001-00002'
-        }
+        router.route =
+          '/Payment, Invoicing & Delivery' +
+          `/${id.toLowerCase()}` +
+          `/${upperTabs}` +
+          `/${companyId}`
       } else {
         router.route = '/Payment, Invoicing & Delivery'
       }
@@ -387,7 +373,7 @@ export default function Index({ isQuery }) {
         setUrlLength(url.length)
       }
     })
-  }, [pageName, id, order])
+  }, [pageName, id, order, upperTabs, companyId])
   console.log(myUrl, 'url')
   console.log(currency, 'pageName')
   return (

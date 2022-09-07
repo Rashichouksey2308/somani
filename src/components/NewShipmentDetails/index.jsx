@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 import DateCalender from '../DateCalender'
@@ -12,22 +12,21 @@ const index = ({ saveShipmentData, shipment }) => {
     let text = d.toISOString()
     saveShipmentData(name, text)
   }
- const [dateStartFrom,setDateStartFrom]=useState({
-    laycan:"",
-    eta:""
- 
+  const [dateStartFrom, setDateStartFrom] = useState({
+    laycan: '',
+    eta: '',
   })
-   const setStartDate=(val,name)=>{
-      var new_date = moment(new Date(val).toISOString()).add(1, 'days').format("DD-MM-YYYY");
-      if(name=="loadPort.fromDate"){
-    
-      setDateStartFrom({...dateStartFrom,laycan:new_date})
-    }else{
-      setDateStartFrom({...dateStartFrom,eta:new_date})
+  const setStartDate = (val, name) => {
+    var new_date = moment(new Date(val).toISOString())
+      .add(1, 'days')
+      .format('DD-MM-YYYY')
+    if (name == 'loadPort.fromDate') {
+      setDateStartFrom({ ...dateStartFrom, laycan: new_date })
+    } else {
+      setDateStartFrom({ ...dateStartFrom, eta: new_date })
     }
-   
   }
-  console.log(shipment,"shipment")
+  console.log(shipment, 'shipment')
   return (
     <div className={`${styles.main} vessel_card border-color card`}>
       <div
@@ -58,7 +57,7 @@ const index = ({ saveShipmentData, shipment }) => {
                       saveShipmentData(e.target.name, e.target.value)
                     }}
                   >
-                    <option >Select an option</option>
+                    <option>Select an option</option>
                     <option value="Liner">Liner</option>
                     <option value="Bulk">Bulk</option>
                   </select>
@@ -112,7 +111,7 @@ const index = ({ saveShipmentData, shipment }) => {
                     value={shipment.ETAofDischarge.toDate}
                     name="ETAofDischarge.toDate"
                     saveDate={saveDate}
-                     startFrom={dateStartFrom.eta}
+                    startFrom={dateStartFrom.eta}
                     labelName="Laycan at Load Port to"
                   />
                   <img
@@ -141,8 +140,9 @@ const index = ({ saveShipmentData, shipment }) => {
                     name="lastDateOfShipment"
                     saveDate={saveDate}
                     labelName="Last date of shipment"
-                    startFrom={moment(shipment.ETAofDischarge.toDate).add(1, 'days').toDate()}
-                     
+                    startFrom={moment(shipment.ETAofDischarge.toDate)
+                      .add(1, 'days')
+                      .toDate()}
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -235,14 +235,18 @@ const index = ({ saveShipmentData, shipment }) => {
                 <div className="d-flex">
                   <select
                     className={`${styles.input_field} ${styles.customSelect}  input form-control`}
-                    name="shipmentType"
+                    name="portOfLoading"
                     onChange={(e) => {
                       saveShipmentData(e.target.name, e.target.value)
                     }}
                   >
-                    <option selected>Select an option</option>
-                   <option value="Westshore Terminals,Canada">Westshore Terminals,Canada</option>
-                  <option value="Abbot Point,Australia">Abbot Point,Australia</option>
+                    <option value="">Select an option</option>
+                    <option value="Westshore Terminals,Canada">
+                      Westshore Terminals,Canada
+                    </option>
+                    <option value="Abbot Point,Australia">
+                      Abbot Point,Australia
+                    </option>
                   </select>
                   <Form.Label
                     className={`${styles.label_heading} label_heading`}
