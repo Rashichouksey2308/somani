@@ -262,9 +262,8 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                     {!reviewedProfile?.turnOver?.apiResponse && (
                       <Form.Control
                         type="number"
-                        onKeyDown={(evt) =>
-                          evt.key === 'e' && evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                         name="turnOver"
                         id="textDate"
                         className={`${styles.input}`}
@@ -346,9 +345,8 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                       <Form.Control
                         type="number"
                         name="orderValue"
-                        onKeyDown={(evt) =>
-                          evt.key === 'e' && evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                         id="textDate"
                         className={`${styles.input}`}
                         onBlur={(e) =>

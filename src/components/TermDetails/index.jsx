@@ -634,7 +634,7 @@ const Index = ({
               <input
                 id="daysFromBlDate"
                 className={`${styles.value} input form-control`}
-                onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                 type="number"
                 value={termsheetDetails?.paymentDueDate?.daysFromBlDate}
                 onChange={onChangePaymentDueDate}
@@ -656,7 +656,7 @@ const Index = ({
                 id="daysFromVesselDischargeDate"
                 className={`${styles.value} input form-control`}
                 type="number"
-                onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                 value={
                   termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate
                 }
@@ -706,7 +706,7 @@ const Index = ({
                 id="lcOpeningChargesUnit"
                 className={`${styles.value} input form-control`}
                 type="text"
-                onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                 value={addPrefixOrSuffix(
                   termsheetDetails?.commercials?.lcOpeningChargesUnit
                     ? termsheetDetails?.commercials?.lcOpeningChargesUnit

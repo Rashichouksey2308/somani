@@ -270,10 +270,8 @@ export default function Index(props) {
                                     className={`${styles.input_field} input form-control`}
                                     required
                                     type="number"
-                                    onKeyDown={(evt) =>
-                                      evt.key === 'e' && evt.preventDefault()
-                                    }
-                                    value={val2.liftingQuant}
+                                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                                     name="liftingQuant"
                                     onChange={(e) => {
                                       props.handleChange(

@@ -597,9 +597,8 @@ const Index = () => {
                               className={`${styles.input_field} input form-control`}
                               type="text"
                               name="sumInsured"
-                              onKeyDown={(evt) =>
-                                evt.key === 'e' && evt.preventDefault()
-                              }
+                              onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                               defaultValue={addPrefixOrSuffix(
                                 quotationData.sumInsured
                                   ? quotationData.sumInsured
@@ -863,9 +862,8 @@ const Index = () => {
                               className={`${styles.input_field} input form-control`}
                               type="number"
                               name="sumInsured"
-                              onKeyDown={(evt) =>
-                                evt.key === 'e' && evt.preventDefault()
-                              }
+                              onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                               value={quotationData.sumInsured}
                               onChange={(e) =>
                                 saveQuotationData(
@@ -932,9 +930,8 @@ const Index = () => {
                               className={`${styles.input_field} input form-control`}
                               required
                               type="number"
-                              onKeyDown={(evt) =>
-                                evt.key === 'e' && evt.preventDefault()
-                              }
+                              onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                               defaultValue={
                                 quotationData.storageDetails.periodOfInsurance
                               }

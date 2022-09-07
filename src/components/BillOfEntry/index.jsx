@@ -521,7 +521,7 @@ const [accessibleValueCalc,setAcc]=useState(0)
                     name="boeNumber"
                     required
                     value={billOfEntryData?.boeNumber}
-                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                     onChange={(e) =>
                       saveBillOfEntryData(e.target.name, e.target.value)
                     }
@@ -718,7 +718,7 @@ const [accessibleValueCalc,setAcc]=useState(0)
                     type="text"
                     name="boeDetails.invoiceNumber"
                     required
-                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                     onChange={(e) =>
                       saveBillOfEntryData(e.target.name, e.target.value)
                     }
@@ -817,7 +817,7 @@ const [accessibleValueCalc,setAcc]=useState(0)
                     disabled
                     required
                     value={accessibleValueCalc}
-                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                     
                   />
                   <label className={`${styles.label_heading} label_heading`}>
