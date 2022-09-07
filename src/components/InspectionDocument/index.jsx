@@ -10,6 +10,7 @@ import {
 } from 'redux/creditQueueUpdate/action'
 import { useDispatch, useSelector } from 'react-redux'
 import { ViewDocument } from 'redux/ViewDoc/action'
+import { toast } from 'react-toastify'
 
 const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc }) => {
   const dispatch = useDispatch()
@@ -65,16 +66,36 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
   const uploadDocumentHandler = (e) => {
     console.log(e, 'UPLOAD HANDLER')
     e.preventDefault()
+    if (newDoc.document === null) {
+      let toastMessage = 'please select A Document'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+    } else if (newDoc.name === '') {
+      let toastMessage = 'please provide a valid document name'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+    } else {
+      const fd = new FormData()
+      console.log(newDoc, newDoc.document, 'pdfFile', newDoc.module)
+      fd.append('document', newDoc.document)
+      fd.append('module', newDoc.module)
+      fd.append('order', orderId)
+      // fd.append('type', newDoc.type))
+      fd.append('name', newDoc.name)
 
-    const fd = new FormData()
-    console.log(newDoc, newDoc.document, 'pdfFile', newDoc.module)
-    fd.append('document', newDoc.document)
-    fd.append('module', newDoc.module)
-    fd.append('order', orderId)
-    // fd.append('type', newDoc.type))
-    fd.append('name', newDoc.name)
+      dispatch(AddingDocument(fd))
 
-    dispatch(AddingDocument(fd))
+      setNewDoc({
+        document: [],
+        order: orderId,
+        name: '',
+        module: module ? module : 'Agreements&Insurance&LC&Opening',
+      })
+    }
+
+
   }
 
   const handleDropdown = (e) => {
@@ -198,9 +219,9 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                         <div className={`${styles.certificate} d-flex align-items-center justify-content-between`}>
                           <span>{lcDoc?.lcDraftDoc?.name}</span>
                           <img
-                          onClick={(e) => setLcDoc({
-                            lcDraftDoc: null,
-                          })}
+                            onClick={(e) => setLcDoc({
+                              lcDraftDoc: null,
+                            })}
                             className={`${styles.close_image} mr-2`}
                             src="/static/close.svg"
                             alt="Close"
