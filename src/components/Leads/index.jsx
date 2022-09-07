@@ -3,8 +3,8 @@ import { Card } from 'react-bootstrap'
 import styles from './index.module.scss'
 function index(props) {
   return (
-    <Card className={`${styles.card}  border`}>
-      <Card.Header className={`${styles.header} heading_card `}> {props.header} </Card.Header>
+    <Card className={`${styles.card} border`}>
+      <Card.Header className={`${styles.header} heading_card border_color`}> {props.header} </Card.Header>
       <Card.Body className={styles.body}>
         <div className={styles.leads}>
           <div className={styles.leadsSub}>

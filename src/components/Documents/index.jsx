@@ -50,6 +50,7 @@ const Index = ({
                   <div
                     className={`${styles.each_input} col-md-12 col-sm-6 col-lg-4 `}
                   >
+                    <div className={`${styles.label_heading} label_heading`}>Type Of Document</div>
                     <div className="d-flex">
                       <select
                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
@@ -91,6 +92,7 @@ const Index = ({
                   <div
                     className={`${styles.each_input} col-md-6 col-sm-6 col-6 col-lg-4`}
                   >
+                    <div className={`${styles.label_heading} label_heading`}>Attach Document</div>
                     {val.attachDoc == '' ? (
                       <div className={styles.uploadBtnWrapper}>
                         <input
@@ -108,11 +110,11 @@ const Index = ({
                       </div>
                     ) : (
                       <div className={`${styles.certificate} d-flex justify-content-between`}>
-                        <span>
+                        <span className="text-color">
                           {val.attachDoc.name}
                         </span>
                         <img
-                          className={`${styles.close_image}`}
+                          className={`${styles.close_image} image_arrow`}
                           src="/static/close.svg"
                           onClick={() => removeDoc(index)}
                           alt="Close"
@@ -124,6 +126,7 @@ const Index = ({
                   <div
                     className={`${styles.each_input} col-md-6 col-sm-6 col-6 text-right text-sm-left col-lg-4`}
                   >
+                    <div className={`${styles.label_heading} label_heading`}>Action</div>
                     <div
                       onClick={() => setSecondDocName(null)}
                       className={styles.image_card}

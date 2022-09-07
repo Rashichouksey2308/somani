@@ -4,7 +4,7 @@ import ProgressBar from '@ramonak/react-progress-bar'
 
 const index = () => {
   return (
-    <div className={`${styles.main} card`}>
+    <div className={`${styles.main} border card`}>
       <div
         className={`${styles.top_container} border_color d-flex align-items-center justify-content-between`}
       >
