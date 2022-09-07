@@ -156,7 +156,7 @@ export default function Index({ inspectionData }) {
                         >
                           <thead>
                             <tr>
-                              <th width="35%">
+                              <th width="25%">
                                 DOCUMENT NAME{' '}
                                 <img
                                   className={`${styles.sort_img} mb-1`}
@@ -164,7 +164,7 @@ export default function Index({ inspectionData }) {
                                   alt="Sort icon"
                                 />
                               </th>
-                              <th width="20%">
+                              <th width="15%">
                                 FORMAT{' '}
                                 <img
                                   className={`${styles.sort_img} mb-1`}
@@ -180,7 +180,7 @@ export default function Index({ inspectionData }) {
                                   alt="Sort icon"
                                 />
                               </th>
-                              <th>ACTION</th>
+                              <th width="35%">ACTION</th>
                             </tr>
                           </thead>
                           <tbody>
