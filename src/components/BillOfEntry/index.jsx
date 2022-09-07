@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux'
 import _get from 'lodash/get'
 import { removePrefixOrSuffix, addPrefixOrSuffix } from 'utils/helper'
 import { toast } from 'react-toastify'
-import {checkNan} from '../../utils/helper'
+import { checkNan } from '../../utils/helper'
 import { set } from 'lodash'
 import {
   GetAllCustomClearance,
@@ -37,7 +37,7 @@ export default function Index({
 
   console.log(customClearance, 'this is custom doc')
   console.log(dutyData, 'dutyData')
- useEffect(() => {
+  useEffect(() => {
     let id = sessionStorage.getItem('customId')
     dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
   }, [dispatch])
@@ -82,8 +82,8 @@ export default function Index({
       return number
     }
   }
-  console.log(billOfEntryData,"boeDetails")
-console.log(customData,'sdasd')
+  console.log(billOfEntryData, "boeDetails")
+  console.log(customData, 'sdasd')
   const uploadDoc1 = async (e) => {
     let name = e.target.name
     let docs = await uploadDoc(e)
@@ -117,17 +117,17 @@ console.log(customData,'sdasd')
     namesplit.length > 1
       ? (newInput[namesplit[0]][namesplit[1]] = value)
       : (newInput[name] = value)
-     console.log(newInput,"newInput")
+    console.log(newInput, "newInput")
 
-    setBillOfEntryData({...newInput})
+    setBillOfEntryData({ ...newInput })
   }
-  const conversionRateChange=(name, value)=>{
-    
-     const newInput = { ...billOfEntryData }
-    newInput['boeDetails']['conversionRate'] = value
-     console.log(newInput,"newInput")
+  const conversionRateChange = (name, value) => {
 
-    setBillOfEntryData({...newInput})
+    const newInput = { ...billOfEntryData }
+    newInput['boeDetails']['conversionRate'] = value
+    console.log(newInput, "newInput")
+
+    setBillOfEntryData({ ...newInput })
   }
 
   const [pfCheckBox, setPfCheckBox] = useState(true)
@@ -149,9 +149,9 @@ console.log(customData,'sdasd')
   // }, [customData])
 
   useEffect(() => {
-    let temp=[]
-   if(_get(customData,"billOfEntry.billOfEntry[0].duty",[]).length>0){
-      _get(customData,"billOfEntry.billOfEntry[0].duty",[]).forEach((val,index)=>{
+    let temp = []
+    if (_get(customData, "billOfEntry.billOfEntry[0].duty", []).length > 0) {
+      _get(customData, "billOfEntry.billOfEntry[0].duty", []).forEach((val, index) => {
         temp.push(
           {
             percentage: val.percentage || "",
@@ -162,8 +162,8 @@ console.log(customData,'sdasd')
         )
       })
       setDutyData(temp)
-   }
-  },[customData])
+    }
+  }, [customData])
   const handleDutyChange = (name, value, index) => {
     // console.log(name,value,index,"name,value")
     let tempArr = [...dutyData]
@@ -218,7 +218,7 @@ console.log(customData,'sdasd')
 
 
   const handleSubmit = () => {
- 
+
     if (billOfEntryData.boeDetails.currency === '') {
       let toastMessage = 'CURRENCY CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -272,12 +272,12 @@ console.log(customData,'sdasd')
       }
       return
     } else {
-      let tempData={...billOfEntryData}
-      tempData.boeDetails.conversionRate=removePrefixOrSuffix(billOfEntryData.boeDetails.conversionRate)
-      tempData.boeDetails.invoiceQuantity=removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceQuantity)
-      tempData.boeDetails.invoiceValue=removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceValue)
+      let tempData = { ...billOfEntryData }
+      tempData.boeDetails.conversionRate = removePrefixOrSuffix(billOfEntryData.boeDetails.conversionRate)
+      tempData.boeDetails.invoiceQuantity = removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceQuantity)
+      tempData.boeDetails.invoiceValue = removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceValue)
       const billOfEntry = { billOfEntry: [tempData] }
-     
+
       const fd = new FormData()
       fd.append('customClearanceId', customData?._id)
       fd.append('billOfEntry', JSON.stringify(billOfEntry))
@@ -290,10 +290,10 @@ console.log(customData,'sdasd')
   }
 
   const handleSave = () => {
-    let tempData={...billOfEntryData}
-    tempData.boeDetails.conversionRate=removePrefixOrSuffix(billOfEntryData.boeDetails.conversionRate)
-     tempData.boeDetails.invoiceQuantity=removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceQuantity)
-      tempData.boeDetails.invoiceValue=removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceValue)
+    let tempData = { ...billOfEntryData }
+    tempData.boeDetails.conversionRate = removePrefixOrSuffix(billOfEntryData.boeDetails.conversionRate)
+    tempData.boeDetails.invoiceQuantity = removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceQuantity)
+    tempData.boeDetails.invoiceValue = removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceValue)
     const billOfEntry = { billOfEntry: [tempData] }
     const fd = new FormData()
     fd.append('customClearanceId', customData?._id)
@@ -311,14 +311,16 @@ console.log(customData,'sdasd')
     }
   }
 
-const [accessibleValueCalc,setAcc]=useState(0)
- useEffect(() => {
- 
-  setAcc(checkNan((Number(_get(customData,'billOfEntry.billOfEntry[0].boeDetails.invoiceValue',),) 
-    
-    * removePrefixOrSuffix(billOfEntryData?.boeDetails?.conversionRate))))
-    
- },[billOfEntryData.boeDetails.conversionRate,billOfEntryData.boeDetails.invoiceValue])
+  const [accessibleValueCalc, setAcc] = useState(0)
+  useEffect(() => {
+
+    // setAcc(checkNan((Number(_get(customData, 'billOfEntry.billOfEntry[0].boeDetails.invoiceValue',),)
+
+    setAcc(checkNan((removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceValue)
+
+      * removePrefixOrSuffix(billOfEntryData?.boeDetails?.conversionRate))))
+
+  }, [billOfEntryData.boeDetails.conversionRate, billOfEntryData.boeDetails.invoiceValue])
   useEffect(() => {
     if (customData) {
       let data = Number(
@@ -347,7 +349,7 @@ const [accessibleValueCalc,setAcc]=useState(0)
           invoiceDate: data?.boeDetails?.invoiceDate,
           boeRate: data?.boeDetails?.boeRate,
           bankName: data?.boeDetails?.bankName,
-          accessibleValue : accessibleValueCalc ? accessibleValueCalc : data?.boeDetails?.accessibleValue
+          accessibleValue: accessibleValueCalc ? accessibleValueCalc : data?.boeDetails?.accessibleValue
         },
         duty: data.duty,
 
@@ -365,10 +367,10 @@ const [accessibleValueCalc,setAcc]=useState(0)
   //   customData,
   //   // billOfEntryData,
   //   'customData')
- const getIndex=(index)=>{
-  return index+1;
+  const getIndex = (index) => {
+    return index + 1;
 
- }
+  }
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -638,7 +640,15 @@ const [accessibleValueCalc,setAcc]=useState(0)
                     IGM Filing Date<strong className="text-danger">*</strong>{' '}
                   </div>
                   <span className={styles.value}>
-                    {moment(
+                    {!_get(
+                      customData,
+                      'order.transit.IGM.igmDetails[0].igmFiling',
+                      '',
+                    ) || _get(
+                      customData,
+                      'order.transit.IGM.igmDetails[0].igmFiling',
+                      '',
+                    ) === '' ? '' : moment(
                       _get(
                         customData,
                         'order.transit.IGM.igmDetails[0].igmFiling',
@@ -669,14 +679,14 @@ const [accessibleValueCalc,setAcc]=useState(0)
                       <div className={`${styles.label} text`}>CIRC Date</div>
                       <span className={styles.value}>
                         {
-                        customData?.order?.transit?.CIMS?.cimsDetails[0]
-                            ?.circDate?
-                        moment(
                           customData?.order?.transit?.CIMS?.cimsDetails[0]
-                            ?.circDate,
-                        ).format('DD-MM-YYYY')
-                      :""
-                      }
+                            ?.circDate ?
+                            moment(
+                              customData?.order?.transit?.CIMS?.cimsDetails[0]
+                                ?.circDate,
+                            ).format('DD-MM-YYYY')
+                            : ""
+                        }
                       </span>
                     </div>
                   </>
@@ -752,15 +762,15 @@ const [accessibleValueCalc,setAcc]=useState(0)
                     // value={billOfEntryData?.boeDetails?.invoiceQuantity}
                     className={`${styles.input_field} input form-control`}
                     type="text"
-                   
+
                     // onKeyPress={preventMinus}
-                    value={addPrefixOrSuffix(billOfEntryData?.boeDetails?.invoiceQuantity,"MT")}
+                    value={addPrefixOrSuffix(billOfEntryData?.boeDetails?.invoiceQuantity, "MT")}
                     name="boeDetails.invoiceQuantity"
                     onChange={(e) =>
                       saveBillOfEntryData(e.target.name, e.target.value)
                     }
                     required
-                    // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                  // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Invoice Quantity<strong className="text-danger">*</strong>
@@ -775,8 +785,8 @@ const [accessibleValueCalc,setAcc]=useState(0)
                     className={`${styles.input_field} input form-control`}
                     type="text"
                     required
-                  
-                    value={addPrefixOrSuffix(billOfEntryData?.boeDetails?.invoiceValue,"USD")}
+
+                    value={addPrefixOrSuffix(billOfEntryData?.boeDetails?.invoiceValue, "USD")}
                     name="boeDetails.invoiceValue"
                     onChange={(e) =>
                       saveBillOfEntryData(e.target.name, e.target.value)
@@ -789,20 +799,20 @@ const [accessibleValueCalc,setAcc]=useState(0)
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
-                 
+
                   <input
-                   
+
                     className={`${styles.input_field} input form-control`}
                     type="text"
                     required
-                    value={addPrefixOrSuffix(billOfEntryData?.boeDetails?.conversionRate,"INR","front")}
-                   
+                    value={addPrefixOrSuffix(billOfEntryData?.boeDetails?.conversionRate, "INR", "front")}
+
                     name="boeDetails.conversionRate"
                     onChange={(e) =>
                       conversionRateChange(e.target.name, e.target.value)
                     }
                   />
-                 
+
                   <label className={`${styles.label_heading} label_heading`}>
                     Conversion Rate<strong className="text-danger">*</strong>
                   </label>
@@ -818,10 +828,10 @@ const [accessibleValueCalc,setAcc]=useState(0)
                     required
                     value={accessibleValueCalc}
                     onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-                    
+
                   />
                   <label className={`${styles.label_heading} label_heading`}>
-                     Assessable Value <strong className="text-danger">*</strong>
+                    Assessable Value <strong className="text-danger">*</strong>
                   </label>
                 </div>
                 {/* <div
@@ -901,15 +911,15 @@ const [accessibleValueCalc,setAcc]=useState(0)
                         </tr>
                       </thead>
                       <tbody>
-                      
+
 
                         {dutyData.length > 0 &&
                           dutyData.map((val, index) => (
                             <tr key={index} className="table_row">
                               {!val.actions ? (
                                 <>
-                                
-        
+
+
                                   <td className={styles.doc_name}>{getIndex(index)}</td>
                                   <td>{val.duty}</td>
                                   <td>{val.amount}</td>
@@ -936,7 +946,7 @@ const [accessibleValueCalc,setAcc]=useState(0)
                                       className={`${styles.dutyDropdown}`}
                                     >
                                       <option>Select an option</option>
-                                     
+
                                       <option value="BCD">BCD</option>
                                       <option value="IGST">IGST</option>
                                     </select>
@@ -945,7 +955,7 @@ const [accessibleValueCalc,setAcc]=useState(0)
                                     <input
                                       className={`${styles.dutyDropdown}`}
                                       name="amount"
-                                       value={val.amount}
+                                      value={val.amount}
                                       disabled={!val.actions}
                                       onChange={(e) =>
                                         handleDutyChange(
