@@ -220,7 +220,7 @@ function Index({ order, companyDetail }) {
                   Existing Limit (Cr)
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
-                    {CovertvaluefromtoCR(order?.creditLimit?.totalLimit)}
+                    {checkNan(CovertvaluefromtoCR(order?.creditLimit?.totalLimit))}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -229,7 +229,7 @@ function Index({ order, companyDetail }) {
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
 
-                  {CovertvaluefromtoCR(order?.creditLimit?.utilizedLimit)}
+                  {checkNan(CovertvaluefromtoCR(order?.creditLimit?.utilizedLimit))}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
