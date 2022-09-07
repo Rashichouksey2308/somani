@@ -442,7 +442,7 @@ export default function Index({
                   </div>
                   <span className={styles.value}>
                     {_get(TransitDetails, 'data[0].order.quantity', '')}{' '}
-                    {_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}{' '}
+                    {_get(TransitDetails, 'data[0].order.unitOfQuantity', '')?.toUpperCase()}{' '}
                   </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">

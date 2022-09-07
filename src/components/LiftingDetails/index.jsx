@@ -13,7 +13,7 @@ import _get from 'lodash/get'
 import { checkNan } from 'utils/helper'
 
 export default function Index(props) {
-  console.log(props.data, 'liftingdata')
+  console.log(props.liftingData, '97111')
   const [editInput, setEditInput] = useState(true)
   const [darkMode, setDarkMode] = useState(false)
   const [currentOrder, setCurrentOrder] = useState('')
@@ -25,7 +25,7 @@ export default function Index(props) {
     }
   }
   let orderid = _get(props, 'ReleaseOrderData.data[0].order._id', '')
-  const saveDate = (value, name, index, index2) => {
+  const saveDate2 = (value, name, index, index2) => {
     const d = new Date(value)
     let text = d.toISOString()
     props.handleChange(name, value, index, index2)
@@ -244,9 +244,13 @@ export default function Index(props) {
                                 >
                                   <div className="d-flex">
                                     <DateCalender
-                                      saveDate={saveDate}
+                                      saveDate={(startDate, name, index)=>{
+                                        console.log("thisis",startDate, name, index)
+                                        saveDate2(startDate, name, index,index2)
+                                      }}
                                       index={index}
                                       index2={index2}
+                                      defaultDate={val2.dateOfLifting}
                                       name="dateOfLifting"
                                       labelName="Date of Lifting"
                                       dateFormat={'dd-MM-yyyyy'}
@@ -269,6 +273,7 @@ export default function Index(props) {
                                     onKeyDown={(evt) =>
                                       evt.key === 'e' && evt.preventDefault()
                                     }
+                                    value={val2.liftingQuant}
                                     name="liftingQuant"
                                     onChange={(e) => {
                                       props.handleChange(
@@ -309,6 +314,7 @@ export default function Index(props) {
                                           type={type}
                                           id={`inline-${type}-1`}
                                           value={'RR'}
+                                          checked={val2.modeOfTransportation=="RR"?"checked":""}
                                           onChange={(e) => {
                                             props.handleChange(
                                               e.target.name,
@@ -326,6 +332,7 @@ export default function Index(props) {
                                           type={type}
                                           id={`inline-${type}-2`}
                                           value={'LR'}
+                                          checked={val2.modeOfTransportation=="LR"?"checked":""}
                                           onChange={(e) => {
                                             props.handleChange(
                                               e.target.name,
@@ -377,6 +384,7 @@ export default function Index(props) {
                                     required
                                     type="text"
                                     name="eWayBill"
+                                    value={val2.eWayBill}
                                     onChange={(e) => {
                                       props.handleChange(
                                         e.target.name,
