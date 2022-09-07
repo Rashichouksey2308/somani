@@ -464,7 +464,7 @@ const Index = ({
               </div>
             </div>
             <div
-              className={`${styles.add_image} p-3 d-flex justify-content-end`}
+              className={`${styles.add_image} d-flex justify-content-end`}
             >
               <div
                 role="button"

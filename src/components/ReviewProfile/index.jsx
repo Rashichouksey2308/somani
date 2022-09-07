@@ -160,7 +160,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
               </thead>
 
               <tbody>
-                <tr className={`${styles.table_row} border_color table_row`}>
+                <tr className={`${styles.table_row} table_row`}>
                   <td>Transaction Type</td>
                   <td>{reviewedProfile?.transactionType?.originalValue}</td>
                   <td>
@@ -194,7 +194,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                     )}
                   </td>
                 </tr>
-                <tr className={`${styles.table_row} border_color table_row`}>
+                <tr className={`${styles.table_row} table_row`}>
                   <td>Type Of Business</td>
                   <td>{reviewedProfile?.typeOfBusiness?.originalValue}</td>
                   <td>
@@ -228,7 +228,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                     )}
                   </td>
                 </tr>
-                <tr className={`${styles.table_row} border_color table_row`}>
+                <tr className={`${styles.table_row} table_row`}>
                   <td>Turnover (Cr)</td>
                   <td>
                     {CovertvaluefromtoCR(
@@ -279,7 +279,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                   </td>
                 </tr>
 
-                <tr className={`${styles.table_row} border_color table_row`}>
+                <tr className={`${styles.table_row} table_row`}>
                   <td>Commodity</td>
                   <td>{reviewedProfile?.commodity?.originalValue}</td>
                   <td>
@@ -310,7 +310,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                   </td>
                 </tr>
 
-                <tr className={`${styles.table_row} border_color table_row`}>
+                <tr className={`${styles.table_row} table_row`}>
                   <td>Order Value</td>
                   <td>
                     {CovertvaluefromtoCR(
@@ -361,7 +361,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                   </td>
                 </tr>
 
-                <tr className={`${styles.table_row} border_color table_row`}>
+                <tr className={`${styles.table_row} table_row`}>
                   <td>Country Of Origin</td>
                   <td>{reviewedProfile?.countryOfOrigin?.originalValue}</td>
                   <td>
@@ -395,7 +395,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                     )}
                   </td>
                 </tr>
-                <tr className={`${styles.table_row} border_color table_row`}>
+                <tr className={`${styles.table_row} table_row`}>
                   <td>Port Of Discharge</td>
                   <td>{reviewedProfile?.portOfDischarge?.originalValue}</td>
                   <td>
@@ -429,7 +429,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                     )}
                   </td>
                 </tr>
-                <tr className={`${styles.table_row} border_color table_row`}>
+                <tr className={`${styles.table_row} table_row`}>
                   <td>Expected Date Of Shipment</td>
                   <td>
                     {moment(
@@ -495,7 +495,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                   </td>
                 </tr>
                 {isAddedRow ? (
-                  <tr className={`${styles.table_row} border_color table_row`}>
+                  <tr className={`${styles.table_row} table_row`}>
                     <td>
                       Delinquency in Past Orders{' '}
                       <span className={styles.view_btn}>View</span>
@@ -562,7 +562,7 @@ export default Index
 
 // const tableRow = (props) => {
 //   return (
-//     <tr className={`${styles.table_row} border_color table_row`}>
+//     <tr className={`${styles.table_row} table_row`}>
 //       <td>{props}</td>
 //       <td>Domestic</td>
 //       <td>

@@ -467,7 +467,7 @@ export default function Index({ isQuery }) {
               <option value="crores" selected>
                 CRORES
               </option>
-              <option value="millions">MILLIONS</option>
+              {/* <option value="millions">MILLIONS</option> */}
               <option value="Lakh">LAKH</option>
             </select>
           </div>
