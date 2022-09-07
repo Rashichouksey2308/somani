@@ -596,7 +596,7 @@ const Index = () => {
                           <div className="d-flex">
                             <DateCalender
                               name="insuranceFrom"
-                              defaultDate={insuranceData?.marineInsurance?.insuranceFrom?.split('T')[0]}
+                              defaultDate={insuranceData?.marineInsurance?.insuranceFrom}
                               saveDate={saveDate}
                               labelName="Insurance from"
                             />
@@ -611,7 +611,7 @@ const Index = () => {
                           <div className="d-flex">
                             <DateCalender
                               name="insuranceTo"
-                              defaultDate={insuranceData?.marineInsurance?.insuranceTo?.split('T')[0]}
+                              defaultDate={insuranceData?.marineInsurance?.insuranceTo}
                               saveDate={saveDate}
                               labelName="Insurance to"
                             />
@@ -629,9 +629,8 @@ const Index = () => {
                             type="number"
                             name="periodOfInsurance"
                             defaultValue={insuranceData?.marineInsurance?.periodOfInsurance}
-                            onKeyDown={(evt) =>
-                              evt.key === 'e' && evt.preventDefault()
-                            }
+                            onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                             onChange={(e) =>
                               saveMarineData(e.target.name, e.target.value)
                             }
@@ -916,9 +915,8 @@ const Index = () => {
                             type="number"
                             name="periodOfInsurance"
                             defaultValue={insuranceData?.storageInsurance?.periodOfInsurance}
-                            onKeyDown={(evt) =>
-                              evt.key === 'e' && evt.preventDefault()
-                            }
+                            onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                             onChange={(e) =>
                               saveStorageData(e.target.name, e.target.value)
                             }
@@ -1201,9 +1199,8 @@ const Index = () => {
                             type="number"
                             name="periodOfInsurance"
                             defaultValue={insuranceData?.marineInsurance?.periodOfInsurance}
-                            onKeyDown={(evt) =>
-                              evt.key === 'e' && evt.preventDefault()
-                            }
+                            onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                             onChange={(e) =>
                               saveMarineData(e.target.name, e.target.value)
                             }
@@ -1481,9 +1478,8 @@ const Index = () => {
                             required
                             type="number"
                             name="periodOfInsurance"
-                            onKeyDown={(evt) =>
-                              evt.key === 'e' && evt.preventDefault()
-                            }
+                            onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                             defaultValue={insuranceData?.storageInsurance?.periodOfInsurance}
                             onChange={(e) =>
                               saveStorageData(e.target.name, e.target.value)

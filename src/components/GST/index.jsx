@@ -1467,7 +1467,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
               <option selected value={10000000}>
                 Crores
               </option>
-              <option selected value={100000}>
+              <option  value={100000}>
                 Lakhs
               </option>
             </select>
@@ -2640,8 +2640,8 @@ export default Index
 
 const gstCustomerDetail = (
   gstFilteredData,
-  supplierDetailsUnit,
-  setSupplierDetailsUnit,
+  customerDetailsUnit,
+  setCustomerDetailsUnit,
 ) => {
   return (
     <>
@@ -2654,11 +2654,15 @@ const gstCustomerDetail = (
           <div className="d-flex align-items-center">
             <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
             <select
+              onChange={(e) => setCustomerDetailsUnit(e.target.value)}
               className={`${styles.selectHead} accordion_body accordion_DropDown form-select`}
               aria-label="Default select example"
             >
-              <option selected value="1">
+              <option selected value={10000000}>
                 Crores
+              </option>
+              <option value={100000}>
+                Lakhs
               </option>
             </select>
             <span
@@ -2710,9 +2714,12 @@ const gstCustomerDetail = (
                                 <td>{customer?.name}</td>
                                 <td>{customer?.pan}</td>
                                 <td>
-                                  {(
+                                  {convertValue(customer?.ttlVal, customerDetailsUnit)?.toLocaleString(undefined, {
+                                    maximumFractionDigits: 2,
+                                  })}
+                                  {/* {(
                                     customer?.ttlVal / supplierDetailsUnit
-                                  )?.toLocaleString()}
+                                  )?.toLocaleString()} */}
                                 </td>
                                 <td>
                                   {customer?.percentageOfTotalSales?.toLocaleString(
@@ -2723,7 +2730,10 @@ const gstCustomerDetail = (
                                 </td>
                                 <td>{customer?.invoice}</td>
                                 <td>
-                                  {customer?.salesPerInvoice?.toLocaleString()}
+                                {convertValue(customer?.salesPerInvoice, customerDetailsUnit)?.toLocaleString(undefined, {
+                                    maximumFractionDigits: 2,
+                                  })}
+                                  {/* {customer?.salesPerInvoice?.toLocaleString()} */}
                                 </td>
                               </tr>
                             ),
@@ -2764,17 +2774,23 @@ const gstCustomerDetail = (
                                 <td>{customer?.name}</td>
                                 <td>{customer?.pan}</td>
                                 <td>
-                                  {customer?.ttlVal?.toLocaleString(undefined, {
-                                    minimumFractionDigits: 2,
+                                {convertValue(customer?.ttlVal, customerDetailsUnit)?.toLocaleString(undefined, {
+                                    maximumFractionDigits: 2,
                                   })}
+                                  {/* {customer?.ttlVal?.toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                  })} */}
                                 </td>
                                 <td>{customer?.percentageOfTotalSales}%</td>
                                 <td>{customer?.invoice}</td>
                                 <td>
-                                  {customer?.salesPerInvoice?.toLocaleString(
+                                {convertValue(customer?.salesPerInvoice, customerDetailsUnit)?.toLocaleString(undefined, {
+                                    maximumFractionDigits: 2,
+                                  })}
+                                  {/* {customer?.salesPerInvoice?.toLocaleString(
                                     undefined,
                                     { minimumFractionDigits: 2 },
-                                  )}
+                                  )} */}
                                 </td>
                               </tr>
                             ),
@@ -2815,16 +2831,22 @@ const gstCustomerDetail = (
                                 <td>{customer?.name}</td>
                                 <td>{customer?.pan}</td>
                                 <td>
-                                  {Number(customer?.ttlVal)?.toLocaleString()}
+                                {convertValue(customer?.ttlVal, customerDetailsUnit)?.toLocaleString(undefined, {
+                                    maximumFractionDigits: 2,
+                                  })}
+                                  {/* {Number(customer?.ttlVal)?.toLocaleString()} */}
                                 </td>
                                 <td>
                                   {customer?.percentageOfTotalSales.toFixed(2)}%
                                 </td>
                                 <td>{customer?.invoice}</td>
                                 <td>
-                                  {Number(
+                                {convertValue(customer?.salesPerInvoice, customerDetailsUnit)?.toLocaleString(undefined, {
+                                    maximumFractionDigits: 2,
+                                  })}
+                                  {/* {Number(
                                     customer?.salesPerInvoice,
-                                  )?.toLocaleString()}
+                                  )?.toLocaleString()} */}
                                 </td>
                               </tr>
                             ),
@@ -2864,7 +2886,12 @@ const gstCustomerDetail = (
                               <tr key={index}>
                                 <td>{customer?.stateName}</td>
                                 <td>{customer?.stateCode}</td>
-                                <td>{customer?.ttlVal?.toLocaleString()}</td>
+                                <td>
+                                  {/* {customer?.ttlVal?.toLocaleString()} */}
+                                  {convertValue(customer?.ttlVal, customerDetailsUnit)?.toLocaleString(undefined, {
+                                    maximumFractionDigits: 2,
+                                  })}
+                                </td>
                                 <td>
                                   {customer?.percentageOfTotalSales?.toLocaleString(
                                     undefined,
@@ -2879,7 +2906,10 @@ const gstCustomerDetail = (
                                   )}
                                 </td>
                                 <td>
-                                  {customer?.salesPerInvoice?.toLocaleString()}
+                                {convertValue(customer?.salesPerInvoice, customerDetailsUnit)?.toLocaleString(undefined, {
+                                    maximumFractionDigits: 2,
+                                  })}
+                                  {/* {customer?.salesPerInvoice?.toLocaleString()} */}
                                 </td>
                               </tr>
                             ),
@@ -2899,8 +2929,8 @@ const gstCustomerDetail = (
 
 const gstSupplierDetail = (
   gstFilteredData,
-  customerDetailsUnit,
-  setCustomerDetailsUnit,
+  supplierDetailsUnit,
+  setSupplierDetailsUnit,
 ) => {
   return (
     <>
@@ -2913,12 +2943,15 @@ const gstSupplierDetail = (
           <div className="d-flex align-items-center">
             <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
             <select
-              onChange={(e) => setCustomerDetailsUnit(e.target.value)}
+              onChange={(e) => setSupplierDetailsUnit(e.target.value)}
               className={`${styles.selectHead} accordion_DropDown form-select`}
               aria-label="Default select example"
             >
-              <option selected value="10000000">
+              <option selected value={10000000}>
                 Crores
+              </option>
+              <option value={100000}>
+                Lakhs
               </option>
             </select>
             <span
@@ -2970,9 +3003,12 @@ const gstSupplierDetail = (
                                 <td>{customer?.name}</td>
                                 <td>{customer?.pan}</td>
                                 <td>
-                                  {(
+                                  {convertValue(customer?.ttlVal, supplierDetailsUnit)?.toLocaleString(undefined, {
+                                    maximumFractionDigits: 2,
+                                  })}
+                                  {/* {(
                                     customer?.ttlVal / customerDetailsUnit
-                                  )?.toFixed(2)}
+                                  )?.toFixed(2)} */}
                                 </td>
                                 <td>
                                   {customer?.percentageOfTotalPurchase?.toFixed(2)}
@@ -2980,7 +3016,10 @@ const gstSupplierDetail = (
                                 </td>
                                 <td>{customer?.invoice}</td>
                                 <td>
-                                  {customer?.purchasePerInvoice?.toFixed(2)}
+                                  {convertValue(customer?.purchasePerInvoice, supplierDetailsUnit)?.toLocaleString(undefined, {
+                                    maximumFractionDigits: 2,
+                                  })}
+                                  {/* {customer?.purchasePerInvoice?.toFixed(2)} */}
                                 </td>
                               </tr>
                             ),
@@ -3020,7 +3059,12 @@ const gstSupplierDetail = (
                               <tr key={index}>
                                 <td>{customer?.name}</td>
                                 <td>{customer?.pan}</td>
-                                <td>{customer?.ttlVal?.toLocaleString()}</td>
+                                <td>
+                                  {/* {customer?.ttlVal?.toLocaleString()} */}
+                                  {convertValue(customer?.ttlVal, supplierDetailsUnit)?.toLocaleString(undefined, {
+                                    maximumFractionDigits: 2,
+                                  })}
+                                </td>
                                 <td>
                                   {customer?.percentageOfTotalPurchase?.toFixed(
                                     2,
@@ -3029,7 +3073,10 @@ const gstSupplierDetail = (
                                 </td>
                                 <td>{customer?.invoice?.toLocaleString()}</td>
                                 <td>
-                                  {customer?.purchasePerInvoice?.toLocaleString()}
+                                  {convertValue(customer?.purchasePerInvoice, supplierDetailsUnit)?.toLocaleString(undefined, {
+                                    maximumFractionDigits: 2,
+                                  })}
+                                  {/* {customer?.purchasePerInvoice?.toLocaleString()} */}
                                 </td>
                               </tr>
                             ),
@@ -3069,7 +3116,13 @@ const gstSupplierDetail = (
                               <tr key={index}>
                                 <td>{customer?.name}</td>
                                 <td>{customer?.pan}</td>
-                                <td>{customer?.ttlVal?.toLocaleString()}</td>
+                                <td>
+                                  {/* {customer?.ttlVal?.toLocaleString()} */}
+                                  {convertValue(customer?.ttlVal, supplierDetailsUnit)?.toLocaleString(undefined, {
+                                    maximumFractionDigits: 2,
+                                  })}
+
+                                </td>
                                 <td>
                                   {customer?.percentageOfTotalPurchase?.toFixed(
                                     2,
@@ -3078,7 +3131,10 @@ const gstSupplierDetail = (
                                 </td>
                                 <td>{customer?.invoice}</td>
                                 <td>
-                                  {customer?.purchasePerInvoice?.toLocaleString()}
+                                  {convertValue(customer?.purchasePerInvoice, supplierDetailsUnit)?.toLocaleString(undefined, {
+                                    maximumFractionDigits: 2,
+                                  })}
+                                  {/* {customer?.purchasePerInvoice?.toLocaleString()} */}
                                 </td>
                               </tr>
                             ),
@@ -3120,12 +3176,14 @@ const gstSupplierDetail = (
                               <tr key={index}>
                                 <td>{customer?.stateName}</td>
                                 <td>{customer?.stateCode?.toLocaleString()}</td>
-                                <td>{customer?.ttlVal?.toLocaleString()}</td>
                                 <td>
-                                  {customer?.percentageOfTotalPurchase?.toLocaleString(
-                                    undefined,
-                                    { minimumFractionDigits: 2 },
-                                  )}
+                                  {/* {customer?.ttlVal?.toLocaleString()} */}
+                                  {convertValue(customer?.ttlVal, supplierDetailsUnit)?.toLocaleString(undefined, {
+                                    maximumFractionDigits: 2,
+                                  })}
+                                </td>
+                                <td>
+                                  {customer?.percentageOfTotalPurchase?.toFixed(2)}
                                   %
                                 </td>
                                 <td>
@@ -3135,7 +3193,10 @@ const gstSupplierDetail = (
                                   )}
                                 </td>
                                 <td>
-                                  {customer?.purchasePerInvoice?.toLocaleString()}
+                                  {convertValue(customer?.purchasePerInvoice, supplierDetailsUnit)?.toLocaleString(undefined, {
+                                    maximumFractionDigits: 2,
+                                  })}
+                                  {/* {customer?.purchasePerInvoice?.toLocaleString()} */}
                                 </td>
                               </tr>
                             ),
@@ -3153,7 +3214,7 @@ const gstSupplierDetail = (
   )
 }
 
-const gstSales = (head, gstFilteredData, setSalesUnit, salesUnit) => {
+const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit) => {
   return (
     <>
       <div className={`${styles.wrapper} card`}>
@@ -3165,14 +3226,14 @@ const gstSales = (head, gstFilteredData, setSalesUnit, salesUnit) => {
           <div className="d-flex align-items-center">
             <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
             <select
-            onAbort={(e)=> setSalesUnit(e.target.value)}
+              onClick={(e) => setSalesUnit(e.target.value)}
               className={`${styles.selectHead} accordion_DropDown form-select`}
               aria-label="Default select example"
             >
               <option selected value={10000000}>
                 Crores
               </option>
-              <option  value={100000}>
+              <option value={100000}>
                 Lakhs
               </option>
             </select>
@@ -3232,7 +3293,10 @@ const gstSales = (head, gstFilteredData, setSalesUnit, salesUnit) => {
                           {gstFilteredData?.detail?.salesDeatail?.revenueBreakup.map(
                             (sales, index) => (
                               <td key={index}>
-                                {sales?.totalSales?.toLocaleString()}
+                                {convertValue(sales?.totalSales, salesUnit)?.toLocaleString(undefined, {
+                                  maximumFractionDigits: 2,
+                                })}
+                                {/* {sales?.totalSales?.toLocaleString()} */}
                               </td>
                             ),
                           )}
@@ -3242,7 +3306,10 @@ const gstSales = (head, gstFilteredData, setSalesUnit, salesUnit) => {
                           {gstFilteredData?.detail?.salesDeatail?.revenueBreakup.map(
                             (sales, index) => (
                               <td key={index}>
-                                {sales?.b2bSales?.toLocaleString()}
+                                {/* {sales?.b2bSales?.toLocaleString()} */}
+                                {convertValue(sales?.b2bSales, salesUnit)?.toLocaleString(undefined, {
+                                  maximumFractionDigits: 2,
+                                })}
                               </td>
                             ),
                           )}
@@ -3252,7 +3319,10 @@ const gstSales = (head, gstFilteredData, setSalesUnit, salesUnit) => {
                           {gstFilteredData?.detail?.salesDeatail?.revenueBreakup.map(
                             (sales, index) => (
                               <td key={index}>
-                                {sales?.b2cSales?.toLocaleString()}
+                                {/* {sales?.b2cSales?.toLocaleString()} */}
+                                {convertValue(sales?.b2cSales, salesUnit)?.toLocaleString(undefined, {
+                                  maximumFractionDigits: 2,
+                                })}
                               </td>
                             ),
                           )}
@@ -3262,7 +3332,10 @@ const gstSales = (head, gstFilteredData, setSalesUnit, salesUnit) => {
                           {gstFilteredData?.detail?.salesDeatail?.revenueBreakup.map(
                             (sales, index) => (
                               <td key={index}>
-                                {sales?.exportSales?.toLocaleString()}
+                                {convertValue(sales?.exportSales, salesUnit)?.toLocaleString(undefined, {
+                                  maximumFractionDigits: 2,
+                                })}
+                                {/* {sales?.exportSales?.toLocaleString()} */}
                               </td>
                             ),
                           )}
@@ -3298,7 +3371,7 @@ const gstSales = (head, gstFilteredData, setSalesUnit, salesUnit) => {
                           (month, index) => (
                             <td key={index}>
                               {moment(month.retPeriod, 'MMYYYY').format(
-                                'MMM"YY',
+                                `MMM'YY`,
                               )}
                             </td>
                           ),
@@ -3308,13 +3381,25 @@ const gstSales = (head, gstFilteredData, setSalesUnit, salesUnit) => {
                         <tr>
                           <td>New Customers</td>
                           {gstFilteredData?.detail?.salesDeatail?.revenuePercentage.map((sales, index) => (
-                            <td key={index}>{sales?.newCustomer?.toFixed(2)}</td>
+
+                            <td key={index}>
+                              {/* {sales?.newCustomer?.toFixed(2)} */}
+                              {convertValue(sales?.newCustomer, salesUnit)?.toLocaleString(undefined, {
+                                maximumFractionDigits: 2,
+                              })}
+                            </td>
                           ))}
                         </tr>
                         <tr>
                           <td>Recurring Customers</td>
                           {gstFilteredData?.detail?.salesDeatail?.revenuePercentage.map((sales, index) => (
-                            <td key={index}>{sales?.RecurringCustomer?.toFixed(2)}</td>
+                            <td key={index}>
+                              {/* {sales?.RecurringCustomer?.toFixed(2)} */}
+                              {convertValue(sales?.RecurringCustomer, salesUnit)?.toLocaleString(undefined, {
+                                maximumFractionDigits: 2,
+                              })}
+
+                            </td>
                           ))}
                         </tr>
                       </tbody>
@@ -3338,7 +3423,7 @@ const gstSales = (head, gstFilteredData, setSalesUnit, salesUnit) => {
                           (month, index) => (
                             <td key={index}>
                               {moment(month.retPeriod, 'MMYYYY').format(
-                                'MMM"YY',
+                                `MMM'YY`,
                               )}
                             </td>
                           ),
@@ -3390,7 +3475,7 @@ const gstSales = (head, gstFilteredData, setSalesUnit, salesUnit) => {
                           (month, index) => (
                             <td key={index}>
                               {moment(month.retPeriod, 'MMYYYY').format(
-                                'MMM"YY',
+                                `MMM'YY`,
                               )}
                             </td>
                           ),
@@ -3614,7 +3699,7 @@ const gstPurchase = (head, gstFilteredData, purchasesUnit, setPurchasesUnit) => 
                           (month, index) => (
                             <td key={index}>
                               {moment(month.retPeriod, 'MMYYYY').format(
-                                'MMM"YY',
+                                `MMM'YY`,
                               )}
                             </td>
                           ),
@@ -3668,7 +3753,7 @@ const gstPurchase = (head, gstFilteredData, purchasesUnit, setPurchasesUnit) => 
                           (month, index) => (
                             <td key={index}>
                               {moment(month.retPeriod, 'MMYYYY').format(
-                                'MMM"YY',
+                                `MMM'YY`,
                               )}
                             </td>
                           ),
@@ -3720,7 +3805,7 @@ const gstPurchase = (head, gstFilteredData, purchasesUnit, setPurchasesUnit) => 
                           (month, index) => (
                             <td key={index}>
                               {moment(month.retPeriod, 'MMYYYY').format(
-                                'MMM"YY',
+                                `MMM'YY`,
                               )}
                             </td>
                           ),

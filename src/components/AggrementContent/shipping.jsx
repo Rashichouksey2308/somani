@@ -76,7 +76,7 @@ function Index(props) {
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
         <Form className={`${styles.form} border-bottom-0`}>
-          <div className="row border-bottom-0 border-color ">
+          <div className="row border-bottom-0 border_color ">
 
              <Form.Group className={`${styles.form_group} d-flex  col-md-8 col-sm-6`}>
               <Form.Control
@@ -111,7 +111,7 @@ function Index(props) {
                 }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
-              Vessel Name <strong className="text-danger">*</strong>
+              Vessel Name <strong className="text-danger"></strong>
               </Form.Label>
             </Form.Group>
               <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -126,7 +126,7 @@ function Index(props) {
                 }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
-               GSTIN <strong className="text-danger">*</strong>
+               GSTIN <strong className="text-danger"></strong>
               </Form.Label>
             </Form.Group>
 

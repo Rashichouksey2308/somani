@@ -14,6 +14,8 @@ import { useSelector } from 'react-redux'
 import _get from 'lodash/get'
 import {
   addPrefixOrSuffix,
+  checkNan,
+  CovertvaluefromtoCR,
   removePrefixOrSuffix,
 } from '../../../src/utils/helper'
 import { toast } from 'react-toastify'
@@ -597,16 +599,16 @@ const Index = () => {
                               className={`${styles.input_field} input form-control`}
                               type="text"
                               name="sumInsured"
-                              onKeyDown={(evt) =>
-                                evt.key === 'e' && evt.preventDefault()
-                              }
-                              defaultValue={addPrefixOrSuffix(
-                                quotationData.sumInsured
-                                  ? quotationData.sumInsured
-                                  : 0,
-                                'Cr',
-                                '',
-                              )}
+                              onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
+                              // defaultValue={addPrefixOrSuffix(
+                              //   quotationData.sumInsured
+                              //     ? quotationData.sumInsured
+                              //     : 0,
+                              //   'Cr',
+                              //   '',
+                              // )}
+                              defaultValue={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr', '')}
                               onChange={(e) => {
                                 saveQuotationData(e.target.name, e.target.value)
                               }}
@@ -764,7 +766,7 @@ const Index = () => {
                                   quotationData?.lossPayee,
                                 )}
                               >
-                                <option>Select an option</option>
+                                <option selected disabled>Select an option</option>
                                 {/* <option selected>
                                   {insuranceData?.quotationRequest?.lossPayee}
                                 </option> */}
@@ -863,10 +865,9 @@ const Index = () => {
                               className={`${styles.input_field} input form-control`}
                               type="number"
                               name="sumInsured"
-                              onKeyDown={(evt) =>
-                                evt.key === 'e' && evt.preventDefault()
-                              }
-                              value={quotationData.sumInsured}
+                              onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
+                              defaultValue={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr', '')}
                               onChange={(e) =>
                                 saveQuotationData(
                                   e.target.name,
@@ -932,9 +933,8 @@ const Index = () => {
                               className={`${styles.input_field} input form-control`}
                               required
                               type="number"
-                              onKeyDown={(evt) =>
-                                evt.key === 'e' && evt.preventDefault()
-                              }
+                              onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                               defaultValue={
                                 quotationData.storageDetails.periodOfInsurance
                               }

@@ -261,7 +261,7 @@ export default function Index({ isQuery }) {
     //     router.route = '/Loading, Transit & Unloading'
     //   }
     // }
-    if ('inception2' == pageName) {
+    if ('inspection2' == pageName) {
       if (order != null) {
         router.route =
           '/Loading, Transit & Unloading' +
@@ -453,7 +453,7 @@ export default function Index({ isQuery }) {
               <option value="crores" selected>
                 CRORES
               </option>
-              <option value="millions">MILLIONS</option>
+              {/* <option value="millions">MILLIONS</option> */}
               <option value="Lakh">LAKH</option>
             </select>
           </div>

@@ -39,10 +39,10 @@ function Index() {
           <p>CIN : L80902DL1983PLC209722</p>
         </div>
         <div className={`${styles.aboutLetter}`}>
-          <p>
+        <p>
             STANDARD FORM LETTER OF INDEMNITY TO BE GIVEN IN RETURN FOR
-            DELIVERING CARGO <span style={{textTransform:'none'}}> WITHOUT PRODUCTION OF THE ORIGINAL BILL(S) OF
-            LADING.</span>
+            DELIVERING CARGO WITHOUT PRODUCTION OF THE ORIGINAL BILLS OF LADING.
+             
           </p>
         </div>
         <div

@@ -17,13 +17,13 @@
         font-weight: bold;
         line-height: 41px;
         margin: 0;
-        // width: 61%;
+        width: 100%;
         max-width: 80%;
-        overflow: hidden;
+        // overflow: hidden;
         position: relative;
         padding-left: 18px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+        // white-space: nowrap;
+        // text-overflow: ellipsis;
         text-transform: lowercase;
         &:first-letter {
           text-transform: uppercase;

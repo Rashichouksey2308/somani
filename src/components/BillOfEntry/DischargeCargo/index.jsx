@@ -319,7 +319,8 @@ export default function Index({
                     type="number"
                     min={0}
                     onKeyPress={preventMinus}
-                    onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                     required
                   />
                   <label className={`${styles.label_heading} label_heading`}>

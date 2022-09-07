@@ -1475,7 +1475,7 @@ function Index(props) {
                 <img
                   src="/static/keyboard_arrow_right-3.svg"
                   alt="arrow right"
-                  className={`${styles.image_reverse} img-fluid`}
+                  className={`${styles.image_reverse} image_arrow`}
                 />
               </div>
             </>
@@ -1507,7 +1507,7 @@ function Index(props) {
                 <img
                   src="/static/keyboard_arrow_right-3.svg"
                   alt="arrow right"
-                  className={`${styles.image_reverse} img-fluid mr-2  mb-1`}
+                  className={`${styles.image_reverse} image_arrow mr-2 mb-1`}
                 />
               </a>
             ) : null}
@@ -1619,7 +1619,7 @@ function Index(props) {
               <img
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="arrow right"
-                className="img-fluid"
+                className="image_arrow"
               />
             </a>
             <a
@@ -1632,7 +1632,7 @@ function Index(props) {
               <img
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="arrow right"
-                className={`${styles.image_reverse} img-fluid`}
+                className={`${styles.image_reverse} image_arrow`}
               />
             </a>
           </div>

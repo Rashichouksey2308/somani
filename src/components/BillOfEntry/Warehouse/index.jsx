@@ -201,9 +201,8 @@ console.log(warehouseDetails,'warehouseDetails')
                           ? warehouseDetails?.wareHouseDetails?.quantity
                           : warehouseDetails?.wareHouseDetails?.quantity + ' MT'
                       }
-                      onKeyDown={(evt) =>
-                        evt.key === 'e' && evt.preventDefault()
-                      }
+                      onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Quantity<strong className="text-danger">*</strong>

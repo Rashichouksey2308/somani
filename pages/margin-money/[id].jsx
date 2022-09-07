@@ -957,9 +957,8 @@ function Index() {
                               </div>
                               <input
                                 type="number"
-                                onKeyDown={(evt) =>
-                                  evt.key === 'e' && evt.preventDefault()
-                                }
+                                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                                 id="textInput"
                                 name="conversionRate"
                                 onChange={(e) =>
@@ -1000,14 +999,14 @@ function Index() {
                                 <div
                                   className={`${styles.val} heading d-flex align-items-center`}
                                 >
-                                  {
-                                    marginData?.order?.termsheet?.commercials
-                                      ?.usanceInterestPercetage
-                                  }
-                                  %
-                                  <div className={` d-flex align-items-center`}>
+                                  <div className={`${styles.include_cal} d-flex align-items-center`}>
+                                    <span className="mr-3">{
+                                      marginData?.order?.termsheet?.commercials
+                                        ?.usanceInterestPercetage
+                                      }%
+                                    </span>
                                     <label
-                                      className={`${styles.label_heading} ${styles.subHeading} ml-3 label_heading mb-0`}
+                                      className={`${styles.label_heading} ${styles.subHeading} label_heading mb-0 mr-3`}
                                       id="textInput"
                                     >
                                       Include in Calculation
@@ -1016,7 +1015,7 @@ function Index() {
                                       {['radio'].map((type) => (
                                         <div
                                           key={`inline-${type}`}
-                                          className={`${styles.radio_group} d-flex ml-3`}
+                                          className={`${styles.radio_group} d-flex`}
                                         >
                                           <Form.Check
                                             className={`${styles.radio} radio`}
@@ -2071,6 +2070,7 @@ function Index() {
                     leftButtonName={`Save`}
                     rightButtonName={`Preview`}
                     handleApprove={routeChange}
+                    isApprove
                   />
                 </div>
 

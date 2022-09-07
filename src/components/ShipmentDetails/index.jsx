@@ -54,15 +54,17 @@ const index = ({ orderDetail, saveShipmentData }) => {
               <Form.Group className={`${styles.form_group} col-lg-4 col-md-6`}>
                 <div className="d-flex">
                   <select
+                  value={orderDetail?.shipmentDetail?.shipmentType}
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="shipmentType"
                     onChange={(e) => {
                       saveShipmentData(e.target.name, e.target.value)
                     }}
                   >
-                    <option value="volvo">
+                    {/* <option value="volvo">
                       {orderDetail?.shipmentDetail?.shipmentType}
-                    </option>
+                    </option> */}
+                    <option selected disabled>Select</option>
                     <option value="Liner">Liner</option>
                     <option value="Bulk">Bulk</option>
                   </select>

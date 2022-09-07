@@ -3,7 +3,11 @@
 import React, { useState } from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
-import { CovertvaluefromtoCR, checkNan, addPrefixOrSuffix } from '../../utils/helper'
+import {
+  CovertvaluefromtoCR,
+  checkNan,
+  addPrefixOrSuffix,
+} from '../../utils/helper'
 import { add } from 'lodash'
 
 const Index = ({
@@ -28,8 +32,7 @@ const Index = ({
   addGroupExpArr,
   saveSuggestedCreditData,
   deleteData,
-  suggestedCredit
-
+  suggestedCredit,
 }) => {
   const [editProfile, setEditProfile] = useState(false)
   const [editFinance, setEditFinance] = useState(false)
@@ -96,8 +99,10 @@ const Index = ({
     setGroupExposureData(tempArr)
   }
   const handleRemoveRowEx = (index) => {
-
-    setGroupExposureData([...groupExposureData.slice(0, index), ...groupExposureData.slice(index + 1)])
+    setGroupExposureData([
+      ...groupExposureData.slice(0, index),
+      ...groupExposureData.slice(index + 1),
+    ])
   }
 
   const setActions = (index, val) => {
@@ -138,7 +143,10 @@ const Index = ({
             <h5 className={styles.sub_heading}>Company Profile</h5>
             {companyComment &&
               companyComment.map((comment, index) => (
-                <div key={index} className={`${styles.comment_para} d-flex justify-content-between`}>
+                <div
+                  key={index}
+                  className={`${styles.comment_para} d-flex justify-content-between`}
+                >
                   <Form.Control
                     className={`${styles.comment} input`}
                     as="textarea"
@@ -149,7 +157,8 @@ const Index = ({
 
                   <div className="mr-3">
                     <img
-                      src="/static/mode_edit.svg" role="button"
+                      src="/static/mode_edit.svg"
+                      role="button"
                       className={`${styles.edit_image} d-block`}
                       alt="edit"
                       onClick={(e) => {
@@ -157,7 +166,8 @@ const Index = ({
                       }}
                     />
                     <img
-                      src="/static/delete 2.svg" role="button"
+                      src="/static/delete 2.svg"
+                      role="button"
                       className={`d-block mt-2`}
                       alt="delete"
                       onClick={(e) => {
@@ -182,15 +192,15 @@ const Index = ({
               </label>
 
               <img
-                className="img-fluid ml-4" role="button"
+                className="img-fluid ml-4"
+                role="button"
                 src="/static/add-btn.svg"
                 alt="add button"
                 onClick={() => {
                   companyComments.length > 0 &&
                     addCompanyCommentArr(companyComments)
-                  setCompanyComments("")
-                }
-                }
+                  setCompanyComments('')
+                }}
               />
             </div>
           </div>
@@ -199,7 +209,10 @@ const Index = ({
             <h5 className={styles.sub_heading}>Comments On Financials</h5>
             {financialsComment &&
               financialsComment.map((comment, index) => (
-                <div key={index} className={`${styles.comment_para} d-flex justify-content-between`}>
+                <div
+                  key={index}
+                  className={`${styles.comment_para} d-flex justify-content-between`}
+                >
                   <Form.Control
                     className={`${styles.comment} input`}
                     defaultValue={comment}
@@ -209,14 +222,16 @@ const Index = ({
                   />
                   <div className="mr-3">
                     <img
-                      src="/static/mode_edit.svg" role="button"
+                      src="/static/mode_edit.svg"
+                      role="button"
                       className={`${styles.edit_image} d-block`}
                       onClick={() => {
                         setEditFinance(!editFinance)
                       }}
                     />
                     <img
-                      src="/static/delete 2.svg" role="button"
+                      src="/static/delete 2.svg"
+                      role="button"
                       className={`d-block mt-2`}
                       alt="delete"
                       onClick={() => dltFinancialsCommentArr(index)}
@@ -239,23 +254,23 @@ const Index = ({
               </label>
 
               <img
-                className="img-fluid ml-4" role="button"
+                className="img-fluid ml-4"
+                role="button"
                 src="/static/add-btn.svg"
                 alt="add button"
                 onClick={() => {
                   financialsComments.length > 0 &&
                     addFinancialsCommentArr(financialsComments)
 
-                  setFinancialsComments("")
-                }
-                }
+                  setFinancialsComments('')
+                }}
               />
             </div>
           </div>
           <hr className={styles.line}></hr>
 
           <div className={`${styles.datatable} datatable`}>
-            <h5 className='d-flex align-items-center'>
+            <h5 className="d-flex align-items-center">
               <span>Group Exposure Details</span>
             </h5>
             <div className={styles.table_scroll_outer}>
@@ -332,14 +347,16 @@ const Index = ({
                               value={profile?.limit}
                               disabled={!profile.actions}
                               onKeyDown={(evt) => {
-                                const re = /^[0-9\b]+$/;
-                                console.log(re.test(evt.target.value), "keydone", evt.target.value)
+                                const re = /^[0-9\b]+$/
+                                console.log(
+                                  re.test(evt.target.value),
+                                  'keydone',
+                                  evt.target.value,
+                                )
                                 if (re.test(evt.target.value) == false) {
                                   // evt.preventDefault()
                                 }
-                              }
-
-                              }
+                              }}
                               onChange={(e) => {
                                 // e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0).toLocaleString('en-IN')
 
@@ -348,7 +365,6 @@ const Index = ({
                                   e.target.value.toString(),
                                   index,
                                 )
-
                               }}
                               className={`${styles.input} input`}
                               pattern="^[\d,]+$"
@@ -361,14 +377,16 @@ const Index = ({
                               value={profile?.outstandingLimit}
                               disabled={!profile.actions}
                               onKeyDown={(evt) => {
-                                const re = /^[0-9\b]+$/;
-                                console.log(re.test(evt.target.value), "keydone", evt.target.value)
+                                const re = /^[0-9\b]+$/
+                                console.log(
+                                  re.test(evt.target.value),
+                                  'keydone',
+                                  evt.target.value,
+                                )
                                 if (re.test(evt.target.value) == false) {
                                   // evt.preventDefault()
                                 }
-                              }
-
-                              }
+                              }}
                               onChange={(e) => {
                                 // e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0).toLocaleString('en-IN')
 
@@ -377,7 +395,6 @@ const Index = ({
                                   e.target.value.toString(),
                                   index,
                                 )
-
                               }}
                               className={`${styles.input} input`}
                             />
@@ -411,7 +428,8 @@ const Index = ({
                             <div>
                               {!profile.actions ? (
                                 <img
-                                  src="/static/mode_edit.svg" role="button"
+                                  src="/static/mode_edit.svg"
+                                  role="button"
                                   className={`${styles.edit_image} mr-3`}
                                   onClick={() => {
                                     setActions(index, true)
@@ -419,7 +437,8 @@ const Index = ({
                                 />
                               ) : (
                                 <img
-                                  src="/static/save-3.svg" role="button"
+                                  src="/static/save-3.svg"
+                                  role="button"
                                   className={`${styles.edit_image} mr-3`}
                                   alt="save"
                                   onClick={(e) => {
@@ -428,7 +447,8 @@ const Index = ({
                                 />
                               )}
                               <img
-                                src="/static/delete 2.svg" role="button"
+                                src="/static/delete 2.svg"
+                                role="button"
                                 className={`${styles.delete_image}`}
                                 onClick={() => {
                                   handleRemoveRowEx(index)
@@ -444,9 +464,10 @@ const Index = ({
               </div>
             </div>
             <div
-              className={`${styles.add_image} p-3 d-flex justify-content-end`}
+              className={`${styles.add_image} d-flex justify-content-end`}
             >
-              <div role="button"
+              <div
+                role="button"
                 onClick={(e) => {
                   //  onExpSave(exposureData)
                   addMoreExpRows()
@@ -477,15 +498,15 @@ const Index = ({
                 </label>
 
                 <img
-                  className="img-fluid ml-4" role="button"
+                  className="img-fluid ml-4"
+                  role="button"
                   src="/static/add-btn.svg"
                   alt="add button"
                   onClick={() => {
                     strengthsComments.length > 0 &&
                       addStrengthsCommentArr(strengthsComments)
-                    setStrengthsComments("")
-                  }
-                  }
+                    setStrengthsComments('')
+                  }}
                 />
               </div>
               {/* <div className={`${styles.strength} value`}>Strengths</div> */}
@@ -504,7 +525,8 @@ const Index = ({
                     />
                     <div className="mt-3">
                       <img
-                        src="/static/mode_edit.svg" role="button"
+                        src="/static/mode_edit.svg"
+                        role="button"
                         className={`${styles.edit_image} mr-4`}
                         alt="edit"
                         onClick={(e) => {
@@ -512,7 +534,8 @@ const Index = ({
                         }}
                       />
                       <img
-                        src="/static/delete 2.svg" role="button"
+                        src="/static/delete 2.svg"
+                        role="button"
                         alt="delete"
                         onClick={() => dltStrengthsCommentArr(index)}
                       />
@@ -561,15 +584,15 @@ const Index = ({
                 </label>
 
                 <img
-                  className="img-fluid ml-4" role="button"
+                  className="img-fluid ml-4"
+                  role="button"
                   src="/static/add-btn.svg"
                   alt="add button"
                   onClick={() => {
                     weaknessComments.length > 0 &&
                       addWeaknessCommentArr(weaknessComments)
-                    setWeaknessComments("")
-                  }
-                  }
+                    setWeaknessComments('')
+                  }}
                 />
               </div>
               {/* <div className={`${styles.strength} value`}>Weakness</div> */}
@@ -588,7 +611,8 @@ const Index = ({
                     />
                     <div className="mt-3">
                       <img
-                        src="/static/mode_edit.svg" role="button"
+                        src="/static/mode_edit.svg"
+                        role="button"
                         className={`${styles.edit_image} mr-4`}
                         alt="edit"
                         onClick={(e) => {
@@ -596,7 +620,8 @@ const Index = ({
                         }}
                       />
                       <img
-                        src="/static/delete 2.svg" role="button"
+                        src="/static/delete 2.svg"
+                        role="button"
                         alt="delete"
                         onClick={(e) => {
                           dltWeaknessCommentArr(index)
@@ -642,18 +667,38 @@ const Index = ({
               >
                 <div className={styles.limit}>
                   Total Limit:{' '}
-                  <span>{(creditDetail?.company?.creditLimit?.totalLimit ?? '')?.toLocaleString()}</span>
+                  <span>
+                    {checkNan(
+                      CovertvaluefromtoCR(
+                        creditDetail?.company?.creditLimit?.totalLimit ?? '',
+                      ),
+                    )?.toLocaleString()}
+                  </span>
                 </div>
                 <div className={styles.limit}>
                   Utilised Limit:{' '}
                   <span>
-                    {(creditDetail?.company?.creditLimit?.utilizedLimit ?? '')?.toLocaleString()}
+                    <span>
+                      {checkNan(
+                        CovertvaluefromtoCR(
+                          creditDetail?.company?.creditLimit?.utilizedLimt ??
+                            '',
+                        ),
+                      )?.toLocaleString()}
+                    </span>
                   </span>
                 </div>
                 <div className={styles.limit}>
                   Available Limit:{' '}
                   <span>
-                    {(creditDetail?.company?.creditLimit?.availableLimit ?? '')?.toLocaleString()}
+                    <span>
+                      {checkNan(
+                        CovertvaluefromtoCR(
+                          creditDetail?.company?.creditLimit?.availableLimit ??
+                            '',
+                        ),
+                      )?.toLocaleString()}
+                    </span>
                   </span>
                 </div>
               </div>
@@ -675,7 +720,13 @@ const Index = ({
                   </tr>
                   <tr>
                     <td>Limit Value</td>
-                    <td>{(creditDetail?.company?.creditLimit?.availableLimit ?? '')?.toLocaleString()?.toLocaleString("en-In")}</td>
+                    <td>
+                      {(
+                        creditDetail?.company?.creditLimit?.availableLimit ?? ''
+                      )
+                        ?.toLocaleString()
+                        ?.toLocaleString('en-In')}
+                    </td>
                     <td>-</td>
 
                     {filteredCreditRating ? (
@@ -684,9 +735,14 @@ const Index = ({
                         {filteredCreditRating &&
                           filteredCreditRating.length > 0 &&
                           filteredCreditRating.map((val, index) => (
-                            <td key={index}>{(val.derived.value ?? '')?.toLocaleString(undefined, {
-                              minimumFractionDigits: 2,
-                            })}</td>
+                            <td key={index}>
+                              {(val.derived.value ?? '')?.toLocaleString(
+                                undefined,
+                                {
+                                  minimumFractionDigits: 2,
+                                },
+                              )}
+                            </td>
                           ))}{' '}
                       </>
                     ) : (
@@ -698,14 +754,14 @@ const Index = ({
                         className={`${styles.text} input`}
                         type="text"
                         name="suggestedCreditLimit"
-                        value={(addPrefixOrSuffix(suggestedCredit?.suggestedCreditLimit, " "))?.toLocaleString(undefined, {
+                        value={addPrefixOrSuffix(
+                          suggestedCredit?.suggestedCreditLimit,
+                          ' ',
+                        )?.toLocaleString(undefined, {
                           minimumFractionDigits: 2,
                         })}
                         onChange={(e) => {
-                          saveSuggestedCreditData(
-                            e.target.name,
-                            e.target.value,
-                          )
+                          saveSuggestedCreditData(e.target.name, e.target.value)
                         }}
                       ></input>
                     </td>
@@ -714,10 +770,13 @@ const Index = ({
                     <td>Order Value</td>
                     <td>-</td>
                     <td>
-
-                      {((creditDetail?.orderValue) ?? '')?.toLocaleString(undefined, {
-                                minimumFractionDigits: 2,
-                              })}</td>
+                       { checkNan(CovertvaluefromtoCR(creditDetail?.orderValue ?? ''))?.toLocaleString(
+                        undefined,
+                        {
+                          minimumFractionDigits: 2,
+                        },
+                      )}
+                    </td>
 
                     <td>-</td>
 
@@ -725,17 +784,21 @@ const Index = ({
                       <input
                         className={`${styles.text} input`}
                         type="text"
-                        onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                        onKeyDown={(evt) =>
+                          evt.key === 'e' && evt.preventDefault()
+                        }
                         name="suggestedOrderValue"
-                        value={(addPrefixOrSuffix(suggestedCredit?.suggestedOrderValue, " ") ??'')?.toLocaleString(undefined, {
+                        value={(
+                          addPrefixOrSuffix(
+                            suggestedCredit?.suggestedOrderValue,
+                            '',
+                          ) ?? ''
+                        )?.toLocaleString(undefined, {
                           minimumFractionDigits: 2,
                         })}
                         // defaultValue={creditDetail?.suggestedOrderValue}
                         onChange={(e) => {
-                          saveSuggestedCreditData(
-                            e.target.name,
-                            e.target.value,
-                          )
+                          saveSuggestedCreditData(e.target.name, e.target.value)
                         }}
                       ></input>
                     </td>
@@ -758,15 +821,15 @@ const Index = ({
                 </label>
 
                 <img
-                  className="img-fluid ml-4" role="button"
+                  className="img-fluid ml-4"
+                  role="button"
                   src="/static/add-btn.svg"
                   alt="add button"
                   onClick={() => {
                     sanctionComments.length > 0 &&
                       addSanctionCommentArr(sanctionComments)
-                    setSanctionComments("")
-                  }
-                  }
+                    setSanctionComments('')
+                  }}
                 />
               </div>
               {/* <div className={`${styles.strength} value`}>Weakness</div> */}
@@ -785,7 +848,8 @@ const Index = ({
                     />
                     <div className="mt-3">
                       <img
-                        src="/static/mode_edit.svg" role="button"
+                        src="/static/mode_edit.svg"
+                        role="button"
                         className={`${styles.edit_image} mr-4`}
                         alt="edit"
                         onClick={(e) => {
@@ -793,7 +857,8 @@ const Index = ({
                         }}
                       />
                       <img
-                        src="/static/delete 2.svg" role="button"
+                        src="/static/delete 2.svg"
+                        role="button"
                         alt="delete"
                         onClick={(e) => {
                           dltSanctionCommentArr(index)

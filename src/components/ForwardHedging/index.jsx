@@ -261,13 +261,15 @@ export default function Index() {
       <div className={`${styles.backgroundMain} p-0 container-fluid`}>
         <div className={styles.main_page}>
           <div className={`${styles.head_header} align-items-center`}>
+            <div  onClick={() => Router.push('/forward-table')}>
             <img
               className={`${styles.arrow} image_arrow mr-2 img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
-              onClick={() => Router.push('/forward-table')}
+             
 
             />
+            </div>
             <h1 className={`${styles.heading}`}>
               {hedgingData?.company?.companyName}{' '}
             </h1>
@@ -371,9 +373,8 @@ export default function Index() {
                             type="number"
                             name="bookedRate"
                             value={item.bookedRate}
-                            onKeyDown={(evt) =>
-                              evt.key === 'e' && evt.preventDefault()
-                            }
+                            onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
 
                             onChange={(e) =>
                               saveHedgingData(
@@ -399,9 +400,7 @@ export default function Index() {
                             name="bookedAmount"
                             value={item.bookedAmount}
 
-                            onKeyDown={(evt) =>
-                              evt.key === 'e' && evt.preventDefault()
-                            }
+                            onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                             onChange={(e) =>
                               saveHedgingData(
                                 e.target.name,
@@ -485,9 +484,8 @@ export default function Index() {
                               required
                               name="closingRate"
                               value={item?.closingRate}
-                              onKeyDown={(evt) =>
-                                evt.key === 'e' && evt.preventDefault()
-                              }
+                              onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                               onChange={(e) =>
                                 saveHedgingData(
                                   e.target.name,

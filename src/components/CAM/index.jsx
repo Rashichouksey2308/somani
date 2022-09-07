@@ -25,7 +25,7 @@ import { ViewDocument } from 'redux/ViewDoc/action'
 import { toast } from 'react-toastify'
 import _get from 'lodash/get'
 
-import { CovertvaluefromtoCR, checkNan } from '../../utils/helper'
+import { CovertvaluefromtoCR, checkNan, convertValue, addPrefixOrSuffix } from '../../utils/helper'
 
 Chart.register(
   ArcElement,
@@ -2395,20 +2395,20 @@ const financeDetails = (
                   <tr>
                     <td>Net Worth</td>
                     <td>
-                      {_get(
+                      {convertValue(_get(
                         companyData,
                         'financial.balanceSheet[0].equityLiabilities.totalEquity',
                         '',
-                      )?.toLocaleString(undefined, {
+                      )).toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                       })}
                     </td>
                     <td>
-                      {_get(
+                      {convertValue(_get(
                         companyData,
                         'financial.balanceSheet[1].equityLiabilities.totalEquity',
                         '',
-                      )?.toLocaleString(undefined, {
+                      )).toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                       })}
                     </td>
@@ -2416,7 +2416,7 @@ const financeDetails = (
                   <tr>
                     <td>Total Borrowings</td>
                     <td>
-                      {Number(
+                      {convertValue(Number(
                         _get(
                           companyData,
                           'financial.balanceSheet[0].equityLiabilities.borrowingsCurrent',
@@ -2427,12 +2427,12 @@ const financeDetails = (
                             'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent',
                             '',
                           ),
-                      )?.toLocaleString(undefined, {
+                      ))?.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                       })}
                     </td>
                     <td>
-                      {Number(
+                      {convertValue(Number(
                         _get(
                           companyData,
                           'financial.balanceSheet[1].equityLiabilities.borrowingsCurrent',
@@ -2443,7 +2443,7 @@ const financeDetails = (
                             'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent',
                             '',
                           ),
-                      )?.toLocaleString(undefined, {
+                      ))?.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                       })}
                     </td>
@@ -2451,7 +2451,7 @@ const financeDetails = (
                   <tr>
                     <td>Creditors</td>
                     <td>
-                      {Number(
+                      {convertValue(Number(
                         _get(
                           companyData,
                           'financial.balanceSheet[0].equityLiabilities.tradePay',
@@ -2462,12 +2462,12 @@ const financeDetails = (
                             'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
                             '',
                           ),
-                      )?.toLocaleString(undefined, {
+                      ))?.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                       })}
                     </td>
                     <td>
-                      {Number(
+                      {convertValue(Number(
                         _get(
                           companyData,
                           'financial.balanceSheet[1].equityLiabilities.tradePay',
@@ -2478,7 +2478,7 @@ const financeDetails = (
                             'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
                             '',
                           ),
-                      )?.toLocaleString(undefined, {
+                      ))?.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                       })}
                     </td>
@@ -2486,20 +2486,20 @@ const financeDetails = (
                   <tr>
                     <td>Other Current Liabilities</td>
                     <td>
-                      {_get(
+                      {convertValue(_get(
                         companyData,
                         'financial.balanceSheet[0].equityLiabilities.otherCurrentLiabilities',
                         '',
-                      )?.toLocaleString(undefined, {
+                      ))?.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                       })}
                     </td>
                     <td>
-                      {_get(
+                      {convertValue(_get(
                         companyData,
                         'financial.balanceSheet[1].equityLiabilities.otherCurrentLiabilities',
                         '',
-                      )?.toLocaleString(undefined, {
+                      ))?.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                       })}
                     </td>
@@ -2626,20 +2626,20 @@ const financeDetails = (
                   <tr>
                     <td>Cash from Operations</td>
                     <td>
-                      {_get(
+                      {convertValue(_get(
                         companyData,
                         'financial.cashFlowStatement[0].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
                         '',
-                      )?.toLocaleString(undefined, {
+                      ))?.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                       })}
                     </td>
                     <td>
-                      {_get(
+                      {convertValue(_get(
                         companyData,
                         'financial.cashFlowStatement[1].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
                         '',
-                      )?.toLocaleString(undefined, {
+                      ))?.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                       })}
                     </td>
@@ -2647,20 +2647,20 @@ const financeDetails = (
                   <tr>
                     <td>Cash from Financing</td>
                     <td>
-                      {_get(
+                      {convertValue(_get(
                         companyData,
                         'financial.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
                         '',
-                      )?.toLocaleString(undefined, {
+                      ))?.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                       })}
                     </td>
                     <td>
-                      {_get(
+                      {convertValue(_get(
                         companyData,
                         'financial.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
                         '',
-                      )?.toLocaleString(undefined, {
+                      ))?.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                       })}
                     </td>
@@ -2668,20 +2668,20 @@ const financeDetails = (
                   <tr>
                     <td>Cash from Investing</td>
                     <td>
-                      {_get(
+                      {convertValue(_get(
                         companyData,
                         'financial.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
                         '',
-                      )?.toLocaleString(undefined, {
+                      ))?.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                       })}
                     </td>
                     <td>
-                      {_get(
+                      {convertValue(_get(
                         companyData,
                         'financial.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
                         '',
-                      )?.toLocaleString(undefined, {
+                      ))?.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                       })}
                     </td>
@@ -3058,7 +3058,7 @@ const sectionTerms = (
               <span className={`${styles.lightCompliance} accordion_Text mr-2`}>
                 Total Limit:
               </span>
-              {camData?.company?.creditLimit?.totalLimit}
+              {addPrefixOrSuffix(convertValue(camData?.company?.creditLimit?.totalLimit), 'Cr', '')}
             </span>
             <span
               className={`${styles.complaintExtra} text-color d-flex align-items-center justify-content-between`}
@@ -3120,7 +3120,11 @@ const sectionTerms = (
                         {filteredCreditRating &&
                           filteredCreditRating.length > 0 &&
                           filteredCreditRating.map((val, index) => (
-                            <td key={index}>{val?.derived?.value}</td>
+                            <td key={index}>
+                             {checkNan(
+                                CovertvaluefromtoCR(val?.derived?.value),
+                              )}{' '}
+                              </td>
                           ))}{' '}
                       </>
                     ) : (
@@ -3136,7 +3140,7 @@ const sectionTerms = (
                               {checkNan(
                                 CovertvaluefromtoCR(val?.suggested?.value),
                               )}{' '}
-                              Cr
+                              
                             </td>
                           ))}{' '}
                       </>
@@ -3153,9 +3157,8 @@ const sectionTerms = (
                         type="number"
                         defaultValue={camData?.cam?.approvedCreditValue}
                         name="approvedCreditValue"
-                        onKeyDown={(evt) =>
-                          evt.key === 'e' && evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                         onChange={(e) => {
                           onApprove(
                             e.target.name,
@@ -3168,13 +3171,13 @@ const sectionTerms = (
                   <tr>
                     <td>Order Value</td>
                     <td>-</td>
-                    <td>{camData?.orderValue}</td>
+                    <td>{checkNan(CovertvaluefromtoCR(camData?.orderValue))}</td>
                     <td>-</td>
                     <td>
                       {checkNan(
                         CovertvaluefromtoCR(camData?.suggestedOrderValue),
                       )}{' '}
-                      Cr
+                      
                       {/* {camData?.suggestedOrderValue} */}
                     </td>
                     <td>
@@ -3184,9 +3187,8 @@ const sectionTerms = (
                       <input
                         className={`${styles.text} input`}
                         type="number"
-                        onKeyDown={(evt) =>
-                          evt.key === 'e' && evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                         name="approvedOrderValue"
                         defaultValue={camData?.cam?.approvedOrderValue}
                         onChange={(e) => {

@@ -151,7 +151,7 @@ const Index = ({
             </div>
           </div>
           <div className={styles.radio_form}>
-            <div className={`${styles.sub_heading} sub_heading`}>
+            <div className={`${styles.sub_heading} label_heading`}>
               Transaction Type <strong className="text-danger">*</strong>
             </div>
             {['radio'].map((type, index) => (
@@ -389,7 +389,7 @@ const Index = ({
                 className={`${styles.turnover_input} d-flex align-items-center justify-content-start`}
               >
                 <div
-                  className={`${styles.sub_heading} sub_heading label-heading`}
+                  className={`${styles.sub_heading} label_heading label-heading`}
                 >
                   Turn Over (in Crores)
                   <strong className="text-danger">*</strong>
@@ -397,7 +397,7 @@ const Index = ({
                 <input
                   className={`${styles.input_container} form-control input`}
                   type="text"
-                  onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                   value={sliderWithCr || slider}
                   onFocus={(e) => {
                     e.target.type === 'number',
@@ -429,7 +429,7 @@ const Index = ({
               style={{ marginTop: -1 }}
             >
               <div className={styles.radio_form} style={{ paddingLeft: 10 }}>
-                <div className={`${styles.sub_heading} sub_heading`}>
+                <div className={`${styles.sub_heading} label_heading`}>
                   Communication Mode<strong className="text-danger">*</strong>
                 </div>
                 <Form selected="">

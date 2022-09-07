@@ -122,13 +122,13 @@
                 position: absolute;
                 transform: translateY(-50%);
             }
-            @include respond(sm-desktop) {
-                font-size: 16px;
-            }
-            @include respond(phone) {
-                font-size: 14px;
-                //top: 20px;
-            }
+            // @include respond(sm-desktop) {
+            //     font-size: 16px;
+            // }
+            // @include respond(phone) {
+            //     font-size: 14px;
+            //     //top: 20px;
+            // }
         }
         .comment_field {
             height: 106px;
@@ -206,13 +206,13 @@
                 position: absolute;
                 transform: translateY(-50%);
             }
-            @include respond(sm-desktop) {
-                font-size: 16px;
-            }
-            @include respond(phone) {
-                font-size: 14px;
-                //top: 20px;
-            }
+            // @include respond(sm-desktop) {
+            //     font-size: 16px;
+            // }
+            // @include respond(phone) {
+            //     font-size: 14px;
+            //     //top: 20px;
+            // }
         }
         .input_field {
             width: 306px;
@@ -235,13 +235,13 @@
                     transform: translateY(-30px);
                 }
             }
-            @include respond(md-desktop) {
-                font-size: 18px;
-            }
-            @include respond(sm-desktop) {
-                font-size: 16px;
-                height: 55px;
-            }
+            // @include respond(md-desktop) {
+            //     font-size: 18px;
+            // }
+            // @include respond(sm-desktop) {
+            //     font-size: 16px;
+            //     height: 55px;
+            // }
         }
     }
     .datatable {
@@ -280,6 +280,12 @@
                                 padding-left: 15px;
                             }
                         }
+                        &:last-child {
+                            padding-right: 35px;
+                            @include respond(md-desktop) {
+                                padding-right: 15px;
+                            }
+                        }
                         @include respond(md-desktop) {
                             font-size: 14px;
                             line-height: 1.2;
@@ -304,6 +310,12 @@
                                 padding-left: 35px;
                                 @include respond(md-desktop) {
                                     padding-left: 15px;
+                                }
+                            }
+                            &:last-child {
+                                padding-right: 35px;
+                                @include respond(md-desktop) {
+                                    padding-right: 15px;
                                 }
                             }
                             @include respond(md-desktop) {
@@ -360,6 +372,7 @@
             line-height: 23px;
             font-weight: bold;
             color: #3687E8;
+            padding: 15px 35px;
             span {
                 font-size: 24px;
                 line-height: 0.7;

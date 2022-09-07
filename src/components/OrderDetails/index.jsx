@@ -40,11 +40,11 @@ const Index = ({ saveOrderData, darkMode,orderDetails }) => {
               >
                 Commodity<strong className="text-danger">*</strong>
               </label>
-              <img
+              {/* <img
                 className={`${styles.search_image} img-fluid`}
                 src="/static/search-grey.svg"
                 alt="Search"
-              />
+              /> */}
             </div>
           </div>
           <div
@@ -228,7 +228,7 @@ const Index = ({ saveOrderData, darkMode,orderDetails }) => {
           </div>
 
           <div className={`${styles.radio_form} col-md-12`}>
-            <div className={`${styles.sub_heading} sub_heading`}>
+            <div className={`${styles.sub_heading} label_heading`}>
               INCO Terms<strong className="text-danger">*</strong>
             </div>
             <Form>

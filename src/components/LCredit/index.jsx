@@ -348,7 +348,7 @@ function Index() {
             </div>
             <div
               id="lcApplication"
-              className="collapse"
+             // className="collapse"
               aria-labelledby="lcApplication"
               data-parent="#lcApplication"
             >

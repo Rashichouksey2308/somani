@@ -110,10 +110,14 @@
       // background: #FFFFFF;
       border: 2px solid #cad6e6;
       border-radius: 9px;
+      width: 49%;
       max-width: 100%;
       min-width: 49%;
       min-height: 170px;
       max-height: 170px;
+      @include respond(phone) {
+        width: 100%;
+      }
       span {
         color: #3687e8;
       }

@@ -75,7 +75,7 @@ const Index = ({
         aria-labelledby="termDetails"
         data-parent="#termDetails"
       >
-        <div className={`${styles.dashboard_form} card-body`}>
+        <div className={`${styles.dashboard_form} card-body rounded-0`}>
           <h3 className={`${styles.sub_heading}`}>Commodity details</h3>
 
           <div className="row">
@@ -163,6 +163,8 @@ const Index = ({
               <input
                 id="quantity"
                 className={`${styles.value} input form-control`}
+                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                 //  value={termsheetDetails?.commodityDetails?.quantity}
                 value={addPrefixOrSuffix(
                   termsheetDetails?.commodityDetails?.quantity,
@@ -186,6 +188,8 @@ const Index = ({
               <input
                 id="perUnitPrice"
                 className={`${styles.value} ${styles.inrValue} input form-control`}
+              
+
                 value={addPrefixOrSuffix(
                   termsheetDetails?.commodityDetails?.perUnitPrice == undefined
                     ? 0
@@ -195,9 +199,7 @@ const Index = ({
                 )}
                 onChange={onChangeCommodityDetails}
                 type="text"
-                onKeyDown={(evt) => {
-                  return /^-?\d*$/.test(evt.target.value)
-                }}
+               
                 required
               />
 
@@ -215,6 +217,8 @@ const Index = ({
                   value={
                     addPrefixOrSuffix(termsheetDetails?.commodityDetails?.tolerance,"%")
                   }
+                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                   className={`${styles.value} ${styles.customSelect} input form-control`}
                   onChange={onChangeCommodityDetails}
                   required
@@ -235,7 +239,7 @@ const Index = ({
             </div>
           </div>
         </div>
-        <div className={`${styles.dashboard_form} card-body`}>
+        <div className={`${styles.dashboard_form} card-body rounded-0`}>
           <h3 className={styles.sub_heading}>Transaction Details</h3>
 
           <div className="row">
@@ -248,6 +252,8 @@ const Index = ({
                   termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase(),
                   'front',
                 )}
+                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                 className={`${styles.value} input form-control`}
                 onChange={onChangeTransactionDetails}
                 required
@@ -271,6 +277,8 @@ const Index = ({
                   '%',
                   '',
                 )}
+                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                 onChange={onChangeTransactionDetails}
                 required
               />
@@ -597,7 +605,7 @@ const Index = ({
             </div>
           </div>
         </div>
-        <div className={`${styles.dashboard_form} card-body`}>
+        <div className={`${styles.dashboard_form} card-body rounded-0`}>
           <h3 className={styles.sub_heading}>Deliveries/Due date/Payment</h3>
 
           <div className="row">
@@ -634,7 +642,7 @@ const Index = ({
               <input
                 id="daysFromBlDate"
                 className={`${styles.value} input form-control`}
-                onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                 type="number"
                 value={termsheetDetails?.paymentDueDate?.daysFromBlDate}
                 onChange={onChangePaymentDueDate}
@@ -656,7 +664,7 @@ const Index = ({
                 id="daysFromVesselDischargeDate"
                 className={`${styles.value} input form-control`}
                 type="number"
-                onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                 value={
                   termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate
                 }
@@ -677,7 +685,7 @@ const Index = ({
             </div>
           </div>
         </div>
-        <div className={`${styles.dashboard_form} card-body`}>
+        <div className={`${styles.dashboard_form} card-body rounded-0`}>
           <h3 className={styles.sub_heading}>Commercial Terms</h3>
           <div className="row">
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -692,6 +700,8 @@ const Index = ({
                   '%',
                   '',
                 )}
+                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                 // defaultValue={termsheetDetails.commercials?.tradeMarginPercentage}
                 onChange={onChangeCommercialTerms}
                 required
@@ -706,7 +716,7 @@ const Index = ({
                 id="lcOpeningChargesUnit"
                 className={`${styles.value} input form-control`}
                 type="text"
-                onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                 value={addPrefixOrSuffix(
                   termsheetDetails?.commercials?.lcOpeningChargesUnit
                     ? termsheetDetails?.commercials?.lcOpeningChargesUnit
@@ -714,6 +724,8 @@ const Index = ({
                   'USD',
                   'front',
                 )}
+               
+
                 onChange={onChangeCommercialTerms}
                 required
               />
@@ -734,6 +746,8 @@ const Index = ({
                   '%',
                   '',
                 )}
+                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                 // defaultValue={termsheetDetails?.commercials?.lcOpeningChargesPercentage}
                 onChange={onChangeCommercialTerms}
                 required
@@ -755,6 +769,8 @@ const Index = ({
                   '%',
                   '',
                 )}
+                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                 onChange={onChangeCommercialTerms}
                 required
               />
@@ -776,6 +792,8 @@ const Index = ({
                   '%',
                   '',
                 )}
+                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                 // defaultValue={termsheetDetails?.commercials?.overDueInterestPerMonth}
                 onChange={onChangeCommercialTerms}
                 required
