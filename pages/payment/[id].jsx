@@ -31,7 +31,7 @@ function Index() {
 
   const { allLiftingData } = useSelector((state) => state.Lifting)
   const { ReleaseOrderData } = useSelector((state) => state.Release)
-  console.log(ReleaseOrderData, 'ReleaseOrderDataMain')
+  console.log(allLiftingData, 'allLiftingData')
   const [darkMode, setDarkMode] = useState(false)
   const [releaseDetail, setReleaseDetail] = useState([
     {
@@ -52,18 +52,48 @@ function Index() {
   }, [ReleaseOrderData])
 
     useEffect(() => {
-     
-      if (_get(allLiftingData, 'data', []).length > 0) {
         let temp=[];
-       console.log( _get(allLiftingData, 'data', ''),"asdasd")
-      }
+      if (_get(allLiftingData, 'data[0].liftingOrders', []).length > 0) {
+     
+        
 
-  
+  _get(allLiftingData, 'data[0].liftingOrders', []).map((val,index)=>{
+    temp.push(
+      {
+        deliveryOrder:val.deliveryOrder,
+                detail:[
+                
+            ]
+        }
+      )
+    
+    if(val.deliveryOrderDetail.length > 0){
+        
+        val.deliveryOrderDetail.forEach((val2,index2)=>{
+
+          temp[index].detail.push(
+                {
+                dateOfLifting: val2.dateOfLifting ||null,
+                liftingQuant: val2.liftingQuantity,
+                modeOfTransportation:val2.modeOfTransport,
+                eWayBill: val2.ewayBillNo,
+                LRorRRDoc: val2.LRDocument||val2.RRDocument||{},
+                eWayBillDoc: val2.ewayBillDocument|| {},
+                }
+          )
+
+      })
+    }
+  })
+
+  }
+  console.log(temp,"temppppp")
+    setLifting([...temp])
 
   }, [allLiftingData])
 
 
- 
+ console.log(_get(allLiftingData, 'data[0].liftingOrders', []),"deliveryOrder=val.deliveryOrder")
 
 
 
@@ -79,10 +109,10 @@ const getOrderData =async()=>{
     
 }
 useEffect(() => {
-  let id = sessionStorage.getItem('ROrderID')
+  
 
-  if( _get(ReleaseOrderData, 'data[0].order.lifting', '')!==""){
-   dispatch(GetAllLifting(`?deliveryId=${id}`))
+  if( _get(ReleaseOrderData, 'data[0].order.lifting', '')!==''){
+   dispatch(GetAllLifting(`?liftingId=${_get(ReleaseOrderData, 'data[0].order.lifting', '')}`))
   }
   
 },[ReleaseOrderData])
@@ -126,7 +156,7 @@ useEffect(() => {
     setLifting([...tempArr])
   }
   const handleChange = (name, value, index, index2) => {
-    console.log(name, value, index, index2, 'date')
+    console.log(index, index2, 'date')
     let tempArr = lifting
     tempArr.forEach((val, i) => {
       if (i == index) {
