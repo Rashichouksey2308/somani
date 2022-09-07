@@ -16,6 +16,8 @@ import moment from 'moment'
 import jsPDF from 'jspdf'
 import ReactDOMServer from 'react-dom/server'
 
+
+
 import _get from 'lodash/get'
 
 function Index() {
@@ -305,6 +307,7 @@ function Index() {
         <div className={styles.head_container}>
           <div className={styles.head_header}>
             <img
+            onClick={()=> Router.push('/termsheet/12')}
               className={`${styles.arrow} image_arrow mr-2 img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="Arrow"
