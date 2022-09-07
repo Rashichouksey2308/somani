@@ -717,7 +717,11 @@ export default function Index({
                               className={`${styles.label_heading} label_heading`}
                             >
                               Vessel Name
-                              <strong className="text-danger">*</strong>
+                              {shipmentTypeBulk ? (
+                                <strong className="text-danger">*</strong>
+                              ) : (
+                                ''
+                              )}
                             </label>
                             <img
                               className={`${styles.arrow} image_arrow img-fluid`}
@@ -728,9 +732,15 @@ export default function Index({
                         </div>
                         <div
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                          style={{ marginTop: '31px' }}
                         >
                           <p className={` label_heading`}>
-                            IMO Number<strong className="text-danger">*</strong>
+                            IMO Number
+                            {shipmentTypeBulk ? (
+                              <strong className="text-danger">*</strong>
+                            ) : (
+                              ''
+                            )}
                           </p>
                           <span>{bol?.imoNumber}</span>
                         </div>
@@ -789,6 +799,7 @@ export default function Index({
                               className={`${styles.label_heading} label_heading`}
                             >
                               BL Date
+                              <strong className="text-danger">*</strong>
                             </label>
                           </div>
                         </div>
@@ -909,8 +920,7 @@ export default function Index({
                             <strong className="text-danger">*</strong>
                           </h5>
                           <div className="row mt-n4">
-                            {bol?.containerDetails?.containerDoc ===
-                            null ? null : (
+                            {bol?.containerDetails?.containerDoc === null ? (
                               <div
                                 className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                               >
@@ -937,7 +947,7 @@ export default function Index({
                                   <strong className="text-danger">*</strong>
                                 </label>
                               </div>
-                            )}
+                            ) : null}
                             <div
                               className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                             >
@@ -968,7 +978,9 @@ export default function Index({
                             >
                               {bol?.containerDetails?.containerDoc == null ? (
                                 <>
-                                  <div className={styles.uploadBtnWrapper}>
+                                  <div
+                                    className={`${styles.uploadBtnWrapper} d-flex`}
+                                  >
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
                                         name={`containerDoc`}
