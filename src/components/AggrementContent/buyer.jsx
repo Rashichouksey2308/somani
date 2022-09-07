@@ -692,9 +692,8 @@ console.log(addressList,"addressList")
                 required
                 type="number"
                 name="pinCode"
-                onKeyDown={(evt) =>
-                  evt.key === 'e' && evt.preventDefault()
-                }
+                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                 value={newAddress.pinCode}
                 onChange={(e) => {
                   setAddress(e.target.name,e.target.value)
@@ -763,9 +762,8 @@ console.log(addressList,"addressList")
                 required
                 type="number"
                 name="pinCode"
-                onKeyDown={(evt) =>
-                  evt.key === 'e' && evt.preventDefault()
-                }
+                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                 value={newAddress.pinCode}
                 onChange={(e) => {
                   setAddress(e.target.name,e.target.value)
