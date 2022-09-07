@@ -442,7 +442,7 @@ export default function Index({
                   </div>
                   <span className={styles.value}>
                     {_get(TransitDetails, 'data[0].order.quantity', '')}{' '}
-                    {_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}{' '}
+                    {_get(TransitDetails, 'data[0].order.unitOfQuantity', '')?.toUpperCase()}{' '}
                   </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
@@ -608,6 +608,7 @@ export default function Index({
                 </div>
                 <div className={`${styles.dashboard_form} card-body`}>
                   <div className="row">
+                  
                     <div
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                     >
@@ -655,6 +656,7 @@ export default function Index({
                         />
                       </div>
                     </div>
+                  
                     <div
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                     >
@@ -676,6 +678,7 @@ export default function Index({
                         <strong className="text-danger">*</strong>
                       </label>
                     </div>
+                    
                     <div
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                     >
@@ -700,8 +703,9 @@ export default function Index({
                           alt="Search"
                         />
                       </div>
+                     
                     </div>
-                    <hr></hr>
+                   
                     {item.blNumber.map((blEntry, index2) => {
                       console.log(blEntry, '[igmListblmap]')
                       return (
@@ -912,6 +916,7 @@ export default function Index({
                         </>
                       )
                     })}
+                   
                   </div>
                 </div>
                 <div className={styles.table_scroll_outer}>

@@ -163,6 +163,8 @@ const Index = ({
               <input
                 id="quantity"
                 className={`${styles.value} input form-control`}
+                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                 //  value={termsheetDetails?.commodityDetails?.quantity}
                 value={addPrefixOrSuffix(
                   termsheetDetails?.commodityDetails?.quantity,
@@ -186,6 +188,8 @@ const Index = ({
               <input
                 id="perUnitPrice"
                 className={`${styles.value} ${styles.inrValue} input form-control`}
+              
+
                 value={addPrefixOrSuffix(
                   termsheetDetails?.commodityDetails?.perUnitPrice == undefined
                     ? 0
@@ -195,9 +199,7 @@ const Index = ({
                 )}
                 onChange={onChangeCommodityDetails}
                 type="text"
-                onKeyDown={(evt) => {
-                  return /^-?\d*$/.test(evt.target.value)
-                }}
+               
                 required
               />
 
@@ -215,6 +217,8 @@ const Index = ({
                   value={
                     addPrefixOrSuffix(termsheetDetails?.commodityDetails?.tolerance,"%")
                   }
+                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                   className={`${styles.value} ${styles.customSelect} input form-control`}
                   onChange={onChangeCommodityDetails}
                   required
@@ -248,6 +252,8 @@ const Index = ({
                   termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase(),
                   'front',
                 )}
+                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                 className={`${styles.value} input form-control`}
                 onChange={onChangeTransactionDetails}
                 required
@@ -271,6 +277,8 @@ const Index = ({
                   '%',
                   '',
                 )}
+                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                 onChange={onChangeTransactionDetails}
                 required
               />
@@ -692,6 +700,8 @@ const Index = ({
                   '%',
                   '',
                 )}
+                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                 // defaultValue={termsheetDetails.commercials?.tradeMarginPercentage}
                 onChange={onChangeCommercialTerms}
                 required
@@ -714,6 +724,8 @@ const Index = ({
                   'USD',
                   'front',
                 )}
+               
+
                 onChange={onChangeCommercialTerms}
                 required
               />
@@ -734,6 +746,8 @@ const Index = ({
                   '%',
                   '',
                 )}
+                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                 // defaultValue={termsheetDetails?.commercials?.lcOpeningChargesPercentage}
                 onChange={onChangeCommercialTerms}
                 required
@@ -755,6 +769,8 @@ const Index = ({
                   '%',
                   '',
                 )}
+                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                 onChange={onChangeCommercialTerms}
                 required
               />
@@ -776,6 +792,8 @@ const Index = ({
                   '%',
                   '',
                 )}
+                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                 // defaultValue={termsheetDetails?.commercials?.overDueInterestPerMonth}
                 onChange={onChangeCommercialTerms}
                 required
