@@ -67,7 +67,7 @@ function Index({ TransitDetails }) {
     if (e.target.value == '') {
       setLOI({ ...loi, authorizedSignatory: { name: '', designation: '' } })
     } else {
-      if (e.target.value.toLowerCase() === 'Bhawana Jain') {
+      if (e.target.value.toLowerCase() === 'bhawana jain') {
         console.log(e.target.value.toLowerCase(), 'Bhawana Jain')
 
         setLOI({
@@ -78,7 +78,7 @@ function Index({ TransitDetails }) {
           },
         })
       }
-      if (e.target.value.toLowerCase() === 'Vipin Kumar') {
+      if (e.target.value.toLowerCase() === 'vipin kumar') {
         console.log('Vipin Kumar')
         setLOI({
           ...loi,
@@ -88,7 +88,7 @@ function Index({ TransitDetails }) {
           },
         })
       }
-      if (e.target.value.toLowerCase() === 'Devesh Jain') {
+      if (e.target.value.toLowerCase() === 'devesh jain') {
         console.log('Devesh Jain')
         setLOI((prevState) => {
           return {
@@ -100,7 +100,7 @@ function Index({ TransitDetails }) {
           }
         })
       }
-      if (e.target.value.toLowerCase() === 'Fatima Yannoulis') {
+      if (e.target.value.toLowerCase() === 'fatima yannoulis') {
         console.log('Fatima Yannoulis')
         setLOI((prevState) => {
           return {
@@ -183,8 +183,8 @@ function Index({ TransitDetails }) {
         <div className={`${styles.aboutLetter}`}>
           <p>
             STANDARD FORM LETTER OF INDEMNITY TO BE GIVEN IN RETURN FOR
-            DELIVERING CARGO <span style={{ textTransform: 'none' }}> without production of the original bills of
-              lading.</span>
+            DELIVERING CARGO WITHOUT PRODUCTION OF THE ORIGINAL BILLS OF LADING.
+             
           </p>
         </div>
         <div
@@ -402,7 +402,7 @@ function Index({ TransitDetails }) {
                 onChange={(e) => SetAuthorisedSignatoryHanlder(e)}
                 className={`${styles.input_field} ${styles.customSelect} input mt-4 pl-3`}
               >
-                <option value="">Select an option</option>
+                <option disabled selected>Select an option</option>
                 <option value="Bhawana Jain">Bhawana Jain </option>
                 <option value="Vipin Kumar">Vipin Kumar </option>
                 <option value="Devesh Jain">Devesh Jain </option>

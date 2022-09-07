@@ -266,9 +266,8 @@ function Index({
                           <input
                             id="orderValue"
                             type="text"
-                            onKeyDown={(evt) =>
-                              evt.key === 'e' && evt.preventDefault()
-                            }
+                            onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                             className={`${styles.input_field} border-left-0 input form-control`}
                             value={Number(val.orderValue).toLocaleString()}
                             onChange={(e) =>
@@ -595,10 +594,8 @@ function Index({
                                         value={vesselInfo.yearOfBuilt ? moment(vesselInfo.yearOfBuilt).format("YYYY") : ''}
                                         className={`${styles.input_field} input form-control`}
                                         type="text"
-                                        onKeyDown={(evt) =>
-                                          evt.key === 'e' &&
-                                          evt.preventDefault()
-                                        }
+                                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                                         onChange={(e) =>
                                           onVesselInfoChangeHandlerForBulk(
                                             e,
@@ -717,9 +714,8 @@ function Index({
                                 }
                                 className={`${styles.input_field} input form-control`}
                                 type="number"
-                                onKeyDown={(evt) =>
-                                  evt.key === 'e' && evt.preventDefault()
-                                }
+                                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                                 onChange={(e) =>
                                   shippingInfoChangeHandler(e, index)
                                 }
@@ -742,9 +738,8 @@ function Index({
                                 }
                                 className={`${styles.input_field} input form-control`}
                                 type="number"
-                                onKeyDown={(evt) =>
-                                  evt.key === 'e' && evt.preventDefault()
-                                }
+                                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                                 onChange={(e) =>
                                   shippingInfoChangeHandler(e, index)
                                 }
@@ -865,9 +860,8 @@ function Index({
                                     defaultValue={newVessel.yearOfBuilt}
                                     className={`${styles.input_field} input form-control`}
                                     type="number"
-                                    onKeyDown={(evt) =>
-                                      evt.key === 'e' && evt.preventDefault()
-                                    }
+                                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                                     onChange={(e) =>
                                       onVesselInfoChangeHandlerForLiner(
                                         e,

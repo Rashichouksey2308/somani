@@ -11,6 +11,8 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { ViewDocument } from 'redux/ViewDoc/action'
 import moment from 'moment'
+import { toast } from 'react-toastify'
+
 
 const Index = ({ orderid, module, isDocumentName }) => {
   const dispatch = useDispatch()
@@ -22,7 +24,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
   const [editInput, setEditInput] = useState(true)
   const [manualDocModule, setManualDocModule] = useState(true)
   const [newDoc, setNewDoc] = useState({
-    document: [],
+    document: null,
     order: orderid,
     name: '',
     module: module,
@@ -77,7 +79,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
     }
   }
 
-  console.log(newDoc,'uploadother')
+  console.log(newDoc, 'uploadother')
 
   const handleCloseDoc = () => {
     setNewDoc({
@@ -96,22 +98,35 @@ const Index = ({ orderid, module, isDocumentName }) => {
 
   const uploadDocumentHandler = (e) => {
     e.preventDefault()
+    if (newDoc.document === null) {
+      let toastMessage = 'please select A Document'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+    } else if (newDoc.name === '') {
+      let toastMessage = 'please provide a valid document name'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+    } else {
 
-    const fd = new FormData()
-    console.log(newDoc, newDoc.document, 'pdfFile', newDoc.module)
-    fd.append('document', newDoc.document)
-    fd.append('module', newDoc.module)
-    fd.append('order', orderid)
-    // fd.append('type', newDoc.type))
-    fd.append('name', newDoc.name)
+      const fd = new FormData()
+      console.log(newDoc, newDoc.document, 'pdfFile', newDoc.module)
+      fd.append('document', newDoc.document)
+      fd.append('module', newDoc.module)
+      fd.append('order', orderid)
+      // fd.append('type', newDoc.type))
+      fd.append('name', newDoc.name)
 
-    dispatch(AddingDocument(fd))
-    setNewDoc({
-      document: [],
-      order: orderid,
-      name: '',
-      module: module,
-    })
+      dispatch(AddingDocument(fd))
+      setNewDoc({
+        document: null,
+        order: orderid,
+        name: '',
+        module: module,
+      })
+    }
+
   }
   const [filterValue, setFilterValue] = useState('')
   const filterDocBySearch = (val) => {
@@ -196,7 +211,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                       id="name"
                       onChange={(e) => handleNewDocModule(e)}
                     >
-                       <option disabled selected>Select an option </option>
+                      <option disabled selected>Select an option </option>
                       {module === 'LeadOnboarding&OrderApproval' ? (
                         <>
                           {' '}

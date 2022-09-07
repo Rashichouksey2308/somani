@@ -31,6 +31,7 @@ function Index({ order, companyDetail }) {
   }
   console.log(order, 'order', companyDetail)
 
+
   return (
     <>
       <div className={`${styles.card} vessel_card card`}>
@@ -92,11 +93,12 @@ function Index({ order, companyDetail }) {
                   Type of Business
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
+
                   {_get(
                     companyDetail,
-                    'profile.companyDetail.typeOfBusiness[0]',
-                    '',
-                  )}
+                    'profile.companyDetail.typeOfBusiness',
+                    [],
+                  ).join(', ')}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -128,19 +130,18 @@ function Index({ order, companyDetail }) {
                   Active Compliant
                 </div>
                 <div
-                  className={`${`${styles.value} accordion_Text`} ${
-                    companyDetail?.profile?.companyDetail?.activeCompliance?.toLowerCase()?.trim() == 'activecompliant'
-                      ? styles.success
-                      : styles.warning
-                  }`}
+                  className={`${`${styles.value} accordion_Text`} ${companyDetail?.profile?.companyDetail?.activeCompliance?.toLowerCase()?.trim() == 'activecompliant'
+                    ? styles.success
+                    : styles.warning
+                    }`}
                 >
                   {
-                  companyDetail?.activeCompliance==null
-                  ? ""
-                  :
-                  companyDetail?.activeCompliance?.toLowerCase()?.trim() == 'activecompliant'
-                    ? 'Yes'
-                    : 'No'
+                    companyDetail?.activeCompliance == null
+                      ? ""
+                      :
+                      companyDetail?.activeCompliance?.toLowerCase()?.trim() == 'activecompliant'
+                        ? 'Yes'
+                        : 'No'
                   }
                 </div>
               </div>
@@ -198,11 +199,10 @@ function Index({ order, companyDetail }) {
                   Last Balance Sheet
                 </div>
                 <div
-                  className={`${`${styles.value} accordion_Text`} ${
-                    companyDetail?.profile?.companyDetail?.lastBalanceSheet
-                      ? styles.success
-                      : styles.warning
-                  }`}
+                  className={`${`${styles.value} accordion_Text`} ${companyDetail?.profile?.companyDetail?.lastBalanceSheet
+                    ? styles.success
+                    : styles.warning
+                    }`}
                 >
                   {companyDetail?.profile?.companyDetail?.lastBalanceSheet}
                 </div>
@@ -220,7 +220,7 @@ function Index({ order, companyDetail }) {
                   Existing Limit (Cr)
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
-                    {CovertvaluefromtoCR(order?.creditLimit?.totalLimit)}
+                  {checkNan(CovertvaluefromtoCR(order?.creditLimit?.totalLimit))}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -229,7 +229,7 @@ function Index({ order, companyDetail }) {
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
 
-                  {CovertvaluefromtoCR(order?.creditLimit?.utilizedLimit)}
+                  {checkNan(CovertvaluefromtoCR(order?.creditLimit?.utilizedLimit))}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
