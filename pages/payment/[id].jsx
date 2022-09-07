@@ -619,6 +619,7 @@ useEffect(() => {
                       handleChange={handleChange}
                       handleLiftingSubmit={handleLiftingSubmit}
                       removeLiftinDoc={removeLiftinDoc}
+                      ReleaseOrderData={ReleaseOrderData}
                     />
                   </div>
                 </div>
