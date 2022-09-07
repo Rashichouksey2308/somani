@@ -2065,6 +2065,7 @@ function Index() {
                     leftButtonName={`Save`}
                     rightButtonName={`Preview`}
                     handleApprove={routeChange}
+                    isApprove
                   />
                 </div>
 

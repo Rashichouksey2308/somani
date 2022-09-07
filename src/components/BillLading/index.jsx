@@ -5,7 +5,6 @@ import SaveBar from '../SaveBar'
 import { useState } from 'react'
 import DateCalender from '../DateCalender'
 import _get from 'lodash/get'
-import { initial } from 'lodash'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   UpdateTransitDetails,
