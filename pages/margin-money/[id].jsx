@@ -953,9 +953,8 @@ function Index() {
                               </div>
                               <input
                                 type="number"
-                                onKeyDown={(evt) =>
-                                  evt.key === 'e' && evt.preventDefault()
-                                }
+                                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                                 id="textInput"
                                 name="conversionRate"
                                 onChange={(e) =>

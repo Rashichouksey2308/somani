@@ -271,9 +271,8 @@ function Index() {
                       <input
                         className={`${styles.input_field} input form-control`}
                         type="number"
-                        onKeyDown={(evt) =>
-                          evt.key === 'e' && evt.preventDefault()
-                        }
+                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                         required
                       />
                       <label
@@ -629,9 +628,8 @@ function Index() {
                                   className="input"
                                   name="contact.number"
                                   type="number"
-                                  onKeyDown={(evt) =>
-                                    evt.key === 'e' && evt.preventDefault()
-                                  }
+                                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                                   readOnly={!saveContactTable}
                                 />
                               </td>
@@ -758,9 +756,8 @@ function Index() {
                                     className="input"
                                     name="contact.number"
                                     type="number"
-                                    onKeyDown={(evt) =>
-                                      evt.key === 'e' && evt.preventDefault()
-                                    }
+                                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
                                     readOnly={!saveShareTable}
                                   />
                                 </td>
