@@ -1422,7 +1422,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     className={` ${styles.header} card_sub_header d-flex align-items-center justify-content-start`}
                   >
                     <span>Revenue Summary</span>
-                    <span className={styles.light}>(Cr)</span>
+                    <span className={`${styles.light} breadcrum_mode`}>(Cr)</span>
                   </div>
                   <div className={`${styles.chart} }`}>
                     <Line
@@ -1459,7 +1459,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}
                   >
                     <span>Turnover vs Purchases</span>
-                    <span className={styles.light}>(Cr)</span>
+                    <span className={`${styles.light} breadcrum_mode`}>(Cr)</span>
                   </div>
                   <div className={styles.chart}>
                     <Line
@@ -1487,7 +1487,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}
                   >
                     <span>Top 10 Customers</span>
-                    <span className={styles.light}>(Cr)</span>
+                    <span className={`${styles.light} breadcrum_mode`}>(Cr)</span>
+
                   </div>
                   <div className={styles.chart}>
                     <Bar data={top10Customers} options={barOptions} />
@@ -1500,7 +1501,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}
                   >
                     <span>Top 10 Suppliers</span>
-                    <span className={styles.light}>(Cr)</span>
+                    <span className={`${styles.light} breadcrum_mode`}>(Cr)</span>
+
                   </div>
                   <div className={styles.chart}>
                     <Bar data={top10Supplier} options={barOptions} />
@@ -1513,7 +1515,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}
                   >
                     <span>State Wise Sales</span>
-                    <span className={styles.light}>(Cr)</span>
+                    <span className={`${styles.light} breadcrum_mode`}>(Cr)</span>
+
                   </div>
                   <div className={styles.chart}>
                     <Bar data={stateWiseSales} options={barOptions2} />
@@ -1535,7 +1538,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}
                   >
                     <span>Average Trends</span>
-                    <span className={styles.light}>(Cr)</span>
+                    <span className={`${styles.light} breadcrum_mode`}>(Cr)</span>
+
                   </div>
                   <div className={styles.chart}>
                     <Line
