@@ -223,11 +223,10 @@ export const checkNan = (unitOfValue, type = false, number = 2) => {
   } else {
     if (!type) {
       // return Number(Number(unitOfValue))?.toLocaleString('en-IN', {
-        maximumFractionDigits: 2,
-    })
+
       return Number(unitOfValue)?.toLocaleString('en-IN', {
-        maximumFractionDigits: 2, 
-    })
+        maximumFractionDigits: 2,
+      })
     } else {
       return unitOfValue?.toLocaleString('en-IN', {
         minimumFractionDigits: 2,
