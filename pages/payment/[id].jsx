@@ -48,11 +48,11 @@ function Index() {
     dispatch(setPageTabName('release'))
      dispatch(
       getBreadcrumbValues({
-        companyId: companyOrderId,
+        // companyId: companyOrderId,
         companyName: ReleaseOrderData?.data[0]?.company?.companyName,
       }),
     )
-  }, [ReleaseOrderData])
+  // }, [ReleaseOrderData])
 
 
    
