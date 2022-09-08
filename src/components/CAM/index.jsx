@@ -47,8 +47,7 @@ function Index({
   approveComment,
   saveApprovedCreditData,
   approvedCredit,
-  orderDetails
-  
+  orderDetails,
 }) {
   const dispatch = useDispatch()
   console.log(camData, 'companyData')
@@ -323,7 +322,6 @@ function Index({
     '651645',
   )
   function createGradient(ctx, area, color, color2) {
- 
     console.log('cts', color2, color)
 
     let gradient = ctx.createLinearGradient(0, 0, 0, 300)
@@ -442,7 +440,7 @@ function Index({
 
   return (
     <>
-      {basicInfo(camData,orderDetails)}
+      {basicInfo(camData, orderDetails)}
       {supplierInfo(camData)}
       {customerRating(camData, filteredCreditRating, rating)}
       {groupExposure(camData)}
@@ -492,11 +490,10 @@ function Index({
 
 export default Index
 
-const basicInfo = (camData,orderDetails) => {
+const basicInfo = (camData, orderDetails) => {
   // console
   return (
     <>
-     
       <div className={`${styles.card} card`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
@@ -528,7 +525,7 @@ const basicInfo = (camData,orderDetails) => {
                   </span>
                   <span className={`${styles.value} value pr-5`}>
                     {orderDetails?.transactionType}
-                    </span>
+                  </span>
                 </Col>
               </Row>
             </div>
@@ -699,21 +696,17 @@ const basicInfo = (camData,orderDetails) => {
                         'T',
                       )[0]
                     } */}
-                    
-                    {
-                     camData?.shipmentDetail?.ETAofDischarge?.fromDate?
-                     moment(
-                      camData?.shipmentDetail?.ETAofDischarge?.fromDate?.slice(
-                        0,
-                        10,
-                      ),
-                      'YYYY-MM-DD',
-                      true
-                    ).format('DD-MM-YYYY')
-                     :""
-              
-                    
-                    }
+
+                    {camData?.shipmentDetail?.ETAofDischarge?.fromDate
+                      ? moment(
+                          camData?.shipmentDetail?.ETAofDischarge?.fromDate?.slice(
+                            0,
+                            10,
+                          ),
+                          'YYYY-MM-DD',
+                          true,
+                        ).format('DD-MM-YYYY')
+                      : ''}
                   </span>
                 </Col>
               </Row>
@@ -722,14 +715,16 @@ const basicInfo = (camData,orderDetails) => {
                   <span className={`${styles.key} label1`}>Laycan from</span>
                   <span className={`${styles.value} value pr-5`}>
                     {/* {camData?.shipmentDetail?.loadPort?.fromDate?.split('T')[0]} */}
-                    {camData?.shipmentDetail?.loadPort?.fromDate?
-                    moment(
-                      camData?.shipmentDetail?.loadPort?.fromDate?.slice(0, 10),
-                      'YYYY-MM-DD',
-                      true,
-                    ).format('DD-MM-YYYY')
-                    :""}
-                  
+                    {camData?.shipmentDetail?.loadPort?.fromDate
+                      ? moment(
+                          camData?.shipmentDetail?.loadPort?.fromDate?.slice(
+                            0,
+                            10,
+                          ),
+                          'YYYY-MM-DD',
+                          true,
+                        ).format('DD-MM-YYYY')
+                      : ''}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
@@ -738,12 +733,16 @@ const basicInfo = (camData,orderDetails) => {
                   </span>
                   <span className={`${styles.value} value`}>
                     {/* {camData?.shipmentDetail?.loadPort?.toDate?.split('T')[0]} */}
-                    {camData?.shipmentDetail?.loadPort?.toDate?moment(
-                      camData?.shipmentDetail?.loadPort?.toDate?.slice(0, 10),
-                      'YYYY-MM-DD',
-                      true,
-                    ).format('DD-MM-YYYY'):""}
-                   
+                    {camData?.shipmentDetail?.loadPort?.toDate
+                      ? moment(
+                          camData?.shipmentDetail?.loadPort?.toDate?.slice(
+                            0,
+                            10,
+                          ),
+                          'YYYY-MM-DD',
+                          true,
+                        ).format('DD-MM-YYYY')
+                      : ''}
                   </span>
                 </Col>
               </Row>
@@ -755,6 +754,7 @@ const basicInfo = (camData,orderDetails) => {
   )
 }
 const supplierInfo = (camData) => {
+  console.log(camData, 'camData')
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -811,11 +811,13 @@ const supplierInfo = (camData) => {
                     Latest Shipment date
                   </span>
                   <span className={`${styles.value} value`}>
-                    {camData?.supplierCredential?.latestShipmentDate?
-                      moment(camData?.supplierCredential?.latestShipmentDate?.split(
-                        'T',
-                      )[0]).format("DD-MM_YYYY"):''
-                    }
+                    {camData?.supplierCredential?.latestShipmentDate
+                      ? moment(
+                          camData?.supplierCredential?.latestShipmentDate?.split(
+                            'T',
+                          )[0],
+                        ).format('DD-MM_YYYY')
+                      : ''}
                   </span>
                 </Col>
               </Row>
@@ -833,14 +835,13 @@ const supplierInfo = (camData) => {
                     Oldest shipment date
                   </span>
                   <span className={`${styles.value} value`}>
-                    {  camData?.supplierCredential?.oldestShipmentDate?
-                    
-                    moment(  camData?.supplierCredential?.oldestShipmentDate?.split(
-                        'T',
-                      )[0]).format("DD-MM-YYYY")
-                    :""
-                    
-                    }
+                    {camData?.supplierCredential?.oldestShipmentDate
+                      ? moment(
+                          camData?.supplierCredential?.oldestShipmentDate?.split(
+                            'T',
+                          )[0],
+                        ).format('DD-MM-YYYY')
+                      : ''}
                   </span>
                 </Col>
               </Row>
@@ -2550,8 +2551,7 @@ const financeDetails = (
                   </tr>
                   <tr>
                     <td>Inventory Period</td>
-                    <td>
-                      {latestYearData?.daysOfInventoryOutstanding}</td>
+                    <td>{latestYearData?.daysOfInventoryOutstanding}</td>
                     <td>{previousYearData?.daysOfInventoryOutstanding}</td>
                   </tr>
                   <tr>
@@ -3955,4 +3955,3 @@ const customerRating = (data, filteredCreditRating, rating) => {
     </>
   )
 }
-

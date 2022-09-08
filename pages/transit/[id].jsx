@@ -6,19 +6,27 @@ import styles from './transit.module.scss'
 import BillLanding from '../../src/components/BillLading'
 import CIMS from '../../src/components/CIMS'
 import IGM from '../../src/components/IGM'
-import _get from "lodash/get";
-import { UpdateTransitDetails, GetTransitDetails } from '../../src/redux/TransitDetails/action'
+import _get from 'lodash/get'
+import {
+  UpdateTransitDetails,
+  GetTransitDetails,
+} from '../../src/redux/TransitDetails/action'
 import { useDispatch, useSelector } from 'react-redux'
 import LetterIndermity from '../../src/components/LetterIndermity'
 import Cookies from 'js-cookie'
 import Router from 'next/router'
 
-import { setPageName, setDynamicName,setDynamicOrder } from '../../src/redux/userData/action'
+import {
+  setPageName,
+  setDynamicName,
+  setDynamicOrder,
+} from '../../src/redux/userData/action'
 
 //api
 import Axios from 'axios'
 import API from '../../src/utils/endpoints'
 import { toast } from 'react-toastify'
+import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action'
 
 function Index() {
   const [isShipmentTypeBULK, setIsShipmentTypeBulk] = useState(false)
@@ -26,12 +34,13 @@ function Index() {
   const [TransitDetails, setTransitDetails] = useState({})
   console.log(TransitDetails, 'TransitDetails')
 
-
   const dispatch = useDispatch()
   //const { TransitDetails1 } = useSelector((state) => state.TransitDetails)
-  const vesselData = _get(TransitDetails, "data[0].order.vessel", {})
+  const vesselData = _get(TransitDetails, 'data[0].order.vessel', {})
   console.log(TransitDetails, 'TransitDetails')
-  const commodity = _get(TransitDetails, "data[0].order.commodity", '').trim().toLowerCase()
+  const commodity = _get(TransitDetails, 'data[0].order.commodity', '')
+    .trim()
+    .toLowerCase()
 
   let objID = sessionStorage.getItem('ObjId')
   let transID = sessionStorage.getItem('transId')
@@ -44,29 +53,30 @@ function Index() {
   // useEffect(() => {
   //   dispatch(GetTransitDetails(`?transitId=${transID}`))
   // }, [dispatch])
- useEffect(() => {
+  useEffect(() => {
     dispatch(setPageName('transit'))
-    dispatch(setDynamicName(_get(TransitDetails,"data[0].company.companyName")))
-    dispatch(setDynamicOrder(_get(TransitDetails,"data[0].order.orderId")))
-  },[TransitDetails])
-  useEffect( () => {
+    dispatch(
+      setDynamicName(_get(TransitDetails, 'data[0].company.companyName')),
+    )
+    dispatch(setDynamicOrder(_get(TransitDetails, 'data[0].order.orderId')))
+  }, [TransitDetails])
+  useEffect(() => {
     if (transID) {
-       fetchInitialData()
+      fetchInitialData()
     }
-    console.log(transID,'dsfgk,dhgf')
-
-
+    console.log(transID, 'dsfgk,dhgf')
   }, [transID])
-
 
   const fetchInitialData = async () => {
     const data = await dispatch(GetTransitDetails(`?transitId=${transID}`))
     setTransitDetails(data)
   }
 
-
+  const handleBreadcrumbClick = (value) => {
+    dispatch(getBreadcrumbValues({ upperTabs: value }))
+  }
   const uploadDoc = async (e) => {
-    console.log(e, "response data")
+    console.log(e, 'response data')
     let fd = new FormData()
     fd.append('document', e.target.files[0])
     // dispatch(UploadCustomDoc(fd))
@@ -77,14 +87,18 @@ function Index() {
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
     try {
-      let response = await Axios.post(`${API.corebaseUrl}${API.customClearanceDoc}`, fd, {
-        headers: headers,
-      })
+      let response = await Axios.post(
+        `${API.corebaseUrl}${API.customClearanceDoc}`,
+        fd,
+        {
+          headers: headers,
+        },
+      )
       console.log(response.data.data, 'response data123')
       if (response.data.code === 200) {
         // dispatch(getCustomClearanceSuccess(response.data.data))
 
-        return response.data.data;
+        return response.data.data
         // let toastMessage = 'DOCUMENT UPDATED'
         // if (!toast.isActive(toastMessage.toUpperCase())) {
         //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
@@ -96,33 +110,44 @@ function Index() {
       }
     } catch (error) {
       // dispatch(getCustomClearanceFailed())
-
       // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
       // if (!toast.isActive(toastMessage.toUpperCase())) {
       //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       // }
     }
   }
-
+  // for setting default breadcrumb tab value //
+  useEffect(() => {
+    dispatch(getBreadcrumbValues({ upperTabs: 'Bill Of Loading' }))
+  }, [])
   return (
     <>
       <div className={`${styles.dashboardTab} bg-transparent w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
-          <div className={`${styles.tab_header_inner} d-flex align-items-center`}>
+          <div
+            className={`${styles.tab_header_inner} d-flex align-items-center`}
+          >
             <img
               className={`${styles.arrow} mr-2 image_arrow img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
               onClick={() => Router.push('/transit')}
-
-
             />
             <h1 className={`${styles.title} heading`}>
-              <span>{_get(TransitDetails, "data[0].company.companyName", 'Company Name')}</span>
+              <span>
+                {_get(
+                  TransitDetails,
+                  'data[0].company.companyName',
+                  'Company Name',
+                )}
+              </span>
             </h1>
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
-            <li className={`${styles.navItem}  nav-item`}>
+            <li
+              className={`${styles.navItem}  nav-item`}
+              onClick={() => handleBreadcrumbClick('Bill of Loading')}
+            >
               <a
                 className={`${styles.navLink} navLink  nav-link active`}
                 data-toggle="tab"
@@ -131,10 +156,13 @@ function Index() {
                 aria-controls="billLanding"
                 aria-selected="true"
               >
-                Bill of Lading
+                Bill of Loading
               </a>
             </li>
-            <li className={`${styles.navItem} nav-item`}>
+            <li
+              className={`${styles.navItem} nav-item`}
+              onClick={() => handleBreadcrumbClick('LOI')}
+            >
               <a
                 className={`${styles.navLink} navLink nav-link `}
                 data-toggle="tab"
@@ -146,19 +174,27 @@ function Index() {
                 LOI
               </a>
             </li>
-            {commodity?.toLowerCase() === 'coal' && <li className={`${styles.navItem} nav-item`}>
-              <a
-                className={`${styles.navLink} navLink nav-link `}
-                data-toggle="tab"
-                href="#cims"
-                role="tab"
-                aria-controls="cims"
-                aria-selected="false"
+            {commodity?.toLowerCase() === 'coal' && (
+              <li
+                className={`${styles.navItem} nav-item`}
+                onClick={() => handleBreadcrumbClick('CIMS')}
               >
-                CIMS
-              </a>
-            </li>}
-            <li className={`${styles.navItem} nav-item`}>
+                <a
+                  className={`${styles.navLink} navLink nav-link `}
+                  data-toggle="tab"
+                  href="#cims"
+                  role="tab"
+                  aria-controls="cims"
+                  aria-selected="false"
+                >
+                  CIMS
+                </a>
+              </li>
+            )}
+            <li
+              className={`${styles.navItem} nav-item`}
+              onClick={() => handleBreadcrumbClick('IGM')}
+            >
               <a
                 className={`${styles.navLink} navLink nav-link `}
                 data-toggle="tab"
@@ -183,7 +219,12 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <BillLanding orderid={objID} docUploadFunction={uploadDoc} TransitDetails={TransitDetails} isShipmentTypeBULK={isShipmentTypeBULK} />
+                    <BillLanding
+                      orderid={objID}
+                      docUploadFunction={uploadDoc}
+                      TransitDetails={TransitDetails}
+                      isShipmentTypeBULK={isShipmentTypeBULK}
+                    />
                   </div>
                 </div>
                 <div className="tab-pane fade" id="loi" role="tabpanel">
@@ -191,14 +232,26 @@ function Index() {
                     <LetterIndermity TransitDetails={TransitDetails} />
                   </div>
                 </div>
-                {commodity.toLowerCase() === 'coal' && <div className="tab-pane fade" id="cims" role="tabpanel">
-                  <div className={`${styles.card}  accordion_body`}>
-                    <CIMS orderid={objID} docUploadFunction={uploadDoc} TransitDetails={TransitDetails} isShipmentTypeBULK={isShipmentTypeBULK} />
+                {commodity.toLowerCase() === 'coal' && (
+                  <div className="tab-pane fade" id="cims" role="tabpanel">
+                    <div className={`${styles.card}  accordion_body`}>
+                      <CIMS
+                        orderid={objID}
+                        docUploadFunction={uploadDoc}
+                        TransitDetails={TransitDetails}
+                        isShipmentTypeBULK={isShipmentTypeBULK}
+                      />
+                    </div>
                   </div>
-                </div>}
+                )}
                 <div className="tab-pane fade" id="igm" role="tabpanel">
                   <div className={`${styles.card}  accordion_body`}>
-                    <IGM docUploadFunction={uploadDoc} TransitDetails={TransitDetails} isShipmentTypeBULK={isShipmentTypeBULK} orderId={objID} />
+                    <IGM
+                      docUploadFunction={uploadDoc}
+                      TransitDetails={TransitDetails}
+                      isShipmentTypeBULK={isShipmentTypeBULK}
+                      orderId={objID}
+                    />
                   </div>
                 </div>
               </div>

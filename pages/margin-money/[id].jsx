@@ -24,6 +24,7 @@ import {
   setDynamicOrder,
 } from '../../src/redux/userData/action'
 import { addPrefixOrSuffix, checkNan } from '../../src/utils/helper'
+import {GetGst } from 'redux/registerBuyer/action'
 // import { Row, Col } from 'react-bootstrap'
 
 function Index() {
@@ -32,8 +33,11 @@ function Index() {
   const [darkMode, setDarkMode] = useState(false)
 
   const { margin } = useSelector((state) => state.marginMoney)
+  // get gst list from below use effect and fetch data from selector
+  const { orderList } = useSelector((state) => state.buyer)
 
   const marginData = _get(margin, 'data.data[0]', '')
+  console.log(marginData,"marginData")
 
   let id = sessionStorage.getItem('marginId')
 
@@ -1602,11 +1606,13 @@ function Index() {
                                     marginData?.invoiceDetail?.buyerGSTIN
                                   }
                                 >
-                                  <option>Select an option</option>
-
-                                  <option value="GTSDT789652JKH">
-                                    GTSDT789652JKH
-                                  </option>
+                                 <option value='' >Select an Option</option>
+                    {orderList?.company?.gstList?.map((gstin, index) => (
+                      <option key={index} value={gstin}>
+                        {gstin}
+                      </option>
+                    ))}
+                                
                                 </select>
                                 <label
                                   className={`${styles.label_heading} label_heading`}
