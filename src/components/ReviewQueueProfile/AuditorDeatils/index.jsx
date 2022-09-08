@@ -376,8 +376,8 @@ function Index({ directorData }) {
                                     ? moment(director?.dscExpiryDate).isBefore(
                                         moment(new Date()),
                                       )
-                                      ? styles.success
-                                      : styles.danger
+                                      ? styles.danger
+                                      : styles.success
                                     : styles.black
                                 }`}
                               >
