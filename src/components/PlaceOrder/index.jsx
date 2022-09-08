@@ -247,15 +247,15 @@ const Index = () => {
             <div className="row">
               <div className="col-md-2 col-sm-4">
                 <div className={`${styles.label} text`}>Total Limit</div>
-                <span className={styles.value}>{(checkNan(CovertvaluefromtoCR(creditData?.data?.totalLimit)) ?? '')?.toLocaleString()}{" "} Cr </span>
+                <span className={styles.value}>{(checkNan(CovertvaluefromtoCR(creditData?.data?.totalLimit)) ?? '')}{" "} Cr </span>
               </div>
               <div className="col-md-2 col-sm-4">
                 <div className={`${styles.label} text`}>Utilised Limit</div>
-                <span className={styles.value}>{checkNan((CovertvaluefromtoCR(creditData?.data?.utilizedLimit)) ?? '')?.toLocaleString()}{" "} Cr</span>
+                <span className={styles.value}>{checkNan((CovertvaluefromtoCR(creditData?.data?.utilizedLimit)) ?? '')}{" "} Cr</span>
               </div>
               <div className="col-md-2 col-sm-4">
                 <div className={`${styles.label} text`}>Available Limit </div>
-                <span className={styles.value}>{(checkNan(CovertvaluefromtoCR(creditData?.data?.availableLimit)) ?? '')?.toLocaleString()}{" "} Cr</span>
+                <span className={styles.value}>{(checkNan(CovertvaluefromtoCR(creditData?.data?.availableLimit)) ?? '')}{" "} Cr</span>
               </div>
               <div className="col-md-2 col-sm-4">
                 <div className={`${styles.label} text`}>Limit Expiry Date</div>
@@ -265,7 +265,7 @@ const Index = () => {
               </div>
               <div className="col-md-2 col-sm-4">
                 <div className={`${styles.label} text`}>Last Order Value</div>
-                <span className={styles.value}>{(checkNan(CovertvaluefromtoCR(creditData?.lastOrder?.orderValue ))?? '')?.toLocaleString()}{" "} Cr</span>
+                <span className={styles.value}>{(checkNan(CovertvaluefromtoCR(creditData?.lastOrder?.orderValue ))?? '')}{" "} Cr</span>
               </div>
             </div>
           </div>

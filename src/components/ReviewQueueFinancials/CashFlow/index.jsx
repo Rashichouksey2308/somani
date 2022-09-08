@@ -108,10 +108,10 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           })}
                       </td>
                       <td className="text-center">
-                        {rtrnChartIndiaction(latestYearData?.cashFlowsFromUsedInOperatingActivities
-                          ?.cashFlowsFromUsedInOperatingActivities, previousBalanceData?.cashFlowsFromUsedInOperatingActivities
-                          ?.cashFlowsFromUsedInOperatingActivities, lastYearData?.cashFlowsFromUsedInOperatingActivities
-                          ?.cashFlowsFromUsedInOperatingActivities)}
+                        {rtrnChartIndiaction((latestYearData?.cashFlowsFromUsedInOperatingActivities
+                          ?.cashFlowsFromUsedInOperatingActivities), (previousYearData?.cashFlowsFromUsedInOperatingActivities
+                            ?.cashFlowsFromUsedInOperatingActivities), (lastYearData?.cashFlowsFromUsedInOperatingActivities
+                              ?.cashFlowsFromUsedInOperatingActivities))}
 
                       </td>
                     </tr>
@@ -189,10 +189,10 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           })}
                       </td>
                       <td className="text-center">
-                        {rtrnChartIndiaction(latestYearData?.cashFlowsFromUsedInFinancingActivities
-                          ?.cashFlowsFromUsedInFinancingActivities, previousBalanceData?.cashFlowsFromUsedInFinancingActivities
-                          ?.cashFlowsFromUsedInFinancingActivities, lastYearData?.cashFlowsFromUsedInFinancingActivities
-                          ?.cashFlowsFromUsedInFinancingActivities)}
+                        {rtrnChartIndiaction((latestYearData?.cashFlowsFromUsedInFinancingActivities
+                          ?.cashFlowsFromUsedInFinancingActivities), (previousYearData?.cashFlowsFromUsedInFinancingActivities
+                            ?.cashFlowsFromUsedInFinancingActivities), (lastYearData?.cashFlowsFromUsedInFinancingActivities
+                              ?.cashFlowsFromUsedInFinancingActivities))}
                       </td>
                     </tr>
                     <tr>

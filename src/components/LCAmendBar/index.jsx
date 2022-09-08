@@ -1,10 +1,16 @@
 import React from 'react'
 import styles from './index.module.scss'
 
-function index({ barName, openbar }) {
+function index({ barName, openbar,download }) {
   return (
     <div className={`${styles.root} cta_bar`}>
-      <div className={styles.reject}>
+      <div className={styles.reject}
+      onClick={()=>{
+        if(download){
+          download()
+        }
+      }}
+      >
         <span>{barName}</span>
         <img
           src="/static/file_download.svg"
