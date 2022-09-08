@@ -12,7 +12,8 @@ import { GetLcModule } from 'redux/lcModule/action'
 import moment from 'moment'
 import { addPrefixOrSuffix } from 'utils/helper'
 import _get from 'lodash/get'
-
+import jsPDF from 'jspdf'
+import ReactDOMServer from 'react-dom/server'
 function Index() {
   const dispatch = useDispatch()
 
@@ -35,39 +36,24 @@ function Index() {
   const handlePopup = () => {
     setShow(true)
   }
-  const [emailAdd, setEmailAdd] = useState([
-    {
-        emailID: '',
-    },
-  ])
-  const addMoreRows = () => {
-    setEmailAdd([
-      ...emailAdd,
-      {
-        emailID: '',
-      },
-    ])
-  }
 
 
-  return (
-    <>
-      <div className="container-fluid p-0 border-0">
-        <div
-          className={`${styles.root_container} card shadow-none border-0 bg-transparent`}
-        >
-        {/* <table width='100%' cellPadding='0' cellSpacing='0' border='0'>
+  const exportPDF = () => {
+
+      const doc = new jsPDF('p', 'pt', [1500, 1500])
+      doc.html(ReactDOMServer.renderToString(
+        <table width='1500px' cellPadding='0' cellSpacing='0' border='0'>
           <tr>
             <td valign='top'>
               <table width='100%' bgColor='#D8EAFF' style={{fontFamily:'Arial, Helvetica, sans-serif', marginBottom:'26px', border:'1px solid #D2D7E5', borderRadius:'6px', height:'126px'}} cellPadding='10' cellSpacing='0' border='0'>
                 <tr>
                   <td valign='bottom' align='left' width='25%'>
-                    <p style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', padding:'10px 0 0 25px', marginBottom:'0'}}>Order ID: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>CITII001000007</span></p>
-                    <p style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingLeft:'25px', marginBottom:'0'}}>Buyer: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>CITI BANK</span></p>
+                    <p style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', padding:'10px 0 0 25px', marginBottom:'0'}}>Order ID: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>{lcModuleData?.order?.orderId}</span></p>
+                    <p style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingLeft:'25px', marginBottom:'0'}}>Buyer: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}> {lcModuleData?.company?.companyName}</span></p>
                   </td>
                   <td valign='top' align='center' width='50%'><h2 style={{fontSize:'34px', color:'#3687E8', lineHeight:'41px', fontWeight:'bold', textTransform:'uppercase'}}>APPLICATION FOR LETTER OF CREDIT</h2></td>
                   <td valign='bottom' align='right' width='25%'>
-                    <p style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingRight:'25px', marginBottom:'0'}}>Date: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>16.02.2022</span></p>
+                    <p style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingRight:'25px', marginBottom:'0'}}>Date: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>{moment(d).format('DD.MM.yyyy')}</span></p>
                   </td>
                 </tr>
               </table>
@@ -85,7 +71,7 @@ function Index() {
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', width:'66px', color:'#111111', fontWeight:'500', color:'#111111', fontWeight:'500'}}>40A</span>FORM OF DOCUMENTARY CREDIT</p>
                           </td>
                           <td width="60%" align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>{lcModuleData?.lcApplication?.formOfDocumentaryCredit?.toUpperCase()}</p>
                           </td>
                         </tr>
                         <tr>
@@ -93,7 +79,7 @@ function Index() {
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>40E</span>APPLICABLE RULES</p>
                           </td>
                           <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>{lcModuleData?.lcApplication?.applicableRules?.toUpperCase()}</p>
                           </td>
                         </tr>
                         <tr>                          
@@ -101,7 +87,12 @@ function Index() {
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>31D</span>DATE OF EXPIRY</p>
                           </td>
                           <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>
+                              {moment(
+                            lcModuleData?.lcApplication?.dateOfExpiry?.split(
+                              'T',
+                            )[0],
+                          ).format('DD-MM-YYYY')}</p>
                           </td>
                         </tr>
                         <tr>                          
@@ -109,7 +100,7 @@ function Index() {
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>31D</span>PLACE OF EXPIRY</p>
                           </td>
                           <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>{lcModuleData?.lcApplication?.placeOfExpiry?.toUpperCase()}</p>
                           </td>
                         </tr>
                         <tr>                          
@@ -117,7 +108,7 @@ function Index() {
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>51D</span>LC ISSUING BANK</p>
                           </td>
                           <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>{lcModuleData?.lcApplication?.lcIssuingBank?.toUpperCase()}</p>
                           </td>
                         </tr>
                         <tr>                          
@@ -125,7 +116,7 @@ function Index() {
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>50</span>APPLICANT</p>
                           </td>
                           <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>{lcModuleData?.lcApplication?.applicant?.toUpperCase()}</p>
                           </td>
                         </tr>
                         <tr>                          
@@ -133,7 +124,7 @@ function Index() {
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>59</span>BENEFICIARY</p>
                           </td>
                           <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {lcModuleData?.lcApplication?.beneficiary?.toUpperCase()}</p>
                           </td>
                         </tr>
                         <tr>                          
@@ -141,7 +132,7 @@ function Index() {
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>32B</span>CURRENCY CODE &amp; AMOUNT</p>
                           </td>
                           <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>{ addPrefixOrSuffix(lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase() ? lcModuleData?.lcApplication?.currecyCodeAndAmountValue?.toUpperCase() : 0, 'USD', '')}</p>
                           </td>
                         </tr>
                         <tr>                          
@@ -149,15 +140,27 @@ function Index() {
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>39A</span>TOLERANCE (+/-) PERCENTAGE</p>
                           </td>
                           <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {addPrefixOrSuffix(
+                            lcModuleData?.lcApplication?.tolerancePercentage?.toUpperCase(),
+                            '%',
+                            '',
+                          )}</p>
                           </td>
                         </tr>
                         <tr>                          
                           <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>41A</span>CREDIT AVAILABLE WITH<br/>BY</p>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>41A</span>CREDIT AVAILABLE WITH</p>
                           </td>
                           <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value<br/>value</p>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>   {lcModuleData?.lcApplication?.creditAvailablewith?.toUpperCase()}</p>
+                          </td>
+                        </tr>
+                         <tr>                          
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>41B</span>CREDIT AVAILABLE</p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>  {lcModuleData?.lcApplication?.creditAvailableBy?.toUpperCase()}  </p>
                           </td>
                         </tr>
                         <tr>                          
@@ -165,7 +168,7 @@ function Index() {
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>42C</span>AT SIGHT<br/>NO. OF DAYS</p>
                           </td>
                           <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value<br/>value</p>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>{lcModuleData?.lcApplication?.atSight?.toUpperCase()}{' '}<br/>{lcModuleData?.lcApplication?.numberOfDays}</p>
                           </td>
                         </tr>
                         <tr>                          
@@ -173,7 +176,7 @@ function Index() {
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>42A</span>DRAWEE</p>
                           </td>
                           <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {lcModuleData?.lcApplication?.drawee?.toUpperCase()}</p>
                           </td>
                         </tr>
                         <tr>                          
@@ -181,7 +184,7 @@ function Index() {
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>42P</span>DEFERRED PAYMENT</p>
                           </td>
                           <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>{lcModuleData?.lcApplication?.deferredPayment?.toUpperCase()}</p>
                           </td>
                         </tr>
                         <tr>                          
@@ -189,7 +192,7 @@ function Index() {
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>43P</span>PARTIAL SHIPMENT</p>
                           </td>
                           <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {lcModuleData?.lcApplication?.partialShipment?.toUpperCase()}</p>
                           </td>
                         </tr>
                         <tr>                          
@@ -197,7 +200,7 @@ function Index() {
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>43T</span>TRANSHIPMENTS</p>
                           </td>
                           <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>{lcModuleData?.lcApplication?.transhipments?.toUpperCase()}</p>
                           </td>
                         </tr>
                         <tr>                          
@@ -205,7 +208,7 @@ function Index() {
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>44A</span>SHIPMENT FROM</p>
                           </td>
                           <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {lcModuleData?.lcApplication?.shipmentForm?.toUpperCase()}</p>
                           </td>
                         </tr>
                       </tbody>
@@ -215,15 +218,27 @@ function Index() {
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>44E</span>PORT OF LOADING</p>
                           </td>
                           <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>  {lcModuleData?.lcApplication?.portOfLoading?.toUpperCase()}</p>
                           </td>
                         </tr>
                         <tr>                          
                           <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>44F</span>PORT OF LOADING</p>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>44F</span>PORT OF DISCHARGE</p>
                           </td>
                           <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>{lcModuleData?.lcApplication?.portOfDischarge?.toUpperCase()}</p>
+                          </td>
+                        </tr>
+                        <tr>                          
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}> 44C</span>LATEST DATE OF SHIPMENT</p>
+                          </td>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>{moment(
+                            lcModuleData?.lcApplication?.latestDateOfShipment?.split(
+                              'T',
+                            )[0],
+                          ).format('DD-MM-YYYY')}</p>
                           </td>
                         </tr>
                         <tr>                          
@@ -231,40 +246,60 @@ function Index() {
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>45A</span>DESCRIPTION OF THE GOODS</p>
                           </td>
                           <td align='left'>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {lcModuleData?.lcApplication?.DescriptionOfGoods?.toUpperCase()}</p>
                           </td>
                         </tr>
                         <tr height="67">
                           <th colSpan={2} bgColor='#FAFAFB' align='left'><h3 style={{fontSize:'22px', color:'#3687E8', lineHeight:'27px', fontWeight:'bold', padding:'20px 15px 20px 35px', marginBottom:'0'}}>46A DOCUMENT REQUIRED:</h3></th>
                         </tr>
-                        <tr>
+                        {lcModuleData &&
+                        lcModuleData?.documentRequired?.map((doc, index) => (
+                           <tr>
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>{index+1}</span></p>
+                          </td>
+                          <td align='left'>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>{doc}</p>
+                          </td>
+                          
+                        </tr>
+                         
+                        ))}
+                        {/* <tr>
                           <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>1</span></p>
                           </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
-                          </td>
-                        </tr>
-                        <tr>                          
+                          
+                        </tr> */}
+                        {/* <tr>                          
                           <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)'}}>
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>2</span></p>
                           </td>
                           <td align='left'>
                             <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
                           </td>
-                        </tr>
+                        </tr> */}
                         <tr height="67">
                           <th colSpan={2} bgColor='#FAFAFB' align='left'><h3 style={{fontSize:'22px', color:'#3687E8', lineHeight:'27px', fontWeight:'bold', padding:'20px 15px 20px 35px', marginBottom:'0'}}>47A ADDITIONAL CONDITIONS:</h3></th>
                         </tr>
+                        {lcModuleData &&
+                        lcModuleData?.additionalConditions?.map(
+                          (comment, index) => (
+                            <tr>
+                              <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                              <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>{index+1}</span></p>
+                              </td>
+                              <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                              <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>{comment}</p>
+                              </td>
+                           
+                            </tr>
+                          ),
+                        )}
                         <tr>                          
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>1</span></p>
-                          </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
-                          </td>
+                         
                         </tr>
-                        <tr>                          
+                        {/* <tr>                          
                           <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'19px 15px 34px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>2</span></p>
                           </td>
@@ -314,13 +349,13 @@ function Index() {
                               </table>
                             </p>
                           </td>
-                        </tr>
+                        </tr> */}
                         <tr>                          
                           <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>48</span>PRESENTATION PERIOD</p>
                           </td>
                           <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {lcModuleData?.lcApplication?.presentaionPeriod?.toUpperCase()}</p>
                           </td>
                         </tr>
                         <tr>                          
@@ -328,7 +363,7 @@ function Index() {
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>49</span>CONFIRMATION INSTRUCTIONS</p>
                           </td>
                           <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {lcModuleData?.lcApplication?.confirmationInstructions?.toUpperCase()}</p>
                           </td>
                         </tr>
                         <tr>                          
@@ -336,7 +371,7 @@ function Index() {
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>53A</span>REIMBURSING BANK</p>
                           </td>
                           <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {lcModuleData?.lcApplication?.reimbursingBank?.toUpperCase()}</p>
                           </td>
                         </tr>
                         <tr>
@@ -344,7 +379,7 @@ function Index() {
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>57</span>ADVISE THROUGH BANK</p>
                           </td>
                           <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>  {lcModuleData?.lcApplication?.adviceThroughBank?.toUpperCase()}</p>
                           </td>
                         </tr>
                         <tr>
@@ -352,7 +387,7 @@ function Index() {
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>57A</span>SECOND ADVISING BANK, IF APPLICABLE</p>
                           </td>
                           <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {lcModuleData?.lcApplication?.secondAdvisingBank?.toUpperCase()}</p>
                           </td>
                         </tr>
                         <tr>
@@ -360,7 +395,7 @@ function Index() {
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>58A</span>REQUESTED CONFIRMATION PARTY</p>
                           </td>
                           <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>  {lcModuleData?.lcApplication?.requestedConfirmationParty?.toUpperCase()}</p>
                           </td>
                         </tr>
                         <tr>
@@ -368,7 +403,7 @@ function Index() {
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>71B</span>CHARGES</p>
                           </td>
                           <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {lcModuleData?.lcApplication?.charges?.toUpperCase()}</p>
                           </td>
                         </tr>
                         <tr>
@@ -376,7 +411,7 @@ function Index() {
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>78</span>INSTRUCTIONS TO PAYING / ACCEPTING / NEGOTIATING BANK</p>
                           </td>
                           <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {lcModuleData?.lcApplication?.instructionToBank?.toUpperCase()}</p>
                           </td>
                         </tr>
                         <tr>
@@ -384,7 +419,7 @@ function Index() {
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>72</span>SENDER TO RECEIVER INFORMATION</p>
                           </td>
                           <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>value</p>
+                            <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {lcModuleData?.lcApplication?.senderToReceiverInformation?.toUpperCase()}</p>
                           </td>
                         </tr>
                       </tbody>
@@ -394,7 +429,28 @@ function Index() {
               </table>
             </td>
           </tr>
-        </table> */}
+        </table> 
+      ), {
+  callback: function (doc) {
+    doc.save('sample.pdf')
+  },
+  // margin:margins,
+  autoPaging: "text",
+
+
+  },
+
+
+  )
+  }
+
+  return (
+    <>
+      <div className="container-fluid p-0 border-0">
+        <div
+          className={`${styles.root_container} card shadow-none border-0 bg-transparent`}
+        >
+        
           {/* <div className={styles.head_container}>
           <div className={styles.head_header}>
             <img
@@ -1058,9 +1114,7 @@ function Index() {
                         role="tabpanel"
                         aria-labelledby="email-address"
                       >
-
-                        {emailAdd.map((val,index) => (
-                        <div key={index} className={`${styles.each_input} form-group`}>
+                        <div className={`${styles.each_input} form-group`}>
                           <div className="d-flex">
                             <select
                               id="email"
@@ -1085,7 +1139,6 @@ function Index() {
                             />
                           </div>
                         </div>
-                        ))}
                         <div
                           className={`${styles.addMoreRows}`}
                           onClick={(e) => {
@@ -1243,6 +1296,7 @@ function Index() {
                         onClick={handleClose}
                         type="button"
                         className={`${styles.submit} ${styles.btn} btn w-50`}
+                       
                       >
                         Download
                       </button>
@@ -1255,9 +1309,11 @@ function Index() {
         </div>
       </div>
 
-      <LCAmendBar openbar={handlePopup} barName="Application for LC" />
+      <LCAmendBar download={exportPDF} openbar={handlePopup} barName="Application for LC" />
     </>
   )
 }
 
 export default Index
+
+
