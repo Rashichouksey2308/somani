@@ -118,7 +118,7 @@ function Index() {
   }
   // for setting default breadcrumb tab value //
   useEffect(() => {
-    dispatch(getBreadcrumbValues({ upperTabs: 'Bill Of Loading' }))
+    dispatch(getBreadcrumbValues({ upperTabs: 'Bill Of Lading' }))
   }, [])
   return (
     <>
@@ -146,7 +146,7 @@ function Index() {
           <ul className={`${styles.navTabs} nav nav-tabs`}>
             <li
               className={`${styles.navItem}  nav-item`}
-              onClick={() => handleBreadcrumbClick('Bill of Loading')}
+              onClick={() => handleBreadcrumbClick('Bill of Lading')}
             >
               <a
                 className={`${styles.navLink} navLink  nav-link active`}
@@ -156,7 +156,7 @@ function Index() {
                 aria-controls="billLanding"
                 aria-selected="true"
               >
-                Bill of Loading
+                Bill of Lading
               </a>
             </li>
             <li
