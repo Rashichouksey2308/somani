@@ -16,7 +16,19 @@ function Index() {
   const { lcModule } = useSelector((state) => state.lc)
 
   let lcModuleData = _get(lcModule,  'data[0]', {})
-
+  const [emailAdd, setEmailAdd] = useState([
+    {
+        emailID: '',
+    },
+  ])
+  const addMoreRows = () => {
+    setEmailAdd([
+      ...emailAdd,
+      {
+        emailID: '',
+      },
+    ])
+  }
   // console.log(lcModuleData, 'THIS IS LC MODULE DATA')
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
@@ -268,7 +280,8 @@ function Index() {
                         role="tabpanel"
                         aria-labelledby="email-address"
                       >
-                        <div className={`${styles.each_input} form-group`}>
+                        {emailAdd.map((val,index) => (
+                        <div key={index} className={`${styles.each_input} form-group`}>
                           <div className="d-flex">
                             <select
                               id="email"
@@ -293,6 +306,7 @@ function Index() {
                             />
                           </div>
                         </div>
+                        ))}
                         <div
                           className={`${styles.addMoreRows}`}
                           onClick={(e) => {
