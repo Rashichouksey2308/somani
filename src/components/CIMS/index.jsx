@@ -14,7 +14,7 @@ import {
 import UploadOther from '../UploadOther'
 import { toast } from 'react-toastify'
 import moment from 'moment'
-
+import { addPrefixOrSuffix } from 'utils/helper'
 
 export default function Index({
   isShipmentTypeBULK,
@@ -331,7 +331,7 @@ export default function Index({
                     <div className="d-flex">
                       {
                         <select
-                        value={list.vesselName}
+                          value={list.vesselName}
                           onChange={(e) => onChangeVessel(e, index)}
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                         >
@@ -377,11 +377,15 @@ export default function Index({
                   >
                     <input
                       id="quantity"
-                      defaultValue={
-                        list.quantity
-                          ? list.quantity
-                          : _get(TransitDetails, 'data[0].order.quantity', '')
-                      }
+                      // defaultValue={
+                      //   list.quantity
+                      //     ? list.quantity
+                      //     : _get(TransitDetails, 'data[0].order.quantity', '')
+                      // }
+
+                      value={addPrefixOrSuffix( list.quantity
+                            ? list.quantity
+                             : _get(TransitDetails, 'data[0].order.quantity', " MT"))}
                       onChange={(e) => onChangeCims(e, index)}
                       className={`${styles.input_field} input form-control`}
                       type="number"
@@ -433,7 +437,7 @@ export default function Index({
                       <label
                         className={`${styles.label_heading} label_heading`}
                       >
-                        Circ Date
+                        CIRC Date
                       </label>
                     </div>
                   </div>
@@ -458,14 +462,14 @@ export default function Index({
                   >
                     <div className="d-flex">
                       <select
-                      value={list.paymentBy}
+                        value={list.paymentBy ? list.paymentBy : _get(TransitDetails, 'data[0].order.termsheet.otherTermsAndConditions.buyer.bank', '')}
                         id="paymentBy"
                         onChange={(e) => onChangeCims(e, index)}
                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       >
                         <option>Select an option</option>
-                        {/* <option value={list.paymentBy}>{list.paymentBy}</option> */}
-                        <option value="1">1</option>
+                        <option value={_get(TransitDetails, 'data[0].order.termsheet.otherTermsAndConditions.buyer.bank', '')}>{_get(TransitDetails, 'data[0].order.termsheet.otherTermsAndConditions.buyer.bank', '')}</option>
+                        <option value={_get(TransitDetails, 'data[0].company.companyName', '')}>{_get(TransitDetails, 'data[0].company.companyName', '')}</option>
                         <option>N/A</option>
                       </select>
                       <label

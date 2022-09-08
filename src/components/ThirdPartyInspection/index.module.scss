@@ -142,6 +142,17 @@
             color: #111111;
             letter-spacing: 0.22px;
             padding-right: 50px;
+            input {
+              width: 15px;
+              height: 15px;
+              margin-right: 12px;
+              transform: scale(1.2);
+              @include respond(lg-desktop) {
+                width: 13px;
+                height: 13px;
+              }
+             
+            }
             @include respond(sm-desktop) {
               font-size: 19px;
               margin: -10px 0;
@@ -266,7 +277,7 @@
         background-color: transparent;
       }
       .form_group {
-        margin-top: 41px;
+        margin-top: 42px;
         position: relative;
         margin-bottom: 10px;
         .search_image {

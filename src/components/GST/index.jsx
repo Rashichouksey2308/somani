@@ -72,6 +72,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     password: '',
     gstin: '',
   })
+  const [passwordShow, setPasswordShow] = useState(false)
 
 
 
@@ -929,13 +930,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     md={3}
                     sm={12}
                   >
-                    <div className={`${styles.gst_cancelled}  gst_profile_alerts  d-flex align-items-center justify-content-start`}>
+                    {/* <div className={`${styles.gst_cancelled}  gst_profile_alerts  d-flex align-items-center justify-content-start`}>
                       <div
                         className={styles.dot}
                         style={{ backgroundColor: '#CBC5C5' }}
                       ></div>
                       <span>GST Inactive</span>
-                    </div>
+                    </div> */}
                   </Col>
                 </Row>
               </div>
@@ -1216,7 +1217,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                 >
                   <div className="input-group align-items-center" id="password">
                     <input
-                      type="password"
+                      type={passwordShow ? 'text' : "password"}
                       name="password"
                       className={`${styles.formControl} ${styles.input} input form-control`}
                       onChange={(e) =>
@@ -1234,6 +1235,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       Password
                     </label>
                     <img
+                    onClick={()=> setPasswordShow(!passwordShow)}
                       src="/static/eye.svg"
                       alt="Show Password"
                       className="img-fluid"
@@ -1498,7 +1500,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
               <option selected value={10000000}>
                 Crores
               </option>
-              <option  value={100000}>
+              <option value={100000}>
                 Lakhs
               </option>
             </select>
@@ -1533,13 +1535,14 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <th className={`${styles.first} text-color`} colSpan={2}>
                       Annual Summary
                     </th>
-                    <th colSpan={2}>
+                    <th colSpan={2} className='text_light'>
                       {finacialYear(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.B2BSales?.current?.financialYear,
                       )}
                     </th>
-                    <th colSpan={2}>
+                    <th colSpan={2} className='text_light'>
+
                       {finacialYear(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.B2BSales?.previous?.financialYear,
@@ -1861,13 +1864,15 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                 >
                   <tr>
                     <th className={`${styles.first} text-color`}>Averages</th>
-                    <th>
+                    <th className='text_light'>
+
                       {finacialYear(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.B2BSales?.current?.financialYear,
                       )}
                     </th>
-                    <th>
+                    <th className='text_light'>
+
                       {finacialYear(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.B2BSales?.previous?.financialYear,
@@ -1966,8 +1971,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <th className={`${styles.first} text-color`}>
                       Principal/ HSN Wise Sales
                     </th>
-                    <th colSpan={6}>
-                      <span style={{ color: '#2837566A' }}>
+                    <th colSpan={6} className='text_light'> 
+
+                      <span className='breadcrum_mode mr-1'>
                         Financial Period:
                       </span>
                       {finacialYear(
@@ -2078,13 +2084,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <th className={`${styles.first} text-color`} colSpan={2}>
                       Annual Summary
                     </th>
-                    <th colSpan={2}>
+                    <th colSpan={2}  className='text_light'>
                       {finacialYear(
                         gstFilteredData?.detail?.purchaseDetailAnnual
                           ?.saleSummary?.B2BPurchase?.current?.financialYear,
                       )}
                     </th>
-                    <th colSpan={2}>
+                    <th colSpan={2}  className='text_light'>
                       {finacialYear(
                         gstFilteredData?.detail?.purchaseDetailAnnual
                           ?.saleSummary?.B2BPurchase?.previous?.financialYear,
@@ -2355,13 +2361,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                 >
                   <tr>
                     <th className={`${styles.first} text-color`}>Averages</th>
-                    <th>
+                    <th  className='text_light'>
                       {finacialYear(
                         gstFilteredData?.detail?.purchaseDetailAnnual
                           ?.saleSummary?.B2BPurchase?.current?.financialYear,
                       )}
                     </th>
-                    <th>
+                    <th  className='text_light'>
                       {finacialYear(
                         gstFilteredData?.detail?.purchaseDetailAnnual
                           ?.saleSummary?.B2BPurchase?.previous?.financialYear,
@@ -2483,8 +2489,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <th className={`${styles.first} text-color`}>
                       Principal/ HSN Wise Purchases
                     </th>
-                    <th colSpan={6}>
-                      <span style={{ color: '#2837566A' }}>
+                    <th colSpan={6}  className='text_light'>
+                      <span className='breadcrum_mode'>
                         Financial Period:
                       </span>{' '}
                       {finacialYear(
@@ -2603,8 +2609,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                 >
                   <tr>
                     <th className={`${styles.first}`} colSpan={2}></th>
-                    <th colSpan={2}>GSTR1 (SALES)</th>
-                    <th colSpan={2}>GSTR3B (CONSOLIDATED)</th>
+                    <th colSpan={2} className='text_light'>GSTR1 (SALES)</th>
+                    <th colSpan={2} className='text_light'>GSTR3B (CONSOLIDATED)</th>
                   </tr>
                   <tr className={styles.second_head}>
                     <td colSpan={2}>MONTH</td>
@@ -2761,7 +2767,7 @@ const gstCustomerDetail = (
                                 </td>
                                 <td>{customer?.invoice}</td>
                                 <td>
-                                {convertValue(customer?.salesPerInvoice, customerDetailsUnit)?.toLocaleString(undefined, {
+                                  {convertValue(customer?.salesPerInvoice, customerDetailsUnit)?.toLocaleString(undefined, {
                                     maximumFractionDigits: 2,
                                   })}
                                   {/* {customer?.salesPerInvoice?.toLocaleString()} */}
@@ -2805,7 +2811,7 @@ const gstCustomerDetail = (
                                 <td>{customer?.name}</td>
                                 <td>{customer?.pan}</td>
                                 <td>
-                                {convertValue(customer?.ttlVal, customerDetailsUnit)?.toLocaleString(undefined, {
+                                  {convertValue(customer?.ttlVal, customerDetailsUnit)?.toLocaleString(undefined, {
                                     maximumFractionDigits: 2,
                                   })}
                                   {/* {customer?.ttlVal?.toLocaleString(undefined, {
@@ -2815,7 +2821,7 @@ const gstCustomerDetail = (
                                 <td>{customer?.percentageOfTotalSales}%</td>
                                 <td>{customer?.invoice}</td>
                                 <td>
-                                {convertValue(customer?.salesPerInvoice, customerDetailsUnit)?.toLocaleString(undefined, {
+                                  {convertValue(customer?.salesPerInvoice, customerDetailsUnit)?.toLocaleString(undefined, {
                                     maximumFractionDigits: 2,
                                   })}
                                   {/* {customer?.salesPerInvoice?.toLocaleString(
@@ -2862,7 +2868,7 @@ const gstCustomerDetail = (
                                 <td>{customer?.name}</td>
                                 <td>{customer?.pan}</td>
                                 <td>
-                                {convertValue(customer?.ttlVal, customerDetailsUnit)?.toLocaleString(undefined, {
+                                  {convertValue(customer?.ttlVal, customerDetailsUnit)?.toLocaleString(undefined, {
                                     maximumFractionDigits: 2,
                                   })}
                                   {/* {Number(customer?.ttlVal)?.toLocaleString()} */}
@@ -2872,7 +2878,7 @@ const gstCustomerDetail = (
                                 </td>
                                 <td>{customer?.invoice}</td>
                                 <td>
-                                {convertValue(customer?.salesPerInvoice, customerDetailsUnit)?.toLocaleString(undefined, {
+                                  {convertValue(customer?.salesPerInvoice, customerDetailsUnit)?.toLocaleString(undefined, {
                                     maximumFractionDigits: 2,
                                   })}
                                   {/* {Number(
@@ -2937,7 +2943,7 @@ const gstCustomerDetail = (
                                   )}
                                 </td>
                                 <td>
-                                {convertValue(customer?.salesPerInvoice, customerDetailsUnit)?.toLocaleString(undefined, {
+                                  {convertValue(customer?.salesPerInvoice, customerDetailsUnit)?.toLocaleString(undefined, {
                                     maximumFractionDigits: 2,
                                   })}
                                   {/* {customer?.salesPerInvoice?.toLocaleString()} */}

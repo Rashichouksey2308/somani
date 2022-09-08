@@ -17,7 +17,7 @@ const Index = ({
 }) => {
   const [IsBlSelected, setIsBlSelected] = useState(false)
   const [thirdPartyInspection, setThirdPartyInspection] = useState(false)
-  console.log(termsheetDetails, 'termsheetDetails')
+  console.log(termsheetDetails?.transactionDetails?.shipmentType, 'termsheetDetails')
   const updateThirdPartyInspection = (e) => {
     if (e.target.value == false) {
       setThirdPartyInspection(false)
@@ -106,7 +106,9 @@ const Index = ({
                   className={`${styles.value} ${styles.customSelect}  input form-control`}
                   onChange={onChangeCommodityDetails}
                   required
+                  value={termsheetDetails?.commodityDetails?.unitOfQuantity}
                 >
+                  <option disabled selected>Select an option</option>
                   <option
                     value={
                       termsheetDetails?.commodityDetails?.unitOfQuantity == 'mt'
@@ -143,7 +145,7 @@ const Index = ({
                   onChange={onChangeCommodityDetails}
                   required
                 >
-                  <option>Select</option>
+                  <option disabled selected>Select</option>
                   <option value="USD">USD</option>
                   <option value="INR">INR</option>
                   <option value="Euro">Euro</option>
@@ -298,7 +300,7 @@ const Index = ({
                   value={termsheetDetails?.transactionDetails?.lcOpeningBank}
                   required
                 >
-                  <option>Select an option</option>
+                 <option disabled selected>Select an option</option>
                   <option value="Reserve Bank of Spain">
                     Reserve Bank of Spain
                   </option>
@@ -326,7 +328,7 @@ const Index = ({
                   required
                 >
                   {/* <option value={termsheetDetails?.transactionDetails?.incoTerm}>{termsheetDetails?.transactionDetails?.incoTerm} </option> */}
-                  <option>Select an option</option>
+                  <option disabled selected>Select </option>
                   <option value="CFR">CFR</option>
                   <option value="FOB"> FOB</option>
                   <option value="CIF">CIF</option>
@@ -353,7 +355,7 @@ const Index = ({
                   required
                 >
                   {/* <option value={termsheetDetails?.transactionDetails?.loadPort}>{termsheetDetails?.transactionDetails?.loadPort} </option> */}
-                  <option>Select an option</option>
+                  <option disabled selected>Select an option</option>
                   <option value="Westshore Terminals,Canada">
                     Westshore Terminals,Canada
                   </option>
@@ -380,7 +382,7 @@ const Index = ({
                   onChange={onChangeTransactionDetails}
                   required
                 >
-                  <option>Select an option</option>
+                  <option disabled selected>Select an option</option>
                   <option value="India">India</option>
                   <option value="Australia">Australia</option>
                   <option value="Sri Lanka">Sri Lanka</option>
@@ -399,7 +401,7 @@ const Index = ({
             </div>
             {console.log(
               'country origin',
-              termsheetDetails?.transactionDetails?.countryOfOrigin,
+             termsheetDetails?.transactionDetails?.shipmentType,
             )}
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <div className="d-flex">
@@ -410,7 +412,7 @@ const Index = ({
                   onChange={onChangeTransactionDetails}
                   required
                 >
-                  <option>Select an option</option>
+                  <option disabled selected>Select an option</option>
                   <option value="Bulk">Bulk</option>
                   <option value="Liner">Liner</option>
                 </select>
@@ -435,7 +437,7 @@ const Index = ({
                   onChange={onChangeTransactionDetails}
                   required
                 >
-                  <option>Select an option</option>
+                  <option disabled selected>Select an option</option>
                   {termsheetDetails?.transactionDetails?.partShipmentAllowed ===
                   'Yes' ? (
                     <>
@@ -471,7 +473,7 @@ const Index = ({
                   onChange={onChangeTransactionDetails}
                   required
                 >
-                  <option>Select an option</option>
+                  <option disabled selected>Select an option</option>
                   <option value="Vishakapatnam, India">
                     Visakhapatnam, India
                   </option>
@@ -498,7 +500,7 @@ const Index = ({
                   value={termsheetDetails?.transactionDetails?.billOfEntity}
                   required
                 >
-                  <option>Select an option</option>
+                  <option disabled selected>Select an option</option>
                   <option value="Home Consumption">Home Consumption</option>
                   <option value="Into-Bond">Into-Bond</option>
                   <option value="EX-Bond">EX-Bond </option>
@@ -525,6 +527,7 @@ const Index = ({
                   }}
                   required
                 >
+                  <option disabled selected>Select </option>
                   <option value={false}>No</option>
                   <option value={true}>Yes</option>
                 </select>
@@ -549,7 +552,7 @@ const Index = ({
                     required
                     id={'typeOfPort'}
                   >
-                    <option value="">Select an option</option>
+                    <option disabled selected>Select an option</option>
                     <option value="Load Port">Load Port</option>
                     <option value="Discharge Port">Discharge Port</option>
                     <option value="Both">Lord Port and Discharge Port</option>
@@ -617,7 +620,7 @@ const Index = ({
                   className={`${styles.value} ${styles.customSelect}  input form-control`}
                   required
                 >
-                  <option>Select an option</option>
+                 <option disabled selected>Select an option</option>
                   <option value="DaysfromBLDate">Days from BL Date</option>
                   <option value="DaysfromVesselDischargeDate">
                     {' '}
@@ -813,7 +816,7 @@ const Index = ({
                   required
                   value={termsheetDetails?.commercials?.exchangeFluctuation}
                 >
-                  <option>Select an option</option>
+                  <option disabled selected>Select an option</option>
                   <option value="On Buyers A/C">On Buyers A/C</option>
                   <option value="On Sellers A/C">On Sellers A/C</option>
                 </select>
@@ -836,7 +839,7 @@ const Index = ({
                   onChange={onChangeCommercialTerms}
                   required
                 >
-                  <option >Select an option</option>
+                  <option disabled selected>Select an option</option>
                   <option value="Yes">Yes</option>
                   <option value="No">No</option>
                 </select>
@@ -877,7 +880,7 @@ const Index = ({
                   required
                   disabled={true}
                 >
-                  <option selected></option>
+                  <option disabled selected>Select an option</option>
                   <option selected value="1">
                     1
                   </option>
