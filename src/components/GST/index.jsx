@@ -72,6 +72,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     password: '',
     gstin: '',
   })
+  const [passwordShow, setPasswordShow] = useState(false)
 
 
 
@@ -1185,7 +1186,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                 >
                   <div className="input-group align-items-center" id="password">
                     <input
-                      type="password"
+                      type={passwordShow ? 'text' : "password"}
                       name="password"
                       className={`${styles.formControl} ${styles.input} input form-control`}
                       onChange={(e) =>
@@ -1203,6 +1204,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       Password
                     </label>
                     <img
+                    onClick={()=> setPasswordShow(!passwordShow)}
                       src="/static/eye.svg"
                       alt="Show Password"
                       className="img-fluid"
@@ -1467,7 +1469,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
               <option selected value={10000000}>
                 Crores
               </option>
-              <option  value={100000}>
+              <option value={100000}>
                 Lakhs
               </option>
             </select>
@@ -2730,7 +2732,7 @@ const gstCustomerDetail = (
                                 </td>
                                 <td>{customer?.invoice}</td>
                                 <td>
-                                {convertValue(customer?.salesPerInvoice, customerDetailsUnit)?.toLocaleString(undefined, {
+                                  {convertValue(customer?.salesPerInvoice, customerDetailsUnit)?.toLocaleString(undefined, {
                                     maximumFractionDigits: 2,
                                   })}
                                   {/* {customer?.salesPerInvoice?.toLocaleString()} */}
@@ -2774,7 +2776,7 @@ const gstCustomerDetail = (
                                 <td>{customer?.name}</td>
                                 <td>{customer?.pan}</td>
                                 <td>
-                                {convertValue(customer?.ttlVal, customerDetailsUnit)?.toLocaleString(undefined, {
+                                  {convertValue(customer?.ttlVal, customerDetailsUnit)?.toLocaleString(undefined, {
                                     maximumFractionDigits: 2,
                                   })}
                                   {/* {customer?.ttlVal?.toLocaleString(undefined, {
@@ -2784,7 +2786,7 @@ const gstCustomerDetail = (
                                 <td>{customer?.percentageOfTotalSales}%</td>
                                 <td>{customer?.invoice}</td>
                                 <td>
-                                {convertValue(customer?.salesPerInvoice, customerDetailsUnit)?.toLocaleString(undefined, {
+                                  {convertValue(customer?.salesPerInvoice, customerDetailsUnit)?.toLocaleString(undefined, {
                                     maximumFractionDigits: 2,
                                   })}
                                   {/* {customer?.salesPerInvoice?.toLocaleString(
@@ -2831,7 +2833,7 @@ const gstCustomerDetail = (
                                 <td>{customer?.name}</td>
                                 <td>{customer?.pan}</td>
                                 <td>
-                                {convertValue(customer?.ttlVal, customerDetailsUnit)?.toLocaleString(undefined, {
+                                  {convertValue(customer?.ttlVal, customerDetailsUnit)?.toLocaleString(undefined, {
                                     maximumFractionDigits: 2,
                                   })}
                                   {/* {Number(customer?.ttlVal)?.toLocaleString()} */}
@@ -2841,7 +2843,7 @@ const gstCustomerDetail = (
                                 </td>
                                 <td>{customer?.invoice}</td>
                                 <td>
-                                {convertValue(customer?.salesPerInvoice, customerDetailsUnit)?.toLocaleString(undefined, {
+                                  {convertValue(customer?.salesPerInvoice, customerDetailsUnit)?.toLocaleString(undefined, {
                                     maximumFractionDigits: 2,
                                   })}
                                   {/* {Number(
@@ -2906,7 +2908,7 @@ const gstCustomerDetail = (
                                   )}
                                 </td>
                                 <td>
-                                {convertValue(customer?.salesPerInvoice, customerDetailsUnit)?.toLocaleString(undefined, {
+                                  {convertValue(customer?.salesPerInvoice, customerDetailsUnit)?.toLocaleString(undefined, {
                                     maximumFractionDigits: 2,
                                   })}
                                   {/* {customer?.salesPerInvoice?.toLocaleString()} */}
