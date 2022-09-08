@@ -65,7 +65,7 @@ function Index() {
   }
  
   return (
-    <Card className={`${styles.card} card`}>
+    <Card className={`${styles.card} border`}>
       <Card.Header className={`${styles.header}  border_color  heading_card`}>Top 5 Customers</Card.Header>
       <Card.Body className={`${styles.body} row no-gutters`}>
         <div className={`${styles.name} col-sm-7`}>
