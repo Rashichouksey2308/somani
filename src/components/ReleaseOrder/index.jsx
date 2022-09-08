@@ -13,7 +13,7 @@ import Cookies from 'js-cookie'
 import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper'
 import Axios from 'axios'
 
-export default function Index({ ReleaseOrderData ,releaseDetail,setReleaseDetail}) {
+export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetail }) {
   const dispatch = useDispatch()
   const [show, setShow] = useState(false)
 
@@ -30,7 +30,7 @@ export default function Index({ ReleaseOrderData ,releaseDetail,setReleaseDetail
     'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
     0,
   )
- 
+
   const [editInput, setEditInput] = useState(true)
   const [netBalanceQuantity, setNetBalanceQuantity] = useState(InvoiceQuantity)
 
@@ -210,8 +210,20 @@ export default function Index({ ReleaseOrderData ,releaseDetail,setReleaseDetail
       deliveryId: _get(ReleaseOrderData, 'data[0]._id', ''),
       releaseDetail: [...releaseDetail],
     }
+    let task = 'save'
     // console.log(payload)
-    await dispatch(UpdateDelivery(payload))
+    await dispatch(UpdateDelivery({ payload, task }))
+  }
+
+  const onSubmitHanler = async () => {
+    let payload = {
+      deliveryId: _get(ReleaseOrderData, 'data[0]._id', ''),
+      releaseDetail: [...releaseDetail],
+    }
+    let task = 'submit'
+
+    // console.log(payload)
+    await dispatch(UpdateDelivery({ payload, task }))
   }
   // console.log(netBalanceQuantity, 'netBalanceQuantity')
 
@@ -341,7 +353,7 @@ export default function Index({ ReleaseOrderData ,releaseDetail,setReleaseDetail
                         <div
                           className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                         >
-                         
+
                           <input
                             // onWheel={(e) => e.target.blur()}
 
@@ -521,7 +533,7 @@ export default function Index({ ReleaseOrderData ,releaseDetail,setReleaseDetail
         <SaveBar
           handleSave={onSaveHAndler}
           rightBtn="Submit"
-          rightBtnClick={onSaveHAndler}
+          rightBtnClick={onSubmitHanler}
         />
       </div>
 

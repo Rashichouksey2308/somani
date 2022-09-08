@@ -35,6 +35,21 @@ function Index() {
   const handlePopup = () => {
     setShow(true)
   }
+  const [emailAdd, setEmailAdd] = useState([
+    {
+        emailID: '',
+    },
+  ])
+  const addMoreRows = () => {
+    setEmailAdd([
+      ...emailAdd,
+      {
+        emailID: '',
+      },
+    ])
+  }
+
+
   return (
     <>
       <div className="container-fluid p-0 border-0">
@@ -1043,7 +1058,9 @@ function Index() {
                         role="tabpanel"
                         aria-labelledby="email-address"
                       >
-                        <div className={`${styles.each_input} form-group`}>
+
+                        {emailAdd.map((val,index) => (
+                        <div key={index} className={`${styles.each_input} form-group`}>
                           <div className="d-flex">
                             <select
                               id="email"
@@ -1068,6 +1085,7 @@ function Index() {
                             />
                           </div>
                         </div>
+                        ))}
                         <div
                           className={`${styles.addMoreRows}`}
                           onClick={(e) => {
