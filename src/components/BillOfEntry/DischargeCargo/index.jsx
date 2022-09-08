@@ -576,14 +576,14 @@ export default function Index({
             cellSpacing="0"
             border="0"
           >
-            <tr className="table_row">
+            <tr className="table_row text-center">
               <th width="33%">BL NUMBER</th>
               <th width="33%">BL DATE</th>
               <th width="33%">BL QUANTITY</th>
             </tr>
             {_get(customData, 'order.transit.BL.billOfLanding', [{}]).map(
               (bl, indexbl) => (
-                <tr className="table_row" key={indexbl}>
+                <tr className="table_row text-center" key={indexbl}>
                   <td className="font-weight-bold">{bl?.blNumber}</td>
                   <td>
                     {moment(
