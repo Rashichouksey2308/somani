@@ -898,13 +898,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     md={3}
                     sm={12}
                   >
-                    <div className={`${styles.gst_cancelled}  gst_profile_alerts  d-flex align-items-center justify-content-start`}>
+                    {/* <div className={`${styles.gst_cancelled}  gst_profile_alerts  d-flex align-items-center justify-content-start`}>
                       <div
                         className={styles.dot}
                         style={{ backgroundColor: '#CBC5C5' }}
                       ></div>
                       <span>GST Inactive</span>
-                    </div>
+                    </div> */}
                   </Col>
                 </Row>
               </div>

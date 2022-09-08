@@ -51,7 +51,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
   const [manualDocModule, setManualDocModule] = useState(true)
 
   const [newDoc, setNewDoc] = useState({
-    document: [],
+    document: null,
     order: orderId,
     name: '',
     module: module ? module : 'Agreements&Insurance&LC&Opening',
@@ -88,7 +88,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
       dispatch(AddingDocument(fd))
 
       setNewDoc({
-        document: [],
+        document: null,
         order: orderId,
         name: '',
         module: module ? module : 'Agreements&Insurance&LC&Opening',
