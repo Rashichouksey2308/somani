@@ -457,14 +457,15 @@ const index = ({
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="existingProcurementOfCommodity"
                     required
+                    value={creditDetail?.existingProcurementOfCommodity}
                     onChange={(e) => {
                       saveProductData(e.target.name, e.target.value)
                     }}
                   >
                     <option
-                      value={creditDetail?.existingProcurementOfCommodity}
+                      disabled selected
                     >
-                      {creditDetail?.existingProcurementOfCommodity}
+                      Select
                     </option>
                     <option value="Import">Import</option>
                     <option value="Manufacturers">Manufacturers</option>
@@ -515,15 +516,16 @@ const index = ({
                   <select
                     className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                     name="contributionCommoditySenstivity"
+                    value={creditDetail?.contributionCommoditySenstivity}
                     onChange={(e) => {
                       saveProductData(e.target.name, e.target.value)
                     }}
            
                   >
                     <option
-                      value={creditDetail?.contributionCommoditySenstivity}
+                      disabled selected
                     >
-                      {creditDetail?.contributionCommoditySenstivity}
+                      Select
                     </option>
                     <option value="Very High">Very High</option>
                     <option value="High">High</option>
@@ -872,6 +874,18 @@ const index = ({
                 </label>
               </div>
             </div>
+            <div className={`${styles.saveButton} mt-4 mb-4`}>
+              <div
+                className={`${styles.button} d-flex justify-content-center align-items-center ml-0`}
+                onClick={() => {
+                  if (!updatingCreditCalculate) {
+                    saveSupplierData()
+                  }
+                }}
+              >
+                <span>Save</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1062,7 +1076,7 @@ const index = ({
               </div>
             </div>
             <div
-              className={`${styles.add_row} p-3 d-flex justify-content-end`}
+              className={`${styles.add_row} d-flex justify-content-end`}
               onClick={(e) => {
                 onKeyPersonSave(keyPersonData)
               }}
@@ -1964,7 +1978,7 @@ const index = ({
               </div>
             </div>
             <div
-              className={`${styles.add_row} p-3 d-flex justify-content-end`}
+              className={`${styles.add_row} d-flex justify-content-end`}
               onClick={(e) => {
                 addMoreDebtRows()
               }}

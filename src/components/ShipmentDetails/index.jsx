@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React ,{useState}from 'react'
+import React, { useState } from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 import DateCalender from '../DateCalender'
@@ -15,22 +15,22 @@ const index = ({ orderDetail, saveShipmentData }) => {
     let text = d.toISOString()
     saveShipmentData(name, text)
   }
-  const [dateStartFrom,setDateStartFrom]=useState({
-    laycan:"",
-    eta:""
- 
+  const [dateStartFrom, setDateStartFrom] = useState({
+    laycan: '',
+    eta: '',
   })
-  const setStartDate=(val,name)=>{
-      var new_date = moment(new Date(val).toISOString()).add(1, 'days').format("DD-MM-YYYY");
-      if(name=="loadPort.fromDate"){
-    
-      setDateStartFrom({...dateStartFrom,laycan:new_date})
-    }else{
-      setDateStartFrom({...dateStartFrom,eta:new_date})
+  const setStartDate = (val, name) => {
+    var new_date = moment(new Date(val).toISOString())
+      .add(1, 'days')
+      .format('DD-MM-YYYY')
+    if (name == 'loadPort.fromDate') {
+      setDateStartFrom({ ...dateStartFrom, laycan: new_date })
+    } else {
+      setDateStartFrom({ ...dateStartFrom, eta: new_date })
     }
-   
   }
-  console.log(dateStartFrom.laycan,"dateStartFrom")
+  console.log(dateStartFrom.laycan, 'dateStartFrom')
+  console.log(orderDetail?.shipmentDetail, 'ravindra')
   return (
     <div className={`${styles.main} vessel_card border-color card`}>
       <div
@@ -64,6 +64,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
                     {/* <option value="volvo">
                       {orderDetail?.shipmentDetail?.shipmentType}
                     </option> */}
+                    <option selected disabled>Select</option>
                     <option value="Liner">Liner</option>
                     <option value="Bulk">Bulk</option>
                   </select>
@@ -92,7 +93,6 @@ const index = ({ orderDetail, saveShipmentData }) => {
                     }
                     saveDate={saveDate}
                     setStartDateFrom={setStartDate}
-                    
                     labelName="Laycan at Load Port from"
                   />
                   <img
@@ -101,7 +101,6 @@ const index = ({ orderDetail, saveShipmentData }) => {
                     alt="Search"
                   />
                 </div>
-               
               </Form.Group>
 
               <Form.Group
@@ -125,7 +124,6 @@ const index = ({ orderDetail, saveShipmentData }) => {
                     alt="Search"
                   />
                 </div>
-              
               </Form.Group>
               <Form.Group
                 className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
@@ -202,7 +200,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
                       )[0]
                     }
                     saveDate={saveDate}
-                     startFrom={dateStartFrom.eta}
+                    startFrom={dateStartFrom.eta}
                     labelName="ETA at Discharge Port to"
                   />
                   <img
@@ -235,9 +233,15 @@ const index = ({ orderDetail, saveShipmentData }) => {
                     {/* <option value="volvo">
                       {orderDetail?.shipmentDetail?.shipmentType}
                     </option> */}
-                    <option selected disabled >Select an option</option>
-                   <option value="Westshore Terminals,Canada">Westshore Terminals,Canada</option>
-                   <option value="Abbot Point,Australia">Abbot Point,Australia</option>
+                    <option selected disabled>
+                      Select an option
+                    </option>
+                    <option value="Westshore Terminals,Canada">
+                      Westshore Terminals,Canada
+                    </option>
+                    <option value="Abbot Point,Australia">
+                      Abbot Point,Australia
+                    </option>
                     {/* <option value="Bulk">Bulk</option> */}
                   </select>
                   <Form.Label

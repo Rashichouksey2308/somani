@@ -168,13 +168,13 @@ function Index() {
           </a>
 
           <div className="dropdown-menu" aria-labelledby="userProfile">
-            <a className="dropdown-item" href="#">
+            <a className="dropdown-item">
               Name: Javanika
             </a>
-            <a className="dropdown-item" href="#">
+            <a className="dropdown-item">
               Age : 21 Years
             </a>
-            <a className="dropdown-item" onClick={()=>{dispatch(logoutUser())}}>
+            <a className="dropdown-item" role="button" onClick={()=>{dispatch(logoutUser())}}>
               Logout
             </a>
           </div>

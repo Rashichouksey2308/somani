@@ -19,6 +19,7 @@ import Router from 'next/router'
 import Cookies from 'js-cookie'
 import Axios from 'axios'
 import { setPageName, setDynamicName } from '../../src/redux/userData/action'
+import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action'
 
 function Index() {
   const dispatch = useDispatch()
@@ -38,13 +39,13 @@ function Index() {
 
   let customData = _get(allCustomClearance, 'data[0]', {})
   let OrderId = _get(customData, 'order._id', {})
-
+  let CompanyOrderId = _get(customData, 'order.orderId', {})
   const uploadDoc = async (e) => {
     console.log(e, 'response data')
     let fd = new FormData()
     fd.append('document', e.target.files[0])
     // dispatch(UploadCustomDoc(fd))
-    console.log(customData,'customData')
+    console.log(customData, 'customData')
 
     let cookie = Cookies.get('SOMANI')
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -82,6 +83,16 @@ function Index() {
     }
   }
 
+  useEffect(() => {
+    dispatch(
+      getBreadcrumbValues({
+        companyName: customData?.company?.companyName,
+        companyId: CompanyOrderId,
+        orderTabs: 'Bill of Entry',
+      }),
+    )
+  }, [])
+
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -96,7 +107,9 @@ function Index() {
               onClick={() => Router.push('/bill-of-entry')}
             />
             <h1 className={`${styles.title} heading`}>
-              <span>{customData?.company?.companyName} - Ramal001-00002</span>
+              <span>
+                {customData?.company?.companyName} - {CompanyOrderId}
+              </span>
             </h1>
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
@@ -111,7 +124,14 @@ function Index() {
                 // aria-controls="billEntry"
                 // aria-selected="true"
                 role="button"
-                onClick={() => setComponentId(1)}
+                onClick={() => {
+                  setComponentId(1)
+                  dispatch(
+                    getBreadcrumbValues({
+                      upperTabs: 'Bill of Entry',
+                    }),
+                  )
+                }}
               >
                 Bill of Entry
               </a>
@@ -127,7 +147,14 @@ function Index() {
                 // role="tab"
                 // aria-controls="dischargeCargo"
                 // aria-selected="false"
-                onClick={() => setComponentId(2)}
+                onClick={() => {
+                  setComponentId(2)
+                  dispatch(
+                    getBreadcrumbValues({
+                      upperTabs: 'Discharge of Cargo',
+                    }),
+                  )
+                }}
               >
                 Discharge of Cargo
               </a>
@@ -143,7 +170,14 @@ function Index() {
                 // role="tab"
                 // aria-controls="warehouse"
                 // aria-selected="false"
-                onClick={() => setComponentId(3)}
+                onClick={() => {
+                  setComponentId(3)
+                  dispatch(
+                    getBreadcrumbValues({
+                      upperTabs: 'Warehouse Details',
+                    }),
+                  )
+                }}
               >
                 Warehouse Details
               </a>
@@ -165,7 +199,6 @@ function Index() {
                         customData={customData}
                         componentId={componentId}
                         setComponentId={setComponentId}
-                        
                       />
                     )}
                   </div>
@@ -184,7 +217,6 @@ function Index() {
                         customData={customData}
                         componentId={componentId}
                         setComponentId={setComponentId}
-                        
                       />
                     )}
                   </div>
