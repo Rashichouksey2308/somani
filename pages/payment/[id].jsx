@@ -46,55 +46,56 @@ function Index() {
     dispatch(setPageName('payment'))
     dispatch(setDynamicName(ReleaseOrderData?.data[0]?.company.companyName))
     dispatch(setPageTabName('release'))
-  }, [ReleaseOrderData])
-
-
-    dispatch(
+     dispatch(
       getBreadcrumbValues({
         companyId: companyOrderId,
         companyName: ReleaseOrderData?.data[0]?.company?.companyName,
-      }),
+      })
     )
   }, [ReleaseOrderData])
 
-    useEffect(() => {
-        let temp=[];
-      if (_get(allLiftingData, 'data[0].liftingOrders', []).length > 0) {
-     
-        
+
+   
+
+
+  useEffect(() => {
+  let temp=[];
+  if (_get(allLiftingData, 'data[0].liftingOrders', []).length > 0) {
+
+
 
   _get(allLiftingData, 'data[0].liftingOrders', []).map((val,index)=>{
-    temp.push(
-      {
-        deliveryOrder:val.deliveryOrder,
-                detail:[
-                
-            ]
-        }
-      )
-    
-    if(val.deliveryOrderDetail.length > 0){
-        
-        val.deliveryOrderDetail.forEach((val2,index2)=>{
+  temp.push(
+  {
+  deliveryOrder:val.deliveryOrder,
+          detail:[
+          
+      ]
+  }
+  )
 
-          temp[index].detail.push(
-                {
-                dateOfLifting: val2.dateOfLifting ||null,
-                liftingQuant: val2.liftingQuantity,
-                modeOfTransportation:val2.modeOfTransport,
-                eWayBill: val2.ewayBillNo,
-                LRorRRDoc: val2.LRDocument||val2.RRDocument||{},
-                eWayBillDoc: val2.ewayBillDocument|| {},
-                }
-          )
+  if(val.deliveryOrderDetail.length > 0){
 
-      })
-    }
+  val.deliveryOrderDetail.forEach((val2,index2)=>{
+
+    temp[index].detail.push(
+          {
+          dateOfLifting: val2.dateOfLifting ||null,
+          liftingQuant: val2.liftingQuantity,
+          modeOfTransportation:val2.modeOfTransport,
+          eWayBill: val2.ewayBillNo,
+          LRorRRDoc: val2.LRDocument||val2.RRDocument||{},
+          eWayBillDoc: val2.ewayBillDocument|| {},
+          }
+    )
+
+  })
+  }
   })
 
   }
   console.log(temp,"temppppp")
-    setLifting([...temp])
+  setLifting([...temp])
 
   }, [allLiftingData])
 
