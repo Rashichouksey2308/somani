@@ -3,47 +3,50 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import styles from '../index.module.scss'
+import { toast } from 'react-toastify'
 
-function Index({chargesData}) {
 
-  const[chargesDatas,setChargesData]= useState()
 
-  const handleRadioSelect=(e)=>{
-  
-    if(e==='open'){
-      
+function Index({ chargesData }) {
+
+  const [chargesDatas, setChargesData] = useState()
+
+  const handleRadioSelect = (e) => {
+
+    if (e === 'open') {
+
       const filteredData =
-      chargesData.financial?.openCharges?.filter(
-        (data) => data.dateOfSatisfactionOfChargeInFull == null,
-      )
+        chargesData.financial?.openCharges?.filter(
+          (data) => data.dateOfSatisfactionOfChargeInFull == null,
+        )
       setChargesData(filteredData)
-    
+
     }
-    else if(e==='close'){
+    else if (e === 'close') {
       const filteredData =
-      chargesData?.financial?.openCharges?.filter(
-        (data) => data.dateOfSatisfactionOfChargeInFull !== null,
-      )
+        chargesData?.financial?.openCharges?.filter(
+          (data) => data.dateOfSatisfactionOfChargeInFull !== null,
+        )
       setChargesData(filteredData)
     }
     else {
       setChargesData(chargesData?.financial?.openCharges)
     }
   }
-  useEffect((e)=>{
+  useEffect((e) => {
     handleRadioSelect('all')
-  },[chargesData])
+  }, [chargesData])
   return (
     <>
       <div className={`${styles.card} card mb-6`}>
         <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`}>
           <h2 className="mb-0">Charges</h2>
           <div className={`${styles.charges} form-group`}>
-            <input defaultChecked type="radio" id="all" onClick={()=>{handleRadioSelect('all')}} name="charges" value="All" />
+            <input defaultChecked type="radio" id="all" onClick={() => { handleRadioSelect('all') }} name="charges" value="All" />
             <label className="text-color" htmlFor="all">All</label>
-            <input type="radio" id="open" name="charges" value="Open" onClick={()=>{handleRadioSelect('open')}}/>
+            <input type="radio" id="open" name="charges" value="Open" onClick={() => { handleRadioSelect('open') }} />
             <label className="text-color" htmlFor="open" >Open</label>
-            <input type="radio" id="closed" name="charges" onClick={()=>{handleRadioSelect('close')}} value="Closed" />
+            <input type="radio" id="closed" name="charges" onClick={() => { handleRadioSelect('close') }} value="Closed" />
             <label className="text-color" htmlFor="closed">Closed</label>
           </div>
           <div className={`${styles.unit_container} d-flex align-items-center`}>
@@ -81,14 +84,24 @@ function Index({chargesData}) {
                     </tr>
                   </thead>
                   <tbody>
-                  
-                  {chargesDatas && chargesDatas?.map((charges, index) => ( <tr key={index}>
+
+                    {chargesDatas && chargesDatas?.map((charges, index) => (<tr key={index}>
                       <td>{charges.chargeId}</td>
                       <td>{charges.nameOfChargeHolder1}</td>
                       <td className="text-center">{charges.finalAmountSecured}</td>
                       <td className="text-center">{charges.dateOfCreationOfCharge}</td>
                       <td className="text-center">
                         <img
+                          onClick={() => {
+                            if (charges.docLink === '' || !charges.docLink) {
+                            let toastMessage = 'doc not available'
+                              if (!toast.isActive(toastMessage.toUpperCase())) {
+                                toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+                              }
+                            } else {
+                              window.open(charges.docLink)
+                            }
+                          }}
                           src="/static/eye.svg"
                           alt="Eye"
                           className="img-fluid"
