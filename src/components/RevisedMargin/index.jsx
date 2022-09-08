@@ -417,8 +417,8 @@ const Index = ({
                     <div className={`${styles.val} heading`}>
                       {addPrefixOrSuffix(
                         finalCal.orderValue ? finalCal.orderValue : 0,
-                        'Cr',
-                        '',
+                        'USD',
+                        'front',
                       )}
                     </div>
                   </div>
