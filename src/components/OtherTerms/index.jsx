@@ -19,7 +19,9 @@ const Index = ({ termsheetDetails, onChangeDropDown, termsheet, otherTermConditi
             <div id="otherTerm" className="collapse" aria-labelledby="otherTerm" data-parent="#otherTerm">
                 <div className={`${styles.dashboard_form} card-body`}>
                     <Form>
-                        <div className={`${styles.terms_para}`}>Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable.<select onChange={(e) => onChangeDropDown(e)} className={`${styles.igpl_para} input`}>
+                        <div className={`${styles.terms_para}`}>Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable.
+                        <select onChange={(e) => onChangeDropDown(e)} className={`${styles.igpl_para} input`}>
+                            <option disabled selected>Select an option</option>
                             <option value={`Indo German International Private Limited (IGPL)`}>Indo German International Private Limited (IGPL)</option>
                             <option value={`Emergent Industrial Solutions Limited (EISL)`}> Emergent Industrial Solutions Limited (EISL)</option>
                         </select>
@@ -220,7 +222,7 @@ const Index = ({ termsheetDetails, onChangeDropDown, termsheet, otherTermConditi
 
 
                             <div className={`${styles.terms_para} pt-3 text-center w-100`}>All necessary documents to be filed with Customs department for discharge of goods &amp; Customs clearance can be filed by
-                                <span className={styles.igpl_para}>{otherTermConditions?.buyer?.bank} </span>
+                                <span className={styles.igpl_para}>{otherTermConditions?.buyer?.bank=="Indo German International Private Limited (IGPL)"?"IGPL":"EISL"} </span>
                                 or its nominated person.</div>
                         </div>
                         <div className={`${styles.terms_para} pt-3 text-center`} ><span className={`${styles.danger}`}>*</span> GST charges extra wherever applicable</div>
