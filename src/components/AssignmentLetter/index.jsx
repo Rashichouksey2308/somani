@@ -126,7 +126,7 @@ const assignmentSupplier=()=>{
         </Col>
          <Col md={6}>
           <p className="text_sales m-0"><strong>.................................................</strong></p>
-          <p className="text_sales"><strong> (Buyer)
+          <p className="text_sales"><strong> 
 </strong></p>
         </Col>
          <Col md={6}>
