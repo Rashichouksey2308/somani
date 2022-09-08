@@ -148,7 +148,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     // );
     console.log('cts', color2, color)
 
-    var gradient = ctx.createLinearGradient(0, 0, 0, 300)
+    let gradient = ctx.createLinearGradient(0, 0, 0, 300)
     gradient.addColorStop(0, color2)
     gradient.addColorStop(1, color)
 
@@ -566,7 +566,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       },
     ],
   }
-  let top10Supplier = {
+  const [top10Supplier,settop10Supplier]=useState({
+    labels:[],
+    datasets:[]
+  })
+  useEffect(() => {
+    if(gstFilteredData?.detail?.summaryCharts?.top10Suppliers?.names.length>0){
+    settop10Supplier({
     labels: gstFilteredData?.detail?.summaryCharts?.top10Suppliers?.names,
     datasets: [
       {
@@ -578,9 +584,14 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         backgroundColor: '#4791FF',
         borderColor: '#4791FF',
         maxBarThickness: 50,
+        clip:false,
       },
     ],
-  }
+  })
+    }
+  },[gstFilteredData])
+  
+  console.log(top10Supplier,"top10Customers")
 
   let stateWiseSales = {
     labels: gstFilteredData?.detail?.summaryCharts?.statewiseSales?.names,
@@ -598,8 +609,28 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     ],
   }
   const barOptions = {
+    maintainAspectRatio: false,
     scales: {
       x: {
+        grid: {
+          color: '#ff000000',
+          borderColor: '#ff000000',
+          tickColor: '#ff000000',
+        },
+      },
+      y: {
+        grid: {
+          borderColor: '#ff000000',
+          tickColor: '#ff000000',
+        },
+      },
+    },
+  }
+    const barOptions2 = {
+   
+    scales: {
+      x: {
+        
         grid: {
           color: '#ff000000',
           borderColor: '#ff000000',
@@ -1405,7 +1436,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <span className={styles.light}>(Cr)</span>
                   </div>
                   <div className={styles.chart}>
-                    <Bar data={stateWiseSales} options={barOptions} />
+                    <Bar data={stateWiseSales} options={barOptions2} />
                     <div className={`${styles.legend_box} text-center`}>
                       <span className={`${styles.legend}`}>
                         Financial Period {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.current?.financialYear}
