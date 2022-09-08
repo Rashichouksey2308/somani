@@ -33,11 +33,10 @@ export const CovertvaluefromtoCR = (value, conversionValue = 10000000) => {
   return newValue
 }
 
-
 export const convertValue = (value, coversionRate = 10000000) => {
   let newValue = Number(value / coversionRate)
   if (!newValue) {
-    console.log(newValue,value,'inspectionData231')
+    console.log(newValue, value, 'inspectionData231')
     return ''
   } else {
     return newValue
@@ -223,7 +222,9 @@ export const checkNan = (unitOfValue, type = false, number = 2) => {
     return ''
   } else {
     if (!type) {
-      // return Number(unitOfValue)?.toFixed(number)?.toLocaleString('en-IN')
+      // return Number(Number(unitOfValue))?.toLocaleString('en-IN', {
+        maximumFractionDigits: 2,
+    })
       return Number(unitOfValue)?.toLocaleString('en-IN', {
         maximumFractionDigits: 2, 
     })
