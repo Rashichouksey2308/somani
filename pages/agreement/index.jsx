@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import styles from './index.module.scss'
+import Router from 'next/router'
 import AgreementSales from '../../src/components/AgreementSales'
 import SalesAgreement from '../../src/components/SalesAgreement'
 import SalesContract from '../../src/components/SalesContract'
@@ -38,7 +39,7 @@ function Index() {
         <div
           className={`${styles.tab_header_inner} ml-3 d-flex align-items-center`}
         >
-          <img
+          <img onClick={() => Router.push('/agreement-table')}
             className={`${styles.arrow} img-fluid image_arrow mr-2`}
             src="/static/keyboard_arrow_right-3.svg"
             alt="arrow"
