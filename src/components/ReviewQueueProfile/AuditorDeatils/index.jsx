@@ -674,7 +674,7 @@ function Index({ directorData }) {
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      {
+                                      {isArray(director) &&
                                         _get(
                                           director,
                                           `otherAssociatedEntities${otherAssociates}`,

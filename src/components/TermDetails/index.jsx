@@ -599,6 +599,7 @@ const Index = ({
                     updateThirdPartyInspection(e)
                     onChangeTransactionDetails(e)
                   }}
+                  value={termsheetDetails.transactionDetails?.thirdPartyInspectionReq}
                   required
                 >
                   <option disabled selected>Select </option>

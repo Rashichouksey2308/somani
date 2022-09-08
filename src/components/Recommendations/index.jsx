@@ -362,7 +362,7 @@ const Index = ({
                               // value={
                               //   isFieldInFocus.groupExposureLimit ?
                               //   profile?.limit:
-                              //     Number(profile?.limit).toLocaleString() + ` Lakhs`}
+                              //     Number(profile?.limit)?.toLocaleString() + ` Lakhs`}
                               value={profile?.limit}
                               disabled={!profile.actions}
                               onKeyDown={(evt) => {

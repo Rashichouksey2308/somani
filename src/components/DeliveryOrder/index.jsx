@@ -75,7 +75,7 @@ export default function Index(props) {
                           'ReleaseOrder.data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
                           '',
                         ),
-                      ).toLocaleString()}{' '}
+                      )?.toLocaleString()}{' '}
                       {_get(
                         props,
                         'ReleaseOrder.data[0].order.unitOfQuantity',

@@ -2726,7 +2726,7 @@ const financeDetails = (
                     <td>
                       {previousYearData?.workingCapitalTurnover
                         ?.toFixed(2)
-                        .toLocaleString()}
+                        ?.toLocaleString()}
                     </td>
                   </tr>
                   <tr>
@@ -2734,12 +2734,12 @@ const financeDetails = (
                     <td>
                       {latestYearData?.daysOfSalesOutstanding
                         ?.toFixed(2)
-                        .toLocaleString()}
+                        ?.toLocaleString()}
                     </td>
                     <td>
                       {previousYearData?.daysOfSalesOutstanding
                         ?.toFixed(2)
-                        .toLocaleString()}
+                        ?.toLocaleString()}
                     </td>
                   </tr>
                   <tr>
@@ -2747,7 +2747,7 @@ const financeDetails = (
                     <td>
                       {latestYearData?.daysOfPayablesOutstanding
                         ?.toFixed(2)
-                        .toLocaleString()}
+                        ?.toLocaleString()}
                     </td>
                     <td>
                       {previousYearData?.daysOfPayablesOutstanding?.toFixed(2)}
@@ -2772,12 +2772,12 @@ const financeDetails = (
                     <td>
                       {latestYearData?.interestCoverage
                         ?.toFixed(2)
-                        .toLocaleString()}
+                       ?.toLocaleString()}
                     </td>
                     <td>
                       {previousYearData?.interestCoverage
                         ?.toFixed(2)
-                        .toLocaleString()}
+                        ?.toLocaleString()}
                     </td>
                   </tr>
                   <tr>
@@ -2785,23 +2785,23 @@ const financeDetails = (
                     <td>
                       {latestYearData?.currentRatio
                         ?.toFixed(2)
-                        .toLocaleString()}
+                        ?.toLocaleString()}
                     </td>
                     <td>
                       {previousYearData?.currentRatio
                         ?.toFixed(2)
-                        .toLocaleString()}
+                        ?.toLocaleString()}
                     </td>
                   </tr>
                   <tr>
                     <td>Debt Equity</td>
                     <td>
-                      {latestYearData?.debtEquity?.toFixed(2).toLocaleString()}
+                      {latestYearData?.debtEquity?.toFixed(2)?.toLocaleString()}
                     </td>
                     <td>
                       {previousYearData?.debtEquity
                         ?.toFixed(2)
-                        .toLocaleString()}
+                        ?.toLocaleString()}
                     </td>
                   </tr>
                 </table>
@@ -2907,7 +2907,7 @@ const financeDetails = (
                     <td>
                       {previousYearData?.workingCapitalTurnover
                         ?.toFixed(2)
-                        .toLocaleString()}
+                        ?.toLocaleString()}
                     </td>
                   </tr>
                   <tr>
@@ -2915,12 +2915,12 @@ const financeDetails = (
                     <td>
                       {latestYearData?.daysOfSalesOutstanding
                         ?.toFixed(2)
-                        .toLocaleString()}
+                        ?.toLocaleString()}
                     </td>
                     <td>
                       {previousYearData?.daysOfSalesOutstanding
                         ?.toFixed(2)
-                        .toLocaleString()}
+                        ?.toLocaleString()}
                     </td>
                   </tr>
                   <tr>
@@ -2928,12 +2928,12 @@ const financeDetails = (
                     <td>
                       {latestYearData?.daysOfPayablesOutstanding
                         ?.toFixed(2)
-                        .toLocaleString()}
+                        ?.toLocaleString()}
                     </td>
                     <td>
                       {previousYearData?.daysOfPayablesOutstanding
                         ?.toFixed(2)
-                        .toLocaleString()}
+                        ?.toLocaleString()}
                     </td>
                   </tr>
                   <tr>
@@ -2941,12 +2941,12 @@ const financeDetails = (
                     <td>
                       {latestYearData?.daysOfInventoryOutstanding
                         ?.toFixed(2)
-                        .toLocaleString()}
+                        ?.toLocaleString()}
                     </td>
                     <td>
                       {previousYearData?.daysOfInventoryOutstanding
                         ?.toFixed(2)
-                        .toLocaleString()}
+                        ?.toLocaleString()}
                     </td>
                   </tr>
                   <tr>
@@ -2960,12 +2960,12 @@ const financeDetails = (
                     <td>
                       {latestYearData?.interestCoverage
                         ?.toFixed(2)
-                        .toLocaleString()}
+                        ?.toLocaleString()}
                     </td>
                     <td>
                       {previousYearData?.interestCoverage
                         ?.toFixed(2)
-                        .toLocaleString()}
+                        ?.toLocaleString()}
                     </td>
                   </tr>
                   <tr>
@@ -2973,12 +2973,12 @@ const financeDetails = (
                     <td>
                       {latestYearData?.currentRatio
                         ?.toFixed(2)
-                        .toLocaleString()}
+                        ?.toLocaleString()}
                     </td>
                     <td>
                       {previousYearData?.currentRatio
                         ?.toFixed(2)
-                        .toLocaleString()}
+                        ?.toLocaleString()}
                     </td>
                   </tr>
                   <tr>

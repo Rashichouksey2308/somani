@@ -603,7 +603,7 @@ export default function Index({
                       TransitDetails,
                       'data[0].order.quantity',
                       '',
-                    ).toLocaleString()}{' '}
+                    )?.toLocaleString()}{' '}
                     {_get(
                       TransitDetails,
                       'data[0].order.unitOfQuantity',
@@ -618,7 +618,7 @@ export default function Index({
                   <span className={styles.value}>
                     {CovertvaluefromtoCR(
                       _get(TransitDetails, 'data[0].order.orderValue', ''),
-                    ).toLocaleString()}{' '}
+                    )?.toLocaleString()}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
                     'Crores'
                       ? 'Cr'
