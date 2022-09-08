@@ -4,11 +4,11 @@ import { Row, Col } from "react-bootstrap"
 import GrowInput from '../GrowInput'
 import Router from 'next/router'
 import moment from 'moment'
-import {CovertvaluefromtoCR} from '../../utils/helper'
+import { CovertvaluefromtoCR } from '../../utils/helper'
 
 
 function Index(props) {
-  console.log(props,"55")
+  console.log(props, "55")
   const [data, setData] = useState({
     seller: "",
     buyer: "",
@@ -30,10 +30,10 @@ function Index(props) {
     terms: "",
     addComm: "",
     spec: "",
-    unitOfGrade:"",
-    unitOfQuantity:"",
-    unitOfValue:"",
-    curr:""
+    unitOfGrade: "",
+    unitOfQuantity: "",
+    unitOfValue: "",
+    curr: ""
 
   })
 
@@ -41,12 +41,12 @@ function Index(props) {
     if (window) {
       if (props.preview) {
         const data = JSON.parse(sessionStorage.getItem("preview"))
-      
+
         setData({
           seller: data?.seller,
           buyer: data?.buyer?.toLowerCase(),
           shortseller: data?.shortseller,
-          shortbuyer:`${data?.buyer=="Indo German International Private Limited"?"IGPL":"EISL"}`,
+          shortbuyer: `${data?.buyer == "Indo German International Private Limited" ? "IGPL" : "EISL"}`,
           sellerSignature: data?.sellerSignature,
           buyerSignature: data?.buyerSignature,
           dateOfExecution: data?.dateOfExecution,
@@ -63,33 +63,33 @@ function Index(props) {
           terms: data?.terms,
           addComm: data?.addComm,
           spec: data?.spec,
-          unitOfGrade:data?.unitOfGrade,
-          unitOfQuantity:data?.unitOfQuantity,
-          unitOfValue:data?.unitOfValue,
-          curr:data?.orderCurrency
+          unitOfGrade: data?.unitOfGrade,
+          unitOfQuantity: data?.unitOfQuantity,
+          unitOfValue: data?.unitOfValue,
+          curr: data?.orderCurrency
         })
       } else {
-        
+
         const data = JSON.parse(sessionStorage.getItem("genericSelected"))
-        console.log(data,"data22222")
+        console.log(data, "data22222")
         let exe;
         let dat = "";
         data?.placeOfExecution?.execution?.forEach((val, index) => {
           if (val.agreementName == "Sales Agreement") {
             exe = val.place
-            if(val.dateOfExecution){
-              dat=moment(val.dateOfExecution).format("DD-MM-YYYY")
+            if (val.dateOfExecution) {
+              dat = moment(val.dateOfExecution).format("DD-MM-YYYY")
             }
           }
         })
-       
-       console.log(dat,exe,"exedasa")
+
+        console.log(dat, exe, "exedasa")
 
         setData({
           seller: data?.seller?.name,
           buyer: data?.buyer?.name,
           shortseller: data?.seller.shortName,
-          shortbuyer:  `${data?.buyer?.name=="Indo German International Private Limited"?"IGPL":"EISL"}`,
+          shortbuyer: `${data?.buyer?.name == "Indo German International Private Limited" ? "IGPL" : "EISL"}`,
           sellerSignature: "",
           buyerSignature: "",
           dateOfExecution: dat,
@@ -105,13 +105,13 @@ function Index(props) {
 
           lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
 
-          terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed=="Yes"?"Full":"Partial"}`,
+          terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed == "Yes" ? "Full" : "Partial"}`,
           addComm: data?.additionalComments?.comments,
           spec: data?.productSpecifications?.comments,
-          unitOfGrade:data?.order?.unitOfGrade,
-          unitOfQuantity:data?.order?.unitOfQuantity,
-          unitOfValue:data?.order?.unitOfValue,
-          curr:data?.order?.orderCurrency
+          unitOfGrade: data?.order?.unitOfGrade,
+          unitOfQuantity: data?.order?.unitOfQuantity,
+          unitOfValue: data?.order?.unitOfValue,
+          curr: data?.order?.orderCurrency
         })
       }
     }
@@ -120,12 +120,12 @@ function Index(props) {
   const changeHandler = (name, val) => {
     setData({ ...data, [name]: val })
   }
-  
+
   return (
     <div className={`${styles.root}`}>
 
       <div className={`${styles.content} card`}>
-        {salesContract(changeHandler, data, props.preview,CovertvaluefromtoCR)}
+        {salesContract(changeHandler, data, props.preview, CovertvaluefromtoCR)}
         {
           !props.preview ?
             <>
@@ -156,7 +156,7 @@ function Index(props) {
 }
 
 export default Index
-const salesContract = (changeHandler, data, preview,CovertvaluefromtoCR) => {
+const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
   console.log(data, "data2342")
   return (
     <>
@@ -184,19 +184,19 @@ const salesContract = (changeHandler, data, preview,CovertvaluefromtoCR) => {
             <Col md={1} className={styles.left}>1</Col>
             <Col md={4} className={styles.left}>Seller</Col>
             <Col md={7} className={styles.right}>
-          
-                <>{data?.seller}</>
-           
+
+              <>{data?.seller}</>
+
 
             </Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={1} className={styles.left}>2</Col>
             <Col md={4} className={styles.left}>Buyer</Col>
-            <Col md={7} className={styles.right} style={{textTransform:"capitalize"}}>
-             
-                <>{data?.buyer?.toLowerCase()}</>
-              
+            <Col md={7} className={styles.right} style={{ textTransform: "capitalize" }}>
+
+              <>{data?.buyer?.toLowerCase()}</>
+
             </Col>
           </Row>
           <Row className={`${styles.row}`}>
@@ -248,7 +248,7 @@ const salesContract = (changeHandler, data, preview,CovertvaluefromtoCR) => {
             <Col md={1} className={styles.left}>12</Col>
             <Col md={4} className={styles.left}>Payment Terms </Col>
             <Col md={7} className={styles.right}>
-             <div> <ol type="A">
+              <div> <ol type="A">
                 <li>
                   <p className="text_sales">All the custom clearance formalities, Duties, Taxes and other charges related to import of cargo and custom clearance shall be to Buyer’s account and shall be solely the Buyer’s responsibility.</p>
                 </li>
@@ -278,7 +278,7 @@ const salesContract = (changeHandler, data, preview,CovertvaluefromtoCR) => {
                 </li>
 
               </ol>
-              <p className="text_sales">All the above documents are subject to receipt from shipper.</p></div>
+                <p className="text_sales">All the above documents are subject to receipt from shipper.</p></div>
             </Col>
           </Row>
           <Row className={`${styles.row}`}>
@@ -402,7 +402,7 @@ const salesContract = (changeHandler, data, preview,CovertvaluefromtoCR) => {
             <Col md={1} className={styles.left}>20</Col>
             <Col md={4} className={styles.left}>Termination</Col>
             <Col md={7} className={styles.right}>
-              In the event the Buyer commits any breach of the terms of the agreement, then the Seller may, by giving thirty (30) days prior written notice to the Buyer, terminate this Agreement without liability and charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of the Goods already shipped by the Seller at the instance of the Buyer. Provided further, the Parties hereto agree that the Seller may immediately terminate this Agreement without providing any notice to the Buyer upon the Buyer, or the Buyer's shareholders commencing a voluntary proceeding under any applicable bankruptcy, insolvency, winding up or other similar law now or hereafter in effect (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the entry of an order for relief in an involuntary proceeding under any such law (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the appointment or taking possession by a resolution professional, Receiver, liquidator, assignee (or similar official) for any or a substantial part of its property; or the Buyer has involuntarily become the subject of proceedings (including filing of an application/ petition for corporate insolvency resolution) under the Insolvency &amp; Bankruptcy Code, 2016 or an order has been made by the appropriate authority for winding up of the Buyer.<br/><br/>
+              In the event the Buyer commits any breach of the terms of the agreement, then the Seller may, by giving thirty (30) days prior written notice to the Buyer, terminate this Agreement without liability and charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of the Goods already shipped by the Seller at the instance of the Buyer. Provided further, the Parties hereto agree that the Seller may immediately terminate this Agreement without providing any notice to the Buyer upon the Buyer, or the Buyer's shareholders commencing a voluntary proceeding under any applicable bankruptcy, insolvency, winding up or other similar law now or hereafter in effect (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the entry of an order for relief in an involuntary proceeding under any such law (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the appointment or taking possession by a resolution professional, Receiver, liquidator, assignee (or similar official) for any or a substantial part of its property; or the Buyer has involuntarily become the subject of proceedings (including filing of an application/ petition for corporate insolvency resolution) under the Insolvency &amp; Bankruptcy Code, 2016 or an order has been made by the appropriate authority for winding up of the Buyer.<br /><br />
               In the event that conditions of Force Majeure continue so that the Buyer's obligations remain suspended for a period or periods amounting in aggregate to sixty (60) days in any consecutive period of ninety (90) days, and at the end of said period or at anytime thereafter, then the Seller may give thirty (30) days prior written notice to the Buyer that the Seller intends to terminate this Agreement. At the expiration of the thirty (30) days, the Seller at its discretion may terminate this Agreement forthwith without any liability or charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of the Goods.
             </Col>
           </Row>
@@ -484,7 +484,7 @@ const salesContract = (changeHandler, data, preview,CovertvaluefromtoCR) => {
             <Col md={1} className={styles.left}>26</Col>
             <Col md={4} className={styles.left}>No Assignment</Col>
             <Col md={7} className={styles.right}>
-            Neither Party shall be entitled to assign, transfer or sub-contract its rights under this Agreement in whole or in part without first obtaining the other’s consent in writing.
+              Neither Party shall be entitled to assign, transfer or sub-contract its rights under this Agreement in whole or in part without first obtaining the other’s consent in writing.
             </Col>
           </Row>
           <Row className={`${styles.row}`}>
@@ -569,7 +569,7 @@ const salesContract = (changeHandler, data, preview,CovertvaluefromtoCR) => {
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Total Order Value</Col>
-            <Col md={7} className={styles.right}>{CovertvaluefromtoCR(data.totalOrderValue)} {data.unitOfValue=="Crores"?"Cr":data.unitOfValue}</Col>
+            <Col md={7} className={styles.right}>{CovertvaluefromtoCR(data.totalOrderValue)} {data.unitOfValue == "Crores" ? "Cr" : data.unitOfValue}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Load Port</Col>
@@ -619,11 +619,14 @@ const salesContract = (changeHandler, data, preview,CovertvaluefromtoCR) => {
 
 
         </div>
-        <p className=" text_sales pb-3"> <strong>SIGNATURE PAGE</strong></p>
+        <p className=" text_sales pb-1"> <strong>SIGNATURE PAGE</strong></p>
         <div className={`row`}>
           <Col md={6} >
             <p className="text_sales m-0">Seller</p>
-            
+            <Col md={6} className={`d-flex justify-content-around mt-5`}>
+              <GrowInput></GrowInput>
+            </Col>
+
             {
               preview ?
                 <><span>{data?.buyerSignature}</span></>
@@ -638,28 +641,32 @@ const salesContract = (changeHandler, data, preview,CovertvaluefromtoCR) => {
                     name="buyerSignature"
                     type="text"
                     placeholder="" className={`${styles.para} w-100 mt-5 input`}>
-                    </textarea>
-                  </div>
+                  </textarea>
+                </div>
                 </>
             }
           </Col>
           <Col md={6} >
-            <p className="text_sales m-0">Buyer</p> {
+            <p className="text_sales m-0">Buyer</p>
+            <Col md={6} className={`d-flex justify-content-around mt-5`}>
+              <GrowInput></GrowInput>
+            </Col>
+            {
               preview ?
                 <><span> {data?.sellerSignature}</span></>
                 :
                 <><div className='form-group mt-5 pt-3'>
-                    <textarea
-                      rows={3}
-                      onChange={(e) => {
-                        changeHandler(e.target.name, e.target.value)
-                      }}
-                      type="text"
-                      value={data?.sellerSignature}
-                      name="sellerSignature"
-                      placeholder="" className={`${styles.para} w-100 mt-5 input`}>
-                    </textarea>
-                  </div>
+                  <textarea
+                    rows={3}
+                    onChange={(e) => {
+                      changeHandler(e.target.name, e.target.value)
+                    }}
+                    type="text"
+                    value={data?.sellerSignature}
+                    name="sellerSignature"
+                    placeholder="" className={`${styles.para} w-100 mt-5 input`}>
+                  </textarea>
+                </div>
                 </>
             }
           </Col>
