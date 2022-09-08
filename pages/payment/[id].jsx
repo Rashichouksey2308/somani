@@ -51,11 +51,11 @@ function Index() {
 
     dispatch(
       getBreadcrumbValues({
-        companyId: companyOrderId,
+        // companyId: companyOrderId,
         companyName: ReleaseOrderData?.data[0]?.company?.companyName,
       }),
     )
-  }, [ReleaseOrderData])
+  // }, [ReleaseOrderData])
 
     useEffect(() => {
         let temp=[];
