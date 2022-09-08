@@ -46,17 +46,12 @@ function Index() {
     dispatch(setPageName('payment'))
     dispatch(setDynamicName(ReleaseOrderData?.data[0]?.company.companyName))
     dispatch(setPageTabName('release'))
-     dispatch(
-      getBreadcrumbValues({
-        // companyId: companyOrderId,
-        companyName: ReleaseOrderData?.data[0]?.company?.companyName,
-      }),
-    )
-  // }, [ReleaseOrderData])
+    
+  }, [ReleaseOrderData])
 
 
    
-  
+
 
     useEffect(() => {
         let temp=[];
