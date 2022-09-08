@@ -155,7 +155,7 @@ console.log(termsheetDetails,"termsheetDetails")
                                            setDays({ day1: termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate, day2: termsheetDetails?.paymentDueDate?.daysFromBlDate })
                                            setInputs({ input1: termsheetDetails?.transactionDetails?.portOfDischarge, input2: "Dr. Amin", input3: "IGM" })}
                                          } required>
-                                            
+                                            <option disabled selected>Select an option</option>
                                             <option value="Deliveries/Due Date/Payment">Deliveries/Due Date/Payment</option>
                                             <option value="Storage of Goods">Storage of Goods</option>
                                         </select>

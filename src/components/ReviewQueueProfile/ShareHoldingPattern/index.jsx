@@ -23,7 +23,7 @@ function Index({ shareHolding }) {
   const EquityValues = shareHolding?.filter((item) => {
     return item.type === 'EquityShares1Member'
   })
-  const equityShareNo = []
+  let equityShareNo = []
   let totalEquityShare = 0
   let totalEquitySharePercentage = 0
   const topEquityValues = EquityValues?.sort(
@@ -38,7 +38,7 @@ function Index({ shareHolding }) {
     totalEquitySharePercentage += equity.percentageShareHolding
   })
   // const top
-  console.log(equityShareNo, 'equityShareNo')
+  
 
   const prefrenceValues = shareHolding?.filter((item) => {
     return !item.type === 'EquityShares1Member'
@@ -57,7 +57,7 @@ function Index({ shareHolding }) {
     })
 
   //setTimeout(console.log(equityShareNo, topEquityValues, 'topprefrencesShareNo'), 5000);
-
+  console.log(equityShareNo, 'equityShareNo',topprefrencesShareNo)
   const equitydata = {
     labels: ['Sail', 'Jindal Grou', 'SR Steel'],
     datasets: [
@@ -83,7 +83,7 @@ function Index({ shareHolding }) {
     datasets: [
       {
         label: '',
-        data: [25, 24, 25],
+        data: topprefrencesShareNo,
 
         backgroundColor: ['#4CAF50', '#2884DE', '#FFCE00'],
       },
@@ -146,6 +146,7 @@ function Index({ shareHolding }) {
 
   //   },[chartRef])
 
+  console.log(equitydata,"equitydata")
   return (
     <>
       <div className={`${styles.card} card`}>

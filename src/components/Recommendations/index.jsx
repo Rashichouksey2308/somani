@@ -92,7 +92,7 @@ const Index = ({
     let tempArr = [...groupExposureData]
     tempArr.forEach((val, i) => {
       if (i == index) {
-        val[name] = value
+        val[name] = value.toLocal
       }
     })
     // console.log(tempArr, 'tempArr')
@@ -358,11 +358,11 @@ const Index = ({
                                 }
                               }}
                               onChange={(e) => {
-                                // e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0).toLocaleString('en-IN')
+                                e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0).toLocaleString('en-IN')
 
                                 handleGroupExpChange(
                                   e.target.name,
-                                  e.target.value.toString(),
+                                  e.target.value,
                                   index,
                                 )
                               }}
@@ -388,7 +388,7 @@ const Index = ({
                                 }
                               }}
                               onChange={(e) => {
-                                // e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0).toLocaleString('en-IN')
+                                e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0).toLocaleString('en-IN')
 
                                 handleGroupExpChange(
                                   e.target.name,

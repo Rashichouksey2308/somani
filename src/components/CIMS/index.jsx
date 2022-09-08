@@ -14,7 +14,7 @@ import {
 import UploadOther from '../UploadOther'
 import { toast } from 'react-toastify'
 import moment from 'moment'
-
+import { addPrefixOrSuffix } from 'utils/helper'
 
 export default function Index({
   isShipmentTypeBULK,
@@ -377,11 +377,15 @@ export default function Index({
                   >
                     <input
                       id="quantity"
-                      defaultValue={
-                        list.quantity
-                          ? list.quantity
-                          : _get(TransitDetails, 'data[0].order.quantity', '')
-                      }
+                      // defaultValue={
+                      //   list.quantity
+                      //     ? list.quantity
+                      //     : _get(TransitDetails, 'data[0].order.quantity', '')
+                      // }
+
+                      value={addPrefixOrSuffix( list.quantity
+                            ? list.quantity
+                             : _get(TransitDetails, 'data[0].order.quantity', " MT"))}
                       onChange={(e) => onChangeCims(e, index)}
                       className={`${styles.input_field} input form-control`}
                       type="number"
@@ -433,7 +437,7 @@ export default function Index({
                       <label
                         className={`${styles.label_heading} label_heading`}
                       >
-                        Circ Date
+                        CIRC Date
                       </label>
                     </div>
                   </div>

@@ -149,7 +149,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     // );
     console.log('cts', color2, color)
 
-    var gradient = ctx.createLinearGradient(0, 0, 0, 300)
+    let gradient = ctx.createLinearGradient(0, 0, 0, 300)
     gradient.addColorStop(0, color2)
     gradient.addColorStop(1, color)
 
@@ -567,7 +567,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       },
     ],
   }
-  let top10Supplier = {
+  const [top10Supplier,settop10Supplier]=useState({
+    labels:[],
+    datasets:[]
+  })
+  useEffect(() => {
+    if(gstFilteredData?.detail?.summaryCharts?.top10Suppliers?.names.length>0){
+    settop10Supplier({
     labels: gstFilteredData?.detail?.summaryCharts?.top10Suppliers?.names,
     datasets: [
       {
@@ -579,9 +585,14 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         backgroundColor: '#4791FF',
         borderColor: '#4791FF',
         maxBarThickness: 50,
+        clip:false,
       },
     ],
-  }
+  })
+    }
+  },[gstFilteredData])
+  
+  console.log(top10Supplier,"top10Customers")
 
   let stateWiseSales = {
     labels: gstFilteredData?.detail?.summaryCharts?.statewiseSales?.names,
@@ -599,8 +610,28 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     ],
   }
   const barOptions = {
+    maintainAspectRatio: false,
     scales: {
       x: {
+        grid: {
+          color: '#ff000000',
+          borderColor: '#ff000000',
+          tickColor: '#ff000000',
+        },
+      },
+      y: {
+        grid: {
+          borderColor: '#ff000000',
+          tickColor: '#ff000000',
+        },
+      },
+    },
+  }
+    const barOptions2 = {
+   
+    scales: {
+      x: {
+        
         grid: {
           color: '#ff000000',
           borderColor: '#ff000000',
@@ -1407,7 +1438,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <span className={styles.light}>(Cr)</span>
                   </div>
                   <div className={styles.chart}>
-                    <Bar data={stateWiseSales} options={barOptions} />
+                    <Bar data={stateWiseSales} options={barOptions2} />
                     <div className={`${styles.legend_box} text-center`}>
                       <span className={`${styles.legend}`}>
                         Financial Period {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.current?.financialYear}
@@ -1504,13 +1535,14 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <th className={`${styles.first} text-color`} colSpan={2}>
                       Annual Summary
                     </th>
-                    <th colSpan={2}>
+                    <th colSpan={2} className='text_light'>
                       {finacialYear(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.B2BSales?.current?.financialYear,
                       )}
                     </th>
-                    <th colSpan={2}>
+                    <th colSpan={2} className='text_light'>
+
                       {finacialYear(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.B2BSales?.previous?.financialYear,
@@ -1832,13 +1864,15 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                 >
                   <tr>
                     <th className={`${styles.first} text-color`}>Averages</th>
-                    <th>
+                    <th className='text_light'>
+
                       {finacialYear(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.B2BSales?.current?.financialYear,
                       )}
                     </th>
-                    <th>
+                    <th className='text_light'>
+
                       {finacialYear(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.B2BSales?.previous?.financialYear,
@@ -1937,8 +1971,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <th className={`${styles.first} text-color`}>
                       Principal/ HSN Wise Sales
                     </th>
-                    <th colSpan={6}>
-                      <span style={{ color: '#2837566A' }}>
+                    <th colSpan={6} className='text_light'> 
+
+                      <span className='breadcrum_mode mr-1'>
                         Financial Period:
                       </span>
                       {finacialYear(
@@ -2049,13 +2084,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <th className={`${styles.first} text-color`} colSpan={2}>
                       Annual Summary
                     </th>
-                    <th colSpan={2}>
+                    <th colSpan={2}  className='text_light'>
                       {finacialYear(
                         gstFilteredData?.detail?.purchaseDetailAnnual
                           ?.saleSummary?.B2BPurchase?.current?.financialYear,
                       )}
                     </th>
-                    <th colSpan={2}>
+                    <th colSpan={2}  className='text_light'>
                       {finacialYear(
                         gstFilteredData?.detail?.purchaseDetailAnnual
                           ?.saleSummary?.B2BPurchase?.previous?.financialYear,
@@ -2326,13 +2361,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                 >
                   <tr>
                     <th className={`${styles.first} text-color`}>Averages</th>
-                    <th>
+                    <th  className='text_light'>
                       {finacialYear(
                         gstFilteredData?.detail?.purchaseDetailAnnual
                           ?.saleSummary?.B2BPurchase?.current?.financialYear,
                       )}
                     </th>
-                    <th>
+                    <th  className='text_light'>
                       {finacialYear(
                         gstFilteredData?.detail?.purchaseDetailAnnual
                           ?.saleSummary?.B2BPurchase?.previous?.financialYear,
@@ -2454,8 +2489,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <th className={`${styles.first} text-color`}>
                       Principal/ HSN Wise Purchases
                     </th>
-                    <th colSpan={6}>
-                      <span style={{ color: '#2837566A' }}>
+                    <th colSpan={6}  className='text_light'>
+                      <span className='breadcrum_mode'>
                         Financial Period:
                       </span>{' '}
                       {finacialYear(
@@ -2574,8 +2609,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                 >
                   <tr>
                     <th className={`${styles.first}`} colSpan={2}></th>
-                    <th colSpan={2}>GSTR1 (SALES)</th>
-                    <th colSpan={2}>GSTR3B (CONSOLIDATED)</th>
+                    <th colSpan={2} className='text_light'>GSTR1 (SALES)</th>
+                    <th colSpan={2} className='text_light'>GSTR3B (CONSOLIDATED)</th>
                   </tr>
                   <tr className={styles.second_head}>
                     <td colSpan={2}>MONTH</td>

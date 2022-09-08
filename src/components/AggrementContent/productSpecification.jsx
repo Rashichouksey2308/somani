@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
-import * as XLSX from 'xlsx'
+import * as XLSX from 'xlsx';
 function Index(props) {
   const [excelData, setExcelData] = useState(null)
   const [excelFile, setExcelFile] = useState(null)

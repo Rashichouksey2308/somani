@@ -588,7 +588,7 @@ console.log(associateData.gstin,"associateData")
                   >
                       <option>Select an option</option>
                     <option value="Registered">Registered Office</option>
-                    <option value="Branch">Branch </option>
+                    {/* <option value="Branch">Branch </option> */}
                       <option value="Supplier">Supplier Address </option>
                     
                   </select>
@@ -962,7 +962,7 @@ console.log(associateData.gstin,"associateData")
                   <th>ACTION</th>
                 </tr>
                 <tbody>
-                  {/* <tr  className='table_row'>
+                   <tr  className='table_row'>
                       <td><strong>Board Resolution Copy<span className={`danger`}>*</span></strong></td>
                       <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/></td>
                       <td>{`28-02-2022,5:30 PM`}</td>
@@ -1005,7 +1005,7 @@ console.log(associateData.gstin,"associateData")
                       
                         <img  src="/static/upload.svg" alt="upload"/>
                       </td>
-                  </tr> */}
+                  </tr> 
 
                   
                 {docList.length>0 && docList.map((val,index)=>{
