@@ -2978,7 +2978,6 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       {gstPurchase(
         'Purchase',
         gstFilteredData,
-        handleGrowthPurchase,
         purchasesUnit,
         setPurchasesUnit,
         arr
@@ -3984,7 +3983,6 @@ const gstPurchase = (
   gstFilteredData,
   purchasesUnit,
   setPurchasesUnit,
-  handleGrowthPurchase,
   arr
 ) => {
   return (
@@ -4135,7 +4133,7 @@ const gstPurchase = (
                               <td key={index}>
                                 {sales
                                   ?.toFixed(2)
-                                  ?.toLocaleString()}
+                                  }
                               </td>
                             ),
                           )}
