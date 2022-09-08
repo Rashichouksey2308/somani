@@ -3804,6 +3804,8 @@ useEffect(() => {
                     saveApprovedCreditData={saveApprovedCreditData}
                     approvedCredit={approvedCredit}
                     orderDetails={orderList}
+                    GstData={gstData}
+                    
                     
                   />
                 </div>

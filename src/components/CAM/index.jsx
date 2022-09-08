@@ -48,10 +48,13 @@ function Index({
   saveApprovedCreditData,
   approvedCredit,
   orderDetails,
+  GstData
 }) {
   const dispatch = useDispatch()
-  console.log(camData, 'companyData')
-  // console.log(fetchingKarzaGst, 'fetchingKarzaGst')
+  console.log(GstData, 'GstData')
+  
+
+  
   useEffect(() => {
     if (window) {
       let id1 = sessionStorage.getItem('orderID')
@@ -213,7 +216,7 @@ function Index({
       )
     }
 
-    console.log(camData, 'dhjj')
+    console.log(tempArr, 'dhjj')
   }, [camData])
   // let tempArr = [
 
@@ -248,13 +251,20 @@ function Index({
       },
     ],
   }
-  const options = {
+  
+const options = {
+       elements: {
+      arc: {
+          borderWidth: 0  
+      }
+  }
+,
     plugins: {
       title: {
         display: false,
         text: 'Doughnut Chart',
         color: 'blue',
-        cutoutPercentage: 80,
+       
         font: {
           size: 34,
         },
@@ -262,13 +272,18 @@ function Index({
           top: 30,
           bottom: 30,
         },
-        responsive: true,
+      
         animation: {
           animateScale: true,
         },
       },
+    
     },
+     responsive: true, 
+     cutout: 130
+   
   }
+ 
   const covertMonths = (months) => {
     const CovertedMonts = []
     months?.map((month) => {
@@ -339,6 +354,199 @@ function Index({
   const [chartData2, setChartData2] = useState({
     datasets: [],
   })
+  
+  // let data = {
+  //   labels: ['Sail', 'Jindal Grou', 'SR Steel'],
+  //   datasets: [
+  //     {
+  //       label: '',
+  //       data: [25, 20, 55],
+
+  //       backgroundColor: ['#4CAF50', '#FF9D00', '#2884DE'],
+  //     },
+  //   ],
+  // }
+  let  backgroundColor= ['#61C555', '#876EB1', '#2884DE',"#ED6B5F","#2884DE"]
+  const [top5Customers,setTop5Customers] = useState({
+   labels:[],
+   datasets:[]
+  })
+  const [totalCustomer,setTotalCustomer] = useState(0)
+  const [totalSupplier,setTotalSupplier] = useState(0)
+  const [top5Suppliers,setTop5Suppliers] = useState({
+   labels:[],
+   datasets:[]
+  })
+   const [top3Share,setTop3Share] = useState({
+   labels:[],
+   datasets:[]
+  })
+    const [top3Open,setTop3Open] = useState({
+   labels:[],
+   datasets:[]
+  })
+const findTop5Customers=(data)=>{
+let temp=[]
+if(data?.names?.length>0){
+  data.names.forEach((val,index)=>{
+    temp.push({name:val,value:data.values[index]})
+})
+let sortedval=  temp.sort((a, b) => parseFloat(b.values) - parseFloat(a.values));
+let length=sortedval.length<5?sortedval.length:5
+let lable=[]
+let dataSet=[]
+let total=0;
+for(let i=0;i<length;i++){
+  lable.push(sortedval[i].name)
+  dataSet.push(sortedval[i].value)
+  total=total+sortedval[i].value
+}
+let top5data={
+labels:lable,
+datasets:[
+  {
+    label:lable,
+    data: dataSet,
+    backgroundColor: backgroundColor,
+  }
+]
+
+}
+setTotalCustomer(total)
+setTop5Customers({...top5data})
+
+}
+
+
+
+  
+
+}
+const findTop5Suppliers=(data)=>{
+let temp=[]
+if(data?.names?.length>0){
+  data.names.forEach((val,index)=>{
+    temp.push({name:val,value:data.values[index]})
+})
+let sortedval=  temp.sort((a, b) => parseFloat(b.values) - parseFloat(a.values));
+let length=sortedval.length<5?sortedval.length:5
+let lable=[]
+let dataSet=[]
+let total=0
+for(let i=0;i<length;i++){
+  lable.push(sortedval[i].name)
+  dataSet.push(sortedval[i].value)
+  total=total+sortedval[i].value
+}
+let top5data={
+labels:lable,
+datasets:[
+  {
+    label:lable,
+    data: dataSet,
+    backgroundColor: backgroundColor,
+  }
+]
+
+}
+setTotalSupplier(total)
+setTop5Suppliers({...top5data})
+
+}
+
+
+
+  
+
+}
+const findTop3Share=(data)=>{
+  console.log(data,"sasdasd")
+let temp=[]
+if(data?.length>0){
+  data.forEach((val,index)=>{
+    temp.push({name:val.fullName,value:val.numberOfShares})
+})
+let sortedval=  temp.sort((a, b) => parseFloat(b.values) - parseFloat(a.values));
+let length=3;
+let lable=[]
+let dataSet=[]
+let total=0
+for(let i=0;i<length;i++){
+  lable.push(sortedval[i].name)
+  dataSet.push(sortedval[i].value)
+  total=total+sortedval[i].value
+}
+let top5data={
+labels:lable,
+datasets:[
+  {
+    label:lable,
+    data: dataSet,
+    backgroundColor: backgroundColor,
+  }
+]
+
+}
+
+setTop3Share({...top5data})
+
+}
+
+
+
+  
+
+}
+const findTop3Open=(data)=>{
+  console.log(data,"opqpqpqp")
+let temp=[]
+if(data?.length>0){
+  data.forEach((val,index)=>{
+    if(val.finalAmountSecured!==null){
+      temp.push({name:val.nameOfChargeHolder1,value:val.finalAmountSecured})
+    }
+    
+})
+let sortedval=  temp.sort((a, b) => parseFloat(b.values) - parseFloat(a.values));
+let length=3;
+let lable=[]
+let dataSet=[]
+let total=0
+for(let i=0;i<length;i++){
+  lable.push(sortedval[i]?.name)
+  dataSet.push(sortedval[i]?.value||0)
+  
+}
+let top5data={
+labels:lable,
+datasets:[
+  {
+    label:lable,
+    data: dataSet,
+    backgroundColor: backgroundColor,
+  }
+]
+
+}
+
+setTop3Open({...top5data})
+
+}
+
+
+
+  
+
+}
+
+  console.log(top3Share,"top3Share")
+  useEffect(() => {
+    findTop5Customers(GstData?.detail?.summaryCharts?.top10Cus)
+    findTop5Suppliers(GstData?.detail?.summaryCharts?.top10Suppliers)
+    console.log(camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern,"camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern)")
+    findTop3Share(camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern)
+    findTop3Open(camData?.company?.detailedCompanyInfo?.financial?.openCharges)
+  },[GstData,camData])
   useEffect(() => {
     const chart = chartRef.current
     const chart2 = chartRef2.current
@@ -453,13 +661,13 @@ function Index({
         previousAuditorData,
       )}
       {directorDetails(camData)}
-      {shareHolding(data, options, tempArr, camData)}
-      {chargeDetails(data, options, tempArr, camData)}
+      {shareHolding(top3Share, options, tempArr, camData,backgroundColor)}
+      {chargeDetails(top3Open, options, tempArr, camData,backgroundColor)}
       {debtProfile(data, options, tempArr, camData)}
       {operationalDetails(camData)}
       {revenuDetails(gstData)}
       {trends(chartData, chartRef, chartRef2, chartData2, lineOption, gstData)}
-      {skewness(data, options, tempArr, gstData)}
+      {skewness(top5Customers, options, tempArr, gstData,top5Suppliers,backgroundColor,totalCustomer,totalSupplier)}
       {financeDetails(
         data,
         options,
@@ -1348,7 +1556,7 @@ const directorDetails = (camData) => {
     </>
   )
 }
-const shareHolding = (data, options, tempArr, camData) => {
+const shareHolding = (top3Share, options, tempArr, camData,backgroundColor) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -1372,14 +1580,14 @@ const shareHolding = (data, options, tempArr, camData) => {
             <Row>
               <Col className={`${styles.leftCol} border_color`} md={4}>
                 <div className={styles.chart}>
-                  <Doughnut data={data} options={options} />
+                  <Doughnut data={top3Share} options={options} />
                   <div className={styles.total_value}>
                     <span></span>
                     <span className={styles.highlight}></span>
                   </div>
                 </div>
                 <div className={`${styles.name} `}>
-                  {/* {tempArr.map((val, index) => {
+                  {top3Share.datasets && top3Share?.datasets[0]?.data.map((val, index) => {
                     return (
                       <div
                         key={index}
@@ -1387,12 +1595,12 @@ const shareHolding = (data, options, tempArr, camData) => {
                       >
                         <div
                           className={styles.round}
-                          style={{ backgroundColor: `${val.color}` }}
+                          style={{ backgroundColor: backgroundColor[index] }}
                         ></div>
-                        <span className={` heading ml-2`}>{val.name}</span>
+                        <span className={` heading ml-2`}>{top3Share.labels[index]==""?"NA":top3Share.labels[index]}</span>
                       </div>
                     )
-                  })} */}
+                  })}
                 </div>
               </Col>
               <Col md={8} className={`px-0`}>
@@ -1508,7 +1716,8 @@ const shareHolding = (data, options, tempArr, camData) => {
     </>
   )
 }
-const chargeDetails = (data, options, tempArr, camData) => {
+const chargeDetails = (top3Open, options, tempArr, camData,backgroundColor) => {
+  console.log(top3Open,"top3Open")
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -1532,14 +1741,14 @@ const chargeDetails = (data, options, tempArr, camData) => {
             <Row>
               <Col className={`${styles.leftCol} border_color`} md={4}>
                 <div className={styles.chart}>
-                  <Doughnut data={data} options={options} />
+                  <Doughnut data={top3Open} options={options} />
                   <div className={styles.total_value}>
-                    <span>Bindu Singh</span>
-                    <span className={styles.highlight}>83.80%</span>
+                    {/* <span>Bindu Singh</span>
+                    <span className={styles.highlight}>83.80%</span> */}
                   </div>
                 </div>
                 <div className={`${styles.name} `}>
-                  {/* {tempArr.map((val, index) => {
+                    {top3Open.datasets && top3Open?.datasets[0]?.data.map((val, index) => {
                     return (
                       <div
                         key={index}
@@ -1547,17 +1756,12 @@ const chargeDetails = (data, options, tempArr, camData) => {
                       >
                         <div
                           className={styles.round}
-                          style={{ backgroundColor: `${val.color}` }}
+                          style={{ backgroundColor: backgroundColor[index] }}
                         ></div>
-                        <span
-                          className={` heading ml-2 mr-3`}
-                          style={{ whiteSpace: 'nowrap' }}
-                        >
-                          {val.name}
-                        </span>
+                        <span className={` heading ml-2`}>{top3Open.labels[index]==""?"NA":top3Open.labels[index]}</span>
                       </div>
                     )
-                  })} */}
+                  })}
                 </div>
               </Col>
               <Col md={8} className={`px-0`}>
@@ -3502,7 +3706,8 @@ const trends = (
     </>
   )
 }
-const skewness = (data, options, tempArr, gstData) => {
+const skewness = (top5Customers, options, tempArr, gstData,top5Suppliers,backgroundColor,totalCustomer,totalSupplier) => {
+
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -3550,12 +3755,12 @@ const skewness = (data, options, tempArr, gstData) => {
                   <span className={`${styles.child} ml-2`}>
                     :{' '}
                     {checkNan(
-                      Number(
+                      CovertvaluefromtoCR(Number(
                         gstData?.detail?.salesDetailAnnual?.saleSummary
                           ?.grossTurnover?.current?.value,
-                      ),
+                      )),
                       true,
-                    )}
+                    )} Cr
                   </span>
                 </div>
                 <Row
@@ -3563,16 +3768,18 @@ const skewness = (data, options, tempArr, gstData) => {
                 >
                   <Col md={6} className={`${styles.col}`}>
                     <div className={styles.chart2}>
-                      <Doughnut data={data} options={options} />
-                      <div className={styles.total_value}>
-                        <span>Bindu Singh</span>
-                        <span className={styles.highlight}>83.80%</span>
-                      </div>
+                      <Doughnut data={top5Customers} options={options} />
+                      {/* <div className={styles.total_value}>
+                        <span>{top5Customers?.labels[0]}</span>
+                        <span className={styles.highlight}> {
+                                ((top5Customers?.datasets[0]?.data[0]/totalCustomer)*100)?.toFixed(2)
+                              }%</span>
+                      </div> */}
                     </div>
                   </Col>
                   <Col md={6}>
                     <div className={`${styles.name} `}>
-                      {tempArr.map((val, index) => {
+                      { top5Customers.datasets && top5Customers?.datasets[0]?.data?.map((val, index) => {
                         return (
                           <div
                             key={index}
@@ -3580,15 +3787,19 @@ const skewness = (data, options, tempArr, gstData) => {
                           >
                             <div
                               className={styles.round}
-                              style={{ backgroundColor: `${val.color}` }}
+                             style={{ backgroundColor: `${backgroundColor[index]}` }}
                             ></div>
                             <div
                               className={`d-flex justify-content-between align-item-start w-100`}
                             >
                               <span className={` heading ml-2`}>
-                                {val.name}
+                                {top5Customers.labels[index]}
                               </span>
-                              <span className={` heading mr-4`}>51.23%</span>
+                              <span className={` heading mr-4`}>
+                                {
+                                ((val/totalCustomer)*100)?.toFixed(2)
+                              }%
+                              </span>
                             </div>
                           </div>
                         )
@@ -3603,12 +3814,12 @@ const skewness = (data, options, tempArr, gstData) => {
                   <span className={`${styles.child} ml-2`}>
                     :{' '}
                     {checkNan(
-                      Number(
+                     CovertvaluefromtoCR(Number(
                         gstData?.detail?.purchaseDetailAnnual?.saleSummary
                           ?.grossPurchases?.current?.value,
-                      ),
+                      )),
                       true,
-                    )}
+                    )} Cr
                   </span>
                 </div>
                 {/* <div className={`${styles.chart}`}>
@@ -3619,16 +3830,18 @@ const skewness = (data, options, tempArr, gstData) => {
                 >
                   <Col md={6} className={`${styles.col}`}>
                     <div className={styles.chart2}>
-                      <Doughnut data={data} options={options} />
-                      <div className={styles.total_value}>
-                        <span>Bindu Singh</span>
-                        <span className={styles.highlight}>83.80%</span>
-                      </div>
+                      <Doughnut data={top5Suppliers} options={options} />
+                     {/* <div className={styles.total_value}>
+                        <span>{top5Suppliers?.labels[0]}</span>
+                        <span className={styles.highlight}> {
+                                ((top5Suppliers?.datasets[0]?.data[0]/totalCustomer)*100)?.toFixed(2)
+                              }%</span>
+                      </div> */}
                     </div>
                   </Col>
                   <Col md={6}>
                     <div className={`${styles.name} `}>
-                      {tempArr.map((val, index) => {
+                      {top5Suppliers.datasets && top5Suppliers?.datasets[0]?.data.map((val, index) => {
                         return (
                           <div
                             key={index}
@@ -3636,15 +3849,19 @@ const skewness = (data, options, tempArr, gstData) => {
                           >
                             <div
                               className={styles.round}
-                              style={{ backgroundColor: `${val.color}` }}
+                              style={{ backgroundColor: `${backgroundColor[index]}` }}
                             ></div>
                             <div
                               className={`d-flex justify-content-between align-item-start w-100`}
                             >
                               <span className={` heading ml-2`}>
-                                {val.name}
+                               {top5Suppliers.labels[index]}
                               </span>
-                              <span className={` heading mr-4`}>51.23%</span>
+                              <span className={` heading mr-4`}>
+                              {
+                                ((val/totalSupplier)*100)?.toFixed(2)
+                              }%
+                              </span>
                             </div>
                           </div>
                         )
