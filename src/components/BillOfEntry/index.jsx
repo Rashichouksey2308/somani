@@ -14,7 +14,7 @@ import _get from 'lodash/get'
 import { removePrefixOrSuffix, addPrefixOrSuffix } from 'utils/helper'
 import { toast } from 'react-toastify'
 import { checkNan } from '../../utils/helper'
-import { set } from 'lodash'
+// import { set } from 'lodash'
 import {
   GetAllCustomClearance,
   UploadCustomDoc,

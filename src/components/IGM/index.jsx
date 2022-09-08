@@ -102,7 +102,7 @@ export default function Index({
         balanceQuantity = balanceQuantity - item2.blQuantity
       })
     })
-    if (balanceQuantity >= 0) {
+    if (balanceQuantity > 0) {
       const toastMessage = 'IGM can not exceed to gross BL quantity'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
