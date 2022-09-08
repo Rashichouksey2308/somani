@@ -251,13 +251,20 @@ function Index({
       },
     ],
   }
-  const options = {
+  
+const options = {
+       elements: {
+      arc: {
+          borderWidth: 0  
+      }
+  }
+,
     plugins: {
       title: {
         display: false,
         text: 'Doughnut Chart',
         color: 'blue',
-        cutoutPercentage: 80,
+       
         font: {
           size: 34,
         },
@@ -265,13 +272,18 @@ function Index({
           top: 30,
           bottom: 30,
         },
-        responsive: true,
+      
         animation: {
           animateScale: true,
         },
       },
+    
     },
+     responsive: true, 
+     cutout: 130
+   
   }
+ 
   const covertMonths = (months) => {
     const CovertedMonts = []
     months?.map((month) => {
@@ -365,86 +377,176 @@ function Index({
    labels:[],
    datasets:[]
   })
-  const findTop5Customers=(data)=>{
-    let temp=[]
-   if(data?.names?.length>0){
-     data.names.forEach((val,index)=>{
-       temp.push({name:val,value:data.values[index]})
-    })
+   const [top3Share,setTop3Share] = useState({
+   labels:[],
+   datasets:[]
+  })
+    const [top3Open,setTop3Open] = useState({
+   labels:[],
+   datasets:[]
+  })
+const findTop5Customers=(data)=>{
+let temp=[]
+if(data?.names?.length>0){
+  data.names.forEach((val,index)=>{
+    temp.push({name:val,value:data.values[index]})
+})
 let sortedval=  temp.sort((a, b) => parseFloat(b.values) - parseFloat(a.values));
-  let length=sortedval.length<5?sortedval.length:5
-  let lable=[]
-  let dataSet=[]
-  let total=0;
-   for(let i=0;i<length;i++){
-      lable.push(sortedval[i].name)
-      dataSet.push(sortedval[i].value)
-      total=total+sortedval[i].value
-   }
-   let top5data={
-    labels:lable,
-    datasets:[
-      {
-        label:lable,
-        data: dataSet,
-        backgroundColor: backgroundColor,
-      }
-    ]
-
-   }
-  setTotalCustomer(total)
-  setTop5Customers({...top5data})
-   
+let length=sortedval.length<5?sortedval.length:5
+let lable=[]
+let dataSet=[]
+let total=0;
+for(let i=0;i<length;i++){
+  lable.push(sortedval[i].name)
+  dataSet.push(sortedval[i].value)
+  total=total+sortedval[i].value
+}
+let top5data={
+labels:lable,
+datasets:[
+  {
+    label:lable,
+    data: dataSet,
+    backgroundColor: backgroundColor,
   }
-   
+]
+
+}
+setTotalCustomer(total)
+setTop5Customers({...top5data})
+
+}
 
 
-      
-
-  }
-   const findTop5Suppliers=(data)=>{
-    let temp=[]
-   if(data?.names?.length>0){
-     data.names.forEach((val,index)=>{
-       temp.push({name:val,value:data.values[index]})
-    })
-let sortedval=  temp.sort((a, b) => parseFloat(b.values) - parseFloat(a.values));
-  let length=sortedval.length<5?sortedval.length:5
-  let lable=[]
-  let dataSet=[]
-  let total=0
-   for(let i=0;i<length;i++){
-      lable.push(sortedval[i].name)
-      dataSet.push(sortedval[i].value)
-      total=total+sortedval[i].value
-   }
-   let top5data={
-    labels:lable,
-    datasets:[
-      {
-        label:lable,
-        data: dataSet,
-        backgroundColor: backgroundColor,
-      }
-    ]
-
-   }
-   setTotalSupplier(total)
-   setTop5Suppliers({...top5data})
-   
-  }
-   
-
-
-      
-
-  }
 
   
+
+}
+const findTop5Suppliers=(data)=>{
+let temp=[]
+if(data?.names?.length>0){
+  data.names.forEach((val,index)=>{
+    temp.push({name:val,value:data.values[index]})
+})
+let sortedval=  temp.sort((a, b) => parseFloat(b.values) - parseFloat(a.values));
+let length=sortedval.length<5?sortedval.length:5
+let lable=[]
+let dataSet=[]
+let total=0
+for(let i=0;i<length;i++){
+  lable.push(sortedval[i].name)
+  dataSet.push(sortedval[i].value)
+  total=total+sortedval[i].value
+}
+let top5data={
+labels:lable,
+datasets:[
+  {
+    label:lable,
+    data: dataSet,
+    backgroundColor: backgroundColor,
+  }
+]
+
+}
+setTotalSupplier(total)
+setTop5Suppliers({...top5data})
+
+}
+
+
+
+  
+
+}
+const findTop3Share=(data)=>{
+  console.log(data,"sasdasd")
+let temp=[]
+if(data?.length>0){
+  data.forEach((val,index)=>{
+    temp.push({name:val.fullName,value:val.numberOfShares})
+})
+let sortedval=  temp.sort((a, b) => parseFloat(b.values) - parseFloat(a.values));
+let length=3;
+let lable=[]
+let dataSet=[]
+let total=0
+for(let i=0;i<length;i++){
+  lable.push(sortedval[i].name)
+  dataSet.push(sortedval[i].value)
+  total=total+sortedval[i].value
+}
+let top5data={
+labels:lable,
+datasets:[
+  {
+    label:lable,
+    data: dataSet,
+    backgroundColor: backgroundColor,
+  }
+]
+
+}
+
+setTop3Share({...top5data})
+
+}
+
+
+
+  
+
+}
+const findTop3Open=(data)=>{
+  console.log(data,"opqpqpqp")
+let temp=[]
+if(data?.length>0){
+  data.forEach((val,index)=>{
+    if(val.finalAmountSecured!==null){
+      temp.push({name:val.nameOfChargeHolder1,value:val.finalAmountSecured})
+    }
+    
+})
+let sortedval=  temp.sort((a, b) => parseFloat(b.values) - parseFloat(a.values));
+let length=3;
+let lable=[]
+let dataSet=[]
+let total=0
+for(let i=0;i<length;i++){
+  lable.push(sortedval[i]?.name)
+  dataSet.push(sortedval[i]?.value||0)
+  
+}
+let top5data={
+labels:lable,
+datasets:[
+  {
+    label:lable,
+    data: dataSet,
+    backgroundColor: backgroundColor,
+  }
+]
+
+}
+
+setTop3Open({...top5data})
+
+}
+
+
+
+  
+
+}
+
+  console.log(top3Share,"top3Share")
   useEffect(() => {
     findTop5Customers(GstData?.detail?.summaryCharts?.top10Cus)
     findTop5Suppliers(GstData?.detail?.summaryCharts?.top10Suppliers)
-  },[GstData])
+    console.log(camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern,"camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern)")
+    findTop3Share(camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern)
+    findTop3Open(camData?.company?.detailedCompanyInfo?.financial?.openCharges)
+  },[GstData,camData])
   useEffect(() => {
     const chart = chartRef.current
     const chart2 = chartRef2.current
@@ -559,8 +661,8 @@ let sortedval=  temp.sort((a, b) => parseFloat(b.values) - parseFloat(a.values))
         previousAuditorData,
       )}
       {directorDetails(camData)}
-      {shareHolding(data, options, tempArr, camData)}
-      {chargeDetails(data, options, tempArr, camData)}
+      {shareHolding(top3Share, options, tempArr, camData,backgroundColor)}
+      {chargeDetails(top3Open, options, tempArr, camData,backgroundColor)}
       {debtProfile(data, options, tempArr, camData)}
       {operationalDetails(camData)}
       {revenuDetails(gstData)}
@@ -1454,7 +1556,7 @@ const directorDetails = (camData) => {
     </>
   )
 }
-const shareHolding = (data, options, tempArr, camData) => {
+const shareHolding = (top3Share, options, tempArr, camData,backgroundColor) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -1478,14 +1580,14 @@ const shareHolding = (data, options, tempArr, camData) => {
             <Row>
               <Col className={`${styles.leftCol} border_color`} md={4}>
                 <div className={styles.chart}>
-                  <Doughnut data={data} options={options} />
+                  <Doughnut data={top3Share} options={options} />
                   <div className={styles.total_value}>
                     <span></span>
                     <span className={styles.highlight}></span>
                   </div>
                 </div>
                 <div className={`${styles.name} `}>
-                  {/* {tempArr.map((val, index) => {
+                  {top3Share.datasets && top3Share?.datasets[0]?.data.map((val, index) => {
                     return (
                       <div
                         key={index}
@@ -1493,12 +1595,12 @@ const shareHolding = (data, options, tempArr, camData) => {
                       >
                         <div
                           className={styles.round}
-                          style={{ backgroundColor: `${val.color}` }}
+                          style={{ backgroundColor: backgroundColor[index] }}
                         ></div>
-                        <span className={` heading ml-2`}>{val.name}</span>
+                        <span className={` heading ml-2`}>{top3Share.labels[index]==""?"NA":top3Share.labels[index]}</span>
                       </div>
                     )
-                  })} */}
+                  })}
                 </div>
               </Col>
               <Col md={8} className={`px-0`}>
@@ -1614,7 +1716,8 @@ const shareHolding = (data, options, tempArr, camData) => {
     </>
   )
 }
-const chargeDetails = (data, options, tempArr, camData) => {
+const chargeDetails = (top3Open, options, tempArr, camData,backgroundColor) => {
+  console.log(top3Open,"top3Open")
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -1638,14 +1741,14 @@ const chargeDetails = (data, options, tempArr, camData) => {
             <Row>
               <Col className={`${styles.leftCol} border_color`} md={4}>
                 <div className={styles.chart}>
-                  <Doughnut data={data} options={options} />
+                  <Doughnut data={top3Open} options={options} />
                   <div className={styles.total_value}>
-                    <span>Bindu Singh</span>
-                    <span className={styles.highlight}>83.80%</span>
+                    {/* <span>Bindu Singh</span>
+                    <span className={styles.highlight}>83.80%</span> */}
                   </div>
                 </div>
                 <div className={`${styles.name} `}>
-                  {/* {tempArr.map((val, index) => {
+                    {top3Open.datasets && top3Open?.datasets[0]?.data.map((val, index) => {
                     return (
                       <div
                         key={index}
@@ -1653,17 +1756,12 @@ const chargeDetails = (data, options, tempArr, camData) => {
                       >
                         <div
                           className={styles.round}
-                          style={{ backgroundColor: `${val.color}` }}
+                          style={{ backgroundColor: backgroundColor[index] }}
                         ></div>
-                        <span
-                          className={` heading ml-2 mr-3`}
-                          style={{ whiteSpace: 'nowrap' }}
-                        >
-                          {val.name}
-                        </span>
+                        <span className={` heading ml-2`}>{top3Open.labels[index]==""?"NA":top3Open.labels[index]}</span>
                       </div>
                     )
-                  })} */}
+                  })}
                 </div>
               </Col>
               <Col md={8} className={`px-0`}>
