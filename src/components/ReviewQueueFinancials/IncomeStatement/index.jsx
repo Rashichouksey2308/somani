@@ -222,7 +222,7 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                         </strong>
                       </td>
                       <td className="text-center">
-                        {rtrnChartIndiaction(latestYearData?.expenses?.othExp, previousYearData?.expenses?.othExp, lastYearData?.expenses?.othExp)}
+                        {rtrnChartIndiaction(latestYearData?.expenses?.totExp, previousYearData?.expenses?.totExp, lastYearData?.expenses?.totExp)}
 
                       </td>
                     </tr>
