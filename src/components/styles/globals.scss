@@ -420,9 +420,12 @@ body.dark-mode .darknavbar {
   background: transparent linear-gradient(95deg, #293141 0%, #4b61a1 100%);
 }
 
+body.light-mode .border {
+  border: 1px solid #d2d7e5 !important;
+}
 body.dark-mode .border {
   box-shadow: 0px 4px 12px #72727234;
-  border: none;
+  border: 1px solid #434e61 !important;
   /* leads */
 }
 body.light-mode .lead_main {
@@ -492,7 +495,8 @@ body.dark-mode .datatable {
 body.light-mode .table_heading {
   color: #8492a6;
   background: #fafafb;
-  border-bottom: 2px solid #f2f5f9;
+  border-top: 2px solid #f2f5f9 !important;
+  border-bottom: 2px solid #f2f5f9 !important;
 }
 body.dark-mode .table_heading {
   color: #ffffff;

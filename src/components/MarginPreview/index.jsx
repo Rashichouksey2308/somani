@@ -97,9 +97,8 @@ function Index() {
                         fontWeight: 'normal',
                         opacity: '0.7',
                       }}
-                       
                     >
-                       {marginData?.order?.orderId}
+                      {marginData?.order?.orderId}
                     </span>
                   </p>
                   <p
@@ -160,8 +159,8 @@ function Index() {
                       }}
                     >
                       {moment(marginData?.createdAt?.slice(0, 10)).format(
-                    'DD-MM-yy',
-                  )}
+                        'DD-MM-yy',
+                      )}
                     </span>
                   </p>
                 </td>
@@ -268,12 +267,12 @@ function Index() {
                             }}
                           >
                             {addPrefixOrSuffix(
-                        marginData?.order?.quantity
-                          ? marginData?.order?.quantity
-                          : 0,
-                        'MT',
-                        '',
-                      )}
+                              marginData?.order?.quantity
+                                ? marginData?.order?.quantity
+                                : 0,
+                              'MT',
+                              '',
+                            )}
                           </p>
                         </td>
                       </tr>
@@ -315,7 +314,8 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                             {(marginData?.order?.perUnitPrice)?.toLocaleString() ?? 0}
+                            {marginData?.order?.perUnitPrice?.toLocaleString() ??
+                              0}
                           </p>
                         </td>
                       </tr>
@@ -400,11 +400,11 @@ function Index() {
                             }}
                           >
                             {addPrefixOrSuffix(
-                        marginData?.order?.termsheet?.commercials
-                          ?.usanceInterestPercetage,
-                        '%',
-                        '',
-                      )}
+                              marginData?.order?.termsheet?.commercials
+                                ?.usanceInterestPercetage,
+                              '%',
+                              '',
+                            )}
                           </p>
                         </td>
                       </tr>
@@ -446,12 +446,12 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                             {addPrefixOrSuffix(
-                        marginData?.order?.termsheet?.commercials
-                          ?.tradeMarginPercentage,
-                        '%',
-                        '',
-                      )}
+                            {addPrefixOrSuffix(
+                              marginData?.order?.termsheet?.commercials
+                                ?.tradeMarginPercentage,
+                              '%',
+                              '',
+                            )}
                           </p>
                         </td>
                       </tr>
@@ -494,12 +494,12 @@ function Index() {
                             }}
                           >
                             {addPrefixOrSuffix(
-                        marginData?.order?.tolerance
-                          ? marginData?.order?.tolerance
-                          : 0,
-                        '%',
-                        '',
-                      )}
+                              marginData?.order?.tolerance
+                                ? marginData?.order?.tolerance
+                                : 0,
+                              '%',
+                              '',
+                            )}
                           </p>
                         </td>
                       </tr>
@@ -541,15 +541,15 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                           {addPrefixOrSuffix(
-                        marginData?.order?.termsheet?.transactionDetails
-                          ?.marginMoney
-                          ? marginData?.order?.termsheet?.transactionDetails
-                              ?.marginMoney
-                          : 0,
-                        '%',
-                        '',
-                      )}
+                            {addPrefixOrSuffix(
+                              marginData?.order?.termsheet?.transactionDetails
+                                ?.marginMoney
+                                ? marginData?.order?.termsheet
+                                    ?.transactionDetails?.marginMoney
+                                : 0,
+                              '%',
+                              '',
+                            )}
                           </p>
                         </td>
                       </tr>
@@ -633,7 +633,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                           {marginData?.additionalPDC}
+                            {marginData?.additionalPDC}
                           </p>
                         </td>
                       </tr>
@@ -710,7 +710,7 @@ function Index() {
                             }}
                           >
                             {marginData?.calculation?.orderValue?.toLocaleString() ??
-                        0}
+                              0}
                           </p>
                         </td>
                       </tr>
@@ -761,7 +761,7 @@ function Index() {
                             }}
                           >
                             {marginData?.calculation?.orderValueInINR?.toLocaleString() ??
-                        0}
+                              0}
                           </p>
                         </td>
                       </tr>
@@ -811,8 +811,8 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                           {marginData?.calculation?.usanceInterest?.toLocaleString() ??
-                        0}
+                            {marginData?.calculation?.usanceInterest?.toLocaleString() ??
+                              0}
                           </p>
                         </td>
                       </tr>
@@ -863,7 +863,7 @@ function Index() {
                             }}
                           >
                             {marginData?.calculation?.tradeMargin?.toLocaleString() ??
-                        0}
+                              0}
                           </p>
                         </td>
                       </tr>
@@ -913,8 +913,8 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                             {marginData?.calculation?.grossOrderValue?.toLocaleString() ??
-                        0}
+                            {marginData?.calculation?.grossOrderValue?.toLocaleString() ??
+                              0}
                           </p>
                         </td>
                       </tr>
@@ -964,8 +964,8 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                           {marginData?.calculation?.toleranceValue?.toLocaleString() ??
-                        0}
+                            {marginData?.calculation?.toleranceValue?.toLocaleString() ??
+                              0}
                           </p>
                         </td>
                       </tr>
@@ -1015,8 +1015,8 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                             {marginData?.calculation?.totalOrderValue?.toLocaleString() ??
-                        0}
+                            {marginData?.calculation?.totalOrderValue?.toLocaleString() ??
+                              0}
                           </p>
                         </td>
                       </tr>
@@ -1067,7 +1067,7 @@ function Index() {
                             }}
                           >
                             {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString() ??
-                        0}
+                              0}
                           </p>
                         </td>
                       </tr>
@@ -1118,7 +1118,7 @@ function Index() {
                             }}
                           >
                             {marginData?.calculation?.marginMoney?.toLocaleString() ??
-                        0}
+                              0}
                           </p>
                         </td>
                       </tr>
@@ -1169,7 +1169,7 @@ function Index() {
                             }}
                           >
                             {marginData?.calculation?.totalSPDC?.toLocaleString() ??
-                        0}
+                              0}
                           </p>
                         </td>
                       </tr>
@@ -1466,7 +1466,7 @@ function Index() {
         </tr>
       </table>
     )
-    const doc = new jsPDF('p', 'pt', [1000,1000])
+    const doc = new jsPDF('p', 'pt', [1000, 1000])
     doc.html(ReactDOMServer.renderToString(element), {
       callback: function (doc) {
         doc.save('sample.pdf')
@@ -1494,28 +1494,36 @@ function Index() {
             </h1>
           </div>
         </div>
-        <div className={`${styles.term_container} download-pdf-bg container-fluid`}>
+        <div
+          className={`${styles.term_container} download-pdf-bg container-fluid`}
+        >
           <Row>
             <Col md={4} className={`${styles.left}`}>
               <div>
-                <span className={`${styles.termSub_head} text-color`}>Order ID:</span>
+                <span className={`${styles.termSub_head} text-color`}>
+                  Order ID:
+                </span>
                 <span className={`${styles.termValue} text-color`}>
                   {marginData?.order?.orderId}
                 </span>
               </div>
               <div>
-                <span className={`${styles.termSub_head} text-color`}>Buyer:</span>
+                <span className={`${styles.termSub_head} text-color`}>
+                  Buyer:
+                </span>
                 <span className={`${styles.termValue} text-color`}>
                   {marginData?.company?.companyName}
                 </span>
               </div>
             </Col>
             <Col md={4} className="text-center">
-              <span className='download-pdf-title'>MARGIN MONEY</span>
+              <span className="download-pdf-title">MARGIN MONEY</span>
             </Col>
             <Col md={4} className={`${styles.left} ${styles.right}`}>
               <div>
-                <span className={`${styles.termSub_head} text-color`}>Date:</span>{' '}
+                <span className={`${styles.termSub_head} text-color`}>
+                  Date:
+                </span>{' '}
                 <span className={`${styles.termValue} text-color`}>
                   {moment(marginData?.createdAt?.slice(0, 10)).format(
                     'DD-MM-yy',
@@ -1559,7 +1567,7 @@ function Index() {
                       <span className={`ml-2`}>Unit Price</span>
                     </td>
                     <td className={`${styles.good} `}>
-                      {(marginData?.order?.perUnitPrice)?.toLocaleString() ?? 0}
+                      {marginData?.order?.perUnitPrice?.toLocaleString() ?? 0}
                     </td>
                   </tr>
                   <tr>

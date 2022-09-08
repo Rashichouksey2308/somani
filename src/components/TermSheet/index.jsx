@@ -41,6 +41,7 @@ const Index = () => {
     removePrefixOrSuffix(termsheetDetails?.commodityDetails?.perUnitPrice)
 
   // console.log(newLcVal, 'THIS IS NEW LC VAL')
+  console.log(termsheet, 'sheetData')
 
   useEffect(() => {
     {
@@ -50,7 +51,7 @@ const Index = () => {
             termsheetId: sheet._id,
             commodityDetails: {
               unitOfQuantity: sheet?.order?.unitOfQuantity,
-              orderCurrency: sheet?.order?.orderCurrency||"INR",
+              orderCurrency: sheet?.order?.orderCurrency || 'INR',
               quantity: sheet?.order?.quantity,
               perUnitPrice: sheet?.order?.perUnitPrice,
               commodity: sheet?.order?.commodity,
@@ -69,11 +70,17 @@ const Index = () => {
                 ? sheet?.transactionDetails?.incoTerms
                 : sheet?.order?.incoTerm,
               loadPort: sheet?.transactionDetails?.loadPort,
-              countryOfOrigin: sheet?.transactionDetails?.countryOfOrigin ? sheet?.transactionDetails?.countryOfOrigin : sheet?.order?.countryOfOrigin,
-              shipmentType: sheet?.transactionDetails?.shipmentType ? sheet?.transactionDetails?.shipmentType : sheet?.order?.shipmentDetail?.shipmentType,
+              countryOfOrigin: sheet?.transactionDetails?.countryOfOrigin
+                ? sheet?.transactionDetails?.countryOfOrigin
+                : sheet?.order?.countryOfOrigin,
+              shipmentType: sheet?.transactionDetails?.shipmentType
+                ? sheet?.transactionDetails?.shipmentType
+                : sheet?.order?.shipmentDetail?.shipmentType,
               partShipmentAllowed:
                 sheet?.transactionDetails?.partShipmentAllowed,
-              portOfDischarge: sheet?.transactionDetails?.portOfDischarge ? sheet?.transactionDetails?.portOfDischarge : sheet?.order?.portOfDischarge,
+              portOfDischarge: sheet?.transactionDetails?.portOfDischarge
+                ? sheet?.transactionDetails?.portOfDischarge
+                : sheet?.order?.portOfDischarge,
               billOfEntity: sheet?.transactionDetails?.billOfEntity,
               thirdPartyInspectionReq:
                 sheet?.transactionDetails?.thirdPartyInspectionReq,
@@ -89,18 +96,21 @@ const Index = () => {
               tradeMarginPercentage: sheet?.commercials?.tradeMarginPercentage,
               lcOpeningValue: sheet?.commercials?.lcOpeningValue,
               lcOpeningCurrency: sheet?.commercials?.lcOpeningCurrency,
-              lcOpeningChargesUnit: sheet?.commercials?.lcOpeningChargesUnit || 1500,
+              lcOpeningChargesUnit:
+                sheet?.commercials?.lcOpeningChargesUnit || 1500,
               lcOpeningChargesPercentage:
-                sheet?.commercials?.lcOpeningChargesPercentage ||1.5,
+                sheet?.commercials?.lcOpeningChargesPercentage || 1.5,
               usanceInterestPercetage:
                 sheet?.commercials?.usanceInterestPercetage || 4,
               overDueInterestPerMonth:
-                sheet?.commercials?.overDueInterestPerMonth||1.5,
-              exchangeFluctuation: sheet?.commercials?.exchangeFluctuation || "On Buyers A/C",
+                sheet?.commercials?.overDueInterestPerMonth || 1.5,
+              exchangeFluctuation:
+                sheet?.commercials?.exchangeFluctuation || 'On Buyers A/C',
               forexHedging: sheet?.commercials?.forexHedging,
               otherTermsAndConditions:
-                sheet?.commercials?.otherTermsAndConditions || "As Per Sales Contract",
-              version: sheet?.commercials?.version || "1",
+                sheet?.commercials?.otherTermsAndConditions ||
+                'As Per Sales Contract',
+              version: sheet?.commercials?.version || '1',
             },
           }),
         )
@@ -271,19 +281,19 @@ const Index = () => {
   const onChangePaymentDueDate = (e) => {
     const Key = e.target.id
     const value = e.target.value
-    console.log("herer123",Key,value)
+    console.log('herer123', Key, value)
     setTermsheetDetails((prev) => ({
       ...prev,
       paymentDueDate: { ...prev.paymentDueDate, [Key]: value },
     }))
   }
-  console.log(termsheetDetails.paymentDueDate,"herer1234")
+  console.log(termsheetDetails.paymentDueDate, 'herer1234')
 
   const onChangeCommercialTerms = (e) => {
-      console.log(e.target.id,e.target.value,"sdfsdf")
+    console.log(e.target.id, e.target.value, 'sdfsdf')
     const Key = e.target.id
     const value = e.target.value
-   
+
     setTermsheetDetails((prev) => ({
       ...prev,
       commercials: { ...prev.commercials, [Key]: value },
@@ -337,9 +347,7 @@ const Index = () => {
     }))
   }
   console.log(termsheetDetails, 'tempSheet')
-  const changePayment=()=>{
-
-  }
+  const changePayment = () => {}
   const handleSave = () => {
     // console.log(termsheetDetails.commercials.overDueInterestPerMont, "tempSheet2")
     let tempSheet = termsheetDetails
@@ -373,21 +381,29 @@ const Index = () => {
       termsheetDetails.commercials.lcOpeningChargesUnit,
     ).toString()
     //  tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
-    console.log(termsheetDetails, "tempSheet1")
-        
- if (termsheetDetails.transactionDetails.portOfDischarge =="Select an option" ||termsheetDetails.transactionDetails.portOfDischarge =="" || termsheetDetails.transactionDetails.portOfDischarge==undefined ) {
+    console.log(termsheetDetails, 'tempSheet1')
+
+    if (
+      termsheetDetails.transactionDetails.portOfDischarge ==
+        'Select an option' ||
+      termsheetDetails.transactionDetails.portOfDischarge == '' ||
+      termsheetDetails.transactionDetails.portOfDischarge == undefined
+    ) {
       let toastMessage = 'Please add port Of Discharge '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-    return
+      return
     }
-    if (termsheetDetails.paymentDueDate.daysFromBlDate =="" || termsheetDetails.paymentDueDate.daysFromBlDate==undefined ) {
+    if (
+      termsheetDetails.paymentDueDate.daysFromBlDate == '' ||
+      termsheetDetails.paymentDueDate.daysFromBlDate == undefined
+    ) {
       let toastMessage = 'Please add days From Bl Date '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-    return
+      return
     }
     const UpdatedTermsheet = {
       ...tempSheet,
@@ -438,9 +454,10 @@ const Index = () => {
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow"
               onClick={() => Router.push('/termsheet/order-list')}
-
             />
-            <h1 className={`${styles.heading} heading`}>{_get(termsheet,"data[0].company.companyName","")}</h1>
+            <h1 className={`${styles.heading} heading`}>
+              {_get(termsheet, 'data[0].company.companyName', '')}
+            </h1>
           </div>
           <div className="">
             {termsheet &&

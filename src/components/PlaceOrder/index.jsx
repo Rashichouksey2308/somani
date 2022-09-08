@@ -22,10 +22,7 @@ import {CovertvaluefromtoCR,checkNan } from '../../utils/helper'
 
 
 const Index = () => {
-
   const dispatch = useDispatch()
-
-
 
   const { singleOrder } = useSelector((state) => state.buyer)
   const { creditData } = useSelector((state) => state.companyDetails)
@@ -65,7 +62,7 @@ const Index = () => {
   })
 
   useEffect(() => {
-    let compId = sessionStorage.getItem('companyID',)
+    let compId = sessionStorage.getItem('companyID')
     dispatch(GetOrders(`?company=${compId}`))
     dispatch(GetCreditLimit({ companyId: compId }))
   }, [])
@@ -75,19 +72,20 @@ const Index = () => {
 
     setOrderData(newInput)
   }
-  console.log(orderData, "stat")
+  console.log(orderData, 'stat')
 
   const handleCurr = () => {
     const newInput = { ...orderData }
-    let currVal = handleCurrencyOrder(orderData.unitOfValue, orderData.orderValue)
+    let currVal = handleCurrencyOrder(
+      orderData.unitOfValue,
+      orderData.orderValue,
+    )
     newInput.orderValue = currVal
     setOrderData(newInput)
-
   }
 
-
-
   const saveShipmentData = (name, value) => {
+    console.log(name, value, 'test')
     const newInput = { ...shipment }
     const namesplit = name.split('.')
     namesplit.length > 1
@@ -135,7 +133,7 @@ const Index = () => {
     //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     //   }
     //   return
-    // } 
+    // }
     else if (orderData?.unitOfValue?.trim() === '') {
       let toastMessage = 'Please set the unit of value'
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -199,7 +197,8 @@ const Index = () => {
     } else {
       let orderDataNew = { ...orderData }
       orderDataNew.quantity = removePrefixOrSuffix(orderData.quantity)
-      orderDataNew.orderValue = removePrefixOrSuffix(orderData.orderValue) * 10000000
+      orderDataNew.orderValue =
+        removePrefixOrSuffix(orderData.orderValue) * 10000000
       orderDataNew.tolerance = removePrefixOrSuffix(orderData.tolerance)
 
       const obj = {
@@ -207,7 +206,6 @@ const Index = () => {
         company: singleOrderId,
       }
       dispatch(PlaceNewOrder(obj))
-
     }
   }
 
@@ -217,7 +215,7 @@ const Index = () => {
   }
 
   return (
-    <div className='container-fluid p-0'>
+    <div className="container-fluid p-0">
       <div className={`${styles.card} accordion_body bg-transparent`}>
         <div className={`${styles.head_container}`}>
           <div className={`${styles.head_header} align-items-center`}>
@@ -229,7 +227,12 @@ const Index = () => {
             <h1 className={styles.heading}>Place a New Order</h1>
           </div>
           <div>
-            <button onClick={() => clearData()} className={`${styles.clear_btn} clear_btn`}>Clear All</button>
+            <button
+              onClick={() => clearData()}
+              className={`${styles.clear_btn} clear_btn`}
+            >
+              Clear All
+            </button>
           </div>
         </div>
 
@@ -256,7 +259,9 @@ const Index = () => {
               </div>
               <div className="col-md-2 col-sm-4">
                 <div className={`${styles.label} text`}>Limit Expiry Date</div>
-                <span className={styles.value}>{creditData?.data?.limitExpiry?.split('T')[0]}</span>
+                <span className={styles.value}>
+                  {creditData?.data?.limitExpiry?.split('T')[0]}
+                </span>
               </div>
               <div className="col-md-2 col-sm-4">
                 <div className={`${styles.label} text`}>Last Order Value</div>
@@ -266,7 +271,10 @@ const Index = () => {
           </div>
         </div>
         <NewOrder orderData={orderData} saveOrderData={saveOrderData} />
-        <NewShipmentDetails shipment={shipment} saveShipmentData={saveShipmentData} />
+        <NewShipmentDetails
+          shipment={shipment}
+          saveShipmentData={saveShipmentData}
+        />
         <CommonSave onSave={onOrderSave} />
       </div>
     </div>
