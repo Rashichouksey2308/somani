@@ -42,6 +42,8 @@ export default function Index({
       cimsPaymentReceiptDoc: null,
     },
   ])
+  const [isFieldInFocus, setIsFieldInFocus] = useState(false)
+
 
   useEffect(() => {
     if (_get(TransitDetails, 'data[0].CIMS.cimsDetails', []).length > 0) {
@@ -382,13 +384,27 @@ export default function Index({
                       //     ? list.quantity
                       //     : _get(TransitDetails, 'data[0].order.quantity', '')
                       // }
-
-                      value={addPrefixOrSuffix( list.quantity
-                            ? list.quantity
-                             : _get(TransitDetails, 'data[0].order.quantity', " MT"))}
+                      onFocus={(e) => {
+                        setIsFieldInFocus(true),
+                          e.target.type = 'number'
+                      }}
+                      onBlur={(e) => {
+                        setIsFieldInFocus(false),
+                          e.target.type = 'text'
+                      }}
+                      value={isFieldInFocus
+                        ?
+                        (list.quantity ?
+                          list.quantity
+                          : _get(TransitDetails, 'data[0].order.quantity', "")
+                        )
+                        : (list.quantity ?
+                          Number(list.quantity)?.toLocaleString()
+                          : Number(_get(TransitDetails, 'data[0].order.quantity', 0))?.toLocaleString()
+                        ) + ` ${_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}`}
                       onChange={(e) => onChangeCims(e, index)}
                       className={`${styles.input_field} input form-control`}
-                      type="number"
+                      type="text"
                       onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                     />

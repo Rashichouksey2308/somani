@@ -41,12 +41,19 @@ const Index = ({
   const [editWeak, setEditWeak] = useState(false)
   const [editSanc, setEditSanc] = useState(false)
   const [addRow, setAddRow] = useState(false)
+ 
 
   const [companyComments, setCompanyComments] = useState('')
   const [strengthsComments, setStrengthsComments] = useState('')
   const [financialsComments, setFinancialsComments] = useState('')
   const [sanctionComments, setSanctionComments] = useState('')
   const [weaknessComments, setWeaknessComments] = useState('')
+
+  const [isFieldInFocus, setIsFieldInFocus] = useState({
+    groupExposureLimit: false,
+    groupExposureOutLimit: false,
+    sanction: false,
+  })
 
   console.log(creditDetail, 'THIS IS CREDIT DETAIL')
 
@@ -344,6 +351,18 @@ const Index = ({
                             <input
                               name="limit"
                               type="text"
+                              // onFocus={(e) => {
+                              //   setIsFieldInFocus({ ...isFieldInFocus, groupExposureLimit: true }),
+                              //     e.target.type = 'number'
+                              // }}
+                              // onBlur={(e) => {
+                              //   setIsFieldInFocus({ ...isFieldInFocus, groupExposureLimit: false }),
+                              //     e.target.type = 'text'
+                              // }}
+                              // value={
+                              //   isFieldInFocus.groupExposureLimit ?
+                              //   profile?.limit:
+                              //     Number(profile?.limit).toLocaleString() + ` Lakhs`}
                               value={profile?.limit}
                               disabled={!profile.actions}
                               onKeyDown={(evt) => {

@@ -65,11 +65,11 @@ function Index({ directorData }) {
                       <div className={`${styles.detailsBox}  col-md-2`}>
                         <label className={`accordion_Text`}>PAN</label>
 
-                        <img
+                        {/* <img
                           src="/static/approved.svg"
                           alt="Approved"
                           className="img-fluid mt-n1"
-                        />
+                        /> */}
                       </div>
                       <div className={`${styles.detailsBox}  col-md-2`}>
                         <label className={`accordion_Text`}>Email Id</label>
@@ -646,11 +646,15 @@ function Index({ directorData }) {
                                 <span>
                                   {otherAssociates} (
                                   {
-                                    _get(
+                                   isArray( _get(
                                       director,
                                       `otherAssociatedEntities${otherAssociates}`,
                                       [],
-                                    ).length
+                                    )) ?  _get(
+                                      director,
+                                      `otherAssociatedEntities${otherAssociates}`,
+                                      [],
+                                    ).length : ''
                                   }
                                   )
                                 </span>
@@ -670,7 +674,7 @@ function Index({ directorData }) {
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      {isArray(director) &&
+                                      {
                                         _get(
                                           director,
                                           `otherAssociatedEntities${otherAssociates}`,

@@ -688,9 +688,7 @@ export default function Index({
                           selected={
                             item.igmFiling == null
                               ? ''
-                              : moment(item.igmFiling?.split('T')[0]).format(
-                                'DD-MM-YYYY',
-                              )
+                              : moment(item.igmFiling)
                           }
                           defaultDate={item.igmFiling}
                           name="igmFiling"

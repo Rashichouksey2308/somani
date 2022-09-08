@@ -73,11 +73,11 @@ function Index({ order, companyDetail }) {
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
                   {_get(companyDetail, 'profile.companyDetail.pans[0]', '')}{' '}
-                  <img
+                {_get(companyDetail, 'profile.companyDetail.pans[0]', '') !== '' &&   <img
                     src="/static/approved.svg"
                     alt="Approved"
                     className="img-fluid mt-n1"
-                  />
+                  />}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
@@ -159,11 +159,11 @@ function Index({ order, companyDetail }) {
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
                   {companyDetail?.profile?.companyDetail?.emailDomain}{' '}
-                  <img
+                {companyDetail?.profile?.companyDetail?.emailDomain &&  <img
                     src="/static/approved.svg"
                     alt="approved"
                     className="img-fluid"
-                  />
+                  />}
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">

@@ -17,6 +17,8 @@ export default function Index(props) {
   const [editInput, setEditInput] = useState(true)
   const [darkMode, setDarkMode] = useState(false)
   const [currentOrder, setCurrentOrder] = useState('')
+  const [isFieldInFocus, setIsFieldInFocus] = useState(false)
+
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
       setEditInput(false)
@@ -269,8 +271,20 @@ export default function Index(props) {
                                     onWheel={event => event.currentTarget.blur()}
                                     className={`${styles.input_field} input form-control`}
                                     required
-                                    type="number"
+                                    type="text"
                                     onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                                    onFocus={(e) => {
+                                      setIsFieldInFocus(true),
+                                        e.target.type = 'number'
+                                    }}
+                                    onBlur={(e) => {
+                                      setIsFieldInFocus(false),
+                                        e.target.type = 'text'
+                                    }}
+                                    value={
+                                      isFieldInFocus?
+                                     val2.liftingQuant:
+                                     Number(val2.liftingQuant)?.toLocaleString() + ` ${_get(props, 'data.data[0].order.unitOfQuantity', '')}`}
 
                                     name="liftingQuant"
                                     onChange={(e) => {

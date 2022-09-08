@@ -233,7 +233,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                   <td>
                     {CovertvaluefromtoCR(
                       reviewedProfile?.turnOver?.originalValue,
-                    )}{' '}
+                    ).toLocaleString('en-in')}{' '}
                     Cr
                   </td>
                   <td>
@@ -315,7 +315,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                   <td>
                     {CovertvaluefromtoCR(
                       reviewedProfile?.orderValue?.originalValue,
-                    )}{' '}
+                    ).toLocaleString('en-in')}{' '}
                     Cr
                   </td>
                   <td>
