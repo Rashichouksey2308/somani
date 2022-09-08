@@ -23,11 +23,11 @@ if(window){
       <div className={styles.container_inner}>
         <div className={`${styles.filter} d-flex align-items-center`}>
           <div className={`${styles.head_header} align-items-center`}>
-            <img
+            {/* <img
               className={`${styles.arrow} image_arrow img-fluid mr-2`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
-            />
+            /> */}
             <h1 className={styles.heading}>Track Shipments</h1>
           </div>
           <div className={styles.search}>

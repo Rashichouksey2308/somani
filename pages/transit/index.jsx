@@ -65,11 +65,11 @@ function Index() {
       <div className={styles.container_inner}>
         <div className={`${styles.filter} d-flex align-items-center`}>
           <div className={`${styles.head_header} align-items-center`}>
-            <img
+            {/* <img
               className={`${styles.arrow} mr-2 image_arrow img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
-            />
+            /> */}
             <h1 className={styles.heading}>Transit Details </h1>
           </div>
           <div className={styles.search}>
