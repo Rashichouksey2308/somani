@@ -350,7 +350,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                       </td>
                     </tr>
                     <tr>
-                      <td>Debt EBITDA Ratio (EBITDA Coverage)</td>
+                      <td>Debt EBITDA Ratio</td>
                       <td className="text-center">
                         {latestYearData?.debtToEbitda?.toFixed(2).toLocaleString()}
                       </td>
