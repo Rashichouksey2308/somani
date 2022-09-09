@@ -18,9 +18,8 @@ function Index() {
 
   const { lcModule } = useSelector((state) => state.lc)
 
-  
-  let lcModuleData = _get(lcModule, 'data[0]', {})
-console.log(lcModuleData,"lcModuleData")
+   let lcModuleData = _get(lcModule, 'data[0]', {})
+
   const [editInput, setEditInput] = useState(false)
   const [editCurrent, setEditCurrent] = useState()
 
@@ -87,7 +86,7 @@ console.log(lcModuleData,"lcModuleData")
     })
   }, [lcModuleData])
 
-  console.log(lcData, 'LC DATA')
+  // console.log(lcData, 'LC DATA')
 
   const saveAmendmentData = (name, value) => {
     const newInput = { ...lcData }
@@ -101,33 +100,6 @@ console.log(lcModuleData,"lcModuleData")
     saveAmendmentData(name, text)
   }
 
-  // const [clauseData, setClauseData] = useState([
-  //   {
-  //     formOfDocumentaryCredit: lcModuleData?.lcApplication?.formOfDocumentaryCredit,
-  //     applicableRules: lcModuleData?.lcApplication?.applicableRules,
-  //     dateOfExpiry: lcModuleData?.lcApplication?.dateOfExpiry,
-  //     placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
-  //     applicant: lcModuleData?.lcApplication?.applicant,
-  //     beneficiary: lcModuleData?.lcApplication?.beneficiary,
-  //     currecyCodeAndAmountValue: lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
-  //     currecyCodeAndAmountUnit: lcModuleData?.lcApplication?.currecyCodeAndAmountUnit,
-  //     tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage,
-  //     creditAvailablewith: lcModuleData?.lcApplication?.creditAvailablewith,
-  //     creditAvailableBy: lcModuleData?.lcApplication?.creditAvailableBy,
-  //     atSight: lcModuleData?.lcApplication?.atSight,
-  //     drawee: lcModuleData?.lcApplication?.drawee,
-  //     deferredPayment: lcModuleData?.lcApplication?.deferredPayment,
-  //     partialShipment: lcModuleData?.lcApplication?.partialShipment,
-  //     transhipments: lcModuleData?.lcApplication?.transhipments,
-  //     shipmentForm: lcModuleData?.lcApplication?.shipmentForm,
-  //     portOfLoading: lcModuleData?.lcApplication?.portOfLoading,
-  //     portOfDischarge: lcModuleData?.lcApplication?.portOfDischarge,
-  //     latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment,
-  //     DescriptionOfGoods: lcModuleData?.lcApplication?.DescriptionOfGoods,
-  //   },
-  // ])
-
-  // console.log(clauseData, 'CLAUSE DATA')
 
   const [clauseObj, setClauseObj] = useState({
     existingValue: '',
@@ -147,9 +119,7 @@ console.log(lcModuleData,"lcModuleData")
   const inputRef = useRef(null)
 
   const dropDownChange = (e) => {
-    // if(inputRef?.current?.value != ''){
-    // inputRef.current.value = ''
-    // }
+   
     if (
       e.target.value == 'latestDateOfShipment' ||
       e.target.value == 'dateOfExpiry'
@@ -276,13 +246,8 @@ console.log(lcModuleData,"lcModuleData")
       }
     } else {
       let tempData={...lcData}
-      // if(lcData.latestDateOfShipment){
-      //   console.log(lcData?.latestDateOfShipment,"lcData?.latestDateOfShipment")
-      //     let d=new Date(lcData?.latestDateOfShipment)
-      //      tempData.latestDateOfShipment= d?.toISOString()
-      // }
       
-      console.log(tempData,"tempData",clauseArr)
+      // console.log(tempData,"tempData",clauseArr)
       let fd = new FormData()
       fd.append('lcApplication', JSON.stringify(tempData))
       fd.append('lcModuleId', JSON.stringify(lcModuleData._id))
@@ -293,7 +258,7 @@ console.log(lcModuleData,"lcModuleData")
   }
 
   const getData=(value,type) => {
-    console.log(value,"775456")
+    // console.log(value,"775456")
     if(type=="(44C) Latest Date Of Shipment"){
       return moment(value).format("DD-MM-YYYY")
     }else{
@@ -302,7 +267,7 @@ console.log(lcModuleData,"lcModuleData")
 
   }
     const getDataFormDropDown=(value) => {
-    console.log(value,"ssdsdsdsd")
+    // console.log(value,"ssdsdsdsd")
     if(fieldType){
       return moment(value).format("DD-MM-YYYY")
     }else{
@@ -355,7 +320,7 @@ console.log(lcModuleData,"lcModuleData")
                           <strong className="text-danger ml-n1">*</strong>
                         </div>
                         <span className={`${styles.value}`}>
-                          {lcData?.lcIssuingBank}
+                          {lcModuleData?.lcApplication?.lcIssuingBank}
                         </span>
                       </div>
                       <div
@@ -366,7 +331,7 @@ console.log(lcModuleData,"lcModuleData")
                           <strong className="text-danger ml-n1">*</strong>
                         </div>
                         <span className={styles.value}>
-                          {lcData?.documentaryCreditNumber}
+                          {lcModuleData?.lcApplication?.documentaryCreditNumber}
                         </span>
                       </div>
                       <div
@@ -377,14 +342,14 @@ console.log(lcModuleData,"lcModuleData")
                           <strong className="text-danger ml-n1">*</strong>{' '}
                         </div>
                         <span className={styles.value}>
-                          {lcData?.dateOfIssue?moment(lcData?.dateOfIssue?.split('T')[0]).format("DD-MM-YYYY"):""}
+                          {lcModuleData?.lcApplication?.dateOfIssue ? moment(lcModuleData?.lcApplication?.dateOfIssue?.split('T')[0]).format("DD-MM-YYYY"):""}
                         </span>
                       </div>
                       <Col className="mb-4 mt-4" lg={3} md={6} sm={6}>
                         <div className="d-flex">
                           <DateCalender
                             name="dateOfAmendment"
-                            defaultDate={lcData?.dateOfAmendment}
+                            defaultDate={lcModuleData?.lcApplication?.dateOfAmendment}
                             saveDate={saveDate}
                             labelName="(30) Date Of Ammendment"
                           />
@@ -399,7 +364,7 @@ console.log(lcModuleData,"lcModuleData")
                         <input
                           className={`${styles.input_field} input form-control`}
                           type="number"
-                          defaultValue={lcData?.numberOfAmendment}
+                          defaultValue={lcModuleData?.lcApplication?.numberOfAmendment}
                           onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                           required
