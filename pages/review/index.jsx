@@ -35,7 +35,7 @@ import Ratios from '../../src/components/ReviewQueueFinancials/Ratios'
 import {
   removePrefixOrSuffix,
   CovertvaluefromtoCR,
-  checkNan
+  checkNan,
 } from '../../src/utils/helper'
 //redux
 import { UpdateCompanyDetails } from '../../src/redux/companyDetail/action'
@@ -66,7 +66,7 @@ import moment from 'moment'
 import { toast } from 'react-toastify'
 import UploadOther from '../../src/components/UploadOther'
 import _get from 'lodash/get'
-
+import Router from 'next/router'
 let alertObj = {
   isShell: 'Shell',
   isCompanyUnderLiquidation: 'Company Under Liquidation',
@@ -181,6 +181,8 @@ function Index() {
 
   const { fetchingKarzaGst } = useSelector((state) => state.review)
 
+ 
+
   // const [newDoc, setNewDoc] = useState({
   //   document: [],
   //   order: orderList?.termsheet?.order,
@@ -228,7 +230,9 @@ function Index() {
         let toastMessage = item?.message
         let toastDiscription = item?.description
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastDiscription.toUpperCase(), { toastId: toastDiscription, })
+          toast.error(toastDiscription.toUpperCase(), {
+            toastId: toastDiscription,
+          })
           //  toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
       })
@@ -294,7 +298,7 @@ function Index() {
   console.log(orderList, 'termsheetOrder')
   // useEffect(() => {
 
-  
+
   const id = sessionStorage.getItem('orderID')
 
   const [selectedTab, setSelectedTab] = useState('Profile')
@@ -318,7 +322,6 @@ function Index() {
     manufacturerName: orderList?.manufacturerName,
   })
   useEffect(() => {
-
     let newObj = {
       transactionType: orderList?.transactionType,
       commodity: orderList?.commodity,
@@ -692,7 +695,8 @@ function Index() {
         ? orderList?.productSummary?.unitOfQuantity
         : orderList?.unitOfQuantity,
     })
-    setSupplierCred({
+    let tempSupplierCredentials = {
+      ...supplierCred,
       HSCodesNumber: orderList?.supplierCredential?.HSCodesNumber ?? '',
       commodityOfTotalTrade:
         orderList?.supplierCredential?.commodityOfTotalTrade ?? '',
@@ -704,9 +708,10 @@ function Index() {
       remarks: orderList?.supplierCredential?.remarks ?? '',
       shipmentNumber: orderList?.supplierCredential?.shipmentNumber ?? '',
       supplierName: orderList?.supplierCredential?.supplierName ?? ''
-        ? orderList?.supplierCredential?.supplierName 
-        : orderList?.supplierName ,
-    })
+        ? orderList?.supplierCredential?.supplierName
+        : orderList?.supplierName,
+    }
+    setSupplierCred(tempSupplierCredentials)
   }, [orderList])
 
   const handleProductSave = () => {
@@ -904,19 +909,20 @@ function Index() {
     },
   ])
 
-  const [personData, setPersonData] = useState([
-    {
-      contact: {
-        callingCode: orderList?.company?.keyContactPerson?.contact?.callingCode,
-        number: orderList?.company?.keyContactPerson?.contact?.number,
-      },
-      department: orderList?.company?.keyContactPerson?.department,
-      designation: orderList?.company?.keyContactPerson?.designation,
-      email: orderList?.company?.keyContactPerson?.email,
-      name: orderList?.company?.keyContactPerson?.name,
-    },
-  ])
-
+  // const [personData, setPersonData] = useState([
+  //   {
+  //     contact: {
+  //       callingCode: orderList?.company?.keyContactPerson?.contact?.callingCode,
+  //       number: orderList?.company?.keyContactPerson?.contact?.number,
+  //     },
+  //     department: orderList?.company?.keyContactPerson?.department,
+  //     designation: orderList?.company?.keyContactPerson?.designation,
+  //     email: orderList?.company?.keyContactPerson?.email,
+  //     name: orderList?.company?.keyContactPerson?.name,
+  //   },
+  // ])
+  const [personData, setPersonData] = useState([])
+console.log(personData,'personData')
   // useEffect(() => {
   //   if (orderList?.company?.keyContactPerson.length > 0) {
   //     setPersonData([
@@ -956,13 +962,13 @@ function Index() {
       addressArr.push(element)
     })
     setKeyAddData(addressArr)
-   
+
     let personArr = []
     orderList?.company?.keyContactPerson?.forEach((element) => {
-      // console.log(element,"useEE")
+      //  console.log(element,"useEE")
       personArr.push(element)
     })
-    setPersonData(personArr)
+    setPersonData([...personArr])
 
     let commentFinancialArr = []
     orderList?.company?.recommendation?.commentsOnFinancials.forEach(
@@ -1013,7 +1019,7 @@ function Index() {
   })
 
   const saveSuggestedCreditData = (name, value) => {
-    console.log(name,value,"")
+    console.log(name,  value,  '')
     const newInput = { ...suggestedCredit }
     newInput[name] = value
     // console.log(newInput)
@@ -1321,11 +1327,12 @@ function Index() {
         },
         debtProfile: [...debtData],
         groupExposureDetail: [...groupExposureData],
-        suggestedOrderValue:removePrefixOrSuffix(suggestedCredit.suggestedOrderValue)*10000000,
-        suggestedCreditLimit:removePrefixOrSuffix(suggestedCredit.suggestedCreditLimit)*10000000,
+        suggestedOrderValue: removePrefixOrSuffix(suggestedCredit.suggestedOrderValue) * 10000000,
+        suggestedCreditLimit: removePrefixOrSuffix(suggestedCredit.suggestedCreditLimit) * 10000000,
       }
-      // console.log(obj, "credit obj")
-      dispatch(UpdateCredit(obj))
+      
+        // console.log(obj, "credit obj")
+        dispatch(UpdateCredit({...obj}))
     }
   }
 
@@ -1436,7 +1443,12 @@ function Index() {
         if (tempIndex < list[0].children.length) {
           setSelectedTab(list[0].children[tempIndex].children[0].innerHTML)
           list[0].children[i].children[0].classList.remove('active')
-          console.log(list[0].children[tempIndex].children[0],"okok",tab[0].children[i], tab[0].children)
+          console.log(
+            list[0].children[tempIndex].children[0], 
+            'okok',
+             tab[0].children[i],
+            tab[0].children,
+          )
           list[0].children[tempIndex].children[0].classList.add('active')
           tab[0].children[i].classList.remove('show')
           tab[0].children[i].classList.remove('active')
@@ -1447,7 +1459,7 @@ function Index() {
       }
     }
   }
-  console.log(selectedTab, "specificationTable")
+  console.log(selectedTab, 'specificationTable')
   const onBack = () => {
     let list = document.getElementsByClassName('nav-tabs')
     let tab = document.getElementsByClassName('tab-content')
@@ -1477,8 +1489,8 @@ function Index() {
       }),
     )
   }
-  const toPrintPdf = (camData, RevenueDetails,orderList) => {
-    console.log(_get, "get")
+  const toPrintPdf = (camData, RevenueDetails,  orderList) => {
+    console.log(_get, 'get')
     function calcPc(n1, n2) {
       if (n1 === 0) {
         return 0
@@ -1486,55 +1498,263 @@ function Index() {
       return ((n2 - n1) / n1) * 100
     }
     return (
-
-      <table width="1000px" style={{ fontFamily: 'Arial, Helvetica, sans-serif' }} cellPadding="0" cellSpacing="0" border="0">
+      <table
+        width="1000px"
+        style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
+        cellPadding="0"
+        cellSpacing="0"
+        border="0"
+      >
         <tr>
           <td valign="top">
-            <table width="100%" bgColor="#ffffff" cellPadding="12" cellSpacing="0" border="0" style={{ border: '1px solid #D2D7E5', borderRadius: '6px', boxShadow: '0 3px 6px #CAD0E2', marginBottom: '26px' }}>
+            <table
+              width="100%"
+              bgColor="#ffffff"
+              cellPadding="12"
+              cellSpacing="0"
+              border="0"
+              style={{
+                border: '1px solid #D2D7E5',
+                borderRadius: '6px',
+                boxShadow: '0 3px 6px #CAD0E2',
+                marginBottom: '26px',
+              }}
+            >
               <tr>
-                <td colSpan={4} height="78"
-                  style={{ padding: '0 35px', borderBottom: '2px solid #CAD6E6' }}><h3 style={{ fontSize: '22px', color: '#3687E8', lineHeight: '27px', fontWeight: 'bold' }}>
+                <td
+                  colSpan={4}
+                  height="78"
+                  style={{
+                    padding: '0 35px',
+                    borderBottom: '2px solid #CAD6E6',
+                  }}
+                >
+                  <h3
+                    style={{
+                      fontSize: '22px',
+                      color: '#3687E8',
+                      lineHeight: '27px',
+                      fontWeight: 'bold',
+                    }}
+                  >
                     Basic Info
-                  </h3></td>
+                  </h3>
+                </td>
               </tr>
               <tr bgColor="#F7F9FF" height="92">
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', opacity: '1', paddingLeft: '35px' }}>Transaction Type</td>
-                <td colSpan={3} style={{ fontSize: '20px', color: '#111111', lineHeight: '25px' }}>{camData?.transactionType}</td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    opacity: '1',
+                    paddingLeft: '35px',
+                  }}
+                >
+                  Transaction Type
+                </td>
+                <td
+                  colSpan={3}
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '25px',
+                  }}
+                >
+                  {camData?.transactionType}
+                </td>
               </tr>
               <tr>
-                <td width="20%" style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px', paddingTop: '37px' }}>Sourcing Channel</td>
-                <td width="30%" style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px', paddingTop: '37px' }}>{camData?.company?.sourceChanel}</td>
-                <td width="20%" style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingTop: '37px' }}>City</td>
-                <td width="30%" style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px', paddingTop: '37px' }}>
+                <td
+                  width="20%"
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingLeft: '35px',
+                    paddingTop: '37px',
+                  }}
+                >
+                  Sourcing Channel
+                </td>
+                <td
+                  width="30%"
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                    paddingTop: '37px',
+                  }}
+                >
+                  {camData?.company?.sourceChanel}
+                </td>
+                <td
+                  width="20%"
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingTop: '37px',
+                  }}
+                >
+                  City
+                </td>
+                <td
+                  width="30%"
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                    paddingTop: '37px',
+                  }}
+                >
                   {
                     camData?.company?.detailedCompanyInfo?.profile
                       ?.companyDetail?.city
-                  }</td>
+                  }
+                </td>
               </tr>
               <tr>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px' }}>Buyer</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px' }}>{camData?.company?.companyName}</td>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px' }}>State</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px' }}>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingLeft: '35px',
+                  }}
+                >
+                  Buyer
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                  }}
+                >
+                  {camData?.company?.companyName}
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                  }}
+                >
+                  State
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                  }}
+                >
                   {
                     camData?.company?.detailedCompanyInfo?.profile
                       ?.companyDetail?.state
-                  }</td>
+                  }
+                </td>
               </tr>
               <tr>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px', paddingBottom: '40px' }}>Type of Business</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px', paddingBottom: '40px' }}> {camData?.company?.typeOfBusiness}</td>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingBottom: '40px' }}>Industry</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px', paddingBottom: '40px' }}> {camData?.company?.typeOfBusiness}</td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingLeft: '35px',
+                    paddingBottom: '40px',
+                  }}
+                >
+                  Type of Business
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                    paddingBottom: '40px',
+                  }}
+                >
+                  {' '}
+                  {camData?.company?.typeOfBusiness}
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingBottom: '40px',
+                  }}
+                >
+                  Industry
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                    paddingBottom: '40px',
+                  }}
+                >
+                  {' '}
+                  {camData?.company?.typeOfBusiness}
+                </td>
               </tr>
               <tr bgColor="#F7F9FF">
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px', paddingTop: '29px' }}>Order Value</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px', paddingTop: '29px' }}>{camData?.orderValue}   {camData?.unitOfValue == 'Crores'
-                  ? 'Cr'
-                  : camData?.unitOfValue}
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingLeft: '35px',
+                    paddingTop: '29px',
+                  }}
+                >
+                  Order Value
                 </td>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingTop: '29px' }}>Commodity</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px', paddingTop: '29px' }}> {camData?.commodity}</td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                    paddingTop: '29px',
+                  }}
+                >
+                  {camData?.orderValue}{' '}
+                  {camData?.unitOfValue == 'Crores'
+                    ? 'Cr'
+                    : camData?.unitOfValue}
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingTop: '29px',
+                  }}
+                >
+                  Commodity
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                    paddingTop: '29px',
+                  }}
+                >
+                  {' '}
+                  {camData?.commodity}
+                </td>
               </tr>
               <tr bgColor="#F7F9FF">
                 <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px' }}>Quantity</td>
@@ -1543,27 +1763,138 @@ function Index() {
                 <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px' }}> {camData?.supplierName}</td>
               </tr>
               <tr bgColor="#F7F9FF">
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px', paddingBottom: '31px' }}>Country of Origin</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px', paddingBottom: '31px' }}>{camData?.countryOfOrigin}</td>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingBottom: '31px' }}>Transaction Period</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px', paddingBottom: '31px' }}>{camData?.transactionPeriodDays}</td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingLeft: '35px',
+                    paddingBottom: '31px',
+                  }}
+                >
+                  Country of Origin
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                    paddingBottom: '31px',
+                  }}
+                >
+                  {camData?.countryOfOrigin}
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingBottom: '31px',
+                  }}
+                >
+                  Transaction Period
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                    paddingBottom: '31px',
+                  }}
+                >
+                  {camData?.transactionPeriodDays}
+                </td>
               </tr>
               <tr>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px', paddingTop: '36px' }}>Port of Loading</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px', paddingTop: '36px' }}>  {camData?.portOfLoading}</td>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingTop: '36px' }}>Port of Discharge</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px', paddingTop: '36px' }}>{camData?.portOfDischarge}</td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingLeft: '35px',
+                    paddingTop: '36px',
+                  }}
+                >
+                  Port of Loading
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                    paddingTop: '36px',
+                  }}
+                >
+                  {' '}
+                  {camData?.portOfLoading}
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingTop: '36px',
+                  }}
+                >
+                  Port of Discharge
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                    paddingTop: '36px',
+                  }}
+                >
+                  {camData?.portOfDischarge}
+                </td>
               </tr>
               <tr>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px' }}>Exp. Date of Shipment</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px' }}>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingLeft: '35px',
+                  }}
+                >
+                  Exp. Date of Shipment
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                  }}
+                >
                   {moment(
                     camData?.ExpectedDateOfShipment?.slice(0, 10),
                     'YYYY-MM-DD',
                     true,
-                  ).format('DD-MM-YYYY')}</td>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px' }}>ETA at Discharge port</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px' }}>
+                  ).format('DD-MM-YYYY')}
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                  }}
+                >
+                  ETA at Discharge port
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                  }}
+                >
                   {moment(
                     camData?.shipmentDetail?.ETAofDischarge?.fromDate?.slice(
                       0,
@@ -1571,417 +1902,2310 @@ function Index() {
                     ),
                     'YYYY-MM-DD',
                     true,
-                  ).format('DD-MM-YYYY')}</td>
+                  ).format('DD-MM-YYYY')}
+                </td>
               </tr>
               <tr>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px', paddingBottom: '50px' }}>Laycan from</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px', paddingBottom: '50px' }}>{moment(
-                  camData?.shipmentDetail?.loadPort?.fromDate?.slice(0, 10),
-                  'YYYY-MM-DD',
-                  true,
-                ).format('DD-MM-YYYY')}</td>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingBottom: '50px' }}>Laycan to</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px', paddingBottom: '50px' }}>{moment(
-                  camData?.shipmentDetail?.loadPort?.toDate?.slice(0, 10),
-                  'YYYY-MM-DD',
-                  true,
-                ).format('DD-MM-YYYY')}</td>
-              </tr>
-            </table>
-            <table width="100%" bgColor="#ffffff" cellPadding="12" cellSpacing="0" border="0" style={{ border: '1px solid #D2D7E5', borderRadius: '6px', boxShadow: '0 3px 6px #CAD0E2', marginBottom: '26px' }}>
-              <tr>
-                <td colSpan={4} height="78" style={{ padding: '0 35px', borderBottom: '2px solid #CAD6E6' }}><h3 style={{ fontSize: '22px', color: '#3687E8', lineHeight: '27px', fontWeight: 'bold' }}>Supplier Info</h3></td>
-              </tr>
-              <tr>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px', paddingTop: '27px' }}>No. of Shipments</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px', paddingTop: '27px' }}> {camData?.supplierCredential?.shipmentNumber}</td>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingTop: '27px' }}>Port of Destination</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px', paddingTop: '27px' }}> {camData?.supplierCredential?.portOfDestination}</td>
-              </tr>
-              <tr>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px' }}>No. of Consignees</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px' }}> {camData?.supplierCredential?.consigneesNumber}</td>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px' }}>Latest Shipment date</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px' }}>{
-                  camData?.supplierCredential?.latestShipmentDate?.split(
-                    'T',
-                  )[0]
-                }</td>
-              </tr>
-              <tr>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px' }}>No. of HS codes</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px' }}>{camData?.supplierCredential?.HSCodesNumber}</td>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px' }}>Oldest shipment date</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px' }}> {
-                  camData?.supplierCredential?.oldestShipmentDate?.split(
-                    'T',
-                  )[0]
-                }</td>
-              </tr>
-              <tr>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px', paddingBottom: '20px' }}>Country of Origins</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px', paddingBottom: '20px' }}>{camData?.supplierCredential?.countryOfOrigin}</td>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingBottom: '20px' }}>Commodity to total trade (24 months)</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px', paddingBottom: '20px' }}>{camData?.supplierCredential?.commodityOfTotalTrade} %</td>
-              </tr>
-              <tr>
-                <td colSpan={4} style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px', paddingTop: '25px' }}>Country of Origins</td>
-              </tr>
-              <tr>
-                <td colSpan={4} style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px', paddingLeft: '35px', paddingBottom: '53px' }}> {camData?.supplierCredential?.countryOfOrigin}</td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingLeft: '35px',
+                    paddingBottom: '50px',
+                  }}
+                >
+                  Laycan from
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                    paddingBottom: '50px',
+                  }}
+                >
+                  {moment(
+                    camData?.shipmentDetail?.loadPort?.fromDate?.slice(0, 10),
+                    'YYYY-MM-DD',
+                    true,
+                  ).format('DD-MM-YYYY')}
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingBottom: '50px',
+                  }}
+                >
+                  Laycan to
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                    paddingBottom: '50px',
+                  }}
+                >
+                  {moment(
+                    camData?.shipmentDetail?.loadPort?.toDate?.slice(0, 10),
+                    'YYYY-MM-DD',
+                    true,
+                  ).format('DD-MM-YYYY')}
+                </td>
               </tr>
             </table>
-            <table width="100%" bgColor="#ffffff" cellPadding="0" cellSpacing="0" border="0" style={{ border: '1px solid #D2D7E5', borderRadius: '6px', boxShadow: '0 3px 6px #CAD0E2', marginBottom: '26px' }}>
+            <table
+              width="100%"
+              bgColor="#ffffff"
+              cellPadding="12"
+              cellSpacing="0"
+              border="0"
+              style={{
+                border: '1px solid #D2D7E5',
+                borderRadius: '6px',
+                boxShadow: '0 3px 6px #CAD0E2',
+                marginBottom: '26px',
+              }}
+            >
               <tr>
-                <td colSpan={3} height="78" style={{ padding: '0 35px', borderBottom: '2px solid #CAD6E6' }}><h3 style={{ fontSize: '22px', color: '#3687E8', lineHeight: '27px', fontWeight: 'bold' }}>Group Exposure Details</h3></td>
+                <td
+                  colSpan={4}
+                  height="78"
+                  style={{
+                    padding: '0 35px',
+                    borderBottom: '2px solid #CAD6E6',
+                  }}
+                >
+                  <h3
+                    style={{
+                      fontSize: '22px',
+                      color: '#3687E8',
+                      lineHeight: '27px',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    Supplier Info
+                  </h3>
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingLeft: '35px',
+                    paddingTop: '27px',
+                  }}
+                >
+                  No. of Shipments
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                    paddingTop: '27px',
+                  }}
+                >
+                  {' '}
+                  {camData?.supplierCredential?.shipmentNumber}
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingTop: '27px',
+                  }}
+                >
+                  Port of Destination
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                    paddingTop: '27px',
+                  }}
+                >
+                  {' '}
+                  {camData?.supplierCredential?.portOfDestination}
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingLeft: '35px',
+                  }}
+                >
+                  No. of Consignees
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                  }}
+                >
+                  {' '}
+                  {camData?.supplierCredential?.consigneesNumber}
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                  }}
+                >
+                  Latest Shipment date
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                  }}
+                >
+                  {
+                    camData?.supplierCredential?.latestShipmentDate?.split(
+                      'T',
+                    )[0]
+                  }
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingLeft: '35px',
+                  }}
+                >
+                  No. of HS codes
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                  }}
+                >
+                  {camData?.supplierCredential?.HSCodesNumber}
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                  }}
+                >
+                  Oldest shipment date
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                  }}
+                >
+                  {' '}
+                  {
+                    camData?.supplierCredential?.oldestShipmentDate?.split(
+                      'T',
+                    )[0]
+                  }
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingLeft: '35px',
+                    paddingBottom: '20px',
+                  }}
+                >
+                  Country of Origins
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                    paddingBottom: '20px',
+                  }}
+                >
+                  {camData?.supplierCredential?.countryOfOrigin}
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingBottom: '20px',
+                  }}
+                >
+                  Commodity to total trade (24 months)
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                    paddingBottom: '20px',
+                  }}
+                >
+                  {camData?.supplierCredential?.commodityOfTotalTrade} %
+                </td>
+              </tr>
+              <tr>
+                <td
+                  colSpan={4}
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingLeft: '35px',
+                    paddingTop: '25px',
+                  }}
+                >
+                  Country of Origins
+                </td>
+              </tr>
+              <tr>
+                <td
+                  colSpan={4}
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                    paddingLeft: '35px',
+                    paddingBottom: '53px',
+                  }}
+                >
+                  {' '}
+                  {camData?.supplierCredential?.countryOfOrigin}
+                </td>
+              </tr>
+            </table>
+            <table
+              width="100%"
+              bgColor="#ffffff"
+              cellPadding="0"
+              cellSpacing="0"
+              border="0"
+              style={{
+                border: '1px solid #D2D7E5',
+                borderRadius: '6px',
+                boxShadow: '0 3px 6px #CAD0E2',
+                marginBottom: '26px',
+              }}
+            >
+              <tr>
+                <td
+                  colSpan={3}
+                  height="78"
+                  style={{
+                    padding: '0 35px',
+                    borderBottom: '2px solid #CAD6E6',
+                  }}
+                >
+                  <h3
+                    style={{
+                      fontSize: '22px',
+                      color: '#3687E8',
+                      lineHeight: '27px',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    Group Exposure Details
+                  </h3>
+                </td>
               </tr>
               <tr>
                 <td valign="top" style={{ padding: '27px' }}>
-                  <table width="100%" cellPadding="15" cellSpacing="0" border="0">
+                  <table
+                    width="100%"
+                    cellPadding="15"
+                    cellSpacing="0"
+                    border="0"
+                  >
                     <tr>
-                      {
-                        camData?.company.groupExposureData?.map((exp, index) => {
-                          let name = exp?.name?.split(' ') ?? 'NA'
-                          return (
-                            <td valign='top' width="33.33%">
-                              <table width="100%" cellPadding="0" cellSpacing="0" border="0" style={{ border: '1px solid #D2D7E5', borderRadius: '6px' }}>
-                                <tr>
-                                  <td height="60" colSpan={2} style={{ fontSize: '22px', color: '#111111', lineHeight: '27px', fontWeight: 'bold', padding: '32px 22px 19px' }}><span style={{ fontSize: '28px', color: '#FF9D00', lineHeight: '34px', fontWeight: 'bold', background: '#FFECCF', borderRadius: '8px', marginRight: '22px', padding: '13px', display: 'inline-block' }}>
+                      {camData?.company.groupExposureData?.map((exp, index) => {
+                        let name = exp?.name?.split(' ') ?? 'NA'
+                        return (
+                          <td valign="top" width="33.33%">
+                            <table
+                              width="100%"
+                              cellPadding="0"
+                              cellSpacing="0"
+                              border="0"
+                              style={{
+                                border: '1px solid #D2D7E5',
+                                borderRadius: '6px',
+                              }}
+                            >
+                              <tr>
+                                <td
+                                  height="60"
+                                  colSpan={2}
+                                  style={{
+                                    fontSize: '22px',
+                                    color: '#111111',
+                                    lineHeight: '27px',
+                                    fontWeight: 'bold',
+                                    padding: '32px 22px 19px',
+                                  }}
+                                >
+                                  <span
+                                    style={{
+                                      fontSize: '28px',
+                                      color: '#FF9D00',
+                                      lineHeight: '34px',
+                                      fontWeight: 'bold',
+                                      background: '#FFECCF',
+                                      borderRadius: '8px',
+                                      marginRight: '22px',
+                                      padding: '13px',
+                                      display: 'inline-block',
+                                    }}
+                                  >
                                     {name?.map((item, index) => {
                                       if (index < 2) {
                                         return item?.charAt(0)?.toUpperCase()
                                       }
                                     })}
-                                  </span>  {exp.name}</td>
-                                </tr>
-                                <tr>
-                                  <td height="33" style={{ padding: '19px 0 19px 22px' }}><span style={{ fontSize: '16px', color: '#111111', lineHeight: '19px', fontWeight: 'bold', background: 'rgba(186, 186, 186, 0.1)', borderRadius: '5px', padding: '6px 12px', display: 'inline-block' }}>LIMIT</span></td>
-                                  <td align="right" style={{ fontSize: '19px', color: '#111111', lineHeight: '24px', fontWeight: '500', padding: '19px 22px 19px 0' }}>{exp.limit}</td>
-                                </tr>
-                                <tr>
-                                  <td colSpan={2} style={{ padding: '0 22px 19px' }}><span style={{ background: '#F3F4F7', borderRadius: '2px', height: '12px', width: '100%', display: 'inline-block' }}><span style={{ background: '#3687E8', width: '90%', height: '12px', borderRadius: '2px', display: 'inline-block', float: 'left' }}></span></span></td>
-                                </tr>
-                                <tr>
-                                  <td height="33" style={{ padding: '19px 0 19px 22px' }}><span style={{ fontSize: '16px', color: '#111111', lineHeight: '19px', fontWeight: 'bold', background: 'rgba(186, 186, 186, 0.1)', borderRadius: '5px', padding: '6px 12px', display: 'inline-block' }}>  O/S BALANCE</span></td>
-                                  <td align="right" style={{ fontSize: '19px', color: '#111111', lineHeight: '24px', fontWeight: '500', padding: '19px 22px 19px 0' }}>{exp.outstandingLimit}</td>
-                                </tr>
-                                <tr>
-                                  <td colSpan={2} style={{ padding: '0 22px 19px' }}><span style={{ background: '#F3F4F7', borderRadius: '2px', height: '12px', width: '100%', display: 'inline-block' }}><span style={{ background: '#3687E8', width: '90%', height: '12px', borderRadius: '2px', display: 'inline-block', float: 'left' }}></span></span></td>
-                                </tr>
-                                <tr>
-                                  <td colSpan={2} height="33" style={{ padding: '19px 22px' }}><span style={{ fontSize: '16px', color: '#111111', lineHeight: '19px', fontWeight: 'bold', background: 'rgba(186, 186, 186, 0.1)', borderRadius: '5px', padding: '6px 12px', display: 'inline-block' }}>CONDUCT</span></td>
-                                </tr>
-                                <tr>
-                                  <td colSpan={2} style={{ padding: '0 22px 19px', fontSize: '18px', color: '#111111', lineHeight: '28px' }}>{exp.accountConduct}</td>
-                                </tr>
-                              </table>
-                            </td>
-                          )
-                        })
-                      }
-
+                                  </span>{' '}
+                                  {exp.name}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td
+                                  height="33"
+                                  style={{ padding: '19px 0 19px 22px' }}
+                                >
+                                  <span
+                                    style={{
+                                      fontSize: '16px',
+                                      color: '#111111',
+                                      lineHeight: '19px',
+                                      fontWeight: 'bold',
+                                      background: 'rgba(186, 186, 186, 0.1)',
+                                      borderRadius: '5px',
+                                      padding: '6px 12px',
+                                      display: 'inline-block',
+                                    }}
+                                  >
+                                    LIMIT
+                                  </span>
+                                </td>
+                                <td
+                                  align="right"
+                                  style={{
+                                    fontSize: '19px',
+                                    color: '#111111',
+                                    lineHeight: '24px',
+                                    fontWeight: '500',
+                                    padding: '19px 22px 19px 0',
+                                  }}
+                                >
+                                  {exp.limit}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td
+                                  colSpan={2}
+                                  style={{ padding: '0 22px 19px' }}
+                                >
+                                  <span
+                                    style={{
+                                      background: '#F3F4F7',
+                                      borderRadius: '2px',
+                                      height: '12px',
+                                      width: '100%',
+                                      display: 'inline-block',
+                                    }}
+                                  >
+                                    <span
+                                      style={{
+                                        background: '#3687E8',
+                                        width: '90%',
+                                        height: '12px',
+                                        borderRadius: '2px',
+                                        display: 'inline-block',
+                                        float: 'left',
+                                      }}
+                                    ></span>
+                                  </span>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td
+                                  height="33"
+                                  style={{ padding: '19px 0 19px 22px' }}
+                                >
+                                  <span
+                                    style={{
+                                      fontSize: '16px',
+                                      color: '#111111',
+                                      lineHeight: '19px',
+                                      fontWeight: 'bold',
+                                      background: 'rgba(186, 186, 186, 0.1)',
+                                      borderRadius: '5px',
+                                      padding: '6px 12px',
+                                      display: 'inline-block',
+                                    }}
+                                  >
+                                    {' '}
+                                    O/S BALANCE
+                                  </span>
+                                </td>
+                                <td
+                                  align="right"
+                                  style={{
+                                    fontSize: '19px',
+                                    color: '#111111',
+                                    lineHeight: '24px',
+                                    fontWeight: '500',
+                                    padding: '19px 22px 19px 0',
+                                  }}
+                                >
+                                  {exp.outstandingLimit}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td
+                                  colSpan={2}
+                                  style={{ padding: '0 22px 19px' }}
+                                >
+                                  <span
+                                    style={{
+                                      background: '#F3F4F7',
+                                      borderRadius: '2px',
+                                      height: '12px',
+                                      width: '100%',
+                                      display: 'inline-block',
+                                    }}
+                                  >
+                                    <span
+                                      style={{
+                                        background: '#3687E8',
+                                        width: '90%',
+                                        height: '12px',
+                                        borderRadius: '2px',
+                                        display: 'inline-block',
+                                        float: 'left',
+                                      }}
+                                    ></span>
+                                  </span>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td
+                                  colSpan={2}
+                                  height="33"
+                                  style={{ padding: '19px 22px' }}
+                                >
+                                  <span
+                                    style={{
+                                      fontSize: '16px',
+                                      color: '#111111',
+                                      lineHeight: '19px',
+                                      fontWeight: 'bold',
+                                      background: 'rgba(186, 186, 186, 0.1)',
+                                      borderRadius: '5px',
+                                      padding: '6px 12px',
+                                      display: 'inline-block',
+                                    }}
+                                  >
+                                    CONDUCT
+                                  </span>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td
+                                  colSpan={2}
+                                  style={{
+                                    padding: '0 22px 19px',
+                                    fontSize: '18px',
+                                    color: '#111111',
+                                    lineHeight: '28px',
+                                  }}
+                                >
+                                  {exp.accountConduct}
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        )
+                      })}
                     </tr>
                   </table>
                 </td>
               </tr>
             </table>
-            <table width="100%" bgColor="#ffffff" cellPadding="12" cellSpacing="0" border="0" style={{ border: '1px solid #D2D7E5', borderRadius: '6px', boxShadow: '0 3px 6px #CAD0E2', marginBottom: '26px' }}>
+            <table
+              width="100%"
+              bgColor="#ffffff"
+              cellPadding="12"
+              cellSpacing="0"
+              border="0"
+              style={{
+                border: '1px solid #D2D7E5',
+                borderRadius: '6px',
+                boxShadow: '0 3px 6px #CAD0E2',
+                marginBottom: '26px',
+              }}
+            >
               <tr>
-                <td colSpan={7} height="78" style={{ padding: '0 35px', borderBottom: '2px solid #CAD6E6' }}><h3 style={{ fontSize: '22px', color: '#3687E8', lineHeight: '27px', fontWeight: 'bold' }}>Order Summary - Last 6 Orders</h3></td>
+                <td
+                  colSpan={7}
+                  height="78"
+                  style={{
+                    padding: '0 35px',
+                    borderBottom: '2px solid #CAD6E6',
+                  }}
+                >
+                  <h3
+                    style={{
+                      fontSize: '22px',
+                      color: '#3687E8',
+                      lineHeight: '27px',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    Order Summary - Last 6 Orders
+                  </h3>
+                </td>
               </tr>
               <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
-                <th width="25%" style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', paddingLeft: '35px', textTransform: 'uppercase' }}>SUPPLIER NAME</th>
-                <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase' }}>CUSTOMER NAME</th>
-                <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase' }}>ORDER NO</th>
+                <th
+                  width="25%"
+                  style={{
+                    fontSize: '15px',
+                    color: '#8492A6',
+                    lineHeight: '18px',
+                    fontWeight: 'bold',
+                    paddingLeft: '35px',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  SUPPLIER NAME
+                </th>
+                <th
+                  style={{
+                    fontSize: '15px',
+                    color: '#8492A6',
+                    lineHeight: '18px',
+                    fontWeight: 'bold',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  CUSTOMER NAME
+                </th>
+                <th
+                  style={{
+                    fontSize: '15px',
+                    color: '#8492A6',
+                    lineHeight: '18px',
+                    fontWeight: 'bold',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  ORDER NO
+                </th>
 
-
-                <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase' }}>ORDER VALUE</th>
-                <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase' }}>COMMODITY</th>
-                <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase' }}>STATUS</th>
-                <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase', textAlign: 'center' }}>DAYS DUE</th>
+                <th
+                  style={{
+                    fontSize: '15px',
+                    color: '#8492A6',
+                    lineHeight: '18px',
+                    fontWeight: 'bold',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  ORDER VALUE
+                </th>
+                <th
+                  style={{
+                    fontSize: '15px',
+                    color: '#8492A6',
+                    lineHeight: '18px',
+                    fontWeight: 'bold',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  COMMODITY
+                </th>
+                <th
+                  style={{
+                    fontSize: '15px',
+                    color: '#8492A6',
+                    lineHeight: '18px',
+                    fontWeight: 'bold',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  STATUS
+                </th>
+                <th
+                  style={{
+                    fontSize: '15px',
+                    color: '#8492A6',
+                    lineHeight: '18px',
+                    fontWeight: 'bold',
+                    textTransform: 'uppercase',
+                    textAlign: 'center',
+                  }}
+                >
+                  DAYS DUE
+                </th>
               </tr>
               <tr>
-                <td colSpan={7} style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', padding: '21px 35px 13px', textTransform: 'uppercase' }}>2022<span style={{ float: 'right', height: '8px', width: '97%', display: 'inline-block', borderBottom: '1px dashed #D2D7E5' }}></span></td>
+                <td
+                  colSpan={7}
+                  style={{
+                    fontSize: '15px',
+                    color: '#8492A6',
+                    lineHeight: '18px',
+                    fontWeight: 'bold',
+                    padding: '21px 35px 13px',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  2022
+                  <span
+                    style={{
+                      float: 'right',
+                      height: '8px',
+                      width: '97%',
+                      display: 'inline-block',
+                      borderBottom: '1px dashed #D2D7E5',
+                    }}
+                  ></span>
+                </td>
               </tr>
               <tr>
-                <td height="60" style={{ fontSize: '22px', color: '#111111', lineHeight: '27px', fontWeight: 'bold', padding: '18px 12px 18px 35px' }}><span style={{ fontSize: '28px', color: '#FF9D00', lineHeight: '34px', fontWeight: 'bold', background: '#FFECCF', borderRadius: '8px', marginRight: '22px', padding: '13px', display: 'inline-block' }}>ET</span> {camData?.company?.companyName}</td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', paddingTop: '18px', paddingBottom: '18px' }}>{camData?.orderId}</td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', paddingTop: '18px', paddingBottom: '18px' }}>{CovertvaluefromtoCR(camData?.orderValue)}</td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', paddingTop: '18px', paddingBottom: '18px' }}>{camData?.commodity}</td>
+                <td
+                  height="60"
+                  style={{
+                    fontSize: '22px',
+                    color: '#111111',
+                    lineHeight: '27px',
+                    fontWeight: 'bold',
+                    padding: '18px 12px 18px 35px',
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: '28px',
+                      color: '#FF9D00',
+                      lineHeight: '34px',
+                      fontWeight: 'bold',
+                      background: '#FFECCF',
+                      borderRadius: '8px',
+                      marginRight: '22px',
+                      padding: '13px',
+                      display: 'inline-block',
+                    }}
+                  >
+                    ET
+                  </span>{' '}
+                  {camData?.company?.companyName}
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                    paddingTop: '18px',
+                    paddingBottom: '18px',
+                  }}
+                >
+                  {camData?.orderId}
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                    paddingTop: '18px',
+                    paddingBottom: '18px',
+                  }}
+                >
+                  {CovertvaluefromtoCR(camData?.orderValue)}
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                    paddingTop: '18px',
+                    paddingBottom: '18px',
+                  }}
+                >
+                  {camData?.commodity}
+                </td>
 
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', fontWeight: '500', paddingTop: '18px', paddingBottom: '18px' }}><span style={{ padding: '7.5px', display: 'inline-block', background: '#FF9D00', borderRadius: '50%', marginRight: '10px' }}></span>In Process</td>
-                <td align='center' style={{ fontSize: '19px', color: '#EA3F3F', lineHeight: '24px', fontWeight: 'bold', paddingTop: '18px', paddingBottom: '18px' }}>12</td>
-              </tr>
-
-            </table>
-            <table width="100%" bgColor="#ffffff" cellPadding="8" cellSpacing="0" border="0" style={{ border: '1px solid #D2D7E5', borderRadius: '6px', boxShadow: '0 3px 6px #CAD0E2', marginBottom: '26px' }}>
-              <tr>
-                <td colSpan={4} height="78" style={{ padding: '0 35px', borderBottom: '2px solid #CAD6E6' }}><h3 style={{ fontSize: '22px', color: '#3687E8', lineHeight: '27px', fontWeight: 'bold' }}>Operational Details</h3></td>
-              </tr>
-              <tr>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px', paddingTop: '31px' }}>Main Banker</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px', paddingTop: '31px' }}>value</td>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingTop: '31px' }}>External Credit Rating</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px', paddingTop: '31px' }}>A3+</td>
-              </tr>
-              <tr>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px' }}>Open Charges</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px' }}>value</td>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px' }}>Credit Rating Agency</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px' }}> American First</td>
-              </tr>
-              <tr>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px', paddingBottom: '61px' }}>Name of Auditor</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px', paddingBottom: '61px' }}>
-                  {camData.company.detailedCompanyInfo.profile.auditorDetail[0].nameOfAuditor}</td>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingBottom: '61px' }}>Change in Auditor</td>
-                <td style={{ fontSize: '20px', color: '#EA3F3F', fontWeight: '500', lineHeight: '25px', paddingBottom: '61px' }}>
-                  {camData.company.detailedCompanyInfo.profile.auditorDetail[0].nameOfAuditor == camData.company.detailedCompanyInfo.profile.auditorDetail[1].nameOfAuditor ? "No" : "Yes"
-
-                  }
-
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                    fontWeight: '500',
+                    paddingTop: '18px',
+                    paddingBottom: '18px',
+                  }}
+                >
+                  <span
+                    style={{
+                      padding: '7.5px',
+                      display: 'inline-block',
+                      background: '#FF9D00',
+                      borderRadius: '50%',
+                      marginRight: '10px',
+                    }}
+                  ></span>
+                  In Process
+                </td>
+                <td
+                  align="center"
+                  style={{
+                    fontSize: '19px',
+                    color: '#EA3F3F',
+                    lineHeight: '24px',
+                    fontWeight: 'bold',
+                    paddingTop: '18px',
+                    paddingBottom: '18px',
+                  }}
+                >
+                  12
                 </td>
               </tr>
             </table>
-            <table width="100%" bgColor="#ffffff" cellPadding="12" cellSpacing="0" border="0" style={{ border: '1px solid #D2D7E5', borderRadius: '6px', boxShadow: '0 3px 6px #CAD0E2', marginBottom: '26px' }}>
+            <table
+              width="100%"
+              bgColor="#ffffff"
+              cellPadding="8"
+              cellSpacing="0"
+              border="0"
+              style={{
+                border: '1px solid #D2D7E5',
+                borderRadius: '6px',
+                boxShadow: '0 3px 6px #CAD0E2',
+                marginBottom: '26px',
+              }}
+            >
               <tr>
-                <td colSpan={5} height="78" style={{ padding: '0 35px', borderBottom: '2px solid #CAD6E6' }}><h3 style={{ fontSize: '22px', color: '#3687E8', lineHeight: '27px', fontWeight: 'bold' }}>Director Details</h3></td>
+                <td
+                  colSpan={4}
+                  height="78"
+                  style={{
+                    padding: '0 35px',
+                    borderBottom: '2px solid #CAD6E6',
+                  }}
+                >
+                  <h3
+                    style={{
+                      fontSize: '22px',
+                      color: '#3687E8',
+                      lineHeight: '27px',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    Operational Details
+                  </h3>
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingLeft: '35px',
+                    paddingTop: '31px',
+                  }}
+                >
+                  Main Banker
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                    paddingTop: '31px',
+                  }}
+                >
+                  value
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingTop: '31px',
+                  }}
+                >
+                  External Credit Rating
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                    paddingTop: '31px',
+                  }}
+                >
+                  A3+
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingLeft: '35px',
+                  }}
+                >
+                  Open Charges
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                  }}
+                >
+                  value
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                  }}
+                >
+                  Credit Rating Agency
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                  }}
+                >
+                  {' '}
+                  American First
+                </td>
+              </tr>
+              <tr>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingLeft: '35px',
+                    paddingBottom: '61px',
+                  }}
+                >
+                  Name of Auditor
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                    paddingBottom: '61px',
+                  }}
+                >
+                  {
+                    camData.company.detailedCompanyInfo.profile.auditorDetail[0]
+                      .nameOfAuditor
+                  }
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingBottom: '61px',
+                  }}
+                >
+                  Change in Auditor
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#EA3F3F',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                    paddingBottom: '61px',
+                  }}
+                >
+                  {camData.company.detailedCompanyInfo.profile.auditorDetail[0]
+                    .nameOfAuditor ==
+                  camData.company.detailedCompanyInfo.profile.auditorDetail[1]
+                    .nameOfAuditor
+                    ? 'No'
+                    : 'Yes'}
+                </td>
+              </tr>
+            </table>
+            <table
+              width="100%"
+              bgColor="#ffffff"
+              cellPadding="12"
+              cellSpacing="0"
+              border="0"
+              style={{
+                border: '1px solid #D2D7E5',
+                borderRadius: '6px',
+                boxShadow: '0 3px 6px #CAD0E2',
+                marginBottom: '26px',
+              }}
+            >
+              <tr>
+                <td
+                  colSpan={5}
+                  height="78"
+                  style={{
+                    padding: '0 35px',
+                    borderBottom: '2px solid #CAD6E6',
+                  }}
+                >
+                  <h3
+                    style={{
+                      fontSize: '22px',
+                      color: '#3687E8',
+                      lineHeight: '27px',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    Director Details
+                  </h3>
+                </td>
               </tr>
               <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
-                <th width="30%" style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', paddingLeft: '35px', textTransform: 'uppercase' }}>NAME</th>
-                <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase' }}>PAN</th>
-                <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase' }}>DIN NUMBER</th>
-                <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase' }}>DATE OF APPOINTMENT</th>
-                <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase' }}>% SHAREHOLDING</th>
+                <th
+                  width="30%"
+                  style={{
+                    fontSize: '15px',
+                    color: '#8492A6',
+                    lineHeight: '18px',
+                    fontWeight: 'bold',
+                    paddingLeft: '35px',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  NAME
+                </th>
+                <th
+                  style={{
+                    fontSize: '15px',
+                    color: '#8492A6',
+                    lineHeight: '18px',
+                    fontWeight: 'bold',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  PAN
+                </th>
+                <th
+                  style={{
+                    fontSize: '15px',
+                    color: '#8492A6',
+                    lineHeight: '18px',
+                    fontWeight: 'bold',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  DIN NUMBER
+                </th>
+                <th
+                  style={{
+                    fontSize: '15px',
+                    color: '#8492A6',
+                    lineHeight: '18px',
+                    fontWeight: 'bold',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  DATE OF APPOINTMENT
+                </th>
+                <th
+                  style={{
+                    fontSize: '15px',
+                    color: '#8492A6',
+                    lineHeight: '18px',
+                    fontWeight: 'bold',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  % SHAREHOLDING
+                </th>
               </tr>
-              {camData?.company?.detailedCompanyInfo?.profile?.directorDetail?.map((director, index) => {
-                let name = director?.name
-                let [fName, lName] = director?.name.split(' ')
-                return (
-                  <tr>
-                    <td height="60" style={{ fontSize: '22px', color: '#111111', lineHeight: '27px', fontWeight: 'bold', padding: '26px 12px 18px 35px' }}><span style={{ fontSize: '28px', color: '#FF9D00', lineHeight: '34px', fontWeight: 'bold', background: '#FFECCF', borderRadius: '8px', marginRight: '22px', padding: '13px', display: 'inline-block' }}>
-                      {fName?.charAt(0)}
-                      {lName?.charAt(0)}
-                    </span>{director?.name}</td>
-                    <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', paddingTop: '26px', paddingBottom: '18px' }}>{director?.pan[0]}</td>
-                    <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', paddingTop: '26px', paddingBottom: '18px' }}>{director.din}</td>
-                    <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', paddingTop: '26px', paddingBottom: '18px' }}>{director.tenureStartDate}</td>
-                    <td style={{ fontSize: '19px', color: '#111111', lineHeight: '24px', paddingTop: '26px', paddingBottom: '18px' }}>30%</td>
-                  </tr>
-                )
-              })}
-
-
+              {camData?.company?.detailedCompanyInfo?.profile?.directorDetail?.map(
+                (director, index) => {
+                  let name = director?.name
+                  let [fName, lName] = director?.name.split(' ')
+                  return (
+                    <tr>
+                      <td
+                        height="60"
+                        style={{
+                          fontSize: '22px',
+                          color: '#111111',
+                          lineHeight: '27px',
+                          fontWeight: 'bold',
+                          padding: '26px 12px 18px 35px',
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontSize: '28px',
+                            color: '#FF9D00',
+                            lineHeight: '34px',
+                            fontWeight: 'bold',
+                            background: '#FFECCF',
+                            borderRadius: '8px',
+                            marginRight: '22px',
+                            padding: '13px',
+                            display: 'inline-block',
+                          }}
+                        >
+                          {fName?.charAt(0)}
+                          {lName?.charAt(0)}
+                        </span>
+                        {director?.name}
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '26px',
+                          paddingBottom: '18px',
+                        }}
+                      >
+                        {director?.pan[0]}
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '26px',
+                          paddingBottom: '18px',
+                        }}
+                      >
+                        {director.din}
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '26px',
+                          paddingBottom: '18px',
+                        }}
+                      >
+                        {director.tenureStartDate}
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '24px',
+                          paddingTop: '26px',
+                          paddingBottom: '18px',
+                        }}
+                      >
+                        30%
+                      </td>
+                    </tr>
+                  )
+                },
+              )}
             </table>
-            <table width="100%" bgColor="#ffffff" cellPadding="0" cellSpacing="0" border="0" style={{ border: '1px solid #D2D7E5', borderRadius: '6px', boxShadow: '0 3px 6px #CAD0E2', marginBottom: '26px' }}>
+            <table
+              width="100%"
+              bgColor="#ffffff"
+              cellPadding="0"
+              cellSpacing="0"
+              border="0"
+              style={{
+                border: '1px solid #D2D7E5',
+                borderRadius: '6px',
+                boxShadow: '0 3px 6px #CAD0E2',
+                marginBottom: '26px',
+              }}
+            >
               <tr>
-                <td colSpan={2} height="78" style={{ padding: '0 35px', borderBottom: '2px solid #CAD6E6' }}><h3 style={{ fontSize: '22px', color: '#3687E8', lineHeight: '27px', fontWeight: 'bold' }}>Debt Profile</h3></td>
+                <td
+                  colSpan={2}
+                  height="78"
+                  style={{
+                    padding: '0 35px',
+                    borderBottom: '2px solid #CAD6E6',
+                  }}
+                >
+                  <h3
+                    style={{
+                      fontSize: '22px',
+                      color: '#3687E8',
+                      lineHeight: '27px',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    Debt Profile
+                  </h3>
+                </td>
               </tr>
               <tr>
                 <td width="33%" valign="top">
-                  <table width="100%" cellPadding="6" cellSpacing="0" border="0">
+                  <table
+                    width="100%"
+                    cellPadding="6"
+                    cellSpacing="0"
+                    border="0"
+                  >
                     <tr>
-                      <td style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase', padding: '32px 6px 6px 35px' }}>TOTAL LIMIT</td>
-                      <td align="right" style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', padding: '32px 35px 6px 6px' }}>1,900.00</td>
+                      <td
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          fontWeight: 'bold',
+                          textTransform: 'uppercase',
+                          padding: '32px 6px 6px 35px',
+                        }}
+                      >
+                        TOTAL LIMIT
+                      </td>
+                      <td
+                        align="right"
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          fontWeight: 'bold',
+                          padding: '32px 35px 6px 6px',
+                        }}
+                      >
+                        1,900.00
+                      </td>
                     </tr>
                     <tr>
-                      <td colSpan={2} style={{ padding: '6px 35px 0' }}><span style={{ background: '#E4ECF7', borderRadius: '2px', height: '18px', width: '100%', display: 'inline-block' }}><span style={{ background: '#3687E8', width: '90%', height: '18px', borderRadius: '2px', display: 'inline-block', float: 'left' }}></span></span></td>
+                      <td colSpan={2} style={{ padding: '6px 35px 0' }}>
+                        <span
+                          style={{
+                            background: '#E4ECF7',
+                            borderRadius: '2px',
+                            height: '18px',
+                            width: '100%',
+                            display: 'inline-block',
+                          }}
+                        >
+                          <span
+                            style={{
+                              background: '#3687E8',
+                              width: '90%',
+                              height: '18px',
+                              borderRadius: '2px',
+                              display: 'inline-block',
+                              float: 'left',
+                            }}
+                          ></span>
+                        </span>
+                      </td>
                     </tr>
                     <tr>
-                      <td style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase', padding: '40px 6px 0 35px' }}>ICICI BANK</td>
-                      <td align="right" style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', padding: '40px 35px 0 6px' }}>1,900.00</td>
+                      <td
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          fontWeight: 'bold',
+                          textTransform: 'uppercase',
+                          padding: '40px 6px 0 35px',
+                        }}
+                      >
+                        ICICI BANK
+                      </td>
+                      <td
+                        align="right"
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          fontWeight: 'bold',
+                          padding: '40px 35px 0 6px',
+                        }}
+                      >
+                        1,900.00
+                      </td>
                     </tr>
                     <tr>
-                      <td colSpan={2} style={{ padding: '0 35px' }}><span style={{ background: '#E4ECF7', borderRadius: '2px', height: '10px', width: '100%', display: 'inline-block' }}><span style={{ background: '#EA3F3F', width: '90%', height: '10px', borderRadius: '2px', display: 'inline-block', float: 'left' }}></span></span></td>
+                      <td colSpan={2} style={{ padding: '0 35px' }}>
+                        <span
+                          style={{
+                            background: '#E4ECF7',
+                            borderRadius: '2px',
+                            height: '10px',
+                            width: '100%',
+                            display: 'inline-block',
+                          }}
+                        >
+                          <span
+                            style={{
+                              background: '#EA3F3F',
+                              width: '90%',
+                              height: '10px',
+                              borderRadius: '2px',
+                              display: 'inline-block',
+                              float: 'left',
+                            }}
+                          ></span>
+                        </span>
+                      </td>
                     </tr>
                     <tr>
-                      <td align='right' colSpan={2} style={{ fontSize: '17px', color: '#EA3F3F', lineHeight: '21px', fontWeight: 'bold', textTransform: 'capitalize', padding: '6px 35px 0' }}>Cash Credit</td>
+                      <td
+                        align="right"
+                        colSpan={2}
+                        style={{
+                          fontSize: '17px',
+                          color: '#EA3F3F',
+                          lineHeight: '21px',
+                          fontWeight: 'bold',
+                          textTransform: 'capitalize',
+                          padding: '6px 35px 0',
+                        }}
+                      >
+                        Cash Credit
+                      </td>
                     </tr>
                     <tr>
-                      <td style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase', padding: '19px 6px 0 35px' }}>HDFC BANK</td>
-                      <td align="right" style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', padding: '19px 35px 0 6px' }}>1,900.00</td>
+                      <td
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          fontWeight: 'bold',
+                          textTransform: 'uppercase',
+                          padding: '19px 6px 0 35px',
+                        }}
+                      >
+                        HDFC BANK
+                      </td>
+                      <td
+                        align="right"
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          fontWeight: 'bold',
+                          padding: '19px 35px 0 6px',
+                        }}
+                      >
+                        1,900.00
+                      </td>
                     </tr>
                     <tr>
-                      <td colSpan={2} style={{ padding: '0 35px' }}><span style={{ background: '#E4ECF7', borderRadius: '2px', height: '10px', width: '100%', display: 'inline-block' }}><span style={{ background: '#43C34D', width: '20%', height: '10px', borderRadius: '2px', display: 'inline-block', float: 'left' }}></span></span></td>
+                      <td colSpan={2} style={{ padding: '0 35px' }}>
+                        <span
+                          style={{
+                            background: '#E4ECF7',
+                            borderRadius: '2px',
+                            height: '10px',
+                            width: '100%',
+                            display: 'inline-block',
+                          }}
+                        >
+                          <span
+                            style={{
+                              background: '#43C34D',
+                              width: '20%',
+                              height: '10px',
+                              borderRadius: '2px',
+                              display: 'inline-block',
+                              float: 'left',
+                            }}
+                          ></span>
+                        </span>
+                      </td>
                     </tr>
                     <tr>
-                      <td align='right' colSpan={2} style={{ fontSize: '17px', color: '#43C34D', lineHeight: '21px', fontWeight: 'bold', textTransform: 'capitalize', padding: '6px 35px 0' }}>Post Ship Credit</td>
+                      <td
+                        align="right"
+                        colSpan={2}
+                        style={{
+                          fontSize: '17px',
+                          color: '#43C34D',
+                          lineHeight: '21px',
+                          fontWeight: 'bold',
+                          textTransform: 'capitalize',
+                          padding: '6px 35px 0',
+                        }}
+                      >
+                        Post Ship Credit
+                      </td>
                     </tr>
                     <tr>
-                      <td style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase', padding: '19px 6px 0 35px' }}>SBI BANK</td>
-                      <td align="right" style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', padding: '19px 35px 0 6px' }}>1,900.00</td>
+                      <td
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          fontWeight: 'bold',
+                          textTransform: 'uppercase',
+                          padding: '19px 6px 0 35px',
+                        }}
+                      >
+                        SBI BANK
+                      </td>
+                      <td
+                        align="right"
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          fontWeight: 'bold',
+                          padding: '19px 35px 0 6px',
+                        }}
+                      >
+                        1,900.00
+                      </td>
                     </tr>
                     <tr>
-                      <td colSpan={2} style={{ padding: '0 35px' }}><span style={{ background: '#E4ECF7', borderRadius: '2px', height: '10px', width: '100%', display: 'inline-block' }}><span style={{ background: '#FF9D00', width: '40%', height: '10px', borderRadius: '2px', display: 'inline-block', float: 'left' }}></span></span></td>
+                      <td colSpan={2} style={{ padding: '0 35px' }}>
+                        <span
+                          style={{
+                            background: '#E4ECF7',
+                            borderRadius: '2px',
+                            height: '10px',
+                            width: '100%',
+                            display: 'inline-block',
+                          }}
+                        >
+                          <span
+                            style={{
+                              background: '#FF9D00',
+                              width: '40%',
+                              height: '10px',
+                              borderRadius: '2px',
+                              display: 'inline-block',
+                              float: 'left',
+                            }}
+                          ></span>
+                        </span>
+                      </td>
                     </tr>
                     <tr>
-                      <td align='right' colSpan={2} style={{ fontSize: '17px', color: '#FF9D00', lineHeight: '21px', fontWeight: 'bold', textTransform: 'capitalize', padding: '6px 35px 43px' }}>Bank Guarantee</td>
+                      <td
+                        align="right"
+                        colSpan={2}
+                        style={{
+                          fontSize: '17px',
+                          color: '#FF9D00',
+                          lineHeight: '21px',
+                          fontWeight: 'bold',
+                          textTransform: 'capitalize',
+                          padding: '6px 35px 43px',
+                        }}
+                      >
+                        Bank Guarantee
+                      </td>
                     </tr>
                   </table>
                 </td>
                 <td valign="top" style={{ borderLeft: '2px solid #CAD6E6' }}>
-                  <table width="100%" cellPadding="12" cellSpacing="0" border="0">
+                  <table
+                    width="100%"
+                    cellPadding="12"
+                    cellSpacing="0"
+                    border="0"
+                  >
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
-                      <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', paddingLeft: '35px', textTransform: 'uppercase' }}>BANK NAME</th>
-                      <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase' }}>LIMIT TYPE</th>
-                      <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase' }}>LIMITS</th>
-                      <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase' }}>CONDUCT</th>
+                      <th
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          fontWeight: 'bold',
+                          paddingLeft: '35px',
+                          textTransform: 'uppercase',
+                        }}
+                      >
+                        BANK NAME
+                      </th>
+                      <th
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          fontWeight: 'bold',
+                          textTransform: 'uppercase',
+                        }}
+                      >
+                        LIMIT TYPE
+                      </th>
+                      <th
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          fontWeight: 'bold',
+                          textTransform: 'uppercase',
+                        }}
+                      >
+                        LIMITS
+                      </th>
+                      <th
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          fontWeight: 'bold',
+                          textTransform: 'uppercase',
+                        }}
+                      >
+                        CONDUCT
+                      </th>
                     </tr>
                     {camData?.company?.debtProfile?.map((debt, index) => {
                       return (
                         <tr>
-                          <td style={{ fontSize: '20px', color: '#111111', lineHeight: '27px', fontWeight: 'bold', padding: '26px 12px 25px 35px' }}>{debt?.bankName}</td>
-                          <td style={{ fontSize: '22px', color: '#111111', lineHeight: '25px', letterSpacing: '0.19px', paddingTop: '25px', paddingBottom: '25px' }}>{debt?.limitType}</td>
-                          <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', paddingTop: '25px', paddingBottom: '25px' }}>{debt?.limit}</td>
-                          <td style={{ fontSize: '19px', color: '#EA3F3F', lineHeight: '24px', fontWeight: 'bold', paddingTop: '25px', paddingBottom: '25px' }}>{debt?.conduct}</td>
+                          <td
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '27px',
+                              fontWeight: 'bold',
+                              padding: '26px 12px 25px 35px',
+                            }}
+                          >
+                            {debt?.bankName}
+                          </td>
+                          <td
+                            style={{
+                              fontSize: '22px',
+                              color: '#111111',
+                              lineHeight: '25px',
+                              letterSpacing: '0.19px',
+                              paddingTop: '25px',
+                              paddingBottom: '25px',
+                            }}
+                          >
+                            {debt?.limitType}
+                          </td>
+                          <td
+                            style={{
+                              fontSize: '19px',
+                              color: '#111111',
+                              lineHeight: '23px',
+                              paddingTop: '25px',
+                              paddingBottom: '25px',
+                            }}
+                          >
+                            {debt?.limit}
+                          </td>
+                          <td
+                            style={{
+                              fontSize: '19px',
+                              color: '#EA3F3F',
+                              lineHeight: '24px',
+                              fontWeight: 'bold',
+                              paddingTop: '25px',
+                              paddingBottom: '25px',
+                            }}
+                          >
+                            {debt?.conduct}
+                          </td>
                         </tr>
                       )
                     })}
-
-
                   </table>
                 </td>
               </tr>
             </table>
-            <table width="100%" bgColor="#ffffff" cellPadding="8" cellSpacing="0" border="0" style={{ border: '1px solid #D2D7E5', borderRadius: '6px', boxShadow: '0 3px 6px #CAD0E2', marginBottom: '26px' }}>
+            <table
+              width="100%"
+              bgColor="#ffffff"
+              cellPadding="8"
+              cellSpacing="0"
+              border="0"
+              style={{
+                border: '1px solid #D2D7E5',
+                borderRadius: '6px',
+                boxShadow: '0 3px 6px #CAD0E2',
+                marginBottom: '26px',
+              }}
+            >
               <tr>
-                <td colSpan={4} height="78" style={{ padding: '0 35px', borderBottom: '2px solid #CAD6E6' }}><h3 style={{ fontSize: '22px', color: '#3687E8', lineHeight: '27px', fontWeight: 'bold' }}>Operational Details</h3></td>
+                <td
+                  colSpan={4}
+                  height="78"
+                  style={{
+                    padding: '0 35px',
+                    borderBottom: '2px solid #CAD6E6',
+                  }}
+                >
+                  <h3
+                    style={{
+                      fontSize: '22px',
+                      color: '#3687E8',
+                      lineHeight: '27px',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    Operational Details
+                  </h3>
+                </td>
               </tr>
               <tr>
-                <td width="30%" style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px', paddingTop: '31px' }}>Plant Production Capacity</td>
-                <td width="20%" style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px', paddingTop: '31px' }}> {camData?.productSummary?.monthlyProductionCapacity}</td>
-                <td width="30%" style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingTop: '31px' }}>Stock in Transit - Commodity</td>
-                <td width="20%" style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px', paddingTop: '31px' }}> {camData?.productSummary?.averageStockInTransit}</td>
+                <td
+                  width="30%"
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingLeft: '35px',
+                    paddingTop: '31px',
+                  }}
+                >
+                  Plant Production Capacity
+                </td>
+                <td
+                  width="20%"
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                    paddingTop: '31px',
+                  }}
+                >
+                  {' '}
+                  {camData?.productSummary?.monthlyProductionCapacity}
+                </td>
+                <td
+                  width="30%"
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingTop: '31px',
+                  }}
+                >
+                  Stock in Transit - Commodity
+                </td>
+                <td
+                  width="20%"
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                    paddingTop: '31px',
+                  }}
+                >
+                  {' '}
+                  {camData?.productSummary?.averageStockInTransit}
+                </td>
               </tr>
               <tr>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px' }}>Capacity Utilization</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px' }}> {camData?.productSummary?.capacityUtilization}</td>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px' }}>Stock Coverage of Commodity</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px' }}>{camData?.productSummary?.averageStockOfCommodity}</td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingLeft: '35px',
+                  }}
+                >
+                  Capacity Utilization
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                  }}
+                >
+                  {' '}
+                  {camData?.productSummary?.capacityUtilization}
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                  }}
+                >
+                  Stock Coverage of Commodity
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                  }}
+                >
+                  {camData?.productSummary?.averageStockOfCommodity}
+                </td>
               </tr>
               <tr>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px' }}>Available Stock of Commodity</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px' }}> {camData?.productSummary?.availableStock}</td>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px' }}>Avg Monthly Electricity Bill</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px' }}> {camData?.productSummary?.AvgMonthlyElectricityBill}</td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingLeft: '35px',
+                  }}
+                >
+                  Available Stock of Commodity
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                  }}
+                >
+                  {' '}
+                  {camData?.productSummary?.availableStock}
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                  }}
+                >
+                  Avg Monthly Electricity Bill
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                  }}
+                >
+                  {' '}
+                  {camData?.productSummary?.AvgMonthlyElectricityBill}
+                </td>
               </tr>
               <tr>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px', paddingBottom: '70px' }}>Daily Consumption of Commodity</td>
-                <td colSpan={3} style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px', paddingBottom: '70px' }}> {camData?.productSummary?.dailyConsumptionOfCommodity}</td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingLeft: '35px',
+                    paddingBottom: '70px',
+                  }}
+                >
+                  Daily Consumption of Commodity
+                </td>
+                <td
+                  colSpan={3}
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                    paddingBottom: '70px',
+                  }}
+                >
+                  {' '}
+                  {camData?.productSummary?.dailyConsumptionOfCommodity}
+                </td>
               </tr>
             </table>
-            <table width="100%" bgColor="#ffffff" cellPadding="15" cellSpacing="0" border="0" style={{ border: '1px solid #D2D7E5', borderRadius: '6px', boxShadow: '0 3px 6px #CAD0E2', marginBottom: '26px' }}>
+            <table
+              width="100%"
+              bgColor="#ffffff"
+              cellPadding="15"
+              cellSpacing="0"
+              border="0"
+              style={{
+                border: '1px solid #D2D7E5',
+                borderRadius: '6px',
+                boxShadow: '0 3px 6px #CAD0E2',
+                marginBottom: '26px',
+              }}
+            >
               <tr>
-                <td colSpan={5} height="78" style={{ padding: '0 35px', borderBottom: '2px solid #CAD6E6' }}><h3 style={{ fontSize: '22px', color: '#3687E8', lineHeight: '27px', fontWeight: 'bold' }}>Revenue Details</h3></td>
+                <td
+                  colSpan={5}
+                  height="78"
+                  style={{
+                    padding: '0 35px',
+                    borderBottom: '2px solid #CAD6E6',
+                  }}
+                >
+                  <h3
+                    style={{
+                      fontSize: '22px',
+                      color: '#3687E8',
+                      lineHeight: '27px',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    Revenue Details
+                  </h3>
+                </td>
               </tr>
               <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
                 <th width="50%" style={{ paddingLeft: '35px' }}></th>
-                <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase', textAlign: 'center' }}>TREND</th>
-                <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase' }}>LATEST YEAR</th>
-                <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase' }}>PREVIOUS YEAR</th>
-                <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase' }}>GROWTH</th>
+                <th
+                  style={{
+                    fontSize: '15px',
+                    color: '#8492A6',
+                    lineHeight: '18px',
+                    fontWeight: 'bold',
+                    textTransform: 'uppercase',
+                    textAlign: 'center',
+                  }}
+                >
+                  TREND
+                </th>
+                <th
+                  style={{
+                    fontSize: '15px',
+                    color: '#8492A6',
+                    lineHeight: '18px',
+                    fontWeight: 'bold',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  LATEST YEAR
+                </th>
+                <th
+                  style={{
+                    fontSize: '15px',
+                    color: '#8492A6',
+                    lineHeight: '18px',
+                    fontWeight: 'bold',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  PREVIOUS YEAR
+                </th>
+                <th
+                  style={{
+                    fontSize: '15px',
+                    color: '#8492A6',
+                    lineHeight: '18px',
+                    fontWeight: 'bold',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  GROWTH
+                </th>
               </tr>
               <tr>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', paddingTop: '23px', paddingLeft: '35px' }}>Gross Revenue</td>
-                <td align='center' style={{ paddingTop: '23px' }}><img src="/static/arrow-up-green.svg" alt="Arrow Green" /></td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', paddingTop: '23px' }}>{checkNan(RevenueDetails?.grossTurnover?.current?.value)}</td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', paddingTop: '23px' }}> {checkNan(RevenueDetails?.grossTurnover?.previous?.value)}</td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', paddingTop: '23px' }}>{checkNan(
-                  calcPc(
-                    RevenueDetails?.grossTurnover?.previous?.value,
-                    RevenueDetails?.grossTurnover?.current?.value,
-                  ),
-                ) + '%'}</td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                    paddingTop: '23px',
+                    paddingLeft: '35px',
+                  }}
+                >
+                  Gross Revenue
+                </td>
+                <td align="center" style={{ paddingTop: '23px' }}>
+                  <img src="/static/arrow-up-green.svg" alt="Arrow Green" />
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                    paddingTop: '23px',
+                  }}
+                >
+                  {checkNan(RevenueDetails?.grossTurnover?.current?.value)}
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                    paddingTop: '23px',
+                  }}
+                >
+                  {' '}
+                  {checkNan(RevenueDetails?.grossTurnover?.previous?.value)}
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                    paddingTop: '23px',
+                  }}
+                >
+                  {checkNan(
+                    calcPc(
+                      RevenueDetails?.grossTurnover?.previous?.value,
+                      RevenueDetails?.grossTurnover?.current?.value,
+                    ),
+                  ) + '%'}
+                </td>
               </tr>
               <tr>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', paddingLeft: '35px' }}>Related Party Sales</td>
-                <td align='center'><img src="/static/arrow-up-green.svg" alt="Arrow Green" /></td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px' }}> {RevenueDetails?.relatedPartySales?.current?.value
-                  .toFixed(2)
-                  ?.toLocaleString()}</td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px' }}>{RevenueDetails?.relatedPartySales?.previous?.value
-                  .toFixed(2)
-                  ?.toLocaleString()}</td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px' }}>{checkNan(
-                  calcPc(
-                    RevenueDetails?.relatedPartySales?.previous?.value,
-                    RevenueDetails?.relatedPartySales?.current?.value,
-                  ),
-                ) + '%'}</td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                    paddingLeft: '35px',
+                  }}
+                >
+                  Related Party Sales
+                </td>
+                <td align="center">
+                  <img src="/static/arrow-up-green.svg" alt="Arrow Green" />
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                  {' '}
+                  {RevenueDetails?.relatedPartySales?.current?.value
+                    .toFixed(2)
+                    ?.toLocaleString()}
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                  {RevenueDetails?.relatedPartySales?.previous?.value
+                    .toFixed(2)
+                    ?.toLocaleString()}
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                  {checkNan(
+                    calcPc(
+                      RevenueDetails?.relatedPartySales?.previous?.value,
+                      RevenueDetails?.relatedPartySales?.current?.value,
+                    ),
+                  ) + '%'}
+                </td>
               </tr>
               <tr>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', paddingLeft: '35px' }}>Intra Organization Sales</td>
-                <td align='center'><img src="/static/arrow-down-red.svg" alt="Arrow Red" /></td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px' }}>{RevenueDetails?.intraOrgSalesPercent?.current?.value
-                  .toFixed(2)
-                  ?.toLocaleString()}</td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px' }}>{RevenueDetails?.intraOrgSalesPercent?.previous?.value
-                  .toFixed(2)
-                  ?.toLocaleString()}</td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px' }}>  {checkNan(
-                  calcPc(
-                    RevenueDetails?.intraOrgSalesPercent?.previous?.value,
-                    RevenueDetails?.intraOrgSalesPercent?.current?.value,
-                  ),
-                ) + '%'}</td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                    paddingLeft: '35px',
+                  }}
+                >
+                  Intra Organization Sales
+                </td>
+                <td align="center">
+                  <img src="/static/arrow-down-red.svg" alt="Arrow Red" />
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                  {RevenueDetails?.intraOrgSalesPercent?.current?.value
+                    .toFixed(2)
+                    ?.toLocaleString()}
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                  {RevenueDetails?.intraOrgSalesPercent?.previous?.value
+                    .toFixed(2)
+                    ?.toLocaleString()}
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                  {' '}
+                  {checkNan(
+                    calcPc(
+                      RevenueDetails?.intraOrgSalesPercent?.previous?.value,
+                      RevenueDetails?.intraOrgSalesPercent?.current?.value,
+                    ),
+                  ) + '%'}
+                </td>
               </tr>
               <tr>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', paddingLeft: '35px' }}>B2B Sales</td>
-                <td align='center'><img src="/static/arrow-up-green.svg" alt="Arrow Green" /></td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px' }}>83.80%</td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px' }}>83.80%</td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px' }}>40%</td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                    paddingLeft: '35px',
+                  }}
+                >
+                  B2B Sales
+                </td>
+                <td align="center">
+                  <img src="/static/arrow-up-green.svg" alt="Arrow Green" />
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                  83.80%
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                  83.80%
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                  40%
+                </td>
               </tr>
               <tr>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', paddingLeft: '35px' }}>B2C Sales</td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                    paddingLeft: '35px',
+                  }}
+                >
+                  B2C Sales
+                </td>
 
-                <td align='center'><img src="/static/arrow-up-green.svg" alt="Arrow Green" /></td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px' }}>83.80%</td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px' }}>83.80%</td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px' }}>40%</td>
+                <td align="center">
+                  <img src="/static/arrow-up-green.svg" alt="Arrow Green" />
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                  83.80%
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                  83.80%
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                  40%
+                </td>
               </tr>
               <tr>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', paddingLeft: '35px' }}>Export Sales</td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                    paddingLeft: '35px',
+                  }}
+                >
+                  Export Sales
+                </td>
 
-                <td align='center'><img src="/static/arrow-up-green.svg" alt="Arrow Green" /></td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px' }}>83.80%</td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px' }}>83.80%</td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px' }}>40%</td>
+                <td align="center">
+                  <img src="/static/arrow-up-green.svg" alt="Arrow Green" />
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                  83.80%
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                  83.80%
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                  40%
+                </td>
               </tr>
               <tr>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', paddingLeft: '35px' }}>Total Customers</td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                    paddingLeft: '35px',
+                  }}
+                >
+                  Total Customers
+                </td>
 
-                <td align='center'><img src="/static/arrow-up-green.svg" alt="Arrow Green" /></td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px' }}>1,900.00</td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px' }}>1,900.00</td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px' }}>40%</td>
+                <td align="center">
+                  <img src="/static/arrow-up-green.svg" alt="Arrow Green" />
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                  1,900.00
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                  1,900.00
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                  40%
+                </td>
               </tr>
               <tr>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', paddingLeft: '35px' }}>Total Invoices</td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                    paddingLeft: '35px',
+                  }}
+                >
+                  Total Invoices
+                </td>
 
-                <td align='center'><img src="/static/arrow-up-green.svg" alt="Arrow Green" /></td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px' }}>1,900.00</td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px' }}>1,900.00</td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px' }}>40%</td>
+                <td align="center">
+                  <img src="/static/arrow-up-green.svg" alt="Arrow Green" />
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                  1,900.00
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                  1,900.00
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                  40%
+                </td>
               </tr>
               <tr>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', paddingLeft: '35px', paddingBottom: '78px' }}>Gross Margin</td>
-                <td align='center' style={{ paddingBottom: '78px' }}><img src="/static/arrow-up-green.svg" alt="Arrow Green" /></td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', paddingBottom: '78px' }}>83.80%</td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', paddingBottom: '78px' }}>83.80%</td>
-                <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', paddingBottom: '78px' }}>40%</td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                    paddingLeft: '35px',
+                    paddingBottom: '78px',
+                  }}
+                >
+                  Gross Margin
+                </td>
+                <td align="center" style={{ paddingBottom: '78px' }}>
+                  <img src="/static/arrow-up-green.svg" alt="Arrow Green" />
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                    paddingBottom: '78px',
+                  }}
+                >
+                  83.80%
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                    paddingBottom: '78px',
+                  }}
+                >
+                  83.80%
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                    paddingBottom: '78px',
+                  }}
+                >
+                  40%
+                </td>
               </tr>
             </table>
-            <table width="100%" bgColor="#ffffff" cellPadding="0" cellSpacing="0" border="0" style={{ border: '1px solid #D2D7E5', borderRadius: '6px', boxShadow: '0 3px 6px #CAD0E2', marginBottom: '26px' }}>
+            <table
+              width="100%"
+              bgColor="#ffffff"
+              cellPadding="0"
+              cellSpacing="0"
+              border="0"
+              style={{
+                border: '1px solid #D2D7E5',
+                borderRadius: '6px',
+                boxShadow: '0 3px 6px #CAD0E2',
+                marginBottom: '26px',
+              }}
+            >
               <tr>
-                <td colSpan={2} height="78" style={{ padding: '0 35px', borderBottom: '2px solid #CAD6E6' }}><h3 style={{ fontSize: '22px', color: '#3687E8', lineHeight: '27px', fontWeight: 'bold' }}>Financial Summary</h3></td>
+                <td
+                  colSpan={2}
+                  height="78"
+                  style={{
+                    padding: '0 35px',
+                    borderBottom: '2px solid #CAD6E6',
+                  }}
+                >
+                  <h3
+                    style={{
+                      fontSize: '22px',
+                      color: '#3687E8',
+                      lineHeight: '27px',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    Financial Summary
+                  </h3>
+                </td>
               </tr>
               <tr>
-                <td valign='top' width="50%" style={{ borderRight: '2px solid #CAD6E6' }}>
-                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+                <td
+                  valign="top"
+                  width="50%"
+                  style={{ borderRight: '2px solid #CAD6E6' }}
+                >
+                  <table
+                    width="100%"
+                    cellPadding="0"
+                    cellSpacing="0"
+                    border="0"
+                  >
                     <tr>
-                      <td valign='top'>
-                        <table width="100%" cellPadding="13" cellSpacing="0" border="0">
+                      <td valign="top">
+                        <table
+                          width="100%"
+                          cellPadding="13"
+                          cellSpacing="0"
+                          border="0"
+                        >
                           <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
                             <th width="50%" style={{ fontSize: '22px', color: '#111111', lineHeight: '27px', fontWeight: 'bold', paddingLeft: '35px' }}>Liabilities</th>
                             <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase' }}>
@@ -1994,92 +4218,187 @@ function Index() {
                             </th>
                           </tr>
                           <tr>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px', paddingTop: '33px' }}>Net Worth</td>
-                            <td style={{ fontSize: '20px', color: '#EA3F3F', lineHeight: '25px', fontWeight: '500', paddingTop: '33px' }}>
-                              {companyData?.financial?.balanceSheet[0]?.equityLiabilities?.totalEquity?.toLocaleString(undefined, {
-                                minimumFractionDigits: 2,
-                              })}
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                paddingLeft: '35px',
+                                paddingTop: '33px',
+                              }}
+                            >
+                              Net Worth
                             </td>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500', paddingTop: '33px' }}>
-                              {companyData?.financial?.balanceSheet[1]?.equityLiabilities?.totalEquity?.toLocaleString(undefined, {
-                                minimumFractionDigits: 2,
-                              })}
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#EA3F3F',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                                paddingTop: '33px',
+                              }}
+                            >
+                              {companyData?.financial?.balanceSheet[0]?.equityLiabilities?.totalEquity?.toLocaleString(
+                                undefined,
+                                {
+                                  minimumFractionDigits: 2,
+                                },
+                              )}
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                                paddingTop: '33px',
+                              }}
+                            >
+                              {companyData?.financial?.balanceSheet[1]?.equityLiabilities?.totalEquity?.toLocaleString(
+                                undefined,
+                                {
+                                  minimumFractionDigits: 2,
+                                },
+                              )}
                             </td>
                           </tr>
                           <tr>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px' }}>Total Borrowings</td>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>
-
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                paddingLeft: '35px',
+                              }}
+                            >
+                              Total Borrowings
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                              }}
+                            >
                               {Number(
                                 _get(
                                   companyData,
                                   'financial.balanceSheet[0].equityLiabilities.borrowingsCurrent',
                                   '',
                                 ) +
-                                _get(
-                                  companyData,
-                                  'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent',
-                                  '',
-                                ),
+                                  _get(
+                                    companyData,
+                                    'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent',
+                                    '',
+                                  ),
                               )?.toLocaleString(undefined, {
                                 minimumFractionDigits: 2,
                               })}
                             </td>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                              }}
+                            >
                               {Number(
                                 _get(
                                   companyData,
                                   'financial.balanceSheet[1].equityLiabilities.borrowingsCurrent',
                                   '',
                                 ) +
-                                _get(
-                                  companyData,
-                                  'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent',
-                                  '',
-                                ),
+                                  _get(
+                                    companyData,
+                                    'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent',
+                                    '',
+                                  ),
                               )?.toLocaleString(undefined, {
                                 minimumFractionDigits: 2,
                               })}
                             </td>
                           </tr>
                           <tr>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px' }}>Creditors</td>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                paddingLeft: '35px',
+                              }}
+                            >
+                              Creditors
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                              }}
+                            >
                               {Number(
                                 _get(
                                   companyData,
                                   'financial.balanceSheet[0].equityLiabilities.tradePay',
                                   '',
                                 ) +
-                                _get(
-                                  companyData,
-                                  'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
-                                  '',
-                                ),
+                                  _get(
+                                    companyData,
+                                    'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
+                                    '',
+                                  ),
                               )?.toLocaleString(undefined, {
                                 minimumFractionDigits: 2,
                               })}
                             </td>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                              }}
+                            >
                               {Number(
                                 _get(
                                   companyData,
                                   'financial.balanceSheet[1].equityLiabilities.tradePay',
                                   '',
                                 ) +
-                                _get(
-                                  companyData,
-                                  'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
-                                  '',
-                                ),
+                                  _get(
+                                    companyData,
+                                    'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
+                                    '',
+                                  ),
                               )?.toLocaleString(undefined, {
                                 minimumFractionDigits: 2,
                               })}
                             </td>
                           </tr>
                           <tr>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px', paddingBottom: '38px' }}>Other Current Liabilities</td>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500', paddingBottom: '38px' }}>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                paddingLeft: '35px',
+                                paddingBottom: '38px',
+                              }}
+                            >
+                              Other Current Liabilities
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                                paddingBottom: '38px',
+                              }}
+                            >
                               {_get(
                                 companyData,
                                 'financial.balanceSheet[0].equityLiabilities.otherCurrentLiabilities',
@@ -2088,7 +4407,15 @@ function Index() {
                                 minimumFractionDigits: 2,
                               })}
                             </td>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500', paddingBottom: '38px' }}>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                                paddingBottom: '38px',
+                              }}
+                            >
                               {_get(
                                 companyData,
                                 'financial.balanceSheet[1].equityLiabilities.otherCurrentLiabilities',
@@ -2102,19 +4429,76 @@ function Index() {
                       </td>
                     </tr>
                     <tr>
-                      <td valign='top'>
-                        <table width="100%" cellPadding="13" cellSpacing="0" border="0">
-                          <tr bgColor="#FAFAFB" style={{ height: '67px', borderTop: '2px solid #CAD6E6' }}>
-                            <th colSpan={3} style={{ fontSize: '22px', color: '#111111', lineHeight: '27px', fontWeight: 'bold', paddingLeft: '35px' }}>Assets</th>
+                      <td valign="top">
+                        <table
+                          width="100%"
+                          cellPadding="13"
+                          cellSpacing="0"
+                          border="0"
+                        >
+                          <tr
+                            bgColor="#FAFAFB"
+                            style={{
+                              height: '67px',
+                              borderTop: '2px solid #CAD6E6',
+                            }}
+                          >
+                            <th
+                              colSpan={3}
+                              style={{
+                                fontSize: '22px',
+                                color: '#111111',
+                                lineHeight: '27px',
+                                fontWeight: 'bold',
+                                paddingLeft: '35px',
+                              }}
+                            >
+                              Assets
+                            </th>
                           </tr>
                           <tr>
-                            <td width="50%" style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px', paddingTop: '33px' }}>Working Capital Turnover ratio</td>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500', paddingTop: '33px' }}>
-                              {_get(companyData, 'financial.ratioAnalysis[0]', {})?.workingCapitalTurnover?.toFixed(2)}
+                            <td
+                              width="50%"
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                paddingLeft: '35px',
+                                paddingTop: '33px',
+                              }}
+                            >
+                              Working Capital Turnover ratio
                             </td>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500', paddingTop: '33px' }}>
-                              {_get(companyData, 'financial.ratioAnalysis[1]', {})?.workingCapitalTurnover
-                                ?.toFixed(2)
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                                paddingTop: '33px',
+                              }}
+                            >
+                              {_get(
+                                companyData,
+                                'financial.ratioAnalysis[0]',
+                                {},
+                              )?.workingCapitalTurnover?.toFixed(2)}
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                                paddingTop: '33px',
+                              }}
+                            >
+                              {_get(
+                                companyData,
+                                'financial.ratioAnalysis[1]',
+                                {},
+                              )
+                                ?.workingCapitalTurnover?.toFixed(2)
                                 ?.toLocaleString()}
                             </td>
                           </tr>
@@ -2143,202 +4527,682 @@ function Index() {
                             </td>
                           </tr>
                           <tr>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px' }}>Inventory Period</td>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>
-
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                paddingLeft: '35px',
+                              }}
+                            >
+                              Inventory Period
                             </td>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>2,988.00</td>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                              }}
+                            ></td>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                              }}
+                            >
+                              2,988.00
+                            </td>
                           </tr>
                           <tr>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px', paddingBottom: '38px' }}>Other Current Assets</td>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500', paddingBottom: '38px' }}>2,988.00</td>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500', paddingBottom: '38px' }}>2,988.00</td>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                paddingLeft: '35px',
+                                paddingBottom: '38px',
+                              }}
+                            >
+                              Other Current Assets
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                                paddingBottom: '38px',
+                              }}
+                            >
+                              2,988.00
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                                paddingBottom: '38px',
+                              }}
+                            >
+                              2,988.00
+                            </td>
                           </tr>
                         </table>
                       </td>
                     </tr>
                     <tr>
-                      <td valign='top'>
-                        <table width="100%" cellPadding="13" cellSpacing="0" border="0">
-                          <tr bgColor="#FAFAFB" style={{ height: '67px', borderTop: '2px solid #CAD6E6' }}>
-                            <th colSpan={3} style={{ fontSize: '22px', color: '#111111', lineHeight: '27px', fontWeight: 'bold', paddingLeft: '35px' }}>P/L</th>
+                      <td valign="top">
+                        <table
+                          width="100%"
+                          cellPadding="13"
+                          cellSpacing="0"
+                          border="0"
+                        >
+                          <tr
+                            bgColor="#FAFAFB"
+                            style={{
+                              height: '67px',
+                              borderTop: '2px solid #CAD6E6',
+                            }}
+                          >
+                            <th
+                              colSpan={3}
+                              style={{
+                                fontSize: '22px',
+                                color: '#111111',
+                                lineHeight: '27px',
+                                fontWeight: 'bold',
+                                paddingLeft: '35px',
+                              }}
+                            >
+                              P/L
+                            </th>
                           </tr>
                           <tr>
-                            <td width="50%" style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px', paddingTop: '33px' }}>Revenue</td>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500', paddingTop: '33px' }}>2,988.00</td>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500', paddingTop: '33px' }}>2,988.00</td>
+                            <td
+                              width="50%"
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                paddingLeft: '35px',
+                                paddingTop: '33px',
+                              }}
+                            >
+                              Revenue
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                                paddingTop: '33px',
+                              }}
+                            >
+                              2,988.00
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                                paddingTop: '33px',
+                              }}
+                            >
+                              2,988.00
+                            </td>
                           </tr>
                           <tr>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px', paddingBottom: '52px' }}>EBIDTA</td>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500', paddingBottom: '52px' }}>2,988.00</td>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500', paddingBottom: '52px' }}>2,988.00</td>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                paddingLeft: '35px',
+                                paddingBottom: '52px',
+                              }}
+                            >
+                              EBIDTA
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                                paddingBottom: '52px',
+                              }}
+                            >
+                              2,988.00
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                                paddingBottom: '52px',
+                              }}
+                            >
+                              2,988.00
+                            </td>
                           </tr>
                         </table>
                       </td>
                     </tr>
                   </table>
                 </td>
-                <td valign='top' width="50%">
-                  <table width="100%" cellPadding="15" cellSpacing="0" border="0">
+                <td valign="top" width="50%">
+                  <table
+                    width="100%"
+                    cellPadding="15"
+                    cellSpacing="0"
+                    border="0"
+                  >
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
-                      <th width="50%" style={{ fontSize: '22px', color: '#111111', lineHeight: '27px', fontWeight: 'bold', paddingLeft: '35px' }}>Ratios</th>
-                      <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase' }}>MAR-20</th>
-                      <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase' }}>MAR-19</th>
+                      <th
+                        width="50%"
+                        style={{
+                          fontSize: '22px',
+                          color: '#111111',
+                          lineHeight: '27px',
+                          fontWeight: 'bold',
+                          paddingLeft: '35px',
+                        }}
+                      >
+                        Ratios
+                      </th>
+                      <th
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          fontWeight: 'bold',
+                          textTransform: 'uppercase',
+                        }}
+                      >
+                        MAR-20
+                      </th>
+                      <th
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          fontWeight: 'bold',
+                          textTransform: 'uppercase',
+                        }}
+                      >
+                        MAR-19
+                      </th>
                     </tr>
                     <tr>
-                      <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px', paddingTop: '33px' }}>Cash from Operations</td>
-                      <td style={{ fontSize: '20px', color: '#EA3F3F', lineHeight: '25px', fontWeight: '500', paddingTop: '33px' }}> {_get(
-                        companyData,
-                        'financial.cashFlowStatement[0].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
-                        '',
-                      )?.toLocaleString(undefined, {
-                        minimumFractionDigits: 2,
-                      })}</td>
-                      <td style={{ fontSize: '19px', color: '#111111', lineHeight: '25px', fontWeight: '500', paddingTop: '33px' }}> {_get(
-                        companyData,
-                        'financial.cashFlowStatement[1].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
-                        '',
-                      )?.toLocaleString(undefined, {
-                        minimumFractionDigits: 2,
-                      })}</td>
-                    </tr>
-                    <tr>
-                      <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px' }}>Cash from Financing</td>
-                      <td style={{ fontSize: '20px', color: '#EA3F3F', lineHeight: '25px', fontWeight: '500' }}>{_get(
-                        companyData,
-                        'financial.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
-                        '',
-                      )?.toLocaleString(undefined, {
-                        minimumFractionDigits: 2,
-                      })}</td>
-                      <td style={{ fontSize: '19px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}> {_get(
-                        companyData,
-                        'financial.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
-                        '',
-                      )?.toLocaleString(undefined, {
-                        minimumFractionDigits: 2,
-                      })}</td>
-                    </tr>
-                    <tr>
-                      <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px', paddingBottom: '57px' }}>Cash from Investing</td>
-                      <td style={{ fontSize: '20px', color: '#EA3F3F', lineHeight: '25px', fontWeight: '500', paddingBottom: '57px' }}> {_get(
-                        companyData,
-                        'financial.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
-                        '',
-                      )?.toLocaleString(undefined, {
-                        minimumFractionDigits: 2,
-                      })}</td>
-                      <td style={{ fontSize: '19px', color: '#111111', lineHeight: '25px', fontWeight: '500', paddingBottom: '57px' }}>  {_get(
-                        companyData,
-                        'financial.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
-                        '',
-                      )?.toLocaleString(undefined, {
-                        minimumFractionDigits: 2,
-                      })}</td>
-                    </tr>
-                    <tr>
-                      <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px' }}>Working Capital Turnover Ratio</td>
-                      <td style={{ fontSize: '20px', color: '#EA3F3F', lineHeight: '25px', fontWeight: '500' }}>
-                        {_get(companyData, 'financial.ratioAnalysis[0]', {}).workingCapitalTurnover
-                          ?.toFixed(2)
-                          ?.toLocaleString()}
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '24px',
+                          paddingLeft: '35px',
+                          paddingTop: '33px',
+                        }}
+                      >
+                        Cash from Operations
                       </td>
-                      <td style={{ fontSize: '19px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>
-                        {_get(companyData, 'financial.ratioAnalysis[1]', {}).workingCapitalTurnover
-                          ?.toFixed(2)
-                          ?.toLocaleString()}
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#EA3F3F',
+                          lineHeight: '25px',
+                          fontWeight: '500',
+                          paddingTop: '33px',
+                        }}
+                      >
+                        {' '}
+                        {_get(
+                          companyData,
+                          'financial.cashFlowStatement[0].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
+                          '',
+                        )?.toLocaleString(undefined, {
+                          minimumFractionDigits: 2,
+                        })}
                       </td>
-                    </tr>
-                    <tr>
-                      <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px' }}>Debtors Period</td>
-                      <td style={{ fontSize: '20px', color: '#EA3F3F', lineHeight: '25px', fontWeight: '500' }}>
-                        {_get(companyData, 'financial.ratioAnalysis[0]', {}).daysOfSalesOutstanding
-                          ?.toFixed(2)
-                          ?.toLocaleString()}
-
-                      </td>
-                      <td style={{ fontSize: '19px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>
-
-                        {_get(companyData, 'financial.ratioAnalysis[1]', {}).daysOfSalesOutstanding
-                          ?.toFixed(2)
-                          ?.toLocaleString()}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px' }}>Creditors Period</td>
-                      <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>
-                        {_get(companyData, 'financial.ratioAnalysis[0]', {}).daysOfPayablesOutstanding
-                          ?.toFixed(2)
-                          ?.toLocaleString()}
-
-                      </td>
-                      <td style={{ fontSize: '19px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>
-
-                        {_get(companyData, 'financial.ratioAnalysis[1]', {}).daysOfPayablesOutstanding
-                          ?.toFixed(2)
-                          ?.toLocaleString()}
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '25px',
+                          fontWeight: '500',
+                          paddingTop: '33px',
+                        }}
+                      >
+                        {' '}
+                        {_get(
+                          companyData,
+                          'financial.cashFlowStatement[1].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
+                          '',
+                        )?.toLocaleString(undefined, {
+                          minimumFractionDigits: 2,
+                        })}
                       </td>
                     </tr>
                     <tr>
-                      <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px', paddingBottom: '57px' }}>Inventory Period</td>
-                      <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500', paddingBottom: '57px' }}>
-
-                        {_get(companyData, 'financial.ratioAnalysis[0]', {}).daysOfInventoryOutstanding
-                          ?.toFixed(2)
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '24px',
+                          paddingLeft: '35px',
+                        }}
+                      >
+                        Cash from Financing
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#EA3F3F',
+                          lineHeight: '25px',
+                          fontWeight: '500',
+                        }}
+                      >
+                        {_get(
+                          companyData,
+                          'financial.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
+                          '',
+                        )?.toLocaleString(undefined, {
+                          minimumFractionDigits: 2,
+                        })}
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '25px',
+                          fontWeight: '500',
+                        }}
+                      >
+                        {' '}
+                        {_get(
+                          companyData,
+                          'financial.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
+                          '',
+                        )?.toLocaleString(undefined, {
+                          minimumFractionDigits: 2,
+                        })}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '24px',
+                          paddingLeft: '35px',
+                          paddingBottom: '57px',
+                        }}
+                      >
+                        Cash from Investing
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#EA3F3F',
+                          lineHeight: '25px',
+                          fontWeight: '500',
+                          paddingBottom: '57px',
+                        }}
+                      >
+                        {' '}
+                        {_get(
+                          companyData,
+                          'financial.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
+                          '',
+                        )?.toLocaleString(undefined, {
+                          minimumFractionDigits: 2,
+                        })}
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '25px',
+                          fontWeight: '500',
+                          paddingBottom: '57px',
+                        }}
+                      >
+                        {' '}
+                        {_get(
+                          companyData,
+                          'financial.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
+                          '',
+                        )?.toLocaleString(undefined, {
+                          minimumFractionDigits: 2,
+                        })}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '24px',
+                          paddingLeft: '35px',
+                        }}
+                      >
+                        Working Capital Turnover Ratio
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#EA3F3F',
+                          lineHeight: '25px',
+                          fontWeight: '500',
+                        }}
+                      >
+                        {_get(companyData, 'financial.ratioAnalysis[0]', {})
+                          .workingCapitalTurnover?.toFixed(2)
                           ?.toLocaleString()}
                       </td>
-                      <td style={{ fontSize: '19px', color: '#111111', lineHeight: '25px', fontWeight: '500', paddingBottom: '57px' }}>
-                        {_get(companyData, 'financial.ratioAnalysis[1]', {}).daysOfInventoryOutstanding
-                          ?.toFixed(2)
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '25px',
+                          fontWeight: '500',
+                        }}
+                      >
+                        {_get(companyData, 'financial.ratioAnalysis[1]', {})
+                          .workingCapitalTurnover?.toFixed(2)
                           ?.toLocaleString()}
                       </td>
                     </tr>
                     <tr>
-                      <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px' }}>Operating margin</td>
-                      <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>2,988.00</td>
-                      <td style={{ fontSize: '19px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>2,988.00</td>
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '24px',
+                          paddingLeft: '35px',
+                        }}
+                      >
+                        Debtors Period
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#EA3F3F',
+                          lineHeight: '25px',
+                          fontWeight: '500',
+                        }}
+                      >
+                        {_get(companyData, 'financial.ratioAnalysis[0]', {})
+                          .daysOfSalesOutstanding?.toFixed(2)
+                          ?.toLocaleString()}
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '25px',
+                          fontWeight: '500',
+                        }}
+                      >
+                        {_get(companyData, 'financial.ratioAnalysis[1]', {})
+                          .daysOfSalesOutstanding?.toFixed(2)
+                          ?.toLocaleString()}
+                      </td>
                     </tr>
                     <tr>
-                      <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px', paddingBottom: '57px' }}>Return on Total Assets</td>
-                      <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500', paddingBottom: '57px' }}>2,988.00</td>
-                      <td style={{ fontSize: '19px', color: '#111111', lineHeight: '25px', fontWeight: '500', paddingBottom: '57px' }}>2,988.00</td>
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '24px',
+                          paddingLeft: '35px',
+                        }}
+                      >
+                        Creditors Period
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '25px',
+                          fontWeight: '500',
+                        }}
+                      >
+                        {_get(companyData, 'financial.ratioAnalysis[0]', {})
+                          .daysOfPayablesOutstanding?.toFixed(2)
+                          ?.toLocaleString()}
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '25px',
+                          fontWeight: '500',
+                        }}
+                      >
+                        {_get(companyData, 'financial.ratioAnalysis[1]', {})
+                          .daysOfPayablesOutstanding?.toFixed(2)
+                          ?.toLocaleString()}
+                      </td>
                     </tr>
                     <tr>
-                      <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px' }}>Interest Coverage</td>
-                      <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>
-                        {_get(companyData, 'financial.ratioAnalysis[0]', {}).interestCoverage
-                          ?.toFixed(2)
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '24px',
+                          paddingLeft: '35px',
+                          paddingBottom: '57px',
+                        }}
+                      >
+                        Inventory Period
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '25px',
+                          fontWeight: '500',
+                          paddingBottom: '57px',
+                        }}
+                      >
+                        {_get(companyData, 'financial.ratioAnalysis[0]', {})
+                          .daysOfInventoryOutstanding?.toFixed(2)
                           ?.toLocaleString()}
                       </td>
-                      <td style={{ fontSize: '19px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>
-                        {_get(companyData, 'financial.ratioAnalysis[1]', {}).interestCoverage
-                          ?.toFixed(2)
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '25px',
+                          fontWeight: '500',
+                          paddingBottom: '57px',
+                        }}
+                      >
+                        {_get(companyData, 'financial.ratioAnalysis[1]', {})
+                          .daysOfInventoryOutstanding?.toFixed(2)
                           ?.toLocaleString()}
                       </td>
                     </tr>
                     <tr>
-                      <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px' }}>Current Ratio</td>
-                      <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>
-                        {_get(companyData, 'financial.ratioAnalysis[0]', {}).currentRatio
-                          ?.toFixed(2)
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '24px',
+                          paddingLeft: '35px',
+                        }}
+                      >
+                        Operating margin
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '25px',
+                          fontWeight: '500',
+                        }}
+                      >
+                        2,988.00
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '25px',
+                          fontWeight: '500',
+                        }}
+                      >
+                        2,988.00
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '24px',
+                          paddingLeft: '35px',
+                          paddingBottom: '57px',
+                        }}
+                      >
+                        Return on Total Assets
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '25px',
+                          fontWeight: '500',
+                          paddingBottom: '57px',
+                        }}
+                      >
+                        2,988.00
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '25px',
+                          fontWeight: '500',
+                          paddingBottom: '57px',
+                        }}
+                      >
+                        2,988.00
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '24px',
+                          paddingLeft: '35px',
+                        }}
+                      >
+                        Interest Coverage
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '25px',
+                          fontWeight: '500',
+                        }}
+                      >
+                        {_get(companyData, 'financial.ratioAnalysis[0]', {})
+                          .interestCoverage?.toFixed(2)
                           ?.toLocaleString()}
                       </td>
-                      <td style={{ fontSize: '19px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>
-                        {_get(companyData, 'financial.ratioAnalysis[1]', {}).currentRatio
-                          ?.toFixed(2)
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '25px',
+                          fontWeight: '500',
+                        }}
+                      >
+                        {_get(companyData, 'financial.ratioAnalysis[1]', {})
+                          .interestCoverage?.toFixed(2)
                           ?.toLocaleString()}
                       </td>
                     </tr>
                     <tr>
-                      <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px' }}>Debt Equity</td>
-                      <td style={{ fontSize: '20px', color: '#EA3F3F', lineHeight: '25px', fontWeight: '500' }}>
-                        {_get(companyData, 'financial.ratioAnalysis[0]', {}).debtEquity
-                          ?.toFixed(2)
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '24px',
+                          paddingLeft: '35px',
+                        }}
+                      >
+                        Current Ratio
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '25px',
+                          fontWeight: '500',
+                        }}
+                      >
+                        {_get(companyData, 'financial.ratioAnalysis[0]', {})
+                          .currentRatio?.toFixed(2)
                           ?.toLocaleString()}
                       </td>
-                      <td style={{ fontSize: '19px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>
-                        {_get(companyData, 'financial.ratioAnalysis[1]', {}).debtEquity
-                          ?.toFixed(2)
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '25px',
+                          fontWeight: '500',
+                        }}
+                      >
+                        {_get(companyData, 'financial.ratioAnalysis[1]', {})
+                          .currentRatio?.toFixed(2)
+                          ?.toLocaleString()}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '24px',
+                          paddingLeft: '35px',
+                        }}
+                      >
+                        Debt Equity
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#EA3F3F',
+                          lineHeight: '25px',
+                          fontWeight: '500',
+                        }}
+                      >
+                        {_get(companyData, 'financial.ratioAnalysis[0]', {})
+                          .debtEquity?.toFixed(2)
+                          ?.toLocaleString()}
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '25px',
+                          fontWeight: '500',
+                        }}
+                      >
+                        {_get(companyData, 'financial.ratioAnalysis[1]', {})
+                          .debtEquity?.toFixed(2)
                           ?.toLocaleString()}
                       </td>
                     </tr>
@@ -2351,75 +5215,360 @@ function Index() {
                 </td>
               </tr>
             </table>
-            <table width="100%" bgColor="#ffffff" cellPadding="8" cellSpacing="0" border="0" style={{ border: '1px solid #D2D7E5', borderRadius: '6px', boxShadow: '0 3px 6px #CAD0E2', marginBottom: '26px' }}>
+            <table
+              width="100%"
+              bgColor="#ffffff"
+              cellPadding="8"
+              cellSpacing="0"
+              border="0"
+              style={{
+                border: '1px solid #D2D7E5',
+                borderRadius: '6px',
+                boxShadow: '0 3px 6px #CAD0E2',
+                marginBottom: '26px',
+              }}
+            >
               <tr>
-                <td colSpan={4} height="78" style={{ padding: '0 35px', borderBottom: '2px solid #CAD6E6' }}><h3 style={{ fontSize: '22px', color: '#3687E8', lineHeight: '27px', fontWeight: 'bold' }}>Compliance Status</h3></td>
+                <td
+                  colSpan={4}
+                  height="78"
+                  style={{
+                    padding: '0 35px',
+                    borderBottom: '2px solid #CAD6E6',
+                  }}
+                >
+                  <h3
+                    style={{
+                      fontSize: '22px',
+                      color: '#3687E8',
+                      lineHeight: '27px',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    Compliance Status
+                  </h3>
+                </td>
               </tr>
               <tr>
-                <td width="30%" style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px', paddingTop: '31px' }}>GST Return Filing</td>
-                <td width="20%" style={{ fontSize: '20px', color: '#EA3F3F', fontWeight: '500', lineHeight: '25px', paddingTop: '31px' }}>
-
-                  {[].forEach((l, index2) => { })}
+                <td
+                  width="30%"
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingLeft: '35px',
+                    paddingTop: '31px',
+                  }}
+                >
+                  GST Return Filing
+                </td>
+                <td
+                  width="20%"
+                  style={{
+                    fontSize: '20px',
+                    color: '#EA3F3F',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                    paddingTop: '31px',
+                  }}
+                >
+                  {[].forEach((l, index2) => {})}
                   {_get(
                     companyData,
                     'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1',
                     '',
                   ) != ''
                     ? moment(
-                      _get(
-                        companyData,
-                        'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1',
-                        '',
-                      ),
-                      'MMyyyy',
-                    ).format('MM-yyyy')
+                        _get(
+                          companyData,
+                          'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1',
+                          '',
+                        ),
+                        'MMyyyy',
+                      ).format('MM-yyyy')
                     : ''}
-
                 </td>
-                <td width="30%" style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingTop: '31px' }}>NCLT</td>
-                <td width="20%" style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px', paddingTop: '31px' }}> {companyData?.compliance.other?.nclt ? 'YES' : 'NO'}</td>
+                <td
+                  width="30%"
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingTop: '31px',
+                  }}
+                >
+                  NCLT
+                </td>
+                <td
+                  width="20%"
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                    paddingTop: '31px',
+                  }}
+                >
+                  {' '}
+                  {companyData?.compliance.other?.nclt ? 'YES' : 'NO'}
+                </td>
               </tr>
               <tr>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px' }}>EPF Status</td>
-                <td style={{ fontSize: '20px', color: '#EA3F3F', fontWeight: '500', lineHeight: '25px' }}>  {companyData?.compliance.other?.epfStatus ? 'YES' : 'NO'}</td>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px' }}>BIFR</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px' }}> {companyData?.compliance.other?.bifr ? 'YES' : 'NO'}</td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingLeft: '35px',
+                  }}
+                >
+                  EPF Status
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#EA3F3F',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                  }}
+                >
+                  {' '}
+                  {companyData?.compliance.other?.epfStatus ? 'YES' : 'NO'}
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                  }}
+                >
+                  BIFR
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                  }}
+                >
+                  {' '}
+                  {companyData?.compliance.other?.bifr ? 'YES' : 'NO'}
+                </td>
               </tr>
               <tr>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px' }}>Litigation Status</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px' }}> {camData?.company?.litigationStatus}</td>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px' }}>Defaulter Company</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px' }}>{companyData?.compliance.other?.defaulterCompany
-                  ? 'YES'
-                  : 'NO'}</td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingLeft: '35px',
+                  }}
+                >
+                  Litigation Status
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                  }}
+                >
+                  {' '}
+                  {camData?.company?.litigationStatus}
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                  }}
+                >
+                  Defaulter Company
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                  }}
+                >
+                  {companyData?.compliance.other?.defaulterCompany
+                    ? 'YES'
+                    : 'NO'}
+                </td>
               </tr>
               <tr>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px', paddingBottom: '69px' }}>Last Balance Sheet Date</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px', paddingBottom: '69px' }}> {companyData?.profile?.companyDetail?.lastBalanceSheet}</td>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingBottom: '69px' }}>Active Directors</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px', paddingBottom: '69px' }}> {companyData?.profile?.directorDetail?.length ?? 0}</td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingLeft: '35px',
+                    paddingBottom: '69px',
+                  }}
+                >
+                  Last Balance Sheet Date
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                    paddingBottom: '69px',
+                  }}
+                >
+                  {' '}
+                  {companyData?.profile?.companyDetail?.lastBalanceSheet}
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingBottom: '69px',
+                  }}
+                >
+                  Active Directors
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                    paddingBottom: '69px',
+                  }}
+                >
+                  {' '}
+                  {companyData?.profile?.directorDetail?.length ?? 0}
+                </td>
               </tr>
             </table>
-            <table width="100%" bgColor="#ffffff" cellPadding="8" cellSpacing="0" border="0" style={{ border: '1px solid #D2D7E5', borderRadius: '6px', boxShadow: '0 3px 6px #CAD0E2', marginBottom: '26px' }}>
+            <table
+              width="100%"
+              bgColor="#ffffff"
+              cellPadding="8"
+              cellSpacing="0"
+              border="0"
+              style={{
+                border: '1px solid #D2D7E5',
+                borderRadius: '6px',
+                boxShadow: '0 3px 6px #CAD0E2',
+                marginBottom: '26px',
+              }}
+            >
               <tr>
-                <td colSpan={2} height="78" style={{ padding: '0 35px', borderBottom: '2px solid #CAD6E6' }}><h3 style={{ fontSize: '22px', color: '#3687E8', lineHeight: '27px', fontWeight: 'bold' }}>Strength &amp; Weakness</h3></td>
+                <td
+                  colSpan={2}
+                  height="78"
+                  style={{
+                    padding: '0 35px',
+                    borderBottom: '2px solid #CAD6E6',
+                  }}
+                >
+                  <h3
+                    style={{
+                      fontSize: '22px',
+                      color: '#3687E8',
+                      lineHeight: '27px',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    Strength &amp; Weakness
+                  </h3>
+                </td>
               </tr>
               <tr>
-                <td valign="top" width="50%" style={{ fontSize: '22px', color: '#43C34D', lineHeight: '27px', fontWeight: 'bold', borderRight: '2px solid #CAD6E6', padding: '43px 35px 60px' }}><span style={{ background: 'rgba(67, 195, 77, 0.1)', width: '64px', height: '64px', lineHeight: '22px', textAlign: 'center', borderRadius: '8px', marginRight: '15px', padding: '21px 17px', display: 'inline-block' }}><img src="/static/check-2.svg" alt="Check Green" /></span>Strength
-                  <ul style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', fontWeight: 'normal', listStyle: 'none', paddingLeft: '0', paddingTop: '28px' }}>
-
+                <td
+                  valign="top"
+                  width="50%"
+                  style={{
+                    fontSize: '22px',
+                    color: '#43C34D',
+                    lineHeight: '27px',
+                    fontWeight: 'bold',
+                    borderRight: '2px solid #CAD6E6',
+                    padding: '43px 35px 60px',
+                  }}
+                >
+                  <span
+                    style={{
+                      background: 'rgba(67, 195, 77, 0.1)',
+                      width: '64px',
+                      height: '64px',
+                      lineHeight: '22px',
+                      textAlign: 'center',
+                      borderRadius: '8px',
+                      marginRight: '15px',
+                      padding: '21px 17px',
+                      display: 'inline-block',
+                    }}
+                  >
+                    <img src="/static/check-2.svg" alt="Check Green" />
+                  </span>
+                  Strength
+                  <ul
+                    style={{
+                      fontSize: '19px',
+                      color: '#111111',
+                      lineHeight: '23px',
+                      fontWeight: 'normal',
+                      listStyle: 'none',
+                      paddingLeft: '0',
+                      paddingTop: '28px',
+                    }}
+                  >
                     {camData &&
                       camData?.company?.recommendation?.strengths?.map(
                         (comment, index) => (
                           <li style={{ padding: '15px 0' }}>{comment}</li>
                         ),
                       )}
-
                   </ul>
                 </td>
-                <td valign="top" width="50%" style={{ fontSize: '22px', color: '#EA3F3F', lineHeight: '27px', fontWeight: 'bold', borderRight: '2px solid #CAD6E6', padding: '43px 35px 60px' }}><span style={{ background: 'rgba(234, 63, 63, 0.1)', width: '64px', height: '64px', lineHeight: '22px', textAlign: 'center', borderRadius: '8px', marginRight: '15px', padding: '21px 17px', display: 'inline-block' }}><img src="/static/close-b.svg" width="27" alt="Cross Red" /></span>Weakness
-                  <ul style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', fontWeight: 'normal', listStyle: 'none', paddingLeft: '0', paddingTop: '28px' }}>
-
+                <td
+                  valign="top"
+                  width="50%"
+                  style={{
+                    fontSize: '22px',
+                    color: '#EA3F3F',
+                    lineHeight: '27px',
+                    fontWeight: 'bold',
+                    borderRight: '2px solid #CAD6E6',
+                    padding: '43px 35px 60px',
+                  }}
+                >
+                  <span
+                    style={{
+                      background: 'rgba(234, 63, 63, 0.1)',
+                      width: '64px',
+                      height: '64px',
+                      lineHeight: '22px',
+                      textAlign: 'center',
+                      borderRadius: '8px',
+                      marginRight: '15px',
+                      padding: '21px 17px',
+                      display: 'inline-block',
+                    }}
+                  >
+                    <img src="/static/close-b.svg" width="27" alt="Cross Red" />
+                  </span>
+                  Weakness
+                  <ul
+                    style={{
+                      fontSize: '19px',
+                      color: '#111111',
+                      lineHeight: '23px',
+                      fontWeight: 'normal',
+                      listStyle: 'none',
+                      paddingLeft: '0',
+                      paddingTop: '28px',
+                    }}
+                  >
                     {camData &&
                       camData?.company?.recommendation?.weakness?.map(
                         (comment, index) => (
@@ -2430,100 +5579,438 @@ function Index() {
                 </td>
               </tr>
             </table>
-            <table width="100%" bgColor="#ffffff" cellPadding="0" cellSpacing="0" border="0" style={{ border: '1px solid #D2D7E5', borderRadius: '6px', boxShadow: '0 3px 6px #CAD0E2', marginBottom: '26px' }}>
+            <table
+              width="100%"
+              bgColor="#ffffff"
+              cellPadding="0"
+              cellSpacing="0"
+              border="0"
+              style={{
+                border: '1px solid #D2D7E5',
+                borderRadius: '6px',
+                boxShadow: '0 3px 6px #CAD0E2',
+                marginBottom: '26px',
+              }}
+            >
               <tr style={{ borderBottom: '2px solid #CAD6E6' }}>
-                <td width="40%" height="78" style={{ padding: '0 35px' }}><h3 style={{ fontSize: '22px', color: '#3687E8', lineHeight: '27px', fontWeight: 'bold' }}>Sanction Terms</h3></td>
-                <td height="78" style={{ fontSize: '18px', color: '#2837566A', lineHeight: '23px', fontWeight: 'bold' }}>Total Limit:<span style={{ fontSize: '19px', color: '#111111', lineHeight: '24px', fontWeight: '500', display: 'inline-block', marginLeft: '15px' }}>  {camData?.company?.creditLimit?.totalLimit}</span></td>
-                <td height="78" style={{ fontSize: '18px', color: '#2837566A', lineHeight: '23px', fontWeight: 'bold' }}>Utilised Limit:<span style={{ fontSize: '19px', color: '#111111', lineHeight: '24px', fontWeight: '500', display: 'inline-block', marginLeft: '15px' }}> {camData?.company?.creditLimit?.utilizedLimit}</span></td>
-                <td height="78" style={{ fontSize: '18px', color: '#2837566A', lineHeight: '23px', fontWeight: 'bold' }}>Available Limit:<span style={{ fontSize: '19px', color: '#111111', lineHeight: '24px', fontWeight: '500', display: 'inline-block', marginLeft: '15px' }}> {camData?.company?.creditLimit?.availableLimit}</span></td>
+                <td width="40%" height="78" style={{ padding: '0 35px' }}>
+                  <h3
+                    style={{
+                      fontSize: '22px',
+                      color: '#3687E8',
+                      lineHeight: '27px',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    Sanction Terms
+                  </h3>
+                </td>
+                <td
+                  height="78"
+                  style={{
+                    fontSize: '18px',
+                    color: '#2837566A',
+                    lineHeight: '23px',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  Total Limit:
+                  <span
+                    style={{
+                      fontSize: '19px',
+                      color: '#111111',
+                      lineHeight: '24px',
+                      fontWeight: '500',
+                      display: 'inline-block',
+                      marginLeft: '15px',
+                    }}
+                  >
+                    {' '}
+                    {camData?.company?.creditLimit?.totalLimit}
+                  </span>
+                </td>
+                <td
+                  height="78"
+                  style={{
+                    fontSize: '18px',
+                    color: '#2837566A',
+                    lineHeight: '23px',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  Utilised Limit:
+                  <span
+                    style={{
+                      fontSize: '19px',
+                      color: '#111111',
+                      lineHeight: '24px',
+                      fontWeight: '500',
+                      display: 'inline-block',
+                      marginLeft: '15px',
+                    }}
+                  >
+                    {' '}
+                    {camData?.company?.creditLimit?.utilizedLimit}
+                  </span>
+                </td>
+                <td
+                  height="78"
+                  style={{
+                    fontSize: '18px',
+                    color: '#2837566A',
+                    lineHeight: '23px',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  Available Limit:
+                  <span
+                    style={{
+                      fontSize: '19px',
+                      color: '#111111',
+                      lineHeight: '24px',
+                      fontWeight: '500',
+                      display: 'inline-block',
+                      marginLeft: '15px',
+                    }}
+                  >
+                    {' '}
+                    {camData?.company?.creditLimit?.availableLimit}
+                  </span>
+                </td>
               </tr>
               <tr>
                 <td colSpan={4} valign="top">
-                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+                  <table
+                    width="100%"
+                    cellPadding="0"
+                    cellSpacing="0"
+                    border="0"
+                  >
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
-                      <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', textTransform: 'uppercase' }}></th>
-                      <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', textTransform: 'uppercase', textAlign: 'center' }}>PREVIOUS LIMIT</th>
-                      <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', textTransform: 'uppercase', textAlign: 'center' }}>APPLIED VALUE</th>
-                      <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', textTransform: 'uppercase', textAlign: 'center' }}>DERIVED VALUE</th>
-                      <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', textTransform: 'uppercase', textAlign: 'center' }}>SUGGESTED VALUE</th>
-                      <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', textTransform: 'uppercase', textAlign: 'center' }}>REVISED</th>
-                      <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', textTransform: 'uppercase', textAlign: 'center' }}>APPROVED VALUE</th>
+                      <th
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          textTransform: 'uppercase',
+                        }}
+                      ></th>
+                      <th
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          textTransform: 'uppercase',
+                          textAlign: 'center',
+                        }}
+                      >
+                        PREVIOUS LIMIT
+                      </th>
+                      <th
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          textTransform: 'uppercase',
+                          textAlign: 'center',
+                        }}
+                      >
+                        APPLIED VALUE
+                      </th>
+                      <th
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          textTransform: 'uppercase',
+                          textAlign: 'center',
+                        }}
+                      >
+                        DERIVED VALUE
+                      </th>
+                      <th
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          textTransform: 'uppercase',
+                          textAlign: 'center',
+                        }}
+                      >
+                        SUGGESTED VALUE
+                      </th>
+                      <th
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          textTransform: 'uppercase',
+                          textAlign: 'center',
+                        }}
+                      >
+                        REVISED
+                      </th>
+                      <th
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          textTransform: 'uppercase',
+                          textAlign: 'center',
+                        }}
+                      >
+                        APPROVED VALUE
+                      </th>
                     </tr>
                     <tr>
-                      <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', padding: '36px 10px 24px 35px' }}>Limit Value</td>
-                      <td align="center" style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', padding: '36px 10px 24px' }}>{camData?.company?.creditLimit?.availableLimit}</td>
-                      <td align="center" style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', padding: '36px 10px 24px' }}>-</td>
-                      <td align="center" style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', padding: '36px 10px 24px' }}>
-                        {
-                          camData?.company?.creditLimit?.creditRating?.filter((rating) => {
-                            return camData?._id === rating.order
-                          }).map((val, index) => {
-                            <td key={index}>{val?.derived?.value}</td>
-                          })
-
-                        }
-
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          padding: '36px 10px 24px 35px',
+                        }}
+                      >
+                        Limit Value
                       </td>
-                      <td align="center" style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', padding: '36px 10px 24px' }}>-</td>
-                      <td align="center" style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', padding: '36px 10px 24px' }}>
-                        {
-                          camData?.company?.creditLimit?.creditRating?.filter((rating) => {
+                      <td
+                        align="center"
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          padding: '36px 10px 24px',
+                        }}
+                      >
+                        {camData?.company?.creditLimit?.availableLimit}
+                      </td>
+                      <td
+                        align="center"
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          padding: '36px 10px 24px',
+                        }}
+                      >
+                        -
+                      </td>
+                      <td
+                        align="center"
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          padding: '36px 10px 24px',
+                        }}
+                      >
+                        {camData?.company?.creditLimit?.creditRating
+                          ?.filter((rating) => {
                             return camData?._id === rating.order
-                          }).map((val, index) => {
-                            <td key={index}>
+                          })
+                          .map((val, index) => {
+                            ;<td key={index}>{val?.derived?.value}</td>
+                          })}
+                      </td>
+                      <td
+                        align="center"
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          padding: '36px 10px 24px',
+                        }}
+                      >
+                        -
+                      </td>
+                      <td
+                        align="center"
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          padding: '36px 10px 24px',
+                        }}
+                      >
+                        {camData?.company?.creditLimit?.creditRating
+                          ?.filter((rating) => {
+                            return camData?._id === rating.order
+                          })
+                          .map((val, index) => {
+                            ;<td key={index}>
                               {checkNan(
                                 CovertvaluefromtoCR(val?.suggested?.value),
                               )}{' '}
                               Cr
                             </td>
-                          })
-
-                        }
+                          })}
                       </td>
-                      <td align="center" style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', padding: '36px 10px 24px' }}>-</td>
+                      <td
+                        align="center"
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          padding: '36px 10px 24px',
+                        }}
+                      >
+                        -
+                      </td>
                     </tr>
                     <tr>
-                      <td style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', padding: '24px 10px 54px 35px' }}>Order Value</td>
-                      <td align="center" style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', padding: '24px 10px 54px' }}>-</td>
-                      <td align="center" style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', padding: '24px 10px 54px' }}>{camData?.orderValue}</td>
-                      <td align="center" style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', padding: '24px 10px 54px' }}>-</td>
-                      <td align="center" style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', padding: '24px 10px 54px' }}>{checkNan(
-                        CovertvaluefromtoCR(camData?.suggestedOrderValue),
-                      )}{' '}
-                        Cr</td>
-                      <td align="center" style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', padding: '24px 10px 54px' }}>-</td>
-                      <td align="center" style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', padding: '24px 10px 54px' }}>{camData?.cam?.approvedOrderValue}</td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          padding: '24px 10px 54px 35px',
+                        }}
+                      >
+                        Order Value
+                      </td>
+                      <td
+                        align="center"
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          padding: '24px 10px 54px',
+                        }}
+                      >
+                        -
+                      </td>
+                      <td
+                        align="center"
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          padding: '24px 10px 54px',
+                        }}
+                      >
+                        {camData?.orderValue}
+                      </td>
+                      <td
+                        align="center"
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          padding: '24px 10px 54px',
+                        }}
+                      >
+                        -
+                      </td>
+                      <td
+                        align="center"
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          padding: '24px 10px 54px',
+                        }}
+                      >
+                        {checkNan(
+                          CovertvaluefromtoCR(camData?.suggestedOrderValue),
+                        )}{' '}
+                        Cr
+                      </td>
+                      <td
+                        align="center"
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          padding: '24px 10px 54px',
+                        }}
+                      >
+                        -
+                      </td>
+                      <td
+                        align="center"
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          padding: '24px 10px 54px',
+                        }}
+                      >
+                        {camData?.cam?.approvedOrderValue}
+                      </td>
                     </tr>
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
-                      <td colSpan={7} style={{
-                        fontSize: '22px', color: '#111111',
-                        fontWeight: 'bold', lineHeight: '27px', textTransform: 'capitalize', paddingLeft: '35px'
-                      }}>Sanction Conditions</td>
+                      <td
+                        colSpan={7}
+                        style={{
+                          fontSize: '22px',
+                          color: '#111111',
+                          fontWeight: 'bold',
+                          lineHeight: '27px',
+                          textTransform: 'capitalize',
+                          paddingLeft: '35px',
+                        }}
+                      >
+                        Sanction Conditions
+                      </td>
                     </tr>
                     <tr>
                       <td colSpan={7}>
-                        <ul style={{ fontSize: '19px', color: '#111111', lineHeight: '23px', fontWeight: 'normal', listStyle: 'none', padding: '11px 35px 48px', paddingTop: '' }}>
+                        <ul
+                          style={{
+                            fontSize: '19px',
+                            color: '#111111',
+                            lineHeight: '23px',
+                            fontWeight: 'normal',
+                            listStyle: 'none',
+                            padding: '11px 35px 48px',
+                            paddingTop: '',
+                          }}
+                        >
                           {camData &&
                             camData?.company?.recommendation?.sanctionTerms?.map(
-                              (condition, index) => <li style={{ padding: '15px 0' }}>{condition}</li>,
+                              (condition, index) => (
+                                <li style={{ padding: '15px 0' }}>
+                                  {condition}
+                                </li>
+                              ),
                             )}
-
-
                         </ul>
                       </td>
                     </tr>
                     <tr>
-                      <td colSpan={7} style={{
-                        fontSize: '22px', color: '#111111',
-                        fontWeight: 'bold', lineHeight: '27px', paddingLeft: '35px', paddingBottom: '50px'
-                      }}>Sanction Conditions<br /><br />
-                        <span style={{ fontSize: '20px', fontWeight: 'normal', lineHeight: '30px', letterSpacing: '0.19px' }}>Signed provisional / commercial invoice in 1 original and 3 copies, based on the dry weight and the manganese content shown on the certificate of typical analysis.</span></td>
+                      <td
+                        colSpan={7}
+                        style={{
+                          fontSize: '22px',
+                          color: '#111111',
+                          fontWeight: 'bold',
+                          lineHeight: '27px',
+                          paddingLeft: '35px',
+                          paddingBottom: '50px',
+                        }}
+                      >
+                        Sanction Conditions
+                        <br />
+                        <br />
+                        <span
+                          style={{
+                            fontSize: '20px',
+                            fontWeight: 'normal',
+                            lineHeight: '30px',
+                            letterSpacing: '0.19px',
+                          }}
+                        >
+                          Signed provisional / commercial invoice in 1 original
+                          and 3 copies, based on the dry weight and the
+                          manganese content shown on the certificate of typical
+                          analysis.
+                        </span>
+                      </td>
                     </tr>
                   </table>
                 </td>
               </tr>
             </table>
-
           </td>
         </tr>
       </table>
@@ -2538,16 +6025,17 @@ function Index() {
 
   const handleGSTDownload = () => {
     // console.log(gstData?.detail?.other?.pdfLink ,'efgilegleghlui')
-    if (!gstData?.detail?.other?.pdfLink || gstData?.detail?.other?.pdfLink === '') {
+    if (
+      !gstData?.detail?.other?.pdfLink ||
+      gstData?.detail?.other?.pdfLink === ''
+    ) {
       let toastMessage = 'GST report not Available'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     } else {
-      window.open(
-        gstData?.detail?.other?.pdfLink, "_blank")
+      window.open(gstData?.detail?.other?.pdfLink, '_blank')
     }
-
   }
 
   const deleteData = (index) => {
@@ -2580,7 +6068,25 @@ function Index() {
     class: 'Criminal',
     risk: '',
   })
-  console.log(filterType, 'filterType')
+console.log(filterType,"filtertype")
+  useEffect(() => {
+    const filter = {
+      caseStatus: 'Disposed',
+      memberType: 'Petitioner',
+    }
+    const users = companyData?.compliance?.districtCourt?.cases?.filter(
+      (item) => {
+        for (let key in filter) {
+          if (item[key] === undefined || item[key] != filter[key]) return false
+        }
+        return true
+      },
+    )
+    console.log(users, 'data1110filter')
+  }, [companyData])
+
+  // console.log(filterType, 'filterType')
+  // console.log(district,'filtered')
   useEffect(() => {
     if (companyData) {
       filterLitigation()
@@ -2667,18 +6173,18 @@ function Index() {
         count.relevence = count.relevence + 1
       }
     })
-    let districtCourt = []
+    // let districtCourt = []
     let supremeCourt = []
     let highCourt = []
     let tribunalCourts = []
     //civil
-    districtCourt = companyData?.compliance?.districtCourt?.cases?.filter(
-      (val) => {
-        if (val.civilCriminal == filterType.class) {
-          return val
-        }
-      },
-    )
+    // districtCourt = companyData?.compliance?.districtCourt?.cases?.filter(
+    //   (val) => {
+    //     if (val.civilCriminal == filterType.class) {
+    //       return val
+    //     }
+    //   },
+    // )
     supremeCourt = companyData?.compliance?.supremeCourt?.cases?.filter(
       (val) => {
         if (val.civilCriminal == filterType.class) {
@@ -2699,17 +6205,17 @@ function Index() {
       },
     )
     //risk:
-    districtCourt = companyData?.compliance?.districtCourt?.cases?.filter(
-      (val) => {
-        if (
-          (val.severity_ == filterType.risk) == 'high'
-            ? 'High' || 'high'
-            : filterType.risk
-        ) {
-          return val
-        }
-      },
-    )
+    // districtCourt = companyData?.compliance?.districtCourt?.cases?.filter(
+    //   (val) => {
+    //     if (
+    //       (val.severity_ == filterType.risk) == 'high'
+    //         ? 'High' || 'high'
+    //         : filterType.risk
+    //     ) {
+    //       return val
+    //     }
+    //   },
+    // )
     supremeCourt = companyData?.compliance?.supremeCourt?.cases?.filter(
       (val) => {
         if (
@@ -2742,29 +6248,29 @@ function Index() {
       },
     )
     //filterBY
-    districtCourt = companyData?.compliance?.districtCourt?.cases?.filter(
-      (val) => {
-        if (
-          val.caseStatus == filterType.pending
-            ? 'Pending'
-            : null || val.caseStatus == filterType.disposed
-              ? 'Disposed'
-              : null
-        ) {
-          return val
-        } else {
-          return val
-        }
-      },
-    )
+    // districtCourt = companyData?.compliance?.districtCourt?.cases?.filter(
+    //   (val) => {
+    //     if (
+    //       val.caseStatus == filterType.pending
+    //         ? 'Pending'
+    //         : null || val.caseStatus == filterType.disposed
+    //         ? 'Disposed'
+    //         : null
+    //     ) {
+    //       return val
+    //     } else {
+    //       return val
+    //     }
+    //   },
+    // )
     supremeCourt = companyData?.compliance?.supremeCourt?.cases?.filter(
       (val) => {
         if (
           val.caseStatus == filterType.pending
             ? 'Pending'
             : null || val.caseStatus == filterType.disposed
-              ? 'Disposed'
-              : null
+            ? 'Disposed'
+            : null
         ) {
           return val
         } else {
@@ -2777,8 +6283,8 @@ function Index() {
         val.caseStatus == filterType.pending
           ? 'Pending'
           : null || val.caseStatus == filterType.disposed
-            ? 'Disposed'
-            : null
+          ? 'Disposed'
+          : null
       ) {
         return val
       } else {
@@ -2791,8 +6297,8 @@ function Index() {
           val.caseStatus == filterType.pending
             ? 'Pending'
             : null || val.caseStatus == filterType.disposed
-              ? 'Disposed'
-              : null
+            ? 'Disposed'
+            : null
         ) {
           return val
         } else {
@@ -2804,7 +6310,7 @@ function Index() {
     setSupreme(supremeCourt)
     setTribunal(tribunalCourts)
     setHigh(highCourt)
-    setDistrict(districtCourt)
+    // setDistrict(districtCourt)
 
     setTotalCourt(count)
   }
@@ -2830,36 +6336,39 @@ function Index() {
   console.log(personData, 'per')
   console.log(companyData?.profile?.directorDetail, 'director')
   const exportPDF = () => {
-    console.log(orderList, "orderList")
+    console.log(orderList, 'orderList')
     const doc = new jsPDF('p', 'pt', [1000, 1000])
-    doc.html(ReactDOMServer.renderToString(toPrintPdf(orderList, gstData?.detail?.salesDetailAnnual?.saleSummary)), {
-      callback: function (doc) {
-        doc.save('sample.pdf')
+    doc.html(
+      ReactDOMServer.renderToString(
+        toPrintPdf(orderList, gstData?.detail?.salesDetailAnnual?.saleSummary),
+      ),
+      {
+        callback: function (doc) {
+          doc.save('sample.pdf')
+        },
+        // margin:margins,
+        autoPaging: 'text',
       },
-      // margin:margins,
-      autoPaging: "text",
-
-
-    },
-
-
     )
   }
-useEffect(() => {
-  setKeyAddData([...keyAddData,
-    {
-      addressType:"Registered Office",
-      completeAddress:companyData?.profile?.companyDetail?.registeredAddress,
-      contact: {
-            callingCode: '+91',
-            number: companyData?.profile?.companyDetail?.contactNumber,
+  useEffect(() => {
+    if (keyAddData.length === 0 || keyAddData === null) {
+      setKeyAddData([...keyAddData,
+      {
+        addressType: "Registered Office",
+        completeAddress: companyData?.profile?.companyDetail?.registeredAddress,
+        contact: {
+          callingCode: '+91',
+          number: companyData?.profile?.companyDetail?.contactNumber,
         }
-     
-    
+
+
+      }
+      ])
     }
-    ])
-},
-[companyData])
+
+  },
+    [companyData])
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -2870,9 +6379,10 @@ useEffect(() => {
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="arrow right"
                 className="img-fluid image_arrow mr-2"
+                onClick={() => Router.push('/credit-queue')}
               />
               <h1 className={`${styles.title} heading`}>
-                {orderList?.company?.companyName?orderList?.company?.companyName:""}
+                {orderList?.company?.companyName ? orderList?.company?.companyName : ""}
               </h1>
             </div>
             {selectedTab == 'CAM' ? (
@@ -3112,7 +6622,7 @@ useEffect(() => {
                   <div className={`${styles.card} card`}>
                     <div
                       className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
-                    // style={{ cursor: 'pointer' }}
+                      // style={{ cursor: 'pointer' }}
                     >
                       <div
                         className={`${styles.detail_head_container}  d-flex align-items-center justify-content-between w-100`}
@@ -3396,7 +6906,7 @@ useEffect(() => {
                             className={`${styles.form_control} input form-control`}
                           >
                             {orderList?.company?.litigationStatus !==
-                              'Pending' ? (
+                            'Pending' ? (
                               <>
                                 <option selected value="All">
                                   All
@@ -3752,8 +7262,8 @@ useEffect(() => {
                     setEditRow={setEditRow}
                     orderDetail={orderList}
                     companyData={companyData}
-                    
-                    
+
+
                   />
                   <Recommendations
                     creditDetail={orderList}
@@ -3781,7 +7291,7 @@ useEffect(() => {
                   />
                   <CommonSave onSave={onCreditSave} />
                 </div>
-                 <div
+                <div
                   className="tab-pane fade"
                   id="DocumentsTab"
                   role="tabpanel"
@@ -3805,22 +7315,22 @@ useEffect(() => {
                     approvedCredit={approvedCredit}
                     orderDetails={orderList}
                     GstData={gstData}
-                    
-                    
+
+
                   />
                 </div>
 
-               
+
               </div>
             </div>
           </div>
         </div>
       </div>
       {selectedTab == 'Financials' ||
-        'Compliance' ||
-        'Orders' ||
-        'Credit' ||
-        'DocumentsTab' ? (
+      'Compliance' ||
+      'Orders' ||
+      'Credit' ||
+      'DocumentsTab' ? (
         <PreviousBar rightButtonClick={onNext} leftButtonClick={onBack} />
       ) : null}
       {selectedTab == 'Profile' ? (
@@ -3842,7 +7352,7 @@ useEffect(() => {
           downLoadButtonName={`GST Report`}
           isPrevious={true}
           isApprove={true}
-           handleUpdate={onBack}
+          handleUpdate={onBack}
           leftButtonName={`Previous`}
           rightButtonName={`Next`}
           handleApprove={onNext}
@@ -3946,8 +7456,8 @@ const table2 = (sat, balance, complienceFilter) => {
             {complienceFilter == 'StatutoryCompliance'
               ? `Statutory Compliance`
               : complienceFilter == 'All'
-                ? 'All'
-                : `Banking Defaults`}
+              ? 'All'
+              : `Banking Defaults`}
           </td>
           {/* <td></td>
           <td></td>
@@ -3957,29 +7467,29 @@ const table2 = (sat, balance, complienceFilter) => {
         </tr>
         {complienceFilter == 'StatutoryCompliance'
           ? sat.length &&
-          sat?.map((alert, index) => {
-            return (
-              <tr key={index}>
-                <td> {alert.alert}</td>
-                <td> {alert.severity}</td>
-                <td> {alert.source}</td>
-                <td> {alert.idType}</td>
-                <td> {alert.value}</td>
-              </tr>
-            )
-          })
+            sat?.map((alert, index) => {
+              return (
+                <tr key={index}>
+                  <td> {alert.alert}</td>
+                  <td> {alert.severity}</td>
+                  <td> {alert.source}</td>
+                  <td> {alert.idType}</td>
+                  <td> {alert.value}</td>
+                </tr>
+              )
+            })
           : balance.length > 0 &&
-          balance?.map((alert, index) => {
-            return (
-              <tr key={index}>
-                <td> {alert.alert}</td>
-                <td> {alert.severity}</td>
-                <td> {alert.source}</td>
-                <td> {alert.idType}</td>
-                <td> {alert.value}</td>
-              </tr>
-            )
-          })}
+            balance?.map((alert, index) => {
+              return (
+                <tr key={index}>
+                  <td> {alert.alert}</td>
+                  <td> {alert.severity}</td>
+                  <td> {alert.source}</td>
+                  <td> {alert.idType}</td>
+                  <td> {alert.value}</td>
+                </tr>
+              )
+            })}
         {complienceFilter == 'All' ? (
           <>
             {sat.length &&
@@ -4012,4 +7522,3 @@ const table2 = (sat, balance, complienceFilter) => {
     </table>
   )
 }
-

@@ -439,7 +439,7 @@ function Index({
                               name="EDTatLoadPort"
                               index={index}
                               saveDate={saveDate}
-                              labelName="ETA at Load Port"
+                              labelName="ETD at Load Port"
                             />
                             <img
                               className={`${styles.calanderIcon} image_arrow img-fluid`}
