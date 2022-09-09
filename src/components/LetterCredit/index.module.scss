@@ -160,19 +160,29 @@
             font-size: 15px;
             padding: 15px 10px;
           }
-          h3 {
-            font-size: 22px !important;
-            font-weight: bold;
-            line-height: 27px;
-            margin: 0;
-            color: #3687e8;
-          }
           &.buyerName {
             color: #3687e8;
             opacity: 1 !important;
             font-weight: bold;
             text-transform: capitalize;
             cursor: pointer;
+          }
+          .status {
+            width: 15px;
+            height: 15px;
+            margin-right: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            vertical-align: middle;
+          }
+          .approved {
+            background: #26dd73;
+          }
+          .rejected {
+            background: #ed714c;
+          }
+          .review {
+            background: #ffce00;
           }
         }
         .table_scroll_outer {
@@ -266,28 +276,6 @@
               font-size: 14px;
               padding: 10px;
             }
-          }
-          .buyerName {
-            color: #3687e8;
-            font-weight: bold;
-            text-transform: capitalize;
-          }
-          .status {
-            width: 15px;
-            height: 15px;
-            margin-right: 10px;
-            border-radius: 50%;
-            display: inline-block;
-            vertical-align: middle;
-          }
-          .approved {
-            background: #26dd73;
-          }
-          .rejected {
-            background: #ed714c;
-          }
-          .review {
-            background: #ffce00;
           }
         }
       }
