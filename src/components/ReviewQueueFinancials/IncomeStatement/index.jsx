@@ -229,7 +229,7 @@ function Index({ incomeData, rtrnChartIndiaction }) {
 
                     <tr>
                       <td>
-                        <strong>EBITA</strong>
+                        <strong>EBITDA</strong>
                       </td>
                       <td className="text-center">
                         {/* {checkNan(
