@@ -181,7 +181,7 @@ function Index(props) {
     }
   }, [])
   console.log(active, 'active')
-  const showContent = (sellerData) => {
+  const showContent = (active) => {
     if (active == 'Buyer') {
       return (
         <Buyer
@@ -464,7 +464,8 @@ function Index(props) {
     setSideStateToLocal(active)
   }
   const onRightChange = () => {
-    let tempArr = sideBar
+    console.log("RIGHT")
+    let tempArr = [...sideBar]
     console.log(tempArr, '987789')
     for (let i = 0; i < tempArr.length; i++) {
       console.log(tempArr[i], '987')
@@ -483,7 +484,7 @@ function Index(props) {
       }
     }
     console.log('aasdaa', tempArr)
-    setSidebar(tempArr)
+    setSidebar([...tempArr])
     setSideStateToLocal(active)
   }
   console.log(sideBar, 'sideBar')
@@ -494,6 +495,7 @@ function Index(props) {
   const onSubmit = () => {
     setSubmitData(true)
   }
+ 
   const updateData = async (key, data) => {
     let toastMessage = ''
     let dataToSend = {}
@@ -1283,16 +1285,30 @@ function Index(props) {
     console.log(timestamp, 'timestamp')
     props.setDate(timestamp)
     localStorage.setItem('timeGenericUpdated', timestamp)
+     setSubmitData(false)
     let tempArr = sideBar
-    sideBar.forEach((val, index) => {
+    tempArr.forEach((val, index) => {
       if (val.value == key) {
         tempArr[index].state = 'complete'
         tempArr[index].image = '/static/done.svg'
-      }
-      setSidebar(tempArr)
+         if(key !=="Place of Execution"){
+            let a = index + 1
+              tempArr[a].state = 'current'
+              tempArr[a ].image = '/static/currnet.svg'
+              setActive(tempArr[a].name)
+          }
+            
+            }
+     
     })
-    setSubmitData(false)
+ 
+    console.log(tempArr,"tempArr")
+    setSidebar([...tempArr])
+   
     setSideStateToLocal(key)
+    
+   
+    
   }
   const sendData = (key, data) => {
     console.log(data, 'sendData')
@@ -1336,15 +1352,7 @@ function Index(props) {
         deliveryTerms: data.deliveryData,
       }
       sessionStorage.setItem('Delivery', JSON.stringify(dataToSend))
-      if (dataToSend?.delivery?.deliveryTerms == "" || dataToSend?.delivery?.deliveryTerms == undefined) {
-        toastMessage = `Please select delivery Terms  `
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        setSubmitData(false)
-        return
-  
-        }
-        }
+     
     }
     if (key == 'Associate Buyer') {
       dataToSend = {
@@ -1638,7 +1646,7 @@ function Index(props) {
           </div>
         </div>
 
-        {showContent()}
+        {showContent(active)}
 
         <div
           className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end bg-transparent`}

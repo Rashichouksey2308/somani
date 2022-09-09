@@ -880,9 +880,10 @@ const cancelAddress=()=>{
                             />
                           </td>
                           <td>
-                            <input type="text" placeholder={val.phoneNo}
+                            <input  value={val.phoneNo}
                               className='input'
                               name= "phoneNo"
+                              type="number"
                               onChange={(e)=>{
                                 handleChangeInput2(e.target.name,e.target.value,index)
                               }}
