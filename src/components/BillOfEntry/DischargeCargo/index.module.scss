@@ -526,13 +526,23 @@
   }
   .body {
     padding: 0rem !important;
+    .table_scroll_outer {
+      width: 100%;
+      display: table;
+      table-layout: fixed;
+      padding: 0px;
 
+      .table_scroll_inner {
+        display: table-cell;
+        overflow-x: auto;
+        min-height: 400px;
+        padding: 0px;
     .table {
-      overflow-y: auto;
-      height: 400px;
+     
+    
 
       tr {
-       min-height: 67px;
+       height: 67px;
 
         th {
           vertical-align: revert;
@@ -564,6 +574,8 @@
         }
       }
     }
+  }
+}
     div {
       font-size: 20px;
       font-weight: 25px;

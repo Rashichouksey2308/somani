@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react'
+import React, { useState } from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 import DateCalender from '../DateCalender'
@@ -7,6 +7,11 @@ import { addPrefixOrSuffix } from 'utils/helper'
 import { CovertvaluefromtoCR } from '../../utils/helper'
 
 const Index = ({ orderDetail, saveOrderData }) => {
+  const [isFieldInFocus, setIsFieldInFocus] = useState({
+    quantity: false,
+    orderValue: false,
+    tolerance: false,
+  })
   const saveDate = (value, name) => {
     const d = new Date(value)
     let text = d.toISOString()
@@ -134,10 +139,22 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   required
                   type="text"
                   name="quantity"
-                  value={addPrefixOrSuffix(
-                    orderDetail?.quantity,
-                    orderDetail?.unitOfQuantity?.toUpperCase(),
-                  )}
+                  onFocus={(e) => {
+                    setIsFieldInFocus({ ...isFieldInFocus, quantity: true }),
+                      e.target.type = 'number'
+                  }}
+                  onBlur={(e) => {
+                    setIsFieldInFocus({ ...isFieldInFocus, quantity: false }),
+                      e.target.type = 'text'
+                  }}
+                  // value={addPrefixOrSuffix(
+                  //   orderDetail?.quantity,
+                  //   orderDetail?.unitOfQuantity?.toUpperCase(),
+                  // )}
+                  value={
+                    isFieldInFocus.quantity ?
+                    orderDetail?.quantity:
+                      Number(orderDetail?.quantity).toLocaleString() + ` ${orderDetail?.unitOfQuantity?.toUpperCase()}`}
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
                   }}
@@ -153,6 +170,18 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   required
                   type="text"
                   name="orderValue"
+                  // onFocus={(e) => {
+                  //   setIsFieldInFocus({ ...isFieldInFocus, orderValue: true }),
+                  //     e.target.type = 'number'
+                  // }}
+                  // onBlur={(e) => {
+                  //   setIsFieldInFocus({ ...isFieldInFocus, orderValue: false }),
+                  //     e.target.type = 'text'
+                  // }}
+                  // value={
+                  //   isFieldInFocus.quantity ?
+                  //   orderDetail?.orderValue:
+                  //     Number(orderDetail?.orderValue).toLocaleString() + ` ${orderDetail?.unitOfValue}`}
                   value={addPrefixOrSuffix(
                     orderDetail?.orderValue,
                     orderDetail?.unitOfValue == 'Crores'
@@ -221,7 +250,19 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   required
                   type="text"
                   name="tolerance"
-                  value={addPrefixOrSuffix(orderDetail?.tolerance, '%')}
+                    onFocus={(e) => {
+                    setIsFieldInFocus({ ...isFieldInFocus, tolerance: true }),
+                      e.target.type = 'number'
+                  }}
+                  onBlur={(e) => {
+                    setIsFieldInFocus({ ...isFieldInFocus, tolerance: false }),
+                      e.target.type = 'text'
+                  }}
+                  value={
+                    isFieldInFocus.tolerance ?
+                    orderDetail?.tolerance:
+                      Number(orderDetail?.tolerance).toLocaleString() + ' %'}
+                  // value={addPrefixOrSuffix(orderDetail?.tolerance, '%')}
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
                   }}

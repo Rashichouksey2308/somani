@@ -464,7 +464,7 @@ export default function Index({
                     Shipping Line/Charter
                     <strong className="text-danger">*</strong>{' '}
                   </div>
-                  {shipmentTypeBulk ? (
+                  {!shipmentTypeBulk ? (
                     <span className={styles.value}>
                       {_get(
                         TransitDetails,
@@ -688,9 +688,7 @@ export default function Index({
                           selected={
                             item.igmFiling == null
                               ? ''
-                              : moment(item.igmFiling?.split('T')[0]).format(
-                                'DD-MM-YYYY',
-                              )
+                              : moment(item.igmFiling)
                           }
                           defaultDate={item.igmFiling}
                           name="igmFiling"

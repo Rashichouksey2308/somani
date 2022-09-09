@@ -70,8 +70,18 @@ function Index() {
       ),
     )
     sessionStorage.setItem('termOrdID', term?.order._id)
-    Router.push('/termsheet/12')
-    // Router.push('/lc-module')
+
+// const query = { id: 'foo'}
+// const url = { pathname: '/termsheet/[id]', query };
+// const urlAs = { pathname: '/termsheet/1234', query }
+
+// router.push(url, urlAs);
+
+    Router.push({
+      pathname :'/termsheet/[id]',
+      query :  {id: 'NotID'}
+  })
+    // Router.push(url, urlAs)
 
   }
 

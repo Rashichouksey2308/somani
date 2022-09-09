@@ -72,6 +72,8 @@ export default function Index({
     document2: null,
     document3: null,
   })
+
+  
   const totalCustomDuty = () => {
     let number = 0
     billOfEntryData?.duty?.forEach((val) => {
