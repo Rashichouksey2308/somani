@@ -888,8 +888,10 @@ const addDoc=(e,index)=>{
                             />
                           </td>
                           <td>
-                            <input type="text" placeholder={val.phoneNo}
+                            <input
+                             value={val.phoneNo}
                               className='input'
+                              type="number"
                               name= "phoneNo"
                               onChange={(e)=>{
                                 handleChangeInput2(e.target.name,e.target.value,index)
