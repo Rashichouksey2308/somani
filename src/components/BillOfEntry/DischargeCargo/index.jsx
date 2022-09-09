@@ -570,6 +570,8 @@ export default function Index({
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className={`${styles.body} background1  container-fluid`}>
+        <div className={styles.table_scroll_outer}>
+                      <div className={styles.table_scroll_inner}>
           <table
             className={`${styles.table} table `}
             cellPadding="0"
@@ -599,6 +601,8 @@ export default function Index({
               ),
             )}
           </table>
+          </div>
+          </div>
           <div>
             <span className="text">Total Quantity: </span> &nbsp;{' '}
             {isNaN(totalBl) ? '' : totalBl}{' '}
