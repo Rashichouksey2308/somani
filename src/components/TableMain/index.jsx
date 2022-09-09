@@ -28,7 +28,7 @@ function Index({
   }, [dispatch, currentPage])
 
   return (
-    <div className={`${styles.datatable} datatable card`}>
+    <div className={`${styles.datatable} border datatable card`}>
       <div
         className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
       >
@@ -156,13 +156,15 @@ function Index({
                       ></span>{' '}
                       Active
                     </td>
-                    {_get(insured, 'quotationRequest.quotationRequestSubmitted', false) && <td onClick={() => handleEditRoute(insured)}>
-                      <img
-                        className={`${styles.edit_image} img-fluid mr-3`}
-                        src="/static/mode_edit.svg"
-                        alt="edit"
-                      />
-                    </td>}
+                    <td>
+                      {_get(insured, 'quotationRequest.quotationRequestSubmitted', false) && <span onClick={() => handleEditRoute(insured)}>
+                        <img
+                          className={`${styles.edit_image} img-fluid mr-3`}
+                          src="/static/mode_edit.svg"
+                          alt="edit"
+                        />
+                      </span>}
+                    </td>
                   </tr>
                 ))}
 

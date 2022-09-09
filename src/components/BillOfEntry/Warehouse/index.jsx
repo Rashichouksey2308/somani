@@ -127,11 +127,11 @@ export default function Index({ OrderId, customData, uploadDoc }) {
       e.preventDefault()
     }
   }
-console.log(warehouseDetails,'warehouseDetails')
+console.log(customData,'warehouseDetails')
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
-        <div className={`${styles.vessel_card} border_color`}>
+        <div className={`${styles.vessel_card} border_color vessel_card`}>
           <div className={`${styles.main} card border_color`}>
             <div
               className={`${styles.head_container} card-header align-items-center border_color head_container align-items-center justify-content-between d-flex bg-transparent`}
@@ -176,7 +176,7 @@ console.log(warehouseDetails,'warehouseDetails')
                     </span>
                   </div>
                   <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 mt-5`}
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                   >
                     <input
                       // value={warehouseDetails?.wareHouseDetails?.quantity}
@@ -187,19 +187,20 @@ console.log(warehouseDetails,'warehouseDetails')
                       className={`${styles.input_field} input form-control`}
                       type="text"
                       min={0}
+                      required
                       onKeyPress={preventMinus}
                       onFocus={(e) => {
                         setIsWarehouseQuantityInFocus(true),
-                          e.target.type === 'number'
+                          e.target.type = 'number'
                       }}
                       onBlur={(e) => {
                         setIsWarehouseQuantityInFocus(false),
-                          e.target.type === 'text'
+                          e.target.type = 'text'
                       }}
                       value={
                         isWarehouseQuantityInFocus
                           ? warehouseDetails?.wareHouseDetails?.quantity
-                          : warehouseDetails?.wareHouseDetails?.quantity + ' MT'
+                          : Number(warehouseDetails?.wareHouseDetails?.quantity)?.toLocaleString() + ` ${_get(customData,'order.unitOfQuantity', '')}`
                       }
                       onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
@@ -209,7 +210,7 @@ console.log(warehouseDetails,'warehouseDetails')
                     </label>
                   </div>
                   <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 mt-5`}
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                   >
                     <div className="d-flex">
                       <DateCalender
@@ -227,9 +228,9 @@ console.log(warehouseDetails,'warehouseDetails')
                   </div>
 
                   <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 mt-5`}
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 d-flex align-items-center`}
                   >
-                    {warehouseDetails?.document === null ? (
+                    { warehouseDetails?.document === null ? (
                       <div className={styles.uploadBtnWrapper}>
                         <input
                           id="document"
@@ -242,23 +243,21 @@ console.log(warehouseDetails,'warehouseDetails')
                         <button className={`${styles.upload_btn} btn mr-3`}>
                           Upload
                         </button>
-
                         <img
                           src="/static/delete 2.svg"
-                          className="img-fluid mr-3"
+                          className="mr-3"
                           alt="delete"
                           onClick={() => removeFromArr(clause.dropDownValue)}
                         />
-
                         <img
                           src="/static/mode_edit.svg"
-                          className="img-fluid"
                           alt="delete"
+                          className={styles.del_image}
                           onClick={() => removeFromArr(clause.dropDownValue)}
                         />
                       </div>
                     ) : (
-                      <div className={`${styles.certificate} d-flex justify-content-between`}>
+                      <div className={`${styles.certificate} mr-3 d-flex align-items-center justify-content-between`}>
                         <span>
                           {warehouseDetails?.document?.originalName}
                         </span>

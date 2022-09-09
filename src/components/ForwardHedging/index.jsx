@@ -18,6 +18,9 @@ import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
 import Axios from 'axios'
 import { setPageName, setDynamicName, setDynamicOrder } from '../../redux/userData/action'
+import moment from 'moment'
+
+
 
 export default function Index() {
   const dispatch = useDispatch()
@@ -32,6 +35,7 @@ export default function Index() {
   let hedgingData = _get(allForwardHedging, 'data[0]', '')
   let hedgingDataDetail = _get(allForwardHedging, 'data[0].detail[0]', {})
   console.log(hedgingDataDetail, 'THIS IS HEDGING DATA')
+
   useEffect(() => {
     dispatch(setPageName('forward'))
     dispatch(setDynamicName(_get(allForwardHedging, 'data[0].company.companyName')))
@@ -53,16 +57,21 @@ export default function Index() {
       forwardSalesContract: null,
     },
   ])
+  const [isFieldInFocus, setIsFieldInFocus] = useState({
+    bookedRate: false,
+    bookedAmount: false,
+  })
+  console.log(isFieldInFocus, 'isFieldInFocus')
 
   useEffect(() => {
     setList([
       {
         bankName: hedgingDataDetail?.bankName ?? '',
         currency: hedgingDataDetail?.currency || 'INR',
-        bookedRate: hedgingDataDetail?.bookedRate,
+        bookedRate: hedgingDataDetail?.bookedRate ?? '',
         bookedRateCurrency: hedgingDataDetail?.bookedRateCurrency || 'INR',
-        bookedAmount: hedgingDataDetail?.bookedAmount,
-        validityFrom: hedgingDataDetail?.validityFrom,
+        bookedAmount: hedgingDataDetail?.bookedAmount ?? '',
+        validityFrom: hedgingDataDetail?.validityFrom ,
         validityTo: hedgingDataDetail?.validityTo,
         closingDate: '',
         closingRate: '',
@@ -261,14 +270,14 @@ export default function Index() {
       <div className={`${styles.backgroundMain} p-0 container-fluid`}>
         <div className={styles.main_page}>
           <div className={`${styles.head_header} align-items-center`}>
-            <div  onClick={() => Router.push('/forward-table')}>
-            <img
-              className={`${styles.arrow} image_arrow mr-2 img-fluid`}
-              src="/static/keyboard_arrow_right-3.svg"
-              alt="ArrowRight"
-             
+            <div onClick={() => Router.push('/forward-table')}>
+              <img
+                className={`${styles.arrow} image_arrow mr-2 img-fluid`}
+                src="/static/keyboard_arrow_right-3.svg"
+                alt="ArrowRight"
 
-            />
+
+              />
             </div>
             <h1 className={`${styles.heading}`}>
               {hedgingData?.company?.companyName}{' '}
@@ -370,9 +379,19 @@ export default function Index() {
                           <input
                             className={`${styles.input_field} input form-control`}
                             required
-                            type="number"
+                            type="text"
+                            onFocus={(e) => {
+                              setIsFieldInFocus({ ...isFieldInFocus, bookedRate: true }),
+                                e.target.type = 'number'
+                            }}
+                            onBlur={(e) => {
+                              setIsFieldInFocus({ ...isFieldInFocus, bookedRate: false }),
+                                e.target.type = 'text'
+                            }}
                             name="bookedRate"
-                            value={item.bookedRate}
+                            value={isFieldInFocus.bookedRate ?
+                              item.bookedRate :
+                              'INR ' + Number(item.bookedRate)?.toLocaleString()}
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
 
@@ -395,10 +414,21 @@ export default function Index() {
                         >
                           <input
                             className={`${styles.input_field} input form-control`}
-                            type="number"
+                            type="text"
                             required
+                            onFocus={(e) => {
+                              setIsFieldInFocus({ ...isFieldInFocus, bookedAmount: true }),
+                                e.target.type = 'number'
+                            }}
+                            onBlur={(e) => {
+                              setIsFieldInFocus({ ...isFieldInFocus, bookedAmount: false }),
+                                e.target.type = 'text'
+                            }}
                             name="bookedAmount"
-                            value={item.bookedAmount}
+                            // value={item.bookedAmount}
+                            value={isFieldInFocus.bookedAmount ?
+                              item.bookedAmount :
+                              'USD ' + Number(item.bookedAmount)?.toLocaleString()}
 
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                             onChange={(e) =>
@@ -423,7 +453,7 @@ export default function Index() {
                           <div className="d-flex">
                             <DateCalender
                               name="validityFrom"
-                              defaultDate={item?.validityFrom?.split('T')[0]}
+                              defaultDate={item?.validityFrom ?? ''}
                               saveDate={saveDate}
                               labelName="Validity from"
                             />
@@ -440,7 +470,7 @@ export default function Index() {
                           <div className="d-flex">
                             <DateCalender
                               name="validityTo"
-                              defaultDate={item?.validityTo?.split('T')[0]}
+                              defaultDate={item?.validityTo ?? ''}
                               // defaultDate={list?.validityTo}
                               saveDate={saveDate}
                               labelName="Validity to"
@@ -452,8 +482,8 @@ export default function Index() {
                             />
                           </div>
                         </div>
-                        {/* <div
-                          className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
+                        <div
+                          className={`${styles.form_group} align-self-center col-lg-2 col-md-6 col-sm-6 `}
                         >
                           <button
                             onClick={() => handleCancel()}
@@ -461,7 +491,7 @@ export default function Index() {
                           >
                             Cancel
                           </button>
-                        </div> */}
+                        </div>
                         <div
                           className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
                         >
@@ -601,7 +631,7 @@ export default function Index() {
                                   />
                                 </td>
                                 <td className={styles.doc_row}>
-                                  28-02-2022,5:30 PM
+                                  {item?.forwardSalesContract == null ? '' : moment(item?.forwardSalesContract.date).format('DD-MM-YYYY , h:mm a ')}
                                 </td>
                                 <td>
                                   {/* <div className={styles.uploadBtnWrapper}>

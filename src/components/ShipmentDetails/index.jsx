@@ -110,9 +110,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
                   <DateCalender
                     name="loadPort.toDate"
                     defaultDate={
-                      orderDetail?.shipmentDetail?.loadPort?.toDate?.split(
-                        'T',
-                      )[0]
+                      orderDetail?.shipmentDetail?.loadPort?.toDate ?? ''
                     }
                     saveDate={saveDate}
                     startFrom={dateStartFrom.laycan}
@@ -132,9 +130,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
                   <DateCalender
                     name="lastDateOfShipment"
                     defaultDate={
-                      orderDetail?.shipmentDetail?.lastDateOfShipment?.split(
-                        'T',
-                      )[0]
+                      orderDetail?.shipmentDetail?.lastDateOfShipment ?? ''
                     }
                     saveDate={saveDate}
                     labelName="Last date of shipment"
@@ -164,9 +160,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
                   <DateCalender
                     name="ETAofDischarge.fromDate"
                     defaultDate={
-                      orderDetail?.shipmentDetail?.ETAofDischarge?.fromDate?.split(
-                        'T',
-                      )[0]
+                      orderDetail?.shipmentDetail?.ETAofDischarge?.fromDate ?? ''
                     }
                     setStartDateFrom={setStartDate}
                     saveDate={saveDate}
@@ -195,9 +189,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
                   <DateCalender
                     name="ETAofDischarge.toDate"
                     defaultDate={
-                      orderDetail?.shipmentDetail?.ETAofDischarge?.toDate?.split(
-                        'T',
-                      )[0]
+                      orderDetail?.shipmentDetail?.ETAofDischarge?.toDate ?? ''
                     }
                     saveDate={saveDate}
                     startFrom={dateStartFrom.eta}

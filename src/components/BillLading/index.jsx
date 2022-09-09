@@ -83,6 +83,7 @@ export default function Index({
   // console.log(existingBlData,'existingBlData')
 
   const [show, setShow] = useState(false)
+  const [isFieldInFocus, setIsFieldInFocus] = useState(false)
 
   const handleClose = () => setShow(false)
 
@@ -602,7 +603,7 @@ export default function Index({
                       TransitDetails,
                       'data[0].order.quantity',
                       '',
-                    ).toLocaleString()}{' '}
+                    )?.toLocaleString()}{' '}
                     {_get(
                       TransitDetails,
                       'data[0].order.unitOfQuantity',
@@ -617,7 +618,7 @@ export default function Index({
                   <span className={styles.value}>
                     {CovertvaluefromtoCR(
                       _get(TransitDetails, 'data[0].order.orderValue', ''),
-                    ).toLocaleString()}{' '}
+                    )?.toLocaleString()}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
                     'Crores'
                       ? 'Cr'
@@ -805,12 +806,22 @@ export default function Index({
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                         >
                           <input
+                             onFocus={(e) => {
+                              setIsFieldInFocus(true),
+                                e.target.type = 'number'
+                            }}
+                            onBlur={(e) => {
+                              setIsFieldInFocus(false),
+                                e.target.type = 'text'
+                            }}
                             onChange={(e) => onChangeBol(e, index)}
                             id="blQuantity"
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
-                            value={addPrefixOrSuffix(bol?.blQuantity, 'MT')}
+                            value={ isFieldInFocus ?
+                              bol?.blQuantity :
+                              Number(bol?.blQuantity)?.toLocaleString() + ` ${_get(TransitDetails,'data[0].order.unitOfQuantity', '')}`}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -1107,7 +1118,7 @@ export default function Index({
                                 />
                               </td>
                               <td className={styles.doc_row}>
-                                28-02-2022,5:30 PM
+                              {bolList[index]?.blDoc == null ? '' : moment(bolList[index]?.blDoc.date).format('DD-MM-YYYY , h:mm a ')}
                               </td>
                               <td>
                                 {/* <div className={styles.uploadBtnWrapper}>

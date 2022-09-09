@@ -39,7 +39,7 @@ function Index() {
 
   let customData = _get(allCustomClearance, 'data[0]', {})
   let OrderId = _get(customData, 'order._id', {})
-  let CompanyOrderId = _get(customData, 'order.orderId', {})
+  let CompanyOrderId = _get(customData, 'order', {})
   const uploadDoc = async (e) => {
     console.log(e, 'response data')
     let fd = new FormData()
@@ -87,7 +87,7 @@ function Index() {
     dispatch(
       getBreadcrumbValues({
         companyName: customData?.company?.companyName,
-        companyId: CompanyOrderId,
+        companyId: CompanyOrderId?.orderId,
         orderTabs: 'Bill of Entry',
       }),
     )
@@ -108,7 +108,7 @@ function Index() {
             />
             <h1 className={`${styles.title} heading`}>
               <span>
-                {customData?.company?.companyName} - {CompanyOrderId}
+                {customData?.company?.companyName} - {CompanyOrderId?.orderId}
               </span>
             </h1>
           </div>

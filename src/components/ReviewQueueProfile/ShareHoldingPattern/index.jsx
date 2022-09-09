@@ -244,12 +244,12 @@ function Index({ shareHolding }) {
                                 {shareHolder.fullName}
                               </td>
                               <td className="border-top-0 border-bottom-0">
-                                {shareHolder.numberOfShares}
+                                {Number(shareHolder.numberOfShares).toLocaleString()}
                               </td>
                               <td className="border-top-0 border-bottom-0">
                                 {shareHolder.percentageShareHolding?.toLocaleString(
                                   undefined,
-                                  { minimumFractionDigits: 2 },
+                                  { maximumFractionDigits: 2 },
                                 )}
                                 %
                               </td>
@@ -266,7 +266,7 @@ function Index({ shareHolding }) {
                       <tr>
                         <td className='border-top-0'></td>
                         <td className="border-top-0"></td>
-                        <td>{totalEquityShare}</td>
+                        <td>{Number(totalEquityShare).toLocaleString()}</td>
                         <td>{totalEquitySharePercentage.toFixed(2)}%</td>
                         <td className="border-top-0"></td>
                         <td className="border-top-0"></td>
@@ -326,10 +326,10 @@ function Index({ shareHolding }) {
                                 {shareHolder.fullName}
                               </td>
                               <td className="border-top-0 border-bottom-0">
-                                {shareHolder.numberOfShares}
+                                {Number(shareHolder.numberOfShares).toLocaleString()}
                               </td>
                               <td className="border-top-0 border-bottom-0">
-                                {shareHolder.percentageShareHolding}
+                                {shareHolder.percentageShareHolding.toFixed(2)}
                               </td>
                               <td className="border-top-0 border-bottom-0">
                                 {shareHolder.pan}
@@ -344,7 +344,7 @@ function Index({ shareHolding }) {
                       <tr>
                         <td className='border-top-0'></td>
                         <td className="border-top-0"></td>
-                        <td>{totalPrefrenceShare}</td>
+                        <td>{Number(totalPrefrenceShare)?.toLocaleString()}</td>
                         <td>{totalPrefrenceSharePercentage.toFixed(2)}%</td>
                         <td className="border-top-0"></td>
                         <td className="border-top-0"></td>

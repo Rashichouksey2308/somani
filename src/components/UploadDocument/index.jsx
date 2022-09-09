@@ -98,7 +98,7 @@ const Index = ({ uploadDocument1, uploadDocument2, docName, docName2 }) => {
                           alt="Pdf"
                         />
                       </td>
-                      <td className={styles.doc_row}>{moment(new Date()).format('DD-MM-YYYY, h:mm a')}</td>
+                      <td className={styles.doc_row}>{ vesselCertificate == null ? '' : moment(vesselCertificate?.date).format('DD-MM-YYYY, h:mm a')}</td>
                       <td>
                         {' '}
                         {vesselCertificate == null ? (
@@ -152,7 +152,7 @@ const Index = ({ uploadDocument1, uploadDocument2, docName, docName2 }) => {
                           alt="Pdf"
                         />
                       </td>
-                      <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                      <td className={styles.doc_row}>{ containerList == null ? '' : moment(containerList?.date).format('DD-MM-YYYY, h:mm a')}</td>
                       <td>
                         {' '}
                         {containerList == null ? (

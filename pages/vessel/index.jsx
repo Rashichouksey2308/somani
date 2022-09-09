@@ -140,7 +140,7 @@ export default function Home() {
               ""
             ) : _get(
               Vessel,
-              "data[0].order.portOfLoading",
+              "data[0].order.termsheet.transactionDetails.loadPort",
               ""
             ),
             portOfDischarge: _get(
@@ -190,12 +190,31 @@ export default function Home() {
               Vessel,
               "data[0].vessels[0].transitDetails.EDTatLoadPort",
               ""
-            ),
-            ETAatDischargePort:  _get(
+            )
+            //  !== '' ? _get(
+            //   Vessel,
+            //   "data[0].vessels[0].transitDetails.EDTatLoadPort",
+            //   ""
+            // ) : _get(
+            //   Vessel,
+            //   "data[0].order.shipmentDetail.ETAofDischarge.toDate",
+            //   ""
+            // )
+            ,
+            ETAatDischargePort: _get(
               Vessel,
               "data[0].vessels[0].transitDetails.ETAatDischargePort",
               ""
-            ) || "" 
+            ) 
+              // !== '' ? _get(
+              //   Vessel,
+              //   "data[0].vessels[0].transitDetails.ETAatDischargePort",
+              //   ""
+              // ) : _get(
+              //   Vessel,
+              //   "data[0].order.shipmentDetail.ETAofDischarge.fromDate",
+              //   ""
+              // )
           },
 
           vesselInformation: [{
@@ -238,7 +257,7 @@ export default function Home() {
     }
     // serVesselDataToAdd(Vessel)
   }
-  console.log(list,"besslist")
+  console.log(list, "besslist")
 
   const onAddVessel = () => {
     console.log(VesselToAdd, "THIS IS VESSEL TO ADD")
@@ -425,7 +444,7 @@ export default function Home() {
     const name = e.target.id
     let value = e.target.value
     // if (name === 'yearOfBuilt' && value.length === 4) {
-      // value = new Date(e.target.value)
+    // value = new Date(e.target.value)
 
 
     // }

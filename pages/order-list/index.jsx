@@ -59,7 +59,7 @@ function Index() {
   //                                 ? 'Approved'
   //                                 : 'Rejected'
   const handleRoute = (buyer) => {
-    sessionStorage.setItem('orderID', buyer._id)
+    sessionStorage.setItem('orderID1', buyer._id)
     sessionStorage.setItem('company', buyer.company._id)
     // console.log(buyer,'butyer')
 
@@ -85,7 +85,7 @@ function Index() {
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
             <div className={`${styles.head_header} align-items-center`}>
-              <img
+              <img onClick={() => Router.push('/leads')}
                 className={`${styles.arrow} img-fluid mr-2 image_arrow`}
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="arrow"
@@ -107,9 +107,9 @@ function Index() {
 
           {/*status Box*/}
           <div
-            className={`${styles.statusBox} statusBox d-flex align-items-center justify-content-between`}
+            className={`${styles.statusBox} border statusBox d-flex align-items-center justify-content-between`}
           >
-            <div className={`${styles.all} ${styles.boxInner}`}>
+            <div className={`${styles.all} ${styles.boxInner} border_color`}>
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={styles.iconBox}>
                   <img
@@ -124,7 +124,7 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div className={`${styles.approved} ${styles.boxInner}`}>
+            <div className={`${styles.approved} ${styles.boxInner} border_color`}>
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={styles.iconBox}>
                   <img
@@ -139,7 +139,7 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div className={`${styles.review} ${styles.boxInner}`}>
+            <div className={`${styles.review} ${styles.boxInner} border_color`}>
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={styles.iconBox}>
                   <img
@@ -154,7 +154,7 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div className={`${styles.rejected} ${styles.boxInner}`}>
+            <div className={`${styles.rejected} ${styles.boxInner} border_color`}>
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={styles.iconBox}>
                   <img
@@ -169,7 +169,7 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div className={`${styles.saved} ${styles.boxInner}`}>
+            <div className={`${styles.saved} ${styles.boxInner} border_color`}>
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={styles.iconBox}>
                   <img
@@ -186,7 +186,7 @@ function Index() {
             </div>
           </div>
           {/*leads table*/}
-          <div className={`${styles.datatable} datatable card`}>
+          <div className={`${styles.datatable} border datatable card`}>
             <div
               className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
             >

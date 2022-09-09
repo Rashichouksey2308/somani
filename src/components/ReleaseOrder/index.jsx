@@ -33,6 +33,8 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
 
   const [editInput, setEditInput] = useState(true)
   const [netBalanceQuantity, setNetBalanceQuantity] = useState(InvoiceQuantity)
+  const [isFieldInFocus, setIsFieldInFocus] = useState(false)
+
 
   console.log(releaseDetail, '11')
   console.log(releaseDetail.length - 1, '111')
@@ -356,15 +358,26 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
 
                           <input
                             // onWheel={(e) => e.target.blur()}
+                            onFocus={(e) => {
+                              setIsFieldInFocus(true),
+                                e.target.type = 'number'
+                            }}
+                            onBlur={(e) => {
+                              setIsFieldInFocus(false),
+                                e.target.type = 'text'
+                            }}
 
                             type="text"
                             onChange={(e) => {
-                              e.target.value = removePrefixOrSuffix(e.target.value)
+                              e.target.value
                               // console.log( e.target.value,"333")
                               netQuantityChange(e, index)
                             }}
                             id="netQuantityReleased"
-                            value={addPrefixOrSuffix(item.netQuantityReleased, 'MT')}
+                            value={
+                              isFieldInFocus?
+                              item.netQuantityReleased:
+                              Number(item.netQuantityReleased)?.toLocaleString() + ` ${_get(ReleaseOrderData, 'data[0].order.unitOfQuantity', '')}`}
                             className={`${styles.input_field} input form-control`}
 
                           // onKeyDown={(evt) =>
