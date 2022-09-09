@@ -99,7 +99,7 @@
             }
             p {
                 font-size: 20px;
-                margin-bottom: 2rem;
+                margin-bottom: 1rem;
                 //line-height: 60px;  
                 @include respond(sm-desktop) {
                     font-size: 18px;
@@ -112,7 +112,7 @@
                 //line-height: 60px;
                 font-size: 20px;
                 height: 60px;
-                border: none;
+                // border: none;
                 background: transparent;
                 // color: #000000;
                 font-weight: bold;

@@ -81,7 +81,7 @@ function Index() {
                   value={serachterm}
                   onChange={handleSearch}
                   type="text"
-                  className={`${styles.formControl} form-control formControl `}
+                  className={`${styles.formControl} border form-control formControl `}
                   placeholder="Search"
                 />
               </div>
@@ -109,7 +109,7 @@ function Index() {
        */}
         </div>
 
-        <div className={`${styles.datatable} datatable card `}>
+        <div className={`${styles.datatable} border datatable card`}>
           <div
             className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
           >

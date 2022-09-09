@@ -112,9 +112,9 @@ function Index() {
 
           {/*status Box*/}
           <div
-            className={`${styles.statusBox} statusBox d-flex align-items-center justify-content-between`}
+            className={`${styles.statusBox} border statusBox d-flex align-items-center justify-content-between`}
           >
-            <div className={`${styles.all} ${styles.boxInner}`}>
+            <div className={`${styles.all} ${styles.boxInner} border_color`}>
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={styles.iconBox}>
                   <img
@@ -129,7 +129,7 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div className={`${styles.approved} ${styles.boxInner}`}>
+            <div className={`${styles.approved} ${styles.boxInner} border_color`}>
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={styles.iconBox}>
                   <img
@@ -144,7 +144,7 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div className={`${styles.review} ${styles.boxInner}`}>
+            <div className={`${styles.review} ${styles.boxInner} border_color`}>
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={styles.iconBox}>
                   <img
@@ -159,7 +159,7 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div className={`${styles.rejected} ${styles.boxInner}`}>
+            <div className={`${styles.rejected} ${styles.boxInner} border_color`}>
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={styles.iconBox}>
                   <img
@@ -174,7 +174,7 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div className={`${styles.saved} ${styles.boxInner}`}>
+            <div className={`${styles.saved} ${styles.boxInner} border_color`}>
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={styles.iconBox}>
                   <img
@@ -191,7 +191,7 @@ function Index() {
             </div>
           </div>
           {/*leads table*/}
-          <div className={`${styles.datatable} datatable card`}>
+          <div className={`${styles.datatable} border datatable card`}>
             <div
               className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
             >
@@ -266,7 +266,7 @@ function Index() {
                     </tr>
                   </thead>
                   {termsheet && termsheet?.data?.map((term, index) => (<tbody Key={index}>
-                    <tr>
+                    <tr className="table_row">
                       <td className={`${styles.first}`} onClick={() => handleRoute(term, index)}>
                         {term?.order?.orderId
                               ? term?.order?.orderId : term?.order?.applicationId}
