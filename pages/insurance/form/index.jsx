@@ -41,7 +41,10 @@ const Index = () => {
     insuranceData,
     'This is InsuranceData',
   )
-
+ const [dateStartFrom, setDateStartFrom] = useState({
+    laycan: '',
+    eta: '',
+  })
   const [quotationData, setQuotationData] = useState({
     additionalInfo: '',
     expectedTimeOfArrival: '',
@@ -71,7 +74,7 @@ const Index = () => {
       ),
     )
     dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')))
-
+   console.log(insuranceData?.quotationRequest?.sumInsured ,"insuranceData?.quotationRequest?.sumInsured ",sumInsuredCalc)
     setQuotationData({
       additionalInfo: insuranceData?.quotationRequest?.additionalInfo || '',
       expectedTimeOfArrival:
@@ -93,9 +96,9 @@ const Index = () => {
           insuranceData?.quotationRequest?.storageDetails?.storagePlotAddress ||
           '',
       },
-      sumInsured: sumInsuredCalc ? sumInsuredCalc : insuranceData?.quotationRequest?.sumInsured,
+      sumInsured: sumInsuredCalc  ||  insuranceData?.quotationRequest?.sumInsured,
     })
-  }, [insuranceData, sumInsuredCalc])
+  }, [insuranceData,sumInsuredCalc])
 
   const saveQuotationData = (name, value) => {
     // console.log(value, 'dhjsgfksjdghf')
@@ -112,17 +115,28 @@ const Index = () => {
     const d = new Date(value)
     let text = d.toISOString()
     saveQuotationData(name, text)
+    setStartDate(value, name)
   }
-
+    const setStartDate = (val, name) => {
+    var new_date = moment(new Date(val).toISOString())
+      .add(1, 'days')
+      .format('DD-MM-YYYY')
+    if (name == 'laycanFrom') {
+      setDateStartFrom({ ...dateStartFrom, laycan: new_date })
+    } else {
+      setDateStartFrom({ ...dateStartFrom, eta: new_date })
+    }
+  }
+  const [reset,setReset]=useState(false)
   const clearAll = () => {
-    document.getElementById('FormInsurance').value = ''
+    // document.getElementById('FormInsurance').value = ''
     setQuotationData({
       additionalInfo: '',
-      expectedTimeOfArrival: '',
-      expectedTimeOfDispatch: '',
+      expectedTimeOfArrival:undefined,
+      expectedTimeOfDispatch:undefined,
       insuranceType: '',
-      laycanFrom: '',
-      laycanTo: '',
+      laycanFrom: undefined,
+      laycanTo: undefined,
       lossPayee: '',
       storageDetails: {
         placeOfStorage: '',
@@ -131,11 +145,17 @@ const Index = () => {
       },
       sumInsured: insuranceData?.quotationRequest?.sumInsured,
     })
+    setDateStartFrom({
+      laycan:"",
+      eta:""
+    })
+    setReset(!reset)
   }
 
   const validation = () => {
+    console.log(quotationData.lossPayee ,"quotationData.lossPayee ")
     let toastMessage = ''
-    if (quotationData.lossPayee == '' || quotationData.lossPayee == undefined) {
+    if (quotationData.lossPayee == '' || quotationData.lossPayee == 'Select an option' || quotationData.lossPayee == undefined) {
       toastMessage = 'Please Select loss Payee'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -231,7 +251,7 @@ const Index = () => {
     if (quotationData?.insuranceType !== '') {
       if (validation()) {
         let insuranceObj = { ...quotationData }
-        insuranceObj.sumInsured = removePrefixOrSuffix(quotationData.sumInsured)
+        insuranceObj.sumInsured = removePrefixOrSuffix(quotationData.sumInsured) * 1000000
         let obj = {
           quotationRequest: { ...insuranceObj },
           insuranceId: insuranceData?._id,
@@ -247,6 +267,7 @@ const Index = () => {
   }
 
   const changeRoute = () => {
+    if(validation()){
     sessionStorage.setItem('letterId', insuranceData?._id)
     if (quotationData.insuranceType == 'Marine Insurance') {
       Router.push('/agreement/OrderID/id')
@@ -254,6 +275,7 @@ const Index = () => {
       Router.push('/agreement/storage')
     } else {
       Router.push('/agreement/both-type')
+    }
     }
   }
 
@@ -502,14 +524,10 @@ const Index = () => {
                                     e.target.value,
                                   )
                                 }}
-                                value={_get(
-                                  insuranceData,
-                                  'data.data[0].order.termsheet.transactionDetails.lcOpeningBank',
-                                  quotationData?.lossPayee,
-                                )}
+                                value={quotationData.lossPayee}
                                 className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                               >
-                                <option>Select an option</option>
+                                <option value= "" selected >Select an option</option>
                                 <option value="Reserve Bank of Spain">
                                   Reserve Bank of Spain
                                 </option>
@@ -552,6 +570,8 @@ const Index = () => {
                                 defaultDate={quotationData.laycanTo}
                                 saveDate={saveDate}
                                 labelName="Laycan to"
+                                startFrom={dateStartFrom.laycan}
+                                reset={reset}
                               />
                               <img
                                 className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -569,6 +589,7 @@ const Index = () => {
                                 }
                                 saveDate={saveDate}
                                 labelName="Expected time of Dispatch"
+                                reset={reset}
                               />
                               <img
                                 className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -584,6 +605,7 @@ const Index = () => {
                                 defaultDate={
                                   quotationData.expectedTimeOfArrival
                                 }
+                                startFrom={dateStartFrom.eta}
                                 saveDate={saveDate}
                                 labelName="Expected time of Arrival"
                               />
@@ -602,16 +624,10 @@ const Index = () => {
                               name="sumInsured"
                               onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
-                              // defaultValue={addPrefixOrSuffix(
-                              //   quotationData.sumInsured
-                              //     ? quotationData.sumInsured
-                              //     : 0,
-                              //   'Cr',
-                              //   '',
-                              // )}
-                              defaultValue={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr', '')}
+                             
+                              value={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr')}
                               onChange={(e) => {
-                                saveQuotationData(e.target.name, e.target.value)
+                                saveQuotationData(e.target.name,  e.target.value)
                               }}
                               required
                             />
@@ -761,13 +777,9 @@ const Index = () => {
                                   )
                                 }}
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                value={_get(
-                                  insuranceData,
-                                  'data.data[0].order.termsheet.transactionDetails.lcOpeningBank',
-                                  quotationData?.lossPayee,
-                                )}
+                                value={quotationData?.lossPayee}
                               >
-                                <option selected disabled>Select an option</option>
+                                <option selected value="">Select an option</option>
                                 {/* <option selected>
                                   {insuranceData?.quotationRequest?.lossPayee}
                                 </option> */}
@@ -799,6 +811,7 @@ const Index = () => {
                                 // defaultDate={
                                 //   _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanFrom', '')
                                 // }
+                               reset={reset}
                                 saveDate={saveDate}
                                 labelName="Laycan from"
                               />
@@ -817,6 +830,8 @@ const Index = () => {
                                 // defaultDate={
                                 //   _get(insuranceData, 'order.vessel.vessels[0].transitDetails.laycanTo', '')
                                 // }
+                                reset={reset}
+                                 startFrom={dateStartFrom.laycan}
                                 saveDate={saveDate}
                                 labelName="Laycan to"
                               />
@@ -834,6 +849,7 @@ const Index = () => {
                                 defaultDate={
                                   quotationData.expectedTimeOfDispatch
                                 }
+                                reset={reset}
                                 saveDate={saveDate}
                                 labelName="Expected time of Dispatch"
                               />
@@ -851,6 +867,8 @@ const Index = () => {
                                 defaultDate={
                                   quotationData.expectedTimeOfArrival
                                 }
+                                reset={reset}
+                                startFrom={dateStartFrom.eta}
                                 saveDate={saveDate}
                                 labelName="Expected time of Arrival"
                               />
@@ -868,11 +886,11 @@ const Index = () => {
                               name="sumInsured"
                               onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
-                              defaultValue={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr', '')}
+                              defaultValue={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr')}
                               onChange={(e) =>
                                 saveQuotationData(
                                   e.target.name,
-                                  Number(e.target.value * 10000000),
+                                  e.target.value,
                                 )
                               }
                               required
