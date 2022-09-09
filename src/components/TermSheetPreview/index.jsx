@@ -290,7 +290,7 @@ function Index() {
     const doc = new jsPDF('p', 'pt', [1000, 1000])
     doc.html(
       ReactDOMServer.renderToString(
-        toPrintPdf(termsheet, termsheetDetails, additionalComments),
+        toPrintPdf(termsheet, termsheetDetails, additionalComments,otherTermConditions),
       ),
       {
         callback: function (doc) {
@@ -1421,7 +1421,7 @@ function Index() {
 
 export default Index
 
-const toPrintPdf = (data, termsheetDetails, additionalComments) => {
+const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditions) => {
   console.log(termsheetDetails, 'ldwfsdf')
   return (
     <>
@@ -2230,7 +2230,9 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                               marginBottom: '0',
                             }}
                           >
-                            {additionalComments.storageofGoods}
+                           {`
+                          Cargo to be stored in Custom Bonded Warehouse at port of Discharge (${termsheetDetails?.transactionDetails?.portOfDischarge}) under CMA with Dr. Amin. IGM and Into Bond Bill of Entry” shall be filled by the lndo’s nominated party and all expenses/charges to be born and paid by the Buyer.
+                          `}
                           </p>
                         </td>
                       </tr>
@@ -2295,7 +2297,16 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                               marginBottom: '0',
                             }}
                           >
-                            {additionalComments.deliveriesDueDatePayment}
+                           {`
+                            ${
+                              termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate
+                                ? termsheetDetails?.paymentDueDate
+                                    ?.daysFromVesselDischargeDate
+                                : termsheetDetails?.paymentDueDate?.daysFromBlDate
+                            } days from the vessel/container(s) at discharge date at discharge port or  ${
+                                termsheetDetails?.paymentDueDate?.daysFromBlDate
+                              }  days from the from the BL date, whichever is earlier, through TT or LC (in case of LC all Bank charges to be borne by the Buyer).
+                              `}
                           </p>
                         </td>
                       </tr>
@@ -2402,11 +2413,8 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                               marginBottom: '0',
                             }}
                           >
-                            {' '}
-                            {
-                              termsheetDetails?.commodityDetails?.orderCurrency
-                            }{' '}
-                            {termsheetDetails.commercials?.lcOpeningChargesUnit}{' '}
+                             {`USD`}{' '}
+                    {termsheetDetails.commercials?.lcOpeningChargesUnit}
                           </p>
                         </td>
                       </tr>
@@ -2654,7 +2662,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                               marginBottom: '0',
                             }}
                           >
-                            {' '}
                             {
                               termsheetDetails.commercials
                                 ?.otherTermsAndConditions
@@ -2822,7 +2829,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                   }}
                                 >
                                   <input
-                                    checked
+                                    checked={
+                                      otherTermConditions?.chaOrstevedoringCharges
+                                        ?.pollutionCharges
+                                    }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -2855,7 +2865,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                   }}
                                 >
                                   <input
-                                    checked
+                                    checked={
+                                      otherTermConditions?.chaOrstevedoringCharges
+                                        ?.wharfaceCharges
+                                    }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -2887,7 +2900,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                   }}
                                 >
                                   <input
-                                    checked
+                                     checked={
+                                      otherTermConditions?.chaOrstevedoringCharges
+                                        ?.pollutionCharges
+                                    }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -2919,7 +2935,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                   }}
                                 >
                                   <input
-                                    checked
+                                  checked={
+                                otherTermConditions?.chaOrstevedoringCharges
+                                  ?.royalyAndPenaltyCharges
+                              }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -2951,7 +2970,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                   }}
                                 >
                                   <input
-                                    checked
+                                    checked={
+                                    otherTermConditions?.chaOrstevedoringCharges
+                                    ?.tarpaulinCoverageCharges
+                                    }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -2983,7 +3005,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                   }}
                                 >
                                   <input
-                                    checked
+                                  checked={
+                                    otherTermConditions?.chaOrstevedoringCharges
+                                    ?.wheighmentAndWeighmentSurveyCharges
+                                    }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3015,7 +3040,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                   }}
                                 >
                                   <input
-                                    checked
+                                  checked={
+                                    otherTermConditions?.chaOrstevedoringCharges
+                                    ?.draughtSurveyCharges
+                                    }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3047,7 +3075,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                   }}
                                 >
                                   <input
-                                    checked
+                                  checked={
+                                    otherTermConditions?.chaOrstevedoringCharges
+                                    ?.boatingWhileDraughtSurveyCharges
+                                    }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3079,7 +3110,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                   }}
                                 >
                                   <input
-                                    checked
+                                     checked={
+                                    otherTermConditions?.chaOrstevedoringCharges
+                                    ?.hmcCharges
+                                    }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3111,7 +3145,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                   }}
                                 >
                                   <input
-                                    checked
+                                    checked={
+                                    otherTermConditions?.chaOrstevedoringCharges
+                                    ?.securityCharges
+                                    }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3143,7 +3180,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                   }}
                                 >
                                   <input
-                                    checked
+                                     checked={
+                          otherTermConditions?.chaOrstevedoringCharges
+                            ?.piotRentalAndStorageCharges
+                        }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3175,7 +3215,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                   }}
                                 >
                                   <input
-                                    checked
+                                     checked={
+                          otherTermConditions?.chaOrstevedoringCharges
+                            ?.bondingOfCargoCharges
+                        }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3207,7 +3250,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                   }}
                                 >
                                   <input
-                                    checked
+                                     checked={
+                          otherTermConditions?.chaOrstevedoringCharges
+                            ?.exBondDocumentationCharges
+                        }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3239,7 +3285,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                   }}
                                 >
                                   <input
-                                    checked
+                                     checked={
+                          otherTermConditions?.chaOrstevedoringCharges
+                            ?.transferOfOwnershipCharges
+                        }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3271,7 +3320,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                   }}
                                 >
                                   <input
-                                    checked
+                                     checked={
+                          otherTermConditions?.chaOrstevedoringCharges
+                            ?.customsBondOfficerOvertimeCharges
+                        }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3303,7 +3355,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                   }}
                                 >
                                   <input
-                                    checked
+                                     checked={
+                          otherTermConditions?.chaOrstevedoringCharges
+                            ?.grabHireCharges
+                        }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3335,7 +3390,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                   }}
                                 >
                                   <input
-                                    checked
+                                     checked={
+                          otherTermConditions?.chaOrstevedoringCharges
+                            ?.craneHireCharges
+                        }d
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3367,7 +3425,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                   }}
                                 >
                                   <input
-                                    checked
+                                     checked={
+                          otherTermConditions?.chaOrstevedoringCharges
+                            ?.handlingLosses
+                        }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3399,7 +3460,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                   }}
                                 >
                                   <input
-                                    checked
+                                     checked={
+                          otherTermConditions?.chaOrstevedoringCharges
+                            ?.waterSprinklingCharges
+                        }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3426,7 +3490,9 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                 </li>
                                 <li style={{ display: 'table' }}>
                                   <input
-                                    checked
+                                    checked={
+                          otherTermConditions?.chaOrstevedoringCharges?.others
+                        }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3490,6 +3556,9 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                   }}
                                 >
                                   <input
+                                   checked={
+                                    otherTermConditions?.insurance?.marineInsurance
+                                  }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3521,6 +3590,9 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                   }}
                                 >
                                   <input
+                                    checked={
+                                    otherTermConditions?.insurance?.storageInsurance
+                                    }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3559,6 +3631,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                     }}
+                                     checked={
+                            otherTermConditions?.chaOrstevedoringCharges
+                              ?.insuranceCharges
+                          }
                                     id="insuranceCharges"
                                     type="checkbox"
                                   />
@@ -3635,6 +3711,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                     }}
                                     id="lcOpeningCharges"
                                     type="checkbox"
+                                     checked={
+                            otherTermConditions?.lcOpeningCharges
+                              ?.lcOpeningCharges
+                          }
                                   />
                                   <label
                                     htmlFor="lcOpeningCharges"
@@ -3665,6 +3745,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                     }}
+                                     checked={
+                            otherTermConditions?.lcOpeningCharges
+                              ?.lcAmendmentCost
+                          }
                                     id="lcAmendmentCost"
                                     type="checkbox"
                                   />
@@ -3696,6 +3780,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                     }}
+                                     checked={
+                            otherTermConditions?.lcOpeningCharges
+                              ?.cmaFeesIncludingSupervisionAndSurvey
+                          }
                                     id="cmaFeesIncludingSupervisionAndSurvey"
                                     type="checkbox"
                                   />
@@ -3727,6 +3815,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                     }}
+                                     checked={
+                            otherTermConditions?.lcOpeningCharges
+                              ?.bankDoIssuanceCharges
+                          }
                                     id="bankDoIssuanceCharges"
                                     type="checkbox"
                                   />
@@ -3758,6 +3850,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                     }}
+                                      checked={
+                            otherTermConditions?.lcOpeningCharges
+                              ?.remmittanceCharges
+                          }
                                     id="remmittanceCharges"
                                     type="checkbox"
                                   />
@@ -3789,6 +3885,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                     }}
+                                      checked={
+                            otherTermConditions?.lcOpeningCharges
+                              ?.usanceInterest
+                          }
                                     id="usanceInterest"
                                     type="checkbox"
                                   />
@@ -3852,6 +3952,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                     }}
+                                    checked={
+                            otherTermConditions?.otherCharges
+                              ?.demurrageOrDetentionChargesOfVessel
+                          }
                                     id="demurrageOrDetentionChargesOfVessel"
                                     type="checkbox"
                                   />
@@ -3883,6 +3987,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                     }}
+                                     checked={
+                            otherTermConditions?.otherCharges
+                              ?.transportationCharges
+                          }
                                     id="transportationCharges"
                                     type="checkbox"
                                   />
@@ -3914,6 +4022,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                     }}
+                                      checked={
+                            otherTermConditions?.otherCharges
+                              ?.wagonHaulageCharges
+                          }
                                     id="wagonHaulageCharges"
                                     type="checkbox"
                                   />
@@ -3946,6 +4058,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                     }}
+                                      checked={
+                            otherTermConditions?.otherCharges
+                              ?.thirdPartyInspectionCharges
+                          }
                                     id="thirdPartyInspectionCharges"
                                     type="checkbox"
                                   />
@@ -3977,6 +4093,9 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                     }}
+                                    checked={
+                            otherTermConditions?.otherCharges?.hedgingCharges
+                          }
                                     id="hedgingCharges"
                                     type="checkbox"
                                   />
@@ -4008,6 +4127,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                     }}
+                                     checked={
+                            otherTermConditions?.otherCharges
+                              ?.anyOtherCostIncurredOnBehalfOfBuyer
+                          }
                                     id="anyOtherCostIncurredOnBehalfOfBuyer"
                                     type="checkbox"
                                   />
@@ -4071,6 +4194,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                     }}
+                                     checked={
+                            otherTermConditions?.dutyAndTaxes
+                              ?.customsDutyWithAllGovtCess
+                          }
                                     id="customsDutyWithAllGovtCess"
                                     type="checkbox"
                                   />
@@ -4102,6 +4229,9 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                     }}
+                                    checked={
+                            otherTermConditions?.dutyAndTaxes?.igstWithCess
+                          }
                                     id="igstWithCess"
                                     type="checkbox"
                                   />
@@ -4133,6 +4263,9 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                       verticalAlign: 'middle',
                                       marginRight: '25px',
                                     }}
+                                     checked={
+                            otherTermConditions?.dutyAndTaxes?.cimsCharges
+                          }
                                     id="cimsCharges"
                                     type="checkbox"
                                   />
@@ -4169,6 +4302,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                                   />
                                   <label
                                     htmlFor="taxCharges"
+                                     checked={
+                            otherTermConditions?.dutyAndTaxes
+                              ?.taxCollectedatSource
+                          }
                                     style={{
                                       fontSize: '20px',
                                       display: 'table-cell',
@@ -4202,7 +4339,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments) => {
                   >
                     All necessary documents to be filed with Customs department
                     for discharge of goods &amp; Customs clearance can be filed
-                    by IGPL or its nominated person.
+                    by {otherTermConditions?.buyer?.bank} or its nominated person.
                     <br />
                     <span style={{ color: 'red' }}>*</span> GST charges extra
                     wherever applicable

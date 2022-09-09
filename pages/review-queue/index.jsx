@@ -5,12 +5,10 @@ import 'bootstrap/dist/css/bootstrap.css'
 import styles from './index.module.scss'
 import Router from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  GetAllBuyer,
-  GetBuyer,
-} from '../../src/redux/registerBuyer/action'
+import { GetAllBuyer, GetBuyer } from '../../src/redux/registerBuyer/action'
 import { SearchLeads } from '../../src/redux/buyerProfile/action.js'
 import { setPageName } from '../../src/redux/userData/action'
+import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action'
 import Filter from '../../src/components/Filter'
 
 function Index() {
@@ -26,15 +24,17 @@ function Index() {
   // console.log(searchedLeads, 'searched items')
 
   useEffect(() => {
-  if(window){
-    sessionStorage.setItem('loadedPage',"Leads")
-    sessionStorage.setItem('loadedSubPage',`Review Queue`)
-    sessionStorage.setItem('openList',1)
-  }
-  },[])
+    if (window) {
+      sessionStorage.setItem('loadedPage', 'Leads')
+      sessionStorage.setItem('loadedSubPage', `Review Queue`)
+      sessionStorage.setItem('openList', 1)
+    }
+  }, [])
 
   useEffect(() => {
-    dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'ReviewQueue'}&limit=${7}`))
+    dispatch(
+      GetAllBuyer(`?page=${currentPage}&queue=${'ReviewQueue'}&limit=${7}`),
+    )
   }, [dispatch, currentPage])
 
   useEffect(() => {
@@ -42,8 +42,8 @@ function Index() {
   })
 
   const handleRoute = (buyer) => {
-    sessionStorage.setItem('orderId', buyer._id);
-    sessionStorage.setItem('company', buyer.company._id);
+    sessionStorage.setItem('orderId', buyer._id)
+    sessionStorage.setItem('company', buyer.company._id)
     //dispatch(GetBuyer({ companyId: buyer.company._id, orderId: buyer._id }))
     Router.push('/review/id')
   }
@@ -214,10 +214,12 @@ function Index() {
                 </a>
                 <a
                   onClick={() => {
-                    if (currentPage + 1 < Math.ceil(allBuyerList?.data?.totalCount / 7)) {
+                    if (
+                      currentPage + 1 <
+                      Math.ceil(allBuyerList?.data?.totalCount / 7)
+                    ) {
                       setCurrentPage((prevState) => prevState + 1)
                     }
-
                   }}
                   href="#"
                   className={`${styles.arrow} ${styles.rightArrow} arrow`}
@@ -268,11 +270,21 @@ function Index() {
                                 className={`${styles.buyerName}`}
                                 onClick={() => {
                                   handleRoute(buyer)
+                                  dispatch(
+                                    getBreadcrumbValues({
+                                      companyName: buyer.company.companyName,
+                                      companyId: buyer.company.customerId,
+                                    }),
+                                  )
                                 }}
                               >
                                 {buyer.company.companyName}
                               </td>
-                              <td>{buyer.createdBy.userRole ? buyer.createdBy.userRole : "RM"}</td>
+                              <td>
+                                {buyer.createdBy.userRole
+                                  ? buyer.createdBy.userRole
+                                  : 'RM'}
+                              </td>
                               <td>{buyer.createdBy.fName}</td>
                               <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
                               <td>

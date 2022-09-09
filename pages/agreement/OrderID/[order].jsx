@@ -38,7 +38,19 @@ function Index() {
   const handlePopup = () => {
     setShow(true)
   }
-
+  const [emailAdd, setEmailAdd] = useState([
+    {
+        emailID: '',
+    },
+  ])
+  const addMoreRows = () => {
+    setEmailAdd([
+      ...emailAdd,
+      {
+        emailID: '',
+      },
+    ])
+  }
   dispatch(setPageName('insurance Request Letter'))
   dispatch(setDynamicName(_get(insuranceData, 'company.companyName', 'Company Name')))
   dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')))
@@ -480,7 +492,8 @@ function Index() {
                         />
                       </div>
                     </div>
-
+                    {emailAdd.map((val,index) => (
+                      <>
                     <div className={`${styles.radio_form} ml-1`}>
                       {['radio'].map((type) => (
                         <div
@@ -505,10 +518,12 @@ function Index() {
                       ))}
                     </div>
                     <hr></hr>
+                    </>
+                    ))}
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        // addMoreRows()
+                         addMoreRows()
                       }}
                     >
                       <span style={{ fontSize: '2rem' }} className={`mr-2`}>

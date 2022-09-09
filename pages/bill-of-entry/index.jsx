@@ -58,11 +58,11 @@ if(window){
         <div className={`${styles.filter_outer} d-md-flex justify-content-between align-items-center d-inline-block`}>
           <div className={`${styles.filter} d-flex align-items-center`}>
             <div className={`${styles.head_header} align-items-center`}>
-              <img
+              {/* <img
                 className={`${styles.arrow} image_arrow mr-2 img-fluid`}
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="ArrowRight"
-              />
+              /> */}
               <h1 className={styles.heading}>Bill of Entry</h1>
             </div>
             <div className={styles.search}>

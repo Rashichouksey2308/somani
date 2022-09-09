@@ -85,7 +85,7 @@ function Index() {
           {/*filter*/}
           <div className={`${styles.filter} d-flex align-items-center`}>
             <div className={`${styles.head_header} align-items-center`}>
-              <img
+              <img onClick={() => Router.push('/leads')}
                 className={`${styles.arrow} img-fluid mr-2 image_arrow`}
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="arrow"

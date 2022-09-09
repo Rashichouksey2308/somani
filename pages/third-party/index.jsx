@@ -55,8 +55,9 @@ function Index() {
               <span>{_get(inspectionData, 'company.companyName', '')}</span>
             </h1>
             <div className="ml-auto">
-              <div className={`${styles.lastModified} text `}>
-                <span>Last Modified:</span> 28 Jan,11:34am
+              <div className={`${styles.lastModified} text `}
+             >
+                <span style={{marginRight:'7px'}}>Last Modified:</span>28 Jan,11:34am
               </div>
             </div>
           </div>

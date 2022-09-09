@@ -666,6 +666,8 @@ function Index({
                                       className={`${styles.label_heading} label_heading`}
                                     >
                                       Shipping Line/Charter
+                                      <strong className="text-danger">*</strong>
+
                                     </label>
                                   </div>
                                 </div>

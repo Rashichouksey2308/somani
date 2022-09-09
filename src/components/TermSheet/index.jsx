@@ -41,6 +41,7 @@ const Index = () => {
     removePrefixOrSuffix(termsheetDetails?.commodityDetails?.perUnitPrice)
 
   // console.log(newLcVal, 'THIS IS NEW LC VAL')
+  console.log(termsheet, 'sheetData')
 
   useEffect(() => {
     {
@@ -50,7 +51,7 @@ const Index = () => {
             termsheetId: sheet._id,
             commodityDetails: {
               unitOfQuantity: sheet?.order?.unitOfQuantity,
-              orderCurrency: sheet?.order?.orderCurrency||"INR",
+              orderCurrency: sheet?.order?.orderCurrency || 'INR',
               quantity: sheet?.order?.quantity,
               perUnitPrice: sheet?.order?.perUnitPrice,
               commodity: sheet?.order?.commodity,
@@ -69,11 +70,16 @@ const Index = () => {
                 ? sheet?.transactionDetails?.incoTerms
                 : sheet?.order?.incoTerm,
               loadPort: sheet?.transactionDetails?.loadPort,
-              countryOfOrigin: sheet?.transactionDetails?.countryOfOrigin ? sheet?.transactionDetails?.countryOfOrigin : sheet?.order?.countryOfOrigin,
-              shipmentType: sheet?.transactionDetails?.shipmentType ? sheet?.transactionDetails?.shipmentType : sheet?.order?.shipmentDetail?.shipmentType,
+              countryOfOrigin: sheet?.transactionDetails?.countryOfOrigin
+                ? sheet?.transactionDetails?.countryOfOrigin
+                : sheet?.order?.countryOfOrigin,
+              shipmentType: sheet?.transactionDetails?.shipmentType,
+                
               partShipmentAllowed:
                 sheet?.transactionDetails?.partShipmentAllowed,
-              portOfDischarge: sheet?.transactionDetails?.portOfDischarge ? sheet?.transactionDetails?.portOfDischarge : sheet?.order?.portOfDischarge,
+              portOfDischarge: sheet?.transactionDetails?.portOfDischarge
+                ? sheet?.transactionDetails?.portOfDischarge
+                : sheet?.order?.portOfDischarge,
               billOfEntity: sheet?.transactionDetails?.billOfEntity,
               thirdPartyInspectionReq:
                 sheet?.transactionDetails?.thirdPartyInspectionReq,
@@ -89,18 +95,21 @@ const Index = () => {
               tradeMarginPercentage: sheet?.commercials?.tradeMarginPercentage,
               lcOpeningValue: sheet?.commercials?.lcOpeningValue,
               lcOpeningCurrency: sheet?.commercials?.lcOpeningCurrency,
-              lcOpeningChargesUnit: sheet?.commercials?.lcOpeningChargesUnit || 1500,
+              lcOpeningChargesUnit:
+                sheet?.commercials?.lcOpeningChargesUnit || 1500,
               lcOpeningChargesPercentage:
-                sheet?.commercials?.lcOpeningChargesPercentage ||1.5,
+                sheet?.commercials?.lcOpeningChargesPercentage || 1.5,
               usanceInterestPercetage:
                 sheet?.commercials?.usanceInterestPercetage || 4,
               overDueInterestPerMonth:
-                sheet?.commercials?.overDueInterestPerMonth||1.5,
-              exchangeFluctuation: sheet?.commercials?.exchangeFluctuation || "On Buyers A/C",
+                sheet?.commercials?.overDueInterestPerMonth || 1.5,
+              exchangeFluctuation:
+                sheet?.commercials?.exchangeFluctuation || 'On Buyers A/C',
               forexHedging: sheet?.commercials?.forexHedging,
               otherTermsAndConditions:
-                sheet?.commercials?.otherTermsAndConditions || "As Per Sales Contract",
-              version: sheet?.commercials?.version || "1",
+                sheet?.commercials?.otherTermsAndConditions ||
+                'As Per Sales Contract',
+              version: sheet?.commercials?.version || '1',
             },
           }),
         )
@@ -271,19 +280,19 @@ const Index = () => {
   const onChangePaymentDueDate = (e) => {
     const Key = e.target.id
     const value = e.target.value
-    console.log("herer123",Key,value)
+    console.log('herer123', Key, value)
     setTermsheetDetails((prev) => ({
       ...prev,
       paymentDueDate: { ...prev.paymentDueDate, [Key]: value },
     }))
   }
-  console.log(termsheetDetails.paymentDueDate,"herer1234")
+  console.log(termsheetDetails.paymentDueDate, 'herer1234')
 
   const onChangeCommercialTerms = (e) => {
-      console.log(e.target.id,e.target.value,"sdfsdf")
+    console.log(e.target.id, e.target.value, 'sdfsdf')
     const Key = e.target.id
     const value = e.target.value
-   
+
     setTermsheetDetails((prev) => ({
       ...prev,
       commercials: { ...prev.commercials, [Key]: value },
@@ -337,12 +346,10 @@ const Index = () => {
     }))
   }
   console.log(termsheetDetails, 'tempSheet')
-  const changePayment=()=>{
-
-  }
+  const changePayment = () => {}
   const handleSave = () => {
     // console.log(termsheetDetails.commercials.overDueInterestPerMont, "tempSheet2")
-    let tempSheet = termsheetDetails
+    let tempSheet = {...termsheetDetails}
 
     tempSheet.transactionDetails.lcValue = newLcVal
     tempSheet.commodityDetails.perUnitPrice = removePrefixOrSuffix(
@@ -373,21 +380,359 @@ const Index = () => {
       termsheetDetails.commercials.lcOpeningChargesUnit,
     ).toString()
     //  tempSheet.commercials.overDueInterestPerMonth=removePrefixOrSuffix(tempSheet.commercials.overDueInterestPerMont)
-    console.log(termsheetDetails, "tempSheet1")
-        
- if (termsheetDetails.transactionDetails.portOfDischarge =="Select an option" ||termsheetDetails.transactionDetails.portOfDischarge =="" || termsheetDetails.transactionDetails.portOfDischarge==undefined ) {
+    console.log(termsheetDetails, 'tempSheet1')
+
+
+    if (
+      
+      termsheetDetails.commodityDetails.unitOfQuantity == '' ||
+      termsheetDetails.commodityDetails.unitOfQuantity == undefined
+    ) {
+      let toastMessage = 'Please add unit Of Quantity '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+      if (
+      
+      termsheetDetails.commodityDetails.orderCurrency == '' ||
+      termsheetDetails.commodityDetails.orderCurrency == undefined
+    ) {
+      let toastMessage = 'Please add order Currency '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+      if (
+      
+      termsheetDetails.commodityDetails.quantity== '' ||
+      termsheetDetails.commodityDetails.quantity== undefined
+    ) {
+      let toastMessage = 'Please add quantity'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    console.log(termsheetDetails.commodityDetails.perUnitPrice,"termsheetDetails.commodityDetails.perUnitPrice")
+      if (
+      
+      termsheetDetails.commodityDetails.perUnitPrice== '' ||  
+      termsheetDetails.commodityDetails.perUnitPrice?.toString() == "NaN"  ||
+      termsheetDetails.commodityDetails.perUnitPrice== undefined
+    ) {
+      let toastMessage = 'Please add per Unit Price'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+       if (
+      
+      termsheetDetails.commodityDetails.commodity== '' ||
+      termsheetDetails.commodityDetails.commodity== undefined
+    ) {
+      let toastMessage = 'Please add commodity'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+         if (
+      
+      termsheetDetails.commodityDetails.tolerance== '' ||
+      termsheetDetails.commodityDetails.tolerance== undefined
+    ) {
+      let toastMessage = 'Please add tolerance'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+
+    
+ 
+
+// transaction
+
+
+
+  // if (
+  //     termsheetDetails.transactionDetails.typeOfPort == '' ||
+  //     termsheetDetails.transactionDetails.typeOfPort == undefined
+  //   ) {
+  //     let toastMessage = 'Please add typeOfPort '
+  //     if (!toast.isActive(toastMessage.toUpperCase())) {
+  //       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+  //     }
+  //     return
+  //   }
+     if (
+      termsheetDetails.transactionDetails.lcValue == '' ||   termsheetDetails.transactionDetails.lcValue == NaN ||
+      termsheetDetails.transactionDetails.lcValue == undefined
+    ) {
+      let toastMessage = 'Please add lc Value '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+  //  if (
+  //     termsheetDetails.transactionDetails.lcCurrency == '' ||
+  //     termsheetDetails.transactionDetails.lcCurrency == undefined
+  //   ) {
+  //     let toastMessage = 'Please add lc Currency '
+  //     if (!toast.isActive(toastMessage.toUpperCase())) {
+  //       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+  //     }
+  //     return
+  //   }
+     if (
+      termsheetDetails.transactionDetails.marginMoney == '' ||
+      termsheetDetails.transactionDetails.marginMoney == undefined
+    ) {
+      let toastMessage = 'Please add margin Money '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+      if (
+      termsheetDetails.transactionDetails.lcOpeningBank == '' ||
+      termsheetDetails.transactionDetails.lcOpeningBank == undefined
+    ) {
+      let toastMessage = 'Please add  lc Opening Bank '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+       if (
+      termsheetDetails.transactionDetails.incoTerms == '' ||
+      termsheetDetails.transactionDetails.incoTerms == undefined
+    ) {
+      let toastMessage = 'Please add inco Terms '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+        if (
+      termsheetDetails.transactionDetails.loadPort == '' ||
+      termsheetDetails.transactionDetails.loadPort == undefined
+    ) {
+      let toastMessage = 'Please add load Port '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+          if (
+      termsheetDetails.transactionDetails.countryOfOrigin == '' ||
+      termsheetDetails.transactionDetails.countryOfOrigin == undefined
+    ) {
+      let toastMessage = 'Please add country Of Origin '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+     if (
+      termsheetDetails.transactionDetails.shipmentType == '' ||
+      termsheetDetails.transactionDetails.shipmentType == undefined
+    ) {
+      let toastMessage = 'Please add shipment Type '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+     if (
+      termsheetDetails.transactionDetails.partShipmentAllowed == '' ||
+      termsheetDetails.transactionDetails.partShipmentAllowed == undefined
+    ) {
+      let toastMessage = 'Please add part Shipment Allowed '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+      if (
+      termsheetDetails.transactionDetails.portOfDischarge == '' ||
+      termsheetDetails.transactionDetails.portOfDischarge == undefined
+    ) {
+      let toastMessage = 'Please add port Of Discharge'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+       if (
+      termsheetDetails.transactionDetails.billOfEntity == '' ||
+      termsheetDetails.transactionDetails.billOfEntity == undefined
+    ) {
+      let toastMessage = 'Please add bill Of Entity'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+         if (
+      termsheetDetails.transactionDetails.thirdPartyInspectionReq == '' ||
+      termsheetDetails.transactionDetails.thirdPartyInspectionReq == undefined
+    ) {
+      let toastMessage = 'Please add third Party InspectionReq'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (
+      termsheetDetails.transactionDetails.storageOfGoods == '' ||
+      termsheetDetails.transactionDetails.storageOfGoods == undefined
+    ) {
+      let toastMessage = 'Please add storage Of Goods'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+       if (
+      termsheetDetails.transactionDetails.portOfDischarge ==
+        'Select an option' ||
+      termsheetDetails.transactionDetails.portOfDischarge == '' ||
+      termsheetDetails.transactionDetails.portOfDischarge == undefined
+    ) {
       let toastMessage = 'Please add port Of Discharge '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-    return
+      return
     }
-    if (termsheetDetails.paymentDueDate.daysFromBlDate =="" || termsheetDetails.paymentDueDate.daysFromBlDate==undefined ) {
+    if (
+      termsheetDetails.paymentDueDate.daysFromBlDate == '' ||
+      termsheetDetails.paymentDueDate.daysFromBlDate == undefined
+    ) {
       let toastMessage = 'Please add days From Bl Date '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-    return
+      return
+    }
+
+ 
+ if (
+      termsheetDetails.commercials.tradeMarginPercentage == '' ||
+      termsheetDetails.commercials.tradeMarginPercentage?.toString() == 'NaN' ||
+      termsheetDetails.commercials.tradeMarginPercentage == undefined
+    ) {
+      let toastMessage = 'Please add trade Margin Percentage '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    //  if (
+    //   termsheetDetails.commercials.lcOpeningValue == '' ||
+    //   termsheetDetails.commercials.lcOpeningValue == undefined
+    // ) {
+    //   let toastMessage = 'Please add lc Opening Value '
+    //   if (!toast.isActive(toastMessage.toUpperCase())) {
+    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    //   }
+    //   return
+    // }
+    //    if (
+    //   termsheetDetails.commercials.lcOpeningCurrency == '' ||
+    //   termsheetDetails.commercials.lcOpeningCurrency == undefined
+    // ) {
+    //   let toastMessage = 'Please add lc Opening Currency '
+    //   if (!toast.isActive(toastMessage.toUpperCase())) {
+    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    //   }
+    //   return
+    // }
+        if (
+      termsheetDetails.commercials.lcOpeningChargesUnit == '' ||
+      termsheetDetails.commercials.lcOpeningChargesUnit == undefined
+    ) {
+      let toastMessage = 'Please add lc Opening Charges Unit '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+          if (
+      termsheetDetails.commercials.lcOpeningChargesPercentage == '' ||
+      termsheetDetails.commercials.lcOpeningChargesPercentage == undefined
+    ) {
+      let toastMessage = 'Please add lc Opening Charges Percentage '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+     if (
+      termsheetDetails.commercials.usanceInterestPercetage == '' ||
+      termsheetDetails.commercials.usanceInterestPercetage == undefined
+    ) {
+      let toastMessage = 'Please add usance Interest Percetage '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+      if (
+      termsheetDetails.commercials.overDueInterestPerMonth == '' ||
+      termsheetDetails.commercials.overDueInterestPerMonth == undefined
+    ) {
+      let toastMessage = 'Please add over Due Interest PerMonth '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+       if (
+      termsheetDetails.commercials.exchangeFluctuation == '' ||
+      termsheetDetails.commercials.exchangeFluctuation == undefined
+    ) {
+      let toastMessage = 'Please add exchange Fluctuation '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+        if (
+      termsheetDetails.commercials.forexHedging == '' ||
+      termsheetDetails.commercials.forexHedging == undefined
+    ) {
+      let toastMessage = 'Please add forex Hedging '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+        if (
+      termsheetDetails.commercials.otherTermsAndConditions == '' ||
+      termsheetDetails.commercials.otherTermsAndConditions == undefined
+    ) {
+      let toastMessage = 'Please add other Terms And Conditions '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+         if (
+      termsheetDetails.commercials.version == '' ||
+      termsheetDetails.commercials.version == undefined
+    ) {
+      let toastMessage = 'Please add version '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
     }
     const UpdatedTermsheet = {
       ...tempSheet,
@@ -438,9 +783,10 @@ const Index = () => {
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow"
               onClick={() => Router.push('/termsheet/order-list')}
-
             />
-            <h1 className={`${styles.heading} heading`}>{_get(termsheet,"data[0].company.companyName","")}</h1>
+            <h1 className={`${styles.heading} heading`}>
+              {_get(termsheet, 'data[0].company.companyName', '')}
+            </h1>
           </div>
           <div className="">
             {termsheet &&

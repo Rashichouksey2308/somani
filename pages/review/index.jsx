@@ -2538,7 +2538,7 @@ function Index() {
 
   const handleGSTDownload = () => {
     // console.log(gstData?.detail?.other?.pdfLink ,'efgilegleghlui')
-    if (!gstData?.detail?.other?.pdfLink || gstData?.detail?.other?.pdfLink !== '') {
+    if (!gstData?.detail?.other?.pdfLink || gstData?.detail?.other?.pdfLink === '') {
       let toastMessage = 'GST report not Available'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -3804,6 +3804,8 @@ useEffect(() => {
                     saveApprovedCreditData={saveApprovedCreditData}
                     approvedCredit={approvedCredit}
                     orderDetails={orderList}
+                    GstData={gstData}
+                    
                     
                   />
                 </div>
