@@ -84,7 +84,7 @@ function Index() {
                   value={serachterm}
                   onChange={handleSearch}
                   type="text"
-                  className={`${styles.formControl} form-control formControl `}
+                  className={`${styles.formControl} border form-control formControl `}
                   placeholder="Search"
                 />
               </div>
@@ -126,9 +126,9 @@ function Index() {
 
           {/*status Box*/}
           <div
-            className={`${styles.statusBox} statusBox d-flex align-items-center justify-content-between`}
+            className={`${styles.statusBox} statusBox border d-flex align-items-center justify-content-between`}
           >
-            <div className={`${styles.all} ${styles.boxInner}`}>
+            <div className={`${styles.all} ${styles.boxInner} border_color`}>
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={styles.iconBox}>
                   <img
@@ -143,7 +143,7 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div className={`${styles.approved} ${styles.boxInner}`}>
+            <div className={`${styles.approved} ${styles.boxInner} border_color`}>
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={styles.iconBox}>
                   <img
@@ -158,7 +158,7 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div className={`${styles.review} ${styles.boxInner}`}>
+            <div className={`${styles.review} ${styles.boxInner} border_color`}>
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={styles.iconBox}>
                   <img
@@ -173,7 +173,7 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div className={`${styles.rejected} ${styles.boxInner}`}>
+            <div className={`${styles.rejected} ${styles.boxInner} border_color`}>
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={styles.iconBox}>
                   <img
@@ -188,7 +188,7 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div className={`${styles.saved} ${styles.boxInner}`}>
+            <div className={`${styles.saved} ${styles.boxInner} border_color`}>
               <div className="d-lg-flex align-items-center d-inline-block">
                 <div className={styles.iconBox}>
                   <img
@@ -205,7 +205,7 @@ function Index() {
             </div>
           </div>
           {/*leads table*/}
-          <div className={`${styles.datatable} datatable card`}>
+          <div className={`${styles.datatable} border datatable card`}>
             <div
               className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
             >

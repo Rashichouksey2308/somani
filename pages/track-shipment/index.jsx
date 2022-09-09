@@ -23,11 +23,11 @@ if(window){
       <div className={styles.container_inner}>
         <div className={`${styles.filter} d-flex align-items-center`}>
           <div className={`${styles.head_header} align-items-center`}>
-            <img
+            {/* <img
               className={`${styles.arrow} image_arrow img-fluid mr-2`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
-            />
+            /> */}
             <h1 className={styles.heading}>Track Shipments</h1>
           </div>
           <div className={styles.search}>
@@ -43,7 +43,7 @@ if(window){
               </div>
               <input
                 type="text"
-                className={`${styles.formControl} form-control formControl `}
+                className={`${styles.formControl} border form-control formControl `}
                 placeholder="Search"
               />
             </div>
@@ -59,7 +59,7 @@ if(window){
           style={{ position: "absolute", right: 25 }}>
           Create</button> */}
         </div>
-        <div className={`${styles.datatable} datatable  border_color  card `}>
+        <div className={`${styles.datatable} border datatable card`}>
           <div
             className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
           >
