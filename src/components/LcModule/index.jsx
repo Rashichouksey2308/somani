@@ -69,7 +69,7 @@ console.log(lcModule,"lcModule")
               </div>
               <input
                 type="text"
-                className={`${styles.formControl} form-control formControl `}
+                className={`${styles.formControl} border form-control formControl `}
                 placeholder="Search"
               />
             </div>
@@ -86,7 +86,7 @@ console.log(lcModule,"lcModule")
           Create</button> */}
         </div>
 
-        <div className={`${styles.datatable} card datatable border-color`}>
+        <div className={`${styles.datatable} border card datatable`}>
           <div
             className={`${styles.tableFilter} align-items-center d-flex justify-content-between`}
           >

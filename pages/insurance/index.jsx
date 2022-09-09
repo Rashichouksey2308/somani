@@ -84,7 +84,7 @@ if(window){
                 value={searchTerm}
                 onChange={handleSearch}
                 type="text"
-                className={`${styles.formControl} form-control formControl `}
+                className={`${styles.formControl} border form-control formControl `}
                 placeholder="Search"
               />
             </div>
