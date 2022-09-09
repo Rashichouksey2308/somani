@@ -4,10 +4,16 @@ import { useSelector } from 'react-redux'
 import styles from './index.module.scss'
 
 function Index({ handleSave, rightBtn, rightBtnClick, handleRoute ,buttonText="Save" }) {
+  const sidebar = useSelector((state) => state.sidebar.show_sidebar)
+  const isMobile = useSelector((state) => state.sidebar.isMobile)
+
   console.log(rightBtnClick, 'handleSave')
   // const {updatingAmendment} = useSelector((state)=>state.lc)
   return (
-    <div className={`${styles.root} cta_bar`}>
+    <div className={`${styles.root} ${
+      !sidebar ? styles.no_sidebar : null
+    }
+    ${isMobile ? styles.no_sidebar_mobile : null} cta_bar`}>
       <div
         onClick={() => {
           if (handleSave) {
