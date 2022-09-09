@@ -4,10 +4,13 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import styles from '../index.module.scss'
 import { toast } from 'react-toastify'
+import { checkNan, convertValue } from '../../../utils/helper'
+
 
 
 
 function Index({ chargesData }) {
+  let [unit, setUnit] = useState(10000000)
 
   const [chargesDatas, setChargesData] = useState()
 
@@ -51,8 +54,10 @@ function Index({ chargesData }) {
           </div>
           <div className={`${styles.unit_container} d-flex align-items-center`}>
             <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
-            <select className={`${styles.options} accordion_DropDown`}>
-              <option>Crores</option>
+            <select onChange={(e)=> setUnit(e.target.value)} className={`${styles.options} accordion_DropDown`}>
+              <option value={10000000}>Crores</option>
+              <option value={100000}>Lakhs</option>
+
             </select>
             <span data-toggle="collapse" data-target="#openCharges" aria-expanded="true" aria-controls="openCharges">+</span>
           </div>
@@ -88,7 +93,12 @@ function Index({ chargesData }) {
                     {chargesDatas && chargesDatas?.map((charges, index) => (<tr key={index}>
                       <td>{charges.chargeId}</td>
                       <td>{charges.nameOfChargeHolder1}</td>
-                      <td className="text-center">{charges.finalAmountSecured}</td>
+                      <td className="text-center">
+                        {/* {charges.finalAmountSecured} */}
+                        {convertValue(charges.finalAmountSecured, unit)?.toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}
+                        </td>
                       <td className="text-center">{charges.dateOfCreationOfCharge}</td>
                       <td className="text-center">
                         <img

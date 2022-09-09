@@ -449,8 +449,9 @@ useEffect(() => {
       deliveryDetail: newarr,
       lastMileDelivery: Boolean(lastMileDelivery),
     }
+    let task = 'save'
     //console.log(payload,ReleaseOrderData, 'releaseOrderDate')
-    await dispatch(UpdateDelivery(payload))
+    await dispatch(UpdateDelivery({payload, task}))
   }
   const removeLiftinDoc = (type, index1, index2) => {
     let temp = [...lifting]

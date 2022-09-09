@@ -21,6 +21,7 @@ export default function Index({
   const dispatch = useDispatch()
   const [show, setShow] = useState(false)
   const [totalBl, setTotalBl] = useState(0)
+  const [isFieldInFocus, setIsFieldInFocus] = useState(false)
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
@@ -202,7 +203,7 @@ export default function Index({
     }
     if (customData?.dischargeOfCargo) {
       let data = _get(customData, 'dischargeOfCargo', {})
-      console.log(data,'customData1')
+      console.log(data, 'customData1')
       let tempData = {
         dischargeOfCargo: {
           vesselName: data?.dischargeOfCargo?.vesselName,
@@ -308,15 +309,26 @@ export default function Index({
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <input
-                    defaultValue={
+                    onFocus={(e) => {
+                      setIsFieldInFocus(true),
+                        e.target.type = 'number'
+                    }}
+                    onBlur={(e) => {
+                      setIsFieldInFocus(false),
+                        e.target.type = 'text'
+                    }}
+                    value={
+                      isFieldInFocus ?
                       dischargeOfCargo?.dischargeOfCargo?.dischargeQuantity
+                     : Number(dischargeOfCargo?.dischargeOfCargo?.dischargeQuantity)?.toLocaleString() + ` ${_get(customData,'order.unitOfQuantity', '')}`
+                       
                     }
                     onChange={(e) =>
                       onChangeDischargeOfCargo(e.target.id, e.target.value)
                     }
                     id="dischargeQuantity"
                     className={`${styles.input_field} input form-control`}
-                    type="number"
+                    type="text"
                     min={0}
                     onKeyPress={preventMinus}
                     onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
@@ -332,7 +344,7 @@ export default function Index({
                 >
                   <div className="d-flex">
                     <DateCalender
-                    defaultDate={dischargeOfCargo?.dischargeOfCargo?.vesselArrivaldate}
+                      defaultDate={dischargeOfCargo?.dischargeOfCargo?.vesselArrivaldate}
                       name="vesselArrivaldate"
                       saveDate={saveDate}
                       labelName="Vessel Arrival Date"
@@ -349,7 +361,7 @@ export default function Index({
                 >
                   <div className="d-flex">
                     <DateCalender
-                    defaultDate={dischargeOfCargo?.dischargeOfCargo?.dischargeStartDate}
+                      defaultDate={dischargeOfCargo?.dischargeOfCargo?.dischargeStartDate}
                       name="dischargeStartDate"
                       saveDate={saveDate}
                       labelName="Discharge Start Date"
@@ -366,7 +378,7 @@ export default function Index({
                 >
                   <div className="d-flex">
                     <DateCalender
-                    defaultDate={dischargeOfCargo?.dischargeOfCargo?.dischargeEndDate}
+                      defaultDate={dischargeOfCargo?.dischargeOfCargo?.dischargeEndDate}
                       name="dischargeEndDate"
                       saveDate={saveDate}
                       labelName="Discharge End Date"

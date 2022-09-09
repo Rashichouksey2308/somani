@@ -201,6 +201,8 @@
           }
 
           span {
+            font-size: 28px;
+            line-height: 0.7;
             margin-right: 15px;
           }
         }
@@ -315,11 +317,11 @@
                   .dutyDropdown {
                     width: 125px;
                     height: 36px;
-                    border: 1px solid var(--unnamed-color-0000001f);
-                    background: #c3c3c31f;
-                    border: 1px solid #0000001f;
+                    // border: 1px solid var(--unnamed-color-0000001f);
+                    // background: #c3c3c31f;
+                    // border: 1px solid #0000001f;
                     border-radius: 4px;
-                    color: #111111;
+                    // color: #111111;
                     font-size: 19px;
                     line-height: 24px;
                     font-weight: 500;
@@ -336,12 +338,12 @@
                 font-size: 20px;
               }
               .input_field {
-                background: #c3c3c31f;
+                // background: #c3c3c31f;
                 border-radius: 4px;
                 font-size: 20px;
                 line-height: 25px;
                 letter-spacing: 0.19px;
-                color: #111111;
+                // color: #111111;
                 border: none;
                 padding: 5px 0 5px 15px;
                 width: 299px;

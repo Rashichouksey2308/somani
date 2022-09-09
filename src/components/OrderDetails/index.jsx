@@ -1,11 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
 import DateCalender from '../DateCalender'
 import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../utils/helper'
 
-const Index = ({ saveOrderData, darkMode,orderDetails }) => {
+const Index = ({ saveOrderData, darkMode, orderDetails }) => {
+  const [isFieldInFocus, setIsFieldInFocus] = useState({
+    quantity: false,
+    orderValue: false
+  })
+
   const saveDate = (value, name) => {
     // console.log(e.target.value, "this is date")
     console.log('savedata', value)
@@ -13,7 +18,7 @@ const Index = ({ saveOrderData, darkMode,orderDetails }) => {
     let text = d.toISOString()
     saveOrderData(name, text)
   }
-  console.log(orderDetails,"orderDetails")
+  console.log(orderDetails, "orderDetails")
   return (
     <div className={`${styles.main} border_color`}>
       <div className={`${styles.heading} heading_card_switch_blue`}>
@@ -54,28 +59,39 @@ const Index = ({ saveOrderData, darkMode,orderDetails }) => {
               type="text"
               id="textInput"
               name="quantity"
-                // onKeyDown={(evt) =>{
-                //   const re = /^[0-9\b]+$/;
-                //   console.log(re.test(evt.target.value),"keydone",evt.target.value)
-                //   if (re.test(evt.target.value) == false) {
-                //     // evt.preventDefault()
-                //   }
-                //   }
-                  
-                // }
+              onFocus={(e) => {
+                setIsFieldInFocus({ ...isFieldInFocus, quantity: true }),
+                  e.target.type = 'number'
+              }}
+              onBlur={(e) => {
+                setIsFieldInFocus({ ...isFieldInFocus, quantity: false }),
+                  e.target.type = 'text'
+              }}
+              // onKeyDown={(evt) =>{
+              //   const re = /^[0-9\b]+$/;
+              //   console.log(re.test(evt.target.value),"keydone",evt.target.value)
+              //   if (re.test(evt.target.value) == false) {
+              //     // evt.preventDefault()
+              //   }
+              //   }
+
+              // }
               onChange={(e) => {
-                
-                 e.target.value.replaceAll('M', '')
-                 .replaceAll('T', '')
-                  .replace(/ /g, '')
-                  console.log( e.target.value ," e.target.value ")
-                e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0)
+
+                // e.target.value.replaceAll('M', '')
+                //   .replaceAll('T', '')
+                //   .replace(/ /g, '')
+                // console.log(e.target.value, " e.target.value ")
+                // e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0)
                 saveOrderData(e.target.name, e.target.value)
               }}
-             
+              value={
+                isFieldInFocus.quantity ?
+                  orderDetails?.quantity :
+                  Number(orderDetails?.quantity).toLocaleString() + ` ${orderDetails.unitOfQuantity}`}
               className={`${styles.input_field} input form-control`}
               required
-              value={addPrefixOrSuffix(orderDetails?.quantity?.toString(),orderDetails.unitOfQuantity=="mt"?"MT":orderDetails.unitOfQuantity)}
+            // value={addPrefixOrSuffix(orderDetails?.quantity?.toString(), orderDetails.unitOfQuantity == "mt" ? "MT" : orderDetails.unitOfQuantity)}
             />
             <label
               className={`${styles.label_heading}  label_heading`}
@@ -91,16 +107,32 @@ const Index = ({ saveOrderData, darkMode,orderDetails }) => {
               type="text"
               id="textInput"
               name="orderValue"
+              // onFocus={(e) => {
+              //   setIsFieldInFocus({ ...isFieldInFocus, orderValue: true }),
+              //     e.target.type = 'number'
+              // }}
+              // onBlur={(e) => {
+              //   setIsFieldInFocus({ ...isFieldInFocus, orderValue: false }),
+              //     e.target.type = 'text'
+              // }}
+              // value={
+              //   isFieldInFocus.orderValue ?
+              //     orderDetails?.orderValue :
+              //     orderDetails?.orderValue + ` ${orderDetails.unitOfValue}`}
               onChange={(e) => {
-                 e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0)
-                // saveOrderData(e.target.name, e.target.value * 10000000)
+                // e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0)
+                //  saveOrderData(e.target.name, e.target.value * 10000000)
                 saveOrderData(e.target.name, e.target.value)
               }}
+              // onChange={(e) => {
+              //   saveOrderData(e.target.name, e.target.value)
+              // }}
               className={`${styles.input_field} input form-control`}
               value={
                 addPrefixOrSuffix(orderDetails?.orderValue?.toString(),
-              orderDetails?.unitOfValue=="Millions"?"Mn":
-              orderDetails?.unitOfValue=="Crores"?"Cr":orderDetails?.unitOfValue)}
+                  orderDetails?.unitOfValue == "Millions" ? "Mn" :
+                    orderDetails?.unitOfValue == "Crores" ? "Cr" : orderDetails?.unitOfValue)}
+        
               required
             />
             <label
@@ -140,8 +172,8 @@ const Index = ({ saveOrderData, darkMode,orderDetails }) => {
                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
                 required
               >
-                  <option >Select an option</option>
-                
+                <option >Select an option</option>
+
                 <option value="India">India</option>
                 <option value="Australia">Australia</option>
                 <option value="Sri Lanka">Sri Lanka</option>
@@ -173,7 +205,7 @@ const Index = ({ saveOrderData, darkMode,orderDetails }) => {
                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
                 required
               >
-                 <option >Select an option</option>
+                <option >Select an option</option>
                 <option value="Vishakapatnam, India">Visakhapatnam, India</option>
                 <option value="Mumbai, India">Mumbai, India</option>
                 <option value="Gujrat, India">Gujrat, India</option>

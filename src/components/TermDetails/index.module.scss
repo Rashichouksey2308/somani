@@ -65,9 +65,9 @@
       text-transform: capitalize;
     }
     .form_group {
-      margin-top: 41px;
+      margin-top: 42px;
       position: relative;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       @include respond(phone) {
         margin-top: 20px;
       }
