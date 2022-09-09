@@ -127,7 +127,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
       e.preventDefault()
     }
   }
-console.log(warehouseDetails,'warehouseDetails')
+console.log(customData,'warehouseDetails')
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -191,16 +191,16 @@ console.log(warehouseDetails,'warehouseDetails')
                       onKeyPress={preventMinus}
                       onFocus={(e) => {
                         setIsWarehouseQuantityInFocus(true),
-                          e.target.type === 'number'
+                          e.target.type = 'number'
                       }}
                       onBlur={(e) => {
                         setIsWarehouseQuantityInFocus(false),
-                          e.target.type === 'text'
+                          e.target.type = 'text'
                       }}
                       value={
                         isWarehouseQuantityInFocus
                           ? warehouseDetails?.wareHouseDetails?.quantity
-                          : warehouseDetails?.wareHouseDetails?.quantity + ' MT'
+                          : Number(warehouseDetails?.wareHouseDetails?.quantity)?.toLocaleString() + ` ${_get(customData,'order.unitOfQuantity', '')}`
                       }
                       onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 

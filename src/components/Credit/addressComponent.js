@@ -29,7 +29,7 @@ function AddressComponent({
           >
             <h5>{Title}</h5>
             <div>
-              <img
+             {index !==0 && <img
                 className={`${styles.edit_image} img-fluid mr-3`}
                 src="/static/mode_edit.svg"
                 alt="edit"
@@ -37,8 +37,8 @@ function AddressComponent({
                   console.log('index', index)
                   editAddress(index)
                 }}
-              />
-              <img
+              />}
+            { index !==0 &&  <img
                 onClick={() => {
                   // console.log('index', index)
                   deleteComponent(index)
@@ -46,7 +46,7 @@ function AddressComponent({
                 src="/static/delete 2.svg"
                 className="img-fluid"
                 alt="delete"
-              />
+              />}
             </div>
           </div>
           <div className={`${styles.address_values}`}>

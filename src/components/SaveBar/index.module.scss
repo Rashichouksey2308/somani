@@ -2,7 +2,7 @@
 .root {
     left: 0;
     right: 0;
-    bottom: 42px;
+    bottom: 42px; 
     position: fixed;
     z-index: 4;
     height: 84px;
@@ -62,4 +62,10 @@
             font-size: 12px;
         }
     }
+}
+.no_sidebar {
+    margin-left: 102px !important;  
+}
+.no_sidebar_mobile {
+    margin-left: 0px !important;
 }

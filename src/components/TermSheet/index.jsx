@@ -27,7 +27,7 @@ const Index = () => {
   const [otherTermsAndConditions, setOtherTermConditions] = useState({})
   const [additionalComments, setAdditionalComments] = useState([])
   const [order, setOrder] = useState('')
-  // console.log(termsheetDetails, 'termsheetDetails')
+   console.log(termsheetDetails, 'termsheetDetails')
   // console.log(additionalComments, 'additionalCommentType')
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const Index = () => {
               unitOfQuantity: sheet?.order?.unitOfQuantity,
               orderCurrency: sheet?.order?.orderCurrency || 'INR',
               quantity: sheet?.order?.quantity,
-              perUnitPrice: sheet?.order?.perUnitPrice,
+              perUnitPrice: sheet?.order?.perUnitPrice ?? '',
               commodity: sheet?.order?.commodity,
               tolerance: sheet?.order?.tolerance,
             },
@@ -69,11 +69,11 @@ const Index = () => {
               incoTerms: sheet?.transactionDetails?.incoTerms
                 ? sheet?.transactionDetails?.incoTerms
                 : sheet?.order?.incoTerm,
-              loadPort: sheet?.transactionDetails?.loadPort,
+              loadPort: sheet?.transactionDetails?.loadPort ?? sheet.order.shipmentDetail.portOfLoading ,
               countryOfOrigin: sheet?.transactionDetails?.countryOfOrigin
                 ? sheet?.transactionDetails?.countryOfOrigin
                 : sheet?.order?.countryOfOrigin,
-              shipmentType: sheet?.transactionDetails?.shipmentType,
+              shipmentType: sheet?.transactionDetails?.shipmentType ?? sheet.order.shipmentDetail.shipmentType,
                 
               partShipmentAllowed:
                 sheet?.transactionDetails?.partShipmentAllowed,
@@ -92,7 +92,7 @@ const Index = () => {
                 sheet?.paymentDueDate?.daysFromVesselDischargeDate,
             },
             commercials: {
-              tradeMarginPercentage: sheet?.commercials?.tradeMarginPercentage,
+              tradeMarginPercentage: sheet?.commercials?.tradeMarginPercentage ?? '',
               lcOpeningValue: sheet?.commercials?.lcOpeningValue,
               lcOpeningCurrency: sheet?.commercials?.lcOpeningCurrency,
               lcOpeningChargesUnit:
@@ -248,7 +248,7 @@ const Index = () => {
         })
     }
   }, [termsheet])
-  // console.log(otherTermsAndConditions, "otherTerms")
+   console.log(otherTermsAndConditions, "otherTerms")
 
   useEffect(() => {
     termsheet?.data?.map((sheets) => {
@@ -580,7 +580,6 @@ const Index = () => {
       return
     }
          if (
-      termsheetDetails.transactionDetails.thirdPartyInspectionReq == '' ||
       termsheetDetails.transactionDetails.thirdPartyInspectionReq == undefined
     ) {
       let toastMessage = 'Please add third Party InspectionReq'
@@ -708,7 +707,7 @@ const Index = () => {
       termsheetDetails.commercials.forexHedging == '' ||
       termsheetDetails.commercials.forexHedging == undefined
     ) {
-      let toastMessage = 'Please add forex Hedging '
+      let toastMessage = 'Please Select  forex Hedging '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
@@ -729,6 +728,15 @@ const Index = () => {
       termsheetDetails.commercials.version == undefined
     ) {
       let toastMessage = 'Please add version '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }if (
+      otherTermsAndConditions.buyer.bank === '' ||
+      otherTermsAndConditions.buyer.bank == undefined
+    ) {
+      let toastMessage = 'please select a Bank in other Terms and Conditions'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
