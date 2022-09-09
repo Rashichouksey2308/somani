@@ -125,7 +125,7 @@ console.log(props?.order?.supplierName,"props?.order?.supplierName")
       
       let savedData=JSON.parse(sessionStorage.getItem("Supplier"))
       let supplier={
-       "name": props?.order?.supplierName,
+       "name": savedData.name || props?.order?.supplierName,
         "shortName": savedData.shortName,
         "bankDetails": {
             "bankName": savedData.bankDetails.bankName,
@@ -603,7 +603,7 @@ setEditAddress(
                 name="name"
                 value={supplierState.name}
                 onChange={(e) => {
-                  // handleInput(e.target.name,e.target.value)
+                  handleInput(e.target.name,e.target.value)
                 }}
               />
               <Form.Label className={`${styles.label_heading} label_heading`}>
@@ -667,8 +667,10 @@ setEditAddress(
                   name="accountNo"
                     value={supplierState.bankDetails.accountNo}
                   onChange={(e) => {
-                  handleInput(e.target.name,e.target.value,"bankName")
-                }}
+                      let temp =  e.target.value.replace(/[^\w\s]/gi, "")
+
+                      handleInput(e.target.name,temp,"bankName")
+                  }}
                 />
                 <Form.Label
                   className={`${styles.label_heading} label_heading`}
@@ -683,8 +685,11 @@ setEditAddress(
                   type="text"
                   name="swiftCode"
                   value={supplierState.bankDetails.swiftCode}
+                 
                   onChange={(e) => {
-                    handleInput(e.target.name,e.target.value,"bankName")
+                      let temp =  e.target.value.replace(/[^\w\s]/gi, "")
+
+                      handleInput(e.target.name,temp,"bankName")
                   }}
                 />
                 <Form.Label
@@ -851,7 +856,7 @@ setEditAddress(
                 </Form.Group>
                 </>
                 :<>
-                <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
+                {/* <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                   <div className="d-flex">
                     <select
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
@@ -876,7 +881,7 @@ setEditAddress(
                       alt="Search"
                     />
                   </div>
-                </Form.Group>
+                </Form.Group> */}
                 <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
                   <Form.Control
                     className={`${styles.input_field} input form-control`}
@@ -1091,9 +1096,10 @@ setEditAddress(
                             />
                           </td>
                           <td>
-                            <input type="text" placeholder={val.phoneNo}
+                            <input  value={val.phoneNo}
                               className='input'
                               name= "phoneNo"
+                             type="number"
                               onChange={(e)=>{
                                 handleChangeInput2(e.target.name,e.target.value,index)
                               }}

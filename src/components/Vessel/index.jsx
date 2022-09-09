@@ -152,6 +152,7 @@ function Index({
 
                         {list[index].shipmentType === 'Bulk' ? (
                           <>
+                           {index==0?
                             <button
                               className={styles.add_btn}
                               onClick={(e) => {
@@ -159,7 +160,7 @@ function Index({
                               }}
                             >
                               Add
-                            </button>
+                            </button>:null}
                             {index > 0 ? (
                               <button
                                 className={styles.add_btn}
@@ -768,12 +769,14 @@ function Index({
                                 <h3 className={styles.sub_heading}>
                                   Vessel Information
                                 </h3>
+                                {index==0?
                                 <button
                                   onClick={() => OnAddvesselInformation()}
                                   className={styles.add_btn}
                                 >
                                   Add
                                 </button>
+                                :null}
                                 {index > 0 ? (
                                   <button
                                     onClick={() =>
