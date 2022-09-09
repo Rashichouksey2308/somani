@@ -1,9 +1,15 @@
 import React from 'react'
 import styles from './index.module.scss'
+import { useSelector } from 'react-redux'
 
 function index({ barName, openbar,download }) {
+  const sidebar = useSelector((state) => state.sidebar.show_sidebar)
+  const isMobile = useSelector((state) => state.sidebar.isMobile)
   return (
-    <div className={`${styles.root} cta_bar`}>
+    <div className={`${styles.root} ${
+      !sidebar ? styles.no_sidebar : null
+    }
+    ${isMobile ? styles.no_sidebar_mobile : null} cta_bar`}>
       <div className={styles.reject}
       onClick={()=>{
         if(download){
