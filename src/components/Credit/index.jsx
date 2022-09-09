@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { UploadDocument } from 'redux/registerBuyer/action'
-import { phoneValidation } from 'utils/helper'
+import { checkNan, phoneValidation } from 'utils/helper'
 import styles from './index.module.scss'
 import DateCalender from '../DateCalender'
 import { Form, Row, Col } from 'react-bootstrap'
@@ -116,7 +116,7 @@ const index = ({
   console.log(keyNameList, 'THIS IS DEBT')
 
   const handleDebtChange = (name, value, index) => {
-    console.log(name, value, index, 'name,value')
+    console.log(name, value, index, 'debtData123')
     let tempArr = debtData
     tempArr.forEach((val, i) => {
       if (i == index) {
@@ -326,7 +326,7 @@ const index = ({
                   value={
                     isFieldInFocus.monthlyCapacity ?
                     creditDetail?.monthlyProductionCapacity:
-                      Number(creditDetail?.monthlyProductionCapacity)?.toLocaleString() + ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`}
+                      checkNan(Number(creditDetail?.monthlyProductionCapacity))?.toLocaleString() + ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`}
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.monthlyProductionCapacity,
                   //   creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
@@ -347,7 +347,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                    onFocus={(e) => {
+                  onFocus={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, capacityUtilization: true }),
                       e.target.type = 'number'
                   }}
@@ -357,8 +357,8 @@ const index = ({
                   }}
                   value={
                     isFieldInFocus.capacityUtilization ?
-                    creditDetail?.capacityUtilization:
-                      Number(creditDetail?.capacityUtilization)?.toLocaleString() + ' %'}
+                      creditDetail?.capacityUtilization :
+                      checkNan(Number(creditDetail?.capacityUtilization))?.toLocaleString() + ' %'}
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.capacityUtilization,
                   //   '%',
@@ -390,8 +390,8 @@ const index = ({
                   }}
                   value={
                     isFieldInFocus.avgStockinCommodity ?
-                    creditDetail?.averageStockOfCommodity:
-                      Number(creditDetail?.averageStockOfCommodity)?.toLocaleString() + ` ${ creditDetail?.unitOfQuantity?.toUpperCase()}`}
+                      creditDetail?.averageStockOfCommodity :
+                      checkNan(Number(creditDetail?.averageStockOfCommodity))?.toLocaleString() + ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`}
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.averageStockOfCommodity,
                   //   creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
@@ -424,8 +424,8 @@ const index = ({
                   }}
                   value={
                     isFieldInFocus.avgStockinTrasit ?
-                    creditDetail?.averageStockInTransit:
-                      Number(creditDetail?.averageStockInTransit)?.toLocaleString() + ` ${ creditDetail?.unitOfQuantity?.toUpperCase()}`}
+                      creditDetail?.averageStockInTransit :
+                      checkNan(Number(creditDetail?.averageStockInTransit))?.toLocaleString() + ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`}
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.averageStockInTransit,
                   //   creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
@@ -456,8 +456,8 @@ const index = ({
                   }}
                   value={
                     isFieldInFocus.availableStock ?
-                    creditDetail?.availableStock:
-                      Number(creditDetail?.availableStock)?.toLocaleString() + ` ${ creditDetail?.unitOfQuantity?.toUpperCase()}`}
+                      creditDetail?.availableStock :
+                      checkNan(Number(creditDetail?.availableStock))?.toLocaleString() + ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`}
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.availableStock,
                   //   creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
@@ -487,8 +487,8 @@ const index = ({
                   }}
                   value={
                     isFieldInFocus.dailyConsumptionOfCommodity ?
-                    creditDetail?.dailyConsumptionOfCommodity:
-                      Number(creditDetail?.dailyConsumptionOfCommodity)?.toLocaleString() + ` ${ creditDetail?.unitOfQuantity?.toUpperCase()}`}
+                      creditDetail?.dailyConsumptionOfCommodity :
+                      checkNan(Number(creditDetail?.dailyConsumptionOfCommodity))?.toLocaleString() + ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`}
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.dailyConsumptionOfCommodity,
                   //   creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
@@ -657,8 +657,8 @@ const index = ({
                   }}
                   value={
                     isFieldInFocus.AvgMonthlyElectricityBill ?
-                    creditDetail?.AvgMonthlyElectricityBill:
-                    'INR ' +  Number(creditDetail?.AvgMonthlyElectricityBill)?.toLocaleString() }
+                      creditDetail?.AvgMonthlyElectricityBill :
+                      'INR ' + checkNan(Number(creditDetail?.AvgMonthlyElectricityBill))?.toLocaleString()}
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.AvgMonthlyElectricityBill,
                   //   'INR',
@@ -1958,17 +1958,17 @@ const index = ({
                                 index,
                               )
                             }
-                            value={profile?.bankName}
-                            name="bankName"
-                            className={`${styles.dropDown} heading input`}
-                            disabled={!profile.actions}
-                          >
-                            <option disabled>Select an option</option>
-                            {FilterUniqueBank().map((item) => (
-                              <option value={item}>{item}</option>
-                            ))}
-                          </select>
-                          {/* <input
+                              // value={profile?.bankName}
+                              name="bankName"
+                              className={`${styles.dropDown} heading input`}
+                              disabled={!profile.actions}
+                            >
+                              <option disabled>Select an option</option>
+                              {FilterUniqueBank().map((item) => (
+                                <option value={item}>{item}</option>
+                              ))}
+                            </select>
+                            {/* <input
                             name="bankName"
                             className="input"
                             disabled={!profile.actions}
@@ -1981,106 +1981,106 @@ const index = ({
                               )
                             }
                           /> */}
-                        </td>
-                        <td>
-                          <select
-                            onChange={(e) =>
-                              handleDebtChange(
-                                e.target.name,
-                                e.target.value,
-                                index,
-                              )
-                            }
-                            value={profile?.limitType}
-                            name="limitType"
-                            className={`${styles.dropDown} heading input`}
-                            disabled={!profile.actions}
-                          >
-                            <option disabled>Select an option</option>
-                            <option value="Cash Credit">Cash Credit</option>
-                            <option value="Bank Guarantee">
-                              Bank Guarantee
-                            </option>
-                            <option value="Post Ship Credit">
-                              Post Ship Credit
-                            </option>
-                            <option value="LC Limits">LC Limits</option>
-                            <option value="Buyers Credit">Buyers Credit</option>
-                            <option value="Term Loan">Term Loan</option>
-                            <option value="Packing Credit">
-                              Packing Credit
-                            </option>
-                          </select>
-                        </td>
+                          </td>
+                          <td>
+                            <select
+                              onChange={(e) =>
+                                handleDebtChange(
+                                  e.target.name,
+                                  e.target.value,
+                                  index,
+                                )
+                              }
+                              // value={profile?.limitType}
+                              name="limitType"
+                              className={`${styles.dropDown} heading input`}
+                              disabled={!profile.actions}
+                            >
+                              <option disabled>Select an option</option>
+                              <option value="Cash Credit">Cash Credit</option>
+                              <option value="Bank Guarantee">
+                                Bank Guarantee
+                              </option>
+                              <option value="Post Ship Credit">
+                                Post Ship Credit
+                              </option>
+                              <option value="LC Limits">LC Limits</option>
+                              <option value="Buyers Credit">Buyers Credit</option>
+                              <option value="Term Loan">Term Loan</option>
+                              <option value="Packing Credit">
+                                Packing Credit
+                              </option>
+                            </select>
+                          </td>
 
-                        <td>
-                          <input
-                            className="input"
-                            name="limit"
-                            disabled={!profile.actions}
-                            onChange={(e) =>
-                              handleDebtChange(
-                                e.target.name,
-                                e.target.value,
-                                index,
-                              )
-                            }
-                            defaultValue={profile.limit}
+                          <td>
+                            <input
+                              className="input"
+                              name="limit"
+                              disabled={!profile.actions}
+                              onChange={(e) =>
+                                handleDebtChange(
+                                  e.target.name,
+                                  e.target.value,
+                                  index,
+                                )
+                              }
+                              // value={profile?.limit}
                             // readOnly={!saveTable}
-                          />
-                        </td>
-
-                        <td>
-                          <select
-                            onChange={(e) =>
-                              handleDebtChange(
-                                e.target.name,
-                                e.target.value,
-                                index,
-                              )
-                            }
-                            name="conduct"
-                            className={`${styles.dropDown} heading input`}
-                            disabled={!profile.actions}
-                          >
-                            <option>{profile.conduct}</option>
-                            <option value="Good">Good</option>
-                            <option value="Satisfactory">Satisfactory</option>
-                            <option value="Average">Average</option>
-                            <option value="Poor">Poor</option>
-                          </select>
-                        </td>
-                        <td>
-                          <div>
-                            {!profile.actions ? (
-                              <img
-                                src="/static/mode_edit.svg"
-                                className={`${styles.edit_image} mr-3`}
-                                onClick={() => {
-                                  setActions(index, true)
-                                }}
-                              />
-                            ) : (
-                              <img
-                                src="/static/save-3.svg"
-                                className={`${styles.edit_image} mr-3`}
-                                alt="save"
-                                onClick={(e) => {
-                                  setActions(index, false)
-                                }}
-                              />
-                            )}
-                            <img
-                              src="/static/delete 2.svg"
-                              className={`${styles.delete_image}`}
-                              onClick={() => {
-                                handleRemoveRow(index)
-                              }}
-                              alt="delete"
                             />
-                          </div>
-                        </td>
-                      </tr>
+                          </td>
+
+                          <td>
+                            <select
+                              onChange={(e) =>
+                                handleDebtChange(
+                                  e.target.name,
+                                  e.target.value,
+                                  index,
+                                )
+                              }
+                              name="conduct"
+                              className={`${styles.dropDown} heading input`}
+                              disabled={!profile.actions}
+                            >
+                              <option>{profile.conduct}</option>
+                              <option value="Good">Good</option>
+                              <option value="Satisfactory">Satisfactory</option>
+                              <option value="Average">Average</option>
+                              <option value="Poor">Poor</option>
+                            </select>
+                          </td>
+                          <td>
+                            <div>
+                              {!profile.actions ? (
+                                <img
+                                  src="/static/mode_edit.svg"
+                                  className={`${styles.edit_image} mr-3`}
+                                  onClick={() => {
+                                    setActions(index, true)
+                                  }}
+                                />
+                              ) : (
+                                <img
+                                  src="/static/save-3.svg"
+                                  className={`${styles.edit_image} mr-3`}
+                                  alt="save"
+                                  onClick={(e) => {
+                                    setActions(index, false)
+                                  }}
+                                />
+                              )}
+                              <img
+                                src="/static/delete 2.svg"
+                                className={`${styles.delete_image}`}
+                                onClick={() => {
+                                  handleRemoveRow(index)
+                                }}
+                                alt="delete"
+                              />
+                            </div>
+                          </td>
+                        </tr>
                     ))}
                   </tbody>
                 </table>
