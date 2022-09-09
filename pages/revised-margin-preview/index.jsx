@@ -47,7 +47,7 @@ function Index() {
 
     //  ];
     let element = (
-      <table width="600px" cellPadding="0" cellSpacing="0" border="0">
+      <table width="1000px" cellPadding="0" cellSpacing="0" border="0">
         <tr>
           <td valign="top">
             <table
@@ -66,7 +66,7 @@ function Index() {
             >
               <tr>
                 <td valign="top" align="left" width="33%">
-                  <p
+                  <span
                     style={{
                       fontSize: '20px',
                       color: '#111111',
@@ -83,8 +83,8 @@ function Index() {
                         opacity: '0.7',
                       }}
                     ></span>
-                  </p>
-                  <p
+                  </span><br/>
+                  <span
                     style={{
                       fontSize: '20px',
                       color: '#111111',
@@ -93,7 +93,9 @@ function Index() {
                       paddingLeft: '25px',
                     }}
                   >
-                    Buyer:{' '}
+                    <span style={{display: 'inline-block', paddingLeft: '25px', width: '90px', float:'left', height:'50px'}}>
+                      Buyer:{' '}
+                    </span>
                     <span
                       style={{
                         lineHeight: '24px',
@@ -103,7 +105,7 @@ function Index() {
                     >
                       {/* {_get(termsheet, 'data[0].company.companyName', '')} */}
                     </span>
-                  </p>
+                  </span>
                 </td>
                 <td valign="top" align="center" width="34%">
                   <h2
@@ -119,11 +121,11 @@ function Index() {
                   </h2>
                 </td>
                 <td valign="top" align="right" width="33%">
-                  <p>
+                  <span>
                     {' '}
                     <span></span>
-                  </p>
-                  <p
+                  </span>
+                  <span
                     style={{
                       fontSize: '20px',
                       color: '#111111',
@@ -142,7 +144,7 @@ function Index() {
                     >
                       22-02-2022
                     </span>
-                  </p>
+                  </span>
                 </td>
               </tr>
             </table>
@@ -157,6 +159,7 @@ function Index() {
                 fontFamily: 'Arial, Helvetica, sans-serif',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
+                border: '2px solid #cad6e64d'
               }}
               cellPadding="0"
               cellSpacing="0"
