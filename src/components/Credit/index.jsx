@@ -154,7 +154,7 @@ const index = ({
   }
 
 
-  const [keyPersonData, setKeyPersonData] = useState(personData, {
+  const [keyPersonData, setKeyPersonData] = useState({
     contact: {
       callingCode: '',
       number: '',
@@ -166,6 +166,7 @@ const index = ({
   })
 
   useEffect(() => {
+
     setKeyPersonData(personData)
   }, [personData])
 
@@ -178,7 +179,7 @@ const index = ({
     } else {
       newInput[key][e.target.name] = e.target.value
     }
-    setKeyPersonData(newInput)
+    setKeyPersonData([...newInput])
   }
 
   const onKeyPersonSave = () => {
@@ -982,7 +983,7 @@ const index = ({
                 </label>
               </div>
             </div>
-            <div className={`${styles.saveButton} mt-4 mb-4`}>
+            {/* <div className={`${styles.saveButton} mt-4 mb-4`}>
               <div
                 className={`${styles.button} d-flex justify-content-center align-items-center ml-0`}
                 onClick={() => {
@@ -993,7 +994,7 @@ const index = ({
               >
                 <span>Save</span>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -1120,7 +1121,7 @@ const index = ({
                             className="input"
                             defaultValue={person.contact.number}
                             name="contact.number"
-                            // onChange={(e)=>{handlePersonChange(e,index)}}
+                            onChange={(e)=>{handlePersonChange(e,index)}}
                             onBlur={(e) => {
                               if (phoneValidation(e.target.value)) {
                                 handlePersonChange(e, index)
