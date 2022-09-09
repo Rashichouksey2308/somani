@@ -87,7 +87,7 @@
     }
     .cardBody {
       padding: 0px;
-      border-top: 2px solid #cad6e6 !important;
+      border-top: 2px solid #cad6e6;
       .content {
         .header {
           padding: 25px 35px !important;
@@ -225,6 +225,7 @@
           position: relative;
           box-sizing: border-box;
           padding-right: 40px;
+          padding-top: 15px;
           &:invalid + label {
             //background: none;
             transform: translateY(0);
@@ -297,12 +298,22 @@
             padding-left: 30px;
             opacity: 0.7;
           }
-          .paragraph {
-            line-height: 25px;
-            letter-spacing: 0.19px;
-            font-size: 20px;
-            width: 85%;
-            box-shadow: none;
+          .textarea_main {
+              padding: 20px 0;
+              border-bottom: 1px solid #D9DDE8;
+              .paragraph {
+                  line-height: 25px;
+                  letter-spacing: 0.19px;
+                  font-size: 20px;
+                  width: 85%;
+                  border: none;
+                  box-shadow: none;
+                  background: none;
+              }
+              &:last-child {
+                  padding-bottom: 0;
+                  border-bottom: none;
+              }
           }
           .label_heading {
             font-size: 16px;
@@ -339,6 +350,24 @@
             box-shadow: none;
             position: relative;
             box-sizing: border-box;
+          }
+        }        
+        .image {
+          padding: 10px 9px;
+          border-radius: 4px;
+          background: #c3c3c31f;
+          border: 1px solid #0000001f;
+          @include respond(md-desktop) {
+            height: 30px;
+            padding: 7px;
+          }
+          @include respond(sm-desktop) {
+            height: 28px;
+            padding: 6px;
+          }
+          @include respond(phone) {
+            height: 25px;
+            padding: 5px;
           }
         }
       }

@@ -633,7 +633,7 @@ function Index({
                     {lcDocuments?.map((comment, index) => (
                       <div
                         key={index}
-                        className="d-flex justify-content-between pt-4 pb-3"
+                        className={`${styles.textarea_main} d-flex border_color justify-content-between`}
                       >
                         <div className={`${styles.number} mr-n3`}>
                           {getSn(index)}
@@ -648,10 +648,10 @@ function Index({
                             lcDocEdit(e, index)
                           }}
                         />
-                        <div>
+                        <div className="mt-3">
                           <img
                             src="/static/mode_edit.svg"
-                            className="img-fluid"
+                            className={`${styles.image} ml-4`}
                             alt="edit"
                             onClick={(e) => {
                               setEditStren(!editStren)
@@ -659,7 +659,7 @@ function Index({
                           />
                           <img
                             src="/static/delete 2.svg"
-                            className="img-fluid ml-3"
+                            className="ml-4"
                             alt="delete"
                             onClick={() => {
                               deleteLcDoc(index)
@@ -696,7 +696,7 @@ function Index({
                     {lcComments?.map((comment, index) => (
                       <div
                         key={index}
-                        className="d-flex justify-content-between pt-4 pb-3"
+                        className={`${styles.textarea_main} d-flex border_color justify-content-between`}
                       >
                         <div className={`${styles.number} mr-n3`}>
                           {getSn(index)}
@@ -711,10 +711,10 @@ function Index({
                             lcConditionEdit(e, index)
                           }}
                         />
-                        <div>
+                        <div className="mt-3">
                           <img
                             src="/static/mode_edit.svg"
-                            className="img-fluid"
+                            className={`${styles.image} ml-4`}
                             alt="edit"
                             onClick={(e) => {
                               setEdit(!edit)
@@ -723,7 +723,7 @@ function Index({
 
                           <img
                             src="/static/delete 2.svg"
-                            className="img-fluid ml-3"
+                            className="ml-4"
                             alt="delete"
                             onClick={() => {
                               deleteLcCondition(index)
@@ -735,7 +735,7 @@ function Index({
                   </div>
                 </div>
                 <div
-                  className={`${styles.dashboard_form}`}
+                  className={`${styles.dashboard_form} border_color`}
                   style={{ borderTop: '2px solid #CAD6E6' }}
                 >
                   <div className={styles.doc_card}>
@@ -744,15 +744,15 @@ function Index({
                         <div className={`${styles.number}`}>2.</div>
                         <h5>PRODUCT SPECIFICATION</h5>
                       </div>
-                      {/* <div>
+                      {/* <div className="mt-3">
                         <img
                           src="/static/mode_edit.svg"
-                          className="img-fluid"
+                          className={`${styles.image} ml-4`}
                           alt="edit"
                         />
                         <img
                           src="/static/delete 2.svg"
-                          className="img-fluid ml-3"
+                          className="ml-4"
                           alt="delete"
                         />
                       </div> */}
