@@ -69,11 +69,11 @@ const Index = () => {
               incoTerms: sheet?.transactionDetails?.incoTerms
                 ? sheet?.transactionDetails?.incoTerms
                 : sheet?.order?.incoTerm,
-              loadPort: sheet?.transactionDetails?.loadPort ?? sheet.order.shipmentDetail.portOfLoading ,
+              loadPort: sheet?.transactionDetails?.loadPort ?? sheet?.order?.shipmentDetail?.portOfLoading ,
               countryOfOrigin: sheet?.transactionDetails?.countryOfOrigin
                 ? sheet?.transactionDetails?.countryOfOrigin
                 : sheet?.order?.countryOfOrigin,
-              shipmentType: sheet?.transactionDetails?.shipmentType ?? sheet.order.shipmentDetail.shipmentType,
+              shipmentType: sheet?.transactionDetails?.shipmentType ?? sheet?.order?.shipmentDetail?.shipmentType,
                 
               partShipmentAllowed:
                 sheet?.transactionDetails?.partShipmentAllowed,
