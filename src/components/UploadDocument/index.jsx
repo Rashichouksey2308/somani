@@ -18,7 +18,7 @@ const Index = ({ uploadDocument1, uploadDocument2, docName, docName2 }) => {
 
     uploadDocument1(e)
   }
-
+console.log(docName,docName2,"docName")
   const handleClose = (e) => {
     if (e === 'Vessel Certificate') {
       setVesselCertificate(null)
