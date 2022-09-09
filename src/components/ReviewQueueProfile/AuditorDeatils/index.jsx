@@ -24,6 +24,17 @@ function Index({ directorData }) {
     }
   }, [])
   console.log(directorData, 'len')
+
+  const dscStatus = (from) => {
+    var dateFrom = moment(from, "DD-MM-YYYY");
+    var dateTo = moment(new Date(), "DD-MM-YYYY");
+
+    if (moment(dateFrom).isBefore(dateTo, 'day')) {
+      return 'Expired'
+    } else {
+      return 'Approved'
+    }
+  }
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -38,7 +49,7 @@ function Index({ directorData }) {
           <span>+</span>
         </div>
         {directorData?.profile?.directorDetail?.length == 0 ||
-        directorData?.profile?.directorDetail == undefined ? (
+          directorData?.profile?.directorDetail == undefined ? (
           <div
             key={index}
             id={`directorDetails`}
@@ -87,11 +98,10 @@ function Index({ directorData }) {
                       </div>
                       <div className={`${styles.downArrow} `}>
                         <img
-                          src={`${
-                            darkMode
-                              ? `/static/white-arrow.svg`
-                              : `/static/arrow-right.svg`
-                          }`}
+                          src={`${darkMode
+                            ? `/static/white-arrow.svg`
+                            : `/static/arrow-right.svg`
+                            }`}
                           alt="arrow right"
                           className="img-fluid image_arrow"
                         />
@@ -371,15 +381,14 @@ function Index({ directorData }) {
                                 //     ? 'Expired'
                                 //     : 'Approved'
                                 //   : ''}
-                                className={`${
-                                  director?.dscExpiryDate !== null
-                                    ? moment(director?.dscExpiryDate).isBefore(
-                                        moment(new Date()),
-                                      )
-                                      ? styles.danger
-                                      : styles.success
-                                    : styles.black
-                                }`}
+                                className={`${director?.dscExpiryDate !== null
+                                  ? moment(director?.dscExpiryDate).isBefore(
+                                    moment(new Date()),
+                                  )
+                                    ? styles.danger
+                                    : styles.success
+                                  : styles.black
+                                  }`}
                               >
                                 {director?.din}
                               </span>
@@ -394,23 +403,23 @@ function Index({ directorData }) {
                               <label className={`accordion_Text`}>
                                 DSC Status
                               </label>
+                              {director?.dscExpiryDate === null ? '' : dscStatus(director?.dscExpiryDate)}
 
-                              {director?.dscExpiryDate !== null
-                                ? moment(director?.dscExpiryDate).isBefore(
-                                    moment(new Date()),
-                                  )
+                              {/* {director?.dscExpiryDate !== null
+                                ? moment(director?.dscExpiryDate?.toISOString()).isBefore(
+                                  moment('2022-10-07T12:56:52.068Z'),
+                                )
                                   ? 'Expired'
                                   : 'Approved'
-                                : ''}
+                                : ''} */}
                             </div>
 
                             <div className={`${styles.downArrow} `}>
                               <img
-                                src={`${
-                                  darkMode
-                                    ? `/static/white-arrow.svg`
-                                    : `/static/arrow-right.svg`
-                                }`}
+                                src={`${darkMode
+                                  ? `/static/white-arrow.svg`
+                                  : `/static/arrow-right.svg`
+                                  }`}
                                 alt="arrow right"
                                 className="img-fluid image_arrow"
                               />
@@ -646,11 +655,11 @@ function Index({ directorData }) {
                                 <span>
                                   {otherAssociates} (
                                   {
-                                   isArray( _get(
+                                    isArray(_get(
                                       director,
                                       `otherAssociatedEntities${otherAssociates}`,
                                       [],
-                                    )) ?  _get(
+                                    )) ? _get(
                                       director,
                                       `otherAssociatedEntities${otherAssociates}`,
                                       [],
@@ -667,7 +676,7 @@ function Index({ directorData }) {
                                   >
                                     <thead>
                                       <tr>
-                                        <th className="text_light">CIN</th>                                        
+                                        <th className="text_light">CIN</th>
                                         <th className="text_light">ENTITY NAME</th>
                                         <th className="text_light">TENURE START DATE</th>
                                         <th className="text_light">TENURE END DATE</th>
@@ -691,19 +700,19 @@ function Index({ directorData }) {
                                                 {' '}
                                                 {fromDate
                                                   ? moment(
-                                                      fromDate?.slice(0, 10),
-                                                      'YYYY-MM-DD',
-                                                      true,
-                                                    ).format('DD-MM-YYYY')
+                                                    fromDate?.slice(0, 10),
+                                                    'YYYY-MM-DD',
+                                                    true,
+                                                  ).format('DD-MM-YYYY')
                                                   : ''}
                                               </td>
                                               <td className='text-color'>
                                                 {toDate
                                                   ? moment(
-                                                      toDate?.slice(0, 10),
-                                                      'YYYY-MM-DD',
-                                                      true,
-                                                    ).format('DD-MM-YYYY')
+                                                    toDate?.slice(0, 10),
+                                                    'YYYY-MM-DD',
+                                                    true,
+                                                  ).format('DD-MM-YYYY')
                                                   : ''}
                                               </td>
                                             </tr>

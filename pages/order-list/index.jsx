@@ -59,7 +59,7 @@ function Index() {
   //                                 ? 'Approved'
   //                                 : 'Rejected'
   const handleRoute = (buyer) => {
-    sessionStorage.setItem('orderID', buyer._id)
+    sessionStorage.setItem('orderID1', buyer._id)
     sessionStorage.setItem('company', buyer.company._id)
     // console.log(buyer,'butyer')
 
