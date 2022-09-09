@@ -26,7 +26,7 @@ function Index({
   }, [dispatch, currentPage])
 
   return (
-    <div className={`${styles.datatable} datatable card`}>
+    <div className={`${styles.datatable} border datatable card`}>
       <div
         className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
       >

@@ -46,16 +46,16 @@ function Index() {
     dispatch(setPageName('payment'))
     dispatch(setDynamicName(ReleaseOrderData?.data[0]?.company.companyName))
     dispatch(setPageTabName('release'))
-  }, [ReleaseOrderData])
+
 
 
     dispatch(
       getBreadcrumbValues({
-        // companyId: companyOrderId,
+         companyId: ReleaseOrderData?.data[0]?.order?.orderId,
         companyName: ReleaseOrderData?.data[0]?.company?.companyName,
       }),
     )
-  // }, [ReleaseOrderData])
+  }, [ReleaseOrderData])
 
     useEffect(() => {
         let temp=[];
@@ -449,8 +449,9 @@ useEffect(() => {
       deliveryDetail: newarr,
       lastMileDelivery: Boolean(lastMileDelivery),
     }
+    let task = 'save'
     //console.log(payload,ReleaseOrderData, 'releaseOrderDate')
-    await dispatch(UpdateDelivery(payload))
+    await dispatch(UpdateDelivery({payload, task}))
   }
   const removeLiftinDoc = (type, index1, index2) => {
     let temp = [...lifting]

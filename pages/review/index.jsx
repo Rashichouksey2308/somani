@@ -298,6 +298,7 @@ function Index() {
   console.log(orderList, 'termsheetOrder')
   // useEffect(() => {
 
+
   const id = sessionStorage.getItem('orderID')
 
   const [selectedTab, setSelectedTab] = useState('Profile')
@@ -694,21 +695,23 @@ function Index() {
         ? orderList?.productSummary?.unitOfQuantity
         : orderList?.unitOfQuantity,
     })
-    setSupplierCred({
-      HSCodesNumber: orderList?.supplierCredential?.HSCodesNumber,
+    let tempSupplierCredentials = {
+      ...supplierCred,
+      HSCodesNumber: orderList?.supplierCredential?.HSCodesNumber ?? '',
       commodityOfTotalTrade:
-        orderList?.supplierCredential?.commodityOfTotalTrade,
-      consigneesNumber: orderList?.supplierCredential?.consigneesNumber,
-      countryOfOrigin: orderList?.supplierCredential?.countryOfOrigin,
-      latestShipmentDate: orderList?.supplierCredential?.latestShipmentDate,
-      oldestShipmentDate: orderList?.supplierCredential?.oldestShipmentDate,
-      portOfDestination: orderList?.supplierCredential?.portOfDestination,
-      remarks: orderList?.supplierCredential?.remarks,
-      shipmentNumber: orderList?.supplierCredential?.shipmentNumber,
-      supplierName: orderList?.supplierCredential?.supplierName
+        orderList?.supplierCredential?.commodityOfTotalTrade ?? '',
+      consigneesNumber: orderList?.supplierCredential?.consigneesNumber ?? '',
+      countryOfOrigin: orderList?.supplierCredential?.countryOfOrigin ?? '',
+      latestShipmentDate: orderList?.supplierCredential?.latestShipmentDate ?? '',
+      oldestShipmentDate: orderList?.supplierCredential?.oldestShipmentDate ?? '',
+      portOfDestination: orderList?.supplierCredential?.portOfDestination ?? '',
+      remarks: orderList?.supplierCredential?.remarks ?? '',
+      shipmentNumber: orderList?.supplierCredential?.shipmentNumber ?? '',
+      supplierName: orderList?.supplierCredential?.supplierName ?? ''
         ? orderList?.supplierCredential?.supplierName
         : orderList?.supplierName,
-    })
+    }
+    setSupplierCred(tempSupplierCredentials)
   }, [orderList])
 
   const handleProductSave = () => {
@@ -906,19 +909,20 @@ function Index() {
     },
   ])
 
-  const [personData, setPersonData] = useState([
-    {
-      contact: {
-        callingCode: orderList?.company?.keyContactPerson?.contact?.callingCode,
-        number: orderList?.company?.keyContactPerson?.contact?.number,
-      },
-      department: orderList?.company?.keyContactPerson?.department,
-      designation: orderList?.company?.keyContactPerson?.designation,
-      email: orderList?.company?.keyContactPerson?.email,
-      name: orderList?.company?.keyContactPerson?.name,
-    },
-  ])
-
+  // const [personData, setPersonData] = useState([
+  //   {
+  //     contact: {
+  //       callingCode: orderList?.company?.keyContactPerson?.contact?.callingCode,
+  //       number: orderList?.company?.keyContactPerson?.contact?.number,
+  //     },
+  //     department: orderList?.company?.keyContactPerson?.department,
+  //     designation: orderList?.company?.keyContactPerson?.designation,
+  //     email: orderList?.company?.keyContactPerson?.email,
+  //     name: orderList?.company?.keyContactPerson?.name,
+  //   },
+  // ])
+  const [personData, setPersonData] = useState([])
+console.log(personData,'personData')
   // useEffect(() => {
   //   if (orderList?.company?.keyContactPerson.length > 0) {
   //     setPersonData([
@@ -961,10 +965,10 @@ function Index() {
 
     let personArr = []
     orderList?.company?.keyContactPerson?.forEach((element) => {
-      // console.log(element,"useEE")
+      //  console.log(element,"useEE")
       personArr.push(element)
     })
-    setPersonData(personArr)
+    setPersonData([...personArr])
 
     let commentFinancialArr = []
     orderList?.company?.recommendation?.commentsOnFinancials.forEach(
@@ -1015,7 +1019,7 @@ function Index() {
   })
 
   const saveSuggestedCreditData = (name, value) => {
-    console.log(name, value, '')
+    console.log(name,  value,  '')
     const newInput = { ...suggestedCredit }
     newInput[name] = value
     // console.log(newInput)
@@ -1323,13 +1327,12 @@ function Index() {
         },
         debtProfile: [...debtData],
         groupExposureDetail: [...groupExposureData],
-        suggestedOrderValue:
-          removePrefixOrSuffix(suggestedCredit.suggestedOrderValue) * 10000000,
-        suggestedCreditLimit:
-          removePrefixOrSuffix(suggestedCredit.suggestedCreditLimit) * 10000000,
+        suggestedOrderValue: removePrefixOrSuffix(suggestedCredit.suggestedOrderValue) * 10000000,
+        suggestedCreditLimit: removePrefixOrSuffix(suggestedCredit.suggestedCreditLimit) * 10000000,
       }
-      // console.log(obj, "credit obj")
-      dispatch(UpdateCredit(obj))
+      
+        // console.log(obj, "credit obj")
+        dispatch(UpdateCredit({...obj}))
     }
   }
 
@@ -1441,9 +1444,9 @@ function Index() {
           setSelectedTab(list[0].children[tempIndex].children[0].innerHTML)
           list[0].children[i].children[0].classList.remove('active')
           console.log(
-            list[0].children[tempIndex].children[0],
+            list[0].children[tempIndex].children[0], 
             'okok',
-            tab[0].children[i],
+             tab[0].children[i],
             tab[0].children,
           )
           list[0].children[tempIndex].children[0].classList.add('active')
@@ -1486,7 +1489,7 @@ function Index() {
       }),
     )
   }
-  const toPrintPdf = (camData, RevenueDetails, orderList) => {
+  const toPrintPdf = (camData, RevenueDetails,  orderList) => {
     console.log(_get, 'get')
     function calcPc(n1, n2) {
       if (n1 === 0) {
@@ -1754,46 +1757,10 @@ function Index() {
                 </td>
               </tr>
               <tr bgColor="#F7F9FF">
-                <td
-                  style={{
-                    fontSize: '20px',
-                    color: '#111111',
-                    lineHeight: '24px',
-                    paddingLeft: '35px',
-                  }}
-                >
-                  Quantity
-                </td>
-                <td
-                  style={{
-                    fontSize: '20px',
-                    color: '#111111',
-                    fontWeight: '500',
-                    lineHeight: '25px',
-                  }}
-                >
-                  {camData?.quantity} {camData?.unitOfQuantity.toUpperCase()}
-                </td>
-                <td
-                  style={{
-                    fontSize: '20px',
-                    color: '#111111',
-                    lineHeight: '24px',
-                  }}
-                >
-                  Supplier
-                </td>
-                <td
-                  style={{
-                    fontSize: '20px',
-                    color: '#111111',
-                    fontWeight: '500',
-                    lineHeight: '25px',
-                  }}
-                >
-                  {' '}
-                  {camData?.supplierName}
-                </td>
+                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px' }}>Quantity</td>
+                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px' }}>{camData?.quantity} {camData?.unitOfQuantity?.toUpperCase()}</td>
+                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px' }}>Supplier</td>
+                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px' }}> {camData?.supplierName}</td>
               </tr>
               <tr bgColor="#F7F9FF">
                 <td
@@ -2325,7 +2292,7 @@ function Index() {
                                   >
                                     {name?.map((item, index) => {
                                       if (index < 2) {
-                                        return item?.charAt(0).toUpperCase()
+                                        return item?.charAt(0)?.toUpperCase()
                                       }
                                     })}
                                   </span>{' '}
@@ -4240,47 +4207,14 @@ function Index() {
                           border="0"
                         >
                           <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
-                            <th
-                              width="50%"
-                              style={{
-                                fontSize: '22px',
-                                color: '#111111',
-                                lineHeight: '27px',
-                                fontWeight: 'bold',
-                                paddingLeft: '35px',
-                              }}
-                            >
-                              Liabilities
+                            <th width="50%" style={{ fontSize: '22px', color: '#111111', lineHeight: '27px', fontWeight: 'bold', paddingLeft: '35px' }}>Liabilities</th>
+                            <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase' }}>
+                              {moment(companyData?.financial?.balanceSheet[0]?.date).format('MMM-YY')
+                                ?.toUpperCase()}
                             </th>
-                            <th
-                              style={{
-                                fontSize: '15px',
-                                color: '#8492A6',
-                                lineHeight: '18px',
-                                fontWeight: 'bold',
-                                textTransform: 'uppercase',
-                              }}
-                            >
-                              {moment(
-                                companyData?.financial?.balanceSheet[0]?.date,
-                              )
-                                .format('MMM-YY')
-                                .toUpperCase()}
-                            </th>
-                            <th
-                              style={{
-                                fontSize: '15px',
-                                color: '#8492A6',
-                                lineHeight: '18px',
-                                fontWeight: 'bold',
-                                textTransform: 'uppercase',
-                              }}
-                            >
-                              {moment(
-                                companyData?.financial?.balanceSheet[1]?.date,
-                              )
-                                .format('MMM-YY')
-                                .toUpperCase()}
+                            <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase' }}>
+                              {moment(companyData?.financial?.balanceSheet[1]?.date).format('MMM-YY')
+                                ?.toUpperCase()}
                             </th>
                           </tr>
                           <tr>
@@ -4565,93 +4499,31 @@ function Index() {
                                 {},
                               )
                                 ?.workingCapitalTurnover?.toFixed(2)
-                                .toLocaleString()}
+                                ?.toLocaleString()}
                             </td>
                           </tr>
                           <tr>
-                            <td
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                paddingLeft: '35px',
-                              }}
-                            >
-                              Debtors period
+                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px' }}>Debtors period</td>
+                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>
+                              {_get(companyData, 'financial.ratioAnalysis[0]', {})?.daysOfSalesOutstanding
+                                ?.toFixed(2)
+                                ?.toLocaleString()}
                             </td>
-                            <td
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '25px',
-                                fontWeight: '500',
-                              }}
-                            >
-                              {_get(
-                                companyData,
-                                'financial.ratioAnalysis[0]',
-                                {},
-                              )
-                                ?.daysOfSalesOutstanding?.toFixed(2)
-                                .toLocaleString()}
-                            </td>
-                            <td
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '25px',
-                                fontWeight: '500',
-                              }}
-                            >
-                              {_get(
-                                companyData,
-                                'financial.ratioAnalysis[1]',
-                                {},
-                              )
-                                ?.daysOfSalesOutstanding?.toFixed(2)
-                                .toLocaleString()}
+                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>
+                              {_get(companyData, 'financial.ratioAnalysis[1]', {})?.daysOfSalesOutstanding
+                                ?.toFixed(2)
+                                ?.toLocaleString()}
                             </td>
                           </tr>
                           <tr>
-                            <td
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '24px',
-                                paddingLeft: '35px',
-                              }}
-                            >
-                              Creditors Perio
+                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px' }}>Creditors Perio</td>
+                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>
+                              {_get(companyData, 'financial.ratioAnalysis[0]', {})?.daysOfPayablesOutstanding
+                                ?.toFixed(2)
+                                ?.toLocaleString()}
                             </td>
-                            <td
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '25px',
-                                fontWeight: '500',
-                              }}
-                            >
-                              {_get(
-                                companyData,
-                                'financial.ratioAnalysis[0]',
-                                {},
-                              )
-                                ?.daysOfPayablesOutstanding?.toFixed(2)
-                                .toLocaleString()}
-                            </td>
-                            <td
-                              style={{
-                                fontSize: '20px',
-                                color: '#111111',
-                                lineHeight: '25px',
-                                fontWeight: '500',
-                              }}
-                            >
-                              {_get(
-                                companyData,
-                                'financial.ratioAnalysis[1]',
-                                {},
-                              )?.daysOfPayablesOutstanding?.toFixed(2)}
+                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>
+                              {_get(companyData, 'financial.ratioAnalysis[1]', {})?.daysOfPayablesOutstanding?.toFixed(2)}
                             </td>
                           </tr>
                           <tr>
@@ -6480,18 +6352,23 @@ console.log(filterType,"filtertype")
     )
   }
   useEffect(() => {
-    setKeyAddData([
-      ...keyAddData,
+    if (keyAddData.length === 0 || keyAddData === null) {
+      setKeyAddData([...keyAddData,
       {
-        addressType: 'Registered Office',
+        addressType: "Registered Office",
         completeAddress: companyData?.profile?.companyDetail?.registeredAddress,
         contact: {
           callingCode: '+91',
           number: companyData?.profile?.companyDetail?.contactNumber,
-        },
-      },
-    ])
-  }, [companyData])
+        }
+
+
+      }
+      ])
+    }
+
+  },
+    [companyData])
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -6505,9 +6382,7 @@ console.log(filterType,"filtertype")
                 onClick={() => Router.push('/credit-queue')}
               />
               <h1 className={`${styles.title} heading`}>
-                {orderList?.company?.companyName
-                  ? orderList?.company?.companyName
-                  : ''}
+                {orderList?.company?.companyName ? orderList?.company?.companyName : ""}
               </h1>
             </div>
             {selectedTab == 'CAM' ? (
@@ -7387,6 +7262,8 @@ console.log(filterType,"filtertype")
                     setEditRow={setEditRow}
                     orderDetail={orderList}
                     companyData={companyData}
+
+
                   />
                   <Recommendations
                     creditDetail={orderList}
@@ -7437,8 +7314,13 @@ console.log(filterType,"filtertype")
                     saveApprovedCreditData={saveApprovedCreditData}
                     approvedCredit={approvedCredit}
                     orderDetails={orderList}
+                    GstData={gstData}
+
+
                   />
                 </div>
+
+
               </div>
             </div>
           </div>

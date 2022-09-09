@@ -10,6 +10,8 @@ import Modal from 'react-bootstrap/Modal'
 
 export default function Index(props) {
   const [show, setShow] = useState(false)
+  const [isFieldInFocus, setIsFieldInFocus] = useState(false)
+
   const handleRoute = () => {
     Router.push('/delivery-preview')
   }
@@ -73,7 +75,7 @@ export default function Index(props) {
                           'ReleaseOrder.data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
                           '',
                         ),
-                      ).toLocaleString()}{' '}
+                      )?.toLocaleString()}{' '}
                       {_get(
                         props,
                         'ReleaseOrder.data[0].order.unitOfQuantity',
@@ -160,8 +162,21 @@ export default function Index(props) {
                               {val.isDelete ? (
                                 <div className="d-flex">
                                   <input
+                                    onFocus={(e) => {
+                                      setIsFieldInFocus(true),
+                                        e.target.type = 'number'
+                                    }}
+                                    onBlur={(e) => {
+                                      setIsFieldInFocus(false),
+                                        e.target.type = 'text'
+                                    }}
                                     type="text"
-                                    value={val.Quantity}
+                                    // value={val.Quantity}
+                                    value={
+                                      isFieldInFocus ?
+                                        val.Quantity :
+                                        Number(val.Quantity)?.toLocaleString() + ` ${_get(props, 'ReleaseOrder.data[0].order.unitOfQuantity', '')}`}
+
                                     name="Quantity"
                                     onChange={(e) => {
                                       props.deliverChange(

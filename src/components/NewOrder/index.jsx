@@ -1,11 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react'
+import React, { useState } from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 import DateCalender from '../DateCalender'
 import { addPrefixOrSuffix } from 'utils/helper'
 
 const Index = ({ saveOrderData, orderData }) => {
+  const [isFieldInFocus, setIsFieldInFocus] = useState({
+    quantity: false,
+    orderValue: false,
+    tolerance : false
+  })
   const saveDate = (value, name) => {
     const d = new Date(value)
     let text = d.toISOString()
@@ -15,7 +20,7 @@ const Index = ({ saveOrderData, orderData }) => {
   return (
     <div className={`${styles.main} vessel_card card border-color`}>
       <div
-        className={`${styles.head_container} card-header align-items-center head_container d-flex justify-content-between bg-transparent`} style={{cursor:'default'}}>
+        className={`${styles.head_container} card-header align-items-center head_container d-flex justify-content-between bg-transparent`} style={{ cursor: 'default' }}>
         <h3 className={`${styles.heading} mb-0`}>Order Summary</h3>
         <div className="d-flex">
           <div className={`${styles.unit_container} d-flex align-items-center`}>
@@ -49,7 +54,7 @@ const Index = ({ saveOrderData, orderData }) => {
                 Crores
               </option>
               <option value="Million">Million</option>
-               <option value="Lakh">Lakh</option>
+              <option value="Lakh">Lakh</option>
             </select>
           </div>
           <span data-toggle="collapse" data-target="#orderSummary" aria-expanded="true" aria-controls="orderSummary">+</span>
@@ -68,7 +73,7 @@ const Index = ({ saveOrderData, orderData }) => {
             {['radio'].map((type) => (
               <div key={`inline-${type}`} className={styles.radio_group}>
                 <Form.Check
-                defaultChecked
+                  defaultChecked
                   className={styles.radio}
                   inline
                   label="Import"
@@ -124,11 +129,24 @@ const Index = ({ saveOrderData, orderData }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  value={addPrefixOrSuffix(
-                    orderData.quantity ? orderData.quantity : 0,
-                    orderData.unitOfQuantity,
-                    '',
-                  )}
+                  onFocus={(e) => {
+                    setIsFieldInFocus({ ...isFieldInFocus, quantity: true }),
+                      e.target.type = 'number'
+                  }}
+                  onBlur={(e) => {
+                    setIsFieldInFocus({ ...isFieldInFocus, quantity: false }),
+                      e.target.type = 'text'
+                  }}
+
+                  // value={addPrefixOrSuffix(
+                  //   orderData.quantity ? orderData.quantity : 0,
+                  //   orderData.unitOfQuantity,
+                  //   '',
+                  // )}
+                  value={
+                    isFieldInFocus.quantity ?
+                      orderData.quantity :
+                      Number(orderData.quantity).toLocaleString() + ` ${orderData.unitOfQuantity}`}
                   name="quantity"
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
@@ -144,15 +162,31 @@ const Index = ({ saveOrderData, orderData }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  // onFocus={(e) => {
+                  //   setIsFieldInFocus({ ...isFieldInFocus, orderValue: true }),
+                  //     e.target.type = 'number'
+                  // }}
+                  // onBlur={(e) => {
+                  //   setIsFieldInFocus({ ...isFieldInFocus, orderValue: false }),
+                  //     e.target.type = 'text'
+                  // }}
                   value={addPrefixOrSuffix(
                     orderData.orderValue ? orderData.orderValue : 0,
                     orderData.unitOfValue == 'Crores'
                       ? 'Cr'
                       : orderData.unitOfValue == 'Million'
-                      ? 'Mn'
-                      : orderData.unitOfValue,
+                        ? 'Mn'
+                        : orderData.unitOfValue,
                     '',
                   )}
+                  // value={
+                  //   isFieldInFocus.orderValue ?
+                  //     orderData.orderValue :
+                  //     Number(orderData.orderValue).toLocaleString() + ` ${orderData.unitOfValue == 'Crores'
+                  //       ? 'Cr'
+                  //       : orderData.unitOfValue == 'Million'
+                  //         ? 'Mn'
+                  //         : orderData.unitOfValue}`}
                   name="orderValue"
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
@@ -211,9 +245,21 @@ const Index = ({ saveOrderData, orderData }) => {
                 <Form.Control
                   className={`${styles.input_field} input form-control`}
                   required
+                  onFocus={(e) => {
+                    setIsFieldInFocus({ ...isFieldInFocus, tolerance: true }),
+                      e.target.type = 'number'
+                  }}
+                  onBlur={(e) => {
+                    setIsFieldInFocus({ ...isFieldInFocus, tolerance: false }),
+                      e.target.type = 'text'
+                  }}
                   type="text"
                   name="tolerance"
-                  value={addPrefixOrSuffix(orderData.tolerance, '%', '')}
+                  value= {isFieldInFocus.tolerance ?
+                    orderData.tolerance :
+                  Number(orderData.tolerance)?.toLocaleString() + ' %'
+                  }
+                  // value={addPrefixOrSuffix(orderData.tolerance, '%', '')}
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
                   }}

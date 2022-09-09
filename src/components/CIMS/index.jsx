@@ -14,7 +14,7 @@ import {
 import UploadOther from '../UploadOther'
 import { toast } from 'react-toastify'
 import moment from 'moment'
-
+import { addPrefixOrSuffix } from 'utils/helper'
 
 export default function Index({
   isShipmentTypeBULK,
@@ -42,6 +42,8 @@ export default function Index({
       cimsPaymentReceiptDoc: null,
     },
   ])
+  const [isFieldInFocus, setIsFieldInFocus] = useState(false)
+
 
   useEffect(() => {
     if (_get(TransitDetails, 'data[0].CIMS.cimsDetails', []).length > 0) {
@@ -87,8 +89,8 @@ export default function Index({
     }
     console.log(filteredVessel, 'filteredVessel')
     const newArray = [...cimsDetails]
-    newArray[index].vesselName = filteredVessel.vesselInformation[0].name
-    newArray[index].quantity = filteredVessel.vesselInformation[0].IMONumber
+    newArray[index].vesselName =  _get(filteredVessel, 'vesselInformation[0].name','')
+    newArray[index].quantity =  _get(filteredVessel, 'vesselInformation[0].IMONumber','')
 
     setCimsDetails(newArray)
   }
@@ -331,11 +333,11 @@ export default function Index({
                     <div className="d-flex">
                       {
                         <select
-                        value={list.vesselName}
+                          value={list.vesselName}
                           onChange={(e) => onChangeVessel(e, index)}
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                         >
-                          <option disabled selected>Select an option</option>
+                          <option  selected>Select an option</option>
                           {shipmentTypeBulk
                             ? _get(
                               TransitDetails,
@@ -377,14 +379,32 @@ export default function Index({
                   >
                     <input
                       id="quantity"
-                      defaultValue={
-                        list.quantity
-                          ? list.quantity
-                          : _get(TransitDetails, 'data[0].order.quantity', '')
-                      }
+                      // defaultValue={
+                      //   list.quantity
+                      //     ? list.quantity
+                      //     : _get(TransitDetails, 'data[0].order.quantity', '')
+                      // }
+                      onFocus={(e) => {
+                        setIsFieldInFocus(true),
+                          e.target.type = 'number'
+                      }}
+                      onBlur={(e) => {
+                        setIsFieldInFocus(false),
+                          e.target.type = 'text'
+                      }}
+                      value={isFieldInFocus
+                        ?
+                        (list.quantity ?
+                          list.quantity
+                          : _get(TransitDetails, 'data[0].order.quantity', "")
+                        )
+                        : (list.quantity ?
+                          Number(list.quantity)?.toLocaleString()
+                          : Number(_get(TransitDetails, 'data[0].order.quantity', 0))?.toLocaleString()
+                        ) + ` ${_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}`}
                       onChange={(e) => onChangeCims(e, index)}
                       className={`${styles.input_field} input form-control`}
-                      type="number"
+                      type="text"
                       onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                     />
@@ -433,7 +453,7 @@ export default function Index({
                       <label
                         className={`${styles.label_heading} label_heading`}
                       >
-                        Circ Date
+                        CIRC Date
                       </label>
                     </div>
                   </div>
@@ -458,14 +478,14 @@ export default function Index({
                   >
                     <div className="d-flex">
                       <select
-                      value={list.paymentBy}
+                        value={list.paymentBy ? list.paymentBy : _get(TransitDetails, 'data[0].order.termsheet.otherTermsAndConditions.buyer.bank', '')}
                         id="paymentBy"
                         onChange={(e) => onChangeCims(e, index)}
                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       >
                         <option>Select an option</option>
-                        {/* <option value={list.paymentBy}>{list.paymentBy}</option> */}
-                        <option value="1">1</option>
+                        <option value={_get(TransitDetails, 'data[0].order.termsheet.otherTermsAndConditions.buyer.bank', '')}>{_get(TransitDetails, 'data[0].order.termsheet.otherTermsAndConditions.buyer.bank', '')}</option>
+                        <option value={_get(TransitDetails, 'data[0].company.companyName', '')}>{_get(TransitDetails, 'data[0].company.companyName', '')}</option>
                         <option>N/A</option>
                       </select>
                       <label
@@ -580,7 +600,7 @@ export default function Index({
                             alt="Pdf"
                           />
                         </td>
-                        <td className={styles.doc_row}> {moment(list?.cimsPaymentReceiptDoc?.Date).format(' DD-MM-YYYY , h:mm a')}</td>
+                        <td className={styles.doc_row}> { cimsDetails[index]?.cimsPaymentReceiptDoc == null ? '' : moment(list?.cimsPaymentReceiptDoc?.Date).format(' DD-MM-YYYY , h:mm a')}</td>
                         <td>
                           <div className={styles.uploadBtnWrapper}>
                             {cimsDetails &&

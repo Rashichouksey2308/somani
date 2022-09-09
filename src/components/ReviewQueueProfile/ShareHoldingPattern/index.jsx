@@ -23,7 +23,7 @@ function Index({ shareHolding }) {
   const EquityValues = shareHolding?.filter((item) => {
     return item.type === 'EquityShares1Member'
   })
-  const equityShareNo = []
+  let equityShareNo = []
   let totalEquityShare = 0
   let totalEquitySharePercentage = 0
   const topEquityValues = EquityValues?.sort(
@@ -38,7 +38,7 @@ function Index({ shareHolding }) {
     totalEquitySharePercentage += equity.percentageShareHolding
   })
   // const top
-  console.log(equityShareNo, 'equityShareNo')
+  
 
   const prefrenceValues = shareHolding?.filter((item) => {
     return !item.type === 'EquityShares1Member'
@@ -57,7 +57,7 @@ function Index({ shareHolding }) {
     })
 
   //setTimeout(console.log(equityShareNo, topEquityValues, 'topprefrencesShareNo'), 5000);
-
+  console.log(equityShareNo, 'equityShareNo',topprefrencesShareNo)
   const equitydata = {
     labels: ['Sail', 'Jindal Grou', 'SR Steel'],
     datasets: [
@@ -83,7 +83,7 @@ function Index({ shareHolding }) {
     datasets: [
       {
         label: '',
-        data: [25, 24, 25],
+        data: topprefrencesShareNo,
 
         backgroundColor: ['#4CAF50', '#2884DE', '#FFCE00'],
       },
@@ -146,6 +146,7 @@ function Index({ shareHolding }) {
 
   //   },[chartRef])
 
+  console.log(equitydata,"equitydata")
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -243,12 +244,12 @@ function Index({ shareHolding }) {
                                 {shareHolder.fullName}
                               </td>
                               <td className="border-top-0 border-bottom-0">
-                                {shareHolder.numberOfShares}
+                                {Number(shareHolder.numberOfShares).toLocaleString()}
                               </td>
                               <td className="border-top-0 border-bottom-0">
                                 {shareHolder.percentageShareHolding?.toLocaleString(
                                   undefined,
-                                  { minimumFractionDigits: 2 },
+                                  { maximumFractionDigits: 2 },
                                 )}
                                 %
                               </td>
@@ -265,7 +266,7 @@ function Index({ shareHolding }) {
                       <tr>
                         <td className='border-top-0'></td>
                         <td className="border-top-0"></td>
-                        <td>{totalEquityShare}</td>
+                        <td>{Number(totalEquityShare).toLocaleString()}</td>
                         <td>{totalEquitySharePercentage.toFixed(2)}%</td>
                         <td className="border-top-0"></td>
                         <td className="border-top-0"></td>
@@ -325,10 +326,10 @@ function Index({ shareHolding }) {
                                 {shareHolder.fullName}
                               </td>
                               <td className="border-top-0 border-bottom-0">
-                                {shareHolder.numberOfShares}
+                                {Number(shareHolder.numberOfShares).toLocaleString()}
                               </td>
                               <td className="border-top-0 border-bottom-0">
-                                {shareHolder.percentageShareHolding}
+                                {shareHolder.percentageShareHolding.toFixed(2)}
                               </td>
                               <td className="border-top-0 border-bottom-0">
                                 {shareHolder.pan}
@@ -343,7 +344,7 @@ function Index({ shareHolding }) {
                       <tr>
                         <td className='border-top-0'></td>
                         <td className="border-top-0"></td>
-                        <td>{totalPrefrenceShare}</td>
+                        <td>{Number(totalPrefrenceShare)?.toLocaleString()}</td>
                         <td>{totalPrefrenceSharePercentage.toFixed(2)}%</td>
                         <td className="border-top-0"></td>
                         <td className="border-top-0"></td>

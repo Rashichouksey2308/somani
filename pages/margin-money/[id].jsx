@@ -637,7 +637,7 @@ function Index() {
       <div className={`${styles.dashboardTab} w-100`}>
         <div className={`${styles.tabHeader} tabHeader `}>
           <div className={`${styles.title_header} d-flex align-items-center`}>
-            <img
+            <img onClick={() => Router.push('/margin-money')}
               src={`${
                 darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`
               }`}
@@ -834,7 +834,7 @@ function Index() {
                                     marginData?.order?.quantity?.toLocaleString(),
                                     '',
                                   )}{' '}
-                                  {marginData?.order?.unitOfQuantity.toUpperCase()}
+                                  {marginData?.order?.unitOfQuantity?.toUpperCase()}
                                 </div>
                               </div>
                             </div>
@@ -943,7 +943,7 @@ function Index() {
                                   {addPrefixOrSuffix(
                                     marginData?.order?.perUnitPrice,
                                     '',
-                                  ).toLocaleString()}
+                                  )?.toLocaleString()}
                                 </div>
                               </div>
                             </div>

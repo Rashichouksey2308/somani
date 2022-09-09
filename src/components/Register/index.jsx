@@ -109,9 +109,9 @@ function Index() {
   const [orderDetails, setOrderDetails] = useState({
     transactionType: 'Import',
     commodity: '',
-    quantity: null,
-    unitOfQuantity: 'mt',
-    orderValue: null,
+    quantity: 0,
+    unitOfQuantity: 'MT',
+    orderValue: 0,
     orderCurrency: 'INR',
     unitOfValue: 'Cr',
     supplierName: '',

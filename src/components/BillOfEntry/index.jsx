@@ -14,7 +14,7 @@ import _get from 'lodash/get'
 import { removePrefixOrSuffix, addPrefixOrSuffix } from 'utils/helper'
 import { toast } from 'react-toastify'
 import { checkNan } from '../../utils/helper'
-import { set } from 'lodash'
+// import { set } from 'lodash'
 import {
   GetAllCustomClearance,
   UploadCustomDoc,
@@ -72,6 +72,8 @@ export default function Index({
     document2: null,
     document3: null,
   })
+
+  
   const totalCustomDuty = () => {
     let number = 0
     billOfEntryData?.duty?.forEach((val) => {
@@ -551,7 +553,7 @@ export default function Index({
                 </div>
               </div>
             </div>
-            <hr className={styles.line}></hr>
+            <hr className={`${styles.line} m-0 border_color`}></hr>
             <div className={`${styles.dashboard_form} card-body`}>
               <h3 className={styles.form_heading}>BOE Details</h3>
               <div className="row mb-5">
@@ -943,7 +945,7 @@ export default function Index({
                                         )
                                       }
                                       disabled={!val.actions}
-                                      className={`${styles.dutyDropdown}`}
+                                      className={`${styles.dutyDropdown} input`}
                                     >
                                       <option>Select an option</option>
 
@@ -953,7 +955,7 @@ export default function Index({
                                   </td>
                                   <td>
                                     <input
-                                      className={`${styles.dutyDropdown}`}
+                                      className={`${styles.dutyDropdown} input`}
                                       name="amount"
                                       value={val.amount}
                                       disabled={!val.actions}
@@ -968,7 +970,7 @@ export default function Index({
                                   </td>
                                   <td>
                                     <input
-                                      className={`${styles.dutyDropdown}`}
+                                      className={`${styles.dutyDropdown} input`}
                                       name="percentage"
                                       value={val.percentage}
                                       onChange={(e) =>
@@ -1019,12 +1021,10 @@ export default function Index({
                       </tbody>
                     </table>
                     <hr className="mt-0" />
-                    <div className="d-flex justify-content-between align-items-center">
-                      <div className="d-flex mt-2">
+                    <div className="d-flex justify-content-between align-items-center mx-4 px-2">
+                      <div className="d-flex align-items-center">
                         <div
-                          className={`${styles.label} text`}
-                          style={{ marginLeft: '30px' }}
-                        >
+                          className={`${styles.label} text m-0`}>
                           Total Custom Duty:
                         </div>
                         <div className={`${styles.value} ml-2 mt-n1`}>
@@ -1032,7 +1032,7 @@ export default function Index({
                         </div>
                       </div>
                       <div
-                        className={`${styles.add_row} mr-3 mt-n2 d-flex `}
+                        className={`${styles.add_row} d-flex `}
                         onClick={(e) => {
                           addMoredutyDataRows()
                         }}
