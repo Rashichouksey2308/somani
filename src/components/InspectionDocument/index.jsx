@@ -11,6 +11,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { ViewDocument } from 'redux/ViewDoc/action'
 import { toast } from 'react-toastify'
+import moment from 'moment'
 
 const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc }) => {
   const dispatch = useDispatch()
@@ -169,7 +170,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                         className={`${styles.sort_image} mb-1`}
                         src="/static/icons8-sort-24.svg"
                         alt="Sort icon"
-                      />{' '}
+                      />
                     </th>
                     <th width="30%">ACTION</th>
                   </tr>
@@ -188,7 +189,10 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                         alt="Pdf"
                       />
                     </td>
-                    <td className={styles.doc_row}></td>
+                    <td className={styles.doc_row}>
+                      {lcDoc?.lcDraftDoc?.lastModifiedDate ?
+                      moment(lcDoc.lcDraftDoc.lastModifiedDate).format("DD-MM-YYYY,HH:mm A")
+                      :""}</td>
                     <td colSpan={2}>
                       {lcDoc && lcDoc.lcDraftDoc === null ? (
                         <>

@@ -20,6 +20,7 @@ import {
   setDynamicOrder,
 } from '../../src/redux/userData/action'
 import { removePrefixOrSuffix } from 'utils/helper'
+import moment from 'moment'
 
 
 export default function Home() {
@@ -62,7 +63,7 @@ export default function Home() {
   console.log(currency, "currency")
 
   const setData = (Vessel) => {
-
+    
     console.log(
       Vessel?.data[0], "Vessel123")
 
@@ -321,7 +322,7 @@ export default function Home() {
     setList(newArr)
   }
 
-
+console.log(vesselData,"vesselData")
 
   const [startDate, setStartDate] = useState(null)
   const [lastDate, setlastDate] = useState(new Date())
@@ -389,7 +390,21 @@ export default function Home() {
       return newState;
     })
   }
-
+ const [dateStartFrom, setDateStartFrom] = useState([])
+ useEffect(() => {
+  if(_get(vesselData,"data[0].vessels",[]).length>0){
+    let temp=[];
+    _get(vesselData,"data[0].vessels",[]).forEach((val)=>{
+      temp.push(
+        moment(new Date(val.transitDetails.laycanFrom).toISOString())
+      .add(1, 'days')
+      .format('DD-MM-YYYY')
+        )
+    })
+    setDateStartFrom(temp)
+  }
+ },[vesselData])
+ console.log(dateStartFrom,"dateStartFrom")
   const saveDate = (startDate, name, index) => {
     // console.log(startDate, name, 'Event1')
     setList(prevState => {
@@ -407,7 +422,19 @@ export default function Home() {
       });
       return newState;
     })
+    if(name=="laycanFrom")
+    setStartDate2(startDate,index)
   }
+  const setStartDate2 = (val,index) => {
+    var new_date = moment(new Date(val).toISOString())
+      .add(1, 'days')
+      .format('DD-MM-YYYY')
+     let temp =[...dateStartFrom]
+     temp[index]=new_date
+     setDateStartFrom([...temp])
+  
+  }
+  console.log(dateStartFrom,"dateStartFrom")
   const onVesselInfoChangeHandlerForBulk = (e, index) => {
     const name = e.target.id
     let value = e.target.value
@@ -814,6 +841,7 @@ export default function Home() {
         OnAddvesselInformationDelete={OnAddvesselInformationDelete}
         shipmentTypeBulk={shipmentTypeBulk}
         currency={currency}
+        dateStartFrom={dateStartFrom}
       />
       <div className="mt-5">
         <VesselSaveBar handleSave={onSaveHandler} rightBtn="Submit" rightBtnClick={onSubmitHanler} />
