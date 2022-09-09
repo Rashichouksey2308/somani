@@ -607,7 +607,7 @@ const index = ({
            
                   >
                     <option
-                      disabled selected
+                      disabled value=''
                     >
                       Select
                     </option>
