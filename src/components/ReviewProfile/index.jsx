@@ -108,7 +108,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
   console.log(reviewedProfile, 'this is reviewed')
 
   return (
-    <div className={`${styles.leads} leads `}>
+    <div className={`${styles.leads} border leads`}>
       <div
         className={`${styles.tableFilter} tableFilter d-flex justify-content-between align-items-center`}
       >

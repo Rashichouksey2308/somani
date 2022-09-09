@@ -71,7 +71,7 @@ function Index() {
                   value={serachterm}
                   onChange={handleSearch}
                   type="text"
-                  className={`${styles.formControl} form-control formControl `}
+                  className={`${styles.formControl} border form-control formControl `}
                   placeholder="Search"
                 />
               </div>
@@ -105,7 +105,7 @@ function Index() {
         Create</button> */}
         </div>
 
-        <div className={`${styles.datatable} card datatable border-color`}>
+        <div className={`${styles.datatable} border card datatable`}>
           <div
             className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
           >
@@ -149,7 +149,18 @@ function Index() {
                         <td>
                           <span
                             className={`${styles.status} ${styles.review}`}
-                          ></span>
+                          ></span>                          
+                          {/* <span
+                            className={`${styles.status} ${
+                              term.order.termsheet.status === 'Rejected'
+                                ? styles.rejected
+                                :term.order.termsheet.status === 'Review'
+                                ? styles.review
+                                : term.order.termsheet.status === 'Approved'
+                                ? styles.approved
+                                : styles.rejected
+                            }`}
+                          ></span> */}
                           Pending
                         </td>
                       </tr>

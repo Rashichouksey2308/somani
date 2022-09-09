@@ -549,7 +549,7 @@ const [accessibleValueCalc,setAcc]=useState(0)
                 </div>
               </div>
             </div>
-            <hr className={styles.line}></hr>
+            <hr className={`${styles.line} m-0 border_color`}></hr>
             <div className={`${styles.dashboard_form} card-body`}>
               <h3 className={styles.form_heading}>BOE Details</h3>
               <div className="row mb-5">
@@ -933,7 +933,7 @@ const [accessibleValueCalc,setAcc]=useState(0)
                                         )
                                       }
                                       disabled={!val.actions}
-                                      className={`${styles.dutyDropdown}`}
+                                      className={`${styles.dutyDropdown} input`}
                                     >
                                       <option>Select an option</option>
                                      
@@ -943,7 +943,7 @@ const [accessibleValueCalc,setAcc]=useState(0)
                                   </td>
                                   <td>
                                     <input
-                                      className={`${styles.dutyDropdown}`}
+                                      className={`${styles.dutyDropdown} input`}
                                       name="amount"
                                        value={val.amount}
                                       disabled={!val.actions}
@@ -958,7 +958,7 @@ const [accessibleValueCalc,setAcc]=useState(0)
                                   </td>
                                   <td>
                                     <input
-                                      className={`${styles.dutyDropdown}`}
+                                      className={`${styles.dutyDropdown} input`}
                                       name="percentage"
                                       value={val.percentage}
                                       onChange={(e) =>
@@ -1009,12 +1009,10 @@ const [accessibleValueCalc,setAcc]=useState(0)
                       </tbody>
                     </table>
                     <hr className="mt-0" />
-                    <div className="d-flex justify-content-between align-items-center">
-                      <div className="d-flex mt-2">
+                    <div className="d-flex justify-content-between align-items-center mx-4 px-2">
+                      <div className="d-flex align-items-center">
                         <div
-                          className={`${styles.label} text`}
-                          style={{ marginLeft: '30px' }}
-                        >
+                          className={`${styles.label} text m-0`}>
                           Total Custom Duty:
                         </div>
                         <div className={`${styles.value} ml-2 mt-n1`}>
@@ -1022,7 +1020,7 @@ const [accessibleValueCalc,setAcc]=useState(0)
                         </div>
                       </div>
                       <div
-                        className={`${styles.add_row} mr-3 mt-n2 d-flex `}
+                        className={`${styles.add_row} d-flex `}
                         onClick={(e) => {
                           addMoredutyDataRows()
                         }}

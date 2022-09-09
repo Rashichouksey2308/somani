@@ -74,7 +74,7 @@ const getDate = async () =>{
                 </div>
                 <input
                   type="text"
-                  className={`${styles.formControl} form-control formControl `}
+                  className={`${styles.formControl} border form-control formControl `}
                   placeholder="Search"
                 />
               </div>
@@ -84,7 +84,7 @@ const getDate = async () =>{
 
          
           {/*leads table*/}
-          <div className={`${styles.datatable} datatable card`}>
+          <div className={`${styles.datatable} border datatable card`}>
             <div
               className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
             >
@@ -150,36 +150,38 @@ const getDate = async () =>{
 
                     </tr>
                   </thead>
-                  {genData?.length>0 && genData?.map((term, index) => (<tbody Key={index}>
+                  <tbody>
+                    {genData?.length>0 && genData?.map((term, index) => (<tr Key={index} className="table_row">
 
-                    <td >
-                      {term?.order?.orderId??""}
-                    </td>
-                    <td className={`${styles.buyerName}`} onClick={() => handleRoute(term)} >{term?.company.companyName}</td>
-                    
-                     <td >{term?.order?.commodity??""}</td>
-                    <td >{term?.company?.customerId??""}</td>
-                    {/* <td>{term?.order?.createdAt?.slice(0, 10)}</td> */}
-                    {/* <td>
-                      <span
-                        className={`${styles.status} ${term?.order?.queue === 'Rejected' ? styles.rejected : term?.order?.queue === 'ReviewQueue'
-                          ? styles.review
+                      <td >
+                        {term?.order?.orderId??""}
+                      </td>
+                      <td className={`${styles.buyerName}`} onClick={() => handleRoute(term)} >{term?.company.companyName}</td>
+                      
+                      <td >{term?.order?.commodity??""}</td>
+                      <td >{term?.company?.customerId??""}</td>
+                      {/* <td>{term?.order?.createdAt?.slice(0, 10)}</td> */}
+                      {/* <td>
+                        <span
+                          className={`${styles.status} ${term?.order?.queue === 'Rejected' ? styles.rejected : term?.order?.queue === 'ReviewQueue'
+                            ? styles.review
+                            : term?.order?.queue === 'CreditQueue'
+                              ? styles.approved
+                              : styles.rejected
+                            }`}
+                        ></span>
+
+                        {term?.order?.queue === 'Rejected' ? 'Rejected' : term?.order?.queue === 'ReviewQueue'
+                          ? 'Review'
                           : term?.order?.queue === 'CreditQueue'
-                            ? styles.approved
-                            : styles.rejected
-                          }`}
-                      ></span>
-
-                      {term?.order?.queue === 'Rejected' ? 'Rejected' : term?.order?.queue === 'ReviewQueue'
-                        ? 'Review'
-                        : term?.order?.queue === 'CreditQueue'
-                          ? 'Approved'
-                          : 'Rejected'}
-                    </td> */}
+                            ? 'Approved'
+                            : 'Rejected'}
+                      </td> */}
 
 
 
-                  </tbody>))}
+                    </tr>))}
+                  </tbody>
                 </table>
               </div>
             </div>

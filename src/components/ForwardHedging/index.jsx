@@ -452,8 +452,8 @@ export default function Index() {
                             />
                           </div>
                         </div>
-                        {/* <div
-                          className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
+                        <div
+                          className={`${styles.form_group} align-self-center col-lg-2 col-md-6 col-sm-6 `}
                         >
                           <button
                             onClick={() => handleCancel()}
@@ -461,7 +461,7 @@ export default function Index() {
                           >
                             Cancel
                           </button>
-                        </div> */}
+                        </div>
                         <div
                           className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
                         >
