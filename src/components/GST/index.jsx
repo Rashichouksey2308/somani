@@ -3712,7 +3712,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                       <tbody>
                         <tr>
                           <td>Total Sales</td>
-                          {gstFilteredData?.detail?.salesDeatail?.revenueBreakup.map(
+                          { gstFilteredData && gstFilteredData?.detail?.salesDeatail?.revenueBreakup?.length > 0 && gstFilteredData?.detail?.salesDeatail?.revenueBreakup?.map(
                             (sales, index) => (
                               <td key={index}>
                                 {convertValue(

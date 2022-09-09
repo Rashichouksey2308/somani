@@ -149,18 +149,7 @@ function Index() {
                         <td>
                           <span
                             className={`${styles.status} ${styles.review}`}
-                          ></span>                          
-                          {/* <span
-                            className={`${styles.status} ${
-                              term.order.termsheet.status === 'Rejected'
-                                ? styles.rejected
-                                :term.order.termsheet.status === 'Review'
-                                ? styles.review
-                                : term.order.termsheet.status === 'Approved'
-                                ? styles.approved
-                                : styles.rejected
-                            }`}
-                          ></span> */}
+                          ></span>
                           Pending
                         </td>
                       </tr>

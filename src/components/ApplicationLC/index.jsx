@@ -56,16 +56,15 @@ function Index() {
       doc.html(ReactDOMServer.renderToString(
         <table width='1500px' cellPadding='0' cellSpacing='0' border='0'>
           <tr>
-            <td valign='top'>
+            <td valign='top' style={{paddingBottom:'20px'}}>
               <table width='100%' bgColor='#D8EAFF' style={{fontFamily:'Arial, Helvetica, sans-serif', marginBottom:'26px', border:'1px solid #D2D7E5', borderRadius:'6px', height:'126px'}} cellPadding='10' cellSpacing='0' border='0'>
                 <tr>
-                  <td valign='bottom' align='left' width='25%'>
-                    <p style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', padding:'10px 0 0 25px', marginBottom:'0'}}>Order ID: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>{lcModuleData?.order?.orderId}</span></p>
-                    <p style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingLeft:'25px', marginBottom:'0'}}>Buyer: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}> {lcModuleData?.company?.companyName}</span></p>
+                  <td valign='bottom' align='left' width='33%'>
+                    <span style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', padding:'10px 0 0 25px'}}>Order ID: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>{lcModuleData?.order?.orderId}</span></span><br/>
+                    <span style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingLeft:'25px'}}>Buyer: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>{lcModuleData?.company?.companyName}</span></span>
                   </td>
-                  <td valign='top' align='center' width='50%'><h2 style={{fontSize:'34px', color:'#3687E8', lineHeight:'41px', fontWeight:'bold', textTransform:'uppercase'}}>APPLICATION FOR LETTER OF CREDIT</h2></td>
-                  <td valign='bottom' align='right' width='25%'>
-                    <p style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingRight:'25px', marginBottom:'0'}}>Date: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>{moment(d).format('DD.MM.yyyy')}</span></p>
+                  <td valign='top' align='center' width='34%'><h2 style={{fontSize:'34px', color:'#3687E8', lineHeight:'41px', fontWeight:'bold', textTransform:'uppercase'}}>APPLICATION FOR LETTER OF CREDIT</h2></td>
+                  <td valign='bottom' align='right' width='33%'><span style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingRight:'25px'}}>Date: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>{moment(d).format('DD.MM.yyyy')}</span></span>
                   </td>
                 </tr>
               </table>
@@ -73,7 +72,7 @@ function Index() {
           </tr>
           <tr>
             <td valign='top' align='left'>
-              <table width='100%' bgColor='#FFFFFF' style={{fontFamily:'Arial, Helvetica, sans-serif', borderRadius:'6px', boxShadow:'0 3px 6px #CAD0E2', marginBottom:'26px'}} cellPadding='0' cellSpacing='0' border='0'>
+              <table width='100%' bgColor='#FFFFFF' style={{fontFamily:'Arial, Helvetica, sans-serif', borderRadius:'6px', boxShadow:'0 3px 6px #CAD0E2', marginBottom:'26px', border:'2px solid rgba(202, 214, 230, 0.3)'}} cellPadding='0' cellSpacing='0' border='0'>
                 <tr>
                   <td valign='top' align='left'>
                     <table width='100%' cellPadding='0' cellSpacing='0' border='0'>
@@ -826,13 +825,13 @@ function Index() {
                         )}
                       <tr className="table_row">
                         {/* <td width="40%">2</td> */}
-                        <td>
+                        {/*<td className="border-top-0">
                           <div
                             className={`${styles.element_datatable} m-2 datatable `}
                           >
                             <div className={styles.table_scroll_outer}>
                               <div className={styles.table_scroll_inner}>
-                                {/* <table
+                                 <table
                                   className={`${styles.table} table`}
                                   cellPadding="0"
                                   cellSpacing="0"
@@ -868,11 +867,11 @@ function Index() {
                                       <td>43.0</td>
                                     </tr>
                                   </tbody>
-                                </table> */}
+                                </table> 
                               </div>
                             </div>
                           </div>
-                        </td>
+                        </td>*/}
                       </tr>
                       <tr className="table_row">
                         <td width="40%">
@@ -1042,14 +1041,14 @@ function Index() {
                           alt="PDF"
                           className="img-fluid"
                         />
-                        <label for="lc_document">
-                          LC Document.pdf<span>128kb</span>
+                        <label for="lc_Application">
+                          LC Application.pdf<span>128kb</span>
                         </label>
                         <input
                           type="checkbox"
                           className="ml-auto"
-                          id="lc_document"
-                          value="LC Document"
+                          id="lc_Application"
+                          value="LC Application"
                         />
                       </div>
                       <div
@@ -1061,14 +1060,14 @@ function Index() {
                           alt="DOC"
                           className="img-fluid"
                         />
-                        <label for="word_document">
-                          word document.doc<span>128kb</span>
+                        <label for="LC_Application_word">
+                          LC Application.doc<span>128kb</span>
                         </label>
                         <input
                           type="checkbox"
                           className="ml-auto"
-                          id="word_document"
-                          value="word document"
+                          id="LC_Application_word"
+                          value="LC Application"
                         />
                       </div>
                     </div>
