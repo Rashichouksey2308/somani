@@ -294,7 +294,7 @@ function Index() {
   console.log(orderList, 'termsheetOrder')
   // useEffect(() => {
 
-  
+
   const id = sessionStorage.getItem('orderID')
 
   const [selectedTab, setSelectedTab] = useState('Profile')
@@ -692,7 +692,8 @@ function Index() {
         ? orderList?.productSummary?.unitOfQuantity
         : orderList?.unitOfQuantity,
     })
-    setSupplierCred({
+    let tempSupplierCredentials = {
+      ...supplierCred,
       HSCodesNumber: orderList?.supplierCredential?.HSCodesNumber ?? '',
       commodityOfTotalTrade:
         orderList?.supplierCredential?.commodityOfTotalTrade ?? '',
@@ -704,9 +705,10 @@ function Index() {
       remarks: orderList?.supplierCredential?.remarks ?? '',
       shipmentNumber: orderList?.supplierCredential?.shipmentNumber ?? '',
       supplierName: orderList?.supplierCredential?.supplierName ?? ''
-        ? orderList?.supplierCredential?.supplierName 
-        : orderList?.supplierName ,
-    })
+        ? orderList?.supplierCredential?.supplierName
+        : orderList?.supplierName,
+    }
+    setSupplierCred(tempSupplierCredentials)
   }, [orderList])
 
   const handleProductSave = () => {
@@ -904,19 +906,20 @@ function Index() {
     },
   ])
 
-  const [personData, setPersonData] = useState([
-    {
-      contact: {
-        callingCode: orderList?.company?.keyContactPerson?.contact?.callingCode,
-        number: orderList?.company?.keyContactPerson?.contact?.number,
-      },
-      department: orderList?.company?.keyContactPerson?.department,
-      designation: orderList?.company?.keyContactPerson?.designation,
-      email: orderList?.company?.keyContactPerson?.email,
-      name: orderList?.company?.keyContactPerson?.name,
-    },
-  ])
-
+  // const [personData, setPersonData] = useState([
+  //   {
+  //     contact: {
+  //       callingCode: orderList?.company?.keyContactPerson?.contact?.callingCode,
+  //       number: orderList?.company?.keyContactPerson?.contact?.number,
+  //     },
+  //     department: orderList?.company?.keyContactPerson?.department,
+  //     designation: orderList?.company?.keyContactPerson?.designation,
+  //     email: orderList?.company?.keyContactPerson?.email,
+  //     name: orderList?.company?.keyContactPerson?.name,
+  //   },
+  // ])
+  const [personData, setPersonData] = useState([])
+console.log(personData,'personData')
   // useEffect(() => {
   //   if (orderList?.company?.keyContactPerson.length > 0) {
   //     setPersonData([
@@ -956,13 +959,13 @@ function Index() {
       addressArr.push(element)
     })
     setKeyAddData(addressArr)
-   
+
     let personArr = []
     orderList?.company?.keyContactPerson?.forEach((element) => {
-      // console.log(element,"useEE")
+      //  console.log(element,"useEE")
       personArr.push(element)
     })
-    setPersonData(personArr)
+    setPersonData([...personArr])
 
     let commentFinancialArr = []
     orderList?.company?.recommendation?.commentsOnFinancials.forEach(
@@ -1013,7 +1016,7 @@ function Index() {
   })
 
   const saveSuggestedCreditData = (name, value) => {
-    console.log(name,value,"")
+    console.log(name, value, "")
     const newInput = { ...suggestedCredit }
     newInput[name] = value
     // console.log(newInput)
@@ -1321,11 +1324,12 @@ function Index() {
         },
         debtProfile: [...debtData],
         groupExposureDetail: [...groupExposureData],
-        suggestedOrderValue:removePrefixOrSuffix(suggestedCredit.suggestedOrderValue)*10000000,
-        suggestedCreditLimit:removePrefixOrSuffix(suggestedCredit.suggestedCreditLimit)*10000000,
+        suggestedOrderValue: removePrefixOrSuffix(suggestedCredit.suggestedOrderValue) * 10000000,
+        suggestedCreditLimit: removePrefixOrSuffix(suggestedCredit.suggestedCreditLimit) * 10000000,
       }
-      // console.log(obj, "credit obj")
-      dispatch(UpdateCredit(obj))
+      
+        // console.log(obj, "credit obj")
+        dispatch(UpdateCredit({...obj}))
     }
   }
 
@@ -1436,7 +1440,7 @@ function Index() {
         if (tempIndex < list[0].children.length) {
           setSelectedTab(list[0].children[tempIndex].children[0].innerHTML)
           list[0].children[i].children[0].classList.remove('active')
-          console.log(list[0].children[tempIndex].children[0],"okok",tab[0].children[i], tab[0].children)
+          console.log(list[0].children[tempIndex].children[0], "okok", tab[0].children[i], tab[0].children)
           list[0].children[tempIndex].children[0].classList.add('active')
           tab[0].children[i].classList.remove('show')
           tab[0].children[i].classList.remove('active')
@@ -1477,7 +1481,7 @@ function Index() {
       }),
     )
   }
-  const toPrintPdf = (camData, RevenueDetails,orderList) => {
+  const toPrintPdf = (camData, RevenueDetails, orderList) => {
     console.log(_get, "get")
     function calcPc(n1, n2) {
       if (n1 === 0) {
@@ -2845,21 +2849,24 @@ function Index() {
 
     )
   }
-useEffect(() => {
-  setKeyAddData([...keyAddData,
-    {
-      addressType:"Registered Office",
-      completeAddress:companyData?.profile?.companyDetail?.registeredAddress,
-      contact: {
-            callingCode: '+91',
-            number: companyData?.profile?.companyDetail?.contactNumber,
+  useEffect(() => {
+    if (keyAddData.length === 0 || keyAddData === null) {
+      setKeyAddData([...keyAddData,
+      {
+        addressType: "Registered Office",
+        completeAddress: companyData?.profile?.companyDetail?.registeredAddress,
+        contact: {
+          callingCode: '+91',
+          number: companyData?.profile?.companyDetail?.contactNumber,
         }
-     
-    
+
+
+      }
+      ])
     }
-    ])
-},
-[companyData])
+
+  },
+    [companyData])
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -2872,7 +2879,7 @@ useEffect(() => {
                 className="img-fluid image_arrow mr-2"
               />
               <h1 className={`${styles.title} heading`}>
-                {orderList?.company?.companyName?orderList?.company?.companyName:""}
+                {orderList?.company?.companyName ? orderList?.company?.companyName : ""}
               </h1>
             </div>
             {selectedTab == 'CAM' ? (
@@ -3752,8 +3759,8 @@ useEffect(() => {
                     setEditRow={setEditRow}
                     orderDetail={orderList}
                     companyData={companyData}
-                    
-                    
+
+
                   />
                   <Recommendations
                     creditDetail={orderList}
@@ -3781,7 +3788,7 @@ useEffect(() => {
                   />
                   <CommonSave onSave={onCreditSave} />
                 </div>
-                 <div
+                <div
                   className="tab-pane fade"
                   id="DocumentsTab"
                   role="tabpanel"
@@ -3805,12 +3812,12 @@ useEffect(() => {
                     approvedCredit={approvedCredit}
                     orderDetails={orderList}
                     GstData={gstData}
-                    
-                    
+
+
                   />
                 </div>
 
-               
+
               </div>
             </div>
           </div>
@@ -3842,7 +3849,7 @@ useEffect(() => {
           downLoadButtonName={`GST Report`}
           isPrevious={true}
           isApprove={true}
-           handleUpdate={onBack}
+          handleUpdate={onBack}
           leftButtonName={`Previous`}
           rightButtonName={`Next`}
           handleApprove={onNext}
