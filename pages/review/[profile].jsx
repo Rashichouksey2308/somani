@@ -27,7 +27,7 @@ const Index = () => {
   })
 
   useEffect(() => {
-    const orderId = sessionStorage.getItem('orderId')
+    const orderId = sessionStorage.getItem('orderID1')
     const companyId = sessionStorage.getItem('company')
     dispatch(GetBuyer({ companyId: companyId, orderId: orderId }))
   }, [dispatch])
