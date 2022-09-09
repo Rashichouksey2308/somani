@@ -46,6 +46,16 @@ const index = ({
 
   const { gstDocument } = useSelector((state) => state.buyer)
 
+  const [isFieldInFocus, setIsFieldInFocus] = useState({
+    monthlyCapacity: false,
+    capacityUtilization: false,
+    avgStockinCommodity: false,
+    avgStockinTrasit: false,
+    availableStock: false,
+    dailyConsumptionOfCommodity: false,
+    AvgMonthlyElectricityBill: false,
+    commodityOfTotalTrade: false, 
+  })
   const { updatingCreditCalculate } = useSelector((state) => state.review)
   const [keyNameList, setKeyNameList] = useState([])
   useEffect(() => {
@@ -304,10 +314,22 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  value={addPrefixOrSuffix(
-                    creditDetail?.monthlyProductionCapacity,
-                    creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
-                  )}
+                  onFocus={(e) => {
+                    setIsFieldInFocus({ ...isFieldInFocus, monthlyCapacity: true }),
+                      e.target.type = 'number'
+                  }}
+                  onBlur={(e) => {
+                    setIsFieldInFocus({ ...isFieldInFocus, monthlyCapacity: false }),
+                      e.target.type = 'text'
+                  }}
+                  value={
+                    isFieldInFocus.monthlyCapacity ?
+                    creditDetail?.monthlyProductionCapacity:
+                      Number(creditDetail?.monthlyProductionCapacity)?.toLocaleString() + ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`}
+                  // value={addPrefixOrSuffix(
+                  //   creditDetail?.monthlyProductionCapacity,
+                  //   creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
+                  // )}
                   name="monthlyProductionCapacity"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value)
@@ -324,10 +346,22 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  value={addPrefixOrSuffix(
-                    creditDetail?.capacityUtilization,
-                    '%',
-                  )}
+                    onFocus={(e) => {
+                    setIsFieldInFocus({ ...isFieldInFocus, capacityUtilization: true }),
+                      e.target.type = 'number'
+                  }}
+                  onBlur={(e) => {
+                    setIsFieldInFocus({ ...isFieldInFocus, capacityUtilization: false }),
+                      e.target.type = 'text'
+                  }}
+                  value={
+                    isFieldInFocus.capacityUtilization ?
+                    creditDetail?.capacityUtilization:
+                      Number(creditDetail?.capacityUtilization)?.toLocaleString() + ' %'}
+                  // value={addPrefixOrSuffix(
+                  //   creditDetail?.capacityUtilization,
+                  //   '%',
+                  // )}
                   name="capacityUtilization"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value)
@@ -344,10 +378,23 @@ const index = ({
                   required
                   type="text"
                   onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-                  value={addPrefixOrSuffix(
-                    creditDetail?.averageStockOfCommodity,
-                    creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
-                  )}
+
+                  onFocus={(e) => {
+                    setIsFieldInFocus({ ...isFieldInFocus, avgStockinCommodity: true }),
+                      e.target.type = 'number'
+                  }}
+                  onBlur={(e) => {
+                    setIsFieldInFocus({ ...isFieldInFocus, avgStockinCommodity: false }),
+                      e.target.type = 'text'
+                  }}
+                  value={
+                    isFieldInFocus.avgStockinCommodity ?
+                    creditDetail?.averageStockOfCommodity:
+                      Number(creditDetail?.averageStockOfCommodity)?.toLocaleString() + ` ${ creditDetail?.unitOfQuantity?.toUpperCase()}`}
+                  // value={addPrefixOrSuffix(
+                  //   creditDetail?.averageStockOfCommodity,
+                  //   creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
+                  // )}
                   name="averageStockOfCommodity"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value)
@@ -365,10 +412,23 @@ const index = ({
                   required
                   type="text"
                   onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-                  value={addPrefixOrSuffix(
-                    creditDetail?.averageStockInTransit,
-                    creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
-                  )}
+
+                  onFocus={(e) => {
+                    setIsFieldInFocus({ ...isFieldInFocus, avgStockinTrasit: true }),
+                      e.target.type = 'number'
+                  }}
+                  onBlur={(e) => {
+                    setIsFieldInFocus({ ...isFieldInFocus, avgStockinTrasit: false }),
+                      e.target.type = 'text'
+                  }}
+                  value={
+                    isFieldInFocus.avgStockinTrasit ?
+                    creditDetail?.averageStockInTransit:
+                      Number(creditDetail?.averageStockInTransit)?.toLocaleString() + ` ${ creditDetail?.unitOfQuantity?.toUpperCase()}`}
+                  // value={addPrefixOrSuffix(
+                  //   creditDetail?.averageStockInTransit,
+                  //   creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
+                  // )}
                   name="averageStockInTransit"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value)
@@ -385,10 +445,22 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  value={addPrefixOrSuffix(
-                    creditDetail?.availableStock,
-                    creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
-                  )}
+                  onFocus={(e) => {
+                    setIsFieldInFocus({ ...isFieldInFocus, availableStock: true }),
+                      e.target.type = 'number'
+                  }}
+                  onBlur={(e) => {
+                    setIsFieldInFocus({ ...isFieldInFocus, availableStock: false }),
+                      e.target.type = 'text'
+                  }}
+                  value={
+                    isFieldInFocus.availableStock ?
+                    creditDetail?.availableStock:
+                      Number(creditDetail?.availableStock)?.toLocaleString() + ` ${ creditDetail?.unitOfQuantity?.toUpperCase()}`}
+                  // value={addPrefixOrSuffix(
+                  //   creditDetail?.availableStock,
+                  //   creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
+                  // )}
                   name="availableStock"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value)
@@ -404,10 +476,22 @@ const index = ({
                   required
                   type="text"
                   onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-                  value={addPrefixOrSuffix(
-                    creditDetail?.dailyConsumptionOfCommodity,
-                    creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
-                  )}
+                  onFocus={(e) => {
+                    setIsFieldInFocus({ ...isFieldInFocus, dailyConsumptionOfCommodity: true }),
+                      e.target.type = 'number'
+                  }}
+                  onBlur={(e) => {
+                    setIsFieldInFocus({ ...isFieldInFocus, dailyConsumptionOfCommodity: false }),
+                      e.target.type = 'text'
+                  }}
+                  value={
+                    isFieldInFocus.dailyConsumptionOfCommodity ?
+                    creditDetail?.dailyConsumptionOfCommodity:
+                      Number(creditDetail?.dailyConsumptionOfCommodity)?.toLocaleString() + ` ${ creditDetail?.unitOfQuantity?.toUpperCase()}`}
+                  // value={addPrefixOrSuffix(
+                  //   creditDetail?.dailyConsumptionOfCommodity,
+                  //   creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
+                  // )}
                   name="dailyConsumptionOfCommodity"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value)
@@ -423,7 +507,7 @@ const index = ({
                   <DateCalender
                     name="stockCoverageOfCommodity"
                     defaultDate={
-                      creditDetail?.stockCoverageOfCommodity?.split('T')[0]
+                      creditDetail?.stockCoverageOfCommodity ?? ''
                     }
                     saveDate={saveDate}
                     labelName="Stock Coverage of Commodity"
@@ -562,12 +646,24 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  value={addPrefixOrSuffix(
-                    creditDetail?.AvgMonthlyElectricityBill,
-                    'INR',
-                    'front',
-                    true,
-                  )}
+                  onFocus={(e) => {
+                    setIsFieldInFocus({ ...isFieldInFocus, AvgMonthlyElectricityBill: true }),
+                      e.target.type = 'number'
+                  }}
+                  onBlur={(e) => {
+                    setIsFieldInFocus({ ...isFieldInFocus, AvgMonthlyElectricityBill: false }),
+                      e.target.type = 'text'
+                  }}
+                  value={
+                    isFieldInFocus.AvgMonthlyElectricityBill ?
+                    creditDetail?.AvgMonthlyElectricityBill:
+                    'INR ' +  Number(creditDetail?.AvgMonthlyElectricityBill)?.toLocaleString() }
+                  // value={addPrefixOrSuffix(
+                  //   creditDetail?.AvgMonthlyElectricityBill,
+                  //   'INR',
+                  //   'front',
+                  //   true,
+                  // )}
                   name="AvgMonthlyElectricityBill"
                   onChange={(e) => {
                     saveProductData(e.target.name, e.target.value)
@@ -726,7 +822,7 @@ const index = ({
                     className={`${styles.input_field} input form-control`}
                     required
                     type="text"
-                    defaultValue={supplierCred?.countryOfOrigin}
+                    value={supplierCred?.countryOfOrigin}
                     name="countryOfOrigin"
                     onChange={(e) => {
                       saveSupplierData(e.target.name, e.target.value)
@@ -743,7 +839,7 @@ const index = ({
                     className={`${styles.input_field} input form-control`}
                     required
                     type="text"
-                    defaultValue={supplierCred?.portOfDestination}
+                    value={supplierCred?.portOfDestination}
                     name="portOfDestination"
                     onChange={(e) => {
                       saveSupplierData(e.target.name, e.target.value)
@@ -760,7 +856,7 @@ const index = ({
                   <DateCalender
                     name="oldestShipmentDate"
                     defaultDate={
-                      supplierCred?.oldestShipmentDate?.split('T')[0]
+                      supplierCred?.oldestShipmentDate ?? ''
                     }
                     saveDate={saveSupplierDate}
                     labelName="Oldest Shipment Date"
@@ -798,7 +894,7 @@ const index = ({
                   <DateCalender
                     name="latestShipmentDate"
                     defaultDate={
-                      supplierCred?.latestShipmentDate?.split('T')[0]
+                      supplierCred?.latestShipmentDate ?? ''
                     }
                     saveDate={saveSupplierDate}
                     labelName="Latest Shipment Date"
@@ -829,6 +925,18 @@ const index = ({
                   className={`${styles.input_field} ${styles.percent} input form-control`}
                   required
                   type="text"
+                  // onFocus={(e) => {
+                  //   setIsFieldInFocus({ ...isFieldInFocus, commodityOfTotalTrade: true }),
+                  //     e.target.type = 'number'
+                  // }}
+                  // onBlur={(e) => {
+                  //   setIsFieldInFocus({ ...isFieldInFocus, commodityOfTotalTrade: false }),
+                  //     e.target.type = 'text'
+                  // }}
+                  // value={
+                  //   isFieldInFocus.commodityOfTotalTrade ?
+                  //   creditDetail?.commodityOfTotalTrade:
+                  //     Number(creditDetail?.commodityOfTotalTrade)?.toLocaleString() + ' %'}
                   value={addPrefixOrSuffix(
                     supplierCred?.commodityOfTotalTrade,
                     '%',

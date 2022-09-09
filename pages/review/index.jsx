@@ -693,19 +693,19 @@ function Index() {
         : orderList?.unitOfQuantity,
     })
     setSupplierCred({
-      HSCodesNumber: orderList?.supplierCredential?.HSCodesNumber,
+      HSCodesNumber: orderList?.supplierCredential?.HSCodesNumber ?? '',
       commodityOfTotalTrade:
-        orderList?.supplierCredential?.commodityOfTotalTrade,
-      consigneesNumber: orderList?.supplierCredential?.consigneesNumber,
-      countryOfOrigin: orderList?.supplierCredential?.countryOfOrigin,
-      latestShipmentDate: orderList?.supplierCredential?.latestShipmentDate,
-      oldestShipmentDate: orderList?.supplierCredential?.oldestShipmentDate,
-      portOfDestination: orderList?.supplierCredential?.portOfDestination,
-      remarks: orderList?.supplierCredential?.remarks,
-      shipmentNumber: orderList?.supplierCredential?.shipmentNumber,
-      supplierName: orderList?.supplierCredential?.supplierName
-        ? orderList?.supplierCredential?.supplierName
-        : orderList?.supplierName,
+        orderList?.supplierCredential?.commodityOfTotalTrade ?? '',
+      consigneesNumber: orderList?.supplierCredential?.consigneesNumber ?? '',
+      countryOfOrigin: orderList?.supplierCredential?.countryOfOrigin ?? '',
+      latestShipmentDate: orderList?.supplierCredential?.latestShipmentDate ?? '',
+      oldestShipmentDate: orderList?.supplierCredential?.oldestShipmentDate ?? '',
+      portOfDestination: orderList?.supplierCredential?.portOfDestination ?? '',
+      remarks: orderList?.supplierCredential?.remarks ?? '',
+      shipmentNumber: orderList?.supplierCredential?.shipmentNumber ?? '',
+      supplierName: orderList?.supplierCredential?.supplierName ?? ''
+        ? orderList?.supplierCredential?.supplierName 
+        : orderList?.supplierName ,
     })
   }, [orderList])
 
@@ -1538,7 +1538,7 @@ function Index() {
               </tr>
               <tr bgColor="#F7F9FF">
                 <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px' }}>Quantity</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px' }}>{camData?.quantity} {camData?.unitOfQuantity.toUpperCase()}</td>
+                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px' }}>{camData?.quantity} {camData?.unitOfQuantity?.toUpperCase()}</td>
                 <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px' }}>Supplier</td>
                 <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px' }}> {camData?.supplierName}</td>
               </tr>
@@ -1649,7 +1649,7 @@ function Index() {
                                   <td height="60" colSpan={2} style={{ fontSize: '22px', color: '#111111', lineHeight: '27px', fontWeight: 'bold', padding: '32px 22px 19px' }}><span style={{ fontSize: '28px', color: '#FF9D00', lineHeight: '34px', fontWeight: 'bold', background: '#FFECCF', borderRadius: '8px', marginRight: '22px', padding: '13px', display: 'inline-block' }}>
                                     {name?.map((item, index) => {
                                       if (index < 2) {
-                                        return item?.charAt(0).toUpperCase()
+                                        return item?.charAt(0)?.toUpperCase()
                                       }
                                     })}
                                   </span>  {exp.name}</td>
@@ -1986,11 +1986,11 @@ function Index() {
                             <th width="50%" style={{ fontSize: '22px', color: '#111111', lineHeight: '27px', fontWeight: 'bold', paddingLeft: '35px' }}>Liabilities</th>
                             <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase' }}>
                               {moment(companyData?.financial?.balanceSheet[0]?.date).format('MMM-YY')
-                                .toUpperCase()}
+                                ?.toUpperCase()}
                             </th>
                             <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase' }}>
                               {moment(companyData?.financial?.balanceSheet[1]?.date).format('MMM-YY')
-                                .toUpperCase()}
+                                ?.toUpperCase()}
                             </th>
                           </tr>
                           <tr>
@@ -2115,7 +2115,7 @@ function Index() {
                             <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500', paddingTop: '33px' }}>
                               {_get(companyData, 'financial.ratioAnalysis[1]', {})?.workingCapitalTurnover
                                 ?.toFixed(2)
-                                .toLocaleString()}
+                                ?.toLocaleString()}
                             </td>
                           </tr>
                           <tr>
@@ -2123,12 +2123,12 @@ function Index() {
                             <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>
                               {_get(companyData, 'financial.ratioAnalysis[0]', {})?.daysOfSalesOutstanding
                                 ?.toFixed(2)
-                                .toLocaleString()}
+                                ?.toLocaleString()}
                             </td>
                             <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>
                               {_get(companyData, 'financial.ratioAnalysis[1]', {})?.daysOfSalesOutstanding
                                 ?.toFixed(2)
-                                .toLocaleString()}
+                                ?.toLocaleString()}
                             </td>
                           </tr>
                           <tr>
@@ -2136,7 +2136,7 @@ function Index() {
                             <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>
                               {_get(companyData, 'financial.ratioAnalysis[0]', {})?.daysOfPayablesOutstanding
                                 ?.toFixed(2)
-                                .toLocaleString()}
+                                ?.toLocaleString()}
                             </td>
                             <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>
                               {_get(companyData, 'financial.ratioAnalysis[1]', {})?.daysOfPayablesOutstanding?.toFixed(2)}
