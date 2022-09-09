@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from '../profile.module.scss'
 import CommonSave from '../../CommonSave'
 import { useDispatch } from 'react-redux'
@@ -8,9 +8,34 @@ import { CovertvaluefromtoCR, checkNan } from '../../../utils/helper'
 import _get from 'lodash/get'
 
 function Index({ order, companyDetail }) {
-  console.log(companyDetail, 'companyDetail')
+  console.log(order, 'companyDetail')
 
-  const [updateCompany, setUpdateCompany] = useState({})
+  const [updateCompany, setUpdateCompany] = useState({
+    referalName: '',
+    referedBy: '',
+    sourceChanel: '',
+
+  })
+  useEffect(() => {
+    let newCompanyData = {}
+    newCompanyData = {
+      referalName: order?.referalName ?? '',
+      referedBy: order?.referedBy ?? '',
+      sourceChanel: order?.sourceChanel ?? '',
+
+    }
+    setUpdateCompany(newCompanyData)
+
+    // if (order?.referalName) {
+    //   setUpdateCompany({ ...updateCompany, referalName: order.referalName })
+    // }
+    // if (order?.referedBy) {
+    //   setUpdateCompany({ ...updateCompany, referedBy: order.referedBy })
+    // }
+    // if (order?.sourceChanel) {
+    //   setUpdateCompany({ ...updateCompany, sourceChanel: order.sourceChanel })
+    // }
+  }, [order])
 
   const dispatch = useDispatch()
 
@@ -73,7 +98,7 @@ function Index({ order, companyDetail }) {
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
                   {_get(companyDetail, 'profile.companyDetail.pans[0]', '')}{' '}
-                {_get(companyDetail, 'profile.companyDetail.pans[0]', '') !== '' &&   <img
+                  {_get(companyDetail, 'profile.companyDetail.pans[0]', '') !== '' && <img
                     src="/static/approved.svg"
                     alt="Approved"
                     className="img-fluid mt-n1"
@@ -159,7 +184,7 @@ function Index({ order, companyDetail }) {
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
                   {companyDetail?.profile?.companyDetail?.emailDomain}{' '}
-                {companyDetail?.profile?.companyDetail?.emailDomain &&  <img
+                  {companyDetail?.profile?.companyDetail?.emailDomain && <img
                     src="/static/approved.svg"
                     alt="approved"
                     className="img-fluid"
@@ -263,7 +288,7 @@ function Index({ order, companyDetail }) {
                     onChange={onChangeHandler}
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="Sourcing"
-                    value={order?.sourceChanel}
+                    value={updateCompany?.sourceChanel}
                   >
                     <option value="">Select</option>
 
@@ -294,7 +319,7 @@ function Index({ order, companyDetail }) {
                     onChange={onChangeHandler}
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="Sourcing"
-                    value={order?.referedBy}
+                    value={updateCompany?.referedBy}
                   >
                     {updateCompany?.sourceChanel === 'Customs Associate' ? (
                       <>
@@ -336,6 +361,7 @@ function Index({ order, companyDetail }) {
                     onChange={onChangeHandler}
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     name="Sourcing"
+                    value={updateCompany?.referalName}
                   >
                     <option value="">Select</option>
                     <option value="Bhutani Traders">Bhutani Traders</option>
