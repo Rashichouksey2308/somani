@@ -89,8 +89,8 @@ export default function Index({
     }
     console.log(filteredVessel, 'filteredVessel')
     const newArray = [...cimsDetails]
-    newArray[index].vesselName = filteredVessel.vesselInformation[0].name
-    newArray[index].quantity = filteredVessel.vesselInformation[0].IMONumber
+    newArray[index].vesselName =  _get(filteredVessel, 'vesselInformation[0].name','')
+    newArray[index].quantity =  _get(filteredVessel, 'vesselInformation[0].IMONumber','')
 
     setCimsDetails(newArray)
   }
@@ -337,7 +337,7 @@ export default function Index({
                           onChange={(e) => onChangeVessel(e, index)}
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                         >
-                          <option disabled selected>Select an option</option>
+                          <option  selected>Select an option</option>
                           {shipmentTypeBulk
                             ? _get(
                               TransitDetails,
@@ -600,7 +600,7 @@ export default function Index({
                             alt="Pdf"
                           />
                         </td>
-                        <td className={styles.doc_row}> {moment(list?.cimsPaymentReceiptDoc?.Date).format(' DD-MM-YYYY , h:mm a')}</td>
+                        <td className={styles.doc_row}> { cimsDetails[index]?.cimsPaymentReceiptDoc == null ? '' : moment(list?.cimsPaymentReceiptDoc?.Date).format(' DD-MM-YYYY , h:mm a')}</td>
                         <td>
                           <div className={styles.uploadBtnWrapper}>
                             {cimsDetails &&

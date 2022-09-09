@@ -68,10 +68,10 @@ export default function Index() {
       {
         bankName: hedgingDataDetail?.bankName ?? '',
         currency: hedgingDataDetail?.currency || 'INR',
-        bookedRate: hedgingDataDetail?.bookedRate,
+        bookedRate: hedgingDataDetail?.bookedRate ?? '',
         bookedRateCurrency: hedgingDataDetail?.bookedRateCurrency || 'INR',
-        bookedAmount: hedgingDataDetail?.bookedAmount,
-        validityFrom: hedgingDataDetail?.validityFrom,
+        bookedAmount: hedgingDataDetail?.bookedAmount ?? '',
+        validityFrom: hedgingDataDetail?.validityFrom ,
         validityTo: hedgingDataDetail?.validityTo,
         closingDate: '',
         closingRate: '',

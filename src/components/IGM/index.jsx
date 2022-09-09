@@ -464,7 +464,7 @@ export default function Index({
                     Shipping Line/Charter
                     <strong className="text-danger">*</strong>{' '}
                   </div>
-                  {shipmentTypeBulk ? (
+                  {!shipmentTypeBulk ? (
                     <span className={styles.value}>
                       {_get(
                         TransitDetails,
