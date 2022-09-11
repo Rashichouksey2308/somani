@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Form } from 'react-bootstrap'
 import styles from './index.module.scss'
 import {
@@ -32,6 +32,7 @@ const Index = ({
   addGroupExpArr,
   saveSuggestedCreditData,
   deleteData,
+  setSanctionComment,
   suggestedCredit,
 }) => {
   const [editProfile, setEditProfile] = useState(false)
@@ -41,14 +42,13 @@ const Index = ({
   const [editWeak, setEditWeak] = useState(false)
   const [editSanc, setEditSanc] = useState(false)
   const [addRow, setAddRow] = useState(false)
- 
 
   const [companyComments, setCompanyComments] = useState('')
   const [strengthsComments, setStrengthsComments] = useState('')
   const [financialsComments, setFinancialsComments] = useState('')
   const [sanctionComments, setSanctionComments] = useState('')
+  const [sanctionCommentsIndex, setSanctionCommentsIndex] = useState([])
   const [weaknessComments, setWeaknessComments] = useState('')
-
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     groupExposureLimit: false,
     groupExposureOutLimit: false,
@@ -112,20 +112,61 @@ const Index = ({
     ])
   }
 
-  const setActions = (index, val) => {
-    setGroupExposureData((prevState) => {
-      const newState = prevState.map((obj, i) => {
-        if (i == index) {
-          return { ...obj, actions: val }
-        }
+  const setActions = (index, val, editType) => {
+    console.log(index, val, editType, 'DANGEROUS')
+    if (editType === 'sanctionComments') {
+      setSanctionComment((prevState) => {
+        const newState = prevState.map((obj, i) => {
+          if (i == index) {
+            return { ...obj, actions: val }
+          }
 
-        return obj
+          return obj
+        })
+
+        return newState
       })
+    } else {
+      setGroupExposureData((prevState) => {
+        const newState = prevState.map((obj, i) => {
+          if (i == index) {
+            return { ...obj, actions: val }
+          }
 
-      return newState
-    })
+          return obj
+        })
+
+        return newState
+      })
+    }
   }
 
+  //sanction comments functionality
+
+  const handleInput = (val, index) => {
+    let temp = [...sanctionComment]
+    temp.splice(index, 1, val)
+    setSanctionComment(temp)
+  }
+  const onEditClickHandler = (index, task) => {
+    if (task === 'edit') {
+      let tempIndex = [...sanctionCommentsIndex]
+      tempIndex.push(index)
+      setSanctionCommentsIndex(tempIndex)
+    } else {
+      let deleteIndex = [...sanctionCommentsIndex]
+      deleteIndex.splice(0, 1)
+      setSanctionCommentsIndex(deleteIndex)
+    }
+  }
+
+  const onSanctionCommentRemove = (index) => {
+    setSanctionComment([
+      ...sanctionComment.slice(0, index),
+      ...sanctionComment.slice(index + 1),
+    ])
+  }
+  console.log(sanctionCommentsIndex, 'INDEXOF')
   return (
     <>
       <div className={`${styles.main} vessel_card card border_color `}>
@@ -377,7 +418,11 @@ const Index = ({
                                 }
                               }}
                               onChange={(e) => {
-                                e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0).toLocaleString('en-IN')
+                                e.target.value = (
+                                  parseInt(
+                                    e.target.value.replace(/[^\d]+/gi, ''),
+                                  ) || 0
+                                ).toLocaleString('en-IN')
 
                                 handleGroupExpChange(
                                   e.target.name,
@@ -407,7 +452,11 @@ const Index = ({
                                 }
                               }}
                               onChange={(e) => {
-                                e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0).toLocaleString('en-IN')
+                                e.target.value = (
+                                  parseInt(
+                                    e.target.value.replace(/[^\d]+/gi, ''),
+                                  ) || 0
+                                ).toLocaleString('en-IN')
 
                                 handleGroupExpChange(
                                   e.target.name,
@@ -482,9 +531,7 @@ const Index = ({
                 </table>
               </div>
             </div>
-            <div
-              className={`${styles.add_image} d-flex justify-content-end`}
-            >
+            <div className={`${styles.add_image} d-flex justify-content-end`}>
               <div
                 role="button"
                 onClick={(e) => {
@@ -562,30 +609,6 @@ const Index = ({
                   </div>
                 ))}
             </div>
-            {/* <hr></hr> */}
-            {/* <div className="d-flex justify-content-between">
-              <Form.Control
-                className={`${styles.paragraph} input`}
-                as="textarea"
-                rows={3}
-                readOnly={editStren1}
-              />
-              <div className="mt-3">
-                <img
-                  src="/static/mode_edit.svg" role="button"
-                  className={`${styles.edit_image} mr-4`}
-                  alt="edit"
-                  onClick={(e) => {
-                    setEditStren1(!editStren1)
-                  }}
-                />
-                <img
-                  src="/static/delete 2.svg" role="button"
-                  alt="delete"
-                />
-              </div>
-            </div> */}
-
             <hr className={styles.line} style={{ margin: '-1px 0 0' }}></hr>
             <div className={`${styles.comment_inner}`}>
               <div className={`${styles.sub_heading} value`}>Weakness</div>
@@ -650,29 +673,6 @@ const Index = ({
                   </div>
                 ))}
             </div>
-            {/* <div className="d-flex justify-content-between">
-              <Form.Control
-                className={`${styles.paragraph} input`}
-                as="textarea"
-                rows={3}
-                readOnly={editWeak1}
-              />
-              <div className="mt-3">
-                <img
-                  src="/static/delete 2.svg" role="button"
-                  className="mr-4"
-                  alt="delete"
-                />
-                <img
-                  src="/static/mode_edit.svg" role="button"
-                  className={`${styles.edit_image}`}
-                  alt="edit"
-                  onClick={(e) => {
-                    setEditWeak1(!editWeak1)
-                  }}
-                />
-              </div>
-            </div> */}
 
             <hr className={styles.line} style={{ margin: '-1px 0 0' }}></hr>
             <div
@@ -789,12 +789,11 @@ const Index = ({
                     <td>Order Value</td>
                     <td>-</td>
                     <td>
-                       { checkNan(CovertvaluefromtoCR(creditDetail?.orderValue ?? ''))?.toLocaleString(
-                        undefined,
-                        {
-                          minimumFractionDigits: 2,
-                        },
-                      )}
+                      {checkNan(
+                        CovertvaluefromtoCR(creditDetail?.orderValue ?? ''),
+                      )?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                      })}
                     </td>
 
                     <td>-</td>
@@ -863,122 +862,41 @@ const Index = ({
                       defaultValue={sanction}
                       as="textarea"
                       rows={3}
-                      readOnly={!editSanc}
+                      readOnly={!sanctionCommentsIndex.includes(index)}
+                      onChange={(e) => {
+                        handleInput(e.target.value, index)
+                      }}
                     />
                     <div className="mt-3">
-                      <img
-                        src="/static/mode_edit.svg"
-                        role="button"
-                        className={`${styles.edit_image} mr-4`}
-                        alt="edit"
-                        onClick={(e) => {
-                          setEditSanc(!editSanc)
-                        }}
-                      />
+                      {sanctionCommentsIndex.includes(index) ? (
+                        <img
+                          src="/static/mode_edit.svg"
+                          role="button"
+                          className={`${styles.edit_image} mr-3`}
+                          onClick={() => onEditClickHandler(index, 'save')}
+                        />
+                      ) : (
+                        <img
+                          src="/static/save-3.svg"
+                          role="button"
+                          className={`${styles.edit_image} mr-3`}
+                          alt="save"
+                          onClick={() => onEditClickHandler(index, 'edit')}
+                        />
+                      )}
                       <img
                         src="/static/delete 2.svg"
                         role="button"
-                        alt="delete"
-                        onClick={(e) => {
-                          dltSanctionCommentArr(index)
+                        className={`${styles.delete_image}`}
+                        onClick={() => {
+                          onSanctionCommentRemove(index)
                         }}
+                        alt="delete"
                       />
                     </div>
                   </div>
                 ))}
             </div>
-            {/*<div className="d-flex justify-content-start align-items-center pt-5 pl-5">
-               <div className={`${styles.form_group} mr-5`}>
-                <div className={`${styles.label_sanction}`}>Limit Value</div>
-                <div>100 CR</div>
-              </div>
-              <div className={`${styles.form_group} ml-5 mr-5`}>
-                <div className={`${styles.label_sanction}`}>Order Value</div>
-                <div>100 Lakhs</div>
-              </div>
-
-            </div>
-            <div className="d-flex mt-5 pb-5">
-              <input
-                as="textarea"
-                rows={3}
-                placeholder=""
-                className={`${styles.comment_field} input form-control`}
-                onChange={(e) => setSanctionComments(e.target.value)}
-              />
-              <label className={`${styles.label_heading} label_heading`}>
-                Sanction Condition
-              </label>
-
-              <img
-                className="img-fluid ml-4" role="button"
-                src="/static/add-btn.svg"
-                alt="add button"
-                onClick={() =>
-                  sanctionComments.length > 0 &&
-                  addSanctionCommentArr(sanctionComments)
-                }
-              />
-            </div>
-            <div className={`${styles.strength} value`}>
-              Sanction Conditions
-            </div>
-            {sanctionComment &&
-              sanctionComment.map((sanction, index) => (
-                <div
-                  key={index}
-                  className={`${styles.textarea_main} d-flex justify-content-between`}
-                >
-                  <Form.Control
-                    className={`${styles.paragraph} input`}
-                    defaultValue={sanction}
-                    as="textarea"
-                    rows={3}
-                    readOnly={editSanc}
-                  />
-                  <div className="mt-3">
-                    <img
-                      src="/static/delete 2.svg" role="button"
-                      className="mr-4"
-                      alt="delete"
-                      onClick={() => dltSanctionCommentArr(index)}
-                    />
-                    <img
-                      src="/static/mode_edit.svg" role="button"
-                      className={`${styles.edit_image}`}
-                      alt="edit"
-                      onClick={(e) => {
-                        setEditSanc(!editSanc)
-                      }}
-                    />
-                  </div>
-                </div>
-              ))}
-
-            {/* <div className="d-flex justify-content-between">
-              <Form.Control
-                className={`${styles.paragraph} input`}
-                as="textarea"
-                rows={3}
-                readOnly={editSanc1}
-              />
-              <div className="mt-3">
-                <img
-                  src="/static/delete 2.svg" role="button"
-                  className="mr-4"
-                  alt="delete"
-                />
-                <img
-                  src="/static/mode_edit.svg" role="button"
-                  className={`${styles.edit_image}`}
-                  alt="edit"
-                  onClick={(e) => {
-                    setEditSanc1(!editSanc1)
-                  }}
-                />
-              </div>
-            </div> 
-          </div>*/}
           </div>
         </div>
       </div>
