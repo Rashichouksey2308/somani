@@ -25,6 +25,7 @@ function Index({
   currentComment2,
   excelFile,
   addConditionArr,
+  lcModuleData
 }) {
   console.log(lcData, 'lcCondition12234')
   const [editStren, setEditStren] = useState(false)
@@ -233,7 +234,7 @@ function Index({
                           required
                           type="text"
                           name="beneficiary"
-                          defaultValue={lcData?.beneficiary}
+                          defaultValue={lcData?.beneficiary ? lcData?.beneficiary : lcModuleData?.order?.supplierName}
                           onChange={(e) => {
                             saveLcData(e.target.name, e.target.value)
                           }}
@@ -539,7 +540,7 @@ function Index({
                             required
                             type="text"
                             name="portOfLoading"
-                            defaultValue={lcData?.portOfLoading}
+                            defaultValue={lcData?.portOfLoading ? lcData?.portOfLoading : lcModuleData?.order?.termsheet?.transactionDetails?.loadPort}
                             onChange={(e) => {
                               saveLcData(e.target.name, e.target.value)
                             }}
@@ -559,7 +560,7 @@ function Index({
                             onChange={(e) => {
                               saveLcData(e.target.name, e.target.value)
                             }}
-                            value={lcData?.portOfDischarge}
+                            value={lcData?.portOfDischarge ? lcData.portOfDischarge : lcModuleData?.order?.termsheet?.transactionDetails?.portOfDischarge}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
                             <option selected disabled>Select an option</option>
@@ -822,7 +823,7 @@ function Index({
                               required
                               type="text"
                               name="presentaionPeriod"
-                              defaultValue={lcData?.presentaionPeriod}
+                              defaultValue={lcData?.presentaionPeriod ? lcData.presentaionPeriod : "DOCUMENTS TO BE PRESENTED WITHIN 21 DAYS AFTER SHIPMENT DATE BUT WITHIN VALIDITY OF THE LC"}
                               onChange={(e) => {
                                 saveLcData(e.target.name, e.target.value)
                               }}
@@ -841,7 +842,7 @@ function Index({
                               required
                               type="text"
                               name="confirmationInstructions"
-                              defaultValue={lcData?.confirmationInstructions}
+                              defaultValue={lcData?.confirmationInstructions ? lcData?.confirmationInstructions : 'May Add'}
                               onChange={(e) => {
                                 saveLcData(e.target.name, e.target.value)
                               }}
@@ -948,7 +949,7 @@ function Index({
                               className={`${styles.label_heading} label_heading`}
                             >
                               (58A) Requested Confirmation Party
-                              <strong className="text-danger">*</strong>
+                              {/* <strong className="text-danger">*</strong> */}
                             </label>
                           </Col>
                           <Col className="mb-4 mt-4" md={12}>
@@ -958,7 +959,7 @@ function Index({
                               required
                               type="text"
                               name="charges"
-                              defaultValue={lcData?.charges}
+                              defaultValue={lcData?.charges ? lcData?.charges :  "ALL THE CHARGES OUTSIDE LC ISSUING BANK ARE FOR THE BENEFICIARY’S ACCOUNT"}
                               onChange={(e) => {
                                 saveLcData(e.target.name, e.target.value)
                               }}
@@ -977,7 +978,7 @@ function Index({
                               required
                               type="text"
                               name="instructionToBank"
-                              defaultValue={lcData?.instructionToBank}
+                              defaultValue={lcData?.instructionToBank ? lcData?.instructionToBank : "THE DOCUMENTS ARE TO BE COURIERED TO ........... (LC ISSUING BANK ADDRESS).............. UPON RECEIPT AT OUR COUNTERS OF A STRICTLY COMPLYING PRESENTATION, WE UNDERTAKE TO COVER YOU WITHIN 5 BANKING DAYS AS PER YOUR INSTRUCTIONS"}
                               onChange={(e) => {
                                 saveLcData(e.target.name, e.target.value)
                               }}

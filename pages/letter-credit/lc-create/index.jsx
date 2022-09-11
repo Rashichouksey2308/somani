@@ -45,7 +45,7 @@ function Index() {
       placeOfExpiry: lcModuleData?.lcApplication?.placeOfExpiry,
       lcIssuingBank: lcModuleData?.lcApplication?.lcIssuingBank,
       applicant: lcModuleData?.lcApplication?.applicant,
-      beneficiary: lcModuleData?.lcApplication?.beneficiary,
+      beneficiary: lcModuleData?.lcApplication?.beneficiary ? lcModuleData?.lcApplication?.beneficiary : lcModuleData?.order?.supplierName,
       currecyCodeAndAmountValue:
         lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
       currecyCodeAndAmountUnit:
@@ -61,19 +61,19 @@ function Index() {
       transhipments: lcModuleData?.lcApplication?.transhipments,
       shipmentForm: lcModuleData?.lcApplication?.shipmentForm,
       portOfLoading: lcModuleData?.lcApplication?.portOfLoading,
-      portOfDischarge: lcModuleData?.lcApplication?.portOfDischarge,
+      portOfDischarge: lcModuleData?.lcApplication?.portOfDischarge ? lcModuleData?.lcApplication?.portOfDischarge : lcModuleData?.order?.termsheet?.transactionDetails?.portOfDischarge,
       latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment,
       DescriptionOfGoods: lcModuleData?.lcApplication?.DescriptionOfGoods,
-      presentaionPeriod: lcModuleData?.lcApplication?.presentaionPeriod,
+      presentaionPeriod: lcModuleData?.lcApplication?.presentaionPeriod ? lcModuleData?.lcApplication?.presentaionPeriod : "DOCUMENTS TO BE PRESENTED WITHIN 21 DAYS AFTER SHIPMENT DATE BUT WITHIN VALIDITY OF THE LC",
       confirmationInstructions:
-        lcModuleData?.lcApplication?.confirmationInstructions,
+        lcModuleData?.lcApplication?.confirmationInstructions ? lcModuleData?.lcApplication?.confirmationInstructions : 'May Add',
       reimbursingBank: lcModuleData?.lcApplication?.reimbursingBank,
       adviceThroughBank: lcModuleData?.lcApplication?.adviceThroughBank,
       secondAdvisingBank: lcModuleData?.lcApplication?.secondAdvisingBank,
       requestedConfirmationParty:
         lcModuleData?.lcApplication?.requestedConfirmationParty,
-      charges: lcModuleData?.lcApplication?.charges,
-      instructionToBank: lcModuleData?.lcApplication?.instructionToBank,
+      charges: lcModuleData?.lcApplication?.charges ? lcModuleData?.lcApplication?.charges :  "ALL THE CHARGES OUTSIDE LC ISSUING BANK ARE FOR THE BENEFICIARY’S ACCOUNT",
+      instructionToBank: lcModuleData?.lcApplication?.instructionToBank ? lcModuleData?.lcApplication?.instructionToBank : "THE DOCUMENTS ARE TO BE COURIERED TO ........... (LC ISSUING BANK ADDRESS)..............UPON RECEIPT AT OUR COUNTERS OF A STRICTLY COMPLYING PRESENTATION, WE UNDERTAKE TO COVER YOU WITHIN 5 BANKING DAYS AS PER YOUR INSTRUCTIONS",
       senderToReceiverInformation:
         lcModuleData?.lcApplication?.senderToReceiverInformation,
       documentaryCreditNumber:
@@ -357,16 +357,6 @@ function Index() {
         return false
       }
     }
-    if (
-      lcData.requestedConfirmationParty === '' ||
-      lcData.requestedConfirmationParty == undefined
-    ) {
-      toastMessage = 'Please select requested Confirmation Party'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        return false
-      }
-    }
     if (lcData.charges === '' || lcData.charges == undefined) {
       toastMessage = 'Please select charges'
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -434,6 +424,7 @@ function Index() {
         saveLcData={saveLcData}
         lcComments={lcComments}
         lcDocuments={lcDocuments}
+        lcModuleData={lcModuleData}
         lcData={lcData}
         addComment={addComment}
         deleteLcDoc={deleteLcDoc}
