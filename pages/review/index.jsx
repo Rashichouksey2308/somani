@@ -636,6 +636,7 @@ function Index() {
   console.log(product, 'productData')
   const [supplierCred, setSupplierCred] = useState()
   console.log('orderList', orderList)
+  console.log(supplierCred, 'supplierCred')
   useEffect(() => {
     setProduct({
       AvgMonthlyElectricityBill: orderList?.productSummary

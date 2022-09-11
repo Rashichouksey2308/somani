@@ -266,7 +266,7 @@ const Index = ({ saveOrderData, orderData }) => {
                   name="tolerance"
                   value= {isFieldInFocus.tolerance ?
                     orderData.tolerance :
-                  Number(orderData.tolerance)?.toLocaleString() + ' %'
+                 '± '+ Number(orderData.tolerance)?.toLocaleString() + ' %'
                   }
                   // value={addPrefixOrSuffix(orderData.tolerance, '%', '')}
                   onChange={(e) => {

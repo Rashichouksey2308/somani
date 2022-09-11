@@ -315,6 +315,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                   onFocus={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, monthlyCapacity: true }),
                       e.target.type = 'number'
@@ -347,6 +348,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                   onFocus={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, capacityUtilization: true }),
                       e.target.type = 'number'
@@ -446,6 +448,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                   onFocus={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, availableStock: true }),
                       e.target.type = 'number'
@@ -647,6 +650,7 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
+                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                   onFocus={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, AvgMonthlyElectricityBill: true }),
                       e.target.type = 'number'
@@ -822,7 +826,7 @@ const index = ({
                   <input
                     className={`${styles.input_field} input form-control`}
                     required
-                    type="text"
+                    type="number"
                     value={supplierCred?.countryOfOrigin}
                     name="countryOfOrigin"
                     onChange={(e) => {
@@ -839,7 +843,7 @@ const index = ({
                   <input
                     className={`${styles.input_field} input form-control`}
                     required
-                    type="text"
+                    type="number"
                     value={supplierCred?.portOfDestination}
                     name="portOfDestination"
                     onChange={(e) => {
@@ -926,23 +930,24 @@ const index = ({
                   className={`${styles.input_field} ${styles.percent} input form-control`}
                   required
                   type="text"
-                  // onFocus={(e) => {
-                  //   setIsFieldInFocus({ ...isFieldInFocus, commodityOfTotalTrade: true }),
-                  //     e.target.type = 'number'
-                  // }}
-                  // onBlur={(e) => {
-                  //   setIsFieldInFocus({ ...isFieldInFocus, commodityOfTotalTrade: false }),
-                  //     e.target.type = 'text'
-                  // }}
-                  // value={
-                  //   isFieldInFocus.commodityOfTotalTrade ?
-                  //   creditDetail?.commodityOfTotalTrade:
-                  //     Number(creditDetail?.commodityOfTotalTrade)?.toLocaleString() + ' %'}
-                  value={addPrefixOrSuffix(
-                    supplierCred?.commodityOfTotalTrade,
-                    '%',
-                    '',
-                  )}
+                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                  onFocus={(e) => {
+                    setIsFieldInFocus({ ...isFieldInFocus, commodityOfTotalTrade: true }),
+                      e.target.type = 'number'
+                  }}
+                  onBlur={(e) => {
+                    setIsFieldInFocus({ ...isFieldInFocus, commodityOfTotalTrade: false }),
+                      e.target.type = 'text'
+                  }}
+                  value={
+                    isFieldInFocus.commodityOfTotalTrade ?
+                    supplierCred?.commodityOfTotalTrade:
+                      Number(supplierCred?.commodityOfTotalTrade)?.toLocaleString() + ' %'}
+                  // value={addPrefixOrSuffix(
+                  //   supplierCred?.commodityOfTotalTrade,
+                  //   '%',
+                  //   '',
+                  // )}
                   name="commodityOfTotalTrade"
                   onChange={(e) => {
                     saveSupplierData(e.target.name, e.target.value)

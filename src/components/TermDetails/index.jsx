@@ -265,7 +265,7 @@ const Index = ({
                   value={
                     isFieldInFocus.tolerance ?
                       termsheetDetails?.commodityDetails?.tolerance :
-                      Number(termsheetDetails?.commodityDetails?.tolerance).toLocaleString() + ` %`}
+                    '±'+  Number(termsheetDetails?.commodityDetails?.tolerance).toLocaleString() + ` %`}
                   // value={
                   //   addPrefixOrSuffix(termsheetDetails?.commodityDetails?.tolerance,"%")
                   // }
