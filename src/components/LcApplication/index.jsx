@@ -285,10 +285,21 @@ function Index({
                           required
                           type="text"
                           name="tolerancePercentage"
-                          value={addPrefixOrSuffix(
-                            lcData?.tolerancePercentage,
-                            '%',
-                          )}
+                          onFocus={(e) => {
+                            setIsFieldInFocus({ ...isFieldInFocus, tolerance: true }),
+                              e.target.type = 'number'
+                          }}
+                          onBlur={(e) => {
+                            setIsFieldInFocus({ ...isFieldInFocus, tolerance: false }),
+                              e.target.type = 'text'
+                          }}
+                          value={isFieldInFocus.tolerance ?
+                            lcData?.tolerancePercentage :
+                          '+/- '+  Number(lcData?.tolerancePercentage)?.toLocaleString() + ` %`}
+                          // value={addPrefixOrSuffix(
+                          //   lcData?.tolerancePercentage,
+                          //   '%',
+                          // )}
                           onChange={(e) => {
                             saveLcData(e.target.name, e.target.value)
                           }}
