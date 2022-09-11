@@ -193,7 +193,7 @@ const Index = ({
               companyComment.map((comment, index) => (
                 <div
                   key={index}
-                  className={`${styles.comment_para} d-flex justify-content-between`}
+                  className={`${styles.comment_para} border_color d-flex justify-content-between`}
                 >
                   <Form.Control
                     className={`${styles.comment} input`}
@@ -252,8 +252,8 @@ const Index = ({
               />
             </div>
           </div>
-          <hr className={`${styles.line} mb-0`}></hr>
-          <div className={`${styles.dashboard_form}`}>
+          <hr className={`${styles.line} border-0  mb-0`}></hr>
+          <div className={`${styles.dashboard_form} border_color`}>
             <h5 className={styles.sub_heading}>Comments On Financials</h5>
             {financialsComment &&
               financialsComment.map((comment, index) => (
@@ -315,7 +315,7 @@ const Index = ({
               />
             </div>
           </div>
-          <hr className={styles.line}></hr>
+          <hr className={`${styles.line} border_color`}></hr>
 
           <div className={`${styles.datatable} datatable`}>
             <h5 className="d-flex align-items-center">
@@ -545,9 +545,9 @@ const Index = ({
           </div>
           <span className={styles.view_order}>View Past Orders</span>
 
-          <hr className={`${styles.line} mt-5`}></hr>
+          <hr className={`${styles.line} border-0 mt-5`}></hr>
 
-          <div className={`${styles.dashboard_form} p-0`}>
+          <div className={`${styles.dashboard_form} border_color p-0`}>
             <div className={`${styles.comment_inner}`}>
               <div className={`${styles.sub_heading} value`}>Strengths</div>
               <div className="d-flex mt-5 pb-4">
@@ -580,7 +580,7 @@ const Index = ({
                 strengthsComment.map((strengths, index) => (
                   <div
                     key={index}
-                    className={`${styles.textarea_main} d-flex justify-content-between`}
+                    className={`${styles.textarea_main} d-flex border_color justify-content-between`}
                   >
                     <Form.Control
                       className={`${styles.paragraph} input pl-0`}
@@ -642,7 +642,7 @@ const Index = ({
                 weaknessComment.map((weakness, index) => (
                   <div
                     key={index}
-                    className={`${styles.textarea_main} d-flex justify-content-between`}
+                    className={`${styles.textarea_main} d-flex border_color justify-content-between`}
                   >
                     <Form.Control
                       className={`${styles.paragraph} input pl-0`}
@@ -674,7 +674,7 @@ const Index = ({
                 ))}
             </div>
 
-            <hr className={styles.line} style={{ margin: '-1px 0 0' }}></hr>
+            <hr className={`${styles.line} border_color`} style={{ margin: '-1px 0 0' }}></hr>
             <div
               className={`${styles.sanction_terms} d-flex justify-content-between align-items-center`}
             >
@@ -855,7 +855,7 @@ const Index = ({
                 sanctionComment.map((sanction, index) => (
                   <div
                     key={index}
-                    className={`${styles.textarea_main} d-flex justify-content-between`}
+                    className={`${styles.textarea_main} d-flex border_color justify-content-between`}
                   >
                     <Form.Control
                       className={`${styles.paragraph} input pl-0`}

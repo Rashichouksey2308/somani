@@ -49,7 +49,8 @@ function Index({
   containerListDocument,
   setContainerListDocument,
   containerExcel,
-  currency
+  currency,
+  dateStartFrom
 }) {
 
   // console.log(containerExcel, 'containerExcel')
@@ -152,6 +153,7 @@ function Index({
 
                         {list[index].shipmentType === 'Bulk' ? (
                           <>
+                           {index==0?
                             <button
                               className={styles.add_btn}
                               onClick={(e) => {
@@ -159,7 +161,7 @@ function Index({
                               }}
                             >
                               Add
-                            </button>
+                            </button>:null}
                             {index > 0 ? (
                               <button
                                 className={styles.add_btn}
@@ -269,7 +271,7 @@ function Index({
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                             className={`${styles.input_field} border-left-0 input form-control`}
-                            value={Number(val.orderValue).toLocaleString()}
+                            value={Number(val.orderValue).toLocaleString("en-IN")}
                             onChange={(e) =>
                               OnVesselBasicFieldsChangeHandler(e, index)
                             }
@@ -413,6 +415,7 @@ function Index({
                         <div
                           className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6`}
                         >
+                          
                           <div className="d-flex">
                             <DateCalender
                               dateFormat={`dd-MM-yyyy`}
@@ -420,6 +423,8 @@ function Index({
                               name="laycanTo"
                               index={index}
                               saveDate={saveDate}
+                              startFrom={dateStartFrom[index]}
+                              
                               labelName="Laycan to"
                             />
                             <img
@@ -439,7 +444,7 @@ function Index({
                               name="EDTatLoadPort"
                               index={index}
                               saveDate={saveDate}
-                              labelName="ETA at Load Port"
+                              labelName="ETD at Load Port"
                             />
                             <img
                               className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -768,12 +773,14 @@ function Index({
                                 <h3 className={styles.sub_heading}>
                                   Vessel Information
                                 </h3>
+                                {index==0?
                                 <button
                                   onClick={() => OnAddvesselInformation()}
                                   className={styles.add_btn}
                                 >
                                   Add
                                 </button>
+                                :null}
                                 {index > 0 ? (
                                   <button
                                     onClick={() =>
@@ -930,7 +937,9 @@ function Index({
                 )
               })}
 
-            <UploadDocument docName='Vessel Certificate' docName2={shipmentTypeBulk === 'Bulk' ? false : 'Container List'} vesselCertificate={vesselCertificate} handleClose={handleClose} uploadDocument1={uploadDocHandler} />
+            <UploadDocument 
+            docName='Vessel Certificate' 
+            docName2={shipmentTypeBulk === 'Bulk' ? false : 'Container List'} vesselCertificate={vesselCertificate} handleClose={handleClose} uploadDocument1={uploadDocHandler} />
 
             <UploadOther
               module="Agreements&Insurance&LC&Opening"
