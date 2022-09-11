@@ -80,13 +80,13 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Working Capital Turnover Ratio</td>
                       <td className="text-center">
-                        {latestYearData?.workingCapitalTurnover?.toFixed(2)?.toLocaleString()}
+                        {latestYearData?.workingCapitalTurnover?.toFixed(4)?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.workingCapitalTurnover?.toFixed(2)?.toLocaleString()}
+                        {previousYearData?.workingCapitalTurnover?.toFixed(4)?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.workingCapitalTurnover?.toFixed(2)?.toLocaleString()}
+                        {lastYearData?.workingCapitalTurnover?.toFixed(4)?.toLocaleString()}
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.workingCapitalTurnover, previousYearData?.workingCapitalTurnover, lastYearData?.workingCapitalTurnover)}
@@ -134,13 +134,13 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Working Capital Cycle (Days)</td>
                       <td className="text-center">
-                        {latestYearData?.daysWorkingCapital?.toFixed(2)?.toLocaleString()}
+                        {latestYearData?.daysWorkingCapital?.toFixed(4)?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.daysWorkingCapital?.toFixed(2)?.toLocaleString()}
+                        {previousYearData?.daysWorkingCapital?.toFixed(4)?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.daysWorkingCapital?.toFixed(2)?.toLocaleString()}
+                        {lastYearData?.daysWorkingCapital?.toFixed(4)?.toLocaleString()}
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.daysWorkingCapital, previousYearData?.daysWorkingCapital, lastYearData?.daysWorkingCapital)}
@@ -150,13 +150,13 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Debtors Period (Days)</td>
                       <td className="text-center">
-                        {latestYearData?.daysOfSalesOutstanding?.toFixed(2)?.toLocaleString()}
+                        {latestYearData?.daysOfSalesOutstanding?.toFixed(4)?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.daysOfSalesOutstanding?.toFixed(2)?.toLocaleString()}
+                        {previousYearData?.daysOfSalesOutstanding?.toFixed(4)?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.daysOfSalesOutstanding?.toFixed(2)?.toLocaleString()}
+                        {lastYearData?.daysOfSalesOutstanding?.toFixed(4)?.toLocaleString()}
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.daysOfSalesOutstanding, previousYearData?.daysOfSalesOutstanding, lastYearData?.daysOfSalesOutstanding)}
@@ -165,13 +165,13 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Inventory Period (Days)</td>
                       <td className="text-center">
-                        {latestYearData?.daysOfInventoryOutstanding?.toFixed(2)?.toLocaleString()}
+                        {latestYearData?.daysOfInventoryOutstanding?.toFixed(4)?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.daysOfInventoryOutstanding?.toFixed(2)?.toLocaleString()}
+                        {previousYearData?.daysOfInventoryOutstanding?.toFixed(4)?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.daysOfInventoryOutstanding?.toFixed(2)?.toLocaleString()}
+                        {lastYearData?.daysOfInventoryOutstanding?.toFixed(4)?.toLocaleString()}
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.daysOfInventoryOutstanding, previousYearData?.daysOfInventoryOutstanding, lastYearData?.daysOfInventoryOutstanding)}
@@ -181,13 +181,13 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Creditors Period (Days)</td>
                       <td className="text-center">
-                        {latestYearData?.daysOfPayablesOutstanding?.toFixed(2).toLocaleString()}
+                        {latestYearData?.daysOfPayablesOutstanding?.toFixed(4).toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.daysOfPayablesOutstanding?.toFixed(2).toLocaleString()}
+                        {previousYearData?.daysOfPayablesOutstanding?.toFixed(4).toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.daysOfPayablesOutstanding?.toFixed(2).toLocaleString()}
+                        {lastYearData?.daysOfPayablesOutstanding?.toFixed(4).toLocaleString()}
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.daysOfPayablesOutstanding, previousYearData?.daysOfPayablesOutstanding, lastYearData?.daysOfPayablesOutstanding)}
@@ -215,7 +215,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                           latestIncomeData?.expenses?.totExp +
                           latestIncomeData?.expenses?.finCost) /
                           latestYearData?.ebitdaMargin), unit)?.toLocaleString(undefined, {
-                            maximumFractionDigits: 2,
+                            maximumFractionDigits: 4,
                           })}
 
                       </td>
@@ -340,11 +340,11 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                     </tr>
                     <tr>
                       <td>Debt Equity Ratio</td>
-                      <td className="text-center">{latestYearData?.debtEquity?.toFixed(2).toLocaleString()}</td>
+                      <td className="text-center">{latestYearData?.debtEquity?.toFixed(4).toLocaleString()}</td>
                       <td className="text-center">
-                        {previousYearData?.debtEquity?.toFixed(2).toLocaleString()}
+                        {previousYearData?.debtEquity?.toFixed(4).toLocaleString()}
                       </td>
-                      <td className="text-center">{lastYearData?.debtEquity?.toFixed(2).toLocaleString()}</td>
+                      <td className="text-center">{lastYearData?.debtEquity?.toFixed(4).toLocaleString()}</td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.debtEquity, previousYearData?.debtEquity, lastYearData?.debtEquity)}
                       </td>
@@ -352,12 +352,12 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Debt EBITDA Ratio</td>
                       <td className="text-center">
-                        {latestYearData?.debtToEbitda?.toFixed(2).toLocaleString()}
+                        {latestYearData?.debtToEbitda?.toFixed(4).toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.debtToEbitda?.toFixed(2).toLocaleString()}
+                        {previousYearData?.debtToEbitda?.toFixed(4).toLocaleString()}
                       </td>
-                      <td className="text-center">{lastYearData?.debtToEbitda?.toFixed(2).toLocaleString()}</td>
+                      <td className="text-center">{lastYearData?.debtToEbitda?.toFixed(4).toLocaleString()}</td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.debtToEbitda, previousYearData?.debtToEbitda, lastYearData?.debtToEbitda)}
 
@@ -366,13 +366,13 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Interest Coverage Ratio</td>
                       <td className="text-center">
-                        {latestYearData?.interestCoverage?.toFixed(2).toLocaleString()}
+                        {latestYearData?.interestCoverage?.toFixed(4).toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.interestCoverage?.toFixed(2).toLocaleString()}
+                        {previousYearData?.interestCoverage?.toFixed(4).toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.interestCoverage?.toFixed(2).toLocaleString()}
+                        {lastYearData?.interestCoverage?.toFixed(4).toLocaleString()}
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.interestCoverage, previousYearData?.interestCoverage, lastYearData?.interestCoverage)}
@@ -383,13 +383,13 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Debt Service Ratio</td>
                       <td className="text-center">
-                        {latestYearData?.longTermDebtCoverage?.toFixed(2).toLocaleString()}
+                        {latestYearData?.longTermDebtCoverage?.toFixed(4).toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.longTermDebtCoverage?.toFixed(2).toLocaleString()}
+                        {previousYearData?.longTermDebtCoverage?.toFixed(4).toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {lastYearData?.longTermDebtCoverage?.toFixed(2).toLocaleString()}
+                        {lastYearData?.longTermDebtCoverage?.toFixed(4).toLocaleString()}
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.longTermDebtCoverage, previousYearData?.longTermDebtCoverage, lastYearData?.longTermDebtCoverage)}
@@ -409,12 +409,12 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Curent Ratio</td>
                       <td className="text-center">
-                        {latestYearData?.currentRatio?.toFixed(2).toLocaleString()}
+                        {latestYearData?.currentRatio?.toFixed(4).toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {previousYearData?.currentRatio?.toFixed(2).toLocaleString()}
+                        {previousYearData?.currentRatio?.toFixed(4).toLocaleString()}
                       </td>
-                      <td className="text-center">{lastYearData?.currentRatio?.toFixed(2).toLocaleString()}</td>
+                      <td className="text-center">{lastYearData?.currentRatio?.toFixed(4).toLocaleString()}</td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.currentRatio, previousYearData?.currentRatio, lastYearData?.currentRatio)}
 
@@ -422,11 +422,11 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                     </tr>
                     <tr>
                       <td>Quick Ratio</td>
-                      <td className="text-center">{latestYearData?.quickRatio?.toFixed(2).toLocaleString()}</td>
+                      <td className="text-center">{latestYearData?.quickRatio?.toFixed(4).toLocaleString()}</td>
                       <td className="text-center">
-                        {previousYearData?.quickRatio?.toFixed(2).toLocaleString()}
+                        {previousYearData?.quickRatio?.toFixed(4).toLocaleString()}
                       </td>
-                      <td className="text-center">{lastYearData?.quickRatio?.toFixed(2).toLocaleString()}</td>
+                      <td className="text-center">{lastYearData?.quickRatio?.toFixed(4).toLocaleString()}</td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.quickRatio, previousYearData?.quickRatio, lastYearData?.quickRatio)}
 

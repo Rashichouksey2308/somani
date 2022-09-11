@@ -30,6 +30,10 @@ function Index({
   console.log(lcData, 'lcCondition12234')
   const [editStren, setEditStren] = useState(false)
   const [edit, setEdit] = useState(false)
+  const [isFieldInFocus, setIsFieldInFocus] = useState({
+    currencyCode: false,
+    tolerance: false
+  })
 
   const saveDate = (value, name) => {
     const d = new Date(value)
@@ -160,7 +164,7 @@ function Index({
                           className={`${styles.label_heading} label_heading`}
                         >
                           (31D) Place Of Expiry
-                          <strong className="text-danger">*</strong> 
+                          <strong className="text-danger">*</strong>
                         </label>
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
@@ -247,11 +251,22 @@ function Index({
                           className={`${styles.input_field} input form-control`}
                           required
                           type="text"
+                          onFocus={(e) => {
+                            setIsFieldInFocus({ ...isFieldInFocus, currencyCode: true }),
+                              e.target.type = 'number'
+                          }}
+                          onBlur={(e) => {
+                            setIsFieldInFocus({ ...isFieldInFocus, currencyCode: false }),
+                              e.target.type = 'text'
+                          }}
+                          value={isFieldInFocus.currencyCode ?
+                            lcData?.currecyCodeAndAmountValue :
+                            Number(lcData?.currecyCodeAndAmountValue)?.toLocaleString() + ` USD`}
                           // defaultValue={lcData?.currecyCodeAndAmountValue}
-                          value={addPrefixOrSuffix(
-                            lcData?.currecyCodeAndAmountValue,
-                            'USD',
-                          )}
+                          // value={addPrefixOrSuffix(
+                          //   lcData?.currecyCodeAndAmountValue,
+                          //   'USD',
+                          // )}
                           name="currecyCodeAndAmountValue"
                           onChange={(e) => {
                             saveLcData(e.target.name, e.target.value)
@@ -270,10 +285,21 @@ function Index({
                           required
                           type="text"
                           name="tolerancePercentage"
-                          value={addPrefixOrSuffix(
-                            lcData?.tolerancePercentage,
-                            '%',
-                          )}
+                          onFocus={(e) => {
+                            setIsFieldInFocus({ ...isFieldInFocus, tolerance: true }),
+                              e.target.type = 'number'
+                          }}
+                          onBlur={(e) => {
+                            setIsFieldInFocus({ ...isFieldInFocus, tolerance: false }),
+                              e.target.type = 'text'
+                          }}
+                          value={isFieldInFocus.tolerance ?
+                            lcData?.tolerancePercentage :
+                          '+/- '+  Number(lcData?.tolerancePercentage)?.toLocaleString() + ` %`}
+                          // value={addPrefixOrSuffix(
+                          //   lcData?.tolerancePercentage,
+                          //   '%',
+                          // )}
                           onChange={(e) => {
                             saveLcData(e.target.name, e.target.value)
                           }}
@@ -758,7 +784,7 @@ function Index({
                         />
                       </div> */}
                     </div>
-                      
+
                   </div>
                   <div className={`${styles.datatable} mb-5 ml-5 datatable `}>
                     <div className={styles.table_scroll_outer}>
@@ -777,16 +803,16 @@ function Index({
                                   <th key={index}>{val}</th>
                                 ))}
                             </tr>
-                             {excelFile &&
-                                excelFile.length > 0 &&
-                                excelFile.map((item, index) => (
-                                  <tr>
-                                    {Object.values(item).map((value, id) => (
-                                      <td key={id}>{value}</td>
-                                    ))}
-                                  </tr>
-                                ))}
-                          
+                            {excelFile &&
+                              excelFile.length > 0 &&
+                              excelFile.map((item, index) => (
+                                <tr>
+                                  {Object.values(item).map((value, id) => (
+                                    <td key={id}>{value}</td>
+                                  ))}
+                                </tr>
+                              ))}
+
                           </tbody>
                         </table>
                       </div>

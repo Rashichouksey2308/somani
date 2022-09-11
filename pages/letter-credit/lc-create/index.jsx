@@ -32,7 +32,8 @@ function Index() {
       lcModule?.data?.order?.orderId,
       'lcModule?.data?.order?.orderId',
     )
-    dispatch(setDynamicOrder(_get(lcModule, 'data[0].order.orderId', {})))
+    dispatch(setDynamicName(_get(lcModule, 'data[0].company.companyName', 'Company Name')))
+    dispatch(setDynamicOrder(_get(lcModule, 'data[0].order.orderId', 'Order Id')))
   }, [lcModuleData])
   // console.log(lcData, "THIS IS LC USE STATE")
 
