@@ -30,7 +30,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
     module: module,
   })
   const [moduleSelected, setModuleSelected] = useState(
-    'LeadOnboarding&OrderApproval',
+    module
   )
 
   const [filteredDoc, setFilteredDoc] = useState([])
@@ -207,6 +207,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                 <Form.Group className={`${styles.form_group}`}>
                   <div className="d-flex">
                     <select
+                      value={manualDocModule ? newDoc.name : 'others'}
                       className={`${styles.value} ${styles.customSelect} input form-control`}
                       id="name"
                       onChange={(e) => handleNewDocModule(e)}
@@ -401,7 +402,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
               >
                 <div className="d-flex align-items-center">
                   <select
-                    value={module}
+                    value={moduleSelected}
                     onChange={(e) => setModuleSelected(e.target.value)}
                     className={`${styles.dropDown} ${styles.customSelect} input form-control`}
                   >
@@ -512,7 +513,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                             </td>
                             <td className={styles.doc_row}>
                               {moment(document.date).format(
-                                'DD-MM-YYYY, h:mm a',
+                                'DD-MM-YYYY, h:mm A',
                               )}
                             </td>
                             <td className={styles.doc_row}>
