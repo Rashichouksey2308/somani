@@ -94,7 +94,7 @@ export default function Index({
     newInput[name] = docs
     setBillOfEntryData(newInput)
   }
-
+console.log(billOfEntryData,"billOfEntryData",customData,_get(customData, 'order.termsheet.transactionDetails.billOfEntity',""))
   //console.log(billOfEntryData, 'THIS IS BILL OF ENTRY USE STATE')
 
   const saveDate = (value, name) => {
@@ -391,7 +391,7 @@ export default function Index({
       let tempArray = {
         boeAssessment: data?.boeAssessment,
         pdBond: data?.pdBond,
-        billOfEntryFor: data?.billOfEntryFor,
+        billOfEntryFor:_get(customData, 'order.termsheet.transactionDetails.billOfEntity',""),
         boeNumber: data?.boeNumber,
         boeDate: data?.boeDate,
 
@@ -428,7 +428,7 @@ export default function Index({
     return index + 1
   }
 
-  console.log('data', dutyData, customData)
+  console.log('data', billOfEntryData?.billOfEntryFor, )
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -556,11 +556,10 @@ export default function Index({
                       value={billOfEntryData?.billOfEntryFor}
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
-                      <option selected>Select Bill Of Entry For</option>
-                      <option value="Into Bond(Warehousing)">
-                        Into Bond(Warehousing)
-                      </option>
-                      <option value="Bond">Bond</option>
+                          <option disabled selected>Select an option</option>
+                          <option value="Home Consumption">Home Consumption</option>
+                          <option value="Into-Bond">Into-Bond</option>
+                          <option value="EX-Bond">EX-Bond </option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Bill of Entry for
