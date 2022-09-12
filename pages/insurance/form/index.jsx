@@ -64,7 +64,7 @@ const Index = () => {
   let sumInsuredCalc = parseFloat(
     (Number(insuranceData?.order?.orderValue) * 110) / 100,
   )
-  // console.log(sumInsuredCalc, "THIS IS SUM INSURED CAL")
+  console.log(sumInsuredCalc, "THIS IS SUM INSURED CAL")
   // console.log(quotationData.expectedTimeOfDispatch, 'insuranceData')
   useEffect(() => {
     dispatch(setPageName('insurance'))
@@ -74,7 +74,7 @@ const Index = () => {
       ),
     )
     dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')))
-   console.log(insuranceData?.quotationRequest?.sumInsured ,"insuranceData?.quotationRequest?.sumInsured ",sumInsuredCalc)
+  //  console.log(insuranceData?.quotationRequest?.sumInsured ,"insuranceData?.quotationRequest?.sumInsured ",sumInsuredCalc)
     setQuotationData({
       additionalInfo: insuranceData?.quotationRequest?.additionalInfo || '',
       expectedTimeOfArrival:
@@ -625,7 +625,7 @@ const Index = () => {
                               onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                              
-                              value={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr')}
+                              value={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(sumInsuredCalc)), 'Cr')}
                               onChange={(e) => {
                                 saveQuotationData(e.target.name,  e.target.value)
                               }}

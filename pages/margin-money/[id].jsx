@@ -1606,7 +1606,7 @@ function Index() {
                                     marginData?.invoiceDetail?.buyerGSTIN
                                   }
                                 >
-                                 <option value='' >Select an Option</option>
+                                 <option selected disabled >Select an Option</option>
                     {orderList?.company?.gstList?.map((gstin, index) => (
                       <option key={index} value={gstin}>
                         {gstin}
