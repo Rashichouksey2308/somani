@@ -83,8 +83,8 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
         insuranceData?.quotationRequest?.expectedTimeOfDispatch || undefined,
       insuranceType:
         insuranceData?.quotationRequest?.insuranceType || 'Marine Insurance',
-      laycanFrom: insuranceData?.quotationRequest?.laycanFrom || undefined,
-      laycanTo: insuranceData?.quotationRequest?.laycanTo || undefined,
+      laycanFrom: insuranceData?.quotationRequest?.laycanFrom ? insuranceData?.quotationRequest?.laycanFrom : insuranceData?.order?.shipmentDetail?.loadPort?.fromDate ,
+      laycanTo: insuranceData?.quotationRequest?.laycanTo ? insuranceData?.quotationRequest?.laycanTo : insuranceData?.order?.shipmentDetail?.loadPort?.toDate,
       lossPayee: insuranceData?.quotationRequest?.lossPayee || '',
       storageDetails: {
         placeOfStorage:
@@ -555,7 +555,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
                               <DateCalender
                                 name="laycanFrom"
                                 saveDate={saveDate}
-                                defaultDate={quotationData.laycanFrom}
+                                defaultDate={quotationData.laycanFrom ? quotationData.laycanFrom : insuranceData?.order?.shipmentDetail?.loadPort?.fromDate}
                                 labelName="Laycan from"
                               />
                               <img
@@ -569,7 +569,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
                             <div className="d-flex">
                               <DateCalender
                                 name="laycanTo"
-                                defaultDate={quotationData.laycanTo}
+                                defaultDate={quotationData.laycanTo ? quotationData.laycanTo : insuranceData?.order?.shipmentDetail?.loadPort?.toDate}
                                 saveDate={saveDate}
                                 labelName="Laycan to"
                                 startFrom={dateStartFrom.laycan}
