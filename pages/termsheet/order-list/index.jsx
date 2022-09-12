@@ -79,7 +79,7 @@ function Index() {
 
     Router.push({
       pathname :'/termsheet/[id]',
-      query :  {id: 'NotID'}
+      query :  {id: 'id'}
   })
     // Router.push(url, urlAs)
 
