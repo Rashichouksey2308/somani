@@ -46,11 +46,14 @@
                     line-height: 19px;
                     margin-left: 0.5rem;
                     white-space: nowrap;
-                    text-transform: lowercase;
+                    text-transform: capitalize;
                     &:first-letter {
                         text-transform: uppercase;
                     }
                     &:first-line {
+                        text-transform: capitalize;
+                    }
+                    &:last-line {
                         text-transform: capitalize;
                     }
                   

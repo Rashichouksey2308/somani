@@ -68,9 +68,9 @@ function Index() {
       setDarkMode(false)
     }
   }, [])
-
+ console.log( marginData?.isUsanceInterestIncluded," marginData?.isUsanceInterestIncluded")
   const [forCalculation, setForCalculation] = useState({
-    isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || '',
+    isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || true,
     status: marginData?.status || '',
     quantity: marginData?.order?.quantity || '',
     additionalPDC: marginData?.additionalPDC || '',
@@ -117,7 +117,7 @@ function Index() {
 
   const getData = () => {
     setForCalculation({
-      isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded,
+      isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || true,
       status: marginData?.status,
       quantity: marginData?.order?.quantity,
       additionalPDC: marginData?.additionalPDC,
@@ -411,7 +411,7 @@ function Index() {
     let obj = {
       marginMoneyId: marginData?._id,
       conversionRate: forCalculation.conversionRate,
-      isUsanceInterestIncluded: forCalculation.isUsanceInterestIncluded,
+      isUsanceInterestIncluded: forCalculation.isUsanceInterestIncluded || true,
       numberOfPDC: forCalculation.numberOfPDC,
       additionalPDC: forCalculation.additionalPDC,
       invoiceDetail: { ...invoiceData },
