@@ -48,10 +48,10 @@ function Index() {
       applicant: lcModuleData?.lcApplication?.applicant,
       beneficiary: lcModuleData?.lcApplication?.beneficiary ? lcModuleData?.lcApplication?.beneficiary : lcModuleData?.order?.supplierName,
       currecyCodeAndAmountValue:
-        lcModuleData?.lcApplication?.currecyCodeAndAmountValue,
+        lcModuleData?.lcApplication?.currecyCodeAndAmountValue ?? '',
       currecyCodeAndAmountUnit:
-        lcModuleData?.lcApplication?.currecyCodeAndAmountUnit,
-      tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage,
+        lcModuleData?.lcApplication?.currecyCodeAndAmountUnit ?? '',
+      tolerancePercentage: lcModuleData?.lcApplication?.tolerancePercentage ?? '',
       creditAvailablewith: lcModuleData?.lcApplication?.creditAvailablewith,
       creditAvailableBy: lcModuleData?.lcApplication?.creditAvailableBy,
       atSight: lcModuleData?.lcApplication?.atSight,
@@ -73,7 +73,7 @@ function Index() {
       secondAdvisingBank: lcModuleData?.lcApplication?.secondAdvisingBank,
       requestedConfirmationParty:
         lcModuleData?.lcApplication?.requestedConfirmationParty,
-      charges: lcModuleData?.lcApplication?.charges ? lcModuleData?.lcApplication?.charges :  "ALL THE CHARGES OUTSIDE LC ISSUING BANK ARE FOR THE BENEFICIARY’S ACCOUNT",
+      charges: lcModuleData?.lcApplication?.charges ? lcModuleData?.lcApplication?.charges : "ALL THE CHARGES OUTSIDE LC ISSUING BANK ARE FOR THE BENEFICIARY’S ACCOUNT",
       instructionToBank: lcModuleData?.lcApplication?.instructionToBank ? lcModuleData?.lcApplication?.instructionToBank : "THE DOCUMENTS ARE TO BE COURIERED TO ........... (LC ISSUING BANK ADDRESS)..............UPON RECEIPT AT OUR COUNTERS OF A STRICTLY COMPLYING PRESENTATION, WE UNDERTAKE TO COVER YOU WITHIN 5 BANKING DAYS AS PER YOUR INSTRUCTIONS",
       senderToReceiverInformation:
         lcModuleData?.lcApplication?.senderToReceiverInformation,
@@ -119,15 +119,15 @@ function Index() {
   }
 
   const addComment = (val) => {
-  
+
     setCurrentComment(val)
   }
   const addDocArr = () => {
-      if(currentComment==""){
-       let toastMessage = 'Comment cannot be empty'
+    if (currentComment == "") {
+      let toastMessage = 'Comment cannot be empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        return 
+        return
       }
     }
     setLcDocuments([...lcDocuments, currentComment])
@@ -147,17 +147,17 @@ function Index() {
   }
 
   const addConditionComment = (val) => {
-    console.log(val,"888888")
-  
+    console.log(val, "888888")
+
     setCurrentComment2(val)
   }
   const addConditionArr = () => {
     // console.log("thsbhjsbdjh",lcCondition,currentComment2)
-      if(currentComment2==""){
-      let  toastMessage = 'Comment cannot be empty'
+    if (currentComment2 == "") {
+      let toastMessage = 'Comment cannot be empty'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        return 
+        return
       }
     }
     setLcComments([...lcComments, currentComment2])
