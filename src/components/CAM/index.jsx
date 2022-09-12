@@ -26,6 +26,7 @@ import { toast } from 'react-toastify'
 import _get from 'lodash/get'
 
 import { CovertvaluefromtoCR, checkNan, convertValue, addPrefixOrSuffix } from '../../utils/helper'
+import { isArray } from 'lodash'
 
 Chart.register(
   ArcElement,
@@ -1122,7 +1123,7 @@ const groupExposure = (camData) => {
                               <span
                                 className={`d-flex justify-content-center align-content-center`}
                               >
-                                {name?.map((item, index) => {
+                                {isArray(name) && name?.map((item, index) => {
                                   if (index < 2) {
                                     return item?.charAt(0).toUpperCase()
                                   }

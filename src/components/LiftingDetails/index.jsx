@@ -114,12 +114,12 @@ export default function Index(props) {
                 <div className="col-lg-4 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>Consignor Name</div>
                   <span className={styles.value}>
-                    
+                  {_get(props.ReleaseOrderData, 'data[0].company.companyName', '')}
                   </span>
                 </div>
                 <div className="col-lg-4 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>Consignee Name</div>
-                  <span className={styles.value}></span>
+                  <span className={styles.value}>{_get(props.ReleaseOrderData, 'data[0].company.companyName', '')}</span>
                 </div>
               </div>
             </div>
