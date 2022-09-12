@@ -17,6 +17,7 @@ import _get from 'lodash/get'
 import { GetCreditLimit } from '../../redux/companyDetail/action'
 import { GetOrders } from '../../redux/registerBuyer/action'
 import {CovertvaluefromtoCR,checkNan } from '../../utils/helper'
+import moment from 'moment'
 
 
 
@@ -260,7 +261,7 @@ const Index = () => {
               <div className="col-md-2 col-sm-4">
                 <div className={`${styles.label} text`}>Limit Expiry Date</div>
                 <span className={styles.value}>
-                  {creditData?.data?.limitExpiry?.split('T')[0]}
+                  {creditData?.data?.limitExpiry ?moment(creditData?.data?.limitExpiry?.split('T')[0]).format('DD-MM-YYYY') : ''}
                 </span>
               </div>
               <div className="col-md-2 col-sm-4">
