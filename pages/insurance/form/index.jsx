@@ -35,7 +35,7 @@ const Index = () => {
   }, [dispatch, sumInsuredCalc])
 
   const { insuranceResponse } = useSelector((state) => state.insurance)
-
+const [isFieldInFocus, setIsFieldInFocus] = useState(false)
   let insuranceData = _get(insuranceResponse, 'data[0]', {})
   console.log(
     insuranceData,
@@ -62,9 +62,9 @@ const Index = () => {
   })
 
   let sumInsuredCalc = parseFloat(
-    (Number(insuranceData?.order?.orderValue) * 110) / 100,
+    ((Number(insuranceData?.order?.orderValue)/10000000) * 110) / 100,
   )
-  // console.log(sumInsuredCalc, "THIS IS SUM INSURED CAL")
+  console.log(sumInsuredCalc, "THIS IS SUM INSURED CAL")
   // console.log(quotationData.expectedTimeOfDispatch, 'insuranceData')
   useEffect(() => {
     dispatch(setPageName('insurance'))
@@ -74,7 +74,7 @@ const Index = () => {
       ),
     )
     dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')))
-   console.log(insuranceData?.quotationRequest?.sumInsured ,"insuranceData?.quotationRequest?.sumInsured ",sumInsuredCalc)
+  //  console.log(insuranceData?.quotationRequest?.sumInsured ,"insuranceData?.quotationRequest?.sumInsured ",sumInsuredCalc)
     setQuotationData({
       additionalInfo: insuranceData?.quotationRequest?.additionalInfo || '',
       expectedTimeOfArrival:
@@ -96,10 +96,10 @@ const Index = () => {
           insuranceData?.quotationRequest?.storageDetails?.storagePlotAddress ||
           '',
       },
-      sumInsured: sumInsuredCalc  ||  insuranceData?.quotationRequest?.sumInsured,
+      sumInsured: sumInsuredCalc  || (Number(insuranceData?.quotationRequest?.sumInsured)  / 10000000) ,
     })
   }, [insuranceData,sumInsuredCalc])
-
+ console.log(quotationData.sumInsured,"sumInsured",insuranceData?.quotationRequest?.sumInsured,sumInsuredCalc)
   const saveQuotationData = (name, value) => {
     // console.log(value, 'dhjsgfksjdghf')
     const newInput = { ...quotationData }
@@ -127,6 +127,7 @@ const Index = () => {
       setDateStartFrom({ ...dateStartFrom, eta: new_date })
     }
   }
+   console.log(quotationData?.sumInsured,"quotationData?.sumInsured",insuranceData?.quotationRequest?.sumInsured)
   const [reset,setReset]=useState(false)
   const clearAll = () => {
     // document.getElementById('FormInsurance').value = ''
@@ -145,6 +146,7 @@ const Index = () => {
       },
       sumInsured: insuranceData?.quotationRequest?.sumInsured,
     })
+   
     setDateStartFrom({
       laycan:"",
       eta:""
@@ -618,14 +620,24 @@ const Index = () => {
                           </Col>
                           <Col className="mt-5" lg={4} md={6} sm={6}>
                             <input
+                                  onFocus={(e) => {
+                                  setIsFieldInFocus(true),
+                                    e.target.type = 'number'
+                                }}
+                                onBlur={(e) => {
+                                  setIsFieldInFocus(false),
+                                    e.target.type = 'text'
+                                }}
                               id="FormInsurance"
                               className={`${styles.input_field} input form-control`}
                               type="text"
                               name="sumInsured"
                               onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
-                             
-                              value={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr')}
+                             value={ isFieldInFocus ?
+                              quotationData?.sumInsured :
+                             quotationData?.sumInsured +  ` Cr`}
+                              // value={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr')}
                               onChange={(e) => {
                                 saveQuotationData(e.target.name,  e.target.value)
                               }}
@@ -881,12 +893,24 @@ const Index = () => {
                           </Col>
                           <Col className="mt-5" lg={4} md={6} sm={6}>
                             <input
+                             
+                                  onFocus={(e) => {
+                                  setIsFieldInFocus(true),
+                                    e.target.type = 'number'
+                                }}
+                                onBlur={(e) => {
+                                  setIsFieldInFocus(false),
+                                    e.target.type = 'text'
+                                }}
                               className={`${styles.input_field} input form-control`}
-                              type="number"
+                              type="text"
                               name="sumInsured"
-                              onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                            
 
-                              defaultValue={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr')}
+                              value={ isFieldInFocus ?
+                              quotationData?.sumInsured :
+                             quotationData?.sumInsured + ` Cr`}
+                              // value={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr')}
                               onChange={(e) =>
                                 saveQuotationData(
                                   e.target.name,

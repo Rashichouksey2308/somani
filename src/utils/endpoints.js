@@ -15,7 +15,7 @@ export default {
   getBuyers: '/api/core/lead/get-all-leads',
   uploadDocuments: '/api/core/order/doc-upoad',
   search: '/api/core/lead/search?searchTerm=',
-  getPanGst : '/api/get-company',
+  getPanGst: '/api/get-company',
 
   //orders
   getBuyerOrder: '/api/core/lead/order-review',
@@ -83,7 +83,7 @@ export default {
 
   getInsurance: '/api/core/insurance',
   updateQuotation: '/api/core/insurance/quotation',
-  renewInsurance : '/api/core/insurance/insurance-renew',
+  renewInsurance: '/api/core/insurance/insurance-renew',
 
   // Inspection
   getInspection: '/api/core/inspection',
