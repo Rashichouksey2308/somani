@@ -64,7 +64,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
   let sumInsuredCalc = parseFloat(
     ((Number(insuranceData?.order?.orderValue)/10000000) * 110) / 100,
   )
-  // console.log(sumInsuredCalc, "THIS IS SUM INSURED CAL")
+  console.log(sumInsuredCalc, "THIS IS SUM INSURED CAL")
   // console.log(quotationData.expectedTimeOfDispatch, 'insuranceData')
   useEffect(() => {
     dispatch(setPageName('insurance'))
@@ -74,7 +74,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
       ),
     )
     dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')))
-   console.log(insuranceData?.quotationRequest?.sumInsured ,"insuranceData?.quotationRequest?.sumInsured ",sumInsuredCalc)
+  //  console.log(insuranceData?.quotationRequest?.sumInsured ,"insuranceData?.quotationRequest?.sumInsured ",sumInsuredCalc)
     setQuotationData({
       additionalInfo: insuranceData?.quotationRequest?.additionalInfo || '',
       expectedTimeOfArrival:
