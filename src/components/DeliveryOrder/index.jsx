@@ -280,7 +280,20 @@ export default function Index(props) {
                                         props.onEdit(index, true)
                                       }}
                                     />
-                                    {props.releaseOrderData.length - 1 ===
+                                
+
+                                    {props.releaseOrderData.length  ===
+                                      index ? null : (
+                                      <img
+                                        className={`${styles.shareImg} border-0 p-0 bg-transparent ml-3`}
+                                        src="/static/delete 2.svg"
+                                        alt="Search"
+                                        onClick={(e) => {
+                                          props.deleteNewDelivery(index)
+                                        }}
+                                      />
+                                    )}
+                                        {props.releaseOrderData.length - 1 ===
                                       index && (
                                         <img
                                           onClick={(e) => {
@@ -291,18 +304,6 @@ export default function Index(props) {
                                           alt="add"
                                         />
                                       )}
-
-                                    {props.releaseOrderData.length ===
-                                      1 ? null : (
-                                      <img
-                                        className={`${styles.shareImg} border-0 p-0 bg-transparent ml-3`}
-                                        src="/static/delete 2.svg"
-                                        alt="Search"
-                                        onClick={(e) => {
-                                          props.deleteNewDelivery(index)
-                                        }}
-                                      />
-                                    )}
                                   </div>
                                 )}
                               </div>
