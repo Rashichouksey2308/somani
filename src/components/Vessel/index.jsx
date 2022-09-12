@@ -867,6 +867,7 @@ function Index({
                                 >
                                   <input
                                     id="yearOfBuilt"
+                                    // value={newVessel.yearOfBuilt ? moment(newVessel.yearOfBuilt).format("YYYY") : ''}
                                     defaultValue={newVessel.yearOfBuilt}
                                     className={`${styles.input_field} input form-control`}
                                     type="number"
