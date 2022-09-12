@@ -7560,9 +7560,13 @@ const ligitations = (Supreme, District, High, Tribunal, companyData) => {
 }
 
 const table2 = (sat, balance, complienceFilter) => {
-  console.log(sat, balance, 'oi')
+  console.log( balance,complienceFilter, 'oi')
   let length =
-    complienceFilter == 'StatutoryCompliance' ? sat.length : balance.length
+    complienceFilter == 'Banking Defaults' ? balance.length : sat.length 
+   if(complienceFilter == 'All'){
+    complienceFilter ==  sat.length 
+   }
+
   return (
     <table
       className={`${styles.table_details} table border-color`}

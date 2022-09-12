@@ -35,6 +35,10 @@ export const CovertvaluefromtoCR = (value, conversionValue = 10000000) => {
 
 export const convertValue = (value, coversionRate = 10000000) => {
   let newValue = Number(value / coversionRate)
+  if (value === 0) {
+    // console.log(, 'invalid value')
+    return 0
+  }
   if (!newValue) {
     console.log(newValue, value, 'inspectionData231')
     return ''
