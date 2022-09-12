@@ -115,17 +115,6 @@ console.log(docName,docName2,"docName")
                                 Upload
                               </button>
                             </div>
-                            {/* <div className={styles.uploadBtnWrapper}>
-                      <input
-                        type="file"
-                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                        onChange={(e) => uploadDocument1(e)}
-                        name="myfile"
-                      />
-                       <button  className={`${styles.uploadDoc} btn`}>
-                        Upload
-                      </button>
-                    </div> */}
                           </>
                         ) : (
                           <div className={`${styles.certificate} d-flex justify-content-between`}>
