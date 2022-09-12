@@ -1198,10 +1198,20 @@ input:checked + .slider:before {
   height: 26px;
   pointer-events: none;
 }
+.img_arrow {
+  margin: none !important;
+  margin-left: -40px;
+  pointer-events: none;
+
+  input[type='date']::-webkit-inner-spin-button,
+  input[type='date']::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+  }
+}
 
 .arrow {
   margin-left: -40px;
-  width: 13px;
   pointer-events: none;
 
   input[type='date']::-webkit-inner-spin-button,
