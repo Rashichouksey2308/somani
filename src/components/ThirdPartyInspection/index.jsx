@@ -961,7 +961,7 @@ export default function Index({ addButton, inspectionData }) {
                   </h5>
 
                   <div className="row">
-                    {/* {inspectionData?.order?.shipmentDetail?.shipmentType ===
+                     {inspectionData?.order?.vessel?.vessels[0]?.shipmentType ===
                       'Liner' ? (
                       <div
                         className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
@@ -991,7 +991,7 @@ export default function Index({ addButton, inspectionData }) {
                       </div>
                     ) : (
                       ''
-                    )} */}
+                    )} 
                     <div
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                     >
@@ -1877,7 +1877,7 @@ const Discharge = (
         <h5 className={styles.sub_heading}>Inspection at Discharge Port</h5>
 
         <div className="row">
-          {/* {inspectionData?.order?.shipmentDetail?.shipmentType === 'Liner' ? (
+           {  inspectionData?.order?.vessel?.vessels[0]?.shipmentType === 'Liner' ? (
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <input
                 className={`${styles.input_field} input form-control`}
@@ -1899,7 +1899,7 @@ const Discharge = (
             </div>
           ) : (
             ''
-          )} */}
+          )} 
 
           <div className={`${styles.form_group} col-md-4 col-sm-6`}>
             <div className="d-flex">

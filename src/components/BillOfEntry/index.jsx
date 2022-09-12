@@ -32,7 +32,7 @@ export default function Index({
 
   const [saveContactTable, setContactTable] = useState(false)
   const [totalBl, setTotalBl] = useState(0)
-
+   const [isFieldInFocus, setIsFieldInFocus] = useState([])
   const { customClearance } = useSelector((state) => state.Custom)
 
   console.log(customClearance, 'this is custom doc')
@@ -150,6 +150,7 @@ export default function Index({
 
   useEffect(() => {
     let temp = []
+    let temp2 = []
     if (_get(customData, 'billOfEntry.billOfEntry[0].duty', []).length > 0) {
       _get(customData, 'billOfEntry.billOfEntry[0].duty', []).forEach(
         (val, index) => {
@@ -159,11 +160,14 @@ export default function Index({
             amount: val.amount,
             action: false,
           })
+          temp2.push({value:false})
         },
       )
-      setDutyData(temp)
+       setDutyData(temp)
+       setIsFieldInFocus([...temp2]||[])
     }
   }, [customData])
+  console.log(isFieldInFocus,"isFieldInFocus")
   const handleDutyChange = (name, value, index) => {
     // console.log(name,value,index,"name,value")
     let tempArr = [...dutyData]
@@ -172,6 +176,7 @@ export default function Index({
         val[name] = value
       }
     })
+  
     // console.log(tempArr,"tempArr")
     setDutyData(tempArr)
   }
@@ -188,13 +193,35 @@ export default function Index({
 
       return newState
     })
+ 
     let newInput = { ...billOfEntryData }
     newInput.duty = dutyData
     setBillOfEntryData(newInput)
   }
+  const onFiledFocus=(e,index)=>{
+  let tempArr2 = [...isFieldInFocus]
+    tempArr2.forEach((val, i) => {
+      if (i == index) {
+       val.value = true
 
+      }
+    })
+    setIsFieldInFocus([...tempArr2])
+  }
+    const onFiledBlur=(e,index)=>{
+  let tempArr2 = [...isFieldInFocus]
+    tempArr2.forEach((val, i) => {
+      if (i == index) {
+          val.value = false
+        
+      }
+    })
+    setIsFieldInFocus([...tempArr2])
+  }
   const handleDeleteRow = (index) => {
     setDutyData([...dutyData.slice(0, index), ...dutyData.slice(index + 1)])
+    setIsFieldInFocus([...isFieldInFocus.slice(0, index), ...isFieldInFocus.slice(index + 1)])
+
   }
 
   const removeDoc = (name) => {
@@ -210,6 +237,13 @@ export default function Index({
         duty: '',
         amount: '',
         action: false,
+      },
+    ])
+     setIsFieldInFocus([
+      ...isFieldInFocus,
+
+      {
+        value:false
       },
     ])
   }
@@ -957,8 +991,8 @@ export default function Index({
                                     {getIndex(index)}
                                   </td>
                                   <td>{val.duty}</td>
-                                  <td>{val.amount}</td>
-                                  <td>{val.percentage}</td>
+                                  <td>{val.amount? `${"INR"} ${Number(val.amount)?.toLocaleString("en-IN")}  `:""}</td>
+                                  <td>{val.percentage?`${Number(val?.percentage)?.toFixed()} ${"%"}`:""}</td>
                                 </>
                               ) : (
                                 <>
@@ -987,10 +1021,25 @@ export default function Index({
                                     </select>
                                   </td>
                                   <td>
-                                    <input
+                                      <input
+                                      onFocus={(e) => {
+                                      onFiledFocus(e,index)
+                                      // setIsFieldInFocus(true),
+                                      e.target.type = 'number'
+                                      }}
+                                      onBlur={(e) => {
+                                      onFiledBlur(e,index)
+                                      // setIsFieldInFocus(false),
+                                      e.target.type = 'text'
+                                      }}
+                                      type="text"
                                       className={`${styles.dutyDropdown} input`}
                                       name="amount"
-                                      value={val.amount}
+                                      // value={val.amount}
+                                      value={ isFieldInFocus[index].value ?
+                                        val.amount :
+                                       `${"INR"}  `+
+                                        Number(val.amount)?.toLocaleString() }
                                       disabled={!val.actions}
                                       onChange={(e) =>
                                         handleDutyChange(
@@ -1004,8 +1053,23 @@ export default function Index({
                                   <td>
                                     <input
                                       className={`${styles.dutyDropdown} input`}
+                                       onFocus={(e) => {
+                                         onFiledFocus(e,index)
+                                      // setIsFieldInFocus(true),
+                                      e.target.type = 'number'
+                                      }}
+                                      onBlur={(e) => {
+                                         onFiledBlur(e,index)
+                                      // setIsFieldInFocus(false),
+                                      e.target.type = 'text'
+                                      }}
+                                      type="text"
+                                       value={ isFieldInFocus[index].value ?
+                                        val.percentage :
+                                       
+                                      Number(val.percentage)?.toLocaleString()+`${"%"}` }
                                       name="percentage"
-                                      value={val.percentage}
+                                      // value={val.percentage}
                                       onChange={(e) =>
                                         handleDutyChange(
                                           e.target.name,
