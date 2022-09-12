@@ -93,7 +93,11 @@ export default function Home() {
       "data[0].vessels",
       []
     ).length <= 1) {
-      setShipmentTypeBulk(false)
+      setShipmentTypeBulk(_get(
+        Vessel,
+        "data[0].order.termsheet.transactionDetails.shipmentType",
+        ""
+      ))
       setList([
         {
           shipmentType: _get(

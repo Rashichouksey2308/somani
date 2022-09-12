@@ -867,7 +867,8 @@ function Index({
                                 >
                                   <input
                                     id="yearOfBuilt"
-                                    defaultValue={newVessel.yearOfBuilt}
+                                     value={newVessel.yearOfBuilt ? moment(newVessel.yearOfBuilt).format("YYYY") : ''}
+                                    // defaultValue={newVessel.yearOfBuilt}
                                     className={`${styles.input_field} input form-control`}
                                     type="number"
                                     onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
