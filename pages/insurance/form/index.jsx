@@ -635,7 +635,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
                               onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                              value={ isFieldInFocus ?
-                              quotationData?.sumInsured :
+                              sumInsuredCalc :
                              quotationData?.sumInsured +  ` Cr`}
                               // value={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr')}
                               onChange={(e) => {
@@ -908,7 +908,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
                             
 
                               value={ isFieldInFocus ?
-                              quotationData?.sumInsured :
+                                sumInsuredCalc :
                              quotationData?.sumInsured + ` Cr`}
                               // value={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr')}
                               onChange={(e) =>
