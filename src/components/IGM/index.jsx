@@ -206,7 +206,8 @@ export default function Index({
   }
   const onAddBlNumber = (index) => {
     let newIgmList = { ...igmList }
-    newIgmList.igmDetails[index].blNumber.push({
+    console.log(newIgmList.igmDetails[index],"newIgmList.igmDetails")
+    newIgmList.igmDetails[0].blNumber.push({
       blNumber: number,
       BlDate: new Date(),
       quantity: '',
