@@ -299,23 +299,23 @@ const Index = ({
               {/* <input id='lcValue' value={termsheetDetails?.transactionDetails?.lcValue ? termsheetDetails?.transactionDetails?.lcValue : null} className={`${styles.value} input form-control`} onChange={onChangeTransactionDetails} required /> */}
               <input
                 id="lcValue"
-                // value={addPrefixOrSuffix(
-                //   newLcVal ? newLcVal : 0,
-                //   termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase(),
-                //   'front',
-                // )}
-                onFocus={(e) => {
-                  setIsFieldInFocus({ ...isFieldInFocus, lcValue: true }),
-                    e.target.type = 'number'
-                }}
-                onBlur={(e) => {
-                  setIsFieldInFocus({ ...isFieldInFocus, lcValue: false }),
-                    e.target.type = 'text'
-                }}
-                value={
-                  isFieldInFocus.lcValue ?
-                    termsheetDetails?.transactionDetails?.lcValue :
-                    ` ${termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase()} ` + Number(termsheetDetails?.transactionDetails?.lcValue).toLocaleString()}
+                value={addPrefixOrSuffix(
+                  newLcVal ? newLcVal : 0,
+                  termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase(),
+                  'front',
+                )}
+                // onFocus={(e) => {
+                //   setIsFieldInFocus({ ...isFieldInFocus, lcValue: true }),
+                //     e.target.type = 'number'
+                // }}
+                // onBlur={(e) => {
+                //   setIsFieldInFocus({ ...isFieldInFocus, lcValue: false }),
+                //     e.target.type = 'text'
+                // }}
+                // value={
+                //   isFieldInFocus.lcValue ?
+                //     termsheetDetails?.transactionDetails?.lcValue :
+                //     ` ${termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase()} ` + Number(termsheetDetails?.transactionDetails?.lcValue).toLocaleString()}
                 onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                 className={`${styles.value} input form-control`}
@@ -826,7 +826,7 @@ const Index = ({
                 value={
                   isFieldInFocus.lcOpeningCharges ?
                     termsheetDetails?.commercials?.lcOpeningChargesUnit :
-                    Number(termsheetDetails?.commercials?.lcOpeningChargesUnit).toLocaleString() + ` %`}
+                    Number(termsheetDetails?.commercials?.lcOpeningChargesUnit).toLocaleString() + `Cr`}
 
 
                 onChange={onChangeCommercialTerms}
