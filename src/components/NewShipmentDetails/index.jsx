@@ -79,7 +79,7 @@ const index = ({ saveShipmentData, shipment }) => {
                   <DateCalender
                     dateFormat={'dd-MM-yyyy'}
                     value={shipment.ETAofDischarge.fromDate}
-                    name="ETAofDischarge.fromDate"
+                    name="loadPort.fromDate"
                     saveDate={saveDate}
                     setStartDateFrom={setStartDate}
                     labelName="Laycan at Load Port from"
@@ -109,7 +109,7 @@ const index = ({ saveShipmentData, shipment }) => {
                   <DateCalender
                     dateFormat={'dd-MM-yyyy'}
                     value={shipment.ETAofDischarge.toDate}
-                    name="ETAofDischarge.toDate"
+                    name="loadPort.toDate"
                     saveDate={saveDate}
                     startFrom={dateStartFrom.eta}
                     labelName="Laycan at Load Port to"
@@ -168,7 +168,7 @@ const index = ({ saveShipmentData, shipment }) => {
               <Form.Group className={`${styles.form_group} col-md-2 col-sm-6`}>
                 <div className="d-flex">
                   <DateCalender
-                    name="loadPort.fromDate"
+                   name="ETAofDischarge.fromDate"
                     dateFormat={'dd-MM-yyyy'}
                     saveDate={saveDate}
                     setStartDateFrom={setStartDate}
@@ -201,7 +201,7 @@ const index = ({ saveShipmentData, shipment }) => {
               <Form.Group className={`${styles.form_group}  col-md-2 col-sm-6`}>
                 <div className="d-flex">
                   <DateCalender
-                    name="loadPort.toDate"
+                    name="ETAofDischarge.toDate"
                     dateFormat={'dd-MM-yyyy'}
                     saveDate={saveDate}
                     labelName="ETA at Discharge Port to"
