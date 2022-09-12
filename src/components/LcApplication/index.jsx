@@ -174,7 +174,7 @@ function Index({
                             onChange={(e) => {
                               saveLcData(e.target.name, e.target.value)
                             }}
-                            value={lcData?.lcIssuingBank}
+                            value={lcData?.lcIssuingBank ? lcData?.lcIssuingBank : lcModuleData?.order?.termsheet?.transactionDetails?.lcOpeningBank}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
                             <option selected disabled>Select an option</option>
@@ -294,8 +294,8 @@ function Index({
                               e.target.type = 'text'
                           }}
                           value={isFieldInFocus.tolerance ?
-                            lcData?.tolerancePercentage :
-                          '+/- '+  Number(lcData?.tolerancePercentage)?.toLocaleString() + ` %`}
+                            lcData?.tolerancePercentage ? lcData?.tolerancePercentage : lcModuleData?.order?.tolerance :
+                          '+/- '+  Number(lcData?.tolerancePercentage ? lcData?.tolerancePercentage : lcModuleData?.order?.tolerance)?.toLocaleString() + ` %`}
                           // value={addPrefixOrSuffix(
                           //   lcData?.tolerancePercentage,
                           //   '%',
@@ -470,12 +470,12 @@ function Index({
                             onChange={(e) => {
                               saveLcData(e.target.name, e.target.value)
                             }}
-                            value={lcData?.partialShipment}
+                            value={lcData?.partialShipment ? lcData?.partialShipment : lcModuleData?.order?.termsheet?.transactionDetails?.partShipmentAllowed}
                             className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                           >
                             <option selected disabled>Select an option</option>
-                            <option value="Prohibited">Prohibited</option>
-                            <option value="Allowed">Allowed</option>
+                            <option value="No">Prohibited</option>
+                            <option value="Yes">Allowed</option>
                           </select>
                           <label
                             className={`${styles.label_heading} label_heading`}
