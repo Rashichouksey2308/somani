@@ -59,7 +59,7 @@ export default function Index({
       invoiceDate: '',
       boeRate: '',
       bankName: '',
-      accessibleValue: accessibleValueCalc
+      accessibleValue: accessibleValueCalc,
     },
     duty: [
       {
@@ -73,7 +73,6 @@ export default function Index({
     document3: null,
   })
 
-  
   const totalCustomDuty = () => {
     let number = 0
     billOfEntryData?.duty?.forEach((val) => {
@@ -84,7 +83,7 @@ export default function Index({
       return number
     }
   }
-  console.log(billOfEntryData, "boeDetails")
+  console.log(billOfEntryData, 'boeDetails')
   console.log(customData, 'sdasd')
   const uploadDoc1 = async (e) => {
     let name = e.target.name
@@ -119,15 +118,14 @@ export default function Index({
     namesplit.length > 1
       ? (newInput[namesplit[0]][namesplit[1]] = value)
       : (newInput[name] = value)
-    console.log(newInput, "newInput")
+    console.log(newInput, 'newInput')
 
     setBillOfEntryData({ ...newInput })
   }
   const conversionRateChange = (name, value) => {
-
     const newInput = { ...billOfEntryData }
     newInput['boeDetails']['conversionRate'] = value
-    console.log(newInput, "newInput")
+    console.log(newInput, 'newInput')
 
     setBillOfEntryData({ ...newInput })
   }
@@ -152,17 +150,17 @@ export default function Index({
 
   useEffect(() => {
     let temp = []
-    if (_get(customData, "billOfEntry.billOfEntry[0].duty", []).length > 0) {
-      _get(customData, "billOfEntry.billOfEntry[0].duty", []).forEach((val, index) => {
-        temp.push(
-          {
-            percentage: val.percentage || "",
+    if (_get(customData, 'billOfEntry.billOfEntry[0].duty', []).length > 0) {
+      _get(customData, 'billOfEntry.billOfEntry[0].duty', []).forEach(
+        (val, index) => {
+          temp.push({
+            percentage: val.percentage || '',
             duty: val.duty,
             amount: val.amount,
             action: false,
-          }
-        )
-      })
+          })
+        },
+      )
       setDutyData(temp)
     }
   }, [customData])
@@ -177,7 +175,6 @@ export default function Index({
     // console.log(tempArr,"tempArr")
     setDutyData(tempArr)
   }
-
 
   const setActions = (index, val) => {
     setDutyData((prevState) => {
@@ -217,10 +214,7 @@ export default function Index({
     ])
   }
 
-
-
   const handleSubmit = () => {
-
     if (billOfEntryData.boeDetails.currency === '') {
       let toastMessage = 'CURRENCY CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -275,9 +269,15 @@ export default function Index({
       return
     } else {
       let tempData = { ...billOfEntryData }
-      tempData.boeDetails.conversionRate = removePrefixOrSuffix(billOfEntryData.boeDetails.conversionRate)
-      tempData.boeDetails.invoiceQuantity = removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceQuantity)
-      tempData.boeDetails.invoiceValue = removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceValue)
+      tempData.boeDetails.conversionRate = removePrefixOrSuffix(
+        billOfEntryData.boeDetails.conversionRate,
+      )
+      tempData.boeDetails.invoiceQuantity = removePrefixOrSuffix(
+        billOfEntryData.boeDetails.invoiceQuantity,
+      )
+      tempData.boeDetails.invoiceValue = removePrefixOrSuffix(
+        billOfEntryData.boeDetails.invoiceValue,
+      )
       const billOfEntry = { billOfEntry: [tempData] }
 
       const fd = new FormData()
@@ -293,9 +293,15 @@ export default function Index({
 
   const handleSave = () => {
     let tempData = { ...billOfEntryData }
-    tempData.boeDetails.conversionRate = removePrefixOrSuffix(billOfEntryData.boeDetails.conversionRate)
-    tempData.boeDetails.invoiceQuantity = removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceQuantity)
-    tempData.boeDetails.invoiceValue = removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceValue)
+    tempData.boeDetails.conversionRate = removePrefixOrSuffix(
+      billOfEntryData.boeDetails.conversionRate,
+    )
+    tempData.boeDetails.invoiceQuantity = removePrefixOrSuffix(
+      billOfEntryData.boeDetails.invoiceQuantity,
+    )
+    tempData.boeDetails.invoiceValue = removePrefixOrSuffix(
+      billOfEntryData.boeDetails.invoiceValue,
+    )
     const billOfEntry = { billOfEntry: [tempData] }
     const fd = new FormData()
     fd.append('customClearanceId', customData?._id)
@@ -315,20 +321,35 @@ export default function Index({
 
   const [accessibleValueCalc, setAcc] = useState(0)
   useEffect(() => {
-
     // setAcc(checkNan((Number(_get(customData, 'billOfEntry.billOfEntry[0].boeDetails.invoiceValue',),)
 
-    setAcc(checkNan((removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceValue)
+    setAcc(
+      checkNan(
+        removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceValue) *
+          removePrefixOrSuffix(billOfEntryData?.boeDetails?.conversionRate),
+      ),
+    )
+  }, [
+    billOfEntryData.boeDetails.conversionRate,
+    billOfEntryData.boeDetails.invoiceValue,
+  ])
 
-      * removePrefixOrSuffix(billOfEntryData?.boeDetails?.conversionRate))))
+  useEffect(() => {
+    let tempEntryData = { ...billOfEntryData }
+    tempEntryData.duty = dutyData
+    setBillOfEntryData(tempEntryData)
+  }, [dutyData])
 
-  }, [billOfEntryData.boeDetails.conversionRate, billOfEntryData.boeDetails.invoiceValue])
   useEffect(() => {
     if (customData) {
-      let data = Number(
-        customData?.order?.transit?.BL?.billOfLanding[0]?.blQuantity,
-      )
-      setTotalBl(data)
+      let total = 0
+      let data = customData?.order?.transit?.BL?.billOfLanding
+      if (data && data.length > 0) {
+        for (let i = 0; i <= data.length - 1; i++) {
+          total = total + Number(data[i].blQuantity)
+        }
+      }
+      setTotalBl(total)
     }
 
     if (customData?.billOfEntry?.billOfEntry) {
@@ -344,14 +365,16 @@ export default function Index({
           invoiceQuantity: data?.boeDetails?.invoiceQuantity,
           invoiceQuantityUnit: data?.boeDetails?.invoiceQuantityUnit,
           currency: data?.boeDetails?.currency,
-          conversionRate: data?.boeDetails?.conversionRate || "",
+          conversionRate: data?.boeDetails?.conversionRate || '',
           invoiceNumber: data?.boeDetails?.invoiceNumber,
           invoiceValue: data?.boeDetails?.invoiceValue,
           invoiceValueCurrency: data?.boeDetails?.invoiceValueCurrency,
           invoiceDate: data?.boeDetails?.invoiceDate,
           boeRate: data?.boeDetails?.boeRate,
           bankName: data?.boeDetails?.bankName,
-          accessibleValue: accessibleValueCalc ? accessibleValueCalc : data?.boeDetails?.accessibleValue
+          accessibleValue: accessibleValueCalc
+            ? accessibleValueCalc
+            : data?.boeDetails?.accessibleValue,
         },
         duty: data.duty,
 
@@ -363,16 +386,15 @@ export default function Index({
     }
   }, [customData])
 
-
-
   // console.log(
   //   customData,
   //   // billOfEntryData,
   //   'customData')
   const getIndex = (index) => {
-    return index + 1;
-
+    return index + 1
   }
+
+  console.log('data', dutyData, customData)
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -525,7 +547,10 @@ export default function Index({
                     name="boeNumber"
                     required
                     value={billOfEntryData?.boeNumber}
-                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                    onKeyDown={(evt) =>
+                      ['e', 'E', '+', '-'].includes(evt.key) &&
+                      evt.preventDefault()
+                    }
                     onChange={(e) =>
                       saveBillOfEntryData(e.target.name, e.target.value)
                     }
@@ -646,21 +671,24 @@ export default function Index({
                       customData,
                       'order.transit.IGM.igmDetails[0].igmFiling',
                       '',
-                    ) || _get(
+                    ) ||
+                    _get(
                       customData,
                       'order.transit.IGM.igmDetails[0].igmFiling',
                       '',
-                    ) === '' ? '' : moment(
-                      _get(
-                        customData,
-                        'order.transit.IGM.igmDetails[0].igmFiling',
-                        '',
-                      ),
-                    ).format('DD-MM-YYYY')}
+                    ) === ''
+                      ? ''
+                      : moment(
+                          _get(
+                            customData,
+                            'order.transit.IGM.igmDetails[0].igmFiling',
+                            '',
+                          ),
+                        ).format('DD-MM-YYYY')}
                   </span>
                 </div>
                 {_get(customData, 'order.commodity', '').toLowerCase() ===
-                  'coal' ? (
+                'coal' ? (
                   <>
                     <div
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
@@ -680,15 +708,13 @@ export default function Index({
                     >
                       <div className={`${styles.label} text`}>CIRC Date</div>
                       <span className={styles.value}>
-                        {
-                          customData?.order?.transit?.CIMS?.cimsDetails[0]
-                            ?.circDate ?
-                            moment(
+                        {customData?.order?.transit?.CIMS?.cimsDetails[0]
+                          ?.circDate
+                          ? moment(
                               customData?.order?.transit?.CIMS?.cimsDetails[0]
                                 ?.circDate,
                             ).format('DD-MM-YYYY')
-                            : ""
-                        }
+                          : ''}
                       </span>
                     </div>
                   </>
@@ -730,7 +756,10 @@ export default function Index({
                     type="text"
                     name="boeDetails.invoiceNumber"
                     required
-                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                    onKeyDown={(evt) =>
+                      ['e', 'E', '+', '-'].includes(evt.key) &&
+                      evt.preventDefault()
+                    }
                     onChange={(e) =>
                       saveBillOfEntryData(e.target.name, e.target.value)
                     }
@@ -764,15 +793,17 @@ export default function Index({
                     // value={billOfEntryData?.boeDetails?.invoiceQuantity}
                     className={`${styles.input_field} input form-control`}
                     type="text"
-
                     // onKeyPress={preventMinus}
-                    value={addPrefixOrSuffix(billOfEntryData?.boeDetails?.invoiceQuantity, "MT")}
+                    value={addPrefixOrSuffix(
+                      billOfEntryData?.boeDetails?.invoiceQuantity,
+                      'MT',
+                    )}
                     name="boeDetails.invoiceQuantity"
                     onChange={(e) =>
                       saveBillOfEntryData(e.target.name, e.target.value)
                     }
                     required
-                  // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                    // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Invoice Quantity<strong className="text-danger">*</strong>
@@ -787,8 +818,10 @@ export default function Index({
                     className={`${styles.input_field} input form-control`}
                     type="text"
                     required
-
-                    value={addPrefixOrSuffix(billOfEntryData?.boeDetails?.invoiceValue, "USD")}
+                    value={addPrefixOrSuffix(
+                      billOfEntryData?.boeDetails?.invoiceValue,
+                      'USD',
+                    )}
                     name="boeDetails.invoiceValue"
                     onChange={(e) =>
                       saveBillOfEntryData(e.target.name, e.target.value)
@@ -801,14 +834,15 @@ export default function Index({
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
-
                   <input
-
                     className={`${styles.input_field} input form-control`}
                     type="text"
                     required
-                    value={addPrefixOrSuffix(billOfEntryData?.boeDetails?.conversionRate, "INR", "front")}
-
+                    value={addPrefixOrSuffix(
+                      billOfEntryData?.boeDetails?.conversionRate,
+                      'INR',
+                      'front',
+                    )}
                     name="boeDetails.conversionRate"
                     onChange={(e) =>
                       conversionRateChange(e.target.name, e.target.value)
@@ -829,8 +863,10 @@ export default function Index({
                     disabled
                     required
                     value={accessibleValueCalc}
-                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                    onKeyDown={(evt) =>
+                      ['e', 'E', '+', '-'].includes(evt.key) &&
+                      evt.preventDefault()
+                    }
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Assessable Value <strong className="text-danger">*</strong>
@@ -862,7 +898,6 @@ export default function Index({
                         saveBillOfEntryData(e.target.name, e.target.value)
                       }
                       value={billOfEntryData?.boeDetails?.bankName}
-
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
                       <option selected>Select Bank</option>
@@ -913,16 +948,14 @@ export default function Index({
                         </tr>
                       </thead>
                       <tbody>
-
-
                         {dutyData.length > 0 &&
                           dutyData.map((val, index) => (
                             <tr key={index} className="table_row">
                               {!val.actions ? (
                                 <>
-
-
-                                  <td className={styles.doc_name}>{getIndex(index)}</td>
+                                  <td className={styles.doc_name}>
+                                    {getIndex(index)}
+                                  </td>
                                   <td>{val.duty}</td>
                                   <td>{val.amount}</td>
                                   <td>{val.percentage}</td>
@@ -1023,8 +1056,7 @@ export default function Index({
                     <hr className="mt-0" />
                     <div className="d-flex justify-content-between align-items-center mx-4 px-2">
                       <div className="d-flex align-items-center">
-                        <div
-                          className={`${styles.label} text m-0`}>
+                        <div className={`${styles.label} text m-0`}>
                           Total Custom Duty:
                         </div>
                         <div className={`${styles.value} ml-2 mt-n1`}>
@@ -1187,7 +1219,9 @@ export default function Index({
                             </div>
                           </>
                         ) : (
-                          <div className={`${styles.certificate} d-flex justify-content-between`}>
+                          <div
+                            className={`${styles.certificate} d-flex justify-content-between`}
+                          >
                             <span>
                               {billOfEntryData?.document1?.originalName}
                             </span>
@@ -1230,7 +1264,9 @@ export default function Index({
                             </div>
                           </>
                         ) : (
-                          <div className={`${styles.certificate} d-flex justify-content-between`}>
+                          <div
+                            className={`${styles.certificate} d-flex justify-content-between`}
+                          >
                             <span>
                               {billOfEntryData?.document2?.originalName}
                             </span>
@@ -1276,7 +1312,9 @@ export default function Index({
                               </div>
                             </>
                           ) : (
-                            <div className={`${styles.certificate} d-flex justify-content-between`}>
+                            <div
+                              className={`${styles.certificate} d-flex justify-content-between`}
+                            >
                               <span>
                                 {billOfEntryData?.document3?.originalName}
                               </span>

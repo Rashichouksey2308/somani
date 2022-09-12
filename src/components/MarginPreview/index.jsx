@@ -81,7 +81,7 @@ function Index() {
             >
               <tr>
                 <td valign="top" align="left" width="33%">
-                  <p
+                  <span
                     style={{
                       fontSize: '20px',
                       color: '#111111',
@@ -100,17 +100,19 @@ function Index() {
                     >
                       {marginData?.order?.orderId}
                     </span>
-                  </p>
-                  <p
+                  </span>
+                  <br/>
+                  <span
                     style={{
                       fontSize: '20px',
                       color: '#111111',
                       lineHeight: '25px',
                       fontWeight: '500',
-                      paddingLeft: '25px',
                     }}
                   >
-                    Buyer:{' '}
+                    <span style={{display: 'inline-block', paddingLeft: '25px', width: '90px', float:'left', height:'50px'}}>
+                      Buyer:{' '}
+                    </span>
                     <span
                       style={{
                         lineHeight: '24px',
@@ -121,7 +123,7 @@ function Index() {
                       {marginData?.company?.companyName}
                       {/* {_get(termsheet, 'data[0].company.companyName', '')} */}
                     </span>
-                  </p>
+                  </span>
                 </td>
                 <td valign="top" align="center" width="34%">
                   <h2
@@ -137,11 +139,11 @@ function Index() {
                   </h2>
                 </td>
                 <td valign="top" align="right" width="33%">
-                  <p>
+                  <span>
                     {' '}
                     <span></span>
-                  </p>
-                  <p
+                  </span><br/>
+                  <span
                     style={{
                       fontSize: '20px',
                       color: '#111111',
@@ -162,7 +164,7 @@ function Index() {
                         'DD-MM-yy',
                       )}
                     </span>
-                  </p>
+                  </span>
                 </td>
               </tr>
             </table>
@@ -177,6 +179,7 @@ function Index() {
                 fontFamily: 'Arial, Helvetica, sans-serif',
                 borderRadius: '6px',
                 boxShadow: '0 3px 6px #CAD0E2',
+                border: '2px solid #cad6e64d'
               }}
               cellPadding="0"
               cellSpacing="0"
@@ -190,9 +193,8 @@ function Index() {
                     cellSpacing="0"
                     border="0"
                   >
-                    <thead>
                       <tr>
-                        <th
+                        <td
                           width="33%"
                           bgColor="#FAFAFB"
                           align="left"
@@ -210,24 +212,22 @@ function Index() {
                           >
                             Commodity Details
                           </h3>
-                        </th>
-                        <th width="67%" bgColor="#FAFAFB" align="left">
+                        </td>
+                        <td width="67%" bgColor="#FAFAFB" align="left">
                           <h3
                             style={{
                               fontSize: '22px',
                               color: '#3687E8',
                               lineHeight: '27px',
                               fontWeight: 'bold',
-                              padding: '20px 15px 20px 35px',
+                              padding: '20px 15px 20px 24px',
                               marginBottom: '0',
                             }}
                           >
                             Margin Money
                           </h3>
-                        </th>
+                        </td>
                       </tr>
-                    </thead>
-                    <tbody>
                       <tr>
                         <td
                           align="left"
@@ -247,7 +247,7 @@ function Index() {
                             <span
                               style={{
                                 display: 'inline-block',
-                                width: '35px',
+                                width: '35px', float:'left', height:'30px'
                               }}
                             >
                               A.
@@ -295,7 +295,7 @@ function Index() {
                             <span
                               style={{
                                 display: 'inline-block',
-                                width: '35px',
+                                width: '35px', float:'left', height:'30px'
                               }}
                             >
                               B
@@ -338,7 +338,7 @@ function Index() {
                             <span
                               style={{
                                 display: 'inline-block',
-                                width: '35px',
+                                width: '35px', float:'left', height:'30px'
                               }}
                             >
                               C
@@ -380,7 +380,7 @@ function Index() {
                             <span
                               style={{
                                 display: 'inline-block',
-                                width: '35px',
+                                width: '35px', float:'left', height:'30px'
                               }}
                             >
                               D
@@ -427,7 +427,7 @@ function Index() {
                             <span
                               style={{
                                 display: 'inline-block',
-                                width: '35px',
+                                width: '35px', float:'left', height:'30px'
                               }}
                             >
                               E
@@ -474,7 +474,7 @@ function Index() {
                             <span
                               style={{
                                 display: 'inline-block',
-                                width: '35px',
+                                width: '35px', float:'left', height:'30px'
                               }}
                             >
                               F
@@ -522,7 +522,7 @@ function Index() {
                             <span
                               style={{
                                 display: 'inline-block',
-                                width: '35px',
+                                width: '35px', float:'left', height:'30px'
                               }}
                             >
                               G
@@ -572,7 +572,7 @@ function Index() {
                             <span
                               style={{
                                 display: 'inline-block',
-                                width: '35px',
+                                width: '35px', float:'left', height:'30px'
                               }}
                             >
                               H
@@ -614,7 +614,7 @@ function Index() {
                             <span
                               style={{
                                 display: 'inline-block',
-                                width: '35px',
+                                width: '35px', float:'left', height:'30px'
                               }}
                             >
                               I
@@ -637,10 +637,8 @@ function Index() {
                           </p>
                         </td>
                       </tr>
-                    </tbody>
-                    <thead>
                       <tr>
-                        <th
+                        <td
                           width="33%"
                           bgColor="#FAFAFB"
                           align="left"
@@ -658,11 +656,9 @@ function Index() {
                           >
                             Calculation
                           </h3>
-                        </th>
-                        <th width="67%" bgColor="#FAFAFB" align="left"></th>
+                        </td>
+                        <td width="67%" bgColor="#FAFAFB" align="left"></td>
                       </tr>
-                    </thead>
-                    <tbody style={{ whiteSpace: 'nowrap' }}>
                       <tr>
                         <td
                           align="left"
@@ -682,7 +678,7 @@ function Index() {
                             <span
                               style={{
                                 display: 'inline-block',
-                                width: '35px',
+                                width: '35px', float:'left', height:'30px'
                               }}
                             >
                               J
@@ -733,7 +729,7 @@ function Index() {
                             <span
                               style={{
                                 display: 'inline-block',
-                                width: '35px',
+                                width: '35px', float:'left', height:'30px'
                               }}
                             >
                               K
@@ -784,7 +780,7 @@ function Index() {
                             <span
                               style={{
                                 display: 'inline-block',
-                                width: '35px',
+                                width: '35px', float:'left', height:'30px'
                               }}
                             >
                               L
@@ -835,7 +831,7 @@ function Index() {
                             <span
                               style={{
                                 display: 'inline-block',
-                                width: '35px',
+                                width: '35px', float:'left', height:'30px'
                               }}
                             >
                               M
@@ -886,16 +882,15 @@ function Index() {
                             <span
                               style={{
                                 display: 'inline-block',
-                                width: '35px',
+                                width: '35px', float:'left', height:'30px'
                               }}
                             >
                               N
                             </span>
-                            Gross Order Value (INR)
+                            <span style={{marginRight: '10px'}}>Gross Order Value (INR)</span>
                             <span
                               style={{
-                                fontWeight: 'bold',
-                                marginLeft: '10px',
+                                fontWeight: 'bold'
                               }}
                             >
                               (K+L+M)
@@ -937,16 +932,15 @@ function Index() {
                             <span
                               style={{
                                 display: 'inline-block',
-                                width: '35px',
+                                width: '35px', float:'left', height:'30px'
                               }}
                             >
                               O
                             </span>
-                            Tolerance Value (INR)
+                            <span style={{marginRight: '10px'}}>Tolerance Value (INR)</span>
                             <span
                               style={{
-                                fontWeight: 'bold',
-                                marginLeft: '10px',
+                                fontWeight: 'bold'
                               }}
                             >
                               (N*F)
@@ -988,16 +982,15 @@ function Index() {
                             <span
                               style={{
                                 display: 'inline-block',
-                                width: '35px',
+                                width: '35px', float:'left', height:'30px'
                               }}
                             >
                               P
                             </span>
-                            Total Order Value (INR)
+                            <span style={{marginRight: '10px'}}>Total Order Value (INR)</span>
                             <span
                               style={{
-                                fontWeight: 'bold',
-                                marginLeft: '10px',
+                                fontWeight: 'bold'                               
                               }}
                             >
                               (N+O)
@@ -1039,16 +1032,15 @@ function Index() {
                             <span
                               style={{
                                 display: 'inline-block',
-                                width: '35px',
+                                width: '35px', float:'left', height:'30px'
                               }}
                             >
                               Q
                             </span>
-                            Provisional Unit Price Per Ton (INR)
+                            <span style={{marginRight: '10px'}}>Provisional Unit Price Per Ton (INR)</span>
                             <span
                               style={{
-                                fontWeight: 'bold',
-                                marginLeft: '10px',
+                                fontWeight: 'bold'
                               }}
                             >
                               (N/A)
@@ -1090,16 +1082,15 @@ function Index() {
                             <span
                               style={{
                                 display: 'inline-block',
-                                width: '35px',
+                                width: '35px', float:'left', height:'30px'
                               }}
                             >
                               R
                             </span>
-                            Margin Money (INR){' '}
+                            <span style={{marginRight: '10px'}}>Margin Money (INR){' '}</span>
                             <span
                               style={{
-                                fontWeight: 'bold',
-                                marginLeft: '10px',
+                                fontWeight: 'bold'                                
                               }}
                             >
                               (P*G)
@@ -1141,16 +1132,15 @@ function Index() {
                             <span
                               style={{
                                 display: 'inline-block',
-                                width: '35px',
+                                width: '35px', float:'left', height:'30px'
                               }}
                             >
                               S
                             </span>
-                            Total SPDC Amount Req. (INR)
+                            <span style={{marginRight: '10px'}}>Total SPDC Amount Req. (INR)</span>
                             <span
                               style={{
-                                fontWeight: 'bold',
-                                marginLeft: '10px',
+                                fontWeight: 'bold'                                
                               }}
                             >
                               (P-R)
@@ -1192,16 +1182,15 @@ function Index() {
                             <span
                               style={{
                                 display: 'inline-block',
-                                width: '35px',
+                                width: '35px', float:'left', height:'30px'
                               }}
                             >
                               T
                             </span>
-                            Additional Amount Per SPDC (INR)
+                            <span style={{marginRight: '10px'}}>Additional Amount Per SPDC (INR)</span>
                             <span
                               style={{
-                                fontWeight: 'bold',
-                                marginLeft: '10px',
+                                fontWeight: 'bold'                                
                               }}
                             >
                               [(S-Previous Value)/I)]
@@ -1242,16 +1231,15 @@ function Index() {
                             <span
                               style={{
                                 display: 'inline-block',
-                                width: '35px',
+                                width: '35px', float:'left', height:'30px'
                               }}
                             >
                               U
                             </span>
-                            Revised Net Order Value (INR)
+                            <span style={{marginRight: '10px'}}>Revised Net Order Value (INR)</span>
                             <span
                               style={{
-                                fontWeight: 'bold',
-                                marginLeft: '10px',
+                                fontWeight: 'bold'                                
                               }}
                             >
                               [P - Total Order Value (Previous)]
@@ -1292,7 +1280,7 @@ function Index() {
                             <span
                               style={{
                                 display: 'inline-block',
-                                width: '35px',
+                                width: '35px', float:'left', height:'30px'
                               }}
                             >
                               V
@@ -1334,16 +1322,15 @@ function Index() {
                             <span
                               style={{
                                 display: 'inline-block',
-                                width: '35px',
+                                width: '35px', float:'left', height:'30px'
                               }}
                             >
                               W
                             </span>
-                            Revised Margin Money Calculation (INR)
+                            <span style={{marginRight: '10px'}}>Revised Margin Money Calculation (INR)
                             <span
                               style={{
-                                fontWeight: 'bold',
-                                marginLeft: '10px',
+                                fontWeight: 'bold'
                               }}
                             >
                               (R)
@@ -1384,7 +1371,7 @@ function Index() {
                             <span
                               style={{
                                 display: 'inline-block',
-                                width: '35px',
+                                width: '35px', float:'left', height:'30px'
                               }}
                             >
                               X
@@ -1426,16 +1413,15 @@ function Index() {
                             <span
                               style={{
                                 display: 'inline-block',
-                                width: '35px',
+                                width: '35px', float:'left', height:'30px'
                               }}
                             >
                               Y
                             </span>
-                            Margin Money Payable (INR)
+                            <span style={{marginLeft: '10px'}}>Margin Money Payable (INR)</span>
                             <span
                               style={{
-                                fontWeight: 'bold',
-                                marginLeft: '10px',
+                                fontWeight: 'bold'                                
                               }}
                             >
                               (W-X)
@@ -1457,7 +1443,6 @@ function Index() {
                           </p>
                         </td>
                       </tr> */}
-                    </tbody>
                   </table>
                 </td>
               </tr>

@@ -47,6 +47,7 @@ const Index = () => {
     {
       termsheet &&
         termsheet?.data?.map((sheet) =>
+        
           setTermsheetDetails({
             termsheetId: sheet._id,
             commodityDetails: {
@@ -60,7 +61,7 @@ const Index = () => {
             transactionDetails: {
               // lcValue: sheet?.transactionDetails?.lcValue ? sheet?.transactionDetails?.lcValue : Number(sheet?.order?.quantity * sheet?.order?.perUnitPrice),
               typeOfPort: sheet?.transactionDetails?.typeOfPort ?? '',
-              lcValue: newLcVal,
+              lcValue: sheet?.transactionDetails?.lcValue || newLcVal,
               lcCurrency: sheet?.transactionDetails?.lcCurrency,
               marginMoney: sheet?.transactionDetails?.marginMoney
                 ? sheet?.transactionDetails?.marginMoney
@@ -351,7 +352,7 @@ const Index = () => {
     // console.log(termsheetDetails.commercials.overDueInterestPerMont, "tempSheet2")
     let tempSheet = {...termsheetDetails}
 
-    tempSheet.transactionDetails.lcValue = newLcVal
+    // tempSheet.transactionDetails.lcValue = newLcVal
     tempSheet.commodityDetails.perUnitPrice = removePrefixOrSuffix(
       termsheetDetails.commodityDetails.perUnitPrice,
     )

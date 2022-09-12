@@ -162,23 +162,32 @@ const Index = ({ saveOrderData, orderData }) => {
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  // onFocus={(e) => {
-                  //   setIsFieldInFocus({ ...isFieldInFocus, orderValue: true }),
-                  //     e.target.type = 'number'
-                  // }}
-                  // onBlur={(e) => {
-                  //   setIsFieldInFocus({ ...isFieldInFocus, orderValue: false }),
-                  //     e.target.type = 'text'
-                  // }}
-                  value={addPrefixOrSuffix(
-                    orderData.orderValue ? orderData.orderValue : 0,
-                    orderData.unitOfValue == 'Crores'
-                      ? 'Cr'
-                      : orderData.unitOfValue == 'Million'
-                        ? 'Mn'
-                        : orderData.unitOfValue,
-                    '',
-                  )}
+                  onFocus={(e) => {
+                    setIsFieldInFocus({ ...isFieldInFocus, orderValue: true }),
+                      e.target.type = 'number'
+                  }}
+                  onBlur={(e) => {
+                    setIsFieldInFocus({ ...isFieldInFocus, orderValue: false }),
+                      e.target.type = 'text'
+                  }}
+
+                  value={isFieldInFocus.orderValue ?
+                    orderData.orderValue :
+                    Number(orderData.orderValue).toLocaleString() + ` ${orderData.unitOfValue == 'Crores'
+                          ? 'Cr'
+                          : orderData.unitOfValue == 'Million'
+                            ? 'Mn'
+                            : orderData.unitOfValue}`
+                  }
+                  // value={addPrefixOrSuffix(
+                  //   orderData.orderValue ? orderData.orderValue : 0,
+                  //   orderData.unitOfValue == 'Crores'
+                  //     ? 'Cr'
+                  //     : orderData.unitOfValue == 'Million'
+                  //       ? 'Mn'
+                  //       : orderData.unitOfValue,
+                  //   '',
+                  // )}
                   // value={
                   //   isFieldInFocus.orderValue ?
                   //     orderData.orderValue :
@@ -257,7 +266,7 @@ const Index = ({ saveOrderData, orderData }) => {
                   name="tolerance"
                   value= {isFieldInFocus.tolerance ?
                     orderData.tolerance :
-                  Number(orderData.tolerance)?.toLocaleString() + ' %'
+                 '± '+ Number(orderData.tolerance)?.toLocaleString() + ' %'
                   }
                   // value={addPrefixOrSuffix(orderData.tolerance, '%', '')}
                   onChange={(e) => {

@@ -443,7 +443,7 @@ export default function Index({
                             alt="Pdf"
                           />
                         </td>
-                        <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                        <td className={styles.doc_row}>{ dischargeOfCargo.document1 === null ? '' : moment(dischargeOfCargo?.document1?.Date).format('DD-MM-YYYY, h:mm a')}</td>
                         <td>
                           {dischargeOfCargo &&
                             dischargeOfCargo.document1 === null ? (
@@ -490,7 +490,7 @@ export default function Index({
                             alt="Pdf"
                           />
                         </td>
-                        <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
+                        <td className={styles.doc_row}>{ dischargeOfCargo.document2 === null ? '' : moment(dischargeOfCargo?.document2?.Date).format('DD-MM-YYYY, h:mm a')}</td>
                         <td>
                           {dischargeOfCargo &&
                             dischargeOfCargo.document2 === null ? (

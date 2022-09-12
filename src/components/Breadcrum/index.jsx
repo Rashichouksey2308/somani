@@ -162,7 +162,7 @@ export default function Index({ isQuery }) {
     if ('termsheet' == pageName) {
       if (order != null) {
         router.route =
-          '/Leads' + '/Termsheet' + `/${id.toLowerCase()}` + `/${order}`
+          '/Leads' + '/Termsheet' + `/${id?.toLowerCase()}` + `/${order}`
         console.log('router1234', router.route)
       } else if (id !== null) {
         router.route = '/Leads' + '/Termsheet' + `/${id.toLowerCase()} `

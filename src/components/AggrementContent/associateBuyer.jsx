@@ -3,6 +3,7 @@
 import React ,{useState,useEffect}from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
+import moment from 'moment'
 
   let associate={
     "branchName": "",
@@ -967,7 +968,7 @@ console.log(associateData.gstin,"associateData")
                    <tr  className='table_row'>
                       <td><strong>Board Resolution Copy<span className={`danger`}>*</span></strong></td>
                       <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/></td>
-                      <td>{`28-02-2022,5:30 PM`}</td>
+                      <td>{ doc.attachDoc == '' ? '' : moment(doc.attachDoc?.date).format('DD-MM-YYYY, h:mm a')}</td>
                       <td>
                       <td style={{padding:"0"}}>
                     {doc.attachDoc == '' ? (
