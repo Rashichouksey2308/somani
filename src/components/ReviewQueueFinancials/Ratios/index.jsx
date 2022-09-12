@@ -284,13 +284,13 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Return On Total Assets (%)</td>
                       <td className="text-center">
-                        {(latestYearData?.returnOnAssets * 100)?.toFixed(2).toLocaleString()}%
+                        {((latestYearData?.returnOnAssets * 100) ?(latestYearData?.returnOnAssets * 100) : '')?.toLocaleString(undefined, { maximumFractionDigits: 2 })}%
                       </td>
                       <td className="text-center">
-                        {(previousYearData?.returnOnAssets * 100)?.toFixed(2).toLocaleString()}%
+                        {((previousYearData?.returnOnAssets * 100)? (previousYearData?.returnOnAssets * 100) : '')?.toLocaleString(undefined, { maximumFractionDigits: 2 })}%
                       </td>
                       <td className="text-center">
-                        {(lastYearData?.returnOnAssets * 100)?.toFixed(2).toLocaleString()}%
+                        {((lastYearData?.returnOnAssets * 100)? (lastYearData?.returnOnAssets * 100) : '')?.toLocaleString(undefined, { maximumFractionDigits: 2 })}%
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.returnOnAssets, previousYearData?.returnOnAssets, lastYearData?.returnOnAssets)}
@@ -384,13 +384,13 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Debt Service Ratio</td>
                       <td className="text-center">
-                        {(latestYearData?.longTermDebtCoverage * 100)?.toLocaleString(undefined, { maximumFractionDigits: 4 })}
+                        {((latestYearData?.longTermDebtCoverage * 100)? (latestYearData?.longTermDebtCoverage * 100): '')?.toLocaleString(undefined, { maximumFractionDigits: 4 })}
                       </td>
                       <td className="text-center">
-                        {(previousYearData?.longTermDebtCoverage * 100)?.toLocaleString(undefined, { maximumFractionDigits: 4 })}
+                        {((previousYearData?.longTermDebtCoverage * 100) ? (previousYearData?.longTermDebtCoverage * 100) : '')?.toLocaleString(undefined, { maximumFractionDigits: 4 })}
                       </td>
                       <td className="text-center">
-                        {(lastYearData?.longTermDebtCoverage * 100)?.toLocaleString(undefined, { maximumFractionDigits: 4 })}
+                        {((lastYearData?.longTermDebtCoverage * 100) ? (lastYearData?.longTermDebtCoverage * 100) : '')?.toLocaleString(undefined, { maximumFractionDigits: 4 })}
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.longTermDebtCoverage, previousYearData?.longTermDebtCoverage, lastYearData?.longTermDebtCoverage)}
@@ -444,13 +444,13 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Asset Growth Ratio</td>
                       <td className="text-center">
-                        {(latestYearData?.totalAssetsGrowth * 100)?.toLocaleString(undefined, { maximumFractionDigits: 2 })}%
+                        {((latestYearData?.totalAssetsGrowth * 100)? (latestYearData?.totalAssetsGrowth * 100): '' )?.toLocaleString(undefined, { maximumFractionDigits: 2 })}%
                       </td>
                       <td className="text-center">
-                        {(previousYearData?.totalAssetsGrowth * 100)?.toLocaleString(undefined, { maximumFractionDigits: 2 })}%
+                        {((previousYearData?.totalAssetsGrowth * 100) ?(previousYearData?.totalAssetsGrowth * 100):'' )?.toLocaleString(undefined, { maximumFractionDigits: 2 })}%
                       </td>
                       <td className="text-center">
-                        {(lastYearData?.totalAssetsGrowth * 100)?.toLocaleString(undefined, { maximumFractionDigits: 2 })}%
+                        {((lastYearData?.totalAssetsGrowth * 100) ?(lastYearData?.totalAssetsGrowth * 100):'' )?.toLocaleString(undefined, { maximumFractionDigits: 2 })}%
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.totalAssetsGrowth, previousYearData?.totalAssetsGrowth, lastYearData?.totalAssetsGrowth)}
@@ -460,13 +460,13 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Net Worth Growth Ratio</td>
                       <td className="text-center">
-                        {(latestYearData?.netWorthGrowth * 100)?.toLocaleString(undefined, { maximumFractionDigits: 2 })}%
+                        {((latestYearData?.netWorthGrowth * 100)? (latestYearData?.netWorthGrowth * 100) :'' )?.toLocaleString(undefined, { maximumFractionDigits: 2 })}%
                       </td>
                       <td className="text-center">
-                        {(previousYearData?.netWorthGrowth * 100)?.toLocaleString(undefined, { maximumFractionDigits: 2 })}%
+                        {((previousYearData?.netWorthGrowth * 100) ? (previousYearData?.netWorthGrowth * 100) : '')?.toLocaleString(undefined, { maximumFractionDigits: 2 })}%
                       </td>
                       <td className="text-center">
-                        {(lastYearData?.netWorthGrowth * 100)?.toLocaleString(undefined, { maximumFractionDigits: 2 })}%
+                        {((lastYearData?.netWorthGrowth * 100) ? (lastYearData?.netWorthGrowth * 100) : '')?.toLocaleString(undefined, { maximumFractionDigits: 2 })}%
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.netWorthGrowth, previousYearData?.netWorthGrowth, lastYearData?.netWorthGrowth)}
@@ -476,13 +476,13 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Sales Growth Ratio</td>
                       <td className="text-center">
-                        {(latestYearData?.netSalesGrowth * 100)?.toLocaleString(undefined, { maximumFractionDigits: 2 })}%
+                        {((latestYearData?.netSalesGrowth * 100) ? (latestYearData?.netSalesGrowth * 100) : '')?.toLocaleString(undefined, { maximumFractionDigits: 2 })}%
                       </td>
                       <td className="text-center">
-                        {(previousYearData?.netSalesGrowth * 100)?.toLocaleString(undefined, { maximumFractionDigits: 2 })}%
+                        {((previousYearData?.netSalesGrowth * 100) ? (previousYearData?.netSalesGrowth * 100) : '')?.toLocaleString(undefined, { maximumFractionDigits: 2 })}%
                       </td>
                       <td className="text-center">
-                        {(lastYearData?.netSalesGrowth * 100)?.toLocaleString(undefined, { maximumFractionDigits: 2 })}%
+                        {((lastYearData?.netSalesGrowth * 100) ? (lastYearData?.netSalesGrowth * 100) : '')?.toLocaleString(undefined, { maximumFractionDigits: 2 })}%
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.netSalesGrowth, previousYearData?.netSalesGrowth, lastYearData?.netSalesGrowth)}
