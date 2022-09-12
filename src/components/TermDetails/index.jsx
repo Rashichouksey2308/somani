@@ -826,7 +826,7 @@ const Index = ({
                 value={
                   isFieldInFocus.lcOpeningCharges ?
                     termsheetDetails?.commercials?.lcOpeningChargesUnit :
-                    Number(termsheetDetails?.commercials?.lcOpeningChargesUnit).toLocaleString() + ` %`}
+                    Number(termsheetDetails?.commercials?.lcOpeningChargesUnit).toLocaleString() + `Cr`}
 
 
                 onChange={onChangeCommercialTerms}
