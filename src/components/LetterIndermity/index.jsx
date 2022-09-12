@@ -12,6 +12,7 @@ import {
   GetTransitDetails,
 } from '../../redux/TransitDetails/action'
 import { toast } from 'react-toastify'
+import moment from 'moment'
 // import { on } from 'nodemon'
 
 function Index({ TransitDetails }) {
@@ -201,7 +202,7 @@ function Index({ TransitDetails }) {
           </div>
           <div>
             <span>DATE:</span>{' '}
-            {loi.loiIssueDate.toJSON().slice(0, 10).replace(/-/g, '/')}
+            {moment(loi.loiIssueDate.toJSON().slice(0, 10).replace(/-/g, '/')).format("DD/MM/YYYY")}
           </div>
         </div>
         <span>Dear Sir, </span>
