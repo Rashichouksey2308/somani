@@ -28,8 +28,9 @@ export default function Home() {
   const { Vessel1 } = useSelector(state => state.vessel)
   // console.log(Vessel1, 'vessels1')
 
-  let id1 = sessionStorage.getItem('VesselCompany')
-  const orderID = sessionStorage.getItem('orderID')
+  // let id1 = sessionStorage.getItem('VesselCompany')
+  // const orderID = sessionStorage.getItem('orderID')
+  // constid1 = _get(data, 'data[0].order._id', '')
   let id = sessionStorage.getItem('VesselId')
   useEffect(() => {
     fetchInitialData()
@@ -59,11 +60,13 @@ export default function Home() {
   const [VesselToAdd, serVesselDataToAdd] = useState()
   const [shipmentTypeBulk, setShipmentTypeBulk] = useState('Bulk')
   const [vesselData, setVesselData] = useState()
+  const [orderID, setOrderId] = useState('')
 
   console.log(currency, "currency")
 
   const setData = (Vessel) => {
-    
+    setOrderId(_get(Vessel, 'data[0].order._id', ''))
+
     console.log(
       Vessel?.data[0], "Vessel123")
 
@@ -206,16 +209,16 @@ export default function Home() {
               Vessel,
               "data[0].vessels[0].transitDetails.ETAatDischargePort",
               ""
-            ) 
-              // !== '' ? _get(
-              //   Vessel,
-              //   "data[0].vessels[0].transitDetails.ETAatDischargePort",
-              //   ""
-              // ) : _get(
-              //   Vessel,
-              //   "data[0].order.shipmentDetail.ETAofDischarge.fromDate",
-              //   ""
-              // )
+            )
+            // !== '' ? _get(
+            //   Vessel,
+            //   "data[0].vessels[0].transitDetails.ETAatDischargePort",
+            //   ""
+            // ) : _get(
+            //   Vessel,
+            //   "data[0].order.shipmentDetail.ETAofDischarge.fromDate",
+            //   ""
+            // )
           },
 
           vesselInformation: [{
@@ -322,7 +325,7 @@ export default function Home() {
     setList(newArr)
   }
 
-console.log(vesselData,"vesselData")
+  console.log(vesselData, "vesselData")
 
   const [startDate, setStartDate] = useState(null)
   const [lastDate, setlastDate] = useState(new Date())
@@ -390,21 +393,21 @@ console.log(vesselData,"vesselData")
       return newState;
     })
   }
- const [dateStartFrom, setDateStartFrom] = useState([])
- useEffect(() => {
-  if(_get(vesselData,"data[0].vessels",[]).length>0){
-    let temp=[];
-    _get(vesselData,"data[0].vessels",[]).forEach((val)=>{
-      temp.push(
-        moment(new Date(val.transitDetails.laycanFrom).toISOString())
-      .add(1, 'days')
-      .format('DD-MM-YYYY')
+  const [dateStartFrom, setDateStartFrom] = useState([])
+  useEffect(() => {
+    if (_get(vesselData, "data[0].vessels", []).length > 0) {
+      let temp = [];
+      _get(vesselData, "data[0].vessels", []).forEach((val) => {
+        temp.push(
+          moment(new Date(val.transitDetails.laycanFrom).toISOString())
+            .add(1, 'days')
+            .format('DD-MM-YYYY')
         )
-    })
-    setDateStartFrom(temp)
-  }
- },[vesselData])
- console.log(dateStartFrom,"dateStartFrom")
+      })
+      setDateStartFrom(temp)
+    }
+  }, [vesselData])
+  console.log(dateStartFrom, "dateStartFrom")
   const saveDate = (startDate, name, index) => {
     // console.log(startDate, name, 'Event1')
     setList(prevState => {
@@ -422,19 +425,19 @@ console.log(vesselData,"vesselData")
       });
       return newState;
     })
-    if(name=="laycanFrom")
-    setStartDate2(startDate,index)
+    if (name == "laycanFrom")
+      setStartDate2(startDate, index)
   }
-  const setStartDate2 = (val,index) => {
+  const setStartDate2 = (val, index) => {
     var new_date = moment(new Date(val).toISOString())
       .add(1, 'days')
       .format('DD-MM-YYYY')
-     let temp =[...dateStartFrom]
-     temp[index]=new_date
-     setDateStartFrom([...temp])
-  
+    let temp = [...dateStartFrom]
+    temp[index] = new_date
+    setDateStartFrom([...temp])
+
   }
-  console.log(dateStartFrom,"dateStartFrom")
+  console.log(dateStartFrom, "dateStartFrom")
   const onVesselInfoChangeHandlerForBulk = (e, index) => {
     const name = e.target.id
     let value = e.target.value
@@ -819,8 +822,8 @@ console.log(vesselData,"vesselData")
         containerListDocument={containerListDocument}
         partShipmentAllowed={partShipmentAllowed}
         setPartShipmentAllowed={setPartShipmentAllowed}
-        id1={id1}
-        orderID={orderID}
+        id1={orderID}
+        // orderID={orderID}
         list={list}
         companyName={companyName}
         onAddVessel={onAddVessel}

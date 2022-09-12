@@ -117,7 +117,7 @@ export const UpdateLcModule = (payload) => async (dispatch, getState, api) => {
         if(payload.task === 'preview'){
           Router.push('/letter-table/letter-amend/id')
         }
-        let toastMessage = 'SAVED SUCCESSFULLY'
+        let toastMessage = 'Updated SUCCESSFULLY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage }) }
         // router.push('/margin-money')

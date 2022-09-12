@@ -87,11 +87,11 @@ function Index() {
     dispatch(
       getBreadcrumbValues({
         companyName: customData?.company?.companyName,
-        companyId: CompanyOrderId?.orderId,
+        companyId: customData?.order?.orderId,
         orderTabs: 'Bill of Entry',
       }),
     )
-  }, [])
+  }, [customData])
 
   return (
     <>

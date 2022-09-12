@@ -1200,17 +1200,17 @@ function Index(props) {
       }
       sessionStorage.setItem('Associate', JSON.stringify(dataToSend2))
       console.log(dataToSend.associateBuyer.authorisedSignatoryDetails, 'okkk')
-      if (
-        dataToSend.associateBuyer.branch == '' ||
-        dataToSend.associateBuyer.branch == undefined
-      ) {
-        toastMessage = `Please add branch name  `
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          setSubmitData(false)
-          return
-        }
-      }
+      // if (
+      //   dataToSend.associateBuyer.branch == '' ||
+      //   dataToSend.associateBuyer.branch == undefined
+      // ) {
+      //   toastMessage = `Please add branch name  `
+      //   if (!toast.isActive(toastMessage.toUpperCase())) {
+      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      //     setSubmitData(false)
+      //     return
+      //   }
+      // }
 
       if (
         dataToSend.associateBuyer.gstin == '' ||

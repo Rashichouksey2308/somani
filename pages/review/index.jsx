@@ -181,8 +181,6 @@ function Index() {
 
   const { fetchingKarzaGst } = useSelector((state) => state.review)
 
- 
-
   // const [newDoc, setNewDoc] = useState({
   //   document: [],
   //   order: orderList?.termsheet?.order,
@@ -297,7 +295,6 @@ function Index() {
 
   console.log(orderList, 'termsheetOrder')
   // useEffect(() => {
-
 
   const id = sessionStorage.getItem('orderID')
 
@@ -639,6 +636,7 @@ function Index() {
   console.log(product, 'productData')
   const [supplierCred, setSupplierCred] = useState()
   console.log('orderList', orderList)
+  console.log(supplierCred, 'supplierCred')
   useEffect(() => {
     setProduct({
       AvgMonthlyElectricityBill: orderList?.productSummary
@@ -702,14 +700,17 @@ function Index() {
         orderList?.supplierCredential?.commodityOfTotalTrade ?? '',
       consigneesNumber: orderList?.supplierCredential?.consigneesNumber ?? '',
       countryOfOrigin: orderList?.supplierCredential?.countryOfOrigin ?? '',
-      latestShipmentDate: orderList?.supplierCredential?.latestShipmentDate ?? '',
-      oldestShipmentDate: orderList?.supplierCredential?.oldestShipmentDate ?? '',
+      latestShipmentDate:
+        orderList?.supplierCredential?.latestShipmentDate ?? '',
+      oldestShipmentDate:
+        orderList?.supplierCredential?.oldestShipmentDate ?? '',
       portOfDestination: orderList?.supplierCredential?.portOfDestination ?? '',
       remarks: orderList?.supplierCredential?.remarks ?? '',
       shipmentNumber: orderList?.supplierCredential?.shipmentNumber ?? '',
-      supplierName: orderList?.supplierCredential?.supplierName ?? ''
-        ? orderList?.supplierCredential?.supplierName
-        : orderList?.supplierName,
+      supplierName:
+        orderList?.supplierCredential?.supplierName ?? ''
+          ? orderList?.supplierCredential?.supplierName
+          : orderList?.supplierName,
     }
     setSupplierCred(tempSupplierCredentials)
   }, [orderList])
@@ -786,9 +787,7 @@ function Index() {
     orderList?.company?.recommendations?.companyProfile,
   )
 
-  const [sanctionComment, setSanctionComment] = useState(
-    orderList?.company?.recommendations?.sanctionTerms,
-  )
+  const [sanctionComment, setSanctionComment] = useState([])
   const [approveComment, setApproveComment] = useState()
 
   useEffect(() => {
@@ -922,7 +921,7 @@ function Index() {
   //   },
   // ])
   const [personData, setPersonData] = useState([])
-console.log(personData,'personData')
+  console.log(personData, 'personData')
   // useEffect(() => {
   //   if (orderList?.company?.keyContactPerson.length > 0) {
   //     setPersonData([
@@ -1019,7 +1018,7 @@ console.log(personData,'personData')
   })
 
   const saveSuggestedCreditData = (name, value) => {
-    console.log(name,  value,  '')
+    console.log(name, value, '')
     const newInput = { ...suggestedCredit }
     newInput[name] = value
     // console.log(newInput)
@@ -1327,12 +1326,14 @@ console.log(personData,'personData')
         },
         debtProfile: [...debtData],
         groupExposureDetail: [...groupExposureData],
-        suggestedOrderValue: removePrefixOrSuffix(suggestedCredit.suggestedOrderValue) * 10000000,
-        suggestedCreditLimit: removePrefixOrSuffix(suggestedCredit.suggestedCreditLimit) * 10000000,
+        suggestedOrderValue:
+          removePrefixOrSuffix(suggestedCredit.suggestedOrderValue) * 10000000,
+        suggestedCreditLimit:
+          removePrefixOrSuffix(suggestedCredit.suggestedCreditLimit) * 10000000,
       }
-      
-        // console.log(obj, "credit obj")
-        dispatch(UpdateCredit({...obj}))
+
+      // console.log(obj, "credit obj")
+      dispatch(UpdateCredit({ ...obj }))
     }
   }
 
@@ -1447,9 +1448,9 @@ console.log(personData,'personData')
           setSelectedTab(list[0].children[tempIndex].children[0].innerHTML)
           list[0].children[i].children[0].classList.remove('active')
           console.log(
-            list[0].children[tempIndex].children[0], 
+            list[0].children[tempIndex].children[0],
             'okok',
-             tab[0].children[i],
+            tab[0].children[i],
             tab[0].children,
           )
           list[0].children[tempIndex].children[0].classList.add('active')
@@ -1492,7 +1493,7 @@ console.log(personData,'personData')
       }),
     )
   }
-  const toPrintPdf = (camData, RevenueDetails,  orderList) => {
+  const toPrintPdf = (camData, RevenueDetails, orderList) => {
     console.log(_get, 'get')
     function calcPc(n1, n2) {
       if (n1 === 0) {
@@ -1760,10 +1761,46 @@ console.log(personData,'personData')
                 </td>
               </tr>
               <tr bgColor="#F7F9FF">
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px' }}>Quantity</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px' }}>{camData?.quantity} {camData?.unitOfQuantity?.toUpperCase()}</td>
-                <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px' }}>Supplier</td>
-                <td style={{ fontSize: '20px', color: '#111111', fontWeight: '500', lineHeight: '25px' }}> {camData?.supplierName}</td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                    paddingLeft: '35px',
+                  }}
+                >
+                  Quantity
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                  }}
+                >
+                  {camData?.quantity} {camData?.unitOfQuantity?.toUpperCase()}
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    lineHeight: '24px',
+                  }}
+                >
+                  Supplier
+                </td>
+                <td
+                  style={{
+                    fontSize: '20px',
+                    color: '#111111',
+                    fontWeight: '500',
+                    lineHeight: '25px',
+                  }}
+                >
+                  {' '}
+                  {camData?.supplierName}
+                </td>
               </tr>
               <tr bgColor="#F7F9FF">
                 <td
@@ -4210,13 +4247,46 @@ console.log(personData,'personData')
                           border="0"
                         >
                           <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
-                            <th width="50%" style={{ fontSize: '22px', color: '#111111', lineHeight: '27px', fontWeight: 'bold', paddingLeft: '35px' }}>Liabilities</th>
-                            <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase' }}>
-                              {moment(companyData?.financial?.balanceSheet[0]?.date).format('MMM-YY')
+                            <th
+                              width="50%"
+                              style={{
+                                fontSize: '22px',
+                                color: '#111111',
+                                lineHeight: '27px',
+                                fontWeight: 'bold',
+                                paddingLeft: '35px',
+                              }}
+                            >
+                              Liabilities
+                            </th>
+                            <th
+                              style={{
+                                fontSize: '15px',
+                                color: '#8492A6',
+                                lineHeight: '18px',
+                                fontWeight: 'bold',
+                                textTransform: 'uppercase',
+                              }}
+                            >
+                              {moment(
+                                companyData?.financial?.balanceSheet[0]?.date,
+                              )
+                                .format('MMM-YY')
                                 ?.toUpperCase()}
                             </th>
-                            <th style={{ fontSize: '15px', color: '#8492A6', lineHeight: '18px', fontWeight: 'bold', textTransform: 'uppercase' }}>
-                              {moment(companyData?.financial?.balanceSheet[1]?.date).format('MMM-YY')
+                            <th
+                              style={{
+                                fontSize: '15px',
+                                color: '#8492A6',
+                                lineHeight: '18px',
+                                fontWeight: 'bold',
+                                textTransform: 'uppercase',
+                              }}
+                            >
+                              {moment(
+                                companyData?.financial?.balanceSheet[1]?.date,
+                              )
+                                .format('MMM-YY')
                                 ?.toUpperCase()}
                             </th>
                           </tr>
@@ -4506,27 +4576,89 @@ console.log(personData,'personData')
                             </td>
                           </tr>
                           <tr>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px' }}>Debtors period</td>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>
-                              {_get(companyData, 'financial.ratioAnalysis[0]', {})?.daysOfSalesOutstanding
-                                ?.toFixed(2)
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                paddingLeft: '35px',
+                              }}
+                            >
+                              Debtors period
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                              }}
+                            >
+                              {_get(
+                                companyData,
+                                'financial.ratioAnalysis[0]',
+                                {},
+                              )
+                                ?.daysOfSalesOutstanding?.toFixed(2)
                                 ?.toLocaleString()}
                             </td>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>
-                              {_get(companyData, 'financial.ratioAnalysis[1]', {})?.daysOfSalesOutstanding
-                                ?.toFixed(2)
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                              }}
+                            >
+                              {_get(
+                                companyData,
+                                'financial.ratioAnalysis[1]',
+                                {},
+                              )
+                                ?.daysOfSalesOutstanding?.toFixed(2)
                                 ?.toLocaleString()}
                             </td>
                           </tr>
                           <tr>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '24px', paddingLeft: '35px' }}>Creditors Perio</td>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>
-                              {_get(companyData, 'financial.ratioAnalysis[0]', {})?.daysOfPayablesOutstanding
-                                ?.toFixed(2)
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '24px',
+                                paddingLeft: '35px',
+                              }}
+                            >
+                              Creditors Perio
+                            </td>
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                              }}
+                            >
+                              {_get(
+                                companyData,
+                                'financial.ratioAnalysis[0]',
+                                {},
+                              )
+                                ?.daysOfPayablesOutstanding?.toFixed(2)
                                 ?.toLocaleString()}
                             </td>
-                            <td style={{ fontSize: '20px', color: '#111111', lineHeight: '25px', fontWeight: '500' }}>
-                              {_get(companyData, 'financial.ratioAnalysis[1]', {})?.daysOfPayablesOutstanding?.toFixed(2)}
+                            <td
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: '500',
+                              }}
+                            >
+                              {_get(
+                                companyData,
+                                'financial.ratioAnalysis[1]',
+                                {},
+                              )?.daysOfPayablesOutstanding?.toFixed(2)}
                             </td>
                           </tr>
                           <tr>
@@ -6071,7 +6203,7 @@ console.log(personData,'personData')
     class: 'Criminal',
     risk: '',
   })
-console.log(filterType,"filtertype")
+  console.log(filterType, 'filtertype')
   useEffect(() => {
     const filter = {
       caseStatus: 'Disposed',
@@ -6356,22 +6488,20 @@ console.log(filterType,"filtertype")
   }
   useEffect(() => {
     if (keyAddData.length === 0 || keyAddData === null) {
-      setKeyAddData([...keyAddData,
-      {
-        addressType: "Registered Office",
-        completeAddress: companyData?.profile?.companyDetail?.registeredAddress,
-        contact: {
-          callingCode: '+91',
-          number: companyData?.profile?.companyDetail?.contactNumber,
-        }
-
-
-      }
+      setKeyAddData([
+        ...keyAddData,
+        {
+          addressType: 'Registered Office',
+          completeAddress:
+            companyData?.profile?.companyDetail?.registeredAddress,
+          contact: {
+            callingCode: '+91',
+            number: companyData?.profile?.companyDetail?.contactNumber,
+          },
+        },
       ])
     }
-
-  },
-    [companyData])
+  }, [companyData])
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -6385,7 +6515,9 @@ console.log(filterType,"filtertype")
                 onClick={() => Router.push('/credit-queue')}
               />
               <h1 className={`${styles.title} heading`}>
-                {orderList?.company?.companyName ? orderList?.company?.companyName : ""}
+                {orderList?.company?.companyName
+                  ? orderList?.company?.companyName
+                  : ''}
               </h1>
             </div>
             {selectedTab == 'CAM' ? (
@@ -7265,8 +7397,6 @@ console.log(filterType,"filtertype")
                     setEditRow={setEditRow}
                     orderDetail={orderList}
                     companyData={companyData}
-
-
                   />
                   <Recommendations
                     creditDetail={orderList}
@@ -7291,6 +7421,7 @@ console.log(filterType,"filtertype")
                     deleteData={deleteData}
                     suggestedCredit={suggestedCredit}
                     setGroupExposureData={setGroupExposureData}
+                    setSanctionComment={setSanctionComment}
                   />
                   <CommonSave onSave={onCreditSave} />
                 </div>
@@ -7318,12 +7449,8 @@ console.log(filterType,"filtertype")
                     approvedCredit={approvedCredit}
                     orderDetails={orderList}
                     GstData={gstData}
-
-
                   />
                 </div>
-
-
               </div>
             </div>
           </div>

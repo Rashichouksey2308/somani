@@ -62,7 +62,7 @@ function Index() {
       partialShipment: lcModuleData?.lcApplication?.partialShipment,
       transhipments: lcModuleData?.lcApplication?.transhipments,
       shipmentForm: lcModuleData?.lcApplication?.shipmentForm,
-      portOfLoading: lcModuleData?.lcApplication?.portOfLoading,
+      portOfLoading: lcModuleData?.lcApplication?.portOfLoading ? lcModuleData?.lcApplication?.portOfLoading : lcModuleData?.order?.termsheet?.transactionDetails?.loadPort,
       portOfDischarge: lcModuleData?.lcApplication?.portOfDischarge,
       latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment,
       DescriptionOfGoods: lcModuleData?.lcApplication?.DescriptionOfGoods,
@@ -625,10 +625,10 @@ function Index() {
         </div>
       </div>
       <SaveBar
-        handleSave={handleSubmit}
+        // handleSave={handleSubmit}
         rightBtnClick={handleRightButton}
         rightBtn="Share"
-        buttonText="Submit"
+        buttonText="null"
         
       />
     </>

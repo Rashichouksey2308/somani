@@ -485,8 +485,8 @@ export default function Index({
                       >
                         <option>Select an option</option>
                         <option value={_get(TransitDetails, 'data[0].order.termsheet.otherTermsAndConditions.buyer.bank', '')}>{_get(TransitDetails, 'data[0].order.termsheet.otherTermsAndConditions.buyer.bank', '')}</option>
-                        <option value={_get(TransitDetails, 'data[0].company.companyName', '')}>{_get(TransitDetails, 'data[0].company.companyName', '')}</option>
-                        <option>N/A</option>
+                        <option value='Buyer'>Buyer</option>
+                       
                       </select>
                       <label
                         className={`${styles.label_heading} label_heading`}
