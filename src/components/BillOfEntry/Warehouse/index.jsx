@@ -228,7 +228,7 @@ console.log(customData,'warehouseDetails')
                   </div>
 
                   <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 d-flex align-items-center`}
+                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 d-flex align-items-center`}
                   >
                     { warehouseDetails?.document === null ? (
                       <div className={styles.uploadBtnWrapper}>
@@ -259,7 +259,7 @@ console.log(customData,'warehouseDetails')
                     ) : (
                       <div className={`${styles.certificate} mr-3 d-flex align-items-center justify-content-between`}>
                         <span>
-                          {warehouseDetails?.document?.originalName}
+                          {warehouseDetails?.document?.originalName.slice(warehouseDetails?.document?.originalName.lastIndexOf("_")+1)}
                         </span>
                         <img
                           className={`${styles.close_image}`}
