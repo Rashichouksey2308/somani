@@ -14,7 +14,8 @@ function Index({ handleSave, rightBtn, rightBtnClick, handleRoute ,buttonText="S
       !sidebar ? styles.no_sidebar : null
     }
     ${isMobile ? styles.no_sidebar_mobile : null} cta_bar`}>
-      <div
+    {  buttonText=="null"?null:
+        <div
         onClick={() => {
           if (handleSave) {
             console.log('thsu')
@@ -24,7 +25,8 @@ function Index({ handleSave, rightBtn, rightBtnClick, handleRoute ,buttonText="S
         className={`${styles.reject} ml-3`}
       >
         <span>{buttonText}</span>
-      </div>
+      </div>}
+    {rightBtn=="null"?null:
       <div
         className={`${styles.approve} ml-3`}
         onClick={() => {
@@ -42,6 +44,7 @@ function Index({ handleSave, rightBtn, rightBtnClick, handleRoute ,buttonText="S
       >
         <span>{rightBtn}</span>
       </div>
+    }
     </div>
   )
 }

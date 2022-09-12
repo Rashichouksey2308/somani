@@ -625,10 +625,10 @@ function Index() {
         </div>
       </div>
       <SaveBar
-        handleSave={handleSubmit}
+        // handleSave={handleSubmit}
         rightBtnClick={handleRightButton}
         rightBtn="Share"
-        buttonText="Submit"
+        buttonText="null"
         
       />
     </>

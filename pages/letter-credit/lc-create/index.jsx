@@ -118,9 +118,17 @@ function Index() {
   }
 
   const addComment = (val) => {
+  
     setCurrentComment(val)
   }
   const addDocArr = () => {
+      if(currentComment==""){
+       let toastMessage = 'Comment cannot be empty'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return 
+      }
+    }
     setLcDocuments([...lcDocuments, currentComment])
     setCurrentComment('')
   }
@@ -138,10 +146,19 @@ function Index() {
   }
 
   const addConditionComment = (val) => {
+    console.log(val,"888888")
+  
     setCurrentComment2(val)
   }
   const addConditionArr = () => {
     // console.log("thsbhjsbdjh",lcCondition,currentComment2)
+      if(currentComment2==""){
+      let  toastMessage = 'Comment cannot be empty'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return 
+      }
+    }
     setLcComments([...lcComments, currentComment2])
     setCurrentComment2('')
   }
@@ -357,16 +374,16 @@ function Index() {
         return false
       }
     }
-    if (
-      lcData.requestedConfirmationParty === '' ||
-      lcData.requestedConfirmationParty == undefined
-    ) {
-      toastMessage = 'Please select requested Confirmation Party'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        return false
-      }
-    }
+    // if (
+    //   lcData.requestedConfirmationParty === '' ||
+    //   lcData.requestedConfirmationParty == undefined
+    // ) {
+    //   toastMessage = 'Please select requested Confirmation Party'
+    //   if (!toast.isActive(toastMessage.toUpperCase())) {
+    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    //     return false
+    //   }
+    // }
     if (lcData.charges === '' || lcData.charges == undefined) {
       toastMessage = 'Please select charges'
       if (!toast.isActive(toastMessage.toUpperCase())) {

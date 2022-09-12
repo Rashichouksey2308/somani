@@ -933,7 +933,7 @@ function Index({
                               className={`${styles.label_heading} label_heading`}
                             >
                               (58A) Requested Confirmation Party
-                              <strong className="text-danger">*</strong>
+                              
                             </label>
                           </Col>
                           <Col className="mb-4 mt-4" md={12}>
