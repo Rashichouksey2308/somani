@@ -27,7 +27,7 @@ function Index({
   addConditionArr,
   lcModuleData
 }) {
-  console.log(lcData, 'lcCondition12234')
+  console.log(lcData?.atSight, 'lcCondition12234')
   const [editStren, setEditStren] = useState(false)
   const [edit, setEdit] = useState(false)
   const [isFieldInFocus, setIsFieldInFocus] = useState({
@@ -386,11 +386,11 @@ function Index({
                                 className={`${styles.input_field}  ${styles.customSelect} input form-control`}
                               >
                                 <option selected disabled>Select an option</option>
-                                <option value="Documetarty Credit">
-                                  Documentary Credit
+                                <option value="AT SIGHT">
+                                 AT SIGHT
                                 </option>
-                                <option value="Not Documentary Credit">
-                                  Not Documentary Credit
+                                <option value="SPECIFY">
+                                 SPECIFY
                                 </option>
                               </select>
 
@@ -413,9 +413,9 @@ function Index({
                               required
                               type="number"
                               onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                              disabled={lcData?.atSight=="AT SIGHT"?true:false}
                               name="numberOfDays"
-                              defaultValue={lcData?.numberOfDays}
+                              value={lcData?.numberOfDays}
                               onChange={(e) => {
                                 saveLcData(e.target.name, e.target.value)
                               }}

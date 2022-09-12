@@ -50,7 +50,8 @@ function Index({
   setContainerListDocument,
   containerExcel,
   currency,
-  dateStartFrom
+  dateStartFrom,
+  handleExcelClose
 }) {
 
   // console.log(containerExcel, 'containerExcel')
@@ -901,6 +902,7 @@ function Index({
                             {' '}
                             {containerExcel === null ? <div className={styles.uploadBtnWrapper}>
                               <input
+                                id="containerExcel"
                                 onChange={(e) => uploadDocHandler1(e)}
                                 type="file"
                                 name="myfile"
@@ -913,12 +915,12 @@ function Index({
 
                               <div className={`${styles.certificate} d-flex justify-content-between`}>
                                 <span>
-                                  {containerExcel?.name}
+                                  {containerExcel?.originalName}
                                 </span>
                                 <img
                                   className={`${styles.close_image} mr-2`}
                                   src="/static/close.svg"
-                                  onClick={() => handleClose(docName2)}
+                                  onClick={() => handleExcelClose()}
                                   alt="Close"
                                 />{' '}
                               </div>}

@@ -62,7 +62,7 @@ export default function Home() {
   const [vesselData, setVesselData] = useState()
   const [orderID, setOrderId] = useState('')
 
-  console.log(currency, "currency")
+  console.log(containerExcel, "containerExcel")
 
   const setData = (Vessel) => {
     setOrderId(_get(Vessel, 'data[0].order._id', ''))
@@ -492,7 +492,7 @@ export default function Home() {
 
 
 
-  const uploadDocHandler = (e) => {
+  const uploadDocHandler = async (e) => {
     let uploadDocType = e.target.id
     // // console.log(uploadDocType, 'containerExcel')
 
@@ -504,26 +504,27 @@ export default function Home() {
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
-      Axios.post(`${API.corebaseUrl}${API.uploadDocVessel}`, fd, {
+     let response= await Axios.post(`${API.corebaseUrl}${API.uploadDocVessel}`, fd, {
         headers: headers,
-      }).then((response) => {
-        if (response.data.code === 200) {
-          if (uploadDocType === ' containerExcel') {
-            setContainerExcel(response.data.data)
-          }
-          if (uploadDocType === 'Vessel Certificate') {
-            setVesselCertificate(response.data.data)
-          }
-          if (uploadDocType === 'Container List') {
-            setContainerListDocument(response.data.data)
-          }
-        } else {
-          let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          }
-        }
       })
+        if (response.data.code === 200) {
+          console.log(uploadDocType,"uploadDocType")
+        if (uploadDocType == 'containerExcel') {
+          console.log(response.data.data,"response.data.data")
+        setContainerExcel(response.data.data)
+        }
+        if (uploadDocType === 'Vessel Certificate') {
+        setVesselCertificate(response.data.data)
+        }
+        if (uploadDocType === 'Container List') {
+        setContainerListDocument(response.data.data)
+        }
+        } else {
+        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        }
     } catch (error) {
       let toastMessage = 'COULD NOT UPLOAD Vessel Data AT THIS TIME'
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -809,7 +810,9 @@ export default function Home() {
       toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
-
+const handleExcelClose=()=>{
+  setContainerExcel(null)
+}
   return (
     <>
       <Vessels
@@ -845,6 +848,7 @@ export default function Home() {
         shipmentTypeBulk={shipmentTypeBulk}
         currency={currency}
         dateStartFrom={dateStartFrom}
+        handleExcelClose={handleExcelClose}
       />
       <div className="mt-5">
         <VesselSaveBar handleSave={onSaveHandler} rightBtn="Submit" rightBtnClick={onSubmitHanler} />

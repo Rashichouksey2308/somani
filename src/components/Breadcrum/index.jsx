@@ -134,7 +134,7 @@ export default function Index({ isQuery }) {
 
     if ('review-queue' == pageName) {
       if (id !== null) {
-        router.route = '/Leads' + '/Review Queue' + `/${id.toLowerCase()}`
+        router.route = '/Leads' + '/Review Queue' + `/${id?.toLowerCase()}`
       } else {
         router.route = '/Leads' + '/Review Queue'
       }
@@ -142,9 +142,9 @@ export default function Index({ isQuery }) {
     if ('credit-queue' == pageName) {
       if (order != null) {
         router.route =
-          '/Leads' + '/Credit Queue' + `/${id.toLowerCase()}` + `/${order}`
+          '/Leads' + '/Credit Queue' + `/${id?.toLowerCase()}` + `/${order}`
       } else if (id !== null) {
-        router.route = '/Leads' + '/Credit Queue' + `/${id.toLowerCase()}`
+        router.route = '/Leads' + '/Credit Queue' + `/${id?.toLowerCase()}`
       } else {
         router.route = '/Leads' + '/Credit Queue'
       }
@@ -152,7 +152,7 @@ export default function Index({ isQuery }) {
     if ('margin-money' == pageName) {
       if (id !== null) {
         router.route =
-          '/Leads' + '/Margin Money' + `/${id.toLowerCase()}` + `/${order}`
+          '/Leads' + '/Margin Money' + `/${id?.toLowerCase()}` + `/${order}`
         console.log('router123', router.route)
       } else {
         router.route = '/Leads' + '/Margin Money'
@@ -165,7 +165,7 @@ export default function Index({ isQuery }) {
           '/Leads' + '/Termsheet' + `/${id?.toLowerCase()}` + `/${order}`
         console.log('router1234', router.route)
       } else if (id !== null) {
-        router.route = '/Leads' + '/Termsheet' + `/${id.toLowerCase()} `
+        router.route = '/Leads' + '/Termsheet' + `/${id?.toLowerCase()} `
         console.log('router123', router.route)
       } else {
         router.route = '/Leads' + '/Termsheet'
@@ -174,7 +174,7 @@ export default function Index({ isQuery }) {
     if ('termsheet-preview' == pageName) {
       if (id !== null) {
         router.route =
-          '/Leads' + '/Termsheet' + `/${id.toLowerCase()}` + `/${order}`
+          '/Leads' + '/Termsheet' + `/${id?.toLowerCase()}` + `/${order}`
         console.log('router123', router.route)
       } else {
         router.route = '/Leads' + '/Termsheet'
@@ -201,43 +201,43 @@ export default function Index({ isQuery }) {
     if ('Lc' == pageName) {
       if (order != null) {
         router.route =
-          '/Agreements & LC Module' + '/Lc Module' + `/${id}` + `/${order}`
+          '/Agreements & LC Module' + '/LC Module' + `/${id?.toLowerCase()}` + `/${order}`
         console.log('router1234', router.route)
       } else if (id !== null) {
-        router.route = '/Agreements & LC Module' + '/Lc Module' + `/${id}`
+        router.route = '/Agreements & LC Module' + '/LC Module' + `/${id?.toLowerCase()}`
         console.log('router123', router.route)
       } else {
-        router.route = '/Agreements & LC Module' + '/Lc Module'
+        router.route = '/Agreements & LC Module' + '/LC Module'
       }
     }
     if ('vessel' == pageName) {
       if (order != null) {
         router.route =
-          '/Agreement & Lc Module' +
+          '/Agreement & LC Module' +
           '/Vessel Nomination' +
           `/${id}` +
           `/${order}`
       } else if (id != null) {
         router.route =
-          '/Agreement & Lc Module' + '/Vessel Nomination' + `/${id}`
+          '/Agreement & LC Module' + '/Vessel Nomination' + `/${id}`
       } else {
-        router.route = '/Agreement & Lc Module' + '/Vessel Nomination'
+        router.route = '/Agreement & LC Module' + '/Vessel Nomination'
       }
     }
     if ('insurance' == pageName) {
       if (order != null) {
         router.route =
-          '/Agreement & Lc Module' +
-          `/${id.toLowerCase()}` +
+          '/Agreement & LC Module' +
+          `/${id?.toLowerCase()}` +
           '/Insurance' +
           `/${order}`
       } else {
-        router.route = '/Agreement & Lc Module' + '/Insurance'
+        router.route = '/Agreement & LC Module' + '/Insurance'
       }
     }
     if ('insurance Request Letter' == pageName) {
       router.route =
-        '/Agreement & Lc Module' +
+        '/Agreement & LC Module' +
         `/${id?.toLowerCase()}` +
         '/Insurance' +
         '/Request Letter' +
@@ -247,7 +247,7 @@ export default function Index({ isQuery }) {
     if ('loading' == pageName) {
       if (id !== null) {
         router.route =
-          '/Loading, Transit & Unloading' + `/${id.toLowerCase()}` + '/Order ID'
+          '/Loading, Transit & Unloading' + `/${id?.toLowerCase()}` + '/Order ID'
         console.log('router123', router.route)
       } else {
         router.route = '/Loading, Transit & Unloading'
@@ -255,7 +255,7 @@ export default function Index({ isQuery }) {
     }
     // if ('inception' == pageName) {
     //   if (id !== null) {
-    //     router.route = '/Loading, Transit & Unloading' + `/${id.toLowerCase()}`
+    //     router.route = '/Loading, Transit & Unloading' + `/${id?.toLowerCase()}`
     //     console.log('router123', router.route)
     //   } else {
     //     router.route = '/Loading, Transit & Unloading'
@@ -342,7 +342,7 @@ export default function Index({ isQuery }) {
       if (id !== null) {
         router.route =
           '/Payment, Invoicing & Delivery' +
-          `/${id.toLowerCase()}` +
+          `/${id?.toLowerCase()}` +
           `/${upperTabs}` +
           `/${companyId}`
       } else {

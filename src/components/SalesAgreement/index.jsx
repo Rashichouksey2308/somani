@@ -467,11 +467,14 @@ function Index(props) {
     console.log("RIGHT")
     let tempArr = [...sideBar]
     console.log(tempArr, '987789')
+    if(active!=="Additional Comments"){
+
+   
     for (let i = 0; i < tempArr.length; i++) {
       console.log(tempArr[i], '987')
       if (tempArr[i].state == 'current') {
         if (i != tempArr.length) {
-          tempArr[i].state = 'default'
+        tempArr[i].state = 'default'
           tempArr[i].image = '/static/Group 3256.svg'
           console.log(tempArr[i].state, 'tempArr[a]')
           let a = i + 1
@@ -486,6 +489,7 @@ function Index(props) {
     console.log('aasdaa', tempArr)
     setSidebar([...tempArr])
     setSideStateToLocal(active)
+     }
   }
   console.log(sideBar, 'sideBar')
 
@@ -1291,7 +1295,7 @@ function Index(props) {
       if (val.value == key) {
         tempArr[index].state = 'complete'
         tempArr[index].image = '/static/done.svg'
-         if(key !=="Place of Execution"){
+         if(key !=="Additional Comments"){
             let a = index + 1
               tempArr[a].state = 'current'
               tempArr[a ].image = '/static/currnet.svg'
