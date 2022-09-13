@@ -44,6 +44,12 @@ function Index(props) {
           "city": ""
       }
   )
+    const [options,setOptions]=useState([
+  "Bhawana Jain","Vipin Kumar","Devesh Jain","Fatima Yannoulis"
+])
+let op=[
+  "Bhawana Jain","Vipin Kumar","Devesh Jain","Fatima Yannoulis"
+]
   const [docList,setDocList]=useState([])
   const [doc,setdoc]=useState({attachDoc:""})
   const [addressType,setAddressType]=useState("Registered")
@@ -77,6 +83,27 @@ useEffect(() => {
        setList(savedData.authorisedSignatoryDetails?savedData.authorisedSignatoryDetails:[])
        setAddressList(savedData.addresses)
        setChaState(supplier)
+               let tempArr=savedData?.authorisedSignatoryDetails
+          let optionArray=[]
+          console.log(tempArr,"tempArr")
+          tempArr.forEach((val,index)=>{
+         
+          if(tempArr?.length>0){
+               if(val.name=="Bhawana Jain"){
+             setOptions(["Vipin Kumar","Devesh Jain","Fatima Yannoulis"])
+          }
+          if(val.name=="Vipin Kumar"){
+             setOptions(["Bhawana Jain","Devesh Jain","Fatima Yannoulis"])
+          }
+          if(val.name=="Devesh Jain"){
+             setOptions(["Vipin Kumar","Bhawana Jain","Fatima Yannoulis"])
+          }
+          if(val.name=="Fatima Yannoulis"){
+             setOptions(["Vipin Kumar","Bhawana Jain","Devesh Jain"])
+          }
+          }
+
+          })
     }else{
        let supplier={
         "name": props.data?.name||"Integral Trading and Logistics",
@@ -90,7 +117,27 @@ useEffect(() => {
        setList(props.data?.authorisedSignatoryDetails?props.data?.authorisedSignatoryDetails:[])
        setAddressList(props.data?.addresses!==undefined?props.data?.addresses:[])
        setChaState(supplier)
-       
+            let tempArr=props.data?.authorisedSignatoryDetails
+          let optionArray=[]
+          console.log(tempArr,"tempArr")
+          tempArr.forEach((val,index)=>{
+          val.actions = "true"
+          if(tempArr?.length>0){
+               if(val.name=="Bhawana Jain"){
+             setOptions(["Vipin Kumar","Devesh Jain","Fatima Yannoulis"])
+          }
+          if(val.name=="Vipin Kumar"){
+             setOptions(["Bhawana Jain","Devesh Jain","Fatima Yannoulis"])
+          }
+          if(val.name=="Devesh Jain"){
+             setOptions(["Vipin Kumar","Bhawana Jain","Fatima Yannoulis"])
+          }
+          if(val.name=="Fatima Yannoulis"){
+             setOptions(["Vipin Kumar","Bhawana Jain","Devesh Jain"])
+          }
+          }
+
+          })
           setAddressList([...addressList,{
               addressType: "Registered",
               fullAddress: "Flat No. 303, 3rd Floor, Tirumala Plaza, Dabagarden",
@@ -109,7 +156,7 @@ useEffect(() => {
     {name:"Bhawana Jain",designation:"Vice President (Finance & Accounts)",email:"bhawanajain@somanigroup.com",phoneNo:""},
     {name:"Vipin Kumar",designation:"Manager Accounts",email:"vipinrajput@somanigroup.com",phoneNo:""},
     {name:"Devesh Jain",designation:"Director",email:"devesh@indointertrade.ch",phoneNo:""},
-    {name:"Fatima Yannoulis ",designation:"Chief Financial Officer",email:"fatima@indointertrade.ch",phoneNo:""}
+    {name:"Fatima Yannoulis",designation:"Chief Financial Officer",email:"fatima@indointertrade.ch",phoneNo:""}
     ]
 const removeDoc=(index)=>{
 console.log("removeDOc")
@@ -182,23 +229,28 @@ return newState;
     });
 
   }
-  const onEditRemove=(index)=>{
- 
+const onEditRemove=(index,value)=>{
+    console.log(value,"value")
 
-       setList(prevState => {
+      setList(prevState => {
       const newState = prevState.map((obj ,i)=> {
-       
-        if (i == index) {
-          return {...obj, actions: 'true'};
-        }
 
-        
-        return obj;
+      if (i == index) {
+      return {...obj, actions: 'true'};
+      }
+
+
+      return obj;
       });
 
       return newState;
-    });
-
+      });
+      let temp=[...options]
+      var indexOption = temp.indexOf(value.name);
+      if (indexOption !== -1) {
+      temp.splice(indexOption, 1);
+      }
+      setOptions([...temp])
   }
  const addMoreRows=()=>{
 
@@ -209,13 +261,19 @@ return newState;
     }])
 
   }
-const handleRemove = (index) => {
-  docList.forEach((val,i)=>{
-      if(index==val.index){
-      setDocList([...docList.slice(0,i), ...docList.slice(i+1)])
-      }
-    })
-  setList([...list.slice(0, index), ...list.slice(index + 1)])
+const handleRemove = (index,val) => {
+docList.forEach((val,i)=>{
+    if(index==val.index){
+    setDocList([...docList.slice(0,i), ...docList.slice(i+1)])
+    }
+  })
+setList([...list.slice(0, index), ...list.slice(index + 1)])
+
+if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" ||val.name=="atima Yannoulis"  ){
+  let temp=[...options]
+  temp.push(val.name)
+  setOptions([...temp])
+}
 }
   const addDoc=(e,index)=>{
     setDocList(prevState => {
@@ -820,11 +878,11 @@ setEditAddress(
                             onChange={(e)=>{
                               handleChangeInput(e.target.name,e.target.value,index)
                             }}>
-                              <option>Select an option</option>
-                              <option value={"Bhawana Jain"}>{"Bhawana Jain"}</option>
-                              <option value={"Vipin Kumar"}>{"Vipin Kumar"}</option>
-                              <option value={"Devesh Jain"}>{"Devesh Jain"}</option>
-                              <option value={"Fatima Yannoulis"}>{"Fatima Yannoulis"}</option>
+                             <option>Select an option</option>
+                              {options.map((val,i)=>{
+                                return(<option value={val}>{val}</option>)
+                              })}
+                              
                               <option value={"addnew"}>{"Add New"}</option>
                             </select>
                             <img
@@ -885,7 +943,7 @@ setEditAddress(
                             <div
                               className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
                               onClick={()=>{
-                              onEditRemove(index)
+                             onEditRemove(index,val)
                               }}
                             >
                               <img className={`${styles.image} mr-3`} src="/static/save-3.svg" alt="save"/>

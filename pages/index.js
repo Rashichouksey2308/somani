@@ -17,14 +17,26 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPageName } from '../src/redux/userData/action'
 import Popup from '../src/components/Popups/BillPopup/index'
-
+import { getAnalystData } from '../src/redux/analytics/actions'
 const IndexPage = () => {
   const router = useRouter()
   const dispatch = useDispatch()
   const darkMode = useSelector((state) => state.user.isDark)
+  const {
+    orderSummary,
+    leadSummary,
+    commoditySummary,
+    originSummary,
+    customerSummary,
+    exposureSummary,
+  } = useSelector((state) => state.analytics)
+  console.log(orderSummary, leadSummary, 'leadSummary')
   useEffect(() => {
     dispatch(setPageName('dashboard'))
   })
+  useEffect(() => {
+    dispatch(getAnalystData())
+  }, [])
   useEffect(() => {
     if (window) {
       sessionStorage.setItem('loadedPage', 'Dashboard')
