@@ -17,6 +17,7 @@ export default {
 //  coreServerUrl:
 //    'http://a7f61f121ede1413fb179c2d4d51763b-321841070.ap-south-1.elb.amazonaws.com:3003/node',
 // }
+
 // UAT
 // export default {
 //   authServerUrl:

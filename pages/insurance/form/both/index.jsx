@@ -122,6 +122,14 @@ const Index = () => {
     marinePolicyDocument: null,
   })
 
+  const handleClose = () => {
+    setInsuranceDocument({ ...insuranceDocument, marinePolicyDocument: null })
+  }
+
+  const handleCloseS = () => {
+    setInsuranceDocument({ ...insuranceDocument, storagePolicyDocument: null })
+  }
+
   const uploadDocument2 = (e) => {
     const newUploadDoc = { ...insuranceDocument }
     newUploadDoc.storagePolicyDocument = e.target.files[0]
@@ -1623,21 +1631,8 @@ const Index = () => {
                               <td className={styles.doc_row}>
                                 28-02-2022,5:30 PM
                               </td>
-                              {/* <td>
-                                {' '}
-                                <input
-                                  className={styles.input_field}
-                                  type="text"
-                                  placeholder="Nomination_Document.pdf"
-                                />
-                                <img
-                                  className={`${styles.close_image} img-fluid `}
-                                  src="/static/close.svg"
-                                  alt="close"
-                                />
-                              </td> */}
                               <td>
-                                <div className={styles.uploadBtnWrapper}>
+                                {/* <div className={styles.uploadBtnWrapper}>
                                   <input
                                     type="file"
                                     onChange={(e) => uploadDocument1(e)}
@@ -1649,7 +1644,34 @@ const Index = () => {
                                   >
                                     Upload
                                   </button>
-                                </div>
+                                </div> */}
+                                {insuranceDocument && insuranceDocument.marinePolicyDocument == null ? (
+                          <>
+                            <div className={styles.uploadBtnWrapper}>
+                              <input
+                                // id={docName}
+                                type="file"
+                                name="marinePolicyDocument"
+                                accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                onChange={(e) => uploadDocument1(e)}
+                              />
+                              <button className={`${styles.button_upload} btn`}>
+                                Upload
+                              </button>
+                            </div>
+                          </>
+                        ) : (
+                          <div className={`${styles.certificate} d-flex justify-content-between`}>
+                            <span>{insuranceDocument?.marinePolicyDocument?.name}</span>
+                            <img
+                              className={`${styles.close_image} mr-2`}
+                              src="/static/close.svg"
+                              onClick={() => handleClose()}
+                              alt="Close"
+                            />{' '}
+                          </div>
+                        )}
+
                               </td>
                             </tr>
                             <tr className="table_row">
@@ -1668,7 +1690,7 @@ const Index = () => {
                                 28-02-2022,5:30 PM
                               </td>
                               <td>
-                                <div className={styles.uploadBtnWrapper}>
+                                {/* <div className={styles.uploadBtnWrapper}>
                                   <input
                                     type="file"
                                     onChange={(e) => uploadDocument2(e)}
@@ -1680,7 +1702,33 @@ const Index = () => {
                                   >
                                     Upload
                                   </button>
-                                </div>
+                                </div> */}
+                                {insuranceDocument && insuranceDocument?.storagePolicyDocument == null ? (
+                          <>
+                            <div className={styles.uploadBtnWrapper}>
+                              <input
+                                // id={docName}
+                                type="file"
+                                name="storagePolicyDocument"
+                                accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                onChange={(e) => uploadDocument2(e)}
+                              />
+                              <button className={`${styles.button_upload} btn`}>
+                                Upload
+                              </button>
+                            </div>
+                          </>
+                        ) : (
+                          <div className={`${styles.certificate} d-flex justify-content-between`}>
+                            <span>{insuranceDocument?.storagePolicyDocument?.name}</span>
+                            <img
+                              className={`${styles.close_image} mr-2`}
+                              src="/static/close.svg"
+                              onClick={() => handleCloseS()}
+                              alt="Close"
+                            />{' '}
+                          </div>
+                        )}
                               </td>
                             </tr>
                           </tbody>

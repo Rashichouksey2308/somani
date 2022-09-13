@@ -63,6 +63,7 @@ export default function Home() {
   const [orderID, setOrderId] = useState('')
 
   console.log(containerExcel, "containerExcel")
+  console.log(shipmentTypeBulk,'')
 
   const setData = (Vessel) => {
     setOrderId(_get(Vessel, 'data[0].order._id', ''))
@@ -93,7 +94,11 @@ export default function Home() {
       "data[0].vessels",
       []
     ).length <= 1) {
-      setShipmentTypeBulk(false)
+      setShipmentTypeBulk(_get(
+        Vessel,
+        "data[0].order.termsheet.transactionDetails.shipmentType",
+        "Bulk"
+      ))
       setList([
         {
           shipmentType: _get(

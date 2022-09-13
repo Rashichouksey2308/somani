@@ -375,9 +375,9 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
                             }}
                             id="netQuantityReleased"
                             value={
-                              isFieldInFocus?
-                              item.netQuantityReleased:
-                              Number(item.netQuantityReleased)?.toLocaleString() + ` ${_get(ReleaseOrderData, 'data[0].order.unitOfQuantity', '')}`}
+                              isFieldInFocus ?
+                                item.netQuantityReleased :
+                                Number(item.netQuantityReleased)?.toLocaleString() + ` ${_get(ReleaseOrderData, 'data[0].order.unitOfQuantity', '')}`}
                             className={`${styles.input_field} input form-control`}
 
                           // onKeyDown={(evt) =>
@@ -473,6 +473,13 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
                               </div>
                               {Number(netBalanceQuantity) > 0 && (
                                 <>
+
+                                  <img
+                                    onClick={() => handleDeleteRow(index)}
+                                    src="/static/delete 2.svg"
+                                    className={`${styles.delete_image}`}
+                                    alt="Delete"
+                                  />
                                   <img
                                     onClick={() =>
                                       addMorereleaseDetailDataRows(index)
@@ -480,12 +487,6 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
                                     src="/static/add-btn.svg"
                                     className={`${styles.delete_image} ml-3 mr-3`}
                                     alt="Add button"
-                                  />
-                                  <img
-                                    onClick={() => handleDeleteRow(index)}
-                                    src="/static/delete 2.svg"
-                                    className={`${styles.delete_image}`}
-                                    alt="Delete"
                                   />
                                 </>
                               )}
