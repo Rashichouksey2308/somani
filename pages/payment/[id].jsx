@@ -314,13 +314,13 @@ useEffect(() => {
       setDoLimit(limit)
     })
 
-    if (DOlimit < 0) {
-      let toastMessage =
-        'Delivery Order Quantity Cannot Be Greater than Realese Quantity'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      }
-    }
+    // if (DOlimit < 0) {
+    //   let toastMessage =
+    //     'Delivery Order Quantity Cannot Be Greater than Realese Quantity'
+    //   if (!toast.isActive(toastMessage.toUpperCase())) {
+    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    //   }
+    // }
   }, [filteredDOArray, deliveryOrder])
   //console.log(filteredDOArray, 'filteredDOArray')
   const onEdit = (index, value) => {
