@@ -32,18 +32,22 @@
     }
   }
   .term_container {
-    height: 126px;
+    // height: 126px;
     border-radius: 6px;
     margin-bottom: 26px;
     // background: #d8eaff;
     // border: 1px solid #d2d7e5;
-    padding: 18px 36px 13px 36px;
+    // padding: 18px 36px 13px 36px;
     @include respond(phone) {
       height: auto;
       padding: 15px;
     }
+    & > div {      
+      height: 126px;
+      padding: 18px 21px 13px;
+    }
     .left {
-      margin-top: 42px;
+      // margin-top: 42px;
       @include respond(phone) {
         margin: 0 0 15px;
       }
