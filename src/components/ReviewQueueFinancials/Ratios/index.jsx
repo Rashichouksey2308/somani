@@ -25,6 +25,12 @@ function Index({ ratioData, rtrnChartIndiaction }) {
 
   const lastIncomeData = _get(ratioData, 'financial.incomeStatement[2]', {})
 
+  const latestCashData = _get(ratioData, 'financial.cashFlowStatement[0]', {})
+
+  const previousCashData = _get(ratioData, 'financial.cashFlowStatement[1]', {})
+
+  const lastCashData = _get(ratioData, 'financial.cashFlowStatement[2]', {})
+
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -98,7 +104,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         {checkNan(
                           (latestIncomeData?.revenue?.revenueFromOperations /
                             (latestBalanceData?.assets?.propertyPlantAndEquipment +
-                              latestBalanceData?.assets?.propertyPlantAndEquipment /
+                              latestCashData?.previous?.propertyPlantAndEquipment /
                               2)))}
 
                       </td>
@@ -106,7 +112,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         {checkNan(
                           (previousIncomeData?.revenue?.revenueFromOperations /
                             (previousBalanceData?.assets?.propertyPlantAndEquipment +
-                              previousBalanceData?.assets?.propertyPlantAndEquipment /
+                              previousCashData?.previous?.propertyPlantAndEquipment /
                               2)))}
 
                       </td>
@@ -114,19 +120,19 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         {checkNan(
                           (lastIncomeData?.revenue?.revenueFromOperations /
                             (lastBalanceData?.assets?.propertyPlantAndEquipment +
-                              lastBalanceData?.assets?.propertyPlantAndEquipment / 2)))}
+                              lastCashData?.previous?.propertyPlantAndEquipment / 2)))}
 
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction((latestIncomeData?.revenue?.revenueFromOperations /
                           (latestBalanceData?.assets?.propertyPlantAndEquipment +
-                            latestBalanceData?.assets?.propertyPlantAndEquipment /
+                            latestCashData?.previous?.propertyPlantAndEquipment /
                             2)), (previousIncomeData?.revenue?.revenueFromOperations /
                               (previousBalanceData?.assets?.propertyPlantAndEquipment +
-                                previousBalanceData?.assets?.propertyPlantAndEquipment /
+                                previousCashData?.previous?.propertyPlantAndEquipment /
                                 2)), (lastIncomeData?.revenue?.revenueFromOperations /
                                   (lastBalanceData?.assets?.propertyPlantAndEquipment +
-                                    lastBalanceData?.assets?.propertyPlantAndEquipment /
+                                    lastCashData?.previous?.propertyPlantAndEquipment /
                                     2)))}
 
                       </td>
@@ -205,54 +211,40 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                     <tr>
                       <td>Operating Profit Margin (EBITDA Margin)</td>
                       <td className="text-center">
-                        {/* {checkNan(
-                          ((latestIncomeData?.revenue?.revenueFromOperations -
-                            latestIncomeData?.expenses?.totExp +
-                            latestIncomeData?.expenses?.finCost) /
-                            latestYearData?.ebitdaMargin))} */}
+                    
 
-                        {convertValue(((latestIncomeData?.revenue?.revenueFromOperations -
+                        {/* {convertValue(((latestIncomeData?.revenue?.revenueFromOperations -
                           latestIncomeData?.expenses?.totExp +
                           latestIncomeData?.expenses?.finCost) /
                           latestYearData?.ebitdaMargin), unit)?.toLocaleString(undefined, {
                             maximumFractionDigits: 4,
-                          })}
+                          })} */}
+                          {latestYearData?.operatingProfitMargin?.toFixed(2)?.toLocaleString()}
 
                       </td>
                       <td className="text-center">
-                        {/* {checkNan(
-                          (((previousIncomeData?.revenue?.revenueFromOperations -
-                            previousIncomeData?.expenses?.totExp +
-                            previousIncomeData?.expenses?.finCost) /
-                            previousYearData?.ebitdaMargin)))} */}
-                        {/* {(previousIncomeData?.revenue?.revenueFromOperations -
-                          previousIncomeData?.expenses?.totExp +
-                          previousIncomeData?.expenses?.finCost) /
-                          previousYearData?.ebitdaMargin} */}
-
-                        {convertValue(((previousIncomeData?.revenue?.revenueFromOperations -
+                   
+                        {/* {convertValue(((previousIncomeData?.revenue?.revenueFromOperations -
                           previousIncomeData?.expenses?.totExp +
                           previousIncomeData?.expenses?.finCost) /
                           previousYearData?.ebitdaMargin), unit)?.toLocaleString(undefined, {
                             maximumFractionDigits: 2,
-                          })}
+                          })} */}
+                          {previousYearData?.operatingProfitMargin?.toFixed(2)?.toLocaleString()}
                       </td>
                       <td className="text-center">
-                        {/* {checkNan(
-                          (lastIncomeData?.revenue?.revenueFromOperations -
-                            lastIncomeData?.expenses?.totExp +
-                            lastIncomeData?.expenses?.finCost) /
-                          lastYearData?.ebitdaMargin)} */}
-                        {convertValue(((lastIncomeData?.revenue?.revenueFromOperations -
+                       
+                        {/* {convertValue(((lastIncomeData?.revenue?.revenueFromOperations -
                           lastIncomeData?.expenses?.totExp +
                           lastIncomeData?.expenses?.finCost) /
                           lastYearData?.ebitdaMargin), unit)?.toLocaleString(undefined, {
                             maximumFractionDigits: 2,
-                          })}
+                          })} */}
+                          {lastYearData?.operatingProfitMargin?.toFixed(2)?.toLocaleString()}
 
                       </td>
                       <td className="text-center">
-                        {rtrnChartIndiaction(((latestIncomeData?.revenue?.revenueFromOperations -
+                        {/* {rtrnChartIndiaction(((latestIncomeData?.revenue?.revenueFromOperations -
                           latestIncomeData?.expenses?.totExp +
                           latestIncomeData?.expenses?.finCost) /
                           latestYearData?.ebitdaMargin), (previousIncomeData?.revenue?.revenueFromOperations -
@@ -261,14 +253,15 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         previousYearData?.ebitdaMargin, ((lastIncomeData?.revenue?.revenueFromOperations -
                           lastIncomeData?.expenses?.totExp +
                           lastIncomeData?.expenses?.finCost) /
-                          lastYearData?.ebitdaMargin))}
+                          lastYearData?.ebitdaMargin))} */}
+                          {rtrnChartIndiaction(latestYearData?.operatingProfitMargin, previousYearData?.operatingProfitMargin, lastYearData?.operatingProfitMargin)}
 
                       </td>
                     </tr>
                     <tr>
-                      <td>Return On Capital Emplyed (%)</td>
+                      <td>Return On Capital Employed (%)</td>
                       <td className="text-center">
-                        {latestYearData?.returnOnEquity?.toFixed(2).toLocaleString()} %
+                        {latestYearData?.returnOnEquity?.toFixed(2).toLocaleString()} %  
                       </td>
                       <td className="text-center">
                         {previousYearData?.returnOnEquity?.toFixed(2).toLocaleString()}%
