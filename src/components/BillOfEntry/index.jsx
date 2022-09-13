@@ -1269,17 +1269,22 @@ export default function Index({
                   </thead>
                   <tbody>
                     <tr className="table_row">
+                    {billOfEntryData.boeAssessment === 'Final'?
+
                       <td className={styles.doc_name}>
+                        BOE Final
+                        <strong className="text-danger ml-0">*</strong>
+                      </td>: <td className={styles.doc_name}>
                         BOE Provisional
                         <strong className="text-danger ml-0">*</strong>
-                      </td>
+                      </td>}
                       <td>
                         <img
                           src="/static/pdf.svg"
                           className={`${styles.pdfImage} img-fluid`}
                           alt="Pdf"
                         />
-                      </td>
+                      </td> 
                       {/* <td className={styles.doc_row}>28-02-2022,5:30 PM</td> */}
                       <td>
                         {billOfEntryData.document1 === null ? (

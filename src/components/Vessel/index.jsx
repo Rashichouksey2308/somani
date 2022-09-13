@@ -465,7 +465,7 @@ function Index({
                               name="ETAatDischargePort"
                               index={index}
                               saveDate={saveDate}
-                              labelName="ETD at Discharge Port"
+                              labelName="Estimated Time of Arrival"
                             />
                             <img
                               className={`${styles.calanderIcon} image_arrow img-fluid`}
