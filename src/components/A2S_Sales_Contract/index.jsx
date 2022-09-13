@@ -122,6 +122,7 @@ function Index(props) {
   }
 
   return (
+    <>
     <div className={`${styles.root}`}>
 
       <div className={`${styles.content} card`}>
@@ -152,6 +153,7 @@ function Index(props) {
 
       </div>
     </div>
+</>
   )
 }
 
@@ -623,9 +625,9 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
         <div className={`row`}>
           <Col md={6} >
             <p className="text_sales m-0">Seller</p>
-            <Col md={6} className={`d-flex justify-content-around mt-5`}>
+            {/* <Col md={6} className={`d-flex justify-content-around mt-5`}>
               <GrowInput></GrowInput>
-            </Col>
+            </Col> */}
 
             {
               preview ?
@@ -648,9 +650,9 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           </Col>
           <Col md={6} >
             <p className="text_sales m-0">Buyer</p>
-            <Col md={6} className={`d-flex justify-content-around mt-5`}>
+            {/* <Col md={6} className={`d-flex justify-content-around mt-5`}>
               <GrowInput></GrowInput>
-            </Col>
+            </Col> */}
             {
               preview ?
                 <><span> {data?.sellerSignature}</span></>
