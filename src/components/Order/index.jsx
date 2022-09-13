@@ -385,7 +385,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                 <div className="d-flex">
                   <DateCalender
                     name="ExpectedDateOfShipment"
-                    defaultDate={orderDetail?.ExpectedDateOfShipment?.split('T')[0]}
+                    defaultDate={orderDetail?.ExpectedDateOfShipment ?? ''}
                     saveDate={saveDate}
                     labelName="Expected Date Of Shipment"
                   />

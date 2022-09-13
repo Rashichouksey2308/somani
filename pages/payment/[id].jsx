@@ -133,7 +133,7 @@ useEffect(() => {
           {
             dateOfLifting: '',
             liftingQuant: '',
-            modeOfTransportation: 'RR',
+            modeOfTransportation: '',
             eWayBill: '',
             LRorRRDoc: {},
             eWayBillDoc: {},
@@ -150,7 +150,7 @@ useEffect(() => {
         val.detail.push({
           dateOfLifting: '',
           liftingQuant: '',
-          modeOfTransportation: 'RR',
+          modeOfTransportation: '',
           eWayBill: '',
           LRorRRDoc: {},
           eWayBillDoc: {},
