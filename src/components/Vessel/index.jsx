@@ -14,7 +14,7 @@ import { setPageName, setDynamicName } from '../../redux/userData/action'
 //import { set } from 'immer/dist/internal'
 import Router from 'next/router'
 import _get from 'lodash/get'
-import { addPrefixOrSuffix } from 'utils/helper'
+import { addPrefixOrSuffix, convertValue } from 'utils/helper'
 
 
 
@@ -272,7 +272,8 @@ function Index({
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                             className={`${styles.input_field} border-left-0 input form-control`}
-                            value={Number(val.orderValue).toLocaleString("en-IN")}
+                            value={convertValue(val.orderValue)?.toLocaleString("en-IN")}
+                            // value={Number(val.orderValue).toLocaleString("en-IN")}
                             onChange={(e) =>
                               OnVesselBasicFieldsChangeHandler(e, index)
                             }

@@ -265,14 +265,14 @@ function Index({ order, companyDetail }) {
                   {companyDetail?.profile?.companyDetail?.registeredAddress}
                 </div>
               </div>
-              <div className="col-lg-3 col-md-6 col-sm-6">
+              {/* <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className={`${styles.label} label_heading`}>
                   Corporate Address
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
                   {companyDetail?.profile?.companyDetail?.registeredAddress}
                 </div>
-              </div>
+              </div> */}
               {/* <div className="col-md-3">
                                 <div className={`${styles.label} label_heading`}>Referral Code</div>
                                 <div className={`${styles.value} accordion_Text`}>U55101UR19</div>
