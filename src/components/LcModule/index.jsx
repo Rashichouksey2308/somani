@@ -42,7 +42,7 @@ function Index() {
     sessionStorage.setItem('lcAmmend', lc.order.lc)
     Router.push('/letter-credit/id')
   }
-console.log(lcModule,"lcModule")
+
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
@@ -91,7 +91,7 @@ console.log(lcModule,"lcModule")
             className={`${styles.tableFilter} align-items-center d-flex justify-content-between`}
           >
             <h3 className="heading_card">
-              {_get(lcModule, 'data[0].company.companyName', '')}
+              {_get(lcModule, 'data[0].company.companyName', '')?.replace(/(^\w|\s\w)(\S*)/g, (_,m1,m2) => m1.toUpperCase()+m2.toLowerCase())}
             </h3>
           </div>
           <div className={styles.table_scroll_outer}>

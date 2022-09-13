@@ -87,28 +87,44 @@ export default function Index({
   const [orderData, setOrderData] = useState()
   // let balanceQuantity = _get(TransitDetails, 'data[0].order.quantity', '')
 
-  const calculateBalaceQuantity = () => {
-    let balanceQuantity = _get(TransitDetails, 'data[0].order.quantity', '')
-    // _get(
-    //   TransitDetails,
-    //   'data[0].BL.billOfLanding',
-    //   [],
-    // ).forEach((item) => {
-    // balanceQuantity = balanceQuantity - item.blQuantity
-    // })
+  // const calculateBalaceQuantity = () => {
+  //   let balanceQuantity = _get(TransitDetails, 'data[0].order.quantity', '')
+  // _get(
+  //   TransitDetails,
+  //   'data[0].BL.billOfLanding',
+  //   [],
+  // ).forEach((item) => {
+  // balanceQuantity = balanceQuantity - item.blQuantity
+  // })
 
+  // igmList.igmDetails.forEach((item) => {
+  //   item.blNumber.forEach((item2) => {
+  //     balanceQuantity = balanceQuantity - item2.blQuantity
+  //   })
+  // })
+  //   if (balanceQuantity > 0) {
+  //     const toastMessage = 'IGM can not exceed to gross BL quantity'
+  //     if (!toast.isActive(toastMessage.toUpperCase())) {
+  //       toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+  //     }
+  //   }
+  //   return balanceQuantity
+  // }
+
+  const checkRemainingBalance = () => {
+    let balance = _get(TransitDetails, 'data[0].order.quantity', 0)
     igmList.igmDetails.forEach((item) => {
       item.blNumber.forEach((item2) => {
-        balanceQuantity = balanceQuantity - item2.blQuantity
+        balance = balance - item2.blQuantity
       })
     })
-    if (balanceQuantity > 0) {
-      const toastMessage = 'IGM can not exceed to gross BL quantity'
+    if (balance < 0) {
+      let toastMessage = `igm cannot be greater than order quantity`
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     }
-    return balanceQuantity
+    return balance
   }
 
   useEffect(() => {
@@ -144,7 +160,15 @@ export default function Index({
     setIgmList(tempArray)
   }
 
-  const onChangeIgm = (name, text,index) => {
+  const onChangeIgm = (name, text, index) => {
+    if (name === 'blQuantity') {
+      if (checkRemainingBalance() < value) {
+        let toastMessage = `BL quantity cannot be greater than total order quantity`
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+      }
+    }
     // console.log(name, text, index,'igmOnChange')
     let newData = { ...igmList }
     newData.igmDetails[index][name] = text
@@ -206,7 +230,7 @@ export default function Index({
   }
   const onAddBlNumber = (index) => {
     let newIgmList = { ...igmList }
-    console.log(newIgmList.igmDetails[index],"newIgmList.igmDetails")
+    console.log(newIgmList.igmDetails[index], "newIgmList.igmDetails")
     newIgmList.igmDetails[0].blNumber.push({
       blNumber: number,
       BlDate: new Date(),
@@ -596,7 +620,7 @@ export default function Index({
                       Balance Quantity:
                     </div>
                     <div className={`${styles.value} ml-2 mr-4`}>
-                      {checkNan(calculateBalaceQuantity())}{' '}
+                      {checkNan(checkRemainingBalance())}{' '}
                       {_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}{' '}
                     </div>
                     <button
@@ -609,7 +633,7 @@ export default function Index({
                 </div>
                 <div className={`${styles.dashboard_form} card-body`}>
                   <div className="row">
-                  
+
                     <div
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                     >
@@ -617,7 +641,7 @@ export default function Index({
                         <select
                           id="vesselName"
                           onChange={(e) =>
-                            onChangeIgm(e.target.id, e.target.value,index)
+                            onChangeIgm(e.target.id, e.target.value, index)
                           }
                           className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                           value={item.vesselName}
@@ -657,7 +681,7 @@ export default function Index({
                         />
                       </div>
                     </div>
-                  
+
                     <div
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                     >
@@ -679,13 +703,13 @@ export default function Index({
                         <strong className="text-danger">*</strong>
                       </label>
                     </div>
-                    
+
                     <div
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                     >
                       <div className="d-flex">
                         <DateCalender
-                        index={index}
+                          index={index}
                           selected={
                             item.igmFiling == null
                               ? ''
@@ -702,9 +726,9 @@ export default function Index({
                           alt="Search"
                         />
                       </div>
-                     
+
                     </div>
-                   
+
                     {item.blNumber.map((blEntry, index2) => {
                       console.log(blEntry, '[igmListblmap]')
                       return (
@@ -915,7 +939,7 @@ export default function Index({
                         </>
                       )
                     })}
-                   
+
                   </div>
                 </div>
                 <div className={styles.table_scroll_outer}>

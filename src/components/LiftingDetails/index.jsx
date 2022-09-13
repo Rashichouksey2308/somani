@@ -76,6 +76,16 @@ export default function Index(props) {
   }
 
   console.log(props.liftingData, 'props.liftingData')
+  const checkAvail = (value) => {
+    let returned = false
+    const filtered = props.liftingData.filter((item) => {
+      return item.deliveryOrder === value
+    })
+    if (filtered.length > 0) {
+      returned = true
+    }
+    return returned
+  }
 
   return (
     <>
@@ -114,7 +124,7 @@ export default function Index(props) {
                 <div className="col-lg-4 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>Consignor Name</div>
                   <span className={styles.value}>
-                  {_get(props.ReleaseOrderData, 'data[0].company.companyName', '')}
+                    {_get(props.ReleaseOrderData, 'data[0].company.companyName', '')}
                   </span>
                 </div>
                 <div className="col-lg-4 col-md-6 col-sm-6">
@@ -140,10 +150,10 @@ export default function Index(props) {
                         setCurrentOrder(e.target.value)
                       }}
                     >
-                      <option >Select an option</option>
+                      <option disabled value ='' >Select an option</option>
                       {_get(props.data, "data[0].deliveryDetail", []).map((val, index) => {
                         return (
-                          <option key={index} value={val?.deliveryOrderNumber}>{val?.deliveryOrderNumber}</option>
+                          <option disabled={checkAvail(val?.deliveryOrderNumber)} key={index} value={val?.deliveryOrderNumber}>{val?.deliveryOrderNumber}</option>
                         )
                       })}
                     </select>
@@ -156,19 +166,20 @@ export default function Index(props) {
                   </div>
                 </div>
               </div>
-              <button
+              {currentOrder !== '' && <button
                 className={styles.add_btn}
                 onClick={(e) => {
+                  setCurrentOrder('')
                   props.addNewLifting(currentOrder)
                 }}
               >
                 <span className={styles.add_sign}>+</span>Add
-              </button>
+              </button>}
             </div>
           </div>
           {props.liftingData &&
             props.liftingData.map((val, index) => {
- 
+
               console.log(val, 'Lifting Add ')
               return (
                 <div className={`${styles.main} mt-4 card border_color`}>
@@ -246,9 +257,9 @@ export default function Index(props) {
                                 >
                                   <div className="d-flex">
                                     <DateCalender
-                                      saveDate={(startDate, name, index)=>{
-                                        console.log("thisis",startDate, name, index)
-                                        saveDate2(startDate, name, index,index2)
+                                      saveDate={(startDate, name, index) => {
+                                        console.log("thisis", startDate, name, index)
+                                        saveDate2(startDate, name, index, index2)
                                       }}
                                       index={index}
                                       index2={index2}
@@ -282,9 +293,9 @@ export default function Index(props) {
                                         e.target.type = 'text'
                                     }}
                                     value={
-                                      isFieldInFocus?
-                                     val2.liftingQuant:
-                                     Number(val2.liftingQuant)?.toLocaleString() + ` ${_get(props, 'data.data[0].order.unitOfQuantity', '')}`}
+                                      isFieldInFocus ?
+                                        val2.liftingQuant :
+                                        Number(val2.liftingQuant)?.toLocaleString() + ` ${_get(props, 'data.data[0].order.unitOfQuantity', '')}`}
 
                                     name="liftingQuant"
                                     onChange={(e) => {
@@ -326,7 +337,7 @@ export default function Index(props) {
                                           type={type}
                                           id={`inline-${type}-1`}
                                           value={'RR'}
-                                          checked={val2.modeOfTransportation=="RR"?"checked":""}
+                                          checked={val2.modeOfTransportation == "RR" ? "checked" : ""}
                                           onChange={(e) => {
                                             props.handleChange(
                                               e.target.name,
@@ -344,7 +355,7 @@ export default function Index(props) {
                                           type={type}
                                           id={`inline-${type}-2`}
                                           value={'LR'}
-                                          checked={val2.modeOfTransportation=="LR"?"checked":""}
+                                          checked={val2.modeOfTransportation == "LR" ? "checked" : ""}
                                           onChange={(e) => {
                                             props.handleChange(
                                               e.target.name,
@@ -477,46 +488,46 @@ export default function Index(props) {
                                           <div
                                             className={styles.uploadBtnWrapper}
                                           >
-                                           
-                                            {val2?.LRorRRDoc?.originalName?
-                                             <div className={`${styles.certificate} d-flex justify-content-between`}>
-                                            <span>
-                                              {val2?.LRorRRDoc?.originalName}
-                                            </span>
-                                            <img
-                                              className={`${styles.close_image}`}
-                                              src="/static/close.svg"
-                                              onClick={() =>props.removeLiftinDoc("lr",index,index2)}
-                                              alt="Close"
-                                            />{' '}
-                                          </div>
-                                           :
-                                            <div
-                                              className={
-                                                styles.uploadBtnWrapper
-                                              }
-                                            >
-                                              <input
-                                                id="document3"
-                                                onChange={(e) =>
-                                                  uploadDoc(
-                                                    e,
-                                                    'LRorRRDoc',
-                                                    index,
-                                                    index2,
-                                                  )
+
+                                            {val2?.LRorRRDoc?.originalName ?
+                                              <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                                <span>
+                                                  {val2?.LRorRRDoc?.originalName}
+                                                </span>
+                                                <img
+                                                  className={`${styles.close_image}`}
+                                                  src="/static/close.svg"
+                                                  onClick={() => props.removeLiftinDoc("lr", index, index2)}
+                                                  alt="Close"
+                                                />{' '}
+                                              </div>
+                                              :
+                                              <div
+                                                className={
+                                                  styles.uploadBtnWrapper
                                                 }
-                                                type="file"
-                                                name="myfile"
-                                              />
-                                              <button
-                                                className={`${styles.upload_btn} btn`}
                                               >
-                                                Upload
-                                              </button>
-                                            </div>
+                                                <input
+                                                  id="document3"
+                                                  onChange={(e) =>
+                                                    uploadDoc(
+                                                      e,
+                                                      'LRorRRDoc',
+                                                      index,
+                                                      index2,
+                                                    )
+                                                  }
+                                                  type="file"
+                                                  name="myfile"
+                                                />
+                                                <button
+                                                  className={`${styles.upload_btn} btn`}
+                                                >
+                                                  Upload
+                                                </button>
+                                              </div>
                                             }
-                                            
+
                                           </div>
                                         </td>
                                       </tr>
@@ -539,42 +550,42 @@ export default function Index(props) {
                                         </td>
 
                                         <td colSpan="2">
-                                          {val2?.eWayBillDoc?.originalName?
-                                           <div className={`${styles.certificate} d-flex justify-content-between`}>
-                                            <span>
-                                              {val2?.eWayBillDoc?.originalName}
-                                            </span>
-                                            <img
-                                              className={`${styles.close_image}`}
-                                              src="/static/close.svg"
-                                              onClick={() =>props.removeLiftinDoc("eway",index,index2)}
-                                              alt="Close"
-                                            />{' '}
-                                          </div>
-                                          :
-                                          <div
-                                            className={styles.uploadBtnWrapper}
-                                          >
-                                            <input
-                                              id="document3"
-                                              onChange={(e) =>
-                                                uploadDoc(
-                                                  e,
-                                                  'eWayBillDoc',
-                                                  index,
-                                                  index2,
-                                                )
-                                              }
-                                              type="file"
-                                              name="myfile"
-                                            />
-                                            <button
-                                              className={`${styles.upload_btn} btn`}
+                                          {val2?.eWayBillDoc?.originalName ?
+                                            <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                              <span>
+                                                {val2?.eWayBillDoc?.originalName}
+                                              </span>
+                                              <img
+                                                className={`${styles.close_image}`}
+                                                src="/static/close.svg"
+                                                onClick={() => props.removeLiftinDoc("eway", index, index2)}
+                                                alt="Close"
+                                              />{' '}
+                                            </div>
+                                            :
+                                            <div
+                                              className={styles.uploadBtnWrapper}
                                             >
-                                              Upload
-                                            </button>
+                                              <input
+                                                id="document3"
+                                                onChange={(e) =>
+                                                  uploadDoc(
+                                                    e,
+                                                    'eWayBillDoc',
+                                                    index,
+                                                    index2,
+                                                  )
+                                                }
+                                                type="file"
+                                                name="myfile"
+                                              />
+                                              <button
+                                                className={`${styles.upload_btn} btn`}
+                                              >
+                                                Upload
+                                              </button>
 
-                                            {/* <input type="file" name="myfile2" 
+                                              {/* <input type="file" name="myfile2" 
                                    onChange={(e)=>{
 
                                     uploadDoc(e,"eWayBillDoc",index1,index2)
@@ -586,7 +597,7 @@ export default function Index(props) {
                                   >
                                     Upload
                                   </button> */}
-                                          </div>
+                                            </div>
                                           }
                                         </td>
                                       </tr>
