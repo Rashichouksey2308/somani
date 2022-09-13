@@ -85,7 +85,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
         insuranceData?.quotationRequest?.insuranceType || 'Marine Insurance',
       laycanFrom: insuranceData?.quotationRequest?.laycanFrom ? insuranceData?.quotationRequest?.laycanFrom : insuranceData?.order?.shipmentDetail?.loadPort?.fromDate ,
       laycanTo: insuranceData?.quotationRequest?.laycanTo ? insuranceData?.quotationRequest?.laycanTo : insuranceData?.order?.shipmentDetail?.loadPort?.toDate,
-      lossPayee: insuranceData?.quotationRequest?.lossPayee || '',
+      lossPayee: insuranceData?.quotationRequest?.lossPayee ? insuranceData?.quotationRequest?.lossPayee : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank,
       storageDetails: {
         placeOfStorage:
           insuranceData?.quotationRequest?.storageDetails?.placeOfStorage || '',
@@ -529,7 +529,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
                                 value={quotationData.lossPayee}
                                 className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                               >
-                                <option value= "" selected >Select an option</option>
+                                <option disabled selected >Select an option</option>
                                 <option value="Reserve Bank of Spain">
                                   Reserve Bank of Spain
                                 </option>
@@ -789,7 +789,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
                                   )
                                 }}
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                value={quotationData?.lossPayee}
+                                value={quotationData?.lossPayee ? quotationData?.lossPayee : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank}
                               >
                                 <option selected value="">Select an option</option>
                                 {/* <option selected>
