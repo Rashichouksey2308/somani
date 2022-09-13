@@ -17,9 +17,7 @@ function Index() {
   const dispatch = useDispatch()
 
   const [darkMode, setDarkMode] = useState(false)
-
- 
- 
+  const [lastModified,setlastModified]=useState("")
 
   useEffect(()=> {
     let id = sessionStorage.getItem('inspectionId')
@@ -38,7 +36,9 @@ function Index() {
 
   const [addTPI, setAddTPI] = useState([{}])
 
-
+ const setDate=(date)=>{
+  setlastModified(date)
+ }
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -57,7 +57,7 @@ function Index() {
             <div className="ml-auto">
               <div className={`${styles.lastModified} text `}
              >
-                <span style={{marginRight:'7px'}}>Last Modified:</span>28 Jan,11:34am
+                <span style={{marginRight:'7px'}}>Last Modified:</span>{lastModified}
               </div>
             </div>
           </div>
@@ -111,7 +111,7 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <Appointment inspectionData={inspectionData} />
+                    <Appointment inspectionData={inspectionData} setDate={setDate} />
                   </div>
                 </div>
                 {addTPI?.map((e, index) => (
@@ -122,8 +122,8 @@ function Index() {
                     role="tabpanel"
                   >
                     <div className={`${styles.card}  accordion_body`}>
-                      <ThirdPartyInspection
-                       inspectionData={inspectionData} addButton={() => setAddTPI(addTPI + 1)}
+                      <ThirdPartyInspection 
+                       inspectionData={inspectionData} addButton={() => setAddTPI(addTPI + 1)} setDate={setDate}
                       />
                       {/* <ThirdPartyInspection  /> */}
                     </div>
@@ -135,7 +135,7 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <PlotInspection inspectionData={inspectionData} />
+                    <PlotInspection inspectionData={inspectionData} setDate={setDate} />
                   </div>
                 </div>
               </div>
