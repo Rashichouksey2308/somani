@@ -273,6 +273,7 @@ function Index() {
   // },[documentsFetched])
 
   const rtrnChartIndiaction = (latest, previous, last) => {
+    console.log(latest, previous, last,"latest, previous, last")
     if (latest > previous && previous > last) {
       return <img src="/static/profit.svg" alt="Profit" className="img-fluid" />
     } else if (latest < previous && previous < last) {
