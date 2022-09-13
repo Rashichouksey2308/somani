@@ -107,19 +107,22 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                       <td>Capital</td>
                       <td className="text-center">
                         {convertValue(latestYearData?.equityLiabilities?.shareCap, unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
                         {/* {previousYearData?.equityLiabilities?.shareCap?.toLocaleString()} */}
                         {convertValue(previousYearData?.equityLiabilities?.shareCap, unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
                         {/* {lastYearData?.equityLiabilities?.shareCap?.toLocaleString()} */}
                         {convertValue(lastYearData?.equityLiabilities?.shareCap, unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
@@ -131,19 +134,22 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                       <td className="text-center">
                         {/* {latestYearData?.equityLiabilities?.otherEquity?.toLocaleString()} */}
                         {convertValue(latestYearData?.equityLiabilities?.otherEquity, unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
                         {/* {previousYearData?.equityLiabilities?.otherEquity?.toLocaleString()} */}
                         {convertValue(previousYearData?.equityLiabilities?.otherEquity, unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
                         {/* {lastYearData?.equityLiabilities?.otherEquity?.toLocaleString()} */}
                         {convertValue(lastYearData?.equityLiabilities?.otherEquity, unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
@@ -158,7 +164,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                         <strong>
                           {/* {latestYearData?.equityLiabilities?.totalEquity?.toLocaleString()} */}
                           {convertValue(latestYearData?.equityLiabilities?.totalEquity, unit)?.toLocaleString(undefined, {
-                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
                           })}
                         </strong>
                       </td>
@@ -166,7 +173,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                         <strong>
                           {/* {previousYearData?.equityLiabilities?.totalEquity?.toLocaleString()} */}
                           {convertValue(previousYearData?.equityLiabilities?.totalEquity, unit)?.toLocaleString(undefined, {
-                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
                           })}
                         </strong>
                       </td>
@@ -174,7 +182,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                         <strong>
                           {/* {lastYearData?.equityLiabilities?.totalEquity?.toLocaleString()} */}
                           {convertValue(lastYearData?.equityLiabilities?.totalEquity, unit)?.toLocaleString(undefined, {
-                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
                           })}
                         </strong>
                       </td>
@@ -191,21 +200,24 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                       <td className="text-center">
                         {/* {latestYearData?.equityLiabilities?.borrowingsNonCurrent?.toLocaleString()} */}
                         {convertValue(latestYearData?.equityLiabilities?.borrowingsNonCurrent, unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
 
                       </td>
                       <td className="text-center">
                         {/* {previousYearData?.equityLiabilities?.borrowingsNonCurrent?.toLocaleString()} */}
                         {convertValue(previousYearData?.equityLiabilities?.borrowingsNonCurrent, unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
 
                       </td>
                       <td className="text-center">
                         {/* {lastYearData?.equityLiabilities?.borrowingsNonCurrent?.toLocaleString()} */}
                         {convertValue(lastYearData?.equityLiabilities?.borrowingsNonCurrent, unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
 
                       </td>
@@ -219,20 +231,23 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                       <td className="text-center">
                         {/* {latestYearData?.equityLiabilities?.borrowingsCurrent?.toLocaleString()} */}
                         {convertValue(latestYearData?.equityLiabilities?.borrowingsCurrent, unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
 
                       </td>
                       <td className="text-center">
                         {/* {previousYearData?.equityLiabilities?.borrowingsCurrent?.toLocaleString()} */}
                         {convertValue(previousYearData?.equityLiabilities?.borrowingsCurrent, unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
                         {/* {lastYearData?.equityLiabilities?.borrowingsCurrent?.toLocaleString()} */}
                         {convertValue(lastYearData?.equityLiabilities?.borrowingsCurrent, unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
@@ -252,7 +267,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                           )} */}
                           {convertValue((latestYearData?.equityLiabilities?.borrowingsCurrent +
                             latestYearData?.equityLiabilities?.borrowingsNonCurrent), unit)?.toLocaleString(undefined, {
-                              maximumFractionDigits: 2,
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2
                             })}
 
                         </strong>
@@ -267,7 +283,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                           {convertValue((previousYearData?.equityLiabilities?.borrowingsCurrent +
                             previousYearData?.equityLiabilities
                               ?.borrowingsNonCurrent), unit)?.toLocaleString(undefined, {
-                                maximumFractionDigits: 2,
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2
                               })}
                         </strong>
                       </td>
@@ -280,7 +297,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
 
                           {convertValue((lastYearData?.equityLiabilities?.borrowingsCurrent +
                             lastYearData?.equityLiabilities?.borrowingsNonCurrent), unit)?.toLocaleString(undefined, {
-                              maximumFractionDigits: 2,
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2
                             })}
 
 
@@ -312,7 +330,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                         {convertValue((latestYearData?.equityLiabilities?.tradePay +
                           latestYearData?.equityLiabilities
                             ?.tradePayablesNoncurrent), unit)?.toLocaleString(undefined, {
-                              maximumFractionDigits: 2,
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2
                             })}
 
                       </td>
@@ -328,7 +347,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                         {convertValue((previousYearData?.equityLiabilities?.tradePay +
                           previousYearData?.equityLiabilities
                             ?.tradePayablesNoncurrent), unit)?.toLocaleString(undefined, {
-                              maximumFractionDigits: 2,
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2
                             })}
 
                       </td>
@@ -342,7 +362,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                         } */}
                         {convertValue((lastYearData?.equityLiabilities?.tradePay +
                           lastYearData?.equityLiabilities?.tradePayablesNoncurrent), unit)?.toLocaleString(undefined, {
-                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
                           })}
 
                       </td>
@@ -364,7 +385,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                           (latestYearData?.equityLiabilities?.otherCurrentLiabilities), true
                         )} */}
                         {convertValue((latestYearData?.equityLiabilities?.otherCurrentLiabilities), unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
 
                       </td>
@@ -375,7 +397,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                         )} */}
                         {convertValue((previousYearData?.equityLiabilities
                           ?.otherCurrentLiabilities), unit)?.toLocaleString(undefined, {
-                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
                           })}
 
                       </td>
@@ -384,7 +407,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                           (lastYearData?.equityLiabilities?.otherCurrentLiabilities), true
                         )} */}
                         {convertValue((lastYearData?.equityLiabilities?.otherCurrentLiabilities), unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
 
                       </td>
@@ -404,7 +428,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                         <strong>
                           {/* {latestYearData?.equityLiabilities?.totalLiabilities?.toLocaleString()} */}
                           {convertValue((latestYearData?.equityLiabilities?.totalLiabilities), unit)?.toLocaleString(undefined, {
-                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
                           })}
                         </strong>
                       </td>
@@ -412,7 +437,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                         <strong>
                           {/* {previousYearData?.equityLiabilities?.totalLiabilities?.toLocaleString()} */}
                           {convertValue((previousYearData?.equityLiabilities?.totalLiabilities), unit)?.toLocaleString(undefined, {
-                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
                           })}
                         </strong>
                       </td>
@@ -420,7 +446,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                         <strong>
                           {/* {lastYearData?.equityLiabilities?.totalLiabilities?.toLocaleString()} */}
                           {convertValue((lastYearData?.equityLiabilities?.totalLiabilities), unit)?.toLocaleString(undefined, {
-                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
                           })}
                         </strong>
                       </td>
@@ -463,19 +490,22 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                       <td className="text-center">
                         {/* {latestYearData?.assets?.propertyPlantAndEquipment?.toLocaleString()} */}
                         {convertValue((latestYearData?.assets?.propertyPlantAndEquipment), unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
                         {/* {previousYearData?.assets?.propertyPlantAndEquipment?.toLocaleString()} */}
                         {convertValue((previousYearData?.assets?.propertyPlantAndEquipment), unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
                         {/* {lastYearData?.assets?.propertyPlantAndEquipment?.toLocaleString()} */}
                         {convertValue((lastYearData?.assets?.propertyPlantAndEquipment), unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
@@ -503,7 +533,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                           latestYearData?.assets?.intangAsset +
                           latestYearData?.assets?.intangAssetAud +
                           latestYearData?.assets?.investmentProperty), unit)?.toLocaleString(undefined, {
-                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
                           })}
 
                       </td>
@@ -525,7 +556,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                           previousYearData?.assets?.intangAsset +
                           previousYearData?.assets?.intangAssetAud +
                           previousYearData?.assets?.investmentProperty), unit)?.toLocaleString(undefined, {
-                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
                           })}
 
                       </td>
@@ -547,7 +579,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                           lastYearData?.assets?.intangAsset +
                           lastYearData?.assets?.intangAssetAud +
                           lastYearData?.assets?.investmentProperty), unit)?.toLocaleString(undefined, {
-                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
                           })}
 
                       </td>
@@ -577,19 +610,22 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                       <td className="text-center">
                         {/* {latestYearData?.assets?.capWip?.toLocaleString()} */}
                         {convertValue((latestYearData?.assets?.capWip), unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
                         {/* {previousYearData?.assets?.capWip?.toLocaleString()} */}
                         {convertValue((previousYearData?.assets?.capWip), unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
                         {/* {lastYearData?.assets?.capWip?.toLocaleString()} */}
                         {convertValue((lastYearData?.assets?.capWip), unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
@@ -609,7 +645,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                         } */}
                         {convertValue((latestYearData?.assets?.currInv +
                           latestYearData?.assets?.nonCurrInv), unit)?.toLocaleString(undefined, {
-                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
                           })}
 
                       </td>
@@ -623,7 +660,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                         } */}
                         {convertValue((previousYearData?.assets?.currInv +
                           previousYearData?.assets?.nonCurrInv), unit)?.toLocaleString(undefined, {
-                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
                           })}
 
                       </td>
@@ -637,7 +675,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                         } */}
                         {convertValue((lastYearData?.assets?.currInv +
                           lastYearData?.assets?.nonCurrInv), unit)?.toLocaleString(undefined, {
-                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
                           })}
 
                       </td>
@@ -657,7 +696,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                         <strong>
                           {/* {latestYearData?.assets?.totalNonCurrentAssets?.toLocaleString()} */}
                           {convertValue((latestYearData?.assets?.totalNonCurrentAssets), unit)?.toLocaleString(undefined, {
-                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
                           })}
                         </strong>
                       </td>
@@ -665,7 +705,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                         <strong>
                           {/* {previousYearData?.assets?.totalNonCurrentAssets?.toLocaleString()} */}
                           {convertValue((previousYearData?.assets?.totalNonCurrentAssets), unit)?.toLocaleString(undefined, {
-                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
                           })}
                         </strong>
                       </td>
@@ -673,7 +714,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                         <strong>
                           {/* {lastYearData?.assets?.totalNonCurrentAssets?.toLocaleString()?.toLocaleString()} */}
                           {convertValue((lastYearData?.assets?.totalNonCurrentAssets), unit)?.toLocaleString(undefined, {
-                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
                           })}
                         </strong>
                       </td>
@@ -689,20 +731,23 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                       <td>Inventories</td>
                       <td className="text-center">
                         {convertValue((latestYearData?.assets?.inventory), unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                         {/* {latestYearData?.assets?.inventory?.toLocaleString()} */}
                       </td>
                       <td className="text-center">
                         {/* {previousYearData?.assets?.inventory?.toLocaleString()} */}
                         {convertValue((previousYearData?.assets?.inventory), unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
                         {/* {lastYearData?.assets?.inventory?.toLocaleString()} */}
                         {convertValue((lastYearData?.assets?.inventory), unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
@@ -720,7 +765,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                           )
                         } */}
                         {convertValue((latestYearData?.assets?.tradeRec + latestYearData?.assets?.tradeReceivablesNonCurrent), unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
 
 
@@ -733,7 +779,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                           )
                         } */}
                         {convertValue((previousYearData?.assets?.tradeRec + previousYearData?.assets?.tradeReceivablesNonCurrent), unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
 
 
@@ -746,7 +793,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                           )
                         } */}
                         {convertValue((lastYearData?.assets?.tradeRec + lastYearData?.assets?.tradeReceivablesNonCurrent), unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
 
 
@@ -766,7 +814,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                           )
                         } */}
                         {convertValue((latestYearData?.assets?.cashEqui + latestYearData?.assets?.bankBalanceOtherThanCashAndCashEquivalents), unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
@@ -777,7 +826,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                           )
                         } */}
                         {convertValue((previousYearData?.assets?.cashEqui + previousYearData?.assets?.bankBalanceOtherThanCashAndCashEquivalents), unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
@@ -788,7 +838,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                           )
                         } */}
                         {convertValue((lastYearData?.assets?.cashEqui + lastYearData?.assets?.bankBalanceOtherThanCashAndCashEquivalents), unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
 
 
@@ -807,7 +858,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                             true,
                           )} */}
                         {convertValue((latestYearData?.assets?.loansCurrent + latestYearData?.assets?.loansNonCurrent), unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
 
                       </td>
@@ -818,7 +870,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                             true,
                           )} */}
                         {convertValue((previousYearData?.assets?.loansCurrent + previousYearData?.assets?.loansNonCurrent), unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
 
                       </td>
@@ -828,7 +881,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                           true,
                         )} */}
                         {convertValue((lastYearData?.assets?.loansCurrent + lastYearData?.assets?.loansNonCurrent), unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
 
                       </td>
@@ -842,19 +896,22 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                       <td className="text-center">
                         {/* {latestYearData?.assets?.othCurrAsset?.toLocaleString()} */}
                         {convertValue((latestYearData?.assets?.othCurrAsset), unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
                         {/* {previousYearData?.assets?.othCurrAsset?.toLocaleString()} */}
                         {convertValue((previousYearData?.assets?.othCurrAsset), unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
                         {/* {lastYearData?.assets?.othCurrAsset?.toLocaleString()} */}
                         {convertValue((lastYearData?.assets?.othCurrAsset), unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
@@ -869,20 +926,23 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                       <td className="text-center">
                         {/* {latestYearData?.assets?.totalCurrentAssets?.toLocaleString()} */}
                         {convertValue((latestYearData?.assets?.totalCurrentAssets), unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
 
                       </td>
                       <td className="text-center">
                         {/* {previousYearData?.assets?.totalCurrentAssets?.toLocaleString()} */}
                         {convertValue((previousYearData?.assets?.totalCurrentAssets), unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
                         {/* {lastYearData?.assets?.totalCurrentAssets?.toLocaleString()} */}
                         {convertValue((lastYearData?.assets?.totalCurrentAssets), unit)?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
@@ -901,7 +961,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                         <strong>
                           {/* {latestYearData?.assets?.totalAssets?.toLocaleString()} */}
                           {convertValue((latestYearData?.assets?.totalAssets), unit)?.toLocaleString(undefined, {
-                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
                           })}
                         </strong>
                       </td>
@@ -909,7 +970,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                         <strong>
                           {/* {previousYearData?.assets?.totalAssets?.toLocaleString()} */}
                           {convertValue((previousYearData?.assets?.totalAssets), unit)?.toLocaleString(undefined, {
-                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
                           })}
                         </strong>
                       </td>
@@ -917,7 +979,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                         <strong>
                           {/* {lastYearData?.assets?.totalAssets?.toLocaleString()} */}
                           {convertValue((lastYearData?.assets?.totalAssets), unit)?.toLocaleString(undefined, {
-                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
                           })}
                         </strong>
                       </td>
