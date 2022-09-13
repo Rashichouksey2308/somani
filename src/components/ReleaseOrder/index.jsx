@@ -474,20 +474,26 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
                               {Number(netBalanceQuantity) > 0 && (
                                 <>
 
-                                  <img
-                                    onClick={() => handleDeleteRow(index)}
-                                    src="/static/delete 2.svg"
-                                    className={`${styles.delete_image}`}
-                                    alt="Delete"
-                                  />
-                                  <img
-                                    onClick={() =>
-                                      addMorereleaseDetailDataRows(index)
-                                    }
-                                    src="/static/add-btn.svg"
-                                    className={`${styles.delete_image} ml-3 mr-3`}
-                                    alt="Add button"
-                                  />
+                                  {releaseDetail.length === 1 ? null : (
+                                    <img
+                                      onClick={() => handleDeleteRow(index)}
+                                      src="/static/delete 2.svg"
+                                      className={`${styles.delete_image} img-fluid ml-3 mr-3`}
+                                      alt="Delete"
+                                    />
+                                  )}
+
+                                  {Number(netBalanceQuantity) >= 0 &&
+                                    releaseDetail.length - 1 === index && (
+                                      <img
+                                        onClick={() =>
+                                          addMorereleaseDetailDataRows(index)
+                                        }
+                                        src="/static/add-btn.svg"
+                                        className={`${styles.delete_image} ml-3 img-fluid`}
+                                        alt="Add button"
+                                      />
+                                    )}
                                 </>
                               )}
                             </>
