@@ -9,6 +9,7 @@ import DateCalender from '../DateCalender'
 import moment from 'moment'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
+import Image from 'next/image'
 
 export default function Index({
   customData,
@@ -59,8 +60,10 @@ export default function Index({
                     <label className={`${styles.label_heading} label_heading`}>
                       Party Type<strong className="text-danger">*</strong>
                     </label>
-                    <img
-                      className={`${styles.arrow} image_arrow img-fluid`}
+                    <Image
+                      className={`${styles.img_arrow} image_arrow img-fluid`}
+                      width='13px'
+                      height='8px'
                       src="/static/inputDropDown.svg"
                       alt="Search"
                     />
@@ -94,8 +97,10 @@ export default function Index({
                     <label className={`${styles.label_heading} label_heading`}>
                       GSTIN<strong className="text-danger">*</strong>
                     </label>
-                    <img
-                      className={`${styles.arrow} image_arrow img-fluid`}
+                    <Image
+                      className={`${styles.img_arrow} image_arrow img-fluid`}
+                      width='13px'
+                      height='8px'
                       src="/static/inputDropDown.svg"
                       alt="Search"
                     />
