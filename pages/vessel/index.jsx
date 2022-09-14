@@ -61,7 +61,7 @@ export default function Home() {
   const [shipmentTypeBulk, setShipmentTypeBulk] = useState('Bulk')
   const [vesselData, setVesselData] = useState()
   const [orderID, setOrderId] = useState('')
-
+const [isFieldInFocus, setIsFieldInFocus] = useState([{value:false}])
   console.log(containerExcel, "containerExcel")
   console.log(shipmentTypeBulk,'')
 
@@ -69,7 +69,11 @@ export default function Home() {
     setOrderId(_get(Vessel, 'data[0].order._id', ''))
 
     console.log(
-      Vessel?.data[0], "Vessel123")
+      _get(
+        Vessel,
+        "data[0].vessels",
+        []
+      ).length , "Vessel123")
 
     setCurrency(_get(
       Vessel,
@@ -87,13 +91,25 @@ export default function Home() {
       "data[0].currencyAllowed",
       false
     ))
-
+    if(_get(
+        Vessel,
+        "data[0].vessels",
+        []
+      ).length > 0) {
+      let temp=[]
+      list.forEach((val,index)=>{
+        temp.push({value:false})
+      })
+      console.log(temp,"temp555")
+      setIsFieldInFocus([...temp])
+    }
     setCompanyName(_get(Vessel, "data[0].company.companyName", ''))
     if (_get(
       Vessel,
       "data[0].vessels",
       []
     ).length <= 1) {
+      
       setShipmentTypeBulk(_get(
         Vessel,
         "data[0].order.termsheet.transactionDetails.shipmentType",
@@ -256,6 +272,7 @@ export default function Home() {
           }]
         },
       ])
+      
     } else {
       console.log("elelele")
       setList(_get(
@@ -263,10 +280,12 @@ export default function Home() {
         "data[0].vessels",
         []
       ))
+
     }
     // serVesselDataToAdd(Vessel)
   }
   console.log(list, "besslist")
+
 
   const onAddVessel = () => {
     console.log(VesselToAdd, "THIS IS VESSEL TO ADD")
@@ -315,6 +334,7 @@ export default function Home() {
         }]
       },
     ])
+    setIsFieldInFocus([...isFieldInFocus,{value:false}])
   }
   console.log(list, "874")
 
@@ -494,7 +514,24 @@ export default function Home() {
     setList(tempArr)
 
   }
-
+ const setOnFocus=(index)=> {
+  let temp=[...isFieldInFocus]
+  temp.forEach((val,i)=>{
+    if(i==index){
+      val.value=true
+    }
+  })
+  setIsFieldInFocus([...temp])
+ }
+ const setOnBlur=(index)=> {
+  let temp=[...isFieldInFocus]
+  temp.forEach((val,i)=>{
+    if(i==index){
+      val.value=false
+    }
+  })
+  setIsFieldInFocus([...temp])
+ }
 
 
   const uploadDocHandler = async (e) => {
@@ -854,6 +891,9 @@ const handleExcelClose=()=>{
         currency={currency}
         dateStartFrom={dateStartFrom}
         handleExcelClose={handleExcelClose}
+        isFieldInFocus={isFieldInFocus}
+        setOnFocus={setOnFocus}
+        setOnBlur={setOnBlur}
       />
       <div className="mt-5">
         <VesselSaveBar handleSave={onSaveHandler} rightBtn="Submit" rightBtnClick={onSubmitHanler} />

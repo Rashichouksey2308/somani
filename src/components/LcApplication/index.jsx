@@ -650,12 +650,14 @@ function Index({
                         onChange={(e) => addComment(e.target.value)}
                         value={currentComment}
                       />
-                      <img
+                      <div className="d-flex justify-content-between align-items-center">
+                         <img
                         className="img-fluid ml-4"
                         src="/static/add-btn.svg"
                         alt="add button"
                         onClick={() => addDocArr()}
                       />
+                      </div>
                     </div>
                     {lcDocuments?.map((comment, index) => (
                       <div
@@ -713,12 +715,14 @@ function Index({
                         onChange={(e) => addConditionComment(e.target.value)}
                         value={currentComment2}
                       />
-                      <img
+                     <div className="d-flex justify-content-between align-items-center">
+                       <img
                         className="img-fluid ml-4"
                         src="/static/add-btn.svg"
                         alt="add button"
                         onClick={() => addConditionArr()}
                       />
+                     </div>
                     </div>
                     {lcComments?.map((comment, index) => (
                       <div
