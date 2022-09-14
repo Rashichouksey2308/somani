@@ -116,15 +116,24 @@ const index = ({
   console.log(keyNameList, 'THIS IS DEBT')
 
   const handleDebtChange = (name, value, index) => {
-    console.log(name, value, index, 'debtData123')
     let tempArr = debtData
+    // if (name === 'primaryBank') {
+    //   tempArr.forEach((val, i) => {
+    //     if (i !== index) {
+    //       val[name] = false
+    //     }
+    //   })
+    
+    // }
+    console.log(name, value, index, 'tempArr123')
+
     tempArr.forEach((val, i) => {
       if (i == index) {
         val[name] = value
       }
     })
     console.log(tempArr, 'tempArr')
-    setDebtData(tempArr)
+    setDebtData([...tempArr])
   }
   console.log()
 
@@ -579,8 +588,8 @@ const index = ({
                     defaultValue={
                       creditDetail
                         ? creditDetail?.existingSuppliers?.map((e) => {
-                            return `${e}`
-                          })
+                          return `${e}`
+                        })
                         : ''
                     }
                     onBlur={(e) => {
@@ -608,7 +617,7 @@ const index = ({
                     onChange={(e) => {
                       saveProductData(e.target.name, e.target.value)
                     }}
-           
+
                   >
                     <option
                       disabled value=''
@@ -623,26 +632,26 @@ const index = ({
                   <label className={`${styles.label_heading} label_heading`}>
                     Commodity Contribution Senstivity
                     <strong className="text-danger">*</strong>
-                   
+
                   </label>
-                 
+
                   <img
                     className={`${styles.arrow} image_arrow img-fluid`}
                     src="/static/inputDropDown.svg"
                     alt="Search"
                   />
-                  
+
                 </div>
                 <div className={`${styles.tooltip} `}>
-                    <img
-                      //style={{marginLeft:'300px', marginTop:'-140px' , marginRight:'50px' }}
-                      className={`${styles.info_circle} img-fluid`}
-                      src="/static/info-circle.svg"
-                    />
-                   
-                    <div className={`${styles.tooltiptext}`}>Usage of commodity in production of end product</div>
-                   
-                    </div>
+                  <img
+                    //style={{marginLeft:'300px', marginTop:'-140px' , marginRight:'50px' }}
+                    className={`${styles.info_circle} img-fluid`}
+                    src="/static/info-circle.svg"
+                  />
+
+                  <div className={`${styles.tooltiptext}`}>Usage of commodity in production of end product</div>
+
+                </div>
               </div>
 
               <div className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -941,7 +950,7 @@ const index = ({
                   }}
                   value={
                     isFieldInFocus.commodityOfTotalTrade ?
-                    supplierCred?.commodityOfTotalTrade:
+                      supplierCred?.commodityOfTotalTrade :
                       Number(supplierCred?.commodityOfTotalTrade)?.toLocaleString() + ' %'}
                   // value={addPrefixOrSuffix(
                   //   supplierCred?.commodityOfTotalTrade,
@@ -956,19 +965,19 @@ const index = ({
                 <label className={`${styles.label_heading} label_heading`}>
                   Commodity to Total Trade % -24M
                   <strong className="text-danger">*</strong>
-                 
+
                 </label>
                 <div className={`${styles.tooltip} `}>
-                    <img
-                   // style={{marginLeft:'300px', marginTop:'-140px' , marginRight:'50px' }}
-                       className={`${styles.info_circle} img-fluid`}
-                      src="/static/info-circle.svg"
-                    />
-                   
-                    <div className={`${styles.tooltiptext}`}>Usage of commodity in production of end product</div>
-                 
-                    </div>
-               
+                  <img
+                    // style={{marginLeft:'300px', marginTop:'-140px' , marginRight:'50px' }}
+                    className={`${styles.info_circle} img-fluid`}
+                    src="/static/info-circle.svg"
+                  />
+
+                  <div className={`${styles.tooltiptext}`}>Usage of commodity in production of end product</div>
+
+                </div>
+
               </div>
               <div className={`${styles.form_group} col-12 mt-4`}>
                 <textarea
@@ -1126,7 +1135,7 @@ const index = ({
                             className="input"
                             defaultValue={person.contact.number}
                             name="contact.number"
-                            onChange={(e)=>{handlePersonChange(e,index)}}
+                            onChange={(e) => { handlePersonChange(e, index) }}
                             onBlur={(e) => {
                               if (phoneValidation(e.target.value)) {
                                 handlePersonChange(e, index)
@@ -1949,7 +1958,7 @@ const index = ({
                             }
                             className={`${styles.checkBox} `}
                             type="checkbox"
-                            defaultChecked={profile?.primaryBank ? true : false}
+                            checked={profile?.primaryBank ? true : false}
                             disabled={!profile.actions}
                             style={{ marginTop: '12px' }}
                           />
@@ -1963,17 +1972,17 @@ const index = ({
                                 index,
                               )
                             }
-                              // value={profile?.bankName}
-                              name="bankName"
-                              className={`${styles.dropDown} heading input`}
-                              disabled={!profile.actions}
-                            >
-                              <option disabled>Select an option</option>
-                              {FilterUniqueBank().map((item) => (
-                                <option value={item}>{item}</option>
-                              ))}
-                            </select>
-                            {/* <input
+                            // value={profile?.bankName}
+                            name="bankName"
+                            className={`${styles.dropDown} heading input`}
+                            disabled={!profile.actions}
+                          >
+                            <option disabled>Select an option</option>
+                            {FilterUniqueBank().map((item) => (
+                              <option value={item}>{item}</option>
+                            ))}
+                          </select>
+                          {/* <input
                             name="bankName"
                             className="input"
                             disabled={!profile.actions}
@@ -1986,106 +1995,106 @@ const index = ({
                               )
                             }
                           /> */}
-                          </td>
-                          <td>
-                            <select
-                              onChange={(e) =>
-                                handleDebtChange(
-                                  e.target.name,
-                                  e.target.value,
-                                  index,
-                                )
-                              }
-                              // value={profile?.limitType}
-                              name="limitType"
-                              className={`${styles.dropDown} heading input`}
-                              disabled={!profile.actions}
-                            >
-                              <option disabled>Select an option</option>
-                              <option value="Cash Credit">Cash Credit</option>
-                              <option value="Bank Guarantee">
-                                Bank Guarantee
-                              </option>
-                              <option value="Post Ship Credit">
-                                Post Ship Credit
-                              </option>
-                              <option value="LC Limits">LC Limits</option>
-                              <option value="Buyers Credit">Buyers Credit</option>
-                              <option value="Term Loan">Term Loan</option>
-                              <option value="Packing Credit">
-                                Packing Credit
-                              </option>
-                            </select>
-                          </td>
+                        </td>
+                        <td>
+                          <select
+                            onChange={(e) =>
+                              handleDebtChange(
+                                e.target.name,
+                                e.target.value,
+                                index,
+                              )
+                            }
+                            // value={profile?.limitType}
+                            name="limitType"
+                            className={`${styles.dropDown} heading input`}
+                            disabled={!profile.actions}
+                          >
+                            <option disabled>Select an option</option>
+                            <option value="Cash Credit">Cash Credit</option>
+                            <option value="Bank Guarantee">
+                              Bank Guarantee
+                            </option>
+                            <option value="Post Ship Credit">
+                              Post Ship Credit
+                            </option>
+                            <option value="LC Limits">LC Limits</option>
+                            <option value="Buyers Credit">Buyers Credit</option>
+                            <option value="Term Loan">Term Loan</option>
+                            <option value="Packing Credit">
+                              Packing Credit
+                            </option>
+                          </select>
+                        </td>
 
-                          <td>
-                            <input
-                              className="input"
-                              name="limit"
-                              disabled={!profile.actions}
-                              onChange={(e) =>
-                                handleDebtChange(
-                                  e.target.name,
-                                  e.target.value,
-                                  index,
-                                )
-                              }
-                              // value={profile?.limit}
-                            // readOnly={!saveTable}
-                            />
-                          </td>
+                        <td>
+                          <input
+                            className="input"
+                            name="limit"
+                            disabled={!profile.actions}
+                            onChange={(e) =>
+                              handleDebtChange(
+                                e.target.name,
+                                e.target.value,
+                                index,
+                              )
+                            }
+                          // value={profile?.limit}
+                          // readOnly={!saveTable}
+                          />
+                        </td>
 
-                          <td>
-                            <select
-                              onChange={(e) =>
-                                handleDebtChange(
-                                  e.target.name,
-                                  e.target.value,
-                                  index,
-                                )
-                              }
-                              name="conduct"
-                              className={`${styles.dropDown} heading input`}
-                              disabled={!profile.actions}
-                            >
-                              <option>{profile.conduct}</option>
-                              <option value="Good">Good</option>
-                              <option value="Satisfactory">Satisfactory</option>
-                              <option value="Average">Average</option>
-                              <option value="Poor">Poor</option>
-                            </select>
-                          </td>
-                          <td>
-                            <div>
-                              {!profile.actions ? (
-                                <img
-                                  src="/static/mode_edit.svg"
-                                  className={`${styles.edit_image} mr-3`}
-                                  onClick={() => {
-                                    setActions(index, true)
-                                  }}
-                                />
-                              ) : (
-                                <img
-                                  src="/static/save-3.svg"
-                                  className={`${styles.edit_image} mr-3`}
-                                  alt="save"
-                                  onClick={(e) => {
-                                    setActions(index, false)
-                                  }}
-                                />
-                              )}
+                        <td>
+                          <select
+                            onChange={(e) =>
+                              handleDebtChange(
+                                e.target.name,
+                                e.target.value,
+                                index,
+                              )
+                            }
+                            name="conduct"
+                            className={`${styles.dropDown} heading input`}
+                            disabled={!profile.actions}
+                          >
+                            <option>{profile.conduct}</option>
+                            <option value="Good">Good</option>
+                            <option value="Satisfactory">Satisfactory</option>
+                            <option value="Average">Average</option>
+                            <option value="Poor">Poor</option>
+                          </select>
+                        </td>
+                        <td>
+                          <div>
+                            {!profile.actions ? (
                               <img
-                                src="/static/delete 2.svg"
-                                className={`${styles.delete_image}`}
+                                src="/static/mode_edit.svg"
+                                className={`${styles.edit_image} mr-3`}
                                 onClick={() => {
-                                  handleRemoveRow(index)
+                                  setActions(index, true)
                                 }}
-                                alt="delete"
                               />
-                            </div>
-                          </td>
-                        </tr>
+                            ) : (
+                              <img
+                                src="/static/save-3.svg"
+                                className={`${styles.edit_image} mr-3`}
+                                alt="save"
+                                onClick={(e) => {
+                                  setActions(index, false)
+                                }}
+                              />
+                            )}
+                            <img
+                              src="/static/delete 2.svg"
+                              className={`${styles.delete_image}`}
+                              onClick={() => {
+                                handleRemoveRow(index)
+                              }}
+                              alt="delete"
+                            />
+                          </div>
+                        </td>
+                      </tr>
                     ))}
                   </tbody>
                 </table>
