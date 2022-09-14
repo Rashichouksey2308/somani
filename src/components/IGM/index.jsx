@@ -673,6 +673,9 @@ export default function Index({
                           className={`${styles.label_heading} label_heading`}
                         >
                           Vessel Name
+                          {shipmentTypeBulk ?  <strong className="text-danger">*</strong> 
+                          : ''
+                            }
                         </label>
                         <img
                           className={`${styles.arrow} image_arrow img-fluid`}
