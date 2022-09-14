@@ -526,7 +526,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
                                     e.target.value,
                                   )
                                 }}
-                                value={quotationData.lossPayee}
+                                value={quotationData?.lossPayee ? quotationData?.lossPayee : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank}
                                 className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                               >
                                 <option disabled selected >Select an option</option>
@@ -791,7 +791,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                 value={quotationData?.lossPayee ? quotationData?.lossPayee : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank}
                               >
-                                <option selected value="">Select an option</option>
+                                <option selected disabled>Select an option</option>
                                 {/* <option selected>
                                   {insuranceData?.quotationRequest?.lossPayee}
                                 </option> */}

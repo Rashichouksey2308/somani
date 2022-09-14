@@ -961,7 +961,7 @@ export default function Index({
                             <strong className="text-danger">*</strong>
                           </h5>
                           <div className="row mt-n4">
-                            {bol?.containerDetails?.containerDoc === null ? (
+                            {bol?.containerDetails?.containerDoc !== null ? (
                               <div
                                 className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                               >
@@ -1370,12 +1370,12 @@ export default function Index({
                   </div>
 
                   <div className={`${styles.bill_landing}  border_color mt-4`}>
-                    {/* <div className={`${styles.vessel_card} mt-3`}>
+                    <div className={`${styles.vessel_card} mt-3`}>
                       <div className="row">
                         <div
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                         >
-                          {/* <div className="d-flex">
+                          <div className="d-flex">
                             <DatePicker
                             
                                selected={bol?.blSurrenderDate==null?"":moment(bol?.blSurrenderDate).toDate()}
@@ -1405,10 +1405,10 @@ export default function Index({
                             >
                               BL Surrendor Date
                             </label>
-                          </div> */}
-                    {/* </div>
+                          </div>
+                    </div>
                       </div>
-                    </div> */}
+                    </div>
                     <div className={styles.table_scroll_outer}>
                       <div className={styles.table_scroll_inner}>
                         <table

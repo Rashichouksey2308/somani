@@ -1052,7 +1052,8 @@
   margin-top: 15px;
   width: 23px;
   height: 26px;
-  pointer-events: none;
+  // pointer-events: none;
+  cursor: pointer;
 }
 .arrow {
   margin-left: -40px;
@@ -1112,7 +1113,7 @@
     text-overflow: ellipsis;
   }
   img {
-    width: auto;
-    height: auto;
+    width: auto !important;
+    height: auto !important;
   }
 }

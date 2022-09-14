@@ -107,7 +107,7 @@ function Index(props) {
 
           terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed == "Yes" ? "Full" : "Partial"}`,
           addComm: data?.additionalComments?.comments,
-          spec: data?.productSpecifications?.comments,
+          spec: data?.productSpecifications?.specificationTable,
           unitOfGrade: data?.order?.unitOfGrade,
           unitOfQuantity: data?.order?.unitOfQuantity,
           unitOfValue: data?.order?.unitOfValue,
@@ -122,6 +122,7 @@ function Index(props) {
   }
 
   return (
+    <>
     <div className={`${styles.root}`}>
 
       <div className={`${styles.content} card`}>
@@ -152,6 +153,7 @@ function Index(props) {
 
       </div>
     </div>
+</>
   )
 }
 
@@ -604,16 +606,33 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Specification</Col>
             <Col md={7} className={styles.right}>
-
               <>
-                <ol type="1">
-                  {data?.spec?.length > 0 &&
-                    data?.spec?.map((val, index) => {
-                      return (<li key={index}>{val}</li>)
-                    })
-                  }
-                </ol>
+               <div className={styles.tableWrapper}>
+            <div className={styles.table_scroll_outer}>
+              <div className={styles.table_scroll_inner}>                
+                <table>
+                  <tr>
+                    {data?.spec &&
+                      data?.spec.length > 0 &&
+                      Object.keys(data?.spec[0]).map((val, index) => (
+                        <th key={index}>{val}</th>
+                      ))}
+                  </tr>
+                  {data?.spec &&
+                    data?.spec.length > 0 &&
+                    data?.spec.map((item, index) => (
+                      <tr>
+                        {Object.values(item).map((value, id) => (
+                          <td key={id}>{value}</td>
+                        ))}
+                      </tr>
+                    ))}
+                </table>
+              </div>
+            </div>
+          </div>
               </>
+             
             </Col>
           </Row>
 
@@ -623,9 +642,9 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
         <div className={`row`}>
           <Col md={6} >
             <p className="text_sales m-0">Seller</p>
-            <Col md={6} className={`d-flex justify-content-around mt-5`}>
+            {/* <Col md={6} className={`d-flex justify-content-around mt-5`}>
               <GrowInput></GrowInput>
-            </Col>
+            </Col> */}
 
             {
               preview ?
@@ -648,9 +667,9 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           </Col>
           <Col md={6} >
             <p className="text_sales m-0">Buyer</p>
-            <Col md={6} className={`d-flex justify-content-around mt-5`}>
+            {/* <Col md={6} className={`d-flex justify-content-around mt-5`}>
               <GrowInput></GrowInput>
-            </Col>
+            </Col> */}
             {
               preview ?
                 <><span> {data?.sellerSignature}</span></>

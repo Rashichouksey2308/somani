@@ -39,6 +39,12 @@ function Index(props) {
           "city": ""
       }
   )
+    const [options,setOptions]=useState([
+  "Bhawana Jain","Vipin Kumar","Devesh Jain","Fatima Yannoulis"
+])
+let op=[
+  "Bhawana Jain","Vipin Kumar","Devesh Jain","Fatima Yannoulis"
+]
    const [docList,setDocList]=useState([])
   const [doc,setdoc]=useState({attachDoc:""})
   const [addressType,setAddressType]=useState("Registered")
@@ -90,6 +96,27 @@ const cancelAddress=()=>{
         setList(savedData?.authorisedSignatoryDetails!==undefined?savedData.authorisedSignatoryDetails:[])
         setAddressList(savedData.addresses!==undefined?savedData.addresses:[])
         setCmaState(cma)
+              let tempArr=savedData?.authorisedSignatoryDetails
+          let optionArray=[]
+          console.log(tempArr,"tempArr")
+          tempArr.forEach((val,index)=>{
+         
+          if(tempArr?.length>0){
+               if(val.name=="Bhawana Jain"){
+             setOptions(["Vipin Kumar","Devesh Jain","Fatima Yannoulis"])
+          }
+          if(val.name=="Vipin Kumar"){
+             setOptions(["Bhawana Jain","Devesh Jain","Fatima Yannoulis"])
+          }
+          if(val.name=="Devesh Jain"){
+             setOptions(["Vipin Kumar","Bhawana Jain","Fatima Yannoulis"])
+          }
+          if(val.name=="Fatima Yannoulis"){
+             setOptions(["Vipin Kumar","Bhawana Jain","Devesh Jain"])
+          }
+          }
+
+          })
         
       }else{
          let cma = {
@@ -105,6 +132,27 @@ const cancelAddress=()=>{
         setList(props.data?.authorisedSignatoryDetails!==undefined?props.data?.authorisedSignatoryDetails:[])
         setAddressList(props.data?.addresses!==undefined?props.data?.addresses:[])
         setCmaState(cma)
+               let tempArr=props.data?.authorisedSignatoryDetails
+          let optionArray=[]
+          console.log(tempArr,"tempArr")
+          tempArr.forEach((val,index)=>{
+          val.actions = "true"
+          if(tempArr?.length>0){
+               if(val.name=="Bhawana Jain"){
+             setOptions(["Vipin Kumar","Devesh Jain","Fatima Yannoulis"])
+          }
+          if(val.name=="Vipin Kumar"){
+             setOptions(["Bhawana Jain","Devesh Jain","Fatima Yannoulis"])
+          }
+          if(val.name=="Devesh Jain"){
+             setOptions(["Vipin Kumar","Bhawana Jain","Fatima Yannoulis"])
+          }
+          if(val.name=="Fatima Yannoulis"){
+             setOptions(["Vipin Kumar","Bhawana Jain","Devesh Jain"])
+          }
+          }
+
+          })
         setAddressList([...addressList,{
               addressType: "Registered",
               fullAddress: "Embassy Chambers, 6th Floor, Plot No. 5, Road No. 3",
@@ -173,23 +221,28 @@ const cancelAddress=()=>{
     });
 
   }
-  const onEditRemove = (index) => {
+ const onEditRemove=(index,value)=>{
+    console.log(value,"value")
+
+      setList(prevState => {
+      const newState = prevState.map((obj ,i)=> {
+
+      if (i == index) {
+      return {...obj, actions: 'true'};
+      }
 
 
-    setList(prevState => {
-      const newState = prevState.map((obj, i) => {
-
-        if (i == index) {
-          return { ...obj, actions: 'true' };
-        }
-
-
-        return obj;
+      return obj;
       });
 
       return newState;
-    });
-
+      });
+      let temp=[...options]
+      var indexOption = temp.indexOf(value.name);
+      if (indexOption !== -1) {
+      temp.splice(indexOption, 1);
+      }
+      setOptions([...temp])
   }
  const addMoreRows=()=>{
 
@@ -200,13 +253,19 @@ const cancelAddress=()=>{
     }])
 
   }
-const handleRemove = (index) => {
-  docList.forEach((val,i)=>{
-      if(index==val.index){
-      setDocList([...docList.slice(0,i), ...docList.slice(i+1)])
-      }
-    })
-  setList([...list.slice(0, index), ...list.slice(index + 1)])
+const handleRemove = (index,val) => {
+docList.forEach((val,i)=>{
+    if(index==val.index){
+    setDocList([...docList.slice(0,i), ...docList.slice(i+1)])
+    }
+  })
+setList([...list.slice(0, index), ...list.slice(index + 1)])
+
+if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" ||val.name=="atima Yannoulis"  ){
+  let temp=[...options]
+  temp.push(val.name)
+  setOptions([...temp])
+}
 }
 
   const addDoc=(e,index)=>{
@@ -806,7 +865,7 @@ setEditAddress(
                           <td>{val.phoneNo}</td>
                           <td className={`d-flex`}>
                           <img className={`${styles.image} mr-3`} onClick={()=>(onEdit(index))} src="/static/mode_edit.svg" alt="edit"/>
-                          <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg" alt="delete"/>
+                          <img onClick={()=>(handleRemove(index,val))} src="/static/delete 2.svg" alt="delete"/>
                           </td>
 
                         </tr>
@@ -820,11 +879,11 @@ setEditAddress(
                             onChange={(e)=>{
                               handleChangeInput(e.target.name,e.target.value,index)
                             }}>
-                              <option>Select an option</option>
-                              <option value={"Bhawana Jain"}>{"Bhawana Jain"}</option>
-                              <option value={"Vipin Kumar"}>{"Vipin Kumar"}</option>
-                              <option value={"Devesh Jain"}>{"Devesh Jain"}</option>
-                              <option value={"Fatima Yannoulis"}>{"Fatima Yannoulis"}</option>
+                               <option>Select an option</option>
+                              {options.map((val,i)=>{
+                                return(<option value={val}>{val}</option>)
+                              })}
+                              
                               <option value={"addnew"}>{"Add New"}</option>
                             </select>
                             <img
@@ -885,7 +944,7 @@ setEditAddress(
                             <div
                               className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
                               onClick={()=>{
-                              onEditRemove(index)
+                              onEditRemove(index,val)
                               }}
                             >
                               <img className={`${styles.image} mr-3`} src="/static/save-3.svg" alt="save"/>
@@ -893,7 +952,7 @@ setEditAddress(
                             <div
                               className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center`}
                               onClick={()=>{
-                              handleRemove(index)
+                              handleRemove(index,val)
                               }}
                             >
                               <img src="/static/delete 2.svg" />

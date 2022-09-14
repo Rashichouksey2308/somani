@@ -470,6 +470,7 @@ export default function Index() {
                           <div className="d-flex">
                             <DateCalender
                               name="validityTo"
+                              startFrom={item?.validityFrom!=""&& moment(item.validityFrom).format('DD-MM-YYYY')}
                               defaultDate={item?.validityTo ?? ''}
                               // defaultDate={list?.validityTo}
                               saveDate={saveDate}

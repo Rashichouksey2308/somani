@@ -394,8 +394,8 @@
             text-overflow: ellipsis;
           }
           img {
-            width: auto;
-            height: auto;
+            width: auto !important;
+            height: auto !important;
           }
         }
         .label_heading {

@@ -158,16 +158,16 @@
       padding: 15px 15px !important;
     }
     .tableParent {
-      max-height: 300px;
+      // max-height: 300px;
       // display: inline-block;
-      overflow-y: auto;
-      overflow-x: auto;
+      // overflow-y: auto;
       border-radius: 6px;
       .table_scroll_outer {
         width: 100%;
         display: table;
         table-layout: fixed;
         .table_scroll_inner {
+          overflow-x: auto;
           display: table-cell;
           .table {
             th {

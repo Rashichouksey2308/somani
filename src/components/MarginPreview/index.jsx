@@ -80,7 +80,7 @@ function Index() {
               border="0"
             >
               <tr>
-                <td valign="top" align="left" width="33%">
+                <td valign="bottom" align="left" width="33%">
                   <span
                     style={{
                       fontSize: '20px',
@@ -138,7 +138,7 @@ function Index() {
                     MARGIN MONEY
                   </h2>
                 </td>
-                <td valign="top" align="right" width="33%">
+                <td valign="center" align="right" width="33%">
                   <span>
                     {' '}
                     <span></span>
@@ -1454,6 +1454,7 @@ function Index() {
         </tr>
       </table>
     )
+    // const doc = new jsPDF('p', 'pt', [1000, 1000])
     const doc = new jsPDF('p', 'pt', [1500, 1500])
     doc.html(ReactDOMServer.renderToString(element), {
       callback: function (doc) {
@@ -1486,7 +1487,7 @@ function Index() {
           className={`${styles.term_container} download-pdf-bg container-fluid`}
         >
           <Row>
-            <Col md={4} className={`${styles.left}`}>
+            <Col md={4} className={`${styles.left} align-self-end`}>
               <div>
                 <span className={`${styles.termSub_head} text-color`}>
                   Order ID:

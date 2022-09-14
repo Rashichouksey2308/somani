@@ -204,8 +204,8 @@ function Index({ TransitDetails }) {
             <span>DATE:</span>{' '}
             {moment(loi.loiIssueDate.toJSON().slice(0, 10).replace(/-/g, '/')).format("DD/MM/YYYY")}
           </div>
-        </div>
-        <span>Dear Sir, </span>
+        </div>        
+        <div className={`${styles.salutations}`}><div>Dear Sir, </div></div>
         <div className={`d-flex ${styles.salutations}`}>
           <span>Ship:</span>
           {'  '}
@@ -291,7 +291,7 @@ function Index({ TransitDetails }) {
             and consigned to <span className={styles.bold}>TO ORDER</span> for
             delivery at the port of{' '}
             <span className={styles.bold}>ANY PORT (S) IN INDIA </span> but the
-            bill of lading has not arrived and we,{' '}
+            Bills of Lading has not arrived and we,{' '}
             <span className={styles.bold}>
               {' '}
               EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR,
@@ -319,7 +319,7 @@ function Index({ TransitDetails }) {
               LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM,
               ANDHRA PRADESH – 530016, INDIA at VISAKHAPATNAM PORT (VSPL), INDIA
             </span>{' '}
-            without production of the original bill of lading.
+            without production of the original Bill(s) of Lading.
           </p>
 
           <div className={`${styles.list}`}>
@@ -388,15 +388,15 @@ function Index({ TransitDetails }) {
             </ol>
           </div>
         </div>
-        <div className={styles.footerSalutations}>
-          <p>Yours faithfully</p>
-          <p>For and on behalf of </p>
-          <p className={styles.bold}>EMERGENT INDUSTRIAL SOLUTIONS LIMITED</p>
-          <p>The Requestor</p>
+        <div className={`${styles.footerSalutations} ${styles.salutations}`}>
+          <div style={{fontWeight:'normal'}}>Yours faithfully</div>
+          <div style={{fontWeight:'normal'}}>For and on behalf of </div>
+          <div className={styles.bold}>EMERGENT INDUSTRIAL SOLUTIONS LIMITED</div>
+          <div style={{fontWeight:'normal'}}>The Requestor</div>
           <div className={`${styles.athorised}`}>
-            <p>Authorised Signatory</p>
+            <div style={{fontWeight:'normal'}}>Authorised Signatory</div>
 
-            <p>
+            <div>
               Name:{' '}
               <select
               value= {loi.authorizedSignatory.name}
@@ -414,7 +414,7 @@ function Index({ TransitDetails }) {
                 src="/static/inputDropDown.svg"
                 alt="Search"
               />
-            </p>
+            </div>
 
             <div>
               Designation:{' '}

@@ -287,7 +287,7 @@ function Index() {
 
     //  ];
 
-    const doc = new jsPDF('p', 'pt', [1000, 1000])
+    const doc = new jsPDF('p', 'pt', [1500, 1500])
     doc.html(
       ReactDOMServer.renderToString(
         toPrintPdf(termsheet, termsheetDetails, additionalComments,otherTermConditions),
@@ -1425,7 +1425,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
   console.log(termsheetDetails, 'ldwfsdf')
   return (
     <>
-      <table width="1000px" cellPadding="0" cellSpacing="0" border="0">
+      <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
         <tr>
           <td valign="top">
             <table
@@ -1589,7 +1589,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               float: 'left',
-                              float: 'left',
                               padding: '23px 15px 11px 35px',
                               marginBottom: '0',
                             }}
@@ -1610,7 +1609,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                               fontWeight: '500',
                               float: 'left',
                               padding: '23px 15px 11px 24px',
-                              marginBottom: '0',
+                              marginBottom: '0',  
                             }}
                           >
                             {termsheetDetails?.commodityDetails?.commodity}
