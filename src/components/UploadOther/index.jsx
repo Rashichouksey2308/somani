@@ -13,7 +13,6 @@ import { ViewDocument } from 'redux/ViewDoc/action'
 import moment from 'moment'
 import { toast } from 'react-toastify'
 
-
 const Index = ({ orderid, module, isDocumentName }) => {
   const dispatch = useDispatch()
 
@@ -29,9 +28,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
     name: '',
     module: module,
   })
-  const [moduleSelected, setModuleSelected] = useState(
-    module
-  )
+  const [moduleSelected, setModuleSelected] = useState(module)
 
   const [filteredDoc, setFilteredDoc] = useState([])
   const [currentDoc, setCurrentDoc] = useState('')
@@ -109,7 +106,6 @@ const Index = ({ orderid, module, isDocumentName }) => {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     } else {
-
       const fd = new FormData()
       console.log(newDoc, newDoc.document, 'pdfFile', newDoc.module)
       fd.append('document', newDoc.document)
@@ -126,7 +122,6 @@ const Index = ({ orderid, module, isDocumentName }) => {
         module: module,
       })
     }
-
   }
   const [filterValue, setFilterValue] = useState('')
   const filterDocBySearch = (val) => {
@@ -174,10 +169,10 @@ const Index = ({ orderid, module, isDocumentName }) => {
                     alt="Browse"
                   />
                   {newDoc?.document?.name ? (
-                    <div className={`${styles.certificate} d-flex justify-content-between`}>
-                      <span>
-                        {newDoc?.document?.name}
-                      </span>
+                    <div
+                      className={`${styles.certificate} d-flex justify-content-between`}
+                    >
+                      <span>{newDoc?.document?.name}</span>
                       <img
                         className={`${styles.close_image} mr-2`}
                         src="/static/close.svg"
@@ -212,11 +207,13 @@ const Index = ({ orderid, module, isDocumentName }) => {
                       id="name"
                       onChange={(e) => handleNewDocModule(e)}
                     >
-                      <option disabled selected>Select an option </option>
+                      {/* <option disabled selected>Select an option </option> */}
                       {module === 'LeadOnboarding&OrderApproval' ? (
                         <>
                           {' '}
-                          <option>Select an option</option>
+                          <option value='' disabled>
+                            Select an option
+                          </option>
                           <option value="CertificateofIncorporation">
                             Certificate of Incorporation
                           </option>
@@ -239,6 +236,9 @@ const Index = ({ orderid, module, isDocumentName }) => {
                         </>
                       ) : module === 'Loading-Transit-Unloading' ? (
                         <>
+                          <option value='' disabled>
+                            Select an option
+                          </option>
                           <option value="CertificateOfOrigin">
                             Certificate of Origin{' '}
                           </option>
@@ -280,6 +280,10 @@ const Index = ({ orderid, module, isDocumentName }) => {
                         </>
                       ) : module === 'Agreements&Insurance&LC&Opening' ? (
                         <>
+                          <option value='' disabled>
+                            Select an option
+                          </option>
+
                           <option value="LcDraft">LC Draft </option>
 
                           <option value="lCAmmendmentDraft">
@@ -313,6 +317,10 @@ const Index = ({ orderid, module, isDocumentName }) => {
                         </>
                       ) : module === 'CustomClearanceAndWarehousing' ? (
                         <>
+                          <option value='' disabled>
+                            Select an option
+                          </option>
+
                           <option value="BOEProvisional">
                             {' '}
                             BOE Provisional
@@ -352,6 +360,10 @@ const Index = ({ orderid, module, isDocumentName }) => {
                         </>
                       ) : (
                         <>
+                          <option value='' disabled>
+                            Select an option
+                          </option>
+
                           <option value="RR"> RR</option>
                           <option value="eWay Bill"> eWay Bill</option>
                         </>
@@ -406,7 +418,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                     onChange={(e) => setModuleSelected(e.target.value)}
                     className={`${styles.dropDown} ${styles.customSelect} input form-control`}
                   >
-                    <option>Select an option</option>
+                    <option selected disabled>Select an option</option>
                     <option value="LeadOnboarding&OrderApproval">
                       Lead Onboarding &amp; Order Approval
                     </option>
