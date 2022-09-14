@@ -25,6 +25,8 @@ const Index = ({
 
   const [editInput, setEditInput] = useState(true)
 
+  let d = new Date()
+
   // const [documentsDropDownFilter, setDocumentsDropDownFilter] = useState(
   //   'LeadOnboarding&OrderApproval',
   // )
@@ -35,7 +37,7 @@ const Index = ({
   //   sessionStorage.setItem('docId', orderId)
   //   dispatch(GetDocuments(`?order=${orderId}`))
   // }, [dispatch, orderId])
-
+ console.log(lcDoc,"lcDoc")
   const [filteredDoc, setFilteredDoc] = useState([])
   // console.log(filteredDoc,'filtered doc')
   const [moduleSelected, setModuleSelected] = useState(
@@ -103,6 +105,48 @@ const Index = ({
       })
     }
   }
+  //  const uploadDoc = async (e) => {
+  //   console.log(e, 'response data')
+  //   let fd = new FormData()
+  //   fd.append('document', e.target.files[0])
+  //   // dispatch(UploadCustomDoc(fd))
+  //   console.log(customData, 'customData')
+
+  //   let cookie = Cookies.get('SOMANI')
+  //   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+  //   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  //   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  //   try {
+  //     let response = await Axios.post(
+  //       `${API.corebaseUrl}${API.customClearanceDoc}`,
+  //       fd,
+  //       {
+  //         headers: headers,
+  //       },
+  //     )
+  //     console.log(response.data.data, 'dischargeOfCargo2')
+  //     if (response.data.code === 200) {
+  //       // dispatch(getCustomClearanceSuccess(response.data.data))
+
+  //       return response.data.data
+  //       // let toastMessage = 'DOCUMENT UPDATED'
+  //       // if (!toast.isActive(toastMessage.toUpperCase())) {
+  //       //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
+  //     } else {
+  //       // dispatch(getCustomClearanceFailed(response.data.data))
+  //       // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+  //       // if (!toast.isActive(toastMessage.toUpperCase())) {
+  //       //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
+  //     }
+  //   } catch (error) {
+  //     // dispatch(getCustomClearanceFailed())
+  //     // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
+  //     // if (!toast.isActive(toastMessage.toUpperCase())) {
+  //     //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+  //     // }
+  //   }
+  // }
 
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
@@ -206,7 +250,7 @@ const Index = ({
                     </td>
                     <td className={styles.doc_row}>
                       {lcDoc?.lcDraftDoc?.lastModifiedDate
-                        ? moment(lcDoc.lcDraftDoc.lastModifiedDate).format(
+                        ? moment(d).format(
                             'DD-MM-YYYY,HH:mm A',
                           )
                         : ''}
@@ -484,14 +528,6 @@ const Index = ({
                           <option value="vesselCertificateContainerList">
                             {' '}
                             Vessel Certificate, Container List
-                          </option>
-                          <option value="policyDocumentMarine">
-                            {' '}
-                            Policy Document - Marine
-                          </option>
-                          <option value="policyDocumentStorage">
-                            {' '}
-                            Policy Document - Storage
                           </option>
                           <option value="policyDocumentMarine">
                             {' '}

@@ -630,7 +630,7 @@ const Index = ({
                     <option disabled selected>Select an option</option>
                     <option value="Load Port">Load Port</option>
                     <option value="Discharge Port">Discharge Port</option>
-                    <option value="Both">Lord Port and Discharge Port</option>
+                    <option value="Both">Both Lord Port and Discharge Port</option>
                   </select>
 
                   <img
