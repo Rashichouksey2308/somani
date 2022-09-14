@@ -10,6 +10,13 @@ export default {
   login: '/api/auth/login',
   logout: '/api/auth/logout',
 
+  //analytics
+  orderSummary: '/api/core/analytics/order-summary',
+  leadSummary: '/api/core/analytics/lead-summary',
+  commoditySummary: '/api/core/analytics/commodity-summary',
+  originSummary: '/api/core/analytics/origin-country-summary',
+  customerSummary: '/api/core/analytics/customer-summary',
+  exposureSummary: '/api/core/analytics/exposure-summary',
   //  leads
   registerCompany: '/api/core/lead/company-details',
   getBuyers: '/api/core/lead/get-all-leads',

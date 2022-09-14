@@ -83,7 +83,7 @@ function Index({ auditorsDetails }) {
                     >
                       {latestYearData?.nameOfAuditor?.trim() ===
                       previousYearData?.nameOfAuditor?.trim()
-                        ? ''
+                        ? 'No'
                         : 'Yes'}
                       {`${
                         latestYearData?.nameOfAuditor !==
@@ -104,7 +104,7 @@ function Index({ auditorsDetails }) {
                     >
                       {previousYearData?.nameOfAuditor ===
                       lastYearData?.nameOfAuditor
-                        ? ''
+                       ? 'No'
                         : 'Yes'}
                       {` ${
                         previousYearData?.nameOfAuditor !==
@@ -125,7 +125,7 @@ function Index({ auditorsDetails }) {
                     >
                       {previousYearData?.nameOfAuditor ===
                       previousYearData?.nameOfAuditor
-                        ? ''
+                        ? 'No'
                         : 'Yes'}
                       {`${
                         previousYearData?.nameOfAuditor !==
