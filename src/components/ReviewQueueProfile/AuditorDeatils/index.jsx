@@ -558,7 +558,7 @@ function Index({ directorData }) {
                                       value="Current"
                                       className="form-check-input"
                                       type="radio"
-                                      name="flexRadioDefault"
+                                      name="flexRadioDefault1"
                                       id="flexRadioDefault1"
                                       checked={otherAssociates === 'Current'}
                                     />
@@ -578,7 +578,7 @@ function Index({ directorData }) {
                                       value="Former"
                                       className="form-check-input"
                                       type="radio"
-                                      name="flexRadioDefault"
+                                      name="flexRadioDefault2"
                                       id="flexRadioDefault2"
                                       checked={otherAssociates === 'Former'}
                                     />
@@ -598,7 +598,7 @@ function Index({ directorData }) {
                                       value="Independent"
                                       className="form-check-input"
                                       type="radio"
-                                      name="flexRadioDefault"
+                                      name="flexRadioDefault3"
                                       id="flexRadioDefault3"
                                       checked={
                                         otherAssociates === 'Independent'
@@ -620,7 +620,7 @@ function Index({ directorData }) {
                                       value="Additional"
                                       className="form-check-input"
                                       type="radio"
-                                      name="flexRadioDefault"
+                                      name="flexRadioDefault4"
                                       id="flexRadioDefault4"
                                       checked={otherAssociates === 'Additional'}
                                     />
@@ -639,7 +639,7 @@ function Index({ directorData }) {
                                       value="Nominated"
                                       className="form-check-input"
                                       type="radio"
-                                      name="flexRadioDefault"
+                                      name="flexRadioDefault5"
                                       id="flexRadioDefault5"
                                       checked={otherAssociates === 'Nominated'}
                                     />

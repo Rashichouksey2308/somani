@@ -192,7 +192,7 @@ function Index() {
               >
                 <span>
                   Showing Page {currentPage + 1} out of{' '}
-                  {Math.ceil(allBuyerList?.data?.totalCount / 7)}
+                  {Math.ceil(allBuyerList?.data?.totalCount / 7)==0?1:Math.ceil(allBuyerList?.data?.totalCount / 7)}
                 </span>
                 <a
                   onClick={() => {

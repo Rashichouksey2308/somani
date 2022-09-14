@@ -62,7 +62,7 @@ function Index(props) {
     {name:"Bhawana Jain",designation:"Vice President (Finance & Accounts)",email:"bhawanajain@somanigroup.com",phoneNo:""},
     {name:"Vipin Kumar",designation:"Manager Accounts",email:"vipinrajput@somanigroup.com",phoneNo:""},
     {name:"Devesh Jain",designation:"Director",email:"devesh@indointertrade.ch",phoneNo:""},
-    {name:"Fatima Yannoulis ",designation:"Chief Financial Officer",email:"fatima@indointertrade.ch",phoneNo:""}
+    {name:"Fatima Yannoulis",designation:"Chief Financial Officer",email:"fatima@indointertrade.ch",phoneNo:""}
     ]
 const cancelAddress=()=>{
  setNewAddress({
