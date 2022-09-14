@@ -13,7 +13,14 @@ import { ViewDocument } from 'redux/ViewDoc/action'
 import { toast } from 'react-toastify'
 import moment from 'moment'
 
-const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc }) => {
+const Index = ({
+  orderId,
+  uploadDocument1,
+  module,
+  documentName,
+  lcDoc,
+  setLcDoc,
+}) => {
   const dispatch = useDispatch()
 
   const [editInput, setEditInput] = useState(true)
@@ -95,8 +102,6 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
         module: module ? module : 'Agreements&Insurance&LC&Opening',
       })
     }
-
-
   }
 
   const handleDropdown = (e) => {
@@ -190,9 +195,12 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                       />
                     </td>
                     <td className={styles.doc_row}>
-                      {lcDoc?.lcDraftDoc?.lastModifiedDate ?
-                      moment(lcDoc.lcDraftDoc.lastModifiedDate).format("DD-MM-YYYY,HH:mm A")
-                      :""}</td>
+                      {lcDoc?.lcDraftDoc?.lastModifiedDate
+                        ? moment(lcDoc.lcDraftDoc.lastModifiedDate).format(
+                            'DD-MM-YYYY,HH:mm A',
+                          )
+                        : ''}
+                    </td>
                     <td colSpan={2}>
                       {lcDoc && lcDoc.lcDraftDoc === null ? (
                         <>
@@ -220,12 +228,16 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                     </div> */}
                         </>
                       ) : (
-                        <div className={`${styles.certificate} d-flex align-items-center justify-content-between`}>
+                        <div
+                          className={`${styles.certificate} d-flex align-items-center justify-content-between`}
+                        >
                           <span>{lcDoc?.lcDraftDoc?.name}</span>
                           <img
-                            onClick={(e) => setLcDoc({
-                              lcDraftDoc: null,
-                            })}
+                            onClick={(e) =>
+                              setLcDoc({
+                                lcDraftDoc: null,
+                              })
+                            }
                             className={`${styles.close_image} mr-2`}
                             src="/static/close.svg"
                             alt="Close"
@@ -252,11 +264,11 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                     alt="Browse"
                     onChange={(e) => uploadDocument2(e)}
                   />
-                  {newDoc?.document?.name ?
-                    <div className={`${styles.certificate} d-flex justify-content-between`}>
-                      <span>
-                        {newDoc?.document?.name}
-                      </span>
+                  {newDoc?.document?.name ? (
+                    <div
+                      className={`${styles.certificate} d-flex justify-content-between`}
+                    >
+                      <span>{newDoc?.document?.name}</span>
                       <img
                         className={`${styles.close_image} mr-2`}
                         src="/static/close.svg"
@@ -264,9 +276,8 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                         alt="Close"
                       />{' '}
                     </div>
-
-
-                    : <p className={styles.drop_para}>
+                  ) : (
+                    <p className={styles.drop_para}>
                       Drop Files here or
                       <br />
                       <div className={styles.uploadBtnWrapper}>
@@ -277,11 +288,10 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                           accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
                         />
 
-
-
                         <a href="#">Browse</a>
                       </div>
-                    </p>}
+                    </p>
+                  )}
                 </div>
               </div>
               <div className="col-md-4 offset-md-1 col-sm-6">
@@ -295,7 +305,9 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                     >
                       {module === 'Loading-Transit-Unloading' ? (
                         <>
-                        <option value='' disabled>Select an option</option>
+                          <option value="" disabled>
+                            Select an option
+                          </option>
                           <option value="CertificateOfOrigin">
                             Certificate of Origin{' '}
                           </option>
@@ -337,7 +349,9 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                         </>
                       ) : (
                         <>
-                                                <option value='' disabled>Select an option</option>
+                          <option selected disabled>
+                            Select an option
+                          </option>
 
                           <option value="LcDraft">LC Draft </option>
 
@@ -422,7 +436,9 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                     onChange={(e) => setModuleSelected(e.target.value)}
                     className={`${styles.dropDown} ${styles.customSelect} statusBox input form-control`}
                   >
-                    <option selected disabled>Select an option</option>
+                    <option selected disabled>
+                      Select an option
+                    </option>
                     <option value="LeadOnboarding&OrderApproval">
                       Lead Onboarding &amp; Order Approval
                     </option>
