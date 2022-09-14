@@ -32,7 +32,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
   const [filteredDoc, setFilteredDoc] = useState([])
   // console.log(filteredDoc,'filtered doc')
   const [moduleSelected, setModuleSelected] = useState(
-    'LeadOnboarding,OrderApproval',
+    'LeadOnboarding&OrderApproval',
   )
 
   useEffect(() => {
@@ -111,7 +111,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
   const handleCloseDoc = () => {
     setNewDoc({
       document: [],
-      order: orderid,
+      order: orderId,
       name: '',
       module: module,
     })
@@ -289,11 +289,13 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                   <div className="d-flex">
                     <select
                       className={`${styles.value} ${styles.customSelect} input form-control`}
+                      // value={manualDocModule ? newDoc.name : 'others'}
                       id="name"
                       onChange={(e) => handleDropdown(e)}
                     >
                       {module === 'Loading-Transit-Unloading' ? (
                         <>
+                        <option value='' disabled>Select an option</option>
                           <option value="CertificateOfOrigin">
                             Certificate of Origin{' '}
                           </option>
@@ -335,6 +337,8 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                         </>
                       ) : (
                         <>
+                                                <option value='' disabled>Select an option</option>
+
                           <option value="LcDraft">LC Draft </option>
 
                           <option value="lCAmmendmentDraft">
@@ -418,6 +422,7 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                     onChange={(e) => setModuleSelected(e.target.value)}
                     className={`${styles.dropDown} ${styles.customSelect} statusBox input form-control`}
                   >
+                    <option selected disabled>Select an option</option>
                     <option value="LeadOnboarding&OrderApproval">
                       Lead Onboarding &amp; Order Approval
                     </option>
