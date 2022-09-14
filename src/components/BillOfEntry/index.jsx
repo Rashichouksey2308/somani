@@ -866,9 +866,10 @@ export default function Index({
                     className={`${styles.input_field} input form-control`}
                     type="text"
                     required
-                    value={addPrefixOrSuffix(
+                    value={addPrefixOrSuffix(  
                       billOfEntryData?.boeDetails?.invoiceValue,
                       'USD',
+                      'front',
                     )}
                     name="boeDetails.invoiceValue"
                     onChange={(e) =>
@@ -910,7 +911,12 @@ export default function Index({
                     name="boeDetails.accessibleValue"
                     disabled
                     required
-                    value={accessibleValueCalc}
+                    value={addPrefixOrSuffix(
+                      accessibleValueCalc,
+                      'INR',
+                      'front',
+                    )}
+                
                     onKeyDown={(evt) =>
                       ['e', 'E', '+', '-'].includes(evt.key) &&
                       evt.preventDefault()
@@ -1132,12 +1138,12 @@ export default function Index({
                       </tbody>
                     </table>
                     <hr className="mt-0" />
-                    <div className="d-flex justify-content-between align-items-center mx-4 px-2">
+                    <div className="d-flex justify-content-between align-items-center mx-4 ">
                       <div className="d-flex align-items-center">
-                        <div className={`${styles.label} text m-0`}>
+                        <div className={`${styles.label} text mb-2`}>
                           Total Custom Duty:
                         </div>
-                        <div className={`${styles.value} ml-2 mt-n1`}>
+                        <div className={`${styles.value} ml-2 mt-4`}>
                           {totalCustomDuty()}
                         </div>
                       </div>

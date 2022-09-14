@@ -85,7 +85,7 @@ useEffect(() => {
       let supplier={
         "name": savedData?.name || "Integral Trading and Logistics",
         "shortName": savedData?.shortName || "",
-        "gstin": savedData?.gstin ||"27AAACA3912A2ZE",
+        "gstin": savedData?.gstin ||"37AABFI9574L2ZP",
         "addresses": savedData?.addresses|| [{
               addressType: "Registered",
               fullAddress: "Flat No. 303, 3rd Floor, Tirumala Plaza, Dabagarden",
@@ -497,6 +497,7 @@ const addDoc=(e,index)=>{
                 >
                    <option>Select an option</option>
                   <option value="27AAACA3912A2ZE">27AAACA3912A2ZE</option>
+                  <option value='37AABFI9574L2ZP'>37AABFI9574L2ZP</option>
                 
                 </select>
                 <Form.Label
