@@ -203,7 +203,7 @@ autoPaging: "text",
               and consigned to <span className={styles.bold}>TO ORDER</span> for
               delivery at the port of{' '}
               <span className={styles.bold}>ANY PORT (S) IN INDIA </span> but the
-              bill of lading has not arrived and we,{' '}
+              Bills of Lading has not arrived and we,{' '}
               <span className={styles.bold}>
                 {' '}
                 EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR,
@@ -231,7 +231,7 @@ autoPaging: "text",
                 LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM,
                 ANDHRA PRADESH – 530016, INDIA at VISAKHAPATNAM PORT (VSPL), INDIA
               </span>{' '}
-              without production of the original bill of lading.
+              without production of the original Bill(s) of Lading.
             </p>
 
             <div className={`${styles.list}`}>

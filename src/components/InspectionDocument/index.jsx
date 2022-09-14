@@ -13,7 +13,14 @@ import { ViewDocument } from 'redux/ViewDoc/action'
 import { toast } from 'react-toastify'
 import moment from 'moment'
 
-const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc }) => {
+const Index = ({
+  orderId,
+  uploadDocument1,
+  module,
+  documentName,
+  lcDoc,
+  setLcDoc,
+}) => {
   const dispatch = useDispatch()
 
   const [editInput, setEditInput] = useState(true)
@@ -28,11 +35,11 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
   //   sessionStorage.setItem('docId', orderId)
   //   dispatch(GetDocuments(`?order=${orderId}`))
   // }, [dispatch, orderId])
-
+ console.log(lcDoc,"lcDoc")
   const [filteredDoc, setFilteredDoc] = useState([])
   // console.log(filteredDoc,'filtered doc')
   const [moduleSelected, setModuleSelected] = useState(
-    'LeadOnboarding,OrderApproval',
+    'LeadOnboarding&OrderApproval',
   )
 
   useEffect(() => {
@@ -95,9 +102,49 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
         module: module ? module : 'Agreements&Insurance&LC&Opening',
       })
     }
-
-
   }
+  //  const uploadDoc = async (e) => {
+  //   console.log(e, 'response data')
+  //   let fd = new FormData()
+  //   fd.append('document', e.target.files[0])
+  //   // dispatch(UploadCustomDoc(fd))
+  //   console.log(customData, 'customData')
+
+  //   let cookie = Cookies.get('SOMANI')
+  //   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+
+  //   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+  //   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  //   try {
+  //     let response = await Axios.post(
+  //       `${API.corebaseUrl}${API.customClearanceDoc}`,
+  //       fd,
+  //       {
+  //         headers: headers,
+  //       },
+  //     )
+  //     console.log(response.data.data, 'dischargeOfCargo2')
+  //     if (response.data.code === 200) {
+  //       // dispatch(getCustomClearanceSuccess(response.data.data))
+
+  //       return response.data.data
+  //       // let toastMessage = 'DOCUMENT UPDATED'
+  //       // if (!toast.isActive(toastMessage.toUpperCase())) {
+  //       //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
+  //     } else {
+  //       // dispatch(getCustomClearanceFailed(response.data.data))
+  //       // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+  //       // if (!toast.isActive(toastMessage.toUpperCase())) {
+  //       //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
+  //     }
+  //   } catch (error) {
+  //     // dispatch(getCustomClearanceFailed())
+  //     // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
+  //     // if (!toast.isActive(toastMessage.toUpperCase())) {
+  //     //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+  //     // }
+  //   }
+  // }
 
   const handleDropdown = (e) => {
     if (e.target.value == 'Others') {
@@ -108,10 +155,20 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
     }
   }
 
+  const handleNewDocModule = (e) => {
+    if (e.target.value === 'others') {
+      setManualDocModule(false)
+    } else {
+      document.getElementById('otherDocName').value = ''
+      setManualDocModule(true)
+      setNewDoc({ ...newDoc, name: e.target.value })
+    }
+  }
+
   const handleCloseDoc = () => {
     setNewDoc({
       document: [],
-      order: orderid,
+      order: orderId,
       name: '',
       module: module,
     })
@@ -190,9 +247,12 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                       />
                     </td>
                     <td className={styles.doc_row}>
-                      {lcDoc?.lcDraftDoc?.lastModifiedDate ?
-                      moment(lcDoc.lcDraftDoc.lastModifiedDate).format("DD-MM-YYYY,HH:mm A")
-                      :""}</td>
+                      {lcDoc?.lcDraftDoc?.lastModifiedDate
+                        ? moment(lcDoc.lcDraftDoc.lastModifiedDate).format(
+                            'DD-MM-YYYY,HH:mm A',
+                          )
+                        : ''}
+                    </td>
                     <td colSpan={2}>
                       {lcDoc && lcDoc.lcDraftDoc === null ? (
                         <>
@@ -220,12 +280,16 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                     </div> */}
                         </>
                       ) : (
-                        <div className={`${styles.certificate} d-flex align-items-center justify-content-between`}>
+                        <div
+                          className={`${styles.certificate} d-flex align-items-center justify-content-between`}
+                        >
                           <span>{lcDoc?.lcDraftDoc?.name}</span>
                           <img
-                            onClick={(e) => setLcDoc({
-                              lcDraftDoc: null,
-                            })}
+                            onClick={(e) =>
+                              setLcDoc({
+                                lcDraftDoc: null,
+                              })
+                            }
                             className={`${styles.close_image} mr-2`}
                             src="/static/close.svg"
                             alt="Close"
@@ -252,11 +316,11 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                     alt="Browse"
                     onChange={(e) => uploadDocument2(e)}
                   />
-                  {newDoc?.document?.name ?
-                    <div className={`${styles.certificate} d-flex justify-content-between`}>
-                      <span>
-                        {newDoc?.document?.name}
-                      </span>
+                  {newDoc?.document?.name ? (
+                    <div
+                      className={`${styles.certificate} d-flex justify-content-between`}
+                    >
+                      <span>{newDoc?.document?.name}</span>
                       <img
                         className={`${styles.close_image} mr-2`}
                         src="/static/close.svg"
@@ -264,9 +328,8 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                         alt="Close"
                       />{' '}
                     </div>
-
-
-                    : <p className={styles.drop_para}>
+                  ) : (
+                    <p className={styles.drop_para}>
                       Drop Files here or
                       <br />
                       <div className={styles.uploadBtnWrapper}>
@@ -277,11 +340,10 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                           accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
                         />
 
-
-
                         <a href="#">Browse</a>
                       </div>
-                    </p>}
+                    </p>
+                  )}
                 </div>
               </div>
               <div className="col-md-4 offset-md-1 col-sm-6">
@@ -289,11 +351,15 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                   <div className="d-flex">
                     <select
                       className={`${styles.value} ${styles.customSelect} input form-control`}
+                      value={manualDocModule ? newDoc.name : 'others'}
                       id="name"
-                      onChange={(e) => handleDropdown(e)}
+                      onChange={(e) => handleNewDocModule(e)}
                     >
-                      {module === 'Loading-Transit-Unloading' ? (
+                      {/* {module === 'Loading-Transit-Unloading' ? (
                         <>
+                          <option value="" disabled>
+                            Select an option
+                          </option>
                           <option value="CertificateOfOrigin">
                             Certificate of Origin{' '}
                           </option>
@@ -335,6 +401,10 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                         </>
                       ) : (
                         <>
+                          <option selected disabled>
+                            Select an option
+                          </option>
+
                           <option value="LcDraft">LC Draft </option>
 
                           <option value="lCAmmendmentDraft">
@@ -366,8 +436,160 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                             Policy Document - Storage
                           </option>
                         </>
+                      )} */}
+                      {module === 'LeadOnboarding&OrderApproval' ? (
+                        <>
+                          {' '}
+                          <option value='' disabled>
+                            Select an option
+                          </option>
+                          <option value="CertificateofIncorporation">
+                            Certificate of Incorporation
+                          </option>
+                          <option value="IECCertificate">
+                            IEC Certificate
+                          </option>
+                          <option value="BusinessRegistrationCertificate ">
+                            Business Registration Certificate{' '}
+                          </option>
+                          <option value="PANCard">PAN Card</option>
+                          <option value="GSTCertificate">
+                            GST Certificate
+                          </option>
+                          <option value="BankReferenceLetter">
+                            Bank Reference Letter
+                          </option>
+                          <option value="FinancialYear ">
+                            Financial Year{' '}
+                          </option>
+                        </>
+                      ) : module === 'Loading-Transit-Unloading' ? (
+                        <>
+                          <option value='' disabled>
+                            Select an option
+                          </option>
+                          <option value="CertificateOfOrigin">
+                            Certificate of Origin{' '}
+                          </option>
+                          <option value="CertificateOfQuality">
+                            {' '}
+                            Certificate of Quality
+                          </option>
+                          <option value="CertificateOfWeight ">
+                            {' '}
+                            Certificate of Weight
+                          </option>
+                          <option value="PlotInspectionReport">
+                            {' '}
+                            Plot Inspection Report
+                          </option>
+                          <option value="BL "> BL</option>
+                          <option value="ContainerNoList ">
+                            {' '}
+                            Container No. List
+                          </option>
+                          <option value="PackingList "> Packing list</option>
+                          <option value="BLAcknowledgmentCopy">
+                            {' '}
+                            BL Acknowledgment Copy
+                          </option>
+                          <option value="ForwardSalesContract ">
+                            {' '}
+                            Forward Sales Contract
+                          </option>
+                          <option value="CoalImportRegistrationCertificate">
+                            {' '}
+                            Coal Import Registration Certificate
+                          </option>{' '}
+                          <option value="CIMSPaymentReceipt ">
+                            {' '}
+                            CIMS Payment Receipt
+                          </option>{' '}
+                          <option value="IGMCopy "> IGM Copy</option>{' '}
+                        </>
+                      ) : module === 'Agreements&Insurance&LC&Opening' ? (
+                        <>
+                          <option value='' disabled>
+                            Select an option
+                          </option>
+
+                          <option value="LcDraft">LC Draft </option>
+
+                          <option value="lCAmmendmentDraft">
+                            {' '}
+                            LC Ammendment Draft
+                          </option>
+                          <option value="vesselCertificate">
+                            {' '}
+                            Vessel certificate
+                          </option>
+                          <option value="vesselCertificateContainerList">
+                            {' '}
+                            Vessel Certificate, Container List
+                          </option>
+                          <option value="policyDocumentMarine">
+                            {' '}
+                            Policy Document - Marine
+                          </option>
+                          <option value="policyDocumentStorage">
+                            {' '}
+                            Policy Document - Storage
+                          </option>
+                        </>
+                      ) : module === 'CustomClearanceAndWarehousing' ? (
+                        <>
+                          <option value='' disabled>
+                            Select an option
+                          </option>
+
+                          <option value="BOEProvisional">
+                            {' '}
+                            BOE Provisional
+                          </option>
+                          <option value="BOE Final - in case of final assessment.">
+                            {' '}
+                            BOE Final - in case of final assessment.
+                          </option>
+                          <option value="Duty Paid Challan ">
+                            {' '}
+                            Duty Paid Challan
+                          </option>
+                          <option value="PD Bond"> PD Bond</option>
+                          <option value="BOE Final"> BOE Final</option>
+                          <option value="BOE Provisional ">
+                            {' '}
+                            BOE Provisional
+                          </option>
+                          <option value="BOE Final - in case of final assessment. ">
+                            {' '}
+                            BOE Final - in case of final assessment.
+                          </option>
+                          <option value="PD Bond"> PD Bond</option>
+                          <option value="Duty Paid Challan ">
+                            {' '}
+                            Duty Paid Challan
+                          </option>
+                          <option value="Statements of Facts">
+                            {' '}
+                            Statements of Facts
+                          </option>
+                          <option value="Discharge Confirmation">
+                            {' '}
+                            Discharge Confirmation
+                          </option>
+                          <option value="BOE Final"> BOE Final</option>
+                        </>
+                      ) : (
+                        <>
+                          <option value='' disabled>
+                            Select an option
+                          </option>
+
+                          <option value="RR"> RR</option>
+                          <option value="eWay Bill"> eWay Bill</option>
+                        </>
                       )}
-                      <option value="Others">Others</option>
+                      <option value="others">Others</option>
                     </select>
                     <Form.Label className={`${styles.label} label_heading`}>
                       Document Type
@@ -379,11 +601,12 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                     />
                   </div>
                 </Form.Group>
-                <Form.Group className={styles.form_group}>
-                  <input
+                {/* <Form.Group className={styles.form_group}> */}
+                  {/* <input
                     onChange={(e) =>
                       setNewDoc({ ...newDoc, name: e.target.value })
                     }
+                    id="otherDocName"
                     className={`${styles.value} input form-control`}
                     type="text"
                     required
@@ -397,8 +620,29 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                   <button
                     onClick={(e) => uploadDocumentHandler(e)}
                     className={`${styles.upload_button} btn`}
-                    disabled={!editInput}
+                    // disabled={!editInput}
                   >
+                    Upload
+                  </button> */}
+                   <Form.Group className={`${styles.form_group}`}>
+                  <input
+                    id="otherDocName"
+                    onChange={(e) =>
+                      setNewDoc({ ...newDoc, name: e.target.value })
+                    }
+                    className={`${styles.value} input form-control`}
+                    type="text"
+                    disabled={manualDocModule}
+                  />
+                  <Form.Label className={`${styles.label} label_heading`}>
+                    Please Specify Document Name
+                  </Form.Label>
+                </Form.Group>
+                <div
+                  onClick={(e) => uploadDocumentHandler(e)}
+                  className={styles.uploadBtnWrapper}
+                >
+                  <button className={`${styles.upload_button} btn`}>
                     Upload
                   </button>
                 </div>
@@ -418,6 +662,9 @@ const Index = ({ orderId, uploadDocument1, module, documentName, lcDoc, setLcDoc
                     onChange={(e) => setModuleSelected(e.target.value)}
                     className={`${styles.dropDown} ${styles.customSelect} statusBox input form-control`}
                   >
+                    <option selected disabled>
+                      Select an option
+                    </option>
                     <option value="LeadOnboarding&OrderApproval">
                       Lead Onboarding &amp; Order Approval
                     </option>

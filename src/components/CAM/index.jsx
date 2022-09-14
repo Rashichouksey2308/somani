@@ -888,11 +888,7 @@ const basicInfo = (camData, orderDetails) => {
                   </span>
                   <span className={`${styles.value} value pr-5`}>
                     {/* {camData?.ExpectedDateOfShipment.split('T')[0]} */}
-                    {moment(
-                      camData?.ExpectedDateOfShipment?.slice(0, 10),
-                      'YYYY-MM-DD',
-                      true,
-                    ).format('DD-MM-YYYY')}
+                    {camData?.ExpectedDateOfShipment ? moment(camData?.ExpectedDateOfShipment).format('DD-MM-YYYY') : ''}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
@@ -907,15 +903,7 @@ const basicInfo = (camData, orderDetails) => {
                     } */}
 
                     {camData?.shipmentDetail?.ETAofDischarge?.fromDate
-                      ? moment(
-                        camData?.shipmentDetail?.ETAofDischarge?.fromDate?.slice(
-                          0,
-                          10,
-                        ),
-                        'YYYY-MM-DD',
-                        true,
-                      ).format('DD-MM-YYYY')
-                      : ''}
+                      ? moment(camData?.shipmentDetail?.ETAofDischarge?.fromDate).format('DD-MM-YYYY') : ''}
                   </span>
                 </Col>
               </Row>
@@ -924,7 +912,7 @@ const basicInfo = (camData, orderDetails) => {
                   <span className={`${styles.key} label1`}>Laycan from</span>
                   <span className={`${styles.value} value pr-5`}>
                     {/* {camData?.shipmentDetail?.loadPort?.fromDate?.split('T')[0]} */}
-                    {camData?.shipmentDetail?.loadPort?.fromDate
+                    {/* {camData?.shipmentDetail?.loadPort?.fromDate
                       ? moment(
                         camData?.shipmentDetail?.loadPort?.fromDate?.slice(
                           0,
@@ -933,7 +921,9 @@ const basicInfo = (camData, orderDetails) => {
                         'YYYY-MM-DD',
                         true,
                       ).format('DD-MM-YYYY')
-                      : ''}
+                      : ''} */}
+                    {camData?.shipmentDetail?.loadPort?.fromDate
+                      ? moment(camData?.shipmentDetail?.loadPort?.fromDate).format('DD-MM-YYYY') : ''}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
@@ -942,7 +932,7 @@ const basicInfo = (camData, orderDetails) => {
                   </span>
                   <span className={`${styles.value} value`}>
                     {/* {camData?.shipmentDetail?.loadPort?.toDate?.split('T')[0]} */}
-                    {camData?.shipmentDetail?.loadPort?.toDate
+                    {/* {camData?.shipmentDetail?.loadPort?.toDate
                       ? moment(
                         camData?.shipmentDetail?.loadPort?.toDate?.slice(
                           0,
@@ -951,7 +941,9 @@ const basicInfo = (camData, orderDetails) => {
                         'YYYY-MM-DD',
                         true,
                       ).format('DD-MM-YYYY')
-                      : ''}
+                      : ''} */}
+                    {camData?.shipmentDetail?.loadPort?.toDate
+                      ? moment(camData?.shipmentDetail?.loadPort?.toDate).format('DD-MM-YYYY') : ''}
                   </span>
                 </Col>
               </Row>
@@ -1020,13 +1012,15 @@ const supplierInfo = (camData) => {
                     Latest Shipment date
                   </span>
                   <span className={`${styles.value} value`}>
-                    {camData?.supplierCredential?.latestShipmentDate
+                    {/* {camData?.supplierCredential?.latestShipmentDate
                       ? moment(
                         camData?.supplierCredential?.latestShipmentDate?.split(
                           'T',
                         )[0],
                       ).format('DD-MM_YYYY')
-                      : ''}
+                      : ''} */}
+                    {camData?.supplierCredential?.latestShipmentDate
+                      ? moment(camData?.supplierCredential?.latestShipmentDate).format('DD-MM-YYYY') : ''}
                   </span>
                 </Col>
               </Row>
@@ -1044,13 +1038,15 @@ const supplierInfo = (camData) => {
                     Oldest shipment date
                   </span>
                   <span className={`${styles.value} value`}>
-                    {camData?.supplierCredential?.oldestShipmentDate
+                    {/* {camData?.supplierCredential?.oldestShipmentDate
                       ? moment(
                         camData?.supplierCredential?.oldestShipmentDate?.split(
                           'T',
                         )[0],
                       ).format('DD-MM-YYYY')
-                      : ''}
+                      : ''} */}
+                       {camData?.supplierCredential?.oldestShipmentDate
+                      ? moment(camData?.supplierCredential?.oldestShipmentDate).format('DD-MM-YYYY') : ''}
                   </span>
                 </Col>
               </Row>
@@ -1958,16 +1954,16 @@ const debtProfile = (data, options, tempArr, camData) => {
                           <div
                             style={{
                               backgroundColor: `${debt.conduct == 'Good'
-                                  ? '#43C34D'
-                                  : debt.conduct == 'Satisfactory'
-                                    ? '#FF9D00'
-                                    : debt.conduct == 'Average'
-                                      ? 'average'
-                                      : '#EA3F3F'
+                                ? '#43C34D'
+                                : debt.conduct == 'Satisfactory'
+                                  ? '#FF9D00'
+                                  : debt.conduct == 'Average'
+                                    ? 'average'
+                                    : '#EA3F3F'
                                 }`,
                               width: `${(Number(debt.limit) / 1900 > 1
-                                  ? 1
-                                  : Number(debt.limit) / 1900) * 100
+                                ? 1
+                                : Number(debt.limit) / 1900) * 100
                                 }%`,
                             }}
                             className={`${styles.fill}`}
@@ -2033,12 +2029,12 @@ const debtProfile = (data, options, tempArr, camData) => {
                         <td>{debt?.limit}</td>
                         <td
                           className={`${styles.conduct}  ${debt.conduct == 'Good'
-                              ? 'good'
-                              : debt.conduct == 'Satisfactory'
-                                ? 'satisfactory'
-                                : debt.conduct == 'Average'
-                                  ? 'average'
-                                  : 'danger'
+                            ? 'good'
+                            : debt.conduct == 'Satisfactory'
+                              ? 'satisfactory'
+                              : debt.conduct == 'Average'
+                                ? 'average'
+                                : 'danger'
                             }`}
                         >
                           {debt?.conduct}
@@ -3340,7 +3336,7 @@ const sectionTerms = (
                             <td key={index}>
                               {checkNan(
                                 CovertvaluefromtoCR(val?.suggested?.value),
-                              )}{` ${ camData?.unitOfValue === 'Crores' ? 'Cr' : camData?.unitOfValue}`}
+                              )}{` ${camData?.unitOfValue === 'Crores' ? 'Cr' : camData?.unitOfValue}`}
 
                             </td>
                           ))}{' '}
@@ -3377,7 +3373,7 @@ const sectionTerms = (
                     <td>
                       {checkNan(
                         CovertvaluefromtoCR(camData?.suggestedOrderValue),
-                      )}{` ${ camData?.unitOfValue === 'Crores' ? 'Cr' : camData?.unitOfValue}`}
+                      )}{` ${camData?.unitOfValue === 'Crores' ? 'Cr' : camData?.unitOfValue}`}
 
                       {/* {camData?.suggestedOrderValue} */}
                     </td>

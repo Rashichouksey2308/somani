@@ -3,6 +3,12 @@
 .backgroundMain {
   .vessel_card {
     border-radius: 6px;
+    .order_card {
+      margin-top: 72px;
+      background: #f3f4f7;
+      padding: 24px 36px;
+
+    }
     h2 {
       font-size: 22px;
       color: #3687e8;
@@ -28,7 +34,7 @@
           font-size: 20px;
           color: #111111;
           letter-spacing: 0.19px;
-         // padding-right: 10px;
+          // padding-right: 10px;
           @include respond(md-desktop) {
             font-size: 18px;
           }
@@ -46,15 +52,12 @@
           }
         }
       }
-    
     }
 
     .main {
       border-radius: 6px;
       margin-bottom: 26px;
-      .order_card {
-        background: #f3f4f7 0% 0% no-repeat padding-box;
-      }
+      
       .add_btn {
         color: #3687e8;
         text-transform: capitalize;
@@ -129,8 +132,6 @@
             font-size: 30px;
           }
         }
-
-       
       }
     }
     .dashboard_form {
@@ -143,7 +144,7 @@
         font-weight: 500;
         padding: 5px 25px;
         width: 143px;
-        background: #C3C3C31F 0% 0% no-repeat padding-box;
+        background: #c3c3c31f 0% 0% no-repeat padding-box;
         border-radius: 4px;
         @include respond(sm-desktop) {
           font-size: 18px;
@@ -157,16 +158,17 @@
         font-weight: 500;
         font-size: 16px;
         line-height: 17px;
-        padding-top: 20px; 
+        padding-top: 20px;
         padding-right: 10px;
       }
-     
+
       .bill_landing {
         //background: #FFFFFF;
         box-shadow: 0px 3px 6px #cad0e2;
         border: 1px solid #d2d7e5;
         .vessel_card {
           padding: 0 35px;
+         
           .card_sub_heading {
             font-size: 20px;
             line-height: 25px;
@@ -178,6 +180,18 @@
               font-size: 16px;
             }
           }
+          .view_btn {
+            font-size: 19px;
+            line-height: 25px;
+            font-weight: 500;
+            text-decoration: underline;
+            cursor: pointer;
+            color: #3687e8;
+            display: flex;
+            justify-content: center;
+            margin-left: 30px;
+          }
+          
         }
         .add_row {
           text-align: center;
@@ -353,6 +367,7 @@
                   font-size: 16px;
                 }
               }
+              
               .doc_name {
                 font-weight: bold;
                 line-height: 25px;
@@ -437,6 +452,7 @@
         .vessel_card {
           padding: 0 35px;
           min-height: 78px;
+        
           .add_btn {
             color: #3687e8;
             text-transform: capitalize;
@@ -777,6 +793,8 @@
           border: 3px solid #d9dde8;
         }
 
+       
+
         .input_field {
           font-size: 20px;
           height: 60px;
@@ -975,171 +993,9 @@
   }
 }
 
-.theme {
-  margin-right: 40px;
 
-  @include respond(lg-desktop) {
-    margin-right: 30px;
-  }
 
-  @include respond(md-desktop) {
-    margin-right: 20px;
-  }
 
-  @include respond(sm-desktop) {
-    margin-right: 10px;
-  }
-
-  @include respond(phone) {
-    margin-right: 0;
-  }
-
-  a {
-    margin: 0 5px 0 4px;
-    display: inline-block;
-
-    img {
-      @include respond(lg-desktop) {
-        height: 35px;
-        margin-left: 10px !important;
-        margin-right: 10px !important;
-      }
-
-      @include respond(md-desktop) {
-        height: 30px;
-        margin-left: 5px !important;
-        margin-right: 5px !important;
-      }
-
-      @include respond(sm-desktop) {
-        height: 25px;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-      }
-    }
-
-    &:last-child {
-      img {
-        margin-right: 7px !important;
-      }
-    }
-  }
-}
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 52px;
-  height: 34px;
-
-  @include respond(lg-desktop) {
-    width: 50px;
-  }
-
-  @include respond(md-desktop) {
-    width: 45px;
-  }
-
-  @include respond(sm-desktop) {
-    width: 40px;
-  }
-
-  @include respond(phone) {
-    width: 35px;
-  }
-}
-
-/* Hide default HTML checkbox */
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #00000029;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-  height: 1.5rem;
-
-  @include respond(lg-desktop) {
-  }
-
-  @include respond(md-desktop) {
-    bottom: 2px;
-    height: 1.2rem;
-  }
-
-  @include respond(sm-desktop) {
-    bottom: 4px;
-    height: 1rem;
-  }
-}
-
-.slider:before {
-  position: absolute;
-  content: '';
-  height: 2rem;
-  width: 2rem;
-  left: -2px;
-  bottom: -3px;
-  background-color: #3687e8;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-
-  @include respond(lg-desktop) {
-    height: 1.8rem;
-    width: 1.8rem;
-  }
-
-  @include respond(md-desktop) {
-    height: 1.5rem;
-    width: 1.5rem;
-  }
-
-  @include respond(sm-desktop) {
-    height: 1.3rem;
-    width: 1.3rem;
-    bottom: -3px;
-  }
-}
-
-input:checked + .slider {
-  background-color: #00000029;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(30px);
-  -ms-transform: translateX(30px);
-  transform: translateX(30px);
-
-  @include respond(md-desktop) {
-    -webkit-transform: translateX(25px);
-    -ms-transform: translateX(25px);
-    transform: translateX(25px);
-  }
-
-  @include respond(phone) {
-    -webkit-transform: translateX(20px);
-    -ms-transform: translateX(20px);
-    transform: translateX(20px);
-  }
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
 .pdfImage {
   width: 57px;
   height: 25px;
@@ -1305,7 +1161,6 @@ input:checked + .slider:before {
   }
 }
 .dashboard_form {
-
   .comment_heading {
     font-size: 16px;
     letter-spacing: 0.53px;
@@ -1369,8 +1224,7 @@ input:checked + .slider:before {
       }
     }
   }
- 
-  
+
   .form_group {
     margin-top: 42px;
     position: relative;
@@ -1431,4 +1285,21 @@ input:checked + .slider:before {
       }
     }
   }
+}
+.total {
+  color: #111111;
+  text-transform: uppercase;
+  font-size: 15px;
+  line-height: 18px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.rate {
+  letter-spacing: 0.19px;
+  font-size: 20px;
+  line-height: 25px;
+  color: #111111;
+  white-space: nowrap;
+
 }
