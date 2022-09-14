@@ -1213,9 +1213,9 @@ setEditAddress(
                   <th>ACTION</th>
                 </tr>
                 <tbody>
-                  <tr  className='table_row'>
+                  {/* <tr  className='table_row'>
                       <td><strong>Board Resolution Copy<span className={`danger`}>*</span></strong></td>
-                      <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/>{/* {val.designation} */}</td>
+                      <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/></td>
                       <td>{`28-02-2022,5:30 PM`}</td>
                       <td>
                   <td style={{padding:"0"}}>
@@ -1226,8 +1226,7 @@ setEditAddress(
                           name="myfile"
                           accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                           onChange={async(e) => {
-                            // addDoc(e.target.files[0], index)
-                            // uploadDocument2(e)
+                           
                              let data = await props.uploadDoc(e)
                            console.log(data,"upload")
                           }}
@@ -1252,10 +1251,10 @@ setEditAddress(
                       </td>
                       </td>
                       <td>
-                        {/* <img  className={`mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
+                       
                         <img  src="/static/upload.svg" alt="upload"/>
                       </td>
-                      </tr>
+                  </tr> */}
 
                   
                 {docList.length>0 && docList.map((val,index)=>{
@@ -1377,6 +1376,8 @@ setEditAddress(
 
           </div>
         </div>
+         {
+        isEditMulti && editData(addressMutliType,MultiEditAddress,setMultiEditAddress,editNewMultiAddress,cancelEditMultiAddress,saveNewMultiAddress,setMultiAddressType)}        
           <div className={`row`}>
 
            
