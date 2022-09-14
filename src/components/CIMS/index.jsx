@@ -417,7 +417,7 @@ export default function Index({
                   >
                     <input
                       id="circNumber"
-                      type="number"
+                      type="text"
                       onChange={(e) => onChangeCims(e, index)}
                       defaultValue={list.circNumber}
                       className={`${styles.input_field} input form-control`}
@@ -463,9 +463,13 @@ export default function Index({
                     <input
                       id="cimsCharges"
                       onChange={(e) => onChangeCims(e, index)}
-                      value={list.cimsCharges}
+                      value={addPrefixOrSuffix(
+                      list.cimsCharges,
+                      'INR',
+                      'front',
+                    )}
                       className={`${styles.input_field} input form-control`}
-                      type="number"
+                      type="text"
                       onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                     />

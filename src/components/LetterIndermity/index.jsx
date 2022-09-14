@@ -185,6 +185,8 @@ function Index({ TransitDetails }) {
           <p>
             STANDARD FORM LETTER OF INDEMNITY TO BE GIVEN IN RETURN FOR
             DELIVERING CARGO WITHOUT PRODUCTION OF THE ORIGINAL BILLS OF LADING.
+
+            <hr />
              
           </p>
         </div>
@@ -394,7 +396,7 @@ function Index({ TransitDetails }) {
           <div className={styles.bold}>EMERGENT INDUSTRIAL SOLUTIONS LIMITED</div>
           <div style={{fontWeight:'normal'}}>The Requestor</div>
           <div className={`${styles.athorised}`}>
-            <div style={{fontWeight:'normal'}}>Authorised Signatory</div>
+            <div style={{fontWeight:'bold'}}>Authorised Signatory</div>
 
             <div>
               Name:{' '}
