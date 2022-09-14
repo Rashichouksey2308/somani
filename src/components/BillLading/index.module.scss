@@ -448,6 +448,7 @@
           box-sizing: border-box;
           white-space: nowrap;
           letter-spacing: 0.19px;
+          cursor: pointer;
           padding: 13px 30px 13px 17px;
           // border: 1px solid #0000001f;
           &:invalid + label {
@@ -1052,8 +1053,7 @@
   margin-top: 15px;
   width: 23px;
   height: 26px;
-  // pointer-events: none;
-  cursor: pointer;
+  pointer-events: none;
 }
 .arrow {
   margin-left: -40px;

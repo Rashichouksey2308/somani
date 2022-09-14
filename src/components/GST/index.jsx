@@ -4090,7 +4090,7 @@ const gstPurchase = (
                             ),
                           )}
                         </tr>
-                        {/* <tr>
+                        <tr>
                           <td><span style={{textTransform:'uppercase'}}>B2C </span>Purchase</td>
                           {gstFilteredData?.detail?.purchaseDetail?.purchases.map(
                             (sales, index) => (
@@ -4100,7 +4100,7 @@ const gstPurchase = (
                             ),
                           )}
                         </tr>
-                        <tr>
+                        {/* <tr>
                           <td>Import</td>
                           {gstFilteredData?.detail?.purchaseDetail?.purchases.map(
                             (sales, index) => (
