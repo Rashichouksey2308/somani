@@ -316,7 +316,40 @@ export default function Index({
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
-    } else {
+    }
+    else if (
+      billOfEntryData.document1 === null
+    ) {
+      let toastMessage =
+        'please upload Duty Paid Challan '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    else if (billOfEntryData.pdBond) {
+      if (
+        billOfEntryData.document2 === null
+      ) {
+        let toastMessage =
+          'please upload PD Bond '
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        return
+      }
+    }
+    else if (
+      billOfEntryData.document3 === null
+    ) {
+      let toastMessage =
+        'please upload all the mandatory documents'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    else {
       let tempData = { ...billOfEntryData }
       tempData.boeDetails.conversionRate = removePrefixOrSuffix(
         billOfEntryData.boeDetails.conversionRate,
@@ -866,7 +899,7 @@ export default function Index({
                     className={`${styles.input_field} input form-control`}
                     type="text"
                     required
-                    value={addPrefixOrSuffix(  
+                    value={addPrefixOrSuffix(
                       billOfEntryData?.boeDetails?.invoiceValue,
                       'USD',
                       'front',
@@ -916,7 +949,7 @@ export default function Index({
                       'INR',
                       'front',
                     )}
-                
+
                     onKeyDown={(evt) =>
                       ['e', 'E', '+', '-'].includes(evt.key) &&
                       evt.preventDefault()
@@ -1275,22 +1308,22 @@ export default function Index({
                   </thead>
                   <tbody>
                     <tr className="table_row">
-                    {billOfEntryData.boeAssessment === 'Final'?
+                      {billOfEntryData.boeAssessment === 'Final' ?
 
-                      <td className={styles.doc_name}>
-                        BOE Final
-                        <strong className="text-danger ml-0">*</strong>
-                      </td>: <td className={styles.doc_name}>
-                        BOE Provisional
-                        <strong className="text-danger ml-0">*</strong>
-                      </td>}
+                        <td className={styles.doc_name}>
+                          BOE Final
+                          <strong className="text-danger ml-0">*</strong>
+                        </td> : <td className={styles.doc_name}>
+                          BOE Provisional
+                          <strong className="text-danger ml-0">*</strong>
+                        </td>}
                       <td>
                         <img
                           src="/static/pdf.svg"
                           className={`${styles.pdfImage} img-fluid`}
                           alt="Pdf"
                         />
-                      </td> 
+                      </td>
                       {/* <td className={styles.doc_row}>28-02-2022,5:30 PM</td> */}
                       <td>
                         {billOfEntryData.document1 === null ? (
