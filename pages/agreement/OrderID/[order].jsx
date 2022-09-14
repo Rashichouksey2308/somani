@@ -2,7 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react'
 import styles from './index.module.scss'
-import { Row, Col,Form } from 'react-bootstrap'
+import { Row, Col, Form } from 'react-bootstrap'
 import PaginateBar from '../../../src/components/Paginatebar'
 import jsPDF from 'jspdf'
 import ReactDOMServer from 'react-dom/server'
@@ -17,13 +17,9 @@ import {
 } from '../../../src/redux/userData/action'
 import Router from 'next/router'
 import Modal from 'react-bootstrap/Modal'
-
-
-
-
+import { convertValue } from '../../../src/utils/helper'
 
 function Index() {
-
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -42,7 +38,7 @@ function Index() {
   }
   const [emailAdd, setEmailAdd] = useState([
     {
-        emailID: '',
+      emailID: '',
     },
   ])
   const addMoreRows = () => {
@@ -54,199 +50,882 @@ function Index() {
     ])
   }
   dispatch(setPageName('insurance Request Letter'))
-  dispatch(setDynamicName(_get(insuranceData, 'company.companyName', 'Company Name')))
+  dispatch(
+    setDynamicName(_get(insuranceData, 'company.companyName', 'Company Name')),
+  )
   dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')))
 
-  
   console.log(insuranceData, 'insuranceData')
 
-
   const exportPDF = () => {
-
     const doc = new jsPDF('p', 'pt', [1500, 1500])
-    doc.html(ReactDOMServer.renderToString(
-      <table width='1500px' cellPadding='0' cellSpacing='0' border='0'>
-        <tr>
-          <td valign='top' align='left'>
-            <table width='100%' bgColor='#FFFFFF' style={{fontFamily:'Arial, Helvetica, sans-serif', borderRadius:'6px', boxShadow:'0 3px 6px #CAD0E2', marginBottom:'26px', border:'2px solid rgba(202, 214, 230, 0.3)'}} cellPadding='0' cellSpacing='0' border='0'>
-              <tr>
-                <td valign='top' align='left'>
-                  <table width='100%' cellPadding='0' cellSpacing='0' border='0'>
-                    <tr>
-                      <td colSpan={2}><span style={{fontSize:'30px', color:'#111111', lineHeight:'37px', fontWeight:'bold', textAlign:'center', padding:'49px 35px 44px', textDecoration:'underline', display:'block'}}>Request for Insurance Quotation</span></td>
-                    </tr>
-                    <tr>
-                      <td colSpan={2} align="left"><p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'0 35px 7px', marginBottom:'0'}}><span style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'normal'}}>Order ID: </span>Vessel</p></td>
-                    </tr>
-                    <tr>
-                      <td colSpan={2} align="left"><p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'0 35px 7px', marginBottom:'0'}}><span style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'normal'}}>Date: </span>16.02.2022</p></td>
-                    </tr>
-                    <tr>
-                      <td colSpan={2} align="left"><p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'0 35px 57px', marginBottom:'0'}}><span style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'normal'}}>Type of Insurance: </span>Marine Insurance</p></td>
-                    </tr>
-                    <tr>
-                      <td colSpan={2} align="left"><p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'bold', padding:'0 35px 49px', marginBottom:'0'}}>Dear Sir/Madam,<br/><br/>As discussed, please note the detail of Cargo as under:</p></td>
-                    </tr>
-                    <tr>
-                      <td width="25%" align='left' style={{borderTop:'2px solid rgba(202, 214, 230, 0.3)', borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}>Vessel</p>
-                      </td>
-                      <td width="75%" align='left' style={{borderTop:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}>MV Miss Simon</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}>IMO Number</p>
-                      </td>
-                      <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 35px 16px 24px', marginBottom:'0'}}>4987233</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}>Year of Built</p>
-                      </td>
-                      <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 35px 16px 24px', marginBottom:'0'}}>2019</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}>Sum Insured</p>
-                      </td>
-                      <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 35px 16px 24px', marginBottom:'0'}}>INR 40.10 Crores (Including 110%)</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}>Material</p>
-                      </td>
-                      <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 35px 16px 24px', marginBottom:'0'}}>Chromite Ore</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}>Origin</p>
-                      </td>
-                      <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 35px 16px 24px', marginBottom:'0'}}>South Africa</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}>Quantity</p>
-                      </td>
-                      <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 35px 16px 24px', marginBottom:'0'}}>BL Weight 20,000.00 MTs. (+/-00%)</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}>Port of Loading</p>
-                      </td>
-                      <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 35px 16px 24px', marginBottom:'0'}}>Westshore Terminals,Canada</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}>Port of Discharges</p>
-                      </td>
-                      <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 35px 16px 24px', marginBottom:'0'}}>Visakhapatnam, AP, India</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}>Laycan</p>
-                      </td>
-                      <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 35px 16px 24px', marginBottom:'0'}}>14-25 November, 2021</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}>ETD</p>
-                      </td>
-                      <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 35px 16px 24px', marginBottom:'0'}}>15 December, 2021</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}>ETA</p>
-                      </td>
-                      <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 35px 16px 24px', marginBottom:'0'}}>15 December, 2021</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}>Marine Insurance</p>
-                      </td>
-                      <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 35px 16px 24px', marginBottom:'0'}}>All Risks Including ICC-A, War, SRCC, Theft, Act of God etc.</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}>Name of Insured</p>
-                      </td>
-                      <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 35px 16px 24px', marginBottom:'0'}}>Indo German International Private Limited, Ground Floor, Plot No-49-18-6/1, Lalitha Nagar, Sakshi Office Road, Akkayyapalem, Visakhapatnam, Andhra Pradesh, 530016 GSTIN No- 37AAACI3028D2Z0</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}>Loss Payee</p>
-                      </td>
-                      <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 35px 16px 24px', marginBottom:'0'}}>Zurcher Kantonal Bank, Zurich</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)', borderRight:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}>Additional Information</p>
-                      </td>
-                      <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
-                        <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 35px 16px 24px', marginBottom:'0'}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillu.</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td colSpan={2} align="left"><p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'bold', padding:'43px 35px', marginBottom:'0'}}>Thanks &amp; Best Regards<br/><br/>Vipin Rajput<br/>Manager Accounts<br/>Indo German International Private Limited<br/>8-B, Sagar, 6-Tilak Marg,<br/>New Delhi-110001<br/>Mobile No - 9312251303<br/>Email ID - vipinrajput@gmail.com</p></td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-    ), {
-callback: function (doc) {
-  doc.save('sample.pdf')
-},
-// margin:margins,
-autoPaging: "text",
-
-
-},
-
-
-)
-}
+    doc.html(
+      ReactDOMServer.renderToString(
+        <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
+          <tr>
+            <td valign="top" align="left">
+              <table
+                width="100%"
+                bgColor="#FFFFFF"
+                style={{
+                  fontFamily: 'Arial, Helvetica, sans-serif',
+                  borderRadius: '6px',
+                  boxShadow: '0 3px 6px #CAD0E2',
+                  marginBottom: '26px',
+                  border: '2px solid rgba(202, 214, 230, 0.3)',
+                }}
+                cellPadding="0"
+                cellSpacing="0"
+                border="0"
+              >
+                <tr>
+                  <td valign="top" align="left">
+                    <table
+                      width="100%"
+                      cellPadding="0"
+                      cellSpacing="0"
+                      border="0"
+                    >
+                      <tr>
+                        <td colSpan={2}>
+                          <span
+                            style={{
+                              fontSize: '30px',
+                              color: '#111111',
+                              lineHeight: '37px',
+                              fontWeight: 'bold',
+                              textAlign: 'center',
+                              padding: '49px 35px 44px',
+                              textDecoration: 'underline',
+                              display: 'block',
+                            }}
+                          >
+                            Request for Insurance Quotation
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colSpan={2} align="left">
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '0 35px 7px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            <span
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: 'normal',
+                              }}
+                            >
+                              Order ID:{' '}
+                            </span>
+                            Vessel
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colSpan={2} align="left">
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '0 35px 7px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            <span
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: 'normal',
+                              }}
+                            >
+                              Date:{' '}
+                            </span>
+                            16.02.2022
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colSpan={2} align="left">
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '0 35px 57px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            <span
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: 'normal',
+                              }}
+                            >
+                              Type of Insurance:{' '}
+                            </span>
+                            Marine Insurance
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colSpan={2} align="left">
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: 'bold',
+                              padding: '0 35px 49px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Dear Sir/Madam,
+                            <br />
+                            <br />
+                            As discussed, please note the detail of Cargo as
+                            under:
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          width="25%"
+                          align="left"
+                          style={{
+                            borderTop: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Vessel
+                          </p>
+                        </td>
+                        <td
+                          width="75%"
+                          align="left"
+                          style={{
+                            borderTop: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 15px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            MV Miss Simon
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            IMO Number
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            4987233
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Year of Built
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            2019
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Sum Insured
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            INR 40.10 Crores (Including 110%)
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Material
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Chromite Ore
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Origin
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            South Africa
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Quantity
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            BL Weight 20,000.00 MTs. (+/-00%)
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Port of Loading
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Westshore Terminals,Canada
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Port of Discharges
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Visakhapatnam, AP, India
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Laycan
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            14-25 November, 2021
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            ETD
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            15 December, 2021
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            ETA
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            15 December, 2021
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Marine Insurance
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            All Risks Including ICC-A, War, SRCC, Theft, Act of
+                            God etc.
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Name of Insured
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Indo German International Private Limited, Ground
+                            Floor, Plot No-49-18-6/1, Lalitha Nagar, Sakshi
+                            Office Road, Akkayyapalem, Visakhapatnam, Andhra
+                            Pradesh, 530016 GSTIN No- 37AAACI3028D2Z0
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Loss Payee
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Zurcher Kantonal Bank, Zurich
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Additional Information
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit, sed do eiusmod tempor incididunt ut labore et
+                            dolore magna aliqua. Ut enim ad minim veniam, quis
+                            nostrud exercitation ullamco laboris nisi ut aliquip
+                            ex ea commodo consequat. Duis aute irure dolor in
+                            reprehenderit in voluptate velit esse cillu.
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colSpan={2} align="left">
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: 'bold',
+                              padding: '43px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Thanks &amp; Best Regards
+                            <br />
+                            <br />
+                            Vipin Rajput
+                            <br />
+                            Manager Accounts
+                            <br />
+                            Indo German International Private Limited
+                            <br />
+                            8-B, Sagar, 6-Tilak Marg,
+                            <br />
+                            New Delhi-110001
+                            <br />
+                            Mobile No - 9312251303
+                            <br />
+                            Email ID - vipinrajput@gmail.com
+                          </p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>,
+      ),
+      {
+        callback: function (doc) {
+          doc.save('sample.pdf')
+        },
+        // margin:margins,
+        autoPaging: 'text',
+      },
+    )
+  }
   return (
     <>
       <div className="container-fluid p-0">
         <div
           className={`${styles.card} tabHeader border-0 shadow-none bg-transparent card2`}
         >
-          <div
-        
-            className={`${styles.head_header} align-items-center`}>
+          <div className={`${styles.head_header} align-items-center`}>
             <img
               className={`${styles.arrow} img-fluid image_arrow mr-2`}
               src="/static/keyboard_arrow_right-3.svg"
@@ -272,9 +951,7 @@ autoPaging: "text",
                 <span className={`${styles.details_head}`}>Date:</span>
                 <span className={`${styles.details_val} label_heading" ml-1`}>
                   {/* {moment(insuranceData?.createdAt?.split('T')[0]).format('DD.MM.yyyy')} */}
-                  {moment(new Date()).format(
-                    'DD.MM.yyyy',
-                  )}
+                  {moment(new Date()).format('DD.MM.yyyy')}
                 </span>
               </div>
               <div className={`${styles.details_content} mb-1`}>
@@ -303,7 +980,11 @@ autoPaging: "text",
                     Vessel
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].name', '')}
+                    {_get(
+                      insuranceData,
+                      'order.vessel.vessels[0].vesselInformation[0].name',
+                      '',
+                    )}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -316,7 +997,11 @@ autoPaging: "text",
                     IMO Number
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].IMONumber', '')}
+                    {_get(
+                      insuranceData,
+                      'order.vessel.vessels[0].vesselInformation[0].IMONumber',
+                      '',
+                    )}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -329,8 +1014,11 @@ autoPaging: "text",
                     Year of Built
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {_get(insuranceData, 'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt', '')?.slice(0, 4)}
-
+                    {_get(
+                      insuranceData,
+                      'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt',
+                      '',
+                    )?.slice(0, 4)}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -343,7 +1031,8 @@ autoPaging: "text",
                     Sum Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    INR {insuranceData?.quotationRequest?.sumInsured} Crores (Including 110%)
+                    INR { convertValue(insuranceData?.quotationRequest?.sumInsured)} Crores
+                    (Including 110%)
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -369,8 +1058,11 @@ autoPaging: "text",
                     Origin
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.countryOfOrigin', '')}
-
+                    {_get(
+                      insuranceData,
+                      'order.vessel.vessels[0].transitDetails.countryOfOrigin',
+                      '',
+                    )}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -396,7 +1088,11 @@ autoPaging: "text",
                     Port of Loading
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfLoading', '')}
+                    {_get(
+                      insuranceData,
+                      'order.vessel.vessels[0].transitDetails.portOfLoading',
+                      '',
+                    )}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -409,7 +1105,11 @@ autoPaging: "text",
                     Port of Discharges
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {_get(insuranceData, 'order.vessel.vessels[0].transitDetails.portOfDischarge', '')}
+                    {_get(
+                      insuranceData,
+                      'order.vessel.vessels[0].transitDetails.portOfDischarge',
+                      '',
+                    )}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -422,7 +1122,13 @@ autoPaging: "text",
                     Laycan
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {moment(insuranceData?.quotationRequest?.laycanFrom?.split('T')[0]).format('DD MMM')} - {moment(insuranceData?.quotationRequest?.laycanTo?.split('T')[0]).format('DD MMM, YYYY')}
+                    {moment(
+                      insuranceData?.quotationRequest?.laycanFrom
+                    ).format('DD MMM')}{' '}
+                    -{' '}
+                    {moment(
+                      insuranceData?.quotationRequest?.laycanTo
+                    ).format('DD MMM, YYYY')}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -435,7 +1141,9 @@ autoPaging: "text",
                     ETD
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {moment(insuranceData?.quotationRequest?.expectedTimeOfDispatch?.split('T')[0]).format('DD MMMM , YYYY')}
+                    {moment(
+                      insuranceData?.quotationRequest?.expectedTimeOfDispatch
+                    ).format('DD MMMM , YYYY')}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -448,7 +1156,9 @@ autoPaging: "text",
                     ETA
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {moment(insuranceData?.quotationRequest?.estimatedTimeOfArrival?.split('T')[0]).format('DD MMMM , YYYY')}
+                    {moment(
+                      insuranceData?.quotationRequest?.expectedTimeOfArrival
+                    ).format('DD MMMM , YYYY')}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -544,7 +1254,12 @@ autoPaging: "text",
           </div>
         </div>
       </div>
-      <PaginateBar download={exportPDF} rightButtonTitle='Share' leftButtonTitle='Request Letter' openbar={handlePopup} />
+      <PaginateBar
+        download={exportPDF}
+        rightButtonTitle="Share"
+        leftButtonTitle="Request Letter"
+        openbar={handlePopup}
+      />
 
       <Modal
         show={show}
@@ -674,38 +1389,38 @@ autoPaging: "text",
                         />
                       </div>
                     </div>
-                    {emailAdd.map((val,index) => (
+                    {emailAdd.map((val, index) => (
                       <>
-                    <div className={`${styles.radio_form} ml-1`}>
-                      {['radio'].map((type) => (
-                        <div
-                          key={`inline-${type}`}
-                          className={styles.radio_group}
-                        >
-                          <Form.Check
-                            className={styles.radio}
-                            inline
-                            label="abcz@email.com"
-                            name="group1"
-                            id={`inline-${type}-1`}
-                          />
-                          <Form.Check
-                            className={styles.radio}
-                            inline
-                            label="abcz@email.com"
-                            name="group1"
-                            id={`inline-${type}-2`}
-                          />
+                        <div className={`${styles.radio_form} ml-1`}>
+                          {['radio'].map((type) => (
+                            <div
+                              key={`inline-${type}`}
+                              className={styles.radio_group}
+                            >
+                              <Form.Check
+                                className={styles.radio}
+                                inline
+                                label="abcz@email.com"
+                                name="group1"
+                                id={`inline-${type}-1`}
+                              />
+                              <Form.Check
+                                className={styles.radio}
+                                inline
+                                label="abcz@email.com"
+                                name="group1"
+                                id={`inline-${type}-2`}
+                              />
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
-                    <hr></hr>
-                    </>
+                        <hr></hr>
+                      </>
                     ))}
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                         addMoreRows()
+                        addMoreRows()
                       }}
                     >
                       <span style={{ fontSize: '2rem' }} className={`mr-2`}>
@@ -863,7 +1578,6 @@ autoPaging: "text",
         </Modal.Body>
       </Modal>
     </>
-    
   )
 }
 
