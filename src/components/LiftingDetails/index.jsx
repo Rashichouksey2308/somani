@@ -107,7 +107,7 @@ export default function Index(props) {
           </div>
         </div> */}
 
-      <div className={`${styles.backgroundMain} container-fluid`}>
+      <div className={`${styles.backgroundMain} vessel_card container-fluid`}>
         <div className={`${styles.vessel_card} m-2 border_color`}>
           <div className={`${styles.main} border_color mt-4 card `}>
             <div
