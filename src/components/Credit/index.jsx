@@ -960,7 +960,6 @@ const index = ({
                 </label>
                 <div className={`${styles.tooltip} `}>
                     <img
-                   // style={{marginLeft:'300px', marginTop:'-140px' , marginRight:'50px' }}
                        className={`${styles.info_circle} img-fluid`}
                       src="/static/info-circle.svg"
                     />
