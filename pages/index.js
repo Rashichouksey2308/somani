@@ -17,14 +17,26 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPageName } from '../src/redux/userData/action'
 import Popup from '../src/components/Popups/BillPopup/index'
-
+import { getAnalystData } from '../src/redux/analytics/actions'
 const IndexPage = () => {
   const router = useRouter()
   const dispatch = useDispatch()
   const darkMode = useSelector((state) => state.user.isDark)
+  const {
+    orderSummary,
+    leadSummary,
+    commoditySummary,
+    originSummary,
+    customerSummary,
+    exposureSummary,
+  } = useSelector((state) => state.analytics)
+  console.log(orderSummary, leadSummary, 'leadSummary')
   useEffect(() => {
     dispatch(setPageName('dashboard'))
   })
+  useEffect(() => {
+    dispatch(getAnalystData())
+  }, [])
   useEffect(() => {
     if (window) {
       sessionStorage.setItem('loadedPage', 'Dashboard')
@@ -44,6 +56,7 @@ const IndexPage = () => {
               subHeader={'TOTAL LEADS'}
               image={'/static/clipboard-list.svg'}
               content={['APPROVED', 'IN PROCESS', 'REJECTED']}
+              data={leadSummary}
             />
           </div>
           <div className={`${styles.dashboardPadding} col-lg-6`}>
@@ -52,6 +65,7 @@ const IndexPage = () => {
               subHeader={'ORDER PLACED'}
               image={'/static/box-open.svg'}
               content={['COMPLETED', 'IN PROCESS', 'REJECTED']}
+              data={orderSummary}
             />
           </div>
         </div>
@@ -59,7 +73,7 @@ const IndexPage = () => {
           <div className={`${styles.left_Container} col-lg-3 col-md-12`}>
             <div className="row">
               <div className={`${styles.dashboardPadding} col-lg-12 col-md-6`}>
-                <Commodities />
+                <Commodities data={commoditySummary} />
               </div>
               <div className={`${styles.dashboardPadding} col-lg-12 col-md-6`}>
                 <Exposure />

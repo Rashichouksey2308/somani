@@ -8,8 +8,9 @@ import _get from 'lodash/get'
 import { UpdateCustomClearance } from '../../../redux/CustomClearance&Warehousing/action'
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
+import moment from 'moment'
 
-export default function Index({ OrderId, customData, uploadDoc }) {
+export default function Index({ OrderId, customData, uploadDoc,arrivalDate }) {
   console.log(customData, 'customData')
   const dispatch = useDispatch()
   const [editInput, setEditInput] = useState(true)
@@ -127,7 +128,7 @@ export default function Index({ OrderId, customData, uploadDoc }) {
       e.preventDefault()
     }
   }
-console.log(customData,'warehouseDetails')
+  console.log(customData, 'warehouseDetails')
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -200,7 +201,7 @@ console.log(customData,'warehouseDetails')
                       value={
                         isWarehouseQuantityInFocus
                           ? warehouseDetails?.wareHouseDetails?.quantity
-                          : Number(warehouseDetails?.wareHouseDetails?.quantity)?.toLocaleString() + ` ${_get(customData,'order.unitOfQuantity', '')}`
+                          : Number(warehouseDetails?.wareHouseDetails?.quantity)?.toLocaleString() + ` ${_get(customData, 'order.unitOfQuantity', '')}`
                       }
                       onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
@@ -214,6 +215,7 @@ console.log(customData,'warehouseDetails')
                   >
                     <div className="d-flex">
                       <DateCalender
+                        startFrom={arrivalDate ? moment(arrivalDate).format('DD-MM-YYYY') : moment(customData.dischargeOfCargo.dischargeOfCargo.vesselArrivaldate).format('DD-MM-YYYY') ?? new Date()}
                         defaultDate={warehouseDetails?.wareHouseDetails?.dateOfStorage}
                         name="dateOfStorage"
                         saveDate={saveDate}
@@ -230,7 +232,7 @@ console.log(customData,'warehouseDetails')
                   <div
                     className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 d-flex align-items-center`}
                   >
-                    { warehouseDetails?.document === null ? (
+                    {warehouseDetails?.document === null ? (
                       <div className={styles.uploadBtnWrapper}>
                         <input
                           id="document"
@@ -259,7 +261,7 @@ console.log(customData,'warehouseDetails')
                     ) : (
                       <div className={`${styles.certificate} mr-3 d-flex align-items-center justify-content-between`}>
                         <span>
-                          {warehouseDetails?.document?.originalName.slice(warehouseDetails?.document?.originalName.lastIndexOf("_")+1)}
+                          {warehouseDetails?.document?.originalName.slice(warehouseDetails?.document?.originalName.lastIndexOf("_") + 1)}
                         </span>
                         <img
                           className={`${styles.close_image}`}

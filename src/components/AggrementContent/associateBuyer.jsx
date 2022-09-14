@@ -47,12 +47,17 @@ function Index(props) {
    
   
   ])
-
+  const [options,setOptions]=useState([
+  "Bhawana Jain","Vipin Kumar","Devesh Jain","Fatima Yannoulis"
+])
+let op=[
+  "Bhawana Jain","Vipin Kumar","Devesh Jain","Fatima Yannoulis"
+]
   let masterList=[
 {name:"Bhawana Jain",designation:"Vice President (Finance & Accounts)",email:"bhawanajain@somanigroup.com",phoneNo:""},
 {name:"Vipin Kumar",designation:"Manager Accounts",email:"vipinrajput@somanigroup.com",phoneNo:""},
 {name:"Devesh Jain",designation:"Director",email:"devesh@indointertrade.ch",phoneNo:""},
-{name:"Fatima Yannoulis ",designation:"Chief Financial Officer",email:"fatima@indointertrade.ch",phoneNo:""}
+{name:"Fatima Yannoulis",designation:"Chief Financial Officer",email:"fatima@indointertrade.ch",phoneNo:""}
 ]
 useEffect(() => {
 if (window) {
@@ -83,6 +88,27 @@ if (window) {
      console.log(temp,"temp")
      setDocList(temp)
     setAssociateData(buyer)
+            let tempArr=savedData?.authorisedSignatoryDetails
+          let optionArray=[]
+          console.log(tempArr,"tempArr")
+          tempArr.forEach((val,index)=>{
+         
+          if(tempArr?.length>0){
+               if(val.name=="Bhawana Jain"){
+             setOptions(["Vipin Kumar","Devesh Jain","Fatima Yannoulis"])
+          }
+          if(val.name=="Vipin Kumar"){
+             setOptions(["Bhawana Jain","Devesh Jain","Fatima Yannoulis"])
+          }
+          if(val.name=="Devesh Jain"){
+             setOptions(["Vipin Kumar","Bhawana Jain","Fatima Yannoulis"])
+          }
+          if(val.name=="Fatima Yannoulis"){
+             setOptions(["Vipin Kumar","Bhawana Jain","Devesh Jain"])
+          }
+          }
+
+          })
   }else{
     console.log("in props")
     let buyer = {
@@ -109,6 +135,27 @@ if (window) {
      setDocList(temp)
 
     setAssociateData(buyer)
+             let tempArr=props.data?.authorisedSignatoryDetails
+          let optionArray=[]
+          console.log(tempArr,"tempArr")
+          tempArr.forEach((val,index)=>{
+          val.actions = "true"
+          if(tempArr?.length>0){
+               if(val.name=="Bhawana Jain"){
+             setOptions(["Vipin Kumar","Devesh Jain","Fatima Yannoulis"])
+          }
+          if(val.name=="Vipin Kumar"){
+             setOptions(["Bhawana Jain","Devesh Jain","Fatima Yannoulis"])
+          }
+          if(val.name=="Devesh Jain"){
+             setOptions(["Vipin Kumar","Bhawana Jain","Fatima Yannoulis"])
+          }
+          if(val.name=="Fatima Yannoulis"){
+             setOptions(["Vipin Kumar","Bhawana Jain","Devesh Jain"])
+          }
+          }
+
+          })
   }
 }
 }, [props])
@@ -200,24 +247,28 @@ props.updateData("Associate Buyer",data)
     });
 
   }
-  const onEditRemove=(index)=>{
-    let tempArr=list;
-    // tempArr[index].actions.edit="false"
+ const onEditRemove=(index,value)=>{
+    console.log(value,"value")
 
-       setList(prevState => {
+      setList(prevState => {
       const newState = prevState.map((obj ,i)=> {
-        // 👇️ if id equals 2, update country property
-        if (i == index) {
-          return {...obj, actions: 'true'};
-        }
 
-        // 👇️ otherwise return object as is
-        return obj;
+      if (i == index) {
+      return {...obj, actions: 'true'};
+      }
+
+
+      return obj;
       });
 
       return newState;
-    });
-
+      });
+      let temp=[...options]
+      var indexOption = temp.indexOf(value.name);
+      if (indexOption !== -1) {
+      temp.splice(indexOption, 1);
+      }
+      setOptions([...temp])
   }
   const addMoreRows=()=>{
 
@@ -228,15 +279,19 @@ props.updateData("Associate Buyer",data)
     }])
 
   }
-  const handleRemove=(index)=>{
-     console.log(docList,"docList")
-     docList.forEach((val,i)=>{
-       if(index==val.index){
-        setDocList([...docList.slice(0,i), ...docList.slice(i+1)])
-       }
-     })
-   
-     setList([...list.slice(0,index), ...list.slice(index+1)])
+const handleRemove = (index,val) => {
+docList.forEach((val,i)=>{
+    if(index==val.index){
+    setDocList([...docList.slice(0,i), ...docList.slice(i+1)])
+    }
+  })
+setList([...list.slice(0, index), ...list.slice(index + 1)])
+
+if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" ||val.name=="atima Yannoulis"  ){
+  let temp=[...options]
+  temp.push(val.name)
+  setOptions([...temp])
+}
 }
 const removeDoc=(index)=>{
     console.log("removeDOc")
@@ -921,7 +976,7 @@ console.log(associateData.gstin,"associateData")
                             <div
                               className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
                               onClick={()=>{
-                              onEditRemove(index)
+                             onEditRemove(index,val)
                               }}
                             >
                               <img className={`${styles.image} mr-3`} src="/static/save-3.svg" alt="save"/>
