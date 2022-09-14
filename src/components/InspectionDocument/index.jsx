@@ -113,6 +113,16 @@ const Index = ({
     }
   }
 
+  const handleNewDocModule = (e) => {
+    if (e.target.value === 'others') {
+      setManualDocModule(false)
+    } else {
+      document.getElementById('otherDocName').value = ''
+      setManualDocModule(true)
+      setNewDoc({ ...newDoc, name: e.target.value })
+    }
+  }
+
   const handleCloseDoc = () => {
     setNewDoc({
       document: [],
@@ -299,11 +309,11 @@ const Index = ({
                   <div className="d-flex">
                     <select
                       className={`${styles.value} ${styles.customSelect} input form-control`}
-                      // value={manualDocModule ? newDoc.name : 'others'}
+                      value={manualDocModule ? newDoc.name : 'others'}
                       id="name"
-                      onChange={(e) => handleDropdown(e)}
+                      onChange={(e) => handleNewDocModule(e)}
                     >
-                      {module === 'Loading-Transit-Unloading' ? (
+                      {/* {module === 'Loading-Transit-Unloading' ? (
                         <>
                           <option value="" disabled>
                             Select an option
@@ -384,8 +394,168 @@ const Index = ({
                             Policy Document - Storage
                           </option>
                         </>
+                      )} */}
+                      {module === 'LeadOnboarding&OrderApproval' ? (
+                        <>
+                          {' '}
+                          <option value='' disabled>
+                            Select an option
+                          </option>
+                          <option value="CertificateofIncorporation">
+                            Certificate of Incorporation
+                          </option>
+                          <option value="IECCertificate">
+                            IEC Certificate
+                          </option>
+                          <option value="BusinessRegistrationCertificate ">
+                            Business Registration Certificate{' '}
+                          </option>
+                          <option value="PANCard">PAN Card</option>
+                          <option value="GSTCertificate">
+                            GST Certificate
+                          </option>
+                          <option value="BankReferenceLetter">
+                            Bank Reference Letter
+                          </option>
+                          <option value="FinancialYear ">
+                            Financial Year{' '}
+                          </option>
+                        </>
+                      ) : module === 'Loading-Transit-Unloading' ? (
+                        <>
+                          <option value='' disabled>
+                            Select an option
+                          </option>
+                          <option value="CertificateOfOrigin">
+                            Certificate of Origin{' '}
+                          </option>
+                          <option value="CertificateOfQuality">
+                            {' '}
+                            Certificate of Quality
+                          </option>
+                          <option value="CertificateOfWeight ">
+                            {' '}
+                            Certificate of Weight
+                          </option>
+                          <option value="PlotInspectionReport">
+                            {' '}
+                            Plot Inspection Report
+                          </option>
+                          <option value="BL "> BL</option>
+                          <option value="ContainerNoList ">
+                            {' '}
+                            Container No. List
+                          </option>
+                          <option value="PackingList "> Packing list</option>
+                          <option value="BLAcknowledgmentCopy">
+                            {' '}
+                            BL Acknowledgment Copy
+                          </option>
+                          <option value="ForwardSalesContract ">
+                            {' '}
+                            Forward Sales Contract
+                          </option>
+                          <option value="CoalImportRegistrationCertificate">
+                            {' '}
+                            Coal Import Registration Certificate
+                          </option>{' '}
+                          <option value="CIMSPaymentReceipt ">
+                            {' '}
+                            CIMS Payment Receipt
+                          </option>{' '}
+                          <option value="IGMCopy "> IGM Copy</option>{' '}
+                        </>
+                      ) : module === 'Agreements&Insurance&LC&Opening' ? (
+                        <>
+                          <option value='' disabled>
+                            Select an option
+                          </option>
+
+                          <option value="LcDraft">LC Draft </option>
+
+                          <option value="lCAmmendmentDraft">
+                            {' '}
+                            LC Ammendment Draft
+                          </option>
+                          <option value="vesselCertificate">
+                            {' '}
+                            Vessel certificate
+                          </option>
+                          <option value="vesselCertificateContainerList">
+                            {' '}
+                            Vessel Certificate, Container List
+                          </option>
+                          <option value="policyDocumentMarine">
+                            {' '}
+                            Policy Document - Marine
+                          </option>
+                          <option value="policyDocumentStorage">
+                            {' '}
+                            Policy Document - Storage
+                          </option>
+                          <option value="policyDocumentMarine">
+                            {' '}
+                            Policy Document - Marine
+                          </option>
+                          <option value="policyDocumentStorage">
+                            {' '}
+                            Policy Document - Storage
+                          </option>
+                        </>
+                      ) : module === 'CustomClearanceAndWarehousing' ? (
+                        <>
+                          <option value='' disabled>
+                            Select an option
+                          </option>
+
+                          <option value="BOEProvisional">
+                            {' '}
+                            BOE Provisional
+                          </option>
+                          <option value="BOE Final - in case of final assessment.">
+                            {' '}
+                            BOE Final - in case of final assessment.
+                          </option>
+                          <option value="Duty Paid Challan ">
+                            {' '}
+                            Duty Paid Challan
+                          </option>
+                          <option value="PD Bond"> PD Bond</option>
+                          <option value="BOE Final"> BOE Final</option>
+                          <option value="BOE Provisional ">
+                            {' '}
+                            BOE Provisional
+                          </option>
+                          <option value="BOE Final - in case of final assessment. ">
+                            {' '}
+                            BOE Final - in case of final assessment.
+                          </option>
+                          <option value="PD Bond"> PD Bond</option>
+                          <option value="Duty Paid Challan ">
+                            {' '}
+                            Duty Paid Challan
+                          </option>
+                          <option value="Statements of Facts">
+                            {' '}
+                            Statements of Facts
+                          </option>
+                          <option value="Discharge Confirmation">
+                            {' '}
+                            Discharge Confirmation
+                          </option>
+                          <option value="BOE Final"> BOE Final</option>
+                        </>
+                      ) : (
+                        <>
+                          <option value='' disabled>
+                            Select an option
+                          </option>
+
+                          <option value="RR"> RR</option>
+                          <option value="eWay Bill"> eWay Bill</option>
+                        </>
                       )}
-                      <option value="Others">Others</option>
+                      <option value="others">Others</option>
                     </select>
                     <Form.Label className={`${styles.label} label_heading`}>
                       Document Type
@@ -397,11 +567,12 @@ const Index = ({
                     />
                   </div>
                 </Form.Group>
-                <Form.Group className={styles.form_group}>
-                  <input
+                {/* <Form.Group className={styles.form_group}> */}
+                  {/* <input
                     onChange={(e) =>
                       setNewDoc({ ...newDoc, name: e.target.value })
                     }
+                    id="otherDocName"
                     className={`${styles.value} input form-control`}
                     type="text"
                     required
@@ -415,8 +586,29 @@ const Index = ({
                   <button
                     onClick={(e) => uploadDocumentHandler(e)}
                     className={`${styles.upload_button} btn`}
-                    disabled={!editInput}
+                    // disabled={!editInput}
                   >
+                    Upload
+                  </button> */}
+                   <Form.Group className={`${styles.form_group}`}>
+                  <input
+                    id="otherDocName"
+                    onChange={(e) =>
+                      setNewDoc({ ...newDoc, name: e.target.value })
+                    }
+                    className={`${styles.value} input form-control`}
+                    type="text"
+                    disabled={manualDocModule}
+                  />
+                  <Form.Label className={`${styles.label} label_heading`}>
+                    Please Specify Document Name
+                  </Form.Label>
+                </Form.Group>
+                <div
+                  onClick={(e) => uploadDocumentHandler(e)}
+                  className={styles.uploadBtnWrapper}
+                >
+                  <button className={`${styles.upload_button} btn`}>
                     Upload
                   </button>
                 </div>
