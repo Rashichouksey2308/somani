@@ -1589,7 +1589,6 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                               lineHeight: '24px',
                               fontWeight: 'normal',
                               float: 'left',
-                              float: 'left',
                               padding: '23px 15px 11px 35px',
                               marginBottom: '0',
                             }}
@@ -1610,7 +1609,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                               fontWeight: '500',
                               float: 'left',
                               padding: '23px 15px 11px 24px',
-                              marginBottom: '0',
+                              marginBottom: '0',  
                             }}
                           >
                             {termsheetDetails?.commodityDetails?.commodity}

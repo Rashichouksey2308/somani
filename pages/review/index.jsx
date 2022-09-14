@@ -1196,6 +1196,27 @@ function Index() {
       }
       return false
     }
+    if (product.dailyConsumptionOfCommodity == '' || product.dailyConsumptionOfCommodity == undefined) {
+      let toastMessage = 'Please add  Daily Consumtion Of Commodity'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+    if (product.stockCoverageOfCommodity == '' || product.stockCoverageOfCommodity == undefined) {
+      let toastMessage = 'Please add  stock Coverage Of Commodity'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+    if (product.existingProcurementOfCommodity == '' || product.existingProcurementOfCommodity == undefined) {
+      let toastMessage = 'Please add  Existing Procurement Of Commodity'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
     if (
       supplierCred.supplierName == '' ||
       supplierCred.supplierName == undefined
@@ -2917,8 +2938,8 @@ function Index() {
                 >
                   {camData.company.detailedCompanyInfo.profile.auditorDetail[0]
                     .nameOfAuditor ==
-                  camData.company.detailedCompanyInfo.profile.auditorDetail[1]
-                    .nameOfAuditor
+                    camData.company.detailedCompanyInfo.profile.auditorDetail[1]
+                      .nameOfAuditor
                     ? 'No'
                     : 'Yes'}
                 </td>
@@ -4366,11 +4387,11 @@ function Index() {
                                   'financial.balanceSheet[0].equityLiabilities.borrowingsCurrent',
                                   '',
                                 ) +
-                                  _get(
-                                    companyData,
-                                    'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent',
-                                    '',
-                                  ),
+                                _get(
+                                  companyData,
+                                  'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent',
+                                  '',
+                                ),
                               )?.toLocaleString(undefined, {
                                 minimumFractionDigits: 2,
                               })}
@@ -4389,11 +4410,11 @@ function Index() {
                                   'financial.balanceSheet[1].equityLiabilities.borrowingsCurrent',
                                   '',
                                 ) +
-                                  _get(
-                                    companyData,
-                                    'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent',
-                                    '',
-                                  ),
+                                _get(
+                                  companyData,
+                                  'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent',
+                                  '',
+                                ),
                               )?.toLocaleString(undefined, {
                                 minimumFractionDigits: 2,
                               })}
@@ -4424,11 +4445,11 @@ function Index() {
                                   'financial.balanceSheet[0].equityLiabilities.tradePay',
                                   '',
                                 ) +
-                                  _get(
-                                    companyData,
-                                    'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
-                                    '',
-                                  ),
+                                _get(
+                                  companyData,
+                                  'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
+                                  '',
+                                ),
                               )?.toLocaleString(undefined, {
                                 minimumFractionDigits: 2,
                               })}
@@ -4447,11 +4468,11 @@ function Index() {
                                   'financial.balanceSheet[1].equityLiabilities.tradePay',
                                   '',
                                 ) +
-                                  _get(
-                                    companyData,
-                                    'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
-                                    '',
-                                  ),
+                                _get(
+                                  companyData,
+                                  'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
+                                  '',
+                                ),
                               )?.toLocaleString(undefined, {
                                 minimumFractionDigits: 2,
                               })}
@@ -5413,20 +5434,20 @@ function Index() {
                     paddingTop: '31px',
                   }}
                 >
-                  {[].forEach((l, index2) => {})}
+                  {[].forEach((l, index2) => { })}
                   {_get(
                     companyData,
                     'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1',
                     '',
                   ) != ''
                     ? moment(
-                        _get(
-                          companyData,
-                          'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1',
-                          '',
-                        ),
-                        'MMyyyy',
-                      ).format('MM-yyyy')
+                      _get(
+                        companyData,
+                        'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1',
+                        '',
+                      ),
+                      'MMyyyy',
+                    ).format('MM-yyyy')
                     : ''}
                 </td>
                 <td
@@ -5950,7 +5971,7 @@ function Index() {
                             return camData?._id === rating.order
                           })
                           .map((val, index) => {
-                            ;<td key={index}>{val?.derived?.value}</td>
+                            ; <td key={index}>{val?.derived?.value}</td>
                           })}
                       </td>
                       <td
@@ -5978,7 +5999,7 @@ function Index() {
                             return camData?._id === rating.order
                           })
                           .map((val, index) => {
-                            ;<td key={index}>
+                            ; <td key={index}>
                               {checkNan(
                                 CovertvaluefromtoCR(val?.suggested?.value),
                               )}{' '}
@@ -6410,8 +6431,8 @@ function Index() {
           val.caseStatus == filterType.pending
             ? 'Pending'
             : null || val.caseStatus == filterType.disposed
-            ? 'Disposed'
-            : null
+              ? 'Disposed'
+              : null
         ) {
           return val
         } else {
@@ -6424,8 +6445,8 @@ function Index() {
         val.caseStatus == filterType.pending
           ? 'Pending'
           : null || val.caseStatus == filterType.disposed
-          ? 'Disposed'
-          : null
+            ? 'Disposed'
+            : null
       ) {
         return val
       } else {
@@ -6438,8 +6459,8 @@ function Index() {
           val.caseStatus == filterType.pending
             ? 'Pending'
             : null || val.caseStatus == filterType.disposed
-            ? 'Disposed'
-            : null
+              ? 'Disposed'
+              : null
         ) {
           return val
         } else {
@@ -6763,7 +6784,7 @@ function Index() {
                   <div className={`${styles.card} card`}>
                     <div
                       className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
-                      // style={{ cursor: 'pointer' }}
+                    // style={{ cursor: 'pointer' }}
                     >
                       <div
                         className={`${styles.detail_head_container}  d-flex align-items-center justify-content-between w-100`}
@@ -7047,7 +7068,7 @@ function Index() {
                             className={`${styles.form_control} input form-control`}
                           >
                             {orderList?.company?.litigationStatus !==
-                            'Pending' ? (
+                              'Pending' ? (
                               <>
                                 <option selected value="All">
                                   All
@@ -7463,10 +7484,10 @@ function Index() {
         </div>
       </div>
       {selectedTab == 'Financials' ||
-      'Compliance' ||
-      'Orders' ||
-      'Credit' ||
-      'DocumentsTab' ? (
+        'Compliance' ||
+        'Orders' ||
+        'Credit' ||
+        'DocumentsTab' ? (
         <PreviousBar rightButtonClick={onNext} leftButtonClick={onBack} />
       ) : null}
       {selectedTab == 'Profile' ? (
@@ -7566,12 +7587,12 @@ const ligitations = (Supreme, District, High, Tribunal, companyData) => {
 }
 
 const table2 = (sat, balance, complienceFilter) => {
-  console.log( balance,complienceFilter, 'oi')
+  console.log(balance, complienceFilter, 'oi')
   let length =
-    complienceFilter == 'Banking Defaults' ? balance.length : sat.length 
-   if(complienceFilter == 'All'){
-    complienceFilter ==  sat.length 
-   }
+    complienceFilter == 'Banking Defaults' ? balance.length : sat.length
+  if (complienceFilter == 'All') {
+    complienceFilter == sat.length
+  }
 
   return (
     <table
@@ -7596,8 +7617,8 @@ const table2 = (sat, balance, complienceFilter) => {
             {complienceFilter == 'StatutoryCompliance'
               ? `Statutory Compliance`
               : complienceFilter == 'All'
-              ? 'All'
-              : `Banking Defaults`}
+                ? 'All'
+                : `Banking Defaults`}
           </td>
           {/* <td></td>
           <td></td>
@@ -7607,29 +7628,29 @@ const table2 = (sat, balance, complienceFilter) => {
         </tr>
         {complienceFilter == 'StatutoryCompliance'
           ? sat.length &&
-            sat?.map((alert, index) => {
-              return (
-                <tr key={index}>
-                  <td> {alert.alert}</td>
-                  <td> {alert.severity}</td>
-                  <td> {alert.source}</td>
-                  <td> {alert.idType}</td>
-                  <td> {alert.value}</td>
-                </tr>
-              )
-            })
+          sat?.map((alert, index) => {
+            return (
+              <tr key={index}>
+                <td> {alert.alert}</td>
+                <td> {alert.severity}</td>
+                <td> {alert.source}</td>
+                <td> {alert.idType}</td>
+                <td> {alert.value}</td>
+              </tr>
+            )
+          })
           : balance.length > 0 &&
-            balance?.map((alert, index) => {
-              return (
-                <tr key={index}>
-                  <td> {alert.alert}</td>
-                  <td> {alert.severity}</td>
-                  <td> {alert.source}</td>
-                  <td> {alert.idType}</td>
-                  <td> {alert.value}</td>
-                </tr>
-              )
-            })}
+          balance?.map((alert, index) => {
+            return (
+              <tr key={index}>
+                <td> {alert.alert}</td>
+                <td> {alert.severity}</td>
+                <td> {alert.source}</td>
+                <td> {alert.idType}</td>
+                <td> {alert.value}</td>
+              </tr>
+            )
+          })}
         {complienceFilter == 'All' ? (
           <>
             {sat.length &&
