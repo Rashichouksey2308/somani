@@ -253,7 +253,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
     if (quotationData?.insuranceType !== '') {
       if (validation()) {
         let insuranceObj = { ...quotationData }
-        insuranceObj.sumInsured = removePrefixOrSuffix(quotationData.sumInsured) * 1000000
+        insuranceObj.sumInsured = removePrefixOrSuffix(quotationData.sumInsured) * 10000000
         let obj = {
           quotationRequest: { ...insuranceObj },
           insuranceId: insuranceData?._id,
