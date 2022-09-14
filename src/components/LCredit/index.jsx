@@ -759,13 +759,13 @@ function Index() {
                                         <td>
                                           <img
                                             src="/static/mode_edit.svg"
-                                            className="img-fluid ml-n5"
+                                            className={`${styles.image} ml-3`}
                                             alt="edit"
                                             onClick={() => handleEdit(index)}
                                           />
                                           <img
                                             src="/static/delete 2.svg"
-                                            className="img-fluid ml-3 mr-n5"
+                                            className="ml-3"
                                             alt="delete"
                                             onClick={() =>
                                               removeFromArr(arr.dropDownValue)
@@ -783,13 +783,13 @@ function Index() {
                                         <td>
                                           <img
                                             src="/static/mode_edit.svg"
-                                            className="img-fluid ml-n5"
+                                            className={`${styles.image} ml-3`}
                                             alt="edit"
                                             onClick={() => handleEdit(index)}
                                           />
                                           <img
                                             src="/static/delete 2.svg"
-                                            className="img-fluid ml-3 mr-n5"
+                                            className="ml-3"
                                             alt="delete"
                                             onClick={() =>
                                               removeFromArr(arr.dropDownValue)

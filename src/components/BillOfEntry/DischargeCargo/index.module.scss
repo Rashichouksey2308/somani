@@ -535,12 +535,11 @@
       .table_scroll_inner {
         display: table-cell;
         overflow-x: auto;
-        min-height: 400px;
+        overflow-y: auto;
+        max-height: 400px;
         padding: 0px;
     .table {
      
-    
-
       tr {
        height: 67px;
 
@@ -638,8 +637,8 @@
     text-overflow: ellipsis;
   }
   img {
-    width: auto;
-    height: auto;
+    width: auto !important;
+    height: auto !important;
   }
 }
 .certificate2 {

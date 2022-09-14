@@ -448,6 +448,7 @@
           box-sizing: border-box;
           white-space: nowrap;
           letter-spacing: 0.19px;
+          cursor: pointer;
           padding: 13px 30px 13px 17px;
           // border: 1px solid #0000001f;
           &:invalid + label {
@@ -1112,7 +1113,7 @@
     text-overflow: ellipsis;
   }
   img {
-    width: auto;
-    height: auto;
+    width: auto !important;
+    height: auto !important;
   }
 }

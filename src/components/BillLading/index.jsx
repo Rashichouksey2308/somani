@@ -785,7 +785,7 @@ export default function Index({
                             id="blNumber"
                             className={`${styles.input_field} input form-control`}
                             required
-                            type="number"
+                            type="text"
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                           />
@@ -961,7 +961,7 @@ export default function Index({
                             <strong className="text-danger">*</strong>
                           </h5>
                           <div className="row mt-n4">
-                            {bol?.containerDetails?.containerDoc === null ? (
+                            {bol?.containerDetails?.containerDoc !== null ? (
                               <div
                                 className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                               >

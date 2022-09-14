@@ -230,7 +230,7 @@ export default function Index({ OrderId, customData, uploadDoc,arrivalDate }) {
                   </div>
 
                   <div
-                    className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 d-flex align-items-center`}
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 align-self-center`}
                   >
                     {warehouseDetails?.document === null ? (
                       <div className={styles.uploadBtnWrapper}>

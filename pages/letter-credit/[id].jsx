@@ -186,9 +186,12 @@ function Index() {
     lcDraftDoc: null,
   })
 
+  // console.log(lcDoc, "THIS IS LC DOC")
+
   const uploadDocument1 = (e) => {
     const newInput = { ...lcDoc }
     newInput.lcDraftDoc = e.target.files[0]
+   
     setLcDoc(newInput)
   }
 
@@ -621,6 +624,7 @@ function Index() {
             uploadDocument1={uploadDocument1}
             documentName="LC AMENDMENT DRAFT"
             module="Agreements&Insurance&LC&Opening"
+            setLcDoc={setLcDoc}
           />
         </div>
       </div>
