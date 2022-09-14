@@ -33,7 +33,6 @@ export const CovertvaluefromtoCR = (value, conversionValue = 10000000) => {
   return newValue
 }
 
-
 export const convertValue = (value, coversionRate = 10000000) => {
   let newValue = Number(value / coversionRate)
   if (value === 0) {

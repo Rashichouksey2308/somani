@@ -215,7 +215,7 @@ export default function Index({ OrderId, customData, uploadDoc,arrivalDate }) {
                   >
                     <div className="d-flex">
                       <DateCalender
-                        startFrom={arrivalDate ? moment(arrivalDate).format('DD-MM-YYYY') : moment(customData.dischargeOfCargo.dischargeOfCargo.vesselArrivaldate).format('DD-MM-YYYY') ?? new Date()}
+                        startFrom={arrivalDate ? moment(arrivalDate).format('DD-MM-YYYY') : moment(customData?.dischargeOfCargo?.dischargeOfCargo?.vesselArrivaldate).format('DD-MM-YYYY') ?? new Date()}
                         defaultDate={warehouseDetails?.wareHouseDetails?.dateOfStorage}
                         name="dateOfStorage"
                         saveDate={saveDate}

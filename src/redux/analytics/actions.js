@@ -115,7 +115,12 @@ export const getAnalystData = () => async (dispatch, getState, api) => {
       dispatch(getCommodityData(leadSummary.data.data.data))
     }
     if (originSummary.data.code == 200) {
-      dispatch(getOriginData(leadSummary.data.data.data))
+      dispatch(
+        getOriginData({
+          payload: originSummary.data.data.data,
+          total: originSummary.data.data.totalOrderValue,
+        }),
+      )
     }
     if (customerSummary.data.code == 200) {
       dispatch(getCustomerData(leadSummary.data.data.data))
