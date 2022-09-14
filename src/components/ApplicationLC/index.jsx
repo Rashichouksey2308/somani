@@ -546,11 +546,7 @@ function Index() {
                           <span>DATE OF EXPIRY</span>
                         </td>
                         <td className="term_para">
-                          {moment(
-                            lcModuleData?.lcApplication?.dateOfExpiry?.split(
-                              'T',
-                            )[0],
-                          ).format('DD-MM-YYYY')}
+                          {lcModuleData?.lcApplication?.dateOfExpiry ? moment(lcModuleData?.lcApplication?.dateOfExpiry).format('DD-MM-YYYY') : ''}
                         </td>
                       </tr>
                       <tr className="table_row">
@@ -751,11 +747,7 @@ function Index() {
                           <span>LATEST DATE OF SHIPMENT</span>
                         </td>
                         <td className="term_para">
-                          {moment(
-                            lcModuleData?.lcApplication?.latestDateOfShipment?.split(
-                              'T',
-                            )[0],
-                          ).format('DD-MM-YYYY')}
+                          {lcModuleData?.lcApplication?.latestDateOfShipment ? moment(lcModuleData?.lcApplication?.latestDateOfShipment).format('DD-MM-YYYY') : ''}
                         </td>
                       </tr>{' '}
                       <tr className="table_row">
