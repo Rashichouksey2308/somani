@@ -243,8 +243,8 @@ export default function Index({
                   <label className={`${styles.dropDown_label} text`}>
                     Shipment Type
                   </label>
-                  <div className={`${styles.dropDown} ml-2 mr-3`} value="Bulk">
-                    Bulk
+                  <div className={`${styles.dropDown} ml-2 mr-3`} >
+                    {shipmentTypeBulk ? 'Bulk' : 'Liner'}
                   </div>
                 </div>
                 <div className="d-flex align-items-center">

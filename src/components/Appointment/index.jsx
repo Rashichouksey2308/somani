@@ -179,16 +179,14 @@ export default function Index({ inspectionData }) {
                       name="dateOfAppointment"
                       selected={
                         moment(
-                          appointmentData?.dateOfAppointment?.split('T')[0],
+                          appointmentData?.dateOfAppointment
                         ).toDate()
                           ? moment(
-                              appointmentData?.dateOfAppointment?.split('T')[0],
+                              appointmentData?.dateOfAppointment
                             ).toDate()
                           : startDate
                       }
-                      defaultDate={moment(
-                        inspectionData?.dateOfAppointment?.split('T')[0],
-                      ).toDate()}
+                      defaultDate={moment(inspectionData?.dateOfAppointment)}
                       //min={moment().format('YYYY-MM-DD')}
                       dateFormat="dd-MM-yyyy"
                       className={`${styles.input_field} ${styles.cursor_none} input form-control`}
