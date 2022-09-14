@@ -23,20 +23,113 @@ export default function Index({
       <div className={`${styles.backgroundMain} container-fluid`}>
         <div className={`${styles.vessel_card} border_color`}>
           <div className={`${styles.main} vessel_card card border_color`}>
-            {/* <div className='order_card'>
-           <div className="row mb-5">
+             <div className={`${styles.order_card}`}>
+           <div className="row ">
            <div
-              className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-              style={{ marginTop: '37px' }}>
-              <p className={` label_heading`}>
-              Branch  
-              </p>
-              <span>Abc</span>
+              className={`${styles.form_group}  col-lg-3 col-md-6 col-sm-6`}>
+             <div className='d-flex align-items-center'>
+             <div className={`${styles.total} mt-4 mb-4 mr-4`}>
+              ORDER ID  
+              </div>
+              <span className={`${styles.rate}`}>837YT78348</span>
+              </div>
             </div>
+            <div
+              className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
+             <div className='d-flex align-items-center'>
+             <div className={`${styles.total} mt-4 mb-4 mr-4`}>
+              COMMODITY NAME  
+              </div>
+              <span className={`${styles.rate}`}>Iron</span>
+              </div>
+            </div>
+            <div
+              className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
+             <div className='d-flex align-items-center'>
+             <div className={`${styles.total} mt-4 mb-4 mr-4`}>
+              VESSEL NAME  
+              </div>
+              <span className={`${styles.rate}`}>Abcz</span>
+              </div>
+            </div>
+            <div
+              className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
+             <div className='d-flex align-items-center'>
+             <div className={`${styles.total} mt-4 mb-4 mr-4`}>
+              MARGIN MONEY RCVD.  
+              </div>
+              <span className={`${styles.rate}`}>INR 10 CR</span>
+              </div>
+            </div>
+            <div
+              className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
+             <div className='d-flex align-items-center'>
+             <div className={`${styles.total} mt-4 mb-4 mr-4`}>
+              OUTSTANDING AMOUNT  
+              </div>
+              <span className={`${styles.rate}`}>INR 10 CR</span>
+              </div>
+            </div>
+            <div
+              className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
+             <div className='d-flex align-items-center'>
+             <div className={`${styles.total} mt-4 mb-4 mr-4`}>
+              CR/DR BALANCE  
+              </div>
+              <span className={`${styles.rate}`}>INR 10,000</span>
+              </div>
+            </div>
+            <div
+              className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
+             <div className='d-flex align-items-center'>
+             <div className={`${styles.total} mt-4 mb-4 mr-4`}>
+              ORDER DATE  
+              </div>
+              <span className={`${styles.rate}`}>22-02-2022</span>
+              </div>
+            </div>
+            <div
+              className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
+             <div className='d-flex align-items-center'>
+             <div className={`${styles.total} mt-4 mb-4 mr-4`}>
+              ORDER VALUE  
+              </div>
+              <span className={`${styles.rate}`}>INR 10 CR</span>
+              </div>
+            </div>
+            <div
+              className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
+             <div className='d-flex align-items-center'>
+             <div className={`${styles.total} mt-4 mb-4 mr-4`}>
+              DUE DATE  
+              </div>
+              <span className={`${styles.rate}`}>22-02-2022</span>
+              </div>
+            </div>
+            <div
+              className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
+             <div className='d-flex align-items-center'>
+             <div className={`${styles.total} mt-4 mb-4 mr-4`}>
+              DUE DAYS  
+              </div>
+              <span className={`${styles.rate}`}
+              style={{color:'#EA3F3F' , fontWeight:'500'}}>24</span>
+              </div>
+            </div>
+            <div
+              className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}>
+             <div className='d-flex align-items-center'>
+             <div className={`${styles.total} mt-4 mb-4 mr-4`}>
+              COMPANIES INVOLVED  
+              </div>
+              <span className={`${styles.rate}`}>IGPL / IIAG</span>
+              </div>
+            </div>
+          
            </div>
-           </div> */}
+           </div> 
 
-            <div className={`${styles.dashboard_form} card-body`}>
+            <div className={`${styles.dashboard_form} mt-3 card-body`}>
               <div className="d-flex align-items-center justify-content-between">
                 <h3 className={styles.form_heading}>Purchase Details</h3>
                 <div className="d-flex align-items-center">
@@ -174,7 +267,6 @@ export default function Index({
                   <input
                     className={`${styles.input_field} input form-control`}
                     type="text"
-                    name="boeDetails.accessibleValue"
                     required
                     onKeyDown={(evt) =>
                       ['e', 'E', '+', '-'].includes(evt.key) &&
@@ -210,6 +302,77 @@ export default function Index({
                 </div>
               </div>
 
+              <div className={`${styles.bill_landing} card border_color mt-4`}>
+                <div
+                  className={`${styles.vessel_card} align-items-center border_color head_container d-flex bg-transparent`}
+                >
+                  <div className={`${styles.card_sub_heading}`}>
+                   BOE Details
+                  </div>
+                  <span className={styles.view_btn}>View</span>
+
+                
+                </div>
+
+                <div className="row m-3">
+                  <div
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  >
+                    <div className="d-flex">
+                      <select
+                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                      >
+                        <option value="">G2346FDG47F</option>
+                        <option value="">G2346FDG47F</option>
+                      </select>
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        BOE No.<strong className="text-danger">*</strong>
+                      </label>
+                      <div className={`${styles.img_arrow} image_arrow`}>
+                        <Image
+                          width="13px"
+                          height="8px"
+                          src="/static/inputDropDown.svg"
+                          alt="Search"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                    style={{ marginTop: '37px' }}
+                  >
+                    <p className={` label_heading`}>BOE  Date <strong className="text-danger">*</strong></p>
+                    <span>22-02-2022</span>
+                  </div>
+                  <div
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  >
+                    <input
+                      className={`${styles.input_field} input form-control`}
+                      type="number"
+                      required
+                      onKeyDown={(evt) =>
+                        ['e', 'E', '+', '-'].includes(evt.key) &&
+                        evt.preventDefault()
+                      }
+                    />
+
+                    <label className={`${styles.label_heading} label_heading`}>
+                    BOE Conversion Rate <strong className="text-danger">*</strong>
+                    </label>
+                  </div>
+                  <div
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                    style={{ marginTop: '37px' }}
+                  >
+                    <p className={` label_heading`}>Currency</p>
+                    <span>USD</span>
+                  </div>
+                </div>
+              </div>
               <div className={`${styles.bill_landing} card border_color mt-4`}>
                 <div
                   className={`${styles.vessel_card} align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
@@ -434,13 +597,17 @@ export default function Index({
                     </label>
                   </div>
                 </div>
+                <div className='d-flex justify-content-end m-3 align-items-center'>
+                  <div className={`${styles.total}`}>INVOICE TOTAL</div>
+                  <div className={`${styles.rate} ml-3`}>INR 10,000</div>
+                </div>
               </div>
               <div className={`${styles.bill_landing} card border_color mt-4`}>
                 <div
                   className={`${styles.vessel_card} align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
                 >
                   <div className={`${styles.card_sub_heading}`}>
-                    Bank Details Details
+                    Bank Details
                   </div>
                   <div className={`${styles.img_arrow} image_arrow`}>
                     <Image
