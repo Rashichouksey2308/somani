@@ -27,7 +27,7 @@
   }
   .addressAndDAte {
     div {
-      font-weight: bold;
+      font-weight: normal;
       font-size: 22px;
       line-height: 36px;
       letter-spacing: 0;
@@ -43,14 +43,16 @@
       }
       .noadd {
         width: 40%;
+        font-weight: normal;
       }
     }
     margin-bottom: 4rem;
   }
   .salutations {
     margin-top: 1.8rem;
+    font-weight: normal !important;
     span {
-      font-weight: normal;
+      font-weight: normal !important;
       font-size: 22px;
       line-height: 36px;
       letter-spacing: 0;
@@ -58,7 +60,7 @@
     div {
       white-space: nowrap;
       // width: 413px;
-      font-weight: bold;
+      font-weight: normal;
       font-size: 22px;
       line-height: 36px;
       letter-spacing: 0;
@@ -144,7 +146,7 @@
     }
   }
   .bold {
-    font-weight: bold;
+    font-weight: bold !important;
   }
 }
 .button {

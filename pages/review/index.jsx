@@ -916,7 +916,7 @@ function Index() {
       limitType: orderList?.company?.debtProfile?.limitType,
     },
   ])
-
+// console.log(debtData, 'debtData')
   // const [personData, setPersonData] = useState([
   //   {
   //     contact: {
@@ -962,7 +962,7 @@ function Index() {
       // console.log(element,"useEE")
       debtArr.push(element)
     })
-    setDebtData(debtArr)
+    setDebtData([...debtArr])
 
     let addressArr = []
     orderList?.company?.keyAddress?.forEach((element) => {

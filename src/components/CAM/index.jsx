@@ -473,9 +473,9 @@ function Index({
       let dataSet = []
       let total = 0
       for (let i = 0; i < length; i++) {
-        lable.push(sortedval[i].name)
-        dataSet.push(sortedval[i].value)
-        total = total + sortedval[i].value
+        lable.push(sortedval[i]?.name)
+        dataSet.push(sortedval[i]?.value)
+        total = total + sortedval[i]?.value
       }
       let top5data = {
         labels: lable,
@@ -1776,8 +1776,8 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor) => 
                   {camData &&
                     camData?.company?.detailedCompanyInfo?.financial?.openCharges?.map(
                       (charge, index) => {
-                        let name = charge?.nameOfChargeHolder1
-                        let [fName, lName] = name?.split(' ')
+                        let name = charge?.nameOfChargeHolder
+                        let [fName, lName] = name?.split(' ') 
 
                         let colors = [
                           {

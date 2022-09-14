@@ -432,11 +432,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                 <tr className={`${styles.table_row} table_row`}>
                   <td>Expected Date Of Shipment</td>
                   <td>
-                    {moment(
-                      reviewedProfile?.ExpectedDateOfShipment?.originalValue.split(
-                        'T',
-                      )[0],
-                    ).format('DD-MM-YYYY')}
+                    {moment(reviewedProfile?.ExpectedDateOfShipment?.originalValue).format('DD-MM-YYYY')}
                   </td>
                   <td>
                     <div className={styles.tick}>
@@ -485,10 +481,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                           .add(3, 'months')
                           .toDate()}
                         lastDate={moment(
-                          reviewedProfile?.ExpectedDateOfShipment?.originalValue.split(
-                            'T',
-                          )[0],
-                        ).toDate()}
+                          reviewedProfile?.ExpectedDateOfShipment?.originalValue).toDate()}
                         small={true}
                       />
                     )}
