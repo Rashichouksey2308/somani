@@ -25,6 +25,8 @@ const Index = ({
 
   const [editInput, setEditInput] = useState(true)
 
+  let d = new Date()
+
   // const [documentsDropDownFilter, setDocumentsDropDownFilter] = useState(
   //   'LeadOnboarding&OrderApproval',
   // )
@@ -206,7 +208,7 @@ const Index = ({
                     </td>
                     <td className={styles.doc_row}>
                       {lcDoc?.lcDraftDoc?.lastModifiedDate
-                        ? moment(lcDoc.lcDraftDoc.lastModifiedDate).format(
+                        ? moment(d).format(
                             'DD-MM-YYYY,HH:mm A',
                           )
                         : ''}
