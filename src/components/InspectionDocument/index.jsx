@@ -493,14 +493,6 @@ const Index = ({
                             {' '}
                             Policy Document - Storage
                           </option>
-                          <option value="policyDocumentMarine">
-                            {' '}
-                            Policy Document - Marine
-                          </option>
-                          <option value="policyDocumentStorage">
-                            {' '}
-                            Policy Document - Storage
-                          </option>
                         </>
                       ) : module === 'CustomClearanceAndWarehousing' ? (
                         <>
