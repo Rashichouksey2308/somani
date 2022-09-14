@@ -1382,7 +1382,7 @@ setEditAddress(
 
            
             <div className={`${styles.newAddressContainer} ${styles.newAddressContainer2} m-0`}>
-                  <div className={styles.newAddressHead}><span>Add a new {props.multiPartValue} address</span></div>
+                  <div className={styles.newAddressHead}><span>Add a new {/*{props.multiPartValue}*/} address</span></div>
                     <div className={`${styles.newAddressContent} row`}>
                     <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                       <div className="d-flex">

@@ -426,10 +426,10 @@ function Index() {
                           </td>
                         </tr>
                         <tr>
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)'}}>
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>72</span>SENDER TO RECEIVER INFORMATION</p>
                           </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                          <td align='left'>
                             <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {lcModuleData?.lcApplication?.senderToReceiverInformation?.toUpperCase()}</p>
                           </td>
                         </tr>
