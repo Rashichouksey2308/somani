@@ -81,7 +81,7 @@ export const getAnalystData = () => async (dispatch, getState, api) => {
       },
     )
     let originSummary = await Axios.get(
-      `${API.corebaseUrl}${API.orderSummary}`,
+      `${API.corebaseUrl}${API.originSummary}`,
       {
         headers: {
           authorization: jwtAccessToken,

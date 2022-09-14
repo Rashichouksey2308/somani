@@ -56,6 +56,7 @@ const IndexPage = () => {
               subHeader={'TOTAL LEADS'}
               image={'/static/clipboard-list.svg'}
               content={['APPROVED', 'IN PROCESS', 'REJECTED']}
+              data={leadSummary}
             />
           </div>
           <div className={`${styles.dashboardPadding} col-lg-6`}>
@@ -64,6 +65,7 @@ const IndexPage = () => {
               subHeader={'ORDER PLACED'}
               image={'/static/box-open.svg'}
               content={['COMPLETED', 'IN PROCESS', 'REJECTED']}
+              data={orderSummary}
             />
           </div>
         </div>
@@ -71,7 +73,7 @@ const IndexPage = () => {
           <div className={`${styles.left_Container} col-lg-3 col-md-12`}>
             <div className="row">
               <div className={`${styles.dashboardPadding} col-lg-12 col-md-6`}>
-                <Commodities />
+                <Commodities data={commoditySummary} />
               </div>
               <div className={`${styles.dashboardPadding} col-lg-12 col-md-6`}>
                 <Exposure />
