@@ -234,7 +234,7 @@
       }
 
       .form_group {
-        margin-top: 40px;
+        margin-top: 41px;
         position: relative;
         margin-bottom: 10px;
         .search_image {
@@ -1226,9 +1226,8 @@
     display: inline-block;
     text-overflow: ellipsis;
   }
-
   img {
-    width: auto;
-    height: auto;
+    width: auto !important;
+    height: auto !important;
   }
 }

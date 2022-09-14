@@ -1813,7 +1813,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </td>
                   </tr>
                   <tr>
-                    <td colSpan={2}>B2B Sales</td>
+                    <td colSpan={2}><span style={{textTransform:'uppercase'}}>B2B </span>Sales</td>
                     <td>
                       {/* {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.current?.value?.toLocaleString(
                         undefined,
@@ -2462,7 +2462,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </td>
                   </tr>
                   <tr>
-                    <td colSpan={2}>B2B Purchases</td>
+                    <td colSpan={2}><span style={{textTransform:'uppercase'}}>B2B </span>Purchases</td>
                     <td>
                       {convertValue(
                         gstFilteredData?.detail?.purchaseDetailAnnual
@@ -3727,7 +3727,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                           )}
                         </tr>
                         <tr>
-                          <td>B2B Sales</td>
+                          <td><span style={{textTransform:'uppercase'}}>B2B </span>Sales</td>
                           {gstFilteredData?.detail?.salesDeatail?.revenueBreakup.map(
                             (sales, index) => (
                               <td key={index}>
@@ -3743,7 +3743,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                           )}
                         </tr>
                         <tr>
-                          <td>B2C Sales</td>
+                          <td><span style={{textTransform:'uppercase'}}>B2C </span>Sales</td>
                           {gstFilteredData?.detail?.salesDeatail?.revenueBreakup.map(
                             (sales, index) => (
                               <td key={index}>
@@ -3937,7 +3937,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                           )}
                         </tr>
                         <tr>
-                          <td>B2B</td>
+                          <td style={{textTransform:'uppercase'}}>B2B</td>
                           {gstFilteredData?.detail?.salesDeatail?.numberOfInvoices.map(
                             (sales, index) => (
                               <td key={index}>
@@ -3947,7 +3947,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                           )}
                         </tr>
                         <tr>
-                          <td>B2C</td>
+                          <td style={{textTransform:'uppercase'}}>B2C</td>
                           {gstFilteredData?.detail?.salesDeatail?.numberOfInvoices.map(
                             (sales, index) => (
                               <td key={index}>
@@ -4075,7 +4075,7 @@ const gstPurchase = (
                           )}
                         </tr>
                         <tr>
-                          <td>B2B Purchase</td>
+                          <td><span style={{textTransform:'uppercase'}}>B2B </span>Purchase</td>
                           {gstFilteredData?.detail?.purchaseDetail?.purchases?.map(
                             (sales, index) => (
                               <td key={index}>
@@ -4091,7 +4091,7 @@ const gstPurchase = (
                           )}
                         </tr>
                         {/* <tr>
-                          <td>B2C Purchase</td>
+                          <td><span style={{textTransform:'uppercase'}}>B2C </span>Purchase</td>
                           {gstFilteredData?.detail?.purchaseDetail?.purchases.map(
                             (sales, index) => (
                               <td key={index}>
@@ -4291,7 +4291,7 @@ const gstPurchase = (
                           )}
                         </tr>
                         <tr>
-                          <td>B2B</td>
+                          <td style={{textTransform:'uppercase'}}>B2B</td>
                           {gstFilteredData?.detail?.purchaseDetail?.numberOfInvoices?.map(
                             (sales, index) => (
                               <td key={index}>
