@@ -69,11 +69,22 @@ export default function Index({
   }
   const dispatch = useDispatch()
   console.log(bolList, 'bolList')
-  let shipmentTypeBulk =
-    _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') ===
-      'Bulk'
-      ? true
-      : false
+  // let shipmentTypeBulk =
+  //   _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') ===
+  //     'Bulk'
+  //     ? true
+  //     : false
+  const[shipmentTypeBulk,setshipmentTypeBulk]=useState(false)
+  useEffect(() => {
+    setshipmentTypeBulk(
+      
+      _get(TransitDetails, `data[0].order.termsheet.transactionDetails.shipmentType`, '') ===
+      'Bulk' ? true : false
+      )
+  },
+  [TransitDetails])
+      
+    
 
   const existingBlData = _get(TransitDetails, `data[0].BL.billOfLanding`, [])
 

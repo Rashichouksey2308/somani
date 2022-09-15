@@ -58,6 +58,7 @@ function Index() {
   console.log(insuranceData, 'insuranceData')
 
   const exportPDF = () => {
+    console.log("hwhhwhhw,aas")
     const doc = new jsPDF('p', 'pt', [1500, 1500])
     doc.html(
       ReactDOMServer.renderToString(
@@ -126,7 +127,7 @@ function Index() {
                             >
                               Order ID:{' '}
                             </span>
-                            Vessel
+                           {insuranceData?.order?.orderId}
                           </p>
                         </td>
                       </tr>
@@ -152,7 +153,7 @@ function Index() {
                             >
                               Date:{' '}
                             </span>
-                            16.02.2022
+                            {moment(new Date()).format('DD.MM.yyyy')}
                           </p>
                         </td>
                       </tr>
@@ -178,7 +179,7 @@ function Index() {
                             >
                               Type of Insurance:{' '}
                             </span>
-                            Marine Insurance
+                            {insuranceData?.quotationRequest?.insuranceType}
                           </p>
                         </td>
                       </tr>
@@ -243,7 +244,11 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            MV Miss Simon
+                            {_get(
+                      insuranceData,
+                      'order.vessel.vessels[0].vesselInformation[0].name',
+                      '',
+                    )}
                           </p>
                         </td>
                       </tr>
@@ -284,7 +289,11 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            4987233
+                           {_get(
+                      insuranceData,
+                      'order.vessel.vessels[0].vesselInformation[0].IMONumber',
+                      '',
+                    )}
                           </p>
                         </td>
                       </tr>
@@ -325,7 +334,11 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            2019
+                            {_get(
+                      insuranceData,
+                      'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt',
+                      '',
+                    )?.slice(0, 4)}
                           </p>
                         </td>
                       </tr>
@@ -366,7 +379,8 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            INR 40.10 Crores (Including 110%)
+                            INR { convertValue(insuranceData?.quotationRequest?.sumInsured)} Crores
+                    (Including 110%)
                           </p>
                         </td>
                       </tr>
@@ -407,7 +421,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            Chromite Ore
+                             {insuranceData?.order?.commodity}
                           </p>
                         </td>
                       </tr>
@@ -448,7 +462,11 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            South Africa
+                             {_get(
+                      insuranceData,
+                      'order.vessel.vessels[0].transitDetails.countryOfOrigin',
+                      '',
+                    )}
                           </p>
                         </td>
                       </tr>
@@ -489,7 +507,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            BL Weight 20,000.00 MTs. (+/-00%)
+                            BL Weight {insuranceData?.order?.quantity} MTs. (+/-00%)
                           </p>
                         </td>
                       </tr>
@@ -530,7 +548,11 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            Westshore Terminals,Canada
+                             {_get(
+                      insuranceData,
+                      'order.vessel.vessels[0].transitDetails.portOfLoading',
+                      '',
+                    )}
                           </p>
                         </td>
                       </tr>
@@ -571,7 +593,11 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            Visakhapatnam, AP, India
+                             {_get(
+                      insuranceData,
+                      'order.vessel.vessels[0].transitDetails.portOfDischarge',
+                      '',
+                    )}
                           </p>
                         </td>
                       </tr>
@@ -612,7 +638,13 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            14-25 November, 2021
+                             {moment(
+                      insuranceData?.quotationRequest?.laycanFrom
+                    ).format('DD MMM')}{' '}
+                    -{' '}
+                    {moment(
+                      insuranceData?.quotationRequest?.laycanTo
+                    ).format('DD MMM, YYYY')}
                           </p>
                         </td>
                       </tr>
@@ -653,7 +685,9 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            15 December, 2021
+                           {moment(
+                      insuranceData?.quotationRequest?.expectedTimeOfDispatch
+                    ).format('DD MMMM , YYYY')}
                           </p>
                         </td>
                       </tr>
@@ -694,7 +728,9 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            15 December, 2021
+                            {moment(
+                      insuranceData?.quotationRequest?.expectedTimeOfArrival
+                    ).format('DD MMMM , YYYY')}
                           </p>
                         </td>
                       </tr>
@@ -735,8 +771,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            All Risks Including ICC-A, War, SRCC, Theft, Act of
-                            God etc.
+                             All Risks Including ICC-A, War, SRCC, Theft, Act of God etc.
                           </p>
                         </td>
                       </tr>
@@ -777,10 +812,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            Indo German International Private Limited, Ground
-                            Floor, Plot No-49-18-6/1, Lalitha Nagar, Sakshi
-                            Office Road, Akkayyapalem, Visakhapatnam, Andhra
-                            Pradesh, 530016 GSTIN No- 37AAACI3028D2Z0
+                            {insuranceData?.company?.companyName}
                           </p>
                         </td>
                       </tr>
@@ -821,7 +853,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            Zurcher Kantonal Bank, Zurich
+                            {insuranceData?.quotationRequest?.lossPayee}
                           </p>
                         </td>
                       </tr>
@@ -862,12 +894,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat. Duis aute irure dolor in
-                            reprehenderit in voluptate velit esse cillu.
+                            {insuranceData?.quotationRequest?.additionalInfo}
                           </p>
                         </td>
                       </tr>
@@ -901,7 +928,7 @@ function Index() {
                             Email ID - vipinrajput@gmail.com
                           </p>
                         </td>
-                      </tr>
+                      </tr> 
                     </table>
                   </td>
                 </tr>
