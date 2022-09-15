@@ -368,6 +368,8 @@ export default function Index({
   const handleCloseDoc = (e, index) => {
     let temparray = { ...igmList }
     temparray.igmDetails[index].document = null
+    setIgmList(temparray)
+
   }
 
   const handleSave = () => {
@@ -1027,7 +1029,7 @@ export default function Index({
                                 <img
                                   className={`${styles.close_image}`}
                                   src="/static/close.svg"
-                                  onClick={(e) => handleCloseDoc('', index)}
+                                  onClick={(e) => handleCloseDoc('item.document', index)}
                                   alt="Close"
                                 />{' '}
                               </div>

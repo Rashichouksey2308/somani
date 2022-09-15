@@ -124,7 +124,7 @@ autoPaging: "text",
           <div className={`${styles.aboutLetter}`}>
           <p>
               STANDARD FORM LETTER OF INDEMNITY TO BE GIVEN IN RETURN FOR
-              DELIVERING CARGO WITHOUT PRODUCTION OF THE ORIGINAL BILLS OF LADING.
+              DELIVERING CARGO WITHOUT PRODUCTION OF THE ORIGINAL BILL(S) OF LADING.
               
             </p>
           </div>
