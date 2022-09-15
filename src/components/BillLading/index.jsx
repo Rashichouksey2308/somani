@@ -1121,7 +1121,7 @@ export default function Index({
                         >
                           <thead>
                             <tr>
-                              <th width="25%">
+                              <th width="40%">
                                 DOCUMENT NAME{' '}
                                 <img
                                   className={`${styles.sort_img} mb-1`}
@@ -1129,7 +1129,7 @@ export default function Index({
                                   alt="Sort icon"
                                 />
                               </th>
-                              <th width="15%">
+                              <th width="14%">
                                 FORMAT{' '}
                                 <img
                                   className={`${styles.sort_img} mb-1`}
@@ -1137,7 +1137,7 @@ export default function Index({
                                   alt="Sort icon"
                                 />
                               </th>
-                              <th width="25%">
+                              <th width="24%">
                                 DOCUMENT DATE{' '}
                                 <img
                                   className={`${styles.sort_img} mb-1`}
@@ -1145,7 +1145,7 @@ export default function Index({
                                   alt="Sort icon"
                                 />
                               </th>
-                              <th width="35%" >ACTION</th>
+                              <th width="20%" >ACTION</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -1509,7 +1509,7 @@ export default function Index({
                                     <img
                                       className={`${styles.close_image}`}
                                       src="/static/close.svg"
-                                      onClick={(e) => handleCloseDoc(e, index)}
+                                      onClick={(e) => handleCloseDoc('blSurrenderDoc', index)}
                                       alt="Close"
                                     />{' '}
                                   </div>
