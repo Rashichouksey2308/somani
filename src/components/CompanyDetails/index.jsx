@@ -223,15 +223,17 @@ const Index = ({
                 className={`${styles.input_field} ${styles.company_name} input form-control`}
                 required
               />
-{/*              
-              {gettingCompanyPanResponse && serachterm && <div className={styles.searchResults}>
+            
+              {/* {gettingCompanyPanResponse && serachterm && 
+              <div className={styles.searchResults}>
                 <ul>
                   {gettingCompanyPanResponse?.data?.map((results, index) => (
                     <li onClick={handleFilteredData} id={results._id} key={index}>{results.companyName} </li>
                   ))}
                 </ul>
-              </div>}
-           */}
+              </div>
+              } */}
+         
             {/* <Filter/> */}
               <label
                 className={`${styles.label_heading} label_heading`}
