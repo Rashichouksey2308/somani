@@ -566,7 +566,7 @@
   display: inline-block;
   .info_circle {
     margin-left:300px ;
-    margin-top: -140px;
+    margin-top: -145px;
     margin-right: 50px;
    
     @include respond(sm-desktop) {
@@ -581,7 +581,7 @@
    
   }
   .tooltiptext {
-    font-size: 12px !important;
+    font-size: 13px !important;
     color: #000000;
     line-height: 16px !important;
     text-align: center;

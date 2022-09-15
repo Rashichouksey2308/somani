@@ -31,7 +31,7 @@ function index(props) {
       }
     })
     setData({
-    all:0,
+    all:(inprocess+approved+rejected),
     approved:approved,
     inprocess:inprocess,
     rejected:rejected
@@ -49,7 +49,7 @@ function index(props) {
           </div>
           <div className={styles.lead_headContainer}>
             <div className={styles.lead_header}>{props.subHeader}</div>
-            <div className={`${styles.lead_value} heading`}>{data.all}</div>
+            <div className={`${styles.lead_value} heading`}>{data?.all}</div>
           </div>
         </div>
         <div className={styles.verticalLine}></div>

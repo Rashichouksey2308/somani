@@ -7,10 +7,11 @@ const initialState = {
   originSummary: [],
   customerSummary: [],
   exposureSummary: [],
+  totalOrigin: 0,
 }
 
 function AnalyticsReducer(state = initialState, action) {
-  console.log(action.type, 'action3333')
+  console.log(action, 'action3333')
   switch (action.type) {
     case types.GET_ORDER_DATA:
       console.log(action.payload, 'action.payload')
@@ -31,7 +32,8 @@ function AnalyticsReducer(state = initialState, action) {
     case types.GET_ORIGIN_DATA:
       return {
         ...state,
-        originSummary: action.payload,
+        originSummary: action.payload.payload,
+        totalOrigin: action.payload.total,
       }
     case types.GET_CUSTOMER_DATA:
       return {

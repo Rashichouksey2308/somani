@@ -135,7 +135,7 @@ const index = ({
     console.log(tempArr, 'tempArr')
     setDebtData([...tempArr])
   }
-  console.log()
+  console.log(debtData,"debtData8888")
 
   const onDebtSave = () => {
     addDebtArr(debt)
@@ -159,6 +159,7 @@ const index = ({
     const unique = [
       ...new Set(filtered.map((item) => item.nameOfChargeHolder1)),
     ]
+    console.log(unique,"unique")
     return unique
   }
 
@@ -1972,17 +1973,18 @@ const index = ({
                                 index,
                               )
                             }
-                            // value={profile?.bankName}
-                            name="bankName"
-                            className={`${styles.dropDown} heading input`}
-                            disabled={!profile.actions}
-                          >
-                            <option disabled>Select an option</option>
-                            {FilterUniqueBank().map((item) => (
-                              <option value={item}>{item}</option>
-                            ))}
-                          </select>
-                          {/* <input
+                              // value={profile?.bankName}
+                              name="bankName"
+                              className={`${styles.dropDown} heading input`}
+                              disabled={!profile.actions}
+                              value={profile.bankName}
+                            >
+                              <option disabled selected>Select an option</option>
+                              {FilterUniqueBank().map((item) => (
+                                <option value={item}>{item}</option>
+                              ))}
+                            </select>
+                            {/* <input
                             name="bankName"
                             className="input"
                             disabled={!profile.actions}
