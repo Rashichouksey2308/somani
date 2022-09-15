@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setPageName, setDynamicName,setDynamicOrder } from '../../src/redux/userData/action'
 import { GetAllInspection } from '../../src/redux/Inspections/action'
 import { SearchLeads } from '../../src/redux/buyerProfile/action'
+import _get from 'lodash/get'
 
 function Index() {
   const dispatch = useDispatch()
@@ -276,7 +277,11 @@ if(window){
                         </td>
                         <td>{inspection?.order?.commodity}</td>
 
-                        <td>Abcz</td>
+                        <td>  {_get(
+                      inspection,
+                       'order.vessel.vessels[0].vesselInformation[0].name',
+                      '',
+                    )}</td>
                         <td>22-02-2022</td>
                         <td>
                           <span
