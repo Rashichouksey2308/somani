@@ -557,7 +557,7 @@ const Index = () => {
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              GSTN of Insurer
+                              GSTIN of Insurer
                               {marineData?.insuranceFromType === 'Domestic' && (
                                 <strong className="text-danger">*</strong>
                               )}
@@ -858,7 +858,7 @@ const Index = () => {
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              GSTN of Insurer
+                              GSTIN of Insurer
                             </label>
 
                           </div>
@@ -1153,7 +1153,7 @@ const Index = () => {
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              GSTN of Insurer
+                              GSTIN of Insurer
                             </label>
 
                           </div>

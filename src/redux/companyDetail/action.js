@@ -213,6 +213,10 @@ export const RefetchCombineKarza = (payload) => (dispatch, getState, api) => {
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(refetchCombineKarzaSuccess(response.data.data))
+        let toastMessage = 'The Company Data will Be Updated Shortly'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
       } else {
         dispatch(refetchCombineKarzaFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
