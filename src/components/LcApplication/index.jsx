@@ -5,7 +5,7 @@ import { Row, Col, Form } from 'react-bootstrap'
 import DateCalender from '../DateCalender'
 import PreviewBar from '../PreviewBar'
 import Router from 'next/router'
-import { addPrefixOrSuffix } from '../../utils/helper'
+import { addPrefixOrSuffix,checkNan } from '../../utils/helper'
 
 function Index({
   saveLcData,
@@ -283,9 +283,9 @@ function Index({
                           value={
                             isFieldInFocus.currencyCode
                               ? lcData?.currecyCodeAndAmountValue
-                              : Number(
+                              :checkNan( Number(
                                   lcData?.currecyCodeAndAmountValue,
-                                )?.toLocaleString() + ` USD`
+                                )) + ` USD`
                           }
                           // defaultValue={lcData?.currecyCodeAndAmountValue}
                           // value={addPrefixOrSuffix(
@@ -330,11 +330,11 @@ function Index({
                                 ? lcData?.tolerancePercentage
                                 : lcModuleData?.order?.tolerance
                               : '+/- ' +
-                                Number(
+                               checkNan( Number(
                                   lcData?.tolerancePercentage
                                     ? lcData?.tolerancePercentage
                                     : lcModuleData?.order?.tolerance,
-                                )?.toLocaleString() +
+                                )) +
                                 ` %`
                           }
                           // value={addPrefixOrSuffix(

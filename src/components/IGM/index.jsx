@@ -748,7 +748,9 @@ console.log(_get(TransitDetails, `data[0].order.termsheet.transactionDetails.shi
                       </div>
 
                     </div>
-
+                  </div>
+                  <hr className='mt-4 mb-0 border_color' />
+                  <div className="row">
                     {item.blNumber.map((blEntry, index2) => {
                       console.log(blEntry, '[igmListblmap]')
                       return (
@@ -798,7 +800,6 @@ console.log(_get(TransitDetails, `data[0].order.termsheet.transactionDetails.shi
                               />
                             </div>
                           </div>
-
                           {shipmentTypeBulk ? (
                             <>
                               <div

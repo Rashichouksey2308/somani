@@ -705,7 +705,7 @@ export default function Index({
                 <div
                   className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
                 >
-                  <h3 className={`${styles.heading}`}>
+                  <h3 className={`${styles.heading} flex-grow-1`}>
                     Bill of Lading {index + 1}
                   </h3>
                   {!partShipmentAllowed && (
@@ -713,11 +713,13 @@ export default function Index({
                       onClick={() => {
                         onBolAdd()
                       }}
-                      className={styles.add_btn}
+                      className={`${styles.add_btn} mr-0`}
                     >
                       <span className={styles.add_sign}>+</span>Add
                     </button>
                   )}
+                  <button className={`${styles.add_btn} mr-0 d-flex align-items-center justify-content-between border-danger text-danger`}>
+                    <img src="/static/delete.svg" width={15} alt="delete"/> Delete</button>
                 </div>
                 <div className={`${styles.dashboard_form} card-body`}>
                   <div className={`${styles.bill_landing} border_color`}>
@@ -1121,7 +1123,7 @@ export default function Index({
                         >
                           <thead>
                             <tr>
-                              <th width="25%">
+                              <th width="40%">
                                 DOCUMENT NAME{' '}
                                 <img
                                   className={`${styles.sort_img} mb-1`}
@@ -1129,7 +1131,7 @@ export default function Index({
                                   alt="Sort icon"
                                 />
                               </th>
-                              <th width="15%">
+                              <th width="14%">
                                 FORMAT{' '}
                                 <img
                                   className={`${styles.sort_img} mb-1`}
@@ -1137,7 +1139,7 @@ export default function Index({
                                   alt="Sort icon"
                                 />
                               </th>
-                              <th width="25%">
+                              <th width="24%">
                                 DOCUMENT DATE{' '}
                                 <img
                                   className={`${styles.sort_img} mb-1`}
@@ -1145,7 +1147,7 @@ export default function Index({
                                   alt="Sort icon"
                                 />
                               </th>
-                              <th width="35%" >ACTION</th>
+                              <th width="20%" >ACTION</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -1509,7 +1511,7 @@ export default function Index({
                                     <img
                                       className={`${styles.close_image}`}
                                       src="/static/close.svg"
-                                      onClick={(e) => handleCloseDoc(e, index)}
+                                      onClick={(e) => handleCloseDoc('blSurrenderDoc', index)}
                                       alt="Close"
                                     />{' '}
                                   </div>
