@@ -623,7 +623,8 @@ export default function Index({
                   Part Shipment Allowed:
                 </div>
                 <div className={`${styles.dropDown} input`}>
-                  {partShipmentAllowed ? 'Yes' : 'No'}
+                { _get(TransitDetails,'data[0].order.termsheet.transactionDetails.partShipmentAllowed', '')}
+                  {/* {partShipmentAllowed ? 'Yes' : 'No'} */}
                 </div>
               </div>
             </div>

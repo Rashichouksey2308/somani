@@ -835,7 +835,8 @@ export default function Index({ addButton, inspectionData }) {
                   <label className={`${styles.dropDown_label} text`}>
                     Part Shipment Allowed:
                   </label>
-                  <div className={`${styles.dropDown} input`}>{ _get(inspectionData,'order.termsheet.transactionDetails.partShipmentAllowed', '')}</div>
+                  <div className={`${styles.dropDown} input`}>
+                    { _get(inspectionData,'order.termsheet.transactionDetails.partShipmentAllowed', '')}</div>
 
                   <button className={styles.add_btn}>Add</button>
                 </div>

@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './index.module.scss'
 import { useSelector } from 'react-redux'
 
-function index({ isDownload, openbar, rightBtn , rightBtnClick}) {
+function index({ isDownload, openbar, rightBtn , rightBtnClick,download}) {
   const sidebar = useSelector((state) => state.sidebar.show_sidebar)
   const isMobile = useSelector((state) => state.sidebar.isMobile)
   return (
@@ -11,7 +11,7 @@ function index({ isDownload, openbar, rightBtn , rightBtnClick}) {
     }
     ${isMobile ? styles.no_sidebar_mobile : null} background1`}>
       {isDownload ? (
-        <div className={styles.reject}>
+        <div className={styles.reject} onClick={download}>
           <span>Letter of Indemnity</span>
           <img
             src="/static/file_download.svg"
