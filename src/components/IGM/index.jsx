@@ -1044,7 +1044,7 @@ export default function Index({
             )
           })}
           <div className="">
-            <UploadOther module="Loading-Transit-Unloading" orderId={orderId} />
+            <UploadOther module="Loading-Transit-Unloading" orderid={orderId} />
             {/* <InspectionDocument
               module="Loading-Transit-Unloading"
               orderId={orderId}
