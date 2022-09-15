@@ -561,7 +561,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            Port of Discharges
+                            Port of Discharge
                           </p>
                         </td>
                         <td
@@ -1250,7 +1250,7 @@ function Index() {
                     xs={4}
                     className={`${styles.content_head} label_heading"`}
                   >
-                    Port of Discharges
+                    Port of Discharge
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
                     {_get(
@@ -1512,13 +1512,13 @@ function Index() {
                   role="tablist"
                 >
                   <li className={`${styles.nav_item} nav-item`}>
-                    <a
+                  <a
                       className={`${styles.nav_link} nav-link active`}
-                      id="email-address"
+                      id="insurance-company"
                       data-toggle="tab"
-                      href="#emailAddress"
+                      href="#insuranceCompany"
                       role="tab"
-                      aria-controls="emailAddress"
+                      aria-controls="insuranceCompany"
                       aria-selected="true"
                     >
                       <img
@@ -1531,20 +1531,20 @@ function Index() {
                     </a>
                   </li>
                   <li className={`${styles.nav_item} nav-item`}>
-                    <a
+                  <a
                       className={`${styles.nav_link} nav-link`}
-                      id="whatsapp"
+                      id="email-address"
                       data-toggle="tab"
-                      href="#whatsApp"
+                      href="#emailAddress"
                       role="tab"
-                      aria-controls="whatsApp"
+                      aria-controls="emailAddress"
                       aria-selected="false"
                     >
                       <img
-                        src="/static/icons8-whatsapp.svg"
+                        src="/static/email-icon.png"
                         width={`27px`}
                         className="img-fluid"
-                        alt="WhatsApp"
+                        alt="Email"
                       />
                       Email Address
                     </a>
@@ -1556,9 +1556,9 @@ function Index() {
                 >
                   <div
                     className="tab-pane fade show active"
-                    id="emailAddress"
+                    id="insuranceCompany"
                     role="tabpanel"
-                    aria-labelledby="email-address"
+                    aria-labelledby="insurance-company"
                   >
                     <div className={`${styles.each_input} form-group`}>
                       <div className="d-flex">
@@ -1634,9 +1634,9 @@ function Index() {
                   </div>
                   <div
                     className="tab-pane fade"
-                    id="whatsApp"
+                    id="emailAddress"
                     role="tabpanel"
-                    aria-labelledby="whatsapp"
+                    aria-labelledby="email-address"
                   >
                     <div className={`${styles.each_input} form-group`}>
                       <div className="d-flex">
