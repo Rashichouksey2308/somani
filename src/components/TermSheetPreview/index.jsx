@@ -286,7 +286,7 @@ function Index() {
     //    10
 
     //  ];
-
+  console.log("here")
     const doc = new jsPDF('p', 'pt', [1500, 1500])
     doc.html(
       ReactDOMServer.renderToString(
