@@ -116,21 +116,20 @@ const index = ({
   console.log(keyNameList, 'THIS IS DEBT')
 
   const handleDebtChange = (name, value, index) => {
-    let tempArr = debtData
-    // if (name === 'primaryBank') {
-    //   tempArr.forEach((val, i) => {
-    //     if (i !== index) {
-    //       val[name] = false
-    //     }
-    //   })
-    
-    // }
+    let tempArr = [...debtData]
+ 
     console.log(name, value, index, 'tempArr123')
 
     tempArr.forEach((val, i) => {
       if (i == index) {
         val[name] = value
+      
+      }else{
+        if (name == 'primaryBank') {
+          val[name] = false
+        }
       }
+    
     })
     console.log(tempArr, 'tempArr')
     setDebtData([...tempArr])

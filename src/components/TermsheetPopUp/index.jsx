@@ -32,14 +32,18 @@ function index(props) {
        <Row>
             <Col md={6}className={`${styles.left} `}>
                 <img src="/static/icons8-whatsapp.svg" className={`mb-3`}/>
-                <InputGroup className="mb-3">
+                    <InputGroup className="mb-3">
                     <DropdownButton
                     variant="outline-secondary"
-                    title="+91"
+                    
                     id="input-group-dropdown-1"
                     className={`${styles.dropDown}`}
                     >
-                    <Dropdown.Item href="#">+91</Dropdown.Item>
+                  <Dropdown.Item href="#">+91</Dropdown.Item>
+                  <Dropdown.Item href="#">+92</Dropdown.Item>
+                  <Dropdown.Item href="#">+95</Dropdown.Item>
+                  <Dropdown.Item href="#">+24</Dropdown.Item>
+                  
                  
                    
                 

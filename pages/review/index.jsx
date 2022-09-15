@@ -1362,7 +1362,7 @@ function Index() {
           removePrefixOrSuffix(suggestedCredit.suggestedCreditLimit) * 10000000,
       }
 
-      // console.log(obj, "credit obj")
+      console.log(obj, "credit obj")
       dispatch(UpdateCredit({ ...obj }))
     }
   }

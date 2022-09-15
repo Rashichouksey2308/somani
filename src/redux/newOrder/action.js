@@ -23,6 +23,15 @@ function placeNewOrderFailed() {
     type: types.PLACE_ORDER_FAILED,
   }
 }
+function placeorderRouted() {
+  return {
+    type: types.PLACED_ORDER_ROUTED,
+  }
+}
+
+export const PlaceNewOrderRouted = (payload) => async (dispatch, getState, api) => {
+  dispatch(placeorderRouted())
+}
 
 export const PlaceNewOrder = (payload) => async (dispatch, getState, api) => {
   dispatch(placeNewOrder())
@@ -40,13 +49,15 @@ export const PlaceNewOrder = (payload) => async (dispatch, getState, api) => {
 
         let toastMessage = 'ORDER PLACED'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage }) }
-        Router.push('/order-list')
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        // Router.push('/order-list')
       } else {
         dispatch(placeNewOrderFailed(response.data.data))
         let toastMessage = 'FAILED TO PLACE NEW ORDER'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
       }
     })
   } catch (error) {

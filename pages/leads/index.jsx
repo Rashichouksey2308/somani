@@ -128,9 +128,9 @@ function Index() {
           <div
             className={`${styles.statusBox} statusBox border d-flex align-items-center justify-content-between`}
           >
-            <div className={`${styles.all} ${styles.boxInner} border_color`}>
+            <div className={`${styles.all} ${styles.boxInner} all border_color`}>
               <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={styles.iconBox}>
+                <div className={`${styles.iconBox} iconBox`}>
                   <img
                     src="/static/Leads.svg"
                     className="img-fluid"
@@ -143,9 +143,9 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div className={`${styles.approved} ${styles.boxInner} border_color`}>
+            <div className={`${styles.approved} ${styles.boxInner} approved border_color`}>
               <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={styles.iconBox}>
+                <div className={`${styles.iconBox} iconBox`}>
                   <img
                     src="/static/check.svg"
                     className="img-fluid"
@@ -158,9 +158,9 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div className={`${styles.review} ${styles.boxInner} border_color`}>
+            <div className={`${styles.review} ${styles.boxInner} review border_color`}>
               <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={styles.iconBox}>
+                <div className={`${styles.iconBox} iconBox`}>
                   <img
                     src="/static/access-time.svg"
                     className="img-fluid"
@@ -173,9 +173,9 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div className={`${styles.rejected} ${styles.boxInner} border_color`}>
+            <div className={`${styles.rejected} ${styles.boxInner} rejected border_color`}>
               <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={styles.iconBox}>
+                <div className={`${styles.iconBox} iconBox`}>
                   <img
                     src="/static/close-b.svg"
                     className="img-fluid"
@@ -188,9 +188,9 @@ function Index() {
                 </h3>
               </div>
             </div>
-            <div className={`${styles.saved} ${styles.boxInner} border_color`}>
+            <div className={`${styles.saved} ${styles.boxInner} saved border_color`}>
               <div className="d-lg-flex align-items-center d-inline-block">
-                <div className={styles.iconBox}>
+                <div className={`${styles.iconBox} iconBox`}>
                   <img
                     src="/static/bookmark.svg"
                     className="img-fluid"
