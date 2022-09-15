@@ -64,11 +64,11 @@ if(window){
       <div className={styles.container_inner}>
         <div className={`${styles.filter} d-flex align-items-center`}>
           <div className={`${styles.head_header} align-items-center`}>
-            {/* <img
+            <img
               className={`${styles.arrow} mr-2 image_arrow img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
-            /> */}
+            />
             <h1 className={styles.heading}>Inspection</h1>
           </div>
           <div className={styles.search}>
@@ -117,9 +117,9 @@ if(window){
         <div
           className={`${styles.statusBox} border statusBox d-flex align-items-center justify-content-between`}
         >
-          <div className={`${styles.all} ${styles.boxInner} border_color`}>
+          <div className={`${styles.all} ${styles.boxInner} all border_color`}>
             <div className="d-lg-flex align-items-center d-inline-block">
-              <div className={styles.iconBox}>
+              <div className={`${styles.iconBox} iconBox`}>
                 <img
                   src="/static/Leads.svg"
                   className="img-fluid"
@@ -132,9 +132,9 @@ if(window){
               </h3>
             </div>
           </div>
-          <div className={`${styles.approved} ${styles.boxInner} border_color`}>
+          <div className={`${styles.approved} ${styles.boxInner} approved border_color`}>
             <div className="d-lg-flex align-items-center d-inline-block">
-              <div className={styles.iconBox}>
+              <div className={`${styles.iconBox} iconBox`}>
                 <img
                   src="/static/check.svg"
                   className="img-fluid"
@@ -147,9 +147,9 @@ if(window){
               </h3>
             </div>
           </div>
-          <div className={`${styles.review} ${styles.boxInner} border_color`}>
+          <div className={`${styles.review} ${styles.boxInner} review border_color`}>
             <div className="d-lg-flex align-items-center d-inline-block">
-              <div className={styles.iconBox}>
+              <div className={`${styles.iconBox} iconBox`}>
                 <img
                   src="/static/access-time.svg"
                   className="img-fluid"
@@ -162,9 +162,9 @@ if(window){
               </h3>
             </div>
           </div>
-          <div className={`${styles.saved} ${styles.boxInner} border_color`}>
+          <div className={`${styles.saved} ${styles.boxInner} saved border_color`}>
             <div className="d-lg-flex align-items-center d-inline-block">
-              <div className={styles.iconBox}>
+              <div className={`${styles.iconBox} iconBox`}>
                 <img
                   src="/static/bookmark.svg"
                   className="img-fluid"

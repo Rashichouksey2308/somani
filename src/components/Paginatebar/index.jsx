@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './index.module.scss'
 import { useSelector } from 'react-redux'
 
-function index({ openbar, leftButtonTitle, rightButtonTitle ,exportPDF}) {
+function index({ openbar, leftButtonTitle, rightButtonTitle ,download}) {
   const sidebar = useSelector((state) => state.sidebar.show_sidebar)
   const isMobile = useSelector((state) => state.sidebar.isMobile)
   return (
@@ -11,7 +11,7 @@ function index({ openbar, leftButtonTitle, rightButtonTitle ,exportPDF}) {
     }
     ${isMobile ? styles.no_sidebar_mobile : null} cta_bar`}>
       <div className={styles.reject}
-      onClick={exportPDF}
+      onClick={download}
       ><span>{leftButtonTitle}</span>
         <img src="/static/file_download.svg" className='img-fluid' alt="FileDownload" />
       </div>

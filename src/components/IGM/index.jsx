@@ -34,9 +34,9 @@ export default function Index({
   console.log(TransitDetails, 'TransitDetails')
 
   let shipmentTypeBulk =
-    _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') ===
+    _get(TransitDetails, `data[0].order.termsheet.transactionDetails.shipmentType`, '') ===
       'Bulk' ? true : false
-
+console.log(_get(TransitDetails, `data[0].order.termsheet.transactionDetails.shipmentType`, ''),"ssssss")
   const [editInput, setEditInput] = useState(true)
 
   const [shipmentType, setShipmentType] = useState(true)
@@ -411,6 +411,7 @@ export default function Index({
     let task = 'submit'
     dispatch(UpdateTransitDetails({ fd, task }))
   }
+  console.log(shipmentTypeBulk,"shipmentTypeBulk",shipmentTypeBulk==false)
   return (
     <>
       <div className={`${styles.backgroundMain} p-0 container-fluid`}>
@@ -418,16 +419,23 @@ export default function Index({
           <div className={`${styles.wrapper} border_color card`}>
             <div className="d-lg-flex align-items-center d-inline-block">
               <h2 className="">Shipment Type</h2>
-              <div className={`${styles.radio_form} ml-lg-5 ml-n4`}>
+               <div className={`${styles.radio_form} ml-lg-5 ml-n4`}>
                 {['radio'].map((type) => (
                   <div key={`inline-${type}`} className={styles.radio_group}>
                     <Form.Check
                       className={styles.radio}
                       inline
                       label="Bulk"
-                      name="group1"
-                      disabled={isShipmentTypeBULK}
+                      name="group11"
+                      disabled={!shipmentTypeBulk}
                       type={type}
+                      // checked={
+                      //   _get(
+                      //     TransitDetails,
+                      //     'data[0].order.vessel.vessels[0].shipmentType',
+                      //     '',
+                      //   ) == 'Bulk' ? 'checked' : ''
+                      // }
                       checked={shipmentTypeBulk}
                       id={`inline-${type}-1`}
                     />
@@ -435,10 +443,17 @@ export default function Index({
                       className={styles.radio}
                       inline
                       label="Liner"
-                      name="group1"
-                      disabled={!isShipmentTypeBULK}
-                      type={type}
+                      name="group11"
+                      disabled={shipmentTypeBulk}
+                      // checked={
+                      //   _get(
+                      //     TransitDetails,
+                      //     'data[0].order.vessel.vessels[0].shipmentType',
+                      //     '',
+                      //   ) == 'Liner' ? 'checked' : ''
+                      // }
                       checked={!shipmentTypeBulk}
+                      type={type}
                       id={`inline-${type}-2`}
                     />
                   </div>
@@ -1044,7 +1059,7 @@ export default function Index({
             )
           })}
           <div className="">
-            <UploadOther module="Loading-Transit-Unloading" orderId={orderId} />
+            <UploadOther module="Loading-Transit-Unloading" orderid={orderId} />
             {/* <InspectionDocument
               module="Loading-Transit-Unloading"
               orderId={orderId}
