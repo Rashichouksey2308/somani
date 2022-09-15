@@ -1,34 +1,40 @@
 import * as types from './actionType';
 
 const initialState = {
-    placingNewOrder : false,
-    newOrder : null
+    placingNewOrder: false,
+    newOrder: null
 }
 
 function NewOrderReducer(state = initialState, action) {
-    switch(action.type){
-        case types.PLACE_ORDER: 
+    switch (action.type) {
+        case types.PLACE_ORDER:
             return {
                 ...state,
-                placingNewOrder: true, 
+                placingNewOrder: true,
                 newOrder: null
             }
-        case types.PLACE_ORDER_SUCCESSFULL: 
+        case types.PLACE_ORDER_SUCCESSFULL:
             return {
                 ...state,
-                placingNewOrder: false, 
+                placingNewOrder: false,
                 newOrder: action.payload
             }
-        case types.PLACE_ORDER_FAILED: 
+        case types.PLACE_ORDER_FAILED:
             return {
                 ...state,
-                placingNewOrder: false, 
+                placingNewOrder: false,
+                newOrder: null
+            }
+        case types.PLACED_ORDER_ROUTED:
+            return {
+                ...state,
+                placingNewOrder: false,
                 newOrder: null
             }
 
-        default: 
+        default:
             return state;
-        
+
     }
 }
 
