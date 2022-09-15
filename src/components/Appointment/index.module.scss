@@ -248,6 +248,24 @@
     padding: 5px;
   }
 }
+.delete_image {
+  background: #c3c3c31f;
+  border: 1px solid #0000001f;
+  border-radius: 4px;
+  padding: 6px;
+  margin-top: 19px;
+  width: 40px;
+  height: 40px;
+  @include respond(md-desktop) {
+    height: 30px;
+  }
+  @include respond(sm-desktop) {
+    height: 28px;
+  }
+  @include respond(phone) {
+    height: 25px;
+  }
+}
 
 .calanderIcon {
   margin-left: -40px;

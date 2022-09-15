@@ -178,12 +178,8 @@ export default function Index({ inspectionData }) {
                     <DatePicker
                       name="dateOfAppointment"
                       selected={
-                        moment(
-                          appointmentData?.dateOfAppointment
-                        ).toDate()
-                          ? moment(
-                              appointmentData?.dateOfAppointment
-                            ).toDate()
+                        moment(appointmentData?.dateOfAppointment).toDate()
+                          ? moment(appointmentData?.dateOfAppointment).toDate()
                           : startDate
                       }
                       defaultDate={moment(inspectionData?.dateOfAppointment)}
@@ -224,6 +220,7 @@ export default function Index({ inspectionData }) {
                         {appointmentData?.address?.country}
                       </div>
                     </div>
+                    <div>
                     <img
                       className={`${styles.edit_image} img-fluid mr-3`}
                       src="/static/mode_edit.svg"
@@ -232,6 +229,12 @@ export default function Index({ inspectionData }) {
                         handleEdit()
                       }}
                     />
+                    <img
+                      src="/static/delete.svg"
+                      className={`${styles.delete_image} mr-3`}
+                      alt="Bin"
+                    />
+                    </div>
                   </div>
                 </div>
               </div>
