@@ -574,7 +574,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            Port of Discharges
+                            Port of Discharge
                           </p>
                         </td>
                         <td
@@ -1129,7 +1129,7 @@ function Index() {
                     xs={4}
                     className={`${styles.content_head} label_heading"`}
                   >
-                    Port of Discharges
+                    Port of Discharge
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
                     {_get(
