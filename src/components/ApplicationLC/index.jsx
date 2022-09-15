@@ -32,7 +32,7 @@ function Index() {
 
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
-
+ const [what,setWhat]=useState("email")
   const handlePopup = () => {
     setShow(true)
   }
@@ -41,11 +41,24 @@ function Index() {
         emailID: '',
     },
   ])
+   const [number, setNumber] = useState([
+    {
+        number: '',
+    },
+  ])
   const addMoreRows = () => {
     setEmailAdd([
       ...emailAdd,
       {
         emailID: '',
+      },
+    ])
+  }
+    const addWhatRows = () => {
+    setNumber([
+      ...number,
+      {
+        number: '',
       },
     ])
   }
@@ -1077,6 +1090,9 @@ function Index() {
                           role="tab"
                           aria-controls="emailAddress"
                           aria-selected="true"
+                          onClick={() =>{
+                            setWhat("email")
+                          }}
                         >
                           <img
                             src="/static/email-icon.png"
@@ -1096,6 +1112,9 @@ function Index() {
                           role="tab"
                           aria-controls="whatsApp"
                           aria-selected="false"
+                           onClick={() =>{
+                            setWhat("what")
+                          }}
                         >
                           <img
                             src="/static/icons8-whatsapp.svg"
@@ -1177,7 +1196,10 @@ function Index() {
                         role="tabpanel"
                         aria-labelledby="whatsapp"
                       >
-                        <div
+                        {number.length>0 && number.map((val,index)=>{
+                          return (
+                            <>
+                             <div
                           className={`${styles.each_input} ${styles.phone} form-group`}
                         >
                           <div className={styles.phone_card}>
@@ -1208,6 +1230,9 @@ function Index() {
                             </label>
                           </div>
                         </div>
+                            </>
+                          )
+                        })}
                         {/* <div className={`${styles.labelFloat} form-group`}>
                           <input type='text' id='phone' name="phone" className={`${styles.formControl} ${styles.input} input form-control`} required />
                           <label className={`label_heading_login`} htmlFor='phone'>Phone Number</label>
@@ -1215,7 +1240,13 @@ function Index() {
                         <div
                           className={`${styles.addMoreRows}`}
                           onClick={(e) => {
+                            if(what=="what"){
+                            addWhatRows()
+                            }else{
                             addMoreRows()
+                            }
+                            
+                           
                           }}
                         >
                           <span style={{ fontSize: '2rem' }} className={`mr-2`}>

@@ -547,7 +547,7 @@ setEditAddress(
 //multi address
 
   const handleAddressMultiInput=()=>{
-
+  if(props.addressValidation(addressMutliType,newMultiAddress,false)){
   setMultiList(current => [...current, newMultiAddress])
     
     setNewMultiAddress({
@@ -559,6 +559,7 @@ setEditAddress(
                 "state": "",
                 "city": ""
             })
+  }
   }
   const onAddressMultiRemove=(index)=>{
   setMultiList([...multiList.slice(0,index), ...multiList.slice(index+1)])
@@ -573,6 +574,7 @@ setEditAddress(
   const [isEditMulti,setIsEditMulti]= useState(false)
   const [toEditIndexMulti,setToEditIndexMulti]= useState(0)
   const handleEditAddressMuliInput=(index)=>{
+
   setIsEditMulti(true)
   setToEditIndexMulti(index)
   let tempArr=multiList;
@@ -591,7 +593,7 @@ setEditAddress(
     }
   })
 
-
+    
   }
   const editNewMultiAddress=(name,value)=>{
   setIsEditMulti(true)

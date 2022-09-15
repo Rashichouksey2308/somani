@@ -470,8 +470,42 @@ body.light-mode .statusBox h3 {
 body.dark-mode .statusBox h3 {
   color: #ffffff;
 }
-body.light-mode .statusBox {}
-body.dark-mode .statusBox {}
+body.light-mode .all .iconBox {
+  background: rgba(40, 132, 222, 0.2) !important;
+}
+body.dark-mode .all .iconBox {
+  background: rgba(40, 132, 222, 0.4) !important;
+}
+body.light-mode .approved .iconBox {
+  background: rgba(76, 175, 80, 0.2) !important;
+}
+body.dark-mode .approved .iconBox {
+  background: rgba(76, 175, 80, 0.4) !important;
+}
+body.light-mode .review .iconBox {
+  background: rgba(255, 157, 0, 0.2) !important;
+}
+body.dark-mode .review .iconBox {
+  background: rgba(255, 157, 0, 0.4) !important;
+}
+body.light-mode .pending .iconBox {
+  background: rgba(195, 63, 234, 0.2) !important;
+}
+body.dark-mode .pending .iconBox {
+  background: rgba(195, 63, 234, 0.4) !important;
+}
+body.light-mode .rejected .iconBox {
+  background: rgba(234, 63, 63, 0.2) !important;
+}
+body.dark-mode .rejected .iconBox {
+  background: rgba(234, 63, 63, 0.4) !important;
+}
+body.light-mode .saved .iconBox {
+  background: rgba(202, 208, 214, 0.2) !important;
+}
+body.dark-mode .saved .iconBox {
+  background: rgba(202, 208, 214, 0.4) !important;
+}
 body.light-mode .statusBox h3 span {
   color: #8492A6;
 }
