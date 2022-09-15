@@ -16,6 +16,7 @@ import moment from 'moment'
 // import { on } from 'nodemon'
 
 function Index({ TransitDetails }) {
+  console.log("🚀 ~ file: index.jsx ~ line 19 ~ Index ~ TransitDetails", TransitDetails)
   const dispatch = useDispatch()
   let transId = _get(TransitDetails, `data[0]`, '')
   const [billsofLanding, setBillsofLanding] = useState([
@@ -38,6 +39,11 @@ function Index({ TransitDetails }) {
       designation: '',
     },
   })
+useEffect(() =>{
+  if(_get(TransitDetails,"data[0].LOI.billOfLanding",[]).length>0){
+    setBillsofLanding(_get(TransitDetails,"data[0].LOI.billOfLanding",[]))
+  }
+},[TransitDetails])
 
   const onAddClick = () => {
     setBillsofLanding([
@@ -178,6 +184,7 @@ const onDeleteClick=(index)=>{
   console.log(loi, 'billsofLanding')
 
   const saveData = () => {
+  
     if (loi.authorizedSignatory.name === '') {
       let toastMessage = 'PLEase select authorized signatory'
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -189,7 +196,8 @@ const onDeleteClick=(index)=>{
     sessionStorage.setItem('transitPId', transId._id)
     // const billOfLanding = [...bolList]
     const LOI = { ...loi }
-
+    LOI.billOfLanding=billsofLanding
+   console.log(LOI,"LOI111")
     let fd = new FormData()
     fd.append('loi', JSON.stringify(LOI))
     fd.append('transitId', transId._id)
@@ -287,7 +295,7 @@ const onDeleteClick=(index)=>{
               className={`ml-3 word-wrap d-flex justify-content-start align-items-center ${styles.salutationFeatures} `}
             >
               
-              <select onChange={(e) => BolDropDown(e,index1)} className="input">
+              <select onChange={(e) => BolDropDown(e,index1)} className="input" value={billsofLanding[index1].blnumber}>
                 {bolArray.map((element, index2) => (
                   <option key={index2} value={`BL-${index2+1}`}>
                     BL-{index2 + 1}
