@@ -64,7 +64,17 @@ function Index() {
                         <span style={{fontWeight:'normal'}}>Ship: </span>MV CRIMSON ARK<br/><br/>
                         <span style={{fontWeight:'normal'}}>Voyage: </span>FROM ABBOT POINT, AUSTRALIA TO ANY PORT(S) IN INDIA<br/><br/>
                         <span style={{fontWeight:'normal'}}>Cargo: </span>36,750 MT LAKE VERMONT PREMIUM HARD COKING COAL<br/><br/>
-                        <span style={{fontWeight:'normal'}}>Bill(s) of Lading: </span>BL,1 Dated 18TH MARCH 2021, ISSUE AT VISHAKAPATNAM, INDIA</td>
+                        <span style={{fontWeight:'normal'}}>Bill(s) of Lading:</span>
+                        {_get(transitDetails,"data[0].LOI.billOfLanding",[]).map((val,index)=>{
+                                 return(
+                                  <span> {val.blnumber} Dated 18TH MARCH 2021, {_get(
+                              transitDetails,
+                              'data[0].order.portOfDischarge',
+                              '',
+                            ).toUpperCase()}  </span>
+                                            )
+                        })}
+                         </td>
                       </tr>
                       <tr>
                         <td colSpan={2} align='left' style={{fontSize:'16px', color:'#111111', lineHeight:'22px', fontWeight:'bold', padding:'30px 35px 40px'}}><span style={{fontWeight:'normal'}}>The above cargo was shipped on the above ship by </span> LAKE VERMONT MARKETING PTY LTD, LEVEL 7, 12 CREEK STREET, BRISBANE <span style={{fontWeight:'normal'}}>and consigned to </span>TO ORDER <span style={{fontWeight:'normal'}}>for delivery at the port of </span>ANY PORT (S) IN INDIA <span style={{fontWeight:'normal'}}>but the bill of lading has not arrived and we, </span>EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA, <span style={{fontWeight:'normal'}}>hereby request you to deliver the said cargo to </span>EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA <span style={{fontWeight:'normal'}}>or to such party as you believe to be or to represent </span>EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA <span style={{fontWeight:'normal'}}>or to be acting on behalf of </span>EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA at VISAKHAPATNAM PORT (VSPL), INDIA <span style={{fontWeight:'normal'}}>without production of the original bill of lading.</span></td>
@@ -87,8 +97,8 @@ function Index() {
                       </tr>
                       <tr>
                         <td colSpan={2} align='left' style={{fontSize:'16px', color:'#111111', lineHeight:'22px', fontWeight:'bold', padding:'10px 35px 50px'}}><span style={{fontWeight:'normal'}}>Authorised Signatory</span><br/><br/>
-                        <span style={{fontWeight:'normal'}}>Name: </span>Vikash Rawal<br/><br/>
-                        <span style={{fontWeight:'normal'}}>Designation:</span>Chief Financial Officer</td>
+                        <span style={{fontWeight:'normal'}}>Name: </span>{_get(transitDetails, 'data[0].LOI.authorizedSignatory.name', '')}<br/><br/>
+                        <span style={{fontWeight:'normal'}}>Designation:</span>{_get(transitDetails, 'data[0].LOI.authorizedSignatory.designation', '')}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -183,15 +193,25 @@ autoPaging: "text",
           <div className={`d-flex ${styles.salutations}`}>
             <span>bill of Lading:</span>
             {'  '}
-            <div
+            <ol>
+            {_get(transitDetails,"data[0].LOI.billOfLanding",[]).map((val,index)=>{
+              return(
+            <>
+             <li>     <div
               className={`ml-3 d-flex justify-content-start align-items-center ${styles.salutationFeatures} `}
             >
-              BL,1 Dated 18TH MARCH 2021, ISSUE AT  {_get(
+              {val.blnumber}{" "} Dated 18TH MARCH 2021, ISSUE AT  {_get(
                   transitDetails,
                   'data[0].order.portOfDischarge',
                   '',
                 ).toUpperCase()}
-            </div>
+                
+            </div></li>
+            
+            </>
+              )
+            })}
+            </ol>
           </div>
 
           <div className={styles.body}>
