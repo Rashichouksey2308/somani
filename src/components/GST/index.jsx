@@ -1635,10 +1635,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   </tr>
                   <tr className={styles.second_head}>
                     <td colSpan={2}></td>
-                    <td>VALUE</td>
-                    <td className="border-left-0">% ON GROSS REVENUE</td>
-                    <td>VALUE</td>
-                    <td className="border-left-0">% ON GROSS REVENUE</td>
+                    <td className='text-nowrap'>VALUE</td>
+                    <td className="border-left-0 text-nowrap">% ON GROSS REVENUE</td>
+                    <td className='text-nowrap'>VALUE</td>
+                    <td className="border-left-0 text-nowrap">% ON GROSS REVENUE</td>
                     {/* <td    className=" d-flex align-items-center justify-content-between">
                <span>VALUE</span>
                <span >% ON GROSS REVENUE</span>
@@ -2054,9 +2054,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
 
                   <tr className={styles.second_head}>
                     <td></td>
-                    <td>VALUE</td>
+                    <td className='text-nowrap'>VALUE</td>
 
-                    <td>VALUE</td>
+                    <td className='text-nowrap'>VALUE</td>
                   </tr>
                   <tr>
                     <td>Average Monthly Sales</td>
@@ -2187,10 +2187,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </th>
                   </tr>
                   <tr className={`${styles.second_head}`}>
-                    <td>PRODUCT</td>
-                    <td>HSN CODE</td>
-                    <td>TURNOVER</td>
-                    <td>% SHARE</td>
+                    <td className='text-nowrap'>PRODUCT</td>
+                    <td className='text-nowrap'>HSN CODE</td>
+                    <td className='text-nowrap'>TURNOVER</td>
+                    <td className='text-nowrap'>% SHARE</td>
 
                     {/* <td>CUSTOMERS</td>
                     <td>INVOICES</td>
@@ -2303,9 +2303,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   <tr className={styles.second_head}>
                     <td colSpan={2}></td>
                     <td>VALUE</td>
-                    <td className="border-left-0">% ON GROSS REVENUE</td>
+                    <td className="border-left-0 text-nowrap">% ON GROSS REVENUE</td>
                     <td>VALUE</td>
-                    <td className="border-left-0">% ON GROSS REVENUE</td>
+                    <td className="border-left-0 text-nowrap">% ON GROSS REVENUE</td>
                     {/* <td    className=" d-flex align-items-center justify-content-between">
                <span>VALUE</span>
                <span >% ON GROSS REVENUE</span>
@@ -2804,9 +2804,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   </tr>
                   <tr className={`${styles.second_head}`}>
                     <td>PRODUCT</td>
-                    <td>HSN CODE</td>
+                    <td className='text-nowrap'>HSN CODE</td>
                     <td>TURNOVER</td>
-                    <td>% SHARE</td>
+                    <td className='text-nowrap'>% SHARE</td>
 
                     {/* <td>CUSTOMERS</td>
                     <td>INVOICES</td>
@@ -2926,10 +2926,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   </tr>
                   <tr className={styles.second_head}>
                     <td colSpan={2}>MONTH</td>
-                    <td>DATE OF FILING</td>
-                    <td>DAYS OF DELAY</td>
-                    <td>DATE OF FILING</td>
-                    <td>DAYS OF DELAY</td>
+                    <td className='text-nowrap'>DATE OF FILING</td>
+                    <td className='text-nowrap'>DAYS OF DELAY</td>
+                    <td className='text-nowrap'>DATE OF FILING</td>
+                    <td className='text-nowrap'>DAYS OF DELAY</td>
                     {/* <td    className=" d-flex align-items-center justify-content-between">
                <span>VALUE</span>
                <span >% ON GROSS REVENUE</span>
@@ -3050,12 +3050,12 @@ const gstCustomerDetail = (
                         </th>
                       </tr>
                       <tr className={styles.second_head}>
-                        <td>CUSTOMER NAME</td>
+                        <td className='text-nowrap'>CUSTOMER NAME</td>
                         <td>PAN</td>
                         <td>SALES</td>
-                        <td>% OF TOTAL SALES</td>
+                        <td className='text-nowrap'>% OF TOTAL SALES</td>
                         <td>INVOICES</td>
-                        <td>SALES PER INVOICE</td>
+                        <td className='text-nowrap'>SALES PER INVOICE</td>
                       </tr>
                       <tbody>
                         {gstFilteredData &&
@@ -3119,12 +3119,12 @@ const gstCustomerDetail = (
                         </th>
                       </tr>
                       <tr className={styles.second_head}>
-                        <td>CUSTOMER NAME</td>
+                        <td  className='text-nowrap'>CUSTOMER NAME</td>
                         <td>PAN</td>
                         <td>SALES</td>
-                        <td>% OF TOTAL SALES</td>
+                        <td className='text-nowrap'>% OF TOTAL SALES</td>
                         <td>INVOICES</td>
-                        <td>SALES PER INVOICE</td>
+                        <td className='text-nowrap'>SALES PER INVOICE</td>
                       </tr>
                       <tbody>
                         {gstFilteredData &&
@@ -3185,12 +3185,12 @@ const gstCustomerDetail = (
                         </th>
                       </tr>
                       <tr className={styles.second_head}>
-                        <td>CUSTOMER NAME</td>
+                        <td className='text-nowrap'>CUSTOMER NAME</td>
                         <td>PAN</td>
                         <td>SALES</td>
-                        <td>% OF TOTAL SALES</td>
+                        <td className='text-nowrap'>% OF TOTAL SALES</td>
                         <td>INVOICES</td>
-                        <td>SALES PER INVOICE</td>
+                        <td className='text-nowrap'>SALES PER INVOICE</td>
                       </tr>
                       <tbody>
                         {gstFilteredData &&
@@ -3251,11 +3251,11 @@ const gstCustomerDetail = (
                       </tr>
                       <tr className={styles.second_head}>
                         <td>STATE</td>
-                        <td>STATE CODE</td>
+                        <td  className='text-nowrap'>STATE CODE</td>
                         <td>SALES</td>
-                        <td>% OF TOTAL SALES</td>
+                        <td className='text-nowrap'>% OF TOTAL SALES</td>
                         <td>INVOICES</td>
-                        <td>SALES PER INVOICE</td>
+                        <td className='text-nowrap'>SALES PER INVOICE</td>
                       </tr>
                       <tbody>
                         {gstFilteredData &&
@@ -3373,12 +3373,12 @@ const gstSupplierDetail = (
                         </th>
                       </tr>
                       <tr className={styles.second_head}>
-                        <td>SUPPLIER NAME</td>
+                        <td className='text-nowrap'>SUPPLIER NAME</td>
                         <td>PAN</td>
                         <td>PURCHASE</td>
-                        <td>% OF TOTAL PUR.</td>
+                        <td className='text-nowrap'>% OF TOTAL PUR.</td>
                         <td>INVOICES</td>
-                        <td>PURCHASE PER INVOICE</td>
+                        <td className='text-nowrap'>PURCHASE PER INVOICE</td>
                       </tr>
                       <tbody>
                         {gstFilteredData &&
@@ -3441,12 +3441,12 @@ const gstSupplierDetail = (
                         </th>
                       </tr>
                       <tr className={styles.second_head}>
-                        <td>SUPPLIER NAME</td>
+                        <td className='text-nowrap'>SUPPLIER NAME</td>
                         <td>PAN</td>
                         <td>PURCHASE</td>
-                        <td>% OF TOTAL PUR.</td>
+                        <td className='text-nowrap'>% OF TOTAL PUR.</td>
                         <td>INVOICES</td>
-                        <td>PURCHASE PER INVOICE</td>
+                        <td className='text-nowrap'>PURCHASE PER INVOICE</td>
                       </tr>
                       <tbody>
                         {gstFilteredData &&
@@ -3507,12 +3507,12 @@ const gstSupplierDetail = (
                         </th>
                       </tr>
                       <tr className={styles.second_head}>
-                        <td>SUPPLIER NAME</td>
+                        <td className='text-nowrap'>SUPPLIER NAME</td>
                         <td>PAN</td>
                         <td>PURCHASE</td>
-                        <td>% OF TOTAL PUR.</td>
+                        <td className='text-nowrap'>% OF TOTAL PUR.</td>
                         <td>INVOICES</td>
-                        <td>PURCHASE PER INVOICE</td>
+                        <td className='text-nowrap'>PURCHASE PER INVOICE</td>
                       </tr>
                       <tbody>
                         {gstFilteredData &&
@@ -3575,12 +3575,12 @@ const gstSupplierDetail = (
                         </th>
                       </tr>
                       <tr className={styles.second_head}>
-                        <td>SUPPLIER NAME</td>
+                        <td className='text-nowrap'>SUPPLIER NAME</td>
                         <td>PAN</td>
                         <td>PURCHASE</td>
-                        <td>% OF TOTAL PUR.</td>
+                        <td className='text-nowrap'>% OF TOTAL PUR.</td>
                         <td>INVOICES</td>
-                        <td>PURCHASE PER INVOICE</td>
+                        <td className='text-nowrap'>PURCHASE PER INVOICE</td>
                       </tr>
                       <tbody>
                         {gstFilteredData &&
@@ -3802,7 +3802,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                       cellSpacing="0"
                     >
                       <tr className={styles.second_head}>
-                        <td>REVENUE %</td>
+                        <td className='text-nowrap'>REVENUE %</td>
                         {gstFilteredData?.detail?.salesDeatail?.revenuePercentage.map(
                           (month, index) => (
                             <td key={index}>
@@ -3914,7 +3914,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                       cellSpacing="0"
                     >
                       <tr className={styles.second_head}>
-                        <td>NO. OF INVOICES</td>
+                        <td className='text-nowrap'>NO. OF INVOICES</td>
                         {gstFilteredData?.detail?.salesDeatail?.numberOfInvoices.map(
                           (month, index) => (
                             <td key={index}>
