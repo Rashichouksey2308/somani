@@ -16,7 +16,7 @@ import { element, number } from 'prop-types'
 import { useEffect } from 'react'
 import 'react-datepicker/dist/react-datepicker.css'
 import DatePicker from 'react-datepicker'
-import { checkNan, CovertvaluefromtoCR } from '../../utils/helper'
+import { checkNan, convertValue, CovertvaluefromtoCR } from '../../utils/helper'
 import moment from 'moment'
 import { toast } from 'react-toastify'
 
@@ -477,9 +477,9 @@ export default function Index({
                     Order Value <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
                   <span className={styles.value}>
-                    {CovertvaluefromtoCR(
-                      _get(TransitDetails, 'data[0].order.orderValue', ''),
-                    )}{' '}
+                    {convertValue(
+                      _get(TransitDetails, 'data[0].order.orderValue', '')
+                    ).toLocaleString('en-IN')}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
                       'Crores'
                       ? 'Cr'
@@ -675,9 +675,9 @@ export default function Index({
                           className={`${styles.label_heading} label_heading`}
                         >
                           Vessel Name
-                          {shipmentTypeBulk ?  <strong className="text-danger">*</strong> 
-                          : ''
-                            }
+                          {shipmentTypeBulk ? <strong className="text-danger">*</strong>
+                            : ''
+                          }
                         </label>
                         <img
                           className={`${styles.arrow} image_arrow img-fluid`}
