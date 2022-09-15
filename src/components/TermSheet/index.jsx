@@ -123,7 +123,7 @@ const Index = () => {
       termsheet &&
         termsheet?.data?.map((sheet, index) => {
           setOtherTermConditions({
-            buyer: { bank: sheet?.otherTermsAndConditions?.buyer?.bank },
+            buyer: { bank: sheet?.otherTermsAndConditions?.buyer?.bank ||"Indo German International Private Limited (IGPL)" },
             chaOrstevedoringCharges: {
               customClearingCharges:
                 sheet?.otherTermsAndConditions?.chaOrstevedoringCharges

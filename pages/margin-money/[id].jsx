@@ -1274,7 +1274,7 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.orderValueInINR?.toLocaleString()} */}
-                                   ₹{" "}
+                                  ₹{' '}
                                   {checkNan(
                                     Number(finalCal.orderValueInINR),
                                     true,

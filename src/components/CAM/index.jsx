@@ -123,6 +123,7 @@ function Index({
   }
 
   const primaryBankName = () => {
+    console.log(camData?.company?.debtProfile,"camData?.company?.debtProfile")
     let filteredData = []
     filteredData =
       camData?.company?.debtProfile?.filter((data) => data.primaryBank) || []
@@ -2102,7 +2103,7 @@ const operationalDetails = (camData) => {
                     Plant Production Capacity
                   </span>
                   <span className={`${styles.value} value pr-5`}>
-                    {camData?.productSummary?.monthlyProductionCapacity}
+                    {camData?.productSummary?.monthlyProductionCapacity}{" "} {camData?.productSummary?.monthlyProductionCapacity?"MT":""}
                   </span>
                 </Col>
                 <Col
@@ -2113,7 +2114,7 @@ const operationalDetails = (camData) => {
                     Stock in Transit - Commodity
                   </span>
                   <span className={`${styles.value} value`}>
-                    {camData?.productSummary?.averageStockInTransit}
+                    {camData?.productSummary?.averageStockInTransit}{" "} {camData?.productSummary?.averageStockInTransit?"MT":""}
                   </span>
                 </Col>
               </Row>
@@ -2123,7 +2124,7 @@ const operationalDetails = (camData) => {
                     Capacity Utilization
                   </span>
                   <span className={`${styles.value} value pr-5`}>
-                    {camData?.productSummary?.capacityUtilization}
+                    {camData?.productSummary?.capacityUtilization}{" "} {camData?.productSummary?.capacityUtilization?"%":""}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
@@ -2131,7 +2132,7 @@ const operationalDetails = (camData) => {
                     Stock Coverage of Commodity
                   </span>
                   <span className={`${styles.value} value`}>
-                    {camData?.productSummary?.averageStockOfCommodity}
+                    {camData?.productSummary?.averageStockOfCommodity} {camData?.productSummary?.averageStockOfCommodity?"Days":""}
                   </span>
                 </Col>
               </Row>
@@ -2141,7 +2142,7 @@ const operationalDetails = (camData) => {
                     Available Stock of Commodity
                   </span>
                   <span className={`${styles.value} value pr-5`}>
-                    {camData?.productSummary?.availableStock}
+                    {camData?.productSummary?.availableStock}{" "} {camData?.productSummary?.availableStock?"MT":""}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
@@ -2149,7 +2150,7 @@ const operationalDetails = (camData) => {
                     Avg Monthly Electricity Bill
                   </span>
                   <span className={`${styles.value} value`}>
-                    {camData?.productSummary?.AvgMonthlyElectricityBill}
+                   {camData?.productSummary?.AvgMonthlyElectricityBill?"₹":""} {" "} {camData?.productSummary?.AvgMonthlyElectricityBill}
                   </span>
                 </Col>
               </Row>
@@ -2159,7 +2160,7 @@ const operationalDetails = (camData) => {
                     Daily Consumption of Commodity
                   </span>
                   <span className={`${styles.value} value`}>
-                    {camData?.productSummary?.dailyConsumptionOfCommodity}
+                    {camData?.productSummary?.dailyConsumptionOfCommodity}{" "} {camData?.productSummary?.dailyConsumptionOfCommodity?"MT":""}
                   </span>
                 </Col>
               </Row>

@@ -29,8 +29,9 @@ const IndexPage = () => {
     originSummary,
     customerSummary,
     exposureSummary,
+    totalOrigin,
   } = useSelector((state) => state.analytics)
-  console.log(orderSummary, leadSummary, 'leadSummary')
+  console.log(originSummary, totalOrigin, 'leadSummary')
   useEffect(() => {
     dispatch(setPageName('dashboard'))
   })
@@ -86,7 +87,7 @@ const IndexPage = () => {
                 <div
                   className={`${styles.commonCard} ${styles.dashboardPadding} col-md-6`}
                 >
-                  <Countries />
+                  <Countries data={originSummary} total={totalOrigin} />
                 </div>
                 <div
                   className={`${styles.commonCard} ${styles.dashboardPadding} col-md-6`}
