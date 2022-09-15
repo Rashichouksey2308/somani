@@ -262,19 +262,19 @@ export default function Index({ isQuery }) {
     //     router.route = '/Loading, Transit & Unloading'
     //   }
     // }
-    if ('inspection2' == pageName) {
+    if ('inception2' == pageName) {
       if (order != null) {
         router.route =
           '/Loading, Transit & Unloading' +
           `/Inspection` +
-          '/Third Party Inspection' +
+          `/${upperTabs}` +
           `/${id?.toLowerCase()}` +
           `/${order}`
       } else if (id !== null) {
         router.route =
           '/Loading, Transit & Unloading' +
           `Inspection` +
-          '/Third Party Inspection' +
+          `/${upperTabs}` +
           `/${id?.toLowerCase()}` +
           console.log('router123', router.route)
       } else {

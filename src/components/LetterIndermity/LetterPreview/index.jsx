@@ -87,8 +87,8 @@ function Index() {
                       </tr>
                       <tr>
                         <td colSpan={2} align='left' style={{fontSize:'16px', color:'#111111', lineHeight:'22px', fontWeight:'bold', padding:'10px 35px 50px'}}><span style={{fontWeight:'normal'}}>Authorised Signatory</span><br/><br/>
-                        <span style={{fontWeight:'normal'}}>Name: </span>Vikash Rawal<br/><br/>
-                        <span style={{fontWeight:'normal'}}>Designation:</span>Chief Financial Officer</td>
+                        <span style={{fontWeight:'normal'}}>Name: </span>{_get(transitDetails, 'data[0].LOI.authorizedSignatory.name', '')}<br/><br/>
+                        <span style={{fontWeight:'normal'}}>Designation:</span>{_get(transitDetails, 'data[0].LOI.authorizedSignatory.designation', '')}</td>
                       </tr>
                     </tbody>
                   </table>
