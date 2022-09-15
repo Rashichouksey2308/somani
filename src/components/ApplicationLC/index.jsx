@@ -1153,7 +1153,7 @@ function Index() {
                           <span style={{ fontSize: '2rem' }} className={`mr-2`}>
                             +
                           </span>{' '}
-                          Add more rows
+                          add another
                         </div>
                         <div className="d-flex justify-content-between">
                           <button
@@ -1221,7 +1221,7 @@ function Index() {
                           <span style={{ fontSize: '2rem' }} className={`mr-2`}>
                             +
                           </span>{' '}
-                          Add more rows
+                          add another
                         </div>
                         <div className="d-flex justify-content-between">
                           <button
