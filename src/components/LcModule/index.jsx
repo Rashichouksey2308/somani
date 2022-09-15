@@ -80,10 +80,10 @@ function Index() {
           <img src="/static/close-b.svg" className="img-fluid" alt="Close" />
           </a>  */}
 
-          {/* <button className={styles.createBtn}
+          <button className={styles.createBtn}
           onClick={()=>{Router.push("/lc-module/lc-application")}}
           style={{ position: "absolute", right: 25 }}>
-          Create</button> */}
+          Create</button>
         </div>
 
         <div className={`${styles.datatable} border card datatable`}>
