@@ -705,7 +705,7 @@ export default function Index({
                 <div
                   className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
                 >
-                  <h3 className={`${styles.heading}`}>
+                  <h3 className={`${styles.heading} flex-grow-1`}>
                     Bill of Lading {index + 1}
                   </h3>
                   {!partShipmentAllowed && (
@@ -713,11 +713,13 @@ export default function Index({
                       onClick={() => {
                         onBolAdd()
                       }}
-                      className={styles.add_btn}
+                      className={`${styles.add_btn} mr-0`}
                     >
                       <span className={styles.add_sign}>+</span>Add
                     </button>
                   )}
+                  <button className={`${styles.add_btn} mr-0 d-flex align-items-center justify-content-between border-danger text-danger`}>
+                    <img src="/static/delete.svg" width={15} alt="delete"/> Delete</button>
                 </div>
                 <div className={`${styles.dashboard_form} card-body`}>
                   <div className={`${styles.bill_landing} border_color`}>
