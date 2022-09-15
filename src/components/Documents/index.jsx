@@ -291,14 +291,14 @@ const Index = ({
         <hr className={styles.hr_line}></hr> */}
 
           <div className={`${styles.add_document} col-md-12`}>
-            <img className={styles.add_image} src="/static/add.svg" alt="Add" />
+            
             <p
-              className={styles.add_para}
+              className={`${styles.add_para} d-flex align-items-center`}
               onClick={(e) => {
                 onAddDoc()
               }}
             >
-              Add More Documents
+              <img className={styles.add_image} src="/static/add.svg" alt="Add" />Add More Documents
             </p>
           </div>
         </div>

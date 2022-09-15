@@ -144,7 +144,7 @@ const Index = ({
                   <option value="Crores" selected>
                     Crores
                   </option>
-                  <option value="Million">Million</option>
+                  {/* <option value="Million">Million</option> */}
                   <option value="Lakh">Lakh</option>
                 </select>
               </div>
