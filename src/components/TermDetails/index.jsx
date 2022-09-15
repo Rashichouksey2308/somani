@@ -623,6 +623,7 @@ const Index = ({
                 <div className="d-flex">
                   <select
                     onChange={onChangeTransactionDetails}
+                    value={termsheetDetails?.transactionDetails?.typeOfPort}
                     className={`${styles.value} ${styles.customSelect} input form-control`}
                     required
                     id={'typeOfPort'}

@@ -368,6 +368,8 @@ console.log(_get(TransitDetails, `data[0].order.termsheet.transactionDetails.shi
   const handleCloseDoc = (e, index) => {
     let temparray = { ...igmList }
     temparray.igmDetails[index].document = null
+    setIgmList(temparray)
+
   }
 
   const handleSave = () => {
@@ -1042,7 +1044,7 @@ console.log(_get(TransitDetails, `data[0].order.termsheet.transactionDetails.shi
                                 <img
                                   className={`${styles.close_image}`}
                                   src="/static/close.svg"
-                                  onClick={(e) => handleCloseDoc('', index)}
+                                  onClick={(e) => handleCloseDoc('item.document', index)}
                                   alt="Close"
                                 />{' '}
                               </div>
@@ -1057,7 +1059,7 @@ console.log(_get(TransitDetails, `data[0].order.termsheet.transactionDetails.shi
             )
           })}
           <div className="">
-            <UploadOther module="Loading-Transit-Unloading" orderId={orderId} />
+            <UploadOther module="Loading-Transit-Unloading" orderid={orderId} />
             {/* <InspectionDocument
               module="Loading-Transit-Unloading"
               orderId={orderId}

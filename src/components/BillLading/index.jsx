@@ -1024,7 +1024,7 @@ export default function Index({
                               </label>
                             </div>
                             <div
-                              className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                              className={`${styles.form_group} col-lg-8 col-md-6`}
                             >
                               {bol?.containerDetails?.containerDoc == null ? (
                                 <>

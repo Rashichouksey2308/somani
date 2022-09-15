@@ -6,18 +6,21 @@ import NewShipmentDetails from '../NewShipmentDetails'
 import CommonSave from '../CommonSave'
 import { toast } from 'react-toastify'
 import { useSelector, useDispatch } from 'react-redux'
-import { PlaceNewOrder } from 'redux/newOrder/action'
+import { PlaceNewOrder, PlaceNewOrderRouted } from 'redux/newOrder/action'
 import { handleCurrencyOrder, removePrefixOrSuffix } from 'utils/helper'
 import _get from 'lodash/get'
-// import {
-//   GetAllBuyer,
-//   GetAllOrders,
-//   GetBuyer,
-// } from '../../redux/registerBuyer/action'
+import {
+  GetAllBuyer,
+  GetAllOrders,
+  GetBuyer,
+} from '../../redux/registerBuyer/action'
+import { GetCompanyDetails } from '../../redux/companyDetail/action'
+
 import { GetCreditLimit } from '../../redux/companyDetail/action'
 import { GetOrders } from '../../redux/registerBuyer/action'
-import {CovertvaluefromtoCR,checkNan } from '../../utils/helper'
+import { CovertvaluefromtoCR, checkNan } from '../../utils/helper'
 import moment from 'moment'
+import Router from 'next/router'
 
 
 
@@ -25,10 +28,40 @@ import moment from 'moment'
 const Index = () => {
   const dispatch = useDispatch()
 
+
+
   const { singleOrder } = useSelector((state) => state.buyer)
   const { creditData } = useSelector((state) => state.companyDetails)
+  const { newOrder } = useSelector((state) => state.placeOrder)
+
+  console.log(newOrder, 'newOrder')
+
+  useEffect(() => {
+    if (newOrder) {
+      sessionStorage.setItem('orderID1', newOrder.orderRes._id)
+      sessionStorage.setItem('company', newOrder.orderRes.company)
+      // console.log(' before go to get document')
+      // sessionStorage.setItem('company', buyer.company._id)
+      if (newOrder.queue === 'CreditQueue') {
+        // dispatch(GetAllOrders({ orderId: buyer._id }))
+        //dispatch(GetDocuments({order: buyer._id}))
+        dispatch(GetCompanyDetails({ company: newOrder.orderRes.company }))
+        Router.push('/review')
+        dispatch(PlaceNewOrderRouted())
+
+      }
+      if (newOrder.queue === 'ReviewQueue') {
+        dispatch(GetBuyer({ companyId: newOrder.orderRes.company, orderId: newOrder.orderRes._id }))
+        Router.push('/review/id')
+        dispatch(PlaceNewOrderRouted())
+
+      }
+    }
+  }, [newOrder])
 
   let singleOrderId = _get(singleOrder, 'data[0].company._id', '')
+
+
 
   const [orderData, setOrderData] = useState({
     transactionType: 'Import',
@@ -261,12 +294,12 @@ const Index = () => {
               <div className="col-md-2 col-sm-4">
                 <div className={`${styles.label} text`}>Limit Expiry Date</div>
                 <span className={styles.value}>
-                  {creditData?.data?.limitExpiry ?moment(creditData?.data?.limitExpiry?.split('T')[0]).format('DD-MM-YYYY') : ''}
+                  {creditData?.data?.limitExpiry ? moment(creditData?.data?.limitExpiry?.split('T')[0]).format('DD-MM-YYYY') : ''}
                 </span>
               </div>
               <div className="col-md-2 col-sm-4">
                 <div className={`${styles.label} text`}>Last Order Value</div>
-                <span className={styles.value}>{(checkNan(CovertvaluefromtoCR(creditData?.lastOrder?.orderValue ))?? '')}{" "} Cr</span>
+                <span className={styles.value}>{(checkNan(CovertvaluefromtoCR(creditData?.lastOrder?.orderValue)) ?? '')}{" "} Cr</span>
               </div>
             </div>
           </div>
