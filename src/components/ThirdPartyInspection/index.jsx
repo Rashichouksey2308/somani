@@ -1173,7 +1173,7 @@ export default function Index({ addButton, inspectionData }) {
                             <td className={styles.doc_name}>
                               Certificate of Origin{' '}
                               <strong className="text-danger">*</strong>
-                              <span
+                              <span className='ml-4'
                                 onClick={() =>
                                   dispatch(
                                     ViewDocument({
