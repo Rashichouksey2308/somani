@@ -170,24 +170,26 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   required
                   type="text"
                   name="orderValue"
-                  // onFocus={(e) => {
-                  //   setIsFieldInFocus({ ...isFieldInFocus, orderValue: true }),
-                  //     e.target.type = 'number'
-                  // }}
-                  // onBlur={(e) => {
-                  //   setIsFieldInFocus({ ...isFieldInFocus, orderValue: false }),
-                  //     e.target.type = 'text'
-                  // }}
-                  // value={
-                  //   isFieldInFocus.quantity ?
-                  //   orderDetail?.orderValue:
-                  //     Number(orderDetail?.orderValue).toLocaleString() + ` ${orderDetail?.unitOfValue}`}
-                  value={addPrefixOrSuffix(
-                    orderDetail?.orderValue,
-                    orderDetail?.unitOfValue == 'Crores'
-                      ? 'Cr'
-                      : orderDetail?.unitOfValue,
-                  )}
+                  onFocus={(e) => {
+                    setIsFieldInFocus({ ...isFieldInFocus, orderValue: true }),
+                      e.target.type = 'number'
+                  }}
+                  onBlur={(e) => {
+                    setIsFieldInFocus({ ...isFieldInFocus, orderValue: false }),
+                      e.target.type = 'text'
+                  }}
+                  value={
+                    isFieldInFocus.orderValue ?
+                    orderDetail?.orderValue:
+                      Number(orderDetail?.orderValue).toLocaleString() + ` ${orderDetail?.unitOfValue == 'Crores'
+                           ? 'Cr'
+                          : orderDetail?.unitOfValue}`}
+                  // value={addPrefixOrSuffix(
+                  //   orderDetail?.orderValue,
+                  //   orderDetail?.unitOfValue == 'Crores'
+                  //     ? 'Cr'
+                  //     : orderDetail?.unitOfValue,
+                  // )}
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
                   }}
