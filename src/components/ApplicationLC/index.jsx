@@ -32,7 +32,7 @@ function Index() {
 
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
-
+ const [what,setWhat]=useState("email")
   const handlePopup = () => {
     setShow(true)
   }
@@ -41,11 +41,24 @@ function Index() {
         emailID: '',
     },
   ])
+   const [number, setNumber] = useState([
+    {
+        number: '',
+    },
+  ])
   const addMoreRows = () => {
     setEmailAdd([
       ...emailAdd,
       {
         emailID: '',
+      },
+    ])
+  }
+    const addWhatRows = () => {
+    setNumber([
+      ...number,
+      {
+        number: '',
       },
     ])
   }
@@ -61,7 +74,7 @@ function Index() {
                 <tr>
                   <td valign='bottom' align='left' width='33%'>
                     <span style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', padding:'10px 0 0 25px'}}>Order ID: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>{lcModuleData?.order?.orderId}</span></span><br/>
-                    <span style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingLeft:'25px'}}>Buyer: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>{lcModuleData?.company?.companyName}</span></span>
+                    <span style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500'}}><span style={{display: 'inline-block', paddingLeft:'25px', width: '90px', float:'left', height:'50px'}}>Buyer: </span><span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>{lcModuleData?.company?.companyName}</span></span>
                   </td>
                   <td valign='top' align='center' width='34%'><h2 style={{fontSize:'34px', color:'#3687E8', lineHeight:'41px', fontWeight:'bold', textTransform:'uppercase'}}>APPLICATION FOR LETTER OF CREDIT</h2></td>
                   <td valign='bottom' align='right' width='33%'><span style={{fontSize:'20px', color:'#111111', lineHeight:'25px', fontWeight:'500', paddingRight:'25px'}}>Date: <span style={{lineHeight:'24px', fontWeight:'normal', opacity:'0.7'}}>{moment(d).format('DD.MM.yyyy')}</span></span>
@@ -426,10 +439,10 @@ function Index() {
                           </td>
                         </tr>
                         <tr>
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)', borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)'}}>
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>72</span>SENDER TO RECEIVER INFORMATION</p>
                           </td>
-                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                          <td align='left'>
                             <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {lcModuleData?.lcApplication?.senderToReceiverInformation?.toUpperCase()}</p>
                           </td>
                         </tr>
@@ -546,11 +559,7 @@ function Index() {
                           <span>DATE OF EXPIRY</span>
                         </td>
                         <td className="term_para">
-                          {moment(
-                            lcModuleData?.lcApplication?.dateOfExpiry?.split(
-                              'T',
-                            )[0],
-                          ).format('DD-MM-YYYY')}
+                          {lcModuleData?.lcApplication?.dateOfExpiry ? moment(lcModuleData?.lcApplication?.dateOfExpiry).format('DD-MM-YYYY') : ''}
                         </td>
                       </tr>
                       <tr className="table_row">
@@ -751,11 +760,7 @@ function Index() {
                           <span>LATEST DATE OF SHIPMENT</span>
                         </td>
                         <td className="term_para">
-                          {moment(
-                            lcModuleData?.lcApplication?.latestDateOfShipment?.split(
-                              'T',
-                            )[0],
-                          ).format('DD-MM-YYYY')}
+                          {lcModuleData?.lcApplication?.latestDateOfShipment ? moment(lcModuleData?.lcApplication?.latestDateOfShipment).format('DD-MM-YYYY') : ''}
                         </td>
                       </tr>{' '}
                       <tr className="table_row">
@@ -1085,6 +1090,9 @@ function Index() {
                           role="tab"
                           aria-controls="emailAddress"
                           aria-selected="true"
+                          onClick={() =>{
+                            setWhat("email")
+                          }}
                         >
                           <img
                             src="/static/email-icon.png"
@@ -1104,6 +1112,9 @@ function Index() {
                           role="tab"
                           aria-controls="whatsApp"
                           aria-selected="false"
+                           onClick={() =>{
+                            setWhat("what")
+                          }}
                         >
                           <img
                             src="/static/icons8-whatsapp.svg"
@@ -1161,7 +1172,7 @@ function Index() {
                           <span style={{ fontSize: '2rem' }} className={`mr-2`}>
                             +
                           </span>{' '}
-                          Add more rows
+                          add another
                         </div>
                         <div className="d-flex justify-content-between">
                           <button
@@ -1185,7 +1196,10 @@ function Index() {
                         role="tabpanel"
                         aria-labelledby="whatsapp"
                       >
-                        <div
+                        {number.length>0 && number.map((val,index)=>{
+                          return (
+                            <>
+                             <div
                           className={`${styles.each_input} ${styles.phone} form-group`}
                         >
                           <div className={styles.phone_card}>
@@ -1216,6 +1230,9 @@ function Index() {
                             </label>
                           </div>
                         </div>
+                            </>
+                          )
+                        })}
                         {/* <div className={`${styles.labelFloat} form-group`}>
                           <input type='text' id='phone' name="phone" className={`${styles.formControl} ${styles.input} input form-control`} required />
                           <label className={`label_heading_login`} htmlFor='phone'>Phone Number</label>
@@ -1223,13 +1240,19 @@ function Index() {
                         <div
                           className={`${styles.addMoreRows}`}
                           onClick={(e) => {
+                            if(what=="what"){
+                            addWhatRows()
+                            }else{
                             addMoreRows()
+                            }
+                            
+                           
                           }}
                         >
                           <span style={{ fontSize: '2rem' }} className={`mr-2`}>
                             +
                           </span>{' '}
-                          Add more rows
+                          add another
                         </div>
                         <div className="d-flex justify-content-between">
                           <button

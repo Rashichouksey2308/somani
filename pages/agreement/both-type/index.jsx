@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import styles from './index.module.scss'
 import { Row, Col, Form } from 'react-bootstrap'
 import PaginateBar from '../../../src/components/Paginatebar'
+import jsPDF from 'jspdf'
+import ReactDOMServer from 'react-dom/server'
 import _get from 'lodash/get'
 import Modal from 'react-bootstrap/Modal'
 
@@ -15,6 +17,7 @@ import {
   setDynamicOrder,
 } from '../../../src/redux/userData/action'
 import Router from 'next/router'
+import { convertValue } from '../../../src/utils/helper'
 
 function Index() {
   const dispatch = useDispatch()
@@ -39,7 +42,1024 @@ function Index() {
   dispatch(setPageName('insurance Request Letter'))
   dispatch(setDynamicName(_get(insuranceData, 'company.companyName', 'Company Name')))
   dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')))
-
+  
+  const exportPDF = () => {
+    const doc = new jsPDF('p', 'pt', [1500, 1500])
+    doc.html(
+      ReactDOMServer.renderToString(
+        <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
+          <tr>
+            <td valign="top" align="left">
+              <table
+                width="100%"
+                bgColor="#FFFFFF"
+                style={{
+                  fontFamily: 'Arial, Helvetica, sans-serif',
+                  borderRadius: '6px',
+                  boxShadow: '0 3px 6px #CAD0E2',
+                  marginBottom: '26px',
+                  border: '2px solid rgba(202, 214, 230, 0.3)',
+                }}
+                cellPadding="0"
+                cellSpacing="0"
+                border="0"
+              >
+                <tr>
+                  <td valign="top" align="left">
+                    <table
+                      width="100%"
+                      cellPadding="0"
+                      cellSpacing="0"
+                      border="0"
+                    >
+                      <tr>
+                        <td colSpan={2}>
+                          <span
+                            style={{
+                              fontSize: '30px',
+                              color: '#111111',
+                              lineHeight: '37px',
+                              fontWeight: 'bold',
+                              textAlign: 'center',
+                              padding: '49px 35px 44px',
+                              textDecoration: 'underline',
+                              display: 'block',
+                            }}
+                          >
+                            Request for Insurance Quotation
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colSpan={2} align="left">
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '0 35px 7px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            <span
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: 'normal',
+                              }}
+                            >
+                              Order ID:{' '}
+                            </span>
+                            {insuranceData?.order?.orderId}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colSpan={2} align="left">
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '0 35px 7px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            <span
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: 'normal',
+                              }}
+                            >
+                              Date:{' '}
+                            </span>
+                            {moment(new Date()).format(
+                    'DD.MM.yyyy',
+                  )}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colSpan={2} align="left">
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '0 35px 57px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            <span
+                              style={{
+                                fontSize: '20px',
+                                color: '#111111',
+                                lineHeight: '25px',
+                                fontWeight: 'normal',
+                              }}
+                            >
+                              Type of Insurance:{' '}
+                            </span>
+                           {insuranceData?.quotationRequest?.insuranceType}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colSpan={2} align="left">
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: 'bold',
+                              padding: '0 35px 49px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Dear Sir/Madam,
+                            <br />
+                            <br />
+                            As discussed, please note the detail of Cargo as
+                            under:
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          width="25%"
+                          align="left"
+                          style={{
+                            borderTop: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Vessel
+                          </p>
+                        </td>
+                        <td
+                          width="75%"
+                          align="left"
+                          style={{
+                            borderTop: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 15px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                             {_get(
+                      insuranceData,
+                      'order.vessel.vessels[0].vesselInformation[0].name',
+                      '',
+                    )}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            IMO Number
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            {_get(
+                      insuranceData,
+                      'order.vessel.vessels[0].vesselInformation[0].IMONumber',
+                      '',
+                    )}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Year of Built
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            {_get(
+                      insuranceData,
+                      'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt',
+                      '',
+                    )?.slice(0, 4)}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Sum Insured
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                             INR { convertValue(insuranceData?.quotationRequest?.sumInsured)} Crores
+                    (Including 110%)
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Material
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            {insuranceData?.order?.commodity}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Origin
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                         {_get(
+                      insuranceData,
+                      'order.vessel.vessels[0].transitDetails.countryOfOrigin',
+                      '',
+                    )}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Quantity
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                             BL Weight {insuranceData?.order?.quantity} MTs. (+/-00%)
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Port of Loading
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                           {_get(
+                      insuranceData,
+                      'order.vessel.vessels[0].transitDetails.portOfLoading',
+                      '',
+                    )}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Port of Discharge
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            {_get(
+                      insuranceData,
+                      'order.vessel.vessels[0].transitDetails.portOfDischarge',
+                      '',
+                    )}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Place of Storage
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                                                {
+                      insuranceData?.quotationRequest?.storageDetails
+                        ?.placeOfStorage
+                    }
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Storage Plot Address
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                             {
+                      insuranceData?.quotationRequest?.storageDetails
+                        ?.storagePlotAddress
+                    }
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Period of Insurance
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            {
+                      insuranceData?.quotationRequest?.storageDetails
+                        ?.periodOfInsurance
+                    }{' '}
+                    Days
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Laycan
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            {moment(
+                      insuranceData?.quotationRequest?.laycanFrom).format('DD MMM')}{' '}
+                    -{' '}
+                    {moment(
+                      insuranceData?.quotationRequest?.laycanTo).format('DD MMM, YYYY')}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            ETD
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            {moment(insuranceData?.quotationRequest?.expectedTimeOfDispatch).format('DD MMMM , YYYY')}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            ETA
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            {moment(insuranceData?.quotationRequest?.expectedTimeOfArrival).format('DD MMMM , YYYY')}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Storage Insurance &amp; Marine Insurance
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                             All Risks Including ICC-A, War, SRCC, Theft Burglary, Act of God, Pilferage, Fire etc.
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Name of Insured
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                             {insuranceData?.company?.companyName}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Loss Payee
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            {insuranceData?.quotationRequest?.lossPayee}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                            borderRight: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: 'rgba(17, 17, 17, 0.7)',
+                              lineHeight: '24px',
+                              fontWeight: 'normal',
+                              padding: '16px 15px 16px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Additional Information
+                          </p>
+                        </td>
+                        <td
+                          align="left"
+                          style={{
+                            borderBottom: '2px solid rgba(202, 214, 230, 0.3)',
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: '500',
+                              padding: '16px 35px 16px 24px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            {insuranceData?.quotationRequest?.additionalInfo}
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colSpan={2} align="left">
+                          <p
+                            style={{
+                              fontSize: '20px',
+                              color: '#111111',
+                              lineHeight: '24px',
+                              fontWeight: 'bold',
+                              padding: '43px 35px',
+                              marginBottom: '0',
+                            }}
+                          >
+                            Thanks &amp; Best Regards
+                            <br />
+                            <br />
+                            Vipin Rajput
+                            <br />
+                            Manager Accounts
+                            <br />
+                            Indo German International Private Limited
+                            <br />
+                            8-B, Sagar, 6-Tilak Marg,
+                            <br />
+                            New Delhi-110001
+                            <br />
+                            Mobile No - 9312251303
+                            <br />
+                            Email ID - vipinrajput@gmail.com
+                          </p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>,
+      ),
+      {
+        callback: function (doc) {
+          doc.save('sample.pdf')
+        },
+        // margin:margins,
+        autoPaging: 'text',
+      },
+    )
+  }
   return (
     <>
       <div className="container-fluid p-0">
@@ -159,7 +1179,7 @@ function Index() {
                     Sum Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    INR {insuranceData?.quotationRequest?.sumInsured} Crores
+                    INR { convertValue(insuranceData?.quotationRequest?.sumInsured)} Crores
                     (Including 110%)
                   </Col>
                 </Row>
@@ -230,7 +1250,7 @@ function Index() {
                     xs={4}
                     className={`${styles.content_head} label_heading"`}
                   >
-                    Port of Discharges
+                    Port of Discharge
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
                     {_get(
@@ -300,14 +1320,10 @@ function Index() {
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
                     {moment(
-                      insuranceData?.quotationRequest?.laycanFrom?.split(
-                        'T',
-                      )[0],
-                    ).format('DD MMM')}{' '}
+                      insuranceData?.quotationRequest?.laycanFrom).format('DD MMM')}{' '}
                     -{' '}
                     {moment(
-                      insuranceData?.quotationRequest?.laycanTo?.split('T')[0],
-                    ).format('DD MMM, YYYY')}
+                      insuranceData?.quotationRequest?.laycanTo).format('DD MMM, YYYY')}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -320,11 +1336,7 @@ function Index() {
                     ETD
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {moment(
-                      insuranceData?.quotationRequest?.expectedTimeOfDispatch?.split(
-                        'T',
-                      )[0],
-                    ).format('DD MMMM , YYYY')}
+                    {moment(insuranceData?.quotationRequest?.expectedTimeOfDispatch).format('DD MMMM , YYYY')}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -337,11 +1349,7 @@ function Index() {
                     ETA
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {moment(
-                      insuranceData?.quotationRequest?.estimatedTimeOfArrival?.split(
-                        'T',
-                      )[0],
-                    ).format('DD MMMM , YYYY')}
+                    {moment(insuranceData?.quotationRequest?.expectedTimeOfArrival).format('DD MMMM , YYYY')}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -354,8 +1362,7 @@ function Index() {
                     Storage Insurance & Marine Insurance
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    All Risks Including Burglary, Act of God, Fire, SRCC,
-                    Pilferage etc.
+                    All Risks Including ICC-A, War, SRCC, Theft Burglary, Act of God, Pilferage, Fire etc.
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -439,6 +1446,7 @@ function Index() {
         </div>
       </div>
       <PaginateBar
+        download={exportPDF}
         leftButtonTitle={'Request letter'}
         rightButtonTitle={'Share'}
         openbar={handlePopup}
@@ -504,13 +1512,13 @@ function Index() {
                   role="tablist"
                 >
                   <li className={`${styles.nav_item} nav-item`}>
-                    <a
+                  <a
                       className={`${styles.nav_link} nav-link active`}
-                      id="email-address"
+                      id="insurance-company"
                       data-toggle="tab"
-                      href="#emailAddress"
+                      href="#insuranceCompany"
                       role="tab"
-                      aria-controls="emailAddress"
+                      aria-controls="insuranceCompany"
                       aria-selected="true"
                     >
                       <img
@@ -523,20 +1531,20 @@ function Index() {
                     </a>
                   </li>
                   <li className={`${styles.nav_item} nav-item`}>
-                    <a
+                  <a
                       className={`${styles.nav_link} nav-link`}
-                      id="whatsapp"
+                      id="email-address"
                       data-toggle="tab"
-                      href="#whatsApp"
+                      href="#emailAddress"
                       role="tab"
-                      aria-controls="whatsApp"
+                      aria-controls="emailAddress"
                       aria-selected="false"
                     >
                       <img
-                        src="/static/icons8-whatsapp.svg"
+                        src="/static/email-icon.png"
                         width={`27px`}
                         className="img-fluid"
-                        alt="WhatsApp"
+                        alt="Email"
                       />
                       Email Address
                     </a>
@@ -548,9 +1556,9 @@ function Index() {
                 >
                   <div
                     className="tab-pane fade show active"
-                    id="emailAddress"
+                    id="insuranceCompany"
                     role="tabpanel"
-                    aria-labelledby="email-address"
+                    aria-labelledby="insurance-company"
                   >
                     <div className={`${styles.each_input} form-group`}>
                       <div className="d-flex">
@@ -626,9 +1634,9 @@ function Index() {
                   </div>
                   <div
                     className="tab-pane fade"
-                    id="whatsApp"
+                    id="emailAddress"
                     role="tabpanel"
-                    aria-labelledby="whatsapp"
+                    aria-labelledby="email-address"
                   >
                     <div className={`${styles.each_input} form-group`}>
                       <div className="d-flex">

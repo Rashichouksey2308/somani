@@ -11,15 +11,13 @@ import { setPageName, setDynamicName,setDynamicOrder } from '../../src/redux/use
 import _get from 'lodash/get'
 import { GetAllInspection } from '../../src/redux/Inspections/action'
 import Router from 'next/router'
-
+import { getBreadcrumbValues } from '../../src/redux/breadcrumb/action'
 function Index() {
 
   const dispatch = useDispatch()
 
   const [darkMode, setDarkMode] = useState(false)
-
- 
- 
+  const [lastModified,setlastModified]=useState("")
 
   useEffect(()=> {
     let id = sessionStorage.getItem('inspectionId')
@@ -38,7 +36,15 @@ function Index() {
 
   const [addTPI, setAddTPI] = useState([{}])
 
-
+ const setDate=(date)=>{
+  setlastModified(date)
+ }
+  const handleBreadcrumbClick = (value) => {
+    dispatch(getBreadcrumbValues({ upperTabs: value }))
+  }
+ useEffect(() => {
+    dispatch(getBreadcrumbValues({ upperTabs: 'Appointment' }))
+  }, [])
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -57,12 +63,14 @@ function Index() {
             <div className="ml-auto">
               <div className={`${styles.lastModified} text `}
              >
-                <span style={{marginRight:'7px'}}>Last Modified:</span>28 Jan,11:34am
+                <span style={{marginRight:'7px'}}>Last Modified:</span>{lastModified}
               </div>
             </div>
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
-            <li className={`${styles.navItem}  nav-item`}>
+            <li className={`${styles.navItem}  nav-item`}
+              onClick={() => handleBreadcrumbClick('Appointment')}
+            >
               <a
                 className={`${styles.navLink} navLink  nav-link active`}
                 data-toggle="tab"
@@ -74,7 +82,9 @@ function Index() {
                 Appointment
               </a>
             </li>
-            <li className={`${styles.navItem}  nav-item`}>
+            <li className={`${styles.navItem}  nav-item`}
+             onClick={() => handleBreadcrumbClick('Third-Party Inspection')}
+            >
               <a
                 className={`${styles.navLink} navLink  nav-link `}
                 data-toggle="tab"
@@ -86,7 +96,9 @@ function Index() {
                 Third-Party Inspection
               </a>
             </li>
-            <li className={`${styles.navItem} nav-item`}>
+            <li className={`${styles.navItem} nav-item`}
+            onClick={() => handleBreadcrumbClick(' Plot Inspection')}
+            >
               <a
                 className={`${styles.navLink} navLink nav-link `}
                 data-toggle="tab"
@@ -111,7 +123,7 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <Appointment inspectionData={inspectionData} />
+                    <Appointment inspectionData={inspectionData} setDate={setDate} />
                   </div>
                 </div>
                 {addTPI?.map((e, index) => (
@@ -122,8 +134,8 @@ function Index() {
                     role="tabpanel"
                   >
                     <div className={`${styles.card}  accordion_body`}>
-                      <ThirdPartyInspection
-                       inspectionData={inspectionData} addButton={() => setAddTPI(addTPI + 1)}
+                      <ThirdPartyInspection 
+                       inspectionData={inspectionData} addButton={() => setAddTPI(addTPI + 1)} setDate={setDate}
                       />
                       {/* <ThirdPartyInspection  /> */}
                     </div>
@@ -135,7 +147,7 @@ function Index() {
                   role="tabpanel"
                 >
                   <div className={`${styles.card}  accordion_body`}>
-                    <PlotInspection inspectionData={inspectionData} />
+                    <PlotInspection inspectionData={inspectionData} setDate={setDate} />
                   </div>
                 </div>
               </div>

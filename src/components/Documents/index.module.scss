@@ -129,8 +129,8 @@
                     text-overflow: ellipsis;
                 }
                 img {
-                    width: auto;
-                    height: auto;
+                  width: auto !important;
+                  height: auto !important;
                 }
             }
             .image_card {
@@ -138,6 +138,7 @@
                 height: 40px;
                 padding: 5px;
                 margin: 10px 0;
+                cursor: pointer;
                 text-align: center;
                 border-radius: 4px;
                 background-color: #C3C3C31F;
@@ -161,17 +162,18 @@
     }
     .add_document {
         display: flex;
-        .add_image {
-            background: transparent;
-            margin-right: 15px;
-        }
         .add_para {
           margin-top: 15px;
           text-align: center;
           font-size: 18px;
           font-weight: bold;
           color: #3687e8;
+          cursor: pointer;
           text-transform: capitalize;
+          .add_image {
+              background: transparent;
+              margin-right: 15px;
+          }
         }
     }
     .each_input {
@@ -219,8 +221,8 @@
                 text-overflow: ellipsis;
             }
             img {
-                width: auto;
-                height: auto;
+              width: auto !important;
+              height: auto !important;
             }
         }
         .image_card {

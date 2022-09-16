@@ -24,18 +24,18 @@ import {
   setDynamicOrder,
 } from '../../src/redux/userData/action'
 import { addPrefixOrSuffix, checkNan } from '../../src/utils/helper'
-import {GetGst } from 'redux/registerBuyer/action'
+import {GetAllOrders } from '../../src/redux/registerBuyer/action'
 // import { Row, Col } from 'react-bootstrap'
 
 function Index() {
   const dispatch = useDispatch()
 
   const [darkMode, setDarkMode] = useState(false)
-
+  
   const { margin } = useSelector((state) => state.marginMoney)
   // get gst list from below use effect and fetch data from selector
   const { orderList } = useSelector((state) => state.buyer)
-
+console.log(orderList,"orderList?.company")
   const marginData = _get(margin, 'data.data[0]', '')
   console.log(marginData,"marginData")
 
@@ -52,7 +52,7 @@ function Index() {
   useEffect(() => {
     let id = sessionStorage.getItem('marginId')
     dispatch(GetMarginMoney({ orderId: id }))
-
+    dispatch(GetAllOrders({ orderId: marginData?.order?._id }))
     dispatch(setPageName('margin-money'))
     dispatch(setDynamicName(marginData?.company?.companyName))
     dispatch(setDynamicOrder(marginData?.order?.orderId))
@@ -1248,7 +1248,7 @@ function Index() {
                                   >{`(A*B)`}</span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {marginData?.order?.orderCurrency}{' '}
+                                  {"₹"}{' '}
                                   {checkNan(Number(finalCal.orderValue), true)}
                                 </div>
                               </div>
@@ -1274,7 +1274,7 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.orderValueInINR?.toLocaleString()} */}
-                                   ₹{" "}
+                                  ₹{' '}
                                   {checkNan(
                                     Number(finalCal.orderValueInINR),
                                     true,
@@ -1608,10 +1608,10 @@ function Index() {
                                   }
                                 >
                                  <option selected disabled >Select an Option</option>
-                    {orderList?.company?.gstList?.map((gstin, index) => (
-                      <option key={index} value={gstin}>
-                        {gstin}
-                      </option>
+                                {orderList?.company?.gstList?.map((gstin, index) => (
+                                  <option key={index} value={gstin}>
+                                    {gstin}
+                                  </option>
                     ))}
                                 
                                 </select>

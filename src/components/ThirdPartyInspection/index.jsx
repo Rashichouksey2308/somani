@@ -13,12 +13,15 @@ import _get from 'lodash/get'
 import { toast } from 'react-toastify'
 import UploadOther from '../UploadOther/index'
 import { ViewDocument } from 'redux/ViewDoc/action'
+import moment from 'moment'
 // import ThirdPartyPopUp from './ThirdPartyPopUp'
 
 export default function Index({ addButton, inspectionData }) {
   const dispatch = useDispatch()
   const [excelFile, setExcelFile] = useState([])
   let orderid = _get(inspectionData, 'order._id', '')
+
+  let d =  new Date();
 
   const [editInput, setEditInput] = useState(true)
   const [bothField, setBothField] = useState(false)
@@ -168,7 +171,7 @@ export default function Index({ addButton, inspectionData }) {
       inspectionData?.thirdPartyInspection?.certificateOfOrigin || null,
   })
 
-  // console.log('sethave', documents)
+  console.log('sethave', documents)
 
   useEffect(() => {
     if (
@@ -832,7 +835,8 @@ export default function Index({ addButton, inspectionData }) {
                   <label className={`${styles.dropDown_label} text`}>
                     Part Shipment Allowed:
                   </label>
-                  <div className={`${styles.dropDown} input`}>Yes</div>
+                  <div className={`${styles.dropDown} input`}>
+                    { _get(inspectionData,'order.termsheet.transactionDetails.partShipmentAllowed', '')}</div>
 
                   <button className={styles.add_btn}>Add</button>
                 </div>
@@ -854,9 +858,8 @@ export default function Index({ addButton, inspectionData }) {
                       // setBothField(!bothField)
                     }}
                     defaultChecked={
-                      inspectionData?.thirdPartyInspection?.loadPortInspection
-                        ? true
-                        : false
+                        inspectionData?.thirdPartyInspection?.loadPortInspection ? inspectionData?.thirdPartyInspection?.loadPortInspection : ((inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort == 'Both' || inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort == 'Load Port') ? true : false)
+                  
                     }
                     id={`inline-${type}-1`}
                   />
@@ -872,10 +875,8 @@ export default function Index({ addButton, inspectionData }) {
                       // setBothField(!bothField)
                     }}
                     defaultChecked={
-                      inspectionData?.thirdPartyInspection
-                        ?.dischargePortInspection
-                        ? true
-                        : false
+                      inspectionData?.thirdPartyInspection?.dischargePortInspection ? inspectionData?.thirdPartyInspection?.loadPortInspection : ((inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort == 'Both' || inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort == 'Discharge Port') ? true : false)
+                        
                     }
                     type={type}
                     id={`inline-${type}-2`}
@@ -961,7 +962,7 @@ export default function Index({ addButton, inspectionData }) {
                   </h5>
 
                   <div className="row">
-                     {inspectionData?.order?.vessel?.vessels[0]?.shipmentType ===
+                     {_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') ===
                       'Liner' ? (
                       <div
                         className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
@@ -1172,8 +1173,8 @@ export default function Index({ addButton, inspectionData }) {
                           <tr className="table_row">
                             <td className={styles.doc_name}>
                               Certificate of Origin{' '}
-                              <strong className="text-danger ml-1">*</strong>
-                              <span
+                              <strong className="text-danger">*</strong>
+                             { inspectionData?.thirdPartyInspection?.certificateOfOrigin ? <span className='ml-4'
                                 onClick={() =>
                                   dispatch(
                                     ViewDocument({
@@ -1185,7 +1186,7 @@ export default function Index({ addButton, inspectionData }) {
                                 }
                               >
                                 View
-                              </span>
+                              </span> : ''}
                             </td>
                             <td>
                               <img
@@ -1195,7 +1196,9 @@ export default function Index({ addButton, inspectionData }) {
                               />
                             </td>
                             <td className={styles.doc_row}>
-                              28-02-2022,5:30 PM
+                            {inspectionData?.thirdPartyInspection?.certificateOfOrigin ? moment(inspectionData?.thirdPartyInspection?.certificateOfOrigin?.date).format(
+                                'DD-MM-YYYY, h:mm A',
+                              ): documents?.certificateOfOrigin != null ? moment(d).format('DD-MM-YYYY, h:mm A'): ''}
                             </td>
                             <td>
                               {' '}
@@ -1270,17 +1273,7 @@ export default function Index({ addButton, inspectionData }) {
                                       Upload
                                     </button>
                                   </div>
-                                  {/* <div className={styles.uploadBtnWrapper}>
-                              <input
-                                type="file"
-                                accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                                onChange={(e) => uploadDocument1(e)}
-                                name="myfile"
-                              />
-                              <button  className={`${styles.uploadDoc} btn`}>
-                                Upload
-                              </button>
-                              </div> */}
+                                 
                                 </>
                               ) : (
                                 <div
@@ -1303,7 +1296,7 @@ export default function Index({ addButton, inspectionData }) {
                             <td className={styles.doc_name}>
                               Certificate of Quality
                               <strong className="text-danger ml-1">*</strong>
-                              <span
+                            { inspectionData?.thirdPartyInspection?.certificateOfQuality ? <span
                                 onClick={() =>
                                   dispatch(
                                     ViewDocument({
@@ -1315,7 +1308,7 @@ export default function Index({ addButton, inspectionData }) {
                                 }
                               >
                                 View
-                              </span>
+                              </span>: ''}
                             </td>
                             <td>
                               <img
@@ -1325,7 +1318,9 @@ export default function Index({ addButton, inspectionData }) {
                               />
                             </td>
                             <td className={styles.doc_row}>
-                              28-02-2022,5:30 PM
+                            { inspectionData?.thirdPartyInspection?.certificateOfQuality ?  moment(inspectionData?.thirdPartyInspection?.certificateOfQuality?.date).format(
+                                'DD-MM-YYYY, h:mm A',
+                              ): documents?.certificateOfQuality != null ? moment(d).format('DD-MM-YYYY, h:mm A'): ''}
                             </td>
                             <td>
                               {' '}
@@ -1394,17 +1389,7 @@ export default function Index({ addButton, inspectionData }) {
                                       Upload
                                     </button>
                                   </div>
-                                  {/* <div className={styles.uploadBtnWrapper}>
-                              <input
-                                type="file"
-                                accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                                onChange={(e) => uploadDocument1(e)}
-                                name="myfile"
-                              />
-                              <button  className={`${styles.uploadDoc} btn`}>
-                                Upload
-                              </button>
-                              </div> */}
+                                
                                 </>
                               ) : (
                                 <div
@@ -1427,7 +1412,7 @@ export default function Index({ addButton, inspectionData }) {
                             <td className={styles.doc_name}>
                               Certificate of Weight
                               <strong className="text-danger ml-1">*</strong>
-                              <span
+                              {inspectionData?.thirdPartyInspection?.certificateOfWeight ? <span
                                 onClick={() =>
                                   dispatch(
                                     ViewDocument({
@@ -1439,7 +1424,7 @@ export default function Index({ addButton, inspectionData }) {
                                 }
                               >
                                 View
-                              </span>
+                              </span> : ''}
                             </td>
                             <td>
                               <img
@@ -1450,7 +1435,9 @@ export default function Index({ addButton, inspectionData }) {
                             </td>
 
                             <td className={styles.doc_row}>
-                              28-02-2022,5:30 PM
+                            { inspectionData?.thirdPartyInspection?.certificateOfWeight ?  moment(inspectionData?.thirdPartyInspection?.certificateOfWeight?.date).format(
+                                'DD-MM-YYYY, h:mm A',
+                              ): documents?.certificateOfWeight != null ? moment(d).format('DD-MM-YYYY, h:mm A'): ''}
                             </td>
                             <td>
                               {' '}
@@ -1519,17 +1506,7 @@ export default function Index({ addButton, inspectionData }) {
                                       Upload
                                     </button>
                                   </div>
-                                  {/* <div className={styles.uploadBtnWrapper}>
-                              <input
-                                type="file"
-                                accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                                onChange={(e) => uploadDocument1(e)}
-                                name="myfile"
-                              />
-                              <button  className={`${styles.uploadDoc} btn`}>
-                                Upload
-                              </button>
-                              </div> */}
+                                  
                                 </>
                               ) : (
                                 <div
@@ -1920,11 +1897,11 @@ const Discharge = (
                 Inspection Port
                 <strong className="text-danger">*</strong>
               </label>
-              <img
+              {/* <img
                 className={`${styles.search_image} img-fluid`}
                 src="/static/search-grey.svg"
                 alt="Search"
-              />
+              /> */}
             </div>
           </div>
           <div className={`${styles.form_group} col-md-4 col-sm-6`}>

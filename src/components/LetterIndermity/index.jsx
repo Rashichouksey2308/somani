@@ -16,12 +16,17 @@ import moment from 'moment'
 // import { on } from 'nodemon'
 
 function Index({ TransitDetails }) {
+  console.log("🚀 ~ file: index.jsx ~ line 19 ~ Index ~ TransitDetails", TransitDetails)
   const dispatch = useDispatch()
   let transId = _get(TransitDetails, `data[0]`, '')
   const [billsofLanding, setBillsofLanding] = useState([
     {
-      blnumber: '',
-      loadingPort: '',
+      blnumber: 'BL-1',
+      loadingPort:_get(
+                TransitDetails,
+                'data[0].order.portOfDischarge',
+                '',
+              ).toUpperCase(),
     },
   ])
   const [loi, setLOI] = useState({
@@ -34,13 +39,22 @@ function Index({ TransitDetails }) {
       designation: '',
     },
   })
+useEffect(() =>{
+  if(_get(TransitDetails,"data[0].LOI.billOfLanding",[]).length>0){
+    setBillsofLanding(_get(TransitDetails,"data[0].LOI.billOfLanding",[]))
+  }
+},[TransitDetails])
 
   const onAddClick = () => {
     setBillsofLanding([
-      ...billsofLanding, {
-        blnumber: '',
-      loadingPort: '',
-      }
+      ...billsofLanding,  {
+      blnumber: 'BL-1',
+      loadingPort:_get(
+                TransitDetails,
+                'data[0].order.portOfDischarge',
+                '',
+              ).toUpperCase(),
+    },
     ])
   }
   useEffect(() => {
@@ -58,8 +72,14 @@ function Index({ TransitDetails }) {
       })
     }
   }, [TransitDetails])
-  const bolArray = _get(TransitDetails, `data[0].BL.billOfLanding`, [])
-  console.log(loi, bolArray, 'bolArray')
+  const [bolArray,setBolArray]=useState([])
+ console.log(billsofLanding,"bolArray")
+  useEffect(() => {
+    if( _get(TransitDetails, `data[0].BL.billOfLanding`, []).length>0){
+    setBolArray(_get(TransitDetails, `data[0].BL.billOfLanding`, []))
+    }
+  },[TransitDetails])
+ 
 
   console.log(loi, 'LOI')
 
@@ -135,9 +155,16 @@ function Index({ TransitDetails }) {
     // setLOI(tempArray)
   }
 
-  const BolDropDown = (e) => {
-    let index = e.target.value
-    let selectedObj = bolArray[index]
+  const BolDropDown = (e,index) => {
+    let temp=[...billsofLanding]
+    temp[index].blnumber=e.target.value
+     temp[index].loadingPort=_get(
+                TransitDetails,
+                'data[0].order.portOfDischarge',
+                '',
+              ).toUpperCase()
+   setBillsofLanding([...temp])
+   
   }
 
   const OnAddHandler = () => {
@@ -148,10 +175,16 @@ function Index({ TransitDetails }) {
     })
     setBillsofLanding(tempArray)
   }
-
+const onDeleteClick=(index)=>{
+  setBillsofLanding([
+      ...billsofLanding.slice(0, index),
+      ...billsofLanding.slice(index + 1),
+    ])
+}
   console.log(loi, 'billsofLanding')
 
   const saveData = () => {
+  
     if (loi.authorizedSignatory.name === '') {
       let toastMessage = 'PLEase select authorized signatory'
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -163,7 +196,8 @@ function Index({ TransitDetails }) {
     sessionStorage.setItem('transitPId', transId._id)
     // const billOfLanding = [...bolList]
     const LOI = { ...loi }
-
+    LOI.billOfLanding=billsofLanding
+   console.log(LOI,"LOI111")
     let fd = new FormData()
     fd.append('loi', JSON.stringify(LOI))
     fd.append('transitId', transId._id)
@@ -184,7 +218,9 @@ function Index({ TransitDetails }) {
         <div className={`${styles.aboutLetter}`}>
           <p>
             STANDARD FORM LETTER OF INDEMNITY TO BE GIVEN IN RETURN FOR
-            DELIVERING CARGO WITHOUT PRODUCTION OF THE ORIGINAL BILLS OF LADING.
+            DELIVERING CARGO WITHOUT PRODUCTION OF THE ORIGINAL BILL(S) OF LADING.
+
+            <hr />
              
           </p>
         </div>
@@ -204,8 +240,8 @@ function Index({ TransitDetails }) {
             <span>DATE:</span>{' '}
             {moment(loi.loiIssueDate.toJSON().slice(0, 10).replace(/-/g, '/')).format("DD/MM/YYYY")}
           </div>
-        </div>
-        <span>Dear Sir, </span>
+        </div>        
+        <div className={`${styles.salutations}`}><div>Dear Sir, </div></div>
         <div className={`d-flex ${styles.salutations}`}>
           <span>Ship:</span>
           {'  '}
@@ -259,9 +295,9 @@ function Index({ TransitDetails }) {
               className={`ml-3 word-wrap d-flex justify-content-start align-items-center ${styles.salutationFeatures} `}
             >
               
-              <select onChange={(e) => BolDropDown(e)} className="input">
+              <select onChange={(e) => BolDropDown(e,index1)} className="input" value={billsofLanding[index1].blnumber}>
                 {bolArray.map((element, index2) => (
-                  <option key={index2} value={`${index1}-${index2}`}>
+                  <option key={index2} value={`BL-${index2+1}`}>
                     BL-{index2 + 1}
                   </option>
                 ))}
@@ -276,6 +312,11 @@ function Index({ TransitDetails }) {
               <button onClick={() => onAddClick()} className={styles.add_btn}>
                 <span className={styles.add_sign}>+</span>Add
               </button>
+              {index1>0 ?
+               <button onClick={() => onDeleteClick(index1)} className={styles.add_btn}>
+                <span className={styles.add_sign}>-</span>Delete
+              </button>
+              :null}
             </div>
             </>
           ))}
@@ -291,7 +332,7 @@ function Index({ TransitDetails }) {
             and consigned to <span className={styles.bold}>TO ORDER</span> for
             delivery at the port of{' '}
             <span className={styles.bold}>ANY PORT (S) IN INDIA </span> but the
-            bill of lading has not arrived and we,{' '}
+            Bills of Lading has not arrived and we,{' '}
             <span className={styles.bold}>
               {' '}
               EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR,
@@ -319,7 +360,7 @@ function Index({ TransitDetails }) {
               LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM,
               ANDHRA PRADESH – 530016, INDIA at VISAKHAPATNAM PORT (VSPL), INDIA
             </span>{' '}
-            without production of the original bill of lading.
+            without production of the original Bill(s) of Lading.
           </p>
 
           <div className={`${styles.list}`}>
@@ -388,15 +429,15 @@ function Index({ TransitDetails }) {
             </ol>
           </div>
         </div>
-        <div className={styles.footerSalutations}>
-          <p>Yours faithfully</p>
-          <p>For and on behalf of </p>
-          <p className={styles.bold}>EMERGENT INDUSTRIAL SOLUTIONS LIMITED</p>
-          <p>The Requestor</p>
+        <div className={`${styles.footerSalutations} ${styles.salutations}`}>
+          <div style={{fontWeight:'normal'}}>Yours faithfully</div>
+          <div style={{fontWeight:'normal'}}>For and on behalf of </div>
+          <div className={styles.bold}>EMERGENT INDUSTRIAL SOLUTIONS LIMITED</div>
+          <div style={{fontWeight:'normal'}}>The Requestor</div>
           <div className={`${styles.athorised}`}>
-            <p>Authorised Signatory</p>
+            <div style={{fontWeight:'bold'}}>Authorised Signatory</div>
 
-            <p>
+            <div>
               Name:{' '}
               <select
               value= {loi.authorizedSignatory.name}
@@ -414,7 +455,7 @@ function Index({ TransitDetails }) {
                 src="/static/inputDropDown.svg"
                 alt="Search"
               />
-            </p>
+            </div>
 
             <div>
               Designation:{' '}

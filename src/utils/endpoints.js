@@ -11,6 +11,13 @@ export default {
   login: '/login',
   logout: '/logout',
 
+  //analytics
+  orderSummary: '/analytics/order-summary',
+  leadSummary: '/analytics/lead-summary',
+  commoditySummary: '/analytics/commodity-summary',
+  originSummary: '/analytics/origin-country-summary',
+  customerSummary: '/analytics/customer-summary',
+  exposureSummary: '/analytics/exposure-summary',
   //  leads
   registerCompany: '/lead/company-details',
   getBuyers: '/lead/get-all-leads',

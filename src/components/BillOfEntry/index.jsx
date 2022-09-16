@@ -32,7 +32,7 @@ export default function Index({
 
   const [saveContactTable, setContactTable] = useState(false)
   const [totalBl, setTotalBl] = useState(0)
-   const [isFieldInFocus, setIsFieldInFocus] = useState([])
+  const [isFieldInFocus, setIsFieldInFocus] = useState([])
   const { customClearance } = useSelector((state) => state.Custom)
 
   console.log(customClearance, 'this is custom doc')
@@ -94,7 +94,7 @@ export default function Index({
     newInput[name] = docs
     setBillOfEntryData(newInput)
   }
-console.log(billOfEntryData,"billOfEntryData",customData,_get(customData, 'order.termsheet.transactionDetails.billOfEntity',""))
+  console.log(billOfEntryData, "billOfEntryData", customData, _get(customData, 'order.termsheet.transactionDetails.billOfEntity', ""))
   //console.log(billOfEntryData, 'THIS IS BILL OF ENTRY USE STATE')
 
   const saveDate = (value, name) => {
@@ -160,14 +160,14 @@ console.log(billOfEntryData,"billOfEntryData",customData,_get(customData, 'order
             amount: val.amount,
             action: false,
           })
-          temp2.push({value:false})
+          temp2.push({ value: false })
         },
       )
-       setDutyData(temp)
-       setIsFieldInFocus([...temp2]||[])
+      setDutyData(temp)
+      setIsFieldInFocus([...temp2] || [])
     }
   }, [customData])
-  console.log(isFieldInFocus,"isFieldInFocus")
+  console.log(isFieldInFocus, "isFieldInFocus")
   const handleDutyChange = (name, value, index) => {
     // console.log(name,value,index,"name,value")
     let tempArr = [...dutyData]
@@ -176,7 +176,7 @@ console.log(billOfEntryData,"billOfEntryData",customData,_get(customData, 'order
         val[name] = value
       }
     })
-  
+
     // console.log(tempArr,"tempArr")
     setDutyData(tempArr)
   }
@@ -193,27 +193,27 @@ console.log(billOfEntryData,"billOfEntryData",customData,_get(customData, 'order
 
       return newState
     })
- 
+
     let newInput = { ...billOfEntryData }
     newInput.duty = dutyData
     setBillOfEntryData(newInput)
   }
-  const onFiledFocus=(e,index)=>{
-  let tempArr2 = [...isFieldInFocus]
+  const onFiledFocus = (e, index) => {
+    let tempArr2 = [...isFieldInFocus]
     tempArr2.forEach((val, i) => {
       if (i == index) {
-       val.value = true
+        val.value = true
 
       }
     })
     setIsFieldInFocus([...tempArr2])
   }
-    const onFiledBlur=(e,index)=>{
-  let tempArr2 = [...isFieldInFocus]
+  const onFiledBlur = (e, index) => {
+    let tempArr2 = [...isFieldInFocus]
     tempArr2.forEach((val, i) => {
       if (i == index) {
-          val.value = false
-        
+        val.value = false
+
       }
     })
     setIsFieldInFocus([...tempArr2])
@@ -239,16 +239,31 @@ console.log(billOfEntryData,"billOfEntryData",customData,_get(customData, 'order
         action: false,
       },
     ])
-     setIsFieldInFocus([
+    setIsFieldInFocus([
       ...isFieldInFocus,
 
       {
-        value:false
+        value: false
       },
     ])
   }
+  // console.log(billOfEntryData, 'billOfEntryData')
 
   const handleSubmit = () => {
+    if (billOfEntryData.boeNumber === '') {
+      let toastMessage = 'BOE NUMBER CANNOT BE EMPTY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    if (billOfEntryData.boeDate === null || billOfEntryData.boeDate === '') {
+      let toastMessage = 'BOE DATE CANNOT BE EMPTY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
     if (billOfEntryData.boeDetails.currency === '') {
       let toastMessage = 'CURRENCY CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -301,7 +316,40 @@ console.log(billOfEntryData,"billOfEntryData",customData,_get(customData, 'order
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
-    } else {
+    }
+    else if (
+      billOfEntryData.document1 === null
+    ) {
+      let toastMessage =
+        'please upload Duty Paid Challan '
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    else if (billOfEntryData.pdBond) {
+      if (
+        billOfEntryData.document2 === null
+      ) {
+        let toastMessage =
+          'please upload PD Bond '
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        return
+      }
+    }
+    else if (
+      billOfEntryData.document3 === null
+    ) {
+      let toastMessage =
+        'please upload all the mandatory documents'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    else {
       let tempData = { ...billOfEntryData }
       tempData.boeDetails.conversionRate = removePrefixOrSuffix(
         billOfEntryData.boeDetails.conversionRate,
@@ -360,7 +408,7 @@ console.log(billOfEntryData,"billOfEntryData",customData,_get(customData, 'order
     setAcc(
       checkNan(
         removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceValue) *
-          removePrefixOrSuffix(billOfEntryData?.boeDetails?.conversionRate),
+        removePrefixOrSuffix(billOfEntryData?.boeDetails?.conversionRate),
       ),
     )
   }, [
@@ -391,7 +439,7 @@ console.log(billOfEntryData,"billOfEntryData",customData,_get(customData, 'order
       let tempArray = {
         boeAssessment: data?.boeAssessment,
         pdBond: data?.pdBond,
-        billOfEntryFor:_get(customData, 'order.termsheet.transactionDetails.billOfEntity',""),
+        billOfEntryFor: _get(customData, 'order.termsheet.transactionDetails.billOfEntity', ""),
         boeNumber: data?.boeNumber,
         boeDate: data?.boeDate,
 
@@ -428,7 +476,7 @@ console.log(billOfEntryData,"billOfEntryData",customData,_get(customData, 'order
     return index + 1
   }
 
-  console.log('data', billOfEntryData?.billOfEntryFor, )
+  console.log('data', billOfEntryData?.billOfEntryFor,)
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -556,10 +604,10 @@ console.log(billOfEntryData,"billOfEntryData",customData,_get(customData, 'order
                       value={billOfEntryData?.billOfEntryFor}
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
-                          <option disabled selected>Select an option</option>
-                          <option value="Home Consumption">Home Consumption</option>
-                          <option value="Into-Bond">Into-Bond</option>
-                          <option value="EX-Bond">EX-Bond </option>
+                      <option disabled selected>Select an option</option>
+                      <option value="Home Consumption">Home Consumption</option>
+                      <option value="Into-Bond">Into-Bond</option>
+                      <option value="EX-Bond">EX-Bond </option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Bill of Entry for
@@ -705,23 +753,23 @@ console.log(billOfEntryData,"billOfEntryData",customData,_get(customData, 'order
                       'order.transit.IGM.igmDetails[0].igmFiling',
                       '',
                     ) ||
-                    _get(
-                      customData,
-                      'order.transit.IGM.igmDetails[0].igmFiling',
-                      '',
-                    ) === ''
+                      _get(
+                        customData,
+                        'order.transit.IGM.igmDetails[0].igmFiling',
+                        '',
+                      ) === ''
                       ? ''
                       : moment(
-                          _get(
-                            customData,
-                            'order.transit.IGM.igmDetails[0].igmFiling',
-                            '',
-                          ),
-                        ).format('DD-MM-YYYY')}
+                        _get(
+                          customData,
+                          'order.transit.IGM.igmDetails[0].igmFiling',
+                          '',
+                        ),
+                      ).format('DD-MM-YYYY')}
                   </span>
                 </div>
                 {_get(customData, 'order.commodity', '').toLowerCase() ===
-                'coal' ? (
+                  'coal' ? (
                   <>
                     <div
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
@@ -744,9 +792,9 @@ console.log(billOfEntryData,"billOfEntryData",customData,_get(customData, 'order
                         {customData?.order?.transit?.CIMS?.cimsDetails[0]
                           ?.circDate
                           ? moment(
-                              customData?.order?.transit?.CIMS?.cimsDetails[0]
-                                ?.circDate,
-                            ).format('DD-MM-YYYY')
+                            customData?.order?.transit?.CIMS?.cimsDetails[0]
+                              ?.circDate,
+                          ).format('DD-MM-YYYY')
                           : ''}
                       </span>
                     </div>
@@ -836,7 +884,7 @@ console.log(billOfEntryData,"billOfEntryData",customData,_get(customData, 'order
                       saveBillOfEntryData(e.target.name, e.target.value)
                     }
                     required
-                    // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                  // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Invoice Quantity<strong className="text-danger">*</strong>
@@ -854,6 +902,7 @@ console.log(billOfEntryData,"billOfEntryData",customData,_get(customData, 'order
                     value={addPrefixOrSuffix(
                       billOfEntryData?.boeDetails?.invoiceValue,
                       'USD',
+                      'front',
                     )}
                     name="boeDetails.invoiceValue"
                     onChange={(e) =>
@@ -895,7 +944,12 @@ console.log(billOfEntryData,"billOfEntryData",customData,_get(customData, 'order
                     name="boeDetails.accessibleValue"
                     disabled
                     required
-                    value={accessibleValueCalc}
+                    value={addPrefixOrSuffix(
+                      accessibleValueCalc,
+                      'INR',
+                      'front',
+                    )}
+
                     onKeyDown={(evt) =>
                       ['e', 'E', '+', '-'].includes(evt.key) &&
                       evt.preventDefault()
@@ -990,8 +1044,8 @@ console.log(billOfEntryData,"billOfEntryData",customData,_get(customData, 'order
                                     {getIndex(index)}
                                   </td>
                                   <td>{val.duty}</td>
-                                  <td>{val.amount? `${"INR"} ${Number(val.amount)?.toLocaleString("en-IN")}  `:""}</td>
-                                  <td>{val.percentage?`${Number(val?.percentage)?.toFixed()} ${"%"}`:""}</td>
+                                  <td>{val.amount ? `${"INR"} ${Number(val.amount)?.toLocaleString("en-IN")}  ` : ""}</td>
+                                  <td>{val.percentage ? `${Number(val?.percentage)?.toFixed()} ${"%"}` : ""}</td>
                                 </>
                               ) : (
                                 <>
@@ -1020,25 +1074,25 @@ console.log(billOfEntryData,"billOfEntryData",customData,_get(customData, 'order
                                     </select>
                                   </td>
                                   <td>
-                                      <input
+                                    <input
                                       onFocus={(e) => {
-                                      onFiledFocus(e,index)
-                                      // setIsFieldInFocus(true),
-                                      e.target.type = 'number'
+                                        onFiledFocus(e, index)
+                                        // setIsFieldInFocus(true),
+                                        e.target.type = 'number'
                                       }}
                                       onBlur={(e) => {
-                                      onFiledBlur(e,index)
-                                      // setIsFieldInFocus(false),
-                                      e.target.type = 'text'
+                                        onFiledBlur(e, index)
+                                        // setIsFieldInFocus(false),
+                                        e.target.type = 'text'
                                       }}
                                       type="text"
                                       className={`${styles.dutyDropdown} input`}
                                       name="amount"
                                       // value={val.amount}
-                                      value={ isFieldInFocus[index].value ?
+                                      value={isFieldInFocus[index].value ?
                                         val.amount :
-                                       `${"INR"}  `+
-                                        Number(val.amount)?.toLocaleString() }
+                                        `${"INR"}  ` +
+                                        Number(val.amount)?.toLocaleString()}
                                       disabled={!val.actions}
                                       onChange={(e) =>
                                         handleDutyChange(
@@ -1052,21 +1106,21 @@ console.log(billOfEntryData,"billOfEntryData",customData,_get(customData, 'order
                                   <td>
                                     <input
                                       className={`${styles.dutyDropdown} input`}
-                                       onFocus={(e) => {
-                                         onFiledFocus(e,index)
-                                      // setIsFieldInFocus(true),
-                                      e.target.type = 'number'
+                                      onFocus={(e) => {
+                                        onFiledFocus(e, index)
+                                        // setIsFieldInFocus(true),
+                                        e.target.type = 'number'
                                       }}
                                       onBlur={(e) => {
-                                         onFiledBlur(e,index)
-                                      // setIsFieldInFocus(false),
-                                      e.target.type = 'text'
+                                        onFiledBlur(e, index)
+                                        // setIsFieldInFocus(false),
+                                        e.target.type = 'text'
                                       }}
                                       type="text"
-                                       value={ isFieldInFocus[index].value ?
+                                      value={isFieldInFocus[index].value ?
                                         val.percentage :
-                                       
-                                      Number(val.percentage)?.toLocaleString()+`${"%"}` }
+
+                                        Number(val.percentage)?.toLocaleString() + `${"%"}`}
                                       name="percentage"
                                       // value={val.percentage}
                                       onChange={(e) =>
@@ -1117,12 +1171,12 @@ console.log(billOfEntryData,"billOfEntryData",customData,_get(customData, 'order
                       </tbody>
                     </table>
                     <hr className="mt-0" />
-                    <div className="d-flex justify-content-between align-items-center mx-4 px-2">
+                    <div className="d-flex justify-content-between align-items-center mx-4 ">
                       <div className="d-flex align-items-center">
-                        <div className={`${styles.label} text m-0`}>
+                        <div className={`${styles.label} text mb-2`}>
                           Total Custom Duty:
                         </div>
-                        <div className={`${styles.value} ml-2 mt-n1`}>
+                        <div className={`${styles.value} ml-2 mt-4`}>
                           {totalCustomDuty()}
                         </div>
                       </div>
@@ -1254,10 +1308,15 @@ console.log(billOfEntryData,"billOfEntryData",customData,_get(customData, 'order
                   </thead>
                   <tbody>
                     <tr className="table_row">
-                      <td className={styles.doc_name}>
-                        BOE Provisional
-                        <strong className="text-danger ml-0">*</strong>
-                      </td>
+                      {billOfEntryData.boeAssessment === 'Final' ?
+
+                        <td className={styles.doc_name}>
+                          BOE Final
+                          <strong className="text-danger ml-0">*</strong>
+                        </td> : <td className={styles.doc_name}>
+                          BOE Provisional
+                          <strong className="text-danger ml-0">*</strong>
+                        </td>}
                       <td>
                         <img
                           src="/static/pdf.svg"

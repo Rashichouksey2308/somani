@@ -67,6 +67,7 @@
             font-size: 18px;
             line-height: 23px;
             font-weight: bold;
+            white-space: nowrap;
          }
         .complaintExtra {
             // color: #111111;
@@ -603,6 +604,7 @@
                             height: 67px;
                             background: #FAFAFB;
                             vertical-align: middle;
+                            white-space: nowrap;
                             &.first {
                                 font-size: 22px;
                                 line-height: 27px;
@@ -702,6 +704,7 @@
                             height: 67px;
                             background: #FAFAFB;
                             vertical-align: middle;
+                            white-space: nowrap;
                             &.first {
                                 font-size: 22px;
                                 line-height: 27px;
@@ -772,7 +775,7 @@
                             line-height: 18px;
                             height: 41px;
                             vertical-align: middle;
-                            text-transform: uppercase;
+                            text-transform: uppercase !important;
                             border-bottom: 1.5px solid #dae2ed;
                             padding: 0 15px;
                             width: 20%;
@@ -862,6 +865,7 @@
                     background: #FAFAFB;
                     vertical-align: middle;
                     border-bottom: none;
+                    white-space: nowrap;
                     &.first {
                         font-size: 22px;
                         line-height: 27px;
@@ -952,6 +956,7 @@
                     height: 67px;
                     background: #FAFAFB;
                     vertical-align: middle;
+                    white-space: nowrap;
                     &.first {
                         font-size: 22px;
                         line-height: 27px;
@@ -1042,6 +1047,7 @@
                     height: 67px;
                     background: #FAFAFB;
                     vertical-align: middle;
+                    white-space: nowrap;
                     &.first {
                         font-size: 22px;
                         line-height: 27px;

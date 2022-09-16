@@ -4,6 +4,7 @@ import React ,{useState,useEffect} from 'react'
 import styles from './index.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import { add } from 'lodash'
+import { useSyncExternalStore } from 'react'
 let supplier={
         "name": "",
         "shortName": "",
@@ -56,7 +57,12 @@ function Index(props) {
   )
 const [addressType,setAddressType]=useState("Registered")
 const [addressEditType,setAddressEditType]=useState("Registered")
-
+const [options,setOptions]=useState([
+  "Bhawana Jain","Vipin Kumar","Devesh Jain","Fatima Yannoulis"
+])
+let op=[
+  "Bhawana Jain","Vipin Kumar","Devesh Jain","Fatima Yannoulis"
+]
 //multiParty
   const [multiList,setMultiList]=useState([])
   const [newMultiAddress,setNewMultiAddress]=useState(
@@ -86,7 +92,7 @@ const [addressEditType,setAddressEditType]=useState("Registered")
   {name:"Bhawana Jain",designation:"Vice President (Finance & Accounts)",email:"bhawanajain@somanigroup.com",phoneNo:""},
   {name:"Vipin Kumar",designation:"Manager Accounts",email:"vipinrajput@somanigroup.com",phoneNo:""},
   {name:"Devesh Jain",designation:"Director",email:"devesh@indointertrade.ch",phoneNo:""},
-  {name:"Fatima Yannoulis ",designation:"Chief Financial Officer",email:"fatima@indointertrade.ch",phoneNo:""}
+  {name:"Fatima Yannoulis",designation:"Chief Financial Officer",email:"fatima@indointertrade.ch",phoneNo:""}
   ]
 
 
@@ -140,9 +146,32 @@ console.log(props?.order?.supplierName,"props?.order?.supplierName")
         
        }
        setList(savedData.authorisedSignatoryDetails?savedData.authorisedSignatoryDetails:[])
+
        setAddressList(savedData.addresses)
        setMultiList(savedData.authorisedSignatoryDetails)
        setSupplierState(supplier)
+         let tempArr=savedData?.authorisedSignatoryDetails
+          let optionArray=[]
+          console.log(tempArr,"tempArr")
+          tempArr.forEach((val,index)=>{
+         
+          if(tempArr?.length>0){
+               if(val.name=="Bhawana Jain"){
+             setOptions(["Vipin Kumar","Devesh Jain","Fatima Yannoulis"])
+          }
+          if(val.name=="Vipin Kumar"){
+             setOptions(["Bhawana Jain","Devesh Jain","Fatima Yannoulis"])
+          }
+          if(val.name=="Devesh Jain"){
+             setOptions(["Vipin Kumar","Bhawana Jain","Fatima Yannoulis"])
+          }
+          if(val.name=="Fatima Yannoulis"){
+             setOptions(["Vipin Kumar","Bhawana Jain","Devesh Jain"])
+          }
+          }
+
+          })
+       console.log(savedData.authorisedSignatoryDetails,"savedData.authorisedSignatoryDetails")
     }else{
        let supplier={
        "name": props?.order?.supplierName || props.order?.supplierName,
@@ -163,12 +192,31 @@ console.log(props?.order?.supplierName,"props?.order?.supplierName")
 
       
           let tempArr=props.data?.authorisedSignatoryDetails
+          let optionArray=[]
           console.log(tempArr,"tempArr")
           tempArr.forEach((val,index)=>{
           val.actions = "true"
+          if(tempArr?.length>0){
+               if(val.name=="Bhawana Jain"){
+             setOptions(["Vipin Kumar","Devesh Jain","Fatima Yannoulis"])
+          }
+          if(val.name=="Vipin Kumar"){
+             setOptions(["Bhawana Jain","Devesh Jain","Fatima Yannoulis"])
+          }
+          if(val.name=="Devesh Jain"){
+             setOptions(["Vipin Kumar","Bhawana Jain","Fatima Yannoulis"])
+          }
+          if(val.name=="Fatima Yannoulis"){
+             setOptions(["Vipin Kumar","Bhawana Jain","Devesh Jain"])
+          }
+          }
+
           })
           setList(tempArr)
         }
+       
+        console.log(props.data?.authorisedSignatoryDetails,"savedData.authorisedSignatoryDetails")
+       
       //  setList(props.data?.authorisedSignatoryDetails?props.data?.authorisedSignatoryDetails:[])
        setAddressList(props.data?.addresses)
        setMultiList(props.data?.authorisedSignatoryDetails)
@@ -194,25 +242,30 @@ console.log(props?.order?.supplierName,"props?.order?.supplierName")
     });
 
   }
-  const onEditRemove=(index)=>{
- 
+  const onEditRemove=(index,value)=>{
+    console.log(value,"value")
 
-       setList(prevState => {
+      setList(prevState => {
       const newState = prevState.map((obj ,i)=> {
-       
-        if (i == index) {
-          return {...obj, actions: 'true'};
-        }
 
-        
-        return obj;
+      if (i == index) {
+      return {...obj, actions: 'true'};
+      }
+
+
+      return obj;
       });
 
       return newState;
-    });
-
+      });
+      let temp=[...options]
+      var indexOption = temp.indexOf(value.name);
+      if (indexOption !== -1) {
+      temp.splice(indexOption, 1);
+      }
+      setOptions([...temp])
   }
-const addMoreRows=()=>{
+    const addMoreRows=()=>{
 
    
   setList([...list,{
@@ -221,13 +274,19 @@ const addMoreRows=()=>{
     }])
 
   }
-const handleRemove = (index) => {
+const handleRemove = (index,val) => {
 docList.forEach((val,i)=>{
     if(index==val.index){
     setDocList([...docList.slice(0,i), ...docList.slice(i+1)])
     }
   })
 setList([...list.slice(0, index), ...list.slice(index + 1)])
+
+if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" ||val.name=="atima Yannoulis"  ){
+  let temp=[...options]
+  temp.push(val.name)
+  setOptions([...temp])
+}
 }
   const handleInput=(name,value,key)=>{
    
@@ -488,7 +547,7 @@ setEditAddress(
 //multi address
 
   const handleAddressMultiInput=()=>{
-
+  if(props.addressValidation(addressMutliType,newMultiAddress,false)){
   setMultiList(current => [...current, newMultiAddress])
     
     setNewMultiAddress({
@@ -500,6 +559,7 @@ setEditAddress(
                 "state": "",
                 "city": ""
             })
+  }
   }
   const onAddressMultiRemove=(index)=>{
   setMultiList([...multiList.slice(0,index), ...multiList.slice(index+1)])
@@ -514,6 +574,7 @@ setEditAddress(
   const [isEditMulti,setIsEditMulti]= useState(false)
   const [toEditIndexMulti,setToEditIndexMulti]= useState(0)
   const handleEditAddressMuliInput=(index)=>{
+
   setIsEditMulti(true)
   setToEditIndexMulti(index)
   let tempArr=multiList;
@@ -532,7 +593,7 @@ setEditAddress(
     }
   })
 
-
+    
   }
   const editNewMultiAddress=(name,value)=>{
   setIsEditMulti(true)
@@ -1030,7 +1091,7 @@ setEditAddress(
                           <td>{val.phoneNo}</td>
                           <td className={`d-flex`}>
                           <img className={`${styles.image} mr-3`} onClick={()=>(onEdit(index))} src="/static/mode_edit.svg" alt="edit"/>
-                          <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg" alt="delete"/>
+                          <img onClick={()=>(handleRemove(index,val))} src="/static/delete 2.svg" alt="delete"/>
                           </td>
 
                         </tr>
@@ -1043,12 +1104,13 @@ setEditAddress(
                             className={`${styles.customSelect} input`}
                             onChange={(e)=>{
                               handleChangeInput(e.target.name,e.target.value,index)
+                             
                             }}>
                               <option>Select an option</option>
-                              <option value={"Bhawana Jain"}>{"Bhawana Jain"}</option>
-                              <option value={"Vipin Kumar"}>{"Vipin Kumar"}</option>
-                              <option value={"Devesh Jain"}>{"Devesh Jain"}</option>
-                              <option value={"Fatima Yannoulis"}>{"Fatima Yannoulis"}</option>
+                              {options.map((val,i)=>{
+                                return(<option value={val}>{val}</option>)
+                              })}
+                              
                               <option value={"addnew"}>{"Add New"}</option>
                             </select>
                             <img
@@ -1109,7 +1171,7 @@ setEditAddress(
                             <div
                               className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
                               onClick={()=>{
-                              onEditRemove(index)
+                              onEditRemove(index,val)
                               }}
                             >
                               <img className={`${styles.image} mr-3`} src="/static/save-3.svg" alt="save"/>
@@ -1117,7 +1179,7 @@ setEditAddress(
                             <div
                               className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center`}
                               onClick={()=>{
-                              handleRemove(index)
+                              handleRemove(index,val)
                               }}
                             >
                               <img src="/static/delete 2.svg" />
@@ -1153,9 +1215,9 @@ setEditAddress(
                   <th>ACTION</th>
                 </tr>
                 <tbody>
-                  <tr  className='table_row'>
+                  {/* <tr  className='table_row'>
                       <td><strong>Board Resolution Copy<span className={`danger`}>*</span></strong></td>
-                      <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/>{/* {val.designation} */}</td>
+                      <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/></td>
                       <td>{`28-02-2022,5:30 PM`}</td>
                       <td>
                   <td style={{padding:"0"}}>
@@ -1166,8 +1228,7 @@ setEditAddress(
                           name="myfile"
                           accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                           onChange={async(e) => {
-                            // addDoc(e.target.files[0], index)
-                            // uploadDocument2(e)
+                           
                              let data = await props.uploadDoc(e)
                            console.log(data,"upload")
                           }}
@@ -1192,10 +1253,10 @@ setEditAddress(
                       </td>
                       </td>
                       <td>
-                        {/* <img  className={`mr-3`} src="/static/delete 2.svg" alt="delete"/> */}
+                       
                         <img  src="/static/upload.svg" alt="upload"/>
                       </td>
-                      </tr>
+                  </tr> */}
 
                   
                 {docList.length>0 && docList.map((val,index)=>{
@@ -1317,11 +1378,13 @@ setEditAddress(
 
           </div>
         </div>
+         {
+        isEditMulti && editData(addressMutliType,MultiEditAddress,setMultiEditAddress,editNewMultiAddress,cancelEditMultiAddress,saveNewMultiAddress,setMultiAddressType)}        
           <div className={`row`}>
 
            
             <div className={`${styles.newAddressContainer} ${styles.newAddressContainer2} m-0`}>
-                  <div className={styles.newAddressHead}><span>Add a new {props.multiPartValue} address</span></div>
+                  <div className={styles.newAddressHead}><span>Add a new {/*{props.multiPartValue}*/} address</span></div>
                     <div className={`${styles.newAddressContent} row`}>
                     <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
                       <div className="d-flex">

@@ -21,8 +21,8 @@ const Index = ({ termsheetDetails, onChangeDropDown, termsheet, otherTermConditi
                     <Form>
                         <div className={`${styles.terms_para}`}>Below charges are to be borne and paid by the Buyer on actual basis,wherever applicable.
                         <select onChange={(e) => onChangeDropDown(e)} className={`${styles.igpl_para} input`}>
-                            <option disabled selected>Select an option</option>
-                            <option value={`Indo German International Private Limited (IGPL)`}>Indo German International Private Limited (IGPL)</option>
+                           
+                            <option selected value={`Indo German International Private Limited (IGPL)`}>Indo German International Private Limited (IGPL)</option>
                             <option value={`Emergent Industrial Solutions Limited (EISL)`}> Emergent Industrial Solutions Limited (EISL)</option>
                         </select>
 

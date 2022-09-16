@@ -96,6 +96,7 @@ function Index({
                 </th>
                 <th>BUYER NAME</th>
                 <th>COMMODITY</th>
+                <th>VESSEL NAME</th>
                 <th>{pageType}</th>
                 {/* {isVesselHeader ? (
                   <th>VESSEL NAME</th>
@@ -133,6 +134,7 @@ function Index({
                       {insured?.company?.companyName}
                     </td>
                     <td>{insured?.order?.commodity}</td>
+                    <td></td>
                     <td>{insured?.quotationRequest?.insuranceType}</td>
                     <td>
                       {

@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import { Form } from 'react-bootstrap'
 import InspectionDocument from '../InspectionDocument'
@@ -10,17 +10,29 @@ import { UpdateInspection } from 'redux/Inspections/action'
 import _get from 'lodash/get'
 import UploadOther from '../UploadOther'
 import { toast } from 'react-toastify'
+import moment from 'moment'
 
 export default function Index({ inspectionData }) {
   let dispatch = useDispatch()
 
   let orderid = _get(inspectionData, 'order._id', '')
 
+  let d = new Date()
+
   const [plotInspectionData, setPlotInspectionData] = useState({
     plotInspectionDate: inspectionData?.plotInspection?.plotInspectionDate,
-    plotInspectionReport: null,
+    plotInspectionReport: inspectionData?.plotInspection?.plotInspectionReport || null,
   })
-  console.log(plotInspectionData, 'THIS IS PLOT')
+
+  useEffect(() => {
+    setPlotInspectionData({
+      plotInspectionDate: inspectionData?.plotInspection?.plotInspectionDate,
+      plotInspectionReport: inspectionData?.plotInspection?.plotInspectionReport
+    })
+  }, [inspectionData])
+  
+
+  // console.log(plotInspectionData, 'THIS IS PLOT')
 
   const savePlotInspectionData = (name, value) => {
     let newInput = { ...plotInspectionData }
@@ -50,7 +62,7 @@ export default function Index({ inspectionData }) {
 
 
   const handleSubmit = () => {
-    console.log('payload Third party1')
+    // console.log('payload Third party1')
     if (plotInspectionData.plotInspectionDate == '') {
       let toastMessage = 'PLOT INSPECTION DATE IS MANDATORY'
       if (!toast.isActive(toastMessage)) {
@@ -66,7 +78,7 @@ export default function Index({ inspectionData }) {
       fd.append('inspectionId', inspectionData?._id)
       let task = 'submit'
 
-      console.log('payload Third party2', 'Payload')
+      // console.log('payload Third party2', 'Payload')
 
       dispatch(UpdateInspection({fd, task}))
     }
@@ -197,61 +209,11 @@ export default function Index({ inspectionData }) {
                                 />
                               </td>
                               <td className={styles.doc_row}>
-                                28-02-2022,5:30 PM
+                              { inspectionData?.plotInspection?.plotInspectionReport ?  moment(inspectionData?.plotInspection?.plotInspectionReport.date).format(
+                                'DD-MM-YYYY, h:mm A',
+                              ): plotInspectionData?.plotInspectionReport != null ? moment(d).format('DD-MM-YYYY, h:mm A'): ''}
                               </td>
-                              {/* <td>
-                              {' '}
-                              <div className="dropdown">
-                                <button
-                                  className={`${styles.specify_field} btn btn-secondary dropdown-toggle`}
-                                  type="button"
-                                  id="dropdownMenuButton"
-                                  data-toggle="dropdown"
-                                  aria-haspopup="true"
-                                  aria-expanded="false"
-                                >
-                                  Please Specify
-                                </button>
-                                <div
-                                  className={`${styles.dropdown_menu} dropdown-menu`}
-                                  aria-labelledby="dropdownMenuButton"
-                                >
-                                  <a
-                                    className={`${styles.hold_field} ${styles.dropdown_item} dropdown-item`}
-                                    href="#"
-                                  >
-                                    <img
-                                      src="/static/hold-white.svg"
-                                      className="img-fluid mr-2"
-                                      alt="On Hold"
-                                    />{' '}
-                                    On Hold
-                                  </a>
-                                  <a
-                                    className={`${styles.rejected_field} ${styles.dropdown_item} dropdown-item`}
-                                    href="#"
-                                  >
-                                    <img
-                                      src="/static/close-white.svg"
-                                      className="img-fluid mr-2"
-                                      alt="Rejected"
-                                    />{' '}
-                                    Rejected
-                                  </a>
-                                  <a
-                                    className={`${styles.approved_field} ${styles.dropdown_item} dropdown-item`}
-                                    href="#"
-                                  >
-                                    <img
-                                      src="/static/check.svg"
-                                      className="img-fluid mr-2"
-                                      alt="Approved"
-                                    />{' '}
-                                    Approved
-                                  </a>
-                                </div>
-                              </div>
-                            </td> */}
+                        
                               <td>
                                 {plotInspectionData?.plotInspectionReport ==
                                   null ? (

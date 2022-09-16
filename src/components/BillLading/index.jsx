@@ -69,11 +69,22 @@ export default function Index({
   }
   const dispatch = useDispatch()
   console.log(bolList, 'bolList')
-  let shipmentTypeBulk =
-    _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') ===
-      'Bulk'
-      ? true
-      : false
+  // let shipmentTypeBulk =
+  //   _get(TransitDetails, `data[0].order.vessel.vessels[0].shipmentType`, '') ===
+  //     'Bulk'
+  //     ? true
+  //     : false
+  const[shipmentTypeBulk,setshipmentTypeBulk]=useState(false)
+  useEffect(() => {
+    setshipmentTypeBulk(
+      
+      _get(TransitDetails, `data[0].order.termsheet.transactionDetails.shipmentType`, '') ===
+      'Bulk' ? true : false
+      )
+  },
+  [TransitDetails])
+      
+    
 
   const existingBlData = _get(TransitDetails, `data[0].BL.billOfLanding`, [])
 
@@ -612,7 +623,8 @@ export default function Index({
                   Part Shipment Allowed:
                 </div>
                 <div className={`${styles.dropDown} input`}>
-                  {partShipmentAllowed ? 'Yes' : 'No'}
+                { _get(TransitDetails,'data[0].order.termsheet.transactionDetails.partShipmentAllowed', '')}
+                  {/* {partShipmentAllowed ? 'Yes' : 'No'} */}
                 </div>
               </div>
             </div>
@@ -693,7 +705,7 @@ export default function Index({
                 <div
                   className={`${styles.head_container} card-header align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
                 >
-                  <h3 className={`${styles.heading}`}>
+                  <h3 className={`${styles.heading} flex-grow-1`}>
                     Bill of Lading {index + 1}
                   </h3>
                   {!partShipmentAllowed && (
@@ -701,11 +713,13 @@ export default function Index({
                       onClick={() => {
                         onBolAdd()
                       }}
-                      className={styles.add_btn}
+                      className={`${styles.add_btn} mr-0`}
                     >
                       <span className={styles.add_sign}>+</span>Add
                     </button>
                   )}
+                  <button className={`${styles.add_btn} mr-0 d-flex align-items-center justify-content-between border-danger text-danger`}>
+                    <img src="/static/delete.svg" width={15} alt="delete"/> Delete</button>
                 </div>
                 <div className={`${styles.dashboard_form} card-body`}>
                   <div className={`${styles.bill_landing} border_color`}>
@@ -785,7 +799,7 @@ export default function Index({
                             id="blNumber"
                             className={`${styles.input_field} input form-control`}
                             required
-                            type="number"
+                            type="text"
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                           />
@@ -961,7 +975,7 @@ export default function Index({
                             <strong className="text-danger">*</strong>
                           </h5>
                           <div className="row mt-n4">
-                            {bol?.containerDetails?.containerDoc === null ? (
+                            {bol?.containerDetails?.containerDoc !== null ? (
                               <div
                                 className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                               >
@@ -1013,7 +1027,7 @@ export default function Index({
                               </label>
                             </div>
                             <div
-                              className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                              className={`${styles.form_group} col-lg-8 col-md-6`}
                             >
                               {bol?.containerDetails?.containerDoc == null ? (
                                 <>
@@ -1109,7 +1123,7 @@ export default function Index({
                         >
                           <thead>
                             <tr>
-                              <th width="25%">
+                              <th width="40%">
                                 DOCUMENT NAME{' '}
                                 <img
                                   className={`${styles.sort_img} mb-1`}
@@ -1117,7 +1131,7 @@ export default function Index({
                                   alt="Sort icon"
                                 />
                               </th>
-                              <th width="15%">
+                              <th width="14%">
                                 FORMAT{' '}
                                 <img
                                   className={`${styles.sort_img} mb-1`}
@@ -1125,7 +1139,7 @@ export default function Index({
                                   alt="Sort icon"
                                 />
                               </th>
-                              <th width="25%">
+                              <th width="24%">
                                 DOCUMENT DATE{' '}
                                 <img
                                   className={`${styles.sort_img} mb-1`}
@@ -1133,7 +1147,7 @@ export default function Index({
                                   alt="Sort icon"
                                 />
                               </th>
-                              <th width="35%" >ACTION</th>
+                              <th width="20%" >ACTION</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -1370,12 +1384,12 @@ export default function Index({
                   </div>
 
                   <div className={`${styles.bill_landing}  border_color mt-4`}>
-                    {/* <div className={`${styles.vessel_card} mt-3`}>
+                    <div className={`${styles.vessel_card} mt-3`}>
                       <div className="row">
                         <div
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                         >
-                          {/* <div className="d-flex">
+                          <div className="d-flex">
                             <DatePicker
                             
                                selected={bol?.blSurrenderDate==null?"":moment(bol?.blSurrenderDate).toDate()}
@@ -1405,10 +1419,10 @@ export default function Index({
                             >
                               BL Surrendor Date
                             </label>
-                          </div> */}
-                    {/* </div>
+                          </div>
+                    </div>
                       </div>
-                    </div> */}
+                    </div>
                     <div className={styles.table_scroll_outer}>
                       <div className={styles.table_scroll_inner}>
                         <table
@@ -1497,7 +1511,7 @@ export default function Index({
                                     <img
                                       className={`${styles.close_image}`}
                                       src="/static/close.svg"
-                                      onClick={(e) => handleCloseDoc(e, index)}
+                                      onClick={(e) => handleCloseDoc('blSurrenderDoc', index)}
                                       alt="Close"
                                     />{' '}
                                   </div>

@@ -53,9 +53,9 @@ function Index({
 }) {
   const dispatch = useDispatch()
   console.log(GstData, 'GstData')
-  
 
-  
+
+
   useEffect(() => {
     if (window) {
       let id1 = sessionStorage.getItem('orderID')
@@ -123,6 +123,7 @@ function Index({
   }
 
   const primaryBankName = () => {
+    console.log(camData?.company?.debtProfile,"camData?.company?.debtProfile")
     let filteredData = []
     filteredData =
       camData?.company?.debtProfile?.filter((data) => data.primaryBank) || []
@@ -252,20 +253,20 @@ function Index({
       },
     ],
   }
-  
-const options = {
-       elements: {
+
+  const options = {
+    elements: {
       arc: {
-          borderWidth: 0  
+        borderWidth: 0
       }
-  }
-,
+    }
+    ,
     plugins: {
       title: {
         display: false,
         text: 'Doughnut Chart',
         color: 'blue',
-       
+
         font: {
           size: 34,
         },
@@ -273,18 +274,18 @@ const options = {
           top: 30,
           bottom: 30,
         },
-      
+
         animation: {
           animateScale: true,
         },
       },
-    
+
     },
-     responsive: true, 
-     cutout: 130
-   
+    responsive: true,
+    cutout: 130
+
   }
- 
+
   const covertMonths = (months) => {
     const CovertedMonts = []
     months?.map((month) => {
@@ -355,7 +356,7 @@ const options = {
   const [chartData2, setChartData2] = useState({
     datasets: [],
   })
-  
+
   // let data = {
   //   labels: ['Sail', 'Jindal Grou', 'SR Steel'],
   //   datasets: [
@@ -367,187 +368,187 @@ const options = {
   //     },
   //   ],
   // }
-  let  backgroundColor= ['#61C555', '#876EB1', '#2884DE',"#ED6B5F","#2884DE"]
-  const [top5Customers,setTop5Customers] = useState({
-   labels:[],
-   datasets:[]
+  let backgroundColor = ['#61C555', '#876EB1', '#2884DE', "#ED6B5F", "#2884DE"]
+  const [top5Customers, setTop5Customers] = useState({
+    labels: [],
+    datasets: []
   })
-  const [totalCustomer,setTotalCustomer] = useState(0)
-  const [totalSupplier,setTotalSupplier] = useState(0)
-  const [top5Suppliers,setTop5Suppliers] = useState({
-   labels:[],
-   datasets:[]
+  const [totalCustomer, setTotalCustomer] = useState(0)
+  const [totalSupplier, setTotalSupplier] = useState(0)
+  const [top5Suppliers, setTop5Suppliers] = useState({
+    labels: [],
+    datasets: []
   })
-   const [top3Share,setTop3Share] = useState({
-   labels:[],
-   datasets:[]
+  const [top3Share, setTop3Share] = useState({
+    labels: [],
+    datasets: []
   })
-    const [top3Open,setTop3Open] = useState({
-   labels:[],
-   datasets:[]
+  const [top3Open, setTop3Open] = useState({
+    labels: [],
+    datasets: []
   })
-const findTop5Customers=(data)=>{
-let temp=[]
-if(data?.names?.length>0){
-  data.names.forEach((val,index)=>{
-    temp.push({name:val,value:data.values[index]})
-})
-let sortedval=  temp.sort((a, b) => parseFloat(b.values) - parseFloat(a.values));
-let length=sortedval.length<5?sortedval.length:5
-let lable=[]
-let dataSet=[]
-let total=0;
-for(let i=0;i<length;i++){
-  lable.push(sortedval[i].name)
-  dataSet.push(sortedval[i].value)
-  total=total+sortedval[i].value
-}
-let top5data={
-labels:lable,
-datasets:[
-  {
-    label:lable,
-    data: dataSet,
-    backgroundColor: backgroundColor,
-  }
-]
+  const findTop5Customers = (data) => {
+    let temp = []
+    if (data?.names?.length > 0) {
+      data.names.forEach((val, index) => {
+        temp.push({ name: val, value: data.values[index] })
+      })
+      let sortedval = temp.sort((a, b) => parseFloat(b.values) - parseFloat(a.values));
+      let length = sortedval.length < 5 ? sortedval.length : 5
+      let lable = []
+      let dataSet = []
+      let total = 0;
+      for (let i = 0; i < length; i++) {
+        lable.push(sortedval[i].name)
+        dataSet.push(sortedval[i].value)
+        total = total + sortedval[i].value
+      }
+      let top5data = {
+        labels: lable,
+        datasets: [
+          {
+            label: lable,
+            data: dataSet,
+            backgroundColor: backgroundColor,
+          }
+        ]
 
-}
-setTotalCustomer(total)
-setTop5Customers({...top5data})
+      }
+      setTotalCustomer(total)
+      setTop5Customers({ ...top5data })
 
-}
-
-
-
-  
-
-}
-const findTop5Suppliers=(data)=>{
-let temp=[]
-if(data?.names?.length>0){
-  data.names.forEach((val,index)=>{
-    temp.push({name:val,value:data.values[index]})
-})
-let sortedval=  temp.sort((a, b) => parseFloat(b.values) - parseFloat(a.values));
-let length=sortedval.length<5?sortedval.length:5
-let lable=[]
-let dataSet=[]
-let total=0
-for(let i=0;i<length;i++){
-  lable.push(sortedval[i].name)
-  dataSet.push(sortedval[i].value)
-  total=total+sortedval[i].value
-}
-let top5data={
-labels:lable,
-datasets:[
-  {
-    label:lable,
-    data: dataSet,
-    backgroundColor: backgroundColor,
-  }
-]
-
-}
-setTotalSupplier(total)
-setTop5Suppliers({...top5data})
-
-}
-
-
-
-  
-
-}
-const findTop3Share=(data)=>{
-  console.log(data,"sasdasd")
-let temp=[]
-if(data?.length>0){
-  data.forEach((val,index)=>{
-    temp.push({name:val.fullName,value:val.numberOfShares})
-})
-let sortedval=  temp.sort((a, b) => parseFloat(b.values) - parseFloat(a.values));
-let length=3;
-let lable=[]
-let dataSet=[]
-let total=0
-for(let i=0;i<length;i++){
-  lable.push(sortedval[i].name)
-  dataSet.push(sortedval[i].value)
-  total=total+sortedval[i].value
-}
-let top5data={
-labels:lable,
-datasets:[
-  {
-    label:lable,
-    data: dataSet,
-    backgroundColor: backgroundColor,
-  }
-]
-
-}
-
-setTop3Share({...top5data})
-
-}
-
-
-
-  
-
-}
-const findTop3Open=(data)=>{
-  console.log(data,"opqpqpqp")
-let temp=[]
-if(data?.length>0){
-  data.forEach((val,index)=>{
-    if(val.finalAmountSecured!==null){
-      temp.push({name:val.nameOfChargeHolder1,value:val.finalAmountSecured})
     }
-    
-})
-let sortedval=  temp.sort((a, b) => parseFloat(b.values) - parseFloat(a.values));
-let length=3;
-let lable=[]
-let dataSet=[]
-let total=0
-for(let i=0;i<length;i++){
-  lable.push(sortedval[i]?.name)
-  dataSet.push(sortedval[i]?.value||0)
-  
-}
-let top5data={
-labels:lable,
-datasets:[
-  {
-    label:lable,
-    data: dataSet,
-    backgroundColor: backgroundColor,
+
+
+
+
+
   }
-]
+  const findTop5Suppliers = (data) => {
+    let temp = []
+    if (data?.names?.length > 0) {
+      data.names.forEach((val, index) => {
+        temp.push({ name: val, value: data.values[index] })
+      })
+      let sortedval = temp.sort((a, b) => parseFloat(b.values) - parseFloat(a.values));
+      let length = sortedval.length < 5 ? sortedval.length : 5
+      let lable = []
+      let dataSet = []
+      let total = 0
+      for (let i = 0; i < length; i++) {
+        lable.push(sortedval[i].name)
+        dataSet.push(sortedval[i].value)
+        total = total + sortedval[i].value
+      }
+      let top5data = {
+        labels: lable,
+        datasets: [
+          {
+            label: lable,
+            data: dataSet,
+            backgroundColor: backgroundColor,
+          }
+        ]
 
-}
+      }
+      setTotalSupplier(total)
+      setTop5Suppliers({ ...top5data })
 
-setTop3Open({...top5data})
-
-}
+    }
 
 
 
-  
 
-}
 
-  console.log(top3Share,"top3Share")
+  }
+  const findTop3Share = (data) => {
+    console.log(data, "sasdasd")
+    let temp = []
+    if (data?.length > 0) {
+      data.forEach((val, index) => {
+        temp.push({ name: val.fullName, value: val.numberOfShares })
+      })
+      let sortedval = temp.sort((a, b) => parseFloat(b.values) - parseFloat(a.values));
+      let length = 3;
+      let lable = []
+      let dataSet = []
+      let total = 0
+      for (let i = 0; i < length; i++) {
+        lable.push(sortedval[i]?.name)
+        dataSet.push(sortedval[i]?.value)
+        total = total + sortedval[i]?.value
+      }
+      let top5data = {
+        labels: lable,
+        datasets: [
+          {
+            label: lable,
+            data: dataSet,
+            backgroundColor: backgroundColor,
+          }
+        ]
+
+      }
+
+      setTop3Share({ ...top5data })
+
+    }
+
+
+
+
+
+  }
+  const findTop3Open = (data) => {
+    console.log(data, "opqpqpqp")
+    let temp = []
+    if (data?.length > 0) {
+      data.forEach((val, index) => {
+        if (val.finalAmountSecured !== null) {
+          temp.push({ name: val.nameOfChargeHolder1, value: val.finalAmountSecured })
+        }
+
+      })
+      let sortedval = temp.sort((a, b) => parseFloat(b.values) - parseFloat(a.values));
+      let length = 3;
+      let lable = []
+      let dataSet = []
+      let total = 0
+      for (let i = 0; i < length; i++) {
+        lable.push(sortedval[i]?.name)
+        dataSet.push(sortedval[i]?.value || 0)
+
+      }
+      let top5data = {
+        labels: lable,
+        datasets: [
+          {
+            label: lable,
+            data: dataSet,
+            backgroundColor: backgroundColor,
+          }
+        ]
+
+      }
+
+      setTop3Open({ ...top5data })
+
+    }
+
+
+
+
+
+  }
+
+  console.log(top3Share, "top3Share")
   useEffect(() => {
     findTop5Customers(GstData?.detail?.summaryCharts?.top10Cus)
     findTop5Suppliers(GstData?.detail?.summaryCharts?.top10Suppliers)
-    console.log(camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern,"camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern)")
+    console.log(camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern, "camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern)")
     findTop3Share(camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern)
     findTop3Open(camData?.company?.detailedCompanyInfo?.financial?.openCharges)
-  },[GstData,camData])
+  }, [GstData, camData])
   useEffect(() => {
     const chart = chartRef.current
     const chart2 = chartRef2.current
@@ -662,13 +663,13 @@ setTop3Open({...top5data})
         previousAuditorData,
       )}
       {directorDetails(camData)}
-      {shareHolding(top3Share, options, tempArr, camData,backgroundColor)}
-      {chargeDetails(top3Open, options, tempArr, camData,backgroundColor)}
+      {shareHolding(top3Share, options, tempArr, camData, backgroundColor)}
+      {chargeDetails(top3Open, options, tempArr, camData, backgroundColor)}
       {debtProfile(data, options, tempArr, camData)}
       {operationalDetails(camData)}
       {revenuDetails(gstData)}
       {trends(chartData, chartRef, chartRef2, chartData2, lineOption, gstData)}
-      {skewness(top5Customers, options, tempArr, gstData,top5Suppliers,backgroundColor,totalCustomer,totalSupplier)}
+      {skewness(top5Customers, options, tempArr, gstData, top5Suppliers, backgroundColor, totalCustomer, totalSupplier)}
       {financeDetails(
         data,
         options,
@@ -888,11 +889,7 @@ const basicInfo = (camData, orderDetails) => {
                   </span>
                   <span className={`${styles.value} value pr-5`}>
                     {/* {camData?.ExpectedDateOfShipment.split('T')[0]} */}
-                    {moment(
-                      camData?.ExpectedDateOfShipment?.slice(0, 10),
-                      'YYYY-MM-DD',
-                      true,
-                    ).format('DD-MM-YYYY')}
+                    {camData?.ExpectedDateOfShipment ? moment(camData?.ExpectedDateOfShipment).format('DD-MM-YYYY') : ''}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
@@ -907,15 +904,7 @@ const basicInfo = (camData, orderDetails) => {
                     } */}
 
                     {camData?.shipmentDetail?.ETAofDischarge?.fromDate
-                      ? moment(
-                          camData?.shipmentDetail?.ETAofDischarge?.fromDate?.slice(
-                            0,
-                            10,
-                          ),
-                          'YYYY-MM-DD',
-                          true,
-                        ).format('DD-MM-YYYY')
-                      : ''}
+                      ? moment(camData?.shipmentDetail?.ETAofDischarge?.fromDate).format('DD-MM-YYYY') : ''}
                   </span>
                 </Col>
               </Row>
@@ -924,16 +913,18 @@ const basicInfo = (camData, orderDetails) => {
                   <span className={`${styles.key} label1`}>Laycan from</span>
                   <span className={`${styles.value} value pr-5`}>
                     {/* {camData?.shipmentDetail?.loadPort?.fromDate?.split('T')[0]} */}
-                    {camData?.shipmentDetail?.loadPort?.fromDate
+                    {/* {camData?.shipmentDetail?.loadPort?.fromDate
                       ? moment(
-                          camData?.shipmentDetail?.loadPort?.fromDate?.slice(
-                            0,
-                            10,
-                          ),
-                          'YYYY-MM-DD',
-                          true,
-                        ).format('DD-MM-YYYY')
-                      : ''}
+                        camData?.shipmentDetail?.loadPort?.fromDate?.slice(
+                          0,
+                          10,
+                        ),
+                        'YYYY-MM-DD',
+                        true,
+                      ).format('DD-MM-YYYY')
+                      : ''} */}
+                    {camData?.shipmentDetail?.loadPort?.fromDate
+                      ? moment(camData?.shipmentDetail?.loadPort?.fromDate).format('DD-MM-YYYY') : ''}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
@@ -942,16 +933,18 @@ const basicInfo = (camData, orderDetails) => {
                   </span>
                   <span className={`${styles.value} value`}>
                     {/* {camData?.shipmentDetail?.loadPort?.toDate?.split('T')[0]} */}
-                    {camData?.shipmentDetail?.loadPort?.toDate
+                    {/* {camData?.shipmentDetail?.loadPort?.toDate
                       ? moment(
-                          camData?.shipmentDetail?.loadPort?.toDate?.slice(
-                            0,
-                            10,
-                          ),
-                          'YYYY-MM-DD',
-                          true,
-                        ).format('DD-MM-YYYY')
-                      : ''}
+                        camData?.shipmentDetail?.loadPort?.toDate?.slice(
+                          0,
+                          10,
+                        ),
+                        'YYYY-MM-DD',
+                        true,
+                      ).format('DD-MM-YYYY')
+                      : ''} */}
+                    {camData?.shipmentDetail?.loadPort?.toDate
+                      ? moment(camData?.shipmentDetail?.loadPort?.toDate).format('DD-MM-YYYY') : ''}
                   </span>
                 </Col>
               </Row>
@@ -1020,13 +1013,15 @@ const supplierInfo = (camData) => {
                     Latest Shipment date
                   </span>
                   <span className={`${styles.value} value`}>
-                    {camData?.supplierCredential?.latestShipmentDate
+                    {/* {camData?.supplierCredential?.latestShipmentDate
                       ? moment(
-                          camData?.supplierCredential?.latestShipmentDate?.split(
-                            'T',
-                          )[0],
-                        ).format('DD-MM_YYYY')
-                      : ''}
+                        camData?.supplierCredential?.latestShipmentDate?.split(
+                          'T',
+                        )[0],
+                      ).format('DD-MM_YYYY')
+                      : ''} */}
+                    {camData?.supplierCredential?.latestShipmentDate
+                      ? moment(camData?.supplierCredential?.latestShipmentDate).format('DD-MM-YYYY') : ''}
                   </span>
                 </Col>
               </Row>
@@ -1044,13 +1039,15 @@ const supplierInfo = (camData) => {
                     Oldest shipment date
                   </span>
                   <span className={`${styles.value} value`}>
-                    {camData?.supplierCredential?.oldestShipmentDate
+                    {/* {camData?.supplierCredential?.oldestShipmentDate
                       ? moment(
-                          camData?.supplierCredential?.oldestShipmentDate?.split(
-                            'T',
-                          )[0],
-                        ).format('DD-MM-YYYY')
-                      : ''}
+                        camData?.supplierCredential?.oldestShipmentDate?.split(
+                          'T',
+                        )[0],
+                      ).format('DD-MM-YYYY')
+                      : ''} */}
+                       {camData?.supplierCredential?.oldestShipmentDate
+                      ? moment(camData?.supplierCredential?.oldestShipmentDate).format('DD-MM-YYYY') : ''}
                   </span>
                 </Col>
               </Row>
@@ -1472,7 +1469,7 @@ const creditProfile = (
                   </span>
                   <span className={`${styles.value} value `}>
                     {latestAuditorData?.nameOfAuditor ===
-                    previousAuditorData?.nameOfAuditor
+                      previousAuditorData?.nameOfAuditor
                       ? ' No'
                       : 'Yes'}
                   </span>
@@ -1557,7 +1554,7 @@ const directorDetails = (camData) => {
     </>
   )
 }
-const shareHolding = (top3Share, options, tempArr, camData,backgroundColor) => {
+const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -1598,7 +1595,7 @@ const shareHolding = (top3Share, options, tempArr, camData,backgroundColor) => {
                           className={styles.round}
                           style={{ backgroundColor: backgroundColor[index] }}
                         ></div>
-                        <span className={` heading ml-2`}>{top3Share.labels[index]==""?"NA":top3Share.labels[index]}</span>
+                        <span className={` heading ml-2`}>{top3Share.labels[index] == "" ? "NA" : top3Share.labels[index]}</span>
                       </div>
                     )
                   })}
@@ -1717,8 +1714,8 @@ const shareHolding = (top3Share, options, tempArr, camData,backgroundColor) => {
     </>
   )
 }
-const chargeDetails = (top3Open, options, tempArr, camData,backgroundColor) => {
-  console.log(top3Open,"top3Open")
+const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor) => {
+  console.log(top3Open, "top3Open")
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -1749,7 +1746,7 @@ const chargeDetails = (top3Open, options, tempArr, camData,backgroundColor) => {
                   </div>
                 </div>
                 <div className={`${styles.name} `}>
-                    {top3Open.datasets && top3Open?.datasets[0]?.data.map((val, index) => {
+                  {top3Open.datasets && top3Open?.datasets[0]?.data.map((val, index) => {
                     return (
                       <div
                         key={index}
@@ -1759,7 +1756,7 @@ const chargeDetails = (top3Open, options, tempArr, camData,backgroundColor) => {
                           className={styles.round}
                           style={{ backgroundColor: backgroundColor[index] }}
                         ></div>
-                        <span className={` heading ml-2`}>{top3Open.labels[index]==""?"NA":top3Open.labels[index]}</span>
+                        <span className={` heading ml-2`}>{top3Open.labels[index] == "" ? "NA" : top3Open.labels[index]}</span>
                       </div>
                     )
                   })}
@@ -1780,8 +1777,8 @@ const chargeDetails = (top3Open, options, tempArr, camData,backgroundColor) => {
                   {camData &&
                     camData?.company?.detailedCompanyInfo?.financial?.openCharges?.map(
                       (charge, index) => {
-                        let name = charge?.nameOfChargeHolder1
-                        let [fName, lName] = name?.split(' ')
+                        let name = charge?.nameOfChargeHolder
+                        let [fName, lName] = name?.split(' ') 
 
                         let colors = [
                           {
@@ -1826,8 +1823,8 @@ const chargeDetails = (top3Open, options, tempArr, camData,backgroundColor) => {
                             <td>
                               {charge?.dateOfCreationOfCharge
                                 ? moment(charge?.dateOfCreationOfCharge).format(
-                                    'DD-MM-YYYY',
-                                  )
+                                  'DD-MM-YYYY',
+                                )
                                 : ''}
                             </td>
                           </tr>
@@ -1943,35 +1940,32 @@ const debtProfile = (data, options, tempArr, camData) => {
                    `}
                             style={{
                               color: ` 
-                      ${
-                        debt.conduct == 'Good'
-                          ? '#43C34D'
-                          : debt.conduct == 'Satisfactory'
-                          ? '#FF9D00'
-                          : debt.conduct == 'Average'
-                          ? 'average'
-                          : '#EA3F3F'
-                      }`,
+                      ${debt.conduct == 'Good'
+                                  ? '#43C34D'
+                                  : debt.conduct == 'Satisfactory'
+                                    ? '#FF9D00'
+                                    : debt.conduct == 'Average'
+                                      ? 'average'
+                                      : '#EA3F3F'
+                                }`,
                             }}
                           >
                             {debt.limitType}
                           </span>
                           <div
                             style={{
-                              backgroundColor: `${
-                                debt.conduct == 'Good'
-                                  ? '#43C34D'
-                                  : debt.conduct == 'Satisfactory'
+                              backgroundColor: `${debt.conduct == 'Good'
+                                ? '#43C34D'
+                                : debt.conduct == 'Satisfactory'
                                   ? '#FF9D00'
                                   : debt.conduct == 'Average'
-                                  ? 'average'
-                                  : '#EA3F3F'
-                              }`,
-                              width: `${
-                                (Number(debt.limit) / 1900 > 1
-                                  ? 1
-                                  : Number(debt.limit) / 1900) * 100
-                              }%`,
+                                    ? 'average'
+                                    : '#EA3F3F'
+                                }`,
+                              width: `${(Number(debt.limit) / 1900 > 1
+                                ? 1
+                                : Number(debt.limit) / 1900) * 100
+                                }%`,
                             }}
                             className={`${styles.fill}`}
                           ></div>
@@ -2035,15 +2029,14 @@ const debtProfile = (data, options, tempArr, camData) => {
 
                         <td>{debt?.limit}</td>
                         <td
-                          className={`${styles.conduct}  ${
-                            debt.conduct == 'Good'
-                              ? 'good'
-                              : debt.conduct == 'Satisfactory'
+                          className={`${styles.conduct}  ${debt.conduct == 'Good'
+                            ? 'good'
+                            : debt.conduct == 'Satisfactory'
                               ? 'satisfactory'
                               : debt.conduct == 'Average'
-                              ? 'average'
-                              : 'danger'
-                          }`}
+                                ? 'average'
+                                : 'danger'
+                            }`}
                         >
                           {debt?.conduct}
                         </td>
@@ -2110,7 +2103,7 @@ const operationalDetails = (camData) => {
                     Plant Production Capacity
                   </span>
                   <span className={`${styles.value} value pr-5`}>
-                    {camData?.productSummary?.monthlyProductionCapacity}
+                    {camData?.productSummary?.monthlyProductionCapacity}{" "} {camData?.productSummary?.monthlyProductionCapacity?"MT":""}
                   </span>
                 </Col>
                 <Col
@@ -2121,7 +2114,7 @@ const operationalDetails = (camData) => {
                     Stock in Transit - Commodity
                   </span>
                   <span className={`${styles.value} value`}>
-                    {camData?.productSummary?.averageStockInTransit}
+                    {camData?.productSummary?.averageStockInTransit}{" "} {camData?.productSummary?.averageStockInTransit?"MT":""}
                   </span>
                 </Col>
               </Row>
@@ -2131,7 +2124,7 @@ const operationalDetails = (camData) => {
                     Capacity Utilization
                   </span>
                   <span className={`${styles.value} value pr-5`}>
-                    {camData?.productSummary?.capacityUtilization}
+                    {camData?.productSummary?.capacityUtilization}{" "} {camData?.productSummary?.capacityUtilization?"%":""}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
@@ -2139,7 +2132,7 @@ const operationalDetails = (camData) => {
                     Stock Coverage of Commodity
                   </span>
                   <span className={`${styles.value} value`}>
-                    {camData?.productSummary?.averageStockOfCommodity}
+                    {camData?.productSummary?.averageStockOfCommodity} {camData?.productSummary?.averageStockOfCommodity?"Days":""}
                   </span>
                 </Col>
               </Row>
@@ -2149,7 +2142,7 @@ const operationalDetails = (camData) => {
                     Available Stock of Commodity
                   </span>
                   <span className={`${styles.value} value pr-5`}>
-                    {camData?.productSummary?.availableStock}
+                    {camData?.productSummary?.availableStock}{" "} {camData?.productSummary?.availableStock?"MT":""}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
@@ -2157,7 +2150,7 @@ const operationalDetails = (camData) => {
                     Avg Monthly Electricity Bill
                   </span>
                   <span className={`${styles.value} value`}>
-                    {camData?.productSummary?.AvgMonthlyElectricityBill}
+                   {camData?.productSummary?.AvgMonthlyElectricityBill?"₹":""} {" "} {camData?.productSummary?.AvgMonthlyElectricityBill}
                   </span>
                 </Col>
               </Row>
@@ -2167,7 +2160,7 @@ const operationalDetails = (camData) => {
                     Daily Consumption of Commodity
                   </span>
                   <span className={`${styles.value} value`}>
-                    {camData?.productSummary?.dailyConsumptionOfCommodity}
+                    {camData?.productSummary?.dailyConsumptionOfCommodity}{" "} {camData?.productSummary?.dailyConsumptionOfCommodity?"MT":""}
                   </span>
                 </Col>
               </Row>
@@ -2225,7 +2218,7 @@ const revenuDetails = (gstData) => {
                 <td>Gross Revenue</td>
                 <td>
                   {RevenueDetails?.grossTurnover?.previous?.value ||
-                  RevenueDetails?.grossTurnover?.current?.value ? (
+                    RevenueDetails?.grossTurnover?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -2259,7 +2252,7 @@ const revenuDetails = (gstData) => {
                 <td>Related Party Sales</td>
                 <td>
                   {RevenueDetails?.relatedPartySales?.previous?.value ||
-                  RevenueDetails?.relatedPartySales?.current?.value ? (
+                    RevenueDetails?.relatedPartySales?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -2297,7 +2290,7 @@ const revenuDetails = (gstData) => {
                 <td>Intra Organization Sales</td>
                 <td>
                   {RevenueDetails?.intraOrgSalesPercent?.previous?.value ||
-                  RevenueDetails?.intraOrgSalesPercent?.current?.value ? (
+                    RevenueDetails?.intraOrgSalesPercent?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -2335,7 +2328,7 @@ const revenuDetails = (gstData) => {
                 <td>B2B Sales</td>
                 <td>
                   {RevenueDetails?.B2BSales?.previous?.value ||
-                  RevenueDetails?.B2BSales?.current?.value ? (
+                    RevenueDetails?.B2BSales?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -2373,7 +2366,7 @@ const revenuDetails = (gstData) => {
                 <td>B2C Sales</td>
                 <td>
                   {RevenueDetails?.B2CSales?.previous?.value ||
-                  RevenueDetails?.B2CSales?.current?.value ? (
+                    RevenueDetails?.B2CSales?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -2411,7 +2404,7 @@ const revenuDetails = (gstData) => {
                 <td>Export Sales</td>
                 <td>
                   {RevenueDetails?.exportSales?.previous?.value ||
-                  RevenueDetails?.exportSales?.current?.value ? (
+                    RevenueDetails?.exportSales?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -2449,7 +2442,7 @@ const revenuDetails = (gstData) => {
                 <td>Total Customers</td>
                 <td>
                   {RevenueDetails?.ttlCustomer?.previous?.value ||
-                  RevenueDetails?.ttlCustomer?.current?.value ? (
+                    RevenueDetails?.ttlCustomer?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -2487,7 +2480,7 @@ const revenuDetails = (gstData) => {
                 <td>Total Invoices</td>
                 <td>
                   {RevenueDetails?.ttlInv?.previous?.value ||
-                  RevenueDetails?.ttlInv?.current?.value ? (
+                    RevenueDetails?.ttlInv?.current?.value ? (
                     <img
                       src={
                         calcPc(
@@ -2627,11 +2620,11 @@ const financeDetails = (
                           'financial.balanceSheet[0].equityLiabilities.borrowingsCurrent',
                           '',
                         ) +
-                          _get(
-                            companyData,
-                            'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent',
-                            '',
-                          ),
+                        _get(
+                          companyData,
+                          'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent',
+                          '',
+                        ),
                       ))?.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                       })}
@@ -2643,11 +2636,11 @@ const financeDetails = (
                           'financial.balanceSheet[1].equityLiabilities.borrowingsCurrent',
                           '',
                         ) +
-                          _get(
-                            companyData,
-                            'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent',
-                            '',
-                          ),
+                        _get(
+                          companyData,
+                          'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent',
+                          '',
+                        ),
                       ))?.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                       })}
@@ -2662,11 +2655,11 @@ const financeDetails = (
                           'financial.balanceSheet[0].equityLiabilities.tradePay',
                           '',
                         ) +
-                          _get(
-                            companyData,
-                            'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
-                            '',
-                          ),
+                        _get(
+                          companyData,
+                          'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
+                          '',
+                        ),
                       ))?.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                       })}
@@ -2678,11 +2671,11 @@ const financeDetails = (
                           'financial.balanceSheet[1].equityLiabilities.tradePay',
                           '',
                         ) +
-                          _get(
-                            companyData,
-                            'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
-                            '',
-                          ),
+                        _get(
+                          companyData,
+                          'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
+                          '',
+                        ),
                       ))?.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                       })}
@@ -2775,7 +2768,7 @@ const financeDetails = (
                     <td>
                       {latestYearData?.interestCoverage
                         ?.toFixed(2)
-                       ?.toLocaleString()}
+                        ?.toLocaleString()}
                     </td>
                     <td>
                       {previousYearData?.interestCoverage
@@ -3035,20 +3028,20 @@ const compilanceStatus = (companyData, camData) => {
                     className={`${styles.value} value pr-5`}
                     style={{ color: '#EA3F3F' }}
                   >
-                    {[].forEach((l, index2) => {})}
+                    {[].forEach((l, index2) => { })}
                     {_get(
                       companyData,
                       'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1',
                       '',
                     ) != ''
                       ? moment(
-                          _get(
-                            companyData,
-                            'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1',
-                            '',
-                          ),
-                          'MMyyyy',
-                        ).format('MM-yyyy')
+                        _get(
+                          companyData,
+                          'GST[0].detail.summaryInformation.businessProfile.lastReturnFiledgstr1',
+                          '',
+                        ),
+                        'MMyyyy',
+                      ).format('MM-yyyy')
                       : ''}
                   </span>
                 </Col>
@@ -3328,10 +3321,10 @@ const sectionTerms = (
                           filteredCreditRating.length > 0 &&
                           filteredCreditRating.map((val, index) => (
                             <td key={index}>
-                             {checkNan(
+                              {checkNan(
                                 CovertvaluefromtoCR(val?.derived?.value),
                               )}{' '}
-                              </td>
+                            </td>
                           ))}{' '}
                       </>
                     ) : (
@@ -3346,8 +3339,8 @@ const sectionTerms = (
                             <td key={index}>
                               {checkNan(
                                 CovertvaluefromtoCR(val?.suggested?.value),
-                              )}{' '}
-                              
+                              )}{` ${camData?.unitOfValue === 'Crores' ? 'Cr' : camData?.unitOfValue}`}
+
                             </td>
                           ))}{' '}
                       </>
@@ -3383,8 +3376,8 @@ const sectionTerms = (
                     <td>
                       {checkNan(
                         CovertvaluefromtoCR(camData?.suggestedOrderValue),
-                      )}{' '}
-                      
+                      )}{` ${camData?.unitOfValue === 'Crores' ? 'Cr' : camData?.unitOfValue}`}
+
                       {/* {camData?.suggestedOrderValue} */}
                     </td>
                     <td>
@@ -3709,7 +3702,7 @@ const trends = (
     </>
   )
 }
-const skewness = (top5Customers, options, tempArr, gstData,top5Suppliers,backgroundColor,totalCustomer,totalSupplier) => {
+const skewness = (top5Customers, options, tempArr, gstData, top5Suppliers, backgroundColor, totalCustomer, totalSupplier) => {
 
   return (
     <>
@@ -3782,7 +3775,7 @@ const skewness = (top5Customers, options, tempArr, gstData,top5Suppliers,backgro
                   </Col>
                   <Col md={6}>
                     <div className={`${styles.name} `}>
-                      { top5Customers.datasets && top5Customers?.datasets[0]?.data?.map((val, index) => {
+                      {top5Customers.datasets && top5Customers?.datasets[0]?.data?.map((val, index) => {
                         return (
                           <div
                             key={index}
@@ -3790,7 +3783,7 @@ const skewness = (top5Customers, options, tempArr, gstData,top5Suppliers,backgro
                           >
                             <div
                               className={styles.round}
-                             style={{ backgroundColor: `${backgroundColor[index]}` }}
+                              style={{ backgroundColor: `${backgroundColor[index]}` }}
                             ></div>
                             <div
                               className={`d-flex justify-content-between align-item-start w-100`}
@@ -3800,8 +3793,8 @@ const skewness = (top5Customers, options, tempArr, gstData,top5Suppliers,backgro
                               </span>
                               <span className={` heading mr-4`}>
                                 {
-                                ((val/totalCustomer)*100)?.toFixed(2)
-                              }%
+                                  ((val / totalCustomer) * 100)?.toFixed(2)
+                                }%
                               </span>
                             </div>
                           </div>
@@ -3817,7 +3810,7 @@ const skewness = (top5Customers, options, tempArr, gstData,top5Suppliers,backgro
                   <span className={`${styles.child} ml-2`}>
                     :{' '}
                     {checkNan(
-                     CovertvaluefromtoCR(Number(
+                      CovertvaluefromtoCR(Number(
                         gstData?.detail?.purchaseDetailAnnual?.saleSummary
                           ?.grossPurchases?.current?.value,
                       )),
@@ -3834,7 +3827,7 @@ const skewness = (top5Customers, options, tempArr, gstData,top5Suppliers,backgro
                   <Col md={6} className={`${styles.col}`}>
                     <div className={styles.chart2}>
                       <Doughnut data={top5Suppliers} options={options} />
-                     {/* <div className={styles.total_value}>
+                      {/* <div className={styles.total_value}>
                         <span>{top5Suppliers?.labels[0]}</span>
                         <span className={styles.highlight}> {
                                 ((top5Suppliers?.datasets[0]?.data[0]/totalCustomer)*100)?.toFixed(2)
@@ -3858,12 +3851,12 @@ const skewness = (top5Customers, options, tempArr, gstData,top5Suppliers,backgro
                               className={`d-flex justify-content-between align-item-start w-100`}
                             >
                               <span className={` heading ml-2`}>
-                               {top5Suppliers.labels[index]}
+                                {top5Suppliers.labels[index]}
                               </span>
                               <span className={` heading mr-4`}>
-                              {
-                                ((val/totalSupplier)*100)?.toFixed(2)
-                              }%
+                                {
+                                  ((val / totalSupplier) * 100)?.toFixed(2)
+                                }%
                               </span>
                             </div>
                           </div>

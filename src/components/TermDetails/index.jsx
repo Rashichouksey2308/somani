@@ -623,6 +623,7 @@ const Index = ({
                 <div className="d-flex">
                   <select
                     onChange={onChangeTransactionDetails}
+                    value={termsheetDetails?.transactionDetails?.typeOfPort}
                     className={`${styles.value} ${styles.customSelect} input form-control`}
                     required
                     id={'typeOfPort'}
@@ -630,7 +631,7 @@ const Index = ({
                     <option disabled selected>Select an option</option>
                     <option value="Load Port">Load Port</option>
                     <option value="Discharge Port">Discharge Port</option>
-                    <option value="Both">Lord Port and Discharge Port</option>
+                    <option value="Both">Both Lord Port and Discharge Port</option>
                   </select>
 
                   <img

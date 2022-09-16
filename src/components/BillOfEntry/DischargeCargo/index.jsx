@@ -16,6 +16,7 @@ export default function Index({
   uploadDoc,
   componentId,
   setComponentId,
+  setArrivalDate,
 }) {
   console.log(customData, 'customData')
   const dispatch = useDispatch()
@@ -52,6 +53,9 @@ export default function Index({
   })
 
   const saveDate = (value, name) => {
+    if (name = 'vesselArrivaldate') {
+      setArrivalDate(value)
+    }
     // console.log(value, name, 'save date')
     const d = new Date(value)
     let text = d.toISOString()
@@ -169,7 +173,7 @@ export default function Index({
       fd.append('document1', dischargeOfCargo.document1)
       fd.append('document2', dischargeOfCargo.document2)
 
-      let task = 'save'
+      let task = 'submit'
       dispatch(UpdateCustomClearance({ fd, task }))
       setComponentId(componentId + 1)
     }
@@ -239,8 +243,8 @@ export default function Index({
                   <label className={`${styles.dropDown_label} text`}>
                     Shipment Type
                   </label>
-                  <div className={`${styles.dropDown} ml-2 mr-3`} value="Bulk">
-                    Bulk
+                  <div className={`${styles.dropDown} ml-2 mr-3`} >
+                    {shipmentTypeBulk ? 'Bulk' : 'Liner'}
                   </div>
                 </div>
                 <div className="d-flex align-items-center">
@@ -319,9 +323,9 @@ export default function Index({
                     }}
                     value={
                       isFieldInFocus ?
-                      dischargeOfCargo?.dischargeOfCargo?.dischargeQuantity
-                     : Number(dischargeOfCargo?.dischargeOfCargo?.dischargeQuantity)?.toLocaleString() + ` ${_get(customData,'order.unitOfQuantity', '')}`
-                       
+                        dischargeOfCargo?.dischargeOfCargo?.dischargeQuantity
+                        : Number(dischargeOfCargo?.dischargeOfCargo?.dischargeQuantity)?.toLocaleString() + ` ${_get(customData, 'order.unitOfQuantity', '')}`
+
                     }
                     onChange={(e) =>
                       onChangeDischargeOfCargo(e.target.id, e.target.value)
@@ -443,7 +447,7 @@ export default function Index({
                             alt="Pdf"
                           />
                         </td>
-                        <td className={styles.doc_row}>{ dischargeOfCargo.document1 === null ? '' : moment(dischargeOfCargo?.document1?.Date).format('DD-MM-YYYY, h:mm a')}</td>
+                        <td className={styles.doc_row}>{dischargeOfCargo.document1 === null ? '' : moment(dischargeOfCargo?.document1?.Date).format('DD-MM-YYYY, h:mm a')}</td>
                         <td>
                           {dischargeOfCargo &&
                             dischargeOfCargo.document1 === null ? (
@@ -490,7 +494,7 @@ export default function Index({
                             alt="Pdf"
                           />
                         </td>
-                        <td className={styles.doc_row}>{ dischargeOfCargo.document2 === null ? '' : moment(dischargeOfCargo?.document2?.Date).format('DD-MM-YYYY, h:mm a')}</td>
+                        <td className={styles.doc_row}>{dischargeOfCargo.document2 === null ? '' : moment(dischargeOfCargo?.document2?.Date).format('DD-MM-YYYY, h:mm a')}</td>
                         <td>
                           {dischargeOfCargo &&
                             dischargeOfCargo.document2 === null ? (
@@ -582,38 +586,38 @@ export default function Index({
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className={`${styles.body} background1  container-fluid`}>
-        <div className={styles.table_scroll_outer}>
-                      <div className={styles.table_scroll_inner}>
-          <table
-            className={`${styles.table} table `}
-            cellPadding="0"
-            cellSpacing="0"
-            border="0"
-          >
-            <tr className="table_row text-center">
-              <th width="33%">BL NUMBER</th>
-              <th width="33%">BL DATE</th>
-              <th width="33%">BL QUANTITY</th>
-            </tr>
-            {_get(customData, 'order.transit.BL.billOfLanding', [{}]).map(
-              (bl, indexbl) => (
-                <tr className="table_row text-center" key={indexbl}>
-                  <td className="font-weight-bold">{bl?.blNumber}</td>
-                  <td>
-                    {moment(
-                      bl?.blDate?.slice(0, 10),
-                      'YYYY-MM-DD',
-                      true,
-                    ).format('DD-MM-YYYY')}
-                  </td>
-                  <td>
-                    {bl?.blQuantity} {customData?.order?.unitOfQuantity}
-                  </td>
+          <div className={styles.table_scroll_outer}>
+            <div className={styles.table_scroll_inner}>
+              <table
+                className={`${styles.table} table `}
+                cellPadding="0"
+                cellSpacing="0"
+                border="0"
+              >
+                <tr className="table_row">
+                  <th width="33%">BL NUMBER</th>
+                  <th width="33%">BL DATE</th>
+                  <th width="33%">BL QUANTITY</th>
                 </tr>
-              ),
-            )}
-          </table>
-          </div>
+                {_get(customData, 'order.transit.BL.billOfLanding', [{}]).map(
+                  (bl, indexbl) => (
+                    <tr className="table_row " key={indexbl}>
+                      <td className="font-weight-bold">{bl?.blNumber}</td>
+                      <td>
+                        {moment(
+                          bl?.blDate?.slice(0, 10),
+                          'YYYY-MM-DD',
+                          true,
+                        ).format('DD-MM-YYYY')}
+                      </td>
+                      <td>
+                        {bl?.blQuantity} {customData?.order?.unitOfQuantity}
+                      </td>
+                    </tr>
+                  ),
+                )}
+              </table>
+            </div>
           </div>
           <div>
             <span className="text">Total Quantity: </span> &nbsp;{' '}

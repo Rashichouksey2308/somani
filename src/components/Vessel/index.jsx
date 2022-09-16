@@ -14,7 +14,7 @@ import { setPageName, setDynamicName } from '../../redux/userData/action'
 //import { set } from 'immer/dist/internal'
 import Router from 'next/router'
 import _get from 'lodash/get'
-import { addPrefixOrSuffix } from 'utils/helper'
+import { addPrefixOrSuffix, convertValue } from 'utils/helper'
 
 
 
@@ -51,10 +51,13 @@ function Index({
   containerExcel,
   currency,
   dateStartFrom,
-  handleExcelClose
+  handleExcelClose,
+  isFieldInFocus,
+  setOnFocus,
+  setOnBlur
 }) {
 
-  // console.log(containerExcel, 'containerExcel')
+  
   const dispatch = useDispatch()
   // useEffect(() => {
   //   dispatch(setPageName('vessel'))
@@ -72,6 +75,8 @@ function Index({
   const handleClose = (e) => {
     setVesselCertificate(null)
   }
+ 
+  console.log(isFieldInFocus, 'containerExcel',list)
 
   // console.log(vesselData,'vesselData')
   return (
@@ -232,16 +237,23 @@ function Index({
                           className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
                         >
                           <input
+                          onFocus={(e) => {
+                               setOnFocus(index)
+                                e.target.type = 'number'
+                            }}
+                            onBlur={(e) => {
+                               setOnBlur(index)
+                             
+                                e.target.type = 'text'
+                            }}
                             id="quantity"
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
-                            // value={val.quantity}
-                            value={addPrefixOrSuffix(
-                              val.quantity,
-                              _get(vesselData, 'data[0].order.unitOfQuantity', '').toUpperCase(),
-                              '',
-                            )}
+                           value={isFieldInFocus[index]?.value ?
+                              val.quantity :
+                              val.quantity + ` ${ _get(vesselData, 'data[0].order.unitOfQuantity', '').toUpperCase()}`}
+                           
                             onChange={(e) =>
                               OnVesselBasicFieldsChangeHandler(e, index)
                             }
@@ -272,7 +284,8 @@ function Index({
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                             className={`${styles.input_field} border-left-0 input form-control`}
-                            value={Number(val.orderValue).toLocaleString("en-IN")}
+                            value={convertValue(val.orderValue)?.toLocaleString("en-IN")}
+                            // value={Number(val.orderValue).toLocaleString("en-IN")}
                             onChange={(e) =>
                               OnVesselBasicFieldsChangeHandler(e, index)
                             }
@@ -464,7 +477,7 @@ function Index({
                               name="ETAatDischargePort"
                               index={index}
                               saveDate={saveDate}
-                              labelName="ETD at Discharge Port"
+                              labelName="Estimated Time of Arrival"
                             />
                             <img
                               className={`${styles.calanderIcon} image_arrow img-fluid`}

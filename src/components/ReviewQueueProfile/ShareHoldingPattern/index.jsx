@@ -182,7 +182,7 @@ function Index({ shareHolding }) {
                     <tbody>
                       <tr>
                         <th width="23%"
-                          rowSpan={shareHolding ? shareHolding?.length : '17'}
+                          rowSpan={shareHolding ? shareHolding?.length + 2 : '17'}
                         >
                           <div className={styles.chart}>
                             <Doughnut

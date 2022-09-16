@@ -122,8 +122,8 @@ const toPdf=(data)=>{
          <table width="1000px" bgColor="#ffffff" style={{marginBottom:'20px'}} cellPadding="0" cellSpacing="0" border="0">
         <tr>
           <td style={{fontFamily:'Times New Roman, Times, serif', paddingTop:'20px', paddingLeft:'20px', paddingRight:'20px', fontSize:'12px', lineHeight:'1.5', color:'#000000'}}>
-            <p align='center'><strong>SALES CONTRACT</strong></p>
-            <p>This Sales Contract(“<strong>{data.shortseller + "/" + data.shortbuyer + "/" + "2022/001"}</strong>”) is made at the place and on the day as set out in Schedule I between the Seller and the Buyer.</p>
+            <p align='center' style={{textDecoration:'underline'}}><strong>SALES CONTRACT</strong></p>
+            <p align='center' style={{paddingTop:'17px'}}>This Sales Contract(“<span style={{fontWeight:'bold'}}>{data.shortseller + "/" + data.shortbuyer + "/" + "2022/001"}</span>”) is made at the place and on the day as set out in Schedule I between the Seller and the Buyer.</p>
           </td>
         </tr>
         <tr>
