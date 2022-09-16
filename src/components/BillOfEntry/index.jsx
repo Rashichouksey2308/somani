@@ -94,7 +94,12 @@ export default function Index({
     newInput[name] = docs
     setBillOfEntryData(newInput)
   }
-  console.log(billOfEntryData, "billOfEntryData", customData, _get(customData, 'order.termsheet.transactionDetails.billOfEntity', ""))
+  console.log(
+    billOfEntryData,
+    'billOfEntryData',
+    customData,
+    _get(customData, 'order.termsheet.transactionDetails.billOfEntity', ''),
+  )
   //console.log(billOfEntryData, 'THIS IS BILL OF ENTRY USE STATE')
 
   const saveDate = (value, name) => {
@@ -167,7 +172,7 @@ export default function Index({
       setIsFieldInFocus([...temp2] || [])
     }
   }, [customData])
-  console.log(isFieldInFocus, "isFieldInFocus")
+  console.log(isFieldInFocus, 'isFieldInFocus')
   const handleDutyChange = (name, value, index) => {
     // console.log(name,value,index,"name,value")
     let tempArr = [...dutyData]
@@ -203,7 +208,6 @@ export default function Index({
     tempArr2.forEach((val, i) => {
       if (i == index) {
         val.value = true
-
       }
     })
     setIsFieldInFocus([...tempArr2])
@@ -213,15 +217,16 @@ export default function Index({
     tempArr2.forEach((val, i) => {
       if (i == index) {
         val.value = false
-
       }
     })
     setIsFieldInFocus([...tempArr2])
   }
   const handleDeleteRow = (index) => {
     setDutyData([...dutyData.slice(0, index), ...dutyData.slice(index + 1)])
-    setIsFieldInFocus([...isFieldInFocus.slice(0, index), ...isFieldInFocus.slice(index + 1)])
-
+    setIsFieldInFocus([
+      ...isFieldInFocus.slice(0, index),
+      ...isFieldInFocus.slice(index + 1),
+    ])
   }
 
   const removeDoc = (name) => {
@@ -243,7 +248,7 @@ export default function Index({
       ...isFieldInFocus,
 
       {
-        value: false
+        value: false,
       },
     ])
   }
@@ -316,40 +321,27 @@ export default function Index({
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
-    }
-    else if (
-      billOfEntryData.document1 === null
-    ) {
-      let toastMessage =
-        'please upload Duty Paid Challan '
+    } else if (billOfEntryData.document1 === null) {
+      let toastMessage = 'please upload Duty Paid Challan '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
-    }
-    else if (billOfEntryData.pdBond) {
-      if (
-        billOfEntryData.document2 === null
-      ) {
-        let toastMessage =
-          'please upload PD Bond '
+    } else if (billOfEntryData.pdBond) {
+      if (billOfEntryData.document2 === null) {
+        let toastMessage = 'please upload PD Bond '
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
         return
       }
-    }
-    else if (
-      billOfEntryData.document3 === null
-    ) {
-      let toastMessage =
-        'please upload all the mandatory documents'
+    } else if (billOfEntryData.document3 === null) {
+      let toastMessage = 'please upload all the mandatory documents'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
-    }
-    else {
+    } else {
       let tempData = { ...billOfEntryData }
       tempData.boeDetails.conversionRate = removePrefixOrSuffix(
         billOfEntryData.boeDetails.conversionRate,
@@ -408,7 +400,7 @@ export default function Index({
     setAcc(
       checkNan(
         removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceValue) *
-        removePrefixOrSuffix(billOfEntryData?.boeDetails?.conversionRate),
+          removePrefixOrSuffix(billOfEntryData?.boeDetails?.conversionRate),
       ),
     )
   }, [
@@ -439,7 +431,11 @@ export default function Index({
       let tempArray = {
         boeAssessment: data?.boeAssessment,
         pdBond: data?.pdBond,
-        billOfEntryFor: _get(customData, 'order.termsheet.transactionDetails.billOfEntity', ""),
+        billOfEntryFor: _get(
+          customData,
+          'order.termsheet.transactionDetails.billOfEntity',
+          '',
+        ),
         boeNumber: data?.boeNumber,
         boeDate: data?.boeDate,
 
@@ -476,7 +472,7 @@ export default function Index({
     return index + 1
   }
 
-  console.log('data', billOfEntryData?.billOfEntryFor,)
+  console.log('data', billOfEntryData?.billOfEntryFor)
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -604,7 +600,9 @@ export default function Index({
                       value={billOfEntryData?.billOfEntryFor}
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
-                      <option disabled selected>Select an option</option>
+                      <option disabled selected>
+                        Select an option
+                      </option>
                       <option value="Home Consumption">Home Consumption</option>
                       <option value="Into-Bond">Into-Bond</option>
                       <option value="EX-Bond">EX-Bond </option>
@@ -753,23 +751,23 @@ export default function Index({
                       'order.transit.IGM.igmDetails[0].igmFiling',
                       '',
                     ) ||
-                      _get(
-                        customData,
-                        'order.transit.IGM.igmDetails[0].igmFiling',
-                        '',
-                      ) === ''
+                    _get(
+                      customData,
+                      'order.transit.IGM.igmDetails[0].igmFiling',
+                      '',
+                    ) === ''
                       ? ''
                       : moment(
-                        _get(
-                          customData,
-                          'order.transit.IGM.igmDetails[0].igmFiling',
-                          '',
-                        ),
-                      ).format('DD-MM-YYYY')}
+                          _get(
+                            customData,
+                            'order.transit.IGM.igmDetails[0].igmFiling',
+                            '',
+                          ),
+                        ).format('DD-MM-YYYY')}
                   </span>
                 </div>
                 {_get(customData, 'order.commodity', '').toLowerCase() ===
-                  'coal' ? (
+                'coal' ? (
                   <>
                     <div
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
@@ -792,9 +790,9 @@ export default function Index({
                         {customData?.order?.transit?.CIMS?.cimsDetails[0]
                           ?.circDate
                           ? moment(
-                            customData?.order?.transit?.CIMS?.cimsDetails[0]
-                              ?.circDate,
-                          ).format('DD-MM-YYYY')
+                              customData?.order?.transit?.CIMS?.cimsDetails[0]
+                                ?.circDate,
+                            ).format('DD-MM-YYYY')
                           : ''}
                       </span>
                     </div>
@@ -884,7 +882,7 @@ export default function Index({
                       saveBillOfEntryData(e.target.name, e.target.value)
                     }
                     required
-                  // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                    // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Invoice Quantity<strong className="text-danger">*</strong>
@@ -949,7 +947,6 @@ export default function Index({
                       'INR',
                       'front',
                     )}
-
                     onKeyDown={(evt) =>
                       ['e', 'E', '+', '-'].includes(evt.key) &&
                       evt.preventDefault()
@@ -1044,8 +1041,20 @@ export default function Index({
                                     {getIndex(index)}
                                   </td>
                                   <td>{val.duty}</td>
-                                  <td>{val.amount ? `${"INR"} ${Number(val.amount)?.toLocaleString("en-IN")}  ` : ""}</td>
-                                  <td>{val.percentage ? `${Number(val?.percentage)?.toFixed()} ${"%"}` : ""}</td>
+                                  <td>
+                                    {val.amount
+                                      ? `${'INR'} ${Number(
+                                          val.amount,
+                                        )?.toLocaleString('en-IN')}  `
+                                      : ''}
+                                  </td>
+                                  <td>
+                                    {val.percentage
+                                      ? `${Number(
+                                          val?.percentage,
+                                        )?.toFixed()} ${'%'}`
+                                      : ''}
+                                  </td>
                                 </>
                               ) : (
                                 <>
@@ -1089,10 +1098,12 @@ export default function Index({
                                       className={`${styles.dutyDropdown} input`}
                                       name="amount"
                                       // value={val.amount}
-                                      value={isFieldInFocus[index].value ?
-                                        val.amount :
-                                        `${"INR"}  ` +
-                                        Number(val.amount)?.toLocaleString()}
+                                      value={
+                                        isFieldInFocus[index].value
+                                          ? val.amount
+                                          : `${'INR'}  ` +
+                                            Number(val.amount)?.toLocaleString()
+                                      }
                                       disabled={!val.actions}
                                       onChange={(e) =>
                                         handleDutyChange(
@@ -1117,10 +1128,13 @@ export default function Index({
                                         e.target.type = 'text'
                                       }}
                                       type="text"
-                                      value={isFieldInFocus[index].value ?
-                                        val.percentage :
-
-                                        Number(val.percentage)?.toLocaleString() + `${"%"}`}
+                                      value={
+                                        isFieldInFocus[index].value
+                                          ? val.percentage
+                                          : Number(
+                                              val.percentage,
+                                            )?.toLocaleString() + `${'%'}`
+                                      }
                                       name="percentage"
                                       // value={val.percentage}
                                       onChange={(e) =>
@@ -1308,15 +1322,17 @@ export default function Index({
                   </thead>
                   <tbody>
                     <tr className="table_row">
-                      {billOfEntryData.boeAssessment === 'Final' ?
-
+                      {billOfEntryData.boeAssessment === 'Final' ? (
                         <td className={styles.doc_name}>
                           BOE Final
                           <strong className="text-danger ml-0">*</strong>
-                        </td> : <td className={styles.doc_name}>
+                        </td>
+                      ) : (
+                        <td className={styles.doc_name}>
                           BOE Provisional
                           <strong className="text-danger ml-0">*</strong>
-                        </td>}
+                        </td>
+                      )}
                       <td>
                         <img
                           src="/static/pdf.svg"

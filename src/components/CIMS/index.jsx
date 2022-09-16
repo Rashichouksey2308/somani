@@ -158,7 +158,12 @@ export default function Index({
     tempArr[index][e] = null
     setCimsDetails(tempArr);
   }
-
+  const onDeleteClick=(index)=>{
+    setCimsDetails([
+        ...cimsDetails.slice(0, index),
+        ...cimsDetails.slice(index + 1),
+      ])
+  }
   const uploadDoc = async (e, index) => {
     let id = e.target.id
     let doc = await docUploadFunction(e)
@@ -313,17 +318,23 @@ export default function Index({
           className={`${styles.vessel_card} border_color`}
         >
           {cimsDetails.map((list, index) => (
-            <div key={index} className={`${styles.main} border_color card `}>
+            <div key={index} className={`${styles.main} mb-4 border_color card `}>
               <div
                 className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
               >
                 <h3 className={`${styles.heading}`}>CIMS Details</h3>
+                <div className='d-flex'>
                 <button
                   onClick={() => onAddHandler()}
                   className={styles.add_btn}
                 >
                   <span className={styles.add_sign}>+</span>Add
                 </button>
+                {index>0 ?
+                  <button onClick={() => onDeleteClick(index)} className={`${styles.add_btn} mr-0 d-flex align-items-center justify-content-between border-danger text-danger`}>
+                    <img src="/static/delete.svg" width={15} alt="delete"/> Delete</button>
+                    :null}
+                    </div>
               </div>
               <div className={`${styles.dashboard_form} card-body`}>
                 <div className="row">
