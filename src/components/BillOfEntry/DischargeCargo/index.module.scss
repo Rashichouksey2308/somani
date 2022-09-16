@@ -497,20 +497,20 @@
     .blue {
       color: #3687e8;
       font-size: 22px;
-      font-weight: 27px;
+      line-height: 27px;
       font-weight: bold;
     }
 
-    div {
+    .top {
       font-size: 20px;
-      font-weight: 25px;
+      line-height: 25px;
       font-weight: 500;
       margin-right: 25px;
 
       span {
         color: #00000080;
         font-size: 16px;
-        font-weight: 17px;
+        line-height: 17px;
         font-weight: 500;
         letter-spacing: 0.53px;
       }
@@ -525,6 +525,8 @@
     }
   }
   .body {
+    max-height: 400px;
+    overflow-y: auto;
     padding: 0rem !important;
     .table_scroll_outer {
       width: 100%;
@@ -535,8 +537,6 @@
       .table_scroll_inner {
         display: table-cell;
         overflow-x: auto;
-        overflow-y: auto;
-        max-height: 400px;
         padding: 0px;
     .table {
      
@@ -575,21 +575,21 @@
     }
   }
 }
-    div {
+    .bottom {
       font-size: 20px;
-      font-weight: 25px;
+      line-height: 25px;
       font-weight: 500;
       display: flex;
       align-items: center;
       justify-content: right;
-      padding: 15px;
+      padding: 20px 15px;
       margin-right: 35px;
 
       span {
         color: #00000080;
 
         font-size: 16px;
-        font-weight: 17px;
+        line-height: 17px;
         font-weight: 500;
         letter-spacing: 0.53px;
       }
