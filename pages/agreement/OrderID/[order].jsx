@@ -59,7 +59,7 @@ function Index() {
 
   const exportPDF = () => {
     console.log("hwhhwhhw,aas")
-    const doc = new jsPDF('p', 'pt', [1500, 1500])
+    const doc = new jsPDF('p', 'pt', [1500, 1630])
     doc.html(
       ReactDOMServer.renderToString(
         <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
@@ -115,6 +115,7 @@ function Index() {
                               fontWeight: 'normal',
                               padding: '0 35px 7px',
                               marginBottom: '0',
+                              float: 'left'
                             }}
                           >
                             <span
@@ -141,6 +142,7 @@ function Index() {
                               fontWeight: 'normal',
                               padding: '0 35px 7px',
                               marginBottom: '0',
+                              float: 'left'
                             }}
                           >
                             <span
