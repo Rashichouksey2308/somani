@@ -2508,23 +2508,23 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   <tr>
                     <td colSpan={2}>Other Purchases (total - B2B)</td>
                     <td>
-                      {gstFilteredData?.detail.purchaseDetailAnnual.saleSummary.otherPurchase.current.value?.toLocaleString(
+                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.current?.value?.toLocaleString(
                         undefined,
                         { minimumFractionDigits: 2 },
                       )}
                     </td>
                     <td className="border-left-0">
-                      {gstFilteredData?.detail.purchaseDetailAnnual.saleSummary.otherPurchase.current?.percentage?.toFixed(2)}
+                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.current?.percentage?.toFixed(2)}
                       %
                     </td>
                     <td>
-                      {gstFilteredData?.detail.purchaseDetailAnnual.saleSummary.otherPurchase?.previous?.value?.toLocaleString(
+                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.previous?.value?.toLocaleString(
                         undefined,
                         { minimumFractionDigits: 2 },
                       )}
                     </td>
                     <td className="border-left-0">
-                      {gstFilteredData?.detail.purchaseDetailAnnual.saleSummary.otherPurchase?.previous?.percentage?.toFixed(2)}
+                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.previous?.percentage?.toFixed(2)}
                       %
                     </td>
                   </tr>

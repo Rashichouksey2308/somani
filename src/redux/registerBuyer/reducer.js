@@ -127,6 +127,13 @@ function BuyerReducer(state = initialState, action) {
         creatingBuyer: false,
         createdBuyerResponse: null,
       }
+      
+    case types.REGISTER_BUYER_ROUTED:
+      return {
+        ...state,
+        creatingBuyer: false,
+        createdBuyerResponse: null,
+      }
 
     case types.UPDATE_BUYER:
       return {
