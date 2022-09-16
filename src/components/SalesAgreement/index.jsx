@@ -167,6 +167,58 @@ function Index(props) {
 
     return true
   }
+  const addressValidation2 = (type, data, check = true) => {
+    console.log(type, data, 'type,data')
+    if (data.addressType === '' || data.addressType == undefined) {
+      let toastMessage = 'Please add address Type'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+    if (data.fullAddress === '' || data.fullAddress == undefined) {
+      let toastMessage = 'Please add address'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+    if (data.pinCode === '' || data.pinCode == undefined) {
+      let toastMessage = 'Please add pin Code'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+  
+    if (type == 'Branch') {
+      if (check) {
+        if (data.gstin === '' || data.gstin == undefined) {
+          let toastMessage = 'Please add gstin'
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
+          return false
+        }
+        if (data.state === '' || data.state == undefined) {
+          let toastMessage = 'Please add state'
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
+          return false
+        }
+      }
+      if (data.city === '' || data.city == undefined) {
+        let toastMessage = 'Please add city'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        return false
+      }
+    }
+
+    return true
+  }
   const setSideStateToLocal = (val = null) => {
     sessionStorage.setItem('genericSide', JSON.stringify(sideBar))
     sessionStorage.setItem('setgenActive', val)
@@ -271,6 +323,7 @@ function Index(props) {
           order={props?.genericData?.order}
           uploadDoc={uploadDoc}
           addressValidation={addressValidation}
+          addressValidation2={addressValidation2}
         />
       )
     }
