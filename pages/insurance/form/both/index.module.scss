@@ -650,7 +650,18 @@ input:checked + .slider:before {
   @include respond(phone) {
     width: 100%;
   }
-
+  .button_upload {
+    width: 106px;
+    height: 38px;
+    border: 3px solid #3687E8;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    color: #3687E8;
+    line-height: 23px;
+    text-transform: capitalize;
+}
   .upload_btn {
     text-align: center;
     color: #3687e8;
