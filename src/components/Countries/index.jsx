@@ -55,7 +55,8 @@ const Index = (props) => {
                   <div className={styles.number_container}>
                     <h3 className={styles.percent}>{getPercentage(val?.total)?.toFixed(2)}%</h3>
                     <h3 className={`${styles.amount} text1`}> ₹{" "} {
-                    Number(val?.total).toLocaleString('en-IN', {
+                      
+                    Number(val?.total/10000000).toLocaleString('en-IN', {
                     maximumFractionDigits: 2,
                     })}
                 </h3>

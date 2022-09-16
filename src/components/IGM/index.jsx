@@ -942,7 +942,7 @@ console.log(_get(TransitDetails, `data[0].order.termsheet.transactionDetails.shi
                                         alt="Add"
                                       />
                                     ) : null}
-                                    {item.blNumber.length >= 1 ? (
+                                    {index2 > 0 ? (
                                       <img
                                         onClick={() =>
                                           onRemoveBlNumber(index, index2)
