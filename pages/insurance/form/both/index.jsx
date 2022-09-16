@@ -598,7 +598,7 @@ const Index = () => {
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            GSTN of Insured
+                            GSTIN of Insured
                             <strong className="text-danger">*</strong>
                           </label>
                         </Col>
@@ -896,7 +896,7 @@ const Index = () => {
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            GSTN of Insured
+                            GSTIN of Insured
                             <strong className="text-danger">*</strong>
                           </label>
                         </Col>
@@ -1191,7 +1191,7 @@ const Index = () => {
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            GSTN of Insured
+                            GSTIN of Insured
                             <strong className="text-danger">*</strong>
                           </label>
                         </Col>
@@ -1480,7 +1480,7 @@ const Index = () => {
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            GSTN of Insured
+                            GSTIN of Insured
                             <strong className="text-danger">*</strong>
                           </label>
                         </Col>
