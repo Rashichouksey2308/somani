@@ -79,7 +79,7 @@ if (window) {
      if(savedData.authorisedSignatoryDetails?.length > 0){
      
      savedData.authorisedSignatoryDetails.forEach((val,index)=>{
-      if(val.document !== "new"){
+      if(val.document){
         console.log(val.document,"val.document")
        temp.push({attachDoc:val.document})
       }
@@ -131,7 +131,7 @@ if (window) {
       }
      })
      }
-     console.log("temp22")
+    
      setDocList(temp)
 
     setAssociateData(buyer)
@@ -141,16 +141,16 @@ if (window) {
           tempArr.forEach((val,index)=>{
           val.actions = "true"
           if(tempArr?.length>0){
-               if(val.name=="Bhawana Jain"){
+               if(val?.name=="Bhawana Jain"){
              setOptions(["Vipin Kumar","Devesh Jain","Fatima Yannoulis"])
           }
-          if(val.name=="Vipin Kumar"){
+          if(val?.name=="Vipin Kumar"){
              setOptions(["Bhawana Jain","Devesh Jain","Fatima Yannoulis"])
           }
-          if(val.name=="Devesh Jain"){
+          if(val?.name=="Devesh Jain"){
              setOptions(["Vipin Kumar","Bhawana Jain","Fatima Yannoulis"])
           }
-          if(val.name=="Fatima Yannoulis"){
+          if(val?.name=="Fatima Yannoulis"){
              setOptions(["Vipin Kumar","Bhawana Jain","Devesh Jain"])
           }
           }
@@ -287,7 +287,7 @@ docList.forEach((val,i)=>{
   })
 setList([...list.slice(0, index), ...list.slice(index + 1)])
 
-if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" ||val.name=="atima Yannoulis"  ){
+if(val?.name=="Bhawana Jain" ||val?.name=="Vipin Kumar" ||val?.name=="Devesh Jain" ||val?.name=="atima Yannoulis"  ){
   let temp=[...options]
   temp.push(val.name)
   setOptions([...temp])

@@ -149,7 +149,7 @@ useEffect(() => {
         }])
     }
    }
-  },[props])
+  },[props.data])
 
   
   let masterList=[
