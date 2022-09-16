@@ -21,16 +21,17 @@ export default function Index({ inspectionData }) {
 
   const [plotInspectionData, setPlotInspectionData] = useState({
     plotInspectionDate: inspectionData?.plotInspection?.plotInspectionDate,
-    plotInspectionReport: inspectionData?.plotInspection?.plotInspectionReport || null,
+    plotInspectionReport:
+      inspectionData?.plotInspection?.plotInspectionReport || null,
   })
 
   useEffect(() => {
     setPlotInspectionData({
       plotInspectionDate: inspectionData?.plotInspection?.plotInspectionDate,
-      plotInspectionReport: inspectionData?.plotInspection?.plotInspectionReport
+      plotInspectionReport:
+        inspectionData?.plotInspection?.plotInspectionReport,
     })
   }, [inspectionData])
-  
 
   // console.log(plotInspectionData, 'THIS IS PLOT')
 
@@ -59,8 +60,6 @@ export default function Index({ inspectionData }) {
     })
   }
 
-
-
   const handleSubmit = () => {
     // console.log('payload Third party1')
     if (plotInspectionData.plotInspectionDate == '') {
@@ -70,7 +69,7 @@ export default function Index({ inspectionData }) {
       }
     } else {
       let obj = {
-        plotInspectionDate: plotInspectionData?.plotInspectionDate
+        plotInspectionDate: plotInspectionData?.plotInspectionDate,
       }
       let fd = new FormData()
       fd.append('plotInspection', JSON.stringify(obj))
@@ -80,14 +79,13 @@ export default function Index({ inspectionData }) {
 
       // console.log('payload Third party2', 'Payload')
 
-      dispatch(UpdateInspection({fd, task}))
+      dispatch(UpdateInspection({ fd, task }))
     }
   }
 
   const handleSave = () => {
-
     let obj = {
-      plotInspectionDate: plotInspectionData?.plotInspectionDate
+      plotInspectionDate: plotInspectionData?.plotInspectionDate,
     }
     let fd = new FormData()
     fd.append('plotInspection', JSON.stringify(obj))
@@ -98,8 +96,7 @@ export default function Index({ inspectionData }) {
 
     console.log('payload Third party2', 'Payload')
 
-    dispatch(UpdateInspection({fd, task}))
-
+    dispatch(UpdateInspection({ fd, task }))
   }
 
   return (
@@ -209,14 +206,21 @@ export default function Index({ inspectionData }) {
                                 />
                               </td>
                               <td className={styles.doc_row}>
-                              { inspectionData?.plotInspection?.plotInspectionReport ?  moment(inspectionData?.plotInspection?.plotInspectionReport.date).format(
-                                'DD-MM-YYYY, h:mm A',
-                              ): plotInspectionData?.plotInspectionReport != null ? moment(d).format('DD-MM-YYYY, h:mm A'): ''}
+                                {inspectionData?.plotInspection
+                                  ?.plotInspectionReport
+                                  ? moment(
+                                      inspectionData?.plotInspection
+                                        ?.plotInspectionReport.date,
+                                    ).format('DD-MM-YYYY, h:mm A')
+                                  : plotInspectionData?.plotInspectionReport !=
+                                    null
+                                  ? moment(d).format('DD-MM-YYYY, h:mm A')
+                                  : ''}
                               </td>
-                        
+
                               <td>
                                 {plotInspectionData?.plotInspectionReport ==
-                                  null ? (
+                                null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
                                       <input
@@ -233,11 +237,13 @@ export default function Index({ inspectionData }) {
                                     </div>
                                   </>
                                 ) : (
-                                  <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                  <div
+                                    className={`${styles.certificate} d-flex justify-content-between`}
+                                  >
                                     <span>
                                       {
                                         plotInspectionData?.plotInspectionReport
-                                        ?.name
+                                          ?.name
                                       }
                                     </span>
                                     <img
@@ -269,7 +275,11 @@ export default function Index({ inspectionData }) {
             orderid={orderid} module="Loading-Transit-Unloading"
           /> */}
         </div>
-        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />
+        <SaveBar
+          handleSave={handleSave}
+          rightBtn="Submit"
+          rightBtnClick={handleSubmit}
+        />
       </div>
     </>
   )

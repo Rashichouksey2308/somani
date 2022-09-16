@@ -86,7 +86,10 @@ const index = ({ orderDetail, saveShipmentData }) => {
                 <div className="d-flex">
                   <DateCalender
                     name="loadPort.fromDate"
-                    defaultDate={moment(orderDetail?.shipmentDetail?.loadPort?.fromDate).format("DD-MM-YYYY")}
+                    // defaultDate={moment(orderDetail?.shipmentDetail?.loadPort?.fromDate).format("DD-MM-YYYY")}
+                    defaultDate={
+                      orderDetail?.shipmentDetail?.loadPort?.fromDate ?? ''
+                    }
                     saveDate={saveDate}
                     setStartDateFrom={setStartDate}
                     labelName="Laycan at Load Port from"
