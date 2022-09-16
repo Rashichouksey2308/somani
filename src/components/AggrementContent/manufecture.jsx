@@ -439,9 +439,10 @@ setNewAddress(newInput)
 }
 const [isEdit,setIsEdit]= useState(false)
 const [toEditIndex,setToEditIndex]= useState(0)
-const handleEditAddressInput=(index)=>{
+const handleEditAddressInput=(index,val)=>{
 setIsEdit(true)
 setToEditIndex(index)
+setAddressEditType(val)
 let tempArr=addressList;
 
 tempArr.forEach((val,i)=>{
@@ -507,7 +508,7 @@ const cancelAddress=()=>{
             "city": ""
         }
   )
-  setMultiAddressType("Registered")
+setMultiAddressType("Registered")
 }
 const saveNewAddress=()=>{
   if(props.addressValidation(EditAddress.addressType,EditAddress)){
@@ -547,7 +548,7 @@ setEditAddress(
 //multi address
 
   const handleAddressMultiInput=()=>{
-  if(props.addressValidation(addressMutliType,newMultiAddress,false)){
+  if(props.addressValidation2(addressMutliType,newMultiAddress,false)){
   setMultiList(current => [...current, newMultiAddress])
     
     setNewMultiAddress({
@@ -573,8 +574,8 @@ setEditAddress(
   }
   const [isEditMulti,setIsEditMulti]= useState(false)
   const [toEditIndexMulti,setToEditIndexMulti]= useState(0)
-  const handleEditAddressMuliInput=(index)=>{
-
+  const handleEditAddressMuliInput=(index,val)=>{
+  setMultiAddressType(val)
   setIsEditMulti(true)
   setToEditIndexMulti(index)
   let tempArr=multiList;
@@ -649,7 +650,7 @@ setEditAddress(
 
 
   }
- 
+ console.log(addressMutliType,"addressMutliType")
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
@@ -798,7 +799,7 @@ setEditAddress(
                 <div
                   className={`${styles.addressEdit} d-flex justify-content-center align-items-center mt-n2`}
                   onClick={()=>{
-                    handleEditAddressInput(index)
+                    handleEditAddressInput(index,val.addressType)
                   }}
                 >
                   <img className={`${styles.image} img-fluid`} src="/static/mode_edit.svg" alt="edit" />
@@ -1039,6 +1040,7 @@ setEditAddress(
                 </div>
                 <div className={`${styles.cancel} d-flex justify-content-center align-items-center`}
                 onClick={()=>{
+                 
                   cancelAddress()
                 }}
                 >
@@ -1358,7 +1360,7 @@ setEditAddress(
                 <div
                   className={`${styles.addressEdit} d-flex justify-content-center align-items-center mt-n2`}
                   onClick={()=>{
-                    handleEditAddressMuliInput(index)
+                    handleEditAddressMuliInput(index,val.addressType)
                   }}
                 >
                   <img className={`${styles.image} img-fluid`} src="/static/mode_edit.svg" alt="edit" />
@@ -1396,6 +1398,7 @@ setEditAddress(
                             setMultiAddressType(e.target.value)
                             setMultiAddress(e.target.name,e.target.value)
                           }}
+                          value={addressMutliType}
                         >
                            <option>Select an option</option>
                           <option value="Registered">Registered Office</option>
@@ -1537,7 +1540,7 @@ setEditAddress(
                         }}
                       />
                       <Form.Label className={`${styles.label_heading} label_heading`}>
-                        Short Name<strong className="text-danger">*</strong>
+                        Country<strong className="text-danger">*</strong>
                       </Form.Label>
                     </Form.Group>
                       <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -1622,6 +1625,7 @@ setEditAddress(
 export default Index
 
 const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancelEditAddress,saveNewAddress,setAddressEditType)=>{
+  console.log(addressEditType,"addressEditType")
   return(
     <div className={`${styles.newAddressContainer}`}>
                   <div className={styles.newAddressHead}><span className={`mb-3`}>Add Edit address</span></div>
@@ -1777,7 +1781,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         }}
                       />
                       <Form.Label className={`${styles.label_heading} label_heading`}>
-                        Short Name
+                       Country
                       </Form.Label>
                     </Form.Group>
                       <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>

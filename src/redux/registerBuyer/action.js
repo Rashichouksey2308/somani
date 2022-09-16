@@ -168,6 +168,15 @@ function uploadingDocumentFailed() {
   return { type: types.UPLOADDOCUMENT_FAILED }
 }
 
+function createBuyerRouted() {
+  return {
+    type: types.REGISTER_BUYER_ROUTED,
+  }
+}
+export const routeNewBuyer = (payload) => async (dispatch, getState, api) => {
+  dispatch(createBuyerRouted())
+}
+
 export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
   dispatch(createBuyer())
   let cookie = Cookies.get('SOMANI')
@@ -186,7 +195,8 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
         // console.log(response.data.data, "THIS IS CREATE BUYER")
         let toastMessage = 'Lead Created Successfully'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
         Router.push('/leads')
 
         // payload.history.goBack()
@@ -194,7 +204,8 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
         dispatch(createBuyerFailed(response.data.data))
         let toastMessage = response.data.message
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
       }
     })
   } catch (error) {
@@ -267,7 +278,8 @@ export const GetBuyer = (payload) => async (dispatch, getState, api) => {
         dispatch(getBuyerFailed(response.data.data))
         let toastMessage = 'Could not fetch Company Details'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
       }
     })
   } catch (error) {
@@ -292,7 +304,8 @@ export const GetAllBuyer = (payload) => async (dispatch, getState, api) => {
         dispatch(getAllBuyerFailed(response.data))
         let toastMessage = 'Could not fetch Company Details'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
       }
     })
   } catch (error) {
@@ -318,7 +331,8 @@ export const GetAllOrders = (payload) => async (dispatch, getState, api) => {
         dispatch(getAllOrderFailed(response.data.data))
         let toastMessage = 'Getting orders failed'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
       }
     })
   } catch (error) {
@@ -343,7 +357,8 @@ export const GetOrders = (payload) => async (dispatch, getState, api) => {
         dispatch(getOrderFailed(response.data.data))
         let toastMessage = 'Getting Order List Failed'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
       }
     })
   } catch (error) {
@@ -395,7 +410,8 @@ export const GetGst = (payload) => async (dispatch, getState, api) => {
         dispatch(getGstFailed(response.data))
         let toastMessage = 'Could not fetch Gst at this moment'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
       }
     })
   } catch (error) {
