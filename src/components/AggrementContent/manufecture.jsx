@@ -507,7 +507,7 @@ const cancelAddress=()=>{
             "city": ""
         }
   )
-  setMultiAddressType("Registered")
+setMultiAddressType("Registered")
 }
 const saveNewAddress=()=>{
   if(props.addressValidation(EditAddress.addressType,EditAddress)){
@@ -573,8 +573,8 @@ setEditAddress(
   }
   const [isEditMulti,setIsEditMulti]= useState(false)
   const [toEditIndexMulti,setToEditIndexMulti]= useState(0)
-  const handleEditAddressMuliInput=(index)=>{
-
+  const handleEditAddressMuliInput=(index,val)=>{
+  setMultiAddressType(val)
   setIsEditMulti(true)
   setToEditIndexMulti(index)
   let tempArr=multiList;
@@ -649,7 +649,7 @@ setEditAddress(
 
 
   }
- 
+ console.log(addressMutliType,"addressMutliType")
   return (
     <>
       <div className={`${styles.container} vessel_card card-body p-0`}>
@@ -1039,6 +1039,7 @@ setEditAddress(
                 </div>
                 <div className={`${styles.cancel} d-flex justify-content-center align-items-center`}
                 onClick={()=>{
+                 
                   cancelAddress()
                 }}
                 >
@@ -1358,7 +1359,7 @@ setEditAddress(
                 <div
                   className={`${styles.addressEdit} d-flex justify-content-center align-items-center mt-n2`}
                   onClick={()=>{
-                    handleEditAddressMuliInput(index)
+                    handleEditAddressMuliInput(index,val.addressType)
                   }}
                 >
                   <img className={`${styles.image} img-fluid`} src="/static/mode_edit.svg" alt="edit" />
@@ -1396,6 +1397,7 @@ setEditAddress(
                             setMultiAddressType(e.target.value)
                             setMultiAddress(e.target.name,e.target.value)
                           }}
+                          value={addressMutliType}
                         >
                            <option>Select an option</option>
                           <option value="Registered">Registered Office</option>
@@ -1622,6 +1624,7 @@ setEditAddress(
 export default Index
 
 const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancelEditAddress,saveNewAddress,setAddressEditType)=>{
+  console.log(addressEditType,"addressEditType")
   return(
     <div className={`${styles.newAddressContainer}`}>
                   <div className={styles.newAddressHead}><span className={`mb-3`}>Add Edit address</span></div>

@@ -282,7 +282,7 @@ function Index(props) {
           submitData={submitData}
           updateData={updateData}
           active={active}
-          data={props?.genericData?.shipping}
+          data={props?.genericData?.shippingLine}
         />
       )
     }
@@ -1024,7 +1024,7 @@ function Index(props) {
       console.log('this14')
       dataToSend = {
         genericId: props.genericData?._id,
-        shipping: {
+        shippingLine: {
           name: data.shippingData.name,
           vesselName: data.shippingData.vesselName,
           gstin: data.shippingData.gstin,
@@ -1037,8 +1037,8 @@ function Index(props) {
       }
       sessionStorage.setItem('Shipping', JSON.stringify(dataToSend2))
       if (
-        dataToSend.shipping.name == '' ||
-        dataToSend.shipping.name == undefined
+        dataToSend.shippingLine.name == '' ||
+        dataToSend.shippingLine.name == undefined
       ) {
         toastMessage = `Please add shipping name  `
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -1047,28 +1047,7 @@ function Index(props) {
           return
         }
       }
-      if (
-        dataToSend.shipping.vesselName == '' ||
-        dataToSend.shipping.vesselName == undefined
-      ) {
-        toastMessage = `Please add vessel Name  `
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          setSubmitData(false)
-          return
-        }
-      }
-      if (
-        dataToSend.shipping.gstin == '' ||
-        dataToSend.shipping.gstin == undefined
-      ) {
-        toastMessage = `Please add gstin `
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          setSubmitData(false)
-          return
-        }
-      }
+   
     }
     if (key == 'Delivery Terms') {
       console.log('this14', data)
