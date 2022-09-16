@@ -39,6 +39,11 @@ function Index({ TransitDetails }) {
       designation: '',
     },
   })
+  const changeDesignation=(value)=>{
+    let temp ={...loi}
+    temp.authorizedSignatory.designation=value
+   setLOI({...loi})
+  }
 useEffect(() =>{
   if(_get(TransitDetails,"data[0].LOI.billOfLanding",[]).length>0){
     setBillsofLanding(_get(TransitDetails,"data[0].LOI.billOfLanding",[]))
@@ -462,6 +467,10 @@ const onDeleteClick=(index)=>{
               <input
                 className="mt-4 pl-3 input"
                 value={loi.authorizedSignatory.designation}
+                onChange={(e)=>{
+                  changeDesignation(e.target.value)
+                }}
+
               ></input>
             </div>
           </div>
