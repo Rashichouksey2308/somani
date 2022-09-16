@@ -32,7 +32,7 @@ function Index() {
   }, [])
   const { createdBuyerResponse } = useSelector((state) => state.buyer)
 
-  
+
   // useEffect(() => {
   //   if (createdBuyerResponse) {
   //     Router.push('/order-list')
@@ -136,9 +136,9 @@ function Index() {
   const [orderDetails, setOrderDetails] = useState({
     transactionType: 'Import',
     commodity: '',
-    quantity: 0,
+    quantity: '',
     unitOfQuantity: 'MT',
-    orderValue: 0,
+    orderValue: '',
     orderCurrency: 'INR',
     unitOfValue: 'Cr',
     supplierName: '',
@@ -176,28 +176,28 @@ function Index() {
   const saveOrderData = (name, value) => {
     const newInput = { ...orderDetails }
 
-    if (name == 'quantity') {
-      let tempVal = addPrefixOrSuffix(
-        value.toString(),
-        orderDetails.unitOfQuantity == 'mt'
-          ? 'MT'
-          : orderDetails.unitOfQuantity,
-      )
-      newInput[name] = tempVal
-    }
-    if (name == 'orderValue') {
-      let tempVal = addPrefixOrSuffix(
-        value.toString(),
-        orderDetails?.unitOfValue == 'Millions'
-          ? 'Mn'
-          : orderDetails?.unitOfValue == 'Crores'
-            ? 'Cr'
-            : orderDetails?.unitOfValue,
-      )
-      newInput[name] = tempVal
-    } else {
+    // if (name == 'quantity') {
+    //   let tempVal = addPrefixOrSuffix(
+    //     value.toString(),
+    //     orderDetails.unitOfQuantity == 'mt'
+    //       ? 'MT'
+    //       : orderDetails.unitOfQuantity,
+    //   )
+    //   newInput[name] = tempVal
+    // }
+    // if (name == 'orderValue') {
+    //   let tempVal = addPrefixOrSuffix(
+    //     value.toString(),
+    //     orderDetails?.unitOfValue == 'Millions'
+    //       ? 'Mn'
+    //       : orderDetails?.unitOfValue == 'Crores'
+    //         ? 'Cr'
+    //         : orderDetails?.unitOfValue,
+    //   )
+    //   newInput[name] = tempVal
+    // } else {
       newInput[name] = value
-    }
+    
 
     setOrderDetails(newInput)
   }
