@@ -18,12 +18,14 @@ function Index() {
 
   const [darkMode, setDarkMode] = useState(false)
   const [lastModified,setlastModified]=useState("")
-
+  const [timeStamp,setTimeStamp] = useState('')
   useEffect(()=> {
     let id = sessionStorage.getItem('inspectionId')
-    dispatch(GetAllInspection(`?inspectionId=${id}`))
+   let date = dispatch(GetAllInspection(`?inspectionId=${id}`))
+   setTimeStamp(date)
   },[dispatch])
 
+  console.log(timeStamp,"timeStamp")
   const {allInspection} = useSelector((state)=>state.Inspection)
 
   let inspectionData = _get(allInspection, 'data[0]', {})

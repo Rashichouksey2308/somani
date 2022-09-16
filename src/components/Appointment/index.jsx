@@ -118,7 +118,7 @@ export default function Index({ inspectionData }) {
     dispatch(UpdateInspection({ fd, task }))
   }
 
-  const handleSubmit = () => {
+  const   handleSubmit = () => {
     if (!validation()) return
     console.log('SAvee')
     const fd = new FormData()
