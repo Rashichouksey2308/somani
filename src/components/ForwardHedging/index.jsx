@@ -19,6 +19,7 @@ import Cookies from 'js-cookie'
 import Axios from 'axios'
 import { setPageName, setDynamicName, setDynamicOrder } from '../../redux/userData/action'
 import moment from 'moment'
+import { toast } from 'react-toastify'
 
 
 
@@ -250,7 +251,88 @@ export default function Index() {
     let task = 'save'
     dispatch(UpdateForwardHedging({ obj, task }))
   }
+  const validation=()=>{
+    let isOk=true
+    for(let i=0;i<list.length;i++){
+      if (list[i].bankName === null || list[i].bankName === undefined  || list[i].bankName === "") {
+      let toastMessage = `Please enter bank name ${i} `
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+       isOk= false
+      break;
+     
+    }
+     if (list[i].currency === null || list[i].currency === undefined  || list[i].currency === "") {
+      let toastMessage = `Please enter currency ${i}`
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+       isOk= false
+      break;
+     
+    }
+    if (list[i].bookedRate === null || list[i].bookedRate === undefined  || list[i].bookedRate === "") {
+    let toastMessage = `Please enter booked Rate ${i}`
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    }
+     isOk= false
+    break;
+   
+    }
+    if (list[i].bookedAmount === null || list[i].bookedAmount === undefined  || list[i].bookedAmount === "") {
+    let toastMessage = `Please enter booked Amount ${i}`
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    }
+     isOk= false
+    break;
+   
+    }
+     if (list[i].validityFrom === null || list[i].validityFrom === undefined  || list[i].validityFrom === "") {
+    let toastMessage = `Please enter validity From ${i}`
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    }
+     isOk= false
+    break;
+   
+    }
+    if (list[i].validityTo === null || list[i].validityTo === undefined  || list[i].validityTo === "") {
+    let toastMessage = `Please enter validity To ${i}`
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    }
+     isOk= false
+    break;
+   
+    }
+     if (list[i].validityTo === null || list[i].validityTo === undefined  || list[i].validityTo === "") {
+    let toastMessage = `Please enter validity To ${i}`
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    }
+     isOk= false
+    break;
+   
+    }
+     if (list[i].forwardSalesContract === null || list[i].forwardSalesContract === undefined  || list[i].forwardSalesContract === "") {
+    let toastMessage = `Please add forward Sale Contract ${i}`
+    if (!toast.isActive(toastMessage.toUpperCase())) {
+    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    }
+     isOk= false
+    break;
+   
+    }
+    }
+    return isOK
+  }
   const handleSubmit = () => {
+    if(validation()){
+
+   
     let hedgingObj = [...list]
 
     // hedgingObj.balanceAmount = list.bookedAmount
@@ -262,6 +344,7 @@ export default function Index() {
     }
     let task = 'submit'
     dispatch(UpdateForwardHedging({ obj, task }))
+     }
   }
   console.log(list, 'list')
 
@@ -391,7 +474,7 @@ export default function Index() {
                             name="bookedRate"
                             value={isFieldInFocus.bookedRate ?
                               item.bookedRate :
-                              'INR ' + Number(item.bookedRate)?.toLocaleString()}
+                              `${item.currency} `  + Number(item.bookedRate)?.toLocaleString()}
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
 
@@ -428,7 +511,7 @@ export default function Index() {
                             // value={item.bookedAmount}
                             value={isFieldInFocus.bookedAmount ?
                               item.bookedAmount :
-                              'USD ' + Number(item.bookedAmount)?.toLocaleString()}
+                             `${item.currency} ` + Number(item.bookedAmount)?.toLocaleString()}
 
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                             onChange={(e) =>
@@ -500,7 +583,7 @@ export default function Index() {
                             Balance Amount
                           </div>
                           <span className={`${styles.value}`}>
-                            {item?.bookedAmount}
+                           {item.currency} {" "} {Number(item?.bookedAmount)?.toLocaleString()}
                           </span>
                         </div>
                       </div>

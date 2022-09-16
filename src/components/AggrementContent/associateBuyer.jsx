@@ -1020,7 +1020,7 @@ console.log(associateData.gstin,"associateData")
                   <th>ACTION</th>
                 </tr>
                 <tbody>
-                   <tr  className='table_row'>
+                   {/* <tr  className='table_row'>
                       <td><strong>Board Resolution Copy<span className={`danger`}>*</span></strong></td>
                       <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/></td>
                       <td>{ doc.attachDoc == '' ? '' : moment(doc.attachDoc?.date).format('DD-MM-YYYY, h:mm a')}</td>
@@ -1063,7 +1063,7 @@ console.log(associateData.gstin,"associateData")
                       
                         <img  src="/static/upload.svg" alt="upload"/>
                       </td>
-                  </tr> 
+                  </tr>  */}
 
                   
                 {docList.length>0 && docList.map((val,index)=>{
