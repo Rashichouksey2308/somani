@@ -439,9 +439,10 @@ setNewAddress(newInput)
 }
 const [isEdit,setIsEdit]= useState(false)
 const [toEditIndex,setToEditIndex]= useState(0)
-const handleEditAddressInput=(index)=>{
+const handleEditAddressInput=(index,val)=>{
 setIsEdit(true)
 setToEditIndex(index)
+setAddressEditType(val)
 let tempArr=addressList;
 
 tempArr.forEach((val,i)=>{
@@ -547,7 +548,7 @@ setEditAddress(
 //multi address
 
   const handleAddressMultiInput=()=>{
-  if(props.addressValidation(addressMutliType,newMultiAddress,false)){
+  if(props.addressValidation2(addressMutliType,newMultiAddress,false)){
   setMultiList(current => [...current, newMultiAddress])
     
     setNewMultiAddress({
@@ -798,7 +799,7 @@ setEditAddress(
                 <div
                   className={`${styles.addressEdit} d-flex justify-content-center align-items-center mt-n2`}
                   onClick={()=>{
-                    handleEditAddressInput(index)
+                    handleEditAddressInput(index,val.addressType)
                   }}
                 >
                   <img className={`${styles.image} img-fluid`} src="/static/mode_edit.svg" alt="edit" />
