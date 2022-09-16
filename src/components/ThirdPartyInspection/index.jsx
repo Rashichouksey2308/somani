@@ -21,7 +21,7 @@ export default function Index({ addButton, inspectionData }) {
   const [excelFile, setExcelFile] = useState([])
   let orderid = _get(inspectionData, 'order._id', '')
 
-  let d =  new Date();
+  let d = new Date()
 
   const [editInput, setEditInput] = useState(true)
   const [bothField, setBothField] = useState(false)
@@ -836,7 +836,12 @@ export default function Index({ addButton, inspectionData }) {
                     Part Shipment Allowed:
                   </label>
                   <div className={`${styles.dropDown} input`}>
-                    { _get(inspectionData,'order.termsheet.transactionDetails.partShipmentAllowed', '')}</div>
+                    {_get(
+                      inspectionData,
+                      'order.termsheet.transactionDetails.partShipmentAllowed',
+                      '',
+                    )}
+                  </div>
 
                   <button className={styles.add_btn}>Add</button>
                 </div>
@@ -858,12 +863,19 @@ export default function Index({ addButton, inspectionData }) {
                       // setBothField(!bothField)
                     }}
                     defaultChecked={
-                        inspectionData?.thirdPartyInspection?.loadPortInspection ? inspectionData?.thirdPartyInspection?.loadPortInspection : ((inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort == 'Both' || inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort == 'Load Port') ? true : false)
-                  
+                      inspectionData?.thirdPartyInspection?.loadPortInspection
+                        ? inspectionData?.thirdPartyInspection
+                            ?.loadPortInspection
+                        : inspectionData?.order?.termsheet?.transactionDetails
+                            ?.typeOfPort == 'Both' ||
+                          inspectionData?.order?.termsheet?.transactionDetails
+                            ?.typeOfPort == 'Load Port'
+                        ? true
+                        : false
                     }
                     id={`inline-${type}-1`}
                   />
-                 
+
                   <Form.Check
                     className={styles.radio}
                     inline
@@ -875,8 +887,16 @@ export default function Index({ addButton, inspectionData }) {
                       // setBothField(!bothField)
                     }}
                     defaultChecked={
-                      inspectionData?.thirdPartyInspection?.dischargePortInspection ? inspectionData?.thirdPartyInspection?.loadPortInspection : ((inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort == 'Both' || inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort == 'Discharge Port') ? true : false)
-                        
+                      inspectionData?.thirdPartyInspection
+                        ?.dischargePortInspection
+                        ? inspectionData?.thirdPartyInspection
+                            ?.loadPortInspection
+                        : inspectionData?.order?.termsheet?.transactionDetails
+                            ?.typeOfPort == 'Both' ||
+                          inspectionData?.order?.termsheet?.transactionDetails
+                            ?.typeOfPort == 'Discharge Port'
+                        ? true
+                        : false
                     }
                     type={type}
                     id={`inline-${type}-2`}
@@ -962,8 +982,11 @@ export default function Index({ addButton, inspectionData }) {
                   </h5>
 
                   <div className="row">
-                     {_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') ===
-                      'Liner' ? (
+                    {_get(
+                      inspectionData,
+                      'order.vessel.vessels[0].shipmentType',
+                      '',
+                    ) === 'Liner' ? (
                       <div
                         className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                       >
@@ -992,7 +1015,7 @@ export default function Index({ addButton, inspectionData }) {
                       </div>
                     ) : (
                       ''
-                    )} 
+                    )}
                     <div
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                     >
@@ -1174,19 +1197,26 @@ export default function Index({ addButton, inspectionData }) {
                             <td className={styles.doc_name}>
                               Certificate of Origin{' '}
                               <strong className="text-danger">*</strong>
-                             { inspectionData?.thirdPartyInspection?.certificateOfOrigin ? <span className='ml-4'
-                                onClick={() =>
-                                  dispatch(
-                                    ViewDocument({
-                                      path: inspectionData?.thirdPartyInspection
-                                        ?.certificateOfOrigin?.path,
-                                      order: inspectionData?.order?._id,
-                                    }),
-                                  )
-                                }
-                              >
-                                View
-                              </span> : ''}
+                              {inspectionData?.thirdPartyInspection
+                                ?.certificateOfOrigin ? (
+                                <span
+                                  className="ml-4"
+                                  onClick={() =>
+                                    dispatch(
+                                      ViewDocument({
+                                        path: inspectionData
+                                          ?.thirdPartyInspection
+                                          ?.certificateOfOrigin?.path,
+                                        order: inspectionData?.order?._id,
+                                      }),
+                                    )
+                                  }
+                                >
+                                  View
+                                </span>
+                              ) : (
+                                ''
+                              )}
                             </td>
                             <td>
                               <img
@@ -1196,9 +1226,15 @@ export default function Index({ addButton, inspectionData }) {
                               />
                             </td>
                             <td className={styles.doc_row}>
-                            {inspectionData?.thirdPartyInspection?.certificateOfOrigin ? moment(inspectionData?.thirdPartyInspection?.certificateOfOrigin?.date).format(
-                                'DD-MM-YYYY, h:mm A',
-                              ): documents?.certificateOfOrigin != null ? moment(d).format('DD-MM-YYYY, h:mm A'): ''}
+                              {inspectionData?.thirdPartyInspection
+                                ?.certificateOfOrigin
+                                ? moment(
+                                    inspectionData?.thirdPartyInspection
+                                      ?.certificateOfOrigin?.date,
+                                  ).format('DD-MM-YYYY, h:mm A')
+                                : documents?.certificateOfOrigin != null
+                                ? moment(d).format('DD-MM-YYYY, h:mm A')
+                                : ''}
                             </td>
                             <td>
                               {' '}
@@ -1273,14 +1309,17 @@ export default function Index({ addButton, inspectionData }) {
                                       Upload
                                     </button>
                                   </div>
-                                 
                                 </>
                               ) : (
                                 <div
                                   className={`${styles.certificate} d-flex justify-content-between`}
                                 >
                                   <span>
-                                    {documents?.certificateOfOrigin?.name}
+                                    {documents?.certificateOfOrigin?.name.slice(
+                                      documents?.certificateOfOrigin?.name.lastIndexOf(
+                                        '_',
+                                      ) + 1,
+                                    )}
                                   </span>
                                   <img
                                     className={`${styles.close_image}`}
@@ -1296,19 +1335,25 @@ export default function Index({ addButton, inspectionData }) {
                             <td className={styles.doc_name}>
                               Certificate of Quality
                               <strong className="text-danger ml-1">*</strong>
-                            { inspectionData?.thirdPartyInspection?.certificateOfQuality ? <span
-                                onClick={() =>
-                                  dispatch(
-                                    ViewDocument({
-                                      path: inspectionData?.thirdPartyInspection
-                                        ?.certificateOfQuality?.path,
-                                      order: inspectionData?.order?._id,
-                                    }),
-                                  )
-                                }
-                              >
-                                View
-                              </span>: ''}
+                              {inspectionData?.thirdPartyInspection
+                                ?.certificateOfQuality ? (
+                                <span
+                                  onClick={() =>
+                                    dispatch(
+                                      ViewDocument({
+                                        path: inspectionData
+                                          ?.thirdPartyInspection
+                                          ?.certificateOfQuality?.path,
+                                        order: inspectionData?.order?._id,
+                                      }),
+                                    )
+                                  }
+                                >
+                                  View
+                                </span>
+                              ) : (
+                                ''
+                              )}
                             </td>
                             <td>
                               <img
@@ -1318,9 +1363,15 @@ export default function Index({ addButton, inspectionData }) {
                               />
                             </td>
                             <td className={styles.doc_row}>
-                            { inspectionData?.thirdPartyInspection?.certificateOfQuality ?  moment(inspectionData?.thirdPartyInspection?.certificateOfQuality?.date).format(
-                                'DD-MM-YYYY, h:mm A',
-                              ): documents?.certificateOfQuality != null ? moment(d).format('DD-MM-YYYY, h:mm A'): ''}
+                              {inspectionData?.thirdPartyInspection
+                                ?.certificateOfQuality
+                                ? moment(
+                                    inspectionData?.thirdPartyInspection
+                                      ?.certificateOfQuality?.date,
+                                  ).format('DD-MM-YYYY, h:mm A')
+                                : documents?.certificateOfQuality != null
+                                ? moment(d).format('DD-MM-YYYY, h:mm A')
+                                : ''}
                             </td>
                             <td>
                               {' '}
@@ -1389,14 +1440,17 @@ export default function Index({ addButton, inspectionData }) {
                                       Upload
                                     </button>
                                   </div>
-                                
                                 </>
                               ) : (
                                 <div
                                   className={`${styles.certificate} d-flex justify-content-between`}
                                 >
                                   <span>
-                                    {documents?.certificateOfQuality?.name}
+                                    {documents?.certificateOfQuality?.name.slice(
+                                      documents?.certificateOfQuality?.name.lastIndexOf(
+                                        '_',
+                                      ) + 1,
+                                    )}
                                   </span>
                                   <img
                                     className={`${styles.close_image}`}
@@ -1412,19 +1466,25 @@ export default function Index({ addButton, inspectionData }) {
                             <td className={styles.doc_name}>
                               Certificate of Weight
                               <strong className="text-danger ml-1">*</strong>
-                              {inspectionData?.thirdPartyInspection?.certificateOfWeight ? <span
-                                onClick={() =>
-                                  dispatch(
-                                    ViewDocument({
-                                      path: inspectionData?.thirdPartyInspection
-                                        ?.certificateOfWeight?.path,
-                                      order: inspectionData?.order?._id,
-                                    }),
-                                  )
-                                }
-                              >
-                                View
-                              </span> : ''}
+                              {inspectionData?.thirdPartyInspection
+                                ?.certificateOfWeight ? (
+                                <span
+                                  onClick={() =>
+                                    dispatch(
+                                      ViewDocument({
+                                        path: inspectionData
+                                          ?.thirdPartyInspection
+                                          ?.certificateOfWeight?.path,
+                                        order: inspectionData?.order?._id,
+                                      }),
+                                    )
+                                  }
+                                >
+                                  View
+                                </span>
+                              ) : (
+                                ''
+                              )}
                             </td>
                             <td>
                               <img
@@ -1435,9 +1495,15 @@ export default function Index({ addButton, inspectionData }) {
                             </td>
 
                             <td className={styles.doc_row}>
-                            { inspectionData?.thirdPartyInspection?.certificateOfWeight ?  moment(inspectionData?.thirdPartyInspection?.certificateOfWeight?.date).format(
-                                'DD-MM-YYYY, h:mm A',
-                              ): documents?.certificateOfWeight != null ? moment(d).format('DD-MM-YYYY, h:mm A'): ''}
+                              {inspectionData?.thirdPartyInspection
+                                ?.certificateOfWeight
+                                ? moment(
+                                    inspectionData?.thirdPartyInspection
+                                      ?.certificateOfWeight?.date,
+                                  ).format('DD-MM-YYYY, h:mm A')
+                                : documents?.certificateOfWeight != null
+                                ? moment(d).format('DD-MM-YYYY, h:mm A')
+                                : ''}
                             </td>
                             <td>
                               {' '}
@@ -1506,14 +1572,17 @@ export default function Index({ addButton, inspectionData }) {
                                       Upload
                                     </button>
                                   </div>
-                                  
                                 </>
                               ) : (
                                 <div
                                   className={`${styles.certificate} d-flex justify-content-between`}
                                 >
                                   <span>
-                                    {documents?.certificateOfWeight?.name}
+                                    {documents?.certificateOfWeight?.name.slice(
+                                      documents?.certificateOfWeight?.name.lastIndexOf(
+                                        '_',
+                                      ) + 1,
+                                    )}
                                   </span>
                                   <img
                                     className={`${styles.close_image}`}
@@ -1854,7 +1923,8 @@ const Discharge = (
         <h5 className={styles.sub_heading}>Inspection at Discharge Port</h5>
 
         <div className="row">
-           {  inspectionData?.order?.vessel?.vessels[0]?.shipmentType === 'Liner' ? (
+          {inspectionData?.order?.vessel?.vessels[0]?.shipmentType ===
+          'Liner' ? (
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <input
                 className={`${styles.input_field} input form-control`}
@@ -1876,7 +1946,7 @@ const Discharge = (
             </div>
           ) : (
             ''
-          )} 
+          )}
 
           <div className={`${styles.form_group} col-md-4 col-sm-6`}>
             <div className="d-flex">
