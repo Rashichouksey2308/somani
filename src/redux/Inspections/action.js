@@ -67,23 +67,24 @@ export const GetAllInspection =
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
-      Axios.get(
+      let response = await Axios.get(
         `${API.corebaseUrl}${API.getInspection}${payload ? payload : ''}`,
         {
           headers: headers,
         },
+      )
 
-      ).then((response) => {
-        if (response.data.code === 200) {
-          dispatch(getAllInspectionSuccess(response.data.data))
-        } else {
-          dispatch(getAllInspectionFailed(response.data.data))
-          let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          }
+      if (response.data.code === 200) {
+        dispatch(getAllInspectionSuccess(response.data.data))
+        console.log(response.data.timestamp)
+        return response.data.timestamp
+      } else {
+        dispatch(getAllInspectionFailed(response.data.data))
+        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-      })
+      }
     } catch (error) {
       dispatch(getAllInspectionFailed())
 
