@@ -18,15 +18,19 @@ function Index() {
 
   const [darkMode, setDarkMode] = useState(false)
   const [lastModified,setlastModified]=useState("")
-  const [timeStamp,setTimeStamp] = useState('')
+ 
   useEffect(()=> {
     let id = sessionStorage.getItem('inspectionId')
-   let date = dispatch(GetAllInspection(`?inspectionId=${id}`))
-   setTimeStamp(date)
+  dispatch(GetAllInspection(`?inspectionId=${id}`))
+ 
   },[dispatch])
-
-  console.log(timeStamp,"timeStamp")
-  const {allInspection} = useSelector((state)=>state.Inspection)
+ const {allInspection,modifiedDate} = useSelector((state)=>state.Inspection)
+ useEffect(()=> {
+   if(window){
+    setlastModified(modifiedDate || localStorage.getItem('inceptionlastmodified'))
+   }
+ },[modifiedDate])
+ 
 
   let inspectionData = _get(allInspection, 'data[0]', {})
  useEffect(() => {
@@ -39,6 +43,7 @@ function Index() {
   const [addTPI, setAddTPI] = useState([{}])
 
  const setDate=(date)=>{
+  console.log(date,"setDatesetDate")
   setlastModified(date)
  }
   const handleBreadcrumbClick = (value) => {

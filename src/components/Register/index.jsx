@@ -16,6 +16,7 @@ import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../utils/helper'
 import { debounce } from 'lodash'
 
 function Index() {
+
   const [darkMode, setDarkMode] = useState(false)
   useEffect(() => {
     if (
@@ -29,6 +30,32 @@ function Index() {
       setDarkMode(false)
     }
   }, [])
+  const { createdBuyerResponse } = useSelector((state) => state.buyer)
+
+
+  // useEffect(() => {
+  //   if (createdBuyerResponse) {
+  //     Router.push('/order-list')
+  //     // sessionStorage.setItem('orderID1', createdBuyerResponse.orderRes._id)
+  //     // sessionStorage.setItem('company', createdBuyerResponse.orderRes.company)
+  //     // // console.log(' before go to get document')
+  //     // // sessionStorage.setItem('company', buyer.company._id)
+  //     // if (createdBuyerResponse.queue === 'CreditQueue') {
+  //     //   // dispatch(GetAllOrders({ orderId: buyer._id }))
+  //     //   //dispatch(GetDocuments({order: buyer._id}))
+  //     //   dispatch(GetCompanyDetails({ company: createdBuyerResponse.orderRes.company }))
+  //     //   Router.push('/review')
+  //     //   dispatch(PlaceNewOrderRouted())
+
+  //     // }
+  //     // if (createdBuyerResponse.queue === 'ReviewQueue') {
+  //     //   dispatch(GetBuyer({ companyId: createdBuyerResponse.orderRes.company, orderId: createdBuyerResponse.orderRes._id }))
+  //     //   Router.push('/review/id')
+  //     //   dispatch(PlaceNewOrderRouted())
+
+  //     // }
+  //   }
+  // }, [createdBuyerResponse])
 
   const { gstList } = useSelector((state) => state.buyer)
 
@@ -109,9 +136,9 @@ function Index() {
   const [orderDetails, setOrderDetails] = useState({
     transactionType: 'Import',
     commodity: '',
-    quantity: 0,
+    quantity: '',
     unitOfQuantity: 'MT',
-    orderValue: 0,
+    orderValue: '',
     orderCurrency: 'INR',
     unitOfValue: 'Cr',
     supplierName: '',
@@ -149,28 +176,28 @@ function Index() {
   const saveOrderData = (name, value) => {
     const newInput = { ...orderDetails }
 
-    if (name == 'quantity') {
-      let tempVal = addPrefixOrSuffix(
-        value.toString(),
-        orderDetails.unitOfQuantity == 'mt'
-          ? 'MT'
-          : orderDetails.unitOfQuantity,
-      )
-      newInput[name] = tempVal
-    }
-    if (name == 'orderValue') {
-      let tempVal = addPrefixOrSuffix(
-        value.toString(),
-        orderDetails?.unitOfValue == 'Millions'
-          ? 'Mn'
-          : orderDetails?.unitOfValue == 'Crores'
-          ? 'Cr'
-          : orderDetails?.unitOfValue,
-      )
-      newInput[name] = tempVal
-    } else {
+    // if (name == 'quantity') {
+    //   let tempVal = addPrefixOrSuffix(
+    //     value.toString(),
+    //     orderDetails.unitOfQuantity == 'mt'
+    //       ? 'MT'
+    //       : orderDetails.unitOfQuantity,
+    //   )
+    //   newInput[name] = tempVal
+    // }
+    // if (name == 'orderValue') {
+    //   let tempVal = addPrefixOrSuffix(
+    //     value.toString(),
+    //     orderDetails?.unitOfValue == 'Millions'
+    //       ? 'Mn'
+    //       : orderDetails?.unitOfValue == 'Crores'
+    //         ? 'Cr'
+    //         : orderDetails?.unitOfValue,
+    //   )
+    //   newInput[name] = tempVal
+    // } else {
       newInput[name] = value
-    }
+    
 
     setOrderDetails(newInput)
   }
