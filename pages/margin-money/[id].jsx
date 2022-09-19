@@ -1249,7 +1249,7 @@ console.log(orderList,"orderList?.company")
                                   >{`(A*B)`}</span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {"₹"}{' '}
+                                  {"USD"}{' '}
                                   {checkNan(Number(finalCal.orderValue), true)}
                                 </div>
                               </div>
