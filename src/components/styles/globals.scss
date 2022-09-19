@@ -250,7 +250,20 @@ body.light-mode .text {
 body.dark-mode .text1 {
   color: #ffffff80 !important;
 }
-
+body.light-mode .text_area {
+  color: #495057 ;
+}
+body.dark-mode .text_area {
+  color: #ffffff80 ;
+}
+body.light-mode .text_input {
+  color: #495057 ;
+  background: #fff;
+}
+body.dark-mode .text_input {
+  color: #ffffff80 ;
+  background: #1d2530;
+}
 body.light-mode .text1 {
   color: #000000 !important;
 }
