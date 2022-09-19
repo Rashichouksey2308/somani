@@ -336,10 +336,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       datasets: [
         {
           label: 'First dataset',
-          data: getdata(
-            gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends
-              ?.customers,
-          ),
+          data:
+            gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.customers,
+
           fill: true,
           backgroundColor: createGradient(
             chart2.ctx,
@@ -351,10 +350,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         },
         {
           label: 'First dataset',
-          data: getdata(
-            gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends
-              ?.invoices,
-          ),
+          data: gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends
+            ?.invoices,
           fill: true,
           backgroundColor: createGradient(
             chart2.ctx,
@@ -364,22 +361,22 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           ),
           borderColor: 'rgb(250, 95, 28,1)',
         },
-        {
-          label: 'First dataset',
-          data: getdata(
-            gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends
-              ?.avgMonthlySales,
-          ),
-          fill: true,
-          backgroundColor: createGradient(
-            chart2.ctx,
-            chart2.chartArea,
-            'rgb(67, 195, 77,0.0)',
-            'rgb(67, 195, 77,0.0)',
-          ),
-          borderColor: 'rgb(67, 195, 77)',
-          borderDash: [10, 5],
-        },
+        // {
+        //   label: 'First dataset',
+        //   data: getdata(
+        //     gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends
+        //       ?.avgMonthlySales,
+        //   ),
+        //   fill: true,
+        //   backgroundColor: createGradient(
+        //     chart2.ctx,
+        //     chart2.chartArea,
+        //     'rgb(67, 195, 77,0.0)',
+        //     'rgb(67, 195, 77,0.0)',
+        //   ),
+        //   borderColor: 'rgb(67, 195, 77)',
+        //   borderDash: [10, 5],
+        // },
       ],
     }
 
@@ -1560,11 +1557,11 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       <span className={`${styles.red_legend} ${styles.legend}`}>
                         No. of Invoices
                       </span>
-                      <span
+                      {/* <span
                         className={`${styles.green_legend} ${styles.legend}`}
                       >
                         Avg. Monthly Sales
-                      </span>
+                      </span> */}
                     </div>
                   </div>
                 </div>
@@ -2959,20 +2956,26 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
              </td> */}
                   </tr>
                   {gstFilteredData &&
-                    gstFilteredData?.detail?.complianceDetail?.monthlyData?.map(
-                      (customer, index) => (
-                        <tr key={index}>
-                          <td colSpan={2}>
-                            {moment(customer?.retPeriod, 'MMYYYY').format(
-                              'MMMM YYYY',
-                            )}
-                          </td>
-                          <td>{customer?.GSTR1?.dof}</td>
-                          <td>{customer?.GSTR1?.delayDays}</td>
-                          <td>{customer?.GSTR3B?.dof}</td>
-                          <td>{customer?.GSTR3B?.delayDays}</td>
-                        </tr>
-                      ),
+                    (gstFilteredData?.detail?.complianceDetail?.monthlyData?.slice()?.reverse())?.map(
+                      (customer, index) => {
+                        if (index === 0) {
+                          return
+                        } else {
+                          return (
+                            <tr key={index}>
+                              <td colSpan={2}>
+                                {moment(customer?.retPeriod, 'MMYYYY').format(
+                                  'MMMM YYYY',
+                                )}
+                              </td>
+                              <td>{customer?.GSTR1?.dof}</td>
+                              <td>{customer?.GSTR1?.delayDays}</td>
+                              <td>{customer?.GSTR3B?.dof}</td>
+                              <td>{customer?.GSTR3B?.delayDays}</td>
+                            </tr>
+                          )
+                        }
+                      },
                     )}
                 </table>
               </div>
@@ -3555,7 +3558,7 @@ const gstSupplierDetail = (
                                   })}
                                 </td>
                                 <td>
-                                  {(customer?.percentageOfTotalPurchase ? customer?.percentageOfTotalPurchase *100 : '')?.toFixed(
+                                  {(customer?.percentageOfTotalPurchase ? customer?.percentageOfTotalPurchase * 100 : '')?.toFixed(
                                     2,
                                   )}
                                   %

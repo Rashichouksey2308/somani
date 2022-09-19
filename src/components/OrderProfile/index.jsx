@@ -64,10 +64,7 @@ function Index() {
         {fields(
           'Expected Date Of Shipment',
           moment(
-            buyerList?.order?.ExpectedDateOfShipment?.slice(0, 10),
-            'YYYY-MM-DD',
-            true,
-          ).format('DD-MM-YYYY'),
+            buyerList?.order?.ExpectedDateOfShipment).format('DD-MM-YYYY'),
           false,
         )}
 
