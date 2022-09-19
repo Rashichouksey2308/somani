@@ -575,7 +575,7 @@ export default function Index({
             className={`${styles.title}  d-flex justify-content-between align-items-center`}
           >
             <div className={`${styles.blue} ml-3`}>BL Details </div>
-            <div>
+            <div className={`${styles.top}`}>
               <span className="text">Commodity: </span>Iron{' '}
             </div>
             <img
@@ -590,7 +590,7 @@ export default function Index({
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
               <table
-                className={`${styles.table} table `}
+                className={`${styles.table} table m-0`}
                 cellPadding="0"
                 cellSpacing="0"
                 border="0"
@@ -620,7 +620,7 @@ export default function Index({
               </table>
             </div>
           </div>
-          <div>
+          <div className={`${styles.bottom}`}>
             <span className="text">Total Quantity: </span> &nbsp;{' '}
             {isNaN(totalBl) ? '' : totalBl}{' '}
             {isNaN(totalBl)

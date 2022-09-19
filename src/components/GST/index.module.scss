@@ -570,8 +570,8 @@
         padding-bottom: 20px;
     }
     .body {
-        overflow-y: auto;
-        max-height: 500px;
+        // overflow-y: auto;
+        // max-height: 500px;
         @include respond(md-desktop) {
             width: calc(100vw - 35px);
         }
@@ -680,7 +680,7 @@
                             text-transform: uppercase !important;
                             border-bottom: 1.5px solid #dae2ed;
                             padding: 0 15px;
-                            width: 20%;
+                            // width: 20%;
                             white-space: nowrap;
                         }
                     }
@@ -778,7 +778,7 @@
                             text-transform: uppercase !important;
                             border-bottom: 1.5px solid #dae2ed;
                             padding: 0 15px;
-                            width: 20%;
+                            // width: 20%;
                             white-space: nowrap;
                         }
                     }
@@ -957,6 +957,7 @@
                     background: #FAFAFB;
                     vertical-align: middle;
                     white-space: nowrap;
+                    border-bottom: none;
                     &.first {
                         font-size: 22px;
                         line-height: 27px;
@@ -1048,6 +1049,7 @@
                     background: #FAFAFB;
                     vertical-align: middle;
                     white-space: nowrap;
+                    border-bottom: none;
                     &.first {
                         font-size: 22px;
                         line-height: 27px;

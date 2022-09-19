@@ -51,8 +51,9 @@ console.log(orderList,"orderList?.company")
 
   useEffect(() => {
     let id = sessionStorage.getItem('marginId')
+    
     dispatch(GetMarginMoney({ orderId: id }))
-    dispatch(GetAllOrders({ orderId: marginData?.order?._id }))
+    dispatch(GetAllOrders({ orderId: id }))
     dispatch(setPageName('margin-money'))
     dispatch(setDynamicName(marginData?.company?.companyName))
     dispatch(setDynamicOrder(marginData?.order?.orderId))
@@ -1248,7 +1249,7 @@ console.log(orderList,"orderList?.company")
                                   >{`(A*B)`}</span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {"₹"}{' '}
+                                  {"USD"}{' '}
                                   {checkNan(Number(finalCal.orderValue), true)}
                                 </div>
                               </div>

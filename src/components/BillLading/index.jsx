@@ -140,7 +140,12 @@ export default function Index({
     console.log('here')
   }
   console.log(bolList, 'bol')
-
+  const onDeleteClick=(index)=>{
+    setBolList([
+        ...bolList.slice(0, index),
+        ...bolList.slice(index + 1),
+      ])
+  }
   const uploadDoc = async (e, index) => {
     let name = e.target.name
     let id = e.target.id
@@ -545,6 +550,7 @@ export default function Index({
     }
   }
 
+  
   const saveData = () => {
     if (!validation()) return
     // const billOfLanding = [...bolList]
@@ -718,8 +724,10 @@ export default function Index({
                       <span className={styles.add_sign}>+</span>Add
                     </button>
                   )}
-                  <button className={`${styles.add_btn} mr-0 d-flex align-items-center justify-content-between border-danger text-danger`}>
+                  {index>0 ?
+                  <button onClick={() => onDeleteClick(index)} className={`${styles.add_btn} mr-0 d-flex align-items-center justify-content-between border-danger text-danger`}>
                     <img src="/static/delete.svg" width={15} alt="delete"/> Delete</button>
+                    :null}
                 </div>
                 <div className={`${styles.dashboard_form} card-body`}>
                   <div className={`${styles.bill_landing} border_color`}>

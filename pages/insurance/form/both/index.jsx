@@ -598,7 +598,7 @@ const Index = () => {
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            GSTN of Insured
+                            GSTIN of Insured
                             <strong className="text-danger">*</strong>
                           </label>
                         </Col>
@@ -896,7 +896,7 @@ const Index = () => {
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            GSTN of Insured
+                            GSTIN of Insured
                             <strong className="text-danger">*</strong>
                           </label>
                         </Col>
@@ -1191,7 +1191,7 @@ const Index = () => {
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            GSTN of Insured
+                            GSTIN of Insured
                             <strong className="text-danger">*</strong>
                           </label>
                         </Col>
@@ -1317,10 +1317,7 @@ const Index = () => {
             >
               <div
                 className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
-                data-toggle="collapse"
-                data-target="#storageInsurance"
-                aria-expanded="true"
-                aria-controls="storageInsurance"
+              
               >
                 <h2 className="mb-0">Storage Insurance Details</h2>
                 <div className={styles.radio_label}>
@@ -1359,7 +1356,10 @@ const Index = () => {
                     </div>
                   </div>
 
-                  <span>+</span>
+                  <span   data-toggle="collapse"
+                data-target="#storageInsurance"
+                aria-expanded="true"
+                aria-controls="storageInsurance">+</span>
                 </div>{' '}
               </div>
               <div
@@ -1480,7 +1480,7 @@ const Index = () => {
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            GSTN of Insured
+                            GSTIN of Insured
                             <strong className="text-danger">*</strong>
                           </label>
                         </Col>

@@ -477,7 +477,7 @@ function Index({
                               name="ETAatDischargePort"
                               index={index}
                               saveDate={saveDate}
-                              labelName="Estimated Time of Arrival"
+                              labelName="ETA at Discharge Port"
                             />
                             <img
                               className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -610,7 +610,10 @@ function Index({
                                       <input
                                         id="yearOfBuilt"
                                         // value={vesselInfo.yearOfBuilt}
-                                        value={vesselInfo.yearOfBuilt ? moment(vesselInfo.yearOfBuilt).format("YYYY") : ''}
+                                        value={vesselInfo.yearOfBuilt ?
+                                          vesselInfo.yearOfBuilt?.slice(0,4)
+                                          // moment(vesselInfo.yearOfBuilt).format("YYYY")
+                                           : ''}
                                         className={`${styles.input_field} input form-control`}
                                         type="text"
                                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
@@ -880,7 +883,11 @@ function Index({
                                 >
                                   <input
                                     id="yearOfBuilt"
-                                     value={newVessel.yearOfBuilt ? moment(newVessel.yearOfBuilt).format("YYYY") : ''}
+                                    //  value={newVessel.yearOfBuilt ? moment(newVessel.yearOfBuilt).format("YYYY") : ''}
+                                     value={newVessel.yearOfBuilt ?
+                                      newVessel.yearOfBuilt?.slice(0,4)
+                                      // moment(vesselInfo.yearOfBuilt).format("YYYY")
+                                       : ''}
                                     // defaultValue={newVessel.yearOfBuilt}
                                     className={`${styles.input_field} input form-control`}
                                     type="number"

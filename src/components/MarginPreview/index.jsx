@@ -1678,8 +1678,7 @@ function Index() {
                       <span className={`${styles.formula} ml-2`}>(A*B)</span>
                     </td>
                     <td>
-                      {marginData?.order?.orderCurrency}{' '}
-                      {marginData?.calculation?.orderValue?.toLocaleString("en-IN") ??
+                     USD {marginData?.calculation?.orderValue?.toLocaleString() ??
                         0}
                     </td>
                   </tr>
@@ -1690,8 +1689,7 @@ function Index() {
                       <span className={`${styles.formula} ml-2`}>(J*C)</span>
                     </td>
                     <td>
-                        ₹{" "}
-                      {marginData?.calculation?.orderValueInINR?.toLocaleString("en-IN") ??
+                    ₹ {marginData?.calculation?.orderValueInINR?.toLocaleString() ??
                         0}
                     </td>
                   </tr>
@@ -1706,9 +1704,8 @@ function Index() {
                       </span>
                     </td>
                     <td>
-                        ₹{" "}
-                      {marginData?.calculation?.usanceInterest?.toLocaleString("en-IN") ??
-                        0}
+                     {marginData?.calculation?.usanceInterest?.toLocaleString() ??
+                        0} %
                     </td>
                   </tr>
                   <tr>
@@ -1718,8 +1715,7 @@ function Index() {
                       <span className={`${styles.formula} ml-2`}>(K*E)</span>
                     </td>
                     <td>
-                        ₹{" "}
-                      {marginData?.calculation?.tradeMargin?.toLocaleString("en-IN") ??
+                    ₹ {marginData?.calculation?.tradeMargin?.toLocaleString() ??
                         0}
                     </td>
                   </tr>
@@ -1730,8 +1726,7 @@ function Index() {
                       <span className={`${styles.formula} ml-2`}>(K+L+M)</span>
                     </td>
                     <td>
-                        ₹{" "}
-                      {marginData?.calculation?.grossOrderValue?.toLocaleString("en-IN") ??
+                    ₹ {marginData?.calculation?.grossOrderValue?.toLocaleString() ??
                         0}
                     </td>
                   </tr>
@@ -1743,8 +1738,7 @@ function Index() {
                       <span className={`${styles.formula} ml-2`}>(N*F)</span>
                     </td>
                     <td>
-                        ₹{" "}
-                      {marginData?.calculation?.toleranceValue?.toLocaleString("en-IN") ??
+                    ₹  {marginData?.calculation?.toleranceValue?.toLocaleString() ??
                         0}
                     </td>
                   </tr>
@@ -1755,8 +1749,7 @@ function Index() {
                       <span className={`${styles.formula} ml-2`}>(N+O)</span>
                     </td>
                     <td>
-                        ₹{" "}
-                      {marginData?.calculation?.totalOrderValue?.toLocaleString("en-IN") ??
+                    ₹  {marginData?.calculation?.totalOrderValue?.toLocaleString() ??
                         0}
                     </td>
                   </tr>
@@ -1770,8 +1763,7 @@ function Index() {
                       <span className={`${styles.formula} ml-2`}>(N/A)</span>
                     </td>
                     <td>
-                        ₹{" "}
-                      {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString("en-IN") ??
+                    ₹ {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString() ??
                         0}
                     </td>
                   </tr>
@@ -1782,8 +1774,7 @@ function Index() {
                       <span className={`${styles.formula} ml-2`}>(P*G)</span>
                     </td>
                     <td>
-                        ₹{" "}
-                      {marginData?.calculation?.marginMoney?.toLocaleString("en-IN") ??
+                    ₹ {marginData?.calculation?.marginMoney?.toLocaleString() ??
                         0}
                     </td>
                   </tr>
@@ -1796,22 +1787,7 @@ function Index() {
                       <span className={`${styles.formula} ml-2`}>(P-R)</span>
                     </td>
                     <td>
-                        ₹{" "}
-                      {marginData?.calculation?.totalSPDC?.toLocaleString("en-IN") ??
-                        0}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span className={`${styles.sno}`}>T</span>
-                      <span className={`ml-2`}>
-                        Amount per SPDC (INR)
-                      </span>{' '}
-                      <span className={`${styles.formula} ml-2`}>(S/H)</span>
-                    </td>
-                    <td>
-                        ₹{" "}
-                      {marginData?.calculation?.amountPerSPDC?.toLocaleString("en-IN") ??
+                    ₹  {marginData?.calculation?.totalSPDC?.toLocaleString() ??
                         0}
                     </td>
                   </tr>

@@ -918,7 +918,7 @@ function Index({
                               defaultValue={
                                 lcData?.presentaionPeriod
                                   ? lcData.presentaionPeriod
-                                  : 'DOCUMENTS TO BE PRESENTED WITHIN 21 DAYS AFTER SHIPMENT DATE BUT WITHIN VALIDITY OF THE LC'
+                                  : 'DOCUMENTS TO BE PRESENTED WITHIN 21 DAYS AFTER SHIPMENT DATE BUT WITHIN VALIDITY OF THE LC.'
                               }
                               onChange={(e) => {
                                 saveLcData(e.target.name, e.target.value)

@@ -131,8 +131,28 @@ const cancelAddress=()=>{
         }
         setList(props.data?.authorisedSignatoryDetails!==undefined?props.data?.authorisedSignatoryDetails:[])
         setAddressList(props.data?.addresses!==undefined?props.data?.addresses:[])
+        let a =false;
+        for(let i=0;i<props.data?.addresses.length;i++){
+           if(props.data?.addresses[i].fullAddress =="Embassy Chambers, 6th Floor, Plot No. 5, Road No. 3"){
+             a=true
+           }
+        }
+        if(a==false){
+          setAddressList([...addressList,{
+          addressType: "Registered",
+          fullAddress: "Embassy Chambers, 6th Floor, Plot No. 5, Road No. 3",
+          pinCode: "400 052",
+          country: "India",
+          gstin: "27AAACA3912A2ZE",
+          state: "Maharashtra ",
+          city: "Khar (West) Mumba"
+          }])
+        }
+        if(props.data?.addresses.length > 0){
+         
+        }
         setCmaState(cma)
-               let tempArr=props.data?.authorisedSignatoryDetails
+          let tempArr=props.data?.authorisedSignatoryDetails
           let optionArray=[]
           console.log(tempArr,"tempArr")
           tempArr.forEach((val,index)=>{
@@ -153,18 +173,12 @@ const cancelAddress=()=>{
           }
 
           })
-        setAddressList([...addressList,{
-              addressType: "Registered",
-              fullAddress: "Embassy Chambers, 6th Floor, Plot No. 5, Road No. 3",
-              pinCode: "400 052",
-              country: "India",
-              gstin: "27AAACA3912A2ZE",
-              state: "Maharashtra ",
-              city: "Khar (West) Mumba"
-        }])
+       
+
       }
     }
   }, [])
+console.log(addressList,"addressList")
   useEffect(() => {
     if (props.saveData == true && props.active == "CMA") {
       let data = {
