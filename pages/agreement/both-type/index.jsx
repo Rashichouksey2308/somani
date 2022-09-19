@@ -368,7 +368,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                             INR { convertValue(insuranceData?.quotationRequest?.sumInsured)} Crores
+                             INR { convertValue(insuranceData?.quotationRequest?.sumInsured)?.toLocaleString()} Crores
                     (Including 110%)
                           </p>
                         </td>
@@ -1181,7 +1181,7 @@ function Index() {
                     Sum Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    INR { convertValue(insuranceData?.quotationRequest?.sumInsured)} Crores
+                    INR { convertValue(insuranceData?.quotationRequest?.sumInsured)?.toLocaleString()} Crores
                     (Including 110%)
                   </Col>
                 </Row>
