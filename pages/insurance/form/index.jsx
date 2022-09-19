@@ -58,7 +58,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
       periodOfInsurance: null,
       storagePlotAddress: '',
     },
-    sumInsured: sumInsuredCalc,
+    sumInsured: insuranceData?.quotationRequest?.sumInsured ? (Number(insuranceData?.quotationRequest?.sumInsured)  / 10000000) : sumInsuredCalc,
   })
 
   let sumInsuredCalc = parseFloat(
@@ -96,10 +96,10 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
           insuranceData?.quotationRequest?.storageDetails?.storagePlotAddress ||
           '',
       },
-      sumInsured: sumInsuredCalc  || (Number(insuranceData?.quotationRequest?.sumInsured)  / 10000000) ,
+      sumInsured: insuranceData?.quotationRequest?.sumInsured ? (Number(insuranceData?.quotationRequest?.sumInsured)  / 10000000) : sumInsuredCalc ,
     })
-  }, [insuranceData,sumInsuredCalc])
- console.log(quotationData.sumInsured,"sumInsured",insuranceData?.quotationRequest?.sumInsured,sumInsuredCalc)
+  }, [insuranceData])
+//  console.log(quotationData.sumInsured,"sumInsured",insuranceData?.quotationRequest?.sumInsured,sumInsuredCalc)
   const saveQuotationData = (name, value) => {
     // console.log(value, 'dhjsgfksjdghf')
     const newInput = { ...quotationData }
@@ -635,7 +635,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
                               onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                              value={ isFieldInFocus ?
-                              sumInsuredCalc :
+                              quotationData?.sumInsured :
                              quotationData?.sumInsured +  ` Cr`}
                               // value={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr')}
                               onChange={(e) => {
@@ -908,7 +908,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
                             
 
                               value={ isFieldInFocus ?
-                                sumInsuredCalc :
+                                quotationData?.sumInsured :
                              quotationData?.sumInsured + ` Cr`}
                               // value={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr')}
                               onChange={(e) =>
