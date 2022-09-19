@@ -215,9 +215,9 @@ console.log(termsheetDetails,"termsheetDetails")
                                     <h4 className={styles.comment_name}>{comment.additionalCommentType}</h4>
                                 </div>
                                 <div className={`${styles.form_group} col-md-9`}>
-                                    <div className={`${styles.comment_para} d-flex justify-content-between`}>
+                                    <div className={`${styles.comment_para}  d-flex justify-content-between`}>
                                         {/* <div className={styles.comment}>Lorem ipsum is a name for a common type of placeholder text. Also known as filler or dummy text, this is simply text copy that serves to fill a space</div>                   */}
-                                        <Form.Control className={`${styles.comment} ${!isCommentEditable[index] ? styles.nonEditable : null}
+                                        <Form.Control className={`${styles.comment} text_area text_input border_color ${!isCommentEditable[index] ? styles.nonEditable : null}
                                             
                                             `}
                                             as="textarea"
