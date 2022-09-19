@@ -1675,7 +1675,7 @@ function Index() {
                       <span className={`${styles.formula} ml-2`}>(A*B)</span>
                     </td>
                     <td>
-                      {marginData?.calculation?.orderValue?.toLocaleString() ??
+                     USD {marginData?.calculation?.orderValue?.toLocaleString() ??
                         0}
                     </td>
                   </tr>
@@ -1686,7 +1686,7 @@ function Index() {
                       <span className={`${styles.formula} ml-2`}>(J*C)</span>
                     </td>
                     <td>
-                      {marginData?.calculation?.orderValueInINR?.toLocaleString() ??
+                    ₹ {marginData?.calculation?.orderValueInINR?.toLocaleString() ??
                         0}
                     </td>
                   </tr>
@@ -1701,8 +1701,8 @@ function Index() {
                       </span>
                     </td>
                     <td>
-                      {marginData?.calculation?.usanceInterest?.toLocaleString() ??
-                        0}
+                     {marginData?.calculation?.usanceInterest?.toLocaleString() ??
+                        0} %
                     </td>
                   </tr>
                   <tr>
@@ -1712,7 +1712,7 @@ function Index() {
                       <span className={`${styles.formula} ml-2`}>(K*E)</span>
                     </td>
                     <td>
-                      {marginData?.calculation?.tradeMargin?.toLocaleString() ??
+                    ₹ {marginData?.calculation?.tradeMargin?.toLocaleString() ??
                         0}
                     </td>
                   </tr>
@@ -1723,7 +1723,7 @@ function Index() {
                       <span className={`${styles.formula} ml-2`}>(K+L+M)</span>
                     </td>
                     <td>
-                      {marginData?.calculation?.grossOrderValue?.toLocaleString() ??
+                    ₹ {marginData?.calculation?.grossOrderValue?.toLocaleString() ??
                         0}
                     </td>
                   </tr>
@@ -1735,7 +1735,7 @@ function Index() {
                       <span className={`${styles.formula} ml-2`}>(N*F)</span>
                     </td>
                     <td>
-                      {marginData?.calculation?.toleranceValue?.toLocaleString() ??
+                    ₹  {marginData?.calculation?.toleranceValue?.toLocaleString() ??
                         0}
                     </td>
                   </tr>
@@ -1746,7 +1746,7 @@ function Index() {
                       <span className={`${styles.formula} ml-2`}>(N+O)</span>
                     </td>
                     <td>
-                      {marginData?.calculation?.totalOrderValue?.toLocaleString() ??
+                    ₹  {marginData?.calculation?.totalOrderValue?.toLocaleString() ??
                         0}
                     </td>
                   </tr>
@@ -1760,7 +1760,7 @@ function Index() {
                       <span className={`${styles.formula} ml-2`}>(N/A)</span>
                     </td>
                     <td>
-                      {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString() ??
+                    ₹ {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString() ??
                         0}
                     </td>
                   </tr>
@@ -1771,7 +1771,7 @@ function Index() {
                       <span className={`${styles.formula} ml-2`}>(P*G)</span>
                     </td>
                     <td>
-                      {marginData?.calculation?.marginMoney?.toLocaleString() ??
+                    ₹ {marginData?.calculation?.marginMoney?.toLocaleString() ??
                         0}
                     </td>
                   </tr>
@@ -1784,7 +1784,7 @@ function Index() {
                       <span className={`${styles.formula} ml-2`}>(P-R)</span>
                     </td>
                     <td>
-                      {marginData?.calculation?.totalSPDC?.toLocaleString() ??
+                    ₹  {marginData?.calculation?.totalSPDC?.toLocaleString() ??
                         0}
                     </td>
                   </tr>

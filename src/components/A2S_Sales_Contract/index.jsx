@@ -99,7 +99,7 @@ function Index(props) {
           detailsOfComm: data?.order?.commodity,
           quan: data.order?.quantity,
           unitPrice: data.order?.perUnitPrice,
-          totalOrderValue: data?.order?.orderValue,
+          totalOrderValue: data?.order?.marginMoney?.calculation?.orderValue ?? '',
           lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
           dischargePort: data?.order?.portOfDischarge,
 
@@ -571,7 +571,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Total Order Value</Col>
-            <Col md={7} className={styles.right}>{CovertvaluefromtoCR(data.totalOrderValue)} {data.unitOfValue == "Crores" ? "Cr" : data.unitOfValue}</Col>
+            <Col md={7} className={styles.right}>{(data.totalOrderValue)} USD</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Load Port</Col>
