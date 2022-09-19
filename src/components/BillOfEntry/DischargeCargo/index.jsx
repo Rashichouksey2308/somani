@@ -361,7 +361,7 @@ export default function Index({
                       ['e', 'E', '+', '-'].includes(evt.key) &&
                       evt.preventDefault()
                     }
-                    onChange={(e) => shippingInfoChangeHandler(e, index)}
+                    // onChange={(e) => shippingInfoChangeHandler(e, index)}
                     required
                   />
                   <label className={`${styles.label_heading} label_heading`}>
