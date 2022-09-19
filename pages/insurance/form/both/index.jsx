@@ -49,6 +49,23 @@ const Index = () => {
     premiumAmount: insuranceData?.marineInsurance?.premiumAmount ?? '',
   })
 
+  
+  const [storageData, setStorageData] = useState({
+    policyNumber: insuranceData?.storageInsurance?.policyNumber,
+    nameOfInsurer: insuranceData?.storageInsurance?.nameOfInsurer,
+    gstOfInsurer: insuranceData?.storageInsurance?.gstOfInsurer,
+    nameOfInsured: insuranceData?.storageInsurance?.nameOfInsured,
+    gstOfInsured: insuranceData?.storageInsurance?.gstOfInsured,
+    insuranceFrom: insuranceData?.storageInsurance?.insuranceFrom,
+    insuranceTo: insuranceData?.storageInsurance?.insuranceTo,
+    periodOfInsurance: insuranceData?.storageInsurance?.periodOfInsurance,
+    insuranceFromType: insuranceData?.storageInsurance?.insuranceFromType,
+    lossPayee: insuranceData?.storageInsurance?.lossPayee,
+    premiumAmount: insuranceData?.storageInsurance?.premiumAmount,
+  })
+
+  console.log(marineData?.premiumAmount, 'Premium', storageData?.premiumAmount)
+
   useEffect(() => {
     setMarineData({
       policyNumber: insuranceData?.marineInsurance?.policyNumber,
@@ -92,19 +109,6 @@ const Index = () => {
     saveMarineData(name, text)
   }
 
-  const [storageData, setStorageData] = useState({
-    policyNumber: insuranceData?.storageInsurance?.policyNumber,
-    nameOfInsurer: insuranceData?.storageInsurance?.nameOfInsurer,
-    gstOfInsurer: insuranceData?.storageInsurance?.gstOfInsurer,
-    nameOfInsured: insuranceData?.storageInsurance?.nameOfInsured,
-    gstOfInsured: insuranceData?.storageInsurance?.gstOfInsured,
-    insuranceFrom: insuranceData?.storageInsurance?.insuranceFrom,
-    insuranceTo: insuranceData?.storageInsurance?.insuranceTo,
-    periodOfInsurance: insuranceData?.storageInsurance?.periodOfInsurance,
-    insuranceFromType: insuranceData?.storageInsurance?.insuranceFromType,
-    lossPayee: insuranceData?.storageInsurance?.lossPayee,
-    premiumAmount: insuranceData?.storageInsurance?.premiumAmount,
-  })
 
   const saveStorageDate = (value, name) => {
     // console.log(value, name, 'save date')
@@ -114,9 +118,9 @@ const Index = () => {
   }
 
   const saveStorageData = (name, value) => {
-    let newInput = { ...marineData }
+    let newInput = { ...storageData }
     newInput[name] = value
-    setMarineData(newInput)
+    setStorageData(newInput)
   }
 
   const [insuranceDocument, setInsuranceDocument] = useState({
@@ -317,7 +321,7 @@ const Index = () => {
   console.log(insuranceData, 'insuranceData')
 
   const handleInsuranceUpdate = () => {
-    if (validate()) {
+    if (!validate()) return
 
       let marineObj = { ...marineData }
       marineObj.premiumAmount = removePrefixOrSuffix(marineData.premiumAmount)
@@ -340,7 +344,7 @@ const Index = () => {
       )
 
       dispatch(UpdateInsurance(fd))
-    }
+    
   }
 
   const handleRoute = () => {
@@ -694,8 +698,8 @@ const Index = () => {
                             required
 
                             value={isFieldInFocus ?
-                              insuranceData?.marineInsurance?.premiumAmount :
-                              `${insuranceData?.marineInsurance?.insuranceFromType === 'Domestic' ? 'INR' : 'USD'} ` + Number(insuranceData?.marineInsurance?.premiumAmount)?.toLocaleString()}
+                              marineData?.premiumAmount :
+                              `${marineData?.premiumAmount === 'Domestic' ? 'INR' : 'USD'} ` + Number(marineData?.premiumAmount)?.toLocaleString()}
                             // defaultValue={addPrefixOrSuffix(insuranceData?.marineInsurance?.premiumAmount ? insuranceData?.marineInsurance?.premiumAmount : 0, 'INR', 'front', true)}
                             name="premiumAmount"
                             onChange={(e) =>
@@ -823,7 +827,7 @@ const Index = () => {
                               value={insuranceData?.storageInsurance?.nameOfInsurer}
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
-                              <option disabled>Select an option</option>
+                              <option selected disabled>Select an option</option>
                               <option value="Policy Bazaar">
                                 Policy Bazaar
                               </option>
@@ -959,7 +963,7 @@ const Index = () => {
                               }
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
-                              <option disabled>Select an option</option>
+                              <option selected disabled>Select an option</option>
                               <option
                                 value={
                                   insuranceData?.quotationRequest?.lossPayee
@@ -996,8 +1000,8 @@ const Index = () => {
                             }}
                             name="premiumAmount"
                             value={isFieldInFocus ?
-                              insuranceData?.storageInsurance?.premiumAmount :
-                              `${insuranceData?.storageInsurance?.insuranceFromType === 'Domestic' ? 'INR' : 'USD'} ` + Number(insuranceData?.storageInsurance?.premiumAmount)?.toLocaleString()}
+                              storageData?.premiumAmount :
+                              `${storageData?.insuranceFromType === 'Domestic' ? 'INR' : 'USD'} ` + Number(storageData?.premiumAmount)?.toLocaleString()}
                             // defaultValue={addPrefixOrSuffix(insuranceData?.storageInsurance?.premiumAmount ? insuranceData?.storageInsurance?.premiumAmount : 0, 'INR', 'front')}
                             onChange={(e) =>
                               saveStorageData(e.target.name, e.target.value)
@@ -1254,7 +1258,7 @@ const Index = () => {
                               }
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
-                              <option disabled>Select an option</option>
+                              <option selected disabled>Select an option</option>
                               <option
                                 value={
                                   insuranceData?.quotationRequest?.lossPayee
@@ -1292,8 +1296,8 @@ const Index = () => {
                             }}
                             name="premiumAmount"
                             value={isFieldInFocus ?
-                              insuranceData?.marineInsurance?.premiumAmount :
-                              `${insuranceData?.marineInsurance?.insuranceFromType === 'Domestic' ? 'INR' : 'USD'} ` + Number(insuranceData?.marineInsurance?.premiumAmount)?.toLocaleString()}
+                              marineData?.premiumAmount :
+                              `${marineData?.insuranceFromType === 'Domestic' ? 'INR' : 'USD'} ` + Number(marineData?.premiumAmount)?.toLocaleString()}
                             // defaultValue={addPrefixOrSuffix(insuranceData?.marineInsurance?.premiumAmount ? insuranceData?.marineInsurance?.premiumAmount : 0, 'INR', 'front')}
                             onChange={(e) =>
                               saveMarineData(e.target.name, e.target.value)
@@ -1407,7 +1411,7 @@ const Index = () => {
                               value={insuranceData?.storageInsurance?.nameOfInsurer}
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
-                              <option disabled>Select an option</option>
+                              <option selected disabled>Select an option</option>
                               <option value="Policy Bazaar">
                                 Policy Bazaar
                               </option>
@@ -1545,10 +1549,8 @@ const Index = () => {
                               }
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
-                              <option disabled>Select an option</option>
-                              <option value={insuranceData?.storageInsurance?.lossPayee}>
-                                {insuranceData?.storageInsurance?.lossPayee}
-                              </option>
+                              <option selected disabled>Select an option</option>
+                              
                               <option
                                 value={
                                   insuranceData?.quotationRequest?.lossPayee
@@ -1585,9 +1587,9 @@ const Index = () => {
                             }}
                             name="premiumAmount"
                             value={isFieldInFocus ?
-                              insuranceData?.storageInsurance?.premiumAmount :
-                              `${insuranceData?.storageInsurance?.insuranceFromType === 'Domestic' ? 'INR' : 'USD'} ` + Number(insuranceData?.storageInsurance?.premiumAmount)?.toLocaleString()}
-                            // defaultValue={addPrefixOrSuffix(insuranceData?.storageInsurance?.premiumAmount ? insuranceData?.storageInsurance?.premiumAmount : 0, 'INR', 'front')}
+                             storageData?.premiumAmount :
+                              `${storageData?.insuranceFromType === 'Domestic' ? 'INR' : 'USD'} ` + Number(storageData?.premiumAmount)?.toLocaleString()}
+                            // defaultValue={addPrefixOrSuffix(insuranceData?.storageInsurance?.premiumAmount ? insuranceData?.storageInsurance?.premiumAmount : storageData?.premiumAmount, 'INR', 'front')}
                             onChange={(e) =>
                               saveStorageData(e.target.name, e.target.value)
                             }
