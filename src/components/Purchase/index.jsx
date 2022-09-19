@@ -11,14 +11,10 @@ import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import Image from 'next/image'
 
-export default function Index({
-  
-}) 
-{
+export default function Index({}) {
   const [serviceType, setServiceType] = useState('goods')
-  console.log(serviceType , 'this is service')
+  const [radioBtn, setRadioBtn] = useState('domestic')
 
- 
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -74,19 +70,18 @@ export default function Index({
                       OUTSTANDING AMOUNT
                     </div>
                     <span className={`${styles.rate}`}>INR 10 CR</span>
-                    
-                   
                   </div>
                   <div className={`${styles.tooltip} `}>
-                  <img
-                    //style={{marginLeft:'300px', marginTop:'-140px' , marginRight:'50px' }}
-                    className={`${styles.info_circle} img-fluid`}
-                    src="/static/info-circle.svg"
-                  />
+                    <img
+                      //style={{marginLeft:'300px', marginTop:'-140px' , marginRight:'50px' }}
+                      className={`${styles.info_circle} img-fluid`}
+                      src="/static/info-circle.svg"
+                    />
 
-                  <div className={`${styles.tooltiptext}`}>Ex. Margin Money</div>
-
-                </div>
+                    <div className={`${styles.tooltiptext}`}>
+                      Ex. Margin Money
+                    </div>
+                  </div>
                 </div>
                 <div
                   className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
@@ -193,8 +188,11 @@ export default function Index({
                           <Form.Check
                             className={styles.radio}
                             inline
+                            value="domestic"
                             label="Domestic"
                             type={type}
+                            name="group"
+                            onChange={(e) => setRadioBtn(e.target.value)}
                             id={`inline-${type}-1`}
                           />
 
@@ -202,7 +200,10 @@ export default function Index({
                             className={styles.radio}
                             inline
                             label="Import"
+                            value="import"
                             type={type}
+                            name="group"
+                            onChange={(e) => setRadioBtn(e.target.value)}
                             id={`inline-${type}-2`}
                           />
                         </div>
@@ -310,8 +311,7 @@ export default function Index({
                   <div className="d-flex">
                     <select
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                      onChange={(e) => setServiceType(e.target.value) 
-                       }
+                      onChange={(e) => setServiceType(e.target.value)}
                     >
                       <option value="goods">Goods</option>
                       <option value="services">Services</option>
@@ -330,102 +330,115 @@ export default function Index({
                   </div>
                 </div>
               </div>
-              { serviceType === 'goods' ? 
-              <div className={`${styles.bill_landing} card border_color mt-4`}>
+              {serviceType === 'goods' ? (
                 <div
-                  className={`${styles.vessel_card} align-items-center border_color head_container d-flex bg-transparent`}
+                  className={`${styles.bill_landing} card border_color mt-4`}
                 >
-                  <div className={`${styles.card_sub_heading}`}>
-                    BOE Details
-                  </div>
-                  <span className={styles.view_btn}>View</span>
-                </div>
-
-                <div className="row m-3">
                   <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                    className={`${styles.vessel_card} align-items-center border_color head_container d-flex bg-transparent`}
                   >
-                    <div className="d-flex">
-                      <select
-                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                      >
-                        <option value="">G2346FDG47F</option>
-                        <option value="">G2346FDG47F</option>
-                      </select>
+                    <div className={`${styles.card_sub_heading}`}>
+                      BOE Details
+                    </div>
+                    <span className={styles.view_btn}>View</span>
+                  </div>
+
+                  <div className="row m-3">
+                    <div
+                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                    >
+                      <div className="d-flex">
+                        <select
+                          className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                        >
+                          <option value="">G2346FDG47F</option>
+                          <option value="">G2346FDG47F</option>
+                        </select>
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          BOE No.<strong className="text-danger">*</strong>
+                        </label>
+                        <div className={`${styles.img_arrow} image_arrow`}>
+                          <Image
+                            width="13px"
+                            height="8px"
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                      style={{ marginTop: '37px' }}
+                    >
+                      <p className={` label_heading`}>
+                        BOE Date <strong className="text-danger">*</strong>
+                      </p>
+                      <span>22-02-2022</span>
+                    </div>
+                    <div
+                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                    >
+                      <input
+                        className={`${styles.input_field} input form-control`}
+                        type="number"
+                        required
+                        onKeyDown={(evt) =>
+                          ['e', 'E', '+', '-'].includes(evt.key) &&
+                          evt.preventDefault()
+                        }
+                      />
+
                       <label
                         className={`${styles.label_heading} label_heading`}
                       >
-                        BOE No.<strong className="text-danger">*</strong>
+                        BOE Conversion Rate{' '}
+                        <strong className="text-danger">*</strong>
                       </label>
-                      <div className={`${styles.img_arrow} image_arrow`}>
-                        <Image
-                          width="13px"
-                          height="8px"
-                          src="/static/inputDropDown.svg"
-                          alt="Search"
-                        />
-                      </div>
+                    </div>
+                    <div
+                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                      style={{ marginTop: '37px' }}
+                    >
+                      <p className={` label_heading`}>
+                        Currency <strong className="text-danger">*</strong>
+                      </p>
+                      <span>USD</span>
+                    </div>
+                    <div
+                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                    >
+                      <input
+                        className={`${styles.input_field} input form-control`}
+                        type="number"
+                        required
+                        onKeyDown={(evt) =>
+                          ['e', 'E', '+', '-'].includes(evt.key) &&
+                          evt.preventDefault()
+                        }
+                      />
+
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Conversion Rate{' '}
+                        <strong className="text-danger">*</strong>
+                      </label>
                     </div>
                   </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                    style={{ marginTop: '37px' }}
-                  >
-                    <p className={` label_heading`}>
-                      BOE Date <strong className="text-danger">*</strong>
-                    </p>
-                    <span>22-02-2022</span>
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="number"
-                      required
-                      onKeyDown={(evt) =>
-                        ['e', 'E', '+', '-'].includes(evt.key) &&
-                        evt.preventDefault()
-                      }
-                    />
-
-                    <label className={`${styles.label_heading} label_heading`}>
-                      BOE Conversion Rate{' '}
-                      <strong className="text-danger">*</strong>
-                    </label>
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                    style={{ marginTop: '37px' }}
-                  >
-                    <p className={` label_heading`}>Currency <strong className="text-danger">*</strong></p>
-                    <span>USD</span>
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="number"
-                      required
-                      onKeyDown={(evt) =>
-                        ['e', 'E', '+', '-'].includes(evt.key) &&
-                        evt.preventDefault()
-                      }
-                    />
-
-                    <label className={`${styles.label_heading} label_heading`}>
-                     Conversion Rate{' '}
-                      <strong className="text-danger">*</strong>
-                    </label>
-                  </div>
                 </div>
-              </div>
- : ''}
+              ) : (
+                ''
+              )}
               <div className={`${styles.bill_landing} card border_color mt-4`}>
                 <div
                   className={`${styles.vessel_card} align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
-                >
+                  data-toggle="collapse"
+                  data-target="#transactionDetails"
+                  aria-expanded="true"
+                  aria-controls="transactionDetails" >
                   <div className={`${styles.card_sub_heading}`}>
                     Transactional Details
                   </div>
@@ -433,228 +446,302 @@ export default function Index({
                     <button className={styles.add_btn}>
                       <span className={styles.add_sign}>+</span>Add
                     </button>
-                    <div className={`${styles.img_arrow} mt-n2 image_arrow`}>
+                    <div className={`${styles.img_arrow} mt-n2 image_arrow`}
+                   >
                       <Image
                         width="13px"
                         height="8px"
                         src="/static/inputDropDown.svg"
                         alt="Search"
+                        
                       />
                     </div>
                   </div>
                 </div>
 
-                <div className="row m-3">
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
-                    <div className="d-flex">
-                      <select
-                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                      >
-                        <option value="">CHA</option>
-                      </select>
+                <div
+                  id="transactionDetails"
+                  className="collapse"
+                  aria-labelledby="transactionDetails"
+                >
+                  <div className="row m-3">
+                    <div
+                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                    >
+                      <div className="d-flex">
+                        <select
+                          className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                        >
+                          <option value="">CHA</option>
+                        </select>
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          Transactional Type
+                          <strong className="text-danger">*</strong>
+                        </label>
+                        <div className={`${styles.img_arrow} image_arrow`}>
+                          <Image
+                            width="13px"
+                            height="8px"
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                    >
+                      <div className="d-flex">
+                        <select
+                          className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                        >
+                          <option value="">2345588</option>
+                        </select>
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          HSN/Services Code
+                          <strong className="text-danger">*</strong>
+                        </label>
+                        <div className={`${styles.img_arrow} image_arrow`}>
+                          <Image
+                            width="13px"
+                            height="8px"
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                    >
+                      <input
+                        className={`${styles.input_field} input form-control`}
+                        type="text"
+                        required
+                      />
+
                       <label
                         className={`${styles.label_heading} label_heading`}
                       >
-                        Transactional Type
-                        <strong className="text-danger">*</strong>
+                        Quantity <strong className="text-danger">*</strong>
                       </label>
-                      <div className={`${styles.img_arrow} image_arrow`}>
-                        <Image
-                          width="13px"
-                          height="8px"
-                          src="/static/inputDropDown.svg"
-                          alt="Search"
-                        />
+                    </div>
+                    <div
+                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                    >
+                      <div className="d-flex">
+                        <select
+                          className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                        >
+                          <option value="">INR</option>
+                          <option value="">USD</option>
+                        </select>
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          Currency
+                          <strong className="text-danger">*</strong>
+                        </label>
+                        <div className={`${styles.img_arrow} image_arrow`}>
+                          <Image
+                            width="13px"
+                            height="8px"
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
-                    <div className="d-flex">
-                      <select
-                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                      >
-                        <option value="">2345588</option>
-                      </select>
+                    <div
+                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                    >
+                      <input
+                        className={`${styles.input_field} input form-control`}
+                        type="text"
+                        name="boeDetails.accessibleValue"
+                        required
+                        onKeyDown={(evt) =>
+                          ['e', 'E', '+', '-'].includes(evt.key) &&
+                          evt.preventDefault()
+                        }
+                      />
                       <label
                         className={`${styles.label_heading} label_heading`}
                       >
-                        HSN/Services Code
-                        <strong className="text-danger">*</strong>
+                        Price <strong className="text-danger">*</strong>
                       </label>
-                      <div className={`${styles.img_arrow} image_arrow`}>
-                        <Image
-                          width="13px"
-                          height="8px"
-                          src="/static/inputDropDown.svg"
-                          alt="Search"
-                        />
-                      </div>
+                    </div>
+                    <div
+                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                    >
+                      <input
+                        className={`${styles.input_field} input form-control`}
+                        type="text"
+                        name="boeDetails.accessibleValue"
+                        required
+                        onKeyDown={(evt) =>
+                          ['e', 'E', '+', '-'].includes(evt.key) &&
+                          evt.preventDefault()
+                        }
+                      />
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Basic Amount <strong className="text-danger">*</strong>
+                      </label>
+                    </div>
+                    <div
+                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                    >
+                      <input
+                        className={`${styles.input_field} input form-control`}
+                        type="text"
+                        name="boeDetails.accessibleValue"
+                        required
+                        onKeyDown={(evt) =>
+                          ['e', 'E', '+', '-'].includes(evt.key) &&
+                          evt.preventDefault()
+                        }
+                      />
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        IGST
+                      </label>
+                    </div>
+                    <div
+                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                    >
+                      <input
+                        className={`${styles.input_field} input form-control`}
+                        type="text"
+                        name="boeDetails.accessibleValue"
+                        required
+                        onKeyDown={(evt) =>
+                          ['e', 'E', '+', '-'].includes(evt.key) &&
+                          evt.preventDefault()
+                        }
+                      />
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        CGST
+                      </label>
+                    </div>
+                    <div
+                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                    >
+                      <input
+                        className={`${styles.input_field} input form-control`}
+                        type="text"
+                        name="boeDetails.accessibleValue"
+                        required
+                        onKeyDown={(evt) =>
+                          ['e', 'E', '+', '-'].includes(evt.key) &&
+                          evt.preventDefault()
+                        }
+                      />
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        SGST
+                      </label>
+                    </div>
+                    <div
+                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                    >
+                      <input
+                        className={`${styles.input_field} input form-control`}
+                        type="text"
+                        name="boeDetails.accessibleValue"
+                        required
+                        onKeyDown={(evt) =>
+                          ['e', 'E', '+', '-'].includes(evt.key) &&
+                          evt.preventDefault()
+                        }
+                      />
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        TDS
+                      </label>
+                    </div>
+                    <div
+                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                    >
+                      <input
+                        className={`${styles.input_field} input form-control`}
+                        type="text"
+                        name="boeDetails.accessibleValue"
+                        required
+                        onKeyDown={(evt) =>
+                          ['e', 'E', '+', '-'].includes(evt.key) &&
+                          evt.preventDefault()
+                        }
+                      />
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        TCS
+                      </label>
+                    </div>
+                    <div
+                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                    >
+                      <input
+                        className={`${styles.input_field} input form-control`}
+                        type="text"
+                        name="boeDetails.accessibleValue"
+                        required
+                        onKeyDown={(evt) =>
+                          ['e', 'E', '+', '-'].includes(evt.key) &&
+                          evt.preventDefault()
+                        }
+                      />
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        VAT
+                      </label>
+                    </div>
+                    <div
+                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                    >
+                      <input
+                        className={`${styles.input_field} input form-control`}
+                        type="text"
+                        name="boeDetails.accessibleValue"
+                        required
+                        onKeyDown={(evt) =>
+                          ['e', 'E', '+', '-'].includes(evt.key) &&
+                          evt.preventDefault()
+                        }
+                      />
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Total <strong className="text-danger">*</strong>
+                      </label>
                     </div>
                   </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="text"
-                      required
-                    />
-
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Quantity <strong className="text-danger">*</strong>
-                    </label>
+                  <div className="d-flex justify-content-end m-3 align-items-center">
+                    <div className={`${styles.total}`}>INVOICE TOTAL</div>
+                    <div className={`${styles.rate} ml-3`}>INR 10,000</div>
                   </div>
-
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="text"
-                      name="boeDetails.accessibleValue"
-                      required
-                      onKeyDown={(evt) =>
-                        ['e', 'E', '+', '-'].includes(evt.key) &&
-                        evt.preventDefault()
-                      }
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Price <strong className="text-danger">*</strong>
-                    </label>
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="text"
-                      name="boeDetails.accessibleValue"
-                      required
-                      onKeyDown={(evt) =>
-                        ['e', 'E', '+', '-'].includes(evt.key) &&
-                        evt.preventDefault()
-                      }
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Basic Amount <strong className="text-danger">*</strong>
-                    </label>
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="text"
-                      name="boeDetails.accessibleValue"
-                      required
-                      onKeyDown={(evt) =>
-                        ['e', 'E', '+', '-'].includes(evt.key) &&
-                        evt.preventDefault()
-                      }
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      IGST <strong className="text-danger">*</strong>
-                    </label>
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="text"
-                      name="boeDetails.accessibleValue"
-                      required
-                      onKeyDown={(evt) =>
-                        ['e', 'E', '+', '-'].includes(evt.key) &&
-                        evt.preventDefault()
-                      }
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      CGST <strong className="text-danger">*</strong>
-                    </label>
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="text"
-                      name="boeDetails.accessibleValue"
-                      required
-                      onKeyDown={(evt) =>
-                        ['e', 'E', '+', '-'].includes(evt.key) &&
-                        evt.preventDefault()
-                      }
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      SGST <strong className="text-danger">*</strong>
-                    </label>
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="text"
-                      name="boeDetails.accessibleValue"
-                      required
-                      onKeyDown={(evt) =>
-                        ['e', 'E', '+', '-'].includes(evt.key) &&
-                        evt.preventDefault()
-                      }
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      TDS <strong className="text-danger">*</strong>
-                    </label>
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="text"
-                      name="boeDetails.accessibleValue"
-                      required
-                      onKeyDown={(evt) =>
-                        ['e', 'E', '+', '-'].includes(evt.key) &&
-                        evt.preventDefault()
-                      }
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      TCS
-                    </label>
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="text"
-                      name="boeDetails.accessibleValue"
-                      required
-                      onKeyDown={(evt) =>
-                        ['e', 'E', '+', '-'].includes(evt.key) &&
-                        evt.preventDefault()
-                      }
-                    />
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Total <strong className="text-danger">*</strong>
-                    </label>
-                  </div>
-                </div>
-                <div className="d-flex justify-content-end m-3 align-items-center">
-                  <div className={`${styles.total}`}>INVOICE TOTAL</div>
-                  <div className={`${styles.rate} ml-3`}>INR 10,000</div>
                 </div>
               </div>
+              {radioBtn === 'domestic' ?
               <div className={`${styles.bill_landing} card border_color mt-4`}>
                 <div
                   className={`${styles.vessel_card} align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
-                >
+                  data-toggle="collapse"
+                  data-target="#bankDetails"
+                  aria-expanded="true"
+                  aria-controls="bankDetails" >
                   <div className={`${styles.card_sub_heading}`}>
                     Bank Details
                   </div>
@@ -667,7 +754,11 @@ export default function Index({
                     />
                   </div>
                 </div>
-
+                <div
+                  id="bankDetails"
+                  className="collapse"
+                  aria-labelledby="bankDetails"
+                >
                 <div className="row m-3">
                   <div
                     className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
@@ -715,7 +806,8 @@ export default function Index({
                     />
 
                     <label className={`${styles.label_heading} label_heading`}>
-                      Account No. <strong className="text-danger">*</strong>
+                      Account/IBAN No.{' '}
+                      <strong className="text-danger">*</strong>
                     </label>
                   </div>
                   <div
@@ -747,9 +839,212 @@ export default function Index({
                     </label>
                   </div>
                 </div>
+                </div>
               </div>
-              
+              : radioBtn === 'import' ?
+              <div className={`${styles.bill_landing} card border_color mt-4`}>
+                <div
+                  className={`${styles.vessel_card} align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
+                  data-toggle="collapse"
+                  data-target="#bankDetailsImport"
+                  aria-expanded="true"
+                  aria-controls="bankDetailsImport" >
+                  <div className={`${styles.card_sub_heading}`}>
+                    Bank Details
+                  </div>
+                  <div className={`${styles.img_arrow} image_arrow`}>
+                    <Image
+                      width="13px"
+                      height="8px"
+                      src="/static/inputDropDown.svg"
+                      alt="Search"
+                    />
+                  </div>
+                </div>
+                <div
+                  id="bankDetailsImport"
+                  className="collapse"
+                  aria-labelledby="bankDetailsImport"
+                >
+                <div className="row m-3">
+                  <div
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  >
+                    <div className="d-flex">
+                      <select
+                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                      >
+                        <option value="">Abc Bank</option>
+                        <option value="">AU Bank</option>
+                      </select>
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Bank Name <strong className="text-danger">*</strong>
+                      </label>
+                      <div className={`${styles.img_arrow} image_arrow`}>
+                        <Image
+                          width="13px"
+                          height="8px"
+                          src="/static/inputDropDown.svg"
+                          alt="Search"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  >
+                    <div className="d-flex">
+                      <select
+                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                      >
+                        <option value="">Abc</option>
+                        <option value="">Abcz</option>
+                      </select>
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Branch <strong className="text-danger">*</strong>
+                      </label>
+                      <div className={`${styles.img_arrow} image_arrow`}>
+                        <Image
+                          width="13px"
+                          height="8px"
+                          src="/static/inputDropDown.svg"
+                          alt="Search"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  >
+                    <input
+                      className={`${styles.input_field} input form-control`}
+                      type="number"
+                      required
+                      onKeyDown={(evt) =>
+                        ['e', 'E', '+', '-'].includes(evt.key) &&
+                        evt.preventDefault()
+                      }
+                    />
 
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Account/IBAN No.{' '}
+                      <strong className="text-danger">*</strong>
+                    </label>
+                  </div>
+                  <div
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  >
+                    <input
+                      className={`${styles.input_field} input form-control`}
+                      type="text"
+                      required
+                      // onKeyDown={(evt) =>
+                      //   ['e', 'E', '+', '-'].includes(evt.key) &&
+                      //   evt.preventDefault()
+                      // }
+                    />
+
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Swift Code <strong className="text-danger">*</strong>
+                    </label>
+                  </div>
+                  <div className={`${styles.form_group} col-lg-8 col-md-12`}>
+                    <input
+                      className={`${styles.input_field} input form-control`}
+                      type="text"
+                      required
+                    />
+
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Address
+                    </label>
+                  </div>
+                  <div
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  >
+                    <div className="d-flex">
+                      <select
+                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                      >
+                        <option value="">Abc Bank</option>
+                        <option value="">AU Bank</option>
+                      </select>
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Correspondent Bank Name
+                      </label>
+                      <div className={`${styles.img_arrow} image_arrow`}>
+                        <Image
+                          width="13px"
+                          height="8px"
+                          src="/static/inputDropDown.svg"
+                          alt="Search"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  >
+                    <div className="d-flex">
+                      <select
+                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                      >
+                        <option value="">Abc</option>
+                        <option value="">Abcz</option>
+                      </select>
+                      <label
+                        className={`${styles.label_heading} label_heading`}
+                      >
+                        Branch
+                      </label>
+                      <div className={`${styles.img_arrow} image_arrow`}>
+                        <Image
+                          width="13px"
+                          height="8px"
+                          src="/static/inputDropDown.svg"
+                          alt="Search"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  >
+                    <input
+                      className={`${styles.input_field} input form-control`}
+                      type="text"
+                      required
+                      // onKeyDown={(evt) =>
+                      //   ['e', 'E', '+', '-'].includes(evt.key) &&
+                      //   evt.preventDefault()
+                      // }
+                    />
+
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Swift Code
+                    </label>
+                  </div>
+                  <div className={`${styles.form_group} col-lg-8 col-md-12`}>
+                    <input
+                      className={`${styles.input_field} input form-control`}
+                      type="text"
+                      required
+                    />
+
+                    <label className={`${styles.label_heading} label_heading`}>
+                      Address
+                    </label>
+                  </div>
+                </div>
+                </div>
+              </div>
+                    : ''}
               <Row className="mt-4">
                 <Col lg={12}>
                   <div className="mt-4">
@@ -769,10 +1064,13 @@ export default function Index({
                 </Col>
               </Row>
 
-              <div className={`${styles.bill_landing} card border_color mt-4`}>
+              <div className={`${styles.bill_landing} card border_color mt-5`}>
                 <div
                   className={`${styles.vessel_card} align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
-                >
+                  data-toggle="collapse"
+                  data-target="#documents"
+                  aria-expanded="true"
+                  aria-controls="documents">
                   <div className={`${styles.card_sub_heading}`}>Documents</div>
                   <div className={`${styles.img_arrow} image_arrow`}>
                     <Image
@@ -783,6 +1081,10 @@ export default function Index({
                     />
                   </div>
                 </div>
+                <div
+                id="documents"
+                  className="collapse"
+                  aria-labelledby="documents" >
                 <div className={`${styles.table_form}`}>
                   <div className={styles.table_container}>
                     <div className={styles.table_scroll_outer}>
@@ -862,7 +1164,7 @@ export default function Index({
                     </div>
                   </div>
                 </div>
-
+               
                 <div
                   className={`${styles.vessel_card} mt-5 mb-5 align-items-center border_color head_container  bg-transparent`}
                 >
@@ -929,6 +1231,7 @@ export default function Index({
                       </div>
                     </div>
                   </div>
+                </div>
                 </div>
               </div>
             </div>
