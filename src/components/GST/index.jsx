@@ -3910,7 +3910,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                             (sales, index) => (
                               <td key={index}>
                                 {sales?.new?.toLocaleString(undefined, {
-                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 0,
                                 })}
                               </td>
                             ),
@@ -3922,7 +3922,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                             (sales, index) => (
                               <td key={index}>
                                 {sales?.Recurring?.toLocaleString(undefined, {
-                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 0,
                                 })}
                               </td>
                             ),
@@ -4262,7 +4262,7 @@ const gstPurchase = (
                             (sales, index) => (
                               <td key={index}>
                                 {sales?.new?.toLocaleString(undefined, {
-                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 0,
                                 })}
                               </td>
                             ),
@@ -4274,7 +4274,7 @@ const gstPurchase = (
                             (sales, index) => (
                               <td key={index}>
                                 {sales?.recurring?.toLocaleString(undefined, {
-                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 0,
                                 })}
                               </td>
                             ),
