@@ -286,7 +286,7 @@ function Index() {
                           key={index}
                           className={`${styles.table_row} table_row`}
                         >
-                          <td>{buyer.company.customerId}</td>
+                          <td>{buyer?.company?.customerId ? buyer?.company?.customerId : buyer?.company?.temporaryCustomerId}</td>
                           <td
                             className={`${styles.buyerName}`}
                             onClick={() => {
@@ -305,24 +305,23 @@ function Index() {
                           <td>{buyer.existingCustomer ? 'Yes' : 'No'}</td>
                           <td>
                             <span
-                              className={`${styles.status} ${
-                                buyer.queue === 'Rejected'
+                              className={`${styles.status} ${buyer.queue === 'Rejected'
                                   ? styles.rejected
                                   : buyer.queue === 'ReviewQueue'
-                                  ? styles.review
-                                  : buyer.queue === 'CreditQueue'
-                                  ? styles.approved
-                                  : styles.rejected
-                              }`}
+                                    ? styles.review
+                                    : buyer.queue === 'CreditQueue'
+                                      ? styles.approved
+                                      : styles.rejected
+                                }`}
                             ></span>
 
                             {buyer.queue === 'Rejected'
                               ? 'Rejected'
                               : buyer.queue === 'ReviewQueue'
-                              ? 'Review'
-                              : buyer.queue === 'CreditQueue'
-                              ? 'Approved'
-                              : 'Rejected'}
+                                ? 'Review'
+                                : buyer.queue === 'CreditQueue'
+                                  ? 'Approved'
+                                  : 'Rejected'}
                           </td>
                         </tr>
                       ))}
