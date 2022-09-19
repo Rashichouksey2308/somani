@@ -667,6 +667,12 @@ body.light-mode .value {
 body.dark-mode .value {
   color: #ffffff80;
 }
+body.light-mode .td_value {
+  color: #111111 !important;
+}
+body.dark-mode .td_value {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
 body.dark-mode .value_card {
   background: #434e61;
 }

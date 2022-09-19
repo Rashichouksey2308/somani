@@ -103,36 +103,35 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                       <td className="text-center">
                         {checkNan(
                           (latestIncomeData?.revenue?.revenueFromOperations /
-                            (latestBalanceData?.assets?.propertyPlantAndEquipment +
-                              latestCashData?.previous?.propertyPlantAndEquipment /
+                            ((latestBalanceData?.assets?.propertyPlantAndEquipment + latestCashData?.previous?.propertyPlantAndEquipment) /
                               2)))}
 
                       </td>
                       <td className="text-center">
                         {checkNan(
                           (previousIncomeData?.revenue?.revenueFromOperations /
-                            (previousBalanceData?.assets?.propertyPlantAndEquipment +
-                              previousCashData?.previous?.propertyPlantAndEquipment /
+                            ((previousBalanceData?.assets?.propertyPlantAndEquipment +
+                              previousCashData?.previous?.propertyPlantAndEquipment) /
                               2)))}
 
                       </td>
                       <td className="text-center">
                         {checkNan(
                           (lastIncomeData?.revenue?.revenueFromOperations /
-                            (lastBalanceData?.assets?.propertyPlantAndEquipment +
-                              lastCashData?.previous?.propertyPlantAndEquipment / 2)))}
+                            ((lastBalanceData?.assets?.propertyPlantAndEquipment +
+                              lastCashData?.previous?.propertyPlantAndEquipment) / 2)))}
 
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction((latestIncomeData?.revenue?.revenueFromOperations /
-                          (latestBalanceData?.assets?.propertyPlantAndEquipment +
-                            latestCashData?.previous?.propertyPlantAndEquipment /
+                          ((latestBalanceData?.assets?.propertyPlantAndEquipment +
+                            latestCashData?.previous?.propertyPlantAndEquipment) /
                             2)), (previousIncomeData?.revenue?.revenueFromOperations /
-                              (previousBalanceData?.assets?.propertyPlantAndEquipment +
-                                previousCashData?.previous?.propertyPlantAndEquipment /
+                              ((previousBalanceData?.assets?.propertyPlantAndEquipment +
+                                previousCashData?.previous?.propertyPlantAndEquipment) /
                                 2)), (lastIncomeData?.revenue?.revenueFromOperations /
-                                  (lastBalanceData?.assets?.propertyPlantAndEquipment +
-                                    lastCashData?.previous?.propertyPlantAndEquipment /
+                                  ((lastBalanceData?.assets?.propertyPlantAndEquipment +
+                                    lastCashData?.previous?.propertyPlantAndEquipment) /
                                     2)))}
 
                       </td>
