@@ -1340,7 +1340,7 @@ export default function Index({
                           alt="Pdf"
                         />
                       </td>
-                      {/* <td className={styles.doc_row}>28-02-2022,5:30 PM</td> */}
+                      <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                       <td>
                         {billOfEntryData.document1 === null ? (
                           <>
@@ -1385,7 +1385,7 @@ export default function Index({
                           alt="Pdf"
                         />
                       </td>
-                      {/* <td className={styles.doc_row}>28-02-2022,5:30 PM</td> */}
+                      <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                       <td>
                         {billOfEntryData?.document2 === null ? (
                           <>
