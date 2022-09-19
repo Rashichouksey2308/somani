@@ -53,13 +53,14 @@ export default function Index({
   })
 
   const saveDate = (value, name) => {
-    if (name = 'vesselArrivaldate') {
-      setArrivalDate(value)
-    }
-    // console.log(value, name, 'save date')
+
+    console.log(value, name, 'save date')
     const d = new Date(value)
     let text = d.toISOString()
     onChangeDischargeOfCargo(name, text)
+    if (name = 'vesselArrivaldate') {
+      setArrivalDate(value)
+    }
   }
 
   const onChangeDischargeOfCargo = (name, text) => {

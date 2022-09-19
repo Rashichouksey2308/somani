@@ -56,7 +56,7 @@ export default function Home() {
   const [companyName, setCompanyName] = useState("")
   const [vesselUpdatedAt, setVesselUpdatedAt] = useState("")
   const [partShipment, setPartshipment] = useState()
-  const [currency, setCurrency] = useState("INR")
+  const [currency, setCurrency] = useState("USD")
   const [VesselToAdd, serVesselDataToAdd] = useState()
   const [shipmentTypeBulk, setShipmentTypeBulk] = useState('Bulk')
   const [vesselData, setVesselData] = useState()
@@ -75,11 +75,11 @@ const [isFieldInFocus, setIsFieldInFocus] = useState([{value:false}])
         []
       ).length , "Vessel123")
 
-    setCurrency(_get(
-      Vessel,
-      "data[0].order.orderCurrency",
-      "INR"
-    ))
+    // setCurrency(_get(
+    //   Vessel,
+    //   "data[0].order.orderCurrency",
+    //   "USD"
+    // ))
     setVesselUpdatedAt(_get(
       Vessel,
       "data[0].updatedAt",
