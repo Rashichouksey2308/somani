@@ -78,7 +78,7 @@ function Index({
  
   console.log(isFieldInFocus, 'containerExcel',list)
 
-  // console.log(vesselData,'vesselData')
+  console.log(vesselData,'vesselData')
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -284,7 +284,7 @@ function Index({
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                             className={`${styles.input_field} border-left-0 input form-control`}
-                            value={convertValue(val.orderValue)?.toLocaleString("en-IN")}
+                            value={_get(vesselData,'data[0].order.marginMoney.calculation.orderValue','')}
                             // value={Number(val.orderValue).toLocaleString("en-IN")}
                             onChange={(e) =>
                               OnVesselBasicFieldsChangeHandler(e, index)

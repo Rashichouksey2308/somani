@@ -139,7 +139,7 @@ function Index({
                         <div className="d-flex">
                           <DateCalender
                             name="dateOfExpiry"
-                            defaultDate={lcData?.dateOfExpiry?.split('T')[0]}
+                            defaultDate={lcData?.dateOfExpiry}
                             saveDate={saveDate}
                             labelName="(31D) Date Of Expiry"
                             dateFormat={'dd-MM-yyyy'}
@@ -680,9 +680,7 @@ function Index({
                         <div className="d-flex">
                           <DateCalender
                             name="latestDateOfShipment"
-                            defaultDate={
-                              lcData?.latestDateOfShipment?.split('T')[0]
-                            }
+                            defaultDate={lcData?.latestDateOfShipment}
                             saveDate={saveDate}
                             labelName="(44C) Latest Date Of Shipment"
                           />
