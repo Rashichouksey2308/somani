@@ -12,12 +12,13 @@ import { useSelector } from 'react-redux'
 import Image from 'next/image'
 
 export default function Index({
-  customData,
-  OrderId,
-  uploadDoc,
-  setComponentId,
-  componentId,
-}) {
+  
+}) 
+{
+  const [serviceType, setServiceType] = useState('goods')
+  console.log(serviceType , 'this is service')
+
+ 
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -73,7 +74,19 @@ export default function Index({
                       OUTSTANDING AMOUNT
                     </div>
                     <span className={`${styles.rate}`}>INR 10 CR</span>
+                    
+                   
                   </div>
+                  <div className={`${styles.tooltip} `}>
+                  <img
+                    //style={{marginLeft:'300px', marginTop:'-140px' , marginRight:'50px' }}
+                    className={`${styles.info_circle} img-fluid`}
+                    src="/static/info-circle.svg"
+                  />
+
+                  <div className={`${styles.tooltiptext}`}>Ex. Margin Money</div>
+
+                </div>
                 </div>
                 <div
                   className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
@@ -297,9 +310,11 @@ export default function Index({
                   <div className="d-flex">
                     <select
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                      onChange={(e) => setServiceType(e.target.value) 
+                       }
                     >
-                      <option value="">Goods</option>
-                      <option value="">Services</option>
+                      <option value="goods">Goods</option>
+                      <option value="services">Services</option>
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Services/Goods<strong className="text-danger">*</strong>
@@ -315,7 +330,7 @@ export default function Index({
                   </div>
                 </div>
               </div>
-
+              { serviceType === 'goods' ? 
               <div className={`${styles.bill_landing} card border_color mt-4`}>
                 <div
                   className={`${styles.vessel_card} align-items-center border_color head_container d-flex bg-transparent`}
@@ -383,11 +398,30 @@ export default function Index({
                     className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                     style={{ marginTop: '37px' }}
                   >
-                    <p className={` label_heading`}>Currency</p>
+                    <p className={` label_heading`}>Currency <strong className="text-danger">*</strong></p>
                     <span>USD</span>
+                  </div>
+                  <div
+                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                  >
+                    <input
+                      className={`${styles.input_field} input form-control`}
+                      type="number"
+                      required
+                      onKeyDown={(evt) =>
+                        ['e', 'E', '+', '-'].includes(evt.key) &&
+                        evt.preventDefault()
+                      }
+                    />
+
+                    <label className={`${styles.label_heading} label_heading`}>
+                     Conversion Rate{' '}
+                      <strong className="text-danger">*</strong>
+                    </label>
                   </div>
                 </div>
               </div>
+ : ''}
               <div className={`${styles.bill_landing} card border_color mt-4`}>
                 <div
                   className={`${styles.vessel_card} align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
@@ -714,6 +748,7 @@ export default function Index({
                   </div>
                 </div>
               </div>
+              
 
               <Row className="mt-4">
                 <Col lg={12}>
