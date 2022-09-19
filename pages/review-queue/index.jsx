@@ -265,7 +265,7 @@ function Index() {
                         >
                           {buyer.queue === 'ReviewQueue' ? (
                             <>
-                              <td>{buyer.company.customerId}</td>
+                              <td>{buyer.company.customerId ? buyer.company.customerId : buyer.company.temporaryCustomerId}</td>
                               <td
                                 className={`${styles.buyerName}`}
                                 onClick={() => {
