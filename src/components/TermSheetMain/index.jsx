@@ -163,7 +163,7 @@ function Index() {
                       <th>EXISTING CUSTOMER</th>
                       <th>CREATED ON</th>
                       <th>STATUS</th>
-                      <th>PREVIEW CAM</th>
+                      <th>PREVIEW</th>
                     </tr>
                   </thead>
                   <tbody>
