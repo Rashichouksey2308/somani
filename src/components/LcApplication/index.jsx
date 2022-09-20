@@ -783,7 +783,7 @@ function Index({
 
                           <img
                             src="/static/delete 2.svg"
-                            className="ml-4"
+                            className={`${styles.delete_image} ml-4`}
                             alt="delete"
                             onClick={() => {
                               deleteLcDoc(index)
@@ -862,7 +862,7 @@ function Index({
 
                           <img
                             src="/static/delete 2.svg"
-                            className="ml-4"
+                            className={`${styles.delete_image} ml-4`}
                             alt="delete"
                             onClick={() => {
                               deleteLcCondition(index)
