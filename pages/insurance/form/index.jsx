@@ -636,7 +636,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
 
                              value={ isFieldInFocus ?
                               quotationData?.sumInsured :
-                             quotationData?.sumInsured +  ` Cr`}
+                             Number(quotationData?.sumInsured).toLocaleString('en-IN') +  ` Cr`}
                               // value={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr')}
                               onChange={(e) => {
                                 saveQuotationData(e.target.name,  e.target.value)
@@ -909,7 +909,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
 
                               value={ isFieldInFocus ?
                                 quotationData?.sumInsured :
-                             quotationData?.sumInsured + ` Cr`}
+                             Number(quotationData?.sumInsured)?.toLocaleString('en-IN') + ` Cr`}
                               // value={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr')}
                               onChange={(e) =>
                                 saveQuotationData(

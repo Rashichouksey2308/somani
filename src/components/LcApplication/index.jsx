@@ -749,7 +749,7 @@ function Index({
                           {getSn(index)}
                         </div>
                         <Form.Control
-                          className={`${styles.paragraph} input`}
+                          className={`${styles.paragraph} pt-0 input`}
                           as="textarea"
                            value={comment.value}
                            rows={3}
@@ -783,7 +783,7 @@ function Index({
 
                           <img
                             src="/static/delete 2.svg"
-                            className="ml-4"
+                            className={`${styles.delete_image} ml-4`}
                             alt="delete"
                             onClick={() => {
                               deleteLcDoc(index)
@@ -828,7 +828,7 @@ function Index({
                           {getSn(index)}
                         </div>
                         <Form.Control
-                          className={`${styles.paragraph} input`}
+                          className={`${styles.paragraph} pt-0 input`}
                           as="textarea"
                           value={comment.value}
                           rows={3}
@@ -862,7 +862,7 @@ function Index({
 
                           <img
                             src="/static/delete 2.svg"
-                            className="ml-4"
+                            className={`${styles.delete_image} ml-4`}
                             alt="delete"
                             onClick={() => {
                               deleteLcCondition(index)
