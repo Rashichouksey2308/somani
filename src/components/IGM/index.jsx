@@ -97,7 +97,7 @@ export default function Index({
 
   const [orderData, setOrderData] = useState()
   // let balanceQuantity = _get(TransitDetails, 'data[0].order.quantity', '')
-
+console.log("test")
   // const calculateBalaceQuantity = () => {
   //   let balanceQuantity = _get(TransitDetails, 'data[0].order.quantity', '')
   // _get(
