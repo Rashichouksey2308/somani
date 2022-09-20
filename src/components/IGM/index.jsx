@@ -251,16 +251,17 @@ export default function Index({
 
     setIgmList(newArray)
   }
-  const onAddBlNumber = (index) => {
+  const onAddBlNumber = (index,index2) => {
     let newIgmList = { ...igmList }
-    console.log(newIgmList.igmDetails[index], 'newIgmList.igmDetails')
-    newIgmList.igmDetails[0].blNumber.push({
+    console.log(newIgmList, 'newIgmList.igmDetails')
+    newIgmList.igmDetails[index].blNumber.push({
       blNumber: number,
       BlDate: new Date(),
       quantity: '',
     })
     setIgmList(newIgmList)
   }
+  console.log(igmList,"igmList1223123")
   const onRemoveBlNumber = (index, index2) => {
     let tempArray = { ...igmList }
     tempArray.igmDetails[index].blNumber.pop(index2)
@@ -888,7 +889,7 @@ export default function Index({
                                   />
                                   {item.blNumber.length >= index2 ? (
                                     <img
-                                      onClick={() => onAddBlNumber(index2)}
+                                      onClick={() => onAddBlNumber(index,index2)}
                                       src="/static/add-btn.svg"
                                       className={`${styles.delete_image} img-fluid ml-5`}
                                       alt="Add"
@@ -973,7 +974,7 @@ export default function Index({
                                     />
                                     {item.blNumber.length >= index2 ? (
                                       <img
-                                        onClick={() => onAddBlNumber(index2)}
+                                        onClick={() => onAddBlNumber(index,index2)}
                                         src="/static/add-btn.svg"
                                         className={`${styles.delete_image} img-fluid ml-5`}
                                         alt="Add"
