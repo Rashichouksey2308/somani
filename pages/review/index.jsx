@@ -7629,7 +7629,7 @@ const table2 = (sat, balance, complienceFilter) => {
       </thead>
       <tbody>
         <tr>
-          <td className={styles.firstCell} rowSpan={length + 1}>
+          <td className={`${styles.firstCell} text-nowrap`} rowSpan={length + 3}>
             {complienceFilter == 'StatutoryCompliance'
               ? `Statutory Compliance`
               : complienceFilter == 'All'
@@ -7647,11 +7647,11 @@ const table2 = (sat, balance, complienceFilter) => {
           sat?.map((alert, index) => {
             return (
               <tr key={index}>
-                <td> {alert.alert}</td>
-                <td> {alert.severity}</td>
-                <td> {alert.source}</td>
-                <td> {alert.idType}</td>
-                <td> {alert.value}</td>
+                <td className='text-capitalize'> {alert.alert}</td>
+                <td className='text-capitalize'> {alert.severity}</td>
+                <td className='text-capitalize'> {alert.source}</td>
+                <td className='text-capitalize'> {alert.idType}</td>
+                <td className='text-capitalize'> {alert.value}</td>
               </tr>
             )
           })
@@ -7659,11 +7659,11 @@ const table2 = (sat, balance, complienceFilter) => {
           balance?.map((alert, index) => {
             return (
               <tr key={index}>
-                <td> {alert.alert}</td>
-                <td> {alert.severity}</td>
-                <td> {alert.source}</td>
-                <td> {alert.idType}</td>
-                <td> {alert.value}</td>
+                <td className='text-capitalize'> {alert.alert}</td>
+                <td className='text-capitalize'> {alert.severity}</td>
+                <td className='text-capitalize'> {alert.source}</td>
+                <td className='text-capitalize'> {alert.idType}</td>
+                <td className='text-capitalize'> {alert.value}</td>
               </tr>
             )
           })}
@@ -7673,11 +7673,11 @@ const table2 = (sat, balance, complienceFilter) => {
               sat?.map((alert, index) => {
                 return (
                   <tr key={index}>
-                    <td> {alert.alert}</td>
-                    <td> {alert.severity}</td>
-                    <td> {alert.source}</td>
-                    <td> {alert.idType}</td>
-                    <td> {alert.value}</td>
+                    <td className='text-capitalize'> {alert.alert}</td>
+                    <td className='text-capitalize'> {alert.severity}</td>
+                    <td className='text-capitalize'> {alert.source}</td>
+                    <td className='text-capitalize'> {alert.idType}</td>
+                    <td className='text-capitalize'> {alert.value}</td>
                   </tr>
                 )
               })}
@@ -7685,11 +7685,11 @@ const table2 = (sat, balance, complienceFilter) => {
               balance?.map((alert, index) => {
                 return (
                   <tr key={index}>
-                    <td> {alert.alert}</td>
-                    <td> {alert.severity}</td>
-                    <td> {alert.source}</td>
-                    <td> {alert.idType}</td>
-                    <td> {alert.value}</td>
+                    <td className='text-capitalize'> {alert.alert}</td>
+                    <td className='text-capitalize'> {alert.severity}</td>
+                    <td className='text-capitalize'> {alert.source}</td>
+                    <td className='text-capitalize'> {alert.idType}</td>
+                    <td className='text-capitalize'> {alert.value}</td>
                   </tr>
                 )
               })}
