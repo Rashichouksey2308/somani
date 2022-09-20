@@ -14,12 +14,16 @@ import { toast } from 'react-toastify'
 import UploadOther from '../UploadOther/index'
 import { ViewDocument } from 'redux/ViewDoc/action'
 import moment from 'moment'
+import { GetAllInspection } from '../../redux/Inspections/action'
 // import ThirdPartyPopUp from './ThirdPartyPopUp'
 
 export default function Index({ addButton }) {
 
   const dispatch = useDispatch()
-
+  useEffect(() => {
+    let id = sessionStorage.getItem('inspectionId')
+   dispatch(GetAllInspection(`?inspectionId=${id}`))
+  },[])
   const {allInspection} = useSelector((state)=>state.Inspection)
 
   
@@ -30,6 +34,7 @@ export default function Index({ addButton }) {
   },[allInspection
 
   ])
+
   console.log(inspectionData,"inspectionData3333")
   const [excelFile, setExcelFile] = useState([])
 
@@ -90,42 +95,37 @@ export default function Index({ addButton }) {
   const handleShow = () => setShow(true)
 
   const [inspectionDetails, setInspectionData] = useState({
-    loadPortInspection: inspectionData?.thirdPartyInspection?.loadPortInspection
-      ? inspectionData?.thirdPartyInspection?.loadPortInspection
-      : (inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort == 'Load Port' || inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort == 'Both' ) ? true : false,
-    dischargePortInspection: inspectionData?.thirdPartyInspection?.dischargePortInspection
-      ? inspectionData?.thirdPartyInspection?.dischargePortInspection
-      : (inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort == 'Discharge Port' || inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort == 'Both' ) ? true : false,
+    loadPortInspection: false,
+    dischargePortInspection: false,
     loadPortInspectionDetails: {
       numberOfContainer:
-        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.numberOfContainer,
+       "",
       inspectionPort:
-        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectionPort,
+       "",
       inspectedBy:
-        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectedBy,
+        "",
       startDate:
-        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.startDate,
+        "",
       specialMention:
-        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.specialMention,
+      "",
     },
     dischargePortInspectionDetails: {
-      numberOfContainer:
-        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.numberOfContainer,
+      numberOfContainer:"",
       inspectionPort:
-        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectionPort,
+       "",
       inspectedBy:
-        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectedBy,
+       "",
       startDate:
-        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.startDate,
+       "",
       specialMention:
-        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.specialMention,
+        "",
     },
   })
 
   console.log(inspectionDetails, 'THIS IS INSPECTION DEETS')
 
   useEffect(() => {
-    console.log(inspectionData, 'Ins2')
+   
     setInspectionData({
       loadPortInspection: inspectionData?.thirdPartyInspection?.loadPortInspection
       ? inspectionData?.thirdPartyInspection?.loadPortInspection
@@ -148,7 +148,7 @@ export default function Index({ addButton }) {
     },
     dischargePortInspectionDetails: {
       numberOfContainer:
-        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.numberOfContainer,
+       inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.numberOfContainer,
       inspectionPort:
         inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectionPort,
       inspectedBy:
@@ -159,7 +159,7 @@ export default function Index({ addButton }) {
         inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.specialMention,
     },
     })
-  }, [inspectionData])
+  }, [inspectionData,allInspection])
   
 
   const [documents, setDocuments] = useState({
@@ -779,7 +779,7 @@ export default function Index({ addButton }) {
       }
     }
   }
-  // console.log(portType, 'portType')
+  
 
   useEffect(() => {
     if (inspectionData) {
@@ -805,7 +805,7 @@ export default function Index({ addButton }) {
       }
     }
   }, [inspectionData])
-
+  
   return (
     <>
       <div
@@ -874,14 +874,8 @@ export default function Index({ addButton }) {
 
                       // setBothField(!bothField)
                     }}
-                    defaultChecked={
-                      inspectionData?.thirdPartyInspection?.loadPortInspection
-                        ? inspectionData?.thirdPartyInspection
-                            ?.loadPortInspection
-                        : (inspectionData?.order?.termsheet?.transactionDetails
-                            ?.typeOfPort == 'Both' ||
-                          inspectionData?.order?.termsheet?.transactionDetails
-                            ?.typeOfPort == 'Load Port') ||inspectionData?.thirdPartyInspection?.loadPortInspection
+                    checked={
+                        inspectionDetails.loadPortInspection
                         ? true
                         : false
                     }
@@ -898,15 +892,8 @@ export default function Index({ addButton }) {
                       handlePortType(e.target.name, e.target.checked)
                       // setBothField(!bothField)
                     }}
-                    defaultChecked={
-                      inspectionData?.thirdPartyInspection
-                        ?.dischargePortInspection
-                        ? inspectionData?.thirdPartyInspection
-                            ?.dischargePortInspection
-                        : (inspectionData?.order?.termsheet?.transactionDetails
-                            ?.typeOfPort == 'Both' ||
-                          inspectionData?.order?.termsheet?.transactionDetails
-                            ?.typeOfPort == 'Discharge Port') || inspectionData?.thirdPartyInspection?.dischargePortInspection
+                    checked={
+                      inspectionDetails.dischargePortInspection
                         ? true
                         : false
                     }
@@ -1146,13 +1133,15 @@ export default function Index({ addButton }) {
           ) : null}
           {inspectionDetails.dischargePortInspection
             ? Discharge(
+               
                 inspectionData,
+                inspectionDetails,
                 saveInspectionDetails,
                 saveDate,
                 setStartDate,
                 setDateStartFrom,
                 handleShow,
-                inspectionDetails
+               
               )
             : ''}
           <div className={`${styles.main} vessel_card card border-color`}>
