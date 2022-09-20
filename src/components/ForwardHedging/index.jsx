@@ -251,6 +251,7 @@ export default function Index() {
     let task = 'save'
     dispatch(UpdateForwardHedging({ obj, task }))
   }
+  console.log(list,"listlistlistlist")
   const validation=()=>{
     let isOk=true
     for(let i=0;i<list.length;i++){
@@ -327,7 +328,7 @@ export default function Index() {
    
     }
     }
-    return isOK
+    return isOk
   }
   const handleSubmit = () => {
     if(validation()){
