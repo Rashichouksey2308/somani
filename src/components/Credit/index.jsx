@@ -126,7 +126,7 @@ const index = ({
       
       }else{
         if (name == 'primaryBank') {
-          val[name] = false
+           val[name] = false
         }
       }
     
