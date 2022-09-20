@@ -65,6 +65,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
   const [salesUnit, setSalesUnit] = useState(10000000)
   const [purchasesUnit, setPurchasesUnit] = useState(10000000)
 
+  const [isChartFilterMonthly, setIsChartFilterMonthly] = useState(true)
+
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
@@ -1387,13 +1389,21 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           <div className="d-flex align-items-center">
             <h5 className={`${styles.light} accordion_Text`}>Filter By: </h5>
             <select
+              value={isChartFilterMonthly}
               className={`${styles.selectHead} accordion_body accordion_DropDown form-select`}
               aria-label="Default select example"
+              onChange={(e) => {
+                if (e.target.value = 'monthly') {
+                  setIsChartFilterMonthly(true)
+                } else {
+                  setIsChartFilterMonthly(false)
+                }
+              }}
             >
-              <option selected value="Quarterly">
+              <option selected value="monthly">
                 Monthly
               </option>
-              <option disabled value="Quarterly">
+              <option value="Quarterly">
                 Quarterly
               </option>
             </select>
@@ -4164,9 +4174,9 @@ const gstPurchase = (
                                 {sales
                                   ?.toFixed(2)
                                 } %
-                              </td> 
+                              </td>
                             ),
-                          )} 
+                          )}
                         </tr>
                       </tbody>
                     </table>
