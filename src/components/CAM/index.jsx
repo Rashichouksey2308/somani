@@ -852,7 +852,7 @@ const basicInfo = (camData, orderDetails) => {
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label1 ml-5 pl-5`}>
-                    Transaction Period
+                    Transaction Period (Days)
                   </span>
                   <span className={`${styles.value} value`}>
                     {camData?.transactionPeriodDays}
@@ -1413,7 +1413,7 @@ const creditProfile = (
           aria-expanded="true"
           aria-controls="creditProfile"
         >
-          <h2 className="mb-0">Operational Details</h2>
+          <h2 className="mb-0">Credit Profile</h2>
           <span>+</span>
         </div>
         <div

@@ -252,10 +252,10 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
             <Col md={7} className={styles.right}>
               <div> <ol type="A">
                 <li>
-                  <p className="text_sales">All the custom clearance formalities, Duties, Taxes and other charges related to import of cargo and custom clearance shall be to Buyer’s account and shall be solely the Buyer’s responsibility.</p>
+                  <p className="text_sales">All the custom clearance formalities, Duties, Taxes and other charges related to import of cargo and custom clearance shall be to Buyer's account and shall be solely the Buyer's responsibility.</p>
                 </li>
                 <li>
-                  <p className="text_sales">The Buyer shall pay for entire cargo within 90 days from the date of B/L or 60 days from the date of discharge of vessel at discharge port, whichever is earlier. The Buyer shall make full payment of the material to be lifted through TT remittance. The Seller shall release the part material to Buyer upon receipt of part payment for the part quantity of material to be lifted after obtaining delivery order or Written Release Order from the LC opening bank as per CMA. The delivery order instructions shall be issued for the part material, for which the payment has been made within one banking day. However, Seller will provide first delivery order in Advance as per buyer’s request.</p>
+                  <p className="text_sales">The Buyer shall pay for entire cargo within <u>90 days</u> from the date of B/L or <u>60 days</u> from the date of discharge of vessel at discharge port, whichever is earlier. The Buyer shall make full payment of the material to be lifted through TT remittance. The Seller shall release the part material to Buyer upon receipt of part payment for the part quantity of material to be lifted after obtaining delivery order or Written Release Order from the LC opening bank as per CMA. The delivery order instructions shall be issued for the part material, for which the payment has been made within one banking day. However, Seller will provide first delivery order in Advance as per buyer's request.</p>
                 </li>
                 <li>
                   <p className="text_sales">The material shall be stored at Discharge Port for which the cost of such Rent, Claim, and penalty shall be fully borne by the End User. Upon release of payment for the value of each B/L Quantity Release Order from the Financing Bank shall be sent to the CMA Agent, within one banking day
@@ -264,21 +264,16 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                 </li>
                 <li>
                   <p className="text_sales">Documents to be provided to Buyer
-                    <ol type="1">
-                      <li>  <p className="text_sales">The Seller‘s Commercial Invoice;</p> </li>
-                      <li>  <p className="text_sales">Full set of  3/3  originals  of Bills of Lading,</p> </li>
-                      <li>  <p className="text_sales">Certificate of Quality
-                        ;</p> </li>
-
-                      <li>  <p className="text_sales">Certificate of Weight,
-                      </p> </li>
-                      <li>  <p className="text_sales">Certificate of Origin.</p> </li>
-                      <li>  <p className="text_sales">Copy of Marine Insurance Certificate / Insurance Policy</p> </li>
+                    <ol type="1" className='pl-0'>
+                      <li><p className="text_sales">The Seller's Commercial Invoice;</p> </li>
+                      <li><p className="text_sales">Full set of  3/3  originals  of Bills of Lading,</p></li>
+                      <li><p className="text_sales">Certificate of Quality;</p></li>
+                      <li><p className="text_sales">Certificate of Weight,</p></li>
+                      <li><p className="text_sales">Certificate of Origin.</p> </li>
+                      <li><p className="text_sales">Copy of Marine Insurance Certificate / Insurance Policy</p></li>
                     </ol>
-
                   </p>
                 </li>
-
               </ol>
                 <p className="text_sales">All the above documents are subject to receipt from shipper.</p></div>
             </Col>
@@ -379,7 +374,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                 </li>
                 <li>
                   <p className="text_sales">The End User and Manufacturer/shipper shall have direct recourse to each other for matters including but not limited to the following:
-                    <ol type="a">
+                    <ol type="a" className='pl-0'>
                       <li><p>For all quantity and quality claims/ issues pertaining to material supplied by Manufacturer/shipper;</p></li>
                       <li><p>Any express or implied warranty claim for the quality of material supplied by Manufacturer/shipper;
                       </p></li>

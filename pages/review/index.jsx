@@ -909,12 +909,24 @@ function Index() {
   }
 
   const [debtData, setDebtData] = useState([
-    {
-      bankName: orderList?.company?.debtProfile?.bankName,
-      conduct: orderList?.company?.debtProfile?.conduct,
-      limit: orderList?.company?.debtProfile?.limit,
-      limitType: orderList?.company?.debtProfile?.limitType,
-    },
+    
+  ])
+  useEffect(() => {
+    if(orderList?.company?.debtProfile.length>0){
+      let temp=[]
+      orderList?.company?.debtProfile.forEach((val,index)=>{
+         temp.push({
+         bankName: val?.bankName,
+         conduct: val?.conduct,
+         limit: val?.limit,
+         limitType: val?.limitType,
+         primaryBank:val?.primaryBank
+         })
+      })
+      setDebtData([...temp])
+    }
+  },[
+    orderList?.company?.debtProfile
   ])
 // console.log(debtData, 'debtData')
   // const [personData, setPersonData] = useState([
@@ -957,12 +969,12 @@ function Index() {
     })
     setGroupExposureData(groupExposureArr)
 
-    let debtArr = []
-    orderList?.company?.debtProfile?.forEach((element) => {
-      // console.log(element,"useEE")
-      debtArr.push(element)
-    })
-    setDebtData([...debtArr])
+    // let debtArr = []
+    // orderList?.company?.debtProfile?.forEach((element) => {
+    //   // console.log(element,"useEE")
+    //   debtArr.push(element)
+    // })
+    // setDebtData([...debtArr])
 
     let addressArr = []
     orderList?.company?.keyAddress?.forEach((element) => {
@@ -1491,6 +1503,9 @@ function Index() {
     }
   }
   console.log(selectedTab, 'specificationTable')
+  const onPreviousClick = () => {
+    Router.push('/credit-queue')
+  }
   const onBack = () => {
     let list = document.getElementsByClassName('nav-tabs')
     let tab = document.getElementsByClassName('tab-content')
@@ -7493,11 +7508,12 @@ function Index() {
       {selectedTab == 'Profile' ? (
         <DownloadBar
           downLoadButtonName={`MCA Report`}
-          isPrevious={false}
-          leftButtonName={``}
+          isPrevious={true}
+          leftButtonName={`Previous`}
           isApprove={true}
           rightButtonName={`Next`}
           handleApprove={onNext}
+          handleUpdate={onPreviousClick}
           handleReject={() => {
             console.log('download pdf')
           }}
@@ -7613,7 +7629,7 @@ const table2 = (sat, balance, complienceFilter) => {
       </thead>
       <tbody>
         <tr>
-          <td className={styles.firstCell} rowSpan={length + 1}>
+          <td className={`${styles.firstCell} text-nowrap`} rowSpan={length + 3}>
             {complienceFilter == 'StatutoryCompliance'
               ? `Statutory Compliance`
               : complienceFilter == 'All'
@@ -7631,11 +7647,11 @@ const table2 = (sat, balance, complienceFilter) => {
           sat?.map((alert, index) => {
             return (
               <tr key={index}>
-                <td> {alert.alert}</td>
-                <td> {alert.severity}</td>
-                <td> {alert.source}</td>
-                <td> {alert.idType}</td>
-                <td> {alert.value}</td>
+                <td className='text-capitalize'> {alert.alert}</td>
+                <td className='text-capitalize'> {alert.severity}</td>
+                <td className='text-capitalize'> {alert.source}</td>
+                <td className='text-capitalize'> {alert.idType}</td>
+                <td className='text-capitalize'> {alert.value}</td>
               </tr>
             )
           })
@@ -7643,11 +7659,11 @@ const table2 = (sat, balance, complienceFilter) => {
           balance?.map((alert, index) => {
             return (
               <tr key={index}>
-                <td> {alert.alert}</td>
-                <td> {alert.severity}</td>
-                <td> {alert.source}</td>
-                <td> {alert.idType}</td>
-                <td> {alert.value}</td> 
+                <td className='text-capitalize'> {alert.alert}</td>
+                <td className='text-capitalize'> {alert.severity}</td>
+                <td className='text-capitalize'> {alert.source}</td>
+                <td className='text-capitalize'> {alert.idType}</td>
+                <td className='text-capitalize'> {alert.value}</td>
               </tr>
             )
           })}
@@ -7657,11 +7673,11 @@ const table2 = (sat, balance, complienceFilter) => {
               sat?.map((alert, index) => {
                 return (
                   <tr key={index}>
-                    <td> {alert.alert}</td>
-                    <td> {alert.severity}</td>
-                    <td> {alert.source}</td>
-                    <td> {alert.idType}</td>
-                    <td> {alert.value}</td>
+                    <td className='text-capitalize'> {alert.alert}</td>
+                    <td className='text-capitalize'> {alert.severity}</td>
+                    <td className='text-capitalize'> {alert.source}</td>
+                    <td className='text-capitalize'> {alert.idType}</td>
+                    <td className='text-capitalize'> {alert.value}</td>
                   </tr>
                 )
               })}
@@ -7669,11 +7685,11 @@ const table2 = (sat, balance, complienceFilter) => {
               balance?.map((alert, index) => {
                 return (
                   <tr key={index}>
-                    <td> {alert.alert}</td>
-                    <td> {alert.severity}</td>
-                    <td> {alert.source}</td>
-                    <td> {alert.idType}</td>
-                    <td> {alert.value}</td>
+                    <td className='text-capitalize'> {alert.alert}</td>
+                    <td className='text-capitalize'> {alert.severity}</td>
+                    <td className='text-capitalize'> {alert.source}</td>
+                    <td className='text-capitalize'> {alert.idType}</td>
+                    <td className='text-capitalize'> {alert.value}</td>
                   </tr>
                 )
               })}

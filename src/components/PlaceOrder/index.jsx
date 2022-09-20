@@ -299,8 +299,8 @@ const Index = () => {
   }
 
   return (
-    <div className="container-fluid p-0">
-      <div className={`${styles.card} accordion_body bg-transparent`}>
+    <div className="container-fluid p-0 accordion_body">
+      <div className={`${styles.card} bg-transparent`}>
         <div className={`${styles.head_container}`}>
           <div className={`${styles.head_header} align-items-center`}>
             <img
@@ -359,7 +359,9 @@ const Index = () => {
           shipment={shipment}
           saveShipmentData={saveShipmentData}
         />
+        <div className='mt-4'>
         <CommonSave onSave={onOrderSave} />
+        </div>
       </div>
     </div>
   )
