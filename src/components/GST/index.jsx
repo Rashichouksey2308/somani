@@ -2798,7 +2798,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </td>
                   </tr>
                 </table>
-                <table
+                {/* <table
                   className={`${styles.table_pricipal} border_color  table`}
                   cellPadding="0"
                   cellSpacing="0"
@@ -2824,9 +2824,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td width="22%">TURNOVER</td>
                     <td width="22%" className='text-nowrap'>% SHARE</td>
 
-                    {/* <td>CUSTOMERS</td>
+                    <td>CUSTOMERS</td>
                     <td>INVOICES</td>
-                    <td>AVG. SALES PER CUSTOMER</td> */}
+                    <td>AVG. SALES PER CUSTOMER</td>
                   </tr>
                   {gstFilteredData &&
                     gstFilteredData?.detail?.purchaseDetailAnnual?.hsnWisePurchase?.map(
@@ -2847,9 +2847,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                             )?.toLocaleString(undefined, {
                               maximumFractionDigits: 2,
                             })}
-                            {/* {sales?.turnover.toLocaleString(undefined, {
+                            {sales?.turnover.toLocaleString(undefined, {
                               minimumFractionDigits: 2,
-                            })} */}
+                            })}
                           </td>
                           <td>
                             {sales?.sharePercent.toLocaleString(undefined, {
@@ -2858,13 +2858,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                             %
                           </td>
 
-                          {/* <td>24</td>
-                      <td>19</td>
-                      <td>1.05</td> */}
+                          <td>24</td>
+                          <td>19</td>
+                          <td>1.05</td>
                         </tr>
                       ),
                     )}
-                </table>
+                </table> */}
               </div>
             </div>
           </div>
