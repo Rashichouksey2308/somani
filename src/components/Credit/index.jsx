@@ -13,6 +13,7 @@ import AddressComponent from './addressComponent'
 import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper'
 import _get from 'lodash/get'
 
+
 const index = ({
   creditDetail,
   keyAddDataArr,
@@ -222,8 +223,95 @@ const index = ({
     dispatch(UploadDocument(fd))
   }
 
+  const addressValidtion =(data)=>{
+    console.log(data,"addressValidtion")
+     if (data.addressType === null || data.addressType === "" || data.addressType === undefined) {
+      let toastMessage = 'Please Select addresss Type'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+     if (data.pinCode === null || data.pinCode === "" || data.pinCode === undefined) {
+      let toastMessage = 'Please add pin code'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+      if (data.state === null || data.state === "" || data.state === undefined) {
+      let toastMessage = 'Please add state'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+      if (data.city === null || data.city === "" || data.city === undefined) {
+      let toastMessage = 'Please add city'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+     if (data.email === null || data.email === "" || data.email === undefined) {
+      let toastMessage = 'Please add email'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+     
+      return false
+    }
+     if (!String(data.email)
+        .toLowerCase()
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        )) {
+      let toastMessage = 'Please add valid email id'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+    return false
+    }
+      if (data.email === null || data.email === "" || data.email === undefined) {
+      let toastMessage = 'Please add email'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+     
+      return false
+    }
+      if (data.contact.number === null || data.contact.number === "" || data.contact.number === undefined) {
+      let toastMessage = 'Please add number'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+     
+      return false
+    }
+    console.log(data.contact.number.length,"data.contact.number.lengt")
+    if (data.contact.number.length<10) {
+      let toastMessage = 'Please add valid number'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+     
+      return false
+    }
+      if (data.completeAddress === null || data.completeAddress === "" || data.completeAddress === undefined) {
+      let toastMessage = 'Please add address'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+     
+      return false
+    }
+    return true
+  }
   const handleClick = () => {
-    keyAddDataArr(keyAddressData)
+    if(addressValidtion(keyAddressData)){
+        keyAddDataArr(keyAddressData)
+    }
+    
   }
 
   const saveDate = (value, name) => {
@@ -1312,6 +1400,7 @@ const index = ({
                             handleChange(e.target.name, e.target.value)
                           }}
                         >
+                          <option >Select an option</option>
                           <option value="Factory">Factory</option>
                           <option value="Registered Address">Registered Address</option>
                           <option value="Warehouse">Warehouse</option>
@@ -1430,18 +1519,22 @@ const index = ({
                           className={`${styles.input_field} input border-left-0 form-control`}
                           required
                           type="tel"
-                          onBlur={(e) => {
-                            if (phoneValidation(e.target.value)) {
-                              mobileFunction(e)
-                            } else {
-                              let toastMessage = 'Enter a valid Phone Number'
-                              if (!toast.isActive(toastMessage.toUpperCase())) {
-                                toast.error(toastMessage, {
-                                  toastId: toastMessage,
-                                })
-                              }
-                            }
-                          }}
+                          name="contact.number"
+                          onChange={(e) => {
+                          mobileFunction(e)
+                        }}
+                          // onBlur={(e) => {
+                          //   if (phoneValidation(e.target.value)) {
+                          //     mobileFunction(e)
+                          //   } else {
+                          //     let toastMessage = 'Enter a valid Phone Number'
+                          //     if (!toast.isActive(toastMessage.toUpperCase())) {
+                          //       toast.error(toastMessage, {
+                          //         toastId: toastMessage,
+                          //       })
+                          //     }
+                          //   }
+                          // }}
                         />
                         <label
                           className={`${styles.label_heading} label_heading`}
