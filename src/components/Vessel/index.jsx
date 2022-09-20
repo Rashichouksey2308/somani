@@ -939,7 +939,7 @@ function Index({
                                   {containerExcel?.originalName}
                                 </span>
                                 <img
-                                  className={`${styles.close_image} mr-2`}
+                                  className={`${styles.close_image} mx-2`}
                                   src="/static/close.svg"
                                   onClick={() => handleExcelClose()}
                                   alt="Close"

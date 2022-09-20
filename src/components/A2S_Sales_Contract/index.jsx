@@ -386,7 +386,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                   </p>
                 </li>
               </ol>
-              <p>All Claims direct or consequential shall be settled directly between End Buyer and Manufacturer/shipper</p>
+              <p>All Claims direct or consequential shall be settled directly between End Buyer and Manufacturer/shipper.</p>
 
             </Col>
           </Row>

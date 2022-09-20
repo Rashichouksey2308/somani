@@ -276,7 +276,7 @@ const toPdf=(data)=>{
                       </ol>
                     </li>
                   </ol>
-                  All Claims direct or consequential shall be settled directly between End Buyer and Manufacturer/shipper
+                  All Claims direct or consequential shall be settled directly between End Buyer and Manufacturer/shipper.
                 </td>
               </tr>
               <tr>

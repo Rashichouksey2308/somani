@@ -747,7 +747,7 @@ function Index({
                           {getSn(index)}
                         </div>
                         <Form.Control
-                          className={`${styles.paragraph} input`}
+                          className={`${styles.paragraph} pt-0 input`}
                           as="textarea"
                           defaultValue={comment}
                           rows={3}
@@ -812,7 +812,7 @@ function Index({
                           {getSn(index)}
                         </div>
                         <Form.Control
-                          className={`${styles.paragraph} input`}
+                          className={`${styles.paragraph} pt-0 input`}
                           as="textarea"
                           defaultValue={comment}
                           rows={3}
