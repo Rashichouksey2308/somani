@@ -126,7 +126,7 @@ const index = ({
       
       }else{
         if (name == 'primaryBank') {
-          val[name] = false
+           val[name] = false
         }
       }
     
@@ -1264,6 +1264,7 @@ const index = ({
                     }}
                     style={{ marginRight: '-15px' }}
                     src="/static/accordion_close_black.svg"
+                    className='image_arrow'
                   />
                 </div>
                 <div

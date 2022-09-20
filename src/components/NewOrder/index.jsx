@@ -65,7 +65,7 @@ const Index = ({ saveOrderData, orderData }) => {
         className="collapse"
         aria-labelledby="orderSummary"
       >
-        <div className={`${styles.dashboard_form} card-body`}>
+        <div className={`${styles.dashboard_form} card-body border_color`}>
           <div className={styles.radio_form}>
             <div className={`${styles.sub_heading} sub_heading`}>
               Transaction Type

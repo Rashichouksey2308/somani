@@ -77,7 +77,7 @@ const IndexPage = () => {
                 <Commodities data={commoditySummary} />
               </div>
               <div className={`${styles.dashboardPadding} col-lg-12 col-md-6`}>
-                <Exposure />
+                <Exposure data={exposureSummary} />
               </div>
             </div>
           </div>

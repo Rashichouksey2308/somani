@@ -1413,7 +1413,7 @@ const creditProfile = (
           aria-expanded="true"
           aria-controls="creditProfile"
         >
-          <h2 className="mb-0">Operational Details</h2>
+          <h2 className="mb-0">Credit Profile</h2>
           <span>+</span>
         </div>
         <div
