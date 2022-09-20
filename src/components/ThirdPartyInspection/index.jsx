@@ -7,7 +7,7 @@ import { useState } from 'react'
 import DateCalender from '../DateCalender'
 import Modal from 'react-bootstrap/Modal'
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { UpdateInspection } from 'redux/Inspections/action'
 import _get from 'lodash/get'
 import { toast } from 'react-toastify'
@@ -16,9 +16,16 @@ import { ViewDocument } from 'redux/ViewDoc/action'
 import moment from 'moment'
 // import ThirdPartyPopUp from './ThirdPartyPopUp'
 
-export default function Index({ addButton, inspectionData }) {
+export default function Index({ addButton }) {
+
   const dispatch = useDispatch()
+
+  const {allInspection} = useSelector((state)=>state.Inspection)
+
+  let inspectionData = _get(allInspection, 'data[0]', {})
+
   const [excelFile, setExcelFile] = useState([])
+
   let orderid = _get(inspectionData, 'order._id', '')
 
   let d = new Date()
@@ -78,89 +85,72 @@ export default function Index({ addButton, inspectionData }) {
   const [inspectionDetails, setInspectionDetails] = useState({
     loadPortInspection: inspectionData?.thirdPartyInspection?.loadPortInspection
       ? inspectionData?.thirdPartyInspection?.loadPortInspection
-      : false,
-    dischargePortInspection: inspectionData?.thirdPartyInspection
-      ?.dischargePortInspection
+      : (inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort == 'Load Port' || inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort == 'Both' ) ? true : false,
+    dischargePortInspection: inspectionData?.thirdPartyInspection?.dischargePortInspection
       ? inspectionData?.thirdPartyInspection?.dischargePortInspection
-      : false,
+      : (inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort == 'Discharge Port' || inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort == 'Both' ) ? true : false,
     loadPortInspectionDetails: {
       numberOfContainer:
-        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-          ?.numberOfContainer,
+        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.numberOfContainer,
       inspectionPort:
-        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-          ?.inspectionPort,
+        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectionPort,
       inspectedBy:
-        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-          ?.inspectedBy,
+        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectedBy,
       startDate:
-        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-          ?.startDate,
+        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.startDate,
       specialMention:
-        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-          ?.specialMention,
+        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.specialMention,
     },
     dischargePortInspectionDetails: {
       numberOfContainer:
-        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-          ?.numberOfContainer,
+        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.numberOfContainer,
       inspectionPort:
-        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-          ?.inspectionPort,
+        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectionPort,
       inspectedBy:
-        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-          ?.inspectedBy,
+        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectedBy,
       startDate:
-        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-          ?.startDate,
+        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.startDate,
       specialMention:
-        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-          ?.specialMention,
+        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.specialMention,
     },
   })
 
+  console.log(inspectionDetails, 'THIS IS INSPECTION DEETS')
+
   useEffect(() => {
     setInspectionDetails({
-      loadPortInspection:
-        inspectionData?.thirdPartyInspection?.loadPortInspection,
-      dischargePortInspection:
-        inspectionData?.thirdPartyInspection?.dischargePortInspection,
-      loadPortInspectionDetails: {
-        numberOfContainer:
-          inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-            ?.numberOfContainer,
-        inspectionPort:
-          inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-            ?.inspectionPort,
-        inspectedBy:
-          inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-            ?.inspectedBy,
-        startDate:
-          inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-            ?.startDate,
-        specialMention:
-          inspectionData?.thirdPartyInspection?.loadPortInspectionDetails
-            ?.specialMention,
-      },
-      dischargePortInspectionDetails: {
-        numberOfContainer:
-          inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-            ?.numberOfContainer,
-        inspectionPort:
-          inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-            ?.inspectionPort,
-        inspectedBy:
-          inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-            ?.inspectedBy,
-        startDate:
-          inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-            ?.startDate,
-        specialMention:
-          inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails
-            ?.specialMention,
-      },
+      loadPortInspection: inspectionData?.thirdPartyInspection?.loadPortInspection
+      ? inspectionData?.thirdPartyInspection?.loadPortInspection
+      : (inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort == 'Load Port' || inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort == 'Both' ) ? true : false,
+    dischargePortInspection: inspectionData?.thirdPartyInspection?.dischargePortInspection
+      ? inspectionData?.thirdPartyInspection?.dischargePortInspection
+      : (inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort == 'Discharge Port' || inspectionData?.order?.termsheet?.transactionDetails?.typeOfPort == 'Both' ) ? true : false,
+    loadPortInspectionDetails: {
+      numberOfContainer:
+        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.numberOfContainer,
+      inspectionPort:
+        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectionPort,
+      inspectedBy:
+        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.inspectedBy,
+      startDate:
+        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.startDate,
+      specialMention:
+        inspectionData?.thirdPartyInspection?.loadPortInspectionDetails?.specialMention,
+    },
+    dischargePortInspectionDetails: {
+      numberOfContainer:
+        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.numberOfContainer,
+      inspectionPort:
+        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectionPort,
+      inspectedBy:
+        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.inspectedBy,
+      startDate:
+        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.startDate,
+      specialMention:
+        inspectionData?.thirdPartyInspection?.dischargePortInspectionDetails?.specialMention,
+    },
     })
-  }, [inspectionData])
+  }, [allInspection, inspectionData])
 
   const [documents, setDocuments] = useState({
     certificateOfQuality:
@@ -171,7 +161,6 @@ export default function Index({ addButton, inspectionData }) {
       inspectionData?.thirdPartyInspection?.certificateOfOrigin || null,
   })
 
-  console.log('sethave', documents)
 
   useEffect(() => {
     if (
@@ -866,10 +855,10 @@ export default function Index({ addButton, inspectionData }) {
                       inspectionData?.thirdPartyInspection?.loadPortInspection
                         ? inspectionData?.thirdPartyInspection
                             ?.loadPortInspection
-                        : inspectionData?.order?.termsheet?.transactionDetails
+                        : (inspectionData?.order?.termsheet?.transactionDetails
                             ?.typeOfPort == 'Both' ||
                           inspectionData?.order?.termsheet?.transactionDetails
-                            ?.typeOfPort == 'Load Port'
+                            ?.typeOfPort == 'Load Port')
                         ? true
                         : false
                     }
@@ -890,11 +879,11 @@ export default function Index({ addButton, inspectionData }) {
                       inspectionData?.thirdPartyInspection
                         ?.dischargePortInspection
                         ? inspectionData?.thirdPartyInspection
-                            ?.loadPortInspection
-                        : inspectionData?.order?.termsheet?.transactionDetails
+                            ?.dischargePortInspection
+                        : (inspectionData?.order?.termsheet?.transactionDetails
                             ?.typeOfPort == 'Both' ||
                           inspectionData?.order?.termsheet?.transactionDetails
-                            ?.typeOfPort == 'Discharge Port'
+                            ?.typeOfPort == 'Discharge Port')
                         ? true
                         : false
                     }

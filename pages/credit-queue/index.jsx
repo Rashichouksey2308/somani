@@ -265,7 +265,7 @@ function Index() {
                     <tr key={index} className={`${styles.table_row} table_row`}>
                      
                         
-                          <td>{buyer.company.customerId}</td>
+                          <td>{buyer.company.customerId ? buyer.company.customerId : buyer.company.temporaryCustomerId}</td>
                           <td className={styles.buyerName} onClick={()=>handleRoute(buyer)}>
                             {buyer.company.companyName}
                           </td>

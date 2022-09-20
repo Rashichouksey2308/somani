@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import moment from 'moment'
 
-export default function Index({ OrderId, customData, uploadDoc,arrivalDate }) {
+export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
   console.log(customData, 'customData')
   const dispatch = useDispatch()
   const [editInput, setEditInput] = useState(true)
@@ -30,7 +30,6 @@ export default function Index({ OrderId, customData, uploadDoc,arrivalDate }) {
         quantity: data?.wareHouseDetails?.quantity || '',
         quantityUnit: '',
         dateOfStorage: data?.wareHouseDetails?.dateOfStorage,
-
       },
       document: data?.document,
     }
@@ -192,19 +191,24 @@ export default function Index({ OrderId, customData, uploadDoc,arrivalDate }) {
                       onKeyPress={preventMinus}
                       onFocus={(e) => {
                         setIsWarehouseQuantityInFocus(true),
-                          e.target.type = 'number'
+                          (e.target.type = 'number')
                       }}
                       onBlur={(e) => {
                         setIsWarehouseQuantityInFocus(false),
-                          e.target.type = 'text'
+                          (e.target.type = 'text')
                       }}
                       value={
                         isWarehouseQuantityInFocus
                           ? warehouseDetails?.wareHouseDetails?.quantity
-                          : Number(warehouseDetails?.wareHouseDetails?.quantity)?.toLocaleString() + ` ${_get(customData, 'order.unitOfQuantity', '')}`
+                          : Number(
+                              warehouseDetails?.wareHouseDetails?.quantity,
+                            )?.toLocaleString() +
+                            ` ${_get(customData, 'order.unitOfQuantity', '')}`
                       }
-                      onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                      onKeyDown={(evt) =>
+                        ['e', 'E', '+', '-'].includes(evt.key) &&
+                        evt.preventDefault()
+                      }
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       Quantity<strong className="text-danger">*</strong>
@@ -215,8 +219,17 @@ export default function Index({ OrderId, customData, uploadDoc,arrivalDate }) {
                   >
                     <div className="d-flex">
                       <DateCalender
-                        startFrom={arrivalDate ? moment(arrivalDate).format('DD-MM-YYYY') : moment(customData?.dischargeOfCargo?.dischargeOfCargo?.vesselArrivaldate).format('DD-MM-YYYY') ?? new Date()}
-                        defaultDate={warehouseDetails?.wareHouseDetails?.dateOfStorage}
+                        startFrom={
+                          arrivalDate
+                            ? moment(arrivalDate).format('DD-MM-YYYY')
+                            : moment(
+                                customData?.dischargeOfCargo?.dischargeOfCargo
+                                  ?.vesselArrivaldate,
+                              ).format('DD-MM-YYYY') ?? new Date()
+                        }
+                        defaultDate={
+                          warehouseDetails?.wareHouseDetails?.dateOfStorage
+                        }
                         name="dateOfStorage"
                         saveDate={saveDate}
                         labelName="Date of Storage"
@@ -259,9 +272,15 @@ export default function Index({ OrderId, customData, uploadDoc,arrivalDate }) {
                         />
                       </div>
                     ) : (
-                      <div className={`${styles.certificate} mr-3 d-flex align-items-center justify-content-between`}>
+                      <div
+                        className={`${styles.certificate} mr-3 d-flex align-items-center justify-content-between`}
+                      >
                         <span>
-                          {warehouseDetails?.document?.originalName.slice(warehouseDetails?.document?.originalName.lastIndexOf("_") + 1)}
+                          {warehouseDetails?.document?.originalName.slice(
+                            warehouseDetails?.document?.originalName.lastIndexOf(
+                              '_',
+                            ) + 1,
+                          )}
                         </span>
                         <img
                           className={`${styles.close_image}`}

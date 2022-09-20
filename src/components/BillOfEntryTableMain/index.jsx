@@ -4,6 +4,7 @@ import styles from './index.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { Router } from 'next/router'
 import { GetAllCustomClearance } from 'redux/CustomClearance&Warehousing/action'
+import _get from 'lodash/get'
 
 function Index({
   tableName,
@@ -134,14 +135,10 @@ function Index({
                       {insured?.company?.companyName}
                     </td>
                     <td>{insured?.order?.commodity}</td>
+                    <td>{_get(insured,'order.vessel.vessels[0].vesselInformation[0].name','')}</td>
                     <td></td>
-                    <td>{insured?.quotationRequest?.insuranceType}</td>
                     <td>
-                      {
-                        insured?.quotationRequest?.expectedTimeOfDispatch?.split(
-                          'T',
-                        )[0]
-                      }
+                    {(_get(insured, 'billOfEntry.billOfEntry[0].boeDate', ''))?.slice(0,10)}
                     </td>
                     <td>
                       <span

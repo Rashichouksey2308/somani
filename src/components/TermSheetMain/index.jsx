@@ -163,13 +163,13 @@ function Index() {
                       <th>EXISTING CUSTOMER</th>
                       <th>CREATED ON</th>
                       <th>STATUS</th>
-                      <th>PREVIEW CAM</th>
+                      <th>PREVIEW</th>
                     </tr>
                   </thead>
                   <tbody>
                     {allTermsheets && allTermsheets?.data?.map((sheet, index) => (
                       <tr key={index} className={`${styles.table_row} table_row`}>
-                        <td>{sheet.order.orderId ? sheet.order.orderId : sheet.order.applicationId  }</td>
+                        <td>{sheet.company.customerId ? sheet.company.customerId : sheet.company.temporaryCustomerId}</td>
                         <td onClick={() => { handleRoute(sheet) }} className={`${styles.buyerName}`}>{sheet.company.companyName}</td>
                         <td>{sheet.order.existingCustomer ? "Yes" : "No"}</td>
                         <td>{moment((sheet.createdAt).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</td>
