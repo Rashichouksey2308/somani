@@ -1503,6 +1503,9 @@ function Index() {
     }
   }
   console.log(selectedTab, 'specificationTable')
+  const onPreviousClick = () => {
+    Router.push('/credit-queue')
+  }
   const onBack = () => {
     let list = document.getElementsByClassName('nav-tabs')
     let tab = document.getElementsByClassName('tab-content')
@@ -7505,11 +7508,12 @@ function Index() {
       {selectedTab == 'Profile' ? (
         <DownloadBar
           downLoadButtonName={`MCA Report`}
-          isPrevious={false}
-          leftButtonName={``}
+          isPrevious={true}
+          leftButtonName={`Previous`}
           isApprove={true}
           rightButtonName={`Next`}
           handleApprove={onNext}
+          handleUpdate={onPreviousClick}
           handleReject={() => {
             console.log('download pdf')
           }}
