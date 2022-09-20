@@ -85,7 +85,7 @@ function index() {
   }, [])
   const exportPDF = () => {
    
-    const doc = new jsPDF('p', 'pt', [1000, 1500])
+    const doc = new jsPDF('p', 'pt', [800, 1200])
     doc.html(ReactDOMServer.renderToString(toPdf(data)), {
       callback: function (doc) {
         doc.save('sample.pdf')
@@ -119,7 +119,7 @@ export default index
 
 const toPdf=(data)=>{
   return(
-         <table width="1000px" bgColor="#ffffff" style={{marginBottom:'20px'}} cellPadding="0" cellSpacing="0" border="0">
+         <table width="800px" bgColor="#ffffff" style={{marginBottom:'20px'}} cellPadding="0" cellSpacing="0" border="0">
         <tr>
           <td style={{fontFamily:'Times New Roman, Times, serif', padding:'20px', fontSize:'12px', lineHeight:'18px', color:'#000000'}}>
             <p align='center' style={{textDecoration:'underline'}}><strong><u>SALES CONTRACT</u></strong></p>
@@ -127,12 +127,12 @@ const toPdf=(data)=>{
           </td>
         </tr>
         <tr>
-          <td valign='top' style={{fontFamily:'Times New Roman, Times, serif', fontSize:'12px', lineHeight:'18px', color:'#000000', paddingLeft:'20px', paddingBottom:'20px', paddingRight:'20px'}}>
+          <td valign='top' style={{fontFamily:'Times New Roman, Times, serif', fontSize:'12px', lineHeight:'18px', color:'#000000', padding:'20px 20px 40px'}}>
             <table width="100%" cellPadding="10" style={{border:'1px solid #000000'}} cellSpacing="0" border="0">
               <tr>
-                <td width="9%" style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>1</td>
-                <td width="33%" style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Seller</td>
-                <td width="58%" style={{borderBottom:'1px solid #000000'}}>
+                <td width="5%" style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>1</td>
+                <td width="25%" style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Seller</td>
+                <td width="70%" style={{borderBottom:'1px solid #000000'}}>
                   <>{data?.seller}</>
                 </td>
               </tr>
@@ -192,12 +192,12 @@ const toPdf=(data)=>{
                 <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>12</td>
                 <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Payment Terms </td>
                 <td style={{borderBottom:'1px solid #000000'}}>
-                  <ol type="A" style={{paddingLeft:'16px'}}>
+                  <ol type="A" style={{paddingLeft:'16px', float:'left', display:'block'}}>
                     <li style={{marginBottom:'10px'}}>All the custom clearance formalities, Duties, Taxes and other charges related to import of cargo and custom clearance shall be to Buyer's account and shall be solely the Buyer's responsibility.</li>
-                    <li style={{marginBottom:'10px'}}>The Buyer shall pay for entire cargo within 90 days from the date of B/L or 60 days from the date of discharge of vessel at discharge port, whichever is earlier. The Buyer shall make full payment of the material to be lifted through TT remittance. The Seller shall release the part material to Buyer upon receipt of part payment for the part quantity of material to be lifted after obtaining delivery order or Written Release Order from the LC opening bank as per CMA. The delivery order instructions shall be issued for the part material, for which the payment has been made within one banking day. However, Seller will provide first delivery order in Advance as per buyer's request.</li>
+                    <li style={{marginBottom:'10px'}}>The Buyer shall pay for entire cargo within <em style={{fontStyle:'normal', textDecoration:'underline'}}>90 days</em> from the date of B/L or <em style={{fontStyle:'normal', textDecoration:'underline'}}>60 days</em> from the date of discharge of vessel at discharge port, whichever is earlier. The Buyer shall make full payment of the material to be lifted through TT remittance. The Seller shall release the part material to Buyer upon receipt of part payment for the part quantity of material to be lifted after obtaining delivery order or Written Release Order from the LC opening bank as per CMA. The delivery order instructions shall be issued for the part material, for which the payment has been made within one banking day. However, Seller will provide first delivery order in Advance as per buyer's request.</li>
                     <li style={{marginBottom:'10px'}}>The material shall be stored at Discharge Port for which the cost of such Rent, Claim, and penalty shall be fully borne by the End User. Upon release of payment for the value of each B/L Quantity Release Order from the Financing Bank shall be sent to the CMA Agent, within one banking day</li>
                     <li style={{marginBottom:'10px'}}>Documents to be provided to Buyer
-                      <ol type="1" style={{paddingLeft:'16px', marginTop:'16px'}}>
+                      <ol type="1" style={{paddingLeft:'0', marginTop:'16px'}}>
                         <li>The Seller's Commercial Invoice;</li>
                         <li>Full set of 3/3 originals of Bills of Lading,</li>
                         <li>Certificate of Quality;</li>
@@ -210,10 +210,16 @@ const toPdf=(data)=>{
                   All the above documents are subject to receipt from shipper.
                 </td>
               </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign='top' style={{fontFamily:'Times New Roman, Times, serif', fontSize:'12px', lineHeight:'18px', color:'#000000', padding:'100px 20px 40px'}}>
+            <table width="100%" cellPadding="10" style={{border:'1px solid #000000'}} cellSpacing="0" border="0">
               <tr>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>13</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Insurance </td>
-                <td style={{borderBottom:'1px solid #000000'}}>
+                <td width="5%" style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>13</td>
+                <td width="25%" style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Insurance </td>
+                <td width="70%" style={{borderBottom:'1px solid #000000'}}>
                   <ol type="A" style={{paddingLeft:'16px'}}>
                     <li style={{marginBottom:'10px'}}>Marine Insurance: Seller will provide Marine Insurance as received from Shipper.</li>
                     <li style={{marginBottom:'10px'}}>Stock Insurance: The Buyer will arrange insurance for 110% of the cargo value at discharge port, valid at all times covering All Risk including Fire, Burglary and Act of God (AOG). The cargo shall be insured by the Buyer at its own cost for the full value of cargo. The Policy shall be endorsed in favour of the Seller or its nominated Bank. The Beneficiary of the Insurance Claim shall be the Seller or its nominated Bank as per Seller's instructions.</li>
@@ -262,7 +268,7 @@ const toPdf=(data)=>{
                     <li style={{marginBottom:'10px'}}>The contractual amount till the time it is not paid will be treated as an admitted, undisputed debt due and payable by the Buyer to the Seller.</li>
                     <li style={{marginBottom:'10px'}}>Within seven (7) days of receipt of the statement of accounts, as prepared by Seller, if Buyer does not provide any comment on the statement of accounts, then such statement of accounts shall deem to be accepted by Buyer and binding on it.</li>
                     <li style={{marginBottom:'10px'}}>The End User and Manufacturer/shipper shall have direct recourse to each other for matters including but not limited to the following:
-                      <ol type="a" style={{paddingLeft:'16px', marginTop:'16px'}}>
+                      <ol type="a" style={{paddingLeft:'0', marginTop:'16px'}}>
                         <li style={{marginBottom:'10px'}}>For all quantity and quality claims/ issues pertaining to material supplied by Manufacturer/shipper;</li>
                         <li style={{marginBottom:'10px'}}>Any express or implied warranty claim for the quality of material supplied by Manufacturer/shipper;</li>
                         <li style={{marginBottom:'10px'}}>Loss of cargo;</li>
