@@ -35,9 +35,9 @@ function Index() {
 
   const exportPDF = () => {
 
-    const doc = new jsPDF('p', 'pt', [1500, 1500])
+    const doc = new jsPDF('p', 'pt', [800, 1200])
     doc.html(ReactDOMServer.renderToString(
-      <table width='1500px' cellPadding='0' cellSpacing='0' border='0'>
+      <table width='800px' cellPadding='0' cellSpacing='0' border='0'>
         <tr>
           <td valign='top' align='left'>
             <table width='100%' bgColor='#FFFFFF' style={{fontFamily:'Times New Roman, Times, serif', borderRadius:'6px', boxShadow:'0 3px 6px #CAD0E2', marginBottom:'26px', border:'2px solid rgba(202, 214, 230, 0.3)'}} cellPadding='0' cellSpacing='0' border='0'>
