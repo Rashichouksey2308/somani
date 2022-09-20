@@ -495,6 +495,18 @@ function Index() {
 
   const changeRoute = () => {
     if (checkValidation()) {
+        let comment=[]
+      if(lcComments.length>0){
+      lcComments.forEach((val,index)=>{
+        comment.push(val.value)
+      })
+      }
+       let doc=[]
+      if(lcDocuments.length>0){
+      lcDocuments.forEach((val,index)=>{
+        doc.push(val.value)
+      })
+    }
       let task = 'preview'
       let lcObj = { ...lcData }
       lcObj.currecyCodeAndAmountValue = removePrefixOrSuffix(
@@ -505,8 +517,8 @@ function Index() {
       )
       let obj = {
         lcApplication: { ...lcObj },
-        additionalConditions: [...lcComments],
-        documentRequired: [...lcDocuments],
+        additionalConditions: [...comment],
+        documentRequired: [...doc],
         lcModuleId: lcModuleData._id,
       }
       dispatch(UpdateLcModule({ obj: obj, task: task }))
