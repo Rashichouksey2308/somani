@@ -353,7 +353,7 @@
           }
         }        
         .image {
-          padding: 10px 9px;
+          padding: 9px;
           border-radius: 4px;
           background: #c3c3c31f;
           border: 1px solid #0000001f;
@@ -485,7 +485,24 @@
     -webkit-appearance: none;
   }
 }
+.delete_image {
+  
+ 
+  width: 38px;
+  height: 38px;
 
+  @include respond(md-desktop) {
+    height: 30px;
+  }
+
+  @include respond(sm-desktop) {
+    height: 28px;
+  }
+
+  @include respond(phone) {
+    height: 25px;
+  }
+}
 .customSelect {
   appearance: none;
   // position: relative;

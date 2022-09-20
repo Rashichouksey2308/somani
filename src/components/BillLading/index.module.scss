@@ -259,7 +259,7 @@
                 }
               }
               span {
-                margin-left: 20px;
+                margin-left: 5px;
                 text-decoration: underline;
                 color: #3687e8;
                 font-weight: bold;
@@ -1114,6 +1114,12 @@
     white-space: nowrap;
     display: inline-block;
     text-overflow: ellipsis;
+    margin-left: 5px;
+    text-decoration: underline;
+    color: #3687e8;
+    font-weight: bold;
+    line-height: 25px;
+    font-size: 20px;
   }
   img {
     width: auto !important;

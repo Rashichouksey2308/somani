@@ -1184,8 +1184,8 @@ export default function Index({ addButton }) {
                         <tbody>
                           <tr className="table_row">
                             <td className={styles.doc_name}>
-                              Certificate of Origin{' '}
-                              <strong className="text-danger">*</strong>
+                              Certificate of Origin
+                              <strong className="text-danger ml-1">*</strong>
                               {inspectionData?.thirdPartyInspection
                                 ?.certificateOfOrigin ? (
                                 <span

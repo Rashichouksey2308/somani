@@ -7128,7 +7128,7 @@ function Index() {
                         >
                           <Row>
                             <Col md={4}>
-                              <p className={`mb-3`}>Filter by</p>
+                              <p className={`mb-3 text`}>Filter by</p>
                               <div
                                 className={` d-flex align-items-center justify-content-start`}
                               >
@@ -7197,7 +7197,7 @@ function Index() {
                               </div>
                             </Col>
                             <Col md={4}>
-                              <p className={`mb-3`}>Select a Party</p>
+                              <p className={`mb-3 text`}>Select a Party</p>
                               <div
                                 className={` d-flex align-items-center justify-content-start`}
                               >
@@ -7245,7 +7245,7 @@ function Index() {
                               </div>
                             </Col>
                             <Col md={4}>
-                              <p className={`mb-3`}>Classification</p>
+                              <p className={`mb-3 text`}>Classification</p>
                               <div
                                 className={` d-flex align-items-center justify-content-start`}
                               >
