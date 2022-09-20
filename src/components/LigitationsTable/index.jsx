@@ -11,7 +11,7 @@ function index({ data, Heading, val, totalData }) {
     pending:0,disposed:0
   })
   useEffect(() => {
-    if(totalData.cases.length>0){
+    if(totalData?.cases?.length>0){
       let pending=0;
       let disposed=0;
       totalData.cases.forEach((val,idex)=>{
@@ -67,8 +67,8 @@ function index({ data, Heading, val, totalData }) {
                 <span>Total cases</span>
                 <div className={styles.chart}>
                   <div className={styles.container}>
-                    <div className={styles.fill} style={{width:`${(count.pending/Number(totalData.cases.length)*100)}%`}}></div>
-                    <span className={`sub_heading`}>{ totalData.cases.length}</span>
+                    <div className={styles.fill} style={{width:`${(count?.pending/Number(totalData?.cases?.length)*100)}%`}}></div>
+                    <span className={`sub_heading`}>{ totalData?.cases?.length}</span>
                   </div>
                 </div>
               </div>
