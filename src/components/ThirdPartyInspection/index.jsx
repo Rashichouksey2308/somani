@@ -22,8 +22,15 @@ export default function Index({ addButton }) {
 
   const {allInspection} = useSelector((state)=>state.Inspection)
 
-  let inspectionData = _get(allInspection, 'data[0]', {})
+  
+  const [inspectionData,setInspectionData2]=useState({})
+  useEffect(() => {
+ setInspectionData2(_get(allInspection, 'data[0]', {}))
 
+  },[allInspection
+
+  ])
+  console.log(inspectionData,"inspectionData3333")
   const [excelFile, setExcelFile] = useState([])
 
   let orderid = _get(inspectionData, 'order._id', '')
@@ -229,7 +236,8 @@ export default function Index({ addButton }) {
     //   ? (newInput[namesplit[0]][namesplit[1]] = value)
     //   : (newInput[name] = value)
     const d = new Date(value)
-    let text = d.toISOString()
+    console.log(d,"d2222")
+    let text = d?.toISOString()
     saveInspectionDetails(name, text)
   }
 
@@ -873,7 +881,7 @@ export default function Index({ addButton }) {
                         : (inspectionData?.order?.termsheet?.transactionDetails
                             ?.typeOfPort == 'Both' ||
                           inspectionData?.order?.termsheet?.transactionDetails
-                            ?.typeOfPort == 'Load Port')
+                            ?.typeOfPort == 'Load Port') ||inspectionData?.thirdPartyInspection?.loadPortInspection
                         ? true
                         : false
                     }
@@ -898,7 +906,7 @@ export default function Index({ addButton }) {
                         : (inspectionData?.order?.termsheet?.transactionDetails
                             ?.typeOfPort == 'Both' ||
                           inspectionData?.order?.termsheet?.transactionDetails
-                            ?.typeOfPort == 'Discharge Port')
+                            ?.typeOfPort == 'Discharge Port') || inspectionData?.thirdPartyInspection?.dischargePortInspection
                         ? true
                         : false
                     }
