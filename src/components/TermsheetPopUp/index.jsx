@@ -32,24 +32,17 @@ function index(props) {
        <Row>
             <Col md={6}className={`${styles.left} `}>
                 <img src="/static/icons8-whatsapp.svg" className={`mb-3`}/>
-                    <InputGroup className="mb-3">
-                    <DropdownButton
-                    variant="outline-secondary"
-                    
-                    id="input-group-dropdown-1"
-                    className={`${styles.dropDown}`}
-                    >
-                  <Dropdown.Item href="#">+91</Dropdown.Item>
-                  <Dropdown.Item href="#">+92</Dropdown.Item>
-                  <Dropdown.Item href="#">+95</Dropdown.Item>
-                  <Dropdown.Item href="#">+24</Dropdown.Item>
-                  
-                 
-                   
                 
-                    </DropdownButton>
-                    <FormControl className={`${styles.input}`} aria-label="Text input with dropdown button" />
-                </InputGroup>
+                
+                  <div className="d-flex justify-content-center mb-3">
+                  <select  className={`${styles.dropDown} bor`}>
+                  <option>+91</option>
+                  <option>+92</option>
+                  <option>+95</option>
+                  <option>+24</option>
+                  </select>
+                  <FormControl className={`${styles.input}`} aria-label="Text input with dropdown button" />
+                </div>
                 <div className={`${styles.button} d-flex justify-content-center align-content-center`}>
                   <span> {`Share on WhatsApp`}</span>
 

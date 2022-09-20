@@ -63,7 +63,7 @@ const Index = (props) => {
                       
                     Number(val?.total/10000000).toLocaleString('en-IN', {
                     maximumFractionDigits: 2,
-                    })}
+                    })} {" "} Cr
                 </h3>
                   </div>
                 </div>
