@@ -47,65 +47,45 @@ function Index() {
     dispatch(setDynamicName(ReleaseOrderData?.data[0]?.company.companyName))
     dispatch(setPageTabName('release'))
 
-
-
     dispatch(
       getBreadcrumbValues({
-         companyId: ReleaseOrderData?.data[0]?.order?.orderId,
+        companyId: ReleaseOrderData?.data[0]?.order?.orderId,
         companyName: ReleaseOrderData?.data[0]?.company?.companyName,
       })
     )
   }, [ReleaseOrderData])
 
-
-   
-
-
   useEffect(() => {
-  let temp=[];
-  if (_get(allLiftingData, 'data[0].liftingOrders', []).length > 0) {
+    let temp = []
+    if (_get(allLiftingData, 'data[0].liftingOrders', []).length > 0) {
+      _get(allLiftingData, 'data[0].liftingOrders', []).map((val, index) => {
+        temp.push({
+          deliveryOrder: val.deliveryOrder,
+          detail: [],
+        })
 
-
-
-  _get(allLiftingData, 'data[0].liftingOrders', []).map((val,index)=>{
-  temp.push(
-  {
-  deliveryOrder:val.deliveryOrder,
-          detail:[
-          
-      ]
-  }
-  )
-
-  if(val.deliveryOrderDetail.length > 0){
-
-  val.deliveryOrderDetail.forEach((val2,index2)=>{
-
-    temp[index].detail.push(
-          {
-          dateOfLifting: val2.dateOfLifting ||null,
-          liftingQuant: val2.liftingQuantity,
-          modeOfTransportation:val2.modeOfTransport,
-          eWayBill: val2.ewayBillNo,
-          LRorRRDoc: val2.LRDocument||val2.RRDocument||{},
-          eWayBillDoc: val2.ewayBillDocument|| {},
-          }
-    )
-
-  })
-  }
-  })
-
-  }
-  console.log(temp,"temppppp")
-  setLifting([...temp])
-
+        if (val.deliveryOrderDetail.length > 0) {
+          val.deliveryOrderDetail.forEach((val2, index2) => {
+            temp[index].detail.push({
+              dateOfLifting: val2.dateOfLifting || null,
+              liftingQuant: val2.liftingQuantity,
+              modeOfTransportation: val2.modeOfTransport,
+              eWayBill: val2.ewayBillNo,
+              LRorRRDoc: val2.LRDocument || val2.RRDocument || {},
+              eWayBillDoc: val2.ewayBillDocument || {},
+            })
+          })
+        }
+      })
+    }
+    console.log(temp, 'temppppp')
+    setLifting([...temp])
   }, [allLiftingData])
 
-
- console.log(_get(allLiftingData, 'data[0].liftingOrders', []),"deliveryOrder=val.deliveryOrder")
-
-
+  console.log(
+    _get(allLiftingData, 'data[0].liftingOrders', []),
+    'deliveryOrder=val.deliveryOrder',
+  )
 
   useEffect(() => {
     getOrderData()
@@ -114,16 +94,16 @@ function Index() {
     let id = sessionStorage.getItem('ROrderID')
     let orderid = _get(ReleaseOrderData, 'data[0].order._id', '')
     await dispatch(GetDelivery(`?deliveryId=${id}`))
-    
-}
-useEffect(() => {
-  
-
-  if( _get(ReleaseOrderData, 'data[0].order.lifting', '')!==''){
-   dispatch(GetAllLifting(`?liftingId=${_get(ReleaseOrderData, 'data[0].order.lifting', '')}`))
   }
-  
-},[ReleaseOrderData])
+  useEffect(() => {
+    if (_get(ReleaseOrderData, 'data[0].order.lifting', '') !== '') {
+      dispatch(
+        GetAllLifting(
+          `?liftingId=${_get(ReleaseOrderData, 'data[0].order.lifting', '')}`,
+        ),
+      )
+    }
+  }, [ReleaseOrderData])
   console.log(allLiftingData, 'allLiftingData')
   const liftingData = _get(allLiftingData, 'data[0]', '')
   const [lifting, setLifting] = useState([])
@@ -455,7 +435,7 @@ useEffect(() => {
     }
     let task = 'save'
     //console.log(payload,ReleaseOrderData, 'releaseOrderDate')
-    await dispatch(UpdateDelivery({payload, task}))
+    await dispatch(UpdateDelivery({ payload, task }))
   }
   const removeLiftinDoc = (type, index1, index2) => {
     let temp = [...lifting]
@@ -516,7 +496,7 @@ useEffect(() => {
               onClick={() => Router.push('/payment')}
             />
             <h1 className={`${styles.title} heading`}>
-              <span>
+              <span style={{ textTransform: 'capitalize' }}>
                 {_get(ReleaseOrderData, 'data[0].company.companyName', '')} -
                 {` ${_get(ReleaseOrderData, 'data[0].order.orderId', '').slice(
                   0,

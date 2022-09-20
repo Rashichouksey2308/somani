@@ -108,7 +108,10 @@ function Index() {
               onClick={() => Router.push('/bill-of-entry')}
             />
             <h1 className={`${styles.title} heading`}>
-              <span>
+              <span
+                // className={`${styles.title} heading`}
+                style={{ textTransform: 'capitalize' }}
+              >
                 {customData?.company?.companyName} - {CompanyOrderId?.orderId}
               </span>
             </h1>
@@ -116,8 +119,9 @@ function Index() {
           <ul className={`${styles.navTabs} nav nav-tabs`}>
             <li className={`${styles.navItem}  nav-item`}>
               <a
-                className={`${styles.navLink} navLink  nav-link ${componentId === 1 && 'active'
-                  }`}
+                className={`${styles.navLink} navLink  nav-link ${
+                  componentId === 1 && 'active'
+                }`}
                 // data-toggle="tab"
                 // href="#billEntry"
                 // role="tab"
@@ -138,8 +142,9 @@ function Index() {
             </li>
             <li className={`${styles.navItem} nav-item`}>
               <a
-                className={`${styles.navLink} navLink nav-link ${componentId === 2 && 'active'
-                  } `}
+                className={`${styles.navLink} navLink nav-link ${
+                  componentId === 2 && 'active'
+                } `}
                 role="button"
                 // data-toggle="tab"
                 // id="#dischargeCargo"
@@ -160,8 +165,9 @@ function Index() {
             </li>
             <li className={`${styles.navItem} nav-item`}>
               <a
-                className={`${styles.navLink} navLink nav-link ${componentId === 3 && 'active'
-                  }`}
+                className={`${styles.navLink} navLink nav-link ${
+                  componentId === 3 && 'active'
+                }`}
                 role="button"
                 // data-toggle="tab"
                 // href="#warehouse"
@@ -225,7 +231,7 @@ function Index() {
                   <div className={`${styles.card}  accordion_body`}>
                     {componentId === 3 && (
                       <Warehouse
-                      arrivalDate={arrivalDate}
+                        arrivalDate={arrivalDate}
                         uploadDoc={uploadDoc}
                         OrderId={OrderId}
                         customData={customData}
