@@ -330,7 +330,7 @@ export default function Index({}) {
                   </div>
                 </div>
               </div>
-              {serviceType === 'goods' ? (
+              {serviceType === 'goods' && radioBtn === 'import' ? (
                 <div
                   className={`${styles.bill_landing} card border_color mt-4`}
                 >

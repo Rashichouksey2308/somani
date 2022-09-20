@@ -1503,6 +1503,9 @@ function Index() {
     }
   }
   console.log(selectedTab, 'specificationTable')
+  const onPreviousClick = () => {
+    Router.push('/credit-queue')
+  }
   const onBack = () => {
     let list = document.getElementsByClassName('nav-tabs')
     let tab = document.getElementsByClassName('tab-content')
@@ -7125,7 +7128,7 @@ function Index() {
                         >
                           <Row>
                             <Col md={4}>
-                              <p className={`mb-3`}>Filter by</p>
+                              <p className={`mb-3 text`}>Filter by</p>
                               <div
                                 className={` d-flex align-items-center justify-content-start`}
                               >
@@ -7194,7 +7197,7 @@ function Index() {
                               </div>
                             </Col>
                             <Col md={4}>
-                              <p className={`mb-3`}>Select a Party</p>
+                              <p className={`mb-3 text`}>Select a Party</p>
                               <div
                                 className={` d-flex align-items-center justify-content-start`}
                               >
@@ -7242,7 +7245,7 @@ function Index() {
                               </div>
                             </Col>
                             <Col md={4}>
-                              <p className={`mb-3`}>Classification</p>
+                              <p className={`mb-3 text`}>Classification</p>
                               <div
                                 className={` d-flex align-items-center justify-content-start`}
                               >
@@ -7505,11 +7508,12 @@ function Index() {
       {selectedTab == 'Profile' ? (
         <DownloadBar
           downLoadButtonName={`MCA Report`}
-          isPrevious={false}
-          leftButtonName={``}
+          isPrevious={true}
+          leftButtonName={`Previous`}
           isApprove={true}
           rightButtonName={`Next`}
           handleApprove={onNext}
+          handleUpdate={onPreviousClick}
           handleReject={() => {
             console.log('download pdf')
           }}

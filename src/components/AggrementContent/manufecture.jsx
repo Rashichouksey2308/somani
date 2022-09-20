@@ -750,7 +750,10 @@ setEditAddress(
                  
                   onChange={(e) => {
                       let temp =  e.target.value.replace(/[^\w\s]/gi, "")
-
+                      if(temp=="_"){
+                        temp=""
+                      }
+                      console.log(temp,"____")
                       handleInput(e.target.name,temp,"bankName")
                   }}
                 />
