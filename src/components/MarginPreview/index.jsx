@@ -1556,7 +1556,7 @@ function Index() {
                       <span className={`ml-2`}>Unit Price</span>
                     </td>
                     <td className={`${styles.good} `}>
-                      {marginData?.order?.perUnitPrice?.toLocaleString("en-IN") ?? 0}
+                    USD  {marginData?.order?.perUnitPrice?.toLocaleString() ?? 0}
                     </td>
                   </tr>
                   <tr>

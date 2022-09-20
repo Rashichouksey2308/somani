@@ -26,6 +26,8 @@ function Index({
   excelFile,
   addConditionArr,
   lcModuleData,
+  editLcComments,
+  editLcDocComments
 }) {
   console.log(lcData?.atSight, 'lcCondition12234')
   const [editStren, setEditStren] = useState(false)
@@ -749,22 +751,36 @@ function Index({
                         <Form.Control
                           className={`${styles.paragraph} input`}
                           as="textarea"
-                          defaultValue={comment}
-                          rows={3}
-                          readOnly={editStren}
-                          onChange={(e) => {
-                            lcDocEdit(e, index)
+                           value={comment.value}
+                           rows={3}
+                           readOnly={!comment.action}
+                           onChange={(e) => {
+                            lcDocEdit(e.target.value, index)
                           }}
                         />
-                        <div className="mt-3">
+                       <div className="mt-3">
+                          {comment.action?
+                          <img
+                            src="/static/save-3.svg"
+                            className={`${styles.image} ml-4`}
+                            alt="edit"
+                            onClick={(e) => {
+                              editLcDocComments(!comment.action,index)
+                            }}
+                          />
+                          :
                           <img
                             src="/static/mode_edit.svg"
                             className={`${styles.image} ml-4`}
                             alt="edit"
                             onClick={(e) => {
-                              setEditStren(!editStren)
+                              editLcDocComments(!comment.action,index)
                             }}
                           />
+                          
+                          }
+                          
+
                           <img
                             src="/static/delete 2.svg"
                             className="ml-4"
@@ -814,22 +830,35 @@ function Index({
                         <Form.Control
                           className={`${styles.paragraph} input`}
                           as="textarea"
-                          defaultValue={comment}
+                          value={comment.value}
                           rows={3}
-                          readOnly={edit}
+                          readOnly={!comment.action}
                           onChange={(e) => {
-                            lcConditionEdit(e, index)
+                            lcConditionEdit(e.target.value, index)
                           }}
                         />
                         <div className="mt-3">
+                          {comment.action?
+                          <img
+                            src="/static/save-3.svg"
+                            className={`${styles.image} ml-4`}
+                            alt="edit"
+                            onClick={(e) => {
+                              editLcComments(!comment.action,index)
+                            }}
+                          />
+                          :
                           <img
                             src="/static/mode_edit.svg"
                             className={`${styles.image} ml-4`}
                             alt="edit"
                             onClick={(e) => {
-                              setEdit(!edit)
+                              editLcComments(!comment.action,index)
                             }}
                           />
+                          
+                          }
+                          
 
                           <img
                             src="/static/delete 2.svg"
