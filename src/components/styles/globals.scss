@@ -506,6 +506,18 @@ body.light-mode .saved .iconBox {
 body.dark-mode .saved .iconBox {
   background: rgba(202, 208, 214, 0.4) !important;
 }
+body.light-mode .commodities .val {
+  opacity: 0.7;
+}
+body.dark-mode .commodities .val {
+  opacity: 1;
+}
+body.light-mode .commodities .bar {
+  opacity: 0.1;
+}
+body.dark-mode .commodities .bar {
+  opacity: 0.2;
+}
 body.light-mode .statusBox h3 span {
   color: #8492A6;
 }
