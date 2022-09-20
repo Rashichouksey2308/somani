@@ -37,7 +37,7 @@ const Index = (props) => {
        
       </div>
     
-      <div className={`${styles.country_container} label_heading`}>
+      <div className={`${styles.country_container} card-body`}>
         {props.data.length > 0 && props.data.map((val,index)=>{
           return(
              <div key={index} className={styles.each_progress}>
