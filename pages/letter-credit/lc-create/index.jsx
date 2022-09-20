@@ -130,7 +130,7 @@ function Index() {
         return
       }
     }
-    setLcDocuments([...lcDocuments, currentComment])
+    setLcDocuments([...lcDocuments, {value:currentComment,action:false}])
     setCurrentComment('')
   }
   const deleteLcDoc = (index) => {
@@ -139,19 +139,42 @@ function Index() {
       ...lcDocuments.slice(index + 1),
     ])
   }
-  const lcDocEdit = (e, index) => {
-    let tempArr = [...lcDocuments]
+  const lcDocEdit = (val, index) => {
+    setLcDocuments(prevState => {
+      const newState = prevState.map((obj ,i)=> {
+        
+        if (i == index) {
+          return {...obj, value: val};
+        }
 
-    tempArr[index] = e.target.value
-    setLcDocuments(tempArr)
+        return obj;
+      });
+
+      return newState;
+    });
   }
+  console.log(lcDocuments,"lcDocumentslcDocuments")
+  const editLcDocComments=(val,index)=>{
+  setLcDocuments(prevState => {
+      const newState = prevState.map((obj ,i)=> {
+        
+        if (i == index) {
+          return {...obj, action: val};
+        }
 
+        return obj;
+      });
+
+      return newState;
+    });
+  }
+  //condition
   const addConditionComment = (val) => {
     console.log(val, "888888")
 
     setCurrentComment2(val)
   }
-  const addConditionArr = () => {
+  const addConditionArr = (index) => {
     // console.log("thsbhjsbdjh",lcCondition,currentComment2)
     if (currentComment2 == "") {
       let toastMessage = 'Comment cannot be empty'
@@ -160,7 +183,19 @@ function Index() {
         return
       }
     }
-    setLcComments([...lcComments, currentComment2])
+    setLcComments([...lcComments, {value:currentComment2,action:false}])
+    //   setLcComments(prevState => {
+    //   const newState = prevState.map((obj ,i)=> {
+        
+    //     if (i == index) {
+    //       return {...obj, value: currentComment2,action:false};
+    //     }
+
+    //     return obj;
+    //   });
+
+    //   return newState;
+    // });
     setCurrentComment2('')
   }
   const deleteLcCondition = (index) => {
@@ -169,23 +204,46 @@ function Index() {
       ...lcComments.slice(index + 1),
     ])
   }
-  const lcConditionEdit = (e, index) => {
-    let tempArr = [...lcComments]
+  const lcConditionEdit = (val, index) => {
+    console.log(val,"AAAAAAAA")
+     setLcComments(prevState => {
+      const newState = prevState.map((obj ,i)=> {
+        
+        if (i == index) {
+          return {...obj, value: val};
+        }
 
-    tempArr[index] = e.target.value
-    setLcComments(tempArr)
+        return obj;
+      });
+
+      return newState;
+    });
   }
+  const editLcComments=(val,index)=>{
+  setLcComments(prevState => {
+      const newState = prevState.map((obj ,i)=> {
+        
+        if (i == index) {
+          return {...obj, action: val};
+        }
 
+        return obj;
+      });
+
+      return newState;
+    });
+  }
+  console.log(lcComments,"lcComments")
   useEffect(() => {
     let commentLcArr = []
     lcModuleData?.additionalConditions?.forEach((element) => {
-      commentLcArr.push(element)
+      commentLcArr.push({value:element,action:false})
     })
     setLcComments(commentLcArr)
 
     let docLcArr = []
     lcModuleData?.documentRequired?.forEach((element) => {
-      docLcArr.push(element)
+      docLcArr.push({value:element,action:false})
     })
     setLcDocuments(docLcArr)
   }, [lcModuleData])
@@ -406,6 +464,18 @@ function Index() {
   }
   const handleLcSave = () => {
     if (checkValidation()) {
+      let comment=[]
+      if(lcComments.length>0){
+      lcComments.forEach((val,index)=>{
+        comment.push(val.value)
+      })
+      }
+       let doc=[]
+      if(lcDocuments.length>0){
+      lcDocuments.forEach((val,index)=>{
+        doc.push(val.value)
+      })
+    }
       let lcObj = { ...lcData }
       lcObj.currecyCodeAndAmountValue = removePrefixOrSuffix(
         lcData?.currecyCodeAndAmountValue,
@@ -415,8 +485,8 @@ function Index() {
       )
       let obj = {
         lcApplication: { ...lcObj },
-        additionalConditions: [...lcComments],
-        documentRequired: [...lcDocuments],
+        additionalConditions: [...comment],
+        documentRequired: [...doc],
         lcModuleId: lcModuleData._id,
       }
       dispatch(UpdateLcModule({ obj: obj }))
@@ -465,6 +535,8 @@ function Index() {
         lcCondition={lcCondition}
         excelFile={excelFile}
         currentComment2={currentComment2}
+        editLcComments={editLcComments}
+        editLcDocComments={editLcDocComments}
       />
       <PreviewBar onSave={handleLcSave} leftButtonClick={changeRoute} />
     </>

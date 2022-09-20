@@ -719,10 +719,134 @@ const Index = () => {
                 </div>
               </div>
             </div>
-            <UploadDocument
-              docName={`Policy Document  ${insuranceType == "Marine Insurance" ? "- Marine" : insuranceType == "Storage Insurance" ? "-Storage" : "- Marine and Storage"}`}
+            {/* <UploadDocument
+              docName='Policy Document - Marine'  
               uploadDocument1={uploadDocument1}
-            />
+            /> */}
+            <div className={`${styles.main} border_color card`}>
+              <div
+                className={`${styles.head_container} border_color head_container d-flex justify-content-between`}
+                data-toggle="collapse"
+                data-target="#upload"
+                aria-expanded="true"
+                aria-controls="upload"
+              >
+                <h3 className={styles.heading}>Upload Documents</h3>
+                <span>+</span>
+              </div>
+              <div
+                id="upload"
+                className="collapse"
+                aria-labelledby="upload"
+                data-parent="#upload"
+              >
+                <div className={`${styles.table_form}`}>
+                  <div className={styles.table_container}>
+                    <div className={styles.table_scroll_outer}>
+                      <div className={styles.table_scroll_inner}>
+                        <table
+                          className={`${styles.table} table`}
+                          cellPadding="0"
+                          cellSpacing="0"
+                          border="0"
+                        >
+                          <thead>
+                            <tr>
+                              <th>
+                                DOCUMENT NAME{' '}
+                                <img
+                                  className={`mb-1`}
+                                  src="/static/icons8-sort-24.svg"
+                                  alt="Sort icon"
+                                />
+                              </th>
+                              <th>
+                                FORMAT{' '}
+                                <img
+                                  className={`mb-1`}
+                                  src="/static/icons8-sort-24.svg"
+                                  alt="Sort icon"
+                                />
+                              </th>
+                              <th>
+                                DOCUMENT DATE{' '}
+                                <img
+                                  className={`mb-1`}
+                                  src="/static/icons8-sort-24.svg"
+                                  alt="Sort icon"
+                                />
+                              </th>
+                              <th>ACTION</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr className="table_row">
+                              <td className={styles.doc_name}>
+                                Policy Document - Marine
+                                <strong className="text-danger">*</strong>
+                              </td>
+                              <td>
+                                <img
+                                  src="/static/pdf.svg"
+                                  className={`${styles.pdfImage} img-fluid`}
+                                  alt="Pdf"
+                                />
+                              </td>
+                              <td className={styles.doc_row}>
+                                28-02-2022,5:30 PM
+                              </td>
+                              <td>
+                                {/* <div className={styles.uploadBtnWrapper}>
+                                  <input
+                                    type="file"
+                                    onChange={(e) => uploadDocument1(e)}
+                                    name="myfile"
+                                  />
+                                  <button
+                                    name="marinePolicyDocument"
+                                    className={`${styles.upload_btn} btn`}
+                                  >
+                                    Upload
+                                  </button>
+                                </div> */}
+                                {insuranceDocument && insuranceDocument.marinePolicyDocument == null ? (
+                                  <>
+                                    <div className={styles.uploadBtnWrapper}>
+                                      <input
+                                        // id={docName}
+                                        type="file"
+                                        name="marinePolicyDocument"
+                                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                        onChange={(e) => uploadDocument1(e)}
+                                      />
+                                      <button className={`${styles.button_upload} btn`}>
+                                        Upload
+                                      </button>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                    <span>{insuranceDocument?.marinePolicyDocument?.name}</span>
+                                    <img
+                                      className={`${styles.close_image} mr-2`}
+                                      src="/static/close.svg"
+                                      onClick={() => handleClose()}
+                                      alt="Close"
+                                    />{' '}
+                                  </div>
+                                )}
+
+                              </td>
+                            </tr>
+                            
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </>
         ) : insuranceData?.quotationRequest?.insuranceType ==
           'Storage Insurance' ? (
@@ -1021,10 +1145,122 @@ const Index = () => {
                 </div>
               </div>
             </div>
-            <UploadDocument
+            {/* <UploadDocument
               docName="Policy Document - Storage"
               uploadDocument1={uploadDocument2}
-            />
+            /> */}
+            <div className={`${styles.main} border_color card`}>
+              <div
+                className={`${styles.head_container} border_color head_container d-flex justify-content-between`}
+                data-toggle="collapse"
+                data-target="#upload"
+                aria-expanded="true"
+                aria-controls="upload"
+              >
+                <h3 className={styles.heading}>Upload Documents</h3>
+                <span>+</span>
+              </div>
+              <div
+                id="upload"
+                className="collapse"
+                aria-labelledby="upload"
+                data-parent="#upload"
+              >
+                <div className={`${styles.table_form}`}>
+                  <div className={styles.table_container}>
+                    <div className={styles.table_scroll_outer}>
+                      <div className={styles.table_scroll_inner}>
+                        <table
+                          className={`${styles.table} table`}
+                          cellPadding="0"
+                          cellSpacing="0"
+                          border="0"
+                        >
+                          <thead>
+                            <tr>
+                              <th>
+                                DOCUMENT NAME{' '}
+                                <img
+                                  className={`mb-1`}
+                                  src="/static/icons8-sort-24.svg"
+                                  alt="Sort icon"
+                                />
+                              </th>
+                              <th>
+                                FORMAT{' '}
+                                <img
+                                  className={`mb-1`}
+                                  src="/static/icons8-sort-24.svg"
+                                  alt="Sort icon"
+                                />
+                              </th>
+                              <th>
+                                DOCUMENT DATE{' '}
+                                <img
+                                  className={`mb-1`}
+                                  src="/static/icons8-sort-24.svg"
+                                  alt="Sort icon"
+                                />
+                              </th>
+                              <th>ACTION</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr className="table_row">
+                              <td className={styles.doc_name}>
+                                Policy Document - Storage
+                                <strong className="text-danger">*</strong>
+                              </td>
+                              <td>
+                                <img
+                                  src="/static/pdf.svg"
+                                  className={`${styles.pdfImage} img-fluid`}
+                                  alt="Pdf"
+                                />
+                              </td>
+                              <td className={styles.doc_row}>
+                                28-02-2022,5:30 PM
+                              </td>
+                              <td>
+                               
+                                {insuranceDocument && insuranceDocument?.storagePolicyDocument == null ? (
+                                  <>
+                                    <div className={styles.uploadBtnWrapper}>
+                                      <input
+                                        // id={docName}
+                                        type="file"
+                                        name="marinePolicyDocument"
+                                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
+                                        onChange={(e) => uploadDocument2(e)}
+                                      />
+                                      <button className={`${styles.button_upload} btn`}>
+                                        Upload
+                                      </button>
+                                    </div>
+                                  </>
+                                ) : (
+                                  <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                    <span>{insuranceDocument?.storagePolicyDocument?.name}</span>
+                                    <img
+                                      className={`${styles.close_image} mr-2`}
+                                      src="/static/close.svg"
+                                      onClick={() => handleCloseS()}
+                                      alt="Close"
+                                    />{' '}
+                                  </div>
+                                )}
+
+                              </td>
+                            </tr>
+                            
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </>
         ) : insuranceData?.quotationRequest?.insuranceType == 'Marine & Storage Insurance' ? (
           <>
