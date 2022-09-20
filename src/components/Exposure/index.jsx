@@ -2,7 +2,9 @@ import ProgressBar from '@ramonak/react-progress-bar'
 import React from 'react'
 import { Card } from 'react-bootstrap'
 import styles from './index.module.scss'
-function index() {
+import _get from 'lodash/get'
+function Index({exposureSummary}) {
+  console.log(exposureSummary,"exposureSummary")
   return (
     <Card className={`${styles.card} border`}>
       <Card.Header className={`${styles.header} border_color heading_card`}> Exposure </Card.Header>
@@ -20,13 +22,13 @@ function index() {
         <div className={styles.total}>
           <div className={styles.totalText}><span>TOTAL</span></div>
           <div className={styles.dotted}></div>
-          <div className={styles.value}><span className='explore-value'>50,00,000</span></div>
+          <div className={styles.value}><span className='explore-value'>{_get(exposureSummary,"[0].totalLimit","")}</span></div>
           
         </div>
         <div className={styles.total}>
          <div className={styles.totalText}><span>UTILISED</span></div>
           <div className={styles.dotted}></div>
-          <div className={styles.value}><span className='explore-value'>50,00,000</span></div>
+          <div className={styles.value}><span className='explore-value'>{_get(exposureSummary,"[0].totalUtilizedLimit","")}</span></div>
           
           
         </div>
@@ -35,4 +37,4 @@ function index() {
   )
 }
 
-export default index
+export default Index

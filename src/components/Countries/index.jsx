@@ -42,15 +42,20 @@ const Index = (props) => {
           return(
              <div key={index} className={styles.each_progress}>
                 <h1 className={styles.country}>{val?._id?.toUpperCase()??""}</h1>
+                
                 <div className={styles.bar_container}>
+                  
+                  
                   <div className={styles.progress_bar}>
-                    
-                    <ProgressBar
+                    <div className={`${styles.bar}`}>
+                    <div className={getClass(index)} style={{width:`${Number(getPercentage(val?.total).toFixed(0))}%`}}></div>
+                </div>
+                    {/* <ProgressBar
                       completed={Number(getPercentage(val?.total).toFixed(0))}
                       barContainerClassName={styles.container}
                       completedClassName={getClass(index)}
                       isLabelVisible={false}
-                    />
+                    /> */}
                   </div>
                   <div className={styles.number_container}>
                     <h3 className={styles.percent}>{getPercentage(val?.total)?.toFixed(2)}%</h3>

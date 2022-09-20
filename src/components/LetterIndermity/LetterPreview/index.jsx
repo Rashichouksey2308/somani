@@ -193,7 +193,7 @@ autoPaging: "text",
           <div className={`d-flex ${styles.salutations}`}>
             <span>bill of Lading:</span>
             {'  '}
-            <ol>
+            <ol style={{listStyle:"none",paddingLeft:"0.2rem"}}>
             {_get(transitDetails,"data[0].LOI.billOfLanding",[]).map((val,index)=>{
               return(
             <>

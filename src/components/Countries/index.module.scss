@@ -148,3 +148,19 @@
         } 
     }
 }
+.bar {
+    position: relative;
+    height: 9px;
+    background: #f3f4f7;
+    border-radius: 2px;
+
+    .fill {
+        position: absolute;
+        height: 12px;
+        top: 0;
+        left: 0;
+        width: 50%;
+        background: #3687e8;
+        border-radius: 2px;
+    }
+}
