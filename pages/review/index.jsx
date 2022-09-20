@@ -7647,7 +7647,7 @@ const table2 = (sat, balance, complienceFilter) => {
                 <td> {alert.severity}</td>
                 <td> {alert.source}</td>
                 <td> {alert.idType}</td>
-                <td> {alert.value}</td>
+                <td> {alert.value}</td> 
               </tr>
             )
           })}

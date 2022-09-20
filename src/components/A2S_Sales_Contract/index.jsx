@@ -123,37 +123,37 @@ function Index(props) {
 
   return (
     <>
-    <div className={`${styles.root}`}>
+      <div className={`${styles.root}`}>
 
-      <div className={`${styles.content} card`}>
-        {salesContract(changeHandler, data, props.preview, CovertvaluefromtoCR)}
-        {
-          !props.preview ?
-            <>
-              <div className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`} >
-                <div className={`${styles.approve} mr-3`}><span
-                  onClick={(e) => {
-                    sessionStorage.setItem("preview", JSON.stringify(data))
-                    console.log("at preview")
+        <div className={`${styles.content} card`}>
+          {salesContract(changeHandler, data, props.preview, CovertvaluefromtoCR)}
+          {
+            !props.preview ?
+              <>
+                <div className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`} >
+                  <div className={`${styles.approve} mr-3`}><span
+                    onClick={(e) => {
+                      sessionStorage.setItem("preview", JSON.stringify(data))
+                      console.log("at preview")
 
-                    Router.push("agreement/preview")
-                    props.setPreviewValue(true)
-                  }}
-                >Preview</span></div>
-                <div className={styles.reject}><span>Save</span></div>
-                <div className={styles.approve}><span
+                      Router.push("agreement/preview")
+                      props.setPreviewValue(true)
+                    }}
+                  >Preview</span></div>
+                  <div className={styles.reject}><span>Save</span></div>
+                  <div className={styles.approve}><span
 
-                >Submit</span></div>
+                  >Submit</span></div>
 
 
-              </div>
-            </>
-            : null
-        }
+                </div>
+              </>
+              : null
+          }
 
+        </div>
       </div>
-    </div>
-</>
+    </>
   )
 }
 
@@ -563,15 +563,15 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Quantity</Col>
-            <Col md={7} className={styles.right}>{data.quan} {data?.unitOfQuantity?.toUpperCase()}</Col>
+            <Col md={7} className={styles.right}>{(data.quan)?.toLocaleString()} {data?.unitOfQuantity?.toUpperCase()}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Unit Price</Col>
-            <Col md={7} className={styles.right}>{data.curr} {data.unitPrice}</Col>
+            <Col md={7} className={styles.right}>{data.curr} {(data.unitPrice)?.toLocaleString()}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Total Order Value</Col>
-            <Col md={7} className={styles.right}>{(data.totalOrderValue)} USD</Col>
+            <Col md={7} className={styles.right}> USD {(data.totalOrderValue)?.toLocaleString('en-IN')} </Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Load Port</Col>
@@ -607,32 +607,32 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
             <Col md={5} className={styles.left}>Specification</Col>
             <Col md={7} className={styles.right}>
               <>
-               <div className={styles.tableWrapper}>
-            <div className={styles.table_scroll_outer}>
-              <div className={styles.table_scroll_inner}>                
-                <table>
-                  <tr>
-                    {data?.spec &&
-                      data?.spec.length > 0 &&
-                      Object.keys(data?.spec[0]).map((val, index) => (
-                        <th key={index}>{val}</th>
-                      ))}
-                  </tr>
-                  {data?.spec &&
-                    data?.spec.length > 0 &&
-                    data?.spec.map((item, index) => (
-                      <tr>
-                        {Object.values(item).map((value, id) => (
-                          <td key={id}>{value}</td>
-                        ))}
-                      </tr>
-                    ))}
-                </table>
-              </div>
-            </div>
-          </div>
+                <div className={styles.tableWrapper}>
+                  <div className={styles.table_scroll_outer}>
+                    <div className={styles.table_scroll_inner}>
+                      <table>
+                        <tr>
+                          {data?.spec &&
+                            data?.spec.length > 0 &&
+                            Object.keys(data?.spec[0]).map((val, index) => (
+                              <th key={index}>{val}</th>
+                            ))}
+                        </tr>
+                        {data?.spec &&
+                          data?.spec.length > 0 &&
+                          data?.spec.map((item, index) => (
+                            <tr>
+                              {Object.values(item).map((value, id) => (
+                                <td key={id}>{value}</td>
+                              ))}
+                            </tr>
+                          ))}
+                      </table>
+                    </div>
+                  </div>
+                </div>
               </>
-             
+
             </Col>
           </Row>
 

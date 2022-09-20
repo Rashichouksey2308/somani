@@ -61,9 +61,9 @@ export default function Home() {
   const [shipmentTypeBulk, setShipmentTypeBulk] = useState('Bulk')
   const [vesselData, setVesselData] = useState()
   const [orderID, setOrderId] = useState('')
-const [isFieldInFocus, setIsFieldInFocus] = useState([{value:false}])
+  const [isFieldInFocus, setIsFieldInFocus] = useState([{ value: false }])
   console.log(containerExcel, "containerExcel")
-  console.log(shipmentTypeBulk,'')
+  console.log(shipmentTypeBulk, '')
 
   const setData = (Vessel) => {
     setOrderId(_get(Vessel, 'data[0].order._id', ''))
@@ -73,7 +73,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState([{value:false}])
         Vessel,
         "data[0].vessels",
         []
-      ).length , "Vessel123")
+      ).length, "Vessel123")
 
     // setCurrency(_get(
     //   Vessel,
@@ -86,21 +86,21 @@ const [isFieldInFocus, setIsFieldInFocus] = useState([{value:false}])
       false
     ))
     setVesselData(Vessel)
-    setPartshipment(_get(
+    setPartShipmentAllowed(_get(
       Vessel,
-      "data[0].currencyAllowed",
-      false
+      "data[0].order.termsheet.transactionDetails.partShipmentAllowed",
+      'No'
     ))
-    if(_get(
-        Vessel,
-        "data[0].vessels",
-        []
-      ).length > 0) {
-      let temp=[]
-      list.forEach((val,index)=>{
-        temp.push({value:false})
+    if (_get(
+      Vessel,
+      "data[0].vessels",
+      []
+    ).length > 0) {
+      let temp = []
+      list.forEach((val, index) => {
+        temp.push({ value: false })
       })
-      console.log(temp,"temp555")
+      console.log(temp, "temp555")
       setIsFieldInFocus([...temp])
     }
     setCompanyName(_get(Vessel, "data[0].company.companyName", ''))
@@ -109,7 +109,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState([{value:false}])
       "data[0].vessels",
       []
     ).length <= 1) {
-      
+
       setShipmentTypeBulk(_get(
         Vessel,
         "data[0].order.termsheet.transactionDetails.shipmentType",
@@ -139,7 +139,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState([{value:false}])
           ),
           orderValue: _get(
             Vessel,
-            "data[0].order.orderValue",
+            "data[0].order.marginMoney.calculation.orderValue",
             ""
           ), transitDetails: {
             countryOfOrigin: _get(
@@ -272,7 +272,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState([{value:false}])
           }]
         },
       ])
-      
+
     } else {
       console.log("elelele")
       setList(_get(
@@ -334,7 +334,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState([{value:false}])
         }]
       },
     ])
-    setIsFieldInFocus([...isFieldInFocus,{value:false}])
+    setIsFieldInFocus([...isFieldInFocus, { value: false }])
   }
   console.log(list, "874")
 
@@ -514,24 +514,24 @@ const [isFieldInFocus, setIsFieldInFocus] = useState([{value:false}])
     setList(tempArr)
 
   }
- const setOnFocus=(index)=> {
-  let temp=[...isFieldInFocus]
-  temp.forEach((val,i)=>{
-    if(i==index){
-      val.value=true
-    }
-  })
-  setIsFieldInFocus([...temp])
- }
- const setOnBlur=(index)=> {
-  let temp=[...isFieldInFocus]
-  temp.forEach((val,i)=>{
-    if(i==index){
-      val.value=false
-    }
-  })
-  setIsFieldInFocus([...temp])
- }
+  const setOnFocus = (index) => {
+    let temp = [...isFieldInFocus]
+    temp.forEach((val, i) => {
+      if (i == index) {
+        val.value = true
+      }
+    })
+    setIsFieldInFocus([...temp])
+  }
+  const setOnBlur = (index) => {
+    let temp = [...isFieldInFocus]
+    temp.forEach((val, i) => {
+      if (i == index) {
+        val.value = false
+      }
+    })
+    setIsFieldInFocus([...temp])
+  }
 
 
   const uploadDocHandler = async (e) => {
@@ -546,27 +546,27 @@ const [isFieldInFocus, setIsFieldInFocus] = useState([{value:false}])
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     try {
-     let response= await Axios.post(`${API.corebaseUrl}${API.uploadDocVessel}`, fd, {
+      let response = await Axios.post(`${API.corebaseUrl}${API.uploadDocVessel}`, fd, {
         headers: headers,
       })
-        if (response.data.code === 200) {
-          console.log(uploadDocType,"uploadDocType")
+      if (response.data.code === 200) {
+        console.log(uploadDocType, "uploadDocType")
         if (uploadDocType == 'containerExcel') {
-          console.log(response.data.data,"response.data.data")
-        setContainerExcel(response.data.data)
+          console.log(response.data.data, "response.data.data")
+          setContainerExcel(response.data.data)
         }
         if (uploadDocType === 'Vessel Certificate') {
-        setVesselCertificate(response.data.data)
+          setVesselCertificate(response.data.data)
         }
         if (uploadDocType === 'Container List') {
-        setContainerListDocument(response.data.data)
+          setContainerListDocument(response.data.data)
         }
-        } else {
+      } else {
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        }
+      }
     } catch (error) {
       let toastMessage = 'COULD NOT UPLOAD Vessel Data AT THIS TIME'
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -852,9 +852,9 @@ const [isFieldInFocus, setIsFieldInFocus] = useState([{value:false}])
       toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
-const handleExcelClose=()=>{
-  setContainerExcel(null)
-}
+  const handleExcelClose = () => {
+    setContainerExcel(null)
+  }
   return (
     <>
       <Vessels
