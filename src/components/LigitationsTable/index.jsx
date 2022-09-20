@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import styles from './index.module.scss'
 import { Row, Col } from 'react-bootstrap'
 import _get from 'lodash/get'
@@ -7,14 +7,33 @@ import { GetCaseDetails } from '../../redux/companyDetail/action'
 
 function index({ data, Heading, val, totalData }) {
   const dispatch = useDispatch()
+  const [count,setCount]=useState({
+    pending:0,disposed:0
+  })
+  useEffect(() => {
+    if(totalData?.cases?.length>0){
+      let pending=0;
+      let disposed=0;
+      totalData.cases.forEach((val,idex)=>{
+        console.log(val?.caseStatus,"val?.caseStatus")
+        if(val?.caseStatus?.trim()?.toLowerCase()=="disposed"){
 
+          disposed=disposed+1
+        }
+        if(val?.caseStatus?.trim()?.toLowerCase()=="pending"){
+          pending=pending+1
+        }
+      })
+      setCount({pending:pending,disposed:disposed})
+    }
+  },[totalData])
   const casePreviewHandler = (cinNo) => {
     dispatch(GetCaseDetails({ cin: cinNo }))
   }
   //console.log(data, "dati")
   const totalNumberOfCases = data?.length
   //const pendingCases = data.filter((e)=> e.)
-  console.log(totalNumberOfCases, 'totalNumberOfCases')
+  console.log(totalData, 'totalNumberOfCases')
   return (
     <div className={`${styles.card_litigations} card shadow-none`}>
       <div className={`${styles.card_ligitations_holder}`}>
@@ -32,7 +51,7 @@ function index({ data, Heading, val, totalData }) {
             <Col md={3} sm={2}>
               <div className={`${styles.head} mb-0 d-flex align-items-center `}>
                 <span className={``}>Pending Case</span>
-                <span className={`${styles.lower} sub_heading`}>{totalData?.pendingCase}</span>
+                <span className={`${styles.lower} sub_heading`}>{count?.pending}</span>
               </div>
             </Col>
             <Col md={2} sm={2}>
@@ -40,7 +59,7 @@ function index({ data, Heading, val, totalData }) {
                 className={`${styles.head}  mb-0 d-flex align-items-center `}
               >
                 <span>Disposed case</span>
-                <span className={`${styles.lower} sub_heading`}>{totalData?.disposedCase}</span>
+                <span className={`${styles.lower} sub_heading`}>{count?.disposed}</span>
               </div>
             </Col>
             <Col md={3} sm={2}>
@@ -48,8 +67,8 @@ function index({ data, Heading, val, totalData }) {
                 <span>Total cases</span>
                 <div className={styles.chart}>
                   <div className={styles.container}>
-                    <div className={styles.fill}></div>
-                    <span className={`sub_heading`}>{totalData?.totalCase}</span>
+                    <div className={styles.fill} style={{width:`${(count?.pending/Number(totalData?.cases?.length)*100)}%`}}></div>
+                    <span className={`sub_heading`}>{ totalData?.cases?.length}</span>
                   </div>
                 </div>
               </div>

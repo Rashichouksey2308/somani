@@ -69,7 +69,7 @@ const Index = () => {
     commodity: '',
     quantity: null,
     unitOfQuantity: 'MT',
-    orderValue: null,
+    orderValue: 0,
     orderCurrency: '',
     unitOfValue: 'Crores',
     supplierName: '',
@@ -131,7 +131,9 @@ const Index = () => {
   }
 
   const onOrderSave = () => {
-    handleCurr()
+    console.log(orderData, 'orderDatabefore')
+
+    console.log(orderData, 'orderDataafter')
     if (orderData?.transactionType?.trim() === '') {
       let toastMessage = 'Invalid Transaction Type'
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -276,6 +278,7 @@ const Index = () => {
       return
     }
     else {
+      handleCurr()
       let orderDataNew = { ...orderData }
       orderDataNew.quantity = removePrefixOrSuffix(orderData.quantity)
       orderDataNew.orderValue =
