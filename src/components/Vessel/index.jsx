@@ -941,12 +941,12 @@ function Index({
                               </button>
                             </div> :
 
-                              <div className={`${styles.certificate} d-flex justify-content-between`}>
+                              <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                 <span>
                                   {containerExcel?.originalName}
                                 </span>
                                 <img
-                                  className={`${styles.close_image} mx-2`}
+                                  className={`${styles.close_image} image_arrow mx-2`}
                                   src="/static/close.svg"
                                   onClick={() => handleExcelClose()}
                                   alt="Close"

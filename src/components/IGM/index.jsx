@@ -1076,11 +1076,11 @@ console.log("test")
                               </>
                             ) : (
                               <div
-                                className={`${styles.certificate} d-flex justify-content-between`}
+                                className={`${styles.certificate} text1 d-flex justify-content-between`}
                               >
                                 <span>{item.document?.originalName}</span>
                                 <img
-                                  className={`${styles.close_image}`}
+                                  className={`${styles.close_image} image_arrow`}
                                   src="/static/close.svg"
                                   onClick={(e) =>
                                     handleCloseDoc('item.document', index)

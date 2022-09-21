@@ -283,7 +283,7 @@ const Index = ({
                         </>
                       ) : (
                         <div
-                          className={`${styles.certificate} d-flex align-items-center justify-content-between`}
+                          className={`${styles.certificate} text1 d-flex align-items-center justify-content-between`}
                         >
                           <span>{lcDoc?.lcDraftDoc?.name}</span>
                           <img
@@ -292,7 +292,7 @@ const Index = ({
                                 lcDraftDoc: null,
                               })
                             }
-                            className={`${styles.close_image} mr-2`}
+                            className={`${styles.close_image} image_arrow mr-2`}
                             src="/static/close.svg"
                             alt="Close"
                           />{' '}
@@ -320,11 +320,11 @@ const Index = ({
                   />
                   {newDoc?.document?.name ? (
                     <div
-                      className={`${styles.certificate} d-flex justify-content-between`}
+                      className={`${styles.certificate} text1 d-flex justify-content-between`}
                     >
                       <span>{newDoc?.document?.name}</span>
                       <img
-                        className={`${styles.close_image} mr-2`}
+                        className={`${styles.close_image} image_arrow mr-2`}
                         src="/static/close.svg"
                         onClick={(e) => handleCloseDoc()}
                         alt="Close"

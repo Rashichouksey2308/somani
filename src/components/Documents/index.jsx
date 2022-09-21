@@ -109,7 +109,7 @@ const Index = ({
                         </button>
                       </div>
                     ) : (
-                      <div className={`${styles.certificate} d-flex justify-content-between`}>
+                      <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                         <span className="text-color">
                           {val.attachDoc.name}
                         </span>
