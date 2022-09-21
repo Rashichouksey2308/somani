@@ -238,7 +238,7 @@ export default function Index({ inspectionData }) {
                                   </>
                                 ) : (
                                   <div
-                                    className={`${styles.certificate} d-flex justify-content-between`}
+                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
                                   >
                                     <span>
                                       {
@@ -247,7 +247,7 @@ export default function Index({ inspectionData }) {
                                       }
                                     </span>
                                     <img
-                                      className={`${styles.close_image}`}
+                                      className={`${styles.close_image} image_arrow`}
                                       src="/static/close.svg"
                                       onClick={() => handleClose()}
                                       alt="Close"

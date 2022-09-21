@@ -1091,12 +1091,12 @@ console.log(associateData.gstin,"associateData")
                         </button>
                       </div>
                     ) : (
-                      <div className={`${styles.certificate} d-flex justify-content-between`}>
+                      <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                         <span>
                           {val.attachDoc?.originalName}
                         </span>
                         <img
-                          className={`${styles.close_image}`}
+                          className={`${styles.close_image}  image_arrow`}
                           src="/static/close.svg"
                           onClick={() => removeDoc(index)}
                           alt="Close"

@@ -24,3 +24,54 @@ export function clearBreadcrumbValues(payload) {
     payload,
   }
 }
+
+export function setCurrency(payload) {
+  return {
+    type: types.SET_CURRENCY,
+    payload,
+  }
+}
+export function getCurrency(payload) {
+  return {
+    type: types.GET_CURRENCY,
+    payload,
+  }
+}
+export function getUnit(payload) {
+  return {
+    type: types.GET_UNIT,
+    payload,
+  }
+}
+export function setUnit(payload) {
+  return {
+    type: types.SET_UNIT,
+    payload,
+  }
+}
+
+export const settingCurrency = (payload) => (dispatch, getState) => {
+  localStorage.setItem('currency', payload)
+  console.log(payload, 'currency')
+  dispatch(setCurrency(payload))
+}
+
+export const settingUnit = (payload) => (dispatch, getState) => {
+  localStorage.setItem('unit', payload)
+  console.log(payload, 'currency')
+  dispatch(setUnit(payload))
+}
+export const gettingCurrency = (payload) => (dispatch, getState) => {
+  dispatch(getCurrency())
+  return (
+    localStorage.getItem('currency') ||
+    getState().Breadcrumb.breadCrumbData.currency
+  )
+}
+
+export const gettingUnit = (payload) => (dispatch, getState) => {
+  dispatch(getUnit())
+  return (
+    localStorage.getItem('unit') || getState().Breadcrumb.breadCrumbData.unit
+  )
+}
