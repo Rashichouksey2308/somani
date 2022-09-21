@@ -44,7 +44,7 @@ function Index() {
   dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')))
   
   const exportPDF = () => {
-    const doc = new jsPDF('p', 'pt', [1500, 1500])
+    const doc = new jsPDF('p', 'pt', [1500, 1830])
     doc.html(
       ReactDOMServer.renderToString(
         <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
@@ -100,6 +100,7 @@ function Index() {
                               fontWeight: 'normal',
                               padding: '0 35px 7px',
                               marginBottom: '0',
+                              float:'left'
                             }}
                           >
                             <span
@@ -126,6 +127,7 @@ function Index() {
                               fontWeight: 'normal',
                               padding: '0 35px 7px',
                               marginBottom: '0',
+                              float:'left'
                             }}
                           >
                             <span
@@ -366,7 +368,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                             INR { convertValue(insuranceData?.quotationRequest?.sumInsured)} Crores
+                             INR { Number(convertValue(insuranceData?.quotationRequest?.sumInsured))?.toLocaleString()} Crores
                     (Including 110%)
                           </p>
                         </td>
@@ -866,7 +868,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            Storage Insurance &amp; Marine Insurance
+                            Insurance Coverage
                           </p>
                         </td>
                         <td
@@ -1179,7 +1181,7 @@ function Index() {
                     Sum Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    INR { convertValue(insuranceData?.quotationRequest?.sumInsured)} Crores
+                    INR { Number(convertValue(insuranceData?.quotationRequest?.sumInsured))?.toLocaleString()} Crores
                     (Including 110%)
                   </Col>
                 </Row>
@@ -1359,10 +1361,10 @@ function Index() {
                     xs={4}
                     className={`${styles.content_head} label_heading"`}
                   >
-                    Storage Insurance & Marine Insurance
+                    Insurance Coverage
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    All Risks Including ICC-A, War, SRCC, Theft Burglary, Act of God, Pilferage, Fire etc.
+                    All Risks Including ICC-A, War, SRCC, Theft, Loading, Unloading Burglary, Act of God, Pilferage, Fire etc.
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>

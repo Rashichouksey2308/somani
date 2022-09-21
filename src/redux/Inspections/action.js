@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
 import router from 'next/router'
+import moment from 'moment'
 
 function getInspection() {
   return {
@@ -55,6 +56,12 @@ function updateInspectionFailed() {
   }
 }
 
+function updateDate(payload) {
+  return {
+    type: types.GET_UPDATED_DATE,
+    payload,
+  }
+}
 export const GetAllInspection =
   (payload) => async (dispatch, getState, api) => {
     let cookie = Cookies.get('SOMANI')
@@ -67,23 +74,22 @@ export const GetAllInspection =
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
     try {
-      Axios.get(
+      let response = await Axios.get(
         `${API.corebaseUrl}${API.getInspection}${payload ? payload : ''}`,
         {
           headers: headers,
         },
+      )
 
-      ).then((response) => {
-        if (response.data.code === 200) {
-          dispatch(getAllInspectionSuccess(response.data.data))
-        } else {
-          dispatch(getAllInspectionFailed(response.data.data))
-          let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          }
+      if (response.data.code === 200) {
+        dispatch(getAllInspectionSuccess(response.data.data))
+      } else {
+        dispatch(getAllInspectionFailed(response.data.data))
+        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-      })
+      }
     } catch (error) {
       dispatch(getAllInspectionFailed())
 
@@ -101,19 +107,30 @@ export const GetInspection = (payload) => async (dispatch, getState, api) => {
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
   try {
-    Axios.get(`${API.corebaseUrl}${API.getInspection}${payload}`, {
-      headers: headers,
-    }).then((response) => {
-      if (response.data.code === 200) {
-        dispatch(getInspectionSuccess(response.data.data))
-      } else {
-        dispatch(getInspectionFailed(response.data.data))
-        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+    let response = await Axios.get(
+      `${API.corebaseUrl}${API.getInspection}${payload}`,
+      {
+        headers: headers,
+      },
+    )
+    if (response.data.code === 200) {
+      dispatch(getInspectionSuccess(response.data.data))
+      localStorage.setItem(
+        'inceptionlastmodified',
+        moment(response.data.data[0].updatedAt).format('DD MMM,hh:mm:a'),
+      )
+      dispatch(
+        updateDate(
+          moment(response.data.data[0].updatedAt).format('DD MMM,hh:mm:a'),
+        ),
+      )
+    } else {
+      dispatch(getInspectionFailed(response.data.data))
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-    })
+    }
   } catch (error) {
     dispatch(getInspectionFailed())
 
@@ -126,33 +143,58 @@ export const GetInspection = (payload) => async (dispatch, getState, api) => {
 
 export const UpdateInspection =
   (payload) => async (dispatch, getState, api) => {
-    let cookie = Cookies.get('SOMANI')
-    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-    console.log(payload, 'payload Third party23')
-
-    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
     try {
-      Axios.put(`${API.corebaseUrl}${API.updateInspection}`, payload.fd, {
-        headers: headers,
-      }).then((response) => {
-        if (response.data.code === 200) {
-          dispatch(updateInspectionSuccess(response.data.data))
-          let toastMessage = 'UPDATED SUCCESSFULLY'
-          if (payload.task === 'save') {
-            toastMessage = 'Saved Successfully'
-          }
+      let cookie = Cookies.get('SOMANI')
+      const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+      console.log(payload.task, 'payload Third party23')
+
+      let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+      var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+
+      let response = await Axios.put(
+        `${API.corebaseUrl}${API.updateInspection}`,
+        payload.fd,
+        {
+          headers: headers,
+        },
+      )
+      console.log(response, 'response')
+      if (response.data.code === 200) {
+        let toastMessage = 'UPDATED SUCCESSFULLY'
+        console.log(payload.task, 'payload.task')
+        if (payload.task == 'save') {
+          console.log(payload.task, 'payload.task213132')
+          toastMessage = 'Saved Successfully'
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+            toast.success(toastMessage.toUpperCase(), {
+              toastId: toastMessage,
+            })
           }
         } else {
-          dispatch(updateInspectionFailed(response.data.data))
-          let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            toast.success(toastMessage.toUpperCase(), {
+              toastId: toastMessage,
+            })
           }
+
+          localStorage.setItem(
+            'inceptionlastmodified',
+            moment(response.data.timestamp).format('DD MMM,hh:mm:a'),
+          )
+          dispatch(
+            updateDate(
+              moment(response.data.timestamp).format('DD MMM,hh:mm:a'),
+            ),
+          )
         }
-      })
+        dispatch(updateInspectionSuccess(response.data.data))
+      } else {
+        dispatch(updateInspectionFailed(response.data.data))
+        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+      }
     } catch (error) {
       dispatch(updateInspectionFailed())
 

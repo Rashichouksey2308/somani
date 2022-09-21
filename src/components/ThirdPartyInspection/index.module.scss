@@ -40,6 +40,7 @@
       border-radius: 6px;
       .head_container {
         min-height: 80px;
+        cursor: pointer;
         padding: 0 35px !important;
         border-bottom: 2px solid #cad6e6;
         .heading {
@@ -463,7 +464,7 @@
               border-radius: 0;
             }
             span {
-              margin-left: 20px;
+              margin-left: 5px;
               text-decoration: underline;
               color: #3687e8;
               font-weight: bold;
@@ -832,7 +833,7 @@ img {
 .certificate {
   font-size: 20px;
   letter-spacing: 0.19px;
-  color: #111111;
+  //color: #111111;
   background-color: #C3C3C31F;
   border-radius: 4px;
   padding: 8px;

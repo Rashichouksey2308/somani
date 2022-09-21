@@ -250,7 +250,20 @@ body.light-mode .text {
 body.dark-mode .text1 {
   color: #ffffff80 !important;
 }
-
+body.light-mode .text_area {
+  color: #495057 ;
+}
+body.dark-mode .text_area {
+  color: #ffffff80 ;
+}
+body.light-mode .text_input {
+  color: #495057 ;
+  background: #fff;
+}
+body.dark-mode .text_input {
+  color: #ffffff80 ;
+  background: #1d2530;
+}
 body.light-mode .text1 {
   color: #000000 !important;
 }
@@ -506,6 +519,18 @@ body.light-mode .saved .iconBox {
 body.dark-mode .saved .iconBox {
   background: rgba(202, 208, 214, 0.4) !important;
 }
+body.light-mode .commodities .val {
+  opacity: 0.7;
+}
+body.dark-mode .commodities .val {
+  opacity: 1;
+}
+body.light-mode .commodities .bar {
+  opacity: 0.1;
+}
+body.dark-mode .commodities .bar {
+  opacity: 0.2;
+}
 body.light-mode .statusBox h3 span {
   color: #8492A6;
 }
@@ -653,6 +678,12 @@ body.light-mode .value {
 }
 body.dark-mode .value {
   color: #ffffff80;
+}
+body.light-mode .td_value {
+  color: #111111 !important;
+}
+body.dark-mode .td_value {
+  color: rgba(255, 255, 255, 0.7) !important;
 }
 body.dark-mode .value_card {
   background: #434e61;

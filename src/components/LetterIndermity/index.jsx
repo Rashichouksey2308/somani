@@ -27,8 +27,10 @@ function Index({ TransitDetails }) {
                 'data[0].order.portOfDischarge',
                 '',
               ).toUpperCase(),
+      date:moment(_get(TransitDetails,"data[0].BL.billOfLanding",[new Date()])[0].blDate).format("DD MMMM YYYY")
     },
   ])
+  console.log(bolArray,"bolArray")
   const [loi, setLOI] = useState({
     loiIssueDate: new Date(),
     blSurrenderDate: null,
@@ -39,6 +41,11 @@ function Index({ TransitDetails }) {
       designation: '',
     },
   })
+  const changeDesignation=(value)=>{
+    let temp ={...loi}
+    temp.authorizedSignatory.designation=value
+   setLOI({...loi})
+  }
 useEffect(() =>{
   if(_get(TransitDetails,"data[0].LOI.billOfLanding",[]).length>0){
     setBillsofLanding(_get(TransitDetails,"data[0].LOI.billOfLanding",[]))
@@ -54,9 +61,11 @@ useEffect(() =>{
                 'data[0].order.portOfDischarge',
                 '',
               ).toUpperCase(),
+        date:moment(_get(TransitDetails,"data[0].BL.billOfLanding",[new Date()])[0].blDate).format("DD MMMM YYYY")
     },
     ])
   }
+  console.log(billsofLanding,"billsofLanding")
   useEffect(() => {
     let existingData = _get(TransitDetails, `data[0].LOI`, {})
     if (existingData?.authorizedSignatory) {
@@ -156,8 +165,21 @@ useEffect(() =>{
   }
 
   const BolDropDown = (e,index) => {
+    console.log(e.target.value,"onclclc")
     let temp=[...billsofLanding]
-    temp[index].blnumber=e.target.value
+  
+    let text=e.target.value
+    let  thenum = text.match(/\d+/)[0]
+     
+      if(Number(thenum)<=0){
+        thenum=0
+      }else{
+        thenum=Number(Number(thenum)-1)
+      }
+   console.log(thenum,"indexindex")
+     temp[index].blnumber=e.target.value
+     
+     temp[index].date= moment(_get(TransitDetails,"data[0].BL.billOfLanding",[new Date()])[thenum].blDate).format("DD MMMM YYYY")
      temp[index].loadingPort=_get(
                 TransitDetails,
                 'data[0].order.portOfDischarge',
@@ -167,11 +189,13 @@ useEffect(() =>{
    
   }
 
+ console.log(billsofLanding,"asasasasas")
   const OnAddHandler = () => {
     let tempArray = billsofLanding
     tempArray.push({
       blnumber: '',
       loadingPort: '',
+      date:""
     })
     setBillsofLanding(tempArray)
   }
@@ -289,7 +313,7 @@ const onDeleteClick=(index)=>{
           <div>
           {billsofLanding.map((bills, index1) => (
           <>
-          
+            {console.log(bills,"bills")}
             <div
               key={index1}
               className={`ml-3 word-wrap d-flex justify-content-start align-items-center ${styles.salutationFeatures} `}
@@ -297,21 +321,26 @@ const onDeleteClick=(index)=>{
               
               <select onChange={(e) => BolDropDown(e,index1)} className="input" value={billsofLanding[index1].blnumber}>
                 {bolArray.map((element, index2) => (
-                  <option key={index2} value={`BL-${index2+1}`}>
+                  <option key={index2} 
+                  value={`BL-${index2+1}`}
+                  
+                  >
                     BL-{index2 + 1}
                   </option>
                 ))}
               </select>
-              Dated 18TH MARCH 2021, ISSUE AT{' '}
+              Dated {billsofLanding[index1].date}, ISSUE AT{' '}
               {_get(
                 TransitDetails,
                 'data[0].order.portOfDischarge',
                 '',
               ).toUpperCase()}{' '}
               {index1}
-              <button onClick={() => onAddClick()} className={styles.add_btn}>
+              {index1==0?
+               <button onClick={() => onAddClick()} className={styles.add_btn}>
                 <span className={styles.add_sign}>+</span>Add
-              </button>
+              </button>:
+              null}
               {index1>0 ?
                <button onClick={() => onDeleteClick(index1)} className={styles.add_btn}>
                 <span className={styles.add_sign}>-</span>Delete
@@ -462,6 +491,10 @@ const onDeleteClick=(index)=>{
               <input
                 className="mt-4 pl-3 input"
                 value={loi.authorizedSignatory.designation}
+                onChange={(e)=>{
+                  changeDesignation(e.target.value)
+                }}
+
               ></input>
             </div>
           </div>

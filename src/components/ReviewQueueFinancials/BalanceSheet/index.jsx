@@ -361,10 +361,7 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                           )
                         } */}
                         {convertValue((lastYearData?.equityLiabilities?.tradePay +
-                          lastYearData?.equityLiabilities?.tradePayablesNoncurrent), unit)?.toLocaleString(undefined, {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2
-                          })}
+                          lastYearData?.equityLiabilities?.tradePayablesNoncurrent), unit)}
 
                       </td>
                       <td className="text-center">
@@ -928,6 +925,9 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                         {convertValue((latestYearData?.assets?.totalCurrentAssets), unit)?.toLocaleString(undefined, {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
+                        })?.toLocaleString(undefined, {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
 
                       </td>
@@ -936,11 +936,17 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                         {convertValue((previousYearData?.assets?.totalCurrentAssets), unit)?.toLocaleString(undefined, {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
+                        })?.toLocaleString(undefined, {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
                         {/* {lastYearData?.assets?.totalCurrentAssets?.toLocaleString()} */}
                         {convertValue((lastYearData?.assets?.totalCurrentAssets), unit)?.toLocaleString(undefined, {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
+                        })?.toLocaleString(undefined, {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         })}
@@ -961,27 +967,27 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                         <strong>
                           {/* {latestYearData?.assets?.totalAssets?.toLocaleString()} */}
                           {convertValue((latestYearData?.assets?.totalAssets), unit)?.toLocaleString(undefined, {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2
-                          })}
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
+                        })}
                         </strong>
                       </td>
                       <td className="text-center border-top">
                         <strong>
                           {/* {previousYearData?.assets?.totalAssets?.toLocaleString()} */}
                           {convertValue((previousYearData?.assets?.totalAssets), unit)?.toLocaleString(undefined, {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2
-                          })}
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
+                        })}
                         </strong>
                       </td>
                       <td className="text-center border-top">
                         <strong>
                           {/* {lastYearData?.assets?.totalAssets?.toLocaleString()} */}
                           {convertValue((lastYearData?.assets?.totalAssets), unit)?.toLocaleString(undefined, {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2
-                          })}
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
+                        })}
                         </strong>
                       </td>
                       <td className="text-center border-top">

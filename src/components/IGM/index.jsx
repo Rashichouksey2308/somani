@@ -26,7 +26,6 @@ export default function Index({
   orderId,
   docUploadFunction,
 }) {
-
   let transId = _get(TransitDetails, `data[0]`, '')
 
   const dispatch = useDispatch()
@@ -34,9 +33,21 @@ export default function Index({
   console.log(TransitDetails, 'TransitDetails')
 
   let shipmentTypeBulk =
-    _get(TransitDetails, `data[0].order.termsheet.transactionDetails.shipmentType`, '') ===
-      'Bulk' ? true : false
-console.log(_get(TransitDetails, `data[0].order.termsheet.transactionDetails.shipmentType`, ''),"ssssss")
+    _get(
+      TransitDetails,
+      `data[0].order.termsheet.transactionDetails.shipmentType`,
+      '',
+    ) === 'Bulk'
+      ? true
+      : false
+  console.log(
+    _get(
+      TransitDetails,
+      `data[0].order.termsheet.transactionDetails.shipmentType`,
+      '',
+    ),
+    'ssssss',
+  )
   const [editInput, setEditInput] = useState(true)
 
   const [shipmentType, setShipmentType] = useState(true)
@@ -77,7 +88,7 @@ console.log(_get(TransitDetails, `data[0].order.termsheet.transactionDetails.shi
     ],
     document: null,
   })
-
+  console.log(igmList, 'thi is ncjc')
   const [blNewNumberEntry, setBlNewNumberEntry] = useState({
     blNumber: number,
     BlDate: new Date(),
@@ -86,7 +97,7 @@ console.log(_get(TransitDetails, `data[0].order.termsheet.transactionDetails.shi
 
   const [orderData, setOrderData] = useState()
   // let balanceQuantity = _get(TransitDetails, 'data[0].order.quantity', '')
-
+console.log("test")
   // const calculateBalaceQuantity = () => {
   //   let balanceQuantity = _get(TransitDetails, 'data[0].order.quantity', '')
   // _get(
@@ -159,7 +170,19 @@ console.log(_get(TransitDetails, `data[0].order.termsheet.transactionDetails.shi
     })
     setIgmList(tempArray)
   }
-
+  const onDeleteClick = (index) => {
+    // setIgmList({
+    //     ...igmList.igmDetails.slice(0, index),
+    //     ...igmList.igmDetails.slice(index + 1),
+    // })
+    setIgmList({
+      ...igmList,
+      igmDetails: [
+        ...igmList.igmDetails.slice(0, index),
+        ...igmList.igmDetails.slice(index + 1),
+      ],
+    })
+  }
   const onChangeIgm = (name, text, index) => {
     if (name === 'blQuantity') {
       if (checkRemainingBalance() < value) {
@@ -228,16 +251,17 @@ console.log(_get(TransitDetails, `data[0].order.termsheet.transactionDetails.shi
 
     setIgmList(newArray)
   }
-  const onAddBlNumber = (index) => {
+  const onAddBlNumber = (index,index2) => {
     let newIgmList = { ...igmList }
-    console.log(newIgmList.igmDetails[index], "newIgmList.igmDetails")
-    newIgmList.igmDetails[0].blNumber.push({
+    console.log(newIgmList, 'newIgmList.igmDetails')
+    newIgmList.igmDetails[index].blNumber.push({
       blNumber: number,
       BlDate: new Date(),
       quantity: '',
     })
     setIgmList(newIgmList)
   }
+  console.log(igmList,"igmList1223123")
   const onRemoveBlNumber = (index, index2) => {
     let tempArray = { ...igmList }
     tempArray.igmDetails[index].blNumber.pop(index2)
@@ -369,7 +393,6 @@ console.log(_get(TransitDetails, `data[0].order.termsheet.transactionDetails.shi
     let temparray = { ...igmList }
     temparray.igmDetails[index].document = null
     setIgmList(temparray)
-
   }
 
   const handleSave = () => {
@@ -411,7 +434,7 @@ console.log(_get(TransitDetails, `data[0].order.termsheet.transactionDetails.shi
     let task = 'submit'
     dispatch(UpdateTransitDetails({ fd, task }))
   }
-  console.log(shipmentTypeBulk,"shipmentTypeBulk",shipmentTypeBulk==false)
+  console.log(shipmentTypeBulk, 'shipmentTypeBulk', shipmentTypeBulk == false)
   return (
     <>
       <div className={`${styles.backgroundMain} p-0 container-fluid`}>
@@ -419,7 +442,7 @@ console.log(_get(TransitDetails, `data[0].order.termsheet.transactionDetails.shi
           <div className={`${styles.wrapper} border_color card`}>
             <div className="d-lg-flex align-items-center d-inline-block">
               <h2 className="">Shipment Type</h2>
-               <div className={`${styles.radio_form} ml-lg-5 ml-n4`}>
+              <div className={`${styles.radio_form} ml-lg-5 ml-n4`}>
                 {['radio'].map((type) => (
                   <div key={`inline-${type}`} className={styles.radio_group}>
                     <Form.Check
@@ -484,7 +507,11 @@ console.log(_get(TransitDetails, `data[0].order.termsheet.transactionDetails.shi
                   </div>
                   <span className={styles.value}>
                     {_get(TransitDetails, 'data[0].order.quantity', '')}{' '}
-                    {_get(TransitDetails, 'data[0].order.unitOfQuantity', '')?.toUpperCase()}{' '}
+                    {_get(
+                      TransitDetails,
+                      'data[0].order.unitOfQuantity',
+                      '',
+                    )?.toUpperCase()}{' '}
                   </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
@@ -493,10 +520,10 @@ console.log(_get(TransitDetails, `data[0].order.termsheet.transactionDetails.shi
                   </div>
                   <span className={styles.value}>
                     {convertValue(
-                      _get(TransitDetails, 'data[0].order.orderValue', '')
+                      _get(TransitDetails, 'data[0].order.orderValue', ''),
                     ).toLocaleString('en-IN')}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
-                      'Crores'
+                    'Crores'
                       ? 'Cr'
                       : _get(TransitDetails, 'data[0].order.unitOfValue', '')}
                   </span>
@@ -646,11 +673,19 @@ console.log(_get(TransitDetails, `data[0].order.termsheet.transactionDetails.shi
                     >
                       <span className={styles.add_sign}>+</span>Add
                     </button>
+                    {index > 0 ? (
+                      <button
+                        onClick={() => onDeleteClick(index)}
+                        className={`${styles.add_btn} mr-0 d-flex align-items-center justify-content-between border-danger text-danger`}
+                      >
+                        <img src="/static/delete.svg" width={15} alt="delete" />{' '}
+                        Delete
+                      </button>
+                    ) : null}
                   </div>
                 </div>
                 <div className={`${styles.dashboard_form} card-body`}>
                   <div className="row">
-
                     <div
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                     >
@@ -665,34 +700,36 @@ console.log(_get(TransitDetails, `data[0].order.termsheet.transactionDetails.shi
                         >
                           {shipmentTypeBulk
                             ? _get(
-                              TransitDetails,
-                              'data[0].order.vessel.vessels',
-                              [],
-                            ).map((vessel, index) => (
-                              <option
-                                value={vessel?.vesselInformation[0]?.name}
-                                key={index}
-                              >
-                                {vessel?.vesselInformation[0]?.name}
-                              </option>
-                            ))
+                                TransitDetails,
+                                'data[0].order.vessel.vessels',
+                                [],
+                              ).map((vessel, index) => (
+                                <option
+                                  value={vessel?.vesselInformation[0]?.name}
+                                  key={index}
+                                >
+                                  {vessel?.vesselInformation[0]?.name}
+                                </option>
+                              ))
                             : _get(
-                              TransitDetails,
-                              'data[0].order.vessel.vessels[0].vesselInformation',
-                              [],
-                            ).map((vessel, index) => (
-                              <option value={vessel?.name} key={index}>
-                                {vessel?.name}
-                              </option>
-                            ))}
+                                TransitDetails,
+                                'data[0].order.vessel.vessels[0].vesselInformation',
+                                [],
+                              ).map((vessel, index) => (
+                                <option value={vessel?.name} key={index}>
+                                  {vessel?.name}
+                                </option>
+                              ))}
                         </select>
                         <label
                           className={`${styles.label_heading} label_heading`}
                         >
                           Vessel Name
-                          {shipmentTypeBulk ? <strong className="text-danger">*</strong>
-                            : ''
-                          }
+                          {shipmentTypeBulk ? (
+                            <strong className="text-danger">*</strong>
+                          ) : (
+                            ''
+                          )}
                         </label>
                         <img
                           className={`${styles.arrow} image_arrow img-fluid`}
@@ -713,8 +750,10 @@ console.log(_get(TransitDetails, `data[0].order.termsheet.transactionDetails.shi
                         }
                         className={`${styles.input_field} input form-control`}
                         type="number"
-                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                        onKeyDown={(evt) =>
+                          ['e', 'E', '+', '-'].includes(evt.key) &&
+                          evt.preventDefault()
+                        }
                       />
                       <label
                         className={`${styles.label_heading} label_heading`}
@@ -731,9 +770,7 @@ console.log(_get(TransitDetails, `data[0].order.termsheet.transactionDetails.shi
                         <DateCalender
                           index={index}
                           selected={
-                            item.igmFiling == null
-                              ? ''
-                              : moment(item.igmFiling)
+                            item.igmFiling == null ? '' : moment(item.igmFiling)
                           }
                           defaultDate={item.igmFiling}
                           name="igmFiling"
@@ -746,10 +783,9 @@ console.log(_get(TransitDetails, `data[0].order.termsheet.transactionDetails.shi
                           alt="Search"
                         />
                       </div>
-
                     </div>
                   </div>
-                  <hr className='mt-4 mb-0 border_color' />
+                  <hr className="mt-4 mb-0 border_color" />
                   <div className="row">
                     {item.blNumber.map((blEntry, index2) => {
                       console.log(blEntry, '[igmListblmap]')
@@ -813,11 +849,13 @@ console.log(_get(TransitDetails, `data[0].order.termsheet.transactionDetails.shi
                                   </strong>
                                 </div>
                                 <span className={styles.value}>
-                                  {blEntry?.blDate ? moment(
-                                    blEntry?.blDate?.slice(0, 10),
-                                    'YYYY-MM-DD',
-                                    true,
-                                  ).format('DD-MM-YYYY') : ''}
+                                  {blEntry?.blDate
+                                    ? moment(
+                                        blEntry?.blDate?.slice(0, 10),
+                                        'YYYY-MM-DD',
+                                        true,
+                                      ).format('DD-MM-YYYY')
+                                    : ''}
                                 </span>
                               </div>
                               <div
@@ -851,7 +889,7 @@ console.log(_get(TransitDetails, `data[0].order.termsheet.transactionDetails.shi
                                   />
                                   {item.blNumber.length >= index2 ? (
                                     <img
-                                      onClick={() => onAddBlNumber(index2)}
+                                      onClick={() => onAddBlNumber(index,index2)}
                                       src="/static/add-btn.svg"
                                       className={`${styles.delete_image} img-fluid ml-5`}
                                       alt="Add"
@@ -936,13 +974,13 @@ console.log(_get(TransitDetails, `data[0].order.termsheet.transactionDetails.shi
                                     />
                                     {item.blNumber.length >= index2 ? (
                                       <img
-                                        onClick={() => onAddBlNumber(index2)}
+                                        onClick={() => onAddBlNumber(index,index2)}
                                         src="/static/add-btn.svg"
                                         className={`${styles.delete_image} img-fluid ml-5`}
                                         alt="Add"
                                       />
                                     ) : null}
-                                    {item.blNumber.length >= 1 ? (
+                                    {index2 > 0 ? (
                                       <img
                                         onClick={() =>
                                           onRemoveBlNumber(index, index2)
@@ -960,7 +998,6 @@ console.log(_get(TransitDetails, `data[0].order.termsheet.transactionDetails.shi
                         </>
                       )
                     })}
-
                   </div>
                 </div>
                 <div className={styles.table_scroll_outer}>
@@ -1016,8 +1053,8 @@ console.log(_get(TransitDetails, `data[0].order.termsheet.transactionDetails.shi
                           <td className={styles.doc_row}>
                             {item?.document
                               ? moment(item?.document?.Date).format(
-                                ' DD-MM-YYYY , h:mm a',
-                              )
+                                  ' DD-MM-YYYY , h:mm a',
+                                )
                               : ''}
                           </td>
                           <td>
@@ -1038,14 +1075,16 @@ console.log(_get(TransitDetails, `data[0].order.termsheet.transactionDetails.shi
                                 </div>
                               </>
                             ) : (
-                              <div className={`${styles.certificate} d-flex justify-content-between`}>
-                                <span>
-                                  {item.document?.originalName}
-                                </span>
+                              <div
+                                className={`${styles.certificate} text1 d-flex justify-content-between`}
+                              >
+                                <span>{item.document?.originalName}</span>
                                 <img
-                                  className={`${styles.close_image}`}
+                                  className={`${styles.close_image} image_arrow`}
                                   src="/static/close.svg"
-                                  onClick={(e) => handleCloseDoc('item.document', index)}
+                                  onClick={(e) =>
+                                    handleCloseDoc('item.document', index)
+                                  }
                                   alt="Close"
                                 />{' '}
                               </div>

@@ -140,7 +140,12 @@ export default function Index({
     console.log('here')
   }
   console.log(bolList, 'bol')
-
+  const onDeleteClick=(index)=>{
+    setBolList([
+        ...bolList.slice(0, index),
+        ...bolList.slice(index + 1),
+      ])
+  }
   const uploadDoc = async (e, index) => {
     let name = e.target.name
     let id = e.target.id
@@ -545,6 +550,7 @@ export default function Index({
     }
   }
 
+  
   const saveData = () => {
     if (!validation()) return
     // const billOfLanding = [...bolList]
@@ -718,8 +724,10 @@ export default function Index({
                       <span className={styles.add_sign}>+</span>Add
                     </button>
                   )}
-                  <button className={`${styles.add_btn} mr-0 d-flex align-items-center justify-content-between border-danger text-danger`}>
+                  {index>0 ?
+                  <button onClick={() => onDeleteClick(index)} className={`${styles.add_btn} mr-0 d-flex align-items-center justify-content-between border-danger text-danger`}>
                     <img src="/static/delete.svg" width={15} alt="delete"/> Delete</button>
+                    :null}
                 </div>
                 <div className={`${styles.dashboard_form} card-body`}>
                   <div className={`${styles.bill_landing} border_color`}>
@@ -1062,7 +1070,7 @@ export default function Index({
                                 </>
                               ) : (
                                 <div
-                                  className={`${styles.certificate} d-flex justify-content-between`}
+                                  className={`${styles.certificate} text1 d-flex justify-content-between`}
                                 >
                                   <span>
                                     {
@@ -1071,7 +1079,7 @@ export default function Index({
                                     }
                                   </span>
                                   <img
-                                    className={`${styles.close_image}`}
+                                    className={`${styles.close_image}  image_arrow`}
                                     src="/static/close.svg"
                                     onClick={(e) =>
                                       handleCloseContanierDoc('', index)
@@ -1198,13 +1206,13 @@ export default function Index({
                                   </>
                                 ) : (
                                   <div
-                                    className={`${styles.certificate} d-flex justify-content-between`}
+                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
                                   >
                                     <span>
                                       {bolList[index]?.blDoc?.originalName}
                                     </span>
                                     <img
-                                      className={`${styles.close_image}`}
+                                      className={`${styles.close_image} image_arrow`}
                                       src="/static/close.svg"
                                       onClick={(e) =>
                                         handleCloseDoc('blDoc', index)
@@ -1272,7 +1280,7 @@ export default function Index({
                                       </>
                                     ) : (
                                       <div
-                                        className={`${styles.certificate} d-flex justify-content-between`}
+                                        className={`${styles.certificate} text1 d-flex justify-content-between`}
                                       >
                                         <span>
                                           {
@@ -1282,7 +1290,7 @@ export default function Index({
                                           }
                                         </span>
                                         <img
-                                          className={`${styles.close_image}`}
+                                          className={`${styles.close_image}  image_arrow`}
                                           src="/static/close.svg"
                                           onClick={(e) =>
                                             handleCloseDoc(
@@ -1350,7 +1358,7 @@ export default function Index({
                                       </>
                                     ) : (
                                       <div
-                                        className={`${styles.certificate} d-flex justify-content-between`}
+                                        className={`${styles.certificate} text1 d-flex justify-content-between`}
                                       >
                                         <span>
                                           {
@@ -1359,7 +1367,7 @@ export default function Index({
                                           }
                                         </span>
                                         <img
-                                          className={`${styles.close_image}`}
+                                          className={`${styles.close_image} image_arrow`}
                                           src="/static/close.svg"
                                           onClick={(e) =>
                                             handleCloseDoc(
@@ -1500,7 +1508,7 @@ export default function Index({
                                   </>
                                 ) : (
                                   <div
-                                    className={`${styles.certificate} d-flex justify-content-between`}
+                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
                                   >
                                     <span>
                                       {
@@ -1509,7 +1517,7 @@ export default function Index({
                                       }
                                     </span>
                                     <img
-                                      className={`${styles.close_image}`}
+                                      className={`${styles.close_image} image_arrow`}
                                       src="/static/close.svg"
                                       onClick={(e) => handleCloseDoc('blSurrenderDoc', index)}
                                       alt="Close"

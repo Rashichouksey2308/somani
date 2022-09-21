@@ -15,7 +15,7 @@ function Index() {
   // }, [dispatch])
 
   const { buyerList } = useSelector((state) => state.buyer)
-  console.log(buyerList, 'this is buyer list')
+  console.log(moment(buyerList?.order?.ExpectedDateOfShipment).format('DD-MM-YYYY'), 'moment list')
 
   return (
     <div className={`${styles.wrapper} card`}>
@@ -63,16 +63,12 @@ function Index() {
         {fields('Port Of Discharge', buyerList?.order?.portOfDischarge, false)}
         {fields(
           'Expected Date Of Shipment',
-          moment(
-            buyerList?.order?.ExpectedDateOfShipment?.slice(0, 10),
-            'YYYY-MM-DD',
-            true,
-          ).format('DD-MM-YYYY'),
+          moment(buyerList?.order?.ExpectedDateOfShipment).format('DD-MM-YYYY'),
           false,
         )}
         {fields('Document Name', 'Insurance Certificate', true)}
 
-        {buyerList?.company?.documents.map((val, index) => {
+        {buyerList?.company?.documents?.map((val, index) => {
           return (
             <>
               {fields(

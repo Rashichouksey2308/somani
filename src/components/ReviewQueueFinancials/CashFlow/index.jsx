@@ -88,19 +88,19 @@ function Index({ cashData, rtrnChartIndiaction }) {
                     <tr>
                       <th width="50%"></th>
                       <th className="text-center" width="12.5%">
-                        {moment(latestYearData?.financialEndDate)
+                      {latestYearData?.financialEndDate ? moment(latestYearData?.financialEndDate)
                           .format('MMM-YY')
-                          .toUpperCase()}
+                          .toUpperCase() : ''}
                       </th>
                       <th className="text-center" width="12.5%">
-                        {moment(previousYearData?.financialEndDate)
+                        {previousYearData?.financialEndDate ? moment(previousYearData?.financialEndDate)
                           .format('MMM-YY')
-                          .toUpperCase()}
+                          .toUpperCase() : ''}
                       </th>
                       <th className="text-center" width="12.5%">
-                        {moment(lastYearData?.financialEndDate)
+                      {lastYearData?.financialEndDate ? moment(lastYearData?.financialEndDate)
                           .format('MMM-YY')
-                          .toUpperCase()}
+                          .toUpperCase() : ''}
                       </th>
                       <th className="text-center" width="12.5%">
                         TREND
@@ -120,7 +120,8 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             ?.cashFlowsFromUsedInOperatingActivities,
                           unit,
                         )?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
@@ -134,7 +135,8 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             ?.cashFlowsFromUsedInOperatingActivities,
                           unit,
                         )?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
@@ -147,7 +149,8 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             ?.cashFlowsFromUsedInOperatingActivities,
                           unit,
                         )?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
@@ -175,7 +178,8 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             ?.cashFlowsFromUsedInInvestingActivities,
                           unit,
                         )?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
@@ -189,7 +193,8 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             ?.cashFlowsFromUsedInInvestingActivities,
                           unit,
                         )?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
@@ -202,7 +207,8 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             ?.cashFlowsFromUsedInInvestingActivities,
                           unit,
                         )?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
@@ -230,7 +236,8 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             ?.cashFlowsFromUsedInFinancingActivities,
                           unit,
                         )?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
@@ -244,7 +251,8 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             ?.cashFlowsFromUsedInFinancingActivities,
                           unit,
                         )?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
@@ -257,7 +265,8 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             ?.cashFlowsFromUsedInFinancingActivities,
                           unit,
                         )?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
@@ -286,7 +295,8 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             ?.increaseDecreaseInCashAndCashEquivalents,
                           unit,
                         )?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
@@ -302,7 +312,8 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             ?.increaseDecreaseInCashAndCashEquivalents,
                           unit,
                         )?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
@@ -317,7 +328,8 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             ?.increaseDecreaseInCashAndCashEquivalents,
                           unit,
                         )?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
@@ -345,7 +357,8 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             latestIncomeStatement?.expenses?.deprcnAmort,
                           unit,
                         )?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
@@ -358,7 +371,8 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             previousIncomeStatement?.expenses?.deprcnAmort,
                           unit,
                         )?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
@@ -370,7 +384,8 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             previousIncomeStatement?.expenses?.deprcnAmort,
                           unit,
                         )?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
@@ -404,7 +419,8 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             latestIncomeStatement?.expenses?.deprcnAmort,
                           unit,
                         )?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
@@ -419,7 +435,8 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             previousIncomeStatement?.expenses?.deprcnAmort,
                           unit,
                         )?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">
@@ -433,7 +450,8 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             lastYearIncomeStatement?.expenses?.deprcnAmort,
                           unit,
                         )?.toLocaleString(undefined, {
-                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
                         })}
                       </td>
                       <td className="text-center">

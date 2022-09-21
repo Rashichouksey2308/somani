@@ -266,12 +266,15 @@ function Index() {
                           </td>
                         </tr>
                         <tr>                          
-                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)'}}>
+                          <td align='left' style={{borderRight:'2px solid rgba(202, 214, 230, 0.3)',borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
                             <p style={{fontSize:'20px', color:'rgba(17, 17, 17, 0.7)', lineHeight:'24px', fontWeight:'normal', padding:'16px 15px 16px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'30px', width:'66px', color:'#111111', fontWeight:'500'}}>45A</span>DESCRIPTION OF THE GOODS</p>
                           </td>
-                          <td align='left'>
+                          <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
                             <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {lcModuleData?.lcApplication?.DescriptionOfGoods?.toUpperCase()}</p>
                           </td>
+                        </tr>
+                        <tr height="100">
+                          <td colSpan={2}></td>
                         </tr>
                         <tr height="67">
                           <th colSpan={2} bgColor='#FAFAFB' align='left'><h3 style={{fontSize:'22px', color:'#3687E8', lineHeight:'27px', fontWeight:'bold', padding:'20px 15px 20px 35px', marginBottom:'0'}}>46A DOCUMENT REQUIRED:</h3></th>

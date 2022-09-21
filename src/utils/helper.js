@@ -33,7 +33,18 @@ export const CovertvaluefromtoCR = (value, conversionValue = 10000000) => {
   return newValue
 }
 
-export const convertValue = (value, coversionRate = 10000000) => {
+Number.prototype.toFixedNoRounding = function (n) {
+  const reg = new RegExp("^-?\\d+(?:\\.\\d{0," + n + "})?", "g")
+  const a = this.toString().match(reg)[0];
+  const dot = a.indexOf(".");
+  if (dot === -1) { // integer, insert decimal dot and pad up zeros
+    return a + "." + "0".repeat(n);
+  }
+  const b = n - (a.length - dot) + 1;
+  return b > 0 ? (a + "0".repeat(b)) : a;
+}
+
+export const convertValue = (value, coversionRate = 10000000, toFixed = 2) => {
   let newValue = Number(value / coversionRate)
   if (value === 0) {
     // console.log(, 'invalid value')
@@ -60,12 +71,13 @@ export const isInTheFuture = (date) => {
 }
 
 export const handleCurrencyOrder = (unitOfValue, value) => {
-  if (unitOfValue === 'INR') {
+  console.log(unitOfValue, value, 'orderData12')
+  if (unitOfValue === 'Crores') {
     return Number(value) * 10000000
-  } else if (unitOfValue === 'USD') {
+  } else if (unitOfValue === 'Million') {
     return Number(value) * 1000000
-  } else if (unitOfValue === 'EURO') {
-    return Number(value) * 1000000
+  } else if (unitOfValue === 'Lakh') {
+    return Number(value) * 100000
   } else if (unitOfValue === 'BRITISH POUND') {
     return Number(value) * 1000000
   }

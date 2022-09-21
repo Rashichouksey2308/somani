@@ -16,11 +16,11 @@ function index() {
       <Card.Body className={styles.body}>
         {tempArr.map((val, index) => {
           return (
-            <div key={index} className={styles.wrapper}>
+            <div key={index} className={`${styles.wrapper} commodities`}>
               <span className={`heading`} >{val.name}</span>
               <div className={styles.graph}>
-                <span> ₹{val.val}</span>
-                <div className={styles.bar} style={{width:`${val.percentage}`}}></div>
+                <span className="val"> ₹{val.val}</span>
+                <div className={`${styles.bar} bar`} style={{width:`${val.percentage}`}}></div>
               </div>
             </div>
           )

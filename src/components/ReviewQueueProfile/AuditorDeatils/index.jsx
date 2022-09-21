@@ -9,8 +9,17 @@ import { isArray } from 'lodash'
 function Index({ directorData }) {
   const [darkMode, setDarkMode] = useState(false)
 
-  const [otherAssociates, setOtherAssociates] = useState('Current')
-
+  const [otherAssociates, setOtherAssociates] = useState([])
+  useEffect(()=>{
+    if(directorData?.profile?.directorDetail?.length>0){
+     let temp=[]
+     directorData?.profile?.directorDetail.forEach((val,index)=>{
+       temp.push("Current")
+     })
+     setOtherAssociates(temp)
+    }
+  },[directorData])
+  console.log(otherAssociates,"otherAssociates")
   useEffect(() => {
     if (
       localStorage.getItem('darkMode') == 'true' ||
@@ -35,6 +44,9 @@ function Index({ directorData }) {
       return 'Approved'
     }
   }
+
+  console.log(_get(directorData,`profile.directorDetail[1].otherAssociatedEntities${otherAssociates[1]}`,[]),"otherAssociatedEntitiesCurrent",otherAssociates,`profile.directorDetail[1].otherAssociatedEntities${otherAssociates[index]}`)
+ 
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -196,15 +208,13 @@ function Index({ directorData }) {
                           >
                             <div className="form-check ">
                               <input
-                                onChange={(e) =>
-                                  setOtherAssociates(e.target.value)
-                                }
+                               
                                 value="Current"
                                 className="form-check-input"
                                 type="radio"
                                 name="flexRadioDefault"
                                 id="flexRadioDefault1"
-                                checked={otherAssociates === 'Current'}
+                               
                               />
                               <label
                                 className="form-check-label"
@@ -221,7 +231,7 @@ function Index({ directorData }) {
                                 type="radio"
                                 name="flexRadioDefault"
                                 id="flexRadioDefault2"
-                                checked={otherAssociates === 'Former'}
+                              
                               />
                               <label
                                 className="form-check-label"
@@ -238,7 +248,7 @@ function Index({ directorData }) {
                                 type="radio"
                                 name="flexRadioDefault"
                                 id="flexRadioDefault3"
-                                checked={otherAssociates === 'Independent'}
+                                
                               />
                               <label
                                 className="form-check-label"
@@ -255,7 +265,7 @@ function Index({ directorData }) {
                                 type="radio"
                                 name="flexRadioDefault"
                                 id="flexRadioDefault4"
-                                checked={otherAssociates === 'Additional'}
+                                
                               />
                               <label
                                 className="form-check-label"
@@ -271,7 +281,7 @@ function Index({ directorData }) {
                                 type="radio"
                                 name="flexRadioDefault"
                                 id="flexRadioDefault5"
-                                checked={otherAssociates === 'Nominated'}
+                                
                               />
                               <label
                                 // className="form-check-label"
@@ -552,19 +562,22 @@ function Index({ directorData }) {
                                 >
                                   <div className="form-check ">
                                     <input
-                                      onChange={(e) =>
-                                        setOtherAssociates(e.target.value)
-                                      }
+                                     onChange={(e)=>{
+                                      let temp=[...otherAssociates]
+                                      temp[index]=e.target.value
+                                      setOtherAssociates([...temp])
+                                      console.log(otherAssociates == 'Current',"11111")
+                                     }}
                                       value="Current"
                                       className="form-check-input"
                                       type="radio"
                                       name="flexRadioDefault1"
-                                      id="flexRadioDefault1"
-                                      checked={otherAssociates === 'Current'}
+                                      id={`flexRadioDefault1${index}`}
+                                      checked={otherAssociates[index] == 'Current'}
                                     />
                                     <label
                                       className="form-check-label"
-                                      htmlFor="flexRadioDefault1"
+                                      htmlFor={`flexRadioDefault1${index}`}
                                     >
                                       Current
                                     </label>
@@ -572,19 +585,22 @@ function Index({ directorData }) {
 
                                   <div className="form-check ">
                                     <input
-                                      onChange={(e) =>
-                                        setOtherAssociates(e.target.value)
-                                      }
+                                       onChange={(e)=>{
+                                     let temp=[...otherAssociates]
+                                     temp[index]=e.target.value
+                                     console.log(temp,"temppp", temp[index])
+                                      setOtherAssociates([...temp])
+                                     }}
                                       value="Former"
                                       className="form-check-input"
                                       type="radio"
                                       name="flexRadioDefault2"
-                                      id="flexRadioDefault2"
-                                      checked={otherAssociates === 'Former'}
+                                      id={`flexRadioDefault1${index}`}
+                                      checked={otherAssociates[index] == 'Former'}
                                     />
                                     <label
                                       className="form-check-label"
-                                      htmlFor="flexRadioDefault2"
+                                      htmlFor={`flexRadioDefault1${index}`}
                                     >
                                       Former
                                     </label>
@@ -592,21 +608,23 @@ function Index({ directorData }) {
 
                                   <div className="form-check ">
                                     <input
-                                      onChange={(e) =>
-                                        setOtherAssociates(e.target.value)
-                                      }
+                                        onChange={(e)=>{
+                                      let temp=[...otherAssociates]
+                                     temp[index]=e.target.value
+                                      setOtherAssociates([...temp])
+                                     }}
                                       value="Independent"
                                       className="form-check-input"
                                       type="radio"
                                       name="flexRadioDefault3"
-                                      id="flexRadioDefault3"
+                                      id={`flexRadioDefault1${index}`}
                                       checked={
-                                        otherAssociates === 'Independent'
+                                       otherAssociates[index] == 'Independent'
                                       }
                                     />
                                     <label
                                       className="form-check-label"
-                                      htmlFor="flexRadioDefault3"
+                                      htmlFor={`flexRadioDefault1${index}`}
                                     >
                                       Independent
                                     </label>
@@ -614,38 +632,42 @@ function Index({ directorData }) {
 
                                   <div className="form-check ">
                                     <input
-                                      onChange={(e) =>
-                                        setOtherAssociates(e.target.value)
-                                      }
+                                        onChange={(e)=>{
+                                      let temp=[...otherAssociates]
+                                     temp[index]=e.target.value
+                                      setOtherAssociates([...temp])
+                                     }}
                                       value="Additional"
                                       className="form-check-input"
                                       type="radio"
                                       name="flexRadioDefault4"
-                                      id="flexRadioDefault4"
-                                      checked={otherAssociates === 'Additional'}
+                                      id={`flexRadioDefault1${index}`}
+                                      checked={otherAssociates[index] == 'Additional'}
                                     />
                                     <label
                                       className="form-check-label"
-                                      htmlFor="flexRadioDefault4"
+                                      htmlFor={`flexRadioDefault1${index}`}
                                     >
                                       Additional
                                     </label>
                                   </div>
                                   <div className="form-check ">
                                     <input
-                                      onChange={(e) =>
-                                        setOtherAssociates(e.target.value)
-                                      }
+                                        onChange={(e)=>{
+                                      let temp=[...otherAssociates]
+                                      temp[index]=e.target.value
+                                      setOtherAssociates([...temp])
+                                     }}
                                       value="Nominated"
                                       className="form-check-input"
                                       type="radio"
                                       name="flexRadioDefault5"
-                                      id="flexRadioDefault5"
-                                      checked={otherAssociates === 'Nominated'}
+                                      id={`flexRadioDefault1${index}`}
+                                      checked={otherAssociates[index] == 'Nominated'}
                                     />
                                     <label
                                       // className="form-check-label"
-                                      htmlFor="flexRadioDefault5"
+                                      htmlFor={`flexRadioDefault1${index}`}
                                     >
                                       Nominated
                                     </label>
@@ -653,15 +675,15 @@ function Index({ directorData }) {
                                 </div>
                                 <hr className={`${styles.hr} border_color`}></hr>
                                 <span>
-                                  {otherAssociates} (
+                                  {otherAssociates[index]} (
                                   {
                                     isArray(_get(
                                       director,
-                                      `otherAssociatedEntities${otherAssociates}`,
+                                      `otherAssociatedEntities${otherAssociates[index]}`,
                                       [],
                                     )) ? _get(
                                       director,
-                                      `otherAssociatedEntities${otherAssociates}`,
+                                      `otherAssociatedEntities${otherAssociates[index]}`,
                                       [],
                                     ).length : ''
                                   }
@@ -683,17 +705,22 @@ function Index({ directorData }) {
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      {isArray(director) &&
+                                      {console.log(_get(
+                                          director,
+                                          `otherAssociatedEntities${otherAssociates[index]}`,
+                                          [],
+                                        ),"1212222")}
+                                      {
                                         _get(
                                           director,
-                                          `otherAssociatedEntities${otherAssociates}`,
+                                          `otherAssociatedEntities${otherAssociates[index]}`,
                                           [],
-                                        ).map((associates, index) => {
+                                        ).map((associates, index2) => {
                                           const fromDate = associates?.fromDate
                                           const toDate = associates?.toDate
-
+                                           console.log(associates,"1212")
                                           return (
-                                            <tr key={index}>
+                                            <tr key={index2}>
                                               <td className='text-color'>{associates?.entityId}</td>
                                               <td className='text-color'>{associates?.entityName}</td>
                                               <td className='text-color'>

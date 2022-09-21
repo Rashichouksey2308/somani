@@ -990,6 +990,7 @@ const cancelAddress=()=>{
 
 export default Index
 const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancelEditAddress,saveNewAddress,setAddressEditType)=>{
+  console.log(addressEditType,"addressEditType")
   return(
     <div className={`${styles.newAddressContainer}`}>
                   <div className={styles.newAddressHead}><span className={`mb-3`}>Add Edit address</span></div>

@@ -94,7 +94,12 @@ export default function Index({
     newInput[name] = docs
     setBillOfEntryData(newInput)
   }
-  console.log(billOfEntryData, "billOfEntryData", customData, _get(customData, 'order.termsheet.transactionDetails.billOfEntity', ""))
+  console.log(
+    billOfEntryData,
+    'billOfEntryData',
+    customData,
+    _get(customData, 'order.termsheet.transactionDetails.billOfEntity', ''),
+  )
   //console.log(billOfEntryData, 'THIS IS BILL OF ENTRY USE STATE')
 
   const saveDate = (value, name) => {
@@ -167,7 +172,7 @@ export default function Index({
       setIsFieldInFocus([...temp2] || [])
     }
   }, [customData])
-  console.log(isFieldInFocus, "isFieldInFocus")
+  console.log(isFieldInFocus, 'isFieldInFocus')
   const handleDutyChange = (name, value, index) => {
     // console.log(name,value,index,"name,value")
     let tempArr = [...dutyData]
@@ -203,7 +208,6 @@ export default function Index({
     tempArr2.forEach((val, i) => {
       if (i == index) {
         val.value = true
-
       }
     })
     setIsFieldInFocus([...tempArr2])
@@ -213,15 +217,16 @@ export default function Index({
     tempArr2.forEach((val, i) => {
       if (i == index) {
         val.value = false
-
       }
     })
     setIsFieldInFocus([...tempArr2])
   }
   const handleDeleteRow = (index) => {
     setDutyData([...dutyData.slice(0, index), ...dutyData.slice(index + 1)])
-    setIsFieldInFocus([...isFieldInFocus.slice(0, index), ...isFieldInFocus.slice(index + 1)])
-
+    setIsFieldInFocus([
+      ...isFieldInFocus.slice(0, index),
+      ...isFieldInFocus.slice(index + 1),
+    ])
   }
 
   const removeDoc = (name) => {
@@ -243,70 +248,79 @@ export default function Index({
       ...isFieldInFocus,
 
       {
-        value: false
+        value: false,
       },
     ])
   }
   // console.log(billOfEntryData, 'billOfEntryData')
 
   const handleSubmit = () => {
+    let isOk = true
     if (billOfEntryData.boeNumber === '') {
       let toastMessage = 'BOE NUMBER CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
+      isOk = false
     }
-    if (billOfEntryData.boeDate === null || billOfEntryData.boeDate === '') {
+    else if (billOfEntryData.boeDate === null || billOfEntryData.boeDate === '') {
       let toastMessage = 'BOE DATE CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
+      isOk = false
+
     }
-    if (billOfEntryData.boeDetails.currency === '') {
+    else if (billOfEntryData.boeDetails.currency === '') {
       let toastMessage = 'CURRENCY CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
+      isOk = false
+
     }
-    if (billOfEntryData.boeDetails.currency === '') {
+    else if (billOfEntryData.boeDetails.currency === '') {
       let toastMessage = 'CURRENCY CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
+      isOk = false
+
     } else if (billOfEntryData.boeDetails.invoiceNumber === '') {
       let toastMessage = 'INVOICE NUMBER CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
+      isOk = false
+
     } else if (billOfEntryData.boeDetails.invoiceDate === '') {
       let toastMessage = 'INVOICE DATE CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
+      isOk = false
+
     } else if (billOfEntryData.boeDetails.invoiceQuantity === '') {
       let toastMessage = 'INVOICE QUANTITY CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
+      isOk = false
+
     } else if (billOfEntryData.boeDetails.invoiceValue === '') {
       let toastMessage = 'INVOICE VALUE CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
+      isOk = false
+
     } else if (billOfEntryData.boeDetails.conversionRate === '') {
       let toastMessage = 'COVERSION RATE CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
+      isOk = false
+
     } else if (
       billOfEntryData.boeDetails.invoiceQuantity > customData?.order?.quantity
     ) {
@@ -315,41 +329,32 @@ export default function Index({
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    }
-    else if (
-      billOfEntryData.document1 === null
-    ) {
-      let toastMessage =
-        'please upload Duty Paid Challan '
+      isOk = false
+    } else if (billOfEntryData.document1 === null) {
+      let toastMessage = `please upload Boe ${billOfEntryData.boeAssessment === 'Final' ? 'final' : 'provisional'}`
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
-    }
-    else if (billOfEntryData.pdBond) {
-      if (
-        billOfEntryData.document2 === null
-      ) {
-        let toastMessage =
-          'please upload PD Bond '
+      isOk = false
+    } else if (billOfEntryData.pdBond) {
+      if (billOfEntryData.document2 === null) {
+        let toastMessage = 'please upload PD Bond '
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        return
+        isOk = false
+      }
+    } else if (billOfEntryData.pdBond) {
+      if (billOfEntryData.document2 === null) {
+        let toastMessage = 'please upload PD Bond '
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        isOk = false
       }
     }
-    else if (
-      billOfEntryData.document3 === null
-    ) {
-      let toastMessage =
-        'please upload all the mandatory documents'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      }
-      return
-    }
-    else {
+    if (isOk) {
+      console.log('billOfEntryDatasubmit')
       let tempData = { ...billOfEntryData }
       tempData.boeDetails.conversionRate = removePrefixOrSuffix(
         billOfEntryData.boeDetails.conversionRate,
@@ -371,6 +376,7 @@ export default function Index({
       dispatch(UpdateCustomClearance({ fd, task }))
       setComponentId(componentId + 1)
     }
+    console.log(isOk, 'billOfEntryDatasubmit1')
   }
 
   const handleSave = () => {
@@ -439,7 +445,11 @@ export default function Index({
       let tempArray = {
         boeAssessment: data?.boeAssessment,
         pdBond: data?.pdBond,
-        billOfEntryFor: _get(customData, 'order.termsheet.transactionDetails.billOfEntity', ""),
+        billOfEntryFor: _get(
+          customData,
+          'order.termsheet.transactionDetails.billOfEntity',
+          '',
+        ),
         boeNumber: data?.boeNumber,
         boeDate: data?.boeDate,
 
@@ -476,7 +486,7 @@ export default function Index({
     return index + 1
   }
 
-  console.log('data', billOfEntryData?.billOfEntryFor,)
+  console.log('data', billOfEntryData?.billOfEntryFor)
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -604,7 +614,9 @@ export default function Index({
                       value={billOfEntryData?.billOfEntryFor}
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
-                      <option disabled selected>Select an option</option>
+                      <option disabled selected>
+                        Select an option
+                      </option>
                       <option value="Home Consumption">Home Consumption</option>
                       <option value="Into-Bond">Into-Bond</option>
                       <option value="EX-Bond">EX-Bond </option>
@@ -949,7 +961,6 @@ export default function Index({
                       'INR',
                       'front',
                     )}
-
                     onKeyDown={(evt) =>
                       ['e', 'E', '+', '-'].includes(evt.key) &&
                       evt.preventDefault()
@@ -1044,8 +1055,20 @@ export default function Index({
                                     {getIndex(index)}
                                   </td>
                                   <td>{val.duty}</td>
-                                  <td>{val.amount ? `${"INR"} ${Number(val.amount)?.toLocaleString("en-IN")}  ` : ""}</td>
-                                  <td>{val.percentage ? `${Number(val?.percentage)?.toFixed()} ${"%"}` : ""}</td>
+                                  <td>
+                                    {val.amount
+                                      ? `${'INR'} ${Number(
+                                        val.amount,
+                                      )?.toLocaleString('en-IN')}  `
+                                      : ''}
+                                  </td>
+                                  <td>
+                                    {val.percentage
+                                      ? `${Number(
+                                        val?.percentage,
+                                      )?.toFixed()} ${'%'}`
+                                      : ''}
+                                  </td>
                                 </>
                               ) : (
                                 <>
@@ -1089,10 +1112,12 @@ export default function Index({
                                       className={`${styles.dutyDropdown} input`}
                                       name="amount"
                                       // value={val.amount}
-                                      value={isFieldInFocus[index].value ?
-                                        val.amount :
-                                        `${"INR"}  ` +
-                                        Number(val.amount)?.toLocaleString()}
+                                      value={
+                                        isFieldInFocus[index].value
+                                          ? val.amount
+                                          : `${'INR'}  ` +
+                                          Number(val.amount)?.toLocaleString()
+                                      }
                                       disabled={!val.actions}
                                       onChange={(e) =>
                                         handleDutyChange(
@@ -1117,10 +1142,13 @@ export default function Index({
                                         e.target.type = 'text'
                                       }}
                                       type="text"
-                                      value={isFieldInFocus[index].value ?
-                                        val.percentage :
-
-                                        Number(val.percentage)?.toLocaleString() + `${"%"}`}
+                                      value={
+                                        isFieldInFocus[index].value
+                                          ? val.percentage
+                                          : Number(
+                                            val.percentage,
+                                          )?.toLocaleString() + `${'%'}`
+                                      }
                                       name="percentage"
                                       // value={val.percentage}
                                       onChange={(e) =>
@@ -1308,15 +1336,17 @@ export default function Index({
                   </thead>
                   <tbody>
                     <tr className="table_row">
-                      {billOfEntryData.boeAssessment === 'Final' ?
-
+                      {billOfEntryData.boeAssessment === 'Final' ? (
                         <td className={styles.doc_name}>
                           BOE Final
                           <strong className="text-danger ml-0">*</strong>
-                        </td> : <td className={styles.doc_name}>
+                        </td>
+                      ) : (
+                        <td className={styles.doc_name}>
                           BOE Provisional
                           <strong className="text-danger ml-0">*</strong>
-                        </td>}
+                        </td>
+                      )}
                       <td>
                         <img
                           src="/static/pdf.svg"
@@ -1324,7 +1354,7 @@ export default function Index({
                           alt="Pdf"
                         />
                       </td>
-                      {/* <td className={styles.doc_row}>28-02-2022,5:30 PM</td> */}
+                      <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                       <td>
                         {billOfEntryData.document1 === null ? (
                           <>
@@ -1342,14 +1372,14 @@ export default function Index({
                           </>
                         ) : (
                           <div
-                            className={`${styles.certificate} d-flex justify-content-between`}
+                            className={`${styles.certificate} text1 d-flex justify-content-between`}
                           >
                             <span>
                               {billOfEntryData?.document1?.originalName}
                             </span>
                             <img
                               onClick={() => removeDoc('document1')}
-                              className={`${styles.close_image}`}
+                              className={`${styles.close_image} image_arrow`}
                               src="/static/close.svg"
                               alt="Close"
                             />{' '}
@@ -1369,7 +1399,7 @@ export default function Index({
                           alt="Pdf"
                         />
                       </td>
-                      {/* <td className={styles.doc_row}>28-02-2022,5:30 PM</td> */}
+                      <td className={styles.doc_row}>28-02-2022,5:30 PM</td>
                       <td>
                         {billOfEntryData?.document2 === null ? (
                           <>
@@ -1387,14 +1417,14 @@ export default function Index({
                           </>
                         ) : (
                           <div
-                            className={`${styles.certificate} d-flex justify-content-between`}
+                            className={`${styles.certificate} text1 d-flex justify-content-between`}
                           >
                             <span>
                               {billOfEntryData?.document2?.originalName}
                             </span>
                             <img
                               onClick={() => removeDoc('document2')}
-                              className={`${styles.close_image}`}
+                              className={`${styles.close_image} image_arrow`}
                               src="/static/close.svg"
                               alt="Close"
                             />{' '}
@@ -1435,14 +1465,14 @@ export default function Index({
                             </>
                           ) : (
                             <div
-                              className={`${styles.certificate} d-flex justify-content-between`}
+                              className={`${styles.certificate} text1 d-flex justify-content-between`}
                             >
                               <span>
                                 {billOfEntryData?.document3?.originalName}
                               </span>
                               <img
                                 onClick={() => removeDoc('document3')}
-                                className={`${styles.close_image}`}
+                                className={`${styles.close_image} image_arrow`}
                                 src="/static/close.svg"
                                 alt="Close"
                               />{' '}

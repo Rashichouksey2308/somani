@@ -44,6 +44,7 @@ function getCustomerData(payload) {
   }
 }
 function getExposureData(payload) {
+  console.log(payload, 'exposureSummary.data.data')
   return {
     type: types.GET_EXPOSURE_DATA,
     payload,
@@ -104,6 +105,7 @@ export const getAnalystData = () => async (dispatch, getState, api) => {
         },
       },
     )
+
     if (orderSummary.data.code == 200) {
       console.log(orderSummary.data.data.data, 'orderSummary.data.data')
       dispatch(getOrderData(orderSummary.data.data.data))
@@ -123,10 +125,10 @@ export const getAnalystData = () => async (dispatch, getState, api) => {
       )
     }
     if (customerSummary.data.code == 200) {
-      dispatch(getCustomerData(leadSummary.data.data.data))
+      dispatch(getCustomerData(customerSummary.data.data.data))
     }
     if (exposureSummary.data.code == 200) {
-      dispatch(getExposureData(leadSummary.data.data.data))
+      dispatch(getExposureData(exposureSummary.data.data.data))
     }
   } catch (error) {
     console.log('API FAILED')

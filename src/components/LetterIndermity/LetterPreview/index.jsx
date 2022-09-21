@@ -35,9 +35,9 @@ function Index() {
 
   const exportPDF = () => {
 
-    const doc = new jsPDF('p', 'pt', [1500, 1500])
+    const doc = new jsPDF('p', 'pt', [800, 1200])
     doc.html(ReactDOMServer.renderToString(
-      <table width='1500px' cellPadding='0' cellSpacing='0' border='0'>
+      <table width='800px' cellPadding='0' cellSpacing='0' border='0'>
         <tr>
           <td valign='top' align='left'>
             <table width='100%' bgColor='#FFFFFF' style={{fontFamily:'Times New Roman, Times, serif', borderRadius:'6px', boxShadow:'0 3px 6px #CAD0E2', marginBottom:'26px', border:'2px solid rgba(202, 214, 230, 0.3)'}} cellPadding='0' cellSpacing='0' border='0'>
@@ -67,7 +67,7 @@ function Index() {
                         <span style={{fontWeight:'normal'}}>Bill(s) of Lading:</span>
                         {_get(transitDetails,"data[0].LOI.billOfLanding",[]).map((val,index)=>{
                                  return(
-                                  <span> {val.blnumber} Dated 18TH MARCH 2021, {_get(
+                                  <span> {val.blnumber} Dated {val.date}, {_get(
                               transitDetails,
                               'data[0].order.portOfDischarge',
                               '',
@@ -193,14 +193,14 @@ autoPaging: "text",
           <div className={`d-flex ${styles.salutations}`}>
             <span>bill of Lading:</span>
             {'  '}
-            <ol>
+            <ol style={{listStyle:"none",paddingLeft:"0.2rem"}}>
             {_get(transitDetails,"data[0].LOI.billOfLanding",[]).map((val,index)=>{
               return(
             <>
              <li>     <div
               className={`ml-3 d-flex justify-content-start align-items-center ${styles.salutationFeatures} `}
             >
-              {val.blnumber}{" "} Dated 18TH MARCH 2021, ISSUE AT  {_get(
+              {val.blnumber}{" "} Dated {val.date}, ISSUE AT  {_get(
                   transitDetails,
                   'data[0].order.portOfDischarge',
                   '',

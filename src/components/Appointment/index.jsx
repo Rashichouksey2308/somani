@@ -11,7 +11,7 @@ import { UpdateInspection } from 'redux/Inspections/action'
 import moment from 'moment'
 import { toast } from 'react-toastify'
 
-export default function Index({ inspectionData }) {
+export default function Index({ inspectionData ,setDate}) {
   const dispatch = useDispatch()
   const [lastDate, setlastDate] = useState(new Date())
 
@@ -23,7 +23,7 @@ export default function Index({ inspectionData }) {
 
   useEffect(() => {
     setAppointmentData({
-      name: inspectionData?.thirdPartyAppointment?.name,
+      name:inspectionData?.thirdPartyAppointment?.name||"",
       dateOfAppointment:
         inspectionData?.thirdPartyAppointment?.dateOfAppointment,
       address: {
@@ -118,15 +118,16 @@ export default function Index({ inspectionData }) {
     dispatch(UpdateInspection({ fd, task }))
   }
 
-  const handleSubmit = () => {
-    if (!validation()) return
+  const   handleSubmit = () => {
+    if (!validation()) <return></return>
     console.log('SAvee')
     const fd = new FormData()
     fd.append('thirdPartyAppointment', JSON.stringify(appointmentData))
     fd.append('inspectionId', inspectionData?._id)
 
     let task = 'submit'
-    dispatch(UpdateInspection({ fd, task }))
+   dispatch(UpdateInspection({ fd, task }))
+    
   }
   return (
     <>
@@ -151,7 +152,7 @@ export default function Index({ inspectionData }) {
                       className={`${styles.input_field} input form-control`}
                       type="text"
                       name="name"
-                      defaultValue={inspectionData?.thirdPartyAppointment?.name}
+                      value={appointmentData?.name}
                       onChange={(e) =>
                         saveAppointmentData(e.target.name, e.target.value)
                       }

@@ -33,7 +33,9 @@ function Index(props) {
     unitOfGrade: "",
     unitOfQuantity: "",
     unitOfValue: "",
-    curr: ""
+    curr: "",
+    specComment:""
+
 
   })
 
@@ -66,7 +68,8 @@ function Index(props) {
           unitOfGrade: data?.unitOfGrade,
           unitOfQuantity: data?.unitOfQuantity,
           unitOfValue: data?.unitOfValue,
-          curr: data?.orderCurrency
+          curr: data?.orderCurrency,
+          specComment: data?.specComment,
         })
       } else {
 
@@ -99,7 +102,7 @@ function Index(props) {
           detailsOfComm: data?.order?.commodity,
           quan: data.order?.quantity,
           unitPrice: data.order?.perUnitPrice,
-          totalOrderValue: data?.order?.orderValue,
+          totalOrderValue: data?.order?.marginMoney?.calculation?.orderValue ?? '',
           lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
           dischargePort: data?.order?.portOfDischarge,
 
@@ -108,6 +111,7 @@ function Index(props) {
           terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed == "Yes" ? "Full" : "Partial"}`,
           addComm: data?.additionalComments?.comments,
           spec: data?.productSpecifications?.specificationTable,
+          specComment: data?.productSpecifications.comments,
           unitOfGrade: data?.order?.unitOfGrade,
           unitOfQuantity: data?.order?.unitOfQuantity,
           unitOfValue: data?.order?.unitOfValue,
@@ -123,37 +127,37 @@ function Index(props) {
 
   return (
     <>
-    <div className={`${styles.root}`}>
+      <div className={`${styles.root}`}>
 
-      <div className={`${styles.content} card`}>
-        {salesContract(changeHandler, data, props.preview, CovertvaluefromtoCR)}
-        {
-          !props.preview ?
-            <>
-              <div className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`} >
-                <div className={`${styles.approve} mr-3`}><span
-                  onClick={(e) => {
-                    sessionStorage.setItem("preview", JSON.stringify(data))
-                    console.log("at preview")
+        <div className={`${styles.content} card`}>
+          {salesContract(changeHandler, data, props.preview, CovertvaluefromtoCR)}
+          {
+            !props.preview ?
+              <>
+                <div className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`} >
+                  <div className={`${styles.approve} mr-3`}><span
+                    onClick={(e) => {
+                      sessionStorage.setItem("preview", JSON.stringify(data))
+                      console.log("at preview")
 
-                    Router.push("agreement/preview")
-                    props.setPreviewValue(true)
-                  }}
-                >Preview</span></div>
-                <div className={styles.reject}><span>Save</span></div>
-                <div className={styles.approve}><span
+                      Router.push("agreement/preview")
+                      props.setPreviewValue(true)
+                    }}
+                  >Preview</span></div>
+                  <div className={styles.reject}><span>Save</span></div>
+                  <div className={styles.approve}><span
 
-                >Submit</span></div>
+                  >Submit</span></div>
 
 
-              </div>
-            </>
-            : null
-        }
+                </div>
+              </>
+              : null
+          }
 
+        </div>
       </div>
-    </div>
-</>
+    </>
   )
 }
 
@@ -252,10 +256,10 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
             <Col md={7} className={styles.right}>
               <div> <ol type="A">
                 <li>
-                  <p className="text_sales">All the custom clearance formalities, Duties, Taxes and other charges related to import of cargo and custom clearance shall be to Buyer’s account and shall be solely the Buyer’s responsibility.</p>
+                  <p className="text_sales">All the custom clearance formalities, Duties, Taxes and other charges related to import of cargo and custom clearance shall be to Buyer's account and shall be solely the Buyer's responsibility.</p>
                 </li>
                 <li>
-                  <p className="text_sales">The Buyer shall pay for entire cargo within 90 days from the date of B/L or 60 days from the date of discharge of vessel at discharge port, whichever is earlier. The Buyer shall make full payment of the material to be lifted through TT remittance. The Seller shall release the part material to Buyer upon receipt of part payment for the part quantity of material to be lifted after obtaining delivery order or Written Release Order from the LC opening bank as per CMA. The delivery order instructions shall be issued for the part material, for which the payment has been made within one banking day. However, Seller will provide first delivery order in Advance as per buyer’s request.</p>
+                  <p className="text_sales">The Buyer shall pay for entire cargo within <u>90 days</u> from the date of B/L or <u>60 days</u> from the date of discharge of vessel at discharge port, whichever is earlier. The Buyer shall make full payment of the material to be lifted through TT remittance. The Seller shall release the part material to Buyer upon receipt of part payment for the part quantity of material to be lifted after obtaining delivery order or Written Release Order from the LC opening bank as per CMA. The delivery order instructions shall be issued for the part material, for which the payment has been made within one banking day. However, Seller will provide first delivery order in Advance as per buyer's request.</p>
                 </li>
                 <li>
                   <p className="text_sales">The material shall be stored at Discharge Port for which the cost of such Rent, Claim, and penalty shall be fully borne by the End User. Upon release of payment for the value of each B/L Quantity Release Order from the Financing Bank shall be sent to the CMA Agent, within one banking day
@@ -264,21 +268,16 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                 </li>
                 <li>
                   <p className="text_sales">Documents to be provided to Buyer
-                    <ol type="1">
-                      <li>  <p className="text_sales">The Seller‘s Commercial Invoice;</p> </li>
-                      <li>  <p className="text_sales">Full set of  3/3  originals  of Bills of Lading,</p> </li>
-                      <li>  <p className="text_sales">Certificate of Quality
-                        ;</p> </li>
-
-                      <li>  <p className="text_sales">Certificate of Weight,
-                      </p> </li>
-                      <li>  <p className="text_sales">Certificate of Origin.</p> </li>
-                      <li>  <p className="text_sales">Copy of Marine Insurance Certificate / Insurance Policy</p> </li>
+                    <ol type="1" className='pl-0'>
+                      <li><p className="text_sales">The Seller's Commercial Invoice,</p> </li>
+                      <li><p className="text_sales">Full set of  3/3  originals  of Bills of Lading,</p></li>
+                      <li><p className="text_sales">Certificate of Quality,</p></li>
+                      <li><p className="text_sales">Certificate of Weight,</p></li>
+                      <li><p className="text_sales">Certificate of Origin,</p> </li>
+                      <li><p className="text_sales">Copy of Marine Insurance Certificate / Insurance Policy.</p></li>
                     </ol>
-
                   </p>
                 </li>
-
               </ol>
                 <p className="text_sales">All the above documents are subject to receipt from shipper.</p></div>
             </Col>
@@ -379,19 +378,19 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                 </li>
                 <li>
                   <p className="text_sales">The End User and Manufacturer/shipper shall have direct recourse to each other for matters including but not limited to the following:
-                    <ol type="a">
-                      <li><p>For all quantity and quality claims/ issues pertaining to material supplied by Manufacturer/shipper;</p></li>
-                      <li><p>Any express or implied warranty claim for the quality of material supplied by Manufacturer/shipper;
+                    <ol style={{listStyle:'none'}} className='pl-0'>
+                      <li><p>a) &nbsp; &nbsp; For all quantity and quality claims/ issues pertaining to material supplied by Manufacturer/shipper;</p></li>
+                      <li><p>b) &nbsp; &nbsp; Any express or implied warranty claim for the quality of material supplied by Manufacturer/shipper;
                       </p></li>
-                      <li><p>Loss of cargo;</p></li>
-                      <li><p>Any demurrage charges at the load port and/or discharge port shall be settled directly between the Buyer and Manufacturer/shipper;
+                      <li><p>c) &nbsp; &nbsp; Loss of cargo;</p></li>
+                      <li><p>d) &nbsp; &nbsp; Any demurrage charges at the load port and/or discharge port shall be settled directly between the Buyer and Manufacturer/shipper;
                       </p></li>
 
                     </ol>
                   </p>
                 </li>
               </ol>
-              <p>All Claims direct or consequential shall be settled directly between End Buyer and Manufacturer/shipper</p>
+              <p>All Claims direct or consequential shall be settled directly between End Buyer and Manufacturer/shipper.</p>
 
             </Col>
           </Row>
@@ -468,7 +467,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                 <p>Both parties agree to use their best efforts to amicably resolve any claims controversies and disputes arising out of this contract, as well as to determine the final costs thereof. Any such claims, controversies and disputes which cannot be resolved through negotiations within a period of 60 days of the notification of such claims, disputes and controversies shall be referred to arbitration in accordance with the rules of Singapore International Arbitration Center (SIAC). One arbitrator to be nominated jointly by both the parties. The award rendered by the arbitrator shall be final and binding upon both the parties concerned and subject to no appeal. The costs and expenses of the prevailing party (including, without limitation, reasonable attorney’s fee) will be paid by the losing party. The contract shall be subject to Laws of India. The seat of the arbitration will be Singapore and the proceedings shall be conducted in English language.
 
                 </p>
-                <p>Notwithstanding the aforesaid, the parties agree and affirm that relief available under Section 9 of the Indian Arbitration Act, 1996 (as amended) shall be available to the parties, and the parties may initiate appropriate proceedings in India in order to avail such relief.
+                <p className='mt-3'>Notwithstanding the aforesaid, the parties agree and affirm that relief available under Section 9 of the Indian Arbitration Act, 1996 (as amended) shall be available to the parties, and the parties may initiate appropriate proceedings in India in order to avail such relief.
 
                 </p>
 
@@ -563,15 +562,15 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Quantity</Col>
-            <Col md={7} className={styles.right}>{data.quan} {data?.unitOfQuantity?.toUpperCase()}</Col>
+            <Col md={7} className={styles.right}>{(data.quan)?.toLocaleString()} {data?.unitOfQuantity?.toUpperCase()}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Unit Price</Col>
-            <Col md={7} className={styles.right}>{data.curr} {data.unitPrice}</Col>
+            <Col md={7} className={styles.right}>{data.curr} {(data.unitPrice)?.toLocaleString()}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Total Order Value</Col>
-            <Col md={7} className={styles.right}>{CovertvaluefromtoCR(data.totalOrderValue)} {data.unitOfValue == "Crores" ? "Cr" : data.unitOfValue}</Col>
+            <Col md={7} className={styles.right}> USD {(data.totalOrderValue)?.toLocaleString('en-IN')} </Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Load Port</Col>
@@ -607,32 +606,40 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
             <Col md={5} className={styles.left}>Specification</Col>
             <Col md={7} className={styles.right}>
               <>
-               <div className={styles.tableWrapper}>
-            <div className={styles.table_scroll_outer}>
-              <div className={styles.table_scroll_inner}>                
-                <table>
-                  <tr>
-                    {data?.spec &&
-                      data?.spec.length > 0 &&
-                      Object.keys(data?.spec[0]).map((val, index) => (
-                        <th key={index}>{val}</th>
-                      ))}
-                  </tr>
-                  {data?.spec &&
-                    data?.spec.length > 0 &&
-                    data?.spec.map((item, index) => (
-                      <tr>
-                        {Object.values(item).map((value, id) => (
-                          <td key={id}>{value}</td>
-                        ))}
-                      </tr>
-                    ))}
-                </table>
-              </div>
-            </div>
-          </div>
+                <div className={styles.tableWrapper}>
+                  <div className={styles.table_scroll_outer}>
+                    <div className={styles.table_scroll_inner}>
+                      <table>
+                        <tr>
+                          {data?.spec &&
+                            data?.spec.length > 0 &&
+                            Object.keys(data?.spec[0]).map((val, index) => (
+                              <th key={index}>{val}</th>
+                            ))}
+                        </tr>
+                        {data?.spec &&
+                          data?.spec.length > 0 &&
+                          data?.spec.map((item, index) => (
+                            <tr>
+                              {Object.values(item).map((value, id) => (
+                                <td key={id}>{value}</td>
+                              ))}
+                            </tr>
+                          ))}
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                {data.specComment.length>0?<b>Comments</b>:null}
+                <ol>
+                {data.specComment.length>0 && data.specComment.map((val,index)=>{
+                 return(<li>
+                   {val}
+                 </li>)
+                }) }
+                </ol>
               </>
-             
+
             </Col>
           </Row>
 

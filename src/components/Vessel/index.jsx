@@ -57,7 +57,10 @@ function Index({
   setOnBlur
 }) {
 
-  
+  console.log(partShipmentAllowed, 'partShipmentAllowed')
+  const [orderValueinFocus, setOrderValueInFocus] = useState(false)
+
+
   const dispatch = useDispatch()
   // useEffect(() => {
   //   dispatch(setPageName('vessel'))
@@ -75,10 +78,10 @@ function Index({
   const handleClose = (e) => {
     setVesselCertificate(null)
   }
- 
-  console.log(isFieldInFocus, 'containerExcel',list)
 
-  // console.log(vesselData,'vesselData')
+  console.log(isFieldInFocus, 'containerExcel', list)
+
+  console.log(vesselData, 'vesselData')
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -128,27 +131,19 @@ function Index({
                         <label className={`${styles.dropDown_label} text`}>
                           Part Shipment Allowed
                         </label>
-                        <div className="position-relative">
+                        <div disabled className="position-relative">
                           <select
+                            value={partShipmentAllowed}
                             onChange={(e) =>
                               setPartShipmentAllowed(e.target.value)
                             }
                             className={`${styles.dropDown} ${styles.customSelect} input`}
                           >
-                            {partShipmentAllowed ? (
-                              <>
-                                {' '}
-                                <option>Select an option</option>
-                                <option value={true}>Yes</option>
-                                <option value={false}>No</option>
-                              </>
-                            ) : (
-                              <>
-                                {' '}
-                                <option value={false}>No</option>
-                                <option value={true}>Yes</option>
-                              </>
-                            )}
+
+                            <option>Select an option</option>
+                            <option value='Yes'>Yes</option>
+                            <option value='No'>No</option>
+
                           </select>
                           <img
                             className={`${styles.arrow2} image_arrow img-fluid`}
@@ -159,15 +154,15 @@ function Index({
 
                         {list[index].shipmentType === 'Bulk' ? (
                           <>
-                           {index==0?
-                            <button
-                              className={styles.add_btn}
-                              onClick={(e) => {
-                                onAddVessel()
-                              }}
-                            >
-                              Add
-                            </button>:null}
+                            {index == 0 ?
+                              <button
+                                className={styles.add_btn}
+                                onClick={(e) => {
+                                  onAddVessel()
+                                }}
+                              >
+                                Add
+                              </button> : null}
                             {index > 0 ? (
                               <button
                                 className={styles.add_btn}
@@ -237,23 +232,23 @@ function Index({
                           className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6`}
                         >
                           <input
-                          onFocus={(e) => {
-                               setOnFocus(index)
-                                e.target.type = 'number'
+                            onFocus={(e) => {
+                              setOnFocus(index)
+                              e.target.type = 'number'
                             }}
                             onBlur={(e) => {
-                               setOnBlur(index)
-                             
-                                e.target.type = 'text'
+                              setOnBlur(index)
+
+                              e.target.type = 'text'
                             }}
                             id="quantity"
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
-                           value={isFieldInFocus[index]?.value ?
+                            value={isFieldInFocus[index]?.value ?
                               val.quantity :
-                              val.quantity + ` ${ _get(vesselData, 'data[0].order.unitOfQuantity', '').toUpperCase()}`}
-                           
+                              val.quantity + ` ${_get(vesselData, 'data[0].order.unitOfQuantity', '').toUpperCase()}`}
+
                             onChange={(e) =>
                               OnVesselBasicFieldsChangeHandler(e, index)
                             }
@@ -279,13 +274,25 @@ function Index({
                             <option value="EURO">EURO</option>
                           </select>
                           <input
+                            onFocus={(e) => {
+                              setOrderValueInFocus(true)
+                              e.target.type = 'number'
+                            }}
+                            onBlur={(e) => {
+                              setOrderValueInFocus(false)
+                              e.target.type = 'text'
+                            }}
                             id="orderValue"
                             type="text"
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                             className={`${styles.input_field} border-left-0 input form-control`}
-                            value={convertValue(val.orderValue)?.toLocaleString("en-IN")}
-                            // value={Number(val.orderValue).toLocaleString("en-IN")}
+                            // value={_get(vesselData,'data[0].order.marginMoney.calculation.orderValue','')}
+
+                            // value={Number(val.orderValue).toLocaleString()}
+                            value={orderValueinFocus ?
+                              val.orderValue :
+                              Number(val.orderValue).toLocaleString()}
                             onChange={(e) =>
                               OnVesselBasicFieldsChangeHandler(e, index)
                             }
@@ -429,7 +436,7 @@ function Index({
                         <div
                           className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6`}
                         >
-                          
+
                           <div className="d-flex">
                             <DateCalender
                               dateFormat={`dd-MM-yyyy`}
@@ -438,7 +445,7 @@ function Index({
                               index={index}
                               saveDate={saveDate}
                               startFrom={dateStartFrom[index]}
-                              
+
                               labelName="Laycan to"
                             />
                             <img
@@ -477,7 +484,7 @@ function Index({
                               name="ETAatDischargePort"
                               index={index}
                               saveDate={saveDate}
-                              labelName="Estimated Time of Arrival"
+                              labelName="ETA at Discharge Port"
                             />
                             <img
                               className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -610,7 +617,10 @@ function Index({
                                       <input
                                         id="yearOfBuilt"
                                         // value={vesselInfo.yearOfBuilt}
-                                        value={vesselInfo.yearOfBuilt ? moment(vesselInfo.yearOfBuilt).format("YYYY") : ''}
+                                        value={vesselInfo.yearOfBuilt ?
+                                          vesselInfo.yearOfBuilt?.slice(0, 4)
+                                          // moment(vesselInfo.yearOfBuilt).format("YYYY")
+                                          : ''}
                                         className={`${styles.input_field} input form-control`}
                                         type="text"
                                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
@@ -787,14 +797,14 @@ function Index({
                                 <h3 className={styles.sub_heading}>
                                   Vessel Information
                                 </h3>
-                                {index==0?
-                                <button
-                                  onClick={() => OnAddvesselInformation()}
-                                  className={styles.add_btn}
-                                >
-                                  Add
-                                </button>
-                                :null}
+                                {index == 0 ?
+                                  <button
+                                    onClick={() => OnAddvesselInformation()}
+                                    className={styles.add_btn}
+                                  >
+                                    Add
+                                  </button>
+                                  : null}
                                 {index > 0 ? (
                                   <button
                                     onClick={() =>
@@ -880,7 +890,11 @@ function Index({
                                 >
                                   <input
                                     id="yearOfBuilt"
-                                     value={newVessel.yearOfBuilt ? moment(newVessel.yearOfBuilt).format("YYYY") : ''}
+                                    //  value={newVessel.yearOfBuilt ? moment(newVessel.yearOfBuilt).format("YYYY") : ''}
+                                    value={newVessel.yearOfBuilt ?
+                                      newVessel.yearOfBuilt?.slice(0, 4)
+                                      // moment(vesselInfo.yearOfBuilt).format("YYYY")
+                                      : ''}
                                     // defaultValue={newVessel.yearOfBuilt}
                                     className={`${styles.input_field} input form-control`}
                                     type="number"
@@ -927,12 +941,12 @@ function Index({
                               </button>
                             </div> :
 
-                              <div className={`${styles.certificate} d-flex justify-content-between`}>
+                              <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                 <span>
                                   {containerExcel?.originalName}
                                 </span>
                                 <img
-                                  className={`${styles.close_image} mr-2`}
+                                  className={`${styles.close_image} image_arrow mx-2`}
                                   src="/static/close.svg"
                                   onClick={() => handleExcelClose()}
                                   alt="Close"
@@ -953,9 +967,9 @@ function Index({
                 )
               })}
 
-            <UploadDocument 
-            docName='Vessel Certificate' 
-            docName2={shipmentTypeBulk === 'Bulk' ? false : 'Container List'} vesselCertificate={vesselCertificate} handleClose={handleClose} uploadDocument1={uploadDocHandler} />
+            <UploadDocument
+              docName='Vessel Certificate'
+              docName2={shipmentTypeBulk === 'Bulk' ? false : 'Container List'} vesselCertificate={vesselCertificate} handleClose={handleClose} uploadDocument1={uploadDocHandler} />
 
             <UploadOther
               module="Agreements&Insurance&LC&Opening"

@@ -65,6 +65,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
   const [salesUnit, setSalesUnit] = useState(10000000)
   const [purchasesUnit, setPurchasesUnit] = useState(10000000)
 
+  const [isChartFilterMonthly, setIsChartFilterMonthly] = useState(true)
+
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
@@ -336,10 +338,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       datasets: [
         {
           label: 'First dataset',
-          data: getdata(
-            gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends
-              ?.customers,
-          ),
+          data:
+            gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.customers,
+
           fill: true,
           backgroundColor: createGradient(
             chart2.ctx,
@@ -351,10 +352,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         },
         {
           label: 'First dataset',
-          data: getdata(
-            gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends
-              ?.invoices,
-          ),
+          data: gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends
+            ?.invoices,
           fill: true,
           backgroundColor: createGradient(
             chart2.ctx,
@@ -364,22 +363,22 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           ),
           borderColor: 'rgb(250, 95, 28,1)',
         },
-        {
-          label: 'First dataset',
-          data: getdata(
-            gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends
-              ?.avgMonthlySales,
-          ),
-          fill: true,
-          backgroundColor: createGradient(
-            chart2.ctx,
-            chart2.chartArea,
-            'rgb(67, 195, 77,0.0)',
-            'rgb(67, 195, 77,0.0)',
-          ),
-          borderColor: 'rgb(67, 195, 77)',
-          borderDash: [10, 5],
-        },
+        // {
+        //   label: 'First dataset',
+        //   data: getdata(
+        //     gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends
+        //       ?.avgMonthlySales,
+        //   ),
+        //   fill: true,
+        //   backgroundColor: createGradient(
+        //     chart2.ctx,
+        //     chart2.chartArea,
+        //     'rgb(67, 195, 77,0.0)',
+        //     'rgb(67, 195, 77,0.0)',
+        //   ),
+        //   borderColor: 'rgb(67, 195, 77)',
+        //   borderDash: [10, 5],
+        // },
       ],
     }
 
@@ -784,11 +783,11 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       Business Activity
                     </div>
                     <div className={styles.col_body}>
-                    {_get(
-                    gstFilteredData,
-                    'detail.summaryInformation.businessProfile.businessActivity',
-                    [],
-                  )?.join(', ')}
+                      {_get(
+                        gstFilteredData,
+                        'detail.summaryInformation.businessProfile.businessActivity',
+                        [],
+                      )?.join(', ')}
                       {/* {_get(
                         gstFilteredData,
                         'detail.summaryInformation.businessProfile.businessActivity[0]',
@@ -1390,13 +1389,21 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           <div className="d-flex align-items-center">
             <h5 className={`${styles.light} accordion_Text`}>Filter By: </h5>
             <select
+              value={isChartFilterMonthly}
               className={`${styles.selectHead} accordion_body accordion_DropDown form-select`}
               aria-label="Default select example"
+              onChange={(e) => {
+                if (e.target.value = 'monthly') {
+                  setIsChartFilterMonthly(true)
+                } else {
+                  setIsChartFilterMonthly(false)
+                }
+              }}
             >
-              <option selected value="Quarterly">
+              <option selected value="monthly">
                 Monthly
               </option>
-              <option disabled value="Quarterly">
+              <option value="Quarterly">
                 Quarterly
               </option>
             </select>
@@ -1560,11 +1567,11 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       <span className={`${styles.red_legend} ${styles.legend}`}>
                         No. of Invoices
                       </span>
-                      <span
+                      {/* <span
                         className={`${styles.green_legend} ${styles.legend}`}
                       >
                         Avg. Monthly Sales
-                      </span>
+                      </span> */}
                     </div>
                   </div>
                 </div>
@@ -1623,13 +1630,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <th className={`${styles.first} text-color`} colSpan={2}>
                       Annual Summary
                     </th>
-                    <th colSpan={2} className='text_light'>
+                    <th colSpan={2} className='text-color'>
                       {finacialYear(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.B2BSales?.current?.financialYear,
                       )}
                     </th>
-                    <th colSpan={2} className='text_light'>
+                    <th colSpan={2} className='text-color'>
 
                       {finacialYear(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
@@ -1638,11 +1645,11 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </th>
                   </tr>
                   <tr className={styles.second_head}>
-                    <td colSpan={2}></td>
-                    <td className='text-nowrap'>VALUE</td>
-                    <td className="border-left-0 text-nowrap">% ON GROSS REVENUE</td>
-                    <td className='text-nowrap'>VALUE</td>
-                    <td className="border-left-0 text-nowrap">% ON GROSS REVENUE</td>
+                    <td width="34%" colSpan={2}></td>
+                    <td width="16%" className='text-nowrap'>VALUE</td>
+                    <td width="17%" className="border-left-0 text-nowrap">% ON GROSS REVENUE</td>
+                    <td width="16%" className='text-nowrap'>VALUE</td>
+                    <td width="17%" className="border-left-0 text-nowrap">% ON GROSS REVENUE</td>
                     {/* <td    className=" d-flex align-items-center justify-content-between">
                <span>VALUE</span>
                <span >% ON GROSS REVENUE</span>
@@ -2039,15 +2046,15 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   border="1"
                 >
                   <tr>
-                    <th className={`${styles.first} text-color`}>Averages</th>
-                    <th className='text_light'>
+                    <th width="34%" className={`${styles.first} text-color`}>Averages</th>
+                    <th width="33%" className='text-color'>
 
                       {finacialYear(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.B2BSales?.current?.financialYear,
                       )}
                     </th>
-                    <th className='text_light'>
+                    <th width="33%" className='text-color'>
 
                       {finacialYear(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
@@ -2176,10 +2183,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   border="1"
                 >
                   <tr>
-                    <th className={`${styles.first} text-color`}>
+                    <th width="34%" className={`${styles.first} text-color`}>
                       Principal/ HSN Wise Sales
                     </th>
-                    <th colSpan={6} className='text_light'>
+                    <th width="66%" colSpan={3} className='text-color'>
 
                       <span className='breadcrum_mode mr-1'>
                         Financial Period:
@@ -2192,9 +2199,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   </tr>
                   <tr className={`${styles.second_head}`}>
                     <td className='text-nowrap'>PRODUCT</td>
-                    <td className='text-nowrap'>HSN CODE</td>
-                    <td className='text-nowrap'>TURNOVER</td>
-                    <td className='text-nowrap'>% SHARE</td>
+                    <td width="22%" className='text-nowrap'>HSN CODE</td>
+                    <td width="22%" className='text-nowrap'>TURNOVER</td>
+                    <td width="22%" className='text-nowrap'>% SHARE</td>
 
                     {/* <td>CUSTOMERS</td>
                     <td>INVOICES</td>
@@ -2226,6 +2233,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                           </td>
                           <td>
                             {sales?.sharePercent?.toLocaleString(undefined, {
+                              maximumFractionDigits: 2,
                               minimumFractionDigits: 2,
                             })}
                             %
@@ -2291,13 +2299,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <th className={`${styles.first} text-color`} colSpan={2}>
                       Annual Summary
                     </th>
-                    <th colSpan={2} className='text_light'>
+                    <th colSpan={2} className='text-color'>
                       {finacialYear(
                         gstFilteredData?.detail?.purchaseDetailAnnual
                           ?.saleSummary?.B2BPurchase?.current?.financialYear,
                       )}
                     </th>
-                    <th colSpan={2} className='text_light'>
+                    <th colSpan={2} className='text-color'>
                       {finacialYear(
                         gstFilteredData?.detail?.purchaseDetailAnnual
                           ?.saleSummary?.B2BPurchase?.previous?.financialYear,
@@ -2305,11 +2313,11 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </th>
                   </tr>
                   <tr className={styles.second_head}>
-                    <td colSpan={2}></td>
-                    <td>VALUE</td>
-                    <td className="border-left-0 text-nowrap">% ON GROSS REVENUE</td>
-                    <td>VALUE</td>
-                    <td className="border-left-0 text-nowrap">% ON GROSS REVENUE</td>
+                    <td width="34%" colSpan={2}></td>
+                    <td width="16%">VALUE</td>
+                    <td width="17%" className="border-left-0 text-nowrap">% ON GROSS REVENUE</td>
+                    <td width="16%">VALUE</td>
+                    <td width="17%" className="border-left-0 text-nowrap">% ON GROSS REVENUE</td>
                     {/* <td    className=" d-flex align-items-center justify-content-between">
                <span>VALUE</span>
                <span >% ON GROSS REVENUE</span>
@@ -2504,8 +2512,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </td>
                   </tr>
 
-                  {/* <tr>
-                    <td colSpan={2}>Import Purchases</td>
+                  <tr>
+                    <td colSpan={2}>Other Purchases (total - B2B)</td>
                     <td>
                       {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.current?.value?.toLocaleString(
                         undefined,
@@ -2526,7 +2534,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.previous?.percentage?.toFixed(2)}
                       %
                     </td>
-                  </tr> */}
+                  </tr>
 
                   <tr>
                     <td colSpan={2}>Total Suppliers</td>
@@ -2613,7 +2621,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td></td>
                     <td className="border-left-0">
                       <strong>
-                        {(gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.current?.value*100)?.toFixed(
+                        {(gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.current?.value * 100)?.toFixed(
                           2,
                         )}
                         %
@@ -2637,14 +2645,14 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   border="1"
                 >
                   <tr>
-                    <th className={`${styles.first} text-color`}>Averages</th>
-                    <th className='text_light'>
+                    <th width="34%" className={`${styles.first} text-color`}>Averages</th>
+                    <th width="33%" className='text-color'>
                       {finacialYear(
                         gstFilteredData?.detail?.purchaseDetailAnnual
                           ?.saleSummary?.B2BPurchase?.current?.financialYear,
                       )}
                     </th>
-                    <th className='text_light'>
+                    <th width="33%" className='text-color'>
                       {finacialYear(
                         gstFilteredData?.detail?.purchaseDetailAnnual
                           ?.saleSummary?.B2BPurchase?.previous?.financialYear,
@@ -2666,8 +2674,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                           ?.avgMonthlyPurchase?.current,
                         purchasesDetailsUnit,
                       )?.toLocaleString(undefined, {
-                        minimumFractionDigits: 2 ,
-                          maximumFractionDigits: 2
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
                       })}
                       {/* {gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgMonthlyPurchase?.previous?.toLocaleString(
                         undefined,
@@ -2681,8 +2689,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                           ?.avgMonthlyPurchase?.previous,
                         purchasesDetailsUnit,
                       )?.toLocaleString(undefined, {
-                        minimumFractionDigits: 2 ,
-                          maximumFractionDigits: 2
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
                       })}
                       {/* {gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgMonthlyPurchase?.current?.toLocaleString(
                         undefined,
@@ -2698,8 +2706,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                           ?.avgQuarterlyPurchase?.current,
                         purchasesDetailsUnit,
                       )?.toLocaleString(undefined, {
-                        minimumFractionDigits: 2 ,
-                          maximumFractionDigits: 2
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
                       })}
                       {/* {gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgQuarterlyPurchase?.previous?.toLocaleString(
                         undefined,
@@ -2713,8 +2721,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                           ?.avgQuarterlyPurchase?.previous,
                         purchasesDetailsUnit,
                       )?.toLocaleString(undefined, {
-                        minimumFractionDigits: 2 ,
-                          maximumFractionDigits: 2
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
                       })}
                       {/* {gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgQuarterlyPurchase?.current?.toLocaleString(
                         undefined,
@@ -2730,8 +2738,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                           ?.avgPurchasePerSupplier?.current,
                         purchasesDetailsUnit,
                       )?.toLocaleString(undefined, {
-                        minimumFractionDigits: 2 ,
-                          maximumFractionDigits: 2
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
                       })}
                     </td>
 
@@ -2741,8 +2749,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                           ?.avgPurchasePerSupplier?.previous,
                         purchasesDetailsUnit,
                       )?.toLocaleString(undefined, {
-                        minimumFractionDigits: 2 ,
-                          maximumFractionDigits: 2
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
                       })}
                       {/* {gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgPurchasePerSupplier?.current?.toLocaleString(
                         undefined,
@@ -2757,8 +2765,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgPurchasePerInv?.current,
                         purchasesDetailsUnit,
                       )?.toLocaleString(undefined, {
-                        minimumFractionDigits: 2 ,
-                          maximumFractionDigits: 2
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
                       })}
                       {/* {gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgPurchasePerInv?.previous?.toLocaleString(
                         undefined,
@@ -2772,8 +2780,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                           ?.avgPurchasePerInv?.previous,
                         purchasesDetailsUnit,
                       )?.toLocaleString(undefined, {
-                        minimumFractionDigits: 2 ,
-                          maximumFractionDigits: 2
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
                       })}
                     </td>
                   </tr>
@@ -2782,31 +2790,35 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td>
                       {gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgInvPerSupplier?.current?.toLocaleString(
                         undefined,
-                        { minimumFractionDigits: 2 ,
-                          maximumFractionDigits: 2},
+                        {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
+                        },
                       )}
                     </td>
 
                     <td>
                       {gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgInvPerSupplier?.previous?.toLocaleString(
                         undefined,
-                        { minimumFractionDigits: 2 ,
-                          maximumFractionDigits: 2 },
+                        {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
+                        },
                       )}
                     </td>
                   </tr>
                 </table>
-                <table
+                {/* <table
                   className={`${styles.table_pricipal} border_color  table`}
                   cellPadding="0"
                   cellSpacing="0"
                   border="1"
                 >
                   <tr>
-                    <th className={`${styles.first} text-color`}>
+                    <th width="34%" className={`${styles.first} text-color`}>
                       Principal/ HSN Wise Purchases
                     </th>
-                    <th colSpan={6} className='text_light'>
+                    <th width="66%" colSpan={6} className='text-color'>
                       <span className='breadcrum_mode'>
                         Financial Period:
                       </span>{' '}
@@ -2818,13 +2830,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   </tr>
                   <tr className={`${styles.second_head}`}>
                     <td>PRODUCT</td>
-                    <td className='text-nowrap'>HSN CODE</td>
-                    <td>TURNOVER</td>
-                    <td className='text-nowrap'>% SHARE</td>
+                    <td width="22%" className='text-nowrap'>HSN CODE</td>
+                    <td width="22%">TURNOVER</td>
+                    <td width="22%" className='text-nowrap'>% SHARE</td>
 
-                    {/* <td>CUSTOMERS</td>
+                    <td>CUSTOMERS</td>
                     <td>INVOICES</td>
-                    <td>AVG. SALES PER CUSTOMER</td> */}
+                    <td>AVG. SALES PER CUSTOMER</td>
                   </tr>
                   {gstFilteredData &&
                     gstFilteredData?.detail?.purchaseDetailAnnual?.hsnWisePurchase?.map(
@@ -2845,9 +2857,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                             )?.toLocaleString(undefined, {
                               maximumFractionDigits: 2,
                             })}
-                            {/* {sales?.turnover.toLocaleString(undefined, {
+                            {sales?.turnover.toLocaleString(undefined, {
                               minimumFractionDigits: 2,
-                            })} */}
+                            })}
                           </td>
                           <td>
                             {sales?.sharePercent.toLocaleString(undefined, {
@@ -2856,13 +2868,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                             %
                           </td>
 
-                          {/* <td>24</td>
-                      <td>19</td>
-                      <td>1.05</td> */}
+                          <td>24</td>
+                          <td>19</td>
+                          <td>1.05</td>
                         </tr>
                       ),
                     )}
-                </table>
+                </table> */}
               </div>
             </div>
           </div>
@@ -2939,11 +2951,11 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <th colSpan={2} className='text_light'>GSTR3B (CONSOLIDATED)</th>
                   </tr>
                   <tr className={styles.second_head}>
-                    <td colSpan={2}>MONTH</td>
-                    <td className='text-nowrap'>DATE OF FILING</td>
-                    <td className='text-nowrap'>DAYS OF DELAY</td>
-                    <td className='text-nowrap'>DATE OF FILING</td>
-                    <td className='text-nowrap'>DAYS OF DELAY</td>
+                    <td width="34%" colSpan={2}>MONTH</td>
+                    <td width="16%" className='text-nowrap'>DATE OF FILING</td>
+                    <td width="17%" className='text-nowrap'>DAYS OF DELAY</td>
+                    <td width="16%" className='text-nowrap'>DATE OF FILING</td>
+                    <td width="17%" className='text-nowrap'>DAYS OF DELAY</td>
                     {/* <td    className=" d-flex align-items-center justify-content-between">
                <span>VALUE</span>
                <span >% ON GROSS REVENUE</span>
@@ -2954,20 +2966,26 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
              </td> */}
                   </tr>
                   {gstFilteredData &&
-                    gstFilteredData?.detail?.complianceDetail?.monthlyData?.map(
-                      (customer, index) => (
-                        <tr key={index}>
-                          <td colSpan={2}>
-                            {moment(customer?.retPeriod, 'MMYYYY').format(
-                              'MMMM YYYY',
-                            )}
-                          </td>
-                          <td>{customer?.GSTR1?.dof}</td>
-                          <td>{customer?.GSTR1?.delayDays}</td>
-                          <td>{customer?.GSTR3B?.dof}</td>
-                          <td>{customer?.GSTR3B?.delayDays}</td>
-                        </tr>
-                      ),
+                    (gstFilteredData?.detail?.complianceDetail?.monthlyData?.slice()?.reverse())?.map(
+                      (customer, index) => {
+                        if (index === 0) {
+                          return
+                        } else {
+                          return (
+                            <tr key={index}>
+                              <td colSpan={2}>
+                                {moment(customer?.retPeriod, 'MMYYYY').format(
+                                  'MMMM YYYY',
+                                )}
+                              </td>
+                              <td>{customer?.GSTR1?.dof}</td>
+                              <td>{customer?.GSTR1?.delayDays}</td>
+                              <td>{customer?.GSTR3B?.dof}</td>
+                              <td>{customer?.GSTR3B?.delayDays}</td>
+                            </tr>
+                          )
+                        }
+                      },
                     )}
                 </table>
               </div>
@@ -3084,16 +3102,17 @@ const gstCustomerDetail = (
                                     customerDetailsUnit,
                                   )?.toLocaleString(undefined, {
                                     maximumFractionDigits: 2,
+                                    minimumFractionDigits: 2,
                                   })}
                                   {/* {(
                                     customer?.ttlVal / supplierDetailsUnit
                                   )?.toLocaleString()} */}
                                 </td>
                                 <td>
-                                  {customer?.percentageOfTotalSales?.toLocaleString(
-                                    undefined,
-                                    { minimumFractionDigits: 2 },
-                                  )}
+                                  {customer?.percentageOfTotalSales?.toLocaleString(undefined, {
+                                    maximumFractionDigits: 2,
+                                    minimumFractionDigits: 2,
+                                  })}
                                   %
                                 </td>
                                 <td>{customer?.invoice}</td>
@@ -3103,6 +3122,7 @@ const gstCustomerDetail = (
                                     customerDetailsUnit,
                                   )?.toLocaleString(undefined, {
                                     maximumFractionDigits: 2,
+                                    minimumFractionDigits: 2,
                                   })}
                                   {/* {customer?.salesPerInvoice?.toLocaleString()} */}
                                 </td>
@@ -3133,7 +3153,7 @@ const gstCustomerDetail = (
                         </th>
                       </tr>
                       <tr className={styles.second_head}>
-                        <td  className='text-nowrap'>CUSTOMER NAME</td>
+                        <td className='text-nowrap'>CUSTOMER NAME</td>
                         <td>PAN</td>
                         <td>SALES</td>
                         <td className='text-nowrap'>% OF TOTAL SALES</td>
@@ -3223,7 +3243,7 @@ const gstCustomerDetail = (
                                   {/* {Number(customer?.ttlVal)?.toLocaleString()} */}
                                 </td>
                                 <td>
-                                  {customer?.percentageOfTotalSales.toFixed(2)}%
+                                  {(customer?.percentageOfTotalSales ? customer?.percentageOfTotalSales * 100 : '').toFixed(2)}%
                                 </td>
                                 <td>{customer?.invoice}</td>
                                 <td>
@@ -3265,7 +3285,7 @@ const gstCustomerDetail = (
                       </tr>
                       <tr className={styles.second_head}>
                         <td>STATE</td>
-                        <td  className='text-nowrap'>STATE CODE</td>
+                        <td className='text-nowrap'>STATE CODE</td>
                         <td>SALES</td>
                         <td className='text-nowrap'>% OF TOTAL SALES</td>
                         <td>INVOICES</td>
@@ -3288,10 +3308,10 @@ const gstCustomerDetail = (
                                   })}
                                 </td>
                                 <td>
-                                  {customer?.percentageOfTotalSales?.toLocaleString(
-                                    undefined,
-                                    { minimumFractionDigits: 2 },
-                                  )}
+                                  {customer?.percentageOfTotalSales?.toLocaleString(undefined, {
+                                    maximumFractionDigits: 2,
+                                    minimumFractionDigits: 2,
+                                  })}
                                   %
                                 </td>
                                 <td>
@@ -3548,7 +3568,7 @@ const gstSupplierDetail = (
                                   })}
                                 </td>
                                 <td>
-                                  {customer?.percentageOfTotalPurchase?.toFixed(
+                                  {(customer?.percentageOfTotalPurchase ? customer?.percentageOfTotalPurchase * 100 : '')?.toFixed(
                                     2,
                                   )}
                                   %
@@ -3714,11 +3734,11 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                         </th>
                       </tr>
                       <tr className={styles.second_head}>
-                        <td>REVENUE BREAKUP</td>
+                        <td width="16%">REVENUE BREAKUP</td>
 
-                        {gstFilteredData?.detail?.salesDeatail?.revenueBreakup.map(
+                        {gstFilteredData?.detail?.salesDeatail?.revenueBreakup?.slice()?.reverse().map(
                           (month, index) => (
-                            <td key={index}>
+                            <td width="7%" key={index}>
                               {moment(month.retPeriod, 'MMYYYY').format(
                                 `MMM'YY`,
                               )}
@@ -3729,7 +3749,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                       <tbody>
                         <tr>
                           <td>Total Sales</td>
-                          {gstFilteredData && gstFilteredData?.detail?.salesDeatail?.revenueBreakup?.length > 0 && gstFilteredData?.detail?.salesDeatail?.revenueBreakup?.map(
+                          {gstFilteredData && gstFilteredData?.detail?.salesDeatail?.revenueBreakup?.length > 0 && gstFilteredData?.detail?.salesDeatail?.revenueBreakup?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
                                 {convertValue(
@@ -3745,7 +3765,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                         </tr>
                         <tr>
                           <td><span style={{ textTransform: 'uppercase' }}>B2B </span>Sales</td>
-                          {gstFilteredData?.detail?.salesDeatail?.revenueBreakup.map(
+                          {gstFilteredData?.detail?.salesDeatail?.revenueBreakup?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
                                 {/* {sales?.b2bSales?.toLocaleString()} */}
@@ -3761,7 +3781,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                         </tr>
                         <tr>
                           <td><span style={{ textTransform: 'uppercase' }}>B2C </span>Sales</td>
-                          {gstFilteredData?.detail?.salesDeatail?.revenueBreakup.map(
+                          {gstFilteredData?.detail?.salesDeatail?.revenueBreakup?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
                                 {/* {sales?.b2cSales?.toLocaleString()} */}
@@ -3777,7 +3797,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                         </tr>
                         <tr>
                           <td>Export Sales</td>
-                          {gstFilteredData?.detail?.salesDeatail?.revenueBreakup.map(
+                          {gstFilteredData?.detail?.salesDeatail?.revenueBreakup?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
                                 {convertValue(
@@ -3793,11 +3813,14 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                         </tr>
                         <tr>
                           <td>Growth Trend</td>
-                          {arrSales && arrSales?.length > 0 && arrSales?.map(
+                          {arrSales && arrSales?.length > 0 && arrSales?.slice()?.reverse().map(
                             (sales, index) => (
 
                               <td>
-                                {sales?.toLocaleString()}
+                                {sales?.toLocaleString(undefined, {
+                                  maximumFractionDigits: 2,
+                                  minimumFractionDigits: 2,
+                                })} %
 
                               </td>
                             )
@@ -3819,10 +3842,10 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                       cellSpacing="0"
                     >
                       <tr className={styles.second_head}>
-                        <td className='text-nowrap'>REVENUE %</td>
-                        {gstFilteredData?.detail?.salesDeatail?.revenuePercentage.map(
+                        <td width="16%" className='text-nowrap'>REVENUE %</td>
+                        {gstFilteredData?.detail?.salesDeatail?.revenuePercentage?.slice()?.reverse().map(
                           (month, index) => (
-                            <td key={index}>
+                            <td width="7%" key={index}>
                               {moment(month.retPeriod, 'MMYYYY').format(
                                 `MMM'YY`,
                               )}
@@ -3833,7 +3856,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                       <tbody>
                         <tr>
                           <td>New Customers</td>
-                          {gstFilteredData?.detail?.salesDeatail?.revenuePercentage.map(
+                          {gstFilteredData?.detail?.salesDeatail?.revenuePercentage?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
                                 {/* {sales?.newCustomer?.toFixed(2)} */}
@@ -3849,7 +3872,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                         </tr>
                         <tr>
                           <td>Recurring Customers</td>
-                          {gstFilteredData?.detail?.salesDeatail?.revenuePercentage.map(
+                          {gstFilteredData?.detail?.salesDeatail?.revenuePercentage?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
                                 {/* {sales?.RecurringCustomer?.toFixed(2)} */}
@@ -3879,10 +3902,10 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                       cellSpacing="0"
                     >
                       <tr className={styles.second_head}>
-                        <td>CLIENTS</td>
-                        {gstFilteredData?.detail?.salesDeatail?.clients.map(
+                        <td width="16%">CLIENTS</td>
+                        {gstFilteredData?.detail?.salesDeatail?.clients?.slice()?.reverse().map(
                           (month, index) => (
-                            <td key={index}>
+                            <td width="7%" key={index}>
                               {moment(month.retPeriod, 'MMYYYY').format(
                                 `MMM'YY`,
                               )}
@@ -3893,11 +3916,11 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                       <tbody>
                         <tr>
                           <td>New</td>
-                          {gstFilteredData?.detail?.salesDeatail?.clients.map(
+                          {gstFilteredData?.detail?.salesDeatail?.clients?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
                                 {sales?.new?.toLocaleString(undefined, {
-                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 0,
                                 })}
                               </td>
                             ),
@@ -3905,11 +3928,11 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                         </tr>
                         <tr>
                           <td>Recurring</td>
-                          {gstFilteredData?.detail?.salesDeatail?.clients.map(
+                          {gstFilteredData?.detail?.salesDeatail?.clients?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
                                 {sales?.Recurring?.toLocaleString(undefined, {
-                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 0,
                                 })}
                               </td>
                             ),
@@ -3931,10 +3954,10 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                       cellSpacing="0"
                     >
                       <tr className={styles.second_head}>
-                        <td className='text-nowrap'>NO. OF INVOICES</td>
-                        {gstFilteredData?.detail?.salesDeatail?.numberOfInvoices.map(
+                        <td width="16%" className='text-nowrap'>NO. OF INVOICES</td>
+                        {gstFilteredData?.detail?.salesDeatail?.numberOfInvoices?.slice()?.reverse().map(
                           (month, index) => (
-                            <td key={index}>
+                            <td width="7%" key={index}>
                               {moment(month.retPeriod, 'MMYYYY').format(
                                 `MMM'YY`,
                               )}
@@ -3945,7 +3968,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                       <tbody>
                         <tr>
                           <td>Total</td>
-                          {gstFilteredData?.detail?.salesDeatail?.numberOfInvoices.map(
+                          {gstFilteredData?.detail?.salesDeatail?.numberOfInvoices?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
                                 {sales?.total?.toLocaleString()}
@@ -3955,7 +3978,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                         </tr>
                         <tr>
                           <td style={{ textTransform: 'uppercase' }}>B2B</td>
-                          {gstFilteredData?.detail?.salesDeatail?.numberOfInvoices.map(
+                          {gstFilteredData?.detail?.salesDeatail?.numberOfInvoices?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
                                 {sales?.b2b?.toLocaleString()}
@@ -3965,7 +3988,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                         </tr>
                         <tr>
                           <td style={{ textTransform: 'uppercase' }}>B2C</td>
-                          {gstFilteredData?.detail?.salesDeatail?.numberOfInvoices.map(
+                          {gstFilteredData?.detail?.salesDeatail?.numberOfInvoices?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
                                 {sales?.b2c?.toLocaleString()}
@@ -3975,7 +3998,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                         </tr>
                         <tr>
                           <td>Export</td>
-                          {gstFilteredData?.detail?.salesDeatail?.numberOfInvoices.map(
+                          {gstFilteredData?.detail?.salesDeatail?.numberOfInvoices?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
                                 {sales?.export?.toLocaleString()}
@@ -4063,10 +4086,10 @@ const gstPurchase = (
                         </th>
                       </tr>
                       <tr className={styles.second_head}>
-                        <td>PURCHASES</td>
-                        {gstFilteredData?.detail?.purchaseDetail?.purchases?.map(
+                        <td width="16%">PURCHASES</td>
+                        {gstFilteredData?.detail?.purchaseDetail?.purchases?.slice()?.reverse().map(
                           (month, index) => (
-                            <td key={index}>
+                            <td width="7%" key={index}>
                               {moment(month.retPeriod, 'MMYYYY').format(
                                 `MMM'YY`,
                               )}
@@ -4077,7 +4100,7 @@ const gstPurchase = (
                       <tbody>
                         <tr>
                           <td>Total Purchase</td>
-                          {gstFilteredData?.detail?.purchaseDetail?.purchases?.map(
+                          {gstFilteredData?.detail?.purchaseDetail?.purchases?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
                                 {convertValue(
@@ -4093,7 +4116,7 @@ const gstPurchase = (
                         </tr>
                         <tr>
                           <td><span style={{ textTransform: 'uppercase' }}>B2B </span>Purchase</td>
-                          {gstFilteredData?.detail?.purchaseDetail?.purchases?.map(
+                          {gstFilteredData?.detail?.purchaseDetail?.purchases?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
                                 {convertValue(
@@ -4109,7 +4132,7 @@ const gstPurchase = (
                         </tr>
                         <tr>
                           <td><span style={{ textTransform: 'uppercase' }}>B2C </span>Purchase</td>
-                          {gstFilteredData?.detail?.purchaseDetail?.purchases.map(
+                          {gstFilteredData?.detail?.purchaseDetail?.purchases?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
                                 {sales?.b2c?.toLocaleString()}
@@ -4129,7 +4152,7 @@ const gstPurchase = (
                         </tr> */}
                         <tr>
                           <td>Others</td>
-                          {gstFilteredData?.detail?.purchaseDetail?.purchases?.map(
+                          {gstFilteredData?.detail?.purchaseDetail?.purchases?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
                                 {convertValue(
@@ -4145,12 +4168,12 @@ const gstPurchase = (
                         </tr>
                         <tr>
                           <td>Growth Trend</td>
-                          {arr && arr?.length > 0 && arr?.map(
+                          {arr && arr?.length > 0 && arr?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
                                 {sales
                                   ?.toFixed(2)
-                                }
+                                } %
                               </td>
                             ),
                           )}
@@ -4171,10 +4194,10 @@ const gstPurchase = (
                       cellSpacing="0"
                     >
                       <tr className={styles.second_head}>
-                        <td>PURCHASE %</td>
-                        {gstFilteredData?.detail?.purchaseDetail?.purchasesPercentage?.map(
+                        <td width="16%">PURCHASE %</td>
+                        {gstFilteredData?.detail?.purchaseDetail?.purchasesPercentage?.slice()?.reverse().map(
                           (month, index) => (
-                            <td key={index}>
+                            <td width="7%" key={index}>
                               {moment(month.retPeriod, 'MMYYYY').format(
                                 `MMM'YY`,
                               )}
@@ -4185,7 +4208,7 @@ const gstPurchase = (
                       <tbody>
                         <tr>
                           <td>New Suppliers</td>
-                          {gstFilteredData?.detail?.purchaseDetail?.purchasesPercentage?.map(
+                          {gstFilteredData?.detail?.purchaseDetail?.purchasesPercentage?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
                                 {convertValue(
@@ -4201,7 +4224,7 @@ const gstPurchase = (
                         </tr>
                         <tr>
                           <td>Recurring Suppliers</td>
-                          {gstFilteredData?.detail?.purchaseDetail?.purchasesPercentage?.map(
+                          {gstFilteredData?.detail?.purchaseDetail?.purchasesPercentage?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
                                 {convertValue(
@@ -4231,10 +4254,10 @@ const gstPurchase = (
                       cellSpacing="0"
                     >
                       <tr className={styles.second_head}>
-                        <td>SUPPLIERS</td>
-                        {gstFilteredData?.detail?.purchaseDetail?.suppliers?.map(
+                        <td width="16%">SUPPLIERS</td>
+                        {gstFilteredData?.detail?.purchaseDetail?.suppliers?.slice()?.reverse().map(
                           (month, index) => (
-                            <td key={index}>
+                            <td width="7%" key={index}>
                               {moment(month.retPeriod, 'MMYYYY').format(
                                 `MMM'YY`,
                               )}
@@ -4245,11 +4268,11 @@ const gstPurchase = (
                       <tbody>
                         <tr>
                           <td>New</td>
-                          {gstFilteredData?.detail?.purchaseDetail?.suppliers?.map(
+                          {gstFilteredData?.detail?.purchaseDetail?.suppliers?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
                                 {sales?.new?.toLocaleString(undefined, {
-                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 0,
                                 })}
                               </td>
                             ),
@@ -4257,11 +4280,11 @@ const gstPurchase = (
                         </tr>
                         <tr>
                           <td>Recurring</td>
-                          {gstFilteredData?.detail?.purchaseDetail?.suppliers?.map(
+                          {gstFilteredData?.detail?.purchaseDetail?.suppliers?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
                                 {sales?.recurring?.toLocaleString(undefined, {
-                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 0,
                                 })}
                               </td>
                             ),
@@ -4283,10 +4306,10 @@ const gstPurchase = (
                       cellSpacing="0"
                     >
                       <tr className={styles.second_head}>
-                        <td>NO. OF INVOICES</td>
-                        {gstFilteredData?.detail?.purchaseDetail?.numberOfInvoices?.map(
+                        <td width="16%">NO. OF INVOICES</td>
+                        {gstFilteredData?.detail?.purchaseDetail?.numberOfInvoices?.slice()?.reverse().map(
                           (month, index) => (
-                            <td key={index}>
+                            <td width="7%" key={index}>
                               {moment(month.retPeriod, 'MMYYYY').format(
                                 `MMM'YY`,
                               )}
@@ -4297,7 +4320,7 @@ const gstPurchase = (
                       <tbody>
                         <tr>
                           <td>Total</td>
-                          {gstFilteredData?.detail?.purchaseDetail?.numberOfInvoices?.map(
+                          {gstFilteredData?.detail?.purchaseDetail?.numberOfInvoices?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
                                 {sales?.total?.toLocaleString(undefined, {
@@ -4309,7 +4332,7 @@ const gstPurchase = (
                         </tr>
                         <tr>
                           <td style={{ textTransform: 'uppercase' }}>B2B</td>
-                          {gstFilteredData?.detail?.purchaseDetail?.numberOfInvoices?.map(
+                          {gstFilteredData?.detail?.purchaseDetail?.numberOfInvoices?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
                                 {sales?.b2b?.toLocaleString(undefined, {
@@ -4322,7 +4345,7 @@ const gstPurchase = (
 
                         <tr>
                           <td>Other</td>
-                          {gstFilteredData?.detail?.purchaseDetail?.numberOfInvoices?.map(
+                          {gstFilteredData?.detail?.purchaseDetail?.numberOfInvoices?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
                                 {sales?.others?.toLocaleString(undefined, {

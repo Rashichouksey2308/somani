@@ -243,14 +243,14 @@ export default function Index(props) {
                                 <div className={`${styles.form_heading}`}>
                                   Listing Details {index2}
                                 </div>
-                                <button
+                                {checkNan(props.returnLiftingData(val.deliveryOrder)?.balaceQuantity) >= 0 && <button
                                   className={styles.add_btn}
                                   onClick={(e) => {
                                     props.addNewSubLifting(index)
                                   }}
                                 >
                                   Add
-                                </button>
+                                </button>}
                               </div>
                               <div className="row">
                                 <div
@@ -377,6 +377,16 @@ export default function Index(props) {
                                     className={`${styles.input_field} input form-control`}
                                     required
                                     type="text"
+                                    name="rrlrNumber"
+                                    value={val2.rrlrNumber}
+                                    onChange={(e) => {
+                                      props.handleChange(
+                                        e.target.name,
+                                        e.target.value,
+                                        index,
+                                        index2,
+                                      )
+                                    }}
                                   />
                                   <label
                                     className={`${styles.label_heading} label_heading`}
@@ -392,6 +402,16 @@ export default function Index(props) {
                                     className={`${styles.input_field} input form-control`}
                                     required
                                     type="text"
+                                    name="destination"
+                                    value={val2.destination}
+                                    onChange={(e) => {
+                                      props.handleChange(
+                                        e.target.name,
+                                        e.target.value,
+                                        index,
+                                        index2,
+                                      )
+                                    }}
                                   />
                                   <label
                                     className={`${styles.label_heading} label_heading`}
@@ -468,53 +488,112 @@ export default function Index(props) {
                                     </thead>
                                     <tbody>
                                       {val2.modeOfTransportation !== '' && < tr className="table_row">
-                                      <td className={styles.doc_name}>
-                                        {val2.modeOfTransportation}{' '}
-                                        <strong className="text-danger">
-                                          *
-                                        </strong>
-                                      </td>
-                                      <td>
-                                        <img
-                                          src="/static/pdf.svg"
-                                          className={`${styles.pdfImage} img-fluid`}
-                                          alt="Pdf"
-                                        />
-                                      </td>
-                                      <td className={styles.doc_row}>
-                                      {val2?.LRorRRDoc?.date ? moment(val2?.LRorRRDoc?.date).format('DD-MM-YYYY, h:mm A') : ''}
+                                        <td className={styles.doc_name}>
+                                          {val2.modeOfTransportation}{' '}
+                                          <strong className="text-danger">
+                                            *
+                                          </strong>
+                                        </td>
+                                        <td>
+                                          <img
+                                            src="/static/pdf.svg"
+                                            className={`${styles.pdfImage} img-fluid`}
+                                            alt="Pdf"
+                                          />
+                                        </td>
+                                        <td className={styles.doc_row}>
+                                          {val2?.LRorRRDoc?.date ? moment(val2?.LRorRRDoc?.date).format('DD-MM-YYYY, h:mm A') : ''}
 
-                                      </td>
+                                        </td>
 
-                                      <td colSpan="2">
-                                        <div
-                                          className={styles.uploadBtnWrapper}
-                                        >
+                                        <td colSpan="2">
+                                          <div
+                                            className={styles.uploadBtnWrapper}
+                                          >
 
-                                          {val2?.LRorRRDoc?.originalName ?
-                                            <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                            {val2?.LRorRRDoc?.originalName ?
+                                              <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
+                                                <span>
+                                                  {val2?.LRorRRDoc?.originalName}
+                                                </span>
+                                                <img
+                                                  className={`${styles.close_image} image_arrow`}
+                                                  src="/static/close.svg"
+                                                  onClick={() => props.removeLiftinDoc("lr", index, index2)}
+                                                  alt="Close"
+                                                />{' '}
+                                              </div>
+                                              :
+                                              <div
+                                                className={
+                                                  styles.uploadBtnWrapper
+                                                }
+                                              >
+                                                <input
+                                                  id="document3"
+                                                  onChange={(e) =>
+                                                    uploadDoc(
+                                                      e,
+                                                      'LRorRRDoc',
+                                                      index,
+                                                      index2,
+                                                    )
+                                                  }
+                                                  type="file"
+                                                  name="myfile"
+                                                />
+                                                <button
+                                                  className={`${styles.upload_btn} btn`}
+                                                >
+                                                  Upload
+                                                </button>
+                                              </div>
+                                            }
+
+                                          </div>
+                                        </td>
+                                      </tr>}
+                                      <tr className="table_row">
+                                        <td className={styles.doc_name}>
+                                          E-Way Bill{' '}
+                                          <strong className="text-danger">
+                                            *
+                                          </strong>
+                                        </td>
+                                        <td>
+                                          <img
+                                            src="/static/pdf.svg"
+                                            className={`${styles.pdfImage} img-fluid`}
+                                            alt="Pdf"
+                                          />
+                                        </td>
+                                        <td className={styles.doc_row}>
+                                          {val2?.eWayBillDoc?.date ? moment(val2?.eWayBillDoc?.date).format('DD-MM-YYYY, h:mm A') : ''}
+                                        </td>
+
+                                        <td colSpan="2">
+                                          {val2?.eWayBillDoc?.originalName ?
+                                            <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                               <span>
-                                                {val2?.LRorRRDoc?.originalName}
+                                                {val2?.eWayBillDoc?.originalName}
                                               </span>
                                               <img
-                                                className={`${styles.close_image}`}
+                                                className={`${styles.close_image}  image_arrow`}
                                                 src="/static/close.svg"
-                                                onClick={() => props.removeLiftinDoc("lr", index, index2)}
+                                                onClick={() => props.removeLiftinDoc("eway", index, index2)}
                                                 alt="Close"
                                               />{' '}
                                             </div>
                                             :
                                             <div
-                                              className={
-                                                styles.uploadBtnWrapper
-                                              }
+                                              className={styles.uploadBtnWrapper}
                                             >
                                               <input
                                                 id="document3"
                                                 onChange={(e) =>
                                                   uploadDoc(
                                                     e,
-                                                    'LRorRRDoc',
+                                                    'eWayBillDoc',
                                                     index,
                                                     index2,
                                                   )
@@ -527,67 +606,8 @@ export default function Index(props) {
                                               >
                                                 Upload
                                               </button>
-                                            </div>
-                                          }
 
-                                        </div>
-                                      </td>
-                                    </tr>}
-                                    <tr className="table_row">
-                                      <td className={styles.doc_name}>
-                                        E-Way Bill{' '}
-                                        <strong className="text-danger">
-                                          *
-                                        </strong>
-                                      </td>
-                                      <td>
-                                        <img
-                                          src="/static/pdf.svg"
-                                          className={`${styles.pdfImage} img-fluid`}
-                                          alt="Pdf"
-                                        />
-                                      </td>
-                                      <td className={styles.doc_row}>
-                                        {val2?.eWayBillDoc?.date ? moment(val2?.eWayBillDoc?.date).format('DD-MM-YYYY, h:mm A') : ''}
-                                      </td>
-
-                                      <td colSpan="2">
-                                        {val2?.eWayBillDoc?.originalName ?
-                                          <div className={`${styles.certificate} d-flex justify-content-between`}>
-                                            <span>
-                                              {val2?.eWayBillDoc?.originalName}
-                                            </span>
-                                            <img
-                                              className={`${styles.close_image}`}
-                                              src="/static/close.svg"
-                                              onClick={() => props.removeLiftinDoc("eway", index, index2)}
-                                              alt="Close"
-                                            />{' '}
-                                          </div>
-                                          :
-                                          <div
-                                            className={styles.uploadBtnWrapper}
-                                          >
-                                            <input
-                                              id="document3"
-                                              onChange={(e) =>
-                                                uploadDoc(
-                                                  e,
-                                                  'eWayBillDoc',
-                                                  index,
-                                                  index2,
-                                                )
-                                              }
-                                              type="file"
-                                              name="myfile"
-                                            />
-                                            <button
-                                              className={`${styles.upload_btn} btn`}
-                                            >
-                                              Upload
-                                            </button>
-
-                                            {/* <input type="file" name="myfile2" 
+                                              {/* <input type="file" name="myfile2" 
                                    onChange={(e)=>{
 
                                     uploadDoc(e,"eWayBillDoc",index1,index2)
@@ -599,38 +619,38 @@ export default function Index(props) {
                                   >
                                     Upload
                                   </button> */}
-                                          </div>
-                                        }
-                                      </td>
-                                    </tr>
-                                  </tbody>
-                                </table>
+                                            </div>
+                                          }
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
                               </div>
                             </div>
-                          </div>
 
-                          {/* <div className={`${styles.vessel_card} mt-4 mb-4`}>
+                            {/* <div className={`${styles.vessel_card} mt-4 mb-4`}>
                     <button className={`${styles.saveBtn}`}>Save</button>
                   </div> */}
+                          </div>
                         </div>
-                        </div>
-                  )
+                      )
                     })}
+                  </div>
                 </div>
-                </div>
-        )
+              )
             })}
 
 
-        <div className={`${styles.upload_main} mt-4 mb-5 upload_main`}>
+          <div className={`${styles.upload_main} mt-4 mb-5 upload_main`}>
 
-          <UploadOther orderid={orderid} module="PaymentsInvoicing&Delivery" />
+            <UploadOther orderid={orderid} module="PaymentsInvoicing&Delivery" />
+          </div>
         </div>
-      </div>
-      <SaveBar rightBtn="Submit" handleSave={props.handleLiftingSubmit} rightBtnClick={props.handleLiftingSubmit} />
+        <SaveBar rightBtn="Submit" handleSave={props.handleLiftingSubmit} rightBtnClick={props.handleLiftingSubmit} />
 
-      {/* </div> */}
-    </div>
+        {/* </div> */}
+      </div>
     </>
   )
 }

@@ -59,7 +59,7 @@ function Index() {
 
   const exportPDF = () => {
     console.log("hwhhwhhw,aas")
-    const doc = new jsPDF('p', 'pt', [1500, 1500])
+    const doc = new jsPDF('p', 'pt', [1500, 1630])
     doc.html(
       ReactDOMServer.renderToString(
         <table width="1500px" cellPadding="0" cellSpacing="0" border="0">
@@ -115,6 +115,7 @@ function Index() {
                               fontWeight: 'normal',
                               padding: '0 35px 7px',
                               marginBottom: '0',
+                              float: 'left'
                             }}
                           >
                             <span
@@ -141,6 +142,7 @@ function Index() {
                               fontWeight: 'normal',
                               padding: '0 35px 7px',
                               marginBottom: '0',
+                              float: 'left'
                             }}
                           >
                             <span
@@ -379,7 +381,9 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            INR { convertValue(insuranceData?.quotationRequest?.sumInsured)} Crores
+                            INR { Number(convertValue(insuranceData?.quotationRequest?.sumInsured))?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                      })} Crores
                     (Including 110%)
                           </p>
                         </td>
@@ -771,7 +775,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                             All Risks Including ICC-A, War, SRCC, Theft, Act of God etc.
+                             All Risks Including ICC-A, War, SRCC, Theft, Loading, Unloading, Act of God etc.
                           </p>
                         </td>
                       </tr>
@@ -1058,7 +1062,7 @@ function Index() {
                     Sum Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    INR { convertValue(insuranceData?.quotationRequest?.sumInsured)} Crores
+                    INR { Number(convertValue(insuranceData?.quotationRequest?.sumInsured))?.toLocaleString(undefined, { maximumFractionDigits: 2 })} Crores
                     (Including 110%)
                   </Col>
                 </Row>
@@ -1198,7 +1202,7 @@ function Index() {
                     Marine Insurance
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    All Risks Including ICC-A, War, SRCC, Theft, Act of God etc.
+                    All Risks Including ICC-A, War, SRCC, Theft, Loading, Unloading Act of God etc.
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
