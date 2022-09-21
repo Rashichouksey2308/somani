@@ -692,6 +692,7 @@ function Index({
         saveApprovedCreditData,
         onApprove,
         onApproveOrder,
+        approvedCredit,
       )}
       {Documents(documentsFetched)}
     </>
@@ -3240,6 +3241,7 @@ const sectionTerms = (
   saveApprovedCreditData,
   onApprove,
   onApproveOrder,
+  approvedCredit,
 ) => {
   return (
     <>
@@ -3353,7 +3355,7 @@ const sectionTerms = (
                         className={`${styles.text} input`}
                         required={true}
                         type="number"
-                        defaultValue={camData?.cam?.approvedCreditValue}
+                        value={approvedCredit?.approvedCreditValue}
                         name="approvedCreditValue"
                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
@@ -3388,7 +3390,7 @@ const sectionTerms = (
                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                         name="approvedOrderValue"
-                        defaultValue={camData?.cam?.approvedOrderValue}
+                        value={approvedCredit?.approvedOrderValue}
                         onChange={(e) => {
                           onApproveOrder(
                             e.target.name,
