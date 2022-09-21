@@ -84,6 +84,7 @@ export default function Index(props) {
                     </span>
                   </div>
 
+                  
                   <div
                     className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
                   >
@@ -99,6 +100,21 @@ export default function Index(props) {
                       ).toUpperCase()}
                     </span>
                   </div>
+                  {/* <div
+                    className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
+                  >
+                    <div className={`${styles.label} text`}>
+                      Finance Approved Quantity
+                    </div>
+                    <span className={styles.value}>
+                      {props.BalanceQuantity().toLocaleString()}{' '}
+                      {_get(
+                        props,
+                        'ReleaseOrder.data[0].order.unitOfQuantity',
+                        '',
+                      ).toUpperCase()}
+                    </span>
+                  </div> */}
                 </div>
               </div>
               <div

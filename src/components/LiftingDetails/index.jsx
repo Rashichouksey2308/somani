@@ -377,6 +377,16 @@ export default function Index(props) {
                                     className={`${styles.input_field} input form-control`}
                                     required
                                     type="text"
+                                    name="rrlrNumber"
+                                    value={val2.rrlrNumber}
+                                    onChange={(e) => {
+                                      props.handleChange(
+                                        e.target.name,
+                                        e.target.value,
+                                        index,
+                                        index2,
+                                      )
+                                    }}
                                   />
                                   <label
                                     className={`${styles.label_heading} label_heading`}
@@ -392,6 +402,16 @@ export default function Index(props) {
                                     className={`${styles.input_field} input form-control`}
                                     required
                                     type="text"
+                                    name="destination"
+                                    value={val2.destination}
+                                    onChange={(e) => {
+                                      props.handleChange(
+                                        e.target.name,
+                                        e.target.value,
+                                        index,
+                                        index2,
+                                      )
+                                    }}
                                   />
                                   <label
                                     className={`${styles.label_heading} label_heading`}

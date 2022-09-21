@@ -806,8 +806,8 @@ function Index() {
                               padding: '11px 15px 11px 24px',
                               marginBottom: '0',
                             }}
-                          >
-                            {marginData?.calculation?.usanceInterest?.toLocaleString() ??
+                          > 
+                           {marginData?.calculation?.usanceInterest?.toLocaleString() ??
                               0}
                           </p>
                         </td>
@@ -1701,8 +1701,8 @@ function Index() {
                       </span>
                     </td>
                     <td>
-                     {marginData?.calculation?.usanceInterest?.toLocaleString() ??
-                        0} %
+                     ₹ {" "} {marginData?.calculation?.usanceInterest?.toLocaleString() ??
+                        0} 
                     </td>
                   </tr>
                   <tr>

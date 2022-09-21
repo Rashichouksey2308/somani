@@ -44,6 +44,8 @@ function Index({ directorData }) {
       return 'Approved'
     }
   }
+
+  console.log(_get(directorData,`profile.directorDetail[1].otherAssociatedEntities${otherAssociates[1]}`,[]),"otherAssociatedEntitiesCurrent",otherAssociates,`profile.directorDetail[1].otherAssociatedEntities${otherAssociates[index]}`)
  
   return (
     <>
@@ -703,7 +705,12 @@ function Index({ directorData }) {
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      {isArray(director) &&
+                                      {console.log(_get(
+                                          director,
+                                          `otherAssociatedEntities${otherAssociates[index]}`,
+                                          [],
+                                        ),"1212222")}
+                                      {
                                         _get(
                                           director,
                                           `otherAssociatedEntities${otherAssociates[index]}`,
@@ -711,7 +718,7 @@ function Index({ directorData }) {
                                         ).map((associates, index2) => {
                                           const fromDate = associates?.fromDate
                                           const toDate = associates?.toDate
-
+                                           console.log(associates,"1212")
                                           return (
                                             <tr key={index2}>
                                               <td className='text-color'>{associates?.entityId}</td>
