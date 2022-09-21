@@ -451,7 +451,7 @@ function Index() {
                 <ul>
                   <li>
                     {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
-                    {termsheetDetails?.transactionDetails?.lcValue}
+                    {Number(termsheetDetails?.transactionDetails?.lcValue)?.toLocaleString("en-IN")}
                   </li>
                   <li>{termsheetDetails?.transactionDetails?.lcOpeningBank}</li>
                   <li>{termsheetDetails?.transactionDetails?.marginMoney}%</li>
@@ -610,7 +610,7 @@ function Index() {
                   </li>
                   <li>
                     {`USD`}{' '}
-                    {termsheetDetails.commercials?.lcOpeningChargesUnit}{' '}
+                    {Number(termsheetDetails.commercials?.lcOpeningChargesUnit)?.toLocaleString()}{' '}
                   </li>
                   <li>
                     {' '}

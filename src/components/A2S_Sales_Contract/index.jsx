@@ -33,7 +33,9 @@ function Index(props) {
     unitOfGrade: "",
     unitOfQuantity: "",
     unitOfValue: "",
-    curr: ""
+    curr: "",
+    specComment:""
+
 
   })
 
@@ -66,7 +68,8 @@ function Index(props) {
           unitOfGrade: data?.unitOfGrade,
           unitOfQuantity: data?.unitOfQuantity,
           unitOfValue: data?.unitOfValue,
-          curr: data?.orderCurrency
+          curr: data?.orderCurrency,
+          specComment: data?.specComment,
         })
       } else {
 
@@ -108,6 +111,7 @@ function Index(props) {
           terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed == "Yes" ? "Full" : "Partial"}`,
           addComm: data?.additionalComments?.comments,
           spec: data?.productSpecifications?.specificationTable,
+          specComment: data?.productSpecifications.comments,
           unitOfGrade: data?.order?.unitOfGrade,
           unitOfQuantity: data?.order?.unitOfQuantity,
           unitOfValue: data?.order?.unitOfValue,
@@ -626,6 +630,14 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                     </div>
                   </div>
                 </div>
+                {data.specComment.length>0?<b>Comments</b>:null}
+                <ol>
+                {data.specComment.length>0 && data.specComment.map((val,index)=>{
+                 return(<li>
+                   {val}
+                 </li>)
+                }) }
+                </ol>
               </>
 
             </Col>
