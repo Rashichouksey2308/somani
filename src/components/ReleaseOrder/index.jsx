@@ -392,11 +392,11 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
                           </label>
                         </div>
                         <div
-                          className={`${styles.form_group} col-lg-3 col-md-4 col-sm-6 d-flex align-items-center text-center`}>
+                          className={`${styles.form_group} col-lg-3 col-md-4 col-sm-6 d-flex align-items-center`}>
                           {item?.document === null ? (
                             <>
-                              <div className="d-flex align-items-center">
-                                <div className={styles.uploadBtnWrapper}>
+                              <div className="d-flex flex-grow-1 align-items-center">
+                                <div className={`${styles.uploadBtnWrapper} flex-grow-1`}>
                                   <input
                                     id="document"
                                     name="myfile"
