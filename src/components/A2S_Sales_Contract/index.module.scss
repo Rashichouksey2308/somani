@@ -165,6 +165,7 @@
             margin: 0px !important;
             border-bottom: 2px solid black;
             &:last-child {
+                border-bottom: none;
                 .left {
                     border-bottom: none;
                 }
@@ -187,6 +188,7 @@
             // align-items: center !important;
             // justify-content: flex-start !important;
             padding-left: 15px;
+            text-align: justify;
         }
         .para {
             // padding: 0.5rem;
