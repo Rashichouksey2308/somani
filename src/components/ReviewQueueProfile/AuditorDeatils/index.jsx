@@ -45,11 +45,8 @@ function Index({ directorData }) {
     }
   }
 
-<<<<<<< HEAD
-=======
   console.log(_get(directorData,`profile.directorDetail[1].otherAssociatedEntities${otherAssociates[1]}`,[]),"otherAssociatedEntitiesCurrent",otherAssociates,`profile.directorDetail[1].otherAssociatedEntities${otherAssociates[index]}`)
  
->>>>>>> 6cf873b5e07bc2790b04b6ef285aa3fcd539cce4
   return (
     <>
       <div className={`${styles.card} card`}>
