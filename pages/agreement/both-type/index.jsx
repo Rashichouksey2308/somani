@@ -868,7 +868,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            Storage Insurance &amp; Marine Insurance
+                            Insurance Coverage
                           </p>
                         </td>
                         <td
@@ -1361,10 +1361,10 @@ function Index() {
                     xs={4}
                     className={`${styles.content_head} label_heading"`}
                   >
-                    Storage Insurance & Marine Insurance
+                    Insurance Coverage
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    All Risks Including ICC-A, War, SRCC, Theft Burglary, Act of God, Pilferage, Fire etc.
+                    All Risks Including ICC-A, War, SRCC, Theft, Loading, Unloading Burglary, Act of God, Pilferage, Fire etc.
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>

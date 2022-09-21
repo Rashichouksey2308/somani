@@ -272,7 +272,9 @@ function Index() {
                           <td>
                             {_get(transaction, 'company.companyName', '')}
                           </td>
-                          <td>Abcz</td>
+                          <td>
+                            {_get(transaction, 'order.vessel.vessels[0].vesselInformation[0].name', '')}
+                          </td>
                           <td>
                             <span
                               className={`${styles.status} ${styles.review}`}

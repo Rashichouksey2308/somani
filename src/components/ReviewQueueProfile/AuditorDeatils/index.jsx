@@ -45,6 +45,11 @@ function Index({ directorData }) {
     }
   }
 
+<<<<<<< HEAD
+=======
+  console.log(_get(directorData,`profile.directorDetail[1].otherAssociatedEntities${otherAssociates[1]}`,[]),"otherAssociatedEntitiesCurrent",otherAssociates,`profile.directorDetail[1].otherAssociatedEntities${otherAssociates[index]}`)
+ 
+>>>>>>> 6cf873b5e07bc2790b04b6ef285aa3fcd539cce4
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -763,7 +768,12 @@ function Index({ directorData }) {
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      {isArray(director) &&
+                                      {console.log(_get(
+                                          director,
+                                          `otherAssociatedEntities${otherAssociates[index]}`,
+                                          [],
+                                        ),"1212222")}
+                                      {
                                         _get(
                                           director,
                                           `otherAssociatedEntities${otherAssociates[index]}`,
@@ -771,7 +781,7 @@ function Index({ directorData }) {
                                         ).map((associates, index2) => {
                                           const fromDate = associates?.fromDate
                                           const toDate = associates?.toDate
-
+                                           console.log(associates,"1212")
                                           return (
                                             <tr key={index2}>
                                               <td className="text-color">

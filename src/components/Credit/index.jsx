@@ -1059,6 +1059,7 @@ const index = ({
                     defaultDate={supplierCred?.oldestShipmentDate ?? ''}
                     saveDate={saveSupplierDate}
                     labelName="Oldest Shipment Date"
+                    startFrom={"noLimit"}
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}

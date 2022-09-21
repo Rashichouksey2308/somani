@@ -105,7 +105,7 @@ export const getAnalystData = () => async (dispatch, getState, api) => {
         },
       },
     )
-    console
+
     if (orderSummary.data.code == 200) {
       console.log(orderSummary.data.data.data, 'orderSummary.data.data')
       dispatch(getOrderData(orderSummary.data.data.data))

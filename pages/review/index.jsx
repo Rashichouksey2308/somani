@@ -1034,9 +1034,28 @@ function Index() {
   ])
 
   const [suggestedCredit, setSuggestedCredit] = useState({
-    suggestedCreditLimit: orderList?.suggestedCreditLimit,
-    suggestedOrderValue: orderList?.suggestedOrderValue,
+    suggestedCreditLimit: '',
+    suggestedOrderValue: '',
   })
+
+  
+  const [approvedCredit, setApprovedCredit] = useState({
+    approvedOrderValue: '',
+    approvedCreditValue: '',
+  })
+  
+  useEffect(() => {
+    setSuggestedCredit({
+      suggestedCreditLimit: orderList?.suggestedCreditLimit ? orderList?.suggestedCreditLimit / 10000000 : orderList?.suggestedCreditLimit,
+      suggestedOrderValue: orderList?.suggestedOrderValue ? orderList?.suggestedOrderValue / 10000000 : orderList?.suggestedOrderValue,
+    })
+
+    setApprovedCredit({
+      approvedOrderValue: orderList?.cam?.approvedOrderValue ?  orderList?.cam?.approvedOrderValue / 10000000 : orderList?.cam?.approvedOrderValue,
+    approvedCreditValue: orderList?.cam?.approvedCreditValue ?  orderList?.cam?.approvedCreditValue / 10000000 : orderList?.cam?.approvedCreditValue,
+    })
+  }, [orderList])
+  
 
   const saveSuggestedCreditData = (name, value) => {
     console.log(name, value, '')
@@ -1046,10 +1065,6 @@ function Index() {
     setSuggestedCredit(newInput)
   }
 
-  const [approvedCredit, setApprovedCredit] = useState({
-    approvedOrderValue: orderList?.cam?.approvedOrderValue,
-    approvedCreditValue: orderList?.cam?.approvedCreditValue,
-  })
 
   const saveApprovedCreditData = (name, value) => {
     const newInput = { ...approvedCredit }
@@ -1440,8 +1455,8 @@ function Index() {
       if (gettingPercentageCredit && gettingPercentageOrder) {
         const obj = {
           approvalRemarks: [...approveComment],
-          approvedOrderValue: approvedCredit.approvedOrderValue,
-          approvedCreditValue: approvedCredit.approvedCreditValue,
+          approvedOrderValue: approvedCredit.approvedOrderValue ,
+          approvedCreditValue: approvedCredit.approvedCreditValue ,
           order: orderList._id,
           status: 'Approved',
         }

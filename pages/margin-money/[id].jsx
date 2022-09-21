@@ -23,35 +23,36 @@ import {
   setDynamicName,
   setDynamicOrder,
 } from '../../src/redux/userData/action'
-import { addPrefixOrSuffix, checkNan } from '../../src/utils/helper'
-import {GetAllOrders } from '../../src/redux/registerBuyer/action'
+import { addPrefixOrSuffix, checkNan, convertValue } from '../../src/utils/helper'
+import { GetAllOrders } from '../../src/redux/registerBuyer/action'
 // import { Row, Col } from 'react-bootstrap'
 
 function Index() {
   const dispatch = useDispatch()
 
   const [darkMode, setDarkMode] = useState(false)
-  
+
   const { margin } = useSelector((state) => state.marginMoney)
   // get gst list from below use effect and fetch data from selector
   const { orderList } = useSelector((state) => state.buyer)
-console.log(orderList,"orderList?.company")
+  console.log(orderList, "orderList?.company")
   const marginData = _get(margin, 'data.data[0]', '')
-  console.log(marginData,"marginData")
+  console.log(marginData, "marginData")
 
   let id = sessionStorage.getItem('marginId')
 
   const [unit, setUnit] = useState({ value: 'Crores' })
+  const [coversionUnit, setCoversionUnit] = useState(10000000)
 
   const RevisedMarginMoneyTrue = _get(
     margin,
     'data.data[0].revisedMarginMoney.isActive',
     false,
   )
-
+  console.log(coversionUnit, 'coversionUnit')
   useEffect(() => {
     let id = sessionStorage.getItem('marginId')
-    
+
     dispatch(GetMarginMoney({ orderId: id }))
     dispatch(GetAllOrders({ orderId: id }))
     dispatch(setPageName('margin-money'))
@@ -69,7 +70,7 @@ console.log(orderList,"orderList?.company")
       setDarkMode(false)
     }
   }, [])
- console.log( marginData?.isUsanceInterestIncluded," marginData?.isUsanceInterestIncluded")
+  console.log(marginData?.isUsanceInterestIncluded, " marginData?.isUsanceInterestIncluded")
   const [forCalculation, setForCalculation] = useState({
     isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || true,
     status: marginData?.status || '',
@@ -146,11 +147,11 @@ console.log(orderList,"orderList?.company")
           ? Number(forCalculation.usanceInterestPercentage / 100)
           : 1) *
         90) /
-        365,
+      365,
     ).toFixed(2) //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) *
-        Number(Number(forCalculation.tradeMarginPercentage) / 100),
+      Number(Number(forCalculation.tradeMarginPercentage) / 100),
     ).toFixed(2) //M
     let grossOrderValue = parseFloat(
       Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
@@ -166,7 +167,7 @@ console.log(orderList,"orderList?.company")
     ).toFixed(2) //Q
     let marginMoney = parseFloat(
       Number(totalOrderValue) *
-        Number(Number(forCalculation.marginMoney) / 100),
+      Number(Number(forCalculation.marginMoney) / 100),
     ).toFixed(2) //R
     let totalSPDC = parseFloat(
       Number(totalOrderValue) - Number(marginMoney),
@@ -209,11 +210,11 @@ console.log(orderList,"orderList?.company")
           ? Number(forCalculation.usanceInterestPercentage / 100)
           : 0) *
         90) /
-        365,
+      365,
     ).toFixed(2) //L
     let tradeMargin = parseFloat(
       Number(orderValueInINR) *
-        Number(Number(forCalculation.tradeMarginPercentage) / 100),
+      Number(Number(forCalculation.tradeMarginPercentage) / 100),
     ).toFixed(2) //M
     let grossOrderValue = parseFloat(
       Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
@@ -229,7 +230,7 @@ console.log(orderList,"orderList?.company")
     ).toFixed(2) //Q
     let marginMoney = parseFloat(
       Number(totalOrderValue) *
-        Number(Number(forCalculation.marginMoney) / 100),
+      Number(Number(forCalculation.marginMoney) / 100),
     ).toFixed(2) //R
     let totalSPDC = parseFloat(
       Number(totalOrderValue) - Number(marginMoney),
@@ -278,54 +279,54 @@ console.log(orderList,"orderList?.company")
     accountNo: marginData?.invoiceDetail?.accountNo || '',
   })
   useEffect(() => {
- if(marginData){
-  setInvoiceData({
-    buyerName: marginData?.company?.companyName || '',
-    buyerGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
-    buyerAddress: marginData?.invoiceDetail?.buyerAddress || '',
-    isConsigneeSameAsBuyer: marginData?.invoiceDetail?.isConsigneeSameAsBuyer || false,
-    consigneeName: marginData?.invoiceDetail?.consigneeName || '',
-    consigneeGSTIN: marginData?.invoiceDetail?.consigneeGSTIN || '',
-    consigneeAddress: marginData?.invoiceDetail?.consigneeAddress || '',
-    importerName: marginData?.invoiceDetail?.importerName || '',
-    branchOffice: marginData?.invoiceDetail?.branchOffice || '',
-    companyAddress: marginData?.invoiceDetail?.companyAddress || '',
-    importerGSTIN: marginData?.invoiceDetail?.importerGSTIN || '',
-    bankName: marginData?.invoiceDetail?.bankName || '',
-    branch: marginData?.invoiceDetail?.branch || '',
-    branchAddress: marginData?.invoiceDetail?.branchAddress || '',
-    IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
-    accountNo: marginData?.invoiceDetail?.accountNo || '',
-  })
- }
-  },[marginData])
+    if (marginData) {
+      setInvoiceData({
+        buyerName: marginData?.company?.companyName || '',
+        buyerGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
+        buyerAddress: marginData?.invoiceDetail?.buyerAddress || '',
+        isConsigneeSameAsBuyer: marginData?.invoiceDetail?.isConsigneeSameAsBuyer || false,
+        consigneeName: marginData?.invoiceDetail?.consigneeName || '',
+        consigneeGSTIN: marginData?.invoiceDetail?.consigneeGSTIN || '',
+        consigneeAddress: marginData?.invoiceDetail?.consigneeAddress || '',
+        importerName: marginData?.invoiceDetail?.importerName || '',
+        branchOffice: marginData?.invoiceDetail?.branchOffice || '',
+        companyAddress: marginData?.invoiceDetail?.companyAddress || '',
+        importerGSTIN: marginData?.invoiceDetail?.importerGSTIN || '',
+        bankName: marginData?.invoiceDetail?.bankName || '',
+        branch: marginData?.invoiceDetail?.branch || '',
+        branchAddress: marginData?.invoiceDetail?.branchAddress || '',
+        IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
+        accountNo: marginData?.invoiceDetail?.accountNo || '',
+      })
+    }
+  }, [marginData])
   // console.log(invoiceData, 'invoiceData')
 
   const saveInvoiceData = (name, value) => {
     // console.log(value, 'invoice data value', name)
     const newInput = { ...invoiceData }
-  
+
     newInput[name] = value
-    
+
     // console.log(newInput, 'nnto', name, value)
 
-   
-    if(invoiceData?.isConsigneeSameAsBuyer==true){
-      if(name=="buyerName"){
-       let a="consigneeName"
-      newInput[a] = value
+
+    if (invoiceData?.isConsigneeSameAsBuyer == true) {
+      if (name == "buyerName") {
+        let a = "consigneeName"
+        newInput[a] = value
       }
-      if(name=="buyerGSTIN"){
-       let a="consigneeGSTIN"
-      newInput[a] = value
+      if (name == "buyerGSTIN") {
+        let a = "consigneeGSTIN"
+        newInput[a] = value
       }
-      if(name=="buyerAddress"){
-       let a="consigneeAddress"
-      newInput[a] = value
+      if (name == "buyerAddress") {
+        let a = "consigneeAddress"
+        newInput[a] = value
       }
-       
+
     }
-     setInvoiceData({ ...newInput })
+    setInvoiceData({ ...newInput })
   }
 
   console.log(invoiceData, 'invoice data value')
@@ -523,12 +524,12 @@ console.log(orderList,"orderList?.company")
     let additionalAmountPerPDC = parseFloat(
       (marginData?.calculation?.totalSPDC -
         Number(revisedCalc.additionalAmountPerPDC)) /
-        Number(forCalculation.additionalPDC),
+      Number(forCalculation.additionalPDC),
     ).toFixed(2)
     console.log(additionalAmountPerPDC, 'additionalAmountPerPDC')
     let revisedNetOrderValueNew = parseFloat(
       marginData?.revisedMarginMoney?.totalOrderValue -
-        marginData?.revisedMarginMoney?.totalOrderValue,
+      marginData?.revisedMarginMoney?.totalOrderValue,
     ).toFixed(2)
     let marginMoneyRevised = marginData?.calculation?.marginMoney
     let revisedMarginMoneyNew = marginData?.revisedMarginMoney?.marginMoney
@@ -555,7 +556,7 @@ console.log(orderList,"orderList?.company")
             ? revisedCalc.additionalAmountPerPDC
             : 0,
         )) /
-        Number(forCalculation.additionalPDC),
+      Number(forCalculation.additionalPDC),
     ).toFixed(2)
     console.log(additionalAmountPerPDC, 'additionalAmountPerPDC')
     let revisedNetOrderValueNew = parseFloat(
@@ -632,6 +633,20 @@ console.log(orderList,"orderList?.company")
     setUnit(newInput)
   }
 
+  const coversionUnitHandler = (val) => {
+    let unit = 10000000
+    if (val === 'Lakh') {
+      unit = 100000
+    }
+    if (val === 'Million') {
+      unit = 1000000
+    }
+    if (val === 'Crores') {
+      unit = 10000000
+    }
+    setCoversionUnit(unit)
+  }
+
   const [active, setActive] = useState('Margin Money')
   return (
     <>
@@ -639,9 +654,8 @@ console.log(orderList,"orderList?.company")
         <div className={`${styles.tabHeader} tabHeader `}>
           <div className={`${styles.title_header} d-flex align-items-center`}>
             <img onClick={() => Router.push('/margin-money')}
-              src={`${
-                darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`
-              }`}
+              src={`${darkMode ? `/static/white-arrow.svg` : `/static/arrow-right.svg`
+                }`}
               alt="arrow right"
               className="img-fluid mr-2 image_arrow"
             />
@@ -769,7 +783,8 @@ console.log(orderList,"orderList?.company")
                               className={`${styles.options} accordion_DropDown mr-4`}
                               name="unitOfQuantity"
                               onChange={(e) => {
-                                saveOrderData(e.target.name, e.target.value)
+                                saveOrderData(e.target.name, e.target.value),
+                                  coversionUnitHandler(e.target.value)
                               }}
                             >
                               <option>Select</option>
@@ -1004,7 +1019,7 @@ console.log(orderList,"orderList?.company")
                                     <span className="mr-3">{
                                       marginData?.order?.termsheet?.commercials
                                         ?.usanceInterestPercetage
-                                      }%
+                                    }%
                                     </span>
                                     <label
                                       className={`${styles.label_heading} ${styles.subHeading} label_heading mb-0 mr-3`}
@@ -1276,10 +1291,15 @@ console.log(orderList,"orderList?.company")
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.orderValueInINR?.toLocaleString()} */}
                                   ₹{' '}
-                                  {checkNan(
+                                  {/* {checkNan(
                                     Number(finalCal.orderValueInINR),
                                     true,
-                                  )}
+                                  )} */}
+                                  {convertValue((finalCal.orderValue), coversionUnit).toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                  })}
+
                                 </div>
                               </div>
                             </div>
@@ -1313,10 +1333,14 @@ console.log(orderList,"orderList?.company")
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   ₹ {/* {finalCal.usanceInterest} */}
-                                  {checkNan(
+                                  {/* {checkNan(
                                     Number(finalCal.usanceInterest),
                                     true,
-                                  )}
+                                  )} */}
+                                   {convertValue((finalCal.usanceInterest), coversionUnit).toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                  })}
                                 </div>
                               </div>
                             </div>
@@ -1341,7 +1365,11 @@ console.log(orderList,"orderList?.company")
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   ₹{' '}
-                                  {checkNan(Number(finalCal.tradeMargin), true)}
+                                  {/* {checkNan(Number(finalCal.tradeMargin), true)} */}
+                                  {convertValue((finalCal.tradeMargin), coversionUnit).toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                  })}
                                   {/* {finalCal.tradeMargin?.toLocaleString()} */}
                                 </div>
                               </div>
@@ -1368,10 +1396,14 @@ console.log(orderList,"orderList?.company")
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.grossOrderValue?.toLocaleString()} */}
                                   ₹{' '}
-                                  {checkNan(
+                                  {convertValue((finalCal.grossOrderValue), coversionUnit).toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                  })}
+                                  {/* {checkNan(
                                     Number(finalCal.grossOrderValue),
                                     true,
-                                  )}
+                                  )} */}
                                 </div>
                               </div>
                             </div>
@@ -1396,10 +1428,14 @@ console.log(orderList,"orderList?.company")
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.toleranceValue} */}₹{' '}
-                                  {checkNan(
+                                  {convertValue((finalCal.toleranceValue), coversionUnit).toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                  })}
+                                  {/* {checkNan(
                                     Number(finalCal.toleranceValue),
                                     true,
-                                  )}
+                                  )} */}
                                 </div>
                               </div>
                             </div>
@@ -1424,10 +1460,14 @@ console.log(orderList,"orderList?.company")
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.totalOrderValue} */}₹{' '}
-                                  {checkNan(
+                                  {convertValue((finalCal.totalOrderValue), coversionUnit).toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                  })}
+                                  {/* {checkNan(
                                     Number(finalCal.totalOrderValue),
                                     true,
-                                  )}
+                                  )} */}
                                 </div>
                               </div>
                             </div>
@@ -1452,10 +1492,14 @@ console.log(orderList,"orderList?.company")
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   ₹{' '}
-                                  {checkNan(
+                                  {/* {checkNan(
                                     Number(finalCal.provisionalUnitPricePerTon),
                                     true,
-                                  )}
+                                  )} */}
+                                   {convertValue((finalCal.provisionalUnitPricePerTon), coversionUnit).toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                  })}
                                   {/* {finalCal.provisionalUnitPricePerTon} */}
                                 </div>
                               </div>
@@ -1481,7 +1525,11 @@ console.log(orderList,"orderList?.company")
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.marginMoney} */}₹{' '}
-                                  {checkNan(Number(finalCal.marginMoney), true)}
+                                  {/* {checkNan(Number(finalCal.marginMoney), true)} */}
+                                  {convertValue((finalCal.marginMoney), coversionUnit).toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                  })}
                                 </div>
                               </div>
                             </div>
@@ -1506,7 +1554,11 @@ console.log(orderList,"orderList?.company")
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.totalSPDC} */}₹{' '}
-                                  {checkNan(Number(finalCal.totalSPDC), true)}
+                                  {/* {checkNan(Number(finalCal.totalSPDC), true)} */}
+                                  {convertValue((finalCal.totalSPDC), coversionUnit).toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                  })}
                                 </div>
                               </div>
                             </div>
@@ -1531,10 +1583,14 @@ console.log(orderList,"orderList?.company")
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   ₹{' '}
-                                  {checkNan(
+                                  {/* {checkNan(
                                     Number(finalCal.amountPerSPDC),
                                     true,
-                                  )}
+                                  )} */}
+                                     {convertValue((finalCal.amountPerSPDC), coversionUnit).toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                  })}
                                   {/* {finalCal.amountPerSPDC} */}
                                 </div>
                               </div>
@@ -1608,13 +1664,13 @@ console.log(orderList,"orderList?.company")
                                     marginData?.invoiceDetail?.buyerGSTIN
                                   }
                                 >
-                                 <option selected disabled >Select an Option</option>
-                                {orderList?.company?.gstList?.map((gstin, index) => (
-                                  <option key={index} value={gstin}>
-                                    {gstin}
-                                  </option>
-                    ))}
-                                
+                                  <option selected disabled >Select an Option</option>
+                                  {orderList?.company?.gstList?.map((gstin, index) => (
+                                    <option key={index} value={gstin}>
+                                      {gstin}
+                                    </option>
+                                  ))}
+
                                 </select>
                                 <label
                                   className={`${styles.label_heading} label_heading`}
@@ -1670,9 +1726,9 @@ console.log(orderList,"orderList?.company")
                                       className={`${styles.radio} radio`}
                                       inline
                                       label="Yes"
-                                     
+
                                       onChange={(e) => {
-                                         setInvoiceData({ ...invoiceData,isConsigneeSameAsBuyer:true })
+                                        setInvoiceData({ ...invoiceData, isConsigneeSameAsBuyer: true })
                                         // saveInvoiceData(
                                         //   'isConsigneeSameAsBuyer',
                                         //   true,
@@ -1687,13 +1743,13 @@ console.log(orderList,"orderList?.company")
                                       className={`${styles.radio} radio`}
                                       inline
                                       label="No"
-                                     
+
                                       onChange={(e) => {
                                         // saveInvoiceData(
                                         //   'isConsigneeSameAsBuyer',
                                         //   false,
                                         // )
-                                         setInvoiceData({ ...invoiceData,isConsigneeSameAsBuyer:false })
+                                        setInvoiceData({ ...invoiceData, isConsigneeSameAsBuyer: false })
                                         setSame(false)
                                       }}
                                       name="group1"
@@ -1796,6 +1852,7 @@ console.log(orderList,"orderList?.company")
                                       e.target.value,
                                     )
                                   }
+                                  style={{paddingRight:'40px'}}
                                 >
                                   <option>Select an option</option>
                                   <option value="INDO GERMAN INTERNATIONAL PRIVATE LIMITED">
@@ -1867,6 +1924,7 @@ console.log(orderList,"orderList?.company")
                                 onChange={(e) => changeImporter(e)}
                                 className={`${styles.input_field} input form-control`}
                                 required
+
                               />
                               <label
                                 className={`${styles.label_heading} label_heading`}
@@ -2007,31 +2065,31 @@ console.log(orderList,"orderList?.company")
                             <div
                               className={`${styles.each_input} col-md-3 col-sm-6`}
                             >
-                            <input
-                                    id="textInput"
-                                    name="IFSCcode"
-                                    onChange={(e) =>
-                                      saveInvoiceData(
-                                        e.target.name,
-                                        e.target.value,
-                                      )
-                                    }
-                                    defaultValue=
-                                    // {
-                                    //   marginData?.invoiceDetail?.IFSCcode
-                                    // }
-                                    "ICIC0000251"
-                                    className={`${styles.input_field} input form-control`}
-                                    required
-                                  />
-                                  
-                                  <label
-                                    className={`${styles.label_heading} label_heading`}
-                                    id="textInput"
-                                  >
-                                    IFSC Code
-                                    <strong className="text-danger">*</strong>
-                                  </label>
+                              <input
+                                id="textInput"
+                                name="IFSCcode"
+                                onChange={(e) =>
+                                  saveInvoiceData(
+                                    e.target.name,
+                                    e.target.value,
+                                  )
+                                }
+                                defaultValue=
+                                // {
+                                //   marginData?.invoiceDetail?.IFSCcode
+                                // }
+                                "ICIC0000251"
+                                className={`${styles.input_field} input form-control`}
+                                required
+                              />
+
+                              <label
+                                className={`${styles.label_heading} label_heading`}
+                                id="textInput"
+                              >
+                                IFSC Code
+                                <strong className="text-danger">*</strong>
+                              </label>
                             </div>
                             <div
                               className={`${styles.each_input} col-md-3 col-sm-6`}
