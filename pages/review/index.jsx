@@ -7645,13 +7645,22 @@ const table2 = (sat, balance, complienceFilter) => {
         {complienceFilter == 'StatutoryCompliance'
           ? sat.length &&
           sat?.map((alert, index) => {
+            {console.log(alert?.value?.length,"alert.value")}
             return (
               <tr key={index}>
                 <td className='text-capitalize'> {alert.alert}</td>
                 <td className='text-capitalize'> {alert.severity}</td>
                 <td className='text-capitalize'> {alert.source}</td>
                 <td className='text-capitalize'> {alert.idType}</td>
-                <td className='text-capitalize'> {alert.value}</td>
+                <td className='text-capitalize'> {alert?.value?.length>1?
+                <>
+                {alert.value.map((val,index)=>{
+                  return( <>{val} {index!==alert.value.length-1?",":""}</>)
+                })}
+                </>
+                :
+                <>{alert.value}</>
+                }</td>
               </tr>
             )
           })
@@ -7663,7 +7672,15 @@ const table2 = (sat, balance, complienceFilter) => {
                 <td className='text-capitalize'> {alert.severity}</td>
                 <td className='text-capitalize'> {alert.source}</td>
                 <td className='text-capitalize'> {alert.idType}</td>
-                <td className='text-capitalize'> {alert.value}</td>
+                <td className='text-capitalize'> {alert?.value?.length>1?
+                <>
+                {alert.value.map((val,index)=>{
+                  return( <>{val} {index!==alert.value.length-1?",":""}</>)
+                })}
+                </>
+                :
+                <>{alert.value}</>
+                }</td>
               </tr>
             )
           })}
@@ -7677,7 +7694,15 @@ const table2 = (sat, balance, complienceFilter) => {
                     <td className='text-capitalize'> {alert.severity}</td>
                     <td className='text-capitalize'> {alert.source}</td>
                     <td className='text-capitalize'> {alert.idType}</td>
-                    <td className='text-capitalize'> {alert.value}</td>
+                    <td className='text-capitalize'> {alert?.value?.length>1?
+                <>
+                {alert.value.map((val,index)=>{
+                  return( <>{val} {index!==alert.value.length-1?",":""}</>)
+                })}
+                </>
+                :
+                <>{alert.value}</>
+                }</td>
                   </tr>
                 )
               })}
@@ -7689,7 +7714,15 @@ const table2 = (sat, balance, complienceFilter) => {
                     <td className='text-capitalize'> {alert.severity}</td>
                     <td className='text-capitalize'> {alert.source}</td>
                     <td className='text-capitalize'> {alert.idType}</td>
-                    <td className='text-capitalize'> {alert.value}</td>
+                    <td className='text-capitalize'> {alert?.value?.length>1?
+                <>
+                {alert.value.map((val,index)=>{
+                  return( <>{val} {index!==alert.value.length-1?",":""}</>)
+                })}
+                </>
+                :
+                <>{alert.value}</>
+                }</td>
                   </tr>
                 )
               })}
