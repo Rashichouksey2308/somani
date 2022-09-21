@@ -117,10 +117,10 @@ console.log(docName,docName2,"docName")
                             </div>
                           </>
                         ) : (
-                          <div className={`${styles.certificate} d-flex justify-content-between`}>
+                          <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                             <span>{vesselCertificate?.name}</span>
                             <img
-                              className={`${styles.close_image} mr-2`}
+                              className={`${styles.close_image} image_arrow mr-2`}
                               src="/static/close.svg"
                               onClick={() => handleClose(docName)}
                               alt="Close"
@@ -171,10 +171,10 @@ console.log(docName,docName2,"docName")
                     </div> */}
                           </>
                         ) : (
-                          <div className={`${styles.certificate} d-flex justify-content-between`}>
+                          <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                             <span>{containerList?.name}</span>
                             <img
-                              className={`${styles.close_image} mr-2`}
+                              className={`${styles.close_image} image_arrow mr-2`}
                               src="/static/close.svg"
                               onClick={() => handleClose(docName2)}
                               alt="Close"

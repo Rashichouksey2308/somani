@@ -273,7 +273,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
                       </div>
                     ) : (
                       <div
-                        className={`${styles.certificate} mr-3 d-inline-flex align-items-center justify-content-between`}
+                        className={`${styles.certificate} text1 mr-3 d-inline-flex align-items-center justify-content-between`}
                       >
                         <span>
                           {warehouseDetails?.document?.originalName.slice(
@@ -283,7 +283,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
                           )}
                         </span>
                         <img
-                          className={`${styles.close_image} ml-2`}
+                          className={`${styles.close_image} image_arrow ml-2`}
                           src="/static/close.svg"
                           onClick={() => handleClose()}
                           alt="Close"

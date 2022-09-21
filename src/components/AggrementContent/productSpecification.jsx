@@ -168,12 +168,12 @@ function Index(props) {
                 </button>
               </div>
             ) : (
-              <div className={`${styles.certificate} d-flex justify-content-between`}>
+              <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                 <span>
                   {doc.attachDoc}
                 </span>
                 <img
-                  className={`${styles.close_image}`}
+                  className={`${styles.close_image}  image_arrow`}
                   src="/static/close.svg"
                   onClick={() => setdoc({ attachDoc: '' })}
                   alt="Close"

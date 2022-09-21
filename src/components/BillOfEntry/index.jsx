@@ -1372,14 +1372,14 @@ export default function Index({
                           </>
                         ) : (
                           <div
-                            className={`${styles.certificate} d-flex justify-content-between`}
+                            className={`${styles.certificate} text1 d-flex justify-content-between`}
                           >
                             <span>
                               {billOfEntryData?.document1?.originalName}
                             </span>
                             <img
                               onClick={() => removeDoc('document1')}
-                              className={`${styles.close_image}`}
+                              className={`${styles.close_image} image_arrow`}
                               src="/static/close.svg"
                               alt="Close"
                             />{' '}
@@ -1417,14 +1417,14 @@ export default function Index({
                           </>
                         ) : (
                           <div
-                            className={`${styles.certificate} d-flex justify-content-between`}
+                            className={`${styles.certificate} text1 d-flex justify-content-between`}
                           >
                             <span>
                               {billOfEntryData?.document2?.originalName}
                             </span>
                             <img
                               onClick={() => removeDoc('document2')}
-                              className={`${styles.close_image}`}
+                              className={`${styles.close_image} image_arrow`}
                               src="/static/close.svg"
                               alt="Close"
                             />{' '}
@@ -1465,14 +1465,14 @@ export default function Index({
                             </>
                           ) : (
                             <div
-                              className={`${styles.certificate} d-flex justify-content-between`}
+                              className={`${styles.certificate} text1 d-flex justify-content-between`}
                             >
                               <span>
                                 {billOfEntryData?.document3?.originalName}
                               </span>
                               <img
                                 onClick={() => removeDoc('document3')}
-                                className={`${styles.close_image}`}
+                                className={`${styles.close_image} image_arrow`}
                                 src="/static/close.svg"
                                 alt="Close"
                               />{' '}

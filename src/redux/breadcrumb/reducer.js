@@ -7,14 +7,28 @@ const initialState = {
     companyName: '',
     upperTabs: '',
   },
+  currency: 'crores',
+  unit: 'inr',
 }
 
 function BreadcrumbReducer(state = initialState, action) {
+  console.log(action.payload, 'SET_UNIT')
   switch (action.type) {
     case types.GET_BREADCRUMB_DATA:
       return {
         ...state,
         breadCrumbData: action.payload,
+      }
+
+    case types.SET_CURRENCY:
+      return {
+        ...state,
+        currency: action.payload,
+      }
+    case types.SET_UNIT:
+      return {
+        ...state,
+        unit: action.payload,
       }
 
     case types.CLEAR_BREADCRUMB_DATA:

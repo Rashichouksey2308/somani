@@ -492,12 +492,12 @@ export default function Index(props) {
                                         >
 
                                           {val2?.LRorRRDoc?.originalName ?
-                                            <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                            <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                               <span>
                                                 {val2?.LRorRRDoc?.originalName}
                                               </span>
                                               <img
-                                                className={`${styles.close_image}`}
+                                                className={`${styles.close_image} image_arrow`}
                                                 src="/static/close.svg"
                                                 onClick={() => props.removeLiftinDoc("lr", index, index2)}
                                                 alt="Close"
@@ -553,12 +553,12 @@ export default function Index(props) {
 
                                       <td colSpan="2">
                                         {val2?.eWayBillDoc?.originalName ?
-                                          <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                          <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                             <span>
                                               {val2?.eWayBillDoc?.originalName}
                                             </span>
                                             <img
-                                              className={`${styles.close_image}`}
+                                              className={`${styles.close_image}  image_arrow`}
                                               src="/static/close.svg"
                                               onClick={() => props.removeLiftinDoc("eway", index, index2)}
                                               alt="Close"
