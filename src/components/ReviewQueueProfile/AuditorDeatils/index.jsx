@@ -10,16 +10,16 @@ function Index({ directorData }) {
   const [darkMode, setDarkMode] = useState(false)
 
   const [otherAssociates, setOtherAssociates] = useState([])
-  useEffect(()=>{
-    if(directorData?.profile?.directorDetail?.length>0){
-     let temp=[]
-     directorData?.profile?.directorDetail.forEach((val,index)=>{
-       temp.push("Current")
-     })
-     setOtherAssociates(temp)
+  useEffect(() => {
+    if (directorData?.profile?.directorDetail?.length > 0) {
+      let temp = []
+      directorData?.profile?.directorDetail.forEach((val, index) => {
+        temp.push('Current')
+      })
+      setOtherAssociates(temp)
     }
-  },[directorData])
-  console.log(otherAssociates,"otherAssociates")
+  }, [directorData])
+  console.log(otherAssociates, 'otherAssociates')
   useEffect(() => {
     if (
       localStorage.getItem('darkMode') == 'true' ||
@@ -35,8 +35,8 @@ function Index({ directorData }) {
   console.log(directorData, 'len')
 
   const dscStatus = (from) => {
-    var dateFrom = moment(from, "DD-MM-YYYY");
-    var dateTo = moment(new Date(), "DD-MM-YYYY");
+    var dateFrom = moment(from, 'DD-MM-YYYY')
+    var dateTo = moment(new Date(), 'DD-MM-YYYY')
 
     if (moment(dateFrom).isBefore(dateTo, 'day')) {
       return 'Expired'
@@ -44,7 +44,7 @@ function Index({ directorData }) {
       return 'Approved'
     }
   }
- 
+
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -59,7 +59,7 @@ function Index({ directorData }) {
           <span>+</span>
         </div>
         {directorData?.profile?.directorDetail?.length == 0 ||
-          directorData?.profile?.directorDetail == undefined ? (
+        directorData?.profile?.directorDetail == undefined ? (
           <div
             key={index}
             id={`directorDetails`}
@@ -108,10 +108,11 @@ function Index({ directorData }) {
                       </div>
                       <div className={`${styles.downArrow} `}>
                         <img
-                          src={`${darkMode
-                            ? `/static/white-arrow.svg`
-                            : `/static/arrow-right.svg`
-                            }`}
+                          src={`${
+                            darkMode
+                              ? `/static/white-arrow.svg`
+                              : `/static/arrow-right.svg`
+                          }`}
                           alt="arrow right"
                           className="img-fluid image_arrow"
                         />
@@ -199,20 +200,20 @@ function Index({ directorData }) {
                         </div>
                       </div>
                       <div className={`${styles.entities} border_color`}>
-                        <div className={`${styles.entities_content} border_color table_container`}>
+                        <div
+                          className={`${styles.entities_content} border_color table_container`}
+                        >
                           <p>Other Associated Entities</p>
                           <div
                             className={`${styles.row}  d-flex justify-content-between align-items-center`}
                           >
                             <div className="form-check ">
                               <input
-                               
                                 value="Current"
                                 className="form-check-input"
                                 type="radio"
                                 name="flexRadioDefault"
                                 id="flexRadioDefault1"
-                               
                               />
                               <label
                                 className="form-check-label"
@@ -229,7 +230,6 @@ function Index({ directorData }) {
                                 type="radio"
                                 name="flexRadioDefault"
                                 id="flexRadioDefault2"
-                              
                               />
                               <label
                                 className="form-check-label"
@@ -246,7 +246,6 @@ function Index({ directorData }) {
                                 type="radio"
                                 name="flexRadioDefault"
                                 id="flexRadioDefault3"
-                                
                               />
                               <label
                                 className="form-check-label"
@@ -263,7 +262,6 @@ function Index({ directorData }) {
                                 type="radio"
                                 name="flexRadioDefault"
                                 id="flexRadioDefault4"
-                                
                               />
                               <label
                                 className="form-check-label"
@@ -279,7 +277,6 @@ function Index({ directorData }) {
                                 type="radio"
                                 name="flexRadioDefault"
                                 id="flexRadioDefault5"
-                                
                               />
                               <label
                                 // className="form-check-label"
@@ -302,12 +299,31 @@ function Index({ directorData }) {
                                 <tr>
                                   <th className="text_light">CIN</th>
                                   <th className="text_light">ENTITY NAME</th>
-                                  <th className="text_light">TENURE START DATE</th>
-                                  <th className="text_light">TENURE END DATE</th>
+                                  <th className="text_light">
+                                    TENURE START DATE
+                                  </th>
+                                  <th className="text_light">
+                                    TENURE END DATE
+                                  </th>
                                 </tr>
                               </thead>
-                              {/* <tbody>
-                                  {director && _get(director, `otherAssociatedEntities${otherAssociates}`, []).map((associates, index) => {
+                              <tbody>
+                                {console.log(
+                                  'daat',
+                                  _get(
+                                    directorData,
+                                    `otherAssociatedEntities${otherAssociates}`,
+                                    [],
+                                  ),
+                                )}
+                                {directorData?.profile?.directorDetail[0]
+                                  ?.otherAssociatedEntitiesCurrent?.length >
+                                  0 &&
+                                  _get(
+                                    directorData,
+                                    `otherAssociatedEntities${otherAssociates}`,
+                                    [],
+                                  ).map((associates, index) => {
                                     const fromDate = associates?.fromDate
                                     const toDate = associates?.toDate
 
@@ -315,13 +331,29 @@ function Index({ directorData }) {
                                       <tr key={index}>
                                         <td>{associates?.entityId}</td>
                                         <td>{associates?.entityName}</td>
-                                        <td> {fromDate ? moment((fromDate)?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY") : ''}</td>
-                                        <td>{toDate ? moment((toDate)?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY") : ''}</td>
+                                        <td>
+                                          {' '}
+                                          {fromDate
+                                            ? moment(
+                                                fromDate?.slice(0, 10),
+                                                'YYYY-MM-DD',
+                                                true,
+                                              ).format('DD-MM-YYYY')
+                                            : ''}
+                                        </td>
+                                        <td>
+                                          {toDate
+                                            ? moment(
+                                                toDate?.slice(0, 10),
+                                                'YYYY-MM-DD',
+                                                true,
+                                              ).format('DD-MM-YYYY')
+                                            : ''}
+                                        </td>
                                       </tr>
                                     )
                                   })}
-
-                                </tbody> */}
+                              </tbody>
                             </table>
                           </div>
                         </div>
@@ -333,6 +365,7 @@ function Index({ directorData }) {
             </div>
           </div>
         ) : null}
+        {console.log('data22', directorData)}
         {directorData?.profile?.directorDetail?.length > 0 &&
           _get(directorData, 'profile.directorDetail', []).map(
             (director, index) => {
@@ -349,7 +382,7 @@ function Index({ directorData }) {
                   >
                     <div
                       className="accordion shadow-none"
-                      id="directorDetails3"
+                      id={`directorDetails${index}`}
                     >
                       <div className={`${styles.card} border_color card`}>
                         <div className="d-flex justify-content-between align-items-center">
@@ -389,14 +422,15 @@ function Index({ directorData }) {
                                 //     ? 'Expired'
                                 //     : 'Approved'
                                 //   : ''}
-                                className={`${director?.dscExpiryDate !== null
-                                  ? moment(director?.dscExpiryDate).isBefore(
-                                    moment(new Date()),
-                                  )
-                                    ? styles.danger
-                                    : styles.success
-                                  : styles.black
-                                  }`}
+                                className={`${
+                                  director?.dscExpiryDate !== null
+                                    ? moment(director?.dscExpiryDate).isBefore(
+                                        moment(new Date()),
+                                      )
+                                      ? styles.danger
+                                      : styles.success
+                                    : styles.black
+                                }`}
                               >
                                 {director?.din}
                               </span>
@@ -411,7 +445,9 @@ function Index({ directorData }) {
                               <label className={`accordion_Text`}>
                                 DSC Status
                               </label>
-                              {director?.dscExpiryDate === null ? '' : dscStatus(director?.dscExpiryDate)}
+                              {director?.dscExpiryDate === null
+                                ? ''
+                                : dscStatus(director?.dscExpiryDate)}
 
                               {/* {director?.dscExpiryDate !== null
                                 ? moment(director?.dscExpiryDate?.toISOString()).isBefore(
@@ -424,10 +460,11 @@ function Index({ directorData }) {
 
                             <div className={`${styles.downArrow} `}>
                               <img
-                                src={`${darkMode
-                                  ? `/static/white-arrow.svg`
-                                  : `/static/arrow-right.svg`
-                                  }`}
+                                src={`${
+                                  darkMode
+                                    ? `/static/white-arrow.svg`
+                                    : `/static/arrow-right.svg`
+                                }`}
                                 alt="arrow right"
                                 className="img-fluid image_arrow"
                               />
@@ -553,25 +590,32 @@ function Index({ directorData }) {
                               </div>
                             </div>
                             <div className={`${styles.entities} border_color`}>
-                              <div className={`${styles.entities_content} border_color table_container`}>
+                              <div
+                                className={`${styles.entities_content} border_color table_container`}
+                              >
                                 <p>Other Associated Entities</p>
                                 <div
                                   className={`${styles.row}  d-flex justify-content-between align-items-center`}
                                 >
                                   <div className="form-check ">
                                     <input
-                                     onChange={(e)=>{
-                                      let temp=[...otherAssociates]
-                                      temp[index]=e.target.value
-                                      setOtherAssociates([...temp])
-                                      console.log(otherAssociates == 'Current',"11111")
-                                     }}
+                                      onChange={(e) => {
+                                        let temp = [...otherAssociates]
+                                        temp[index] = e.target.value
+                                        setOtherAssociates([...temp])
+                                        console.log(
+                                          otherAssociates == 'Current',
+                                          '11111',
+                                        )
+                                      }}
                                       value="Current"
                                       className="form-check-input"
                                       type="radio"
                                       name="flexRadioDefault1"
                                       id={`flexRadioDefault1${index}`}
-                                      checked={otherAssociates[index] == 'Current'}
+                                      checked={
+                                        otherAssociates[index] == 'Current'
+                                      }
                                     />
                                     <label
                                       className="form-check-label"
@@ -583,18 +627,20 @@ function Index({ directorData }) {
 
                                   <div className="form-check ">
                                     <input
-                                       onChange={(e)=>{
-                                     let temp=[...otherAssociates]
-                                     temp[index]=e.target.value
-                                     console.log(temp,"temppp", temp[index])
-                                      setOtherAssociates([...temp])
-                                     }}
+                                      onChange={(e) => {
+                                        let temp = [...otherAssociates]
+                                        temp[index] = e.target.value
+                                        console.log(temp, 'temppp', temp[index])
+                                        setOtherAssociates([...temp])
+                                      }}
                                       value="Former"
                                       className="form-check-input"
                                       type="radio"
                                       name="flexRadioDefault2"
                                       id={`flexRadioDefault1${index}`}
-                                      checked={otherAssociates[index] == 'Former'}
+                                      checked={
+                                        otherAssociates[index] == 'Former'
+                                      }
                                     />
                                     <label
                                       className="form-check-label"
@@ -606,18 +652,18 @@ function Index({ directorData }) {
 
                                   <div className="form-check ">
                                     <input
-                                        onChange={(e)=>{
-                                      let temp=[...otherAssociates]
-                                     temp[index]=e.target.value
-                                      setOtherAssociates([...temp])
-                                     }}
+                                      onChange={(e) => {
+                                        let temp = [...otherAssociates]
+                                        temp[index] = e.target.value
+                                        setOtherAssociates([...temp])
+                                      }}
                                       value="Independent"
                                       className="form-check-input"
                                       type="radio"
                                       name="flexRadioDefault3"
                                       id={`flexRadioDefault1${index}`}
                                       checked={
-                                       otherAssociates[index] == 'Independent'
+                                        otherAssociates[index] == 'Independent'
                                       }
                                     />
                                     <label
@@ -630,17 +676,19 @@ function Index({ directorData }) {
 
                                   <div className="form-check ">
                                     <input
-                                        onChange={(e)=>{
-                                      let temp=[...otherAssociates]
-                                     temp[index]=e.target.value
-                                      setOtherAssociates([...temp])
-                                     }}
+                                      onChange={(e) => {
+                                        let temp = [...otherAssociates]
+                                        temp[index] = e.target.value
+                                        setOtherAssociates([...temp])
+                                      }}
                                       value="Additional"
                                       className="form-check-input"
                                       type="radio"
                                       name="flexRadioDefault4"
                                       id={`flexRadioDefault1${index}`}
-                                      checked={otherAssociates[index] == 'Additional'}
+                                      checked={
+                                        otherAssociates[index] == 'Additional'
+                                      }
                                     />
                                     <label
                                       className="form-check-label"
@@ -651,17 +699,19 @@ function Index({ directorData }) {
                                   </div>
                                   <div className="form-check ">
                                     <input
-                                        onChange={(e)=>{
-                                      let temp=[...otherAssociates]
-                                      temp[index]=e.target.value
-                                      setOtherAssociates([...temp])
-                                     }}
+                                      onChange={(e) => {
+                                        let temp = [...otherAssociates]
+                                        temp[index] = e.target.value
+                                        setOtherAssociates([...temp])
+                                      }}
                                       value="Nominated"
                                       className="form-check-input"
                                       type="radio"
                                       name="flexRadioDefault5"
                                       id={`flexRadioDefault1${index}`}
-                                      checked={otherAssociates[index] == 'Nominated'}
+                                      checked={
+                                        otherAssociates[index] == 'Nominated'
+                                      }
                                     />
                                     <label
                                       // className="form-check-label"
@@ -671,20 +721,24 @@ function Index({ directorData }) {
                                     </label>
                                   </div>
                                 </div>
-                                <hr className={`${styles.hr} border_color`}></hr>
+                                <hr
+                                  className={`${styles.hr} border_color`}
+                                ></hr>
                                 <span>
                                   {otherAssociates[index]} (
-                                  {
-                                    isArray(_get(
+                                  {isArray(
+                                    _get(
                                       director,
                                       `otherAssociatedEntities${otherAssociates[index]}`,
                                       [],
-                                    )) ? _get(
-                                      director,
-                                      `otherAssociatedEntities${otherAssociates[index]}`,
-                                      [],
-                                    ).length : ''
-                                  }
+                                    ),
+                                  )
+                                    ? _get(
+                                        director,
+                                        `otherAssociatedEntities${otherAssociates[index]}`,
+                                        [],
+                                      ).length
+                                    : ''}
                                   )
                                 </span>
                                 <div className={`${styles.table}`}>
@@ -697,9 +751,15 @@ function Index({ directorData }) {
                                     <thead>
                                       <tr>
                                         <th className="text_light">CIN</th>
-                                        <th className="text_light">ENTITY NAME</th>
-                                        <th className="text_light">TENURE START DATE</th>
-                                        <th className="text_light">TENURE END DATE</th>
+                                        <th className="text_light">
+                                          ENTITY NAME
+                                        </th>
+                                        <th className="text_light">
+                                          TENURE START DATE
+                                        </th>
+                                        <th className="text_light">
+                                          TENURE END DATE
+                                        </th>
                                       </tr>
                                     </thead>
                                     <tbody>
@@ -714,25 +774,29 @@ function Index({ directorData }) {
 
                                           return (
                                             <tr key={index2}>
-                                              <td className='text-color'>{associates?.entityId}</td>
-                                              <td className='text-color'>{associates?.entityName}</td>
-                                              <td className='text-color'>
+                                              <td className="text-color">
+                                                {associates?.entityId}
+                                              </td>
+                                              <td className="text-color">
+                                                {associates?.entityName}
+                                              </td>
+                                              <td className="text-color">
                                                 {' '}
                                                 {fromDate
                                                   ? moment(
-                                                    fromDate?.slice(0, 10),
-                                                    'YYYY-MM-DD',
-                                                    true,
-                                                  ).format('DD-MM-YYYY')
+                                                      fromDate?.slice(0, 10),
+                                                      'YYYY-MM-DD',
+                                                      true,
+                                                    ).format('DD-MM-YYYY')
                                                   : ''}
                                               </td>
-                                              <td className='text-color'>
+                                              <td className="text-color">
                                                 {toDate
                                                   ? moment(
-                                                    toDate?.slice(0, 10),
-                                                    'YYYY-MM-DD',
-                                                    true,
-                                                  ).format('DD-MM-YYYY')
+                                                      toDate?.slice(0, 10),
+                                                      'YYYY-MM-DD',
+                                                      true,
+                                                    ).format('DD-MM-YYYY')
                                                   : ''}
                                               </td>
                                             </tr>

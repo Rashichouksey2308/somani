@@ -42,9 +42,11 @@ function Index({ auditorsDetails }) {
                   <tr>
                     <th width="25%"></th>
                     <th width="25%">
-                      {moment(latestYearData?.financialEndDate)
-                        .format('MMM-YY')
-                        .toUpperCase()}
+                      {latestYearData?.financialEndDate
+                        ? moment(latestYearData?.financialEndDate)
+                            .format('MMM-YY')
+                            .toUpperCase()
+                        : ''}
                     </th>
                     <th width="25%">
                       {moment(previousYearData?.financialEndDate)
@@ -81,13 +83,16 @@ function Index({ auditorsDetails }) {
                           : styles.danger
                       }`}
                     >
-                      {latestYearData?.nameOfAuditor?.trim() ===
-                      previousYearData?.nameOfAuditor?.trim()
-                        ? 'No'
-                        : 'Yes'}
+                      {latestYearData?.nameOfAuditor?.trim()
+                        ? latestYearData?.nameOfAuditor?.trim() ===
+                          previousYearData?.nameOfAuditor?.trim()
+                          ? 'No'
+                          : 'Yes'
+                        : ''}
                       {`${
                         latestYearData?.nameOfAuditor !==
-                        previousYearData?.nameOfAuditor
+                          previousYearData?.nameOfAuditor &&
+                        latestYearData?.financialEndDate
                           ? moment(latestYearData?.financialEndDate).format(
                               'YYYY',
                             )
@@ -104,7 +109,7 @@ function Index({ auditorsDetails }) {
                     >
                       {previousYearData?.nameOfAuditor ===
                       lastYearData?.nameOfAuditor
-                       ? 'No'
+                        ? 'No'
                         : 'Yes'}
                       {` ${
                         previousYearData?.nameOfAuditor !==
