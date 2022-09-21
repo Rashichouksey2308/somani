@@ -1796,6 +1796,7 @@ console.log(orderList,"orderList?.company")
                                       e.target.value,
                                     )
                                   }
+                                  style={{paddingRight:'40px'}}
                                 >
                                   <option>Select an option</option>
                                   <option value="INDO GERMAN INTERNATIONAL PRIVATE LIMITED">
@@ -1867,6 +1868,7 @@ console.log(orderList,"orderList?.company")
                                 onChange={(e) => changeImporter(e)}
                                 className={`${styles.input_field} input form-control`}
                                 required
+
                               />
                               <label
                                 className={`${styles.label_heading} label_heading`}

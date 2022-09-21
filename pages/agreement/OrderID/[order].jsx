@@ -775,7 +775,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                             All Risks Including ICC-A, War, SRCC, Theft, Act of God etc.
+                             All Risks Including ICC-A, War, SRCC, Theft, Loading, Unloading, Act of God etc.
                           </p>
                         </td>
                       </tr>
@@ -1202,7 +1202,7 @@ function Index() {
                     Marine Insurance
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    All Risks Including ICC-A, War, SRCC, Theft, Act of God etc.
+                    All Risks Including ICC-A, War, SRCC, Theft, Loading, Unloading Act of God etc.
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>

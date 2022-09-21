@@ -856,7 +856,7 @@ const Index = () => {
             >
               <div
                 className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
-                data-toggle="collapse"
+               // data-toggle="collapse"
                 data-target="#storageInsurance"
                 aria-expanded="true"
                 aria-controls="storageInsurance"
@@ -908,7 +908,7 @@ const Index = () => {
               </div>
               <div
                 id="storageInsurance"
-                className="collapse"
+              //  className="collapse"
                 aria-labelledby="storageInsurance"
               >
                 <div className={` ${styles.cardBody} card-body  border_color`}>
@@ -1321,7 +1321,7 @@ const Index = () => {
               </div>
               <div
                 id="marineInsurance"
-                className="collapse"
+                //className="collapse"
                 aria-labelledby="marineInsurance"
               >
                 <div
@@ -1604,7 +1604,7 @@ const Index = () => {
               </div>
               <div
                 id="storageInsurance"
-                className="collapse"
+                //className="collapse"
                 aria-labelledby="storageInsurance"
               >
                 <div className={` ${styles.cardBody} card-body  border_color`}>

@@ -265,12 +265,12 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                 <li>
                   <p className="text_sales">Documents to be provided to Buyer
                     <ol type="1" className='pl-0'>
-                      <li><p className="text_sales">The Seller's Commercial Invoice;</p> </li>
+                      <li><p className="text_sales">The Seller's Commercial Invoice,</p> </li>
                       <li><p className="text_sales">Full set of  3/3  originals  of Bills of Lading,</p></li>
-                      <li><p className="text_sales">Certificate of Quality;</p></li>
+                      <li><p className="text_sales">Certificate of Quality,</p></li>
                       <li><p className="text_sales">Certificate of Weight,</p></li>
-                      <li><p className="text_sales">Certificate of Origin.</p> </li>
-                      <li><p className="text_sales">Copy of Marine Insurance Certificate / Insurance Policy</p></li>
+                      <li><p className="text_sales">Certificate of Origin,</p> </li>
+                      <li><p className="text_sales">Copy of Marine Insurance Certificate / Insurance Policy.</p></li>
                     </ol>
                   </p>
                 </li>
@@ -374,12 +374,12 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                 </li>
                 <li>
                   <p className="text_sales">The End User and Manufacturer/shipper shall have direct recourse to each other for matters including but not limited to the following:
-                    <ol type="a" className='pl-0'>
-                      <li><p>For all quantity and quality claims/ issues pertaining to material supplied by Manufacturer/shipper;</p></li>
-                      <li><p>Any express or implied warranty claim for the quality of material supplied by Manufacturer/shipper;
+                    <ol style={{listStyle:'none'}} className='pl-0'>
+                      <li><p>a) &nbsp; &nbsp; For all quantity and quality claims/ issues pertaining to material supplied by Manufacturer/shipper;</p></li>
+                      <li><p>b) &nbsp; &nbsp; Any express or implied warranty claim for the quality of material supplied by Manufacturer/shipper;
                       </p></li>
-                      <li><p>Loss of cargo;</p></li>
-                      <li><p>Any demurrage charges at the load port and/or discharge port shall be settled directly between the Buyer and Manufacturer/shipper;
+                      <li><p>c) &nbsp; &nbsp; Loss of cargo;</p></li>
+                      <li><p>d) &nbsp; &nbsp; Any demurrage charges at the load port and/or discharge port shall be settled directly between the Buyer and Manufacturer/shipper;
                       </p></li>
 
                     </ol>
@@ -463,7 +463,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                 <p>Both parties agree to use their best efforts to amicably resolve any claims controversies and disputes arising out of this contract, as well as to determine the final costs thereof. Any such claims, controversies and disputes which cannot be resolved through negotiations within a period of 60 days of the notification of such claims, disputes and controversies shall be referred to arbitration in accordance with the rules of Singapore International Arbitration Center (SIAC). One arbitrator to be nominated jointly by both the parties. The award rendered by the arbitrator shall be final and binding upon both the parties concerned and subject to no appeal. The costs and expenses of the prevailing party (including, without limitation, reasonable attorney’s fee) will be paid by the losing party. The contract shall be subject to Laws of India. The seat of the arbitration will be Singapore and the proceedings shall be conducted in English language.
 
                 </p>
-                <p>Notwithstanding the aforesaid, the parties agree and affirm that relief available under Section 9 of the Indian Arbitration Act, 1996 (as amended) shall be available to the parties, and the parties may initiate appropriate proceedings in India in order to avail such relief.
+                <p className='mt-3'>Notwithstanding the aforesaid, the parties agree and affirm that relief available under Section 9 of the Indian Arbitration Act, 1996 (as amended) shall be available to the parties, and the parties may initiate appropriate proceedings in India in order to avail such relief.
 
                 </p>
 

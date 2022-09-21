@@ -102,7 +102,7 @@ export default function Index({ inspectionData }) {
   return (
     <>
       <div
-        className={`${styles.backgroundMain} container-fluid p-0 background2`}
+        className={`${styles.backgroundMain} container-fluid p-0 `}
       >
         <div className={`${styles.vessel_card}`}>
           <div className={`${styles.main} card border-color`}>

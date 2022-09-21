@@ -717,7 +717,7 @@ const index = () => {
                     <div className="d-flex">
                       <input className={`${styles.file_field}`} type="file" />
                       <img
-                        className={`${styles.close_image} img-fluid`}
+                        className={`${styles.close_image} image_arrow img-fluid`}
                         src="/static/close.svg"
                         alt="close"
                       />

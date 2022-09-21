@@ -809,7 +809,7 @@ export default function Index({ addButton }) {
   return (
     <>
       <div
-        className={`${styles.backgroundMain} container-fluid p-0 background2`}
+        className={`${styles.backgroundMain} container-fluid p-0 `}
       >
         <div className={`${styles.vessel_card}`}>
           <div className={`${styles.main} vessel_card card border-color`}>
