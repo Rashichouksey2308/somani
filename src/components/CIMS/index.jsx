@@ -588,12 +588,12 @@ export default function Index({
                                 </div>
                               </>
                             ) : (
-                              <div className={`${styles.certificate} d-flex justify-content-between`}>
+                              <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                 <span>
                                   {cimsDetails[index]?.coalImportRegistrationDoc?.originalName}
                                 </span>
                                 <img
-                                  className={`${styles.close_image} mr-2`}
+                                  className={`${styles.close_image}  image_arrow mr-2`}
                                   src="/static/close.svg"
                                   onClick={(e) => handleCloseDoc('coalImportRegistrationDoc', index)}
                                   alt="Close"
@@ -636,12 +636,12 @@ export default function Index({
                                 </div>
                               </>
                             ) : (
-                              <div className={`${styles.certificate} d-flex justify-content-between`}>
+                              <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                 <span>
                                   {cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName}
                                 </span>
                                 <img
-                                  className={`${styles.close_image} mr-2`}
+                                  className={`${styles.close_image} image_arrow mr-2`}
                                   src="/static/close.svg"
                                   onClick={(e) => handleCloseDoc('cimsPaymentReceiptDoc', index)}
                                   alt="Close"

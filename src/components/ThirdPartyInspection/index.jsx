@@ -1321,7 +1321,7 @@ export default function Index({ addButton }) {
                                 </>
                               ) : (
                                 <div
-                                  className={`${styles.certificate} d-flex justify-content-between`}
+                                  className={`${styles.certificate} text1 d-flex justify-content-between`}
                                 >
                                   <span>
                                     {documents?.certificateOfOrigin?.name.slice(
@@ -1331,7 +1331,7 @@ export default function Index({ addButton }) {
                                     )}
                                   </span>
                                   <img
-                                    className={`${styles.close_image}`}
+                                    className={`${styles.close_image} image_arrow`}
                                     src="/static/close.svg"
                                     onClick={() => handleCloseO()}
                                     alt="Close"
@@ -1452,7 +1452,7 @@ export default function Index({ addButton }) {
                                 </>
                               ) : (
                                 <div
-                                  className={`${styles.certificate} d-flex justify-content-between`}
+                                  className={`${styles.certificate} text1 d-flex justify-content-between`}
                                 >
                                   <span>
                                     {documents?.certificateOfQuality?.name.slice(
@@ -1462,7 +1462,7 @@ export default function Index({ addButton }) {
                                     )}
                                   </span>
                                   <img
-                                    className={`${styles.close_image}`}
+                                    className={`${styles.close_image} image_arrow`}
                                     src="/static/close.svg"
                                     onClick={() => handleCloseQ()}
                                     alt="Close"
@@ -1584,7 +1584,7 @@ export default function Index({ addButton }) {
                                 </>
                               ) : (
                                 <div
-                                  className={`${styles.certificate} d-flex justify-content-between`}
+                                  className={`${styles.certificate} text1 d-flex justify-content-between`}
                                 >
                                   <span>
                                     {documents?.certificateOfWeight?.name.slice(
@@ -1594,7 +1594,7 @@ export default function Index({ addButton }) {
                                     )}
                                   </span>
                                   <img
-                                    className={`${styles.close_image}`}
+                                    className={`${styles.close_image} image_arrow`}
                                     src="/static/close.svg"
                                     onClick={() => handleCloseW()}
                                     alt="Close"
