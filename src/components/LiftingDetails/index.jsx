@@ -376,7 +376,7 @@ export default function Index(props) {
                                   <input
                                     className={`${styles.input_field} input form-control`}
                                     required
-                                    type="text"
+                                    type="number"
                                     name="rrlrNumber"
                                     value={val2.rrlrNumber}
                                     onChange={(e) => {
