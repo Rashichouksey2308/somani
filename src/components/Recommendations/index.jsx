@@ -205,7 +205,9 @@ const Index = ({
 
                   <div className="mr-3">
                     <img
-                      src={`/static/${editProfile ? 'save-3.svg' : 'mode_edit.svg'}`}
+                      src={`/static/${
+                        editProfile ? 'save-3.svg' : 'mode_edit.svg'
+                      }`}
                       role="button"
                       className={`${styles.edit_image} d-block`}
                       alt="edit"
@@ -270,7 +272,9 @@ const Index = ({
                   />
                   <div className="mr-3">
                     <img
-                     src={`/static/${editFinance ? 'save-3.svg' : 'mode_edit.svg'}`}
+                      src={`/static/${
+                        editFinance ? 'save-3.svg' : 'mode_edit.svg'
+                      }`}
                       role="button"
                       className={`${styles.edit_image} d-block`}
                       onClick={() => {
@@ -591,7 +595,9 @@ const Index = ({
                     />
                     <div className="mt-3">
                       <img
-                       src={`/static/${editStren ? 'save-3.svg' : 'mode_edit.svg'}`}
+                        src={`/static/${
+                          editStren ? 'save-3.svg' : 'mode_edit.svg'
+                        }`}
                         role="button"
                         className={`${styles.edit_image} mr-4`}
                         alt="edit"
@@ -653,7 +659,9 @@ const Index = ({
                     />
                     <div className="mt-3">
                       <img
-                        src={`/static/${editWeak ? 'save-3.svg' : 'mode_edit.svg'}`}
+                        src={`/static/${
+                          editWeak ? 'save-3.svg' : 'mode_edit.svg'
+                        }`}
                         role="button"
                         className={`${styles.edit_image} mr-4`}
                         alt="edit"
@@ -674,7 +682,10 @@ const Index = ({
                 ))}
             </div>
 
-            <hr className={`${styles.line} border_color`} style={{ margin: '-1px 0 0' }}></hr>
+            <hr
+              className={`${styles.line} border_color`}
+              style={{ margin: '-1px 0 0' }}
+            ></hr>
             <div
               className={`${styles.sanction_terms} d-flex justify-content-between align-items-center`}
             >
@@ -701,7 +712,7 @@ const Index = ({
                       {checkNan(
                         CovertvaluefromtoCR(
                           creditDetail?.company?.creditLimit?.utilizedLimt ??
-                          '',
+                            '',
                         ),
                       )?.toLocaleString()}
                     </span>
@@ -714,7 +725,7 @@ const Index = ({
                       {checkNan(
                         CovertvaluefromtoCR(
                           creditDetail?.company?.creditLimit?.availableLimit ??
-                          '',
+                            '',
                         ),
                       )?.toLocaleString()}
                     </span>
@@ -775,7 +786,7 @@ const Index = ({
                         name="suggestedCreditLimit"
                         value={addPrefixOrSuffix(
                           suggestedCredit?.suggestedCreditLimit,
-                          ' ',
+                          '',
                         )?.toLocaleString(undefined, {
                           minimumFractionDigits: 2,
                         })}

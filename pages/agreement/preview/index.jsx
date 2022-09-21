@@ -29,7 +29,8 @@ function index() {
     unitOfGrade:"",
     unitOfQuantity:"",
     unitOfValue:"",
-    curr:""
+    curr:"",
+    specComment:""
 
   })
 
@@ -74,11 +75,12 @@ function index() {
 
           terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed=="Yes"?"Full":"Partial"}`,
           addComm: data?.additionalComments?.comments,
-          spec: data?.productSpecifications?.comments,
+          spec: data?.productSpecifications?.specificationTable,
           unitOfGrade:data?.order?.unitOfGrade,
           unitOfQuantity:data?.order?.unitOfQuantity,
           unitOfValue:data?.order?.unitOfValue,
-          curr:data?.order?.orderCurrency
+          curr:data?.order?.orderCurrency,
+          specComment: data?.productSpecifications?.comments,
         })
       
     }
@@ -417,13 +419,33 @@ const toPdf=(data)=>{
                 <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Specification</td>
                 <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>
                   <>
-                    <ol type="1" style={{paddingLeft:'16px'}}>
-                      {data?.spec?.length > 0 &&
-                        data?.spec?.map((val, index) => {
-                          return (<li style={{marginBottom:'10px'}} key={index}>{val}</li>)
-                        })
-                      }
-                    </ol>
+                    <table>
+                        <tr>
+                          {data?.spec &&
+                            data?.spec.length > 0 &&
+                            Object.keys(data?.spec[0]).map((val, index) => (
+                              <th key={index}>{val}</th>
+                            ))}
+                        </tr>
+                        {data?.spec &&
+                          data?.spec.length > 0 &&
+                          data?.spec.map((item, index) => (
+                            <tr>
+                              {Object.values(item).map((value, id) => (
+                                <td key={id}>{value}</td>
+                              ))}
+                            </tr>
+                          ))}
+                    </table>
+                      
+                    <ol>
+                {data?.specComment?.length>0?<span>Comments</span>:null}
+                {data?.specComment?.length>0 && data?.specComment?.map((val,index)=>{
+                  return(<li>
+                   {val}
+                  </li>)
+                }) }
+                </ol>
                   </>
                 </td>
               </tr>

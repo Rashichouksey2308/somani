@@ -33,7 +33,9 @@ function Index(props) {
     unitOfGrade: "",
     unitOfQuantity: "",
     unitOfValue: "",
-    curr: ""
+    curr: "",
+    specComment:""
+
 
   })
 
@@ -66,7 +68,8 @@ function Index(props) {
           unitOfGrade: data?.unitOfGrade,
           unitOfQuantity: data?.unitOfQuantity,
           unitOfValue: data?.unitOfValue,
-          curr: data?.orderCurrency
+          curr: data?.orderCurrency,
+          specComment: data?.specComment,
         })
       } else {
 
@@ -108,6 +111,7 @@ function Index(props) {
           terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed == "Yes" ? "Full" : "Partial"}`,
           addComm: data?.additionalComments?.comments,
           spec: data?.productSpecifications?.specificationTable,
+          specComment: data?.productSpecifications.comments,
           unitOfGrade: data?.order?.unitOfGrade,
           unitOfQuantity: data?.order?.unitOfQuantity,
           unitOfValue: data?.order?.unitOfValue,
@@ -269,8 +273,8 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                       <li><p className="text_sales">Full set of  3/3  originals  of Bills of Lading,</p></li>
                       <li><p className="text_sales">Certificate of Quality,</p></li>
                       <li><p className="text_sales">Certificate of Weight,</p></li>
-                      <li><p className="text_sales">Certificate of Origin.</p> </li>
-                      <li><p className="text_sales">Copy of Marine Insurance Certificate / Insurance Policy</p></li>
+                      <li><p className="text_sales">Certificate of Origin,</p> </li>
+                      <li><p className="text_sales">Copy of Marine Insurance Certificate / Insurance Policy.</p></li>
                     </ol>
                   </p>
                 </li>
@@ -456,7 +460,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
               <div>
                 <p>Both parties agree to use their best efforts to amicably resolve any claims controversies and disputes arising out of this contract, as well as to determine the final costs thereof. Any such claims, controversies and disputes which cannot be resolved through negotiations within a period of 60 days of the notification of such claims, disputes and controversies shall be referred to arbitration in accordance with the rules of Singapore International Arbitration Center (SIAC). One arbitrator to be nominated jointly by both the parties. The award rendered by the arbitrator shall be final and binding upon both the parties concerned and subject to no appeal. The costs and expenses of the prevailing party (including, without limitation, reasonable attorney's fee) will be paid by the losing party. The contract shall be subject to Laws of India. The seat of the arbitration will be Singapore and the proceedings shall be conducted in English language.<br/>
                 </p>
-                <p>Notwithstanding the aforesaid, the parties agree and affirm that relief available under Section 9 of the Indian Arbitration Act, 1996 (as amended) shall be available to the parties, and the parties may initiate appropriate proceedings in India in order to avail such relief.
+                <p className='mt-3'>Notwithstanding the aforesaid, the parties agree and affirm that relief available under Section 9 of the Indian Arbitration Act, 1996 (as amended) shall be available to the parties, and the parties may initiate appropriate proceedings in India in order to avail such relief.
 
                 </p>
 
@@ -619,6 +623,14 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                     </div>
                   </div>
                 </div>
+                {data.specComment.length>0?<b>Comments</b>:null}
+                <ol>
+                {data.specComment.length>0 && data.specComment.map((val,index)=>{
+                 return(<li>
+                   {val}
+                 </li>)
+                }) }
+                </ol>
               </>
 
             </Col>
