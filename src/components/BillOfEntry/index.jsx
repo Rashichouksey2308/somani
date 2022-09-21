@@ -255,63 +255,72 @@ export default function Index({
   // console.log(billOfEntryData, 'billOfEntryData')
 
   const handleSubmit = () => {
+    let isOk = true
     if (billOfEntryData.boeNumber === '') {
       let toastMessage = 'BOE NUMBER CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
+      isOk = false
     }
-    if (billOfEntryData.boeDate === null || billOfEntryData.boeDate === '') {
+    else if (billOfEntryData.boeDate === null || billOfEntryData.boeDate === '') {
       let toastMessage = 'BOE DATE CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
+      isOk = false
+
     }
-    if (billOfEntryData.boeDetails.currency === '') {
+    else if (billOfEntryData.boeDetails.currency === '') {
       let toastMessage = 'CURRENCY CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
+      isOk = false
+
     }
-    if (billOfEntryData.boeDetails.currency === '') {
+    else if (billOfEntryData.boeDetails.currency === '') {
       let toastMessage = 'CURRENCY CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
+      isOk = false
+
     } else if (billOfEntryData.boeDetails.invoiceNumber === '') {
       let toastMessage = 'INVOICE NUMBER CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
+      isOk = false
+
     } else if (billOfEntryData.boeDetails.invoiceDate === '') {
       let toastMessage = 'INVOICE DATE CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
+      isOk = false
+
     } else if (billOfEntryData.boeDetails.invoiceQuantity === '') {
       let toastMessage = 'INVOICE QUANTITY CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
+      isOk = false
+
     } else if (billOfEntryData.boeDetails.invoiceValue === '') {
       let toastMessage = 'INVOICE VALUE CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
+      isOk = false
+
     } else if (billOfEntryData.boeDetails.conversionRate === '') {
       let toastMessage = 'COVERSION RATE CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
+      isOk = false
+
     } else if (
       billOfEntryData.boeDetails.invoiceQuantity > customData?.order?.quantity
     ) {
@@ -320,28 +329,32 @@ export default function Index({
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
+      isOk = false
     } else if (billOfEntryData.document1 === null) {
-      let toastMessage = 'please upload Duty Paid Challan '
+      let toastMessage = `please upload Boe ${billOfEntryData.boeAssessment === 'Final' ? 'final' : 'provisional'}`
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-      return
+      isOk = false
     } else if (billOfEntryData.pdBond) {
       if (billOfEntryData.document2 === null) {
         let toastMessage = 'please upload PD Bond '
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        return
+        isOk = false
       }
-    } else if (billOfEntryData.document3 === null) {
-      let toastMessage = 'please upload all the mandatory documents'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    } else if (billOfEntryData.pdBond) {
+      if (billOfEntryData.document2 === null) {
+        let toastMessage = 'please upload PD Bond '
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        isOk = false
       }
-      return
-    } else {
+    }
+    if (isOk) {
+      console.log('billOfEntryDatasubmit')
       let tempData = { ...billOfEntryData }
       tempData.boeDetails.conversionRate = removePrefixOrSuffix(
         billOfEntryData.boeDetails.conversionRate,
@@ -363,6 +376,7 @@ export default function Index({
       dispatch(UpdateCustomClearance({ fd, task }))
       setComponentId(componentId + 1)
     }
+    console.log(isOk, 'billOfEntryDatasubmit1')
   }
 
   const handleSave = () => {
@@ -400,7 +414,7 @@ export default function Index({
     setAcc(
       checkNan(
         removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceValue) *
-          removePrefixOrSuffix(billOfEntryData?.boeDetails?.conversionRate),
+        removePrefixOrSuffix(billOfEntryData?.boeDetails?.conversionRate),
       ),
     )
   }, [
@@ -751,23 +765,23 @@ export default function Index({
                       'order.transit.IGM.igmDetails[0].igmFiling',
                       '',
                     ) ||
-                    _get(
-                      customData,
-                      'order.transit.IGM.igmDetails[0].igmFiling',
-                      '',
-                    ) === ''
+                      _get(
+                        customData,
+                        'order.transit.IGM.igmDetails[0].igmFiling',
+                        '',
+                      ) === ''
                       ? ''
                       : moment(
-                          _get(
-                            customData,
-                            'order.transit.IGM.igmDetails[0].igmFiling',
-                            '',
-                          ),
-                        ).format('DD-MM-YYYY')}
+                        _get(
+                          customData,
+                          'order.transit.IGM.igmDetails[0].igmFiling',
+                          '',
+                        ),
+                      ).format('DD-MM-YYYY')}
                   </span>
                 </div>
                 {_get(customData, 'order.commodity', '').toLowerCase() ===
-                'coal' ? (
+                  'coal' ? (
                   <>
                     <div
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
@@ -790,9 +804,9 @@ export default function Index({
                         {customData?.order?.transit?.CIMS?.cimsDetails[0]
                           ?.circDate
                           ? moment(
-                              customData?.order?.transit?.CIMS?.cimsDetails[0]
-                                ?.circDate,
-                            ).format('DD-MM-YYYY')
+                            customData?.order?.transit?.CIMS?.cimsDetails[0]
+                              ?.circDate,
+                          ).format('DD-MM-YYYY')
                           : ''}
                       </span>
                     </div>
@@ -882,7 +896,7 @@ export default function Index({
                       saveBillOfEntryData(e.target.name, e.target.value)
                     }
                     required
-                    // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                  // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Invoice Quantity<strong className="text-danger">*</strong>
@@ -1044,15 +1058,15 @@ export default function Index({
                                   <td>
                                     {val.amount
                                       ? `${'INR'} ${Number(
-                                          val.amount,
-                                        )?.toLocaleString('en-IN')}  `
+                                        val.amount,
+                                      )?.toLocaleString('en-IN')}  `
                                       : ''}
                                   </td>
                                   <td>
                                     {val.percentage
                                       ? `${Number(
-                                          val?.percentage,
-                                        )?.toFixed()} ${'%'}`
+                                        val?.percentage,
+                                      )?.toFixed()} ${'%'}`
                                       : ''}
                                   </td>
                                 </>
@@ -1102,7 +1116,7 @@ export default function Index({
                                         isFieldInFocus[index].value
                                           ? val.amount
                                           : `${'INR'}  ` +
-                                            Number(val.amount)?.toLocaleString()
+                                          Number(val.amount)?.toLocaleString()
                                       }
                                       disabled={!val.actions}
                                       onChange={(e) =>
@@ -1132,8 +1146,8 @@ export default function Index({
                                         isFieldInFocus[index].value
                                           ? val.percentage
                                           : Number(
-                                              val.percentage,
-                                            )?.toLocaleString() + `${'%'}`
+                                            val.percentage,
+                                          )?.toLocaleString() + `${'%'}`
                                       }
                                       name="percentage"
                                       // value={val.percentage}
