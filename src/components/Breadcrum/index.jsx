@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 import _get from 'lodash/get'
 import { setDynamicName } from '../../../src/redux/userData/action'
+import { settingCurrency,settingUnit } from '../../../src/redux/breadcrumb/action'
 
 export default function Index({ isQuery }) {
   const dispatch = useDispatch()
@@ -84,6 +85,8 @@ export default function Index({ isQuery }) {
     dispatch(setDynamicName(customData?.company?.companyName))
   }, [customData])
   const { allCustomClearance } = useSelector((state) => state.Custom)
+   const data = useSelector((state) => state.Breadcrumb)
+   console.log(data,"data")
   const { upperTabs, companyId } = useSelector(
     (state) => state.Breadcrumb.breadCrumbData,
   )
@@ -101,17 +104,25 @@ export default function Index({ isQuery }) {
   const { pageTabName } = useSelector((state) => state?.user)
   const id = useSelector((state) => state?.user.id)
   const order = useSelector((state) => state?.user.order)
-  const currency = useSelector((state) => state?.user)
+
 
   console.log('pageName23', order, id)
   const [unit, setUnit] = useState({ value: 'crores' })
   const [curency, setCurency] = useState({ value: 'inr' })
 
+  useEffect(() =>{
+    if(window){
+       dispatch(settingUnit(localStorage.getItem("unit")))
+       dispatch(settingCurrency(localStorage.getItem("currency")))
+    }
+  },[])
   const handleUnitChange = (event) => {
+    dispatch(settingUnit(event.target.value))
     setUnit({ value: event.target.value })
   }
 
   const handleCurencyChange = (event) => {
+    dispatch(settingCurrency(event.target.value))
     setCurency({ value: event.target.value })
   }
 
@@ -375,8 +386,7 @@ export default function Index({ isQuery }) {
       }
     })
   }, [pageName, id, order, upperTabs, companyId])
-  console.log(myUrl, 'url')
-  console.log(currency, 'pageName')
+
   return (
     <div
       className={`${styles.main_container} d-sm-flex d-block justify-content-between background1`}
@@ -448,14 +458,14 @@ export default function Index({ isQuery }) {
             <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
             <select
               className={`${styles.options} accordion_DropDown`}
-              value={unit.value}
+              value={data.unit}
               onChange={handleUnitChange}
             >
-              <option value="crores" selected>
+              <option value="crores" >
                 CRORES
               </option>
               {/* <option value="millions">MILLIONS</option> */}
-              <option value="Lakh">LAKH</option>
+              <option value="lakh">LAKH</option>
             </select>
           </div>
         ) : null}
@@ -466,10 +476,10 @@ export default function Index({ isQuery }) {
             </h5>
             <select
               className={`${styles.options} bg-transparent px-0 accordion_DropDown`}
-              value={curency.value}
+              value={data.currency}
               onChange={handleCurencyChange}
             >
-              <option value="inr" selected>
+              <option value="inr" >
                 INR
               </option>
               <option value="euro">EURO</option>

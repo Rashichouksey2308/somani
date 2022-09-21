@@ -245,12 +245,7 @@ export default function Index(props) {
                                   <div
                                     className={`${styles.form_group} col-lg-6`}
                                   >
-                                    <img
-                                      src="/static/share.svg"
-                                      className={`${styles.shareImg}`}
-                                      alt="Share"
-                                      onClick={(e) => handleRoute()}
-                                    />
+
                                     <img
                                       src="/static/cancel-3.svg"
                                       className={`${styles.shareImg} ml-3`}
@@ -280,9 +275,15 @@ export default function Index(props) {
                                         props.onEdit(index, true)
                                       }}
                                     />
-                                
 
-                                    {props.releaseOrderData.length  ===
+                                    <img
+                                      src="/static/share.svg"
+                                      className={`${styles.shareImg}`}
+                                      alt="Share"
+                                      onClick={(e) => handleRoute()}
+                                    />
+
+                                    {props.releaseOrderData.length ===
                                       index ? null : (
                                       <img
                                         className={`${styles.shareImg} border-0 p-0 bg-transparent ml-3`}
@@ -293,7 +294,7 @@ export default function Index(props) {
                                         }}
                                       />
                                     )}
-                                        {props.releaseOrderData.length - 1 ===
+                                    {props.releaseOrderData.length - 1 ===
                                       index && (
                                         <img
                                           onClick={(e) => {
@@ -357,9 +358,9 @@ export default function Index(props) {
 
         <SaveBar
           handleSave={props.onSaveHAndler}
-          rightBtn="Generate Delivery Order"
-          rightBtnClick={() => setShow(true)}
-          handleRoute={handleRoute}
+          rightBtn="null"
+        // rightBtnClick={() => setShow(true)}
+        // handleRoute={handleRoute}
         />
       </div>
 

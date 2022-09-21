@@ -1034,9 +1034,28 @@ function Index() {
   ])
 
   const [suggestedCredit, setSuggestedCredit] = useState({
-    suggestedCreditLimit: orderList?.suggestedCreditLimit,
-    suggestedOrderValue: orderList?.suggestedOrderValue,
+    suggestedCreditLimit: '',
+    suggestedOrderValue: '',
   })
+
+  
+  const [approvedCredit, setApprovedCredit] = useState({
+    approvedOrderValue: '',
+    approvedCreditValue: '',
+  })
+  
+  useEffect(() => {
+    setSuggestedCredit({
+      suggestedCreditLimit: orderList?.suggestedCreditLimit ? orderList?.suggestedCreditLimit / 10000000 : orderList?.suggestedCreditLimit,
+      suggestedOrderValue: orderList?.suggestedOrderValue ? orderList?.suggestedOrderValue / 10000000 : orderList?.suggestedOrderValue,
+    })
+
+    setApprovedCredit({
+      approvedOrderValue: orderList?.cam?.approvedOrderValue ?  orderList?.cam?.approvedOrderValue / 10000000 : orderList?.cam?.approvedOrderValue,
+    approvedCreditValue: orderList?.cam?.approvedCreditValue ?  orderList?.cam?.approvedCreditValue / 10000000 : orderList?.cam?.approvedCreditValue,
+    })
+  }, [orderList])
+  
 
   const saveSuggestedCreditData = (name, value) => {
     console.log(name, value, '')
@@ -1046,10 +1065,6 @@ function Index() {
     setSuggestedCredit(newInput)
   }
 
-  const [approvedCredit, setApprovedCredit] = useState({
-    approvedOrderValue: orderList?.cam?.approvedOrderValue,
-    approvedCreditValue: orderList?.cam?.approvedCreditValue,
-  })
 
   const saveApprovedCreditData = (name, value) => {
     const newInput = { ...approvedCredit }
@@ -1440,8 +1455,8 @@ function Index() {
       if (gettingPercentageCredit && gettingPercentageOrder) {
         const obj = {
           approvalRemarks: [...approveComment],
-          approvedOrderValue: approvedCredit.approvedOrderValue,
-          approvedCreditValue: approvedCredit.approvedCreditValue,
+          approvedOrderValue: approvedCredit.approvedOrderValue ,
+          approvedCreditValue: approvedCredit.approvedCreditValue ,
           order: orderList._id,
           status: 'Approved',
         }
@@ -7645,13 +7660,22 @@ const table2 = (sat, balance, complienceFilter) => {
         {complienceFilter == 'StatutoryCompliance'
           ? sat.length &&
           sat?.map((alert, index) => {
+            {console.log(alert?.value?.length,"alert.value")}
             return (
               <tr key={index}>
                 <td className='text-capitalize'> {alert.alert}</td>
                 <td className='text-capitalize'> {alert.severity}</td>
                 <td className='text-capitalize'> {alert.source}</td>
                 <td className='text-capitalize'> {alert.idType}</td>
-                <td className='text-capitalize'> {alert.value}</td>
+                <td className='text-capitalize'> {alert?.value?.length>1?
+                <>
+                {alert.value.map((val,index)=>{
+                  return( <>{val} {index!==alert.value.length-1?",":""}</>)
+                })}
+                </>
+                :
+                <>{alert.value}</>
+                }</td>
               </tr>
             )
           })
@@ -7663,7 +7687,15 @@ const table2 = (sat, balance, complienceFilter) => {
                 <td className='text-capitalize'> {alert.severity}</td>
                 <td className='text-capitalize'> {alert.source}</td>
                 <td className='text-capitalize'> {alert.idType}</td>
-                <td className='text-capitalize'> {alert.value}</td>
+                <td className='text-capitalize'> {alert?.value?.length>1?
+                <>
+                {alert.value.map((val,index)=>{
+                  return( <>{val} {index!==alert.value.length-1?",":""}</>)
+                })}
+                </>
+                :
+                <>{alert.value}</>
+                }</td>
               </tr>
             )
           })}
@@ -7677,7 +7709,15 @@ const table2 = (sat, balance, complienceFilter) => {
                     <td className='text-capitalize'> {alert.severity}</td>
                     <td className='text-capitalize'> {alert.source}</td>
                     <td className='text-capitalize'> {alert.idType}</td>
-                    <td className='text-capitalize'> {alert.value}</td>
+                    <td className='text-capitalize'> {alert?.value?.length>1?
+                <>
+                {alert.value.map((val,index)=>{
+                  return( <>{val} {index!==alert.value.length-1?",":""}</>)
+                })}
+                </>
+                :
+                <>{alert.value}</>
+                }</td>
                   </tr>
                 )
               })}
@@ -7689,7 +7729,15 @@ const table2 = (sat, balance, complienceFilter) => {
                     <td className='text-capitalize'> {alert.severity}</td>
                     <td className='text-capitalize'> {alert.source}</td>
                     <td className='text-capitalize'> {alert.idType}</td>
-                    <td className='text-capitalize'> {alert.value}</td>
+                    <td className='text-capitalize'> {alert?.value?.length>1?
+                <>
+                {alert.value.map((val,index)=>{
+                  return( <>{val} {index!==alert.value.length-1?",":""}</>)
+                })}
+                </>
+                :
+                <>{alert.value}</>
+                }</td>
                   </tr>
                 )
               })}

@@ -1933,7 +1933,7 @@ const Discharge = (
         <h5 className={styles.sub_heading}>Inspection at Discharge Port</h5>
 
         <div className="row">
-          {inspectionData?.order?.vessel?.vessels[0]?.shipmentType ===
+          {_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') ===
           'Liner' ? (
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <input

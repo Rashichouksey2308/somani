@@ -30,7 +30,7 @@ function Index() {
 
     setClauseArr(newArr)
   }
-
+console.log(clauseData,"clauseData")
   console.log(editCurrent, 'THIS IS EDIT LC', editInput)
 
   const { lcModule } = useSelector((state) => state.lc)
@@ -197,16 +197,19 @@ function Index() {
 
   const [drop, setDrop] = useState('')
 
-  const [fieldType, setFieldType] = useState(false)
+  const [fieldType, setFieldType] = useState("")
 
   const dropDownChange = (e) => {
     if (
       e.target.value == 'latestDateOfShipment' ||
       e.target.value == 'dateOfExpiry'
     ) {
-      setFieldType(true)
-    } else {
-      setFieldType(false)
+      setFieldType("date")
+    }else if( e.target.value == 'partialShipment'){
+      setFieldType("select")
+    }
+     else {
+      setFieldType("")
     }
 
     let newInput = { ...clauseObj }
@@ -222,14 +225,14 @@ function Index() {
   }
 
   const arrChange = (name, value) => {
-    // console.log(value, "arr change value")
+    console.log(value,name, "arr change value")
     const newInput = { ...clauseObj }
     newInput[name] = value
     setClauseObj(newInput)
 
     const newInput1 = { ...clauseData }
     newInput1[drop] = value
-    // console.log(newInput1, "NEW INPUT 1")
+    console.log(newInput1, "NEW INPUT 1")
     setClauseData(newInput1)
   }
 
@@ -529,7 +532,7 @@ function Index() {
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6}>
                         <div className="d-flex">
-                          {!fieldType ? (
+                          {fieldType=="" ? (
                             <input
                               className={`${styles.input_field} input form-control`}
                               required
@@ -543,7 +546,9 @@ function Index() {
                                 arrChange('newValue', e.target.value)
                               }}
                             />
-                          ) : (
+                          ) :null}
+                          {fieldType=="date"?
+                           (
                             <>
                               <DateCalender
                                 name="newValue"
@@ -557,7 +562,38 @@ function Index() {
                                 alt="Search"
                               />
                             </>
-                          )}
+                          )
+                          :null}
+                           {fieldType=="select"?
+                           (
+                            <>
+                            
+                           <select
+                             defaultValue={
+                                editInput ? editCurrent?.newValue : ''
+                              }
+                              onChange={(e) => {
+                                // inputRef.current.value = ''
+                                arrChange('newValue', e.target.value)
+                              }}
+                            className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                          >
+                            <option selected>Select an option</option>
+                             <option value="No">Prohibited</option>
+                             <option value="Yes">Allowed</option>
+                             
+                          </select>
+
+                         
+                          <img
+                            className={`${styles.arrow} image_arrow img-fluid`}
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
+                        
+                            </>
+                          )
+                          :null}
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
