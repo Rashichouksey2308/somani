@@ -247,7 +247,7 @@ export default function Index({ addButton }) {
   })
 
   const setStartDate = (val, name) => {
-    var new_date = moment(new Date(val).toISOString())
+    let new_date = moment(new Date(val).toISOString())
       .add(1, 'days')
       .format('DD-MM-YYYY')
     if (name == 'loadPortInspectionDetails.startDate') {

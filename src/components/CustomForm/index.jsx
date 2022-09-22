@@ -219,9 +219,9 @@ function BranchCreation(props) {
 
   const handleImageChange = (e) => {
     e.preventDefault()
-    var fileTypes = ['jpg', 'jpeg', 'png']
+    let fileTypes = ['jpg', 'jpeg', 'png']
     if (e.target.files[0]) {
-      var extension = e.target.files[0].name.split('.').pop().toLowerCase(), //file extension from input file
+      let extension = e.target.files[0].name.split('.').pop().toLowerCase(), //file extension from input file
         isSuccess = fileTypes.indexOf(extension) > -1
 
       if (isSuccess) {

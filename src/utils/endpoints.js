@@ -2,118 +2,119 @@
 import config from './config'
 
 export default {
-  baseUrl: `${config.userServerUrl}`,
+  baseUrl: `${config.baseUrl}`,
   authbaseUrl: `${config.authServerUrl}`,
   corebaseUrl: `${config.coreServerUrl}`,
+  userbaseUrl:`${config.userServerUrl}`,
 
   // auth
-  login: '/api/auth/login',
-  logout: '/api/auth/logout',
+  login: '/login',
+  logout: '/logout',
 
   //analytics
-  orderSummary: '/api/core/analytics/order-summary',
-  leadSummary: '/api/core/analytics/lead-summary',
-  commoditySummary: '/api/core/analytics/commodity-summary',
-  originSummary: '/api/core/analytics/origin-country-summary',
-  customerSummary: '/api/core/analytics/customer-summary',
-  exposureSummary: '/api/core/analytics/exposure-summary',
+  orderSummary: '/analytics/order-summary',
+  leadSummary: '/analytics/lead-summary',
+  commoditySummary: '/analytics/commodity-summary',
+  originSummary: '/analytics/origin-country-summary',
+  customerSummary: '/analytics/customer-summary',
+  exposureSummary: '/analytics/exposure-summary',
   //  leads
-  registerCompany: '/api/core/lead/company-details',
-  getBuyers: '/api/core/lead/get-all-leads',
-  uploadDocuments: '/api/core/order/doc-upoad',
-  search: '/api/core/lead/search?searchTerm=',
-  getPanGst: '/api/get-company',
+  registerCompany: '/lead/company-details',
+  getBuyers: '/lead/get-all-leads',
+  uploadDocuments: '/order/doc-upoad',
+  search: '/lead/search?searchTerm=',
+  getPanGst : '/get-company',
 
   //orders
-  getBuyerOrder: '/api/core/lead/order-review',
-  updateBuyer: '/api/core/lead/order-action',
-  orderDetail: '/api/core/order/detail',
-  newOrder: '/api/core/order',
-  orderDetailUpdate: '/api/core/order/detail',
-  updateCredit: '/api/core/order/credit',
-  updateCreditCalculate: '/api/core/order/credit-calculate',
+  getBuyerOrder: '/lead/order-review',
+  updateBuyer: '/lead/order-action',
+  orderDetail: '/order/detail',
+  newOrder: '/order',
+  orderDetailUpdate: '/order/detail',
+  updateCredit: '/order/credit',
+  updateCreditCalculate: '/order/credit-calculate',
 
   // gst
-  getGst: '/api/get-gst',
+  getGst: '/get-gst',
 
   //token
-  generateToken: '/api/auth/generate-token',
-  verifyToken: '/api/auth/verify-token',
+  generateToken: '/generate-token',
+  verifyToken: '/verify-token',
 
   //termsheet
-  gettermsheet: '/api/core/termsheet',
-  updatetermsheet: '/api/core/termsheet',
+  gettermsheet: '/termsheet',
+  updatetermsheet: '/termsheet',
 
   //marginMoney
-  getMarginMoney: '/api/core/margin-money',
-  updateMarginMoney: '/api/core/margin-money',
-  reviseMarginMoney: '/api/core/margin-money/revised',
+  getMarginMoney: '/margin-money',
+  updateMarginMoney: '/margin-money',
+  reviseMarginMoney: '/margin-money/revised',
 
   // companydetails
-  getCompanyDetails: '/api/core/lead/fetch-company-detail',
-  updateCompanyDetails: '/api/core/lead/update-company',
+  getCompanyDetails: '/lead/fetch-company-detail',
+  updateCompanyDetails: '/lead/update-company',
 
   //complienceCase
-  getCaseDetails: '/api/core/lead/litigation-case-detail',
+  getCaseDetails: '/lead/litigation-case-detail',
 
   // Refetch Karza
-  refetchCombineKarza: '/api/core/lead/refetch-combine-karza',
+  refetchCombineKarza: '/lead/refetch-combine-karza',
 
   // Credit Limit
-  creditLimit: '/api/core/credit-limit',
+  creditLimit: '/credit-limit',
 
   //LC Module
-  getLcModule: '/api/core/lc-module',
-  updateLcModule: '/api/core/lc-module',
-  updateLcModuleAmendment: '/api/core/lc-module/amendment',
-  updateLcAmendmentPost: '/api/core/lc-module/post-update-amendment',
+  getLcModule: '/lc-module',
+  updateLcModule: '/lc-module',
+  updateLcModuleAmendment: '/lc-module/amendment',
+  updateLcAmendmentPost: '/lc-module/post-update-amendment',
 
   //DocumentsCam :
-  getDocuments: '/api/core/order/order-document',
-  addDocuments: '/api/core/order/order-document',
-  deleteDocument: '/api/core/order/order-document',
+  getDocuments: '/order/order-document',
+  addDocuments: '/order/order-document',
+  deleteDocument: '/order/order-document',
 
   //Update Cam Sheet
-  updateCam: '/api/core/order/cam',
+  updateCam: '/order/cam',
 
   //generic
-  updateGeneric: '/api/core/generic',
+  updateGeneric: '/generic',
 
   //Vessel Nomination
-  getVessel: '/api/core/vessel',
-  uploadDocVessel: '/api/core/vessel/upload-doc',
+  getVessel: '/vessel',
+  uploadDocVessel: '/vessel/upload-doc',
 
   //getGstKarza
-  getGstKarza: '/api/core/lead/refetch-gst-karza',
+  getGstKarza: '/lead/refetch-gst-karza',
 
   // Insurance
 
-  getInsurance: '/api/core/insurance',
-  updateQuotation: '/api/core/insurance/quotation',
-  renewInsurance: '/api/core/insurance/insurance-renew',
+  getInsurance: '/insurance',
+  updateQuotation: '/insurance/quotation',
+  renewInsurance : '/insurance/insurance-renew',
 
   // Inspection
-  getInspection: '/api/core/inspection',
-  updateInspection: '/api/core/inspection',
+  getInspection: '/inspection',
+  updateInspection: '/inspection',
 
   //Transit
-  getTransitDetails: '/api/core/transit',
-  updateTransitDetails: '/api/core/transit',
+  getTransitDetails: '/transit',
+  updateTransitDetails: '/transit',
   fetchAdditionalData: 'api/core/transit/additional-info',
 
   //ForwardHedging
-  getForwardHedging: '/api/core/forward-hedging',
-  updateForwardHedging: '/api/core/forward-hedging',
+  getForwardHedging: '/forward-hedging',
+  updateForwardHedging: '/forward-hedging',
 
   //Custom Clearance
-  customClearance: '/api/core/custom-clearance',
-  customClearanceDoc: '/api/core/custom-clearance/upload-doc',
+  customClearance: '/custom-clearance',
+  customClearanceDoc: '/custom-clearance/upload-doc',
 
   //Delivery
-  delivery: '/api/core/delivery',
-  uploadDoc: '/api/core/delivery/upload-doc',
-  lifting: '/api/core/lifting',
+  delivery: '/delivery',
+  uploadDoc: '/delivery/upload-doc',
+  lifting: '/lifting',
 
   //ViewDocument
-  viewDoc: '/api/core/document/access',
+  viewDoc: '/document/access',
 }

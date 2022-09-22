@@ -563,7 +563,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Total Order Value</Col>
-            <Col md={7} className={styles.right}> USD {(data.totalOrderValue)?.toLocaleString('en-IN')} </Col>
+            <Col md={7} className={styles.right}> USD {(data.totalOrderValue)?.toLocaleString()} </Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Load Port</Col>

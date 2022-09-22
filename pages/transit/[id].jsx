@@ -85,7 +85,7 @@ function Index() {
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
     try {
       let response = await Axios.post(
         `${API.corebaseUrl}${API.customClearanceDoc}`,

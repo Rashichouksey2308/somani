@@ -314,7 +314,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {marginData?.order?.perUnitPrice?.toLocaleString() ??
+                            {marginData?.order?.perUnitPrice?.toLocaleString("en-IN") ??
                               0}
                           </p>
                         </td>
@@ -591,7 +591,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {marginData?.numberOfPDC?.toLocaleString() ?? 0}
+                            {marginData?.numberOfPDC?.toLocaleString("en-IN") ?? 0}
                           </p>
                         </td>
                       </tr>
@@ -705,7 +705,8 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {marginData?.calculation?.orderValue?.toLocaleString() ??
+                            {marginData?.order?.orderCurrency}{' '}
+                            {marginData?.calculation?.orderValue?.toLocaleString("en-IN") ??
                               0}
                           </p>
                         </td>
@@ -756,7 +757,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {marginData?.calculation?.orderValueInINR?.toLocaleString() ??
+                            {marginData?.calculation?.orderValueInINR?.toLocaleString("en-IN") ??
                               0}
                           </p>
                         </td>
@@ -858,7 +859,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {marginData?.calculation?.tradeMargin?.toLocaleString() ??
+                            {marginData?.calculation?.tradeMargin?.toLocaleString("en-IN") ??
                               0}
                           </p>
                         </td>
@@ -908,7 +909,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {marginData?.calculation?.grossOrderValue?.toLocaleString() ??
+                            {marginData?.calculation?.grossOrderValue?.toLocaleString("en-IN") ??
                               0}
                           </p>
                         </td>
@@ -958,7 +959,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {marginData?.calculation?.toleranceValue?.toLocaleString() ??
+                            {marginData?.calculation?.toleranceValue?.toLocaleString("en-IN") ??
                               0}
                           </p>
                         </td>
@@ -1008,7 +1009,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {marginData?.calculation?.totalOrderValue?.toLocaleString() ??
+                            {marginData?.calculation?.totalOrderValue?.toLocaleString("en-IN") ??
                               0}
                           </p>
                         </td>
@@ -1058,7 +1059,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString() ??
+                            {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString("en-IN") ??
                               0}
                           </p>
                         </td>
@@ -1108,7 +1109,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {marginData?.calculation?.marginMoney?.toLocaleString() ??
+                            {marginData?.calculation?.marginMoney?.toLocaleString("en-IN") ??
                               0}
                           </p>
                         </td>
@@ -1158,12 +1159,12 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {marginData?.calculation?.totalSPDC?.toLocaleString() ??
+                            {marginData?.calculation?.totalSPDC?.toLocaleString("en-IN") ??
                               0}
                           </p>
                         </td>
                       </tr>
-                      {/* <tr>
+                      <tr>
                         <td
                           align="left"
                           style={{ borderRight: '2px solid #cad6e64d' }}
@@ -1187,13 +1188,13 @@ function Index() {
                             >
                               T
                             </span>
-                            <span style={{marginRight: '10px'}}>Additional Amount Per SPDC (INR)</span>
+                            <span style={{marginRight: '10px'}}>Amount per SPDC (INR)</span>
                             <span
                               style={{
                                 fontWeight: 'bold'                                
                               }}
                             >
-                              [(S-Previous Value)/I)]
+                              [(S/H)]
                             </span>
                           </p>
                         </td>
@@ -1208,10 +1209,12 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            value
+                            
+                            {marginData?.calculation?.amountPerSPDC?.toLocaleString("en-IN") ??
+                              0}
                           </p>
                         </td>
-                      </tr> */}
+                      </tr>
                       {/* <tr>
                         <td
                           align="left"
@@ -1631,7 +1634,7 @@ function Index() {
                       <span className={`ml-2`}>No. of PDC's</span>
                     </td>
                     <td className={`${styles.good} `}>
-                      {marginData?.numberOfPDC?.toLocaleString() ?? 0}
+                      {marginData?.numberOfPDC?.toLocaleString("en-IN") ?? 0}
                     </td>
                   </tr>
 
@@ -1801,7 +1804,7 @@ function Index() {
                     <td
                       className={`${styles.good} ${styles.highlight2} satisfactory`}
                     >
-                      {marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC?.toLocaleString() ??
+                      {marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC?.toLocaleString("en-IN") ??
                         0}
                     </td>
                   </tr>
@@ -1865,7 +1868,7 @@ function Index() {
                     <td
                       className={`${styles.good} ${styles.highlight2} satisfactory`}
                     >
-                      {marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC?.toLocaleString() ??
+                      {marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC?.toLocaleString("en-IN") ??
                         0}
                     </td>
                   </tr> */}

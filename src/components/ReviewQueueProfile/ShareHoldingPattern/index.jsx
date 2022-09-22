@@ -93,7 +93,7 @@ function Index({ shareHolding }) {
     onClick: (e, element) => {
       console.log(':doughnut click')
       if (element.length > 0) {
-        var ind = element[0]._index
+        let ind = element[0]._index
         alert(ind)
       }
     },
@@ -127,18 +127,18 @@ function Index({ shareHolding }) {
   //   useEffect(() => {
 
   //     if(chartRef?.current!=null){
-  //     var ctx = document.getElementById("canvas").getContext("2d");
-  // var myLine = new Chart(ctx, config);
+  //     let ctx = document.getElementById("canvas").getContext("2d");
+  // let myLine = new Chart(ctx, config);
 
   // document.getElementById("canvas").onclick = function(evt) {
-  //   var activePoint = myLine.getElementAtEvent(event);
+  //   let activePoint = myLine.getElementAtEvent(event);
 
   //   // make sure click was on an actual point
   //   if (activePoint.length > 0) {
-  //     var clickedDatasetIndex = activePoint[0]._datasetIndex;
-  //     var clickedElementindex = activePoint[0]._index;
-  //     var label = myLine.data.labels[clickedElementindex];
-  //     var value = myLine.data.datasets[clickedDatasetIndex].data[clickedElementindex];
+  //     let clickedDatasetIndex = activePoint[0]._datasetIndex;
+  //     let clickedElementindex = activePoint[0]._index;
+  //     let label = myLine.data.labels[clickedElementindex];
+  //     let value = myLine.data.datasets[clickedDatasetIndex].data[clickedElementindex];
   //     alert("Clicked: " + label + " - " + value);
   //   }
   // };

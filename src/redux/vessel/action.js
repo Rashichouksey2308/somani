@@ -77,7 +77,7 @@ export const GetAllVessel = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
   try {
     Axios.get(`${API.corebaseUrl}${API.getVessel}${payload ? payload : ''}`, {
       headers: headers,
@@ -107,7 +107,7 @@ export const GetVessel = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
   try {
     let response = await Axios.get(
       `${API.corebaseUrl}${API.getVessel}${payload}`,
@@ -143,7 +143,7 @@ export const UpdateVessel = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
   try {
     let response = await Axios.put(
       `${API.corebaseUrl}${API.getVessel}`,
@@ -178,7 +178,7 @@ export const UploadDocVessel = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
   try {
     Axios.post(`${API.corebaseUrl}${API.getVessel}`, payload, {
       headers: headers,

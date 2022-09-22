@@ -104,7 +104,7 @@ export const UpdateCam = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
   try {
     Axios.put(`${API.corebaseUrl}${API.updateCam}`, payload, {
       headers: headers,
@@ -138,7 +138,7 @@ export const GetDocuments = (payload) => async (dispatch, getState, api) => {
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
     console.log('here in getDocuments')
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
     Axios.get(
       `${API.corebaseUrl}${API.getDocuments}${payload}`,
       {
@@ -169,7 +169,7 @@ export const VerifyGstKarza = (payload) => async (dispatch, getState, api) => {
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
     dispatch(VerifyingGst())
     Axios.post(`${API.corebaseUrl}${API.getGstKarza}`, payload, {
       headers: headers,
@@ -200,7 +200,7 @@ export const AddingDocument = (payload) => async (dispatch, getState, api) => {
   const id = sessionStorage.getItem('docFetchID')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = {
+  let headers = {
     authorization: jwtAccessToken,
     // Cache: 'no-cache',
     'Content-Type': 'multipart/form-data',
@@ -240,7 +240,7 @@ export const DeleteDocument = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
   try {
     Axios.put(`${API.corebaseUrl}${API.deleteDocument}`, payload, {
       headers: headers,

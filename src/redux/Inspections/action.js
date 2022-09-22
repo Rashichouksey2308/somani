@@ -72,7 +72,7 @@ export const GetAllInspection =
     )
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
     try {
       let response = await Axios.get(
         `${API.corebaseUrl}${API.getInspection}${payload ? payload : ''}`,
@@ -105,7 +105,7 @@ export const GetInspection = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+  let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
   try {
     let response = await Axios.get(
       `${API.corebaseUrl}${API.getInspection}${payload}`,
