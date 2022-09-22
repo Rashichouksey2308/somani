@@ -262,8 +262,14 @@ const Index = ({
                                 name="group1"
                                 type={type}
                                 id={`inline-${type}-1`}
+                                onChange={(e) =>
+                                  saveForCalculation(
+                                    'isUsanceInterestIncluded',
+                                    true,
+                                  )
+                                }
                                 defaultChecked={
-                                  marginData?.isUsanceInterestIncluded === true
+                                  finalCal?.isUsanceInterestIncluded === true
                                 }
                               />
                               <Form.Check
@@ -273,8 +279,14 @@ const Index = ({
                                 name="group1"
                                 type={type}
                                 id={`inline-${type}-2`}
+                                onChange={(e) =>
+                                  saveForCalculation(
+                                    'isUsanceInterestIncluded',
+                                    false,
+                                  )
+                                }
                                 defaultChecked={
-                                  marginData?.isUsanceInterestIncluded === false
+                                  finalCal?.isUsanceInterestIncluded === false
                                 }
                               />
                             </div>
