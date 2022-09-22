@@ -139,7 +139,7 @@ function Index() {
     ).toFixed(2) //J
     let orderValueCurrency = 'USD'
     let orderValueInINR = parseFloat(
-      Number(orderValue) * forCalculation.conversionRate,
+      Number(orderValue) * Number(forCalculation.conversionRate),
     ).toFixed(2) //K
     let usanceInterest = parseFloat(
       (Number(orderValueInINR) *
@@ -202,7 +202,7 @@ function Index() {
     ).toFixed(2) //J
     let orderValueCurrency = 'USD'
     let orderValueInINR = parseFloat(
-      Number(orderValue) * forCalculation.conversionRate,
+      Number(orderValue) * Number(forCalculation.conversionRate),
     ).toFixed(2) //K
     let usanceInterest = parseFloat(
       (Number(orderValueInINR) *
@@ -455,7 +455,7 @@ function Index() {
       marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue,
     marginMoney: marginData?.revisedMarginMoney?.calculation?.marginMoney,
     revisedMarginMoney:
-      marginData?.revisedMarginMoney?.calculation?.revisedMarginMoney,
+      marginData?.calculation?.marginMoney,
     marginMoneyReceived:
       marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived,
     marginMoneyPayable:
@@ -514,7 +514,7 @@ function Index() {
         marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue,
       marginMoney: marginData?.revisedMarginMoney?.calculation?.marginMoney,
       revisedMarginMoney:
-        marginData?.revisedMarginMoney?.calculation?.revisedMarginMoney,
+        marginData?.calculation?.marginMoney,
       marginMoneyReceived:
         marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived,
       marginMoneyPayable:
@@ -532,7 +532,7 @@ function Index() {
       marginData?.revisedMarginMoney?.totalOrderValue,
     ).toFixed(2)
     let marginMoneyRevised = marginData?.calculation?.marginMoney
-    let revisedMarginMoneyNew = marginData?.revisedMarginMoney?.marginMoney
+    let revisedMarginMoneyNew = marginData?.calculation?.marginMoney
 
     setCalcRevised({
       additionalAmountPerPDC: additionalAmountPerPDC,
@@ -570,8 +570,8 @@ function Index() {
       marginData?.calculation?.marginMoney,
     ).toFixed(2)
     let revisedMarginMoneyNew = Number(
-      marginData?.revisedMarginMoney?.marginMoney
-        ? marginData?.revisedMarginMoney?.marginMoney
+      marginData?.calculation?.marginMoney
+        ? marginData?.calculation?.marginMoney
         : 0,
     )
 
@@ -983,7 +983,7 @@ function Index() {
                                     e.target.value,
                                   )
                                 }
-                                defaultValue={marginData?.conversionRate}
+                                value={forCalculation?.conversionRate}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1174,7 +1174,7 @@ function Index() {
                                     e.target.value,
                                   )
                                 }
-                                defaultValue={marginData?.numberOfPDC}
+                                value={forCalculation?.numberOfPDC}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1295,7 +1295,7 @@ function Index() {
                                     Number(finalCal.orderValueInINR),
                                     true,
                                   )} */}
-                                  {convertValue((finalCal.orderValue), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.orderValueInINR), coversionUnit).toLocaleString(undefined, {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
