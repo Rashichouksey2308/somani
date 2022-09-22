@@ -47,12 +47,14 @@ function Index() {
           className={`${styles.card} tabHeader border-0 shadow-none bg-transparent card2`}
         >
           <div className={`${styles.head_header} align-items-center`}>
+            <div onClick={() => Router.push('/insurance/form')}>
             <img
-              onClick={() => Router.push('/insurance/form')}
+              
               className={`${styles.arrow} img-fluid image_arrow mr-2`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow"
             />
+            </div>
             <h1 className={`${styles.heading} heading`}>
               {insuranceData?.company?.companyName}
             </h1>
@@ -343,7 +345,7 @@ function Index() {
                     xs={4}
                     className={`${styles.content_head} label_heading"`}
                   >
-                    Storage Insurance
+                    Insurance Coverage
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
                     All Risks Including Burglary, Act of God, Fire, SRCC,
@@ -360,7 +362,7 @@ function Index() {
                     Name of Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {insuranceData?.company?.companyName}
+                    {insuranceData?.company?.companyName} , <br></br>   {insuranceData?.company?.detailedCompanyInfo?.profile?.companyDetail?.registeredAddress}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>

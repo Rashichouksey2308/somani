@@ -71,6 +71,8 @@ function Index() {
               liftingQuant: val2.liftingQuantity,
               modeOfTransportation: val2.modeOfTransport,
               eWayBill: val2.ewayBillNo,
+              destination: val2.destination||"",
+              rrlrNumber: val2.rrlrNumber||0,
               LRorRRDoc: val2.LRDocument || val2.RRDocument || {},
               eWayBillDoc: val2.ewayBillDocument || {},
             })
@@ -121,6 +123,8 @@ function Index() {
             eWayBill: '',
             LRorRRDoc: {},
             eWayBillDoc: {},
+            destination: '',
+            rrlrNumber:'',
           },
         ],
       },
@@ -138,6 +142,8 @@ function Index() {
           eWayBill: '',
           LRorRRDoc: {},
           eWayBillDoc: {},
+          destination: '',
+          rrlrNumber:'',
         })
       }
     })
@@ -176,6 +182,8 @@ function Index() {
             ewayBillNo: val2.eWayBill,
             ewayBillDocument: val2.eWayBillDoc || {},
             RRDocument: val2.LRorRRDoc || {},
+            destination: val2.destination,
+            rrlrNumber:val2.rrlrNumber,
           })
         })
         tempArr.push({
@@ -192,6 +200,8 @@ function Index() {
             ewayBillNo: val2.eWayBill,
             ewayBillDocument: val2.eWayBillDoc || {},
             LRDocument: val2.LRorRRDoc || {},
+            destination: val2.destination,
+            rrlrNumber:val2.rrlrNumber,
           })
         })
         tempArr.push({
@@ -425,6 +435,7 @@ function Index() {
         deliveryOrderNumber: item.deliveryOrderNo,
         deliveryOrderDate: item.deliveryOrderDate,
         deliveryStatus: item.status,
+        
       })
     })
 

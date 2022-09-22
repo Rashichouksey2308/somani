@@ -1070,7 +1070,7 @@ export default function Index({
                                 </>
                               ) : (
                                 <div
-                                  className={`${styles.certificate} d-flex justify-content-between`}
+                                  className={`${styles.certificate} text1 d-flex justify-content-between`}
                                 >
                                   <span>
                                     {
@@ -1079,7 +1079,7 @@ export default function Index({
                                     }
                                   </span>
                                   <img
-                                    className={`${styles.close_image}`}
+                                    className={`${styles.close_image}  image_arrow`}
                                     src="/static/close.svg"
                                     onClick={(e) =>
                                       handleCloseContanierDoc('', index)
@@ -1206,13 +1206,13 @@ export default function Index({
                                   </>
                                 ) : (
                                   <div
-                                    className={`${styles.certificate} d-flex justify-content-between`}
+                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
                                   >
                                     <span>
                                       {bolList[index]?.blDoc?.originalName}
                                     </span>
                                     <img
-                                      className={`${styles.close_image}`}
+                                      className={`${styles.close_image} image_arrow`}
                                       src="/static/close.svg"
                                       onClick={(e) =>
                                         handleCloseDoc('blDoc', index)
@@ -1280,7 +1280,7 @@ export default function Index({
                                       </>
                                     ) : (
                                       <div
-                                        className={`${styles.certificate} d-flex justify-content-between`}
+                                        className={`${styles.certificate} text1 d-flex justify-content-between`}
                                       >
                                         <span>
                                           {
@@ -1290,7 +1290,7 @@ export default function Index({
                                           }
                                         </span>
                                         <img
-                                          className={`${styles.close_image}`}
+                                          className={`${styles.close_image}  image_arrow`}
                                           src="/static/close.svg"
                                           onClick={(e) =>
                                             handleCloseDoc(
@@ -1358,7 +1358,7 @@ export default function Index({
                                       </>
                                     ) : (
                                       <div
-                                        className={`${styles.certificate} d-flex justify-content-between`}
+                                        className={`${styles.certificate} text1 d-flex justify-content-between`}
                                       >
                                         <span>
                                           {
@@ -1367,7 +1367,7 @@ export default function Index({
                                           }
                                         </span>
                                         <img
-                                          className={`${styles.close_image}`}
+                                          className={`${styles.close_image} image_arrow`}
                                           src="/static/close.svg"
                                           onClick={(e) =>
                                             handleCloseDoc(
@@ -1508,7 +1508,7 @@ export default function Index({
                                   </>
                                 ) : (
                                   <div
-                                    className={`${styles.certificate} d-flex justify-content-between`}
+                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
                                   >
                                     <span>
                                       {
@@ -1517,7 +1517,7 @@ export default function Index({
                                       }
                                     </span>
                                     <img
-                                      className={`${styles.close_image}`}
+                                      className={`${styles.close_image} image_arrow`}
                                       src="/static/close.svg"
                                       onClick={(e) => handleCloseDoc('blSurrenderDoc', index)}
                                       alt="Close"

@@ -809,7 +809,7 @@ export default function Index({ addButton }) {
   return (
     <>
       <div
-        className={`${styles.backgroundMain} container-fluid p-0 background2`}
+        className={`${styles.backgroundMain} container-fluid p-0 `}
       >
         <div className={`${styles.vessel_card}`}>
           <div className={`${styles.main} vessel_card card border-color`}>
@@ -1321,7 +1321,7 @@ export default function Index({ addButton }) {
                                 </>
                               ) : (
                                 <div
-                                  className={`${styles.certificate} d-flex justify-content-between`}
+                                  className={`${styles.certificate} text1 d-flex justify-content-between`}
                                 >
                                   <span>
                                     {documents?.certificateOfOrigin?.name.slice(
@@ -1331,7 +1331,7 @@ export default function Index({ addButton }) {
                                     )}
                                   </span>
                                   <img
-                                    className={`${styles.close_image}`}
+                                    className={`${styles.close_image} image_arrow`}
                                     src="/static/close.svg"
                                     onClick={() => handleCloseO()}
                                     alt="Close"
@@ -1452,7 +1452,7 @@ export default function Index({ addButton }) {
                                 </>
                               ) : (
                                 <div
-                                  className={`${styles.certificate} d-flex justify-content-between`}
+                                  className={`${styles.certificate} text1 d-flex justify-content-between`}
                                 >
                                   <span>
                                     {documents?.certificateOfQuality?.name.slice(
@@ -1462,7 +1462,7 @@ export default function Index({ addButton }) {
                                     )}
                                   </span>
                                   <img
-                                    className={`${styles.close_image}`}
+                                    className={`${styles.close_image} image_arrow`}
                                     src="/static/close.svg"
                                     onClick={() => handleCloseQ()}
                                     alt="Close"
@@ -1584,7 +1584,7 @@ export default function Index({ addButton }) {
                                 </>
                               ) : (
                                 <div
-                                  className={`${styles.certificate} d-flex justify-content-between`}
+                                  className={`${styles.certificate} text1 d-flex justify-content-between`}
                                 >
                                   <span>
                                     {documents?.certificateOfWeight?.name.slice(
@@ -1594,7 +1594,7 @@ export default function Index({ addButton }) {
                                     )}
                                   </span>
                                   <img
-                                    className={`${styles.close_image}`}
+                                    className={`${styles.close_image} image_arrow`}
                                     src="/static/close.svg"
                                     onClick={() => handleCloseW()}
                                     alt="Close"
@@ -1933,7 +1933,7 @@ const Discharge = (
         <h5 className={styles.sub_heading}>Inspection at Discharge Port</h5>
 
         <div className="row">
-          {inspectionData?.order?.vessel?.vessels[0]?.shipmentType ===
+          {_get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') ===
           'Liner' ? (
             <div className={`${styles.form_group} col-md-4 col-sm-6`}>
               <input

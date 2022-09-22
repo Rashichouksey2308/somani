@@ -9,6 +9,11 @@ import {
   GettingAllInsurance,
   UpdateInsurance,
 } from '../../../../src/redux/insurance/action'
+import {
+  setPageName,
+  setDynamicName,
+  setDynamicOrder,
+} from '../../../../src/redux/userData/action'
 import _get from 'lodash/get'
 import Router from 'next/router'
 import { toast } from 'react-toastify'
@@ -31,40 +36,45 @@ const Index = () => {
   const [insuranceData, setInsuranceData] = useState()
 
   useEffect(() => {
+    dispatch(setPageName('insurance Request Letter'))
+    dispatch(
+      setDynamicName(_get(insuranceData, 'company.companyName', 'Company Name')),
+    )
+    dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')))
     setInsuranceData(_get(insuranceResponse, 'data[0]', {}))
   }, [insuranceResponse])
-
+  console.log(insuranceResponse, 'insuranceResponse')
 
   const [marineData, setMarineData] = useState({
-    policyNumber: insuranceData?.marineInsurance?.policyNumber,
-    nameOfInsurer: insuranceData?.marineInsurance?.nameOfInsurer,
-    gstOfInsurer: insuranceData?.marineInsurance?.gstOfInsurer,
-    nameOfInsured: insuranceData?.marineInsurance?.nameOfInsured,
-    gstOfInsured: insuranceData?.marineInsurance?.gstOfInsured,
-    insuranceFrom: insuranceData?.marineInsurance?.insuranceFrom,
-    insuranceTo: insuranceData?.marineInsurance?.insuranceTo,
-    periodOfInsurance: insuranceData?.marineInsurance?.periodOfInsurance,
-    insuranceFromType: insuranceData?.marineInsurance?.insuranceFromType,
-    lossPayee: insuranceData?.marineInsurance?.lossPayee,
-    premiumAmount: insuranceData?.marineInsurance?.premiumAmount ?? '',
+    policyNumber: '',
+    nameOfInsurer: '',
+    gstOfInsurer: '',
+    nameOfInsured: '',
+    gstOfInsured: '',
+    insuranceFrom: '',
+    insuranceTo: '',
+    periodOfInsurance: '',
+    insuranceFromType: '',
+    lossPayee: '',
+    premiumAmount: '',
   })
 
-  
+
   const [storageData, setStorageData] = useState({
-    policyNumber: insuranceData?.storageInsurance?.policyNumber,
-    nameOfInsurer: insuranceData?.storageInsurance?.nameOfInsurer,
-    gstOfInsurer: insuranceData?.storageInsurance?.gstOfInsurer,
-    nameOfInsured: insuranceData?.storageInsurance?.nameOfInsured,
-    gstOfInsured: insuranceData?.storageInsurance?.gstOfInsured,
-    insuranceFrom: insuranceData?.storageInsurance?.insuranceFrom,
-    insuranceTo: insuranceData?.storageInsurance?.insuranceTo,
-    periodOfInsurance: insuranceData?.storageInsurance?.periodOfInsurance,
-    insuranceFromType: insuranceData?.storageInsurance?.insuranceFromType,
-    lossPayee: insuranceData?.storageInsurance?.lossPayee,
-    premiumAmount: insuranceData?.storageInsurance?.premiumAmount,
+    policyNumber: '',
+    nameOfInsurer: '',
+    gstOfInsurer: '',
+    nameOfInsured: '',
+    gstOfInsured: '',
+    insuranceFrom: '',
+    insuranceTo: '',
+    periodOfInsurance: '',
+    insuranceFromType: '',
+    lossPayee: '',
+    premiumAmount: '',
   })
 
-  console.log(marineData?.premiumAmount, 'Premium', storageData?.premiumAmount)
+  console.log( marineData, 'Premium', storageData)
 
   useEffect(() => {
     setMarineData({
@@ -78,7 +88,7 @@ const Index = () => {
       periodOfInsurance: insuranceData?.marineInsurance?.periodOfInsurance,
       insuranceFromType: insuranceData?.marineInsurance?.insuranceFromType,
       lossPayee: insuranceData?.marineInsurance?.lossPayee,
-      premiumAmount: insuranceData?.marineInsurance?.premiumAmount ?? '',
+      premiumAmount: insuranceData?.marineInsurance?.premiumAmount ?? 0,
     })
     setStorageData({
       policyNumber: insuranceData?.storageInsurance?.policyNumber,
@@ -91,7 +101,7 @@ const Index = () => {
       periodOfInsurance: insuranceData?.storageInsurance?.periodOfInsurance,
       insuranceFromType: insuranceData?.storageInsurance?.insuranceFromType,
       lossPayee: insuranceData?.storageInsurance?.lossPayee,
-      premiumAmount: insuranceData?.storageInsurance?.premiumAmount ?? '',
+      premiumAmount: insuranceData?.storageInsurance?.premiumAmount ?? 0,
     })
   }, [insuranceData])
 
@@ -114,7 +124,7 @@ const Index = () => {
     // console.log(value, name, 'save date')
     const d = new Date(value)
     let text = d.toISOString()
-    setStorageData(name, text)
+    saveStorageData(name, text)
   }
 
   const saveStorageData = (name, value) => {
@@ -153,7 +163,7 @@ const Index = () => {
 
   const handleIsInsuranceSame = () => {
     setIsInsurerSameData(true)
-    setStorageData(marineData)
+    setStorageData({ ...marineData })
   }
 
   const validate = () => {
@@ -323,28 +333,28 @@ const Index = () => {
   const handleInsuranceUpdate = () => {
     if (!validate()) return
 
-      let marineObj = { ...marineData }
-      marineObj.premiumAmount = removePrefixOrSuffix(marineData.premiumAmount)
+    let marineObj = { ...marineData }
+    marineObj.premiumAmount = removePrefixOrSuffix(marineData.premiumAmount)
 
-      let storageObj = { ...storageData }
-      storageObj.premiumAmount = removePrefixOrSuffix(storageData.premiumAmount)
+    let storageObj = { ...storageData }
+    storageObj.premiumAmount = removePrefixOrSuffix(storageData.premiumAmount)
 
-      let fd = new FormData()
-      fd.append('marineInsurance', JSON.stringify(marineObj))
-      fd.append('storageInsurance', JSON.stringify(storageObj))
-      fd.append('insuranceId', insuranceData?._id)
-      fd.append(
-        'insuranceType',
-        JSON.stringify(insuranceData?.quotationRequest?.insuranceType),
-      )
-      fd.append('marinePolicyDocument', insuranceDocument.marinePolicyDocument)
-      fd.append(
-        'storagePolicyDocument',
-        insuranceDocument.storagePolicyDocument,
-      )
+    let fd = new FormData()
+    fd.append('marineInsurance', JSON.stringify(marineObj))
+    fd.append('storageInsurance', JSON.stringify(storageObj))
+    fd.append('insuranceId', insuranceData?._id)
+    fd.append(
+      'insuranceType',
+      JSON.stringify(insuranceData?.quotationRequest?.insuranceType),
+    )
+    fd.append('marinePolicyDocument', insuranceDocument.marinePolicyDocument)
+    fd.append(
+      'storagePolicyDocument',
+      insuranceDocument.storagePolicyDocument,
+    )
 
-      dispatch(UpdateInsurance(fd))
-    
+    dispatch(UpdateInsurance(fd))
+
   }
 
   const handleRoute = () => {
@@ -505,7 +515,7 @@ const Index = () => {
                             required
                             type="text"
                             name="policyNumber"
-                            defaultValue={insuranceData?.marineInsurance?.policyNumber}
+                            value={marineData?.policyNumber}
                             onChange={(e) =>
                               saveMarineData(e.target.name, e.target.value)
                             }
@@ -524,10 +534,10 @@ const Index = () => {
                               onChange={(e) =>
                                 saveMarineData(e.target.name, e.target.value)
                               }
-                              value={insuranceData?.marineInsurance?.nameOfInsurer}
+                              value={marineData?.nameOfInsurer}
                               className={`${styles.input_field} ${styles.customSelect}   input form-control`}
                             >
-                              <option disabled>Select an option</option>
+                              <option selected disabled>Select an option</option>
                               <option value="Policy Bazaar">
                                 Policy Bazaar
                               </option>
@@ -575,7 +585,7 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
-                            defaultValue={insuranceData?.marineInsurance?.nameOfInsured}
+                            value={marineData?.nameOfInsured}
                             name="nameOfInsured"
                             onChange={(e) =>
                               saveMarineData(e.target.name, e.target.value)
@@ -594,7 +604,7 @@ const Index = () => {
                             required
                             type="text"
                             name="gstOfInsured"
-                            defaultValue={insuranceData?.marineInsurance?.gstOfInsured}
+                            value={marineData?.gstOfInsured}
                             onChange={(e) =>
                               saveMarineData(e.target.name, e.target.value)
                             }
@@ -610,7 +620,7 @@ const Index = () => {
                           <div className="d-flex">
                             <DateCalender
                               name="insuranceFrom"
-                              defaultDate={insuranceData?.marineInsurance?.insuranceFrom}
+                              defaultDate={marineData?.insuranceFrom}
                               saveDate={saveDate}
                               labelName="Insurance from"
                             />
@@ -625,7 +635,7 @@ const Index = () => {
                           <div className="d-flex">
                             <DateCalender
                               name="insuranceTo"
-                              defaultDate={insuranceData?.marineInsurance?.insuranceTo}
+                              defaultDate={marineData?.insuranceTo}
                               saveDate={saveDate}
                               labelName="Insurance to"
                             />
@@ -642,7 +652,7 @@ const Index = () => {
                             required
                             type="number"
                             name="periodOfInsurance"
-                            defaultValue={insuranceData?.marineInsurance?.periodOfInsurance}
+                            value={marineData?.periodOfInsurance}
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                             onChange={(e) =>
@@ -825,10 +835,10 @@ const Index = () => {
                                     </div>
                                   </>
                                 ) : (
-                                  <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                  <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>{insuranceDocument?.marinePolicyDocument?.name}</span>
                                     <img
-                                      className={`${styles.close_image} mr-2`}
+                                      className={`${styles.close_image} image_arrow mr-2`}
                                       src="/static/close.svg"
                                       onClick={() => handleClose()}
                                       alt="Close"
@@ -838,7 +848,7 @@ const Index = () => {
 
                               </td>
                             </tr>
-                            
+
                           </tbody>
                         </table>
                       </div>
@@ -877,7 +887,7 @@ const Index = () => {
                           inline
                           label="Domestic"
                           name="insuranceFromType"
-                          defaultChecked={insuranceData?.storageInsurance?.insuranceFromType == 'Domestic'}
+                          checked={storageData?.insuranceFromType == 'Domestic' ? 'checked' : ''}
                           onChange={(e) =>
                             saveStorageData(e.target.name, 'Domestic')
                           }
@@ -891,7 +901,7 @@ const Index = () => {
                           inline
                           label="International"
                           name="insuranceFromType"
-                          defaultChecked={insuranceData?.storageInsurance?.insuranceFromType == 'International'}
+                          checked={storageData?.insuranceFromType == 'International' ? 'checked' : ''}
                           onChange={(e) =>
                             saveStorageData(e.target.name, 'International')
                           }
@@ -908,7 +918,7 @@ const Index = () => {
               </div>
               <div
                 id="storageInsurance"
-                className="collapse"
+                //  className="collapse"
                 aria-labelledby="storageInsurance"
               >
                 <div className={` ${styles.cardBody} card-body  border_color`}>
@@ -923,7 +933,7 @@ const Index = () => {
                               required
                               type="text"
                               name="policyNumber"
-                              defaultValue={insuranceData?.storageInsurance?.policyNumber}
+                              value={storageData?.policyNumber}
                               onChange={(e) =>
                                 saveStorageData(e.target.name, e.target.value)
                               }
@@ -948,7 +958,7 @@ const Index = () => {
                               onChange={(e) =>
                                 saveStorageData(e.target.name, e.target.value)
                               }
-                              value={insuranceData?.storageInsurance?.nameOfInsurer}
+                              value={storageData?.nameOfInsurer}
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
                               <option selected disabled>Select an option</option>
@@ -977,7 +987,7 @@ const Index = () => {
 
                               required
                               name="gstOfInsurer"
-                              defaultValue={insuranceData?.storageInsurance?.gstOfInsurer}
+                              value={storageData?.gstOfInsurer}
                               onChange={(e) =>
                                 saveStorageData(e.target.name, e.target.value)
                               }
@@ -997,7 +1007,7 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             name="nameOfInsured"
-                            defaultValue={insuranceData?.storageInsurance?.nameOfInsured}
+                            value={storageData?.nameOfInsured}
                             onChange={(e) =>
                               saveStorageData(e.target.name, e.target.value)
                             }
@@ -1016,7 +1026,7 @@ const Index = () => {
                             required
                             type="text"
                             name="gstOfInsured"
-                            defaultValue={insuranceData?.storageInsurance?.gstOfInsured}
+                            value={storageData?.gstOfInsured}
                             onChange={(e) =>
                               saveStorageData(e.target.name, e.target.value)
                             }
@@ -1032,7 +1042,7 @@ const Index = () => {
                           <div className="d-flex">
                             <DateCalender
                               name="insuranceFrom"
-                              defaultDate={insuranceData?.storageInsurance?.insuranceFrom?.split('T')[0]}
+                              defaultDate={storageData?.insuranceFrom}
                               saveDate={saveStorageDate}
                               labelName="Insurance from"
                             />
@@ -1047,7 +1057,7 @@ const Index = () => {
                           <div className="d-flex">
                             <DateCalender
                               name="insuranceTo"
-                              defaultDate={insuranceData?.storageInsurance?.insuranceTo?.split('T')[0]}
+                              defaultDate={storageData?.insuranceTo}
                               saveDate={saveStorageDate}
                               labelName="Insurance to"
                             />
@@ -1059,12 +1069,12 @@ const Index = () => {
                           </div>
                         </Col>
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                          <input
+                        <input
                             className={`${styles.input_field} input form-control`}
                             required
                             type="number"
                             name="periodOfInsurance"
-                            defaultValue={insuranceData?.storageInsurance?.periodOfInsurance}
+                            value={storageData?.periodOfInsurance}
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                             onChange={(e) =>
@@ -1222,7 +1232,7 @@ const Index = () => {
                                 28-02-2022,5:30 PM
                               </td>
                               <td>
-                               
+
                                 {insuranceDocument && insuranceDocument?.storagePolicyDocument == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
@@ -1239,10 +1249,10 @@ const Index = () => {
                                     </div>
                                   </>
                                 ) : (
-                                  <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                  <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>{insuranceDocument?.storagePolicyDocument?.name}</span>
                                     <img
-                                      className={`${styles.close_image} mr-2`}
+                                      className={`${styles.close_image}  image_arrow mr-2`}
                                       src="/static/close.svg"
                                       onClick={() => handleCloseS()}
                                       alt="Close"
@@ -1252,7 +1262,7 @@ const Index = () => {
 
                               </td>
                             </tr>
-                            
+
                           </tbody>
                         </table>
                       </div>
@@ -1321,7 +1331,7 @@ const Index = () => {
               </div>
               <div
                 id="marineInsurance"
-                className="collapse"
+                //className="collapse"
                 aria-labelledby="marineInsurance"
               >
                 <div
@@ -1336,7 +1346,7 @@ const Index = () => {
                             required
                             type="text"
                             name="policyNumber"
-                            defaultValue={insuranceData?.marineInsurance?.policyNumber}
+                            value={marineData?.policyNumber}
                             onChange={(e) =>
                               saveMarineData(e.target.name, e.target.value)
                             }
@@ -1355,10 +1365,10 @@ const Index = () => {
                               onChange={(e) =>
                                 saveMarineData(e.target.name, e.target.value)
                               }
-                              defaultValue={insuranceData?.marineInsurance?.nameOfInsurer}
+                              value={marineData?.nameOfInsurer}
                               className={`${styles.input_field} ${styles.customSelect}   input form-control`}
                             >
-                              <option disabled>Select an option</option>
+                              <option selected disabled>Select an option</option>
                               <option value="Policy Bazaar">
                                 Policy Bazaar
                               </option>
@@ -1385,7 +1395,7 @@ const Index = () => {
                               style={{ borderColor: '#43C34D' }}
                               type="text"
                               name="gstOfInsurer"
-                              defaultValue={insuranceData?.marineInsurance?.gstOfInsurer}
+                              value={marineData?.gstOfInsurer}
                               onChange={(e) =>
                                 saveMarineData(e.target.name, e.target.value)
                               }
@@ -1405,7 +1415,7 @@ const Index = () => {
                             required
                             type="text"
                             name="nameOfInsured"
-                            defaultValue={insuranceData?.marineInsurance?.nameOfInsured}
+                            value={marineData?.nameOfInsured}
                             onChange={(e) =>
                               saveMarineData(e.target.name, e.target.value)
                             }
@@ -1423,7 +1433,7 @@ const Index = () => {
                             required
                             type="text"
                             name="gstOfInsured"
-                            defaultValue={insuranceData?.marineInsurance?.gstOfInsured}
+                            value={marineData?.gstOfInsured}
                             onChange={(e) =>
                               saveMarineData(e.target.name, e.target.value)
                             }
@@ -1439,7 +1449,7 @@ const Index = () => {
                           <div className="d-flex">
                             <DateCalender
                               name="insuranceFrom"
-                              defaultDate={insuranceData?.marineInsurance?.insuranceFrom?.split('T')[0]}
+                              defaultDate={marineData?.insuranceFrom}
                               saveDate={saveDate}
                               labelName="Insurance from"
                             />
@@ -1454,7 +1464,7 @@ const Index = () => {
                           <div className="d-flex">
                             <DateCalender
                               name="insuranceTo"
-                              defaultDate={insuranceData?.marineInsurance?.insuranceTo?.split('T')[0]}
+                              defaultDate={marineData?.insuranceTo}
                               saveDate={saveDate}
                               labelName="Insurance to"
                             />
@@ -1471,7 +1481,7 @@ const Index = () => {
                             required
                             type="number"
                             name="periodOfInsurance"
-                            defaultValue={insuranceData?.marineInsurance?.periodOfInsurance}
+                            value={marineData?.periodOfInsurance}
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                             onChange={(e) =>
@@ -1557,7 +1567,7 @@ const Index = () => {
             >
               <div
                 className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
-              
+
               >
                 <h2 className="mb-0">Storage Insurance Details</h2>
                 <div className={styles.radio_label}>
@@ -1596,15 +1606,15 @@ const Index = () => {
                     </div>
                   </div>
 
-                  <span   data-toggle="collapse"
-                data-target="#storageInsurance"
-                aria-expanded="true"
-                aria-controls="storageInsurance">+</span>
+                  <span data-toggle="collapse"
+                    data-target="#storageInsurance"
+                    aria-expanded="true"
+                    aria-controls="storageInsurance">+</span>
                 </div>{' '}
               </div>
               <div
                 id="storageInsurance"
-                className="collapse"
+                //className="collapse"
                 aria-labelledby="storageInsurance"
               >
                 <div className={` ${styles.cardBody} card-body  border_color`}>
@@ -1618,7 +1628,7 @@ const Index = () => {
                               style={{ color: '#EA3F3F' }}
                               required
                               type="text"
-                              defaultValue={insuranceData?.storageInsurance?.policyNumber}
+                              value={storageData?.policyNumber}
                               name="policyNumber"
                               onChange={(e) =>
                                 saveStorageData(e.target.name, e.target.value)
@@ -1644,7 +1654,7 @@ const Index = () => {
                               onChange={(e) =>
                                 saveStorageData(e.target.name, e.target.value)
                               }
-                              value={insuranceData?.storageInsurance?.nameOfInsurer}
+                              value={storageData?.nameOfInsurer}
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
                               <option selected disabled>Select an option</option>
@@ -1673,7 +1683,7 @@ const Index = () => {
 
                               required
                               name="gstOfInsurer"
-                              defaultValue={insuranceData?.storageInsurance?.gstOfInsurer}
+                              value={storageData?.gstOfInsurer}
                               onChange={(e) =>
                                 saveStorageData(e.target.name, e.target.value)
                               }
@@ -1693,7 +1703,7 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             name="nameOfInsured"
-                            defaultValue={insuranceData?.storageInsurance?.nameOfInsured}
+                            value={storageData?.nameOfInsured}
                             onChange={(e) =>
                               saveStorageData(e.target.name, e.target.value)
                             }
@@ -1711,7 +1721,7 @@ const Index = () => {
                             className={`${styles.input_field} input form-control`}
                             required
                             type="text"
-                            defaultValue={insuranceData?.storageInsurance?.gstOfInsured}
+                            value={storageData?.gstOfInsured}
                             name="gstOfInsured"
                             onChange={(e) =>
                               saveStorageData(e.target.name, e.target.value)
@@ -1729,7 +1739,7 @@ const Index = () => {
                             {/* <DateCalender name='insuranceFrom' defaultDate={storageData?.insuranceFrom ? storageData?.insuranceFrom?.split('T')[0] : ''} saveDate={saveStorageDate} labelName="Insurance from" /> */}
                             <DateCalender
                               name="insuranceFrom"
-                              defaultDate={insuranceData?.storageInsurance?.insuranceFrom?.split('T')[0]}
+                              defaultDate={storageData?.insuranceFrom}
                               saveDate={saveStorageDate}
                               labelName="Insurance from"
                             />
@@ -1745,7 +1755,7 @@ const Index = () => {
                             {/* <DateCalender name='insuranceTo' defaultDate={storageData?.insuranceTo ? storageData?.insuranceTo?.split('T')[0] : ''}saveDate={saveStorageDate} labelName="Insurance to" /> */}
                             <DateCalender
                               name="insuranceTo"
-                              defaultDate={insuranceData?.storageInsurance?.insuranceTo?.split('T')[0]}
+                              defaultDate={storageData?.insuranceTo}
                               saveDate={saveStorageDate}
                               labelName="Insurance to"
                             />
@@ -1757,14 +1767,14 @@ const Index = () => {
                           </div>
                         </Col>
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                          <input
+                        <input
                             className={`${styles.input_field} input form-control`}
                             required
                             type="number"
                             name="periodOfInsurance"
+                            value={storageData?.periodOfInsurance}
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
-                            defaultValue={insuranceData?.storageInsurance?.periodOfInsurance}
                             onChange={(e) =>
                               saveStorageData(e.target.name, e.target.value)
                             }
@@ -1786,7 +1796,7 @@ const Index = () => {
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
                               <option selected disabled>Select an option</option>
-                              
+
                               <option
                                 value={
                                   insuranceData?.quotationRequest?.lossPayee
@@ -1823,7 +1833,7 @@ const Index = () => {
                             }}
                             name="premiumAmount"
                             value={isFieldInFocus ?
-                             storageData?.premiumAmount :
+                              storageData?.premiumAmount :
                               `${storageData?.insuranceFromType === 'Domestic' ? 'INR' : 'USD'} ` + Number(storageData?.premiumAmount)?.toLocaleString()}
                             // defaultValue={addPrefixOrSuffix(insuranceData?.storageInsurance?.premiumAmount ? insuranceData?.storageInsurance?.premiumAmount : storageData?.premiumAmount, 'INR', 'front')}
                             onChange={(e) =>
@@ -1946,10 +1956,10 @@ const Index = () => {
                                     </div>
                                   </>
                                 ) : (
-                                  <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                  <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>{insuranceDocument?.marinePolicyDocument?.name}</span>
                                     <img
-                                      className={`${styles.close_image} mr-2`}
+                                      className={`${styles.close_image} image_arrow mr-2`}
                                       src="/static/close.svg"
                                       onClick={() => handleClose()}
                                       alt="Close"
@@ -2004,10 +2014,10 @@ const Index = () => {
                                     </div>
                                   </>
                                 ) : (
-                                  <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                  <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                     <span>{insuranceDocument?.storagePolicyDocument?.name}</span>
                                     <img
-                                      className={`${styles.close_image} mr-2`}
+                                      className={`${styles.close_image}  image_arrow mr-2`}
                                       src="/static/close.svg"
                                       onClick={() => handleCloseS()}
                                       alt="Close"

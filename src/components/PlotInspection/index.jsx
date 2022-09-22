@@ -102,7 +102,7 @@ export default function Index({ inspectionData }) {
   return (
     <>
       <div
-        className={`${styles.backgroundMain} container-fluid p-0 background2`}
+        className={`${styles.backgroundMain} container-fluid p-0 `}
       >
         <div className={`${styles.vessel_card}`}>
           <div className={`${styles.main} card border-color`}>
@@ -238,7 +238,7 @@ export default function Index({ inspectionData }) {
                                   </>
                                 ) : (
                                   <div
-                                    className={`${styles.certificate} d-flex justify-content-between`}
+                                    className={`${styles.certificate} text1 d-flex justify-content-between`}
                                   >
                                     <span>
                                       {
@@ -247,7 +247,7 @@ export default function Index({ inspectionData }) {
                                       }
                                     </span>
                                     <img
-                                      className={`${styles.close_image}`}
+                                      className={`${styles.close_image} image_arrow`}
                                       src="/static/close.svg"
                                       onClick={() => handleClose()}
                                       alt="Close"

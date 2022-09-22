@@ -392,11 +392,11 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
                           </label>
                         </div>
                         <div
-                          className={`${styles.form_group} col-lg-3 col-md-4 col-sm-6 d-flex align-items-center text-center`}>
+                          className={`${styles.form_group} col-lg-3 col-md-4 col-sm-6 d-flex align-items-center`}>
                           {item?.document === null ? (
                             <>
-                              <div className="d-flex align-items-center">
-                                <div className={styles.uploadBtnWrapper}>
+                              <div className="d-flex flex-grow-1 align-items-center">
+                                <div className={`${styles.uploadBtnWrapper} flex-grow-1`}>
                                   <input
                                     id="document"
                                     name="myfile"
@@ -460,13 +460,13 @@ export default function Index({ ReleaseOrderData, releaseDetail, setReleaseDetai
                             </>
                           ) : (
                             <>
-                              <div className={`${styles.certificate} m-0 d-flex justify-content-between`}>
+                              <div className={`${styles.certificate} text1 m-0 d-flex justify-content-between`}>
                                 <span>
                                   {item?.document?.originalName}
                                 </span>
                                 <img
                                   onClick={(e) => closeDoc(index)}
-                                  className={`${styles.close_image}`}
+                                  className={`${styles.close_image} image_arrow`}
                                   src="/static/close.svg"
                                   alt="Close"
                                 />{' '}

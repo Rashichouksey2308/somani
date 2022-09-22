@@ -16,22 +16,31 @@ const Index = ({
   disabled,
   small,
   maxDate,
-  reset
+  reset,
 }) => {
   const [startDate, setStartDate] = useState(null)
-  const [lastDate, setlastDate] = useState()
+  const [lastDate, setlastDate] = useState(null)
 
   useEffect(() => {
+   
+    if(startFrom=="noLimit") {
+      setlastDate(null)
+      
+    }else{
     if (startFrom) {
-      console.log('in start DAte')
-      setlastDate(moment(startFrom, 'DD-MM-YYYY').toDate())
-    } else {
-      setlastDate(new Date())
+          console.log('in start DAte')
+          setlastDate(moment(startFrom, 'DD-MM-YYYY').toDate())
+        } 
+        else {
+          setlastDate(new Date())
+        }
     }
+    
   }, [startFrom])
+  console.log(lastDate,"lastDate")
   useEffect(() => {
     setStartDate(null)
-  },[reset])
+  }, [reset])
   console.log(defaultDate, 'lastDate', startDate)
   // console.log(startDate == null ?defaultDate==undefined?null:moment(defaultDate).toDate()  : startDate ,"llll")
   return (
@@ -39,7 +48,7 @@ const Index = ({
       <div className="vessel_card w-100">
         <DatePicker
           selected={
-            startDate == null || startDate == ""
+            startDate == null || startDate == ''
               ? defaultDate == undefined || defaultDate == ''
                 ? ''
                 : moment(defaultDate).toDate()

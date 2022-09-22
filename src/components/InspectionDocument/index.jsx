@@ -283,7 +283,7 @@ const Index = ({
                         </>
                       ) : (
                         <div
-                          className={`${styles.certificate} d-flex align-items-center justify-content-between`}
+                          className={`${styles.certificate} text1 d-flex align-items-center justify-content-between`}
                         >
                           <span>{lcDoc?.lcDraftDoc?.name}</span>
                           <img
@@ -292,7 +292,7 @@ const Index = ({
                                 lcDraftDoc: null,
                               })
                             }
-                            className={`${styles.close_image} mr-2`}
+                            className={`${styles.close_image} image_arrow mr-2`}
                             src="/static/close.svg"
                             alt="Close"
                           />{' '}
@@ -320,11 +320,11 @@ const Index = ({
                   />
                   {newDoc?.document?.name ? (
                     <div
-                      className={`${styles.certificate} d-flex justify-content-between`}
+                      className={`${styles.certificate} text1 d-flex justify-content-between`}
                     >
                       <span>{newDoc?.document?.name}</span>
                       <img
-                        className={`${styles.close_image} mr-2`}
+                        className={`${styles.close_image} image_arrow mr-2`}
                         src="/static/close.svg"
                         onClick={(e) => handleCloseDoc()}
                         alt="Close"
@@ -445,23 +445,23 @@ const Index = ({
                           <option value='' disabled>
                             Select an option
                           </option>
-                          <option value="CertificateofIncorporation">
+                          <option value="Certificate of Incorporation">
                             Certificate of Incorporation
                           </option>
-                          <option value="IECCertificate">
+                          <option value="IEC Certificate">
                             IEC Certificate
                           </option>
-                          <option value="BusinessRegistrationCertificate ">
+                          <option value="Business Registration Certificate">
                             Business Registration Certificate{' '}
                           </option>
-                          <option value="PANCard">PAN Card</option>
-                          <option value="GSTCertificate">
+                          <option value="PAN Card">PAN Card</option>
+                          <option value="GST Certificate">
                             GST Certificate
                           </option>
-                          <option value="BankReferenceLetter">
+                          <option value="Bank Reference Letter">
                             Bank Reference Letter
                           </option>
-                          <option value="FinancialYear ">
+                          <option value="Financial Year">
                             Financial Year{' '}
                           </option>
                         </>
@@ -470,44 +470,44 @@ const Index = ({
                           <option value='' disabled>
                             Select an option
                           </option>
-                          <option value="CertificateOfOrigin">
+                          <option value="Certificate Of Origin">
                             Certificate of Origin{' '}
                           </option>
-                          <option value="CertificateOfQuality">
+                          <option value="Certificate Of Quality">
                             {' '}
                             Certificate of Quality
                           </option>
-                          <option value="CertificateOfWeight ">
+                          <option value="Certificate Of Weight">
                             {' '}
                             Certificate of Weight
                           </option>
-                          <option value="PlotInspectionReport">
+                          <option value="Plot Inspection Report">
                             {' '}
                             Plot Inspection Report
                           </option>
-                          <option value="BL "> BL</option>
-                          <option value="ContainerNoList ">
+                          <option value="BL"> BL</option>
+                          <option value="Container No List ">
                             {' '}
                             Container No. List
                           </option>
-                          <option value="PackingList "> Packing list</option>
-                          <option value="BLAcknowledgmentCopy">
+                          <option value="Packing List "> Packing list</option>
+                          <option value="BL Acknowledgment Copy">
                             {' '}
                             BL Acknowledgment Copy
                           </option>
-                          <option value="ForwardSalesContract ">
+                          <option value="Forward Sales Contract ">
                             {' '}
                             Forward Sales Contract
                           </option>
-                          <option value="CoalImportRegistrationCertificate">
+                          <option value="Coal Import Registration Certificate">
                             {' '}
                             Coal Import Registration Certificate
                           </option>{' '}
-                          <option value="CIMSPaymentReceipt ">
+                          <option value="CIMS Payment Receipt ">
                             {' '}
                             CIMS Payment Receipt
                           </option>{' '}
-                          <option value="IGMCopy "> IGM Copy</option>{' '}
+                          <option value="IGM Copy "> IGM Copy</option>{' '}
                         </>
                       ) : module === 'Agreements&Insurance&LC&Opening' ? (
                         <>
@@ -515,25 +515,25 @@ const Index = ({
                             Select an option
                           </option>
 
-                          <option value="LcDraft">LC Draft </option>
+                          <option value="Lc Draft">LC Draft </option>
 
-                          <option value="lCAmmendmentDraft">
+                          <option value="LC Ammendment Draft">
                             {' '}
                             LC Ammendment Draft
                           </option>
-                          <option value="vesselCertificate">
+                          <option value="Vessel Certificate">
                             {' '}
                             Vessel certificate
                           </option>
-                          <option value="vesselCertificateContainerList">
+                          <option value="Vessel Certificate Container List">
                             {' '}
                             Vessel Certificate, Container List
                           </option>
-                          <option value="policyDocumentMarine">
+                          <option value="Policy Document Marine">
                             {' '}
                             Policy Document - Marine
                           </option>
-                          <option value="policyDocumentStorage">
+                          <option value="Policy Document Storage">
                             {' '}
                             Policy Document - Storage
                           </option>
@@ -544,7 +544,7 @@ const Index = ({
                             Select an option
                           </option>
 
-                          <option value="BOEProvisional">
+                          <option value="BOE Provisional">
                             {' '}
                             BOE Provisional
                           </option>

@@ -20,7 +20,7 @@ function Index(props) {
   console.log(genData,"generic22131")
   useEffect(() => {
   if(window){
-    sessionStorage.setItem('loadedPage',"Agreement & Lc Module")
+    sessionStorage.setItem('loadedPage',"Agreement & LC Module")
     sessionStorage.setItem('loadedSubPage',`Generic`)
     sessionStorage.setItem('openList',2)
   }

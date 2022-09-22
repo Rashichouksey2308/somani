@@ -760,12 +760,12 @@ export default function Index() {
                                 </div> */}
                                     </>
                                   ) : (
-                                    <div className={`${styles.certificate} d-flex justify-content-between`}>
+                                    <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
                                       <span>
                                         {item?.forwardSalesContract?.originalName}
                                       </span>
                                       <img
-                                        className={`${styles.close_image}`}
+                                        className={`${styles.close_image} image_arrow`}
                                         src="/static/close.svg"
                                         onClick={() => handleClose(index)}
                                         alt="Close"

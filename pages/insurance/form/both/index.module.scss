@@ -616,7 +616,26 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
-
+.certificate {
+  font-size: 20px;
+  letter-spacing: 0.19px;
+  //color: #111111;
+  background-color: #C3C3C31F;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 7px 0;
+  span {
+    max-width: 92%;
+    overflow-x: hidden;
+    white-space: nowrap;
+    display: inline-block;
+    text-overflow: ellipsis;
+  }
+  img {
+    width: auto !important;
+    height: auto !important;
+  }
+}
 .pdfImage {
   width: 57px;
   height: 25px;
@@ -889,6 +908,7 @@ input:checked + .slider:before {
             }
           }
         }
+        
         .input_field {
           background: #c3c3c31f;
           border-radius: 4px;

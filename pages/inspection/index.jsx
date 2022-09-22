@@ -240,7 +240,7 @@ if(window){
                 <thead>
                   <tr className="table_row">
                     <th>
-                      CUSTOMER ID{' '}
+                      ORDER ID{' '}
                       <img
                         className={`mb-1`}
                         src="/static/icons8-sort-24.svg"
@@ -266,7 +266,7 @@ if(window){
                   {allInspection &&
                     allInspection?.data?.map((inspection, index) => (
                       <tr key={index} className="table_row">
-                        <td>{inspection?.company?.customerId}</td>
+                        <td>{inspection?.order?.orderId}</td>
                         <td
                           className={styles.buyerName}
                           onClick={() => {
