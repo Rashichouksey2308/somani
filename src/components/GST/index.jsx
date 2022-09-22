@@ -1072,7 +1072,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       )?.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
-                       
+
                       })}
                     </div>
                   </Col>
@@ -3924,9 +3924,9 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                             (sales, index) => (
                               <td key={index}>
                                 {/* {sales?.newCustomer?.toFixed(2)} */}
-                                {convertValue(
-                                  sales?.newCustomer,
-                                  salesUnit,
+                                {(
+                                  sales?.newCustomer
+
                                 )?.toLocaleString(undefined, {
                                   maximumFractionDigits: 2,
                                   minimumFractionDigits: 2,
@@ -3941,9 +3941,9 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                             (sales, index) => (
                               <td key={index}>
                                 {/* {sales?.RecurringCustomer?.toFixed(2)} */}
-                                {convertValue(
-                                  sales?.RecurringCustomer,
-                                  salesUnit,
+                                {(
+                                  sales?.RecurringCustomer
+
                                 )?.toLocaleString(undefined, {
                                   maximumFractionDigits: 2,
                                   minimumFractionDigits: 2,
@@ -4198,7 +4198,7 @@ const gstPurchase = (
                             ),
                           )}
                         </tr>
-                        <tr>
+                        {/* <tr>
                           <td><span style={{ textTransform: 'uppercase' }}>B2C </span>Purchase</td>
                           {gstFilteredData?.detail?.purchaseDetail?.purchases?.slice()?.reverse().map(
                             (sales, index) => (
@@ -4207,7 +4207,7 @@ const gstPurchase = (
                               </td>
                             ),
                           )}
-                        </tr>
+                        </tr> */}
                         {/* <tr>
                           <td>Import</td>
                           {gstFilteredData?.detail?.purchaseDetail?.purchases.map(
@@ -4280,9 +4280,9 @@ const gstPurchase = (
                           {gstFilteredData?.detail?.purchaseDetail?.purchasesPercentage?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
-                                {convertValue(
-                                  sales?.newSuppliers,
-                                  purchasesUnit,
+                                {(
+                                  sales?.newSuppliers
+
                                 )?.toLocaleString(undefined, {
                                   maximumFractionDigits: 2,
                                   minimumFractionDigits: 2,
@@ -4297,9 +4297,9 @@ const gstPurchase = (
                           {gstFilteredData?.detail?.purchaseDetail?.purchasesPercentage?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
-                                {convertValue(
-                                  sales?.recurringSuppliers,
-                                  purchasesUnit,
+                                {(
+                                  sales?.recurringSuppliers
+
                                 )?.toLocaleString(undefined, {
                                   maximumFractionDigits: 2,
                                   minimumFractionDigits: 2,
