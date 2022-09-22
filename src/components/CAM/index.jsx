@@ -3355,14 +3355,14 @@ const sectionTerms = (
                         className={`${styles.text} input`}
                         required={true}
                         type="number"
-                        value={approvedCredit?.approvedCreditValue}
+                        defaultValue={approvedCredit?.approvedCreditValue}
                         name="approvedCreditValue"
-                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                        // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                         onChange={(e) => {
                           onApprove(
                             e.target.name,
-                            Number(e.target.value * 10000000),
+                            Number(e.target.value),
                           )
                         }}
                       ></input>
@@ -3387,14 +3387,14 @@ const sectionTerms = (
                       <input
                         className={`${styles.text} input`}
                         type="number"
-                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                        // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                         name="approvedOrderValue"
                         value={approvedCredit?.approvedOrderValue}
                         onChange={(e) => {
                           onApproveOrder(
                             e.target.name,
-                            Number(e.target.value * 10000000),
+                            Number(e.target.value),
                           )
                         }}
                       ></input>
