@@ -866,7 +866,7 @@ const Index = () => {
             >
               <div
                 className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
-                // data-toggle="collapse"
+                data-toggle="collapse"
                 data-target="#storageInsurance"
                 aria-expanded="true"
                 aria-controls="storageInsurance"
