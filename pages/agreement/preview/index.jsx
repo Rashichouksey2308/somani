@@ -354,13 +354,13 @@ const toPdf=(data)=>{
           <td valign='top' align='center' style={{fontFamily:'Times New Roman, Times, serif', fontSize:'12px', lineHeight:'1.5', color:'#000000', padding:'20px'}}><h3 style={{fontSize:'15px'}}>Schedule I</h3>
             <table width="100%" cellPadding="10" style={{border:'1px solid #000000'}} cellSpacing="0" border="0">
               <tr>
-                <td width="42%" style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Date of Execution</td>
-                <td width="58%" style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>{moment(new Date()).format("DD-MM-YYYY")}</td>
-              </tr>              
+                <td width="30%" style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Date of Execution</td>
+                <td width="70%" style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>{moment(new Date()).format("DD-MM-YYYY")}</td>
+              </tr>
               <tr>
                 <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Place of Execution</td>
                 <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>{data.placeOfExecution}</td>
-              </tr>              
+              </tr>
               <tr>
                 <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Details of Manufacturer / Supplier / Shipper</td>
                 <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>{data.details}</td>
@@ -419,12 +419,12 @@ const toPdf=(data)=>{
                 <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Specification</td>
                 <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>
                   <>
-                    <table>
+                    <table width="100%" cellPadding="0" cellSpacing="0" border="0" style={{borderTop:'1px solid #d9dde8', borderLeft:'1px solid #d9dde8'}}>
                         <tr>
                           {data?.spec &&
                             data?.spec.length > 0 &&
                             Object.keys(data?.spec[0]).map((val, index) => (
-                              <th key={index}>{val}</th>
+                              <td bgColor="#fafafb" style={{color:'#8492a6', fontWeight:'bold', borderBottom:'1px solid #d9dde8', borderRight:'1px solid #d9dde8', padding:'5px'}} key={index}>{val}</td>
                             ))}
                         </tr>
                         {data?.spec &&
@@ -432,20 +432,20 @@ const toPdf=(data)=>{
                           data?.spec.map((item, index) => (
                             <tr>
                               {Object.values(item).map((value, id) => (
-                                <td key={id}>{value}</td>
+                                <td style={{borderBottom:'1px solid #d9dde8', borderRight:'1px solid #d9dde8', padding:'5px'}} key={id}>{value}</td>
                               ))}
                             </tr>
                           ))}
                     </table>
                       
-                    <ol>
-                {data?.specComment?.length>0?<span>Comments</span>:null}
-                {data?.specComment?.length>0 && data?.specComment?.map((val,index)=>{
-                  return(<li>
-                   {val}
-                  </li>)
-                }) }
-                </ol>
+                    {data?.specComment?.length>0?<p style={{paddingTop:'10px'}}>Comments</p>:null}
+                    <ol type="1" style={{paddingLeft:'16px'}}>
+                    {data?.specComment?.length>0 && data?.specComment?.map((val,index)=>{
+                      return(<li style={{marginBottom:'10px'}}>
+                      {val}
+                      </li>)
+                    }) }
+                    </ol>
                   </>
                 </td>
               </tr>

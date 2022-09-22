@@ -892,7 +892,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
             </div>
             <div className={` ${styles.content}`}>
               <div
-                className={` ${styles.header}   card_sub_header d-flex align-items-center justify-content-between`}
+                className={` ${styles.header} card_sub_header d-flex align-items-center justify-content-between`}
               >
                 <span className="text-color">Alerts Indentified</span>
               </div>
@@ -1511,9 +1511,12 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   <div
                     className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}
                   >
-                    <span>Top 10 Suppliers</span>
-                    <span className={`${styles.light} breadcrum_mode`}>(Cr)</span>
-
+                    <div className="d-flex align-items-start">
+                      <span>Top 10 Suppliers
+                        <span className={`${styles.small} text_light`}>(Domestic)</span>
+                      </span>
+                      <span className={`${styles.light} breadcrum_mode mt-1`}>(Cr)</span>
+                    </div>
                   </div>
                   <div className={styles.chart}>
                     <Bar data={top10Supplier} options={barOptions} />
@@ -3537,10 +3540,11 @@ const gstSupplierDetail = (
                     >
                       <tr>
                         <th
-                          className={`${styles.first} text-color`}
+                          className={`${styles.first} py-0 text-color`}
                           colSpan={6}
                         >
                           Top 10 Suppliers
+                          <span className={`${styles.small} text_light`}>(Domestic)</span>
                         </th>
                       </tr>
                       <tr className={styles.second_head}>
