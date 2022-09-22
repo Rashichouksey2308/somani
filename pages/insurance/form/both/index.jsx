@@ -74,7 +74,7 @@ const Index = () => {
     premiumAmount: '',
   })
 
-  console.log(marineData?.premiumAmount, 'Premium', storageData?.premiumAmount)
+  console.log( marineData, 'Premium', storageData)
 
   useEffect(() => {
     setMarineData({
@@ -88,7 +88,7 @@ const Index = () => {
       periodOfInsurance: insuranceData?.marineInsurance?.periodOfInsurance,
       insuranceFromType: insuranceData?.marineInsurance?.insuranceFromType,
       lossPayee: insuranceData?.marineInsurance?.lossPayee,
-      premiumAmount: insuranceData?.marineInsurance?.premiumAmount ?? '',
+      premiumAmount: insuranceData?.marineInsurance?.premiumAmount ?? 0,
     })
     setStorageData({
       policyNumber: insuranceData?.storageInsurance?.policyNumber,
@@ -101,7 +101,7 @@ const Index = () => {
       periodOfInsurance: insuranceData?.storageInsurance?.periodOfInsurance,
       insuranceFromType: insuranceData?.storageInsurance?.insuranceFromType,
       lossPayee: insuranceData?.storageInsurance?.lossPayee,
-      premiumAmount: insuranceData?.storageInsurance?.premiumAmount ?? '',
+      premiumAmount: insuranceData?.storageInsurance?.premiumAmount ?? 0,
     })
   }, [insuranceData])
 
@@ -124,7 +124,7 @@ const Index = () => {
     // console.log(value, name, 'save date')
     const d = new Date(value)
     let text = d.toISOString()
-    setStorageData(name, text)
+    saveStorageData(name, text)
   }
 
   const saveStorageData = (name, value) => {
@@ -887,7 +887,7 @@ const Index = () => {
                           inline
                           label="Domestic"
                           name="insuranceFromType"
-                          defaultChecked={insuranceData?.storageInsurance?.insuranceFromType == 'Domestic'}
+                          checked={storageData?.insuranceFromType == 'Domestic' ? 'checked' : ''}
                           onChange={(e) =>
                             saveStorageData(e.target.name, 'Domestic')
                           }
@@ -901,7 +901,7 @@ const Index = () => {
                           inline
                           label="International"
                           name="insuranceFromType"
-                          defaultChecked={insuranceData?.storageInsurance?.insuranceFromType == 'International'}
+                          checked={storageData?.insuranceFromType == 'International' ? 'checked' : ''}
                           onChange={(e) =>
                             saveStorageData(e.target.name, 'International')
                           }
@@ -1069,7 +1069,7 @@ const Index = () => {
                           </div>
                         </Col>
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                          <input
+                        <input
                             className={`${styles.input_field} input form-control`}
                             required
                             type="number"
@@ -1767,14 +1767,14 @@ const Index = () => {
                           </div>
                         </Col>
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                          <input
+                        <input
                             className={`${styles.input_field} input form-control`}
                             required
                             type="number"
                             name="periodOfInsurance"
+                            value={storageData?.periodOfInsurance}
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
-                            value={storageData?.periodOfInsurance}
                             onChange={(e) =>
                               saveStorageData(e.target.name, e.target.value)
                             }

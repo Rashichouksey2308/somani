@@ -986,7 +986,18 @@ function Index() {
     let personArr = []
     orderList?.company?.keyContactPerson?.forEach((element) => {
       //  console.log(element,"useEE")
-      personArr.push(element)
+      personArr.push({
+        contact: {
+        callingCode:element.contact.callingCode,
+        number:element.contact.number,
+        },
+        department: element.department,
+        designation: element.designation,
+        email: element.email,
+        name: element.name,
+        isEdit:false,
+        addnew:false
+      })
     })
     setPersonData([...personArr])
 
@@ -1046,13 +1057,13 @@ function Index() {
   
   useEffect(() => {
     setSuggestedCredit({
-      suggestedCreditLimit: orderList?.suggestedCreditLimit ? orderList?.suggestedCreditLimit / 10000000 : orderList?.suggestedCreditLimit,
+      suggestedCreditLimit: suggestedValue ? suggestedValue / 10000000 : suggestedValue,
       suggestedOrderValue: orderList?.suggestedOrderValue ? orderList?.suggestedOrderValue / 10000000 : orderList?.suggestedOrderValue,
     })
 
     setApprovedCredit({
-      approvedOrderValue: orderList?.cam?.approvedOrderValue ?  orderList?.cam?.approvedOrderValue / 10000000 : orderList?.cam?.approvedOrderValue,
-    approvedCreditValue: orderList?.cam?.approvedCreditValue ?  orderList?.cam?.approvedCreditValue / 10000000 : orderList?.cam?.approvedCreditValue,
+      approvedOrderValue: orderList?.approvedOrderValue ?  orderList?.approvedOrderValue / 10000000 : orderList?.approvedOrderValue,
+    approvedCreditValue: approvedCreditLimit ?  approvedCreditLimit / 10000000 : approvedCreditLimit,
     })
   }, [orderList])
   
@@ -1154,6 +1165,7 @@ function Index() {
         email: '',
         name: '',
         isEdit: false,
+        addnew:false,
       },
     ])
   }
@@ -1398,6 +1410,12 @@ function Index() {
     orderList?.company?.creditLimit?.creditRating?.filter((rating) => {
       return orderList?._id === rating.order
     })
+
+    console.log(filteredCreditRating, 'THIS IS FILTERED CREDIT RATING')
+
+  let approvedCreditLimit =  filteredCreditRating && filteredCreditRating.length > 0
+  ? filteredCreditRating[0]?.approved?.value
+  : '' 
 
   let suggestedValue =
     filteredCreditRating && filteredCreditRating.length > 0
@@ -7624,7 +7642,46 @@ const table2 = (sat, balance, complienceFilter) => {
   if (complienceFilter == 'All') {
     complienceFilter == sat.length
   }
+ const addSpace=(val,remove)=>{
+ 
+  let result=val
+  if(remove){
+     result = val.replace('is','');
+    
+     
+  }
+  result = result.replace(/[A-Z]/g, ' $&').trim();
+ if(remove){
+   let caps=""
+   let myArray = result.split(" ");
+   if(myArray.length>1){
 
+ 
+   console.log(myArray,"myArray")
+   const getText=(arr)=>{
+    let text=''
+    arr.forEach((val,index)=>{
+      if(index>0){
+        text=`${text} ${val}`
+      }
+    })
+    console.log(text,"etxtxttx")
+    return text
+   }
+   if(myArray[0]=="Gst"  || myArray[0]=="Epf" ||myArray[0]=="Tan"){
+    
+    caps=myArray[0].toUpperCase()
+     result =`${caps} ${getText(myArray)}`
+   }
+    }
+   
+ }
+ console.log(result,"caps")
+ if(result=="Ibbi"){
+  result= "IBBI"
+ }
+ return  result
+ }
   return (
     <table
       className={`${styles.table_details} table border-color`}
@@ -7660,21 +7717,21 @@ const table2 = (sat, balance, complienceFilter) => {
         {complienceFilter == 'StatutoryCompliance'
           ? sat.length &&
           sat?.map((alert, index) => {
-            {console.log(alert?.value?.length,"alert.value")}
+            {console.log(alert.source,"alert.value")}
             return (
               <tr key={index}>
-                <td className='text-capitalize'> {alert.alert}</td>
-                <td className='text-capitalize'> {alert.severity}</td>
-                <td className='text-capitalize'> {alert.source}</td>
-                <td className='text-capitalize'> {alert.idType}</td>
+                <td className='text-capitalize'> {addSpace(alert.alert,true)}</td>
+                <td className='text-capitalize'> {addSpace(alert.severity)}</td>
+                <td className='text-capitalize'>{alert.source.toUpperCase()}</td>
+                <td className='text-capitalize'> {alert.idType=="ids"?"IDS":addSpace(alert.idType)}</td>
                 <td className='text-capitalize'> {alert?.value?.length>1?
                 <>
                 {alert.value.map((val,index)=>{
-                  return( <>{val} {index!==alert.value.length-1?",":""}</>)
+                  return( <>{val}{index!==alert.value.length-1?", ":""}</>)
                 })}
                 </>
                 :
-                <>{alert.value}</>
+                <>{alert.idType=="dateOfIssuance"?moment(alert.value).format("DD-MM-YYYY"):alert.value}</>
                 }</td>
               </tr>
             )
@@ -7682,19 +7739,19 @@ const table2 = (sat, balance, complienceFilter) => {
           : balance.length > 0 &&
           balance?.map((alert, index) => {
             return (
-              <tr key={index}>
-                <td className='text-capitalize'> {alert.alert}</td>
-                <td className='text-capitalize'> {alert.severity}</td>
-                <td className='text-capitalize'> {alert.source}</td>
-                <td className='text-capitalize'> {alert.idType}</td>
+             <tr key={index}>
+                <td className='text-capitalize'> {addSpace(alert.alert,true)}</td>
+                <td className='text-capitalize'> {addSpace(alert.severity)}</td>
+                <td className='text-capitalize'>{alert.source.toUpperCase()}</td>
+                <td className='text-capitalize'> {alert.idType=="ids"?"IDS":addSpace(alert.idType)}</td>
                 <td className='text-capitalize'> {alert?.value?.length>1?
                 <>
                 {alert.value.map((val,index)=>{
-                  return( <>{val} {index!==alert.value.length-1?",":""}</>)
+                  return( <>{val}{index!==alert.value.length-1?", ":""}</>)
                 })}
                 </>
                 :
-                <>{alert.value}</>
+                <>{alert.idType=="dateOfIssuance"?moment(alert.value).format("DD-MM-YYYY"):alert.value}</>
                 }</td>
               </tr>
             )
@@ -7704,41 +7761,41 @@ const table2 = (sat, balance, complienceFilter) => {
             {sat.length &&
               sat?.map((alert, index) => {
                 return (
-                  <tr key={index}>
-                    <td className='text-capitalize'> {alert.alert}</td>
-                    <td className='text-capitalize'> {alert.severity}</td>
-                    <td className='text-capitalize'> {alert.source}</td>
-                    <td className='text-capitalize'> {alert.idType}</td>
-                    <td className='text-capitalize'> {alert?.value?.length>1?
+                 <tr key={index}>
+                <td className='text-capitalize'> {addSpace(alert.alert,true)}</td>
+                <td className='text-capitalize'> {addSpace(alert.severity)}</td>
+                <td className='text-capitalize'>{alert.source.toUpperCase()}</td>
+                <td className='text-capitalize'> {alert.idType=="ids"?"IDS":addSpace(alert.idType)}</td>
+                <td className='text-capitalize'> {alert?.value?.length>1?
                 <>
                 {alert.value.map((val,index)=>{
-                  return( <>{val} {index!==alert.value.length-1?",":""}</>)
+                  return( <>{val}{index!==alert.value.length-1?", ":""}</>)
                 })}
                 </>
                 :
-                <>{alert.value}</>
+                <>{alert.idType=="dateOfIssuance"?moment(alert.value).format("DD-MM-YYYY"):alert.value}</>
                 }</td>
-                  </tr>
+              </tr>
                 )
               })}
             {balance.length > 0 &&
               balance?.map((alert, index) => {
                 return (
                   <tr key={index}>
-                    <td className='text-capitalize'> {alert.alert}</td>
-                    <td className='text-capitalize'> {alert.severity}</td>
-                    <td className='text-capitalize'> {alert.source}</td>
-                    <td className='text-capitalize'> {alert.idType}</td>
-                    <td className='text-capitalize'> {alert?.value?.length>1?
+                <td className='text-capitalize'> {addSpace(alert.alert,true)}</td>
+                <td className='text-capitalize'> {addSpace(alert.severity)}</td>
+                <td className='text-capitalize'>{alert.source.toUpperCase()}</td>
+                <td className='text-capitalize'> {alert.idType=="ids"?"IDS":addSpace(alert.idType)}</td>
+                <td className='text-capitalize'> {alert?.value?.length>1?
                 <>
                 {alert.value.map((val,index)=>{
-                  return( <>{val} {index!==alert.value.length-1?",":""}</>)
+                  return( <>{val}{index!==alert.value.length-1?", ":""}</>)
                 })}
                 </>
                 :
-                <>{alert.value}</>
+                <>{alert.idType=="dateOfIssuance"?moment(alert.value).format("DD-MM-YYYY"):alert.value}</>
                 }</td>
-                  </tr>
+              </tr>
                 )
               })}
           </>
