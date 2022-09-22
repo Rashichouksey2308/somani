@@ -26,7 +26,7 @@ function Index() {
   console.log(allVessel, 'allVessel')
   useEffect(() => {
     if (window) {
-      sessionStorage.setItem('loadedPage', 'Agreement & Lc Module')
+      sessionStorage.setItem('loadedPage', 'Agreement & LC Module')
       sessionStorage.setItem('loadedSubPage', `Vessel Nomination`)
       sessionStorage.setItem('openList', 2)
     }

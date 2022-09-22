@@ -53,6 +53,8 @@ const Index = ({
     groupExposureLimit: false,
     groupExposureOutLimit: false,
     sanction: false,
+    suggestedOrderValue: false,
+    suggestedCreditLimit: false,
   })
 
   console.log(creditDetail, 'THIS IS CREDIT DETAIL')
@@ -205,9 +207,8 @@ const Index = ({
 
                   <div className="mr-3">
                     <img
-                      src={`/static/${
-                        editProfile ? 'save-3.svg' : 'mode_edit.svg'
-                      }`}
+                      src={`/static/${editProfile ? 'save-3.svg' : 'mode_edit.svg'
+                        }`}
                       role="button"
                       className={`${styles.edit_image} d-block`}
                       alt="edit"
@@ -272,9 +273,8 @@ const Index = ({
                   />
                   <div className="mr-3">
                     <img
-                      src={`/static/${
-                        editFinance ? 'save-3.svg' : 'mode_edit.svg'
-                      }`}
+                      src={`/static/${editFinance ? 'save-3.svg' : 'mode_edit.svg'
+                        }`}
                       role="button"
                       className={`${styles.edit_image} d-block`}
                       onClick={() => {
@@ -595,9 +595,8 @@ const Index = ({
                     />
                     <div className="mt-3">
                       <img
-                        src={`/static/${
-                          editStren ? 'save-3.svg' : 'mode_edit.svg'
-                        }`}
+                        src={`/static/${editStren ? 'save-3.svg' : 'mode_edit.svg'
+                          }`}
                         role="button"
                         className={`${styles.edit_image} mr-4`}
                         alt="edit"
@@ -659,9 +658,8 @@ const Index = ({
                     />
                     <div className="mt-3">
                       <img
-                        src={`/static/${
-                          editWeak ? 'save-3.svg' : 'mode_edit.svg'
-                        }`}
+                        src={`/static/${editWeak ? 'save-3.svg' : 'mode_edit.svg'
+                          }`}
                         role="button"
                         className={`${styles.edit_image} mr-4`}
                         alt="edit"
@@ -712,7 +710,7 @@ const Index = ({
                       {checkNan(
                         CovertvaluefromtoCR(
                           creditDetail?.company?.creditLimit?.utilizedLimt ??
-                            '',
+                          '',
                         ),
                       )?.toLocaleString()}
                     </span>
@@ -725,7 +723,7 @@ const Index = ({
                       {checkNan(
                         CovertvaluefromtoCR(
                           creditDetail?.company?.creditLimit?.availableLimit ??
-                            '',
+                          '',
                         ),
                       )?.toLocaleString()}
                     </span>
@@ -784,12 +782,24 @@ const Index = ({
                         className={`${styles.text} input`}
                         type="text"
                         name="suggestedCreditLimit"
-                        value={addPrefixOrSuffix(
-                          suggestedCredit?.suggestedCreditLimit,
-                          '',
-                        )?.toLocaleString(undefined, {
-                          minimumFractionDigits: 2,
-                        })}
+                        onFocus={(e) => {
+                          setIsFieldInFocus({ ...isFieldInFocus, suggestedCreditLimit: true }),
+                            e.target.type = 'number'
+                        }}
+                        onBlur={(e) => {
+                          setIsFieldInFocus({ ...isFieldInFocus, suggestedCreditLimit: false }),
+                            e.target.type = 'text'
+                        }}
+                        value={
+                          isFieldInFocus.suggestedCreditLimit ?
+                            suggestedCredit?.suggestedCreditLimit :
+                            Number(suggestedCredit?.suggestedCreditLimit)?.toLocaleString() + ` CR`}
+                        // value={addPrefixOrSuffix( 
+                        //   suggestedCredit?.suggestedCreditLimit,
+                        //   '',
+                        // )?.toLocaleString(undefined, {
+                        //   minimumFractionDigits: 2,
+                        // })}
                         onChange={(e) => {
                           saveSuggestedCreditData(e.target.name, e.target.value)
                         }}
@@ -817,14 +827,26 @@ const Index = ({
                           evt.key === 'e' && evt.preventDefault()
                         }
                         name="suggestedOrderValue"
-                        value={(
-                          addPrefixOrSuffix(
-                            suggestedCredit?.suggestedOrderValue,
-                            '',
-                          ) ?? ''
-                        )?.toLocaleString(undefined, {
-                          minimumFractionDigits: 2,
-                        })}
+                        onFocus={(e) => {
+                          setIsFieldInFocus({ ...isFieldInFocus, suggestedOrderValue: true }),
+                            e.target.type = 'number'
+                        }}
+                        onBlur={(e) => {
+                          setIsFieldInFocus({ ...isFieldInFocus, suggestedOrderValue: false }),
+                            e.target.type = 'text'
+                        }}
+                        value={
+                          isFieldInFocus.suggestedOrderValue ?
+                            suggestedCredit?.suggestedOrderValue :
+                            Number(suggestedCredit?.suggestedOrderValue)?.toLocaleString() + ` CR`}
+                        // value={(
+                        //   addPrefixOrSuffix(
+                        //     suggestedCredit?.suggestedOrderValue,
+                        //     '',
+                        //   ) ?? ''
+                        // )?.toLocaleString(undefined, {
+                        //   minimumFractionDigits: 2,
+                        // })}
                         // defaultValue={creditDetail?.suggestedOrderValue}
                         onChange={(e) => {
                           saveSuggestedCreditData(e.target.name, e.target.value)

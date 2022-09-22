@@ -252,7 +252,7 @@ export default function Index({
       },
     ])
   }
-  // console.log(billOfEntryData, 'billOfEntryData')
+  console.log(billOfEntryData, 'billOfEntryData')
 
   const handleSubmit = () => {
     let isOk = true
@@ -582,13 +582,13 @@ export default function Index({
                     <div
                       className={`${styles.toggle_label} form-check-label mr-3`}
                     >
-                      Yes
+                      No
                     </div>
                     <label className={styles.switch}>
                       <input
                         onChange={(e) => handlePfCheckBox(e)}
                         type="checkbox"
-                        checked={pfCheckBox ? 'checked' : ''}
+                        checked={pfCheckBox ? '' : 'checked'}
                       />
                       <span
                         className={`${styles.slider} ${styles.round}`}
@@ -597,7 +597,7 @@ export default function Index({
                     <div
                       className={`${styles.toggle_label} form-check-label ml-3`}
                     >
-                      No
+                      Yes
                     </div>
                   </div>
                 </div>
