@@ -54,11 +54,12 @@ function Index() {
     // console.log(buyer,'butyer')
      console.log("getDetails payload",buyer.company._id)
     if (buyer.queue === 'CreditQueue') {
-     await  dispatch(GetAllOrders({ orderId: buyer._id }))
-     //dispatch(GetDocuments({order: buyer._id}))
-    await   dispatch(GetCompanyDetails( {company : buyer.company._id}))
       sessionStorage.setItem('orderID', buyer._id)
       sessionStorage.setItem('companyID', buyer.company._id)
+     await  dispatch(GetAllOrders({ orderId: buyer._id }))
+     //dispatch(GetDocuments({order: buyer._id}))
+     await   dispatch(GetCompanyDetails( {company : buyer.company._id}))
+    
       Router.push('/review')
     }
   }

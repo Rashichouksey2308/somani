@@ -8,7 +8,7 @@ import { CovertvaluefromtoCR, checkNan } from '../../../utils/helper'
 import _get from 'lodash/get'
 
 function Index({ order, companyDetail }) {
-  console.log(order, 'companyDetail')
+  console.log(companyDetail, 'companyDetail')
 
   const [updateCompany, setUpdateCompany] = useState({
     referalName: '',
