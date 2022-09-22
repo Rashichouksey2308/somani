@@ -47,12 +47,14 @@ function Index() {
           className={`${styles.card} tabHeader border-0 shadow-none bg-transparent card2`}
         >
           <div className={`${styles.head_header} align-items-center`}>
+            <div onClick={() => Router.push('/insurance/form')}>
             <img
-              onClick={() => Router.push('/insurance/form')}
+              
               className={`${styles.arrow} img-fluid image_arrow mr-2`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow"
             />
+            </div>
             <h1 className={`${styles.heading} heading`}>
               {insuranceData?.company?.companyName}
             </h1>
