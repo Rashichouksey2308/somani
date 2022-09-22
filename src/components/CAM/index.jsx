@@ -52,7 +52,7 @@ function Index({
   GstData
 }) {
   const dispatch = useDispatch()
-  console.log(GstData, 'GstData')
+  console.log(_get(camData,"company.detailedCompanyInfo.financial.openCharges"), 'GstData')
 
 
 
@@ -1775,11 +1775,19 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor) => 
                     <th>DATE OF CREATION</th>
                   </tr>
 
-                  {camData &&
-                    camData?.company?.detailedCompanyInfo?.financial?.openCharges?.map(
+                  {camData && 
+                 
+                    _get(camData,"company.detailedCompanyInfo.financial.openCharges",[]).map(
                       (charge, index) => {
                         let name = charge?.nameOfChargeHolder
-                        let [fName, lName] = name?.split(' ') 
+                        let fName=""
+                        let lName=""
+                        if(name!=null){
+                          let [fName1, lName1] = name?.split(' ') 
+                          fName = fName1
+                          lName=lName1
+                        }
+                       
 
                         let colors = [
                           {
