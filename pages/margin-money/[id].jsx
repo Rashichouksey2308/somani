@@ -504,6 +504,36 @@ function Index() {
 
   useEffect(() => {
     getRevisedData()
+
+    setInvoiceDataRevised({
+      buyerName: marginData?.company?.companyName || '',
+      buyerGSTIN: marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN || '',
+      buyerAddress:
+        marginData?.revisedMarginMoney?.invoiceDetail?.buyerAddress || '',
+      isConsigneeSameAsBuyer:
+        marginData?.revisedMarginMoney?.invoiceDetail?.isConsigneeSameAsBuyer,
+      consigneeName:
+        marginData?.revisedMarginMoney?.invoiceDetail?.consigneeName || '',
+      consigneeGSTIN:
+        marginData?.revisedMarginMoney?.invoiceDetail?.consigneeGSTIN || '',
+      consigneeAddress:
+        marginData?.revisedMarginMoney?.invoiceDetail?.consigneeAddress || '',
+      importerName:
+        marginData?.revisedMarginMoney?.invoiceDetail?.importerName || '',
+      branchOffice:
+        marginData?.revisedMarginMoney?.invoiceDetail?.branchOffice || '',
+      companyAddress:
+        marginData?.revisedMarginMoney?.invoiceDetail?.companyAddress || '',
+      importerGSTIN:
+        marginData?.revisedMarginMoney?.invoiceDetail?.importerGSTIN || '',
+      bankName: marginData?.revisedMarginMoney?.invoiceDetail?.bankName || '',
+      branch: marginData?.revisedMarginMoney?.invoiceDetail?.branch || '',
+      branchAddress:
+        marginData?.revisedMarginMoney?.invoiceDetail?.branchAddress || '',
+      IFSCcode: marginData?.revisedMarginMoney?.invoiceDetail?.IFSCcode || '',
+      accountNo: marginData?.revisedMarginMoney?.invoiceDetail?.accountNo || '',
+    })
+
   }, [marginData])
 
   const getRevisedData = () => {
