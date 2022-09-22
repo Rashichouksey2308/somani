@@ -1215,7 +1215,7 @@ function Index() {
                     Name of Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {insuranceData?.company?.companyName}
+                    {insuranceData?.company?.companyName} ,<br></br> {  insuranceData?.company?.detailedCompanyInfo?.profile?.companyDetail?.registeredAddress}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>

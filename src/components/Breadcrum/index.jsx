@@ -255,6 +255,14 @@ export default function Index({ isQuery }) {
         '/Request Letter' +
         `/${order}`
     }
+    if ('insurance Request Letter' == pageName) {
+      router.route =
+        '/Agreement & LC' +
+        `/${id?.toLowerCase()}` +
+        '/Insurance' +
+        '/Request Letter' +
+        `/${order}`
+    }
 
     if ('loading' == pageName) {
       if (id !== null) {
