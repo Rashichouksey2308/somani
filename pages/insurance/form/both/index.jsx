@@ -9,6 +9,11 @@ import {
   GettingAllInsurance,
   UpdateInsurance,
 } from '../../../../src/redux/insurance/action'
+import {
+  setPageName,
+  setDynamicName,
+  setDynamicOrder,
+} from '../../../../src/redux/userData/action'
 import _get from 'lodash/get'
 import Router from 'next/router'
 import { toast } from 'react-toastify'
@@ -31,9 +36,14 @@ const Index = () => {
   const [insuranceData, setInsuranceData] = useState()
 
   useEffect(() => {
+    dispatch(setPageName('insurance Request Letter'))
+    dispatch(
+      setDynamicName(_get(insuranceData, 'company.companyName', 'Company Name')),
+    )
+    dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')))
     setInsuranceData(_get(insuranceResponse, 'data[0]', {}))
   }, [insuranceResponse])
-
+  console.log(insuranceResponse, 'insuranceResponse')
 
   const [marineData, setMarineData] = useState({
     policyNumber: '',
@@ -49,7 +59,7 @@ const Index = () => {
     premiumAmount: '',
   })
 
-  
+
   const [storageData, setStorageData] = useState({
     policyNumber: '',
     nameOfInsurer: '',
@@ -64,7 +74,7 @@ const Index = () => {
     premiumAmount: '',
   })
 
-  console.log(marineData?.premiumAmount, 'Premium', storageData?.premiumAmount)
+  console.log( marineData, 'Premium', storageData)
 
   useEffect(() => {
     setMarineData({
@@ -78,7 +88,7 @@ const Index = () => {
       periodOfInsurance: insuranceData?.marineInsurance?.periodOfInsurance,
       insuranceFromType: insuranceData?.marineInsurance?.insuranceFromType,
       lossPayee: insuranceData?.marineInsurance?.lossPayee,
-      premiumAmount: insuranceData?.marineInsurance?.premiumAmount ?? '',
+      premiumAmount: insuranceData?.marineInsurance?.premiumAmount ?? 0,
     })
     setStorageData({
       policyNumber: insuranceData?.storageInsurance?.policyNumber,
@@ -91,7 +101,7 @@ const Index = () => {
       periodOfInsurance: insuranceData?.storageInsurance?.periodOfInsurance,
       insuranceFromType: insuranceData?.storageInsurance?.insuranceFromType,
       lossPayee: insuranceData?.storageInsurance?.lossPayee,
-      premiumAmount: insuranceData?.storageInsurance?.premiumAmount ?? '',
+      premiumAmount: insuranceData?.storageInsurance?.premiumAmount ?? 0,
     })
   }, [insuranceData])
 
@@ -114,7 +124,7 @@ const Index = () => {
     // console.log(value, name, 'save date')
     const d = new Date(value)
     let text = d.toISOString()
-    setStorageData(name, text)
+    saveStorageData(name, text)
   }
 
   const saveStorageData = (name, value) => {
@@ -153,7 +163,7 @@ const Index = () => {
 
   const handleIsInsuranceSame = () => {
     setIsInsurerSameData(true)
-    setStorageData({...marineData})
+    setStorageData({ ...marineData })
   }
 
   const validate = () => {
@@ -323,28 +333,28 @@ const Index = () => {
   const handleInsuranceUpdate = () => {
     if (!validate()) return
 
-      let marineObj = { ...marineData }
-      marineObj.premiumAmount = removePrefixOrSuffix(marineData.premiumAmount)
+    let marineObj = { ...marineData }
+    marineObj.premiumAmount = removePrefixOrSuffix(marineData.premiumAmount)
 
-      let storageObj = { ...storageData }
-      storageObj.premiumAmount = removePrefixOrSuffix(storageData.premiumAmount)
+    let storageObj = { ...storageData }
+    storageObj.premiumAmount = removePrefixOrSuffix(storageData.premiumAmount)
 
-      let fd = new FormData()
-      fd.append('marineInsurance', JSON.stringify(marineObj))
-      fd.append('storageInsurance', JSON.stringify(storageObj))
-      fd.append('insuranceId', insuranceData?._id)
-      fd.append(
-        'insuranceType',
-        JSON.stringify(insuranceData?.quotationRequest?.insuranceType),
-      )
-      fd.append('marinePolicyDocument', insuranceDocument.marinePolicyDocument)
-      fd.append(
-        'storagePolicyDocument',
-        insuranceDocument.storagePolicyDocument,
-      )
+    let fd = new FormData()
+    fd.append('marineInsurance', JSON.stringify(marineObj))
+    fd.append('storageInsurance', JSON.stringify(storageObj))
+    fd.append('insuranceId', insuranceData?._id)
+    fd.append(
+      'insuranceType',
+      JSON.stringify(insuranceData?.quotationRequest?.insuranceType),
+    )
+    fd.append('marinePolicyDocument', insuranceDocument.marinePolicyDocument)
+    fd.append(
+      'storagePolicyDocument',
+      insuranceDocument.storagePolicyDocument,
+    )
 
-      dispatch(UpdateInsurance(fd))
-    
+    dispatch(UpdateInsurance(fd))
+
   }
 
   const handleRoute = () => {
@@ -838,7 +848,7 @@ const Index = () => {
 
                               </td>
                             </tr>
-                            
+
                           </tbody>
                         </table>
                       </div>
@@ -856,7 +866,7 @@ const Index = () => {
             >
               <div
                 className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
-               // data-toggle="collapse"
+                data-toggle="collapse"
                 data-target="#storageInsurance"
                 aria-expanded="true"
                 aria-controls="storageInsurance"
@@ -877,7 +887,7 @@ const Index = () => {
                           inline
                           label="Domestic"
                           name="insuranceFromType"
-                          defaultChecked={insuranceData?.storageInsurance?.insuranceFromType == 'Domestic'}
+                          checked={storageData?.insuranceFromType == 'Domestic' ? 'checked' : ''}
                           onChange={(e) =>
                             saveStorageData(e.target.name, 'Domestic')
                           }
@@ -891,7 +901,7 @@ const Index = () => {
                           inline
                           label="International"
                           name="insuranceFromType"
-                          defaultChecked={insuranceData?.storageInsurance?.insuranceFromType == 'International'}
+                          checked={storageData?.insuranceFromType == 'International' ? 'checked' : ''}
                           onChange={(e) =>
                             saveStorageData(e.target.name, 'International')
                           }
@@ -908,7 +918,7 @@ const Index = () => {
               </div>
               <div
                 id="storageInsurance"
-              //  className="collapse"
+                //  className="collapse"
                 aria-labelledby="storageInsurance"
               >
                 <div className={` ${styles.cardBody} card-body  border_color`}>
@@ -1059,7 +1069,7 @@ const Index = () => {
                           </div>
                         </Col>
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                          <input
+                        <input
                             className={`${styles.input_field} input form-control`}
                             required
                             type="number"
@@ -1222,7 +1232,7 @@ const Index = () => {
                                 28-02-2022,5:30 PM
                               </td>
                               <td>
-                               
+
                                 {insuranceDocument && insuranceDocument?.storagePolicyDocument == null ? (
                                   <>
                                     <div className={styles.uploadBtnWrapper}>
@@ -1252,7 +1262,7 @@ const Index = () => {
 
                               </td>
                             </tr>
-                            
+
                           </tbody>
                         </table>
                       </div>
@@ -1557,7 +1567,7 @@ const Index = () => {
             >
               <div
                 className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
-              
+
               >
                 <h2 className="mb-0">Storage Insurance Details</h2>
                 <div className={styles.radio_label}>
@@ -1596,10 +1606,10 @@ const Index = () => {
                     </div>
                   </div>
 
-                  <span   data-toggle="collapse"
-                data-target="#storageInsurance"
-                aria-expanded="true"
-                aria-controls="storageInsurance">+</span>
+                  <span data-toggle="collapse"
+                    data-target="#storageInsurance"
+                    aria-expanded="true"
+                    aria-controls="storageInsurance">+</span>
                 </div>{' '}
               </div>
               <div
@@ -1757,14 +1767,14 @@ const Index = () => {
                           </div>
                         </Col>
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
-                          <input
+                        <input
                             className={`${styles.input_field} input form-control`}
                             required
                             type="number"
                             name="periodOfInsurance"
+                            value={storageData?.periodOfInsurance}
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
-                            value={storageData?.periodOfInsurance}
                             onChange={(e) =>
                               saveStorageData(e.target.name, e.target.value)
                             }
@@ -1786,7 +1796,7 @@ const Index = () => {
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
                               <option selected disabled>Select an option</option>
-                              
+
                               <option
                                 value={
                                   insuranceData?.quotationRequest?.lossPayee
@@ -1823,7 +1833,7 @@ const Index = () => {
                             }}
                             name="premiumAmount"
                             value={isFieldInFocus ?
-                             storageData?.premiumAmount :
+                              storageData?.premiumAmount :
                               `${storageData?.insuranceFromType === 'Domestic' ? 'INR' : 'USD'} ` + Number(storageData?.premiumAmount)?.toLocaleString()}
                             // defaultValue={addPrefixOrSuffix(insuranceData?.storageInsurance?.premiumAmount ? insuranceData?.storageInsurance?.premiumAmount : storageData?.premiumAmount, 'INR', 'front')}
                             onChange={(e) =>
