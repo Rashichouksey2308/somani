@@ -12,7 +12,8 @@ export default function Index(props) {
   const [show, setShow] = useState(false)
   const [isFieldInFocus, setIsFieldInFocus] = useState(false)
 
-  const handleRoute = () => {
+  const handleRoute = (val) => {
+    sessionStorage.setItem('dono', val)
     Router.push('/delivery-preview')
   }
   console.log(props, 'props')
@@ -296,7 +297,7 @@ export default function Index(props) {
                                       src="/static/share.svg"
                                       className={`${styles.shareImg}`}
                                       alt="Share"
-                                      onClick={(e) => handleRoute()}
+                                      onClick={() => handleRoute(val.deliveryOrderNo)}
                                     />
 
                                     {props.releaseOrderData.length ===
