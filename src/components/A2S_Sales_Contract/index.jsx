@@ -33,7 +33,9 @@ function Index(props) {
     unitOfGrade: "",
     unitOfQuantity: "",
     unitOfValue: "",
-    curr: ""
+    curr: "",
+    specComment:""
+
 
   })
 
@@ -66,7 +68,8 @@ function Index(props) {
           unitOfGrade: data?.unitOfGrade,
           unitOfQuantity: data?.unitOfQuantity,
           unitOfValue: data?.unitOfValue,
-          curr: data?.orderCurrency
+          curr: data?.orderCurrency,
+          specComment: data?.specComment,
         })
       } else {
 
@@ -108,6 +111,7 @@ function Index(props) {
           terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed == "Yes" ? "Full" : "Partial"}`,
           addComm: data?.additionalComments?.comments,
           spec: data?.productSpecifications?.specificationTable,
+          specComment: data?.productSpecifications.comments,
           unitOfGrade: data?.order?.unitOfGrade,
           unitOfQuantity: data?.order?.unitOfQuantity,
           unitOfValue: data?.order?.unitOfValue,
@@ -265,12 +269,12 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                 <li>
                   <p className="text_sales">Documents to be provided to Buyer
                     <ol type="1" className='pl-0'>
-                      <li><p className="text_sales">The Seller's Commercial Invoice;</p> </li>
+                      <li><p className="text_sales">The Seller's Commercial Invoice,</p> </li>
                       <li><p className="text_sales">Full set of  3/3  originals  of Bills of Lading,</p></li>
-                      <li><p className="text_sales">Certificate of Quality;</p></li>
+                      <li><p className="text_sales">Certificate of Quality,</p></li>
                       <li><p className="text_sales">Certificate of Weight,</p></li>
-                      <li><p className="text_sales">Certificate of Origin.</p> </li>
-                      <li><p className="text_sales">Copy of Marine Insurance Certificate / Insurance Policy</p></li>
+                      <li><p className="text_sales">Certificate of Origin,</p> </li>
+                      <li><p className="text_sales">Copy of Marine Insurance Certificate / Insurance Policy.</p></li>
                     </ol>
                   </p>
                 </li>
@@ -287,7 +291,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                   <p className="text_sales">Marine Insurance: Seller will provide Marine Insurance as received from Shipper.  </p>
                 </li>
                 <li>
-                  <p className="text_sales">Stock Insurance: The Buyer will arrange insurance for 110% of the cargo value at discharge port, valid at all times covering All Risk including Fire, Burglary and Act of God (AOG). The cargo shall be insured by the Buyer at its own cost for the full value of cargo. The Policy shall be endorsed in favour of the Seller or its nominated Bank.  The Beneficiary of the Insurance Claim shall be the Seller or its nominated Bank as per Seller’s instructions.</p>
+                  <p className="text_sales">Stock Insurance: The Buyer will arrange insurance for 110% of the cargo value at discharge port, valid at all times covering All Risk including Fire, Burglary and Act of God (AOG). The cargo shall be insured by the Buyer at its own cost for the full value of cargo. The Policy shall be endorsed in favour of the Seller or its nominated Bank.  The Beneficiary of the Insurance Claim shall be the Seller or its nominated Bank as per Seller's instructions.</p>
                 </li>
               </ol>
 
@@ -301,7 +305,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           <Row className={`${styles.row}`}>
             <Col md={1} className={styles.left}>15</Col>
             <Col md={4} className={styles.left}>Title / Risk </Col>
-            <Col md={7} className={styles.right}>Title to the Goods shall be deemed to have been transferred to the Buyer and the Goods shall be deemed to be sold and delivered to the Buyer only upon receipt by the Seller of the entire contract value. It is clarified that the Seller shall retain lien and the full legal ownership in the Goods, to secure the Buyer’s obligation to pay the entire contract value, until receipt by the Seller of the entire contract value.  All risk of loss or damage shall pass to the Buyer as per Incoterms 2020.</Col>
+            <Col md={7} className={styles.right}>Title to the Goods shall be deemed to have been transferred to the Buyer and the Goods shall be deemed to be sold and delivered to the Buyer only upon receipt by the Seller of the entire contract value. It is clarified that the Seller shall retain lien and the full legal ownership in the Goods, to secure the Buyer's obligation to pay the entire contract value, until receipt by the Seller of the entire contract value.  All risk of loss or damage shall pass to the Buyer as per Incoterms 2020.</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={1} className={styles.left}>16</Col>
@@ -340,7 +344,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
             <Col md={7} className={styles.right}>
               <ol type="1">
                 <li>
-                  <p className="text_sales">It is expressly and unconditionally agreed and Buyer fully acknowledges that the title in the goods / material shall pass on to the Buyer only in respect of such specific quantity thereof as released from the storage facility by Collateral Manager in terms of the ‘Tripartite Agreement’ after receipt of the price and other payables in respect thereof and actual delivery of the goods having been made to the Buyer. The Seller shall continue to be the owner, holding absolute title in the goods/material not so released and delivered to the Buyer in any contingency including of Buyer even becoming insolvent but not limiting, and shall be entitled to deal with the goods/material as it may deem fit including disposing them of at the risk and cost of the Buyer. For the avoidance of doubt, the parties agree and acknowledge that the Goods shall not be in any manner whatsoever be construed to be in the constructive or actual possession of the Buyer until the Goods are released and delivered by the Seller in accordance with this Agreement. The Buyer specifically represents and agrees to not exercise any or all such possessory rights on the Goods until the Goods are released and delivered by the Seller in accordance with this Agreement.
+                  <p className="text_sales">It is expressly and unconditionally agreed and Buyer fully acknowledges that the title in the goods / material shall pass on to the Buyer only in respect of such specific quantity thereof as released from the storage facility by Collateral Manager in terms of the ‘Tripartite Agreement' after receipt of the price and other payables in respect thereof and actual delivery of the goods having been made to the Buyer. The Seller shall continue to be the owner, holding absolute title in the goods/material not so released and delivered to the Buyer in any contingency including of Buyer even becoming insolvent but not limiting, and shall be entitled to deal with the goods/material as it may deem fit including disposing them of at the risk and cost of the Buyer. For the avoidance of doubt, the parties agree and acknowledge that the Goods shall not be in any manner whatsoever be construed to be in the constructive or actual possession of the Buyer until the Goods are released and delivered by the Seller in accordance with this Agreement. The Buyer specifically represents and agrees to not exercise any or all such possessory rights on the Goods until the Goods are released and delivered by the Seller in accordance with this Agreement.
                   </p>
                 </li>
                 <li>
@@ -348,7 +352,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                   </p>
                 </li>
                 <li>
-                  <p className="text_sales">The BUYER unconditionally agrees to abide by a collateral management agreement by and among “<strong>Collateral Manager</strong>”, “<strong>Financing Bank</strong>” and “<strong>Seller</strong>” and undertakes not to take any delivery of Goods unless Collateral Manager releases such quantity of the Goods in accordance with the Bank’s written release instructions under the Collateral Management Agreement. If Buyer, directly or indirectly, violates the undertaking in the preceding sentence, then Buyer shall indemnify Seller for any loss, liability or claim (including without limitation any expenses incurred) without any demur or protest. The Seller shall be under obligation to issue delivery order for the quantity for which the payment has been received within one banking day.
+                  <p className="text_sales">The BUYER unconditionally agrees to abide by a collateral management agreement by and among “<strong>Collateral Manager</strong>”, “<strong>Financing Bank</strong>” and “<strong>Seller</strong>” and undertakes not to take any delivery of Goods unless Collateral Manager releases such quantity of the Goods in accordance with the Bank's written release instructions under the Collateral Management Agreement. If Buyer, directly or indirectly, violates the undertaking in the preceding sentence, then Buyer shall indemnify Seller for any loss, liability or claim (including without limitation any expenses incurred) without any demur or protest. The Seller shall be under obligation to issue delivery order for the quantity for which the payment has been received within one banking day.
                   </p>
                 </li>
                 <li>
@@ -373,17 +377,11 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                   </p>
                 </li>
                 <li>
-                  <p className="text_sales">The End User and Manufacturer/shipper shall have direct recourse to each other for matters including but not limited to the following:
-                    <ol type="a" className='pl-0'>
-                      <li><p>For all quantity and quality claims/ issues pertaining to material supplied by Manufacturer/shipper;</p></li>
-                      <li><p>Any express or implied warranty claim for the quality of material supplied by Manufacturer/shipper;
-                      </p></li>
-                      <li><p>Loss of cargo;</p></li>
-                      <li><p>Any demurrage charges at the load port and/or discharge port shall be settled directly between the Buyer and Manufacturer/shipper;
-                      </p></li>
-
-                    </ol>
-                  </p>
+                  <p className="text_sales">The End User and Manufacturer/shipper shall have direct recourse to each other for matters including but not limited to the following:</p>
+                  <p className='ml-n4'>a) For all quantity and quality claims/ issues pertaining to material supplied by Manufacturer/shipper,</p>
+                  <p className='ml-n4'>b) Any express or implied warranty claim for the quality of material supplied by Manufacturer/shipper,</p>
+                  <p className='ml-n4'>c) Loss of cargo,</p>
+                  <p className='ml-n4'>d) Any demurrage charges at the load port and/or discharge port shall be settled directly between the Buyer and Manufacturer/shipper,</p>
                 </li>
               </ol>
               <p>All Claims direct or consequential shall be settled directly between End Buyer and Manufacturer/shipper.</p>
@@ -413,8 +411,8 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
             <Col md={4} className={styles.left}>Force Majeure</Col>
             <Col md={7} className={styles.right}>
               <div>
-                <p>The Seller shall not be liable to the Buyer or to the Manufacturer/shipper for any damages due to delay, interruption or failure in performance of the obligations under the present Agreement (including but not limited to any loss, damage or delay) if such loss, damage, delay or failure is due to or results from Acts of God, War (whether declared or undeclared), blockades, revolution, insurrection, civil commotion, terrorism, riot, invasion, plague or other  epidemic, fire, sabotage, quarantine  restriction, explosion or embargo, including any change/modification in commercial laws, rules and regulations by government, , acts of Government in creating any restrictions or control in imports, exports or foreign exchange, fire, flood, storm, earthquakes, accident in and to the Vessel or strikes, breakdown of loading or unloading facilities, or transporting, loading, unloading or delivering freight, embargoes and breakdown of railroads, serious damage to or breakdown of the transmission system connecting to the  Buyer ’s  warehouse or the like or any other cause which may be beyond the control of the Seller </p>
-                <p>The force Majeure declared by the Manufacturer/shipper shall be applicable to the Seller.
+                <p>The Seller shall not be liable to the Buyer or to the Manufacturer/shipper for any damages due to delay, interruption or failure in performance of the obligations under the present Agreement (including but not limited to any loss, damage or delay) if such loss, damage, delay or failure is due to or results from Acts of God, War (whether declared or undeclared), blockades, revolution, insurrection, civil commotion, terrorism, riot, invasion, plague or other  epidemic, fire, sabotage, quarantine  restriction, explosion or embargo, including any change/modification in commercial laws, rules and regulations by government, acts of Government in creating any restrictions or control in imports, exports or foreign exchange, fire, flood, storm, earthquakes, accident in and to the Vessel or strikes, breakdown of loading or unloading facilities, or transporting, loading, unloading or delivering freight, embargoes and breakdown of railroads, serious damage to or breakdown of the transmission system connecting to the  Buyer's  warehouse or the like or any other cause which may be beyond the control of the Seller.<br/></p>
+                <p>The force Majeure declared by the Manufacturer/shipper shall be applicable to the Seller.<br/>
 
                 </p>
                 <p>No event described in this Clause shall constitute a Force Majeure event with respect to the Buyer&apos;s obligation to pay for any product loaded at loading place in transit to the Buyer or stored at the licensed warehouse.</p>
@@ -457,13 +455,12 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={1} className={styles.left}>24</Col>
-            <Col md={4} className={styles.left}>Dispute Resolution & Arbitration</Col>
+            <Col md={4} className={styles.left}>Dispute Resolution &amp; Arbitration</Col>
             <Col md={7} className={styles.right}>
               <div>
-                <p>Both parties agree to use their best efforts to amicably resolve any claims controversies and disputes arising out of this contract, as well as to determine the final costs thereof. Any such claims, controversies and disputes which cannot be resolved through negotiations within a period of 60 days of the notification of such claims, disputes and controversies shall be referred to arbitration in accordance with the rules of Singapore International Arbitration Center (SIAC). One arbitrator to be nominated jointly by both the parties. The award rendered by the arbitrator shall be final and binding upon both the parties concerned and subject to no appeal. The costs and expenses of the prevailing party (including, without limitation, reasonable attorney’s fee) will be paid by the losing party. The contract shall be subject to Laws of India. The seat of the arbitration will be Singapore and the proceedings shall be conducted in English language.
-
+                <p>Both parties agree to use their best efforts to amicably resolve any claims controversies and disputes arising out of this contract, as well as to determine the final costs thereof. Any such claims, controversies and disputes which cannot be resolved through negotiations within a period of 60 days of the notification of such claims, disputes and controversies shall be referred to arbitration in accordance with the rules of Singapore International Arbitration Center (SIAC). One arbitrator to be nominated jointly by both the parties. The award rendered by the arbitrator shall be final and binding upon both the parties concerned and subject to no appeal. The costs and expenses of the prevailing party (including, without limitation, reasonable attorney's fee) will be paid by the losing party. The contract shall be subject to Laws of India. The seat of the arbitration will be Singapore and the proceedings shall be conducted in English language.<br/>
                 </p>
-                <p>Notwithstanding the aforesaid, the parties agree and affirm that relief available under Section 9 of the Indian Arbitration Act, 1996 (as amended) shall be available to the parties, and the parties may initiate appropriate proceedings in India in order to avail such relief.
+                <p className='mt-3'>Notwithstanding the aforesaid, the parties agree and affirm that relief available under Section 9 of the Indian Arbitration Act, 1996 (as amended) shall be available to the parties, and the parties may initiate appropriate proceedings in India in order to avail such relief.
 
                 </p>
 
@@ -481,7 +478,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
             <Col md={1} className={styles.left}>26</Col>
             <Col md={4} className={styles.left}>No Assignment</Col>
             <Col md={7} className={styles.right}>
-              Neither Party shall be entitled to assign, transfer or sub-contract its rights under this Agreement in whole or in part without first obtaining the other’s consent in writing.
+              Neither Party shall be entitled to assign, transfer or sub-contract its rights under this Agreement in whole or in part without first obtaining the other's consent in writing.
             </Col>
           </Row>
           <Row className={`${styles.row}`}>
@@ -506,8 +503,8 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
             <Col md={1} className={styles.left}>29</Col>
             <Col md={4} className={styles.left}>Representations and Warranties </Col>
             <Col md={7} className={styles.right}>
+              Each party to this Agreement hereby represents and warrants that:
               <ol type="1">
-                Each party to this Agreement hereby represents and warrants that:
                 <li>
                   <p className="text_sales">it is a legal entity duly organized and validly existing under the laws of the jurisdiction of its incorporation and has all necessary corporate power, authority and capacity to execute this Agreement and undertake the transactions contemplated herein;
 
@@ -626,6 +623,14 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                     </div>
                   </div>
                 </div>
+                {data.specComment.length>0?<b>Comments</b>:null}
+                <ol>
+                {data.specComment.length>0 && data.specComment.map((val,index)=>{
+                 return(<li>
+                   {val}
+                 </li>)
+                }) }
+                </ol>
               </>
 
             </Col>

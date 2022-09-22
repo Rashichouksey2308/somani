@@ -13,7 +13,6 @@ import AddressComponent from './addressComponent'
 import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper'
 import _get from 'lodash/get'
 
-
 const index = ({
   creditDetail,
   keyAddDataArr,
@@ -33,9 +32,7 @@ const index = ({
   setEditRow,
   orderDetail,
   companyData,
-  suggestedCredit
-  
-  
+  suggestedCredit,
 }) => {
   console.log(personData, 'companyData')
   console.log(creditDetail, 'debtData')
@@ -55,7 +52,7 @@ const index = ({
     availableStock: false,
     dailyConsumptionOfCommodity: false,
     AvgMonthlyElectricityBill: false,
-    commodityOfTotalTrade: false, 
+    commodityOfTotalTrade: false,
   })
   const { updatingCreditCalculate } = useSelector((state) => state.review)
   const [keyNameList, setKeyNameList] = useState([])
@@ -118,24 +115,22 @@ const index = ({
 
   const handleDebtChange = (name, value, index) => {
     let tempArr = [...debtData]
- 
+
     console.log(name, value, index, 'tempArr123')
 
     tempArr.forEach((val, i) => {
       if (i == index) {
         val[name] = value
-      
-      }else{
+      } else {
         if (name == 'primaryBank') {
-           val[name] = false
+          val[name] = false
         }
       }
-    
     })
     console.log(tempArr, 'tempArr')
     setDebtData([...tempArr])
   }
-  console.log(debtData,"debtData8888")
+  console.log(debtData, 'debtData8888')
 
   const onDebtSave = () => {
     addDebtArr(debt)
@@ -159,10 +154,9 @@ const index = ({
     const unique = [
       ...new Set(filtered.map((item) => item.nameOfChargeHolder1)),
     ]
-    console.log(unique,"unique")
+    console.log(unique, 'unique')
     return unique
   }
-
 
   const [keyPersonData, setKeyPersonData] = useState({
     contact: {
@@ -176,7 +170,6 @@ const index = ({
   })
 
   useEffect(() => {
-
     setKeyPersonData(personData)
   }, [personData])
 
@@ -223,95 +216,112 @@ const index = ({
     dispatch(UploadDocument(fd))
   }
 
-  const addressValidtion =(data)=>{
-    console.log(data,"addressValidtion")
-     if (data.addressType === null || data.addressType === "" || data.addressType === undefined) {
+  const addressValidtion = (data) => {
+    console.log(data, 'addressValidtion')
+    if (
+      data.addressType === null ||
+      data.addressType === '' ||
+      data.addressType === undefined
+    ) {
       let toastMessage = 'Please Select addresss Type'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
     }
-     if (data.pinCode === null || data.pinCode === "" || data.pinCode === undefined) {
+    if (
+      data.pinCode === null ||
+      data.pinCode === '' ||
+      data.pinCode === undefined
+    ) {
       let toastMessage = 'Please add pin code'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
     }
-      if (data.state === null || data.state === "" || data.state === undefined) {
+    if (data.state === null || data.state === '' || data.state === undefined) {
       let toastMessage = 'Please add state'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
     }
-      if (data.city === null || data.city === "" || data.city === undefined) {
+    if (data.city === null || data.city === '' || data.city === undefined) {
       let toastMessage = 'Please add city'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return false
     }
-     if (data.email === null || data.email === "" || data.email === undefined) {
+    if (data.email === null || data.email === '' || data.email === undefined) {
       let toastMessage = 'Please add email'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-     
+
       return false
     }
-     if (!String(data.email)
+    if (
+      !String(data.email)
         .toLowerCase()
         .match(
           /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-        )) {
+        )
+    ) {
       let toastMessage = 'Please add valid email id'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-    return false
+      return false
     }
-      if (data.email === null || data.email === "" || data.email === undefined) {
+    if (data.email === null || data.email === '' || data.email === undefined) {
       let toastMessage = 'Please add email'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-     
+
       return false
     }
-      if (data.contact.number === null || data.contact.number === "" || data.contact.number === undefined) {
+    if (
+      data.contact.number === null ||
+      data.contact.number === '' ||
+      data.contact.number === undefined
+    ) {
       let toastMessage = 'Please add number'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-     
+
       return false
     }
-    console.log(data.contact.number.length,"data.contact.number.lengt")
-    if (data.contact.number.length<10) {
+    console.log(data.contact.number.length, 'data.contact.number.lengt')
+    if (data.contact.number.length < 10) {
       let toastMessage = 'Please add valid number'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-     
+
       return false
     }
-      if (data.completeAddress === null || data.completeAddress === "" || data.completeAddress === undefined) {
+    if (
+      data.completeAddress === null ||
+      data.completeAddress === '' ||
+      data.completeAddress === undefined
+    ) {
       let toastMessage = 'Please add address'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-     
+
       return false
     }
     return true
   }
   const handleClick = () => {
-    if(addressValidtion(keyAddressData)){
-        keyAddDataArr(keyAddressData)
+    if (addressValidtion(keyAddressData)) {
+      keyAddDataArr(keyAddressData)
     }
-    
   }
 
   const saveDate = (value, name) => {
@@ -412,19 +422,32 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                  onKeyDown={(evt) =>
+                    ['e', 'E', '+', '-'].includes(evt.key) &&
+                    evt.preventDefault()
+                  }
                   onFocus={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, monthlyCapacity: true }),
-                      e.target.type = 'number'
+                    setIsFieldInFocus({
+                      ...isFieldInFocus,
+                      monthlyCapacity: true,
+                    }),
+                      (e.target.type = 'number')
                   }}
                   onBlur={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, monthlyCapacity: false }),
-                      e.target.type = 'text'
+                    setIsFieldInFocus({
+                      ...isFieldInFocus,
+                      monthlyCapacity: false,
+                    }),
+                      (e.target.type = 'text')
                   }}
                   value={
-                    isFieldInFocus.monthlyCapacity ?
-                    creditDetail?.monthlyProductionCapacity:
-                      checkNan(Number(creditDetail?.monthlyProductionCapacity))?.toLocaleString() + ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`}
+                    isFieldInFocus.monthlyCapacity
+                      ? creditDetail?.monthlyProductionCapacity
+                      : checkNan(
+                          Number(creditDetail?.monthlyProductionCapacity),
+                        )?.toLocaleString() +
+                        ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
+                  }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.monthlyProductionCapacity,
                   //   creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
@@ -445,19 +468,31 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                  onKeyDown={(evt) =>
+                    ['e', 'E', '+', '-'].includes(evt.key) &&
+                    evt.preventDefault()
+                  }
                   onFocus={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, capacityUtilization: true }),
-                      e.target.type = 'number'
+                    setIsFieldInFocus({
+                      ...isFieldInFocus,
+                      capacityUtilization: true,
+                    }),
+                      (e.target.type = 'number')
                   }}
                   onBlur={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, capacityUtilization: false }),
-                      e.target.type = 'text'
+                    setIsFieldInFocus({
+                      ...isFieldInFocus,
+                      capacityUtilization: false,
+                    }),
+                      (e.target.type = 'text')
                   }}
                   value={
-                    isFieldInFocus.capacityUtilization ?
-                      creditDetail?.capacityUtilization :
-                      checkNan(Number(creditDetail?.capacityUtilization))?.toLocaleString() + ' %'}
+                    isFieldInFocus.capacityUtilization
+                      ? creditDetail?.capacityUtilization
+                      : checkNan(
+                          Number(creditDetail?.capacityUtilization),
+                        )?.toLocaleString() + ' %'
+                  }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.capacityUtilization,
                   //   '%',
@@ -477,20 +512,32 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                  onKeyDown={(evt) =>
+                    ['e', 'E', '+', '-'].includes(evt.key) &&
+                    evt.preventDefault()
+                  }
                   onFocus={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, avgStockinCommodity: true }),
-                      e.target.type = 'number'
+                    setIsFieldInFocus({
+                      ...isFieldInFocus,
+                      avgStockinCommodity: true,
+                    }),
+                      (e.target.type = 'number')
                   }}
                   onBlur={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, avgStockinCommodity: false }),
-                      e.target.type = 'text'
+                    setIsFieldInFocus({
+                      ...isFieldInFocus,
+                      avgStockinCommodity: false,
+                    }),
+                      (e.target.type = 'text')
                   }}
                   value={
-                    isFieldInFocus.avgStockinCommodity ?
-                      creditDetail?.averageStockOfCommodity :
-                      checkNan(Number(creditDetail?.averageStockOfCommodity))?.toLocaleString() + ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`}
+                    isFieldInFocus.avgStockinCommodity
+                      ? creditDetail?.averageStockOfCommodity
+                      : checkNan(
+                          Number(creditDetail?.averageStockOfCommodity),
+                        )?.toLocaleString() +
+                        ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
+                  }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.averageStockOfCommodity,
                   //   creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
@@ -511,20 +558,32 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                  onKeyDown={(evt) =>
+                    ['e', 'E', '+', '-'].includes(evt.key) &&
+                    evt.preventDefault()
+                  }
                   onFocus={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, avgStockinTrasit: true }),
-                      e.target.type = 'number'
+                    setIsFieldInFocus({
+                      ...isFieldInFocus,
+                      avgStockinTrasit: true,
+                    }),
+                      (e.target.type = 'number')
                   }}
                   onBlur={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, avgStockinTrasit: false }),
-                      e.target.type = 'text'
+                    setIsFieldInFocus({
+                      ...isFieldInFocus,
+                      avgStockinTrasit: false,
+                    }),
+                      (e.target.type = 'text')
                   }}
                   value={
-                    isFieldInFocus.avgStockinTrasit ?
-                      creditDetail?.averageStockInTransit :
-                      checkNan(Number(creditDetail?.averageStockInTransit))?.toLocaleString() + ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`}
+                    isFieldInFocus.avgStockinTrasit
+                      ? creditDetail?.averageStockInTransit
+                      : checkNan(
+                          Number(creditDetail?.averageStockInTransit),
+                        )?.toLocaleString() +
+                        ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
+                  }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.averageStockInTransit,
                   //   creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
@@ -545,19 +604,32 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                  onKeyDown={(evt) =>
+                    ['e', 'E', '+', '-'].includes(evt.key) &&
+                    evt.preventDefault()
+                  }
                   onFocus={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, availableStock: true }),
-                      e.target.type = 'number'
+                    setIsFieldInFocus({
+                      ...isFieldInFocus,
+                      availableStock: true,
+                    }),
+                      (e.target.type = 'number')
                   }}
                   onBlur={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, availableStock: false }),
-                      e.target.type = 'text'
+                    setIsFieldInFocus({
+                      ...isFieldInFocus,
+                      availableStock: false,
+                    }),
+                      (e.target.type = 'text')
                   }}
                   value={
-                    isFieldInFocus.availableStock ?
-                      creditDetail?.availableStock :
-                      checkNan(Number(creditDetail?.availableStock))?.toLocaleString() + ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`}
+                    isFieldInFocus.availableStock
+                      ? creditDetail?.availableStock
+                      : checkNan(
+                          Number(creditDetail?.availableStock),
+                        )?.toLocaleString() +
+                        ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
+                  }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.availableStock,
                   //   creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
@@ -576,19 +648,32 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                  onKeyDown={(evt) =>
+                    ['e', 'E', '+', '-'].includes(evt.key) &&
+                    evt.preventDefault()
+                  }
                   onFocus={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, dailyConsumptionOfCommodity: true }),
-                      e.target.type = 'number'
+                    setIsFieldInFocus({
+                      ...isFieldInFocus,
+                      dailyConsumptionOfCommodity: true,
+                    }),
+                      (e.target.type = 'number')
                   }}
                   onBlur={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, dailyConsumptionOfCommodity: false }),
-                      e.target.type = 'text'
+                    setIsFieldInFocus({
+                      ...isFieldInFocus,
+                      dailyConsumptionOfCommodity: false,
+                    }),
+                      (e.target.type = 'text')
                   }}
                   value={
-                    isFieldInFocus.dailyConsumptionOfCommodity ?
-                      creditDetail?.dailyConsumptionOfCommodity :
-                      checkNan(Number(creditDetail?.dailyConsumptionOfCommodity))?.toLocaleString() + ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`}
+                    isFieldInFocus.dailyConsumptionOfCommodity
+                      ? creditDetail?.dailyConsumptionOfCommodity
+                      : checkNan(
+                          Number(creditDetail?.dailyConsumptionOfCommodity),
+                        )?.toLocaleString() +
+                        ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
+                  }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.dailyConsumptionOfCommodity,
                   //   creditDetail?.unitOfQuantity?.toUpperCase() || 'MT',
@@ -607,9 +692,7 @@ const index = ({
                 <div className="d-flex">
                   <DateCalender
                     name="stockCoverageOfCommodity"
-                    defaultDate={
-                      creditDetail?.stockCoverageOfCommodity ?? ''
-                    }
+                    defaultDate={creditDetail?.stockCoverageOfCommodity ?? ''}
                     saveDate={saveDate}
                     labelName="Stock Coverage of Commodity"
                   />
@@ -647,9 +730,7 @@ const index = ({
                       saveProductData(e.target.name, e.target.value)
                     }}
                   >
-                    <option
-                      disabled selected
-                    >
+                    <option disabled selected>
                       Select
                     </option>
                     <option value="Import">Import</option>
@@ -676,8 +757,8 @@ const index = ({
                     defaultValue={
                       creditDetail
                         ? creditDetail?.existingSuppliers?.map((e) => {
-                          return `${e}`
-                        })
+                            return `${e}`
+                          })
                         : ''
                     }
                     onBlur={(e) => {
@@ -705,11 +786,8 @@ const index = ({
                     onChange={(e) => {
                       saveProductData(e.target.name, e.target.value)
                     }}
-
                   >
-                    <option
-                      disabled value=''
-                    >
+                    <option disabled value="">
                       Select
                     </option>
                     <option value="Very High">Very High</option>
@@ -720,7 +798,6 @@ const index = ({
                   <label className={`${styles.label_heading} label_heading`}>
                     Commodity Contribution Senstivity
                     <strong className="text-danger">*</strong>
-
                   </label>
 
                   <img
@@ -728,7 +805,6 @@ const index = ({
                     src="/static/inputDropDown.svg"
                     alt="Search"
                   />
-
                 </div>
                 <div className={`${styles.tooltip} `}>
                   <img
@@ -737,8 +813,9 @@ const index = ({
                     src="/static/info-circle.svg"
                   />
 
-                  <div className={`${styles.tooltiptext}`}>Usage of commodity in production of end product</div>
-
+                  <div className={`${styles.tooltiptext}`}>
+                    Usage of commodity in production of end product
+                  </div>
                 </div>
               </div>
 
@@ -747,19 +824,32 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="text"
-                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                  onKeyDown={(evt) =>
+                    ['e', 'E', '+', '-'].includes(evt.key) &&
+                    evt.preventDefault()
+                  }
                   onFocus={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, AvgMonthlyElectricityBill: true }),
-                      e.target.type = 'number'
+                    setIsFieldInFocus({
+                      ...isFieldInFocus,
+                      AvgMonthlyElectricityBill: true,
+                    }),
+                      (e.target.type = 'number')
                   }}
                   onBlur={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, AvgMonthlyElectricityBill: false }),
-                      e.target.type = 'text'
+                    setIsFieldInFocus({
+                      ...isFieldInFocus,
+                      AvgMonthlyElectricityBill: false,
+                    }),
+                      (e.target.type = 'text')
                   }}
                   value={
-                    isFieldInFocus.AvgMonthlyElectricityBill ?
-                      creditDetail?.AvgMonthlyElectricityBill :
-                      'INR ' + checkNan(Number(creditDetail?.AvgMonthlyElectricityBill))?.toLocaleString()}
+                    isFieldInFocus.AvgMonthlyElectricityBill
+                      ? creditDetail?.AvgMonthlyElectricityBill
+                      : 'INR ' +
+                        checkNan(
+                          Number(creditDetail?.AvgMonthlyElectricityBill),
+                        )?.toLocaleString()
+                  }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.AvgMonthlyElectricityBill,
                   //   'INR',
@@ -872,7 +962,10 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
-                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                  onKeyDown={(evt) =>
+                    ['e', 'E', '+', '-'].includes(evt.key) &&
+                    evt.preventDefault()
+                  }
                   value={supplierCred?.shipmentNumber}
                   name="shipmentNumber"
                   onChange={(e) => {
@@ -891,7 +984,10 @@ const index = ({
                   type="number"
                   value={supplierCred?.consigneesNumber}
                   name="consigneesNumber"
-                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                  onKeyDown={(evt) =>
+                    ['e', 'E', '+', '-'].includes(evt.key) &&
+                    evt.preventDefault()
+                  }
                   onChange={(e) => {
                     saveSupplierData(e.target.name, e.target.value)
                   }}
@@ -906,7 +1002,10 @@ const index = ({
                   className={`${styles.input_field} input form-control`}
                   required
                   type="number"
-                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                  onKeyDown={(evt) =>
+                    ['e', 'E', '+', '-'].includes(evt.key) &&
+                    evt.preventDefault()
+                  }
                   value={supplierCred?.HSCodesNumber}
                   name="HSCodesNumber"
                   onChange={(e) => {
@@ -957,11 +1056,10 @@ const index = ({
                 <div className="d-flex">
                   <DateCalender
                     name="oldestShipmentDate"
-                    defaultDate={
-                      supplierCred?.oldestShipmentDate ?? ''
-                    }
+                    defaultDate={supplierCred?.oldestShipmentDate ?? ''}
                     saveDate={saveSupplierDate}
                     labelName="Oldest Shipment Date"
+                    startFrom={"noLimit"}
                   />
                   <img
                     className={`${styles.calanderIcon} image_arrow img-fluid`}
@@ -995,9 +1093,7 @@ const index = ({
                 <div className="d-flex">
                   <DateCalender
                     name="latestShipmentDate"
-                    defaultDate={
-                      supplierCred?.latestShipmentDate ?? ''
-                    }
+                    defaultDate={supplierCred?.latestShipmentDate ?? ''}
                     saveDate={saveSupplierDate}
                     labelName="Latest Shipment Date"
                   />
@@ -1027,19 +1123,31 @@ const index = ({
                   className={`${styles.input_field} ${styles.percent} input form-control`}
                   required
                   type="text"
-                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                  onKeyDown={(evt) =>
+                    ['e', 'E', '+', '-'].includes(evt.key) &&
+                    evt.preventDefault()
+                  }
                   onFocus={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, commodityOfTotalTrade: true }),
-                      e.target.type = 'number'
+                    setIsFieldInFocus({
+                      ...isFieldInFocus,
+                      commodityOfTotalTrade: true,
+                    }),
+                      (e.target.type = 'number')
                   }}
                   onBlur={(e) => {
-                    setIsFieldInFocus({ ...isFieldInFocus, commodityOfTotalTrade: false }),
-                      e.target.type = 'text'
+                    setIsFieldInFocus({
+                      ...isFieldInFocus,
+                      commodityOfTotalTrade: false,
+                    }),
+                      (e.target.type = 'text')
                   }}
                   value={
-                    isFieldInFocus.commodityOfTotalTrade ?
-                      supplierCred?.commodityOfTotalTrade :
-                      Number(supplierCred?.commodityOfTotalTrade)?.toLocaleString() + ' %'}
+                    isFieldInFocus.commodityOfTotalTrade
+                      ? supplierCred?.commodityOfTotalTrade
+                      : Number(
+                          supplierCred?.commodityOfTotalTrade,
+                        )?.toLocaleString() + ' %'
+                  }
                   // value={addPrefixOrSuffix(
                   //   supplierCred?.commodityOfTotalTrade,
                   //   '%',
@@ -1053,7 +1161,6 @@ const index = ({
                 <label className={`${styles.label_heading} label_heading`}>
                   Commodity to Total Trade % -24M
                   <strong className="text-danger">*</strong>
-
                 </label>
                 <div className={`${styles.tooltip} `}>
                   <img
@@ -1062,10 +1169,10 @@ const index = ({
                     src="/static/info-circle.svg"
                   />
 
-                  <div className={`${styles.tooltiptext}`}>Usage of commodity in production of end product</div>
-
+                  <div className={`${styles.tooltiptext}`}>
+                    Usage of commodity in production of end product
+                  </div>
                 </div>
-
               </div>
               <div className={`${styles.form_group} col-12 mt-4`}>
                 <textarea
@@ -1223,7 +1330,9 @@ const index = ({
                             className="input"
                             defaultValue={person.contact.number}
                             name="contact.number"
-                            onChange={(e) => { handlePersonChange(e, index) }}
+                            onChange={(e) => {
+                              handlePersonChange(e, index)
+                            }}
                             onBlur={(e) => {
                               if (phoneValidation(e.target.value)) {
                                 handlePersonChange(e, index)
@@ -1352,7 +1461,7 @@ const index = ({
                     }}
                     style={{ marginRight: '-15px' }}
                     src="/static/accordion_close_black.svg"
-                    className='image_arrow'
+                    className="image_arrow"
                   />
                 </div>
                 <div
@@ -1400,9 +1509,11 @@ const index = ({
                             handleChange(e.target.name, e.target.value)
                           }}
                         >
-                          <option >Select an option</option>
+                          <option>Select an option</option>
                           <option value="Factory">Factory</option>
-                          <option value="Registered Address">Registered Address</option>
+                          <option value="Registered Address">
+                            Registered Address
+                          </option>
                           <option value="Warehouse">Warehouse</option>
                           <option value="Corporate Office">
                             Corporate Office
@@ -1521,8 +1632,8 @@ const index = ({
                           type="tel"
                           name="contact.number"
                           onChange={(e) => {
-                          mobileFunction(e)
-                        }}
+                            mobileFunction(e)
+                          }}
                           // onBlur={(e) => {
                           //   if (phoneValidation(e.target.value)) {
                           //     mobileFunction(e)
@@ -2066,18 +2177,20 @@ const index = ({
                                 index,
                               )
                             }
-                              // value={profile?.bankName}
-                              name="bankName"
-                              className={`${styles.dropDown} heading input`}
-                              disabled={!profile.actions}
-                              value={profile.bankName}
-                            >
-                              <option disabled selected>Select an option</option>
-                              {FilterUniqueBank().map((item) => (
-                                <option value={item}>{item}</option>
-                              ))}
-                            </select>
-                            {/* <input
+                            // value={profile?.bankName}
+                            name="bankName"
+                            className={`${styles.dropDown} heading input`}
+                            disabled={!profile.actions}
+                            value={profile.bankName}
+                          >
+                            <option disabled selected>
+                              Select an option
+                            </option>
+                            {FilterUniqueBank().map((item) => (
+                              <option value={item}>{item}</option>
+                            ))}
+                          </select>
+                          {/* <input
                             name="bankName"
                             className="input"
                             disabled={!profile.actions}
@@ -2134,8 +2247,8 @@ const index = ({
                                 index,
                               )
                             }
-                          // value={profile?.limit}
-                          // readOnly={!saveTable}
+                            // value={profile?.limit}
+                            // readOnly={!saveTable}
                           />
                         </td>
 

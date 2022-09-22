@@ -31,7 +31,7 @@ const IndexPage = () => {
     exposureSummary,
     totalOrigin,
   } = useSelector((state) => state.analytics)
-  console.log(originSummary, totalOrigin, 'leadSummary')
+  console.log(exposureSummary, 'leadSummary')
   useEffect(() => {
     dispatch(setPageName('dashboard'))
   })

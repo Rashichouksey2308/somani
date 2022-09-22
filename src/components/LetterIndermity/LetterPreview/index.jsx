@@ -67,7 +67,7 @@ function Index() {
                         <span style={{fontWeight:'normal'}}>Bill(s) of Lading:</span>
                         {_get(transitDetails,"data[0].LOI.billOfLanding",[]).map((val,index)=>{
                                  return(
-                                  <span> {val.blnumber} Dated 18TH MARCH 2021, {_get(
+                                  <span> {val.blnumber} Dated {val.date}, {_get(
                               transitDetails,
                               'data[0].order.portOfDischarge',
                               '',
@@ -200,7 +200,7 @@ autoPaging: "text",
              <li>     <div
               className={`ml-3 d-flex justify-content-start align-items-center ${styles.salutationFeatures} `}
             >
-              {val.blnumber}{" "} Dated 18TH MARCH 2021, ISSUE AT  {_get(
+              {val.blnumber}{" "} Dated {val.date}, ISSUE AT  {_get(
                   transitDetails,
                   'data[0].order.portOfDischarge',
                   '',
