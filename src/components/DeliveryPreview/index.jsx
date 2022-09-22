@@ -11,6 +11,7 @@ function Index() {
   const handlePopup = () => {
     setShow(true)
   }
+  const DeliveryNo = sessionStorage.getItem('dono')
   return (
     <>
       <div className={`${styles.root} card container-fluid`}>
@@ -38,7 +39,7 @@ function Index() {
             <div className={`${styles.date} `}>
               <p>
                 DO.NO:{' '}
-                <span className={`${styles.bold}`}>RamaI001-000001/01</span>
+                <span className={`${styles.bold}`}>{DeliveryNo}</span>
               </p>
               <p>
                 DATE: <span className={`${styles.bold}`}>01.07.2021</span>
