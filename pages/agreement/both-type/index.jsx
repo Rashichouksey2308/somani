@@ -42,7 +42,7 @@ function Index() {
   dispatch(setPageName('insurance Request Letter'))
   dispatch(setDynamicName(_get(insuranceData, 'company.companyName', 'Company Name')))
   dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')))
-  
+
   const exportPDF = () => {
     const doc = new jsPDF('p', 'pt', [1500, 1830])
     doc.html(
@@ -100,7 +100,7 @@ function Index() {
                               fontWeight: 'normal',
                               padding: '0 35px 7px',
                               marginBottom: '0',
-                              float:'left'
+                              float: 'left'
                             }}
                           >
                             <span
@@ -127,7 +127,7 @@ function Index() {
                               fontWeight: 'normal',
                               padding: '0 35px 7px',
                               marginBottom: '0',
-                              float:'left'
+                              float: 'left'
                             }}
                           >
                             <span
@@ -141,8 +141,8 @@ function Index() {
                               Date:{' '}
                             </span>
                             {moment(new Date()).format(
-                    'DD.MM.yyyy',
-                  )}
+                              'DD.MM.yyyy',
+                            )}
                           </p>
                         </td>
                       </tr>
@@ -168,7 +168,7 @@ function Index() {
                             >
                               Type of Insurance:{' '}
                             </span>
-                           {insuranceData?.quotationRequest?.insuranceType}
+                            {insuranceData?.quotationRequest?.insuranceType}
                           </p>
                         </td>
                       </tr>
@@ -233,11 +233,11 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                             {_get(
-                      insuranceData,
-                      'order.vessel.vessels[0].vesselInformation[0].name',
-                      '',
-                    )}
+                            {_get(
+                              insuranceData,
+                              'order.vessel.vessels[0].vesselInformation[0].name',
+                              '',
+                            )}
                           </p>
                         </td>
                       </tr>
@@ -279,10 +279,10 @@ function Index() {
                             }}
                           >
                             {_get(
-                      insuranceData,
-                      'order.vessel.vessels[0].vesselInformation[0].IMONumber',
-                      '',
-                    )}
+                              insuranceData,
+                              'order.vessel.vessels[0].vesselInformation[0].IMONumber',
+                              '',
+                            )}
                           </p>
                         </td>
                       </tr>
@@ -324,10 +324,10 @@ function Index() {
                             }}
                           >
                             {_get(
-                      insuranceData,
-                      'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt',
-                      '',
-                    )?.slice(0, 4)}
+                              insuranceData,
+                              'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt',
+                              '',
+                            )?.slice(0, 4)}
                           </p>
                         </td>
                       </tr>
@@ -368,8 +368,8 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                             INR { Number(convertValue(insuranceData?.quotationRequest?.sumInsured))?.toLocaleString()} Crores
-                    (Including 110%)
+                            INR {Number(convertValue(insuranceData?.quotationRequest?.sumInsured))?.toLocaleString()} Crores
+                            (Including 110%)
                           </p>
                         </td>
                       </tr>
@@ -451,11 +451,11 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                         {_get(
-                      insuranceData,
-                      'order.vessel.vessels[0].transitDetails.countryOfOrigin',
-                      '',
-                    )}
+                            {_get(
+                              insuranceData,
+                              'order.vessel.vessels[0].transitDetails.countryOfOrigin',
+                              '',
+                            )}
                           </p>
                         </td>
                       </tr>
@@ -496,7 +496,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                             BL Weight {insuranceData?.order?.quantity} MTs. (+/-00%)
+                            BL Weight {insuranceData?.order?.quantity} MTs. (+/-00%)
                           </p>
                         </td>
                       </tr>
@@ -537,11 +537,11 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                           {_get(
-                      insuranceData,
-                      'order.vessel.vessels[0].transitDetails.portOfLoading',
-                      '',
-                    )}
+                            {_get(
+                              insuranceData,
+                              'order.vessel.vessels[0].transitDetails.portOfLoading',
+                              '',
+                            )}
                           </p>
                         </td>
                       </tr>
@@ -583,10 +583,10 @@ function Index() {
                             }}
                           >
                             {_get(
-                      insuranceData,
-                      'order.vessel.vessels[0].transitDetails.portOfDischarge',
-                      '',
-                    )}
+                              insuranceData,
+                              'order.vessel.vessels[0].transitDetails.portOfDischarge',
+                              '',
+                            )}
                           </p>
                         </td>
                       </tr>
@@ -627,10 +627,10 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                                                {
-                      insuranceData?.quotationRequest?.storageDetails
-                        ?.placeOfStorage
-                    }
+                            {
+                              insuranceData?.quotationRequest?.storageDetails
+                                ?.placeOfStorage
+                            }
                           </p>
                         </td>
                       </tr>
@@ -671,10 +671,10 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                             {
-                      insuranceData?.quotationRequest?.storageDetails
-                        ?.storagePlotAddress
-                    }
+                            {
+                              insuranceData?.quotationRequest?.storageDetails
+                                ?.storagePlotAddress
+                            }
                           </p>
                         </td>
                       </tr>
@@ -716,10 +716,10 @@ function Index() {
                             }}
                           >
                             {
-                      insuranceData?.quotationRequest?.storageDetails
-                        ?.periodOfInsurance
-                    }{' '}
-                    Days
+                              insuranceData?.quotationRequest?.storageDetails
+                                ?.periodOfInsurance
+                            }{' '}
+                            Days
                           </p>
                         </td>
                       </tr>
@@ -761,10 +761,10 @@ function Index() {
                             }}
                           >
                             {moment(
-                      insuranceData?.quotationRequest?.laycanFrom).format('DD MMM')}{' '}
-                    -{' '}
-                    {moment(
-                      insuranceData?.quotationRequest?.laycanTo).format('DD MMM, YYYY')}
+                              insuranceData?.quotationRequest?.laycanFrom).format('DD MMM')}{' '}
+                            -{' '}
+                            {moment(
+                              insuranceData?.quotationRequest?.laycanTo).format('DD MMM, YYYY')}
                           </p>
                         </td>
                       </tr>
@@ -887,7 +887,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                             All Risks Including ICC-A, War, SRCC, Theft Burglary, Act of God, Pilferage, Fire etc.
+                            All Risks Including ICC-A, War, SRCC, Theft Burglary, Act of God, Pilferage, Fire etc.
                           </p>
                         </td>
                       </tr>
@@ -928,7 +928,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                             {insuranceData?.company?.companyName}
+                            {insuranceData?.company?.companyName}
                           </p>
                         </td>
                       </tr>
@@ -1069,7 +1069,7 @@ function Index() {
           className={`${styles.card} tabHeader border-0 shadow-none bg-transparent card2`}
         >
           <div
-          
+
             className={`${styles.head_header} ml-5 align-items-center`}>
             <img
               onClick={() => Router.push('/insurance/form')}
@@ -1181,7 +1181,7 @@ function Index() {
                     Sum Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    INR { Number(convertValue(insuranceData?.quotationRequest?.sumInsured))?.toLocaleString()} Crores
+                    INR {Number(convertValue(insuranceData?.quotationRequest?.sumInsured))?.toLocaleString()} Crores
                     (Including 110%)
                   </Col>
                 </Row>
@@ -1377,7 +1377,7 @@ function Index() {
                     Name of Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {insuranceData?.company?.companyName}
+                    {insuranceData?.company?.companyName} , <br></br> {insuranceData?.company?.detailedCompanyInfo?.profile?.companyDetail?.registeredAddress}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -1514,7 +1514,7 @@ function Index() {
                   role="tablist"
                 >
                   <li className={`${styles.nav_item} nav-item`}>
-                  <a
+                    <a
                       className={`${styles.nav_link} nav-link active`}
                       id="insurance-company"
                       data-toggle="tab"
@@ -1533,7 +1533,7 @@ function Index() {
                     </a>
                   </li>
                   <li className={`${styles.nav_item} nav-item`}>
-                  <a
+                    <a
                       className={`${styles.nav_link} nav-link`}
                       id="email-address"
                       data-toggle="tab"

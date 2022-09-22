@@ -6,7 +6,7 @@ const Index = () => {
 const dispatch = useDispatch()
 useEffect(() => {
 if(window){
-    sessionStorage.setItem('loadedPage',"Agreement & Lc Module")
+    sessionStorage.setItem('loadedPage',"Agreement & LC Module")
     sessionStorage.setItem('loadedSubPage',`LC Module`)
     sessionStorage.setItem('openList',2)
     }
