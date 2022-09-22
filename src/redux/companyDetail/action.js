@@ -107,19 +107,22 @@ export const GetCompanyDetails = (payload) => (dispatch, getState, api) => {
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
 
   try {
-    Axios.post(`${API.corebaseUrl}${API.getCompanyDetails}`, payload, {
-      headers: headers,
-    }).then((response) => {
-      if (response.data.code === 200) {
-        dispatch(getComanyDetailsSuccess(response.data.data))
-      } else {
-        dispatch(getComanyDetailsFailed(response.data.data))
-        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+    let response = Axios.post(
+      `${API.corebaseUrl}${API.getCompanyDetails}`,
+      payload,
+      {
+        headers: headers,
+      },
+    )
+    if (response.data.code === 200) {
+      dispatch(getComanyDetailsSuccess(response.data.data))
+    } else {
+      dispatch(getComanyDetailsFailed(response.data.data))
+      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-    })
+    }
   } catch (error) {
     dispatch(getComanyDetailsFailed())
 
