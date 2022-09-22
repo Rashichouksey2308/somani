@@ -793,7 +793,7 @@ const Index = ({
                         value={
                           isFieldInFocus.suggestedCreditLimit ?
                             suggestedCredit?.suggestedCreditLimit :
-                            Number(suggestedCredit?.suggestedCreditLimit)?.toLocaleString() + ` CR`}
+                            Number(suggestedCredit?.suggestedCreditLimit??"")?.toLocaleString() + ` CR`}
                         // value={addPrefixOrSuffix( 
                         //   suggestedCredit?.suggestedCreditLimit,
                         //   '',
@@ -838,7 +838,7 @@ const Index = ({
                         value={
                           isFieldInFocus.suggestedOrderValue ?
                             suggestedCredit?.suggestedOrderValue :
-                            Number(suggestedCredit?.suggestedOrderValue)?.toLocaleString() + ` CR`}
+                            Number(suggestedCredit?.suggestedOrderValue??"")?.toLocaleString() + ` CR`}
                         // value={(
                         //   addPrefixOrSuffix(
                         //     suggestedCredit?.suggestedOrderValue,
