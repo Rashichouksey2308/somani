@@ -1,6 +1,6 @@
 export const panValidation = (e) => {
-  let panValue = e.toUpperCase()
-  let regpan = /^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/
+  var panValue = e.toUpperCase()
+  var regpan = /^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/
 
   if (regpan.test(panValue)) {
     return true
@@ -20,7 +20,7 @@ export const emailValidation = (email) => {
 }
 
 export const phoneValidation = (phone) => {
-  let regex = /^\d{10}$/
+  var regex = /^\d{10}$/
   if (phone.match(regex)) {
     return true
   } else {
@@ -58,7 +58,7 @@ export const convertValue = (value, coversionRate = 10000000, toFixed = 2) => {
   }
 }
 export const predictiveSearch = (text) => {
-  let regex = /[a-zA-Z0-9]{4}/
+  var regex = /[a-zA-Z0-9]{4}/
   return regex.test(text)
 }
 
@@ -238,8 +238,7 @@ export const checkNan = (unitOfValue, type = false, number = 2) => {
     return ''
   } else {
     if (!type) {
-      // return Number(Number(unitOfValue))?.toLocaleString('en-IN', {
-
+      // return Number(unitOfValue)?.toFixed(number)?.toLocaleString('en-IN')
       return Number(unitOfValue)?.toLocaleString('en-IN', {
         maximumFractionDigits: 2,
       })

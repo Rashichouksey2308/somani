@@ -183,7 +183,7 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
     Axios.post(`${API.corebaseUrl}${API.registerCompany}`, payload, {
       headers: headers,
@@ -224,7 +224,7 @@ export const UpdateBuyer = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
     Axios.post(`${API.corebaseUrl}${API.updateBuyer}`, payload, {
       headers: headers,
@@ -264,7 +264,7 @@ export const GetBuyer = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
     // console.log("in getbuyer")
     Axios.get(
@@ -292,7 +292,7 @@ export const GetAllBuyer = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
     Axios.get(`${API.corebaseUrl}${API.getBuyers}${payload ? payload : ''}`, {
       headers: headers,
@@ -349,7 +349,7 @@ export const GetOrders = (payload) => async (dispatch, getState, api) => {
     const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-    let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
+    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
     Axios.get(`${API.corebaseUrl}${API.getBuyers}${payload ? payload : ''}`, {
       headers: headers,
     }).then((response) => {
@@ -397,11 +397,11 @@ export const GetGst = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
     // console.log(payload,"in getbuyer")
     Axios.post(
-      `${API.userbaseUrl}${API.getGst}`,
+      `${API.baseUrl}${API.getGst}`,
       { pan: payload },
       { headers: headers },
     ).then((response) => {
@@ -427,7 +427,7 @@ export const UploadDocument = (payload) => async (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
     Axios.post(`${API.corebaseUrl}${API.uploadDocuments}`, payload, {
       headers: headers,

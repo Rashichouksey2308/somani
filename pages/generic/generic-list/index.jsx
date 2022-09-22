@@ -198,9 +198,9 @@ const getDate = async () =>{
 //    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 //   console.log("inside fetch2222");
 //   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-//   let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
+//   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
 
-//   let result = await fetch(`${API.corebaseUrl}/api/core/generic`, {
+//   var result = await fetch(`${API.corebaseUrl}/api/core/generic`, {
 //       method: "GET",
 //       headers: headers,
 //       // body: urlencoded,

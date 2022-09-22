@@ -31,7 +31,7 @@ export const ViewDocument = (payload) => async (dispatch, getState, api) => {
   )
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
     Axios.post(`${API.corebaseUrl}${API.viewDoc}`, payload, {
       headers: headers,
