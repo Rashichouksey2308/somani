@@ -34,7 +34,7 @@ const index = ({
   companyData,
   suggestedCredit,
 }) => {
-  console.log(personData, 'companyData')
+  console.log(creditDetail?.existingProcurementOfCommodity, 'companyData')
   console.log(creditDetail, 'debtData')
   const dispatch = useDispatch()
 
@@ -744,8 +744,8 @@ const index = ({
                       saveProductData(e.target.name, e.target.value)
                     }}
                   >
-                    <option disabled selected>
-                      Select
+                    <option  selected>
+                      Select an option
                     </option>
                     <option value="Import">Import</option>
                     <option value="Manufacturers">Manufacturers</option>

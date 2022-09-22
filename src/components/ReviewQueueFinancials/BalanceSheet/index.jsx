@@ -361,7 +361,10 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                           )
                         } */}
                         {convertValue((lastYearData?.equityLiabilities?.tradePay +
-                          lastYearData?.equityLiabilities?.tradePayablesNoncurrent), unit)}
+                          lastYearData?.equityLiabilities?.tradePayablesNoncurrent), unit)?.toLocaleString(undefined, {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2
+                            })}
 
                       </td>
                       <td className="text-center">
