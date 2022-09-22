@@ -140,7 +140,7 @@ export const GetCreditLimit = (payload) => (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
 
   try {
     Axios.get(
@@ -175,7 +175,7 @@ export const UpdateCompanyDetails = (payload) => (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
 
   try {
     Axios.post(`${API.corebaseUrl}${API.updateCompanyDetails}`, payload, {
@@ -210,7 +210,7 @@ export const RefetchCombineKarza = (payload) => (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
 
   try {
     Axios.post(`${API.corebaseUrl}${API.refetchCombineKarza}`, payload, {
@@ -245,7 +245,7 @@ export const GetCaseDetails = (payload) => (dispatch, getState, api) => {
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  let headers = { authorization: jwtAccessToken, Cache: 'no-cache', 'Access-Control-Allow-Origin': '*' }
+  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
 
   try {
     Axios.post(`${API.corebaseUrl}${API.getCaseDetails}`, payload, {

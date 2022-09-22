@@ -341,7 +341,7 @@ function Index({
   function createGradient(ctx, area, color, color2) {
     console.log('cts', color2, color)
 
-    let gradient = ctx.createLinearGradient(0, 0, 0, 300)
+    var gradient = ctx.createLinearGradient(0, 0, 0, 300)
     gradient.addColorStop(0, color2)
     gradient.addColorStop(1, color)
 
@@ -2750,10 +2750,8 @@ const financeDetails = (
                   </tr>
                   <tr>
                     <td>Inventory Period</td>
-                    <td>{latestYearData?.daysOfInventoryOutstanding?.toFixed(2)
-                        ?.toLocaleString()}</td>
-                    <td>{previousYearData?.daysOfInventoryOutstanding?.toFixed(2)
-                        ?.toLocaleString()}</td>
+                    <td>{latestYearData?.daysOfInventoryOutstanding}</td>
+                    <td>{previousYearData?.daysOfInventoryOutstanding}</td>
                   </tr>
                   <tr>
                     <th

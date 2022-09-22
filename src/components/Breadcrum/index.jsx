@@ -98,7 +98,7 @@ export default function Index({ isQuery }) {
 
   const [myUrl, setUrl] = useState([])
   const [myUrlLength, setUrlLength] = useState([])
-  let url = []
+  var url = []
   const router = useRouter()
   const pageName = useSelector((state) => state?.user.pageName)
   const { pageTabName } = useSelector((state) => state?.user)

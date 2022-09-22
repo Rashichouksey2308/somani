@@ -757,7 +757,7 @@ const Index = ({
                     </td>
                     <td>-</td>
 
-                    {filteredCreditRating && filteredCreditRating!=0 ? (
+                    {filteredCreditRating ? (
                       <>
                         {' '}
                         {filteredCreditRating &&
