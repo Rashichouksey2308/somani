@@ -56,7 +56,7 @@ function Index() {
   }
 useEffect(() => {
 if(window){
-    sessionStorage.setItem('loadedPage',"Agreement & Lc Module")
+    sessionStorage.setItem('loadedPage',"Agreement & LC Module")
     sessionStorage.setItem('loadedSubPage',`Insurance`)
     sessionStorage.setItem('openList',2)
     }

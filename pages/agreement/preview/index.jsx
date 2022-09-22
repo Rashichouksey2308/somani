@@ -39,6 +39,7 @@ function index() {
      
         
         const data = JSON.parse(sessionStorage.getItem("genericSelected"))
+        const data2 = JSON.parse(sessionStorage.getItem("preview"))
         console.log(data,"data22222")
         let exe;
         let dat = "";
@@ -58,8 +59,8 @@ function index() {
           buyer: data?.buyer?.name,
           shortseller: data?.seller.shortName,
           shortbuyer:  `${data?.buyer?.name=="Indo German International Private Limited"?"IGPL":"EISL"}`,
-          sellerSignature: "",
-          buyerSignature: "",
+          sellerSignature: data2.sellerSignature,
+          buyerSignature:  data2.buyerSignature,
           dateOfExecution: dat,
           placeOfExecution: exe,
           details: data?.supplier?.name,
@@ -90,7 +91,7 @@ function index() {
     const doc = new jsPDF('p', 'pt', [800, 1200])
     doc.html(ReactDOMServer.renderToString(toPdf(data)), {
       callback: function (doc) {
-        doc.save('sample.pdf')
+        doc.save('Sales Agreements.pdf')
       },
       // margin:margins,
       autoPaging: "text",
@@ -383,7 +384,7 @@ const toPdf=(data)=>{
               </tr>              
               <tr>
                 <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Total Order Value</td>
-                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>{data.totalOrderValue} {data.unitOfValue}</td>
+                <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>{"USD"} {data.totalOrderValue} </td>
               </tr>              
               <tr>
                 <td style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Load Port</td>
@@ -467,10 +468,10 @@ const toPdf=(data)=>{
               </tr>
               <tr>
                 <td style={{paddingRight:'15px'}}>
-                  <textarea style={{width:'100%', outline:'none'}} rows={4}></textarea>
+                  <textarea value={data.sellerSignature} style={{width:'100%', outline:'none'}} rows={4}></textarea>
                 </td>
                 <td style={{paddingLeft:'15px'}}>
-                  <textarea style={{width:'100%', outline:'none'}} rows={4}></textarea>
+                  <textarea value={data.buyerSignature} style={{width:'100%', outline:'none'}} rows={4}></textarea>
                 </td>
               </tr>
             </table>

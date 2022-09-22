@@ -321,20 +321,22 @@ export const GetAllOrders = (payload) => async (dispatch, getState, api) => {
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
-    Axios.get(`${API.corebaseUrl}${API.orderDetail}?order=${payload.orderId}`, {
-      headers: headers,
-    }).then((response) => {
-      if (response.data.code === 200) {
-        dispatch(getAllOrderSuccess(response.data.data))
-        // toast.error("Buyers fetched")
-      } else {
-        dispatch(getAllOrderFailed(response.data.data))
-        let toastMessage = 'Getting orders failed'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+    let response = await Axios.get(
+      `${API.corebaseUrl}${API.orderDetail}?order=${payload.orderId}`,
+      {
+        headers: headers,
+      },
+    )
+    if (response.data.code === 200) {
+      dispatch(getAllOrderSuccess(response.data.data))
+      // toast.error("Buyers fetched")
+    } else {
+      dispatch(getAllOrderFailed(response.data.data))
+      let toastMessage = 'Getting orders failed'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-    })
+    }
   } catch (error) {
     dispatch(getAllOrderFailed())
     console.log(error, 'GET ALL ORDER API FAILED')

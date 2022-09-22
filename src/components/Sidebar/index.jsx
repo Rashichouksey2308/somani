@@ -44,7 +44,7 @@ function Index() {
       route: '/leads',
     },
     {
-      main: 'Agreement & Lc Module',
+      main: 'Agreement & LC Module',
       Other: [
         {
           name: 'Generic',
