@@ -760,8 +760,7 @@ const Index = ({
                     {filteredCreditRating ? (
                       <>
                         {' '}
-                        {filteredCreditRating &&
-                          filteredCreditRating.length > 0 &&
+                        {filteredCreditRating && filteredCreditRating!=0  &&
                           filteredCreditRating.map((val, index) => (
                             <td key={index}>
                               {(val.derived.value ?? '')?.toLocaleString(
@@ -793,7 +792,7 @@ const Index = ({
                         value={
                           isFieldInFocus.suggestedCreditLimit ?
                             suggestedCredit?.suggestedCreditLimit :
-                            Number(suggestedCredit?.suggestedCreditLimit)?.toLocaleString() + ` CR`}
+                            Number(suggestedCredit?.suggestedCreditLimit??"")?.toLocaleString() + ` CR`}
                         // value={addPrefixOrSuffix( 
                         //   suggestedCredit?.suggestedCreditLimit,
                         //   '',
@@ -838,7 +837,7 @@ const Index = ({
                         value={
                           isFieldInFocus.suggestedOrderValue ?
                             suggestedCredit?.suggestedOrderValue :
-                            Number(suggestedCredit?.suggestedOrderValue)?.toLocaleString() + ` CR`}
+                            Number(suggestedCredit?.suggestedOrderValue??"")?.toLocaleString() + ` CR`}
                         // value={(
                         //   addPrefixOrSuffix(
                         //     suggestedCredit?.suggestedOrderValue,
