@@ -120,15 +120,12 @@ const Index = ({
             <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
             <select
               className={`${styles.options} accordion_DropDown`}
-              value={
-                conversionRateUnit
-              }
+              value={conversionRateUnit}
               onChange={(e) => setConversionRateUnit(e.target.value)}
             >
-              <option value={10000000} > {'Crores'}</option>
+              <option value={10000000}> {'Crores'}</option>
               <option value={1000000}> {'Million'}</option>
               <option value={100000}> {'Lakh'}</option>
-
             </select>
             <span
               data-toggle="collapse"
@@ -476,7 +473,11 @@ const Index = ({
                         'INR',
                         'front',
                       )} */}
-                      ₹ {convertValue(finalCal.orderValueInINR, conversionRateUnit).toLocaleString(undefined, {
+                      ₹{' '}
+                      {convertValue(
+                        finalCal.orderValueInINR,
+                        conversionRateUnit,
+                      ).toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -513,7 +514,11 @@ const Index = ({
                       </span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                    ₹ {convertValue(finalCal.usanceInterest, conversionRateUnit).toLocaleString(undefined, {
+                      ₹{' '}
+                      {convertValue(
+                        finalCal.usanceInterest,
+                        conversionRateUnit,
+                      ).toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -543,7 +548,11 @@ const Index = ({
                       <span className={`${styles.blue}`}>{`(K*E)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                    ₹ {convertValue(finalCal.tradeMargin, conversionRateUnit).toLocaleString(undefined, {
+                      ₹{' '}
+                      {convertValue(
+                        finalCal.tradeMargin,
+                        conversionRateUnit,
+                      ).toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -573,7 +582,11 @@ const Index = ({
                       <span className={`${styles.blue}`}>{`(K+L+M)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                    ₹ {convertValue(finalCal.grossOrderValue, conversionRateUnit).toLocaleString(undefined, {
+                      ₹{' '}
+                      {convertValue(
+                        finalCal.grossOrderValue,
+                        conversionRateUnit,
+                      ).toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -609,7 +622,11 @@ const Index = ({
                         'Cr',
                         '',
                       )} */}
-                       ₹ {convertValue(finalCal.toleranceValue, conversionRateUnit).toLocaleString(undefined, {
+                      ₹{' '}
+                      {convertValue(
+                        finalCal.toleranceValue,
+                        conversionRateUnit,
+                      ).toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -634,8 +651,11 @@ const Index = ({
                       <span className={`${styles.blue}`}>{`(N+O)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      {/* ₹ {finalCal.totalOrderValue} */}
-                      ₹ {convertValue(finalCal.totalOrderValue, conversionRateUnit).toLocaleString(undefined, {
+                      {/* ₹ {finalCal.totalOrderValue} */}₹{' '}
+                      {convertValue(
+                        finalCal.totalOrderValue,
+                        conversionRateUnit,
+                      ).toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -660,8 +680,11 @@ const Index = ({
                       <span className={`${styles.blue}`}>{`(N/A)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      {/* ₹ {finalCal.provisionalUnitPricePerTon} */}
-                      ₹ {convertValue(finalCal.provisionalUnitPricePerTon, conversionRateUnit).toLocaleString(undefined, {
+                      {/* ₹ {finalCal.provisionalUnitPricePerTon} */}₹{' '}
+                      {convertValue(
+                        finalCal.provisionalUnitPricePerTon,
+                        conversionRateUnit,
+                      ).toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -686,8 +709,11 @@ const Index = ({
                       <span className={`${styles.blue}`}>{`(P*G)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      {/* ₹ {finalCal.marginMoney} */}
-                      ₹ {convertValue(finalCal.marginMoney, conversionRateUnit).toLocaleString(undefined, {
+                      {/* ₹ {finalCal.marginMoney} */}₹{' '}
+                      {convertValue(
+                        finalCal.marginMoney,
+                        conversionRateUnit,
+                      ).toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -712,8 +738,11 @@ const Index = ({
                       <span className={`${styles.blue}`}>{`(P-R)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      {/* ₹ {finalCal.totalSPDC} */}
-                      ₹ {convertValue(finalCal.totalSPDC, conversionRateUnit).toLocaleString(undefined, {
+                      {/* ₹ {finalCal.totalSPDC} */}₹{' '}
+                      {convertValue(
+                        finalCal.totalSPDC,
+                        conversionRateUnit,
+                      ).toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -751,8 +780,11 @@ const Index = ({
                       </div>
                     </label>
                     <div className={`${styles.val} ${styles.green} heading`}>
-                      {/* ₹ {calcRevised.additionalAmountPerPDC} */}
-                      ₹ {convertValue(calcRevised.additionalAmountPerPDC, conversionRateUnit).toLocaleString(undefined, {
+                      {/* ₹ {calcRevised.additionalAmountPerPDC} */}₹{' '}
+                      {convertValue(
+                        calcRevised.additionalAmountPerPDC,
+                        conversionRateUnit,
+                      ).toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -786,8 +818,11 @@ const Index = ({
                       </div>
                     </label>
                     <div className={`${styles.val} ${styles.green} heading`}>
-                      {/* ₹ {calcRevised.revisedNetOrderValue} */}
-                      ₹ {convertValue(calcRevised.revisedNetOrderValue, conversionRateUnit).toLocaleString(undefined, {
+                      {/* ₹ {calcRevised.revisedNetOrderValue} */}₹{' '}
+                      {convertValue(
+                        calcRevised.revisedNetOrderValue,
+                        conversionRateUnit,
+                      ).toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -811,8 +846,11 @@ const Index = ({
                       <strong className="text-danger">*</strong>
                     </label>
                     <div className={`${styles.val} ${styles.green} heading`}>
-                      {/* ₹ {calcRevised.marginMoney} */}
-                      ₹ {convertValue(calcRevised.marginMoney, conversionRateUnit).toLocaleString(undefined, {
+                      {/* ₹ {calcRevised.marginMoney} */}₹{' '}
+                      {convertValue(
+                        calcRevised.marginMoney,
+                        conversionRateUnit,
+                      ).toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -837,8 +875,11 @@ const Index = ({
                       <span className={`${styles.blue}`}>{`(R)`}</span>
                     </label>
                     <div className={`${styles.val} ${styles.green} heading`}>
-                      {/* ₹ {finalCal.marginMoney} */}
-                      ₹ {convertValue(calcRevised.marginMoney, conversionRateUnit).toLocaleString(undefined, {
+                      {/* ₹ {finalCal.marginMoney} */}₹{' '}
+                      {convertValue(
+                        calcRevised.marginMoney,
+                        conversionRateUnit,
+                      ).toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -961,7 +1002,9 @@ const Index = ({
                       {/* <option value="GTSDT789652JKH">
                                     {marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN}
                                   </option> */}
-                      <option selected disabled>Select an option</option>
+                      <option selected disabled>
+                        Select an option
+                      </option>
                       <option value="GTSDT789652JKH">GTSDT789652JKH</option>
                     </select>
                     <label
@@ -1091,7 +1134,9 @@ const Index = ({
                       }
                       value={invoiceDataRevised?.consigneeGSTIN}
                     >
-                      <option selected disabled>Select an option</option>
+                      <option selected disabled>
+                        Select an option
+                      </option>
                       <option value="GTSDT789652JKH">GTSDT789652JKH</option>
                       <option value="GTSDT789652JKH">GTSDT789652JKH</option>
                     </select>
@@ -1142,9 +1187,7 @@ const Index = ({
                       name="importerName"
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       required
-                      value={
-                        invoiceDataRevised?.importerName
-                      }
+                      value={invoiceDataRevised?.importerName}
                       onChange={(e) =>
                         dropDownChange(e.target.name, e.target.value)
                       }
@@ -1181,11 +1224,13 @@ const Index = ({
                         changeImporterData?.branch
                           ? changeImporterData?.branch
                           : marginData?.revisedMarginMoney?.invoiceDetail
-                            ?.branchOffice
+                              ?.branchOffice
                       }
                       onChange={(e) => changeImporter(e)}
                     >
-                      <option selected disabled>Select an option</option>
+                      <option selected disabled>
+                        Select an option
+                      </option>
                       <option value="SURAT">{'SURAT'}</option>
                       <option value="DELHI">DELHI</option>
                     </select>
@@ -1211,7 +1256,7 @@ const Index = ({
                       changeImporterData?.address
                         ? changeImporterData?.address
                         : marginData?.revisedMarginMoney?.invoiceDetail
-                          ?.companyAddress
+                            ?.companyAddress
                     }
                     name="companyAddress"
                     onChange={(e) => changeImporter(e)}
@@ -1236,7 +1281,7 @@ const Index = ({
                       changeImporterData?.GSTIN
                         ? changeImporterData?.GSTIN
                         : marginData?.revisedMarginMoney?.invoiceDetail
-                          ?.importerGSTIN
+                            ?.importerGSTIN
                     }
                     className={`${styles.input_field} input form-control`}
                     required
@@ -1267,7 +1312,9 @@ const Index = ({
                         )
                       }
                     >
-                      <option selected disabled>Select an option</option>
+                      <option selected disabled>
+                        Select an option
+                      </option>
                       <option value="HDFC">HDFC</option>
                       <option value="SBI">SBI</option>
                     </select>
@@ -1301,7 +1348,9 @@ const Index = ({
                         )
                       }
                     >
-                      <option selected disabled>Select an option</option>
+                      <option selected disabled>
+                        Select an option
+                      </option>
                       <option value="DELHI, INDIA">DELHI, INDIA</option>
                       <option value="VIZAG, INDIA">VIZAG, INDIA</option>
                     </select>
