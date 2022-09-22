@@ -1364,7 +1364,7 @@ function Index() {
                     Insurance Coverage
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    All Risks Including ICC-A, War, SRCC, Theft, Loading, Unloading Burglary, Act of God, Pilferage, Fire etc.
+                    All Risks Including ICC-A, War, SRCC, Theft, Loading, Unloading, Burglary, Act of God, Pilferage, Fire etc.
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>

@@ -949,7 +949,7 @@ const Index = ({
                       {/* <option value="GTSDT789652JKH">
                                     {marginData?.revisedMarginMoney?.invoiceDetail?.buyerGSTIN}
                                   </option> */}
-                      <option>Select an option</option>
+                      <option selected disabled>Select an option</option>
                       <option value="GTSDT789652JKH">GTSDT789652JKH</option>
                     </select>
                     <label
@@ -1079,7 +1079,7 @@ const Index = ({
                       }
                       value={invoiceDataRevised?.consigneeGSTIN}
                     >
-                      <option>Select an option</option>
+                      <option selected disabled>Select an option</option>
                       <option value="GTSDT789652JKH">GTSDT789652JKH</option>
                       <option value="GTSDT789652JKH">GTSDT789652JKH</option>
                     </select>
@@ -1130,9 +1130,8 @@ const Index = ({
                       name="importerName"
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       required
-                      defaultValue={
-                        marginData?.revisedMarginMoney?.invoiceDetail
-                          ?.importerName
+                      value={
+                        invoiceDataRevised?.importerName
                       }
                       onChange={(e) =>
                         dropDownChange(e.target.name, e.target.value)
@@ -1174,7 +1173,7 @@ const Index = ({
                       }
                       onChange={(e) => changeImporter(e)}
                     >
-                      <option>Select an option</option>
+                      <option selected disabled>Select an option</option>
                       <option value="SURAT">{'SURAT'}</option>
                       <option value="DELHI">DELHI</option>
                     </select>
@@ -1256,6 +1255,7 @@ const Index = ({
                         )
                       }
                     >
+                      <option selected disabled>Select an option</option>
                       <option value="HDFC">HDFC</option>
                       <option value="SBI">SBI</option>
                     </select>
@@ -1289,6 +1289,7 @@ const Index = ({
                         )
                       }
                     >
+                      <option selected disabled>Select an option</option>
                       <option value="DELHI, INDIA">DELHI, INDIA</option>
                       <option value="VIZAG, INDIA">VIZAG, INDIA</option>
                     </select>

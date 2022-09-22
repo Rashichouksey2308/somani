@@ -93,8 +93,8 @@ function Index(props) {
           buyer: data?.buyer?.name,
           shortseller: data?.seller.shortName,
           shortbuyer: `${data?.buyer?.name == "Indo German International Private Limited" ? "IGPL" : "EISL"}`,
-          sellerSignature: "",
-          buyerSignature: "",
+          sellerSignature:data?.seller?.name,
+          buyerSignature: data?.buyer?.name,
           dateOfExecution: dat,
           placeOfExecution: exe,
           details: data?.supplier?.name,
@@ -648,7 +648,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
 
             {
               preview ?
-                <><span>{data?.buyerSignature}</span></>
+                <><span>{data?.sellerSignature}</span></>
                 :
                 <><div className='form-group mt-5 pt-3'>
                   <textarea
@@ -656,8 +656,8 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                     onChange={(e) => {
                       changeHandler(e.target.name, e.target.value)
                     }}
-                    value={data?.buyerSignature}
-                    name="buyerSignature"
+                    value={data?.sellerSignature}
+                    name="sellerSignature"
                     type="text"
                     placeholder="" className={`${styles.para} w-100 mt-5 input`}>
                   </textarea>
@@ -672,7 +672,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
             </Col> */}
             {
               preview ?
-                <><span> {data?.sellerSignature}</span></>
+                <><span> {data?.buyerSignature}</span></>
                 :
                 <><div className='form-group mt-5 pt-3'>
                   <textarea
@@ -681,8 +681,8 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
                       changeHandler(e.target.name, e.target.value)
                     }}
                     type="text"
-                    value={data?.sellerSignature}
-                    name="sellerSignature"
+                    value={data?.buyerSignature}
+                    name="buyerSignature"
                     placeholder="" className={`${styles.para} w-100 mt-5 input`}>
                   </textarea>
                 </div>
