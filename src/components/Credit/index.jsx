@@ -60,7 +60,10 @@ const index = ({
     if (personData) {
       let temp = []
       personData.forEach((val) => {
-        temp.push(val.name)
+        if(val.name !==""){
+          temp.push(val.name)
+        }
+        
       })
       setKeyNameList([...temp])
     }
@@ -168,8 +171,9 @@ const index = ({
     email: '',
     name: '',
   })
-
+ console.log(personData,"personData")
   useEffect(() => {
+    
     setKeyPersonData(personData)
   }, [personData])
 
@@ -177,6 +181,16 @@ const index = ({
 
   const handlePersonChange = (e, key) => {
     const newInput = [...keyPersonData]
+     console.log("jjejjeje")
+      if(e.target.value=="addnew"){
+        console.log("jjejjeje")
+          newInput[key].addnew = true
+          newInput[key].name = ""
+          newInput[key].email = ""
+           console.log("jjejjeje",newInput)
+          setKeyPersonData([...newInput])
+          return
+      }
     if (e.target.name.split('.').length > 1) {
       newInput[key]['contact']['number'] = e.target.value
     } else {
@@ -184,7 +198,7 @@ const index = ({
     }
     setKeyPersonData([...newInput])
   }
-
+  console.log(keyPersonData,"keyPersonDatakeyPersonData")
   const onKeyPersonSave = () => {
     addPersonArr(keyPersonData)
     //console.log(keyPersonData, 'This is person data')
@@ -1249,24 +1263,45 @@ const index = ({
                       <tr className="table_credit shadow-none">
                         <td>
                           <div className="d-flex mr-4">
-                            <select
+                             {person.addnew?
+                             
+                             <>
+                            <input
+                            className="input"
+                            value={person.name}
+                            placeholder={"ADD NEW"}
+                            name="name"
+                            onChange={(e) => handlePersonChange(e, index)}
+                            type="text"
+                            readOnly={!person.isEdit}
+                          />
+                             </>
+                             :
+                             <>
+                             {console.log(person.name,"person.name")}
+                              <select
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                              defaultValue={person.name}
+                             
                               name="name"
                               onChange={(e) => handlePersonChange(e, index)}
-                              readOnly={person.isEdit}
+                              disabled={!person.isEdit}
                               value={person.name}
                             >
+                              <option  selected>Select an Option</option>
                               {keyNameList.length > 0 &&
                                 keyNameList.map((val) => {
                                   return <option value={val}>{val}</option>
                                 })}
+                              <option value={`addnew`}>ADD NEW</option>
                             </select>
                             <img
                               className={`${styles.arrow} ml-n4 img-fluid`}
                               src="/static/inputDropDown.svg"
                               alt="Search"
                             />
+                             </>
+                             }
+                            
                           </div>
                           {/* <input
                             className="input font-weight-bold"
@@ -1281,11 +1316,12 @@ const index = ({
                           <div className="d-flex mr-4">
                             <select
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                              defaultValue={person.designation}
+                              value={person.designation}
                               name="designation"
                               onChange={(e) => handlePersonChange(e, index)}
-                              readOnly={!person.isEdit}
+                            disabled={!person.isEdit}
                             >
+                              <option  selected>Select an Option</option>
                               <option>Director</option>
                               <option>Production Manager</option>
                               <option>Lead Manager</option>
@@ -1313,7 +1349,7 @@ const index = ({
                               name="department"
                               onChange={(e) => handlePersonChange(e, index)}
                               type="text"
-                              readOnly={!person.isEdit}
+                              disabled={!person.isEdit}
                             >
                               <option>Select an option</option>
                               <option>Technology</option>
@@ -1348,7 +1384,7 @@ const index = ({
                               }
                             }}
                             type="number"
-                            readOnly={person.isEdit}
+                            disabled={!person.isEdit}
                           />
                         </td>
                         <td>
@@ -1358,12 +1394,12 @@ const index = ({
                             name="email"
                             onChange={(e) => handlePersonChange(e, index)}
                             type="text"
-                            readOnly={person.isEdit}
+                            disabled={!person.isEdit}
                           />
                         </td>
                         <td>
                           <div className="d-flex">
-                            {person.isEdit ? (
+                            {!person.isEdit ? (
                               <img
                                 src="/static/mode_edit.svg"
                                 className={`${styles.edit_image} mr-3`}
@@ -1397,12 +1433,13 @@ const index = ({
             </div>
             <div
               className={`${styles.add_row} d-flex justify-content-end`}
-              onClick={(e) => {
+             
+            > 
+            <div className={`d-flex justify-content-end`} onClick={(e) => {
                 onKeyPersonSave(keyPersonData)
-              }}
-            >
-              <span>+</span>
-              <div>Add More Rows</div>
+              }}>  <span>+</span>
+              <div>Add More Rows</div></div>
+             
             </div>
           </div>
         </div>
