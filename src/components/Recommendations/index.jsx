@@ -760,8 +760,7 @@ const Index = ({
                     {filteredCreditRating ? (
                       <>
                         {' '}
-                        {filteredCreditRating &&
-                          filteredCreditRating.length > 0 &&
+                        {filteredCreditRating && filteredCreditRating!=0  &&
                           filteredCreditRating.map((val, index) => (
                             <td key={index}>
                               {(val.derived.value ?? '')?.toLocaleString(
