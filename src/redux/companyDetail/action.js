@@ -99,39 +99,41 @@ function getCaseDetailsFailed() {
   }
 }
 
-export const GetCompanyDetails = (payload) => (dispatch, getState, api) => {
-  let cookie = Cookies.get('SOMANI')
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
-  console.log(payload.company, 'getDetails payload2')
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+export const GetCompanyDetails =
+  (payload) => async (dispatch, getState, api) => {
+    try {
+      let cookie = Cookies.get('SOMANI')
+      const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+      console.log(payload.company, 'getDetails payload2')
+      let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+      var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
 
-  try {
-    let response = Axios.post(
-      `${API.corebaseUrl}${API.getCompanyDetails}`,
-      payload,
-      {
-        headers: headers,
-      },
-    )
-    if (response.data.code === 200) {
-      dispatch(getComanyDetailsSuccess(response.data.data))
-    } else {
-      dispatch(getComanyDetailsFailed(response.data.data))
-      let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
+      let response = await Axios.post(
+        `${API.corebaseUrl}${API.getCompanyDetails}`,
+        payload,
+        {
+          headers: headers,
+        },
+      )
+      console.log(response, 'conpanu saasd')
+      if (response.data.code === 200) {
+        dispatch(getComanyDetailsSuccess(response.data.data))
+      } else {
+        dispatch(getComanyDetailsFailed(response.data.data))
+        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+      }
+    } catch (error) {
+      dispatch(getComanyDetailsFailed())
+
+      let toastMessage = 'COULD NOT FETCH COMPANY DETAILS'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
     }
-  } catch (error) {
-    dispatch(getComanyDetailsFailed())
-
-    let toastMessage = 'COULD NOT FETCH COMPANY DETAILS'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
   }
-}
 
 export const GetCreditLimit = (payload) => (dispatch, getState, api) => {
   let cookie = Cookies.get('SOMANI')

@@ -22,12 +22,10 @@ import { convertValue } from '../../../src/utils/helper'
 function Index() {
   const dispatch = useDispatch()
 
-
   useEffect(() => {
     let id = sessionStorage.getItem('letterId')
     dispatch(GettingAllInsurance(`?insuranceId=${id}`))
   }, [dispatch])
-
 
   const [show, setShow] = useState(false)
   const handleClose = () => setShow(false)
@@ -40,7 +38,9 @@ function Index() {
   let insuranceData = _get(insuranceResponse, 'data[0]', {})
 
   dispatch(setPageName('insurance Request Letter'))
-  dispatch(setDynamicName(_get(insuranceData, 'company.companyName', 'Company Name')))
+  dispatch(
+    setDynamicName(_get(insuranceData, 'company.companyName', 'Company Name')),
+  )
   dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')))
 
   const exportPDF = () => {
@@ -100,7 +100,7 @@ function Index() {
                               fontWeight: 'normal',
                               padding: '0 35px 7px',
                               marginBottom: '0',
-                              float: 'left'
+                              float: 'left',
                             }}
                           >
                             <span
@@ -127,7 +127,7 @@ function Index() {
                               fontWeight: 'normal',
                               padding: '0 35px 7px',
                               marginBottom: '0',
-                              float: 'left'
+                              float: 'left',
                             }}
                           >
                             <span
@@ -140,9 +140,7 @@ function Index() {
                             >
                               Date:{' '}
                             </span>
-                            {moment(new Date()).format(
-                              'DD.MM.yyyy',
-                            )}
+                            {moment(new Date()).format('DD.MM.yyyy')}
                           </p>
                         </td>
                       </tr>
@@ -368,8 +366,13 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            INR {Number(convertValue(insuranceData?.quotationRequest?.sumInsured))?.toLocaleString()} Crores
-                            (Including 110%)
+                            INR{' '}
+                            {Number(
+                              convertValue(
+                                insuranceData?.quotationRequest?.sumInsured,
+                              ),
+                            )?.toLocaleString()}{' '}
+                            Crores (Including 110%)
                           </p>
                         </td>
                       </tr>
@@ -496,7 +499,8 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            BL Weight {insuranceData?.order?.quantity} MTs. (+/-00%)
+                            BL Weight {insuranceData?.order?.quantity} MTs.
+                            (+/-00%)
                           </p>
                         </td>
                       </tr>
@@ -761,10 +765,12 @@ function Index() {
                             }}
                           >
                             {moment(
-                              insuranceData?.quotationRequest?.laycanFrom).format('DD MMM')}{' '}
+                              insuranceData?.quotationRequest?.laycanFrom,
+                            ).format('DD MMM')}{' '}
                             -{' '}
                             {moment(
-                              insuranceData?.quotationRequest?.laycanTo).format('DD MMM, YYYY')}
+                              insuranceData?.quotationRequest?.laycanTo,
+                            ).format('DD MMM, YYYY')}
                           </p>
                         </td>
                       </tr>
@@ -805,7 +811,10 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {moment(insuranceData?.quotationRequest?.expectedTimeOfDispatch).format('DD MMMM , YYYY')}
+                            {moment(
+                              insuranceData?.quotationRequest
+                                ?.expectedTimeOfDispatch,
+                            ).format('DD MMMM , YYYY')}
                           </p>
                         </td>
                       </tr>
@@ -846,7 +855,10 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            {moment(insuranceData?.quotationRequest?.expectedTimeOfArrival).format('DD MMMM , YYYY')}
+                            {moment(
+                              insuranceData?.quotationRequest
+                                ?.expectedTimeOfArrival,
+                            ).format('DD MMMM , YYYY')}
                           </p>
                         </td>
                       </tr>
@@ -887,7 +899,8 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            All Risks Including ICC-A, War, SRCC, Theft Burglary, Act of God, Pilferage, Fire etc.
+                           All Risks Including ICC-A, War, SRCC, Theft, Loading,
+                    Unloading, Burglary, Act of God, Pilferage, Fire etc.
                           </p>
                         </td>
                       </tr>
@@ -1068,16 +1081,14 @@ function Index() {
         <div
           className={`${styles.card} tabHeader border-0 shadow-none bg-transparent card2`}
         >
-          <div
-
-            className={`${styles.head_header} ml-5 align-items-center`}>
+          <div onClick={() => Router.push('/insurance')} className={`${styles.head_header} ml-5 align-items-center`}>
             <img
               onClick={() => Router.push('/insurance/form')}
               className={`${styles.arrow} img-fluid image_arrow mr-2`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow"
-
             />
+
             <h1 className={`${styles.heading} heading`}>
               {insuranceData?.company?.companyName}
             </h1>
@@ -1099,9 +1110,7 @@ function Index() {
                   {/* {moment(insuranceData?.createdAt?.split('T')[0]).format(
                     'DD.MM.yyyy',
                   )} */}
-                  {moment(new Date()).format(
-                    'DD.MM.yyyy',
-                  )}
+                  {moment(new Date()).format('DD.MM.yyyy')}
                 </span>
               </div>
               <div className={`${styles.details_content} mb-1`}>
@@ -1181,8 +1190,11 @@ function Index() {
                     Sum Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    INR {Number(convertValue(insuranceData?.quotationRequest?.sumInsured))?.toLocaleString()} Crores
-                    (Including 110%)
+                    INR{' '}
+                    {Number(
+                      convertValue(insuranceData?.quotationRequest?.sumInsured),
+                    )?.toLocaleString()}{' '}
+                    Crores (Including 110%)
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -1321,11 +1333,13 @@ function Index() {
                     Laycan
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {moment(
-                      insuranceData?.quotationRequest?.laycanFrom).format('DD MMM')}{' '}
+                    {moment(insuranceData?.quotationRequest?.laycanFrom).format(
+                      'DD MMM',
+                    )}{' '}
                     -{' '}
-                    {moment(
-                      insuranceData?.quotationRequest?.laycanTo).format('DD MMM, YYYY')}
+                    {moment(insuranceData?.quotationRequest?.laycanTo).format(
+                      'DD MMM, YYYY',
+                    )}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -1338,7 +1352,9 @@ function Index() {
                     ETD
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {moment(insuranceData?.quotationRequest?.expectedTimeOfDispatch).format('DD MMMM , YYYY')}
+                    {moment(
+                      insuranceData?.quotationRequest?.expectedTimeOfDispatch,
+                    ).format('DD MMMM , YYYY')}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -1351,7 +1367,9 @@ function Index() {
                     ETA
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {moment(insuranceData?.quotationRequest?.expectedTimeOfArrival).format('DD MMMM , YYYY')}
+                    {moment(
+                      insuranceData?.quotationRequest?.expectedTimeOfArrival,
+                    ).format('DD MMMM , YYYY')}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -1364,7 +1382,8 @@ function Index() {
                     Insurance Coverage
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    All Risks Including ICC-A, War, SRCC, Theft, Loading, Unloading, Burglary, Act of God, Pilferage, Fire etc.
+                    All Risks Including ICC-A, War, SRCC, Theft, Loading,
+                    Unloading, Burglary, Act of God, Pilferage, Fire etc.
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -1377,7 +1396,11 @@ function Index() {
                     Name of Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {insuranceData?.company?.companyName} , <br></br> {insuranceData?.company?.detailedCompanyInfo?.profile?.companyDetail?.registeredAddress}
+                    {insuranceData?.company?.companyName} , <br></br>{' '}
+                    {
+                      insuranceData?.company?.detailedCompanyInfo?.profile
+                        ?.companyDetail?.registeredAddress
+                    }
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
