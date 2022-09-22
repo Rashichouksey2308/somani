@@ -1057,13 +1057,13 @@ function Index() {
   
   useEffect(() => {
     setSuggestedCredit({
-      suggestedCreditLimit: orderList?.suggestedCreditLimit ? orderList?.suggestedCreditLimit / 10000000 : orderList?.suggestedCreditLimit,
+      suggestedCreditLimit: suggestedValue ? suggestedValue / 10000000 : suggestedValue,
       suggestedOrderValue: orderList?.suggestedOrderValue ? orderList?.suggestedOrderValue / 10000000 : orderList?.suggestedOrderValue,
     })
 
     setApprovedCredit({
-      approvedOrderValue: orderList?.cam?.approvedOrderValue ?  orderList?.cam?.approvedOrderValue / 10000000 : orderList?.cam?.approvedOrderValue,
-    approvedCreditValue: orderList?.cam?.approvedCreditValue ?  orderList?.cam?.approvedCreditValue / 10000000 : orderList?.cam?.approvedCreditValue,
+      approvedOrderValue: orderList?.approvedOrderValue ?  orderList?.approvedOrderValue / 10000000 : orderList?.approvedOrderValue,
+    approvedCreditValue: approvedCreditLimit ?  approvedCreditLimit / 10000000 : approvedCreditLimit,
     })
   }, [orderList])
   
@@ -1410,6 +1410,12 @@ function Index() {
     orderList?.company?.creditLimit?.creditRating?.filter((rating) => {
       return orderList?._id === rating.order
     })
+
+    console.log(filteredCreditRating, 'THIS IS FILTERED CREDIT RATING')
+
+  let approvedCreditLimit =  filteredCreditRating && filteredCreditRating.length > 0
+  ? filteredCreditRating[0]?.approved?.value
+  : '' 
 
   let suggestedValue =
     filteredCreditRating && filteredCreditRating.length > 0

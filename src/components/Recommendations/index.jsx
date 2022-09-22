@@ -786,7 +786,7 @@ const Index = ({
                         name="suggestedCreditLimit"
                         value={addPrefixOrSuffix(
                           suggestedCredit?.suggestedCreditLimit,
-                          '',
+                          'Cr',
                         )?.toLocaleString(undefined, {
                           minimumFractionDigits: 2,
                         })}
