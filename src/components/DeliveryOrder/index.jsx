@@ -283,6 +283,7 @@ export default function Index(props) {
                                 ) : (
                                   <div
                                     className={`${styles.form_group} col-lg-6`}
+                                    style={{marginLeft:'-30px'}}
                                   >
                                     <img
                                       src="/static/mode_edit.svg"
@@ -295,7 +296,7 @@ export default function Index(props) {
 
                                     <img
                                       src="/static/share.svg"
-                                      className={`${styles.shareImg}`}
+                                      className={`${styles.shareImg} ml-2`}
                                       alt="Share"
                                       onClick={() => handleRoute(val.deliveryOrderNo)}
                                     />
@@ -303,7 +304,7 @@ export default function Index(props) {
                                     {props.releaseOrderData.length ===
                                       index ? null : (
                                       <img
-                                        className={`${styles.shareImg} border-0 p-0 bg-transparent ml-3`}
+                                        className={`${styles.shareImg} border-0 p-0 bg-transparent ml-2 mr-2`}
                                         src="/static/delete 2.svg"
                                         alt="Search"
                                         onClick={(e) => {
@@ -318,7 +319,7 @@ export default function Index(props) {
                                             props.addNewDelivery()
                                           }}
                                           src="/static/add-btn.svg"
-                                          className={`${styles.shareImg} border-0 p-0 bg-transparent ml-3`}
+                                          className={`${styles.shareImg} border-0 p-0 bg-transparent`}
                                           alt="add"
                                         />
                                       )}
