@@ -226,23 +226,6 @@ export default function Index({
     // console.log(payload)
     await dispatch(UpdateDelivery({ payload, task }))
   }
-  // {
-  //   console.log('releee', releaseDetail.toString().releaseOrderDate)
-  // }
-
-  // if (releaseDetail.releaseOrderDate === '') {
-  //   let toastMessage = 'RELEASE ORDER DATE CANNOT BE EMPTY  '
-  //   if (!toast.isActive(toastMessage.toUpperCase())) {
-  //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-  //   }
-  // }
-
-  // if (item.netQuantityReleased === '') {
-  //   let toastMessage = 'NET QUANTITY RELEASED CANNOT BE EMPTY  '
-  //   if (!toast.isActive(toastMessage.toUpperCase())) {
-  //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-  //   }
-  // }
   // console.log(netBalanceQuantity, 'netBalanceQuantity')
 
   return (
@@ -310,7 +293,6 @@ export default function Index({
                       )}
                     </span>
                   </div>
-
                   <div
                     className={`${styles.form_group} col-lg-3 col-md-6 col-sm-6 `}
                   >
@@ -333,7 +315,7 @@ export default function Index({
                 style={{ borderTop: '2px solid #CAD6E6' }}
               >
                 <div className={`${styles.form_heading} mt-2`}>
-                  Release Order Detail
+                  Release Order Details
                 </div>
                 <div className={styles.table_scroll_outer}>
                   <div className={styles.table_scroll_inner}>
@@ -460,24 +442,20 @@ export default function Index({
                                       alt="Delete"
                                     />
                                   )}
+
+                                  {Number(netBalanceQuantity) >= 0 &&
+                                    releaseDetail.length - 1 === index && (
+                                      <img
+                                        onClick={() =>
+                                          addMorereleaseDetailDataRows(index)
+                                        }
+                                        src="/static/add-btn.svg"
+                                        className={`${styles.delete_image} ml-3 img-fluid`}
+                                        alt="Add button"
+                                      />
+                                    )}
                                 </div>
                               </div>
-                              <div
-                                className={`${styles} col-lg-3 col-md-4 col-sm-6 d-flex align-items-center`}
-                              >
-                                {Number(netBalanceQuantity) >= 0 &&
-                                  releaseDetail.length - 1 === index && (
-                                    <img
-                                      onClick={() =>
-                                        addMorereleaseDetailDataRows(index)
-                                      }
-                                      src="/static/add-btn.svg"
-                                      className={`${styles.delete_image} ml-3 img-fluid`}
-                                      alt="Add button"
-                                    />
-                                  )}
-                              </div>
-
                               {/* <div className={styles.uploadBtnWrapper}>
                         <input
                           type="file"
