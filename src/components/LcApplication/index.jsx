@@ -1007,7 +1007,7 @@ function Index({
                                 className={`${styles.labels} label_heading`}
                               >
                                 (53A) Reimbursing Bank
-                                <strong className="text-danger">*</strong>
+                                {/* <strong className="text-danger">*</strong> */}
                               </label>
                               <img
                                 className={`${styles.arrow} image_arrow img-fluid`}

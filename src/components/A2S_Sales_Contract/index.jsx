@@ -12,6 +12,8 @@ function Index(props) {
   const [data, setData] = useState({
     seller: "",
     buyer: "",
+    sellerAddress:"",
+     buyerAddress:"",
     shortseller: "",
     shortbuyer: "",
     sellerSignature: "",
@@ -38,7 +40,22 @@ function Index(props) {
 
 
   })
-
+ const getAddress=(buyer)=>{
+   if(buyer.name=="Indo German International Private Limited"){
+     if(buyer.branch=="Delhi"){
+       return "7A , SAGAR APARTMENTS,6 TILAK MARG,DELHI,NEW DELHI,110001"
+     }else{
+      return "Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016"
+     }
+   }
+   if(buyer.name=="Emergent Industrial Solution Limited"){
+     if(buyer.branch=="Delhi"){
+       return "8B, SAGAR, 6 TILAK MARG,DELHI,NEW DELHI,110001"
+     }else{
+      return "49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM,,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016"
+     }
+   }
+ }
   useEffect(() => {
     if (window) {
       if (props.preview) {
@@ -47,6 +64,8 @@ function Index(props) {
         setData({
           seller: data?.seller,
           buyer: data?.buyer?.toLowerCase(),
+          sellerAddress:data.sellerAddress,
+          buyerAddress:data.buyerAddress,
           shortseller: data?.shortseller,
           shortbuyer: `${data?.buyer == "Indo German International Private Limited" ? "IGPL" : "EISL"}`,
           sellerSignature: data?.sellerSignature,
@@ -91,7 +110,9 @@ function Index(props) {
         setData({
           seller: data?.seller?.name,
           buyer: data?.buyer?.name,
-          shortseller: data?.seller.shortName,
+          sellerAddress:data?.seller?.name=="Indo Intertrade Ag"?"Industriestrasse 16, Zug,6300":"",
+          buyerAddress:data?.buyer?.name?getAddress(data?.buyer):"",
+          shortseller:data?.seller?.shortName,
           shortbuyer: `${data?.buyer?.name == "Indo German International Private Limited" ? "IGPL" : "EISL"}`,
           sellerSignature:data?.seller?.name,
           buyerSignature: data?.buyer?.name,
@@ -100,7 +121,7 @@ function Index(props) {
           details: data?.supplier?.name,
           detailsOfEndBuyer: "",
           detailsOfComm: data?.order?.commodity,
-          quan: data.order?.quantity,
+          quan: data?.order?.quantity,
           unitPrice: data.order?.perUnitPrice,
           totalOrderValue: data?.order?.marginMoney?.calculation?.orderValue ?? '',
           lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
@@ -192,6 +213,8 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
             <Col md={7} className={styles.right}>
 
               <>{data?.seller}</>
+              <br/>
+              <>{data?.seller?data.sellerAddress:""}</>
 
 
             </Col>
@@ -202,6 +225,9 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
             <Col md={7} className={styles.right} style={{ textTransform: "capitalize" }}>
 
               <>{data?.buyer?.toLowerCase()}</>
+              <br/>
+              <>{data?.buyer?data.buyerAddress:null}</>
+
 
             </Col>
           </Row>
