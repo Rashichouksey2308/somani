@@ -134,7 +134,7 @@ function Index({
                           className={`${styles.label_heading} label_heading`}
                         >
                           (40E) Applicable Rules
-                          <strong className="text-danger">*</strong>
+                          {/* <strong className="text-danger">*</strong> */}
                         </label>
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
@@ -1007,7 +1007,7 @@ function Index({
                                 className={`${styles.labels} label_heading`}
                               >
                                 (53A) Reimbursing Bank
-                                <strong className="text-danger">*</strong>
+                                {/* <strong className="text-danger">*</strong> */}
                               </label>
                               <img
                                 className={`${styles.arrow} image_arrow img-fluid`}

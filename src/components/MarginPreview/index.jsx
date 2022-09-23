@@ -1163,7 +1163,7 @@ function Index() {
                           </p>
                         </td>
                       </tr>
-                      {/* <tr>
+                      <tr>
                         <td
                           align="left"
                           style={{ borderRight: '2px solid #cad6e64d' }}
@@ -1211,7 +1211,7 @@ function Index() {
                             value
                           </p>
                         </td>
-                      </tr> */}
+                      </tr>
                       {/* <tr>
                         <td
                           align="left"
@@ -1788,6 +1788,20 @@ function Index() {
                         0}
                     </td>
                   </tr>
+                   <tr>
+                    <td>
+                      <span className={`${styles.sno} text1`}>T</span>
+                      <span className={`ml-2`}>
+                       Amount per SPDC (INR){' '}
+                      </span>{' '}
+                      <span className={`${styles.formula} text1 ml-2`}>(S/H)</span>
+                    </td>
+                    <td>
+                    ₹  {marginData?.calculation?.amountPerSPDC?.toLocaleString() ??
+                        0}
+                    </td>
+                  </tr>
+                  
                   {/* <tr className={`${styles.bordertop} border_color`}>
                     <td>
                       <span className={`${styles.sno}`}>T</span>
