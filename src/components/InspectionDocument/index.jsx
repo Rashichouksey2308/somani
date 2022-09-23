@@ -324,7 +324,7 @@ const Index = ({
                     >
                       <span>{newDoc?.document?.name}</span>
                       <img
-                        className={`${styles.close_image} image_arrow mr-2`}
+                        className={`${styles.close_image} image_arrow ml-2 mr-2`}
                         src="/static/close.svg"
                         onClick={(e) => handleCloseDoc()}
                         alt="Close"
