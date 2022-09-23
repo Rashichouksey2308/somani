@@ -467,6 +467,11 @@
             line-height: 23px;
             margin-left: 0.5rem;
         }
+        .small {
+            font-size: 18px;
+            line-height: 22px;
+            font-weight: normal;
+        }
     }
     .chart {
         padding: 25px 35px !important;
@@ -612,6 +617,12 @@
                                 @include respond(md-desktop) {
                                     padding-left: 15px;
                                 }
+                            }
+                            .small {
+                                font-size: 18px;
+                                line-height: 22px;
+                                font-weight: normal;
+                                padding-left: 10px;
                             }
                             &:first-child {
                                 padding-left: 35px;

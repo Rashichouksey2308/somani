@@ -117,4 +117,7 @@ export default {
 
   //ViewDocument
   viewDoc: '/document/access',
+
+  //supplier
+  updateSupplier: '/supplier',
 }
