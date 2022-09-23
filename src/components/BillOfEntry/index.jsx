@@ -1339,12 +1339,12 @@ export default function Index({
                       {billOfEntryData.boeAssessment === 'Final' ? (
                         <td className={styles.doc_name}>
                           BOE Final
-                          <strong className="text-danger ml-0">*</strong>
+                          <strong className="text-danger ml-1">*</strong>
                         </td>
                       ) : (
                         <td className={styles.doc_name}>
                           BOE Provisional
-                          <strong className="text-danger ml-0">*</strong>
+                          <strong className="text-danger ml-1">*</strong>
                         </td>
                       )}
                       <td>
@@ -1390,7 +1390,7 @@ export default function Index({
                     <tr className="table_row">
                       <td className={styles.doc_name}>
                         Duty Paid Challan
-                        <strong className="text-danger ml-0">*</strong>
+                        <strong className="text-danger ml-1">*</strong>
                       </td>
                       <td>
                         <img
