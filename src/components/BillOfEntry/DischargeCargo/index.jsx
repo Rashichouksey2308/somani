@@ -53,12 +53,11 @@ export default function Index({
   })
 
   const saveDate = (value, name) => {
-
     console.log(value, name, 'save date')
     const d = new Date(value)
     let text = d.toISOString()
     onChangeDischargeOfCargo(name, text)
-    if (name = 'vesselArrivaldate') {
+    if ((name = 'vesselArrivaldate')) {
       setArrivalDate(value)
     }
   }
@@ -89,6 +88,9 @@ export default function Index({
 
   const onRemoveDoc = (name) => {
     setDischargeOfCargo({ ...dischargeOfCargo, [name]: null })
+  }
+  {
+    console.log('cargo', dischargeOfCargo)
   }
 
   const onSaveDischarge = () => {
@@ -273,24 +275,24 @@ export default function Index({
                       <option value="">Please select a vessel</option>
                       {shipmentTypeBulk
                         ? _get(customData, 'order.vessel.vessels', []).map(
-                          (vessel, index) => (
-                            <option
-                              value={vessel?.vesselInformation?.name}
-                              key={index}
-                            >
-                              {vessel?.vesselInformation[0]?.name}
-                            </option>
-                          ),
-                        )
+                            (vessel, index) => (
+                              <option
+                                value={vessel?.vesselInformation?.name}
+                                key={index}
+                              >
+                                {vessel?.vesselInformation[0]?.name}
+                              </option>
+                            ),
+                          )
                         : _get(
-                          customData,
-                          'order.vessel.vessels[0].vesselInformation',
-                          [],
-                        ).map((vessel, index) => (
-                          <option value={vessel?.name} key={index}>
-                            {vessel?.name}
-                          </option>
-                        ))}
+                            customData,
+                            'order.vessel.vessels[0].vesselInformation',
+                            [],
+                          ).map((vessel, index) => (
+                            <option value={vessel?.name} key={index}>
+                              {vessel?.name}
+                            </option>
+                          ))}
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Vessel Name<strong className="text-danger">*</strong>
@@ -327,10 +329,10 @@ export default function Index({
                       isFieldInFocus
                         ? dischargeOfCargo?.dischargeOfCargo?.dischargeQuantity
                         : Number(
-                          dischargeOfCargo?.dischargeOfCargo
-                            ?.dischargeQuantity,
-                        )?.toLocaleString() +
-                        ` ${_get(customData, 'order.unitOfQuantity', '')}`
+                            dischargeOfCargo?.dischargeOfCargo
+                              ?.dischargeQuantity,
+                          )?.toLocaleString() +
+                          ` ${_get(customData, 'order.unitOfQuantity', '')}`
                     }
                     onChange={(e) =>
                       onChangeDischargeOfCargo(e.target.id, e.target.value)
@@ -350,26 +352,28 @@ export default function Index({
                     Discharge Quantity<strong className="text-danger">*</strong>
                   </label>
                 </div>
-                {!shipmentTypeBulk && <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                  <input
-                    id="numberOfContainers"
-                    // defaultChecked={
-                    //   val?.shippingInformation?.numberOfContainers
-                    // }
-                    className={`${styles.input_field} input form-control`}
-                    type="number"
-                    onKeyDown={(evt) =>
-                      ['e', 'E', '+', '-'].includes(evt.key) &&
-                      evt.preventDefault()
-                    }
-                    // onChange={(e) => shippingInfoChangeHandler(e, index)}
-                    required
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    No. of Containers
-                    <strong className="text-danger">*</strong>
-                  </label>
-                </div>}
+                {!shipmentTypeBulk && (
+                  <div className={`${styles.form_group} col-md-4 col-sm-6`}>
+                    <input
+                      id="numberOfContainers"
+                      // defaultChecked={
+                      //   val?.shippingInformation?.numberOfContainers
+                      // }
+                      className={`${styles.input_field} input form-control`}
+                      type="number"
+                      onKeyDown={(evt) =>
+                        ['e', 'E', '+', '-'].includes(evt.key) &&
+                        evt.preventDefault()
+                      }
+                      // onChange={(e) => shippingInfoChangeHandler(e, index)}
+                      required
+                    />
+                    <label className={`${styles.label_heading} label_heading`}>
+                      No. of Containers
+                      <strong className="text-danger">*</strong>
+                    </label>
+                  </div>
+                )}
                 <div
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
@@ -484,12 +488,12 @@ export default function Index({
                           {dischargeOfCargo.document1 === null
                             ? ''
                             : moment(dischargeOfCargo?.document1?.Date).format(
-                              'DD-MM-YYYY, h:mm a',
-                            )}
+                                'DD-MM-YYYY, h:mm a',
+                              )}
                         </td>
                         <td>
                           {dischargeOfCargo &&
-                            dischargeOfCargo.document1 === null ? (
+                          dischargeOfCargo.document1 === null ? (
                             <>
                               <div className={styles.uploadBtnWrapper}>
                                 <input
@@ -539,12 +543,12 @@ export default function Index({
                           {dischargeOfCargo.document2 === null
                             ? ''
                             : moment(dischargeOfCargo?.document2?.Date).format(
-                              'DD-MM-YYYY, h:mm a',
-                            )}
+                                'DD-MM-YYYY, h:mm a',
+                              )}
                         </td>
                         <td>
                           {dischargeOfCargo &&
-                            dischargeOfCargo.document2 === null ? (
+                          dischargeOfCargo.document2 === null ? (
                             <>
                               <div className={styles.uploadBtnWrapper}>
                                 <input
