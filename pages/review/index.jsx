@@ -1476,8 +1476,8 @@ function Index() {
         console.log("CAAAAA3",approveComment)
         const obj = {
           approvalRemarks: [...approveComment],
-          approvedOrderValue: approvedCredit.approvedOrderValue ,
-          approvedCreditValue: approvedCredit.approvedCreditValue ,
+          approvedOrderValue: approvedCredit.approvedOrderValue *10000000 ,
+          approvedCreditValue: approvedCredit.approvedCreditValue *10000000 ,
           order: orderList._id,
           status: 'Approved',
         }
