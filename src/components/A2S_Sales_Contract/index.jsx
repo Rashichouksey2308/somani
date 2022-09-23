@@ -12,6 +12,8 @@ function Index(props) {
   const [data, setData] = useState({
     seller: "",
     buyer: "",
+    sellerAddress:"",
+     buyerAddress:"",
     shortseller: "",
     shortbuyer: "",
     sellerSignature: "",
@@ -38,7 +40,22 @@ function Index(props) {
 
 
   })
-
+ const getAddress=(buyer)=>{
+   if(buyer.name=="Indo German International Private Limited"){
+     if(buyer.branch=="Delhi"){
+       return "7A , SAGAR APARTMENTS,6 TILAK MARG,DELHI,NEW DELHI,110001"
+     }else{
+      return "Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016"
+     }
+   }
+   if(buyer.name=="Emergent Industrial Solution Limited"){
+     if(buyer.branch=="Delhi"){
+       return "8B, SAGAR, 6 TILAK MARG,DELHI,NEW DELHI,110001"
+     }else{
+      return "49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM,,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016"
+     }
+   }
+ }
   useEffect(() => {
     if (window) {
       if (props.preview) {
@@ -47,6 +64,8 @@ function Index(props) {
         setData({
           seller: data?.seller,
           buyer: data?.buyer?.toLowerCase(),
+          sellerAddress:data.sellerAddress,
+          buyerAddress:data.buyerAddress,
           shortseller: data?.shortseller,
           shortbuyer: `${data?.buyer == "Indo German International Private Limited" ? "IGPL" : "EISL"}`,
           sellerSignature: data?.sellerSignature,
@@ -91,7 +110,9 @@ function Index(props) {
         setData({
           seller: data?.seller?.name,
           buyer: data?.buyer?.name,
-          shortseller: data?.seller.shortName,
+          sellerAddress:data?.seller?.name=="Indo Intertrade Ag"?"Industriestrasse 16, Zug,6300":"",
+          buyerAddress:data?.buyer?.name?getAddress(data?.buyer):"",
+          shortseller:data?.seller?.shortName,
           shortbuyer: `${data?.buyer?.name == "Indo German International Private Limited" ? "IGPL" : "EISL"}`,
           sellerSignature:data?.seller?.name,
           buyerSignature: data?.buyer?.name,
@@ -100,7 +121,7 @@ function Index(props) {
           details: data?.supplier?.name,
           detailsOfEndBuyer: "",
           detailsOfComm: data?.order?.commodity,
-          quan: data.order?.quantity,
+          quan: data?.order?.quantity,
           unitPrice: data.order?.perUnitPrice,
           totalOrderValue: data?.order?.marginMoney?.calculation?.orderValue ?? '',
           lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
@@ -192,6 +213,8 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
             <Col md={7} className={styles.right}>
 
               <>{data?.seller}</>
+              <br/>
+              <>{data?.seller?data.sellerAddress:""}</>
 
 
             </Col>
@@ -202,6 +225,9 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
             <Col md={7} className={styles.right} style={{ textTransform: "capitalize" }}>
 
               <>{data?.buyer?.toLowerCase()}</>
+              <br/>
+              <>{data?.buyer?data.buyerAddress:null}</>
+
 
             </Col>
           </Row>
@@ -397,8 +423,9 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
             <Col md={1} className={styles.left}>20</Col>
             <Col md={4} className={styles.left}>Termination</Col>
             <Col md={7} className={styles.right}>
-              In the event the Buyer commits any breach of the terms of the agreement, then the Seller may, by giving thirty (30) days prior written notice to the Buyer, terminate this Agreement without liability and charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of the Goods already shipped by the Seller at the instance of the Buyer. Provided further, the Parties hereto agree that the Seller may immediately terminate this Agreement without providing any notice to the Buyer upon the Buyer, or the Buyer's shareholders commencing a voluntary proceeding under any applicable bankruptcy, insolvency, winding up or other similar law now or hereafter in effect (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the entry of an order for relief in an involuntary proceeding under any such law (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the appointment or taking possession by a resolution professional, Receiver, liquidator, assignee (or similar official) for any or a substantial part of its property; or the Buyer has involuntarily become the subject of proceedings (including filing of an application/ petition for corporate insolvency resolution) under the Insolvency &amp; Bankruptcy Code, 2016 or an order has been made by the appropriate authority for winding up of the Buyer.<br /><br />
-              In the event that conditions of Force Majeure continue so that the Buyer's obligations remain suspended for a period or periods amounting in aggregate to sixty (60) days in any consecutive period of ninety (90) days, and at the end of said period or at anytime thereafter, then the Seller may give thirty (30) days prior written notice to the Buyer that the Seller intends to terminate this Agreement. At the expiration of the thirty (30) days, the Seller at its discretion may terminate this Agreement forthwith without any liability or charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of the Goods.
+              <p className='mb-3'>In the event the Buyer commits any breach of the terms of the agreement, then the Seller may, by giving thirty (30) days prior written notice to the Buyer, terminate this Agreement without liability and charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of the Goods already shipped by the Seller at the instance of the Buyer. Provided further, the Parties hereto agree that the Seller may immediately terminate this Agreement without providing any notice to the Buyer upon the Buyer, or the Buyer's shareholders commencing a voluntary proceeding under any applicable bankruptcy, insolvency, winding up or other similar law now or hereafter in effect (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the entry of an order for relief in an involuntary proceeding under any such law (including but not limited to the Insolvency and Bankruptcy Code, 2016), or consents to the appointment or taking possession by a resolution professional, Receiver, liquidator, assignee (or similar official) for any or a substantial part of its property; or the Buyer has involuntarily become the subject of proceedings (including filing of an application/ petition for corporate insolvency resolution) under the Insolvency &amp; Bankruptcy Code, 2016 or an order has been made by the appropriate authority for winding up of the Buyer.</p>
+              <p>In the event that conditions of Force Majeure continue so that the Buyer's obligations remain suspended for a period or periods amounting in aggregate to sixty (60) days in any consecutive period of ninety (90) days, and at the end of said period or at anytime thereafter, then the Seller may give thirty (30) days prior written notice to the Buyer that the Seller intends to terminate this Agreement. At the expiration of the thirty (30) days, the Seller at its discretion may terminate this Agreement forthwith without any liability or charge to the Seller. However, the Buyer shall remain liable to the Seller for making Payment of the Goods.
+              </p>
             </Col>
           </Row>
           <Row className={`${styles.row}`}>
@@ -411,11 +438,9 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
             <Col md={4} className={styles.left}>Force Majeure</Col>
             <Col md={7} className={styles.right}>
               <div>
-                <p>The Seller shall not be liable to the Buyer or to the Manufacturer/shipper for any damages due to delay, interruption or failure in performance of the obligations under the present Agreement (including but not limited to any loss, damage or delay) if such loss, damage, delay or failure is due to or results from Acts of God, War (whether declared or undeclared), blockades, revolution, insurrection, civil commotion, terrorism, riot, invasion, plague or other  epidemic, fire, sabotage, quarantine  restriction, explosion or embargo, including any change/modification in commercial laws, rules and regulations by government, acts of Government in creating any restrictions or control in imports, exports or foreign exchange, fire, flood, storm, earthquakes, accident in and to the Vessel or strikes, breakdown of loading or unloading facilities, or transporting, loading, unloading or delivering freight, embargoes and breakdown of railroads, serious damage to or breakdown of the transmission system connecting to the  Buyer's  warehouse or the like or any other cause which may be beyond the control of the Seller.<br/></p>
-                <p>The force Majeure declared by the Manufacturer/shipper shall be applicable to the Seller.<br/>
-
-                </p>
-                <p>No event described in this Clause shall constitute a Force Majeure event with respect to the Buyer&apos;s obligation to pay for any product loaded at loading place in transit to the Buyer or stored at the licensed warehouse.</p>
+                <p className='mb-3'>The Seller shall not be liable to the Buyer or to the Manufacturer/shipper for any damages due to delay, interruption or failure in performance of the obligations under the present Agreement (including but not limited to any loss, damage or delay) if such loss, damage, delay or failure is due to or results from Acts of God, War (whether declared or undeclared), blockades, revolution, insurrection, civil commotion, terrorism, riot, invasion, plague or other  epidemic, fire, sabotage, quarantine  restriction, explosion or embargo, including any change/modification in commercial laws, rules and regulations by government, acts of Government in creating any restrictions or control in imports, exports or foreign exchange, fire, flood, storm, earthquakes, accident in and to the Vessel or strikes, breakdown of loading or unloading facilities, or transporting, loading, unloading or delivering freight, embargoes and breakdown of railroads, serious damage to or breakdown of the transmission system connecting to the  Buyer's  warehouse or the like or any other cause which may be beyond the control of the Seller.</p>
+                <p className='mb-3'>The force Majeure declared by the Manufacturer/shipper shall be applicable to the Seller.</p>
+                <p>No event described in this Clause shall constitute a Force Majeure event with respect to the Buyer's obligation to pay for any product loaded at loading place in transit to the Buyer or stored at the licensed warehouse.</p>
               </div>
             </Col>
           </Row>
@@ -458,9 +483,8 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
             <Col md={4} className={styles.left}>Dispute Resolution &amp; Arbitration</Col>
             <Col md={7} className={styles.right}>
               <div>
-                <p>Both parties agree to use their best efforts to amicably resolve any claims controversies and disputes arising out of this contract, as well as to determine the final costs thereof. Any such claims, controversies and disputes which cannot be resolved through negotiations within a period of 60 days of the notification of such claims, disputes and controversies shall be referred to arbitration in accordance with the rules of Singapore International Arbitration Center (SIAC). One arbitrator to be nominated jointly by both the parties. The award rendered by the arbitrator shall be final and binding upon both the parties concerned and subject to no appeal. The costs and expenses of the prevailing party (including, without limitation, reasonable attorney's fee) will be paid by the losing party. The contract shall be subject to Laws of India. The seat of the arbitration will be Singapore and the proceedings shall be conducted in English language.<br/>
-                </p>
-                <p className='mt-3'>Notwithstanding the aforesaid, the parties agree and affirm that relief available under Section 9 of the Indian Arbitration Act, 1996 (as amended) shall be available to the parties, and the parties may initiate appropriate proceedings in India in order to avail such relief.
+                <p className='mb-3'>Both parties agree to use their best efforts to amicably resolve any claims controversies and disputes arising out of this contract, as well as to determine the final costs thereof. Any such claims, controversies and disputes which cannot be resolved through negotiations within a period of 60 days of the notification of such claims, disputes and controversies shall be referred to arbitration in accordance with the rules of Singapore International Arbitration Center (SIAC). One arbitrator to be nominated jointly by both the parties. The award rendered by the arbitrator shall be final and binding upon both the parties concerned and subject to no appeal. The costs and expenses of the prevailing party (including, without limitation, reasonable attorney's fee) will be paid by the losing party. The contract shall be subject to Laws of India. The seat of the arbitration will be Singapore and the proceedings shall be conducted in English language.</p>
+                <p>Notwithstanding the aforesaid, the parties agree and affirm that relief available under Section 9 of the Indian Arbitration Act, 1996 (as amended) shall be available to the parties, and the parties may initiate appropriate proceedings in India in order to avail such relief.
 
                 </p>
 
