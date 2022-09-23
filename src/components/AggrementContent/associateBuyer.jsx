@@ -642,7 +642,7 @@ console.log(associateData.gstin,"associateData")
                       setAddress(e.target.name,e.target.value)
                     }}
                   >
-                      <option>Select an option</option>
+                      <option disabled>Select an option</option>
                     <option value="Registered">Registered Office</option>
                     {/* <option value="Branch">Branch </option> */}
                       <option value="Supplier">Supplier Address </option>
@@ -660,7 +660,7 @@ console.log(associateData.gstin,"associateData")
                   />
                 </div>
               </Form.Group>
-          {addressType=="Registered" || addressType=="Supplier"?
+        
               <>
               <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
                 <Form.Control
@@ -721,116 +721,7 @@ console.log(associateData.gstin,"associateData")
                     />
               </Form.Group>
               </>
-              :<>
-              <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <div className="d-flex">
-                  <select
-                    className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                    name="gstin"
-                    value={newAddress.gstin}
-                    onChange={(e) => {
-                      setAddress(e.target.name,e.target.value)
-                    }}
-                  >
-                      <option>Select an option</option>
-                    <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
-                    
-                  </select>
-                  <Form.Label
-                    className={`${styles.label_heading} ${styles.select}  label_heading`}
-                  >
-                    GSTIN<strong className="text-danger">*</strong>
-                  </Form.Label>
-                  <img
-                    className={`${styles.arrow} image_arrow img-fluid`}
-                    src="/static/inputDropDown.svg"
-                    alt="Search"
-                  />
-                </div>
-              </Form.Group>
-              <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
-                <Form.Control
-                  className={`${styles.input_field} input form-control`}
-                  required
-                  type="number"
-                  name="pinCode"
-                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
-                  value={newAddress.pinCode}
-                  onChange={(e) => {
-                    setAddress(e.target.name,e.target.value)
-                  }}
-                />
-                <Form.Label className={`${styles.label_heading} label_heading`}>
-                  Pin Code<strong className="text-danger">*</strong>
-                </Form.Label>
-                  <img
-                      className={`${styles.search_image} img-fluid`}
-                      src="/static/search-grey.svg"
-                      alt="Search"
-                    />
-              </Form.Group>
-                <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <Form.Control
-                  className={`${styles.input_field} input form-control`}
-                  required
-                  type="text"
-                  name="country"
-                  value={newAddress.country}
-                  onChange={(e) => {
-                    setAddress(e.target.name,e.target.value)
-                  }}
-                />
-                <Form.Label className={`${styles.label_heading} label_heading`}>
-                  Country<strong className="text-danger">*</strong>
-                </Form.Label>
-              </Form.Group>
-                <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <Form.Control
-                  className={`${styles.input_field} input form-control`}
-                  required
-                  type="text"
-                  name="state"
-                  value={newAddress.state}
-                  onChange={(e) => {
-                    setAddress(e.target.name,e.target.value)
-                  }}
-                />
-                <Form.Label className={`${styles.label_heading} label_heading`}>
-                  State<strong className="text-danger">*</strong>
-                </Form.Label>
-              </Form.Group>
-                <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                <Form.Control
-                  className={`${styles.input_field} input form-control`}
-                  required
-                  type="text"
-                  name="city"
-                  value={newAddress.city}
-                  onChange={(e) => {
-                    setAddress(e.target.name,e.target.value)
-                  }}
-                />
-                <Form.Label className={`${styles.label_heading} label_heading`}>
-                  City<strong className="text-danger">*</strong>
-                </Form.Label>
-              </Form.Group>
-                <Form.Group className={`${styles.form_group} col-md-12 col-sm-6`}>
-                <Form.Control
-                  className={`${styles.input_field} input form-control`}
-                  required
-                  type="text"
-                  name="fullAddress"
-                  value={newAddress.fullAddress}
-                  onChange={(e) => {
-                    setAddress(e.target.name,e.target.value)
-                  }}
-                />
-                <Form.Label className={`${styles.label_heading} label_heading`}>
-                  Address<strong className="text-danger">*</strong>
-                </Form.Label>
-              </Form.Group>
-              </>}
+              
                 
               
             </div>
@@ -1158,7 +1049,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         />
                       </div>
                     </Form.Group>
-                {addressEditType=="Registered" || addressEditType=="Supplier"?
+              
                     <>
                     <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
                       <Form.Control
@@ -1219,116 +1110,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                           />
                     </Form.Group>
                     </>
-                    :<>
-                    <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                      <div className='d-flex'>
-                        <select
-                          className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                          name="gstin"
-                          value={EditAddress.gstin}
-                          onChange={(e) => {
-                            editNewAddress(e.target.name,e.target.value)
-                          }}
-                        >
-                           <option>Select an option</option>
-                          <option value="27AAATW4183C2ZG">27AAATW4183C2ZG</option>
-                          
-                        </select>
-                        <Form.Label
-                          className={`${styles.label_heading} ${styles.select}  label_heading`}
-                        >
-                          GSTIN<strong className="text-danger">*</strong>
-                        </Form.Label>
-                        <img
-                          className={`${styles.arrow} image_arrow img-fluid`}
-                          src="/static/inputDropDown.svg"
-                          alt="Search"
-                        />
-                      </div>
-                    </Form.Group>
-                    <Form.Group className={`${styles.form_group} d-flex  col-md-4 col-sm-6`}>
-                      <Form.Control
-                        className={`${styles.input_field} input form-control`}
-                        required
-                        type="number"
-                        name="pinCode"
-                         value={EditAddress.pinCode}
-                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
-                        onChange={(e) => {
-                          editNewAddress(e.target.name,e.target.value)
-                        }}
-                      />
-                      <Form.Label className={`${styles.label_heading} label_heading`}>
-                        Pin Code<strong className="text-danger">*</strong>
-                      </Form.Label>
-                        <img
-                            className={`${styles.search_image} img-fluid`}
-                            src="/static/search-grey.svg"
-                            alt="Search"
-                          />
-                    </Form.Group>
-                      <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                      <Form.Control
-                        className={`${styles.input_field} input form-control`}
-                        required
-                        type="text"
-                        name="country"
-                         value={EditAddress.country}
-                        onChange={(e) => {
-                          editNewAddress(e.target.name,e.target.value)
-                        }}
-                      />
-                      <Form.Label className={`${styles.label_heading} label_heading`}>
-                        Short Name
-                      </Form.Label>
-                    </Form.Group>
-                      <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                      <Form.Control
-                        className={`${styles.input_field} input form-control`}
-                        required
-                        type="text"
-                        name="state"
-                        value={EditAddress.state}
-                        onChange={(e) => {
-                          editNewAddress(e.target.name,e.target.value)
-                        }}
-                      />
-                      <Form.Label className={`${styles.label_heading} label_heading`}>
-                        State<strong className="text-danger">*</strong>
-                      </Form.Label>
-                    </Form.Group>
-                      <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
-                      <Form.Control
-                        className={`${styles.input_field} input form-control`}
-                        required
-                        type="text"
-                        name="city"
-                         value={EditAddress.city}
-                        onChange={(e) => {
-                          editNewAddress(e.target.name,e.target.value)
-                        }}
-                      />
-                      <Form.Label className={`${styles.label_heading} label_heading`}>
-                        City<strong className="text-danger">*</strong>
-                      </Form.Label>
-                    </Form.Group>
-                      <Form.Group className={`${styles.form_group} col-md-12 col-sm-6`}>
-                      <Form.Control
-                        className={`${styles.input_field} input form-control`}
-                        required
-                        type="text"
-                        name="fullAddress"
-                         value={EditAddress.fullAddress}
-                        onChange={(e) => {
-                          editNewAddress(e.target.name,e.target.value)
-                        }}
-                      />
-                      <Form.Label className={`${styles.label_heading} label_heading`}>
-                        Address<strong className="text-danger">*</strong>
-                      </Form.Label>
-                    </Form.Group>
-                    </>}
+                   
                       
                     
                     </div>
