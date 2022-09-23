@@ -318,9 +318,9 @@ function Index() {
     // apiData.commoditiesTraded.push(commodity)
     // apiData.additionalInformation.push(info)
   }
-  {
-    console.log('apidata', apiData)
-  }
+  // {
+  //   console.log('apidata', apiData)
+  // }
 
   const handleSave = () => {
     apiData.supplierName = formData
@@ -332,7 +332,7 @@ function Index() {
     apiData.commoditiesTraded.push(commodity)
     apiData.additionalInformation.push(info)
     dispatch(UpdateSupplier(apiData))
-    console.log('apidata', apiData)
+    // console.log('apidata', apiData)
   }
 
   const [darkMode, setDarkMode] = useState(false)
@@ -528,7 +528,6 @@ function Index() {
                 </div>
               </div>
             </div>
-            {console.log('data33', formData)}
 
             <div className={`${styles.main} mt-4 card border_color`}>
               <div
@@ -785,7 +784,6 @@ function Index() {
                               alt="Search"
                             />
                           </div>
-                          {console.log('data44', address)}
                         </div>
                       </div>
                     </div>
@@ -1024,7 +1022,6 @@ function Index() {
                                     onChange={onChangeHandler3}
                                   />
                                 </td>
-                                {/* {console.log('data66', detail)} */}
 
                                 <td className="text-right">
                                   <div>
@@ -1158,7 +1155,6 @@ function Index() {
                                   onChange={onChangeHandler4}
                                 />
                               </td>
-                              {console.log('data77', signatory)}
 
                               <td className="text-right">
                                 <div>
@@ -1266,9 +1262,6 @@ function Index() {
                   <label className={`${styles.label_textarea} text`}>
                     Business Summary
                   </label>
-
-                  {console.log('data88', business)}
-
                   <img
                     className={`${styles.plus_field} img-fluid`}
                     src="/static/add-btn.svg"
@@ -1453,7 +1446,6 @@ function Index() {
                   <label className={`${styles.label_textarea}  text`}>
                     Remarks
                   </label>
-                  {console.log('data97', info)}
 
                   <img
                     className={`${styles.plus_field} img-fluid`}
