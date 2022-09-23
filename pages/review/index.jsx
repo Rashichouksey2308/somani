@@ -1578,7 +1578,7 @@ function Index() {
     }
     return (
       <table
-        width="1000px"
+        width="1500px"
         style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
         cellPadding="0"
         cellSpacing="0"
@@ -6547,7 +6547,7 @@ function Index() {
   console.log(companyData?.profile?.directorDetail, 'director')
   const exportPDF = () => {
     console.log(orderList, 'orderList')
-    const doc = new jsPDF('p', 'pt', [1000, 1000])
+    const doc = new jsPDF('p', 'pt', [1500, 1500])
     doc.html(
       ReactDOMServer.renderToString(
         toPrintPdf(orderList, gstData?.detail?.salesDetailAnnual?.saleSummary),
