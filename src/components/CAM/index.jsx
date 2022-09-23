@@ -2085,6 +2085,7 @@ const debtProfile = (data, options, tempArr, camData) => {
   )
 }
 const operationalDetails = (camData) => {
+  console.log(camData?.productSummary?.monthlyProductionCapacity,"camData?.productSummary?.monthlyProductionCapacity")
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -2112,7 +2113,13 @@ const operationalDetails = (camData) => {
                     Plant Production Capacity
                   </span>
                   <span className={`${styles.value} value pr-5`}>
-                    {Number(camData?.productSummary?.monthlyProductionCapacity)?.toLocaleString('en-IN')}{" "} {camData?.productSummary?.monthlyProductionCapacity?"MT":""}
+                    { checkNan(
+                      Number(
+                        camData?.productSummary?.monthlyProductionCapacity,
+                      ),
+                      true,
+                    )}
+                    {" "} {camData?.productSummary?.monthlyProductionCapacity?"MT":""}
                   </span>
                 </Col>
                 <Col
@@ -2123,7 +2130,13 @@ const operationalDetails = (camData) => {
                     Stock in Transit - Commodity
                   </span>
                   <span className={`${styles.value} value`}>
-                    {Number(camData?.productSummary?.averageStockInTransit)?.toLocaleString("en-IN")}{" "} {camData?.productSummary?.averageStockInTransit?"MT":""}
+                     { checkNan(
+                      Number(
+                        camData?.productSummary?.averageStockInTransit,
+                      ),
+                      true,
+                    )}
+                    {" "} {camData?.productSummary?.averageStockInTransit?"MT":""}
                   </span>
                 </Col>
               </Row>
@@ -2141,6 +2154,7 @@ const operationalDetails = (camData) => {
                     Stock Coverage of Commodity
                   </span>
                   <span className={`${styles.value} value`}>
+                   
                     {camData?.productSummary?.averageStockOfCommodity} {camData?.productSummary?.averageStockOfCommodity?"Days":""}
                   </span>
                 </Col>
@@ -2151,7 +2165,13 @@ const operationalDetails = (camData) => {
                     Available Stock of Commodity
                   </span>
                   <span className={`${styles.value} value pr-5`}>
-                    {Number(camData?.productSummary?.availableStock)?.toLocaleString("en-IN")}{" "} {camData?.productSummary?.availableStock?"MT":""}
+                      {checkNan(
+                      Number(
+                        camData?.productSummary?.availableStock,
+                      ),
+                      true,
+                    )}
+                   {" "} {camData?.productSummary?.availableStock?"MT":""}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
@@ -2159,7 +2179,13 @@ const operationalDetails = (camData) => {
                     Avg Monthly Electricity Bill
                   </span>
                   <span className={`${styles.value} value`}>
-                   {camData?.productSummary?.AvgMonthlyElectricityBill?"₹":""} {" "} {Number(camData?.productSummary?.AvgMonthlyElectricityBill)?.toLocaleString("en-IN")}
+                     
+                   {camData?.productSummary?.AvgMonthlyElectricityBill?"₹":""} {" "}  { checkNan(
+                      Number(
+                        camData?.productSummary?.AvgMonthlyElectricityBill,
+                      ),
+                      true,
+                    )}
                   </span>
                 </Col>
               </Row>
@@ -2169,7 +2195,13 @@ const operationalDetails = (camData) => {
                     Daily Consumption of Commodity
                   </span>
                   <span className={`${styles.value} value`}>
-                    {Number(camData?.productSummary?.dailyConsumptionOfCommodity)?.toLocaleString("en-IN")}{" "} {camData?.productSummary?.dailyConsumptionOfCommodity?"MT":""}
+                     { checkNan(
+                     Number(
+                        camData?.productSummary?.dailyConsumptionOfCommodity,
+                      ),
+                      true,
+                    )}
+                   {" "} {camData?.productSummary?.dailyConsumptionOfCommodity?"MT":""}
                   </span>
                 </Col>
               </Row>
@@ -2243,10 +2275,22 @@ const revenuDetails = (gstData) => {
                   ) : null}
                 </td>
                 <td>
-                  {checkNan(RevenueDetails?.grossTurnover?.current?.value)}
+                    {checkNan(
+                      CovertvaluefromtoCR(Number(
+                       RevenueDetails?.grossTurnover?.current?.value,
+                      )).toFixed(2),
+                      true,
+                    )} Cr
+                  
                 </td>
                 <td>
-                  {checkNan(RevenueDetails?.grossTurnover?.previous?.value)}
+                  {checkNan(
+                      CovertvaluefromtoCR(Number(
+                      RevenueDetails?.grossTurnover?.previous?.value,
+                      )).toFixed(2),
+                      true,
+                    )} Cr
+                 
                 </td>
                 <td>
                   {checkNan(
@@ -2277,14 +2321,22 @@ const revenuDetails = (gstData) => {
                   ) : null}
                 </td>
                 <td>
-                  {RevenueDetails?.relatedPartySales?.current?.value
-                    .toFixed(2)
-                    ?.toLocaleString()}
+                  {checkNan(
+                      CovertvaluefromtoCR(Number(
+                      RevenueDetails?.relatedPartySales?.current?.value,
+                      )).toFixed(2),
+                      true,
+                    )} Cr
+                  
                 </td>
                 <td>
-                  {RevenueDetails?.relatedPartySales?.previous?.value
-                    .toFixed(2)
-                    ?.toLocaleString()}
+                  {checkNan(
+                      CovertvaluefromtoCR(Number(
+                      RevenueDetails?.relatedPartySales?.previous?.value,
+                      )).toFixed(2),
+                      true,
+                    )} Cr
+                  
                 </td>
                 <td>
                   {checkNan(
@@ -2315,14 +2367,22 @@ const revenuDetails = (gstData) => {
                   ) : null}
                 </td>
                 <td>
-                  {RevenueDetails?.intraOrgSalesPercent?.current?.value
-                    .toFixed(2)
-                    ?.toLocaleString()}
+                   {checkNan(
+                      CovertvaluefromtoCR(Number(
+                     RevenueDetails?.intraOrgSalesPercent?.current?.value,
+                      )).toFixed(2),
+                      true,
+                    )} Cr
+                  
                 </td>
                 <td>
-                  {RevenueDetails?.intraOrgSalesPercent?.previous?.value
-                    .toFixed(2)
-                    ?.toLocaleString()}
+                  {checkNan(
+                      CovertvaluefromtoCR(Number(
+                    RevenueDetails?.intraOrgSalesPercent?.previous?.value,
+                      )).toFixed(2),
+                      true,
+                    )} Cr
+                  
                 </td>
                 <td>
                   {checkNan(
@@ -2353,14 +2413,22 @@ const revenuDetails = (gstData) => {
                   ) : null}
                 </td>
                 <td>
-                  {RevenueDetails?.B2BSales?.current?.value
-                    .toFixed(2)
-                    ?.toLocaleString()}
+                   {checkNan(
+                      CovertvaluefromtoCR(Number(
+                       RevenueDetails?.B2BSales?.current?.value,
+                      )).toFixed(2),
+                      true,
+                    )} Cr
+                  
                 </td>
                 <td>
-                  {RevenueDetails?.B2BSales?.previous?.value
-                    .toFixed(2)
-                    ?.toLocaleString()}
+                   {checkNan(
+                      CovertvaluefromtoCR(Number(
+                       RevenueDetails?.B2BSales?.previous?.value,
+                      )).toFixed(2),
+                      true,
+                    )} Cr
+                  
                 </td>
                 <td>
                   {checkNan(
@@ -2391,14 +2459,22 @@ const revenuDetails = (gstData) => {
                   ) : null}
                 </td>
                 <td>
-                  {RevenueDetails?.B2CSales?.current?.value
-                    .toFixed(2)
-                    ?.toLocaleString()}
+                    {checkNan(
+                      CovertvaluefromtoCR(Number(
+                    RevenueDetails?.B2CSales?.current?.value,
+                      )).toFixed(2),
+                      true,
+                    )}  Cr
+                 
                 </td>
                 <td>
-                  {RevenueDetails?.B2CSales?.previous?.value
-                    .toFixed(2)
-                    ?.toLocaleString()}
+                  {checkNan(
+                      CovertvaluefromtoCR(Number(
+                   RevenueDetails?.B2CSales?.previous?.value,
+                      )).toFixed(2),
+                      true,
+                    )}   Cr
+                 
                 </td>
                 <td>
                   {checkNan(
@@ -2429,14 +2505,22 @@ const revenuDetails = (gstData) => {
                   ) : null}
                 </td>
                 <td>
-                  {RevenueDetails?.exportSales?.current?.value
-                    .toFixed(2)
-                    ?.toLocaleString()}
+                  {checkNan(
+                      CovertvaluefromtoCR(Number(
+                  RevenueDetails?.exportSales?.current?.value,
+                      )).toFixed(2),
+                      true,
+                    )}   Cr
+                 
                 </td>
                 <td>
-                  {RevenueDetails?.exportSales?.previous?.value
-                    .toFixed(2)
-                    ?.toLocaleString()}
+                   {checkNan(
+                      CovertvaluefromtoCR(Number(
+                RevenueDetails?.exportSales?.previous?.value,
+                      )).toFixed(2),
+                      true,
+                    )}  Cr
+                 
                 </td>
                 <td>
                   {checkNan(
@@ -2467,14 +2551,22 @@ const revenuDetails = (gstData) => {
                   ) : null}
                 </td>
                 <td>
-                  {RevenueDetails?.ttlCustomer?.current?.value
-                    ?.toFixed(2)
-                    ?.toLocaleString()}
+                   {checkNan(
+                      CovertvaluefromtoCR(Number(
+                RevenueDetails?.ttlCustomer?.current?.value,
+                      )).toFixed(2),
+                      true,
+                    )} Cr
+                 
                 </td>
                 <td>
-                  {RevenueDetails?.ttlCustomer?.previous?.value
-                    ?.toFixed(2)
-                    ?.toLocaleString()}
+                     {checkNan(
+                      CovertvaluefromtoCR(Number(
+                RevenueDetails?.ttlCustomer?.previous?.value,
+                      )).toFixed(2),
+                      true,
+                    )} Cr
+                 
                 </td>
                 <td>
                   {checkNan(
@@ -2505,14 +2597,22 @@ const revenuDetails = (gstData) => {
                   ) : null}
                 </td>
                 <td>
-                  {RevenueDetails?.ttlInv?.current?.value
-                    ?.toFixed(2)
-                    ?.toLocaleString()}
+                      {checkNan(
+                      CovertvaluefromtoCR(Number(
+                RevenueDetails?.ttlInv?.current?.value,
+                      )).toFixed(2),
+                      true,
+                    )} Cr
+                  
                 </td>
                 <td>
-                  {RevenueDetails?.ttlInv?.previous?.value
-                    ?.toFixed(2)
-                    ?.toLocaleString()}
+                      {checkNan(
+                      CovertvaluefromtoCR(Number(
+                RevenueDetails?.ttlInv?.previous?.value,
+                      )).toFixed(2),
+                      true,
+                    )} Cr
+                
                 </td>
                 <td>
                   {checkNan(
@@ -3652,7 +3752,7 @@ const trends = (
                       CovertvaluefromtoCR(Number(
                         gstData?.detail?.salesDetailAnnual?.saleSummary
                           ?.grossTurnover?.current?.value,
-                      )),
+                      )).toFixed(2),
                       true,
                     )} Cr
                     {/* {checkNan(
@@ -3688,7 +3788,7 @@ const trends = (
                       CovertvaluefromtoCR( Number(
                         gstData?.detail?.purchaseDetailAnnual?.saleSummary
                           ?.grossPurchases?.current?.value,
-                      )),
+                      )).toFixed(2),
                       true,
                     )} Cr
                     {/* {checkNan(
@@ -3778,7 +3878,7 @@ const skewness = (top5Customers, options, tempArr, gstData, top5Suppliers, backg
                       CovertvaluefromtoCR(Number(
                         gstData?.detail?.salesDetailAnnual?.saleSummary
                           ?.grossTurnover?.current?.value,
-                      )),
+                      )).toFixed(2),
                       true,
                     )} Cr
                   </span>
@@ -3837,7 +3937,7 @@ const skewness = (top5Customers, options, tempArr, gstData, top5Suppliers, backg
                       CovertvaluefromtoCR(Number(
                         gstData?.detail?.purchaseDetailAnnual?.saleSummary
                           ?.grossPurchases?.current?.value,
-                      )),
+                      )).toFixed(2),
                       true,
                     )} Cr
                   </span>
