@@ -307,9 +307,9 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                           latestYearData?.ebitdaMargin), unit)?.toLocaleString(undefined, {
                             maximumFractionDigits: 4,
                           })} */}
-                        {latestYearData?.operatingProfitMargin
+                        {(Number(latestYearData?.operatingProfitMargin) * 100) 
                           ?.toFixed(2)
-                          ?.toLocaleString()}
+                          ?.toLocaleString()}%
                       </td>
                       <td className="text-center">
                         {/* {convertValue(((previousIncomeData?.revenue?.revenueFromOperations -
@@ -318,9 +318,9 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                           previousYearData?.ebitdaMargin), unit)?.toLocaleString(undefined, {
                             maximumFractionDigits: 2,
                           })} */}
-                        {previousYearData?.operatingProfitMargin
+                        {(Number(previousYearData?.operatingProfitMargin) * 100) 
                           ?.toFixed(2)
-                          ?.toLocaleString()}
+                          ?.toLocaleString()}%
                       </td>
                       <td className="text-center">
                         {/* {convertValue(((lastIncomeData?.revenue?.revenueFromOperations -
@@ -329,9 +329,9 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                           lastYearData?.ebitdaMargin), unit)?.toLocaleString(undefined, {
                             maximumFractionDigits: 2,
                           })} */}
-                        {lastYearData?.operatingProfitMargin
+                        {(Number(lastYearData?.operatingProfitMargin) * 100) 
                           ?.toFixed(2)
-                          ?.toLocaleString()}
+                          ?.toLocaleString()}%
                       </td>
                       <td className="text-center">
                         {/* {rtrnChartIndiaction(((latestIncomeData?.revenue?.revenueFromOperations -
@@ -478,9 +478,9 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(
-                          latestYearData?.returnOnAssets,
-                          previousYearData?.returnOnAssets,
-                          lastYearData?.returnOnAssets,
+                          latestYearData?.returnOnAssets * 100,
+                          previousYearData?.returnOnAssets * 100,
+                          lastYearData?.returnOnAssets * 100,
                         )}
                       </td>
                     </tr>
@@ -637,9 +637,9 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(
-                          latestYearData?.longTermDebtCoverage,
-                          previousYearData?.longTermDebtCoverage,
-                          lastYearData?.longTermDebtCoverage,
+                          latestYearData?.longTermDebtCoverage * 100,
+                          previousYearData?.longTermDebtCoverage * 100,
+                          lastYearData?.longTermDebtCoverage * 100,
                         )}
                       </td>
                     </tr>
@@ -788,9 +788,9 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(
-                          latestYearData?.netWorthGrowth,
-                          previousYearData?.netWorthGrowth,
-                          lastYearData?.netWorthGrowth,
+                          latestYearData?.netWorthGrowth * 100,
+                          previousYearData?.netWorthGrowth * 100,
+                          lastYearData?.netWorthGrowth * 100,
                         )}
                       </td>
                     </tr>
@@ -828,9 +828,9 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(
-                          latestYearData?.netSalesGrowth,
-                          previousYearData?.netSalesGrowth,
-                          lastYearData?.netSalesGrowth,
+                          latestYearData?.netSalesGrowth * 100,
+                          previousYearData?.netSalesGrowth * 100,
+                          lastYearData?.netSalesGrowth * 100,
                         )}
                       </td>
                     </tr>
