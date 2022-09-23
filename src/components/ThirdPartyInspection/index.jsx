@@ -277,11 +277,7 @@ export default function Index({ addButton }) {
   }
 
   const handleSave = () => {
-    console.log(
-      _get(inspectionData, 'order.vessel.vessels[0].shipmentType', ''),
-      'asdasd',
-    )
-
+    
     if (
       _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') ==
       'Liner'
@@ -920,7 +916,7 @@ export default function Index({ addButton }) {
                     Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {inspectionData?.order?.quantity} MT
+                    {Number(inspectionData?.order?.quantity)?.toLocaleString("en-IN")} MT
                   </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">

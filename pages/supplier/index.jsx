@@ -8,12 +8,61 @@ import DateCalender from '../../src/components/DateCalender'
 import InspectionDocument from '../../src/components/InspectionDocument'
 import { setPageName, setDynamicName } from '../../src/redux/userData/action'
 import SaveBar from '../../src/components/SaveBar'
+import { UpdateSupplier } from '../../src/redux/supplier/action'
 
 function Index() {
+  const dispatch = useDispatch()
+
   const [saveShareTable, setSaveTable] = useState(false)
   const [saveContactTable, setContactTable] = useState(false)
   const [saveDirectorTable, setDirectorTable] = useState(false)
   const [saveCommodityTable, setCommodityTable] = useState(false)
+  const [formData, setFormData] = useState({
+    supplierName: '',
+    constitution: '',
+    incorporationDate: '',
+    countryOfIncorporation: '',
+    nationalIdentificationNumber: '',
+    website: '',
+  })
+  const [address, setAddress] = useState({
+    contactPerson: '',
+    pinCode: '',
+    country: '',
+    phoneNumber: '',
+    alternatePhoneNumber: '',
+    emailId: '',
+  })
+
+  const [person, setPerson] = useState({
+    name: '',
+    designation: '',
+    contact: '',
+    emailId: '',
+  })
+
+  const [detail, setDetail] = useState({
+    shareHoldersName: '',
+    designation: '',
+    contact: '',
+    ownershipPercentage: '',
+  })
+  const [signatory, setSignatory] = useState({
+    name: '',
+    nationality: '',
+    authoriztyToSign: '',
+  })
+  const [business, setBusiness] = useState({
+    businessSummary: '',
+  })
+  const [commodity, setCommidity] = useState({
+    hsnCode: '',
+    commodity: '',
+  })
+
+  const [info, setInfo] = useState({
+    remarks: '',
+  })
 
   const handleDelete = (index) => {
     setListShare([...listShare.slice(0, index), ...listShare.slice(index + 1)])
@@ -36,6 +85,7 @@ function Index() {
       ...listCommodity.slice(index + 1),
     ])
   }
+
   const [listCommodity, setListCommodity] = useState([
     {
       name: '',
@@ -44,6 +94,18 @@ function Index() {
       emailID: '',
     },
   ])
+
+  const [apiData, setApiData] = useState({
+    supplierName: '',
+    keyAddress: [],
+    contactPerson: [],
+    shareHoldersDetails: [],
+    directorsAndAuthorizedSignatory: [],
+    directorsAndAuthorizedSignatory: [],
+    bussinessSummary: [],
+    commoditiesTraded: [],
+    additionalInformation: [],
+  })
   const onAddCommodity = () => {
     setListCommodity([
       ...listCommodity,
@@ -81,7 +143,7 @@ function Index() {
     },
   ])
   const onAddShare = () => {
-    setListShare([ 
+    setListShare([
       ...listShare,
       {
         name: '',
@@ -111,8 +173,169 @@ function Index() {
     ])
   }
 
+  const saveDate = (value, name) => {
+    // console.log(value, name, 'save date')
+    const d = new Date(value)
+    let text = d.toISOString()
+    saveQuotationData(name, text)
+    // setStartDate(value, name)
+  }
+
+  const saveQuotationData = (name, value) => {
+    // console.log(value, 'dhjsgfksjdghf')
+
+    formData.incorporationDate = value
+    setFormData({
+      ...formData,
+    })
+  }
+
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target
+    setFormData({
+      ...formData,
+      [name]: value,
+    })
+  }
+
+  const onChangeHandler1 = (e) => {
+    const { name, value } = e.target
+    setAddress({
+      ...address,
+      [name]: value,
+    })
+  }
+
+  const onChangeHandler2 = (e) => {
+    const { name, value } = e.target
+    setPerson({
+      ...person,
+      [name]: value,
+    })
+  }
+
+  const onChangeHandler3 = (e) => {
+    const { name, value } = e.target
+    setDetail({
+      ...detail,
+      [name]: value,
+    })
+  }
+
+  const onChangeHandler4 = (e) => {
+    const { name, value } = e.target
+    setSignatory({
+      ...signatory,
+      [name]: value,
+    })
+  }
+
+  const onChangeHandler5 = (e) => {
+    const { name, value } = e.target
+    setBusiness({
+      ...business,
+      [name]: value,
+    })
+  }
+
+  const onChangeHandler6 = (e) => {
+    const { name, value } = e.target
+    setCommidity({
+      ...commodity,
+      [name]: value,
+    })
+  }
+
+  const onChangeHandler7 = (e) => {
+    const { name, value } = e.target
+    setInfo({
+      ...info,
+      [name]: value,
+    })
+  }
+
+  const addData = (item) => {
+    // apiData.supplierName.push(formData)
+    if (item === 'address') {
+      apiData.keyAddress.push(address)
+      setAddress({
+        contactPerson: '',
+        pinCode: '',
+        country: '',
+        phoneNumber: '',
+        alternatePhoneNumber: '',
+        emailId: '',
+      })
+    } else if (item === 'person') {
+      apiData.contactPerson.push(person)
+      setPerson({
+        name: '',
+        designation: '',
+        contact: '',
+        emailId: '',
+      })
+    } else if (item === 'detail') {
+      apiData.shareHoldersDetails.push(detail)
+
+      setDetail({
+        shareHoldersName: '',
+        designation: '',
+        contact: '',
+        ownershipPercentage: '',
+      })
+    } else if (item === 'signatory') {
+      apiData.directorsAndAuthorizedSignatory.push(signatory)
+
+      setSignatory({
+        name: '',
+        nationality: '',
+        authoriztyToSign: '',
+      })
+    } else if (item === 'business') {
+      apiData.bussinessSummary.push(business)
+
+      setSignatory({
+        businessSummary: '',
+      })
+    } else if (item === 'commodity') {
+      apiData.commoditiesTraded.push(commodity)
+
+      setCommidity({
+        hsnCode: '',
+        commodity: '',
+      })
+    } else if (item === 'info') {
+      apiData.additionalInformation.push(info)
+
+      setInfo({
+        remarks: '',
+      })
+    }
+
+    // apiData.shareHoldersDetails.push(detail)
+    // apiData.directorsAndAuthorizedSignatory.push(signatory)
+    // apiData.bussinessSummary.push(business)
+    // apiData.commoditiesTraded.push(commodity)
+    // apiData.additionalInformation.push(info)
+  }
+  {
+    console.log('apidata', apiData)
+  }
+
+  const handleSave = () => {
+    apiData.supplierName = formData
+    apiData.contactPerson.push(person)
+    apiData.keyAddress.push(address)
+    apiData.shareHoldersDetails.push(detail)
+    apiData.directorsAndAuthorizedSignatory.push(signatory)
+    apiData.bussinessSummary.push(business)
+    apiData.commoditiesTraded.push(commodity)
+    apiData.additionalInformation.push(info)
+    dispatch(UpdateSupplier(apiData))
+    console.log('apidata', apiData)
+  }
+
   const [darkMode, setDarkMode] = useState(false)
-  const dispatch = useDispatch()
   useEffect(() => {
     dispatch(setPageName('inception2'))
   })
@@ -160,7 +383,7 @@ function Index() {
                     >
                       <>
                         {' '}
-                        <option>Select an option</option>
+                        <option >Select an option</option>
                         <option value={true}>Active</option>
                         <option value={false}>Not active</option>
                       </>
@@ -191,6 +414,9 @@ function Index() {
                           className={`${styles.input_field} input form-control`}
                           type="text"
                           required
+                          onChange={onChangeHandler}
+                          name="supplierName"
+                          value={formData?.supplierName}
                         />
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -210,8 +436,11 @@ function Index() {
                     >
                       <div className="d-flex">
                         <select
+                          onChange={onChangeHandler}
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           required
+                          name="constitution"
+                          value={formData?.constitution}
                         >
                           <option>Select an option</option>
                           <option value="India">Private Limited</option>
@@ -233,7 +462,12 @@ function Index() {
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                     >
                       <div className="d-flex">
-                        <DateCalender labelName="Incorporation Date" />
+                        <DateCalender
+                          saveDate={saveDate}
+                          saveQuotationData={saveQuotationData}
+                          labelName="Incorporation Date"
+                          onChange={onChangeHandler}
+                        />
                         <img
                           className={`${styles.calanderIcon} image_arrow img-fluid`}
                           src="/static/caldericon.svg"
@@ -246,7 +480,10 @@ function Index() {
                     >
                       <div className="d-flex">
                         <select
+                          onChange={onChangeHandler}
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                          name="countryOfIncorporation"
+                          value={formData?.countryOfIncorporation}
                         >
                           <option>Select an option</option>
                           <option value="India">India</option>
@@ -269,11 +506,16 @@ function Index() {
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                     >
                       <input
+                        onChange={onChangeHandler}
                         className={`${styles.input_field} input form-control`}
                         type="number"
-                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                        onKeyDown={(evt) =>
+                          ['e', 'E', '+', '-'].includes(evt.key) &&
+                          evt.preventDefault()
+                        }
                         required
+                        name="nationalIdentificationNumber"
+                        value={formData?.nationalIdentificationNumber}
                       />
                       <label
                         className={`${styles.label_heading} label_heading`}
@@ -286,6 +528,7 @@ function Index() {
                 </div>
               </div>
             </div>
+            {console.log('data33', formData)}
 
             <div className={`${styles.main} mt-4 card border_color`}>
               <div
@@ -388,10 +631,9 @@ function Index() {
                             className={`${styles.input_field} input form-control`}
                             type="text"
                             required
-                            name="completeAddress"
-                            onChange={(e) => {
-                              handleChange(e.target.name, e.target.value)
-                            }}
+                            name="contactPerson"
+                            value={address?.contactPerson}
+                            onChange={onChangeHandler1}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -409,9 +651,8 @@ function Index() {
                               required
                               type="text"
                               name="pinCode"
-                              onChange={(e) => {
-                                handleChange(e.target.name, e.target.value)
-                              }}
+                              value={address?.pinCode}
+                              onChange={onChangeHandler1}
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -435,10 +676,9 @@ function Index() {
                               className={`${styles.input_field} input form-control`}
                               required
                               type="text"
-                              name="pinCode"
-                              onChange={(e) => {
-                                handleChange(e.target.name, e.target.value)
-                              }}
+                              name="country"
+                              value={address?.country}
+                              onChange={onChangeHandler1}
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -473,9 +713,11 @@ function Index() {
                             <input
                               type="tel"
                               id="textNumber"
-                              name="primary"
+                              name="phoneNumber"
+                              value={address?.phoneNumber}
                               className={`${styles.input_field}  input form-control border-left-0`}
                               required
+                              onChange={onChangeHandler1}
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -505,9 +747,11 @@ function Index() {
                             <input
                               type="tel"
                               id="textNumber"
-                              name="primary"
+                              name="alternatePhoneNumber"
+                              value={address?.alternatePhoneNumber}
                               className={`${styles.input_field} input form-control border-left-0`}
                               required
+                              onChange={onChangeHandler1}
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -525,10 +769,9 @@ function Index() {
                               className={`${styles.input_field} input form-control`}
                               required
                               type="text"
-                              name="email"
-                              onChange={(e) => {
-                                handleChange(e.target.name, e.target.value)
-                              }}
+                              name="emailId"
+                              value={address?.emailId}
+                              onChange={onChangeHandler1}
                             />
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -542,12 +785,13 @@ function Index() {
                               alt="Search"
                             />
                           </div>
+                          {console.log('data44', address)}
                         </div>
                       </div>
                     </div>
                     <button
                       className={`${styles.add_btn}`}
-                      onClick={() => handleClick()}
+                      onClick={() => addData('address')}
                     >
                       Add
                     </button>
@@ -610,37 +854,48 @@ function Index() {
                                 <input
                                   className="input font-weight-bold"
                                   name="name"
+                                  value={person?.name}
                                   type="text"
-                                  readOnly={!saveContactTable}
+                                  onChange={onChangeHandler2}
+                                  // readOnly={!saveContactTable}
                                 />
                               </td>
                               <td>
                                 <input
                                   className="input"
                                   name="designation"
+                                  value={person?.designation}
                                   type="text"
-                                  readOnly={!saveContactTable}
+                                  // readOnly={!saveContactTable}
+                                  onChange={onChangeHandler2}
                                 />
                               </td>
 
                               <td>
                                 <input
                                   className="input"
-                                  name="contact.number"
+                                  name="contact"
+                                  value={person?.contact}
                                   type="number"
-                                  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
-                                  readOnly={!saveContactTable}
+                                  onChange={onChangeHandler2}
+                                  onKeyDown={(evt) =>
+                                    ['e', 'E', '+', '-'].includes(evt.key) &&
+                                    evt.preventDefault()
+                                  }
+                                  // readOnly={!saveContactTable}
                                 />
                               </td>
                               <td>
                                 <input
                                   className="input"
-                                  name="email"
+                                  name="emailId"
+                                  value={person?.emailId}
                                   type="text"
-                                  readOnly={!saveContactTable}
+                                  // readOnly={!saveContactTable}
+                                  onChange={onChangeHandler2}
                                 />
                               </td>
+                              {console.log('data55', person)}
                               <td className="text-right">
                                 <div>
                                   {!saveContactTable ? (
@@ -688,7 +943,7 @@ function Index() {
                   }}
                 >
                   <span>+</span>
-                  <div>Add More Rows</div>
+                  <div onClick={() => addData1('person')}>Add More Rows</div>
                 </div>
               </div>
             </div>
@@ -737,30 +992,39 @@ function Index() {
                                 <td>
                                   <input
                                     className="input font-weight-bold"
-                                    name="name"
+                                    name="shareHoldersName"
+                                    value={detail?.shareHoldersName}
                                     type="text"
-                                    readOnly={!saveShareTable}
+                                    onChange={onChangeHandler3}
+                                    // readOnly={!saveShareTable}
                                   />
                                 </td>
                                 <td>
                                   <input
                                     className="input"
                                     name="designation"
+                                    value={detail?.designation}
                                     type="text"
-                                    readOnly={!saveShareTable}
+                                    // readOnly={!saveShareTable}
+                                    onChange={onChangeHandler3}
                                   />
                                 </td>
 
                                 <td>
                                   <input
                                     className="input"
-                                    name="contact.number"
+                                    name="contact"
+                                    value={detail?.contact}
                                     type="number"
-                                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
-                                    readOnly={!saveShareTable}
+                                    onKeyDown={(evt) =>
+                                      ['e', 'E', '+', '-'].includes(evt.key) &&
+                                      evt.preventDefault()
+                                    }
+                                    // readOnly={!saveShareTable}
+                                    onChange={onChangeHandler3}
                                   />
                                 </td>
+                                {/* {console.log('data66', detail)} */}
 
                                 <td className="text-right">
                                   <div>
@@ -809,7 +1073,7 @@ function Index() {
                   }}
                 >
                   <span>+</span>
-                  <div>Add More Rows</div>
+                  <div onClick={() => addData('detail')}>Add More Rows</div>
                 </div>
               </div>
             </div>
@@ -868,26 +1132,33 @@ function Index() {
                                 <input
                                   className="input font-weight-bold"
                                   name="name"
+                                  value={signatory?.name}
                                   type="text"
-                                  readOnly={!saveDirectorTable}
+                                  // readOnly={!saveDirectorTable}
+                                  onChange={onChangeHandler4}
                                 />
                               </td>
                               <td>
                                 <input
                                   className="input"
-                                  name="designation"
+                                  name="nationality"
+                                  value={signatory?.nationality}
                                   type="text"
-                                  readOnly={!saveDirectorTable}
+                                  // readOnly={!saveDirectorTable}
+                                  onChange={onChangeHandler4}
                                 />
                               </td>
                               <td>
                                 <input
-                                  name="primaryBank"
+                                  name="authoriztyToSign"
+                                  value={signatory?.authoriztyToSign}
                                   className={`${styles.checkBox}`}
                                   type="checkbox"
-                                  readOnly={!saveDirectorTable}
+                                  // readOnly={!saveDirectorTable}
+                                  onChange={onChangeHandler4}
                                 />
                               </td>
+                              {console.log('data77', signatory)}
 
                               <td className="text-right">
                                 <div>
@@ -935,7 +1206,7 @@ function Index() {
                   }}
                 >
                   <span>+</span>
-                  <div>Add More Rows</div>
+                  <div onClick={() => addData('signatory')}>Add More Rows</div>
                 </div>
               </div>
             </div>
@@ -988,10 +1259,15 @@ function Index() {
                     rows={3}
                     placeholder=""
                     className={`${styles.comment_field} mr-n5 form-control`}
+                    onChange={onChangeHandler5}
+                    name="businessSummary"
+                    value={business?.businessSummary}
                   />
                   <label className={`${styles.label_textarea} text`}>
                     Business Summary
                   </label>
+
+                  {console.log('data88', business)}
 
                   <img
                     className={`${styles.plus_field} img-fluid`}
@@ -1049,19 +1325,24 @@ function Index() {
                               <td>
                                 <input
                                   className="input font-weight-bold"
-                                  name="name"
+                                  name="hsnCode"
+                                  value={commodity?.hsnCode}
                                   type="text"
-                                  readOnly={!saveCommodityTable}
+                                  // readOnly={!saveCommodityTable}
+                                  onChange={onChangeHandler6}
                                 />
                               </td>
                               <td>
                                 <input
                                   className="input"
-                                  name="designation"
+                                  name="commodity"
+                                  value={commodity?.commodity}
                                   type="text"
-                                  readOnly={!saveCommodityTable}
+                                  // readOnly={!saveCommodityTable}
+                                  onChange={onChangeHandler6}
                                 />
                               </td>
+                              {console.log('data99', commodity)}
 
                               <td className="text-right">
                                 <div>
@@ -1110,7 +1391,7 @@ function Index() {
                   }}
                 >
                   <span>+</span>
-                  <div>Add More Rows</div>
+                  <div onClick={() => addData('address')}>Add More Rows</div>
                 </div>
               </div>
             </div>
@@ -1164,11 +1445,15 @@ function Index() {
                     as="textarea"
                     rows={3}
                     placeholder=""
+                    name="remarks"
+                    value={info?.remarks}
                     className={`${styles.comment_field} form-control`}
+                    onChange={onChangeHandler7}
                   />
                   <label className={`${styles.label_textarea}  text`}>
                     Remarks
                   </label>
+                  {console.log('data97', info)}
 
                   <img
                     className={`${styles.plus_field} img-fluid`}
@@ -1184,7 +1469,7 @@ function Index() {
             <InspectionDocument documentName="Incumbency Certificate" />
           </div>
         </div>
-        <SaveBar rightBtn="Send for Approval" />
+        <SaveBar rightBtn="Send for Approval" handleSave={handleSave} />
       </div>
     </>
   )

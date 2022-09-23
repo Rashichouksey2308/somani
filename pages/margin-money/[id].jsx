@@ -431,19 +431,25 @@ function Index() {
         totalSPDC: finalCal.totalSPDC,
         amountPerSPDC: finalCal.amountPerSPDC,
       },
-    }
-    if (
-      marginData?.order?.perUnitPrice !== forCalculation.perUnitPrice ||
-      marginData?.order?.quantity !== forCalculation.quantity
-    ) {
-      obj = {
-        ...obj,
-        orderObj: {
+      orderObj: {
           quantity: forCalculation.quantity,
           perUnitPrice: forCalculation.perUnitPrice,
-        },
-      }
+          orderValue:finalCal.orderValue
+      },
     }
+    // if (
+    //   marginData?.order?.perUnitPrice !== forCalculation.perUnitPrice ||
+    //   marginData?.order?.quantity !== forCalculation.quantity
+    // ) {
+    //   obj = {
+    //     ...obj,
+    //     orderObj: {
+    //       quantity: forCalculation.quantity,
+    //       perUnitPrice: forCalculation.perUnitPrice,
+    //       orderValue:finalCal.orderValue
+    //     },
+    //   }
+    // }
 
     dispatch(UpdateMarginMoney(obj))
   }
@@ -985,7 +991,7 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {marginData?.order?.orderCurrency}{' '}
+                                  {"USD"}{' '}
                                   {addPrefixOrSuffix(
                                     marginData?.order?.perUnitPrice,
                                     '',
