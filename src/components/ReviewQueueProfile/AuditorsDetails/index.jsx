@@ -9,6 +9,7 @@ function Index({ auditorsDetails }) {
   const previousYearData = auditorsDetails && auditorsDetails[1]
 
   const lastYearData = auditorsDetails && auditorsDetails[2]
+
   return (
     <div className={`${styles.card}  card`}>
       <div
@@ -77,8 +78,8 @@ function Index({ auditorsDetails }) {
                     <td>Change in Auditor</td>
                     <td
                       className={`${
-                        latestYearData?.nameOfAuditor ===
-                        previousYearData?.nameOfAuditor
+                        latestYearData?.nameOfAuditor?.trim() ===
+                        previousYearData?.nameOfAuditor?.trim()
                           ? null
                           : styles.danger
                       }`}
@@ -90,31 +91,31 @@ function Index({ auditorsDetails }) {
                           : 'Yes'
                         : ''}
                       {`${
-                        latestYearData?.nameOfAuditor !==
-                          previousYearData?.nameOfAuditor &&
-                        latestYearData?.financialEndDate
+                        latestYearData?.nameOfAuditor?.trim() !==
+                          previousYearData?.nameOfAuditor?.trim() ?
+                        (latestYearData?.financialEndDate
                           ? moment(latestYearData?.financialEndDate).format(
                               'YYYY',
                             )
-                          : ''
+                          : '') : ''
                       }`}
                     </td>
                     <td
                       className={`${
-                        !previousYearData?.nameOfAuditor ===
-                        previousYearData?.nameOfAuditor
+                        previousYearData?.nameOfAuditor?.trim() ===
+                        previousYearData?.nameOfAuditor?.trim()
                           ? null
                           : styles.danger
                       }`}
                     >
-                      {previousYearData?.nameOfAuditor ===
-                      lastYearData?.nameOfAuditor
+                      {previousYearData?.nameOfAuditor?.trim() ===
+                      lastYearData?.nameOfAuditor?.trim()
                         ? 'No'
                         : 'Yes'}
                       {` ${
-                        previousYearData?.nameOfAuditor !==
-                        lastYearData?.nameOfAuditor
-                          ? `/${moment(
+                        previousYearData?.nameOfAuditor?.trim() !==
+                        lastYearData?.nameOfAuditor?.trim()
+                          ? `${moment(
                               previousYearData?.financialEndDate,
                             ).format('YYYY')}`
                           : ''
@@ -122,19 +123,19 @@ function Index({ auditorsDetails }) {
                     </td>
                     <td
                       className={`${
-                        previousYearData?.nameOfAuditor ===
-                        previousYearData?.nameOfAuditor
+                        previousYearData?.nameOfAuditor?.trim() ===
+                        previousYearData?.nameOfAuditor?.trim()
                           ? null
                           : styles.danger
                       }`}
                     >
-                      {previousYearData?.nameOfAuditor ===
-                      previousYearData?.nameOfAuditor
+                      {previousYearData?.nameOfAuditor?.trim() ===
+                      previousYearData?.nameOfAuditor?.trim()
                         ? 'No'
                         : 'Yes'}
                       {`${
-                        previousYearData?.nameOfAuditor !==
-                        previousYearData?.nameOfAuditor
+                        previousYearData?.nameOfAuditor?.trim() !==
+                        previousYearData?.nameOfAuditor?.trim()
                           ? moment(lastYearData?.financialEndDate).format(
                               'YYYY',
                             )

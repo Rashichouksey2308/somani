@@ -383,7 +383,7 @@ function Index() {
                     >
                       <>
                         {' '}
-                        <option>Select an option</option>
+                        <option >Select an option</option>
                         <option value={true}>Active</option>
                         <option value={false}>Not active</option>
                       </>
