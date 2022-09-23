@@ -416,13 +416,13 @@ function Index() {
         return false
       }
     }
-    if (lcData.reimbursingBank === '' || lcData.reimbursingBank == undefined) {
-      toastMessage = 'Please select  reimbursing Bank'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        return false
-      }
-    }
+    // if (lcData.reimbursingBank === '' || lcData.reimbursingBank == undefined) {
+    //   toastMessage = 'Please select  reimbursing Bank'
+    //   if (!toast.isActive(toastMessage.toUpperCase())) {
+    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    //     return false
+    //   }
+    // }
     if (
       lcData.adviceThroughBank === '' ||
       lcData.adviceThroughBank == undefined
