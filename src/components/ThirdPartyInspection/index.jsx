@@ -277,11 +277,7 @@ export default function Index({ addButton }) {
   }
 
   const handleSave = () => {
-    console.log(
-      _get(inspectionData, 'order.vessel.vessels[0].shipmentType', ''),
-      'asdasd',
-    )
-
+    
     if (
       _get(inspectionData, 'order.vessel.vessels[0].shipmentType', '') ==
       'Liner'
