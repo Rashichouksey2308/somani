@@ -298,7 +298,7 @@ const onDeleteClick=(index)=>{
               TransitDetails,
               'data[0].order.quantity',
               '',
-            ).toLocaleString()}{' '}
+            )?.toLocaleString("en-IN")}{' '}
             {_get(
               TransitDetails,
               'data[0].order.unitOfQuantity',

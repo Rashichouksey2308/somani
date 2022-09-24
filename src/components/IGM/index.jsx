@@ -506,7 +506,7 @@ console.log("test")
                     Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {_get(TransitDetails, 'data[0].order.quantity', '')}{' '}
+                    {_get(TransitDetails, 'data[0].order.quantity', '')?.toLocaleString("en-IN",{ maximumFractionDigits: 2,})}{' '}
                     {_get(
                       TransitDetails,
                       'data[0].order.unitOfQuantity',
@@ -521,7 +521,9 @@ console.log("test")
                   <span className={styles.value}>
                     {convertValue(
                       _get(TransitDetails, 'data[0].order.orderValue', ''),
-                    ).toLocaleString('en-IN')}{' '}
+                    ).toLocaleString('en-IN',{
+                       maximumFractionDigits: 2,
+                    })}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
                     'Crores'
                       ? 'Cr'

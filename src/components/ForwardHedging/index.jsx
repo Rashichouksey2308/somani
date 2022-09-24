@@ -347,7 +347,7 @@ export default function Index() {
     dispatch(UpdateForwardHedging({ obj, task }))
      }
   }
-  console.log(list, 'list')
+  console.log(list[0]?.item?.bookedRate, 'list')
 
   return (
     <>
@@ -475,7 +475,7 @@ export default function Index() {
                             name="bookedRate"
                             value={isFieldInFocus.bookedRate ?
                               item.bookedRate :
-                              `${item.currency} `  + Number(item.bookedRate)?.toLocaleString()}
+                              `${item.currency} `  +item.bookedRate? Number(item.bookedRate)?.toLocaleString(item.currency=="INR"?"en-IN":"en-US"):""}
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
 
@@ -512,7 +512,7 @@ export default function Index() {
                             // value={item.bookedAmount}
                             value={isFieldInFocus.bookedAmount ?
                               item.bookedAmount :
-                             `${item.currency} ` + Number(item.bookedAmount)?.toLocaleString()}
+                             `${item.currency} ` + Number(item.bookedAmount)?.toLocaleString(item.currency=="INR"?"en-IN":"en-US")}
 
                             onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                             onChange={(e) =>
@@ -584,7 +584,7 @@ export default function Index() {
                             Balance Amount
                           </div>
                           <span className={`${styles.value}`}>
-                           {item.currency} {" "} {Number(item?.bookedAmount)?.toLocaleString()}
+                           {item.currency} {" "} {item?.bookedAmount?Number(item?.bookedAmount)?.toLocaleString(item.currency=="INR"?"en-IN":"en-US"):""}
                           </span>
                         </div>
                       </div>

@@ -331,7 +331,7 @@ export default function Index({
                         : Number(
                             dischargeOfCargo?.dischargeOfCargo
                               ?.dischargeQuantity,
-                          )?.toLocaleString() +
+                          )?.toLocaleString("en-IN") +
                           ` ${_get(customData, 'order.unitOfQuantity', '')}`
                     }
                     onChange={(e) =>

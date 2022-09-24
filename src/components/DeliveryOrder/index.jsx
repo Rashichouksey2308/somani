@@ -192,7 +192,7 @@ export default function Index(props) {
                                     value={
                                       isFieldInFocus ?
                                         val.Quantity :
-                                        Number(val.Quantity)?.toLocaleString() + ` ${_get(props, 'ReleaseOrder.data[0].order.unitOfQuantity', '')}`}
+                                        Number(val.Quantity)?.toLocaleString("en-IN") + ` ${_get(props, 'ReleaseOrder.data[0].order.unitOfQuantity', '')}`}
 
                                     name="Quantity"
                                     onChange={(e) => {
