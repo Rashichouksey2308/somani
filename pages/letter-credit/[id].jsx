@@ -18,7 +18,7 @@ function Index() {
 
   const { lcModule } = useSelector((state) => state.lc)
 
-   let lcModuleData = _get(lcModule, 'data[0]', {})
+  let lcModuleData = _get(lcModule, 'data[0]', {})
 
   const [editInput, setEditInput] = useState(false)
   const [editCurrent, setEditCurrent] = useState()
@@ -62,7 +62,9 @@ function Index() {
       partialShipment: lcModuleData?.lcApplication?.partialShipment,
       transhipments: lcModuleData?.lcApplication?.transhipments,
       shipmentForm: lcModuleData?.lcApplication?.shipmentForm,
-      portOfLoading: lcModuleData?.lcApplication?.portOfLoading ? lcModuleData?.lcApplication?.portOfLoading : lcModuleData?.order?.termsheet?.transactionDetails?.loadPort,
+      portOfLoading: lcModuleData?.lcApplication?.portOfLoading
+        ? lcModuleData?.lcApplication?.portOfLoading
+        : lcModuleData?.order?.termsheet?.transactionDetails?.loadPort,
       portOfDischarge: lcModuleData?.lcApplication?.portOfDischarge,
       latestDateOfShipment: lcModuleData?.lcApplication?.latestDateOfShipment,
       DescriptionOfGoods: lcModuleData?.lcApplication?.DescriptionOfGoods,
@@ -100,7 +102,6 @@ function Index() {
     saveAmendmentData(name, text)
   }
 
-
   const [clauseObj, setClauseObj] = useState({
     existingValue: '',
     dropDownValue: '',
@@ -119,7 +120,6 @@ function Index() {
   const inputRef = useRef(null)
 
   const dropDownChange = (e) => {
-   
     if (
       e.target.value == 'latestDateOfShipment' ||
       e.target.value == 'dateOfExpiry'
@@ -135,9 +135,9 @@ function Index() {
     let val2 = e.target.value
     setDrop(val2)
 
-    newInput['existingValue'] = lcData[e.target.value]||""
-    newInput['dropDownValue'] = val1 || ""
-    console.log(newInput,"dropDownChange")
+    newInput['existingValue'] = lcData[e.target.value] || ''
+    newInput['dropDownValue'] = val1 || ''
+    console.log(newInput, 'dropDownChange')
     setClauseObj(newInput)
   }
 
@@ -155,7 +155,7 @@ function Index() {
   const saveDropDownDate = (value, name) => {
     const d = new Date(value)
     let text = d.toISOString()
-    console.log(text,"dateee")
+    console.log(text, 'dateee')
     arrChange(name, text)
   }
 
@@ -191,7 +191,7 @@ function Index() {
   const uploadDocument1 = (e) => {
     const newInput = { ...lcDoc }
     newInput.lcDraftDoc = e.target.files[0]
-   
+
     setLcDoc(newInput)
   }
 
@@ -248,8 +248,8 @@ function Index() {
         toast.error(toastMessage, { toastId: toastMessage })
       }
     } else {
-      let tempData={...lcData}
-      
+      let tempData = { ...lcData }
+
       // console.log(tempData,"tempData",clauseArr)
       let fd = new FormData()
       fd.append('lcApplication', JSON.stringify(tempData))
@@ -260,23 +260,21 @@ function Index() {
     }
   }
 
-  const getData=(value,type) => {
+  const getData = (value, type) => {
     // console.log(value,"775456")
-    if(type=="(44C) Latest Date Of Shipment"){
-      return moment(value).format("DD-MM-YYYY")
-    }else{
+    if (type == '(44C) Latest Date Of Shipment') {
+      return moment(value).format('DD-MM-YYYY')
+    } else {
       return value
     }
-
   }
-    const getDataFormDropDown=(value) => {
+  const getDataFormDropDown = (value) => {
     // console.log(value,"ssdsdsdsd")
-    if(fieldType){
-      return moment(value).format("DD-MM-YYYY")
-    }else{
+    if (fieldType) {
+      return moment(value).format('DD-MM-YYYY')
+    } else {
       return value
     }
-
   }
   return (
     <>
@@ -345,14 +343,22 @@ function Index() {
                           <strong className="text-danger ml-n1">*</strong>{' '}
                         </div>
                         <span className={styles.value}>
-                          {lcModuleData?.lcApplication?.dateOfIssue ? moment(lcModuleData?.lcApplication?.dateOfIssue?.split('T')[0]).format("DD-MM-YYYY"):""}
+                          {lcModuleData?.lcApplication?.dateOfIssue
+                            ? moment(
+                                lcModuleData?.lcApplication?.dateOfIssue?.split(
+                                  'T',
+                                )[0],
+                              ).format('DD-MM-YYYY')
+                            : ''}
                         </span>
                       </div>
                       <Col className="mb-4 mt-4" lg={3} md={6} sm={6}>
                         <div className="d-flex">
                           <DateCalender
                             name="dateOfAmendment"
-                            defaultDate={lcModuleData?.lcApplication?.dateOfAmendment}
+                            defaultDate={
+                              lcModuleData?.lcApplication?.dateOfAmendment
+                            }
                             saveDate={saveDate}
                             labelName="(30) Date Of Ammendment"
                           />
@@ -367,9 +373,13 @@ function Index() {
                         <input
                           className={`${styles.input_field} input form-control`}
                           type="number"
-                          defaultValue={lcModuleData?.lcApplication?.numberOfAmendment}
-                          onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                          defaultValue={
+                            lcModuleData?.lcApplication?.numberOfAmendment
+                          }
+                          onKeyDown={(evt) =>
+                            ['e', 'E', '+', '-'].includes(evt.key) &&
+                            evt.preventDefault()
+                          }
                           required
                           name="numberOfAmendment"
                           onChange={(e) =>
@@ -478,12 +488,11 @@ function Index() {
                           style={{ opacity: '0.5' }}
                           disabled
                           type="text"
-                          value={
-                           getDataFormDropDown( editInput
+                          value={getDataFormDropDown(
+                            editInput
                               ? editCurrent.existingValue
-                              : clauseObj?.existingValue
-                              )
-                          }
+                              : clauseObj?.existingValue,
+                          )}
                         />
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -527,12 +536,22 @@ function Index() {
                           >
                             New Value<strong className="text-danger">*</strong>
                           </label>
-                          <img
-                            className="img-fluid ml-4"
-                            src="/static/add-btn.svg"
-                            alt="add button"
-                            onClick={() => addToArr()}
-                          />
+                          {!fieldType ? (
+                            <img
+                              className="img-fluid ml-4"
+                              src="/static/add-btn.svg"
+                              alt="add button"
+                              onClick={() => addToArr()}
+                            />
+                          ) : (
+                            <img                           
+                              className="img-fluid"
+                              style={{ marginLeft: '40px' }}
+                              src="/static/add-btn.svg"
+                              alt="add button"
+                              onClick={() => addToArr()}
+                            />
+                          )}
                         </div>
                       </Col>
                     </Row>
@@ -568,8 +587,18 @@ function Index() {
                                 clauseArr?.map((clause, index) => (
                                   <tr key={index} className="table_row">
                                     <td>{clause.dropDownValue}</td>
-                                    <td>{getData(clause.existingValue,clause.dropDownValue)} </td>
-                                    <td>{getData(clause.newValue,clause.dropDownValue)}</td>
+                                    <td>
+                                      {getData(
+                                        clause.existingValue,
+                                        clause.dropDownValue,
+                                      )}{' '}
+                                    </td>
+                                    <td>
+                                      {getData(
+                                        clause.newValue,
+                                        clause.dropDownValue,
+                                      )}
+                                    </td>
                                     <td>
                                       {/* <img
                                         src="/static/mode_edit.svg"
@@ -633,7 +662,6 @@ function Index() {
         rightBtnClick={handleRightButton}
         rightBtn="Share"
         buttonText="null"
-        
       />
     </>
   )
