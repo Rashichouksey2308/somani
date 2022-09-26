@@ -565,9 +565,10 @@
   position: absolute;
   display: inline-block;
   .info_circle {
-    margin-left:300px ;
+    margin-left:295px ;
     margin-top: -145px;
     margin-right: 50px;
+    line-height: 1;
    
     @include respond(sm-desktop) {
       margin-left:230px ;
