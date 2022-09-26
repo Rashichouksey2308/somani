@@ -174,14 +174,14 @@ function Index({ shareHolding }) {
               <div className={`${styles.table_scroll_outer}`}>
                 <div className={styles.table_scroll_inner}>
                   <table
-                    className={`${styles.table} table mb-0`}
+                    className={`${styles.table} shareholding table mb-0`}
                     cellPadding="0"
                     cellSpacing="0"
                     border="0"
                   >
                     <tbody>
                       <tr>
-                        <th width="23%"
+                        <th width="23%" className='border_color'
                           rowSpan={shareHolding ? shareHolding?.length + 2 : '17'}
                         >
                           <div className={styles.chart}>
@@ -216,12 +216,12 @@ function Index({ shareHolding }) {
                             </div>
                           </div>
                         </th>
-                        <th width="5%"></th>
-                        <th>FULL NAME</th>
-                        <th>NO. OF SHARES</th>
-                        <th>% SHAREHOLDING</th>
-                        <th>PAN</th>
-                        <th>DIRECTOR</th>
+                        <th width="5%" className='border_color'></th>
+                        <th className='border_color'>FULL NAME</th>
+                        <th className='border_color'>NO. OF SHARES</th>
+                        <th className='border_color'>% SHAREHOLDING</th>
+                        <th className='border_color'>PAN</th>
+                        <th className='border_color'>DIRECTOR</th>
                       </tr>
                       {shareHolding?.map((shareHolder, index) => {
                         console.log(
@@ -236,27 +236,27 @@ function Index({ shareHolding }) {
                           return (
                             <tr key={index}>
                               <td
-                                className={`${styles.legends} ${styles.green} border-top-0 border-bottom-0`}
+                                className={`${styles.legends} ${styles.green} border-top-0 border-bottom-0 border_color`}
                               >
                                 <span></span>
                               </td>
-                              <td className={`${styles.name} border-top-0 border-bottom-0`}>
+                              <td className={`${styles.name} border-top-0 border-bottom-0 border_color`}>
                                 {shareHolder.fullName}
                               </td>
-                              <td className="border-top-0 border-bottom-0">
+                              <td className="border-top-0 border-bottom-0 border_color">
                                 {Number(shareHolder.numberOfShares).toLocaleString()}
                               </td>
-                              <td className="border-top-0 border-bottom-0">
+                              <td className="border-top-0 border-bottom-0 border_color">
                                 {shareHolder.percentageShareHolding?.toLocaleString(
                                   undefined,
                                   { maximumFractionDigits: 2 },
                                 )}
                                 %
                               </td>
-                              <td className="border-top-0 border-bottom-0">
+                              <td className="border-top-0 border-bottom-0 border_color">
                                 {shareHolder.pan}
                               </td>
-                              <td className="border-top-0 border-bottom-0">
+                              <td className="border-top-0 border-bottom-0 border_color">
                                 {shareHolder.director ? 'Yes' : 'No'}
                               </td>
                             </tr>
@@ -264,12 +264,12 @@ function Index({ shareHolding }) {
                         }
                       })}
                       <tr>
-                        <td className='border-top-0'></td>
-                        <td className="border-top-0"></td>
+                        <td className='border-top-0 border_color'></td>
+                        <td className="border-top-0 border_color"></td>
                         <td>{Number(totalEquityShare).toLocaleString()}</td>
                         <td>{totalEquitySharePercentage.toFixed(2)}%</td>
-                        <td className="border-top-0"></td>
-                        <td className="border-top-0"></td>
+                        <td className="border-top-0 border_color"></td>
+                        <td className="border-top-0 border_color"></td>
                       </tr>
                     </tbody>
                   </table>
@@ -282,7 +282,7 @@ function Index({ shareHolding }) {
               <div className={styles.table_scroll_outer}>
                 <div className={styles.table_scroll_inner}>
                   <table
-                    className={`${styles.table} table mb-0`}
+                    className={`${styles.table} table shareholding mb-0`}
                     cellPadding="0"
                     cellSpacing="0"
                     border="0"
