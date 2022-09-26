@@ -6599,9 +6599,9 @@ function Index() {
     const trendChartRevenue = document.getElementById('trendChartRevenue');
     const trendChartRevenueImg = trendChartRevenue.toDataURL('image/png',1.0)
     const trendChartPurchases = document.getElementById('trendChartPurchases');
-    const trendChartPurchasesImg = trendChartRevenue.toDataURL('image/png',1.0)
+    const trendChartPurchasesImg = trendChartPurchases.toDataURL('image/png',1.0)
     const skewnessChartPurchases = document.getElementById('skewnessChartPurchases');
-    const skewnessChartPurchasesImg = skewnessChartRevenue.toDataURL('image/png',1.0)
+    const skewnessChartPurchasesImg = skewnessChartPurchases.toDataURL('image/png',1.0)
     const skewnessChartRevenue = document.getElementById('skewnessChartRevenue');
     const skewnessChartRevenueImg = skewnessChartRevenue.toDataURL('image/png',1.0)
     
