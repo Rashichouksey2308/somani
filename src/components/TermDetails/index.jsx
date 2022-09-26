@@ -236,7 +236,14 @@ const Index = ({
                 //   termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase(),
                 //   'front',
                 // )}
-                onChange={onChangeCommodityDetails}
+                onChange={(e)=>{
+                   let temp =  e.target.value.replace(/[^\w\s]/gi, "")
+                      if(temp=="_"){
+                        temp=""
+                      }
+                      e.target.value=temp
+                  onChangeCommodityDetails(e)
+                }}
                 type="text"
 
                 required

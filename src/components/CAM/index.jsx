@@ -3585,12 +3585,7 @@ const sectionTerms = (
             </div>
             <div>
               <div className={`${styles.approve}`}>
-                {approveComment &&
-                  approveComment?.map((approve, index) => (
-                    <div key={index} className={`${styles.remarks}`}>
-                      <span>{approve}</span>
-                    </div>
-                  ))}
+               
 
                 <div className={`mb-3 ${styles.heading} heading `}>
                   Approval Remarks
@@ -3610,6 +3605,12 @@ const sectionTerms = (
                 >
                   Add
                 </button>
+                 {approveComment &&
+                  approveComment?.map((approve, index) => (
+                    <div key={index} className={`${styles.remarks}`}>
+                      <span>{approve}</span>
+                    </div>
+                  ))}
               </div>
             </div>
           </div>
@@ -3821,8 +3822,8 @@ const trends = (
                     )} */}
                   </span>
                 </div>
-                <div className={`${styles.chart}`}>
-                  <Line data={chartData} ref={chartRef} options={lineOption} />
+                <div className={`${styles.chart}  `}>
+                  <Line  id="trendChartRevenue" data={chartData} ref={chartRef} options={lineOption} />
                 </div>
                 <div className={`${styles.name}`}>
                   <div
@@ -3945,7 +3946,7 @@ const skewness = (top5Customers, options, tempArr, gstData, top5Suppliers, backg
                 >
                   <Col md={6} className={`${styles.col}`}>
                     <div className={styles.chart2}>
-                      <Doughnut data={top5Customers} options={options} />
+                      <Doughnut id="skewnessChartRevenue" data={top5Customers} options={options} />
                       {/* <div className={styles.total_value}>
                         <span>{top5Customers?.labels[0]}</span>
                         <span className={styles.highlight}> {
