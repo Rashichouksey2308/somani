@@ -31,6 +31,7 @@ function Index() {
   const dispatch = useDispatch()
 
   const [darkMode, setDarkMode] = useState(false)
+  const [isFieldInFocus, setIsFieldInFocus] = useState(true)
 
   const { margin } = useSelector((state) => state.marginMoney)
   // get gst list from below use effect and fetch data from selector
@@ -432,9 +433,9 @@ function Index() {
         amountPerSPDC: finalCal.amountPerSPDC,
       },
       orderObj: {
-          quantity: forCalculation.quantity,
-          perUnitPrice: forCalculation.perUnitPrice,
-          orderValue:finalCal.orderValue
+        quantity: forCalculation.quantity,
+        perUnitPrice: forCalculation.perUnitPrice,
+        orderValue: finalCal.orderValue
       },
     }
     // if (
@@ -1204,13 +1205,28 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="numberOfPDC"
+                                onFocus={(e) => {
+                                  setIsFieldInFocus(true),
+                                    (e.target.type = 'number')
+                                }}
+                                onBlur={(e) => {
+                                  setIsFieldInFocus(false),
+                                    (e.target.type = 'text')
+                                }}
+                                value={
+                                  isFieldInFocus
+                                    ? forCalculation?.numberOfPDC
+                                    : checkNan(
+                                      Number(forCalculation?.numberOfPDC),
+                                    )?.toLocaleString('en-In')
+                                }
                                 onChange={(e) =>
                                   saveForCalculation(
                                     e.target.name,
                                     e.target.value,
                                   )
                                 }
-                                value={forCalculation?.numberOfPDC}
+                                // value={forCalculation?.numberOfPDC}
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -1373,7 +1389,7 @@ function Index() {
                                     Number(finalCal.usanceInterest),
                                     true,
                                   )} */}
-                                   {convertValue((finalCal.usanceInterest), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.usanceInterest), coversionUnit).toLocaleString(undefined, {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1532,7 +1548,7 @@ function Index() {
                                     Number(finalCal.provisionalUnitPricePerTon),
                                     true,
                                   )} */}
-                                   {convertValue((finalCal.provisionalUnitPricePerTon), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.provisionalUnitPricePerTon), coversionUnit).toLocaleString(undefined, {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1623,7 +1639,7 @@ function Index() {
                                     Number(finalCal.amountPerSPDC),
                                     true,
                                   )} */}
-                                     {convertValue((finalCal.amountPerSPDC), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.amountPerSPDC), coversionUnit).toLocaleString(undefined, {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1888,7 +1904,7 @@ function Index() {
                                       e.target.value,
                                     )
                                   }
-                                  style={{paddingRight:'40px'}}
+                                  style={{ paddingRight: '40px' }}
                                 >
                                   <option>Select an option</option>
                                   <option value="INDO GERMAN INTERNATIONAL PRIVATE LIMITED">
