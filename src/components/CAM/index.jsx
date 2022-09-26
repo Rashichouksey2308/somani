@@ -1585,7 +1585,7 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => 
             <Row>
               <Col className={`${styles.leftCol} border_color`} md={4}>
                 <div className={styles.chart}>
-                  <Doughnut data={top3Share} options={options} />
+                  <Doughnut id={`shareHoldingChart`} data={top3Share} options={options} />
                   <div className={styles.total_value}>
                     <span></span>
                     <span className={styles.highlight}></span>
@@ -1746,7 +1746,7 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor) => 
             <Row>
               <Col className={`${styles.leftCol} border_color`} md={4}>
                 <div className={styles.chart}>
-                  <Doughnut data={top3Open} options={options} />
+                  <Doughnut id={`openBankChargeChart`} data={top3Open} options={options} />
                   <div className={styles.total_value}>
                     {/* <span>Bindu Singh</span>
                     <span className={styles.highlight}>83.80%</span> */}
