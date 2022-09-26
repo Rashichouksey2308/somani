@@ -381,9 +381,9 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            INR { Number(convertValue(insuranceData?.quotationRequest?.sumInsured))?.toLocaleString(undefined, {
-                        minimumFractionDigits: 2,
-                      })} Crores
+                            INR { Number(convertValue(insuranceData?.quotationRequest?.sumInsured))?.toLocaleString("en-IN", {
+                             minimumFractionDigits: 2,
+                           })} Crores
                     (Including 110%)
                           </p>
                         </td>
@@ -511,7 +511,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            BL Weight {insuranceData?.order?.quantity} MTs. (+/-00%)
+                            BL Weight {insuranceData?.order?.quantity?.toLocaleString("en-IN")} MTs. (+/-00%)
                           </p>
                         </td>
                       </tr>
@@ -1063,7 +1063,7 @@ function Index() {
                     Sum Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    INR { Number(convertValue(insuranceData?.quotationRequest?.sumInsured))?.toLocaleString(undefined, { maximumFractionDigits: 2 })} Crores
+                    INR { Number(convertValue(insuranceData?.quotationRequest?.sumInsured))?.toLocaleString("en-IN", { maximumFractionDigits: 2 })} Crores
                     (Including 110%)
                   </Col>
                 </Row>
@@ -1107,7 +1107,7 @@ function Index() {
                     Quantity
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    BL Weight {insuranceData?.order?.quantity} MTs. (+/-00%)
+                    BL Weight {insuranceData?.order?.quantity?.toLocaleString("en-IN")} MTs. (+/-00%)
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>

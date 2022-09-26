@@ -34,14 +34,15 @@ export const CovertvaluefromtoCR = (value, conversionValue = 10000000) => {
 }
 
 Number.prototype.toFixedNoRounding = function (n) {
-  const reg = new RegExp("^-?\\d+(?:\\.\\d{0," + n + "})?", "g")
-  const a = this.toString().match(reg)[0];
-  const dot = a.indexOf(".");
-  if (dot === -1) { // integer, insert decimal dot and pad up zeros
-    return a + "." + "0".repeat(n);
+  const reg = new RegExp('^-?\\d+(?:\\.\\d{0,' + n + '})?', 'g')
+  const a = this.toString().match(reg)[0]
+  const dot = a.indexOf('.')
+  if (dot === -1) {
+    // integer, insert decimal dot and pad up zeros
+    return a + '.' + '0'.repeat(n)
   }
-  const b = n - (a.length - dot) + 1;
-  return b > 0 ? (a + "0".repeat(b)) : a;
+  const b = n - (a.length - dot) + 1
+  return b > 0 ? a + '0'.repeat(b) : a
 }
 
 export const convertValue = (value, coversionRate = 10000000, toFixed = 2) => {
@@ -234,9 +235,13 @@ export const removePrefixOrSuffix = (unitOfValue) => {
 }
 export const checkNan = (unitOfValue, type = false, number = 2) => {
   console.log(unitOfValue, 'nana')
+
   if (isNaN(unitOfValue)) {
     return ''
   } else {
+    if (type == 'no') {
+      return Number(unitOfValue)?.toFixed(2)
+    }
     if (!type) {
       // return Number(unitOfValue)?.toFixed(number)?.toLocaleString('en-IN')
       return Number(unitOfValue)?.toLocaleString('en-IN', {

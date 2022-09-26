@@ -261,13 +261,13 @@ function Index() {
         return false
       }
     }
-    if (lcData.applicableRules === '' || lcData.applicableRules == undefined) {
-      toastMessage = 'Please add Applicable Rules'
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        return false
-      }
-    }
+    // if (lcData.applicableRules === '' || lcData.applicableRules == undefined) {
+    //   toastMessage = 'Please add Applicable Rules'
+    //   if (!toast.isActive(toastMessage.toUpperCase())) {
+    //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+    //     return false
+    //   }
+    // }
 
     if (lcData.dateOfExpiry === '' || lcData.dateOfExpiry == undefined) {
       toastMessage = 'Please add  Date Of Expiry'
@@ -391,6 +391,37 @@ function Index() {
       lcData.latestDateOfShipment == undefined
     ) {
       toastMessage = 'Please select latest Date Of Shipment'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
+      }
+    }
+   
+      if (
+      lcData.DescriptionOfGoods === '' ||
+      lcData.DescriptionOfGoods == undefined
+    ) {
+      toastMessage = 'Please add Description Of Goods'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
+      }
+    }
+       if (
+      lcDocuments.length<= 0
+      
+    ) {
+      toastMessage = 'Please add DOCUMENT REQUIRED'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        return false
+      }
+    }
+           if (
+      lcComments.length<= 0
+      
+    ) {
+      toastMessage = 'Please add ADDITIONAL CONDITIONS'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         return false

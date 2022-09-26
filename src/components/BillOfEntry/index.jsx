@@ -692,7 +692,7 @@ export default function Index({
                     Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {customData?.order?.quantity}{' '}
+                    {customData?.order?.quantity?.toLocaleString("en-IN",{ maximumFractionDigits: 2})}{' '}
                     {customData?.order?.unitOfQuantity?.toUpperCase()}
                   </span>
                 </div>
@@ -1116,7 +1116,7 @@ export default function Index({
                                         isFieldInFocus[index].value
                                           ? val.amount
                                           : `${'INR'}  ` +
-                                          Number(val.amount)?.toLocaleString()
+                                          Number(val.amount)?.toLocaleString("en-IN")
                                       }
                                       disabled={!val.actions}
                                       onChange={(e) =>
@@ -1147,7 +1147,7 @@ export default function Index({
                                           ? val.percentage
                                           : Number(
                                             val.percentage,
-                                          )?.toLocaleString() + `${'%'}`
+                                          ).toFixed(2) + `${'%'}`
                                       }
                                       name="percentage"
                                       // value={val.percentage}
@@ -1339,12 +1339,12 @@ export default function Index({
                       {billOfEntryData.boeAssessment === 'Final' ? (
                         <td className={styles.doc_name}>
                           BOE Final
-                          <strong className="text-danger ml-0">*</strong>
+                          <strong className="text-danger ml-1">*</strong>
                         </td>
                       ) : (
                         <td className={styles.doc_name}>
                           BOE Provisional
-                          <strong className="text-danger ml-0">*</strong>
+                          <strong className="text-danger ml-1">*</strong>
                         </td>
                       )}
                       <td>
@@ -1390,7 +1390,7 @@ export default function Index({
                     <tr className="table_row">
                       <td className={styles.doc_name}>
                         Duty Paid Challan
-                        <strong className="text-danger ml-0">*</strong>
+                        <strong className="text-danger ml-1">*</strong>
                       </td>
                       <td>
                         <img

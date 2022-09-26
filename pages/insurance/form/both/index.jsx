@@ -78,16 +78,16 @@ const Index = () => {
 
   useEffect(() => {
     setMarineData({
-      policyNumber: insuranceData?.marineInsurance?.policyNumber,
-      nameOfInsurer: insuranceData?.marineInsurance?.nameOfInsurer,
-      gstOfInsurer: insuranceData?.marineInsurance?.gstOfInsurer,
-      nameOfInsured: insuranceData?.marineInsurance?.nameOfInsured,
-      gstOfInsured: insuranceData?.marineInsurance?.gstOfInsured,
+      policyNumber: insuranceData?.marineInsurance?.policyNumber|| "",
+      nameOfInsurer: insuranceData?.marineInsurance?.nameOfInsurer|| "Policy Bazaar",
+      gstOfInsurer: insuranceData?.marineInsurance?.gstOfInsurer|| "",
+      nameOfInsured: insuranceData?.marineInsurance?.nameOfInsured|| "",
+      gstOfInsured: insuranceData?.marineInsurance?.gstOfInsured|| "",
       insuranceFrom: insuranceData?.marineInsurance?.insuranceFrom,
       insuranceTo: insuranceData?.marineInsurance?.insuranceTo,
       periodOfInsurance: insuranceData?.marineInsurance?.periodOfInsurance,
       insuranceFromType: insuranceData?.marineInsurance?.insuranceFromType,
-      lossPayee: insuranceData?.marineInsurance?.lossPayee,
+      lossPayee: _get(insuranceData, 'order.termsheet.transactionDetails.lcOpeningBank', insuranceData?.quotationRequest?.lossPayee)|| "",
       premiumAmount: insuranceData?.marineInsurance?.premiumAmount ?? 0,
     })
     setStorageData({
@@ -100,18 +100,22 @@ const Index = () => {
       insuranceTo: insuranceData?.storageInsurance?.insuranceTo,
       periodOfInsurance: insuranceData?.storageInsurance?.periodOfInsurance,
       insuranceFromType: insuranceData?.storageInsurance?.insuranceFromType,
-      lossPayee: insuranceData?.storageInsurance?.lossPayee,
+      lossPayee: insuranceData?.storageInsurance?.lossPayee||"",
       premiumAmount: insuranceData?.storageInsurance?.premiumAmount ?? 0,
     })
-  }, [insuranceData])
-
+  }, [insuranceResponse,insuranceData])
+ console.log(marineData,"marineData")
 
   const saveMarineData = (name, value) => {
     let newInput = { ...marineData }
     newInput[name] = value
+    console.log(name,value,"sasdasd")
+    if(insuranceDocument){
+      setStorageData(newInput)
+    }
     setMarineData(newInput)
   }
-
+  console.log(marineData,"setMarineData")
   const saveDate = (value, name) => {
     // console.log(value, name, 'save date')
     const d = new Date(value)
@@ -162,9 +166,34 @@ const Index = () => {
   const [isInsurerSameData, setIsInsurerSameData] = useState(false)
 
   const handleIsInsuranceSame = () => {
-    setIsInsurerSameData(true)
-    setStorageData({ ...marineData })
+    setIsInsurerSameData(!isInsurerSameData)
+   
+    
   }
+  useEffect(() => {
+   if(isInsurerSameData){
+    console.log(marineData,"marineData")
+    setStorageData({ ...marineData })
+   }
+   if(isInsurerSameData==false){
+     console.log(insuranceData,"insuranceData?.storageInsurance?.policyNumber")
+    setStorageData({
+      policyNumber: insuranceData?.storageInsurance?.policyNumber ||"",
+      nameOfInsurer: insuranceData?.storageInsurance?.nameOfInsurer || "",
+      gstOfInsurer: insuranceData?.storageInsurance?.gstOfInsurer||"",
+      nameOfInsured: insuranceData?.storageInsurance?.nameOfInsured||"",
+      gstOfInsured: insuranceData?.storageInsurance?.gstOfInsured||"",
+      insuranceFrom: insuranceData?.storageInsurance?.insuranceFrom,
+      insuranceTo: insuranceData?.storageInsurance?.insuranceTo,
+      periodOfInsurance: insuranceData?.storageInsurance?.periodOfInsurance ||"",
+      insuranceFromType: insuranceData?.storageInsurance?.insuranceFromType,
+      lossPayee: insuranceData?.storageInsurance?.lossPayee||"",
+      premiumAmount: insuranceData?.storageInsurance?.premiumAmount ?? 0,
+    })
+   
+   }
+  },
+  [isInsurerSameData])
 
   const validate = () => {
     let toastMessage = ''
@@ -469,7 +498,7 @@ const Index = () => {
                           inline
                           label="Domestic"
                           name="insuranceFromType"
-                          defaultChecked={insuranceData?.marineInsurance?.insuranceFromType == 'Domestic'}
+                          checked={insuranceData?.marineInsurance?.insuranceFromType == 'Domestic'}
                           onChange={(e) =>
                             saveMarineData(e.target.name, 'Domestic')
                           }
@@ -481,7 +510,7 @@ const Index = () => {
                           className={styles.radio}
                           inline
                           label="International"
-                          defaultChecked={insuranceData?.marineInsurance?.insuranceFromType == 'International'}
+                          checked={insuranceData?.marineInsurance?.insuranceFromType == 'International'}
                           name="insuranceFromType"
                           type={type}
                           id={`inline-${type}-2`}
@@ -668,17 +697,19 @@ const Index = () => {
                         <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                           <div className="d-flex">
                             <select
-                              value={_get(insuranceData, 'order.termsheet.transactionDetails.lcOpeningBank', insuranceData?.quotationRequest?.lossPayee)}
+                             
                               name="lossPayee"
                               onChange={(e) =>
                                 saveMarineData(e.target.name, e.target.value)
                               }
-                              // value={insuranceData?.marineInsurance?.lossPayee}
+                              value={marineData?.lossPayee}
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
                               <option>Select an option</option>
-                              <option value="Reserve Bank of Spain">Reserve Bank of Spain</option>
+                              {/* <option value="Reserve Bank of Spain">Reserve Bank of Spain</option> */}
                               <option value='Zurcher Kantonal Bank,Zurich' >Zurcher Kantonal Bank,Zurich</option>
+                              <option value="SBI">SBI</option>
+                              
                             </select>
                             <label
                               className={`${styles.label_heading} label_heading`}
@@ -1098,13 +1129,7 @@ const Index = () => {
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
                               <option selected disabled>Select an option</option>
-                              <option
-                                value={
-                                  insuranceData?.quotationRequest?.lossPayee
-                                }
-                              >
-                                {insuranceData?.quotationRequest?.lossPayee}
-                              </option>
+                             <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
                               <option value="SBI">SBI</option>
                             </select>
                             <label
@@ -1498,20 +1523,15 @@ const Index = () => {
                           <div className="d-flex">
                             <select
                               name="lossPayee"
-                              value={_get(insuranceData, 'order.termsheet.transactionDetails.lcOpeningBank', insuranceData?.quotationRequest?.lossPayee)}
+                              // value={_get(insuranceData, 'order.termsheet.transactionDetails.lcOpeningBank', insuranceData?.quotationRequest?.lossPayee)}
                               onChange={(e) =>
                                 saveMarineData(e.target.name, e.target.value)
                               }
+                              value={marineData.lossPayee}
                               className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                             >
                               <option selected disabled>Select an option</option>
-                              <option
-                                value={
-                                  insuranceData?.quotationRequest?.lossPayee
-                                }
-                              >
-                                {insuranceData?.quotationRequest?.lossPayee}
-                              </option>
+                              <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
                               <option value="SBI">SBI</option>
                             </select>
                             <label
@@ -1591,7 +1611,7 @@ const Index = () => {
                     </div>
                     <label className={styles.switch}>
                       <input
-                        defaultChecked={!isInsurerSameData}
+                        checked={!isInsurerSameData}
                         onClick={() => handleIsInsuranceSame()}
                         type="checkbox"
                       />
@@ -1789,21 +1809,16 @@ const Index = () => {
                           <div className="d-flex">
                             <select
                               name="lossPayee"
-                              value={_get(insuranceData, 'order.termsheet.transactionDetails.lcOpeningBank', insuranceData?.quotationRequest?.lossPayee)}
+                            
                               onChange={(e) =>
                                 saveStorageData(e.target.name, e.target.value)
                               }
+                              value={storageData?.lossPayee}
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                             >
                               <option selected disabled>Select an option</option>
-
-                              <option
-                                value={
-                                  insuranceData?.quotationRequest?.lossPayee
-                                }
-                              >
-                                {insuranceData?.quotationRequest?.lossPayee}
-                              </option>
+ 
+                              <option value="Zurcher Kantonal Bank,Zurich">Zurcher Kantonal Bank,Zurich</option>
                               <option value="SBI">SBI</option>
                             </select>
                             <label

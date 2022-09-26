@@ -431,7 +431,7 @@ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
                               Quantity
                             </div>
                             <div className={styles.col_body}>
-                              {Number(insuranceData?.order?.quantity)?.toLocaleString()} MT
+                              {Number(insuranceData?.order?.quantity)?.toLocaleString("en-IN")} MT
                             </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
