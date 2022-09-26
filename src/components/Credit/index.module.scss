@@ -584,7 +584,8 @@
   .tooltiptext {
     font-size: 13px !important;
     color: #000000;
-    line-height: 16px !important;
+    //line-height: 16px !important;
+    line-height: 1;
     text-align: center;
     border-radius: 6px;
     padding: 8px 12px;
@@ -592,7 +593,7 @@
     z-index: 1;
     right: 40px;
     top: -105px;
-    margin-left: -60px;
+    //margin-left: -60px;
     opacity: 0;
     visibility: hidden;
     min-width: 121px;
