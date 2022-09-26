@@ -1,7 +1,8 @@
 import React from 'react'
 import styles from './index.module.scss'
 import { Card } from 'react-bootstrap'
-function index() {
+function Index({data}) {
+  console.log(data,"commoditySummary")
   let tempArr = [
     { name: 'Iron', val: '1,837', val2: 1837,percentage:`100%`, },
     { name: 'Steel', val: '1,341', val2: 1837,percentage:`80%` },
@@ -14,13 +15,15 @@ function index() {
       <Card.Header className={`${styles.header} border_color heading_card`}>Top 5 Commodities </Card.Header>
       {/* <hr className={styles.hr}/> */}
       <Card.Body className={styles.body}>
-        {tempArr.map((val, index) => {
+        {data.sort((a, b) => parseFloat(b.total) - parseFloat(a.total)).map((val, index) => {
           return (
             <div key={index} className={`${styles.wrapper} commodities`}>
-              <span className={`heading`} >{val.name}</span>
+              <span className={`heading`} >{val._id}</span>
               <div className={styles.graph}>
-                <span className="val"> ₹{val.val}</span>
-                <div className={`${styles.bar} bar`} style={{width:`${val.percentage}`}}></div>
+                <span className="val"> ₹{" "}{ Number(val?.total/10000000).toLocaleString('en-IN', {
+                    maximumFractionDigits: 2,
+                    })} {" "} Cr</span>
+                <div className={`${styles.bar} bar`} style={{width:`${tempArr[index].percentage}`}}></div>
               </div>
             </div>
           )
@@ -30,4 +33,4 @@ function index() {
   )
 }
 
-export default index
+export default Index

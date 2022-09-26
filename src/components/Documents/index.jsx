@@ -103,6 +103,7 @@ const Index = ({
                             addDoc(e.target.files[0], index)
                             // uploadDocument2(e)
                           }}
+                          style={{width: "106px", height: "38px"}}
                         />
                         <button className={`${styles.button_upload} btn`}>
                           Upload

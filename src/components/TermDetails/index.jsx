@@ -323,7 +323,7 @@ const Index = ({
                 //   isFieldInFocus.lcValue ?
                 //     termsheetDetails?.transactionDetails?.lcValue :
                 //     ` ${termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase()} ` + Number(termsheetDetails?.transactionDetails?.lcValue).toLocaleString()}
-                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                 className={`${styles.value} input form-control`}
                 onChange={onChangeTransactionDetails}
@@ -834,7 +834,8 @@ const Index = ({
                 value={
                   isFieldInFocus.lcOpeningCharges ?
                     termsheetDetails?.commercials?.lcOpeningChargesUnit :
-                    Number(termsheetDetails?.commercials?.lcOpeningChargesUnit).toLocaleString() + ` ` + `USD`}
+                     `USD` + ` ` +
+                    Number(termsheetDetails?.commercials?.lcOpeningChargesUnit).toLocaleString() }
 
 
                 onChange={onChangeCommercialTerms}
