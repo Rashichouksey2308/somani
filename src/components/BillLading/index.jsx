@@ -653,12 +653,12 @@ export default function Index({
                       TransitDetails,
                       'data[0].order.quantity',
                       '',
-                    )?.toLocaleString()}{' '}
+                    )?.toLocaleString("en-IN")}{' '}
                     {_get(
                       TransitDetails,
                       'data[0].order.unitOfQuantity',
                       '',
-                    ).toUpperCase()}{' '}
+                    ).toUpperCase("en-IN")}{' '}
                   </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
@@ -668,7 +668,7 @@ export default function Index({
                   <span className={styles.value}>
                     {CovertvaluefromtoCR(
                       _get(TransitDetails, 'data[0].order.orderValue', ''),
-                    )?.toLocaleString()}{' '}
+                    )?.toLocaleString("en-IN")}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
                       'Crores'
                       ? 'Cr'
@@ -875,7 +875,7 @@ export default function Index({
                             type="text"
                             value={isFieldInFocus ?
                               bol?.blQuantity :
-                              Number(bol?.blQuantity)?.toLocaleString() + ` ${_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}`}
+                              Number(bol?.blQuantity)?.toLocaleString("en-IN") + ` ${_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}`}
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}

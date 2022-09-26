@@ -543,8 +543,10 @@ function Index({
                             <option selected disabled>
                               Select an option
                             </option>
-                            <option value="No">Prohibited</option>
+                            
                             <option value="Yes">Allowed</option>
+                            <option value="No">Not Allowed</option>
+                            <option value="No">Conditional</option>
                           </select>
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -572,9 +574,9 @@ function Index({
                             <option selected disabled>
                               Select an option
                             </option>
-                            <option value="Prohibited">Prohibited</option>
-                            <option value="Not Prohibited">
-                              Not Prohibited
+                            <option value="Allowed">Allowed</option>
+                            <option value="Not Allowed">
+                              Not Allowed
                             </option>
                           </select>
                           <label
@@ -605,7 +607,7 @@ function Index({
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
-                            (44A) Shipment From
+                            (44A) Place of taking in Charge 
                             <strong className="text-danger">*</strong>
                           </label>
                           <img
@@ -708,7 +710,9 @@ function Index({
                         <label
                           className={`${styles.label_heading} label_heading`}
                         >
+                          
                           (45A) Description Of The Goods
+                           <strong className="text-danger">*</strong>
                         </label>
                       </Col>
                     </Row>
@@ -722,6 +726,7 @@ function Index({
                   <div className={`${styles.doc_card} mb-5`}>
                     <div className={`${styles.sub_heading} value`}>
                       46A DOCUMENT REQUIRED
+                      <strong className="text-danger">*</strong>
                     </div>
                     <div className="d-flex mt-5 pb-4">
                       <input
@@ -801,6 +806,7 @@ function Index({
                   <div className={`${styles.doc_card} mb-5`}>
                     <div className={`${styles.sub_heading}  value`}>
                       47A ADDITIONAL CONDITIONS
+                      <strong className="text-danger">*</strong>
                     </div>
                     <div className="d-flex mt-5 pb-4">
                       <input

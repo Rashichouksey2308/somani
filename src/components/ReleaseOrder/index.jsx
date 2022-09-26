@@ -378,7 +378,7 @@ export default function Index({
                                 ? item.netQuantityReleased
                                 : Number(
                                     item.netQuantityReleased,
-                                  )?.toLocaleString() +
+                                  )?.toLocaleString("en-IN") +
                                   ` ${_get(
                                     ReleaseOrderData,
                                     'data[0].order.unitOfQuantity',

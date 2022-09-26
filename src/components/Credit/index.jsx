@@ -504,8 +504,8 @@ const index = ({
                     isFieldInFocus.capacityUtilization
                       ? creditDetail?.capacityUtilization
                       : checkNan(
-                          Number(creditDetail?.capacityUtilization),
-                        )?.toLocaleString() + ' %'
+                          Number(creditDetail?.capacityUtilization),"no"
+                        ) + ' %'
                   }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.capacityUtilization,
@@ -1158,9 +1158,11 @@ const index = ({
                   value={
                     isFieldInFocus.commodityOfTotalTrade
                       ? supplierCred?.commodityOfTotalTrade
-                      : Number(
-                          supplierCred?.commodityOfTotalTrade,
-                        )?.toLocaleString() + ' %'
+                      :checkNan(
+                         Number(
+                          supplierCred?.commodityOfTotalTrade
+                        ),"no"
+                      ) + ' %'
                   }
                   // value={addPrefixOrSuffix(
                   //   supplierCred?.commodityOfTotalTrade,

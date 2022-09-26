@@ -202,7 +202,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
                           ? warehouseDetails?.wareHouseDetails?.quantity
                           : Number(
                               warehouseDetails?.wareHouseDetails?.quantity,
-                            )?.toLocaleString() +
+                            )?.toLocaleString("en-IN") +
                             ` ${_get(customData, 'order.unitOfQuantity', '')}`
                       }
                       onKeyDown={(evt) =>

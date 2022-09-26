@@ -132,6 +132,6 @@ export const getAnalystData = () => async (dispatch, getState, api) => {
     }
   } catch (error) {
     console.log('API FAILED')
-    dispatch(loggingUserFailed(errorMessage))
+    // dispatch(loggingUserFailed(errorMessage))
   }
 }

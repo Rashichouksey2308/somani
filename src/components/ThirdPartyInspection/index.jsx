@@ -916,7 +916,9 @@ export default function Index({ addButton }) {
                     Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {Number(inspectionData?.order?.quantity)?.toLocaleString("en-IN")} MT
+                    {Number(inspectionData?.order?.quantity)?.toLocaleString("en-IN", {
+                             maximumFractionDigits: 2,
+                           })} MT
                   </span>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">

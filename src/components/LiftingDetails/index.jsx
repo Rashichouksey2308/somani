@@ -200,7 +200,7 @@ export default function Index(props) {
                           DO Quantity
                         </div>
                         <div className={`${styles.do_number} mr-4`}>
-                          {checkNan(props.returnLiftingData(val.deliveryOrder)?.doQuantity)?.toLocaleString()}   {_get(
+                          {checkNan(props.returnLiftingData(val.deliveryOrder)?.doQuantity)?.toLocaleString("en-IN")}   {_get(
                             props,
                             'data.data[0].order.unitOfQuantity',
                             '',
@@ -214,7 +214,7 @@ export default function Index(props) {
                           Balance Quantity
                         </div>
                         <div className={`${styles.do_number} mr-4`}>
-                          {checkNan(props.returnLiftingData(val.deliveryOrder)?.balaceQuantity)?.toLocaleString()}  {_get(
+                          {checkNan(props.returnLiftingData(val.deliveryOrder)?.balaceQuantity)?.toLocaleString("en-IN")}  {_get(
                             props,
                             'data.data[0].order.unitOfQuantity',
                             '',
@@ -296,7 +296,7 @@ export default function Index(props) {
                                     value={
                                       isFieldInFocus ?
                                         val2.liftingQuant :
-                                        Number(val2.liftingQuant)?.toLocaleString() + ` ${_get(props, 'data.data[0].order.unitOfQuantity', '')}`}
+                                        Number(val2.liftingQuant)?.toLocaleString("en-IN") + ` ${_get(props, 'data.data[0].order.unitOfQuantity', '')}`}
 
                                     name="liftingQuant"
                                     onChange={(e) => {

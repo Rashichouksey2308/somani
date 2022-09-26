@@ -371,7 +371,7 @@ function Index() {
                               convertValue(
                                 insuranceData?.quotationRequest?.sumInsured,
                               ),
-                            )?.toLocaleString()}{' '}
+                            )?.toLocaleString("en-IN")}{' '}
                             Crores (Including 110%)
                           </p>
                         </td>
@@ -499,7 +499,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            BL Weight {insuranceData?.order?.quantity} MTs.
+                            BL Weight {insuranceData?.order?.quantity?.toLocaleString("en-IN")} MTs.
                             (+/-00%)
                           </p>
                         </td>
@@ -1193,7 +1193,7 @@ function Index() {
                     INR{' '}
                     {Number(
                       convertValue(insuranceData?.quotationRequest?.sumInsured),
-                    )?.toLocaleString()}{' '}
+                    )?.toLocaleString("en-IN")}{' '}
                     Crores (Including 110%)
                   </Col>
                 </Row>
@@ -1237,7 +1237,7 @@ function Index() {
                     Quantity
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    BL Weight {insuranceData?.order?.quantity} MTs. (+/-00%)
+                    BL Weight {insuranceData?.order?.quantity?.toLocaleString("en-IN")} MTs. (+/-00%)
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
