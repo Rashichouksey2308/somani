@@ -153,7 +153,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   // )}
                   value={
                     isFieldInFocus.quantity ?
-                    orderDetail?.quantity:
+                      orderDetail?.quantity :
                       Number(orderDetail?.quantity).toLocaleString() + ` ${orderDetail?.unitOfQuantity?.toUpperCase()}`}
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
@@ -180,10 +180,10 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   }}
                   value={
                     isFieldInFocus.orderValue ?
-                    orderDetail?.orderValue:
+                      orderDetail?.orderValue :
                       Number(orderDetail?.orderValue).toLocaleString() + ` ${orderDetail?.unitOfValue == 'Crores'
-                           ? 'Cr'
-                          : orderDetail?.unitOfValue}`}
+                        ? 'Cr'
+                        : orderDetail?.unitOfValue}`}
                   // value={addPrefixOrSuffix(
                   //   orderDetail?.orderValue,
                   //   orderDetail?.unitOfValue == 'Crores'
@@ -252,7 +252,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   required
                   type="text"
                   name="tolerance"
-                    onFocus={(e) => {
+                  onFocus={(e) => {
                     setIsFieldInFocus({ ...isFieldInFocus, tolerance: true }),
                       e.target.type = 'number'
                   }}
@@ -262,7 +262,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   }}
                   value={
                     isFieldInFocus.tolerance ?
-                    orderDetail?.tolerance:
+                      orderDetail?.tolerance :
                       Number(orderDetail?.tolerance).toLocaleString() + ' %'}
                   // value={addPrefixOrSuffix(orderDetail?.tolerance, '%')}
                   onChange={(e) => {
@@ -340,6 +340,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                     <option disabled>Select an option</option>
                     <option value="Mumbai, India">Mumbai, India</option>
                     <option value="Vizag, India">Vizag, India</option>
+                    <option value="Vishakapatnam, India">Visakhapatnam, India</option>
                   </select>
                   <Form.Label
                     className={`${styles.label_heading} label_heading`}

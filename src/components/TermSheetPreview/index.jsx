@@ -47,7 +47,8 @@ function Index() {
   const [otherTermConditions, setOtherTermConditions] = useState({})
   const [additionalComments, setAdditionalComments] = useState({})
   const date = new Date()
-
+ console.log(otherTermConditions?.dutyAndTaxes
+                              ?.taxCollectedatSource,"asasas")
   useEffect(() => {
     const commentData = _get(termsheet, 'data[0].additionalComments', [])
     console.log(commentData, 'comment')
@@ -1380,7 +1381,7 @@ function Index() {
                           type="checkbox"
                           checked={
                             otherTermConditions?.dutyAndTaxes
-                              ?.taxCollectedatSource
+                              ?.taxCollectedatSource==true?true:false
                           }
                         />
                         <label
