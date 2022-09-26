@@ -13,6 +13,8 @@
     "express": "^4.16.2",
     "fs": "^0.0.1-security",
     "helmet": "^3.20.0",
+    "html-to-image": "^1.10.8",
+    "html2canvas": "^1.4.1",
     "humps": "^2.0.1",
     "js-cookie": "^3.0.1",
     "jspdf": "^2.5.1",
