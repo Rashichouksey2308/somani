@@ -139,53 +139,53 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                       <td className="text-center">
                         {checkNan(
                           latestIncomeData?.revenue?.revenueFromOperations /
-                            ((latestBalanceData?.assets
-                              ?.propertyPlantAndEquipment +
-                              latestCashData?.previous
-                                ?.propertyPlantAndEquipment) /
-                              2),
+                          ((latestBalanceData?.assets
+                            ?.propertyPlantAndEquipment +
+                            latestCashData?.previous
+                              ?.propertyPlantAndEquipment) /
+                            2),
                         )}
                       </td>
                       <td className="text-center">
                         {checkNan(
                           previousIncomeData?.revenue?.revenueFromOperations /
-                            ((previousBalanceData?.assets
-                              ?.propertyPlantAndEquipment +
-                              previousCashData?.previous
-                                ?.propertyPlantAndEquipment) /
-                              2),
+                          ((previousBalanceData?.assets
+                            ?.propertyPlantAndEquipment +
+                            previousCashData?.previous
+                              ?.propertyPlantAndEquipment) /
+                            2),
                         )}
                       </td>
                       <td className="text-center">
                         {checkNan(
                           lastIncomeData?.revenue?.revenueFromOperations /
-                            ((lastBalanceData?.assets
-                              ?.propertyPlantAndEquipment +
-                              lastCashData?.previous
-                                ?.propertyPlantAndEquipment) /
-                              2),
+                          ((lastBalanceData?.assets
+                            ?.propertyPlantAndEquipment +
+                            lastCashData?.previous
+                              ?.propertyPlantAndEquipment) /
+                            2),
                         )}
                       </td>
                       <td className="text-center">
                         {rtrnChartIndiaction(
                           latestIncomeData?.revenue?.revenueFromOperations /
-                            ((latestBalanceData?.assets
-                              ?.propertyPlantAndEquipment +
-                              latestCashData?.previous
-                                ?.propertyPlantAndEquipment) /
-                              2),
+                          ((latestBalanceData?.assets
+                            ?.propertyPlantAndEquipment +
+                            latestCashData?.previous
+                              ?.propertyPlantAndEquipment) /
+                            2),
                           previousIncomeData?.revenue?.revenueFromOperations /
-                            ((previousBalanceData?.assets
-                              ?.propertyPlantAndEquipment +
-                              previousCashData?.previous
-                                ?.propertyPlantAndEquipment) /
-                              2),
+                          ((previousBalanceData?.assets
+                            ?.propertyPlantAndEquipment +
+                            previousCashData?.previous
+                              ?.propertyPlantAndEquipment) /
+                            2),
                           lastIncomeData?.revenue?.revenueFromOperations /
-                            ((lastBalanceData?.assets
-                              ?.propertyPlantAndEquipment +
-                              lastCashData?.previous
-                                ?.propertyPlantAndEquipment) /
-                              2),
+                          ((lastBalanceData?.assets
+                            ?.propertyPlantAndEquipment +
+                            lastCashData?.previous
+                              ?.propertyPlantAndEquipment) /
+                            2),
                         )}
                       </td>
                     </tr>
@@ -307,9 +307,9 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                           latestYearData?.ebitdaMargin), unit)?.toLocaleString(undefined, {
                             maximumFractionDigits: 4,
                           })} */}
-                        {(Number(latestYearData?.operatingProfitMargin) * 100) 
+                        {latestYearData?.operatingProfitMargin ? (Number(latestYearData?.operatingProfitMargin) * 100)
                           ?.toFixed(2)
-                          ?.toLocaleString()}%
+                          ?.toLocaleString() + '%' : ''}
                       </td>
                       <td className="text-center">
                         {/* {convertValue(((previousIncomeData?.revenue?.revenueFromOperations -
@@ -318,9 +318,9 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                           previousYearData?.ebitdaMargin), unit)?.toLocaleString(undefined, {
                             maximumFractionDigits: 2,
                           })} */}
-                        {(Number(previousYearData?.operatingProfitMargin) * 100) 
+                        {previousYearData?.operatingProfitMargin ? (Number(previousYearData?.operatingProfitMargin) * 100)
                           ?.toFixed(2)
-                          ?.toLocaleString()}%
+                          ?.toLocaleString() + '%' : ''}
                       </td>
                       <td className="text-center">
                         {/* {convertValue(((lastIncomeData?.revenue?.revenueFromOperations -
@@ -329,9 +329,9 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                           lastYearData?.ebitdaMargin), unit)?.toLocaleString(undefined, {
                             maximumFractionDigits: 2,
                           })} */}
-                        {(Number(lastYearData?.operatingProfitMargin) * 100) 
+                        {lastYearData?.operatingProfitMargin ? (Number(lastYearData?.operatingProfitMargin) * 100)
                           ?.toFixed(2)
-                          ?.toLocaleString()}%
+                          ?.toLocaleString() + '%' : ''}
                       </td>
                       <td className="text-center">
                         {/* {rtrnChartIndiaction(((latestIncomeData?.revenue?.revenueFromOperations -
@@ -364,13 +364,12 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                                 ?.currentLiabilties +
                               (latestCashData?.previous?.totalAssets -
                                 latestCashData?.previous?.currentLiabilties)) /
-                              2)) *
-                          100
+                              2))  * 100
                         )?.toLocaleString(undefined, {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
-                        })}
-                        %
+                        }) ?? '' }%
+
                       </td>
                       <td className="text-center">
                         {(
@@ -388,7 +387,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         )?.toLocaleString(undefined, {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
-                        })}
+                        }) ?? ''}
                         %
                       </td>
                       <td className="text-center">
@@ -406,7 +405,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                         )?.toLocaleString(undefined, {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
-                        })}
+                        }) ?? ''}
                         %
                       </td>
                       <td className="text-center">
@@ -420,7 +419,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                               (latestCashData?.previous?.totalAssets -
                                 latestCashData?.previous?.currentLiabilties)) /
                               2)) *
-                            100,
+                          100,
                           ((lastIncomeData?.revenue?.revenueFromOperations -
                             lastIncomeData?.expenses?.totExp +
                             lastIncomeData?.expenses?.finCost) /
@@ -430,7 +429,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                               (lastCashData?.previous?.totalAssets -
                                 lastCashData?.previous?.currentLiabilties)) /
                               2)) *
-                            100,
+                          100,
                           ((lastIncomeData?.revenue?.revenueFromOperations -
                             lastIncomeData?.expenses?.totExp +
                             lastIncomeData?.expenses?.finCost) /
@@ -440,7 +439,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                               (lastCashData?.previous?.totalAssets -
                                 lastCashData?.previous?.currentLiabilties)) /
                               2)) *
-                            100,
+                          100,
                         )}
                       </td>
                     </tr>

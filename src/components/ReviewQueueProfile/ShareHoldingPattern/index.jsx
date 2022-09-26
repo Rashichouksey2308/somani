@@ -38,7 +38,7 @@ function Index({ shareHolding }) {
     totalEquitySharePercentage += equity.percentageShareHolding
   })
   // const top
-  
+
 
   const prefrenceValues = shareHolding?.filter((item) => {
     return !item.type === 'EquityShares1Member'
@@ -57,7 +57,7 @@ function Index({ shareHolding }) {
     })
 
   //setTimeout(console.log(equityShareNo, topEquityValues, 'topprefrencesShareNo'), 5000);
-  console.log(equityShareNo, 'equityShareNo',topprefrencesShareNo)
+  console.log(equityShareNo, 'equityShareNo', topprefrencesShareNo)
   const equitydata = {
     labels: ['Sail', 'Jindal Grou', 'SR Steel'],
     datasets: [
@@ -146,7 +146,7 @@ function Index({ shareHolding }) {
 
   //   },[chartRef])
 
-  console.log(equitydata,"equitydata")
+  console.log(equitydata, "equitydata")
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -244,14 +244,17 @@ function Index({ shareHolding }) {
                                 {shareHolder.fullName}
                               </td>
                               <td className="border-top-0 border-bottom-0">
-                                {Number(shareHolder.numberOfShares).toLocaleString()}
+                                {Number(shareHolder.numberOfShares).toLocaleString('en-In')}
                               </td>
                               <td className="border-top-0 border-bottom-0">
-                                {shareHolder.percentageShareHolding?.toLocaleString(
-                                  undefined,
-                                  { maximumFractionDigits: 2 },
-                                )}
-                                %
+                                {shareHolder.percentageShareHolding ? Number(shareHolder.percentageShareHolding * 100)?.toLocaleString(
+                                  'en-In',
+                                  {
+                                    maximumFractionDigits: 2,
+                                    minimumFractionDigits: 2
+                                  },
+                                ) + '%' : ''}
+
                               </td>
                               <td className="border-top-0 border-bottom-0">
                                 {shareHolder.pan}
@@ -266,8 +269,8 @@ function Index({ shareHolding }) {
                       <tr>
                         <td className='border-top-0'></td>
                         <td className="border-top-0"></td>
-                        <td>{Number(totalEquityShare).toLocaleString()}</td>
-                        <td>{totalEquitySharePercentage.toFixed(2)}%</td>
+                        <td>{Number(totalEquityShare).toLocaleString('en-In')}</td>
+                        <td>{totalEquitySharePercentage ? Number(totalEquitySharePercentage * 100).toFixed(2) + '%' : ''}</td>
                         <td className="border-top-0"></td>
                         <td className="border-top-0"></td>
                       </tr>
@@ -314,7 +317,7 @@ function Index({ shareHolding }) {
                         <th>DIRECTOR</th>
                       </tr>
                       {shareHolding?.map((shareHolder, index) => {
-                        if (!shareHolder.type === 'EquitySharesMember') {
+                        if (shareHolder.type !== 'EquitySharesMember') {
                           return (
                             <tr key={index}>
                               <td
