@@ -565,9 +565,10 @@
   position: absolute;
   display: inline-block;
   .info_circle {
-    margin-left:300px ;
+    margin-left:295px ;
     margin-top: -145px;
     margin-right: 50px;
+    line-height: 1;
    
     @include respond(sm-desktop) {
       margin-left:230px ;
@@ -583,7 +584,8 @@
   .tooltiptext {
     font-size: 13px !important;
     color: #000000;
-    line-height: 16px !important;
+    //line-height: 16px !important;
+    line-height: 1;
     text-align: center;
     border-radius: 6px;
     padding: 8px 12px;
@@ -591,7 +593,7 @@
     z-index: 1;
     right: 40px;
     top: -105px;
-    margin-left: -60px;
+    //margin-left: -60px;
     opacity: 0;
     visibility: hidden;
     min-width: 121px;

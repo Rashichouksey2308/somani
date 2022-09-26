@@ -18,9 +18,7 @@ export default function Index(props) {
   }
   console.log(props, 'props')
 
-  const handleClose = () => {
-
-  }
+  const handleClose = () => {}
 
   return (
     <>
@@ -85,7 +83,6 @@ export default function Index(props) {
                     </span>
                   </div>
 
-                  
                   <div
                     className={`${styles.form_group} col-lg-2 col-md-6 col-sm-6 `}
                   >
@@ -181,19 +178,26 @@ export default function Index(props) {
                                   <input
                                     onFocus={(e) => {
                                       setIsFieldInFocus(true),
-                                        e.target.type = 'number'
+                                        (e.target.type = 'number')
                                     }}
                                     onBlur={(e) => {
                                       setIsFieldInFocus(false),
-                                        e.target.type = 'text'
+                                        (e.target.type = 'text')
                                     }}
                                     type="text"
                                     // value={val.Quantity}
                                     value={
-                                      isFieldInFocus ?
-                                        val.Quantity :
-                                        Number(val.Quantity)?.toLocaleString("en-IN") + ` ${_get(props, 'ReleaseOrder.data[0].order.unitOfQuantity', '')}`}
-
+                                      isFieldInFocus
+                                        ? val.Quantity
+                                        : Number(val.Quantity)?.toLocaleString(
+                                            'en-IN',
+                                          ) +
+                                          ` ${_get(
+                                            props,
+                                            'ReleaseOrder.data[0].order.unitOfQuantity',
+                                            '',
+                                          )}`
+                                    }
                                     name="Quantity"
                                     onChange={(e) => {
                                       props.deliverChange(
@@ -262,7 +266,6 @@ export default function Index(props) {
                                   <div
                                     className={`${styles.form_group} col-lg-6`}
                                   >
-
                                     <img
                                       src="/static/cancel-3.svg"
                                       className={`${styles.shareImg} ml-3`}
@@ -283,7 +286,7 @@ export default function Index(props) {
                                 ) : (
                                   <div
                                     className={`${styles.form_group} col-lg-6`}
-                                    style={{marginLeft:'-30px'}}
+                                    style={{ marginLeft: '-30px' }}
                                   >
                                     <img
                                       src="/static/mode_edit.svg"
@@ -298,11 +301,13 @@ export default function Index(props) {
                                       src="/static/share.svg"
                                       className={`${styles.shareImg} ml-2`}
                                       alt="Share"
-                                      onClick={() => handleRoute(val.deliveryOrderNo)}
+                                      onClick={() =>
+                                        handleRoute(val.deliveryOrderNo)
+                                      }
                                     />
 
                                     {props.releaseOrderData.length ===
-                                      index ? null : (
+                                    index ? null : (
                                       <img
                                         className={`${styles.shareImg} border-0 p-0 bg-transparent ml-2 mr-2`}
                                         src="/static/delete 2.svg"
@@ -314,15 +319,15 @@ export default function Index(props) {
                                     )}
                                     {props.releaseOrderData.length - 1 ===
                                       index && (
-                                        <img
-                                          onClick={(e) => {
-                                            props.addNewDelivery()
-                                          }}
-                                          src="/static/add-btn.svg"
-                                          className={`${styles.shareImg} border-0 p-0 bg-transparent`}
-                                          alt="add"
-                                        />
-                                      )}
+                                      <img
+                                        onClick={(e) => {
+                                          props.addNewDelivery()
+                                        }}
+                                        src="/static/add-btn.svg"
+                                        className={`${styles.shareImg} border-0 p-0 bg-transparent`}
+                                        alt="add"
+                                      />
+                                    )}
                                   </div>
                                 )}
                               </div>
@@ -377,8 +382,8 @@ export default function Index(props) {
         <SaveBar
           handleSave={props.onSaveHAndler}
           rightBtn="null"
-        // rightBtnClick={() => setShow(true)}
-        // handleRoute={handleRoute}
+          // rightBtnClick={() => setShow(true)}
+          // handleRoute={handleRoute}
         />
       </div>
 

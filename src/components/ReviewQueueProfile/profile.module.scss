@@ -260,8 +260,6 @@
           display: table-cell;
 
           .table {
-            background-color: #fafafa !important;
-
             th {
               font-size: 15px;
               color: #8492a6;
@@ -272,7 +270,7 @@
               white-space: nowrap;
               vertical-align: middle;
               text-transform: uppercase;
-              border: 2px solid #E6EAF0 !important;
+              border: 2px solid #E6EAF0;
             }
 
             td {
@@ -283,10 +281,10 @@
               // white-space: nowrap;
               //height: 48px;
               vertical-align: middle;
-              border: 2px solid #E6EAF0 !important;
+              border: 2px solid #E6EAF0;
 
               &.name {
-                color: #111111;
+                // color: #111111;
               }
 
               span {

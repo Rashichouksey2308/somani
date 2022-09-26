@@ -44,7 +44,6 @@ export default function Index({
   ])
   const [isFieldInFocus, setIsFieldInFocus] = useState(false)
 
-
   useEffect(() => {
     if (_get(TransitDetails, 'data[0].CIMS.cimsDetails', []).length > 0) {
       setCimsDetails(_get(TransitDetails, 'data[0].CIMS.cimsDetails', []))
@@ -89,8 +88,16 @@ export default function Index({
     }
     console.log(filteredVessel, 'filteredVessel')
     const newArray = [...cimsDetails]
-    newArray[index].vesselName =  _get(filteredVessel, 'vesselInformation[0].name','')
-    newArray[index].quantity =  _get(filteredVessel, 'vesselInformation[0].IMONumber','')
+    newArray[index].vesselName = _get(
+      filteredVessel,
+      'vesselInformation[0].name',
+      '',
+    )
+    newArray[index].quantity = _get(
+      filteredVessel,
+      'vesselInformation[0].IMONumber',
+      '',
+    )
 
     setCimsDetails(newArray)
   }
@@ -156,13 +163,13 @@ export default function Index({
     console.log(tempArr, 'khjfdfgkegfk12', tempArr[index].e, index, e)
 
     tempArr[index][e] = null
-    setCimsDetails(tempArr);
+    setCimsDetails(tempArr)
   }
-  const onDeleteClick=(index)=>{
+  const onDeleteClick = (index) => {
     setCimsDetails([
-        ...cimsDetails.slice(0, index),
-        ...cimsDetails.slice(index + 1),
-      ])
+      ...cimsDetails.slice(0, index),
+      ...cimsDetails.slice(index + 1),
+    ])
   }
   const uploadDoc = async (e, index) => {
     let id = e.target.id
@@ -186,8 +193,6 @@ export default function Index({
   const validation = () => {
     let isOk = true
     let toastMessage = ''
-
-
 
     for (let i = 0; i <= cimsDetails.length - 1; i++) {
       console.log(i, 'INSIDE FOR LOOP', cimsDetails.length)
@@ -284,7 +289,6 @@ export default function Index({
       let task = 'submit'
       dispatch(UpdateTransitDetails({ fd, task }))
     }
-
   }
 
   const handleSave = () => {
@@ -296,45 +300,44 @@ export default function Index({
     fd.append('cims', JSON.stringify(cims))
     fd.append('transitId', transId._id)
 
-
     let task = 'save'
     dispatch(UpdateTransitDetails({ fd, task }))
-
-
   }
 
   // console.log(cimsDetails, 'khjfdfgkegfk')
 
-
-
-
-
   return (
     <>
-      <div className={`${styles.backgroundMain} vessel_card container-fluid p-0`}>
-
-        <div
-
-          className={`${styles.vessel_card} border_color`}
-        >
+      <div
+        className={`${styles.backgroundMain} vessel_card container-fluid p-0`}
+      >
+        <div className={`${styles.vessel_card} border_color`}>
           {cimsDetails.map((list, index) => (
-            <div key={index} className={`${styles.main} mb-4 border_color card `}>
+            <div
+              key={index}
+              className={`${styles.main} mb-4 border_color card `}
+            >
               <div
                 className={`${styles.head_container} card-header border_color head_container justify-content-between d-flex bg-transparent`}
               >
                 <h3 className={`${styles.heading}`}>CIMS Details</h3>
-                <div className='d-flex'>
-                <button
-                  onClick={() => onAddHandler()}
-                  className={styles.add_btn}
-                >
-                  <span className={styles.add_sign}>+</span>Add
-                </button>
-                {index>0 ?
-                  <button onClick={() => onDeleteClick(index)} className={`${styles.add_btn} mr-0 d-flex align-items-center justify-content-between border-danger text-danger`}>
-                    <img src="/static/delete.svg" width={15} alt="delete"/> Delete</button>
-                    :null}
-                    </div>
+                <div className="d-flex">
+                  <button
+                    onClick={() => onAddHandler()}
+                    className={styles.add_btn}
+                  >
+                    <span className={styles.add_sign}>+</span>Add
+                  </button>
+                  {index > 0 ? (
+                    <button
+                      onClick={() => onDeleteClick(index)}
+                      className={`${styles.add_btn} mr-0 d-flex align-items-center justify-content-between border-danger text-danger`}
+                    >
+                      <img src="/static/delete.svg" width={15} alt="delete" />{' '}
+                      Delete
+                    </button>
+                  ) : null}
+                </div>
               </div>
               <div className={`${styles.dashboard_form} card-body`}>
                 <div className="row">
@@ -348,29 +351,29 @@ export default function Index({
                           onChange={(e) => onChangeVessel(e, index)}
                           className={`${styles.input_field} ${styles.customSelect} input form-control`}
                         >
-                          <option  selected>Select an option</option>
+                          <option selected>Select an option</option>
                           {shipmentTypeBulk
                             ? _get(
-                              TransitDetails,
-                              'data[0].order.vessel.vessels',
-                              [],
-                            ).map((vessel, index) => (
-                              <option
-                                value={vessel?.vesselInformation?.name}
-                                key={index}
-                              >
-                                {vessel?.vesselInformation[0]?.name}
-                              </option>
-                            ))
+                                TransitDetails,
+                                'data[0].order.vessel.vessels',
+                                [],
+                              ).map((vessel, index) => (
+                                <option
+                                  value={vessel?.vesselInformation?.name}
+                                  key={index}
+                                >
+                                  {vessel?.vesselInformation[0]?.name}
+                                </option>
+                              ))
                             : _get(
-                              TransitDetails,
-                              'data[0].order.vessel.vessels[0].vesselInformation',
-                              [],
-                            ).map((vessel, index) => (
-                              <option value={vessel?.name} key={index}>
-                                {vessel?.name}
-                              </option>
-                            ))}
+                                TransitDetails,
+                                'data[0].order.vessel.vessels[0].vesselInformation',
+                                [],
+                              ).map((vessel, index) => (
+                                <option value={vessel?.name} key={index}>
+                                  {vessel?.name}
+                                </option>
+                              ))}
                         </select>
                       }
                       <label
@@ -396,31 +399,41 @@ export default function Index({
                       //     : _get(TransitDetails, 'data[0].order.quantity', '')
                       // }
                       onFocus={(e) => {
-                        setIsFieldInFocus(true),
-                          e.target.type = 'number'
+                        setIsFieldInFocus(true), (e.target.type = 'number')
                       }}
                       onBlur={(e) => {
-                        setIsFieldInFocus(false),
-                          e.target.type = 'text'
+                        setIsFieldInFocus(false), (e.target.type = 'text')
                       }}
-                      value={isFieldInFocus
-                        ?
-                        (list.quantity ?
-                          list.quantity
-                          : _get(TransitDetails, 'data[0].order.quantity', "")
-                        )
-                        : (list.quantity ?
-                          Number(list.quantity)?.toLocaleString()
-                          : Number(_get(TransitDetails, 'data[0].order.quantity', 0))?.toLocaleString()
-                        ) + ` ${_get(TransitDetails, 'data[0].order.unitOfQuantity', '')}`}
+                      value={
+                        isFieldInFocus
+                          ? list.quantity
+                            ? list.quantity
+                            : _get(TransitDetails, 'data[0].order.quantity', '')
+                          : (list.quantity
+                              ? Number(list.quantity)?.toLocaleString()
+                              : Number(
+                                  _get(
+                                    TransitDetails,
+                                    'data[0].order.quantity',
+                                    0,
+                                  ),
+                                )?.toLocaleString()) +
+                            ` ${_get(
+                              TransitDetails,
+                              'data[0].order.unitOfQuantity',
+                              '',
+                            )}`
+                      }
                       onChange={(e) => onChangeCims(e, index)}
                       className={`${styles.input_field} input form-control`}
                       type="text"
-                      onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                      onKeyDown={(evt) =>
+                        ['e', 'E', '+', '-'].includes(evt.key) &&
+                        evt.preventDefault()
+                      }
                     />
                     <label className={`${styles.label_heading} label_heading`}>
-                      Quantity<strong className="text-danger">*</strong>
+                      BL Quantity<strong className="text-danger">*</strong>
                     </label>
                   </div>
                   <div
@@ -475,14 +488,16 @@ export default function Index({
                       id="cimsCharges"
                       onChange={(e) => onChangeCims(e, index)}
                       value={addPrefixOrSuffix(
-                      list.cimsCharges,
-                      'INR',
-                      'front',
-                    )}
+                        list.cimsCharges,
+                        'INR',
+                        'front',
+                      )}
                       className={`${styles.input_field} input form-control`}
                       type="text"
-                      onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                      onKeyDown={(evt) =>
+                        ['e', 'E', '+', '-'].includes(evt.key) &&
+                        evt.preventDefault()
+                      }
                     />
                     <label className={`${styles.label_heading} label_heading`}>
                       CIMS Charges<strong className="text-danger">*</strong>
@@ -493,15 +508,34 @@ export default function Index({
                   >
                     <div className="d-flex">
                       <select
-                        value={list.paymentBy ? list.paymentBy : _get(TransitDetails, 'data[0].order.termsheet.otherTermsAndConditions.buyer.bank', '')}
+                        value={
+                          list.paymentBy
+                            ? list.paymentBy
+                            : _get(
+                                TransitDetails,
+                                'data[0].order.termsheet.otherTermsAndConditions.buyer.bank',
+                                '',
+                              )
+                        }
                         id="paymentBy"
                         onChange={(e) => onChangeCims(e, index)}
                         className={`${styles.input_field} ${styles.customSelect} input form-control`}
                       >
                         <option>Select an option</option>
-                        <option value={_get(TransitDetails, 'data[0].order.termsheet.otherTermsAndConditions.buyer.bank', '')}>{_get(TransitDetails, 'data[0].order.termsheet.otherTermsAndConditions.buyer.bank', '')}</option>
-                        <option value='Buyer'>Buyer</option>
-                       
+                        <option
+                          value={_get(
+                            TransitDetails,
+                            'data[0].order.termsheet.otherTermsAndConditions.buyer.bank',
+                            '',
+                          )}
+                        >
+                          {_get(
+                            TransitDetails,
+                            'data[0].order.termsheet.otherTermsAndConditions.buyer.bank',
+                            '',
+                          )}
+                        </option>
+                        <option value="Buyer">Buyer</option>
                       </select>
                       <label
                         className={`${styles.label_heading} label_heading`}
@@ -567,16 +601,23 @@ export default function Index({
                             alt="Pdf"
                           />
                         </td>
-                        <td className={styles.doc_row}>{cimsDetails[index]?.coalImportRegistrationDoc == null ? '' : moment(list?.coalImportRegistrationDoc?.Date).format(' DD-MM-YYYY , h:mm a')}</td>
+                        <td className={styles.doc_row}>
+                          {cimsDetails[index]?.coalImportRegistrationDoc == null
+                            ? ''
+                            : moment(
+                                list?.coalImportRegistrationDoc?.Date,
+                              ).format(' DD-MM-YYYY , h:mm a')}
+                        </td>
                         <td>
                           <div className={styles.uploadBtnWrapper}>
                             {cimsDetails &&
-                              cimsDetails[index]?.coalImportRegistrationDoc == null ? (
+                            cimsDetails[index]?.coalImportRegistrationDoc ==
+                              null ? (
                               <>
                                 <div className={styles.uploadBtnWrapper}>
                                   <input
                                     type="file"
-                                    id='coalImportRegistrationDoc'
+                                    id="coalImportRegistrationDoc"
                                     accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                     onChange={(e) => uploadDoc(e, index)}
                                   />
@@ -588,14 +629,24 @@ export default function Index({
                                 </div>
                               </>
                             ) : (
-                              <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
+                              <div
+                                className={`${styles.certificate} text1 d-flex justify-content-between`}
+                              >
                                 <span>
-                                  {cimsDetails[index]?.coalImportRegistrationDoc?.originalName}
+                                  {
+                                    cimsDetails[index]
+                                      ?.coalImportRegistrationDoc?.originalName
+                                  }
                                 </span>
                                 <img
                                   className={`${styles.close_image}  image_arrow mr-2`}
                                   src="/static/close.svg"
-                                  onClick={(e) => handleCloseDoc('coalImportRegistrationDoc', index)}
+                                  onClick={(e) =>
+                                    handleCloseDoc(
+                                      'coalImportRegistrationDoc',
+                                      index,
+                                    )
+                                  }
                                   alt="Close"
                                 />{' '}
                               </div>
@@ -615,16 +666,24 @@ export default function Index({
                             alt="Pdf"
                           />
                         </td>
-                        <td className={styles.doc_row}> { cimsDetails[index]?.cimsPaymentReceiptDoc == null ? '' : moment(list?.cimsPaymentReceiptDoc?.Date).format(' DD-MM-YYYY , h:mm a')}</td>
+                        <td className={styles.doc_row}>
+                          {' '}
+                          {cimsDetails[index]?.cimsPaymentReceiptDoc == null
+                            ? ''
+                            : moment(list?.cimsPaymentReceiptDoc?.Date).format(
+                                ' DD-MM-YYYY , h:mm a',
+                              )}
+                        </td>
                         <td>
                           <div className={styles.uploadBtnWrapper}>
                             {cimsDetails &&
-                              cimsDetails[index]?.cimsPaymentReceiptDoc == null ? (
+                            cimsDetails[index]?.cimsPaymentReceiptDoc ==
+                              null ? (
                               <>
                                 <div className={styles.uploadBtnWrapper}>
                                   <input
                                     type="file"
-                                    id='cimsPaymentReceiptDoc'
+                                    id="cimsPaymentReceiptDoc"
                                     accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx"
                                     onChange={(e) => uploadDoc(e, index)}
                                   />
@@ -636,14 +695,24 @@ export default function Index({
                                 </div>
                               </>
                             ) : (
-                              <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
+                              <div
+                                className={`${styles.certificate} text1 d-flex justify-content-between`}
+                              >
                                 <span>
-                                  {cimsDetails[index]?.cimsPaymentReceiptDoc?.originalName}
+                                  {
+                                    cimsDetails[index]?.cimsPaymentReceiptDoc
+                                      ?.originalName
+                                  }
                                 </span>
                                 <img
                                   className={`${styles.close_image} image_arrow mr-2`}
                                   src="/static/close.svg"
-                                  onClick={(e) => handleCloseDoc('cimsPaymentReceiptDoc', index)}
+                                  onClick={(e) =>
+                                    handleCloseDoc(
+                                      'cimsPaymentReceiptDoc',
+                                      index,
+                                    )
+                                  }
                                   alt="Close"
                                 />{' '}
                               </div>
@@ -658,14 +727,15 @@ export default function Index({
             </div>
           ))}
           <div className="mt-4">
-            <UploadOther
-              orderid={orderid}
-              module="Loading-Transit-Unloading"
-            />
+            <UploadOther orderid={orderid} module="Loading-Transit-Unloading" />
           </div>
         </div>
 
-        <SaveBar handleSave={handleSave} rightBtn="Submit" rightBtnClick={handleSubmit} />
+        <SaveBar
+          handleSave={handleSave}
+          rightBtn="Submit"
+          rightBtnClick={handleSubmit}
+        />
       </div>
     </>
   )
