@@ -97,7 +97,7 @@ export default function Index({
 
   const [orderData, setOrderData] = useState()
   // let balanceQuantity = _get(TransitDetails, 'data[0].order.quantity', '')
-console.log("test")
+  console.log('test')
   // const calculateBalaceQuantity = () => {
   //   let balanceQuantity = _get(TransitDetails, 'data[0].order.quantity', '')
   // _get(
@@ -251,7 +251,7 @@ console.log("test")
 
     setIgmList(newArray)
   }
-  const onAddBlNumber = (index,index2) => {
+  const onAddBlNumber = (index, index2) => {
     let newIgmList = { ...igmList }
     console.log(newIgmList, 'newIgmList.igmDetails')
     newIgmList.igmDetails[index].blNumber.push({
@@ -261,7 +261,7 @@ console.log("test")
     })
     setIgmList(newIgmList)
   }
-  console.log(igmList,"igmList1223123")
+  console.log(igmList, 'igmList1223123')
   const onRemoveBlNumber = (index, index2) => {
     let tempArray = { ...igmList }
     tempArray.igmDetails[index].blNumber.pop(index2)
@@ -506,7 +506,13 @@ console.log("test")
                     Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {_get(TransitDetails, 'data[0].order.quantity', '')?.toLocaleString("en-IN",{ maximumFractionDigits: 2,})}{' '}
+                    {_get(
+                      TransitDetails,
+                      'data[0].order.quantity',
+                      '',
+                    )?.toLocaleString('en-IN', {
+                      maximumFractionDigits: 2,
+                    })}{' '}
                     {_get(
                       TransitDetails,
                       'data[0].order.unitOfQuantity',
@@ -521,8 +527,8 @@ console.log("test")
                   <span className={styles.value}>
                     {convertValue(
                       _get(TransitDetails, 'data[0].order.orderValue', ''),
-                    ).toLocaleString('en-IN',{
-                       maximumFractionDigits: 2,
+                    ).toLocaleString('en-IN', {
+                      maximumFractionDigits: 2,
                     })}{' '}
                     {_get(TransitDetails, 'data[0].order.unitOfValue', '') ==
                     'Crores'
@@ -891,7 +897,9 @@ console.log("test")
                                   />
                                   {item.blNumber.length >= index2 ? (
                                     <img
-                                      onClick={() => onAddBlNumber(index,index2)}
+                                      onClick={() =>
+                                        onAddBlNumber(index, index2)
+                                      }
                                       src="/static/add-btn.svg"
                                       className={`${styles.delete_image} img-fluid ml-5`}
                                       alt="Add"
@@ -976,7 +984,9 @@ console.log("test")
                                     />
                                     {item.blNumber.length >= index2 ? (
                                       <img
-                                        onClick={() => onAddBlNumber(index,index2)}
+                                        onClick={() =>
+                                          onAddBlNumber(index, index2)
+                                        }
                                         src="/static/add-btn.svg"
                                         className={`${styles.delete_image} img-fluid ml-5`}
                                         alt="Add"

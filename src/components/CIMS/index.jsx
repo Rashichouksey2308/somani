@@ -433,7 +433,7 @@ export default function Index({
                       }
                     />
                     <label className={`${styles.label_heading} label_heading`}>
-                      BL Quantity<strong className="text-danger">*</strong>
+                      Quantity<strong className="text-danger">*</strong>
                     </label>
                   </div>
                   <div
