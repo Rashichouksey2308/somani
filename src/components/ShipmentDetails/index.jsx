@@ -5,7 +5,8 @@ import styles from './index.module.scss'
 import DateCalender from '../DateCalender'
 import moment from 'moment'
 
-const index = ({ orderDetail, saveShipmentData }) => {
+const index = ({ orderDetail, saveShipmentData,shipment }) => {
+  console.log(shipment,"ship[")
   // const {shipmentDetail}= orderDetail;
 
   // console.log(orderDetail, 'THIS IS ORDER DETAIL')
@@ -216,7 +217,7 @@ const index = ({ orderDetail, saveShipmentData }) => {
                 <div className="d-flex">
                   <select
                     className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                    value={orderDetail?.shipmentDetail?.portOfLoading}
+                    value={shipment?.portOfLoading}
                     name="portOfLoading"
                     onChange={(e) => {
                       saveShipmentData(e.target.name, e.target.value)

@@ -52,12 +52,12 @@ function Index({ peerData }) {
                     {peerData && peerData?.financial?.peerComparison?.map((peers, index) => (<tr key={index}>
                       <td>{peers.name}</td>
                       <td className="text-center">{moment(peers?.finyrEnddate)
-                        .format('MMM-YY')
-                        .toUpperCase()}</td>
-                      <td className="text-center">{convertValue(peers.revenue, conversionUnit)?.toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
-                      <td className="text-center">{peers.ebidtaMargin?.toLocaleString(undefined, { minimumFractionDigits: 2 })} %</td>
-                      <td className="text-center">{peers.patMargin?.toLocaleString(undefined, { minimumFractionDigits: 2 })}%</td>
-                      <td className="text-center">{convertValue(peers.borrowings, conversionUnit)?.toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
+                          .format('MMM-YY')
+                          .toUpperCase()}</td>
+                      <td className="text-center">{peers.revenue?.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+                      <td className="text-center">{peers.ebidtaMargin?.toFixed(2)} %</td>
+                      <td className="text-center">{peers.patMargin?.toFixed(2)}%</td>
+                      <td className="text-center">{peers.borrowings?.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
                     </tr>))}
                     {/* <tr>
                       <td>Ascent Hotels Private Limited</td>

@@ -366,7 +366,10 @@ function Index() {
     })
   }, [orderList])
 
-  const [shipment, setShipment] = useState({
+  const [shipment, setShipment] = useState({})
+ useEffect(() => {
+  setShipment(
+    {
     ETAofDischarge: {
       fromDate: orderList?.shipmentDetail?.ETAofDischarge?.fromDate,
       toDate: orderList?.shipmentDetail?.ETAofDischarge?.toDate,
@@ -378,8 +381,12 @@ function Index() {
     },
     shipmentType: orderList?.shipmentDetail?.shipmentType,
     portOfLoading: orderList?.shipmentDetail?.portOfLoading,
-  })
-
+  }
+  )
+ },[
+  orderList
+ ])
+ console.log(shipment,"shipmentshipment")
   const saveOrderData = (name, value) => {
     console.log(value, 'value888')
     const newInput = { ...orderDetails }
@@ -396,6 +403,7 @@ function Index() {
       : (newInput[name] = value)
     setShipment(newInput)
   }
+  console.log(shipment,"saveShipmentData")
   const orderValidation = () => {
     if (
       orderDetails?.transactionType?.trim() === '' ||
@@ -6593,6 +6601,10 @@ function Index() {
     const trendChartRevenueImg = trendChartRevenue.toDataURL('image/png',1.0)
     const skewnessChartRevenue = document.getElementById('skewnessChartRevenue');
     const skewnessChartRevenueImg = skewnessChartRevenue.toDataURL('image/png',1.0)
+    
+    doc.addFileToVFS("MyFont.ttf", HelveticaNeue_new.ttf);
+    doc.addFont("MyFont.ttf", "MyFont", "normal");
+    doc.setFont("MyFont");
     doc.html(
       ReactDOMServer.renderToString(
         toPrintPdf(orderList, gstData?.detail?.salesDetailAnnual?.saleSummary,trendChartRevenueImg,skewnessChartRevenueImg),
@@ -7489,10 +7501,12 @@ function Index() {
                     <Order
                       orderDetail={orderDetails}
                       saveOrderData={saveOrderData}
+                      
                     />
                     <ShipmentDetails
                       orderDetail={orderList}
                       saveShipmentData={saveShipmentData}
+                      shipment={shipment}
                     />
                     <CommonSave onSave={onOrderSave} />
                   </div>
