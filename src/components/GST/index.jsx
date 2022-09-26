@@ -3888,7 +3888,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                                   maximumFractionDigits: 2,
                                   minimumFractionDigits: 2,
                                   minimumFractionDigits: 2,
-                                })} %
+                                }) ?? ''} %
 
                               </td>
                             )
@@ -4244,7 +4244,7 @@ const gstPurchase = (
                           {arr && arr?.length > 0 && arr?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
-                                {sales
+                                {(sales ?? '')
                                   ?.toFixed(2)
                                 } %
                               </td>

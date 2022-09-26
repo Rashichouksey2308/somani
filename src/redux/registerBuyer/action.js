@@ -4,6 +4,7 @@ import Axios from 'axios'
 import Router from 'next/router'
 import Cookies from 'js-cookie'
 import { toast } from 'react-toastify'
+import { data } from 'jquery'
 
 function createBuyer() {
   return {
@@ -197,7 +198,23 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-        Router.push('/leads')
+        sessionStorage.setItem(
+          'orderID',
+          response.data.data.form.orderDetails[0],
+        )
+        sessionStorage.setItem('company', response.data.data.form._id)
+        Router.push('/review/id')
+        // if (response.data.data.queue == 'ReviewQueue') {
+        //   dispatch(
+        //     GetBuyer({
+        //       companyId: response.data.data.form._id,
+        //       orderId: response.data.data.form.orderDetails[0],
+        //     }),
+        //   )
+
+        // }
+
+        // Router.push('/leads')
 
         // payload.history.goBack()
       } else {

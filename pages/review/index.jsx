@@ -31,7 +31,9 @@ import IncomeStatement from '../../src/components/ReviewQueueFinancials/IncomeSt
 import OpenCharges from '../../src/components/ReviewQueueFinancials/OpenCharges'
 import Peer from '../../src/components/ReviewQueueFinancials/Peer'
 import Ratios from '../../src/components/ReviewQueueFinancials/Ratios'
-
+import * as htmlToImage from 'html-to-image';
+import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
+import html2canvas from 'html2canvas';
 import {
   removePrefixOrSuffix,
   CovertvaluefromtoCR,
@@ -299,7 +301,8 @@ function Index() {
       'orderList?.company?.companyName',
     )
     dispatch(setDynamicName(orderList?.company?.companyName))
-    dispatch(setDynamicOrder(orderList?.company?.customerId))
+    
+    dispatch(setDynamicOrder(orderList?.company?.customerId || orderList?.applicationId))
   }, [orderList, dispatch])
 
   console.log(orderList, 'termsheetOrder')
@@ -1568,7 +1571,7 @@ function Index() {
       }),
     )
   }
-  const toPrintPdf = (camData, RevenueDetails, orderList) => {
+  const toPrintPdf = (camData, RevenueDetails, trendChartRevenueImg,skewnessChartRevenueImg,doc) => {
     console.log(_get, 'get')
     function calcPc(n1, n2) {
       if (n1 === 0) {
@@ -1576,6 +1579,7 @@ function Index() {
       }
       return ((n2 - n1) / n1) * 100
     }
+    console.log(trendChartRevenueImg,"trendChartRevenueImg")
     return (
       <table
         width="1500px"
@@ -1585,6 +1589,7 @@ function Index() {
         border="0"
         bgColor="#f3f4f7"
       >
+      
         <tr>
           <td valign="top">
             <table
@@ -2320,7 +2325,7 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {camData?.supplierCredential?.countryOfOrigin}
+                  {camData?.supplierCredential?.remarks}
                 </td>
               </tr>
             </table>
@@ -6254,6 +6259,7 @@ function Index() {
                 </td>
               </tr>
             </table>
+          
           </td>
         </tr>
       </table>
@@ -6578,12 +6584,18 @@ function Index() {
   }, [companyData?.profile?.directorDetai])
   console.log(personData, 'per')
   console.log(companyData?.profile?.directorDetail, 'director')
-  const exportPDF = () => {
+  const exportPDF = async() => {
     console.log(orderList, 'orderList')
     const doc = new jsPDF('p', 'pt', [1500, 1500])
+  
+    const trendChartRevenue = document.getElementById('trendChartRevenue');
+
+    const trendChartRevenueImg = trendChartRevenue.toDataURL('image/png',1.0)
+    const skewnessChartRevenue = document.getElementById('skewnessChartRevenue');
+    const skewnessChartRevenueImg = skewnessChartRevenue.toDataURL('image/png',1.0)
     doc.html(
       ReactDOMServer.renderToString(
-        toPrintPdf(orderList, gstData?.detail?.salesDetailAnnual?.saleSummary),
+        toPrintPdf(orderList, gstData?.detail?.salesDetailAnnual?.saleSummary,trendChartRevenueImg,skewnessChartRevenueImg),
       ),
       {
         callback: function (doc) {
@@ -6591,8 +6603,8 @@ function Index() {
         },
         // margin:margins,
         autoPaging: 'text',
-      },
-    )
+  },
+)
   }
   useEffect(() => {
     if (keyAddData.length === 0 || keyAddData === null) {

@@ -468,6 +468,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                       //   }
                       //   disabled={fields[8]?.isEdit}
                       // />
+                      <div className={`${styles.calender}  d-flex`}>
                       <DateCalender
                         name="ExpectedDateOfShipment"
                         saveDate={(name, value) => {
@@ -484,6 +485,12 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                           reviewedProfile?.ExpectedDateOfShipment?.originalValue).toDate()}
                         small={true}
                       />
+                       <img
+                          className={`${styles.calanderIcon} image_arrow img-fluid`}
+                          src="/static/caldericon.svg"
+                          alt="Search"
+                        />
+                    </div>
                     )}
                   </td>
                 </tr>

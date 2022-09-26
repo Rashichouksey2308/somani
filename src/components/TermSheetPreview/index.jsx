@@ -47,7 +47,8 @@ function Index() {
   const [otherTermConditions, setOtherTermConditions] = useState({})
   const [additionalComments, setAdditionalComments] = useState({})
   const date = new Date()
-
+ console.log(otherTermConditions?.dutyAndTaxes
+                              ?.taxCollectedatSource,"asasas")
   useEffect(() => {
     const commentData = _get(termsheet, 'data[0].additionalComments', [])
     console.log(commentData, 'comment')
@@ -286,11 +287,11 @@ function Index() {
     //    10
 
     //  ];
-  console.log("here")
+    console.log("here")
     const doc = new jsPDF('p', 'pt', [1500, 1500])
     doc.html(
       ReactDOMServer.renderToString(
-        toPrintPdf(termsheet, termsheetDetails, additionalComments,otherTermConditions),
+        toPrintPdf(termsheet, termsheetDetails, additionalComments, otherTermConditions),
       ),
       {
         callback: function (doc) {
@@ -307,7 +308,7 @@ function Index() {
         <div className={styles.head_container}>
           <div className={styles.head_header}>
             <img
-            onClick={()=> Router.push('/termsheet/12')}
+              onClick={() => Router.push('/termsheet/12')}
               className={`${styles.arrow} image_arrow mr-2 img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="Arrow"
@@ -351,8 +352,8 @@ function Index() {
             <Col
               md={4}
               className={`d-flex justify-content-end  align-items-end`}
-            > 
-             <div><span className={`${styles.termSub_head} text-color`}>Date:</span> <span className={`${styles.termValue} text-color`}>{moment((new Date()), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</span></div>
+            >
+              <div><span className={`${styles.termSub_head} text-color`}>Date:</span> <span className={`${styles.termValue} text-color`}>{moment((new Date()), 'YYYY-MM-DD', true).format("DD-MM-YYYY")}</span></div>
               {/* <div>
                 <span className={styles.termSub_head}>Date:</span>{' '}
                 <span className={styles.termValue}>
@@ -399,9 +400,9 @@ function Index() {
               >
                 <ul>
                   <li>{termsheetDetails?.commodityDetails?.commodity}</li>
-                  <li>{termsheetDetails?.commodityDetails?.quantity} MT</li>
+                  <li>{termsheetDetails?.commodityDetails?.quantity?.toLocaleString('en-In')} MT</li>
                   <li>
-                   {termsheetDetails?.commodityDetails?.orderCurrency}{" "}{termsheetDetails?.commodityDetails?.perUnitPrice}
+                    {termsheetDetails?.commodityDetails?.orderCurrency}{" "}{termsheetDetails?.commodityDetails?.perUnitPrice?.toLocaleString('en-In')}
                   </li>
                 </ul>
               </Col>
@@ -552,14 +553,12 @@ function Index() {
               >
                 <ul>
                   <li>{`
-                 ${
-                   termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate
-                     ? termsheetDetails?.paymentDueDate
-                         ?.daysFromVesselDischargeDate
-                     : termsheetDetails?.paymentDueDate?.daysFromBlDate
-                 } days from the vessel/container(s) at discharge date at discharge port or  ${
-                    termsheetDetails?.paymentDueDate?.daysFromBlDate
-                  }  days from the from the BL date, whichever is earlier, through TT or LC (in case of LC all Bank charges to be borne by the Buyer).
+                 ${termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate
+                      ? termsheetDetails?.paymentDueDate
+                        ?.daysFromVesselDischargeDate
+                      : termsheetDetails?.paymentDueDate?.daysFromBlDate
+                    } days from the vessel/container(s) at discharge date at discharge port or  ${termsheetDetails?.paymentDueDate?.daysFromBlDate
+                    }  days from the from the BL date, whichever is earlier, through TT or LC (in case of LC all Bank charges to be borne by the Buyer).
                   `}</li>
                 </ul>
               </Col>
@@ -610,21 +609,24 @@ function Index() {
                   </li>
                   <li>
                     {`USD`}{' '}
-                    {Number(termsheetDetails.commercials?.lcOpeningChargesUnit)?.toLocaleString()}{' '}
+                    {Number(termsheetDetails.commercials?.lcOpeningChargesUnit)?.toLocaleString('en-In')}{' '}
                   </li>
                   <li>
                     {' '}
                     {
-                      termsheetDetails.commercials?.lcOpeningChargesPercentage
-                    }%{' '}
+                      termsheetDetails.commercials?.lcOpeningChargesPercentage ? Number(termsheetDetails.commercials?.lcOpeningChargesPercentage)?.toFixed(2) + '%' : ''
+                    }{' '}
                   </li>
                   <li>
                     {' '}
-                    {termsheetDetails.commercials?.usanceInterestPercetage}%
+                    {termsheetDetails.commercials?.usanceInterestPercetage ? Number(termsheetDetails.commercials?.usanceInterestPercetage)?.toFixed(2) + '%' : ''}
+
+                    {/* {termsheetDetails.commercials?.usanceInterestPercetage}% */}
                   </li>
                   <li>
                     {' '}
-                    {termsheetDetails.commercials?.overDueInterestPerMonth}%
+                    {termsheetDetails.commercials?.overDueInterestPerMonth ? Number(termsheetDetails.commercials?.overDueInterestPerMonth)?.toFixed(2) + '%' : ''}
+                    {/* {termsheetDetails.commercials?.overDueInterestPerMonth}% */}
                   </li>
                   <li> {termsheetDetails.commercials?.exchangeFluctuation}</li>
                   <li> {termsheetDetails.commercials?.forexHedging}</li>
@@ -1118,7 +1120,7 @@ function Index() {
                         >
                           LC Opening Charges ( on LC value subject to minimum of{' '}
                           {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
-                          {termsheetDetails?.commercials?.lcOpeningChargesUnit})
+                          {Number(termsheetDetails?.commercials?.lcOpeningChargesUnit)?.toLocaleString('en-In')})
                         </label>
                       </div>
                       <div className="pt-4 d-flex align-items-center">
@@ -1380,7 +1382,7 @@ function Index() {
                           type="checkbox"
                           checked={
                             otherTermConditions?.dutyAndTaxes
-                              ?.taxCollectedatSource
+                              ?.taxCollectedatSource ? true : false
                           }
                         />
                         <label
@@ -1421,7 +1423,7 @@ function Index() {
 
 export default Index
 
-const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditions) => {
+const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditions) => {
   console.log(termsheetDetails, 'ldwfsdf')
   return (
     <>
@@ -1464,7 +1466,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                       {_get(data, 'data[0].order.orderId', '')}
                     </span>
                   </span>
-                  <br/>
+                  <br />
                   <span
                     style={{
                       fontSize: '20px',
@@ -1474,7 +1476,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                       paddingLeft: '25px',
                     }}
                   >
-                    <span style={{display: 'inline-block', paddingLeft: '25px', width: '90px', float:'left', height:'50px'}}>
+                    <span style={{ display: 'inline-block', paddingLeft: '25px', width: '90px', float: 'left', height: '50px' }}>
                       Buyer:{' '}
                     </span>
                     <span
@@ -1502,8 +1504,8 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                   </h2>
                 </td>
                 <td valign="top" align="right" width="33%">
-                    {' '}
-                    <span></span><br/>
+                  {' '}
+                  <span></span><br />
                   <span
                     style={{
                       fontSize: '20px',
@@ -1554,1256 +1556,1254 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                     cellSpacing="0"
                     border="0"
                   >
-                      <tr>
-                        <td
-                          width="33%"
-                          bgColor="#FAFAFB"
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
+                    <tr>
+                      <td
+                        width="33%"
+                        bgColor="#FAFAFB"
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <span
+                          style={{
+                            fontSize: '22px',
+                            color: '#3687E8',
+                            lineHeight: '27px',
+                            fontWeight: 'bold',
+                            display: 'block',
+                            padding: '20px 15px 20px 35px'
+                          }}
+                        >
+                          Commodity Details
+                        </span>
+                      </td>
+                      <td width="67%" bgColor="#FAFAFB" align="left"></td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '23px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
                         >
                           <span
-                            style={{
-                              fontSize: '22px',
-                              color: '#3687E8',
-                              lineHeight: '27px',
-                              fontWeight: 'bold',
-                              display: 'block',
-                              padding: '20px 15px 20px 35px'
-                            }}
+                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
                           >
-                            Commodity Details
+                            1.
                           </span>
-                        </td>
-                        <td width="67%" bgColor="#FAFAFB" align="left"></td>
-                      </tr>
-                      <tr>
-                        <td
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
-                          >
-                            <p
-                              style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              opacity: '0.7',
-                              lineHeight: '24px',
-                              fontWeight: 'normal',
-                              float: 'left',
-                              padding: '23px 15px 11px 35px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            <span
-                              style={{ display: 'inline-block', width: '35px', float:'left', height:'30px' }}
-                            >
-                              1.
-                            </span>
-                            Commodity Name
-                          </p>
-                        </td>
-                        <td align="left">
-                          <p style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              lineHeight: '24px',
-                              fontWeight: '500',
-                              float: 'left',
-                              padding: '23px 15px 11px 24px',
-                              marginBottom: '0',  
-                            }}
-                          >
-                            {termsheetDetails?.commodityDetails?.commodity}
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
+                          Commodity Name
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '24px',
+                          fontWeight: '500',
+                          float: 'left',
+                          padding: '23px 15px 11px 24px',
+                          marginBottom: '0',
+                        }}
                         >
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              opacity: '0.7',
-                              lineHeight: '24px',
-                              fontWeight: 'normal',
-                              float: 'left',
-                              float: 'left',
-                              padding: '11px 15px 11px 35px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            <span
-                              style={{ display: 'inline-block', width: '35px', float:'left', height:'30px' }}
-                            >
-                              2.
-                            </span>
-                            Quantity Name
-                          </p>
-                        </td>
-                        <td align="left">
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              lineHeight: '24px',
-                              fontWeight: '500',
-                              float: 'left',
-                              padding: '11px 15px 11px 24px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            {termsheetDetails?.commodityDetails?.quantity} MT
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
-                        >
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              opacity: '0.7',
-                              lineHeight: '24px',
-                              fontWeight: 'normal',
-                              float: 'left',
-                              float: 'left',
-                              padding: '11px 15px 38px 35px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            <span
-                              style={{ display: 'inline-block', width: '35px', float:'left', height:'30px' }}
-                            >
-                              3.
-                            </span>
-                            Unit Price
-                          </p>
-                        </td>
-                        <td align="left">
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              lineHeight: '24px',
-                              fontWeight: '500',
-                              float: 'left',
-                              padding: '11px 15px 38px 24px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            {termsheetDetails?.commodityDetails?.perUnitPrice}
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          width="33%"
-                          bgColor="#FAFAFB"
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
+                          {termsheetDetails?.commodityDetails?.commodity}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
                         >
                           <span
-                            style={{
-                              fontSize: '22px',
-                              color: '#3687E8',
-                              lineHeight: '27px',
-                              fontWeight: 'bold',
-                              display: 'block',
-                              padding: '20px 15px 20px 35px'
-                            }}
+                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
                           >
-                            Transaction Details
+                            2.
                           </span>
-                        </td>
-                        <td width="67%" bgColor="#FAFAFB" align="left"></td>
-                      </tr>
-                      <tr>
-                        <td
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
+                          Quantity Name
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
                         >
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              opacity: '0.7',
-                              lineHeight: '24px',
-                              fontWeight: 'normal',
-                              float: 'left',
-                              padding: '23px 15px 11px 35px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            <span
-                              style={{ display: 'inline-block', width: '35px', float:'left', height:'30px' }}
-                            >
-                              4.
-                            </span>
-                            LC Value
-                          </p>
-                        </td>
-                        <td align="left">
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              lineHeight: '24px',
-                              fontWeight: '500',
-                              float: 'left',
-                              padding: '23px 15px 11px 24px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
-                            {termsheetDetails?.transactionDetails?.lcValue}
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
-                        >
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              opacity: '0.7',
-                              lineHeight: '24px',
-                              fontWeight: 'normal',
-                              float: 'left',
-                              padding: '11px 15px 11px 35px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            <span
-                              style={{ display: 'inline-block', width: '35px', float:'left', height:'30px' }}
-                            >
-                              5.
-                            </span>
-                            LC opening Bank
-                          </p>
-                        </td>
-                        <td align="left">
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              lineHeight: '24px',
-                              fontWeight: '500',
-                              float: 'left',
-                              padding: '11px 15px 11px 24px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            {
-                              termsheetDetails?.transactionDetails
-                                ?.lcOpeningBank
-                            }
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
-                        >
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              opacity: '0.7',
-                              lineHeight: '24px',
-                              fontWeight: 'normal',
-                              float: 'left',
-                              padding: '11px 15px 11px 35px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            <span
-                              style={{ display: 'inline-block', width: '35px', float:'left', height:'30px' }}
-                            >
-                              6.
-                            </span>
-                            Margin Money as % of Import Value
-                          </p>
-                        </td>
-                        <td align="left">
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              lineHeight: '24px',
-                              fontWeight: '500',
-                              float: 'left',
-                              padding: '11px 15px 11px 24px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            {termsheetDetails?.transactionDetails?.marginMoney}%
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
-                        >
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              opacity: '0.7',
-                              lineHeight: '24px',
-                              fontWeight: 'normal',
-                              float: 'left',
-                              padding: '11px 15px 11px 35px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            <span
-                              style={{ display: 'inline-block', width: '35px', float:'left', height:'30px' }}
-                            >
-                              7.
-                            </span>
-                            INCO Terms
-                          </p>
-                        </td>
-                        <td align="left">
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              lineHeight: '24px',
-                              fontWeight: '500',
-                              float: 'left',
-                              padding: '11px 15px 11px 24px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            {termsheetDetails?.transactionDetails?.incoTerms}
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
-                        >
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              opacity: '0.7',
-                              lineHeight: '24px',
-                              fontWeight: 'normal',
-                              float: 'left',
-                              padding: '11px 15px 11px 35px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            <span
-                              style={{ display: 'inline-block', width: '35px', float:'left', height:'30px' }}
-                            >
-                              8.
-                            </span>
-                            Load Port
-                          </p>
-                        </td>
-                        <td align="left">
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              lineHeight: '24px',
-                              fontWeight: '500',
-                              float: 'left',
-                              padding: '11px 15px 11px 24px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            {termsheetDetails?.transactionDetails?.loadPort}
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
-                        >
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              opacity: '0.7',
-                              lineHeight: '24px',
-                              fontWeight: 'normal',
-                              float: 'left',
-                              padding: '11px 15px 11px 35px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            <span
-                              style={{ display: 'inline-block', width: '35px', float:'left', height:'30px' }}
-                            >
-                              9.
-                            </span>
-                            Country of Origin
-                          </p>
-                        </td>
-                        <td align="left">
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              lineHeight: '24px',
-                              fontWeight: '500',
-                              float: 'left',
-                              padding: '11px 15px 11px 24px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            {' '}
-                            {
-                              termsheetDetails?.transactionDetails
-                                ?.countryOfOrigin
-                            }
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
-                        >
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              opacity: '0.7',
-                              lineHeight: '24px',
-                              fontWeight: 'normal',
-                              float: 'left',
-                              padding: '11px 15px 11px 35px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            <span
-                              style={{ display: 'inline-block', width: '35px', float:'left', height:'30px' }}
-                            >
-                              10.
-                            </span>
-                            Shipment Type
-                          </p>
-                        </td>
-                        <td align="left">
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              lineHeight: '24px',
-                              fontWeight: '500',
-                              float: 'left',
-                              padding: '11px 15px 11px 24px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            {termsheetDetails?.transactionDetails?.shipmentType}
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
-                        >
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              opacity: '0.7',
-                              lineHeight: '24px',
-                              fontWeight: 'normal',
-                              float: 'left',
-                              padding: '11px 15px 11px 35px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            <span
-                              style={{ display: 'inline-block', width: '35px', float:'left', height:'30px' }}
-                            >
-                              11.
-                            </span>
-                            Part Shipment Allowed
-                          </p>
-                        </td>
-                        <td align="left">
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              lineHeight: '24px',
-                              fontWeight: '500',
-                              float: 'left',
-                              padding: '11px 15px 11px 24px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            {' '}
-                            {
-                              termsheetDetails?.transactionDetails
-                                ?.partShipmentAllowed
-                            }
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
-                        >
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              opacity: '0.7',
-                              lineHeight: '24px',
-                              fontWeight: 'normal',
-                              float: 'left',
-                              padding: '11px 15px 11px 35px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            <span
-                              style={{ display: 'inline-block', width: '35px', float:'left', height:'30px' }}
-                            >
-                              12.
-                            </span>
-                            Port of Discharge
-                          </p>
-                        </td>
-                        <td align="left">
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              lineHeight: '24px',
-                              fontWeight: '500',
-                              float: 'left',
-                              padding: '11px 15px 11px 24px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            {' '}
-                            {
-                              termsheetDetails?.transactionDetails
-                                ?.portOfDischarge
-                            }
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
-                        >
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              opacity: '0.7',
-                              lineHeight: '24px',
-                              fontWeight: 'normal',
-                              float: 'left',
-                              padding: '11px 15px 11px 35px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            <span
-                              style={{ display: 'inline-block', width: '35px', float:'left', height:'30px' }}
-                            >
-                              13.
-                            </span>
-                            Bill of Entry
-                          </p>
-                        </td>
-                        <td align="left">
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              lineHeight: '24px',
-                              fontWeight: '500',
-                              float: 'left',
-                              padding: '11px 15px 11px 24px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            {' '}
-                            {termsheetDetails?.transactionDetails?.billOfEntity}
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
-                        >
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              opacity: '0.7',
-                              lineHeight: '24px',
-                              fontWeight: 'normal',
-                              float: 'left',
-                              padding: '11px 15px 38px 35px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            <span
-                              style={{ display: 'inline-block', width: '35px', float:'left', height:'30px' }}
-                            >
-                              14.
-                            </span>
-                            3rd Party Inspection Required
-                          </p>
-                        </td>
-                        <td align="left">
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              lineHeight: '24px',
-                              fontWeight: '500',
-                              float: 'left',
-                              padding: '11px 15px 38px 24px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            {termsheetDetails?.transactionDetails
-                              ?.thirdPartyInspectionReq
-                              ? 'YES'
-                              : 'NO'}
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          width="33%"
-                          bgColor="#FAFAFB"
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
+                          {termsheetDetails?.commodityDetails?.quantity} MT
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            float: 'left',
+                            padding: '11px 15px 38px 35px',
+                            marginBottom: '0',
+                          }}
                         >
                           <span
-                            style={{
-                              fontSize: '22px',
-                              color: '#3687E8',
-                              lineHeight: '27px',
-                              fontWeight: 'bold',
-                              display: 'block',
-                              padding: '20px 15px 20px 35px',
-                              marginBottom: '0',
-                            }}
+                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
                           >
-                            Storage of Goods
+                            3.
                           </span>
-                        </td>
-                        <td width="67%" bgColor="#FAFAFB" align="left"></td>
-                      </tr>
-                      <tr>
-                        <td
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
+                          Unit Price
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 38px 24px',
+                            marginBottom: '0',
+                          }}
                         >
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              opacity: '0.7',
-                              lineHeight: '24px',
-                              fontWeight: 'normal',
-                              float: 'left',
-                              padding: '23px 15px 40px 35px',
-                              marginBottom: '0',
-                            }}
+                          {termsheetDetails?.commodityDetails?.perUnitPrice}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        width="33%"
+                        bgColor="#FAFAFB"
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <span
+                          style={{
+                            fontSize: '22px',
+                            color: '#3687E8',
+                            lineHeight: '27px',
+                            fontWeight: 'bold',
+                            display: 'block',
+                            padding: '20px 15px 20px 35px'
+                          }}
+                        >
+                          Transaction Details
+                        </span>
+                      </td>
+                      <td width="67%" bgColor="#FAFAFB" align="left"></td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '23px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
                           >
-                            <span
-                              style={{ display: 'inline-block', width: '35px', float:'left', height:'30px' }}
-                            >
-                              15.
-                            </span>
-                            Storage of Goods
-                          </p>
-                        </td>
-                        <td align="left">
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              lineHeight: '24px',
-                              fontWeight: '500',
-                              float: 'left',
-                              padding: '23px 15px 40px 24px',
-                              marginBottom: '0',
-                            }}
+                            4.
+                          </span>
+                          LC Value
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '23px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
+                          {termsheetDetails?.transactionDetails?.lcValue}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
                           >
-                           {`
+                            5.
+                          </span>
+                          LC opening Bank
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {
+                            termsheetDetails?.transactionDetails
+                              ?.lcOpeningBank
+                          }
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                          >
+                            6.
+                          </span>
+                          Margin Money as % of Import Value
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {termsheetDetails?.transactionDetails?.marginMoney}%
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                          >
+                            7.
+                          </span>
+                          INCO Terms
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {termsheetDetails?.transactionDetails?.incoTerms}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                          >
+                            8.
+                          </span>
+                          Load Port
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {termsheetDetails?.transactionDetails?.loadPort}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                          >
+                            9.
+                          </span>
+                          Country of Origin
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {' '}
+                          {
+                            termsheetDetails?.transactionDetails
+                              ?.countryOfOrigin
+                          }
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                          >
+                            10.
+                          </span>
+                          Shipment Type
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {termsheetDetails?.transactionDetails?.shipmentType}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                          >
+                            11.
+                          </span>
+                          Part Shipment Allowed
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {' '}
+                          {
+                            termsheetDetails?.transactionDetails
+                              ?.partShipmentAllowed
+                          }
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                          >
+                            12.
+                          </span>
+                          Port of Discharge
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {' '}
+                          {
+                            termsheetDetails?.transactionDetails
+                              ?.portOfDischarge
+                          }
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                          >
+                            13.
+                          </span>
+                          Bill of Entry
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {' '}
+                          {termsheetDetails?.transactionDetails?.billOfEntity}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 38px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                          >
+                            14.
+                          </span>
+                          3rd Party Inspection Required
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 38px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {termsheetDetails?.transactionDetails
+                            ?.thirdPartyInspectionReq
+                            ? 'YES'
+                            : 'NO'}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        width="33%"
+                        bgColor="#FAFAFB"
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <span
+                          style={{
+                            fontSize: '22px',
+                            color: '#3687E8',
+                            lineHeight: '27px',
+                            fontWeight: 'bold',
+                            display: 'block',
+                            padding: '20px 15px 20px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          Storage of Goods
+                        </span>
+                      </td>
+                      <td width="67%" bgColor="#FAFAFB" align="left"></td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '23px 15px 40px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                          >
+                            15.
+                          </span>
+                          Storage of Goods
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '23px 15px 40px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {`
                           Cargo to be stored in Custom Bonded Warehouse at port of Discharge (${termsheetDetails?.transactionDetails?.portOfDischarge}) under CMA with Dr. Amin. IGM and Into Bond Bill of Entry” shall be filled by the lndo’s nominated party and all expenses/charges to be born and paid by the Buyer.
                           `}
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          width="33%"
-                          bgColor="#FAFAFB"
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        width="33%"
+                        bgColor="#FAFAFB"
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <span
+                          style={{
+                            fontSize: '22px',
+                            color: '#3687E8',
+                            lineHeight: '27px',
+                            fontWeight: 'bold',
+                            display: 'block',
+                            padding: '20px 15px 20px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          Deliveries/Due Date/Payment
+                        </span>
+                      </td>
+                      <td width="67%" bgColor="#FAFAFB" align="left"></td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '23px 15px 40px 35px',
+                            marginBottom: '0',
+                          }}
                         >
                           <span
-                            style={{
-                              fontSize: '22px',
-                              color: '#3687E8',
-                              lineHeight: '27px',
-                              fontWeight: 'bold',
-                              display: 'block',
-                              padding: '20px 15px 20px 35px',
-                              marginBottom: '0',
-                            }}
+                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
                           >
-                            Deliveries/Due Date/Payment
+                            16.
                           </span>
-                        </td>
-                        <td width="67%" bgColor="#FAFAFB" align="left"></td>
-                      </tr>
-                      <tr>
-                        <td
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
+                          Deliveries/Due date/Payment
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '23px 15px 40px 24px',
+                            marginBottom: '0',
+                          }}
                         >
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              opacity: '0.7',
-                              lineHeight: '24px',
-                              fontWeight: 'normal',
-                              float: 'left',
-                              padding: '23px 15px 40px 35px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            <span
-                              style={{ display: 'inline-block', width: '35px', float:'left', height:'30px' }}
-                            >
-                              16.
-                            </span>
-                            Deliveries/Due date/Payment
-                          </p>
-                        </td>
-                        <td align="left">
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              lineHeight: '24px',
-                              fontWeight: '500',
-                              float: 'left',
-                              padding: '23px 15px 40px 24px',
-                              marginBottom: '0',
-                            }}
-                          >
-                           {`
-                            ${
-                              termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate
-                                ? termsheetDetails?.paymentDueDate
-                                    ?.daysFromVesselDischargeDate
-                                : termsheetDetails?.paymentDueDate?.daysFromBlDate
-                            } days from the vessel/container(s) at discharge date at discharge port or  ${
-                                termsheetDetails?.paymentDueDate?.daysFromBlDate
-                              }  days from the from the BL date, whichever is earlier, through TT or LC (in case of LC all Bank charges to be borne by the Buyer).
+                          {`
+                            ${termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate
+                              ? termsheetDetails?.paymentDueDate
+                                ?.daysFromVesselDischargeDate
+                              : termsheetDetails?.paymentDueDate?.daysFromBlDate
+                            } days from the vessel/container(s) at discharge date at discharge port or  ${termsheetDetails?.paymentDueDate?.daysFromBlDate
+                            }  days from the from the BL date, whichever is earlier, through TT or LC (in case of LC all Bank charges to be borne by the Buyer).
                               `}
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          width="33%"
-                          bgColor="#FAFAFB"
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        width="33%"
+                        bgColor="#FAFAFB"
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <span
+                          style={{
+                            fontSize: '22px',
+                            color: '#3687E8',
+                            lineHeight: '27px',
+                            fontWeight: 'bold',
+                            display: 'block',
+                            padding: '20px 15px 20px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          Commercial Terms
+                        </span>
+                      </td>
+                      <td width="67%" bgColor="#FAFAFB" align="left"></td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '23px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
                         >
                           <span
-                            style={{
-                              fontSize: '22px',
-                              color: '#3687E8',
-                              lineHeight: '27px',
-                              fontWeight: 'bold',
-                              display: 'block',
-                              padding: '20px 15px 20px 35px',
-                              marginBottom: '0',
-                            }}
+                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
                           >
-                            Commercial Terms
+                            17.
                           </span>
-                        </td>
-                        <td width="67%" bgColor="#FAFAFB" align="left"></td>
-                      </tr>
-                      <tr>
-                        <td
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
+                          Trade Margin (%)
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '23px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
                         >
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              opacity: '0.7',
-                              lineHeight: '24px',
-                              fontWeight: 'normal',
-                              float: 'left',
-                              padding: '23px 15px 11px 35px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            <span
-                              style={{ display: 'inline-block', width: '35px', float:'left', height:'30px' }}
-                            >
-                              17.
-                            </span>
-                            Trade Margin (%)
-                          </p>
-                        </td>
-                        <td align="left">
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              lineHeight: '24px',
-                              fontWeight: '500',
-                              float: 'left',
-                              padding: '23px 15px 11px 24px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            {
-                              termsheetDetails.commercials
-                                ?.tradeMarginPercentage
-                            }
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
-                        >
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              opacity: '0.7',
-                              lineHeight: '24px',
-                              fontWeight: 'normal',
-                              float: 'left',
-                              padding: '11px 15px 11px 35px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            <span
-                              style={{ display: 'inline-block', width: '35px', float:'left', height:'30px' }}
-                            >
-                              18.
-                            </span>
-                            LC Opening Charges (Minimum)
-                          </p>
-                        </td>
-                        <td align="left">
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              lineHeight: '24px',
-                              fontWeight: '500',
-                              float: 'left',
-                              padding: '11px 15px 11px 24px',
-                              marginBottom: '0',
-                            }}
-                          >
-                             {`USD`}{' '}
-                    {termsheetDetails.commercials?.lcOpeningChargesUnit}
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
-                        >
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              opacity: '0.7',
-                              lineHeight: '24px',
-                              fontWeight: 'normal',
-                              float: 'left',
-                              padding: '11px 15px 11px 35px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            <span
-                              style={{ display: 'inline-block', width: '35px', float:'left', height:'30px' }}
-                            >
-                              19.
-                            </span>
-                            LC Opening Charges (%)
-                          </p>
-                        </td>
-                        <td align="left">
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              lineHeight: '24px',
-                              fontWeight: '500',
-                              float: 'left',
-                              padding: '11px 15px 11px 24px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            {
-                              termsheetDetails.commercials
-                                ?.lcOpeningChargesPercentage
-                            }
-                            %{' '}
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
-                        >
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              opacity: '0.7',
-                              lineHeight: '24px',
-                              fontWeight: 'normal',
-                              float: 'left',
-                              padding: '11px 15px 11px 35px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            <span
-                              style={{ display: 'inline-block', width: '35px', float:'left', height:'30px' }}
-                            >
-                              20.
-                            </span>
-                            Usance Interest (%) For 90 Days
-                          </p>
-                        </td>
-                        <td align="left">
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              lineHeight: '24px',
-                              fontWeight: '500',
-                              float: 'left',
-                              padding: '11px 15px 11px 24px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            {' '}
-                            {
-                              termsheetDetails.commercials
-                                ?.usanceInterestPercetage
-                            }
-                            %
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
-                        >
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              opacity: '0.7',
-                              lineHeight: '24px',
-                              fontWeight: 'normal',
-                              float: 'left',
-                              padding: '11px 15px 11px 35px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            <span
-                              style={{ display: 'inline-block', width: '35px', float:'left', height:'30px' }}
-                            >
-                              21.
-                            </span>
-                            Overdue Interest per Month (%)
-                          </p>
-                        </td>
-                        <td align="left">
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              lineHeight: '24px',
-                              fontWeight: '500',
-                              float: 'left',
-                              padding: '11px 15px 11px 24px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            {' '}
-                            {
-                              termsheetDetails.commercials
-                                ?.overDueInterestPerMonth
-                            }
-                            %
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
-                        >
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              opacity: '0.7',
-                              lineHeight: '24px',
-                              fontWeight: 'normal',
-                              float: 'left',
-                              padding: '11px 15px 11px 35px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            <span
-                              style={{ display: 'inline-block', width: '35px', float:'left', height:'30px' }}
-                            >
-                              22.
-                            </span>
-                            Exchange Fluctuation
-                          </p>
-                        </td>
-                        <td align="left">
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              lineHeight: '24px',
-                              fontWeight: '500',
-                              float: 'left',
-                              padding: '11px 15px 11px 24px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            {termsheetDetails.commercials?.exchangeFluctuation}
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
-                        >
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              opacity: '0.7',
-                              lineHeight: '24px',
-                              fontWeight: 'normal',
-                              float: 'left',
-                              padding: '11px 15px 11px 35px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            <span
-                              style={{ display: 'inline-block', width: '35px', float:'left', height:'30px' }}
-                            >
-                              23.
-                            </span>
-                            Forex Hedging
-                          </p>
-                        </td>
-                        <td align="left">
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              lineHeight: '24px',
-                              fontWeight: '500',
-                              float: 'left',
-                              padding: '11px 15px 11px 24px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            {termsheetDetails.commercials?.forexHedging}
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
-                        >
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              opacity: '0.7',
-                              lineHeight: '24px',
-                              fontWeight: 'normal',
-                              float: 'left',
-                              padding: '11px 15px 40px 35px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            <span
-                              style={{ display: 'inline-block', width: '35px', float:'left', height:'30px' }}
-                            >
-                              24.
-                            </span>
-                            Other Terms &amp; Conditions
-                          </p>
-                        </td>
-                        <td align="left">
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              lineHeight: '24px',
-                              fontWeight: '500',
-                              float: 'left',
-                              padding: '11px 15px 40px 24px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            {
-                              termsheetDetails.commercials
-                                ?.otherTermsAndConditions
-                            }
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          width="33%"
-                          bgColor="#FAFAFB"
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
+                          {
+                            termsheetDetails.commercials
+                              ?.tradeMarginPercentage
+                          }
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
                         >
                           <span
-                            style={{
-                              fontSize: '22px',
-                              color: '#3687E8',
-                              lineHeight: '27px',
-                              fontWeight: 'bold',
-                              display: 'block',
-                              padding: '20px 15px 20px 35px',
-                              marginBottom: '0',
-                            }}
+                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
                           >
-                            Reimbursement of Expenses
+                            18.
                           </span>
-                        </td>
-                        <td width="67%" bgColor="#FAFAFB" align="left"></td>
-                      </tr>
-                      <tr>
-                        <td
-                          align="left"
-                          style={{ borderRight: '2px solid #cad6e64d' }}
+                          LC Opening Charges (Minimum)
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
                         >
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              opacity: '0.7',
-                              lineHeight: '24px',
-                              fontWeight: 'normal',
-                              float: 'left',
-                              padding: '23px 15px 40px 35px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            <span
-                              style={{ display: 'inline-block', width: '35px', float:'left', height:'30px' }}
-                            >
-                              25.
-                            </span>
-                            Reimbursement of Expenses
-                          </p>
-                        </td>
-                        <td align="left">
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              lineHeight: '24px',
-                              fontWeight: '500',
-                              float: 'left',
-                              padding: '23px 15px 40px 24px',
-                              marginBottom: '0',
-                            }}
-                          >
-                            Post CFR expenses to be reimbursed on actual basis
-                            if applicable as attached.
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td colSpan={2} bgColor="#FAFAFB" align="left">
+                          {`USD`}{' '}
+                          {termsheetDetails.commercials?.lcOpeningChargesUnit}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
                           <span
-                            style={{
-                              fontSize: '22px',
-                              color: '#3687E8',
-                              lineHeight: '27px',
-                              fontWeight: 'bold',
-                              display: 'block',
-                              padding: '20px 15px 20px 35px',
-                              marginBottom: '0',
-                            }}
+                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
                           >
-                            Other Terms &amp; Conditions
+                            19.
                           </span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td colSpan={2} align="left">
-                          <p
-                            style={{
-                              fontSize: '20px',
-                              color: '#111111',
-                              lineHeight: '24px',
-                              fontWeight: 'normal',
-                              padding: '23px 15px 40px 35px',
-                              marginBottom: '0',
-                            }}
+                          LC Opening Charges (%)
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {
+                            termsheetDetails.commercials
+                              ?.lcOpeningChargesPercentage
+                          }
+                          %{' '}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
                           >
-                            Below charges are to be borne and paid by the Buyer
-                            on actual basis,wherever applicable. will provide
-                            proof of all expenses to the Buyer.
-                          </p>
-                        </td>
-                      </tr>
+                            20.
+                          </span>
+                          Usance Interest (%) For 90 Days
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {' '}
+                          {
+                            termsheetDetails.commercials
+                              ?.usanceInterestPercetage
+                          }
+                          %
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                          >
+                            21.
+                          </span>
+                          Overdue Interest per Month (%)
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {' '}
+                          {
+                            termsheetDetails.commercials
+                              ?.overDueInterestPerMonth
+                          }
+                          %
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                          >
+                            22.
+                          </span>
+                          Exchange Fluctuation
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {termsheetDetails.commercials?.exchangeFluctuation}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 11px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                          >
+                            23.
+                          </span>
+                          Forex Hedging
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 11px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {termsheetDetails.commercials?.forexHedging}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '11px 15px 40px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                          >
+                            24.
+                          </span>
+                          Other Terms &amp; Conditions
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '11px 15px 40px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          {
+                            termsheetDetails.commercials
+                              ?.otherTermsAndConditions
+                          }
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        width="33%"
+                        bgColor="#FAFAFB"
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <span
+                          style={{
+                            fontSize: '22px',
+                            color: '#3687E8',
+                            lineHeight: '27px',
+                            fontWeight: 'bold',
+                            display: 'block',
+                            padding: '20px 15px 20px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          Reimbursement of Expenses
+                        </span>
+                      </td>
+                      <td width="67%" bgColor="#FAFAFB" align="left"></td>
+                    </tr>
+                    <tr>
+                      <td
+                        align="left"
+                        style={{ borderRight: '2px solid #cad6e64d' }}
+                      >
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            opacity: '0.7',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            float: 'left',
+                            padding: '23px 15px 40px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          <span
+                            style={{ display: 'inline-block', width: '35px', float: 'left', height: '30px' }}
+                          >
+                            25.
+                          </span>
+                          Reimbursement of Expenses
+                        </p>
+                      </td>
+                      <td align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: '500',
+                            float: 'left',
+                            padding: '23px 15px 40px 24px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          Post CFR expenses to be reimbursed on actual basis
+                          if applicable as attached.
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colSpan={2} bgColor="#FAFAFB" align="left">
+                        <span
+                          style={{
+                            fontSize: '22px',
+                            color: '#3687E8',
+                            lineHeight: '27px',
+                            fontWeight: 'bold',
+                            display: 'block',
+                            padding: '20px 15px 20px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          Other Terms &amp; Conditions
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colSpan={2} align="left">
+                        <p
+                          style={{
+                            fontSize: '20px',
+                            color: '#111111',
+                            lineHeight: '24px',
+                            fontWeight: 'normal',
+                            padding: '23px 15px 40px 35px',
+                            marginBottom: '0',
+                          }}
+                        >
+                          Below charges are to be borne and paid by the Buyer
+                          on actual basis,wherever applicable. will provide
+                          proof of all expenses to the Buyer.
+                        </p>
+                      </td>
+                    </tr>
                   </table>
                 </td>
               </tr>
@@ -2935,7 +2935,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                   }}
                                 >
                                   <input
-                                     checked={
+                                    checked={
                                       otherTermConditions?.chaOrstevedoringCharges
                                         ?.pollutionCharges
                                     }
@@ -2972,10 +2972,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                   }}
                                 >
                                   <input
-                                  checked={
-                                otherTermConditions?.chaOrstevedoringCharges
-                                  ?.royalyAndPenaltyCharges
-                              }
+                                    checked={
+                                      otherTermConditions?.chaOrstevedoringCharges
+                                        ?.royalyAndPenaltyCharges
+                                    }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3010,8 +3010,8 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                 >
                                   <input
                                     checked={
-                                    otherTermConditions?.chaOrstevedoringCharges
-                                    ?.tarpaulinCoverageCharges
+                                      otherTermConditions?.chaOrstevedoringCharges
+                                        ?.tarpaulinCoverageCharges
                                     }
                                     style={{
                                       display: 'table-cell',
@@ -3046,9 +3046,9 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                   }}
                                 >
                                   <input
-                                  checked={
-                                    otherTermConditions?.chaOrstevedoringCharges
-                                    ?.wheighmentAndWeighmentSurveyCharges
+                                    checked={
+                                      otherTermConditions?.chaOrstevedoringCharges
+                                        ?.wheighmentAndWeighmentSurveyCharges
                                     }
                                     style={{
                                       display: 'table-cell',
@@ -3083,9 +3083,9 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                   }}
                                 >
                                   <input
-                                  checked={
-                                    otherTermConditions?.chaOrstevedoringCharges
-                                    ?.draughtSurveyCharges
+                                    checked={
+                                      otherTermConditions?.chaOrstevedoringCharges
+                                        ?.draughtSurveyCharges
                                     }
                                     style={{
                                       display: 'table-cell',
@@ -3120,9 +3120,9 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                   }}
                                 >
                                   <input
-                                  checked={
-                                    otherTermConditions?.chaOrstevedoringCharges
-                                    ?.boatingWhileDraughtSurveyCharges
+                                    checked={
+                                      otherTermConditions?.chaOrstevedoringCharges
+                                        ?.boatingWhileDraughtSurveyCharges
                                     }
                                     style={{
                                       display: 'table-cell',
@@ -3157,9 +3157,9 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                   }}
                                 >
                                   <input
-                                     checked={
-                                    otherTermConditions?.chaOrstevedoringCharges
-                                    ?.hmcCharges
+                                    checked={
+                                      otherTermConditions?.chaOrstevedoringCharges
+                                        ?.hmcCharges
                                     }
                                     style={{
                                       display: 'table-cell',
@@ -3195,8 +3195,8 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                 >
                                   <input
                                     checked={
-                                    otherTermConditions?.chaOrstevedoringCharges
-                                    ?.securityCharges
+                                      otherTermConditions?.chaOrstevedoringCharges
+                                        ?.securityCharges
                                     }
                                     style={{
                                       display: 'table-cell',
@@ -3231,10 +3231,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                   }}
                                 >
                                   <input
-                                     checked={
-                          otherTermConditions?.chaOrstevedoringCharges
-                            ?.piotRentalAndStorageCharges
-                        }
+                                    checked={
+                                      otherTermConditions?.chaOrstevedoringCharges
+                                        ?.piotRentalAndStorageCharges
+                                    }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3268,10 +3268,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                   }}
                                 >
                                   <input
-                                     checked={
-                          otherTermConditions?.chaOrstevedoringCharges
-                            ?.bondingOfCargoCharges
-                        }
+                                    checked={
+                                      otherTermConditions?.chaOrstevedoringCharges
+                                        ?.bondingOfCargoCharges
+                                    }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3305,10 +3305,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                   }}
                                 >
                                   <input
-                                     checked={
-                          otherTermConditions?.chaOrstevedoringCharges
-                            ?.exBondDocumentationCharges
-                        }
+                                    checked={
+                                      otherTermConditions?.chaOrstevedoringCharges
+                                        ?.exBondDocumentationCharges
+                                    }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3342,10 +3342,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                   }}
                                 >
                                   <input
-                                     checked={
-                          otherTermConditions?.chaOrstevedoringCharges
-                            ?.transferOfOwnershipCharges
-                        }
+                                    checked={
+                                      otherTermConditions?.chaOrstevedoringCharges
+                                        ?.transferOfOwnershipCharges
+                                    }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3379,10 +3379,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                   }}
                                 >
                                   <input
-                                     checked={
-                          otherTermConditions?.chaOrstevedoringCharges
-                            ?.customsBondOfficerOvertimeCharges
-                        }
+                                    checked={
+                                      otherTermConditions?.chaOrstevedoringCharges
+                                        ?.customsBondOfficerOvertimeCharges
+                                    }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3416,10 +3416,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                   }}
                                 >
                                   <input
-                                     checked={
-                          otherTermConditions?.chaOrstevedoringCharges
-                            ?.grabHireCharges
-                        }
+                                    checked={
+                                      otherTermConditions?.chaOrstevedoringCharges
+                                        ?.grabHireCharges
+                                    }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3453,10 +3453,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                   }}
                                 >
                                   <input
-                                     checked={
-                          otherTermConditions?.chaOrstevedoringCharges
-                            ?.craneHireCharges
-                        }d
+                                    checked={
+                                      otherTermConditions?.chaOrstevedoringCharges
+                                        ?.craneHireCharges
+                                    } d
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3490,10 +3490,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                   }}
                                 >
                                   <input
-                                     checked={
-                          otherTermConditions?.chaOrstevedoringCharges
-                            ?.handlingLosses
-                        }
+                                    checked={
+                                      otherTermConditions?.chaOrstevedoringCharges
+                                        ?.handlingLosses
+                                    }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3527,10 +3527,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                   }}
                                 >
                                   <input
-                                     checked={
-                          otherTermConditions?.chaOrstevedoringCharges
-                            ?.waterSprinklingCharges
-                        }
+                                    checked={
+                                      otherTermConditions?.chaOrstevedoringCharges
+                                        ?.waterSprinklingCharges
+                                    }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3560,8 +3560,8 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                 <li style={{ display: 'table' }}>
                                   <input
                                     checked={
-                          otherTermConditions?.chaOrstevedoringCharges?.others
-                        }
+                                      otherTermConditions?.chaOrstevedoringCharges?.others
+                                    }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3626,9 +3626,9 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                   }}
                                 >
                                   <input
-                                   checked={
-                                    otherTermConditions?.insurance?.marineInsurance
-                                  }
+                                    checked={
+                                      otherTermConditions?.insurance?.marineInsurance
+                                    }
                                     style={{
                                       display: 'table-cell',
                                       width: '20px',
@@ -3663,7 +3663,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                 >
                                   <input
                                     checked={
-                                    otherTermConditions?.insurance?.storageInsurance
+                                      otherTermConditions?.insurance?.storageInsurance
                                     }
                                     style={{
                                       display: 'table-cell',
@@ -3707,10 +3707,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                       float: 'left',
                                       height: '30px'
                                     }}
-                                     checked={
-                            otherTermConditions?.chaOrstevedoringCharges
-                              ?.insuranceCharges
-                          }
+                                    checked={
+                                      otherTermConditions?.chaOrstevedoringCharges
+                                        ?.insuranceCharges
+                                    }
                                     id="insuranceCharges"
                                     type="checkbox"
                                   />
@@ -3790,10 +3790,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                     }}
                                     id="lcOpeningCharges"
                                     type="checkbox"
-                                     checked={
-                            otherTermConditions?.lcOpeningCharges
-                              ?.lcOpeningCharges
-                          }
+                                    checked={
+                                      otherTermConditions?.lcOpeningCharges
+                                        ?.lcOpeningCharges
+                                    }
                                   />
                                   <label
                                     htmlFor="lcOpeningCharges"
@@ -3826,10 +3826,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                       float: 'left',
                                       height: '30px'
                                     }}
-                                     checked={
-                            otherTermConditions?.lcOpeningCharges
-                              ?.lcAmendmentCost
-                          }
+                                    checked={
+                                      otherTermConditions?.lcOpeningCharges
+                                        ?.lcAmendmentCost
+                                    }
                                     id="lcAmendmentCost"
                                     type="checkbox"
                                   />
@@ -3863,10 +3863,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                       float: 'left',
                                       height: '30px'
                                     }}
-                                     checked={
-                            otherTermConditions?.lcOpeningCharges
-                              ?.cmaFeesIncludingSupervisionAndSurvey
-                          }
+                                    checked={
+                                      otherTermConditions?.lcOpeningCharges
+                                        ?.cmaFeesIncludingSupervisionAndSurvey
+                                    }
                                     id="cmaFeesIncludingSupervisionAndSurvey"
                                     type="checkbox"
                                   />
@@ -3900,10 +3900,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                       float: 'left',
                                       height: '30px'
                                     }}
-                                     checked={
-                            otherTermConditions?.lcOpeningCharges
-                              ?.bankDoIssuanceCharges
-                          }
+                                    checked={
+                                      otherTermConditions?.lcOpeningCharges
+                                        ?.bankDoIssuanceCharges
+                                    }
                                     id="bankDoIssuanceCharges"
                                     type="checkbox"
                                   />
@@ -3937,10 +3937,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                       float: 'left',
                                       height: '30px'
                                     }}
-                                      checked={
-                            otherTermConditions?.lcOpeningCharges
-                              ?.remmittanceCharges
-                          }
+                                    checked={
+                                      otherTermConditions?.lcOpeningCharges
+                                        ?.remmittanceCharges
+                                    }
                                     id="remmittanceCharges"
                                     type="checkbox"
                                   />
@@ -3974,10 +3974,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                       float: 'left',
                                       height: '30px'
                                     }}
-                                      checked={
-                            otherTermConditions?.lcOpeningCharges
-                              ?.usanceInterest
-                          }
+                                    checked={
+                                      otherTermConditions?.lcOpeningCharges
+                                        ?.usanceInterest
+                                    }
                                     id="usanceInterest"
                                     type="checkbox"
                                   />
@@ -4045,9 +4045,9 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                       height: '30px'
                                     }}
                                     checked={
-                            otherTermConditions?.otherCharges
-                              ?.demurrageOrDetentionChargesOfVessel
-                          }
+                                      otherTermConditions?.otherCharges
+                                        ?.demurrageOrDetentionChargesOfVessel
+                                    }
                                     id="demurrageOrDetentionChargesOfVessel"
                                     type="checkbox"
                                   />
@@ -4081,10 +4081,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                       float: 'left',
                                       height: '30px'
                                     }}
-                                     checked={
-                            otherTermConditions?.otherCharges
-                              ?.transportationCharges
-                          }
+                                    checked={
+                                      otherTermConditions?.otherCharges
+                                        ?.transportationCharges
+                                    }
                                     id="transportationCharges"
                                     type="checkbox"
                                   />
@@ -4118,10 +4118,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                       float: 'left',
                                       height: '30px'
                                     }}
-                                      checked={
-                            otherTermConditions?.otherCharges
-                              ?.wagonHaulageCharges
-                          }
+                                    checked={
+                                      otherTermConditions?.otherCharges
+                                        ?.wagonHaulageCharges
+                                    }
                                     id="wagonHaulageCharges"
                                     type="checkbox"
                                   />
@@ -4156,10 +4156,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                       float: 'left',
                                       height: '30px'
                                     }}
-                                      checked={
-                            otherTermConditions?.otherCharges
-                              ?.thirdPartyInspectionCharges
-                          }
+                                    checked={
+                                      otherTermConditions?.otherCharges
+                                        ?.thirdPartyInspectionCharges
+                                    }
                                     id="thirdPartyInspectionCharges"
                                     type="checkbox"
                                   />
@@ -4194,8 +4194,8 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                       height: '30px'
                                     }}
                                     checked={
-                            otherTermConditions?.otherCharges?.hedgingCharges
-                          }
+                                      otherTermConditions?.otherCharges?.hedgingCharges
+                                    }
                                     id="hedgingCharges"
                                     type="checkbox"
                                   />
@@ -4229,10 +4229,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                       float: 'left',
                                       height: '30px'
                                     }}
-                                     checked={
-                            otherTermConditions?.otherCharges
-                              ?.anyOtherCostIncurredOnBehalfOfBuyer
-                          }
+                                    checked={
+                                      otherTermConditions?.otherCharges
+                                        ?.anyOtherCostIncurredOnBehalfOfBuyer
+                                    }
                                     id="anyOtherCostIncurredOnBehalfOfBuyer"
                                     type="checkbox"
                                   />
@@ -4299,10 +4299,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                       float: 'left',
                                       height: '30px'
                                     }}
-                                     checked={
-                            otherTermConditions?.dutyAndTaxes
-                              ?.customsDutyWithAllGovtCess
-                          }
+                                    checked={
+                                      otherTermConditions?.dutyAndTaxes
+                                        ?.customsDutyWithAllGovtCess
+                                    }
                                     id="customsDutyWithAllGovtCess"
                                     type="checkbox"
                                   />
@@ -4337,8 +4337,8 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                       height: '30px'
                                     }}
                                     checked={
-                            otherTermConditions?.dutyAndTaxes?.igstWithCess
-                          }
+                                      otherTermConditions?.dutyAndTaxes?.igstWithCess
+                                    }
                                     id="igstWithCess"
                                     type="checkbox"
                                   />
@@ -4372,9 +4372,9 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                       float: 'left',
                                       height: '30px'
                                     }}
-                                     checked={
-                            otherTermConditions?.dutyAndTaxes?.cimsCharges
-                          }
+                                    checked={
+                                      otherTermConditions?.dutyAndTaxes?.cimsCharges
+                                    }
                                     id="cimsCharges"
                                     type="checkbox"
                                   />
@@ -4413,10 +4413,10 @@ const toPrintPdf = (data, termsheetDetails, additionalComments,otherTermConditio
                                   />
                                   <label
                                     htmlFor="taxCharges"
-                                     checked={
-                            otherTermConditions?.dutyAndTaxes
-                              ?.taxCollectedatSource
-                          }
+                                    checked={
+                                      otherTermConditions?.dutyAndTaxes
+                                        ?.taxCollectedatSource
+                                    }
                                     style={{
                                       fontSize: '20px',
                                       display: 'table-cell',

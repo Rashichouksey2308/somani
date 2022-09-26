@@ -751,22 +751,23 @@ const Index = ({
                     <td>
                       {(
                         creditDetail?.company?.creditLimit?.availableLimit ?? ''
-                      )
-                        ?.toLocaleString()
-                        ?.toLocaleString('en-In')}
+                      )?.toLocaleString('en-In')
+                      }
                     </td>
                     <td>-</td>
 
-                    {filteredCreditRating && filteredCreditRating.length != 0   && filteredCreditRating!=0? (
+                    {filteredCreditRating && filteredCreditRating.length != 0 && filteredCreditRating != 0 ? (
                       <>
                         {' '}
-                        {filteredCreditRating  &&
+                        {filteredCreditRating &&
                           filteredCreditRating.map((val, index) => (
                             <td key={index}>
                               {(val.derived.value ?? '')?.toLocaleString(
-                                undefined,
+                                'en-In',
                                 {
                                   minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2,
+
                                 },
                               )}
                             </td>
@@ -792,7 +793,7 @@ const Index = ({
                         value={
                           isFieldInFocus.suggestedCreditLimit ?
                             suggestedCredit?.suggestedCreditLimit :
-                            Number(suggestedCredit?.suggestedCreditLimit??"")?.toLocaleString() + ` CR`}
+                            Number(suggestedCredit?.suggestedCreditLimit ?? "")?.toLocaleString('en-In') + ` CR`}
                         // value={addPrefixOrSuffix( 
                         //   suggestedCredit?.suggestedCreditLimit,
                         //   '',
@@ -811,8 +812,9 @@ const Index = ({
                     <td>
                       {checkNan(
                         CovertvaluefromtoCR(creditDetail?.orderValue ?? ''),
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
                       })}
                     </td>
 
@@ -837,7 +839,7 @@ const Index = ({
                         value={
                           isFieldInFocus.suggestedOrderValue ?
                             suggestedCredit?.suggestedOrderValue :
-                            Number(suggestedCredit?.suggestedOrderValue??"")?.toLocaleString() + ` CR`}
+                            Number(suggestedCredit?.suggestedOrderValue ?? "")?.toLocaleString('en-In') + ` CR`}
                         // value={(
                         //   addPrefixOrSuffix(
                         //     suggestedCredit?.suggestedOrderValue,
