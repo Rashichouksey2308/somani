@@ -1583,6 +1583,7 @@ function Index() {
         cellPadding="0"
         cellSpacing="0"
         border="0"
+        bgColor="#f3f4f7"
       >
         <tr>
           <td valign="top">
@@ -2254,7 +2255,7 @@ function Index() {
                     color: '#111111',
                     lineHeight: '24px',
                     paddingLeft: '35px',
-                    paddingBottom: '20px',
+                    paddingBottom: '25px',
                   }}
                 >
                   Country of Origins
@@ -2265,7 +2266,7 @@ function Index() {
                     color: '#111111',
                     fontWeight: '500',
                     lineHeight: '25px',
-                    paddingBottom: '20px',
+                    paddingBottom: '25px',
                   }}
                 >
                   {camData?.supplierCredential?.countryOfOrigin}
@@ -2275,7 +2276,7 @@ function Index() {
                     fontSize: '20px',
                     color: '#111111',
                     lineHeight: '24px',
-                    paddingBottom: '20px',
+                    paddingBottom: '25px',
                   }}
                 >
                   Commodity to total trade (24 months)
@@ -2286,7 +2287,7 @@ function Index() {
                     color: '#111111',
                     fontWeight: '500',
                     lineHeight: '25px',
-                    paddingBottom: '20px',
+                    paddingBottom: '25px',
                   }}
                 >
                   {camData?.supplierCredential?.commodityOfTotalTrade} %
@@ -2303,7 +2304,7 @@ function Index() {
                     paddingTop: '25px',
                   }}
                 >
-                  Country of Origins
+                  Remarks
                 </td>
               </tr>
               <tr>
@@ -2594,7 +2595,7 @@ function Index() {
             >
               <tr>
                 <td
-                  colSpan={7}
+                  colSpan={8}
                   height="78"
                   style={{
                     padding: '0 35px',
@@ -2614,8 +2615,9 @@ function Index() {
                 </td>
               </tr>
               <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
-                <th
-                  width="25%"
+                <td
+                  colSpan={2}
+                  width="30%"
                   style={{
                     fontSize: '15px',
                     color: '#8492A6',
@@ -2626,8 +2628,8 @@ function Index() {
                   }}
                 >
                   SUPPLIER NAME
-                </th>
-                <th
+                </td>
+                <td
                   style={{
                     fontSize: '15px',
                     color: '#8492A6',
@@ -2637,8 +2639,8 @@ function Index() {
                   }}
                 >
                   CUSTOMER NAME
-                </th>
-                <th
+                </td>
+                <td
                   style={{
                     fontSize: '15px',
                     color: '#8492A6',
@@ -2648,9 +2650,9 @@ function Index() {
                   }}
                 >
                   ORDER NO
-                </th>
+                </td>
 
-                <th
+                <td
                   style={{
                     fontSize: '15px',
                     color: '#8492A6',
@@ -2660,8 +2662,8 @@ function Index() {
                   }}
                 >
                   ORDER VALUE
-                </th>
-                <th
+                </td>
+                <td
                   style={{
                     fontSize: '15px',
                     color: '#8492A6',
@@ -2671,8 +2673,8 @@ function Index() {
                   }}
                 >
                   COMMODITY
-                </th>
-                <th
+                </td>
+                <td
                   style={{
                     fontSize: '15px',
                     color: '#8492A6',
@@ -2682,8 +2684,8 @@ function Index() {
                   }}
                 >
                   STATUS
-                </th>
-                <th
+                </td>
+                <td
                   style={{
                     fontSize: '15px',
                     color: '#8492A6',
@@ -2694,11 +2696,11 @@ function Index() {
                   }}
                 >
                   DAYS DUE
-                </th>
+                </td>
               </tr>
               <tr>
                 <td
-                  colSpan={7}
+                  colSpan={8}
                   style={{
                     fontSize: '15px',
                     color: '#8492A6',
@@ -2721,14 +2723,10 @@ function Index() {
                 </td>
               </tr>
               <tr>
-                <td
+                <td width="5%"
                   height="60"
                   style={{
-                    fontSize: '22px',
-                    color: '#111111',
-                    lineHeight: '27px',
-                    fontWeight: 'bold',
-                    padding: '18px 12px 18px 35px',
+                    padding: '21px 12px 21px 35px'
                   }}
                 >
                   <span
@@ -2739,13 +2737,25 @@ function Index() {
                       fontWeight: 'bold',
                       background: '#FFECCF',
                       borderRadius: '8px',
-                      marginRight: '22px',
-                      padding: '13px',
+                      padding: '13px 0',
+                      width: '60px',
+                      height: '60px',
+                      textAlign: 'center',
                       display: 'inline-block',
                     }}
                   >
                     ET
                   </span>{' '}
+                </td>
+                <td width="25%" 
+                  style={{
+                    fontSize: '22px',
+                    color: '#111111',
+                    lineHeight: '27px',
+                    fontWeight: 'bold',
+                    paddingTop: '21px',
+                    paddingBottom: '21px',
+                  }}>
                   {camData?.company?.companyName}
                 </td>
                 <td
@@ -2753,8 +2763,19 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
-                    paddingTop: '18px',
-                    paddingBottom: '18px',
+                    paddingTop: '21px',
+                    paddingBottom: '21px',
+                  }}
+                >
+                  Customer Name
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                    paddingTop: '21px',
+                    paddingBottom: '21px',
                   }}
                 >
                   {camData?.orderId}
@@ -2764,8 +2785,8 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
-                    paddingTop: '18px',
-                    paddingBottom: '18px',
+                    paddingTop: '21px',
+                    paddingBottom: '21px',
                   }}
                 >
                   {CovertvaluefromtoCR(camData?.orderValue)}
@@ -2775,8 +2796,8 @@ function Index() {
                     fontSize: '19px',
                     color: '#111111',
                     lineHeight: '23px',
-                    paddingTop: '18px',
-                    paddingBottom: '18px',
+                    paddingTop: '21px',
+                    paddingBottom: '21px',
                   }}
                 >
                   {camData?.commodity}
@@ -2788,8 +2809,8 @@ function Index() {
                     color: '#111111',
                     lineHeight: '23px',
                     fontWeight: '500',
-                    paddingTop: '18px',
-                    paddingBottom: '18px',
+                    paddingTop: '21px',
+                    paddingBottom: '21px',
                   }}
                 >
                   <span
@@ -2810,8 +2831,8 @@ function Index() {
                     color: '#EA3F3F',
                     lineHeight: '24px',
                     fontWeight: 'bold',
-                    paddingTop: '18px',
-                    paddingBottom: '18px',
+                    paddingTop: '21px',
+                    paddingBottom: '21px',
                   }}
                 >
                   12
@@ -3008,7 +3029,7 @@ function Index() {
             >
               <tr>
                 <td
-                  colSpan={5}
+                  colSpan={6}
                   height="78"
                   style={{
                     padding: '0 35px',
@@ -3028,7 +3049,7 @@ function Index() {
                 </td>
               </tr>
               <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
-                <th
+                <td colSpan={2}
                   width="30%"
                   style={{
                     fontSize: '15px',
@@ -3040,8 +3061,8 @@ function Index() {
                   }}
                 >
                   NAME
-                </th>
-                <th
+                </td>
+                <td
                   style={{
                     fontSize: '15px',
                     color: '#8492A6',
@@ -3051,8 +3072,8 @@ function Index() {
                   }}
                 >
                   PAN
-                </th>
-                <th
+                </td>
+                <td
                   style={{
                     fontSize: '15px',
                     color: '#8492A6',
@@ -3062,8 +3083,8 @@ function Index() {
                   }}
                 >
                   DIN NUMBER
-                </th>
-                <th
+                </td>
+                <td
                   style={{
                     fontSize: '15px',
                     color: '#8492A6',
@@ -3073,8 +3094,8 @@ function Index() {
                   }}
                 >
                   DATE OF APPOINTMENT
-                </th>
-                <th
+                </td>
+                <td
                   style={{
                     fontSize: '15px',
                     color: '#8492A6',
@@ -3084,7 +3105,7 @@ function Index() {
                   }}
                 >
                   % SHAREHOLDING
-                </th>
+                </td>
               </tr>
               {camData?.company?.detailedCompanyInfo?.profile?.directorDetail?.map(
                 (director, index) => {
@@ -3092,14 +3113,10 @@ function Index() {
                   let [fName, lName] = director?.name.split(' ')
                   return (
                     <tr>
-                      <td
+                      <td width="5%"
                         height="60"
                         style={{
-                          fontSize: '22px',
-                          color: '#111111',
-                          lineHeight: '27px',
-                          fontWeight: 'bold',
-                          padding: '26px 12px 18px 35px',
+                          padding: '21px 12px 21px 35px'
                         }}
                       >
                         <span
@@ -3110,23 +3127,35 @@ function Index() {
                             fontWeight: 'bold',
                             background: '#FFECCF',
                             borderRadius: '8px',
-                            marginRight: '22px',
-                            padding: '13px',
-                            display: 'inline-block',
+                            padding: '13px 0',
+                            width: '60px',
+                            height: '60px',
+                            textAlign: 'center',
+                            display: 'inline-block'
                           }}
                         >
                           {fName?.charAt(0)}
                           {lName?.charAt(0)}
                         </span>
-                        {director?.name}
+                      </td>
+                      <td width="25%"
+                        style={{
+                          fontSize: '22px',
+                          color: '#111111',
+                          lineHeight: '27px',
+                          fontWeight: 'bold',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                        >{director?.name}
                       </td>
                       <td
                         style={{
                           fontSize: '19px',
                           color: '#111111',
                           lineHeight: '23px',
-                          paddingTop: '26px',
-                          paddingBottom: '18px',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
                         }}
                       >
                         {director?.pan[0]}
@@ -3136,8 +3165,8 @@ function Index() {
                           fontSize: '19px',
                           color: '#111111',
                           lineHeight: '23px',
-                          paddingTop: '26px',
-                          paddingBottom: '18px',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
                         }}
                       >
                         {director.din}
@@ -3147,8 +3176,8 @@ function Index() {
                           fontSize: '19px',
                           color: '#111111',
                           lineHeight: '23px',
-                          paddingTop: '26px',
-                          paddingBottom: '18px',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
                         }}
                       >
                         {director.tenureStartDate}
@@ -3158,8 +3187,8 @@ function Index() {
                           fontSize: '19px',
                           color: '#111111',
                           lineHeight: '24px',
-                          paddingTop: '26px',
-                          paddingBottom: '18px',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
                         }}
                       >
                         30%
@@ -3246,6 +3275,7 @@ function Index() {
                             height: '18px',
                             width: '100%',
                             display: 'inline-block',
+                            float: 'left',
                           }}
                         >
                           <span
@@ -3296,6 +3326,7 @@ function Index() {
                             height: '10px',
                             width: '100%',
                             display: 'inline-block',
+                            float: 'left',
                           }}
                         >
                           <span
@@ -3362,6 +3393,7 @@ function Index() {
                             height: '10px',
                             width: '100%',
                             display: 'inline-block',
+                            float: 'left',
                           }}
                         >
                           <span
@@ -3428,6 +3460,7 @@ function Index() {
                             height: '10px',
                             width: '100%',
                             display: 'inline-block',
+                            float: 'left',
                           }}
                         >
                           <span
@@ -5707,7 +5740,7 @@ function Index() {
                 >
                   <span
                     style={{
-                      background: 'rgba(67, 195, 77, 0.1)',
+                      background: '#CEEFD1',
                       width: '64px',
                       height: '64px',
                       lineHeight: '22px',
@@ -5718,7 +5751,7 @@ function Index() {
                       display: 'inline-block',
                     }}
                   >
-                    <img src="/static/check-2.svg" alt="Check Green" />
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAXCAYAAAD3CERpAAAABHNCSVQICAgIfAhkiAAAAX5JREFUSEu11bFKw0AYB/D/kVYXMYNz091Ni+AoWKEoFEf3voSTL+Hk0KWT5AG0nWo7OfgMAWNwsIKiKG0tPb8jjU3aSxpzl0AhvVz48b/77gtD3pcNA6bVBJ9eo+a1BcdyNQW4afXB2B44N4DpiYDzQ/2EfXBUKNj6LBwn+DgftIsCRgQCuyFwSPdvMAr7+tF40CPwEEeOqxdNAeotpJSgPrR7QHvoyPbwb0nDp0R9ea8qRZQHPUnRSEH1pA8Evv4PjKK3pTs6xPeoueepGkZGcI62yzcAr9LAD/0uV8ICHLyITrOzcA5jlzS6px3LpoFT6hzF2YPvRFgR9JN2SmfgrEX3ASrG5bC9vQbzs0fzMyUM0vrVmwbWBEYLKQn+2LiA+UUJuVLCaNLgXzz8TlO2shSN7CQsNwc5HH5XfC08jKl51x031fFamCTvSPHwkErvCaNJFfXnTGByR1qGtYCr2+Ac5pTwUTWhvJBkG+TDDYwnDZUljXakLJWg+M4vlf/IL1ywetEAAAAASUVORK5CYII=" alt="Check Green" />
                   </span>
                   Strength
                   <ul
@@ -5754,7 +5787,7 @@ function Index() {
                 >
                   <span
                     style={{
-                      background: 'rgba(234, 63, 63, 0.1)',
+                      background: '#FACFCF',
                       width: '64px',
                       height: '64px',
                       lineHeight: '22px',
@@ -5765,7 +5798,7 @@ function Index() {
                       display: 'inline-block',
                     }}
                   >
-                    <img src="/static/close-b.svg" width="27" alt="Cross Red" />
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAMAAAAMs7fIAAAAPFBMVEUAAADyXV3zXFzxW1vzXV3zXFzzXl7zXV3zXl7zXl70Xl7sSUnsSkrsSUnrSEjsSEjsSUnqPz/qQUH///+61DrHAAAAEXRSTlMAiZCRkpOTlJjMzPLy8/T09AY8JhMAAAABYktHRBMMu1yWAAAAX0lEQVQY02WQgQ6AIAhErcwyM4P//9iuqcAGG+725u6AEFIMWjGhy7sLWO924CFBQy+FnrMDqO0XEwmYyAC4V6oX2qTCkslkojITZwvcH+fTU3QuiRWkcwzk9/K7u/t8WOgFmuDZzZMAAAAASUVORK5CYII=" width="27" alt="Cross Red" />
                   </span>
                   Weakness
                   <ul
