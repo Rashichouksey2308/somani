@@ -38,7 +38,7 @@ const tpaSeller=()=>{
 </p>
  <p className="text-center text_sales">And</p>
  <p className="text_sales"><GrowInput placeholder="INDO INTERTRADE AG, Industriesstrasse 16, 6300 Zug "></GrowInput>(hereinafter referred as the <strong>“IIAG”</strong>, which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the Third Part.</p>
- <p className=" text_sales">WHEREAS</p>
+ <p className=" text_sales"><strong>WHEREAS</strong></p>
  <p className="text_sales"><GrowInput placeholder="IGI "></GrowInput> is engaged in the business of trading of industrial commodities, which are stored at the Designated Storage Area as detailed in Schedule-I.</p>
  <p className="text_sales"><GrowInput placeholder="IGI "></GrowInput> has purchased Commodity from the Supplier, that has been financed by the “Financing Bank”. The details of the commodity purchased, Supplier and the Financing Bank are mentioned in Schedule-I.</p>
  <p className="text_sales">Financing Bank has a first ranking security right over the Goods in the form of a pledge, and has appointed Collateral Manager pursuant to the terms of the tripartite collateral management agreement executed between <GrowInput placeholder="IIAG"></GrowInput>, Collateral Manager and Financing Bank as amended from time to time (the “<strong>Collateral Management Agreement</strong>”) for the purpose of keeping the custody and control of Goods.</p>
@@ -57,9 +57,9 @@ const tpaSeller=()=>{
 <p className=" text_sales"><span className="mr-6">2.4</span> be responsible for providing an office equipped with required infrastructure such as electricity, toilet, telephone, access to fax, email etc. will have to be provided free of cost to Collateral Manager and the running cost of these facilities will also be borne by <GrowInput placeholder="IGI"></GrowInput>. Collateral Manager and their representatives shall have unfettered access to the warehouse/stockyard;  </p>
 <p className=" text_sales"><span className="mr-6">2.5</span> 	be responsible for granting unrestricted and unfettered control and access to Collateral Manager over the Designated Storage Area;</p>
 <p className=" text_sales"><span className="mr-6">2.6</span> Obtain permission from Customs to open the Customs Notified Area where the Designated Storage area is located for conducting audit/stock verification/stock assessment as and when required by Collateral Manager or its authorised representatives by providing full cooperation and without creating any hindrance or obstacle</p>
-<p className=" text_sales"><span className="mr-6">2.6</span> ensure that the Designated Storage Area where pledged Goods being stored is suitable for the storage of the goods being stored therein; and
+<p className=" text_sales"><span className="mr-6">2.7</span> ensure that the Designated Storage Area where pledged Goods being stored is suitable for the storage of the goods being stored therein; and
 </p>
-<p className=" text_sales"><span className="mr-6">2.6</span>be responsible for payment of all taxes, duties and/or service charges presently assessed on the Designated Storage Area, as at the date of signature thereof.
+<p className=" text_sales"><span className="mr-6">2.8</span> be responsible for payment of all taxes, duties and/or service charges presently assessed on the Designated Storage Area, as at the date of signature thereof.
 </p>
 
 <p className=" text_sales"><strong>Article-3 RESPONSIBILITY OF COLLATERAL MANAGER </strong></p>
@@ -107,8 +107,8 @@ const tpaSeller=()=>{
 <p className=" text_sales"><strong>Article 12 - DEPOSITS</strong></p>
 <p className=" text_sales"><GrowInput placeholder="IGI"></GrowInput> will pay any deposits due in respect of water and electricity charges as may be required. <GrowInput placeholder="IGI"></GrowInput> hereby indemnifies Collateral Manager against any consequences that may arise as a result of failure to pay said deposits or any claims whatsoever with regards to any of the charges.</p>
 
-<p className=" text_sales"><strong>Article 13 – IGI ’s OBLIGATIONS</strong></p>
-<ul>
+<p className=" text_sales"><strong>Article 13 - IGI's OBLIGATIONS</strong></p>
+<ul className='pl-4'>
 <li><p className=" text_sales"><GrowInput placeholder="IGI"></GrowInput> shall arrange to obtain no claim on inventory letters from all and any party who has an interest in the Storage Facility/Designated Storage Area. Such letters shall proclaim that the parties concerned recognize and agree that they do not have any ownership or title rights to the Goods stored at the Designated Storage Area, and that they shall not bring any claim to bear on the Goods, under the custody, control and supervision of Collateral Manager and stored in the Designated Storage Area. </p></li>
 <li><p className=" text_sales"><GrowInput placeholder="IGI"></GrowInput>shall furnish written confirmation to Collateral Manager that there are no circumstances of which he is aware that may give rise to a claim over the land, plot, Designated Storage Area or the Goods stored therein during the period of this Agreement.
 </p></li>
@@ -131,7 +131,7 @@ const tpaSeller=()=>{
 <p className=" text_sales"><strong>Article 14-WARRANTIES OF IGI </strong></p>
 <p className=" text_sales"><GrowInput placeholder="IGI"></GrowInput> HEREBY WARRANTS AS FOLLOWS: 
 </p>
-<ul>
+<ul className='pl-4'>
 <li><p className=" text_sales">It has full right and absolute authority to provide the Designated Storage Area to Collateral Manager for its exclusive use to enable Collateral Manager to carry out its obligations under the Collateral Management Agreement.</p></li>
 <li><p className=" text_sales"><GrowInput placeholder="IGI"></GrowInput>shall furnish written confirmation to Collateral Manager that there are no circumstances of which he is aware that may give rise to a claim over the land, plot, Designated Storage Area or the Goods stored therein during the period of this Agreement.
 </p></li>
@@ -147,7 +147,7 @@ const tpaSeller=()=>{
 
 <p className=" text_sales"><strong>Article 15-INDEMNITY BY IGI  </strong></p>
 <p className=" text_sales"><GrowInput placeholder="IGI"></GrowInput> agrees to indemnify and keep indemnified, defend and hold harmless Collateral Manager  and <GrowInput placeholder="IGI"></GrowInput>, its officers, directors, employees and agents from and against any and all losses, liabilities, claims, obligations, costs, expenses arising during the duration of this Agreement, which result from, arise in connection with or are related in any way to claims by third parties or regulatory authorities, and which directly arise due to any reasons whatsoever and including the following</p>
-<ol type="i">
+<ol type="i" className='pl-4'>
 <li><p className=" text_sales"><GrowInput placeholder="IGI"></GrowInput> ’s breach of the terms of this Agreement or;</p></li>
 <li><p className=" text_sales">negligence, fault or misconduct by <GrowInput placeholder="IGI"></GrowInput> or its officers, employees, agents, subcontractors and/or representatives and/or other persons authorized to act on its behalf; 
 
