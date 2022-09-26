@@ -1579,7 +1579,7 @@ function Index() {
       }),
     )
   }
-  const toPrintPdf = (camData, RevenueDetails, trendChartRevenueImg,skewnessChartRevenueImg,doc) => {
+  const toPrintPdf = (camData, RevenueDetails, trendChartRevenueImg,trendChartPurchasesImg,skewnessChartRevenueImg,skewnessChartPurchasesImg) => {
     console.log(_get, 'get')
     function calcPc(n1, n2) {
       if (n1 === 0) {
@@ -6597,17 +6597,18 @@ function Index() {
     const doc = new jsPDF('p', 'pt', [1500, 1500])
   
     const trendChartRevenue = document.getElementById('trendChartRevenue');
-
     const trendChartRevenueImg = trendChartRevenue.toDataURL('image/png',1.0)
+    const trendChartPurchases = document.getElementById('trendChartPurchases');
+    const trendChartPurchasesImg = trendChartRevenue.toDataURL('image/png',1.0)
+    const skewnessChartPurchases = document.getElementById('skewnessChartPurchases');
+    const skewnessChartPurchasesImg = skewnessChartRevenue.toDataURL('image/png',1.0)
     const skewnessChartRevenue = document.getElementById('skewnessChartRevenue');
     const skewnessChartRevenueImg = skewnessChartRevenue.toDataURL('image/png',1.0)
     
-    doc.addFileToVFS("MyFont.ttf", HelveticaNeue_new.ttf);
-    doc.addFont("MyFont.ttf", "MyFont", "normal");
-    doc.setFont("MyFont");
+  
     doc.html(
       ReactDOMServer.renderToString(
-        toPrintPdf(orderList, gstData?.detail?.salesDetailAnnual?.saleSummary,trendChartRevenueImg,skewnessChartRevenueImg),
+        toPrintPdf(orderList, gstData?.detail?.salesDetailAnnual?.saleSummary,trendChartRevenueImg,trendChartPurchasesImg,skewnessChartRevenueImg,skewnessChartPurchasesImg),
       ),
       {
         callback: function (doc) {

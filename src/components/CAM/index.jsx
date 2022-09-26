@@ -3860,6 +3860,7 @@ const trends = (
                 </div>
                 <div className={`${styles.chart}`}>
                   <Line
+                    id="trendChartPurchases"
                     data={chartData2}
                     ref={chartRef2}
                     options={lineOption}
@@ -4008,7 +4009,7 @@ const skewness = (top5Customers, options, tempArr, gstData, top5Suppliers, backg
                 >
                   <Col md={6} className={`${styles.col}`}>
                     <div className={styles.chart2}>
-                      <Doughnut data={top5Suppliers} options={options} />
+                      <Doughnut  id="skewnessChartPurchases" data={top5Suppliers} options={options} />
                       {/* <div className={styles.total_value}>
                         <span>{top5Suppliers?.labels[0]}</span>
                         <span className={styles.highlight}> {
