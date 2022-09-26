@@ -36,59 +36,24 @@ const tripartiteAgreement=()=>{
        <p className="text_sales"><strong>End Buyer</strong>(s), as detailed in <strong>Schedule-I</strong> hereof (hereinafter referred to as the “<strong>End Buyer</strong>”, which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the Third Part.
 </p>
        <p className="text_sales">The Buyer, Supplier and the End Buyer shall hereinafter, for the sake of brevity and convenience, be referred to individually as &quot;Party&quot; and collectively as the &quot;Parties&quot;.</p>
-       <p className="text_sales" >WHEREAS,</p>
-       <ol type="A">
-        <li>
-          <p className="text_sales">Supplier has entered into a Sales Contract with Buyer for Sale & Purchase of Goods as details in Schedule -1</p>
-        </li>
-        <li>
-          <p className="text_sales">Buyer has entered into the Sales Contract with Supplier solely at the request of End Buyer and to facilitate the End Buyer.</p>
-        </li>
-        <li>
-          <p className="text_sales">In view of the aforesaid, parties have entered into this binding Agreement.
-
-      </p>
-        </li>
-       
+       <p className="text_sales" ><strong>WHEREAS,</strong></p>
+       <ol type="A" className='pl-4'>
+        <li><p className="text_sales mb-0">Supplier has entered into a Sales Contract with Buyer for Sale &amp; Purchase of Goods as details in Schedule -1</p></li>
+        <li><p className="text_sales mb-0">Buyer has entered into the Sales Contract with Supplier solely at the request of End Buyer and to facilitate the End Buyer.</p></li>
+        <li><p className="text_sales mb-0">In view of the aforesaid, parties have entered into this binding Agreement.</p></li>
        </ol>
        <p className="text_sales"> <strong>NOW THEREFORE THE PARTIES HERETO AGREED TO AS UNDER</strong></p>
-        <ol type="1">
-        <li>
-          <p className="text_sales">That it is expressly clarify and agreed to amongst the parties that the Buyer has entered into the Sales Contract solely at the request and to facilitate the End Buyer.
-</p>
-        </li>
-        <li>
-          <p className="text_sales">All terms of the Sales Contract have already been discussed and agreed between the Supplier and End Buyer. </p>
-        </li>
-        <li>
-          <p className="text_sales">The role of Buyer is limited to establishment of Letter of Credit (“LC”) in favor of Supplier subject to the End Buyer fulfilling its contractual obligations towards the Buyer. </p>
-        </li>
-        <li>
-          <p className="text_sales">The End Buyer and Supplier therefore, are fully liable and responsible at all times for performance of the Sales Contract including but not limited to making financial arrangements, timely nomination/acceptance of vessel, settlement of any and all quality/quantity claims, delayed/no shipment issues, demurrage / dispatch amounts, and/or any other claims or liability arising due to execution of the sales contract. All such claims, liabilities etc., shall be addressed, discussed and settled directly between the Supplier and End Buyer with no reference and liability on the part of Buyer whatsoever.</p>
-        </li>
-        <li>
-          <p className="text_sales">Supplier will not hold discharge and/or delivery of cargo to the Buyer/Buyer’s nominees for any reason whatsoever once LC is issued by the Buyer.  </p>
-        </li>
-          <li>
-          <p className="text_sales">In case of any conflict between the Sales Contract and this Agreement, the terms of this Agreement will prevail. </p>
-        </li>
-        <li>
-          <p className="text_sales">In case of any conflict between the Sales Contract and this Agreement, the terms of this Agreement will prevail. </p>
-        </li>
-         <li>
-          <p className="text_sales">In any case, End Buyer shall remain responsible for the performance of the Sales Contract, including any failure or delay in the issuance of the LC in accordance with the terms of the Sales Contract.
- </p>
-        </li>
-         <li>
-          <p className="text_sales">This Agreement is subject to English laws, and any disputes arising out of this Agreement shall be referred to arbitration as per rules of Singapore International Arbitration Center (SIAC) by a sole arbitrator. The seat and venue of arbitration shall be Singapore and the language of Arbitration Proceedings shall be in English.
-
-
-</p>
-        </li>
-       
-       
-       </ol>
-   
+        <ol type="1" className='pl-4'>
+        <li><p className="text_sales">That it is expressly clarify and agreed to amongst the parties that the Buyer has entered into the Sales Contract solely at the request and to facilitate the End Buyer.</p></li>
+        <li><p className="text_sales">All terms of the Sales Contract have already been discussed and agreed between the Supplier and End Buyer.</p></li>
+        <li><p className="text_sales">The role of Buyer is limited to establishment of Letter of Credit (“LC”) in favor of Supplier subject to the End Buyer fulfilling its contractual obligations towards the Buyer.</p></li>
+        <li><p className="text_sales">The End Buyer and Supplier therefore, are fully liable and responsible at all times for performance of the Sales Contract including but not limited to making financial arrangements, timely nomination/acceptance of vessel, settlement of any and all quality/quantity claims, delayed/no shipment issues, demurrage / dispatch amounts, and/or any other claims or liability arising due to execution of the sales contract. All such claims, liabilities etc., shall be addressed, discussed and settled directly between the Supplier and End Buyer with no reference and liability on the part of Buyer whatsoever.</p></li>
+        <li><p className="text_sales">Supplier will not hold discharge and/or delivery of cargo to the Buyer/Buyer's nominees for any reason whatsoever once LC is issued by the Buyer.</p></li>
+        <li><p className="text_sales">In case of any conflict between the Sales Contract and this Agreement, the terms of this Agreement will prevail.</p></li>
+        <li><p className="text_sales">In case of any conflict between the Sales Contract and this Agreement, the terms of this Agreement will prevail.</p></li>
+        <li><p className="text_sales">In any case, End Buyer shall remain responsible for the performance of the Sales Contract, including any failure or delay in the issuance of the LC in accordance with the terms of the Sales Contract.</p></li>
+        <li><p className="text_sales">This Agreement is subject to English laws, and any disputes arising out of this Agreement shall be referred to arbitration as per rules of Singapore International Arbitration Center (SIAC) by a sole arbitrator. The seat and venue of arbitration shall be Singapore and the language of Arbitration Proceedings shall be in English.</p></li>       
+      </ol>   
      <p className="text-center text_sales"> <strong>Schedule I</strong></p>
      <div className={`${styles.inputsContainer}`}>
       <Row className={`${styles.row}`}>

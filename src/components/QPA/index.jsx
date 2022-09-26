@@ -26,7 +26,7 @@ const qpa=()=>{
   return(
     <div className={`${styles.cardBody} card-body pt-3`}>
        <p className="text-center text_sales"> <strong>Quadripartite Agreement</strong></p>
-       <p className="text-center text_sales">This Quadripartite Agreement (<strong>“Agreement”</strong>) is made at the place and on the day as set out in <strong>Schedule I </strong>hereto by and between:
+       <p className="text_sales">This Quadripartite Agreement (<strong>“Agreement”</strong>) is made at the place and on the day as set out in <strong>Schedule I </strong>hereto by and between:
 </p>
        <p className="text_sales"> <GrowInput placeholder="M/s INDO GERMAN INTERNATIONAL PRIVATE LIMITED, (CIN: U74899DL1994PTC063676)"></GrowInput>, a company incorporated under the Companies Act, 1956, having its registered office at <GrowInput placeholder="7A, Sagar Apartments, 6, Tilak Marg, New Delhi-110001"></GrowInput> through its Authorised Signatory (hereinafter called <GrowInput placeholder="“IGI”"></GrowInput>, which expression shall, where subject and content allow or admit, be deemed to include its successors, legal representatives and assigns) of the First Part,
 </p>
@@ -50,12 +50,12 @@ const qpa=()=>{
 <p className=" text_sales">WHEREAS the, LC opening Bank has  a first ranking security right over the Goods and it has appointed the CMA Agent in accordance with the terms of the Collateral Management Agreement executed by Financing Bank</p> 
 <p className=" text_sales">IT IS NOW HEREBY AGREED BY AND BETWEEN THE PARTIES AS UNDER: -
 </p> 
-<ol type="1">
+<ol type="1" className='pl-4'>
   <li><p className=" text_sales"> The Goods shall be stored at the Plot allotted to <GrowInput placeholder="IGI"></GrowInput> by the Discharge Port authorities and shall be kept under the control and custody of CHA on behalf of <GrowInput placeholder="IGI"></GrowInput>. All dispatches from the plot shall be done by CHA solely on the basis of Written Delivery Orders issued by <GrowInput placeholder="IGI"></GrowInput>. </p></li>
    <li>
     <p className=" text_sales"> Scope of Work of CHA: </p>
     <p className=" text_sales"> The Scope of work of CHA shall include but not be limited to: </p>
-    <ol type="a">
+    <ol type="a" className='pl-3'>
       <li><p className=" text_sales">arranging plot allotment in the name of <GrowInput placeholder="IGI"></GrowInput> from the discharge Port authorities to store <GrowInput placeholder="IGI"></GrowInput>’s cargo</p></li>
        <li><p className=" text_sales">discharge of cargo from the Vessel,</p></li>
         <li><p className=" text_sales">loading of wharf, intra carting at Port, 

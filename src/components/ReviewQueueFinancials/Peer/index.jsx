@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from '../index.module.scss'
 import moment from 'moment'
+import { convertValue } from 'utils/helper'
 
-function Index({peerData}) {
+function Index({ peerData }) {
+  const [conversionUnit, setConversionUnit] = useState(10000000)
 
   // console.log(peerData?.financial?.peerComparison, 'THIS IS PEER COMPARISON DATA')
 
@@ -14,8 +16,9 @@ function Index({peerData}) {
           <h2 className="mb-0">Peer Comparison</h2>
           <div className={`${styles.unit_container} d-flex align-items-center`}>
             <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
-            <select className={`${styles.options} accordion_DropDown`}>
-              <option>Crores</option>
+            <select value={conversionUnit} onChange={(e) => setConversionUnit(e.target.value)} className={`${styles.options} accordion_DropDown`}>
+              <option value={10000000}>Crores</option>
+              <option value={100000}>Lakhs</option>
             </select>
             <span data-toggle="collapse" data-target="#peerComparison" aria-expanded="true" aria-controls="peerComparison">+</span>
           </div>
@@ -46,7 +49,7 @@ function Index({peerData}) {
                     </tr>
                   </thead>
                   <tbody>
-                  {peerData && peerData?.financial?.peerComparison?.map((peers, index) => ( <tr key={index}>
+                    {peerData && peerData?.financial?.peerComparison?.map((peers, index) => (<tr key={index}>
                       <td>{peers.name}</td>
                       <td className="text-center">{moment(peers?.finyrEnddate)
                           .format('MMM-YY')

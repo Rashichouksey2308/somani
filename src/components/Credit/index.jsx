@@ -35,8 +35,9 @@ const index = ({
   suggestedCredit,
 }) => {
   console.log(personData, 'companyData')
-  console.log(creditDetail, 'debtData')
+  console.log(debtData, 'debtData')
   const dispatch = useDispatch()
+
 
   const [saveTable, setSaveTable] = useState(false)
 
@@ -53,6 +54,7 @@ const index = ({
     dailyConsumptionOfCommodity: false,
     AvgMonthlyElectricityBill: false,
     commodityOfTotalTrade: false,
+    limit: false
   })
   const { updatingCreditCalculate } = useSelector((state) => state.review)
   const [keyNameList, setKeyNameList] = useState([])
@@ -60,10 +62,10 @@ const index = ({
     if (personData) {
       let temp = []
       personData.forEach((val) => {
-        if(val.name !==""){
+        if (val.name !== "") {
           temp.push(val.name)
         }
-        
+
       })
       setKeyNameList([...temp])
     }
@@ -171,9 +173,9 @@ const index = ({
     email: '',
     name: '',
   })
- console.log(personData,"personData")
+  console.log(personData, "personData")
   useEffect(() => {
-    
+
     setKeyPersonData(personData)
   }, [personData])
 
@@ -181,16 +183,16 @@ const index = ({
 
   const handlePersonChange = (e, key) => {
     const newInput = [...keyPersonData]
-     console.log("jjejjeje")
-      if(e.target.value=="addnew"){
-        console.log("jjejjeje")
-          newInput[key].addnew = true
-          newInput[key].name = ""
-          newInput[key].email = ""
-           console.log("jjejjeje",newInput)
-          setKeyPersonData([...newInput])
-          return
-      }
+    console.log("jjejjeje")
+    if (e.target.value == "addnew") {
+      console.log("jjejjeje")
+      newInput[key].addnew = true
+      newInput[key].name = ""
+      newInput[key].email = ""
+      console.log("jjejjeje", newInput)
+      setKeyPersonData([...newInput])
+      return
+    }
     if (e.target.name.split('.').length > 1) {
       newInput[key]['contact']['number'] = e.target.value
     } else {
@@ -198,7 +200,7 @@ const index = ({
     }
     setKeyPersonData([...newInput])
   }
-  console.log(keyPersonData,"keyPersonDatakeyPersonData")
+  console.log(keyPersonData, "keyPersonDatakeyPersonData")
   const onKeyPersonSave = () => {
     addPersonArr(keyPersonData)
     //console.log(keyPersonData, 'This is person data')
@@ -458,9 +460,9 @@ const index = ({
                     isFieldInFocus.monthlyCapacity
                       ? creditDetail?.monthlyProductionCapacity
                       : checkNan(
-                          Number(creditDetail?.monthlyProductionCapacity),
-                        )?.toLocaleString() +
-                        ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
+                        Number(creditDetail?.monthlyProductionCapacity),
+                      )?.toLocaleString() +
+                      ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.monthlyProductionCapacity,
@@ -504,8 +506,8 @@ const index = ({
                     isFieldInFocus.capacityUtilization
                       ? creditDetail?.capacityUtilization
                       : checkNan(
-                          Number(creditDetail?.capacityUtilization),"no"
-                        ) + ' %'
+                        Number(creditDetail?.capacityUtilization), "no"
+                      ) + ' %'
                   }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.capacityUtilization,
@@ -548,9 +550,9 @@ const index = ({
                     isFieldInFocus.avgStockinCommodity
                       ? creditDetail?.averageStockOfCommodity
                       : checkNan(
-                          Number(creditDetail?.averageStockOfCommodity),
-                        )?.toLocaleString() +
-                        ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
+                        Number(creditDetail?.averageStockOfCommodity),
+                      )?.toLocaleString() +
+                      ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.averageStockOfCommodity,
@@ -594,9 +596,9 @@ const index = ({
                     isFieldInFocus.avgStockinTrasit
                       ? creditDetail?.averageStockInTransit
                       : checkNan(
-                          Number(creditDetail?.averageStockInTransit),
-                        )?.toLocaleString() +
-                        ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
+                        Number(creditDetail?.averageStockInTransit),
+                      )?.toLocaleString() +
+                      ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.averageStockInTransit,
@@ -640,9 +642,9 @@ const index = ({
                     isFieldInFocus.availableStock
                       ? creditDetail?.availableStock
                       : checkNan(
-                          Number(creditDetail?.availableStock),
-                        )?.toLocaleString() +
-                        ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
+                        Number(creditDetail?.availableStock),
+                      )?.toLocaleString() +
+                      ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.availableStock,
@@ -684,9 +686,9 @@ const index = ({
                     isFieldInFocus.dailyConsumptionOfCommodity
                       ? creditDetail?.dailyConsumptionOfCommodity
                       : checkNan(
-                          Number(creditDetail?.dailyConsumptionOfCommodity),
-                        )?.toLocaleString() +
-                        ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
+                        Number(creditDetail?.dailyConsumptionOfCommodity),
+                      )?.toLocaleString() +
+                      ` ${creditDetail?.unitOfQuantity?.toUpperCase()}`
                   }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.dailyConsumptionOfCommodity,
@@ -771,8 +773,8 @@ const index = ({
                     defaultValue={
                       creditDetail
                         ? creditDetail?.existingSuppliers?.map((e) => {
-                            return `${e}`
-                          })
+                          return `${e}`
+                        })
                         : ''
                     }
                     onBlur={(e) => {
@@ -860,9 +862,9 @@ const index = ({
                     isFieldInFocus.AvgMonthlyElectricityBill
                       ? creditDetail?.AvgMonthlyElectricityBill
                       : 'INR ' +
-                        checkNan(
-                          Number(creditDetail?.AvgMonthlyElectricityBill),
-                        )?.toLocaleString()
+                      checkNan(
+                        Number(creditDetail?.AvgMonthlyElectricityBill),
+                      )?.toLocaleString()
                   }
                   // value={addPrefixOrSuffix(
                   //   creditDetail?.AvgMonthlyElectricityBill,
@@ -1037,6 +1039,10 @@ const index = ({
                     className={`${styles.input_field} input form-control`}
                     required
                     type="number"
+                    onKeyDown={(evt) =>
+                      ['e', 'E', '+', '-'].includes(evt.key) &&
+                      evt.preventDefault()
+                    }
                     value={supplierCred?.countryOfOrigin}
                     name="countryOfOrigin"
                     onChange={(e) => {
@@ -1053,6 +1059,10 @@ const index = ({
                   <input
                     className={`${styles.input_field} input form-control`}
                     required
+                    onKeyDown={(evt) =>
+                      ['e', 'E', '+', '-'].includes(evt.key) &&
+                      evt.preventDefault()
+                    }
                     type="number"
                     value={supplierCred?.portOfDestination}
                     name="portOfDestination"
@@ -1158,10 +1168,10 @@ const index = ({
                   value={
                     isFieldInFocus.commodityOfTotalTrade
                       ? supplierCred?.commodityOfTotalTrade
-                      :checkNan(
-                         Number(
+                      : checkNan(
+                        Number(
                           supplierCred?.commodityOfTotalTrade
-                        ),"no"
+                        ), "no"
                       ) + ' %'
                   }
                   // value={addPrefixOrSuffix(
@@ -1265,45 +1275,45 @@ const index = ({
                       <tr className="table_credit shadow-none">
                         <td>
                           <div className="d-flex mr-4">
-                             {person.addnew?
-                             
-                             <>
-                            <input
-                            className="input"
-                            value={person.name}
-                            placeholder={"ADD NEW"}
-                            name="name"
-                            onChange={(e) => handlePersonChange(e, index)}
-                            type="text"
-                            readOnly={!person.isEdit}
-                          />
-                             </>
-                             :
-                             <>
-                             {console.log(person.name,"person.name")}
-                              <select
-                              className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                             
-                              name="name"
-                              onChange={(e) => handlePersonChange(e, index)}
-                              disabled={!person.isEdit}
-                              value={person.name}
-                            >
-                              <option  selected>Select an Option</option>
-                              {keyNameList.length > 0 &&
-                                keyNameList.map((val) => {
-                                  return <option value={val}>{val}</option>
-                                })}
-                              <option value={`addnew`}>ADD NEW</option>
-                            </select>
-                            <img
-                              className={`${styles.arrow} ml-n4 img-fluid`}
-                              src="/static/inputDropDown.svg"
-                              alt="Search"
-                            />
-                             </>
-                             }
-                            
+                            {person.addnew ?
+
+                              <>
+                                <input
+                                  className="input"
+                                  value={person.name}
+                                  placeholder={"ADD NEW"}
+                                  name="name"
+                                  onChange={(e) => handlePersonChange(e, index)}
+                                  type="text"
+                                  readOnly={!person.isEdit}
+                                />
+                              </>
+                              :
+                              <>
+                                {console.log(person.name, "person.name")}
+                                <select
+                                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
+
+                                  name="name"
+                                  onChange={(e) => handlePersonChange(e, index)}
+                                  disabled={!person.isEdit}
+                                  value={person.name}
+                                >
+                                  <option selected>Select an Option</option>
+                                  {keyNameList.length > 0 &&
+                                    keyNameList.map((val) => {
+                                      return <option value={val}>{val}</option>
+                                    })}
+                                  <option value={`addnew`}>ADD NEW</option>
+                                </select>
+                                <img
+                                  className={`${styles.arrow} ml-n4 img-fluid`}
+                                  src="/static/inputDropDown.svg"
+                                  alt="Search"
+                                />
+                              </>
+                            }
+
                           </div>
                           {/* <input
                             className="input font-weight-bold"
@@ -1321,9 +1331,9 @@ const index = ({
                               value={person.designation}
                               name="designation"
                               onChange={(e) => handlePersonChange(e, index)}
-                            disabled={!person.isEdit}
+                              disabled={!person.isEdit}
                             >
-                              <option  selected>Select an Option</option>
+                              <option selected>Select an Option</option>
                               <option>Director</option>
                               <option>Production Manager</option>
                               <option>Lead Manager</option>
@@ -1435,13 +1445,13 @@ const index = ({
             </div>
             <div
               className={`${styles.add_row} d-flex justify-content-end`}
-             
-            > 
-            <div className={`d-flex justify-content-end`} onClick={(e) => {
+
+            >
+              <div className={`d-flex justify-content-end`} onClick={(e) => {
                 onKeyPersonSave(keyPersonData)
               }}>  <span>+</span>
-              <div>Add More Rows</div></div>
-             
+                <div>Add More Rows</div></div>
+
             </div>
           </div>
         </div>
@@ -1673,18 +1683,18 @@ const index = ({
                           onChange={(e) => {
                             mobileFunction(e)
                           }}
-                          // onBlur={(e) => {
-                          //   if (phoneValidation(e.target.value)) {
-                          //     mobileFunction(e)
-                          //   } else {
-                          //     let toastMessage = 'Enter a valid Phone Number'
-                          //     if (!toast.isActive(toastMessage.toUpperCase())) {
-                          //       toast.error(toastMessage, {
-                          //         toastId: toastMessage,
-                          //       })
-                          //     }
-                          //   }
-                          // }}
+                        // onBlur={(e) => {
+                        //   if (phoneValidation(e.target.value)) {
+                        //     mobileFunction(e)
+                        //   } else {
+                        //     let toastMessage = 'Enter a valid Phone Number'
+                        //     if (!toast.isActive(toastMessage.toUpperCase())) {
+                        //       toast.error(toastMessage, {
+                        //         toastId: toastMessage,
+                        //       })
+                        //     }
+                        //   }
+                        // }}
                         />
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -2276,6 +2286,26 @@ const index = ({
 
                         <td>
                           <input
+                            onFocus={(e) => {
+                              setIsFieldInFocus({
+                                ...isFieldInFocus,
+                                limit: true,
+                              }),
+                                (e.target.type = 'number')
+                            }}
+                            onBlur={(e) => {
+                              setIsFieldInFocus({
+                                ...isFieldInFocus,
+                                limit: false,
+                              }),
+                                (e.target.type = 'text')
+                            }}
+                            value={profile?.actions ?
+                              isFieldInFocus.limit
+                                ? profile?.limit :
+                                Number(profile?.limit)?.toLocaleString('en-In') :
+                              Number(profile?.limit)?.toLocaleString('en-In')
+                            }
                             className="input"
                             name="limit"
                             disabled={!profile.actions}
@@ -2286,8 +2316,8 @@ const index = ({
                                 index,
                               )
                             }
-                            // value={profile?.limit}
-                            // readOnly={!saveTable}
+                          // value={profile?.limit}
+                          // readOnly={!saveTable}
                           />
                         </td>
 

@@ -489,7 +489,7 @@ function Index() {
           </div>
         </div> */}
           <div
-            className={`${styles.term_container} previewCard container-fluid`}
+            className={`${styles.term_container} previewCard container-fluid border_color`}
           >
             <Row>
               <Col

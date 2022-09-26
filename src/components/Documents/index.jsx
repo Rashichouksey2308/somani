@@ -142,7 +142,7 @@ const Index = ({
                       />
                     </div>
                   </div>
-                  <hr className={styles.hr_line}></hr>
+                  <hr className={`${styles.hr_line} border_color`}></hr>
                 </>
               )
             })}
@@ -299,7 +299,7 @@ const Index = ({
                 onAddDoc()
               }}
             >
-              <img className={styles.add_image} src="/static/add.svg" alt="Add" />Add More Documents
+              <img className={`${styles.add_image}`} src="/static/add.svg" alt="Add" />Add More Documents
             </p>
           </div>
         </div>

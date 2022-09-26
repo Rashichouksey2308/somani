@@ -58,19 +58,17 @@
     }
 }
 .mainDark {
-    padding-left: 20px;
+    padding: 50px 35px;
     .term_container {
         display: flex;
         .check_box {
-            margin-top: 30px;
-            width: 24px;
-            height: 24px;
-            background-color: transparent;
+            margin: 0;
+            transform: scale(1.5);
         }
         .term_para {
             font-size: 18px;
             color: #ffffff;
-            margin-top: 25px;
+            line-height: 31px;
             margin-left: 15px;
         }
     }
