@@ -1448,20 +1448,20 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     />
                     <div className={`${styles.legend_box} text-center`}>
                       <span
-                        className={`${styles.blue_legend} ${styles.legend}`}
+                        className={`${styles.blue_legend} ${styles.legend} legend`}
                       >
                         Total Sales
                       </span>
-                      <span className={`${styles.red_legend} ${styles.legend}`}>
+                      <span className={`${styles.red_legend} ${styles.legend} legend`}>
                         Third Party Sales
                       </span>
                       <span
-                        className={`${styles.yellow_legend} ${styles.legend}`}
+                        className={`${styles.yellow_legend} ${styles.legend} legend`}
                       >
                         Related Party Sales
                       </span>
                       <span
-                        className={`${styles.green_legend} ${styles.legend}`}
+                        className={`${styles.green_legend} ${styles.legend} legend`}
                       >
                         Intra Org Sales
                       </span>
@@ -1486,11 +1486,11 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
 
                     <div className={`${styles.legend_box} text-center`}>
                       <span
-                        className={`${styles.blue_legend} ${styles.legend}`}
+                        className={`${styles.blue_legend} ${styles.legend} legend`}
                       >
                         Gross Turnover
                       </span>
-                      <span className={`${styles.red_legend} ${styles.legend}`}>
+                      <span className={`${styles.red_legend} ${styles.legend} legend`}>
                         Gross Purchases
                       </span>
                     </div>
@@ -1540,7 +1540,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   <div className={styles.chart}>
                     <Bar data={stateWiseSales} options={barOptions2} />
                     <div className={`${styles.legend_box} text-center`}>
-                      <span className={`${styles.legend}`}>
+                      <span className={`${styles.legend} legend`}>
                         Financial Period{' '}
                         {
                           gstFilteredData?.detail?.salesDetailAnnual
@@ -1568,11 +1568,11 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     />
                     <div className={`${styles.legend_box} text-center`}>
                       <span
-                        className={`${styles.blue_legend} ${styles.legend}`}
+                        className={`${styles.blue_legend} ${styles.legend} legend`}
                       >
                         No. of Customers
                       </span>
-                      <span className={`${styles.red_legend} ${styles.legend}`}>
+                      <span className={`${styles.red_legend} ${styles.legend} legend`}>
                         No. of Invoices
                       </span>
                       {/* <span
