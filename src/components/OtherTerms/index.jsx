@@ -142,7 +142,7 @@ const Index = ({ termsheetDetails, onChangeDropDown, termsheet, otherTermConditi
 
                                         <div className='d-flex align-items-center'>
                                             <input id="lcOpeningCharges" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.lcOpeningCharges?.lcOpeningCharges} onChange={onChangeLcOpening} />
-                                            <label className={`${styles.checkbox_label} termsheet_Text`}>LC Opening Charges ( on LC value subject to minimum of <input disabled type="text" className={`${styles.igpl_para} ${styles.input} input`} placeholder={`${termsheetDetails?.commodityDetails?.orderCurrency} ${_get(termsheetDetails, 'commercials.lcOpeningChargesUnit', '150')}`} />)</label>
+                                            <label className={`${styles.checkbox_label} termsheet_Text`}>LC Opening Charges ( on LC value subject to minimum of <input disabled type="text" className={`${styles.igpl_para} ${styles.input} input`} placeholder={`${termsheetDetails?.commodityDetails?.orderCurrency} ${_get(termsheetDetails, 'commercials.lcOpeningChargesUnit', '1500').toLocaleString('en-In')}`} />)</label>
                                         </div>
                                         <div className='pt-4 d-flex align-items-center'>
                                             <input id="lcAmendmentCost" className={styles.checkbox} type="checkbox" checked={otherTermConditions?.lcOpeningCharges?.lcAmendmentCost} onChange={onChangeLcOpening} />

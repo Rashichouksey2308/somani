@@ -53,6 +53,10 @@ function Index({
 }) {
   const dispatch = useDispatch()
   console.log(GstData, 'GstData')
+  const [isFieldInFocus, setIsFieldInFocus] = useState({
+    LimitValue: false,
+    OrderValue: false
+  })
 
 
 
@@ -123,7 +127,7 @@ function Index({
   }
 
   const primaryBankName = () => {
-    console.log(camData?.company?.debtProfile,"camData?.company?.debtProfile")
+    console.log(camData?.company?.debtProfile, "camData?.company?.debtProfile")
     let filteredData = []
     filteredData =
       camData?.company?.debtProfile?.filter((data) => data.primaryBank) || []
@@ -693,6 +697,8 @@ function Index({
         onApprove,
         onApproveOrder,
         approvedCredit,
+        isFieldInFocus,
+        setIsFieldInFocus,
       )}
       {Documents(documentsFetched)}
     </>
@@ -808,7 +814,7 @@ const basicInfo = (camData, orderDetails) => {
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label1`}>Order Value</span>
                   <span className={`${styles.value} value pr-5`}>
-                    {CovertvaluefromtoCR(camData?.orderValue)?.toLocaleString()}{' '}
+                    {convertValue(camData?.orderValue)?.toLocaleString()}{' '}
                     {camData?.unitOfValue == 'Crores'
                       ? 'Cr'
                       : camData?.unitOfValue}
@@ -1047,7 +1053,7 @@ const supplierInfo = (camData) => {
                         )[0],
                       ).format('DD-MM-YYYY')
                       : ''} */}
-                       {camData?.supplierCredential?.oldestShipmentDate
+                    {camData?.supplierCredential?.oldestShipmentDate
                       ? moment(camData?.supplierCredential?.oldestShipmentDate).format('DD-MM-YYYY') : ''}
                   </span>
                 </Col>
@@ -1659,8 +1665,8 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => 
                                 {share?.fullName}
                               </span>
                             </td>
-                            <td>{Number(share?.numberOfShares)?.toLocaleString()}</td>
-                            <td>{share?.percentageShareHolding}</td>
+                            <td>{Number(share?.numberOfShares)?.toLocaleString('en-In')}</td>
+                            <td>{share?.percentageShareHolding ? share?.percentageShareHolding + '%' : ''}</td>
                             <td>{share?.director ? 'Yes' : 'No'}</td>
                           </tr>
                         )
@@ -1779,7 +1785,7 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor) => 
                     camData?.company?.detailedCompanyInfo?.financial?.openCharges?.map(
                       (charge, index) => {
                         let name = charge?.nameOfChargeHolder
-                        let [fName, lName] = name?.split(' ') 
+                        let [fName, lName] = name?.split(' ')
 
                         let colors = [
                           {
@@ -2077,7 +2083,7 @@ const debtProfile = (data, options, tempArr, camData) => {
   )
 }
 const operationalDetails = (camData) => {
-  console.log(camData?.productSummary?.monthlyProductionCapacity,"camData?.productSummary?.monthlyProductionCapacity")
+  console.log(camData?.productSummary?.monthlyProductionCapacity, "camData?.productSummary?.monthlyProductionCapacity")
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -2105,13 +2111,13 @@ const operationalDetails = (camData) => {
                     Plant Production Capacity
                   </span>
                   <span className={`${styles.value} value pr-5`}>
-                    { checkNan(
+                    {checkNan(
                       Number(
                         camData?.productSummary?.monthlyProductionCapacity,
                       ),
                       true,
                     )}
-                    {" "} {camData?.productSummary?.monthlyProductionCapacity?"MT":""}
+                    {" "} {camData?.productSummary?.monthlyProductionCapacity ? "MT" : ""}
                   </span>
                 </Col>
                 <Col
@@ -2122,13 +2128,13 @@ const operationalDetails = (camData) => {
                     Stock in Transit - Commodity
                   </span>
                   <span className={`${styles.value} value`}>
-                     { checkNan(
+                    {checkNan(
                       Number(
                         camData?.productSummary?.averageStockInTransit,
                       ),
                       true,
                     )}
-                    {" "} {camData?.productSummary?.averageStockInTransit?"MT":""}
+                    {" "} {camData?.productSummary?.averageStockInTransit ? "MT" : ""}
                   </span>
                 </Col>
               </Row>
@@ -2138,7 +2144,7 @@ const operationalDetails = (camData) => {
                     Capacity Utilization
                   </span>
                   <span className={`${styles.value} value pr-5`}>
-                    {camData?.productSummary?.capacityUtilization}{" "} {camData?.productSummary?.capacityUtilization?"%":""}
+                    {camData?.productSummary?.capacityUtilization}{" "} {camData?.productSummary?.capacityUtilization ? "%" : ""}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
@@ -2146,8 +2152,8 @@ const operationalDetails = (camData) => {
                     Stock Coverage of Commodity
                   </span>
                   <span className={`${styles.value} value`}>
-                   
-                    {camData?.productSummary?.averageStockOfCommodity} {camData?.productSummary?.averageStockOfCommodity?"Days":""}
+
+                    {camData?.productSummary?.averageStockOfCommodity} {camData?.productSummary?.averageStockOfCommodity ? "Days" : ""}
                   </span>
                 </Col>
               </Row>
@@ -2157,13 +2163,13 @@ const operationalDetails = (camData) => {
                     Available Stock of Commodity
                   </span>
                   <span className={`${styles.value} value pr-5`}>
-                      {checkNan(
+                    {checkNan(
                       Number(
                         camData?.productSummary?.availableStock,
                       ),
                       true,
                     )}
-                   {" "} {camData?.productSummary?.availableStock?"MT":""}
+                    {" "} {camData?.productSummary?.availableStock ? "MT" : ""}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
@@ -2171,8 +2177,8 @@ const operationalDetails = (camData) => {
                     Avg Monthly Electricity Bill
                   </span>
                   <span className={`${styles.value} value`}>
-                     
-                   {camData?.productSummary?.AvgMonthlyElectricityBill?"₹":""} {" "}  { checkNan(
+
+                    {camData?.productSummary?.AvgMonthlyElectricityBill ? "₹" : ""} {" "}  {checkNan(
                       Number(
                         camData?.productSummary?.AvgMonthlyElectricityBill,
                       ),
@@ -2187,13 +2193,13 @@ const operationalDetails = (camData) => {
                     Daily Consumption of Commodity
                   </span>
                   <span className={`${styles.value} value`}>
-                     { checkNan(
-                     Number(
+                    {checkNan(
+                      Number(
                         camData?.productSummary?.dailyConsumptionOfCommodity,
                       ),
                       true,
                     )}
-                   {" "} {camData?.productSummary?.dailyConsumptionOfCommodity?"MT":""}
+                    {" "} {camData?.productSummary?.dailyConsumptionOfCommodity ? "MT" : ""}
                   </span>
                 </Col>
               </Row>
@@ -2267,22 +2273,22 @@ const revenuDetails = (gstData) => {
                   ) : null}
                 </td>
                 <td>
-                    {checkNan(
-                      CovertvaluefromtoCR(Number(
-                       RevenueDetails?.grossTurnover?.current?.value,
-                      )).toFixed(2),
-                      true,
-                    )} Cr
-                  
+                  {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.grossTurnover?.current?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
+
                 </td>
                 <td>
                   {checkNan(
-                      CovertvaluefromtoCR(Number(
+                    CovertvaluefromtoCR(Number(
                       RevenueDetails?.grossTurnover?.previous?.value,
-                      )).toFixed(2),
-                      true,
-                    )} Cr
-                 
+                    )).toFixed(2),
+                    true,
+                  )} Cr
+
                 </td>
                 <td>
                   {checkNan(
@@ -2314,21 +2320,21 @@ const revenuDetails = (gstData) => {
                 </td>
                 <td>
                   {checkNan(
-                      CovertvaluefromtoCR(Number(
+                    CovertvaluefromtoCR(Number(
                       RevenueDetails?.relatedPartySales?.current?.value,
-                      )).toFixed(2),
-                      true,
-                    )} Cr
-                  
+                    )).toFixed(2),
+                    true,
+                  )} Cr
+
                 </td>
                 <td>
                   {checkNan(
-                      CovertvaluefromtoCR(Number(
+                    CovertvaluefromtoCR(Number(
                       RevenueDetails?.relatedPartySales?.previous?.value,
-                      )).toFixed(2),
-                      true,
-                    )} Cr
-                  
+                    )).toFixed(2),
+                    true,
+                  )} Cr
+
                 </td>
                 <td>
                   {checkNan(
@@ -2359,22 +2365,22 @@ const revenuDetails = (gstData) => {
                   ) : null}
                 </td>
                 <td>
-                   {checkNan(
-                      CovertvaluefromtoCR(Number(
-                     RevenueDetails?.intraOrgSalesPercent?.current?.value,
-                      )).toFixed(2),
-                      true,
-                    )} Cr
-                  
+                  {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.intraOrgSalesPercent?.current?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
+
                 </td>
                 <td>
                   {checkNan(
-                      CovertvaluefromtoCR(Number(
-                    RevenueDetails?.intraOrgSalesPercent?.previous?.value,
-                      )).toFixed(2),
-                      true,
-                    )} Cr
-                  
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.intraOrgSalesPercent?.previous?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
+
                 </td>
                 <td>
                   {checkNan(
@@ -2405,22 +2411,22 @@ const revenuDetails = (gstData) => {
                   ) : null}
                 </td>
                 <td>
-                   {checkNan(
-                      CovertvaluefromtoCR(Number(
-                       RevenueDetails?.B2BSales?.current?.value,
-                      )).toFixed(2),
-                      true,
-                    )} Cr
-                  
+                  {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.B2BSales?.current?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
+
                 </td>
                 <td>
-                   {checkNan(
-                      CovertvaluefromtoCR(Number(
-                       RevenueDetails?.B2BSales?.previous?.value,
-                      )).toFixed(2),
-                      true,
-                    )} Cr
-                  
+                  {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.B2BSales?.previous?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
+
                 </td>
                 <td>
                   {checkNan(
@@ -2451,22 +2457,22 @@ const revenuDetails = (gstData) => {
                   ) : null}
                 </td>
                 <td>
-                    {checkNan(
-                      CovertvaluefromtoCR(Number(
-                    RevenueDetails?.B2CSales?.current?.value,
-                      )).toFixed(2),
-                      true,
-                    )}  Cr
-                 
+                  {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.B2CSales?.current?.value,
+                    )).toFixed(2),
+                    true,
+                  )}  Cr
+
                 </td>
                 <td>
                   {checkNan(
-                      CovertvaluefromtoCR(Number(
-                   RevenueDetails?.B2CSales?.previous?.value,
-                      )).toFixed(2),
-                      true,
-                    )}   Cr
-                 
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.B2CSales?.previous?.value,
+                    )).toFixed(2),
+                    true,
+                  )}   Cr
+
                 </td>
                 <td>
                   {checkNan(
@@ -2498,21 +2504,21 @@ const revenuDetails = (gstData) => {
                 </td>
                 <td>
                   {checkNan(
-                      CovertvaluefromtoCR(Number(
-                  RevenueDetails?.exportSales?.current?.value,
-                      )).toFixed(2),
-                      true,
-                    )}   Cr
-                 
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.exportSales?.current?.value,
+                    )).toFixed(2),
+                    true,
+                  )}   Cr
+
                 </td>
                 <td>
-                   {checkNan(
-                      CovertvaluefromtoCR(Number(
-                RevenueDetails?.exportSales?.previous?.value,
-                      )).toFixed(2),
-                      true,
-                    )}  Cr
-                 
+                  {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.exportSales?.previous?.value,
+                    )).toFixed(2),
+                    true,
+                  )}  Cr
+
                 </td>
                 <td>
                   {checkNan(
@@ -2543,22 +2549,22 @@ const revenuDetails = (gstData) => {
                   ) : null}
                 </td>
                 <td>
-                   {checkNan(
-                      CovertvaluefromtoCR(Number(
-                RevenueDetails?.ttlCustomer?.current?.value,
-                      )).toFixed(2),
-                      true,
-                    )} Cr
-                 
+                  {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.ttlCustomer?.current?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
+
                 </td>
                 <td>
-                     {checkNan(
-                      CovertvaluefromtoCR(Number(
-                RevenueDetails?.ttlCustomer?.previous?.value,
-                      )).toFixed(2),
-                      true,
-                    )} Cr
-                 
+                  {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.ttlCustomer?.previous?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
+
                 </td>
                 <td>
                   {checkNan(
@@ -2589,22 +2595,22 @@ const revenuDetails = (gstData) => {
                   ) : null}
                 </td>
                 <td>
-                      {checkNan(
-                      CovertvaluefromtoCR(Number(
-                RevenueDetails?.ttlInv?.current?.value,
-                      )).toFixed(2),
-                      true,
-                    )} Cr
-                  
+                  {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.ttlInv?.current?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
+
                 </td>
                 <td>
-                      {checkNan(
-                      CovertvaluefromtoCR(Number(
-                RevenueDetails?.ttlInv?.previous?.value,
-                      )).toFixed(2),
-                      true,
-                    )} Cr
-                
+                  {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.ttlInv?.previous?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
+
                 </td>
                 <td>
                   {checkNan(
@@ -2700,6 +2706,7 @@ const financeDetails = (
                         '',
                       )).toLocaleString(undefined, {
                         minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
                       })}
                     </td>
                     <td>
@@ -2709,6 +2716,7 @@ const financeDetails = (
                         '',
                       )).toLocaleString(undefined, {
                         minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
                       })}
                     </td>
                   </tr>
@@ -2728,6 +2736,7 @@ const financeDetails = (
                         ),
                       ))?.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
                       })}
                     </td>
                     <td>
@@ -2744,6 +2753,7 @@ const financeDetails = (
                         ),
                       ))?.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
                       })}
                     </td>
                   </tr>
@@ -2763,6 +2773,7 @@ const financeDetails = (
                         ),
                       ))?.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
                       })}
                     </td>
                     <td>
@@ -2779,6 +2790,7 @@ const financeDetails = (
                         ),
                       ))?.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
                       })}
                     </td>
                   </tr>
@@ -2791,6 +2803,7 @@ const financeDetails = (
                         '',
                       ))?.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
                       })}
                     </td>
                     <td>
@@ -2800,6 +2813,7 @@ const financeDetails = (
                         '',
                       ))?.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
                       })}
                     </td>
                   </tr>
@@ -2931,6 +2945,7 @@ const financeDetails = (
                         '',
                       ))?.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
                       })}
                     </td>
                     <td>
@@ -2940,6 +2955,7 @@ const financeDetails = (
                         '',
                       ))?.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
                       })}
                     </td>
                   </tr>
@@ -2952,6 +2968,7 @@ const financeDetails = (
                         '',
                       ))?.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
                       })}
                     </td>
                     <td>
@@ -2961,6 +2978,7 @@ const financeDetails = (
                         '',
                       ))?.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
                       })}
                     </td>
                   </tr>
@@ -2973,6 +2991,7 @@ const financeDetails = (
                         '',
                       ))?.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
                       })}
                     </td>
                     <td>
@@ -2982,6 +3001,7 @@ const financeDetails = (
                         '',
                       ))?.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
                       })}
                     </td>
                   </tr>
@@ -3342,7 +3362,10 @@ const sectionTerms = (
   onApprove,
   onApproveOrder,
   approvedCredit,
+  isFieldInFocus,
+  setIsFieldInFocus,
 ) => {
+  console.log(isFieldInFocus, 'setIsFieldInFocus')
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -3412,7 +3435,7 @@ const sectionTerms = (
                   </tr>
                   <tr>
                     <td>Limit Value</td>
-                    <td>{camData?.company?.creditLimit?.availableLimit}</td>
+                    <td>{(camData?.company?.creditLimit?.availableLimit)?.toLocaleString('en-In')}</td>
                     <td>-</td>
                     {filteredCreditRating ? (
                       <>
@@ -3422,7 +3445,7 @@ const sectionTerms = (
                           filteredCreditRating.map((val, index) => (
                             <td key={index}>
                               {checkNan(
-                                CovertvaluefromtoCR(val?.derived?.value),
+                                convertValue(val?.derived?.value)?.toLocaleString('en-In'),
                               )}{' '}
                             </td>
                           ))}{' '}
@@ -3438,7 +3461,7 @@ const sectionTerms = (
                           filteredCreditRating.map((val, index) => (
                             <td key={index}>
                               {checkNan(
-                                CovertvaluefromtoCR(val?.suggested?.value),
+                                convertValue(val?.suggested?.value)?.toLocaleString('en-In'),
                               )}{` ${camData?.unitOfValue === 'Crores' ? 'Cr' : camData?.unitOfValue}`}
 
                             </td>
@@ -3455,7 +3478,30 @@ const sectionTerms = (
                         className={`${styles.text} input`}
                         required={true}
                         type="number"
-                        defaultValue={approvedCredit?.approvedCreditValue}
+
+                        onFocus={(e) => {
+                          setIsFieldInFocus({
+                            ...isFieldInFocus,
+                            LimitValue: true,
+                          }),
+                            (e.target.type = 'number')
+                        }}
+                        onBlur={(e) => {
+                          setIsFieldInFocus({
+                            ...isFieldInFocus,
+                            LimitValue: false,
+                          }),
+                            (e.target.type = 'text')
+                        }}
+                        value={
+                          isFieldInFocus.LimitValue
+                            ? approvedCredit?.approvedCreditValue
+                            : checkNan(
+                              Number(approvedCredit?.approvedCreditValue),
+                            )?.toLocaleString('en-In')
+                        }
+
+                        // defaultValue={approvedCredit?.approvedCreditValue}
                         name="approvedCreditValue"
                         // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
@@ -3490,7 +3536,28 @@ const sectionTerms = (
                         // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                         name="approvedOrderValue"
-                        value={approvedCredit?.approvedOrderValue}
+                        onFocus={(e) => {
+                          setIsFieldInFocus({
+                            ...isFieldInFocus,
+                            OrderValue: true,
+                          }),
+                            (e.target.type = 'number')
+                        }}
+                        onBlur={(e) => {
+                          setIsFieldInFocus({
+                            ...isFieldInFocus,
+                            OrderValue: false,
+                          }),
+                            (e.target.type = 'text')
+                        }}
+                        value={
+                          isFieldInFocus.OrderValue
+                            ? approvedCredit?.approvedOrderValue
+                            : checkNan(
+                              Number(approvedCredit?.approvedOrderValue),
+                            )?.toLocaleString('en-In')
+                        }
+                        // value={approvedCredit?.approvedOrderValue}
                         onChange={(e) => {
                           onApproveOrder(
                             e.target.name,
@@ -3518,12 +3585,7 @@ const sectionTerms = (
             </div>
             <div>
               <div className={`${styles.approve}`}>
-                {approveComment &&
-                  approveComment?.map((approve, index) => (
-                    <div key={index} className={`${styles.remarks}`}>
-                      <span>{approve}</span>
-                    </div>
-                  ))}
+               
 
                 <div className={`mb-3 ${styles.heading} heading `}>
                   Approval Remarks
@@ -3543,6 +3605,12 @@ const sectionTerms = (
                 >
                   Add
                 </button>
+                 {approveComment &&
+                  approveComment?.map((approve, index) => (
+                    <div key={index} className={`${styles.remarks}`}>
+                      <span>{approve}</span>
+                    </div>
+                  ))}
               </div>
             </div>
           </div>
@@ -3754,8 +3822,8 @@ const trends = (
                     )} */}
                   </span>
                 </div>
-                <div className={`${styles.chart}`}>
-                  <Line data={chartData} ref={chartRef} options={lineOption} />
+                <div className={`${styles.chart}  `}>
+                  <Line  id="trendChartRevenue" data={chartData} ref={chartRef} options={lineOption} />
                 </div>
                 <div className={`${styles.name}`}>
                   <div
@@ -3774,8 +3842,8 @@ const trends = (
                   <span className={`${styles.head}`}>Gross Purchases</span>
                   <span className={`${styles.child} ml-2`}>
                     :{' '}
-                     {checkNan(
-                      CovertvaluefromtoCR( Number(
+                    {checkNan(
+                      CovertvaluefromtoCR(Number(
                         gstData?.detail?.purchaseDetailAnnual?.saleSummary
                           ?.grossPurchases?.current?.value,
                       )).toFixed(2),
@@ -3878,7 +3946,7 @@ const skewness = (top5Customers, options, tempArr, gstData, top5Suppliers, backg
                 >
                   <Col md={6} className={`${styles.col}`}>
                     <div className={styles.chart2}>
-                      <Doughnut data={top5Customers} options={options} />
+                      <Doughnut id="skewnessChartRevenue" data={top5Customers} options={options} />
                       {/* <div className={styles.total_value}>
                         <span>{top5Customers?.labels[0]}</span>
                         <span className={styles.highlight}> {

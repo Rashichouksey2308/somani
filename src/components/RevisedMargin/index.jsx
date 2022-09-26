@@ -805,7 +805,7 @@ const Index = ({
                       className={`${styles.label_heading} label_heading`}
                       id="textInput"
                     >
-                      Revised Net Order Value ()INR
+                      Revised Net Order Value (INR)
                       <strong className="text-danger">*</strong>
                       <div className={`${styles.tooltip}`}>
                         <img

@@ -247,7 +247,7 @@ function Index({
                             type="text"
                             value={isFieldInFocus[index]?.value ?
                               val.quantity :
-                              val.quantity + ` ${_get(vesselData, 'data[0].order.unitOfQuantity', '').toUpperCase()}`}
+                              Number(val.quantity)?.toLocaleString("en-IN") + ` ${_get(vesselData, 'data[0].order.unitOfQuantity', '').toUpperCase()}`}
 
                             onChange={(e) =>
                               OnVesselBasicFieldsChangeHandler(e, index)
@@ -292,7 +292,7 @@ function Index({
                             // value={Number(val.orderValue).toLocaleString()}
                             value={orderValueinFocus ?
                               val.orderValue :
-                              Number(val.orderValue).toLocaleString()}
+                              Number(val.orderValue)?.toLocaleString("en-IN")}
                             onChange={(e) =>
                               OnVesselBasicFieldsChangeHandler(e, index)
                             }

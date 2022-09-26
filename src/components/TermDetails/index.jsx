@@ -193,7 +193,7 @@ const Index = ({
                 value={
                   isFieldInFocus.quantity ?
                     termsheetDetails?.commodityDetails?.quantity :
-                    Number(termsheetDetails?.commodityDetails?.quantity).toLocaleString() + ` ${termsheetDetails?.commodityDetails?.unitOfQuantity?.toUpperCase()}`}
+                    Number(termsheetDetails?.commodityDetails?.quantity).toLocaleString('en-In') + ` ${termsheetDetails?.commodityDetails?.unitOfQuantity?.toUpperCase()}`}
                 // value={addPrefixOrSuffix(
                 //   termsheetDetails?.commodityDetails?.quantity,
                 //   termsheetDetails?.commodityDetails?.unitOfQuantity.toUpperCase(),
@@ -228,7 +228,7 @@ const Index = ({
                 value={
                   isFieldInFocus.unitPrice ?
                     termsheetDetails?.commodityDetails?.perUnitPrice :
-                    ` ${termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase()} ` + Number(termsheetDetails?.commodityDetails?.perUnitPrice)?.toLocaleString()}
+                    ` ${termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase()} ` + Number(termsheetDetails?.commodityDetails?.perUnitPrice)?.toLocaleString('en-In')}
                 // value={addPrefixOrSuffix(
                 //   termsheetDetails?.commodityDetails?.perUnitPrice == undefined
                 //     ? 0
@@ -236,7 +236,14 @@ const Index = ({
                 //   termsheetDetails?.commodityDetails?.orderCurrency.toUpperCase(),
                 //   'front',
                 // )}
-                onChange={onChangeCommodityDetails}
+                onChange={(e)=>{
+                   let temp =  e.target.value.replace(/[^\w\s]/gi, "")
+                      if(temp=="_"){
+                        temp=""
+                      }
+                      e.target.value=temp
+                  onChangeCommodityDetails(e)
+                }}
                 type="text"
 
                 required
@@ -856,7 +863,7 @@ const Index = ({
                 value={
                   isFieldInFocus.lcOpeningChargesPercentage ?
                     termsheetDetails?.commercials?.lcOpeningChargesPercentage :
-                    Number(termsheetDetails?.commercials?.lcOpeningChargesPercentage).toLocaleString() + ` %`}
+                    Number(termsheetDetails?.commercials?.lcOpeningChargesPercentage).toLocaleString('en-In') + ` %`}
 
                 // value={addPrefixOrSuffix(
                 //   termsheetDetails?.commercials?.lcOpeningChargesPercentage?.toString(),
