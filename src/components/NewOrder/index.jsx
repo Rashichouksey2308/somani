@@ -433,6 +433,10 @@ const Index = ({ saveOrderData, orderData }) => {
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
                   }}
+                  onKeyDown={(evt) =>
+                    ['e', 'E', '+', '-'].includes(evt.key) &&
+                    evt.preventDefault()
+                  }
                 />
                 <Form.Label className={`${styles.label_heading} label_heading`}>
                   Transaction Period (Days)

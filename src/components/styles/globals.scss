@@ -256,6 +256,12 @@ body.light-mode .text_area {
 body.dark-mode .text_area {
   color: #ffffff80 ;
 }
+body.light-mode .legend {
+  color: #707070 ;
+}
+body.dark-mode .legend {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
 body.light-mode .text_input {
   color: #495057 ;
   background: #fff;
