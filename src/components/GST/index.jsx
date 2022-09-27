@@ -47,6 +47,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
   const [chartData, setChartData] = useState({
     datasets: [],
   })
+  console.log(chartData, 'THIS IS CHART DATA')
   const [chartData2, setChartData2] = useState({
     datasets: [],
   })
@@ -224,6 +225,313 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       handleGrowthPurchase()
     }
   }, [gstFilteredData])
+
+  const handleQuarterlyData = () => {
+    const filteredData = (data) => { 
+    let arr = []
+    if(!data || !data?.length) return arr
+      for(let i=2; i<=data.length-1; i=i+3)
+        {
+          arr.push(data[i])
+        }
+        return arr;
+      }   
+
+
+    const newData = {
+      labels: covertMonths(
+        filteredData(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months),
+      ),
+      datasets: [
+        {
+          label: 'First dataset',
+          data: getdata(
+            filteredData(gstFilteredData?.detail?.summaryCharts?.revenueSummary?.totalSales),
+          ),
+          // fill: true,
+
+          // backgroundColor: color,
+          borderColor: '#2979F2',
+        },
+        {
+          label: 'First dataset',
+          data: getdata(
+            filteredData(gstFilteredData?.detail?.summaryCharts?.revenueSummary
+              ?.thirdPartySales),
+          ),
+          // fill: true,
+
+          // backgroundColor: color,
+          borderColor: '#FA5F1C',
+        },
+        {
+          label: 'First dataset',
+          data: getdata(
+            filteredData(gstFilteredData?.detail?.summaryCharts?.revenueSummary
+              ?.relatedPartySales),
+          ),
+          // fill: true,
+
+          // backgroundColor: color,
+          borderColor: '#FFD950',
+        },
+        {
+          label: 'First dataset',
+          data: getdata(
+            filteredData(gstFilteredData?.detail?.summaryCharts?.revenueSummary
+              ?.intraOrgSales),
+          ),
+          // fill: true,
+
+          // backgroundColor: color,
+          borderColor: '#02BC77',
+        },
+      ],
+    }
+
+    const chart2 = chartRef2.current
+    const chart3 = chartRef3.current
+
+    const newData2 = {
+      labels: covertMonths(
+        filteredData(gstFilteredData?.detail?.summaryCharts?.netPurchaseVsSale?.month),
+      ),
+      datasets: [
+        {
+          label: 'First dataset',
+          data: getdata(
+            filteredData(gstFilteredData?.detail?.summaryCharts?.netPurchaseVsSale?.sale),
+          ),
+          fill: true,
+          backgroundColor: createGradient(
+            chart2.ctx,
+            chart2.chartArea,
+            'rgb(71, 145, 255,0.1)',
+            'rgb(71, 145, 255,0.2)',
+          ),
+          borderColor: 'rgb(71, 145, 255)',
+        },
+        {
+          label: 'First dataset',
+          data: getdata(
+            filteredData(gstFilteredData?.detail?.summaryCharts?.netPurchaseVsSale
+              ?.purchase),
+          ),
+
+          fill: true,
+          borderColor: 'rgb(250, 95, 28,1)',
+          backgroundColor: createGradient(
+            chart2.ctx,
+            chart2.chartArea,
+            'rgb(250, 95, 28,0.1)',
+            'rgb(250, 95, 28,0.1)',
+          ),
+        },
+      ],
+    }
+
+    const newData3 = {
+      labels: covertMonths(
+        filteredData(gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.months),
+      ),
+      datasets: [
+        {
+          label: 'First dataset',
+          data:
+            filteredData(gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.customers),
+
+          fill: true,
+          backgroundColor: createGradient(
+            chart2.ctx,
+            chart2.chartArea,
+            'rgb(41, 121, 242,0.1)',
+            'rgb(41, 121, 242,0.2)',
+          ),
+          borderColor: 'rgb(41, 121, 242,1)',
+        },
+        {
+          label: 'First dataset',
+          data: filteredData(gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends
+            ?.invoices),
+          fill: true,
+          backgroundColor: createGradient(
+            chart2.ctx,
+            chart2.chartArea,
+            'rgb(250, 95, 28,0.1)',
+            'rgb(250, 95, 28,0.2)',
+          ),
+          borderColor: 'rgb(250, 95, 28,1)',
+        },
+       
+      ],
+    }
+
+    setChartData(newData)
+    setChartData2(newData2)
+    setChartData3(newData3)
+  }
+
+  const handleMonthlyData = () => {
+    const chart = chartRef.current
+    const chart2 = chartRef2.current
+    const chart3 = chartRef3.current
+    console.log('here', chart.ctx)
+    if (!chart) {
+      return
+    }
+
+    // let color = createGradient(chart.ctx, chart.chartArea)
+
+    const data = {
+      labels: covertMonths(
+        gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months,
+      ),
+      datasets: [
+        {
+          label: 'First dataset',
+          data: getdata(
+            gstFilteredData?.detail?.summaryCharts?.revenueSummary?.totalSales,
+          ),
+          // fill: true,
+
+          // backgroundColor: color,
+          borderColor: '#2979F2',
+        },
+        {
+          label: 'First dataset',
+          data: getdata(
+            gstFilteredData?.detail?.summaryCharts?.revenueSummary
+              ?.thirdPartySales,
+          ),
+          // fill: true,
+
+          // backgroundColor: color,
+          borderColor: '#FA5F1C',
+        },
+        {
+          label: 'First dataset',
+          data: getdata(
+            gstFilteredData?.detail?.summaryCharts?.revenueSummary
+              ?.relatedPartySales,
+          ),
+          // fill: true,
+
+          // backgroundColor: color,
+          borderColor: '#FFD950',
+        },
+        {
+          label: 'First dataset',
+          data: getdata(
+            gstFilteredData?.detail?.summaryCharts?.revenueSummary
+              ?.intraOrgSales,
+          ),
+          // fill: true,
+
+          // backgroundColor: color,
+          borderColor: '#02BC77',
+        },
+      ],
+    }
+    if (!chart2) {
+      return
+    }
+
+    const data2 = {
+      labels: covertMonths(
+        gstFilteredData?.detail?.summaryCharts?.netPurchaseVsSale?.month,
+      ),
+      datasets: [
+        {
+          label: 'First dataset',
+          data: getdata(
+            gstFilteredData?.detail?.summaryCharts?.netPurchaseVsSale?.sale,
+          ),
+          fill: true,
+          backgroundColor: createGradient(
+            chart2.ctx,
+            chart2.chartArea,
+            'rgb(71, 145, 255,0.1)',
+            'rgb(71, 145, 255,0.2)',
+          ),
+          borderColor: 'rgb(71, 145, 255)',
+        },
+        {
+          label: 'First dataset',
+          data: getdata(
+            gstFilteredData?.detail?.summaryCharts?.netPurchaseVsSale
+              ?.purchase,
+          ),
+
+          fill: true,
+          borderColor: 'rgb(250, 95, 28,1)',
+          backgroundColor: createGradient(
+            chart2.ctx,
+            chart2.chartArea,
+            'rgb(250, 95, 28,0.1)',
+            'rgb(250, 95, 28,0.1)',
+          ),
+        },
+      ],
+    }
+    if (!chart3) {
+      return
+    }
+    // let color3 = createGradient(chart3.ctx, chart3.chartArea)
+    const data3 = {
+      labels: covertMonths(
+        gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.months,
+      ),
+      datasets: [
+        {
+          label: 'First dataset',
+          data:
+            gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.customers,
+
+          fill: true,
+          backgroundColor: createGradient(
+            chart2.ctx,
+            chart2.chartArea,
+            'rgb(41, 121, 242,0.1)',
+            'rgb(41, 121, 242,0.2)',
+          ),
+          borderColor: 'rgb(41, 121, 242,1)',
+        },
+        {
+          label: 'First dataset',
+          data: gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends
+            ?.invoices,
+          fill: true,
+          backgroundColor: createGradient(
+            chart2.ctx,
+            chart2.chartArea,
+            'rgb(250, 95, 28,0.1)',
+            'rgb(250, 95, 28,0.2)',
+          ),
+          borderColor: 'rgb(250, 95, 28,1)',
+        },
+        // {
+        //   label: 'First dataset',
+        //   data: getdata(
+        //     gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends
+        //       ?.avgMonthlySales,
+        //   ),
+        //   fill: true,
+        //   backgroundColor: createGradient(
+        //     chart2.ctx,
+        //     chart2.chartArea,
+        //     'rgb(67, 195, 77,0.0)',
+        //     'rgb(67, 195, 77,0.0)',
+        //   ),
+        //   borderColor: 'rgb(67, 195, 77)',
+        //   borderDash: [10, 5],
+        // },
+      ],
+    }
+
+    setChartData(data)
+    setChartData2(data2)
+    setChartData3(data3)
+  }
 
   useEffect(() => {
     const chart = chartRef.current
@@ -1398,13 +1706,15 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           <div className="d-flex align-items-center">
             <h5 className={`${styles.light} accordion_Text`}>Filter By: </h5>
             <select
-              value={isChartFilterMonthly}
+              value={isChartFilterMonthly ? isChartFilterMonthly : 'Quarterly'}
               className={`${styles.selectHead} accordion_body accordion_DropDown form-select`}
               aria-label="Default select example"
               onChange={(e) => {
-                if (e.target.value = 'monthly') {
+                if (e.target.value == 'monthly') {
                   setIsChartFilterMonthly(true)
-                } else {
+                  handleMonthlyData()
+                } else if(e.target.value == 'Quarterly'){
+                  handleQuarterlyData()
                   setIsChartFilterMonthly(false)
                 }
               }}
@@ -1561,7 +1871,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     className={` ${styles.header}  card_sub_header  d-flex align-items-center justify-content-start`}
                   >
                     <span>Average Trends</span>
-                    <span className={`${styles.light} breadcrum_mode`}>(Cr)</span>
+                    {/* <span className={`${styles.light} breadcrum_mode`}>(Cr)</span> */}
 
                   </div>
                   <div className={styles.chart}>
