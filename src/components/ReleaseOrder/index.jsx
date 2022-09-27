@@ -341,6 +341,7 @@ export default function Index({
                               index={index}
                               saveDate={saveDate}
                               name="releaseOrderDate"
+                              autocomplete="off"
                               labelName="Release Order Date"
                             />
                             {console.log(
