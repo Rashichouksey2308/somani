@@ -38,7 +38,7 @@ function Index() {
     dispatch(setDynamicName(_get(inspectionData,"company.companyName")))
     dispatch(setDynamicOrder(_get(inspectionData,"order.orderId")))
   },[inspectionData])
-  // console.log(inspectionData, 'THIS IS INSPECTION DATA')
+  console.log(inspectionData, 'THIS IS INSPECTION DATA')
 
   const [addTPI, setAddTPI] = useState([{}])
 
@@ -70,7 +70,7 @@ function Index() {
             <div className="ml-auto">
               <div className={`${styles.lastModified} text `}
              >
-                <span style={{marginRight:'7px'}}>Last Modified:</span>{lastModified}
+                <span style={{marginRight:'7px'}} className='accordion_Text'>Last Modified:</span>{lastModified}
               </div>
             </div>
           </div>
@@ -89,7 +89,7 @@ function Index() {
                 Appointment
               </a>
             </li>
-            <li className={`${styles.navItem}  nav-item`}
+         {  inspectionData && inspectionData?.thirdPartyInspectionRequired == true  ? <li className={`${styles.navItem}  nav-item`}
              onClick={() => handleBreadcrumbClick('Third-Party Inspection')}
             >
               <a
@@ -102,7 +102,7 @@ function Index() {
               >
                 Third-Party Inspection
               </a>
-            </li>
+            </li>: ''}
             <li className={`${styles.navItem} nav-item`}
             onClick={() => handleBreadcrumbClick(' Plot Inspection')}
             >
@@ -133,7 +133,7 @@ function Index() {
                     <Appointment inspectionData={inspectionData} setDate={setDate} />
                   </div>
                 </div>
-                {addTPI?.map((e, index) => (
+               {inspectionData && inspectionData?.thirdPartyInspectionRequired == true  ? <> {addTPI?.map((e, index) => (
                   <div
                     key={index}
                     className="tab-pane fade"
@@ -141,13 +141,12 @@ function Index() {
                     role="tabpanel"
                   >
                     <div className={`${styles.card}  accordion_body`}>
-                      <ThirdPartyInspection 
+                     <ThirdPartyInspection 
                        inspectionData={inspectionData} addButton={() => setAddTPI(addTPI + 1)} setDate={setDate}
                       />
-                      {/* <ThirdPartyInspection  /> */}
                     </div>
                   </div>
-                ))}
+                ))} </> : ''}
                 <div
                   className="tab-pane fade"
                   id="plotInspection"

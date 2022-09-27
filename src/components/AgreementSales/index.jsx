@@ -551,7 +551,7 @@ const sendData=(key,data)=>{
                   >
                  
                     <div className={`${styles.multiPart} d-flex justify-content-center align-items-center`}>
-                      <span className={`mr-4`}>Multiple Parties Involved</span>
+                      <span className={`mr-4 text1`}>Multiple Parties Involved</span>
                       <div className={`d-flex mr-4`}>
                         <div className={`form-check  mr-4`}>
                         <input className="form-check-input" type="checkbox" name="flexRadioDefault" id="flexRadioDefault1" onChange={()=>{
