@@ -2382,8 +2382,7 @@ function Index() {
               </tr>
               <tr>
                 <td width="50%"
-                  style={{borderRight: '2px solid #CAD6E6'
-                  }}
+                  style={{borderRight: '2px solid #CAD6E6', padding:'35px'}}
                 >Graph
                 </td>
                 <td width="50%" valign='top' style={{padding: '35px'}}>
@@ -3390,7 +3389,24 @@ function Index() {
                 </td>
               </tr>
               <tr>
-                <td width="33%" style={{borderRight: '2px solid #CAD6E6'}}>Graph</td>
+                <td width="33%" valign='middle' style={{borderRight: '2px solid #CAD6E6'}}>
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+                    <tr>
+                      <td align='center' style={{padding:'35px'}}>Graph</td>
+                    </tr>
+                    <tr>
+                      <td valign='top' style={{padding:'20px 35px'}}>
+                        <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+                          <tr>
+                            <td align='center' style={{fontSize: '16px', color: '#111111', lineHeight: '19px', fontWeight: '500'}}><span style={{background:'#61C554', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span>&nbsp; Sagar Sinha</td>
+                            <td align='center' style={{fontSize: '16px', color: '#111111', lineHeight: '19px', fontWeight: '500'}}><span style={{background:'#FF9D00', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span>&nbsp; Radhe Singh</td>
+                            <td align='center' style={{fontSize: '16px', color: '#111111', lineHeight: '19px', fontWeight: '500'}}><span style={{background:'#3687E8', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span>&nbsp; Arv Jay</td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
                 <td width="66%" valign='top'>
                   <table width="100%" cellPadding="12" cellSpacing="0" border="0">
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
@@ -3466,7 +3482,7 @@ function Index() {
                         return (
                           <tr>
                       <td width="5%"
-                        // height="60"
+                        height="60"
                         style={{
                           padding: '21px 12px 21px 35px'
                         }}
@@ -3573,7 +3589,24 @@ function Index() {
                 </td>
               </tr>
               <tr>
-                <td width="33%" style={{borderRight: '2px solid #CAD6E6'}}>Graph</td>
+                <td width="33%" valign='middle' style={{borderRight: '2px solid #CAD6E6'}}>
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+                    <tr>
+                      <td align='center' style={{padding:'35px'}}>Graph</td>
+                    </tr>
+                    <tr>
+                      <td valign='top' style={{padding:'20px 35px'}}>
+                        <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+                          <tr>
+                            <td align='center' style={{fontSize: '16px', color: '#111111', lineHeight: '19px', fontWeight: '500'}}><span style={{background:'#61C554', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span>&nbsp; Sagar Sinha</td>
+                            <td align='center' style={{fontSize: '16px', color: '#111111', lineHeight: '19px', fontWeight: '500'}}><span style={{background:'#FF9D00', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span>&nbsp; Radhe Singh</td>
+                            <td align='center' style={{fontSize: '16px', color: '#111111', lineHeight: '19px', fontWeight: '500'}}><span style={{background:'#3687E8', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span>&nbsp; Arv Jay</td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
                 <td width="66%" valign='top'>
                   <table width="100%" cellPadding="12" cellSpacing="0" border="0">
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
@@ -5065,6 +5098,182 @@ function Index() {
                   }}
                 >
                   40%
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
+            <table
+              width="100%"
+              bgColor="#ffffff"
+              cellPadding="0"
+              cellSpacing="0"
+              border="0"
+              style={{
+                border: '1px solid #D2D7E5',
+                borderRadius: '6px',
+                boxShadow: '0 3px 6px #CAD0E2',
+                marginBottom: '26px',
+              }}
+            >
+              <tr>
+                <td height="78"
+                  style={{padding: '0 35px',
+                    borderBottom: '2px solid #CAD6E6',
+                      fontSize: '22px',
+                      color: '#3687E8',
+                      lineHeight: '27px',
+                      fontWeight: 'bold',
+                    }}
+                  >Trends
+                </td>
+                <td height="78" align='right'
+                  style={{padding: '0 35px',
+                  borderBottom: '2px solid #CAD6E6',
+                  fontSize: '18px',
+                  color: '#2837566A',
+                  lineHeight: '23px',
+                  fontWeight: 'bold'}}>Display By: <span style={{color: '#3687E8'}}>Quarterly</span></td>
+              </tr>
+              <tr>
+                <td height="67" bgColor="#FAFAFB" width="50%" style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', padding:'0 35px', borderRight:'2px solid #CAD6E6'}}>Gross Revenue <span style={{fontWeight: '500'}}>: 1,900.00</span></td>
+                <td height="67" bgColor="#FAFAFB" width="50%" style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', padding:'0 35px'}}>Gross Purchases <span style={{fontWeight: '500'}}>: 1,900.00</span></td>
+              </tr>
+              <tr>
+                <td align='centet' style={{borderRight:'2px solid #CAD6E6', padding:'35px'}}>Graph</td>
+                <td align='centet' style={{padding:'35px'}}>Graph</td>
+              </tr>
+              <tr>
+                <td valign='top' style={{borderRight:'2px solid #CAD6E6', padding:'35px'}}>
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+                    <tr>
+                      <td align='center' style={{fontSize: '16px', color: '#111111', lineHeight: '19px', fontWeight: '500'}}><span style={{background:'#2979F2', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span>&nbsp; Gross Revenue</td>
+                    </tr>
+                  </table>
+                </td>
+                <td valign='top' style={{padding:'35px'}}>
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+                    <tr>
+                      <td align='center' style={{fontSize: '16px', color: '#111111', lineHeight: '19px', fontWeight: '500'}}><span style={{background:'#FA5F1C', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span>&nbsp; Gross Purchases</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
+            <table
+              width="100%"
+              bgColor="#ffffff"
+              cellPadding="0"
+              cellSpacing="0"
+              border="0"
+              style={{
+                border: '1px solid #D2D7E5',
+                borderRadius: '6px',
+                boxShadow: '0 3px 6px #CAD0E2',
+                marginBottom: '26px',
+              }}
+            >
+              <tr>
+                <td height="78"
+                  style={{padding: '0 35px',
+                    borderBottom: '2px solid #CAD6E6',
+                      fontSize: '22px',
+                      color: '#3687E8',
+                      lineHeight: '27px',
+                      fontWeight: 'bold',
+                    }}
+                  >Skewness
+                </td>
+                <td height="78" align='right'
+                  style={{padding: '0 35px',
+                  borderBottom: '2px solid #CAD6E6',
+                  fontSize: '18px',
+                  color: '#2837566A',
+                  lineHeight: '23px',
+                  fontWeight: 'bold'}}>Display By: <span style={{color: '#3687E8'}}>Quarterly</span></td>
+              </tr>
+              <tr>
+                <td height="67" bgColor="#FAFAFB" width="50%" style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', padding:'0 35px', borderRight:'2px solid #CAD6E6'}}>Gross Revenue <span style={{fontWeight: '500'}}>: 1,900.00</span></td>
+                <td height="67" bgColor="#FAFAFB" width="50%" style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', padding:'0 35px'}}>Gross Purchases <span style={{fontWeight: '500'}}>: 1,900.00</span></td>
+              </tr>
+              <tr>
+                <td align='left' valign='middle' style={{borderRight:'2px solid #CAD6E6'}}>
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+                    <tr>
+                      <td width="45%" style={{padding:'35px'}}>Graph</td>
+                      <td width="55%" style={{padding:'35px'}}>
+                        <table width="100%" cellPadding="10" cellSpacing="0" border="0">
+                          <tr>
+                            <td width="5%" align='left'><span style={{background:'#61C555', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span></td>
+                            <td width="55%" align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>Customer 1</td>
+                            <td width="40%" align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>83.80%</td>
+                          </tr>
+                          <tr>
+                            <td align='left'><span style={{background:'#876EB1', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span></td>
+                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>Customer 2</td>
+                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>83.80%</td>
+                          </tr>
+                          <tr>
+                            <td align='left'><span style={{background:'#F4BF50', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span></td>
+                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>Customer 3</td>
+                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>83.80%</td>
+                          </tr>
+                          <tr>
+                            <td align='left'><span style={{background:'#ED6B5F', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span></td>
+                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>Customer 4</td>
+                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>83.80%</td>
+                          </tr>
+                          <tr>
+                            <td align='left'><span style={{background:'#2884DE', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span></td>
+                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>Customer 5</td>
+                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>83.80%</td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td align='left' valign='middle'>
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+                    <tr>
+                      <td width="45%" style={{padding:'35px'}}>Graph</td>
+                      <td width="45%" style={{padding:'35px'}}>
+                        <table width="100%" cellPadding="10" cellSpacing="0" border="0">
+                          <tr>
+                            <td width="5%" align='left'><span style={{background:'#61C555', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span></td>
+                            <td width="55%" align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>Supplier 1</td>
+                            <td width="40%" align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>83.80%</td>
+                          </tr>
+                          <tr>
+                            <td align='left'><span style={{background:'#876EB1', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span></td>
+                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>Supplier 2</td>
+                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>83.80%</td>
+                          </tr>
+                          <tr>
+                            <td align='left'><span style={{background:'#F4BF50', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span></td>
+                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>Supplier 3</td>
+                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>83.80%</td>
+                          </tr>
+                          <tr>
+                            <td align='left'><span style={{background:'#ED6B5F', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span></td>
+                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>Supplier 4</td>
+                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>83.80%</td>
+                          </tr>
+                          <tr>
+                            <td align='left'><span style={{background:'#2884DE', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span></td>
+                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>Supplier 5</td>
+                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>83.80%</td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
                 </td>
               </tr>
             </table>
