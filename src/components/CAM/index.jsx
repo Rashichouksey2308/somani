@@ -49,7 +49,13 @@ function Index({
   saveApprovedCreditData,
   approvedCredit,
   orderDetails,
-  GstData
+  GstData,
+  setTotalCustomer1,
+  setTotalSupplier1,
+  setTop5Suppliers1,
+  setTop3Share1,
+  setTop3Open1,
+  setTop5Customers1
 }) {
   const dispatch = useDispatch()
   console.log(GstData, 'GstData')
@@ -420,6 +426,8 @@ function Index({
       }
       setTotalCustomer(total)
       setTop5Customers({ ...top5data })
+      setTotalCustomer1(total)
+      setTop5Customers1({ ...top5data })
 
     }
 
@@ -457,6 +465,8 @@ function Index({
       }
       setTotalSupplier(total)
       setTop5Suppliers({ ...top5data })
+      setTotalSupplier1(total)
+      setTop5Suppliers1({ ...top5data })
 
     }
 
@@ -495,6 +505,7 @@ function Index({
       }
 
       setTop3Share({ ...top5data })
+      setTop3Share1({ ...top5data })
 
     }
 
@@ -536,6 +547,7 @@ function Index({
       }
 
       setTop3Open({ ...top5data })
+      setTop3Open1({ ...top5data })
 
     }
 
@@ -1577,7 +1589,7 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => 
         </div>
         <div
           id="shareHolding"
-          className="collapse"
+          // className="collapse open"
           aria-labelledby="shareHolding"
           data-parent="#profileAccordion"
         >
@@ -1666,7 +1678,10 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => 
                               </span>
                             </td>
                             <td>{Number(share?.numberOfShares)?.toLocaleString('en-In')}</td>
-                            <td>{share?.percentageShareHolding ? share?.percentageShareHolding + '%' : ''}</td>
+                            <td>{share?.percentageShareHolding ? (share?.percentageShareHolding)?.toLocaleString("en-IN", {
+                              maximumFractionDigits: 2,
+                              minimumFractionDigits: 2,
+                            }) + '%' : ''}</td>
                             <td>{share?.director ? 'Yes' : 'No'}</td>
                           </tr>
                         )
@@ -1738,7 +1753,7 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor) => 
         </div>
         <div
           id="chargeDetails"
-          className="collapse"
+          // className="collapse open"
           aria-labelledby="chargeDetails"
           data-parent="#profileAccordion"
         >
@@ -1829,7 +1844,7 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor) => 
 
                             <td>
                               {charge?.dateOfCreationOfCharge
-                                ? moment(charge?.dateOfCreationOfCharge).format(
+                                ? moment(charge?.dateOfCreationOfCharge, 'DD-YY-MMMM').format(
                                   'DD-MM-YYYY',
                                 )
                                 : ''}
@@ -3585,7 +3600,7 @@ const sectionTerms = (
             </div>
             <div>
               <div className={`${styles.approve}`}>
-               
+
 
                 <div className={`mb-3 ${styles.heading} heading `}>
                   Approval Remarks
@@ -3605,7 +3620,7 @@ const sectionTerms = (
                 >
                   Add
                 </button>
-                 {approveComment &&
+                {approveComment &&
                   approveComment?.map((approve, index) => (
                     <div key={index} className={`${styles.remarks}`}>
                       <span>{approve}</span>
@@ -3795,7 +3810,7 @@ const trends = (
         </div>
         <div
           id="trends"
-          className="collapse"
+          //  className="collapse open"
           aria-labelledby="trends"
           data-parent="#profileAccordion"
         >
@@ -3823,7 +3838,7 @@ const trends = (
                   </span>
                 </div>
                 <div className={`${styles.chart}  `}>
-                  <Line  id="trendChartRevenue" data={chartData} ref={chartRef} options={lineOption} />
+                  <Line id="trendChartRevenue" data={chartData} ref={chartRef} options={lineOption} />
                 </div>
                 <div className={`${styles.name}`}>
                   <div
@@ -3922,7 +3937,7 @@ const skewness = (top5Customers, options, tempArr, gstData, top5Suppliers, backg
         </div>
         <div
           id="skewness"
-          className="collapse"
+          // className="collapse open"
           aria-labelledby="skewness"
           data-parent="#profileAccordion"
         >
@@ -4009,7 +4024,7 @@ const skewness = (top5Customers, options, tempArr, gstData, top5Suppliers, backg
                 >
                   <Col md={6} className={`${styles.col}`}>
                     <div className={styles.chart2}>
-                      <Doughnut  id="skewnessChartPurchases" data={top5Suppliers} options={options} />
+                      <Doughnut id="skewnessChartPurchases" data={top5Suppliers} options={options} />
                       {/* <div className={styles.total_value}>
                         <span>{top5Suppliers?.labels[0]}</span>
                         <span className={styles.highlight}> {

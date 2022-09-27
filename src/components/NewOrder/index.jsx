@@ -146,7 +146,7 @@ const Index = ({ saveOrderData, orderData }) => {
                   value={
                     isFieldInFocus.quantity ?
                       orderData.quantity :
-                      Number(orderData.quantity).toLocaleString() + ` ${orderData.unitOfQuantity}`}
+                      Number(orderData.quantity).toLocaleString('en-In') + ` ${orderData.unitOfQuantity}`}
                   name="quantity"
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
@@ -173,7 +173,7 @@ const Index = ({ saveOrderData, orderData }) => {
 
                   value={isFieldInFocus.orderValue ?
                     orderData.orderValue :
-                    Number(orderData.orderValue).toLocaleString() + ` ${orderData.unitOfValue == 'Crores'
+                    Number(orderData.orderValue).toLocaleString('en-In') + ` ${orderData.unitOfValue == 'Crores'
                           ? 'Cr'
                           : orderData.unitOfValue == 'Million'
                             ? 'Mn'

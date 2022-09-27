@@ -31,13 +31,13 @@ import IncomeStatement from '../../src/components/ReviewQueueFinancials/IncomeSt
 import OpenCharges from '../../src/components/ReviewQueueFinancials/OpenCharges'
 import Peer from '../../src/components/ReviewQueueFinancials/Peer'
 import Ratios from '../../src/components/ReviewQueueFinancials/Ratios'
-import * as htmlToImage from 'html-to-image';
-import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
-import html2canvas from 'html2canvas';
+
 import {
   removePrefixOrSuffix,
   CovertvaluefromtoCR,
   checkNan,
+  addPrefixOrSuffix,
+  convertValue
 } from '../../src/utils/helper'
 //redux
 import { UpdateCompanyDetails } from '../../src/redux/companyDetail/action'
@@ -1579,7 +1579,27 @@ function Index() {
       }),
     )
   }
-  const toPrintPdf = (camData, RevenueDetails, trendChartRevenueImg,trendChartPurchasesImg,skewnessChartRevenueImg,skewnessChartPurchasesImg) => {
+     const primaryBankName = () => {
+    console.log(orderList?.company?.debtProfile, "orderList?.company?.debtProfile")
+    let filteredData = []
+    filteredData =
+      orderList?.company?.debtProfile?.filter((data) => data.primaryBank) || []
+
+    const length = _get(filteredData[0], 'bankName', '')
+
+    return length
+  }
+    const openChargesLength = () => {
+    const filteredData =
+      orderList?.company?.detailedCompanyInfo?.financial?.openCharges?.filter(
+        (data) => data.dateOfSatisfactionOfChargeInFull === null,
+      )
+
+    const length = filteredData?.length
+
+    return length
+  }
+  const toPrintPdf = (camData, RevenueDetails, trendChartRevenueImg,trendChartPurchasesImg,skewnessChartRevenueImg,skewnessChartPurchasesImg,shareHoldingChartImg,openBankChargeChartImg) => {
     console.log(_get, 'get')
     function calcPc(n1, n2) {
       if (n1 === 0) {
@@ -1587,10 +1607,12 @@ function Index() {
       }
       return ((n2 - n1) / n1) * 100
     }
-    console.log(trendChartRevenueImg,"trendChartRevenueImg")
+   let backgroundColor = ['#4CAF50', '#FF9D00', '#2884DE']
+
+   
     return (
       <table
-        width="1500px"
+        width="1000px"
         style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
         cellPadding="0"
         cellSpacing="0"
@@ -2363,8 +2385,7 @@ function Index() {
               </tr>
               <tr>
                 <td width="50%"
-                  style={{borderRight: '2px solid #CAD6E6'
-                  }}
+                  style={{borderRight: '2px solid #CAD6E6', padding:'35px'}}
                 >Graph
                 </td>
                 <td width="50%" valign='top' style={{padding: '35px'}}>
@@ -3036,7 +3057,7 @@ function Index() {
                     paddingTop: '31px',
                   }}
                 >
-                  value
+                   {primaryBankName()}
                 </td>
                 <td
                   style={{
@@ -3057,7 +3078,7 @@ function Index() {
                     paddingTop: '31px',
                   }}
                 >
-                  A3+
+                  {openChargesLength()}
                 </td>
               </tr>
               <tr>
@@ -3371,7 +3392,29 @@ function Index() {
                 </td>
               </tr>
               <tr>
-                <td width="33%" style={{borderRight: '2px solid #CAD6E6'}}>Graph</td>
+                <td width="33%" valign='middle' style={{borderRight: '2px solid #CAD6E6'}}>
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+                    <tr>
+                      <td align='center' style={{padding:'35px'}}><img src={`${shareHoldingChartImg}`}></img></td>
+                    </tr>
+                    <tr>
+                      <td valign='top' style={{padding:'20px 35px'}}>
+                        <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+                          <tr>
+                               {top3Share.datasets && top3Share?.datasets[0]?.data.map((val, index) => {
+                            return (
+                               <td align='center' style={{fontSize: '16px', color: '#111111', lineHeight: '19px', fontWeight: '500'}}><span style={{background:`${backgroundColor[index]}`, borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span>&nbsp; 
+                               {top3Share.labels[index] == "" ? "NA" : top3Share.labels[index]}</td>
+                            
+                            )
+                  })}
+                           
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
                 <td width="66%" valign='top'>
                   <table width="100%" cellPadding="12" cellSpacing="0" border="0">
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
@@ -3422,9 +3465,32 @@ function Index() {
                         DIRECTOR
                       </td>
                     </tr>
-                    <tr>
+                     {camData &&
+                    camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern?.map(
+                      (share, index) => {
+                        let name = share?.fullName ?? 'N A'
+                        let [fName, lName] = name?.split(' ')
+
+                        let colors = [
+                          {
+                            primary: '#ECF9ED',
+                            secondary: '#3687E8',
+                          },
+                          {
+                            primary: '#ECF9ED',
+                            secondary: '#43C34D',
+                          },
+                          {
+                            primary: '#FFECCF',
+                            secondary: '#FF9D00',
+                          },
+                        ]
+                       let randColor =
+                          colors[Math.floor(Math.random() * colors.length)]
+                        return (
+                          <tr>
                       <td width="5%"
-                        // height="60"
+                        height="60"
                         style={{
                           padding: '21px 12px 21px 35px'
                         }}
@@ -3432,10 +3498,10 @@ function Index() {
                         <span
                           style={{
                             fontSize: '28px',
-                            color: '#FF9D00',
+                            color: `${randColor.secondary}`,
                             lineHeight: '34px',
                             fontWeight: 'bold',
-                            background: '#FFECCF',
+                            background: `${randColor.primary}`,
                             borderRadius: '8px',
                             padding: '13px 0',
                             width: '60px',
@@ -3443,7 +3509,8 @@ function Index() {
                             textAlign: 'center',
                             display: 'inline-block'
                           }}
-                        >AJ
+                        >{fName?.charAt(0) ? fName?.charAt(0) : 'N'}
+                         {lName?.charAt(0) ? lName?.charAt(0) : 'A'}
                         </span>
                       </td>
                       <td width="25%"
@@ -3455,7 +3522,7 @@ function Index() {
                           paddingTop: '21px',
                           paddingBottom: '21px',
                         }}
-                      >Arv Jay
+                      > {share?.fullName}
                       </td>
                       <td
                         style={{
@@ -3465,7 +3532,7 @@ function Index() {
                           paddingTop: '21px',
                           paddingBottom: '21px',
                         }}
-                      >120
+                      >{Number(share?.numberOfShares)?.toLocaleString('en-In')}
                       </td>
                       <td
                         style={{
@@ -3475,7 +3542,7 @@ function Index() {
                           paddingTop: '21px',
                           paddingBottom: '21px',
                         }}
-                      >80%
+                      >{share?.percentageShareHolding ? share?.percentageShareHolding + '%' : ''}
                       </td>
                       <td
                         style={{
@@ -3485,141 +3552,14 @@ function Index() {
                           paddingTop: '21px',
                           paddingBottom: '21px',
                         }}
-                      >Yes
+                      >{share?.director ? 'Yes' : 'No'}
                       </td>
                     </tr>
-                    <tr>
-                      <td
-                        height="60"
-                        style={{
-                          padding: '21px 12px 21px 35px'
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontSize: '28px',
-                            color: '#FF9D00',
-                            lineHeight: '34px',
-                            fontWeight: 'bold',
-                            background: '#FFECCF',
-                            borderRadius: '8px',
-                            padding: '13px 0',
-                            width: '60px',
-                            height: '60px',
-                            textAlign: 'center',
-                            display: 'inline-block'
-                          }}
-                        >RS
-                        </span>
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '20px',
-                          color: '#111111',
-                          lineHeight: '27px',
-                          fontWeight: 'bold',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >Radhe Singh
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >120
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >80%
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >Yes
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        height="60"
-                        style={{
-                          padding: '21px 12px 21px 35px'
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontSize: '28px',
-                            color: '#FF9D00',
-                            lineHeight: '34px',
-                            fontWeight: 'bold',
-                            background: '#FFECCF',
-                            borderRadius: '8px',
-                            padding: '13px 0',
-                            width: '60px',
-                            height: '60px',
-                            textAlign: 'center',
-                            display: 'inline-block'
-                          }}
-                        >SS
-                        </span>
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '20px',
-                          color: '#111111',
-                          lineHeight: '27px',
-                          fontWeight: 'bold',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >Sagar Sinha
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >120
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >80%
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >Yes
-                      </td>
-                    </tr>
+                        )
+                      },
+                    )}
+                    
+                    
                   </table>
                 </td>
               </tr>
@@ -3657,7 +3597,28 @@ function Index() {
                 </td>
               </tr>
               <tr>
-                <td width="33%" style={{borderRight: '2px solid #CAD6E6'}}>Graph</td>
+                <td width="33%" valign='middle' style={{borderRight: '2px solid #CAD6E6'}}>
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+                    <tr>
+                      <td align='center' style={{padding:'35px'}}><img src={`${openBankChargeChartImg}`}></img></td>
+                    </tr>
+                    <tr>
+                      <td valign='top' style={{padding:'20px 35px'}}>
+                        <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+                          <tr>
+                  {top3Open.datasets && top3Open?.datasets[0]?.data.map((val, index) => {
+                    return (
+                      <td align='center' style={{fontSize: '16px', color: '#111111', lineHeight: '19px', fontWeight: '500'}}><span style={{background:`${backgroundColor[index]}`, borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span>&nbsp; {top3Open.labels[index] == "" ? "NA" : top3Open.labels[index]}</td>
+                     
+                    )
+                  })}
+                            
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
                 <td width="66%" valign='top'>
                   <table width="100%" cellPadding="12" cellSpacing="0" border="0">
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
@@ -3697,6 +3658,94 @@ function Index() {
                         DATE OF CREATION
                       </td>
                     </tr>
+                     {orderList &&
+                    orderList?.company?.detailedCompanyInfo?.financial?.openCharges?.map(
+                      (charge, index) => {
+                        let name = charge?.nameOfChargeHolder
+                        let [fName, lName] = name?.split(' ')
+
+                        let colors = [
+                          {
+                            primary: '#ECF9ED',
+                            secondary: '#3687E8',
+                          },
+                          {
+                            primary: '#ECF9ED',
+                            secondary: '#43C34D',
+                          },
+                          {
+                            primary: '#FFECCF',
+                            secondary: '#FF9D00',
+                          },
+                        ]
+                       let randColor =
+                          colors[Math.floor(Math.random() * colors.length)]
+                        return (
+                          <tr>
+                      <td width="5%"
+                        height="60"
+                        style={{
+                          padding: '21px 12px 21px 35px'
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontSize: '28px',
+                            color: `${randColor.secondary}`,
+                            lineHeight: '34px',
+                            fontWeight: 'bold',
+                            background: `${randColor.primary}`,
+                            borderRadius: '8px',
+                            padding: '13px 0',
+                            width: '60px',
+                            height: '60px',
+                            textAlign: 'center',
+                            display: 'inline-block'
+                          }}
+                        > {fName?.charAt(0) ? fName?.charAt(0) : 'N'}
+                          {lName?.charAt(0) ? lName?.charAt(0) : 'A'}
+                        </span>
+                      </td>
+                      <td width="25%"
+                        style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '27px',
+                          fontWeight: 'bold',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      > {charge?.nameOfChargeHolder1}
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >{Number(charge?.finalAmountSecured)?.toLocaleString()}
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >{charge?.dateOfCreationOfCharge
+                                ? moment(charge?.dateOfCreationOfCharge).format(
+                                  'DD-MM-YYYY',
+                                )
+                                : ''}
+                      </td>
+                        </tr>
+                         
+                        )
+                      },
+                    )}
                     <tr>
                       <td width="5%"
                         height="60"
@@ -3753,118 +3802,7 @@ function Index() {
                       >22-02-2020
                       </td>
                     </tr>
-                    <tr>
-                      <td
-                        height="60"
-                        style={{
-                          padding: '21px 12px 21px 35px'
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontSize: '28px',
-                            color: '#FF9D00',
-                            lineHeight: '34px',
-                            fontWeight: 'bold',
-                            background: '#FFECCF',
-                            borderRadius: '8px',
-                            padding: '13px 0',
-                            width: '60px',
-                            height: '60px',
-                            textAlign: 'center',
-                            display: 'inline-block'
-                          }}
-                        >HB
-                        </span>
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '20px',
-                          color: '#111111',
-                          lineHeight: '27px',
-                          fontWeight: 'bold',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >HDFC Bank
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >1,900.00
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >22-02-2020
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        height="60"
-                        style={{
-                          padding: '21px 12px 21px 35px'
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontSize: '28px',
-                            color: '#FF9D00',
-                            lineHeight: '34px',
-                            fontWeight: 'bold',
-                            background: '#FFECCF',
-                            borderRadius: '8px',
-                            padding: '13px 0',
-                            width: '60px',
-                            height: '60px',
-                            textAlign: 'center',
-                            display: 'inline-block'
-                          }}
-                        >SB
-                        </span>
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '20px',
-                          color: '#111111',
-                          lineHeight: '27px',
-                          fontWeight: 'bold',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >SBI Bank
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >1,900.00
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >22-02-2020
-                      </td>
-                    </tr>
+                  
                   </table>
                 </td>
               </tr>
@@ -3950,7 +3888,7 @@ function Index() {
                           <span
                             style={{
                               background: '#3687E8',
-                              width: '90%',
+                              width: '100%',
                               height: '18px',
                               borderRadius: '2px',
                               display: 'inline-block',
@@ -3960,6 +3898,9 @@ function Index() {
                         </span>
                       </td>
                     </tr>
+                    {camData &&
+                  camData?.company?.debtProfile?.map((debt, index) => (
+                    <div>
                     <tr>
                       <td
                         style={{
@@ -3971,7 +3912,7 @@ function Index() {
                           padding: '40px 6px 0 35px',
                         }}
                       >
-                        ICICI BANK
+                         {debt.bankName}
                       </td>
                       <td
                         align="right"
@@ -3983,7 +3924,7 @@ function Index() {
                           padding: '40px 35px 0 6px',
                         }}
                       >
-                        1,900.00
+                       {debt.limit}
                       </td>
                     </tr>
                     <tr>
@@ -4000,8 +3941,18 @@ function Index() {
                         >
                           <span
                             style={{
-                              background: '#EA3F3F',
-                              width: '90%',
+                              background: `${debt.conduct == 'Good'
+                                ? '#43C34D'
+                                : debt.conduct == 'Satisfactory'
+                                  ? '#FF9D00'
+                                  : debt.conduct == 'Average'
+                                    ? 'average'
+                                    : '#EA3F3F'
+                                }`,
+                              width: `${(Number(debt.limit) / 1900 > 1
+                                ? 1
+                                : Number(debt.limit) / 1900) * 100
+                                }%`,
                               height: '10px',
                               borderRadius: '2px',
                               display: 'inline-block',
@@ -4011,156 +3962,10 @@ function Index() {
                         </span>
                       </td>
                     </tr>
-                    <tr>
-                      <td
-                        align="right"
-                        colSpan={2}
-                        style={{
-                          fontSize: '17px',
-                          color: '#EA3F3F',
-                          lineHeight: '21px',
-                          fontWeight: 'bold',
-                          textTransform: 'capitalize',
-                          padding: '6px 35px 0',
-                        }}
-                      >
-                        Cash Credit
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        style={{
-                          fontSize: '15px',
-                          color: '#8492A6',
-                          lineHeight: '18px',
-                          fontWeight: 'bold',
-                          textTransform: 'uppercase',
-                          padding: '19px 6px 0 35px',
-                        }}
-                      >
-                        HDFC BANK
-                      </td>
-                      <td
-                        align="right"
-                        style={{
-                          fontSize: '15px',
-                          color: '#8492A6',
-                          lineHeight: '18px',
-                          fontWeight: 'bold',
-                          padding: '19px 35px 0 6px',
-                        }}
-                      >
-                        1,900.00
-                      </td>
-                    </tr>
-                    <tr>
-                      <td colSpan={2} style={{ padding: '0 35px' }}>
-                        <span
-                          style={{
-                            background: '#E4ECF7',
-                            borderRadius: '2px',
-                            height: '10px',
-                            width: '100%',
-                            display: 'inline-block',
-                            float: 'left',
-                          }}
-                        >
-                          <span
-                            style={{
-                              background: '#43C34D',
-                              width: '20%',
-                              height: '10px',
-                              borderRadius: '2px',
-                              display: 'inline-block',
-                              float: 'left',
-                            }}
-                          ></span>
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        align="right"
-                        colSpan={2}
-                        style={{
-                          fontSize: '17px',
-                          color: '#43C34D',
-                          lineHeight: '21px',
-                          fontWeight: 'bold',
-                          textTransform: 'capitalize',
-                          padding: '6px 35px 0',
-                        }}
-                      >
-                        Post Ship Credit
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        style={{
-                          fontSize: '15px',
-                          color: '#8492A6',
-                          lineHeight: '18px',
-                          fontWeight: 'bold',
-                          textTransform: 'uppercase',
-                          padding: '19px 6px 0 35px',
-                        }}
-                      >
-                        SBI BANK
-                      </td>
-                      <td
-                        align="right"
-                        style={{
-                          fontSize: '15px',
-                          color: '#8492A6',
-                          lineHeight: '18px',
-                          fontWeight: 'bold',
-                          padding: '19px 35px 0 6px',
-                        }}
-                      >
-                        1,900.00
-                      </td>
-                    </tr>
-                    <tr>
-                      <td colSpan={2} style={{ padding: '0 35px' }}>
-                        <span
-                          style={{
-                            background: '#E4ECF7',
-                            borderRadius: '2px',
-                            height: '10px',
-                            width: '100%',
-                            display: 'inline-block',
-                            float: 'left',
-                          }}
-                        >
-                          <span
-                            style={{
-                              background: '#FF9D00',
-                              width: '40%',
-                              height: '10px',
-                              borderRadius: '2px',
-                              display: 'inline-block',
-                              float: 'left',
-                            }}
-                          ></span>
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        align="right"
-                        colSpan={2}
-                        style={{
-                          fontSize: '17px',
-                          color: '#FF9D00',
-                          lineHeight: '21px',
-                          fontWeight: 'bold',
-                          textTransform: 'capitalize',
-                          padding: '6px 35px 43px',
-                        }}
-                      >
-                        Bank Guarantee
-                      </td>
-                    </tr>
+                    </div>
+                  ))}
+                    
+                   
                   </table>
                 </td>
                 <td valign="top" style={{ borderLeft: '2px solid #CAD6E6' }}>
@@ -4561,7 +4366,22 @@ function Index() {
                   Gross Revenue
                 </td>
                 <td align="center" style={{ paddingTop: '23px' }}>
-                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" />
+                    {RevenueDetails?.grossTurnover?.previous?.value ||
+                    RevenueDetails?.grossTurnover?.current?.value ? (
+                    <img
+                      src={
+                        calcPc(
+                          RevenueDetails?.grossTurnover?.previous?.value,
+                          RevenueDetails?.grossTurnover?.current?.value,
+                        ) > 0
+                          ? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg=='
+                          : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAflBMVEUAAAD/AAD/AAD/VVXjOTnuRETwPDzoOjrrPT3pPDzrPDzqPj7sPz/sPj7pPz/qPj7rPj7pQEDqPz/qQEDpPz/qQEDrPz/rPz/qPj7qPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz////+T0xFJAAAAKHRSTlMAAQIDCQ8RFhkiJjE1QlFWZ2h6fI6QoqO0ub6/wsbP4eTp6/L0+fv92ny6iQAAAAFiS0dEKcq3hSQAAABlSURBVBgZZcEHEoIwAEXBh4LYQOwFAvb8+59QBjNMCLuUGrlRa6Rm9VHgu4a9AjtgUmnATGktXvK8l3S28hT8RRf1rhFO+pDznNPL5WzwnNU54Usate4zBjIr2YzAUToQio2JcX4Tjhpu0b32YgAAAABJRU5ErkJggg=='
+                      }
+                      alt="Arrow Green"
+
+                    />
+                  ) : null}
+                  {/* <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" /> */}
                 </td>
                 <td
                   style={{
@@ -4571,7 +4391,12 @@ function Index() {
                     paddingTop: '23px',
                   }}
                 >
-                  {checkNan(RevenueDetails?.grossTurnover?.current?.value)}
+                  {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.grossTurnover?.current?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
                 </td>
                 <td
                   style={{
@@ -4582,7 +4407,12 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {checkNan(RevenueDetails?.grossTurnover?.previous?.value)}
+                  {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.grossTurnover?.previous?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
                 </td>
                 <td
                   style={{
@@ -4612,7 +4442,21 @@ function Index() {
                   Related Party Sales
                 </td>
                 <td align="center">
-                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" />
+                     {RevenueDetails?.relatedPartySales?.previous?.value ||
+                    RevenueDetails?.relatedPartySales?.current?.value ? (
+                    <img
+                      src={
+                        calcPc(
+                          RevenueDetails?.relatedPartySales?.previous?.value,
+                          RevenueDetails?.relatedPartySales?.current?.value,
+                        ) > 0
+                          ? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg=='
+                          : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAflBMVEUAAAD/AAD/AAD/VVXjOTnuRETwPDzoOjrrPT3pPDzrPDzqPj7sPz/sPj7pPz/qPj7rPj7pQEDqPz/qQEDpPz/qQEDrPz/rPz/qPj7qPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz////+T0xFJAAAAKHRSTlMAAQIDCQ8RFhkiJjE1QlFWZ2h6fI6QoqO0ub6/wsbP4eTp6/L0+fv92ny6iQAAAAFiS0dEKcq3hSQAAABlSURBVBgZZcEHEoIwAEXBh4LYQOwFAvb8+59QBjNMCLuUGrlRa6Rm9VHgu4a9AjtgUmnATGktXvK8l3S28hT8RRf1rhFO+pDznNPL5WzwnNU54Usate4zBjIr2YzAUToQio2JcX4Tjhpu0b32YgAAAABJRU5ErkJggg=='
+                      }
+                      alt="Arrow Green"
+
+                    />
+                  ) : null}
                 </td>
                 <td
                   style={{
@@ -4622,20 +4466,12 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {RevenueDetails?.relatedPartySales?.current?.value
-                    .toFixed(2)
-                    ?.toLocaleString()}
-                </td>
-                <td
-                  style={{
-                    fontSize: '19px',
-                    color: '#111111',
-                    lineHeight: '23px',
-                  }}
-                >
-                  {RevenueDetails?.relatedPartySales?.previous?.value
-                    .toFixed(2)
-                    ?.toLocaleString()}
+                  {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.relatedPartySales?.current?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
                 </td>
                 <td
                   style={{
@@ -4645,6 +4481,20 @@ function Index() {
                   }}
                 >
                   {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.relatedPartySales?.previous?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                 {checkNan(
                     calcPc(
                       RevenueDetails?.relatedPartySales?.previous?.value,
                       RevenueDetails?.relatedPartySales?.current?.value,
@@ -4664,7 +4514,21 @@ function Index() {
                   Intra Organization Sales
                 </td>
                 <td align="center">
-                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAflBMVEUAAAD/AAD/AAD/VVXjOTnuRETwPDzoOjrrPT3pPDzrPDzqPj7sPz/sPj7pPz/qPj7rPj7pQEDqPz/qQEDpPz/qQEDrPz/rPz/qPj7qPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz////+T0xFJAAAAKHRSTlMAAQIDCQ8RFhkiJjE1QlFWZ2h6fI6QoqO0ub6/wsbP4eTp6/L0+fv92ny6iQAAAAFiS0dEKcq3hSQAAABlSURBVBgZZcEHEoIwAEXBh4LYQOwFAvb8+59QBjNMCLuUGrlRa6Rm9VHgu4a9AjtgUmnATGktXvK8l3S28hT8RRf1rhFO+pDznNPL5WzwnNU54Usate4zBjIr2YzAUToQio2JcX4Tjhpu0b32YgAAAABJRU5ErkJggg==" alt="Arrow Red" />
+                  {RevenueDetails?.intraOrgSalesPercent?.previous?.value ||
+                    RevenueDetails?.intraOrgSalesPercent?.current?.value ? (
+                    <img
+                      src={
+                        calcPc(
+                          RevenueDetails?.intraOrgSalesPercent?.previous?.value,
+                          RevenueDetails?.intraOrgSalesPercent?.current?.value,
+                        ) > 0
+                         ? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg=='
+                          : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAflBMVEUAAAD/AAD/AAD/VVXjOTnuRETwPDzoOjrrPT3pPDzrPDzqPj7sPz/sPj7pPz/qPj7rPj7pQEDqPz/qQEDpPz/qQEDrPz/rPz/qPj7qPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz////+T0xFJAAAAKHRSTlMAAQIDCQ8RFhkiJjE1QlFWZ2h6fI6QoqO0ub6/wsbP4eTp6/L0+fv92ny6iQAAAAFiS0dEKcq3hSQAAABlSURBVBgZZcEHEoIwAEXBh4LYQOwFAvb8+59QBjNMCLuUGrlRa6Rm9VHgu4a9AjtgUmnATGktXvK8l3S28hT8RRf1rhFO+pDznNPL5WzwnNU54Usate4zBjIr2YzAUToQio2JcX4Tjhpu0b32YgAAAABJRU5ErkJggg=='
+                      }
+                      alt="Arrow Green"
+
+                    />
+                  ) : null}
                 </td>
                 <td
                   style={{
@@ -4673,9 +4537,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  {RevenueDetails?.intraOrgSalesPercent?.current?.value
-                    .toFixed(2)
-                    ?.toLocaleString()}
+                   {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.intraOrgSalesPercent?.current?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
                 </td>
                 <td
                   style={{
@@ -4684,9 +4551,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  {RevenueDetails?.intraOrgSalesPercent?.previous?.value
-                    .toFixed(2)
-                    ?.toLocaleString()}
+                   {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.intraOrgSalesPercent?.previous?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
                 </td>
                 <td
                   style={{
@@ -4696,7 +4566,7 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {checkNan(
+                   {checkNan(
                     calcPc(
                       RevenueDetails?.intraOrgSalesPercent?.previous?.value,
                       RevenueDetails?.intraOrgSalesPercent?.current?.value,
@@ -4716,7 +4586,21 @@ function Index() {
                   B2B Sales
                 </td>
                 <td align="center">
-                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" />
+                       {RevenueDetails?.B2BSales?.previous?.value ||
+                    RevenueDetails?.B2BSales?.current?.value ? (
+                    <img
+                      src={
+                        calcPc(
+                          RevenueDetails?.B2BSales?.previous?.value,
+                          RevenueDetails?.B2BSales?.current?.value,
+                        ) > 0
+                          ? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg=='
+                          : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAflBMVEUAAAD/AAD/AAD/VVXjOTnuRETwPDzoOjrrPT3pPDzrPDzqPj7sPz/sPj7pPz/qPj7rPj7pQEDqPz/qQEDpPz/qQEDrPz/rPz/qPj7qPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz////+T0xFJAAAAKHRSTlMAAQIDCQ8RFhkiJjE1QlFWZ2h6fI6QoqO0ub6/wsbP4eTp6/L0+fv92ny6iQAAAAFiS0dEKcq3hSQAAABlSURBVBgZZcEHEoIwAEXBh4LYQOwFAvb8+59QBjNMCLuUGrlRa6Rm9VHgu4a9AjtgUmnATGktXvK8l3S28hT8RRf1rhFO+pDznNPL5WzwnNU54Usate4zBjIr2YzAUToQio2JcX4Tjhpu0b32YgAAAABJRU5ErkJggg=='
+                      }
+                      alt="Arrow Green"
+
+                    />
+                  ) : null}
                 </td>
                 <td
                   style={{
@@ -4725,7 +4609,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  83.80%
+                     {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.B2BSales?.current?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
                 </td>
                 <td
                   style={{
@@ -4734,7 +4623,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  83.80%
+                   {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.B2BSales?.previous?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
                 </td>
                 <td
                   style={{
@@ -4743,7 +4637,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  40%
+                  {checkNan(
+                    calcPc(
+                      RevenueDetails?.B2BSales?.previous?.value,
+                      RevenueDetails?.B2BSales?.current?.value,
+                    ),
+                  ) + '%'}
                 </td>
               </tr>
               <tr>
@@ -4759,7 +4658,21 @@ function Index() {
                 </td>
 
                 <td align="center">
-                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" />
+                   {RevenueDetails?.B2CSales?.previous?.value ||
+                    RevenueDetails?.B2CSales?.current?.value ? (
+                    <img
+                      src={
+                        calcPc(
+                          RevenueDetails?.B2CSales?.previous?.value,
+                          RevenueDetails?.B2CSales?.current?.value,
+                        ) > 0
+                           ? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg=='
+                          : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAflBMVEUAAAD/AAD/AAD/VVXjOTnuRETwPDzoOjrrPT3pPDzrPDzqPj7sPz/sPj7pPz/qPj7rPj7pQEDqPz/qQEDpPz/qQEDrPz/rPz/qPj7qPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz////+T0xFJAAAAKHRSTlMAAQIDCQ8RFhkiJjE1QlFWZ2h6fI6QoqO0ub6/wsbP4eTp6/L0+fv92ny6iQAAAAFiS0dEKcq3hSQAAABlSURBVBgZZcEHEoIwAEXBh4LYQOwFAvb8+59QBjNMCLuUGrlRa6Rm9VHgu4a9AjtgUmnATGktXvK8l3S28hT8RRf1rhFO+pDznNPL5WzwnNU54Usate4zBjIr2YzAUToQio2JcX4Tjhpu0b32YgAAAABJRU5ErkJggg=='
+                      }
+                      alt="Arrow Green"
+
+                    />
+                  ) : null}
                 </td>
                 <td
                   style={{
@@ -4768,7 +4681,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  83.80%
+                   {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.B2CSales?.current?.value,
+                    )).toFixed(2),
+                    true,
+                  )}  Cr
                 </td>
                 <td
                   style={{
@@ -4777,7 +4695,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  83.80%
+                    {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.B2CSales?.previous?.value,
+                    )).toFixed(2),
+                    true,
+                  )}   Cr
                 </td>
                 <td
                   style={{
@@ -4786,7 +4709,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  40%
+                  {checkNan(
+                    calcPc(
+                      RevenueDetails?.B2CSales?.previous?.value,
+                      RevenueDetails?.B2CSales?.current?.value,
+                    ),
+                  ) + '%'}
                 </td>
               </tr>
               <tr>
@@ -4802,7 +4730,21 @@ function Index() {
                 </td>
 
                 <td align="center">
-                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" />
+                    {RevenueDetails?.exportSales?.previous?.value ||
+                    RevenueDetails?.exportSales?.current?.value ? (
+                    <img
+                      src={
+                        calcPc(
+                          RevenueDetails?.exportSales?.previous?.value,
+                          RevenueDetails?.exportSales?.current?.value,
+                        ) > 0
+                          ? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg=='
+                          : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAflBMVEUAAAD/AAD/AAD/VVXjOTnuRETwPDzoOjrrPT3pPDzrPDzqPj7sPz/sPj7pPz/qPj7rPj7pQEDqPz/qQEDpPz/qQEDrPz/rPz/qPj7qPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz////+T0xFJAAAAKHRSTlMAAQIDCQ8RFhkiJjE1QlFWZ2h6fI6QoqO0ub6/wsbP4eTp6/L0+fv92ny6iQAAAAFiS0dEKcq3hSQAAABlSURBVBgZZcEHEoIwAEXBh4LYQOwFAvb8+59QBjNMCLuUGrlRa6Rm9VHgu4a9AjtgUmnATGktXvK8l3S28hT8RRf1rhFO+pDznNPL5WzwnNU54Usate4zBjIr2YzAUToQio2JcX4Tjhpu0b32YgAAAABJRU5ErkJggg=='
+                      }
+                      alt="Arrow Green"
+                     
+                    />
+                  ) : null}
                 </td>
                 <td
                   style={{
@@ -4811,7 +4753,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  83.80%
+                    {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.exportSales?.current?.value,
+                    )).toFixed(2),
+                    true,
+                  )}   Cr
                 </td>
                 <td
                   style={{
@@ -4820,7 +4767,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  83.80%
+                 {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.exportSales?.previous?.value,
+                    )).toFixed(2),
+                    true,
+                  )}  Cr
                 </td>
                 <td
                   style={{
@@ -4829,7 +4781,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  40%
+                   {checkNan(
+                    calcPc(
+                      RevenueDetails?.exportSales?.previous?.value,
+                      RevenueDetails?.exportSales?.current?.value,
+                    ),
+                  ) + '%'}
                 </td>
               </tr>
               <tr>
@@ -4845,7 +4802,21 @@ function Index() {
                 </td>
 
                 <td align="center">
-                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" />
+                     {RevenueDetails?.ttlCustomer?.previous?.value ||
+                    RevenueDetails?.ttlCustomer?.current?.value ? (
+                    <img
+                      src={
+                        calcPc(
+                          RevenueDetails?.ttlCustomer?.previous?.value,
+                          RevenueDetails?.ttlCustomer?.current?.value,
+                        ) > 0
+                           ? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg=='
+                          : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAflBMVEUAAAD/AAD/AAD/VVXjOTnuRETwPDzoOjrrPT3pPDzrPDzqPj7sPz/sPj7pPz/qPj7rPj7pQEDqPz/qQEDpPz/qQEDrPz/rPz/qPj7qPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz////+T0xFJAAAAKHRSTlMAAQIDCQ8RFhkiJjE1QlFWZ2h6fI6QoqO0ub6/wsbP4eTp6/L0+fv92ny6iQAAAAFiS0dEKcq3hSQAAABlSURBVBgZZcEHEoIwAEXBh4LYQOwFAvb8+59QBjNMCLuUGrlRa6Rm9VHgu4a9AjtgUmnATGktXvK8l3S28hT8RRf1rhFO+pDznNPL5WzwnNU54Usate4zBjIr2YzAUToQio2JcX4Tjhpu0b32YgAAAABJRU5ErkJggg=='
+                      }
+                      alt="Arrow Green"
+                     
+                    />
+                  ) : null}
                 </td>
                 <td
                   style={{
@@ -4854,7 +4825,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  1,900.00
+                  {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.ttlCustomer?.current?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
                 </td>
                 <td
                   style={{
@@ -4863,7 +4839,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  1,900.00
+                 {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.ttlCustomer?.previous?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
                 </td>
                 <td
                   style={{
@@ -4872,7 +4853,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  40%
+                   {checkNan(
+                    calcPc(
+                      RevenueDetails?.ttlCustomer?.previous?.value,
+                      RevenueDetails?.ttlCustomer?.current?.value,
+                    ),
+                  ) + '%'}
                 </td>
               </tr>
               <tr>
@@ -4888,7 +4874,21 @@ function Index() {
                 </td>
 
                 <td align="center">
-                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" />
+                   {RevenueDetails?.ttlInv?.previous?.value ||
+                    RevenueDetails?.ttlInv?.current?.value ? (
+                    <img
+                      src={
+                        calcPc(
+                          RevenueDetails?.ttlInv?.previous?.value,
+                          RevenueDetails?.ttlInv?.current?.value,
+                        ) > 0
+                          ? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg=='
+                          : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAflBMVEUAAAD/AAD/AAD/VVXjOTnuRETwPDzoOjrrPT3pPDzrPDzqPj7sPz/sPj7pPz/qPj7rPj7pQEDqPz/qQEDpPz/qQEDrPz/rPz/qPj7qPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz////+T0xFJAAAAKHRSTlMAAQIDCQ8RFhkiJjE1QlFWZ2h6fI6QoqO0ub6/wsbP4eTp6/L0+fv92ny6iQAAAAFiS0dEKcq3hSQAAABlSURBVBgZZcEHEoIwAEXBh4LYQOwFAvb8+59QBjNMCLuUGrlRa6Rm9VHgu4a9AjtgUmnATGktXvK8l3S28hT8RRf1rhFO+pDznNPL5WzwnNU54Usate4zBjIr2YzAUToQio2JcX4Tjhpu0b32YgAAAABJRU5ErkJggg=='
+                      }
+                      alt="Arrow Green"
+                     
+                    />
+                  ) : null}
                 </td>
                 <td
                   style={{
@@ -4897,7 +4897,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  1,900.00
+                 {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.ttlInv?.current?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
                 </td>
                 <td
                   style={{
@@ -4906,7 +4911,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  1,900.00
+                    {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.ttlInv?.previous?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
                 </td>
                 <td
                   style={{
@@ -4915,7 +4925,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  40%
+                  {checkNan(
+                    calcPc(
+                      RevenueDetails?.ttlInv?.previous?.value,
+                      RevenueDetails?.ttlInv?.current?.value,
+                    ),
+                  ) + '%'}
                 </td>
               </tr>
               <tr>
@@ -4931,7 +4946,7 @@ function Index() {
                   Gross Margin
                 </td>
                 <td align="center" style={{ paddingBottom: '78px' }}>
-                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" />
+                  {/* <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" /> */}
                 </td>
                 <td
                   style={{
@@ -4941,7 +4956,7 @@ function Index() {
                     paddingBottom: '78px',
                   }}
                 >
-                  83.80%
+                 11,900.00
                 </td>
                 <td
                   style={{
@@ -4951,7 +4966,7 @@ function Index() {
                     paddingBottom: '78px',
                   }}
                 >
-                  83.80%
+                 1,900.00
                 </td>
                 <td
                   style={{
@@ -4962,6 +4977,190 @@ function Index() {
                   }}
                 >
                   40%
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
+            <table
+              width="100%"
+              bgColor="#ffffff"
+              cellPadding="0"
+              cellSpacing="0"
+              border="0"
+              style={{
+                border: '1px solid #D2D7E5',
+                borderRadius: '6px',
+                boxShadow: '0 3px 6px #CAD0E2',
+                marginBottom: '26px',
+              }}
+            >
+              <tr>
+                <td height="78"
+                  style={{padding: '0 35px',
+                    borderBottom: '2px solid #CAD6E6',
+                      fontSize: '22px',
+                      color: '#3687E8',
+                      lineHeight: '27px',
+                      fontWeight: 'bold',
+                    }}
+                  >Trends
+                </td>
+                <td height="78" align='right'
+                  style={{padding: '0 35px',
+                  borderBottom: '2px solid #CAD6E6',
+                  fontSize: '18px',
+                  color: '#2837566A',
+                  lineHeight: '23px',
+                  fontWeight: 'bold'}}>Display By: <span style={{color: '#3687E8'}}>Quarterly</span></td>
+              </tr>
+              <tr>
+                <td height="67" bgColor="#FAFAFB" width="50%" style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', padding:'0 35px', borderRight:'2px solid #CAD6E6'}}>Gross Revenue <span style={{fontWeight: '500'}}>: {checkNan(
+                      CovertvaluefromtoCR(Number(
+                        gstData?.detail?.salesDetailAnnual?.saleSummary
+                          ?.grossTurnover?.current?.value,
+                      )).toFixed(2),
+                      true,
+                    )} Cr</span></td>
+                <td height="67" bgColor="#FAFAFB" width="50%" style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', padding:'0 35px'}}>Gross Purchases <span style={{fontWeight: '500'}}>:  {checkNan(
+                      CovertvaluefromtoCR(Number(
+                        gstData?.detail?.purchaseDetailAnnual?.saleSummary
+                          ?.grossPurchases?.current?.value,
+                      )).toFixed(2),
+                      true,
+                    )} Cr</span></td>
+              </tr>
+              <tr>
+                <td align='center' style={{borderRight:'2px solid #CAD6E6', padding:'35px'}}>
+                  <img src={`${trendChartRevenueImg}`}></img>
+                </td>
+                <td align='center' style={{padding:'35px'}}>
+                  <img src={`${trendChartPurchasesImg}`}></img>
+                </td>
+              </tr>
+              <tr>
+                <td valign='top' style={{borderRight:'2px solid #CAD6E6', padding:'35px'}}>
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+                    <tr>
+                      <td align='center' style={{fontSize: '16px', color: '#111111', lineHeight: '19px', fontWeight: '500'}}><span style={{background:'#2979F2', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span>&nbsp; Gross Revenue</td>
+                    </tr>
+                  </table>
+                </td>
+                <td valign='top' style={{padding:'35px'}}>
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+                    <tr>
+                      <td align='center' style={{fontSize: '16px', color: '#111111', lineHeight: '19px', fontWeight: '500'}}><span style={{background:'#FA5F1C', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span>&nbsp; Gross Purchases</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
+            <table
+              width="100%"
+              bgColor="#ffffff"
+              cellPadding="0"
+              cellSpacing="0"
+              border="0"
+              style={{
+                border: '1px solid #D2D7E5',
+                borderRadius: '6px',
+                boxShadow: '0 3px 6px #CAD0E2',
+                marginBottom: '26px',
+              }}
+            >
+              <tr>
+                <td height="78"
+                  style={{padding: '0 35px',
+                    borderBottom: '2px solid #CAD6E6',
+                      fontSize: '22px',
+                      color: '#3687E8',
+                      lineHeight: '27px',
+                      fontWeight: 'bold',
+                    }}
+                  >Skewness
+                </td>
+                <td height="78" align='right'
+                  style={{padding: '0 35px',
+                  borderBottom: '2px solid #CAD6E6',
+                  fontSize: '18px',
+                  color: '#2837566A',
+                  lineHeight: '23px',
+                  fontWeight: 'bold'}}>Display By: <span style={{color: '#3687E8'}}>Quarterly</span></td>
+              </tr>
+              <tr>
+                <td height="67" bgColor="#FAFAFB" width="50%" style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', padding:'0 35px', borderRight:'2px solid #CAD6E6'}}>Gross Revenue <span style={{fontWeight: '500'}}>:  {checkNan(
+                      CovertvaluefromtoCR(Number(
+                        gstData?.detail?.salesDetailAnnual?.saleSummary
+                          ?.grossTurnover?.current?.value,
+                      )).toFixed(2),
+                      true,
+                    )} Cr</span></td>
+                <td height="67" bgColor="#FAFAFB" width="50%" style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', padding:'0 35px'}}>Gross Purchases <span style={{fontWeight: '500'}}>:  {checkNan(
+                      CovertvaluefromtoCR(Number(
+                        gstData?.detail?.purchaseDetailAnnual?.saleSummary
+                          ?.grossPurchases?.current?.value,
+                      )).toFixed(2),
+                      true,
+                    )} Cr</span></td>
+              </tr>
+              <tr>
+                <td align='left' valign='middle' style={{borderRight:'2px solid #CAD6E6'}}>
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+                    <tr>
+                      <td width="45%" style={{padding:'35px'}}><img src={`${skewnessChartRevenueImg}`}></img></td>
+                      <td width="55%" style={{padding:'35px'}}>
+                        <table width="100%" cellPadding="10" cellSpacing="0" border="0">
+                      {top5Customers.datasets && top5Customers?.datasets[0]?.data?.map((val, index) => {
+                        return (
+                          <tr>
+                            <td width="5%" align='left'><span style={{background:`${backgroundColor[index]}`, borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span></td>
+                            <td width="55%" align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>{top5Customers.labels[index]}</td>
+                            <td width="40%" align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>{
+                                  ((val / totalCustomer) * 100)?.toFixed(2)
+                                }%</td>
+                          </tr>
+                       
+                        )
+                      })}
+                          <tr>
+                            <td width="5%" align='left'><span style={{background:'#61C555', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span></td>
+                            <td width="55%" align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>Customer 1</td>
+                            <td width="40%" align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>83.80%</td>
+                          </tr>
+                         
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td align='left' valign='middle'>
+                  <table width="100%" cellPadding="0" cellSpacing="0" border="0">
+                    <tr>
+                      <td width="45%" style={{padding:'35px'}}><img src={`${skewnessChartPurchasesImg}`}></img></td>
+                      <td width="45%" style={{padding:'35px'}}>
+                        <table width="100%" cellPadding="10" cellSpacing="0" border="0">
+                          {top5Suppliers.datasets && top5Customers?.datasets[0]?.data?.map((val, index) => {
+                        return (
+                          <tr>
+                            <td width="5%" align='left'><span style={{background:`${backgroundColor[index]}`, borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span></td>
+                            <td width="55%" align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>{top5Suppliers.labels[index]}</td>
+                            <td width="40%" align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>{
+                                  ((val / totalSupplier) * 100)?.toFixed(2)
+                                }%</td>
+                          </tr>
+                       
+                        )
+                      })}
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
                 </td>
               </tr>
             </table>
@@ -5082,12 +5281,14 @@ function Index() {
                                 paddingTop: '33px',
                               }}
                             >
-                              {companyData?.financial?.balanceSheet[0]?.equityLiabilities?.totalEquity?.toLocaleString(
-                                undefined,
-                                {
-                                  minimumFractionDigits: 2,
-                                },
-                              )}
+                              {convertValue(_get(
+                        companyData,
+                        'financial.balanceSheet[0].equityLiabilities.totalEquity',
+                        '',
+                      )).toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
+                      })}
                             </td>
                             <td
                               style={{
@@ -5098,12 +5299,14 @@ function Index() {
                                 paddingTop: '33px',
                               }}
                             >
-                              {companyData?.financial?.balanceSheet[1]?.equityLiabilities?.totalEquity?.toLocaleString(
-                                undefined,
-                                {
-                                  minimumFractionDigits: 2,
-                                },
-                              )}
+                               {convertValue(_get(
+                        companyData,
+                        'financial.balanceSheet[1].equityLiabilities.totalEquity',
+                        '',
+                      )).toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
+                      })}
                             </td>
                           </tr>
                           <tr>
@@ -5125,20 +5328,21 @@ function Index() {
                                 fontWeight: '500',
                               }}
                             >
-                              {Number(
-                                _get(
-                                  companyData,
-                                  'financial.balanceSheet[0].equityLiabilities.borrowingsCurrent',
-                                  '',
-                                ) +
-                                _get(
-                                  companyData,
-                                  'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent',
-                                  '',
-                                ),
-                              )?.toLocaleString(undefined, {
-                                minimumFractionDigits: 2,
-                              })}
+                                  {convertValue(Number(
+                        _get(
+                          companyData,
+                          'financial.balanceSheet[0].equityLiabilities.borrowingsCurrent',
+                          '',
+                        ) +
+                        _get(
+                          companyData,
+                          'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent',
+                          '',
+                        ),
+                      ))?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
+                      })}
                             </td>
                             <td
                               style={{
@@ -5148,20 +5352,21 @@ function Index() {
                                 fontWeight: '500',
                               }}
                             >
-                              {Number(
-                                _get(
-                                  companyData,
-                                  'financial.balanceSheet[1].equityLiabilities.borrowingsCurrent',
-                                  '',
-                                ) +
-                                _get(
-                                  companyData,
-                                  'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent',
-                                  '',
-                                ),
-                              )?.toLocaleString(undefined, {
-                                minimumFractionDigits: 2,
-                              })}
+                          {convertValue(Number(
+                        _get(
+                          companyData,
+                          'financial.balanceSheet[1].equityLiabilities.borrowingsCurrent',
+                          '',
+                        ) +
+                        _get(
+                          companyData,
+                          'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent',
+                          '',
+                        ),
+                      ))?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
+                      })}
                             </td>
                           </tr>
                           <tr>
@@ -5183,20 +5388,21 @@ function Index() {
                                 fontWeight: '500',
                               }}
                             >
-                              {Number(
-                                _get(
-                                  companyData,
-                                  'financial.balanceSheet[0].equityLiabilities.tradePay',
-                                  '',
-                                ) +
-                                _get(
-                                  companyData,
-                                  'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
-                                  '',
-                                ),
-                              )?.toLocaleString(undefined, {
-                                minimumFractionDigits: 2,
-                              })}
+                        {convertValue(Number(
+                        _get(
+                          companyData,
+                          'financial.balanceSheet[0].equityLiabilities.tradePay',
+                          '',
+                        ) +
+                        _get(
+                          companyData,
+                          'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
+                          '',
+                        ),
+                      ))?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
+                      })}
                             </td>
                             <td
                               style={{
@@ -5206,20 +5412,21 @@ function Index() {
                                 fontWeight: '500',
                               }}
                             >
-                              {Number(
-                                _get(
-                                  companyData,
-                                  'financial.balanceSheet[1].equityLiabilities.tradePay',
-                                  '',
-                                ) +
-                                _get(
-                                  companyData,
-                                  'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
-                                  '',
-                                ),
-                              )?.toLocaleString(undefined, {
-                                minimumFractionDigits: 2,
-                              })}
+                              {convertValue(Number(
+                        _get(
+                          companyData,
+                          'financial.balanceSheet[1].equityLiabilities.tradePay',
+                          '',
+                        ) +
+                        _get(
+                          companyData,
+                          'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
+                          '',
+                        ),
+                      ))?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
+                      })}
                             </td>
                           </tr>
                           <tr>
@@ -5243,13 +5450,14 @@ function Index() {
                                 paddingBottom: '38px',
                               }}
                             >
-                              {_get(
-                                companyData,
-                                'financial.balanceSheet[0].equityLiabilities.otherCurrentLiabilities',
-                                '',
-                              )?.toLocaleString(undefined, {
-                                minimumFractionDigits: 2,
-                              })}
+                               {convertValue(_get(
+                        companyData,
+                        'financial.balanceSheet[0].equityLiabilities.otherCurrentLiabilities',
+                        '',
+                      ))?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
+                      })}
                             </td>
                             <td
                               style={{
@@ -5260,13 +5468,14 @@ function Index() {
                                 paddingBottom: '38px',
                               }}
                             >
-                              {_get(
-                                companyData,
-                                'financial.balanceSheet[1].equityLiabilities.otherCurrentLiabilities',
-                                '',
-                              )?.toLocaleString(undefined, {
-                                minimumFractionDigits: 2,
-                              })}
+                                {convertValue(_get(
+                        companyData,
+                        'financial.balanceSheet[1].equityLiabilities.otherCurrentLiabilities',
+                        '',
+                      ))?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
+                      })}
                             </td>
                           </tr>
                         </table>
@@ -5669,13 +5878,14 @@ function Index() {
                         }}
                       >
                         {' '}
-                        {_get(
-                          companyData,
-                          'financial.cashFlowStatement[0].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
-                          '',
-                        )?.toLocaleString(undefined, {
-                          minimumFractionDigits: 2,
-                        })}
+                        {convertValue(_get(
+                        companyData,
+                        'financial.cashFlowStatement[0].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
+                        '',
+                      ))?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
+                      })}
                       </td>
                       <td
                         style={{
@@ -5687,13 +5897,14 @@ function Index() {
                         }}
                       >
                         {' '}
-                        {_get(
-                          companyData,
-                          'financial.cashFlowStatement[1].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
-                          '',
-                        )?.toLocaleString(undefined, {
-                          minimumFractionDigits: 2,
-                        })}
+                       {convertValue(_get(
+                        companyData,
+                        'financial.cashFlowStatement[1].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
+                        '',
+                      ))?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
+                      })}
                       </td>
                     </tr>
                     <tr>
@@ -5715,13 +5926,14 @@ function Index() {
                           fontWeight: '500',
                         }}
                       >
-                        {_get(
-                          companyData,
-                          'financial.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
-                          '',
-                        )?.toLocaleString(undefined, {
-                          minimumFractionDigits: 2,
-                        })}
+                        {convertValue(_get(
+                        companyData,
+                        'financial.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
+                        '',
+                      ))?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
+                      })}
                       </td>
                       <td
                         style={{
@@ -5732,13 +5944,14 @@ function Index() {
                         }}
                       >
                         {' '}
-                        {_get(
-                          companyData,
-                          'financial.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
-                          '',
-                        )?.toLocaleString(undefined, {
-                          minimumFractionDigits: 2,
-                        })}
+                         {convertValue(_get(
+                        companyData,
+                        'financial.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
+                        '',
+                      ))?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
+                      })}
                       </td>
                     </tr>
                     <tr>
@@ -5763,13 +5976,14 @@ function Index() {
                         }}
                       >
                         {' '}
-                        {_get(
-                          companyData,
-                          'financial.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
-                          '',
-                        )?.toLocaleString(undefined, {
-                          minimumFractionDigits: 2,
-                        })}
+                         {convertValue(_get(
+                        companyData,
+                        'financial.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
+                        '',
+                      ))?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
+                      })}
                       </td>
                       <td
                         style={{
@@ -5781,13 +5995,14 @@ function Index() {
                         }}
                       >
                         {' '}
-                        {_get(
-                          companyData,
-                          'financial.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
-                          '',
-                        )?.toLocaleString(undefined, {
-                          minimumFractionDigits: 2,
-                        })}
+                        {convertValue(_get(
+                        companyData,
+                        'financial.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
+                        '',
+                      ))?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
+                      })}
                       </td>
                     </tr>
                     <tr>
@@ -6528,7 +6743,7 @@ function Index() {
                     }}
                   >
                     {' '}
-                    {camData?.company?.creditLimit?.totalLimit}
+                    {addPrefixOrSuffix(convertValue(camData?.company?.creditLimit?.totalLimit), 'Cr', '')}
                   </span>
                 </td>
                 <td
@@ -6552,7 +6767,7 @@ function Index() {
                     }}
                   >
                     {' '}
-                    {camData?.company?.creditLimit?.utilizedLimit}
+                     {camData?.company?.creditLimit?.utilizedLimit}
                   </span>
                 </td>
                 <td
@@ -6576,7 +6791,7 @@ function Index() {
                     }}
                   >
                     {' '}
-                    {camData?.company?.creditLimit?.availableLimit}
+                   {camData?.company?.creditLimit?.availableLimit}
                   </span>
                 </td>
               </tr>
@@ -6880,7 +7095,7 @@ function Index() {
                       </td>
                     </tr>
                     <tr>
-                      <td
+                      {/* <td
                         colSpan={7}
                         style={{
                           fontSize: '22px',
@@ -6907,7 +7122,7 @@ function Index() {
                           manganese content shown on the certificate of typical
                           analysis.
                         </span>
-                      </td>
+                      </td> */}
                     </tr>
                   </table>
                 </td>
@@ -7237,6 +7452,24 @@ function Index() {
   }, [companyData?.profile?.directorDetai])
   console.log(personData, 'per')
   console.log(companyData?.profile?.directorDetail, 'director')
+  const [top5Customers, setTop5Customers1] = useState({
+    labels: [],
+    datasets: []
+  })
+  const [totalCustomer, setTotalCustomer1] = useState(0)
+  const [totalSupplier, setTotalSupplier1] = useState(0)
+  const [top5Suppliers, setTop5Suppliers1] = useState({
+    labels: [],
+    datasets: []
+  })
+  const [top3Share, setTop3Share1] = useState({
+    labels: [],
+    datasets: []
+  })
+  const [top3Open, setTop3Open1] = useState({
+    labels: [],
+    datasets: []
+  })
   const exportPDF = async() => {
     console.log(orderList, 'orderList')
     const doc = new jsPDF('p', 'pt', [1500, 1500])
@@ -7258,11 +7491,18 @@ function Index() {
   
     doc.html(
       ReactDOMServer.renderToString(
-        toPrintPdf(orderList, gstData?.detail?.salesDetailAnnual?.saleSummary,trendChartRevenueImg,trendChartPurchasesImg,skewnessChartRevenueImg,skewnessChartPurchasesImg),
+        toPrintPdf(orderList, 
+        gstData?.detail?.salesDetailAnnual?.saleSummary,
+        trendChartRevenueImg,
+        trendChartPurchasesImg,
+        skewnessChartRevenueImg,
+        skewnessChartPurchasesImg,
+        shareHoldingChartImg,
+        openBankChargeChartImg),
       ),
       {
         callback: function (doc) {
-          doc.save('sample.pdf')
+          doc.save('CAM.pdf')
         },
         // margin:margins,
         autoPaging: 'text',
@@ -8234,6 +8474,12 @@ function Index() {
                     approvedCredit={approvedCredit}
                     orderDetails={orderList}
                     GstData={gstData}
+                    setTotalCustomer1={setTotalCustomer1}
+                    setTotalSupplier1={setTotalSupplier1}
+                    setTop5Suppliers1={setTop5Suppliers1}
+                    setTop3Share1={setTop3Share1}
+                    setTop3Open1={setTop3Open1}
+                    setTop5Customers1={setTop5Customers1}
                   />
                 </div>
               </div>
@@ -8305,7 +8551,7 @@ const uploadButton = (dispatch, orderList, companyData) => {
         Update Info
       </button>
       <div className={`${styles.lastModified} text `}>
-        <span>Last Modified:</span>
+        <span className='accordion_Text'>Last Modified:</span>
         {moment(companyData?.updatedAt).format(' D MMM , h:mm a')}
       </div>
     </>

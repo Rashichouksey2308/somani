@@ -712,7 +712,7 @@ function Index() {
                 Update Info
               </button>
               <div className={`${styles.lastModified} text `}>
-                <span>Last Modified:</span> 28 Jan,11:34am
+                <span className='accordion_Text'>Last Modified:</span> 28 Jan,11:34am
               </div>
             </div>
           </div>

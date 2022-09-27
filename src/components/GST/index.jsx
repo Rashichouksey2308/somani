@@ -32,7 +32,7 @@ Chart.register(
   BarController,
   BarElement,
 )
-import { CovertvaluefromtoCR, convertValue } from '../../utils/helper'
+import { CovertvaluefromtoCR, convertValue, checkNan } from '../../utils/helper'
 import _get from 'lodash/get'
 // Chart.register(linear);
 function Index({ companyData, orderList, GstDataHandler, alertObj }) {
@@ -292,13 +292,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
 
     const data2 = {
       labels: covertMonths(
-        gstFilteredData?.detail?.summaryCharts?.grossPurchaseVsSale?.month,
+        gstFilteredData?.detail?.summaryCharts?.netPurchaseVsSale?.month,
       ),
       datasets: [
         {
           label: 'First dataset',
           data: getdata(
-            gstFilteredData?.detail?.summaryCharts?.grossPurchaseVsSale?.sale,
+            gstFilteredData?.detail?.summaryCharts?.netPurchaseVsSale?.sale,
           ),
           fill: true,
           backgroundColor: createGradient(
@@ -312,7 +312,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         {
           label: 'First dataset',
           data: getdata(
-            gstFilteredData?.detail?.summaryCharts?.grossPurchaseVsSale
+            gstFilteredData?.detail?.summaryCharts?.netPurchaseVsSale
               ?.purchase,
           ),
 
@@ -1062,14 +1062,14 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
                       {/* {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.grossTurnover?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { minimumFractionDigits: 2 },
                       )} */}
                       {convertValue(
                         gstFilteredData?.detail?.summaryInformation
                           ?.revenueProfile?.grossTurnover,
                         revenueProfile,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
 
@@ -1082,7 +1082,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
                       {/* {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.grossPurchases?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { minimumFractionDigits: 2 },
                       )} */}
 
@@ -1090,7 +1090,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         gstFilteredData?.detail?.summaryInformation
                           ?.revenueProfile?.grossPurchases,
                         revenueProfile,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
@@ -1101,9 +1101,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       Gross Margins %
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
-                      {(gstFilteredData?.detail?.summaryInformation?.revenueProfile?.grossMargin * 100)?.toFixed(
-                        2,
-                      )}
+                      {checkNan((gstFilteredData?.detail?.summaryInformation?.revenueProfile?.grossMargin * 100)?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      }))}
                       %
                     </div>
                   </Col>
@@ -1113,7 +1114,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
                       {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.ttlCustomer?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { maximumFractionDigits: 0 },
                       )}
                     </div>
@@ -1124,7 +1125,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
                       {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.ttlInv?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { maximumFractionDigits: 0 },
                       )}
                     </div>
@@ -1135,7 +1136,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
                       {
-                        (gstFilteredData?.detail?.summaryInformation
+                        checkNan(gstFilteredData?.detail?.summaryInformation
                           ?.revenueProfile?.intraOrgSalesPercent * 100)
                       }
                       %
@@ -1147,7 +1148,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
                       {
-                        (gstFilteredData?.detail?.summaryInformation
+                        checkNan(gstFilteredData?.detail?.summaryInformation
                           ?.revenueProfile?.relatedPartySales * 100)
                       }
                       %
@@ -1159,7 +1160,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
                       {
-                        (gstFilteredData?.detail?.summaryInformation
+                        checkNan(gstFilteredData?.detail?.summaryInformation
                           ?.revenueProfile?.exportSalesPercent * 100)
                       }
                       %
@@ -1171,14 +1172,14 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
                       {/* {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.gstPayable?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { minimumFractionDigits: 2 },
                       )} */}
                       {convertValue(
                         gstFilteredData?.detail?.summaryInformation
                           ?.revenueProfile?.gstPayable,
                         revenueProfile,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
@@ -1190,14 +1191,14 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </div>
                     <div className={`${styles.col_body} accordion_text`}>
                       {/* {gstFilteredData?.detail?.summaryInformation?.revenueProfile?.gstPaid?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { minimumFractionDigits: 2 },
                       )} */}
                       {convertValue(
                         gstFilteredData?.detail?.summaryInformation
                           ?.revenueProfile?.gstPaid,
                         revenueProfile,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
@@ -1488,10 +1489,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       <span
                         className={`${styles.blue_legend} ${styles.legend} legend`}
                       >
-                        Gross Turnover
+                        Net Turnover
                       </span>
                       <span className={`${styles.red_legend} ${styles.legend} legend`}>
-                        Gross Purchases
+                        Net Purchases
                       </span>
                     </div>
                   </div>
@@ -1674,13 +1675,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.grossTurnover?.current?.value,
                         saleDetails,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
 
                       })}
                       {/* {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.value?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { minimumFractionDigits: 2 },
                       )} */}
                     </td>
@@ -1695,19 +1696,20 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.grossTurnover?.previous?.value,
                         saleDetails,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
                       {/* {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.previous?.value?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { minimumFractionDigits: 2 },
                       )} */}
                     </td>
                     <td className="border-left-0">
-                      {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.previous?.percentage?.toFixed(
-                        2,
-                      )}
+                      {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.previous?.percentage?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })}
                       %
                     </td>
                   </tr>
@@ -1715,14 +1717,14 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td colSpan={2}>Recurring Sales</td>
                     <td>
                       {/* {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.current?.value?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { minimumFractionDigits: 2 },
                       )} */}
                       {convertValue(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.recurringSales?.current?.value,
                         saleDetails,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
@@ -1735,14 +1737,14 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </td>
                     <td>
                       {/* {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.previous?.value?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { minimumFractionDigits: 2 },
                       )} */}
                       {convertValue(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.recurringSales?.previous?.value,
                         saleDetails,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
@@ -1758,14 +1760,14 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td colSpan={2}>Related Party Sales</td>
                     <td>
                       {/* {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.relatedPartySales?.current?.value?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { minimumFractionDigits: 2 },
                       )} */}
                       {convertValue(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.relatedPartySales?.current?.value,
                         saleDetails,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
@@ -1778,14 +1780,14 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </td>
                     <td>
                       {/* {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.relatedPartySales?.previous?.value?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { minimumFractionDigits: 2 },
                       )} */}
                       {convertValue(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.relatedPartySales?.previous?.value,
                         saleDetails,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
@@ -1801,14 +1803,14 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td colSpan={2}>Intra Organization Sales</td>
                     <td>
                       {/* {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.intraOrgSalesPercent?.current?.value?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { minimumFractionDigits: 2 },
                       )} */}
                       {convertValue(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.intraOrgSalesPercent?.current?.value,
                         saleDetails,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
@@ -1821,22 +1823,23 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </td>
                     <td>
                       {/* {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.intraOrgSalesPercent?.previous?.value?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { minimumFractionDigits: 2 },
                       )} */}
                       {convertValue(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.intraOrgSalesPercent?.previous?.value,
                         saleDetails,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
                     </td>
                     <td className="border-left-0">
-                      {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.intraOrgSalesPercent?.previous?.percentage?.toFixed(
-                        2,
-                      )}
+                      {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.intraOrgSalesPercent?.previous?.percentage?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })}
                       %
                     </td>
                   </tr>
@@ -1844,42 +1847,44 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td colSpan={2}><span style={{ textTransform: 'uppercase' }}>B2B </span>Sales</td>
                     <td>
                       {/* {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.current?.value?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { minimumFractionDigits: 2 },
                       )} */}
                       {convertValue(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.B2BSales?.current?.value,
                         saleDetails,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
                     </td>
                     <td className="border-left-0">
-                      {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.current?.percentage?.toFixed(
-                        2,
-                      )}
+                      {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.current?.percentage?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })}
                       %
                     </td>
                     <td>
                       {/* {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.previous?.value?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { minimumFractionDigits: 2 },
                       )} */}
                       {convertValue(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.B2BSales?.previous?.value,
                         saleDetails,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
                     </td>
                     <td className="border-left-0">
-                      {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.previous?.percentage?.toFixed(
-                        2,
-                      )}
+                      {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.previous?.percentage?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })}
                       %
                     </td>
                   </tr>
@@ -1887,14 +1892,14 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td colSpan={2}>B2C Sales</td>
                     <td>
                       {/* {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2CSales?.current?.value?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { minimumFractionDigits: 2 },
                       )} */}
                       {convertValue(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.B2CSales?.current?.value,
                         saleDetails,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
@@ -1907,14 +1912,14 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </td>
                     <td>
                       {/* {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2CSales?.previous?.value?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { minimumFractionDigits: 2 },
                       )} */}
                       {convertValue(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.B2CSales?.previous?.value,
                         saleDetails,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
@@ -1930,42 +1935,44 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td colSpan={2}>Export Sales</td>
                     <td>
                       {/* {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.current?.value?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { minimumFractionDigits: 2 },
                       )} */}
                       {convertValue(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.exportSales?.current?.value,
                         saleDetails,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
                     </td>
                     <td className="border-left-0">
-                      {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.current?.percentage?.toFixed(
-                        2,
-                      )}
+                      {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.current?.percentage?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })}
                       %
                     </td>
                     <td>
                       {/* {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.current?.value?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { minimumFractionDigits: 2 },
                       )} */}
                       {convertValue(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.exportSales?.previous?.value,
                         saleDetails,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
                     </td>
                     <td className="border-left-0">
-                      {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.previous?.percentage?.toFixed(
-                        2,
-                      )}
+                      {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.previous?.percentage?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })}
                       %
                     </td>
                   </tr>
@@ -1973,10 +1980,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td colSpan={2}>Total Customers</td>
                     <td>
                       {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlCustomer?.current?.value?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { maximumFractionDigits: 0 },
                       )}
-                      {/* {convertValue(gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlCustomer?.previous?.value, saleDetails)?.toLocaleString(undefined, {
+                      {/* {convertValue(gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlCustomer?.previous?.value, saleDetails)?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
  minimumFractionDigits: 2,
                       })} */}
@@ -1990,10 +1997,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
 
                     <td>
                       {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlCustomer?.previous?.value?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { maximumFractionDigits: 0 },
                       )}
-                      {/* {convertValue(gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlCustomer?.previous?.value, saleDetails)?.toLocaleString(undefined, {
+                      {/* {convertValue(gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlCustomer?.previous?.value, saleDetails)?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
  minimumFractionDigits: 2,
                       })} */}
@@ -2009,10 +2016,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td colSpan={2}>Total Invoices</td>
                     <td>
                       {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlInv?.current?.value?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { maximumFractionDigits: 0 },
                       )}
-                      {/* {convertValue(gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlInv?.previous?.value, saleDetails)?.toLocaleString(undefined, {
+                      {/* {convertValue(gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlInv?.previous?.value, saleDetails)?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
  minimumFractionDigits: 2,
                       })} */}
@@ -2020,10 +2027,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td className="border-left-0">-</td>
                     <td>
                       {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlInv?.previous?.value?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { maximumFractionDigits: 0 },
                       )}
-                      {/* {convertValue(gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlInv?.previous?.value, saleDetails)?.toLocaleString(undefined, {
+                      {/* {convertValue(gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlInv?.previous?.value, saleDetails)?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
  minimumFractionDigits: 2,
                       })} */}
@@ -2037,9 +2044,12 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td></td>
                     <td className="border-left-0">
                       <strong>
-                        {(gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.salesGrowthRate?.current?.value * 100 ?? '')?.toLocaleString(
-                          undefined,
-                          { minimumFractionDigits: 2 },
+                        {checkNan(gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.salesGrowthRate?.current?.value * 100 ?? '')?.toLocaleString(
+                          'en-In',
+                          {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          },
                         )}
                         %
                       </strong>
@@ -2055,8 +2065,11 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td className="border-left-0">
                       <strong>
                         {(_get(gstFilteredData, 'detail.salesDetailAnnual.saleSummary.quaterlyGrowthRate.current.value', null) * 100 ?? '')?.toLocaleString(
-                          undefined,
-                          { minimumFractionDigits: 2 },
+                          'en-In',
+                          {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          },
                         )}
                         %
                       </strong>
@@ -2100,14 +2113,14 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td>Average Monthly Sales</td>
                     <td>
                       {/* {gstFilteredData?.detail?.salesDetailAnnual?.averages?.avgMonthlySales?.current?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { minimumFractionDigits: 2 },
                       )} */}
                       {convertValue(
                         gstFilteredData?.detail?.salesDetailAnnual?.averages
                           ?.avgMonthlySales?.current,
                         saleDetails,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
@@ -2118,7 +2131,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         gstFilteredData?.detail?.salesDetailAnnual?.averages
                           ?.avgMonthlySales?.previous,
                         saleDetails,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
@@ -2131,7 +2144,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         gstFilteredData?.detail?.salesDetailAnnual?.averages
                           ?.avgQuarterlySales?.current,
                         saleDetails,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
@@ -2142,7 +2155,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         gstFilteredData?.detail?.salesDetailAnnual?.averages
                           ?.avgQuarterlySales?.previous,
                         saleDetails,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
@@ -2155,7 +2168,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         gstFilteredData?.detail?.salesDetailAnnual?.averages
                           ?.avgttlvalcust?.current,
                         saleDetails,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
@@ -2166,7 +2179,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         gstFilteredData?.detail?.salesDetailAnnual?.averages
                           ?.avgttlvalcust?.previous,
                         saleDetails,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
@@ -2179,7 +2192,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         gstFilteredData?.detail?.salesDetailAnnual?.averages
                           ?.avgttlvalinv?.current,
                         saleDetails,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
@@ -2189,7 +2202,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         gstFilteredData?.detail?.salesDetailAnnual?.averages
                           ?.avgttlvalinv?.previous,
                         saleDetails,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
@@ -2198,16 +2211,16 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   <tr>
                     <td>Average Invoices per Customer</td>
                     <td>
-                      {gstFilteredData?.detail?.salesDetailAnnual?.averages?.avginvcust?.current?.toLocaleString(
-                        undefined,
-                        { minimumFractionDigits: 2 },
-                      )}
+                      {gstFilteredData?.detail?.salesDetailAnnual?.averages?.avginvcust?.current?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })}
                     </td>
                     <td>
-                      {gstFilteredData?.detail?.salesDetailAnnual?.averages?.avginvcust?.previous?.toLocaleString(
-                        undefined,
-                        { minimumFractionDigits: 2 },
-                      )}
+                      {gstFilteredData?.detail?.salesDetailAnnual?.averages?.avginvcust?.previous?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })}
                     </td>
                   </tr>
                 </table>
@@ -2251,7 +2264,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                             {sales.hsnDesc}
                           </td>
                           <td>
-                            {sales?.hsnSc?.toLocaleString(undefined, {
+                            {sales?.hsnSc?.toLocaleString('en-In', {
+                              maximumFractionDigits: 2,
                               minimumFractionDigits: 2,
                             })}
                           </td>
@@ -2259,18 +2273,17 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                             {convertValue(
                               sales?.turnover,
                               saleDetails,
-                            )?.toLocaleString(undefined, {
+                            )?.toLocaleString('en-In', {
                               maximumFractionDigits: 2,
                               minimumFractionDigits: 2,
                             })}
-                            {/* {sales?.turnover?.toLocaleString(undefined, {
+                            {/* {sales?.turnover?.toLocaleString('en-In', {
                               minimumFractionDigits: 2,
                             })} */}
                           </td>
                           <td>
-                            {sales?.sharePercent?.toLocaleString(undefined, {
+                            {sales?.sharePercent?.toLocaleString('en-In', {
                               maximumFractionDigits: 2,
-                              minimumFractionDigits: 2,
                               minimumFractionDigits: 2,
                             })}
                             %
@@ -2371,19 +2384,20 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         gstFilteredData?.detail?.purchaseDetailAnnual
                           ?.saleSummary?.grossPurchases?.current?.value,
                         purchasesDetailsUnit,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
                       {/* {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.value?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { minimumFractionDigits: 2 },
                       )} */}
                     </td>
                     <td className="border-left-0">
-                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.percentage?.toFixed(
-                        2,
-                      )}
+                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.current?.percentage?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })}
                       %
                     </td>
 
@@ -2392,15 +2406,16 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         gstFilteredData?.detail?.purchaseDetailAnnual
                           ?.saleSummary?.grossPurchases?.previous?.value,
                         purchasesDetailsUnit,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
                     </td>
                     <td className="border-left-0">
-                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.previous?.percentage?.toFixed(
-                        2,
-                      )}
+                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.grossPurchases?.previous?.percentage?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })}
                       %
                     </td>
                   </tr>
@@ -2411,15 +2426,16 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         gstFilteredData?.detail?.purchaseDetailAnnual
                           ?.saleSummary?.recurringPurchase?.current?.value,
                         purchasesDetailsUnit,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
                     </td>
                     <td className="border-left-0">
-                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.recurringPurchase?.current?.percentage?.toFixed(
-                        2,
-                      )}
+                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.recurringPurchase?.current?.percentage?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })}
                       %
                     </td>
 
@@ -2428,15 +2444,16 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         gstFilteredData?.detail?.purchaseDetailAnnual
                           ?.saleSummary?.recurringPurchase?.previous?.value,
                         purchasesDetailsUnit,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
                     </td>
                     <td className="border-left-0">
-                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.recurringPurchase?.previous?.percentage?.toFixed(
-                        2,
-                      )}
+                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.recurringPurchase?.previous?.percentage?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })}
                       %
                     </td>
                   </tr>
@@ -2448,16 +2465,17 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         gstFilteredData?.detail?.purchaseDetailAnnual
                           ?.saleSummary?.relatedPartyPurchase?.current?.value,
                         purchasesDetailsUnit,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
                     </td>
 
                     <td className="border-left-0">
-                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.relatedPartyPurchase?.current?.percentage?.toFixed(
-                        2,
-                      )}
+                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.relatedPartyPurchase?.current?.percentage?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })}
                       %
                     </td>
                     <td>
@@ -2465,15 +2483,16 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         gstFilteredData?.detail?.purchaseDetailAnnual
                           ?.saleSummary?.relatedPartyPurchase?.previous?.value,
                         purchasesDetailsUnit,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
                     </td>
                     <td className="border-left-0">
-                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.relatedPartyPurchase?.previous?.percentage?.toFixed(
-                        2,
-                      )}
+                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.relatedPartyPurchase?.previous?.percentage?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })}
                       %
                     </td>
                   </tr>
@@ -2485,19 +2504,20 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                           ?.saleSummary?.intraOrgPurchasesPercent?.current
                           ?.value,
                         purchasesDetailsUnit,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
                       {/* {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.intraOrgPurchasesPercent?.current?.value?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { minimumFractionDigits: 2 },
                       )} */}
                     </td>
                     <td className="border-left-0">
-                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.intraOrgPurchasesPercent?.current?.percentage?.toFixed(
-                        2,
-                      )}
+                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.intraOrgPurchasesPercent?.current?.percentage?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })}
                       %
                     </td>
                     <td>
@@ -2506,15 +2526,16 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                           ?.saleSummary?.intraOrgPurchasesPercent?.previous
                           ?.value,
                         purchasesDetailsUnit,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
                     </td>
                     <td className="border-left-0">
-                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.intraOrgPurchasesPercent?.previous?.percentage?.toFixed(
-                        2,
-                      )}
+                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.intraOrgPurchasesPercent?.previous?.percentage?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })}
                       %
                     </td>
                   </tr>
@@ -2525,15 +2546,16 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         gstFilteredData?.detail?.purchaseDetailAnnual
                           ?.saleSummary?.B2BPurchase?.current?.value,
                         purchasesDetailsUnit,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
                     </td>
                     <td className="border-left-0">
-                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.current?.percentage?.toFixed(
-                        2,
-                      )}
+                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.current?.percentage?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })}
                       %
                     </td>
                     <td>
@@ -2541,19 +2563,20 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         gstFilteredData?.detail?.purchaseDetailAnnual
                           ?.saleSummary?.B2BPurchase?.previous?.value,
                         purchasesDetailsUnit,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
                       {/* {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.previous?.value?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { minimumFractionDigits: 2 },
                       )} */}
                     </td>
                     <td className="border-left-0">
-                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.previous?.percentage?.toFixed(
-                        2,
-                      )}
+                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.B2BPurchase?.previous?.percentage?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })}
                       %
                     </td>
                   </tr>
@@ -2561,23 +2584,29 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   <tr>
                     <td colSpan={2}>Other Purchases (total - B2B)</td>
                     <td>
-                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.current?.value?.toLocaleString(
-                        undefined,
-                        { minimumFractionDigits: 2 },
-                      )}
+                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.current?.value?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })}
                     </td>
                     <td className="border-left-0">
-                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.current?.percentage?.toFixed(2)}
+                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.current?.percentage?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })}
                       %
                     </td>
                     <td>
-                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.previous?.value?.toLocaleString(
-                        undefined,
-                        { minimumFractionDigits: 2 },
-                      )}
+                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.previous?.value?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })}
                     </td>
                     <td className="border-left-0">
-                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.previous?.percentage?.toFixed(2)}
+                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.previous?.percentage?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })}
                       %
                     </td>
                   </tr>
@@ -2586,7 +2615,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td colSpan={2}>Total Suppliers</td>
                     <td>
                       {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlSuppliers?.current?.value?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { maximumFractionDigits: 0 },
                       )}
                     </td>
@@ -2598,7 +2627,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </td>
                     <td>
                       {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlSuppliers?.previous?.value?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { maximumFractionDigits: 0 },
                       )}
                     </td>
@@ -2614,7 +2643,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td colSpan={2}>Total Invoices</td>
                     <td>
                       {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.current?.value?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { maximumFractionDigits: 0 },
                       )}
                     </td>
@@ -2625,10 +2654,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       % */}
                     </td>
                     <td>
-                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.previous?.value?.toLocaleString(
-                        undefined,
-                        { maximumFractionDigits: 2 },
-                      )}
+                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.previous?.value?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })}
                     </td>
                     <td className="border-left-0">-
                       {/* {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.previous?.percentage?.toFixed(
@@ -2644,18 +2673,20 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td></td>
                     <td className="border-left-0">
                       <strong>
-                        {(gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.purchasesGrowthRate?.current?.value * 100)?.toFixed(
-                          2,
-                        )}
+                        {checkNan((gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.purchasesGrowthRate?.current?.value * 100)?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        }))}
                         %
                       </strong>
                     </td>
                     <td></td>
                     <td className="border-left-0">
                       <strong>
-                        {(gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.purchasesGrowthRate?.previous?.value * 100)?.toFixed(
-                          2,
-                        )}
+                        {checkNan((gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.purchasesGrowthRate?.previous?.value * 100)?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        }))}
                         %
                       </strong>
                     </td>
@@ -2667,18 +2698,20 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td></td>
                     <td className="border-left-0">
                       <strong>
-                        {(gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.current?.value * 100)?.toFixed(
-                          2,
-                        )}
+                        {checkNan((gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.current?.value * 100)?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        }))}
                         %
                       </strong>
                     </td>
                     <td></td>
                     <td className="border-left-0">
                       <strong>
-                        {(gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.previous?.value * 100)?.toFixed(
-                          2,
-                        )}
+                        {checkNan((gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.previous?.value * 100)?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        }))}
                         %
                       </strong>
                     </td>
@@ -2719,12 +2752,12 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         gstFilteredData?.detail?.purchaseDetailAnnual?.averages
                           ?.avgMonthlyPurchase?.current,
                         purchasesDetailsUnit,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2
                       })}
                       {/* {gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgMonthlyPurchase?.previous?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { minimumFractionDigits: 2 },
                       )} */}
                     </td>
@@ -2734,12 +2767,12 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         gstFilteredData?.detail?.purchaseDetailAnnual?.averages
                           ?.avgMonthlyPurchase?.previous,
                         purchasesDetailsUnit,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2
                       })}
                       {/* {gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgMonthlyPurchase?.current?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { minimumFractionDigits: 2 },
                       )} */}
                     </td>
@@ -2751,12 +2784,12 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         gstFilteredData?.detail?.purchaseDetailAnnual?.averages
                           ?.avgQuarterlyPurchase?.current,
                         purchasesDetailsUnit,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2
                       })}
                       {/* {gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgQuarterlyPurchase?.previous?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { minimumFractionDigits: 2 },
                       )} */}
                     </td>
@@ -2766,12 +2799,12 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         gstFilteredData?.detail?.purchaseDetailAnnual?.averages
                           ?.avgQuarterlyPurchase?.previous,
                         purchasesDetailsUnit,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2
                       })}
                       {/* {gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgQuarterlyPurchase?.current?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { minimumFractionDigits: 2 },
                       )} */}
                     </td>
@@ -2783,7 +2816,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         gstFilteredData?.detail?.purchaseDetailAnnual?.averages
                           ?.avgPurchasePerSupplier?.current,
                         purchasesDetailsUnit,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2
                       })}
@@ -2794,12 +2827,12 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         gstFilteredData?.detail?.purchaseDetailAnnual?.averages
                           ?.avgPurchasePerSupplier?.previous,
                         purchasesDetailsUnit,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2
                       })}
                       {/* {gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgPurchasePerSupplier?.current?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { minimumFractionDigits: 2 },
                       )} */}
                     </td>
@@ -2810,12 +2843,12 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       {convertValue(
                         gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgPurchasePerInv?.current,
                         purchasesDetailsUnit,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2
                       })}
                       {/* {gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgPurchasePerInv?.previous?.toLocaleString(
-                        undefined,
+                        'en-In',
                         { minimumFractionDigits: 2 },
                       )} */}
                     </td>
@@ -2825,7 +2858,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         gstFilteredData?.detail?.purchaseDetailAnnual?.averages
                           ?.avgPurchasePerInv?.previous,
                         purchasesDetailsUnit,
-                      )?.toLocaleString(undefined, {
+                      )?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2
                       })}
@@ -2835,7 +2868,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td>Average Invoices per Supplier</td>
                     <td>
                       {gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgInvPerSupplier?.current?.toLocaleString(
-                        undefined,
+                        'en-In',
                         {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
@@ -2845,7 +2878,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
 
                     <td>
                       {gstFilteredData?.detail?.purchaseDetailAnnual?.averages?.avgInvPerSupplier?.previous?.toLocaleString(
-                        undefined,
+                        'en-In',
                         {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
@@ -2892,7 +2925,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                             {sales.hsnDesc}
                           </td>
                           <td>
-                            {sales?.hsnSc.toLocaleString(undefined, {
+                            {sales?.hsnSc.toLocaleString('en-In', {
                               minimumFractionDigits: 2,
                             })}
                           </td>
@@ -2900,16 +2933,16 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                             {convertValue(
                               sales?.turnover,
                               purchasesDetailsUnit,
-                            )?.toLocaleString(undefined, {
+                            )?.toLocaleString('en-In', {
                               maximumFractionDigits: 2,
  minimumFractionDigits: 2,
                             })}
-                            {sales?.turnover.toLocaleString(undefined, {
+                            {sales?.turnover.toLocaleString('en-In', {
                               minimumFractionDigits: 2,
                             })}
                           </td>
                           <td>
-                            {sales?.sharePercent.toLocaleString(undefined, {
+                            {sales?.sharePercent.toLocaleString('en-In', {
                               minimumFractionDigits: 2,
                             })}
                             %
@@ -3147,9 +3180,8 @@ const gstCustomerDetail = (
                                   {convertValue(
                                     customer?.ttlVal,
                                     customerDetailsUnit,
-                                  )?.toLocaleString(undefined, {
+                                  )?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
-                                    minimumFractionDigits: 2,
                                     minimumFractionDigits: 2,
                                   })}
                                   {/* {(
@@ -3157,9 +3189,8 @@ const gstCustomerDetail = (
                                   )?.toLocaleString()} */}
                                 </td>
                                 <td>
-                                  {customer?.percentageOfTotalSales?.toLocaleString(undefined, {
+                                  {customer?.percentageOfTotalSales?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
-                                    minimumFractionDigits: 2,
                                     minimumFractionDigits: 2,
                                   })}
                                   %
@@ -3169,9 +3200,8 @@ const gstCustomerDetail = (
                                   {convertValue(
                                     customer?.salesPerInvoice,
                                     customerDetailsUnit,
-                                  )?.toLocaleString(undefined, {
+                                  )?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
-                                    minimumFractionDigits: 2,
                                     minimumFractionDigits: 2,
                                   })}
                                   {/* {customer?.salesPerInvoice?.toLocaleString()} */}
@@ -3221,11 +3251,11 @@ const gstCustomerDetail = (
                                   {convertValue(
                                     customer?.ttlVal,
                                     customerDetailsUnit,
-                                  )?.toLocaleString(undefined, {
+                                  )?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
                                     minimumFractionDigits: 2,
                                   })}
-                                  {/* {customer?.ttlVal?.toLocaleString(undefined, {
+                                  {/* {customer?.ttlVal?.toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                   })} */}
                                 </td>
@@ -3235,12 +3265,12 @@ const gstCustomerDetail = (
                                   {convertValue(
                                     customer?.salesPerInvoice,
                                     customerDetailsUnit,
-                                  )?.toLocaleString(undefined, {
+                                  )?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
                                     minimumFractionDigits: 2,
                                   })}
                                   {/* {customer?.salesPerInvoice?.toLocaleString(
-                                    undefined,
+                                    'en-In',
                                     { minimumFractionDigits: 2 },
                                   )} */}
                                 </td>
@@ -3289,7 +3319,7 @@ const gstCustomerDetail = (
                                   {convertValue(
                                     customer?.ttlVal,
                                     customerDetailsUnit,
-                                  )?.toLocaleString(undefined, {
+                                  )?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
                                     minimumFractionDigits: 2,
                                   })}
@@ -3303,7 +3333,7 @@ const gstCustomerDetail = (
                                   {convertValue(
                                     customer?.salesPerInvoice,
                                     customerDetailsUnit,
-                                  )?.toLocaleString(undefined, {
+                                  )?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
                                     minimumFractionDigits: 2,
                                   })}
@@ -3357,30 +3387,29 @@ const gstCustomerDetail = (
                                   {convertValue(
                                     customer?.ttlVal,
                                     customerDetailsUnit,
-                                  )?.toLocaleString(undefined, {
+                                  )?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
                                     minimumFractionDigits: 2,
                                   })}
                                 </td>
                                 <td>
-                                  {customer?.percentageOfTotalSales?.toLocaleString(undefined, {
+                                  {customer?.percentageOfTotalSales?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
-                                    minimumFractionDigits: 2,
                                     minimumFractionDigits: 2,
                                   })}
                                   %
                                 </td>
                                 <td>
-                                  {customer?.invoice?.toLocaleString(
-                                    undefined,
-                                    { minimumFractionDigits: 2 },
-                                  )}
+                                  {customer?.invoice?.toLocaleString('en-In', {
+                                    maximumFractionDigits: 2,
+                                    minimumFractionDigits: 2,
+                                  })}
                                 </td>
                                 <td>
                                   {convertValue(
                                     customer?.salesPerInvoice,
                                     customerDetailsUnit,
-                                  )?.toLocaleString(undefined, {
+                                  )?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
                                     minimumFractionDigits: 2,
                                   })}
@@ -3482,7 +3511,7 @@ const gstSupplierDetail = (
                                   {convertValue(
                                     customer?.ttlVal,
                                     supplierDetailsUnit,
-                                  )?.toLocaleString(undefined, {
+                                  )?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
                                     minimumFractionDigits: 2,
                                   })}
@@ -3491,9 +3520,10 @@ const gstSupplierDetail = (
                                   )?.toFixed(2)} */}
                                 </td>
                                 <td>
-                                  {customer?.percentageOfTotalPurchase?.toFixed(
-                                    2,
-                                  )}
+                                  {customer?.percentageOfTotalPurchase?.toLocaleString('en-In', {
+                                    maximumFractionDigits: 2,
+                                    minimumFractionDigits: 2,
+                                  })}
                                   %
                                 </td>
                                 <td>{customer?.invoice}</td>
@@ -3501,7 +3531,7 @@ const gstSupplierDetail = (
                                   {convertValue(
                                     customer?.purchasePerInvoice,
                                     supplierDetailsUnit,
-                                  )?.toLocaleString(undefined, {
+                                  )?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
                                     minimumFractionDigits: 2,
                                   })}
@@ -3553,15 +3583,16 @@ const gstSupplierDetail = (
                                   {convertValue(
                                     customer?.ttlVal,
                                     supplierDetailsUnit,
-                                  )?.toLocaleString(undefined, {
+                                  )?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
                                     minimumFractionDigits: 2,
                                   })}
                                 </td>
                                 <td>
-                                  {customer?.percentageOfTotalPurchase?.toFixed(
-                                    2,
-                                  )}
+                                  {customer?.percentageOfTotalPurchase?.toLocaleString('en-In', {
+                                    maximumFractionDigits: 2,
+                                    minimumFractionDigits: 2,
+                                  })}
                                   %
                                 </td>
                                 <td>{customer?.invoice?.toLocaleString()}</td>
@@ -3569,7 +3600,7 @@ const gstSupplierDetail = (
                                   {convertValue(
                                     customer?.purchasePerInvoice,
                                     supplierDetailsUnit,
-                                  )?.toLocaleString(undefined, {
+                                  )?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
                                     minimumFractionDigits: 2,
                                   })}
@@ -3622,15 +3653,16 @@ const gstSupplierDetail = (
                                   {convertValue(
                                     customer?.ttlVal,
                                     supplierDetailsUnit,
-                                  )?.toLocaleString(undefined, {
+                                  )?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
                                     minimumFractionDigits: 2,
                                   })}
                                 </td>
                                 <td>
-                                  {(customer?.percentageOfTotalPurchase ? customer?.percentageOfTotalPurchase * 100 : '')?.toFixed(
-                                    2,
-                                  )}
+                                  {checkNan((customer?.percentageOfTotalPurchase ? customer?.percentageOfTotalPurchase * 100 : '')?.toLocaleString('en-In', {
+                                    maximumFractionDigits: 2,
+                                    minimumFractionDigits: 2,
+                                  }))}
                                   %
                                 </td>
                                 <td>{customer?.invoice}</td>
@@ -3638,7 +3670,7 @@ const gstSupplierDetail = (
                                   {convertValue(
                                     customer?.purchasePerInvoice,
                                     supplierDetailsUnit,
-                                  )?.toLocaleString(undefined, {
+                                  )?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
                                     minimumFractionDigits: 2,
                                   })}
@@ -3692,28 +3724,29 @@ const gstSupplierDetail = (
                                   {convertValue(
                                     customer?.ttlVal,
                                     supplierDetailsUnit,
-                                  )?.toLocaleString(undefined, {
+                                  )?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
                                     minimumFractionDigits: 2,
                                   })}
                                 </td>
                                 <td>
-                                  {customer?.percentageOfTotalPurchase?.toFixed(
-                                    2,
-                                  )}
+                                  {customer?.percentageOfTotalPurchase?.toLocaleString('en-In', {
+                                    maximumFractionDigits: 2,
+                                    minimumFractionDigits: 2,
+                                  })}
                                   %
                                 </td>
                                 <td>
-                                  {customer?.invoice?.toLocaleString(
-                                    undefined,
-                                    { minimumFractionDigits: 2 },
-                                  )}
+                                  {customer?.invoice?.toLocaleString('en-In', {
+                                    maximumFractionDigits: 2,
+                                    minimumFractionDigits: 2,
+                                  })}
                                 </td>
                                 <td>
                                   {convertValue(
                                     customer?.purchasePerInvoice,
                                     supplierDetailsUnit,
-                                  )?.toLocaleString(undefined, {
+                                  )?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
                                     minimumFractionDigits: 2,
                                   })}
@@ -3818,7 +3851,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                                 {convertValue(
                                   sales?.totalSales,
                                   salesUnit,
-                                )?.toLocaleString(undefined, {
+                                )?.toLocaleString('en-In', {
                                   maximumFractionDigits: 2,
                                   minimumFractionDigits: 2,
                                 })}
@@ -3836,7 +3869,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                                 {convertValue(
                                   sales?.b2bSales,
                                   salesUnit,
-                                )?.toLocaleString(undefined, {
+                                )?.toLocaleString('en-In', {
                                   maximumFractionDigits: 2,
                                   minimumFractionDigits: 2,
                                 })}
@@ -3853,7 +3886,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                                 {convertValue(
                                   sales?.b2cSales,
                                   salesUnit,
-                                )?.toLocaleString(undefined, {
+                                )?.toLocaleString('en-In', {
                                   maximumFractionDigits: 2,
                                   minimumFractionDigits: 2,
                                 })}
@@ -3869,7 +3902,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                                 {convertValue(
                                   sales?.exportSales,
                                   salesUnit,
-                                )?.toLocaleString(undefined, {
+                                )?.toLocaleString('en-In', {
                                   maximumFractionDigits: 2,
                                   minimumFractionDigits: 2,
                                 })}
@@ -3884,9 +3917,8 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                             (sales, index) => (
 
                               <td>
-                                {sales?.toLocaleString(undefined, {
+                                {sales?.toLocaleString('en-In', {
                                   maximumFractionDigits: 2,
-                                  minimumFractionDigits: 2,
                                   minimumFractionDigits: 2,
                                 }) ?? ''} %
 
@@ -3931,7 +3963,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                                 {(
                                   sales?.newCustomer
 
-                                )?.toLocaleString(undefined, {
+                                )?.toLocaleString('en-In', {
                                   maximumFractionDigits: 2,
                                   minimumFractionDigits: 2,
                                 })}
@@ -3948,7 +3980,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                                 {(
                                   sales?.RecurringCustomer
 
-                                )?.toLocaleString(undefined, {
+                                )?.toLocaleString('en-In', {
                                   maximumFractionDigits: 2,
                                   minimumFractionDigits: 2,
                                 })}
@@ -3989,7 +4021,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                           {gstFilteredData?.detail?.salesDeatail?.clients?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
-                                {sales?.new?.toLocaleString(undefined, {
+                                {sales?.new?.toLocaleString('en-In', {
                                   maximumFractionDigits: 0,
                                 })}
                               </td>
@@ -4001,7 +4033,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                           {gstFilteredData?.detail?.salesDeatail?.clients?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
-                                {sales?.Recurring?.toLocaleString(undefined, {
+                                {sales?.Recurring?.toLocaleString('en-In', {
                                   maximumFractionDigits: 0,
                                 })}
                               </td>
@@ -4176,7 +4208,7 @@ const gstPurchase = (
                                 {convertValue(
                                   sales?.totalPurchase,
                                   purchasesUnit,
-                                )?.toLocaleString(undefined, {
+                                )?.toLocaleString('en-In', {
                                   maximumFractionDigits: 2,
                                   minimumFractionDigits: 2,
                                 })}
@@ -4193,7 +4225,7 @@ const gstPurchase = (
                                 {convertValue(
                                   sales?.b2b,
                                   purchasesUnit,
-                                )?.toLocaleString(undefined, {
+                                )?.toLocaleString('en-In', {
                                   maximumFractionDigits: 2,
                                   minimumFractionDigits: 2,
                                 })}
@@ -4230,7 +4262,7 @@ const gstPurchase = (
                                 {convertValue(
                                   sales?.others,
                                   purchasesUnit,
-                                )?.toLocaleString(undefined, {
+                                )?.toLocaleString('en-In', {
                                   maximumFractionDigits: 2,
                                   minimumFractionDigits: 2,
                                 })}
@@ -4287,7 +4319,7 @@ const gstPurchase = (
                                 {(
                                   sales?.newSuppliers
 
-                                )?.toLocaleString(undefined, {
+                                )?.toLocaleString('en-In', {
                                   maximumFractionDigits: 2,
                                   minimumFractionDigits: 2,
                                 })}
@@ -4304,7 +4336,7 @@ const gstPurchase = (
                                 {(
                                   sales?.recurringSuppliers
 
-                                )?.toLocaleString(undefined, {
+                                )?.toLocaleString('en-In', {
                                   maximumFractionDigits: 2,
                                   minimumFractionDigits: 2,
                                 })}
@@ -4346,7 +4378,7 @@ const gstPurchase = (
                           {gstFilteredData?.detail?.purchaseDetail?.suppliers?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
-                                {sales?.new?.toLocaleString(undefined, {
+                                {sales?.new?.toLocaleString('en-In', {
                                   maximumFractionDigits: 0,
                                 })}
                               </td>
@@ -4358,7 +4390,7 @@ const gstPurchase = (
                           {gstFilteredData?.detail?.purchaseDetail?.suppliers?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
-                                {sales?.recurring?.toLocaleString(undefined, {
+                                {sales?.recurring?.toLocaleString('en-In', {
                                   maximumFractionDigits: 0,
                                 })}
                               </td>
@@ -4398,7 +4430,7 @@ const gstPurchase = (
                           {gstFilteredData?.detail?.purchaseDetail?.numberOfInvoices?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
-                                {sales?.total?.toLocaleString(undefined, {
+                                {sales?.total?.toLocaleString('en-In', {
                                   minimumFractionDigits: 2,
                                 })}
                               </td>
@@ -4410,7 +4442,7 @@ const gstPurchase = (
                           {gstFilteredData?.detail?.purchaseDetail?.numberOfInvoices?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
-                                {sales?.b2b?.toLocaleString(undefined, {
+                                {sales?.b2b?.toLocaleString('en-In', {
                                   minimumFractionDigits: 2,
                                 })}
                               </td>
@@ -4423,7 +4455,7 @@ const gstPurchase = (
                           {gstFilteredData?.detail?.purchaseDetail?.numberOfInvoices?.slice()?.reverse().map(
                             (sales, index) => (
                               <td key={index}>
-                                {sales?.others?.toLocaleString(undefined, {
+                                {sales?.others?.toLocaleString('en-In', {
                                   minimumFractionDigits: 2,
                                 })}
                               </td>
