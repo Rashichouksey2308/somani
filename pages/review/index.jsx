@@ -1620,18 +1620,12 @@ function Index() {
                   style={{
                     padding: '0 35px',
                     borderBottom: '2px solid #CAD6E6',
+                    fontSize: '22px',
+                    color: '#3687E8',
+                    lineHeight: '27px',
+                    fontWeight: 'bold',
                   }}
-                >
-                  <h3
-                    style={{
-                      fontSize: '22px',
-                      color: '#3687E8',
-                      lineHeight: '27px',
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    Basic Info
-                  </h3>
+                  >Basic Info
                 </td>
               </tr>
               <tr bgColor="#F7F9FF" height="92">
@@ -2088,6 +2082,10 @@ function Index() {
                 </td>
               </tr>
             </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
             <table
               width="100%"
               bgColor="#ffffff"
@@ -2108,18 +2106,12 @@ function Index() {
                   style={{
                     padding: '0 35px',
                     borderBottom: '2px solid #CAD6E6',
+                    fontSize: '22px',
+                    color: '#3687E8',
+                    lineHeight: '27px',
+                    fontWeight: 'bold',
                   }}
-                >
-                  <h3
-                    style={{
-                      fontSize: '22px',
-                      color: '#3687E8',
-                      lineHeight: '27px',
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    Supplier Info
-                  </h3>
+                  >Supplier Info
                 </td>
               </tr>
               <tr>
@@ -2337,6 +2329,145 @@ function Index() {
                 </td>
               </tr>
             </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
+            <table
+              width="100%"
+              bgColor="#ffffff"
+              cellPadding="0"
+              cellSpacing="0"
+              border="0"
+              style={{
+                border: '1px solid #D2D7E5',
+                borderRadius: '6px',
+                boxShadow: '0 3px 6px #CAD0E2',
+                marginBottom: '26px',
+              }}
+            >
+              <tr>
+                <td
+                  colSpan={2}
+                  height="78"
+                  style={{
+                    padding: '0 35px',
+                    borderBottom: '2px solid #CAD6E6',
+                    fontSize: '22px',
+                    color: '#3687E8',
+                    lineHeight: '27px',
+                    fontWeight: 'bold',
+                  }}
+                  >Customer Rating
+                </td>
+              </tr>
+              <tr>
+                <td width="50%"
+                  style={{borderRight: '2px solid #CAD6E6'
+                  }}
+                >Graph
+                </td>
+                <td width="50%" valign='top' style={{padding: '35px'}}>
+                  <table width="100%" cellPadding="10" cellSpacing="0" border="0" style={{border: '1px solid #D2D7E5', marginBottom: '23px'}}>
+                    <tr>
+                      <td colSpan={2} style={{fontSize: '16px', color: '#111111', lineHeight: '19px', fontWeight: 'bold'}}>BUSINESS PROFILE</td>
+                    </tr>
+                    <tr>
+                      <td width="90%">
+                        <span
+                          style={{
+                            background: '#F3F4F7',
+                            borderRadius: '2px',
+                            height: '12px',
+                            width: '100%',
+                            display: 'inline-block',
+                            float: 'left',
+                          }}
+                        >
+                          <span
+                            style={{
+                              background: '#FFB700',
+                              width: '80%',
+                              height: '12px',
+                              borderRadius: '2px',
+                              display: 'inline-block',
+                              float: 'left',
+                            }}
+                          ></span>
+                        </span>
+                      </td>
+                      <td width="10%" align='right' style={{fontSize: '19px', color: '#111111', lineHeight: '24px', fontWeight: 'bold'}}>80%</td>
+                    </tr>
+                  </table>
+                  <table width="100%" cellPadding="10" cellSpacing="0" border="0" style={{border: '1px solid #D2D7E5', marginBottom: '23px'}}>
+                    <tr>
+                      <td colSpan={2} style={{fontSize: '16px', color: '#111111', lineHeight: '19px', fontWeight: 'bold'}}>REVENUE PROFILE</td>
+                    </tr>
+                    <tr>
+                      <td width="90%">
+                        <span
+                          style={{
+                            background: '#F3F4F7',
+                            borderRadius: '2px',
+                            height: '12px',
+                            width: '100%',
+                            display: 'inline-block',
+                            float: 'left',
+                          }}
+                        >
+                          <span
+                            style={{
+                              background: '#FF4230',
+                              width: '40%',
+                              height: '12px',
+                              borderRadius: '2px',
+                              display: 'inline-block',
+                              float: 'left',
+                            }}
+                          ></span>
+                        </span>
+                      </td>
+                      <td width="10%" align='right' style={{fontSize: '19px', color: '#111111', lineHeight: '24px', fontWeight: 'bold'}}>40%</td>
+                    </tr>
+                  </table>
+                  <table width="100%" cellPadding="10" cellSpacing="0" border="0" style={{border: '1px solid #D2D7E5'}}>
+                    <tr>
+                      <td colSpan={2} style={{fontSize: '16px', color: '#111111', lineHeight: '19px', fontWeight: 'bold'}}>FINANCIAL PROFILE</td>
+                    </tr>
+                    <tr>
+                      <td width="90%">
+                        <span
+                          style={{
+                            background: '#F3F4F7',
+                            borderRadius: '2px',
+                            height: '12px',
+                            width: '100%',
+                            display: 'inline-block',
+                            float: 'left',
+                          }}
+                        >
+                          <span
+                            style={{
+                              background: '#83C400',
+                              width: '80%',
+                              height: '12px',
+                              borderRadius: '2px',
+                              display: 'inline-block',
+                              float: 'left',
+                            }}
+                          ></span>
+                        </span>
+                      </td>
+                      <td width="10%" align='right' style={{fontSize: '19px', color: '#111111', lineHeight: '24px', fontWeight: 'bold'}}>40%</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
             <table
               width="100%"
               bgColor="#ffffff"
@@ -2357,18 +2488,12 @@ function Index() {
                   style={{
                     padding: '0 35px',
                     borderBottom: '2px solid #CAD6E6',
+                    fontSize: '22px',
+                    color: '#3687E8',
+                    lineHeight: '27px',
+                    fontWeight: 'bold',
                   }}
-                >
-                  <h3
-                    style={{
-                      fontSize: '22px',
-                      color: '#3687E8',
-                      lineHeight: '27px',
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    Group Exposure Details
-                  </h3>
+                  >Group Exposure Details
                 </td>
               </tr>
               <tr>
@@ -2395,14 +2520,9 @@ function Index() {
                               }}
                             >
                               <tr>
-                                <td
+                                <td width="10%"
                                   height="60"
-                                  colSpan={2}
                                   style={{
-                                    fontSize: '22px',
-                                    color: '#111111',
-                                    lineHeight: '27px',
-                                    fontWeight: 'bold',
                                     padding: '32px 22px 19px',
                                   }}
                                 >
@@ -2414,8 +2534,10 @@ function Index() {
                                       fontWeight: 'bold',
                                       background: '#FFECCF',
                                       borderRadius: '8px',
-                                      marginRight: '22px',
-                                      padding: '13px',
+                                      padding: '13px 0',
+                                      width: '60px',
+                                      height: '60px',
+                                      textAlign: 'center',
                                       display: 'inline-block',
                                     }}
                                   >
@@ -2424,7 +2546,16 @@ function Index() {
                                         return item?.charAt(0)?.toUpperCase()
                                       }
                                     })}
-                                  </span>{' '}
+                                  </span>
+                                </td>
+                                <td width="90%"
+                                  style={{
+                                    fontSize: '22px',
+                                    color: '#111111',
+                                    lineHeight: '27px',
+                                    fontWeight: 'bold',
+                                    padding: '32px 22px 19px',
+                                  }}>{' '}
                                   {exp.name}
                                 </td>
                               </tr>
@@ -2473,6 +2604,7 @@ function Index() {
                                       height: '12px',
                                       width: '100%',
                                       display: 'inline-block',
+                                      float: 'left',
                                     }}
                                   >
                                     <span
@@ -2534,6 +2666,7 @@ function Index() {
                                       height: '12px',
                                       width: '100%',
                                       display: 'inline-block',
+                                      float: 'left',
                                     }}
                                   >
                                     <span
@@ -2593,6 +2726,10 @@ function Index() {
                 </td>
               </tr>
             </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
             <table
               width="100%"
               bgColor="#ffffff"
@@ -2613,18 +2750,12 @@ function Index() {
                   style={{
                     padding: '0 35px',
                     borderBottom: '2px solid #CAD6E6',
+                    fontSize: '22px',
+                    color: '#3687E8',
+                    lineHeight: '27px',
+                    fontWeight: 'bold',
                   }}
-                >
-                  <h3
-                    style={{
-                      fontSize: '22px',
-                      color: '#3687E8',
-                      lineHeight: '27px',
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    Order Summary - Last 6 Orders
-                  </h3>
+                  >Order Summary - Last 6 Orders
                 </td>
               </tr>
               <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
@@ -2852,6 +2983,10 @@ function Index() {
                 </td>
               </tr>
             </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
             <table
               width="100%"
               bgColor="#ffffff"
@@ -2872,18 +3007,12 @@ function Index() {
                   style={{
                     padding: '0 35px',
                     borderBottom: '2px solid #CAD6E6',
+                    fontSize: '22px',
+                    color: '#3687E8',
+                    lineHeight: '27px',
+                    fontWeight: 'bold',
                   }}
-                >
-                  <h3
-                    style={{
-                      fontSize: '22px',
-                      color: '#3687E8',
-                      lineHeight: '27px',
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    Operational Details
-                  </h3>
+                  >Operational Details
                 </td>
               </tr>
               <tr>
@@ -3027,6 +3156,10 @@ function Index() {
                 </td>
               </tr>
             </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
             <table
               width="100%"
               bgColor="#ffffff"
@@ -3047,18 +3180,12 @@ function Index() {
                   style={{
                     padding: '0 35px',
                     borderBottom: '2px solid #CAD6E6',
+                    fontSize: '22px',
+                    color: '#3687E8',
+                    lineHeight: '27px',
+                    fontWeight: 'bold',
                   }}
-                >
-                  <h3
-                    style={{
-                      fontSize: '22px',
-                      color: '#3687E8',
-                      lineHeight: '27px',
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    Director Details
-                  </h3>
+                  >Director Details
                 </td>
               </tr>
               <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
@@ -3211,6 +3338,10 @@ function Index() {
                 },
               )}
             </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
             <table
               width="100%"
               bgColor="#ffffff"
@@ -3231,18 +3362,543 @@ function Index() {
                   style={{
                     padding: '0 35px',
                     borderBottom: '2px solid #CAD6E6',
+                    fontSize: '22px',
+                    color: '#3687E8',
+                    lineHeight: '27px',
+                    fontWeight: 'bold',
                   }}
-                >
-                  <h3
-                    style={{
-                      fontSize: '22px',
-                      color: '#3687E8',
-                      lineHeight: '27px',
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    Debt Profile
-                  </h3>
+                  >Shareholding Details
+                </td>
+              </tr>
+              <tr>
+                <td width="33%" style={{borderRight: '2px solid #CAD6E6'}}>Graph</td>
+                <td width="66%" valign='top'>
+                  <table width="100%" cellPadding="12" cellSpacing="0" border="0">
+                    <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
+                      <td colSpan={2}
+                        width="30%"
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          fontWeight: 'bold',
+                          paddingLeft: '35px',
+                          textTransform: 'uppercase',
+                        }}
+                      >
+                        NAME
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          fontWeight: 'bold',
+                          textTransform: 'uppercase',
+                        }}
+                      >
+                        NO. OF SHARES
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          fontWeight: 'bold',
+                          textTransform: 'uppercase',
+                        }}
+                      >
+                        % SHARE
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          fontWeight: 'bold',
+                          textTransform: 'uppercase',
+                        }}
+                      >
+                        DIRECTOR
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="5%"
+                        // height="60"
+                        style={{
+                          padding: '21px 12px 21px 35px'
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontSize: '28px',
+                            color: '#FF9D00',
+                            lineHeight: '34px',
+                            fontWeight: 'bold',
+                            background: '#FFECCF',
+                            borderRadius: '8px',
+                            padding: '13px 0',
+                            width: '60px',
+                            height: '60px',
+                            textAlign: 'center',
+                            display: 'inline-block'
+                          }}
+                        >AJ
+                        </span>
+                      </td>
+                      <td width="25%"
+                        style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '27px',
+                          fontWeight: 'bold',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >Arv Jay
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >120
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >80%
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >Yes
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        height="60"
+                        style={{
+                          padding: '21px 12px 21px 35px'
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontSize: '28px',
+                            color: '#FF9D00',
+                            lineHeight: '34px',
+                            fontWeight: 'bold',
+                            background: '#FFECCF',
+                            borderRadius: '8px',
+                            padding: '13px 0',
+                            width: '60px',
+                            height: '60px',
+                            textAlign: 'center',
+                            display: 'inline-block'
+                          }}
+                        >RS
+                        </span>
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '27px',
+                          fontWeight: 'bold',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >Radhe Singh
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >120
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >80%
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >Yes
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        height="60"
+                        style={{
+                          padding: '21px 12px 21px 35px'
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontSize: '28px',
+                            color: '#FF9D00',
+                            lineHeight: '34px',
+                            fontWeight: 'bold',
+                            background: '#FFECCF',
+                            borderRadius: '8px',
+                            padding: '13px 0',
+                            width: '60px',
+                            height: '60px',
+                            textAlign: 'center',
+                            display: 'inline-block'
+                          }}
+                        >SS
+                        </span>
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '27px',
+                          fontWeight: 'bold',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >Sagar Sinha
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >120
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >80%
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >Yes
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
+            <table
+              width="100%"
+              bgColor="#ffffff"
+              cellPadding="0"
+              cellSpacing="0"
+              border="0"
+              style={{
+                border: '1px solid #D2D7E5',
+                borderRadius: '6px',
+                boxShadow: '0 3px 6px #CAD0E2',
+                marginBottom: '26px',
+              }}
+            >
+              <tr>
+                <td
+                  colSpan={2}
+                  height="78"
+                  style={{
+                    padding: '0 35px',
+                    borderBottom: '2px solid #CAD6E6',
+                    fontSize: '22px',
+                    color: '#3687E8',
+                    lineHeight: '27px',
+                    fontWeight: 'bold',
+                  }}
+                  >Open Bank Charge Details
+                </td>
+              </tr>
+              <tr>
+                <td width="33%" style={{borderRight: '2px solid #CAD6E6'}}>Graph</td>
+                <td width="66%" valign='top'>
+                  <table width="100%" cellPadding="12" cellSpacing="0" border="0">
+                    <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
+                      <td colSpan={2}
+                        width="30%"
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          fontWeight: 'bold',
+                          paddingLeft: '35px',
+                          textTransform: 'uppercase',
+                        }}
+                      >
+                        BANK NAME
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          fontWeight: 'bold',
+                          textTransform: 'uppercase',
+                        }}
+                      >
+                        CHARGE AMOUNT
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '15px',
+                          color: '#8492A6',
+                          lineHeight: '18px',
+                          fontWeight: 'bold',
+                          textTransform: 'uppercase',
+                        }}
+                      >
+                        DATE OF CREATION
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="5%"
+                        height="60"
+                        style={{
+                          padding: '21px 12px 21px 35px'
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontSize: '28px',
+                            color: '#FF9D00',
+                            lineHeight: '34px',
+                            fontWeight: 'bold',
+                            background: '#FFECCF',
+                            borderRadius: '8px',
+                            padding: '13px 0',
+                            width: '60px',
+                            height: '60px',
+                            textAlign: 'center',
+                            display: 'inline-block'
+                          }}
+                        >IB
+                        </span>
+                      </td>
+                      <td width="25%"
+                        style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '27px',
+                          fontWeight: 'bold',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >ICICI Bank
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >1,900.00
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >22-02-2020
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        height="60"
+                        style={{
+                          padding: '21px 12px 21px 35px'
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontSize: '28px',
+                            color: '#FF9D00',
+                            lineHeight: '34px',
+                            fontWeight: 'bold',
+                            background: '#FFECCF',
+                            borderRadius: '8px',
+                            padding: '13px 0',
+                            width: '60px',
+                            height: '60px',
+                            textAlign: 'center',
+                            display: 'inline-block'
+                          }}
+                        >HB
+                        </span>
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '27px',
+                          fontWeight: 'bold',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >HDFC Bank
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >1,900.00
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >22-02-2020
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        height="60"
+                        style={{
+                          padding: '21px 12px 21px 35px'
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontSize: '28px',
+                            color: '#FF9D00',
+                            lineHeight: '34px',
+                            fontWeight: 'bold',
+                            background: '#FFECCF',
+                            borderRadius: '8px',
+                            padding: '13px 0',
+                            width: '60px',
+                            height: '60px',
+                            textAlign: 'center',
+                            display: 'inline-block'
+                          }}
+                        >SB
+                        </span>
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '27px',
+                          fontWeight: 'bold',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >SBI Bank
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >1,900.00
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >22-02-2020
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
+            <table
+              width="100%"
+              bgColor="#ffffff"
+              cellPadding="0"
+              cellSpacing="0"
+              border="0"
+              style={{
+                border: '1px solid #D2D7E5',
+                borderRadius: '6px',
+                boxShadow: '0 3px 6px #CAD0E2',
+                marginBottom: '26px',
+              }}
+            >
+              <tr>
+                <td
+                  colSpan={2}
+                  height="78"
+                  style={{
+                    padding: '0 35px',
+                    borderBottom: '2px solid #CAD6E6',
+                    fontSize: '22px',
+                    color: '#3687E8',
+                    lineHeight: '27px',
+                    fontWeight: 'bold',
+                  }}
+                  >Debt Profile
                 </td>
               </tr>
               <tr>
@@ -3515,7 +4171,7 @@ function Index() {
                     border="0"
                   >
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
-                      <th
+                      <td
                         style={{
                           fontSize: '15px',
                           color: '#8492A6',
@@ -3526,8 +4182,8 @@ function Index() {
                         }}
                       >
                         BANK NAME
-                      </th>
-                      <th
+                      </td>
+                      <td
                         style={{
                           fontSize: '15px',
                           color: '#8492A6',
@@ -3537,8 +4193,8 @@ function Index() {
                         }}
                       >
                         LIMIT TYPE
-                      </th>
-                      <th
+                      </td>
+                      <td
                         style={{
                           fontSize: '15px',
                           color: '#8492A6',
@@ -3548,8 +4204,8 @@ function Index() {
                         }}
                       >
                         LIMITS
-                      </th>
-                      <th
+                      </td>
+                      <td
                         style={{
                           fontSize: '15px',
                           color: '#8492A6',
@@ -3559,7 +4215,7 @@ function Index() {
                         }}
                       >
                         CONDUCT
-                      </th>
+                      </td>
                     </tr>
                     {camData?.company?.debtProfile?.map((debt, index) => {
                       return (
@@ -3617,6 +4273,10 @@ function Index() {
                 </td>
               </tr>
             </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
             <table
               width="100%"
               bgColor="#ffffff"
@@ -3637,18 +4297,12 @@ function Index() {
                   style={{
                     padding: '0 35px',
                     borderBottom: '2px solid #CAD6E6',
+                    fontSize: '22px',
+                    color: '#3687E8',
+                    lineHeight: '27px',
+                    fontWeight: 'bold',
                   }}
-                >
-                  <h3
-                    style={{
-                      fontSize: '22px',
-                      color: '#3687E8',
-                      lineHeight: '27px',
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    Operational Details
-                  </h3>
+                  >Operational Details
                 </td>
               </tr>
               <tr>
@@ -3814,6 +4468,10 @@ function Index() {
                 </td>
               </tr>
             </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
             <table
               width="100%"
               bgColor="#ffffff"
@@ -3834,23 +4492,17 @@ function Index() {
                   style={{
                     padding: '0 35px',
                     borderBottom: '2px solid #CAD6E6',
+                    fontSize: '22px',
+                    color: '#3687E8',
+                    lineHeight: '27px',
+                    fontWeight: 'bold',
                   }}
-                >
-                  <h3
-                    style={{
-                      fontSize: '22px',
-                      color: '#3687E8',
-                      lineHeight: '27px',
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    Revenue Details
-                  </h3>
+                  >Revenue Details
                 </td>
               </tr>
               <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
-                <th width="50%" style={{ paddingLeft: '35px' }}></th>
-                <th
+                <td width="50%" style={{ paddingLeft: '35px' }}></td>
+                <td
                   style={{
                     fontSize: '15px',
                     color: '#8492A6',
@@ -3861,8 +4513,8 @@ function Index() {
                   }}
                 >
                   TREND
-                </th>
-                <th
+                </td>
+                <td
                   style={{
                     fontSize: '15px',
                     color: '#8492A6',
@@ -3872,8 +4524,8 @@ function Index() {
                   }}
                 >
                   LATEST YEAR
-                </th>
-                <th
+                </td>
+                <td
                   style={{
                     fontSize: '15px',
                     color: '#8492A6',
@@ -3883,8 +4535,8 @@ function Index() {
                   }}
                 >
                   PREVIOUS YEAR
-                </th>
-                <th
+                </td>
+                <td
                   style={{
                     fontSize: '15px',
                     color: '#8492A6',
@@ -3894,7 +4546,7 @@ function Index() {
                   }}
                 >
                   GROWTH
-                </th>
+                </td>
               </tr>
               <tr>
                 <td
@@ -3909,7 +4561,7 @@ function Index() {
                   Gross Revenue
                 </td>
                 <td align="center" style={{ paddingTop: '23px' }}>
-                  <img src="/static/arrow-up-green.svg" alt="Arrow Green" />
+                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" />
                 </td>
                 <td
                   style={{
@@ -3960,7 +4612,7 @@ function Index() {
                   Related Party Sales
                 </td>
                 <td align="center">
-                  <img src="/static/arrow-up-green.svg" alt="Arrow Green" />
+                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" />
                 </td>
                 <td
                   style={{
@@ -4012,7 +4664,7 @@ function Index() {
                   Intra Organization Sales
                 </td>
                 <td align="center">
-                  <img src="/static/arrow-down-red.svg" alt="Arrow Red" />
+                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAflBMVEUAAAD/AAD/AAD/VVXjOTnuRETwPDzoOjrrPT3pPDzrPDzqPj7sPz/sPj7pPz/qPj7rPj7pQEDqPz/qQEDpPz/qQEDrPz/rPz/qPj7qPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz////+T0xFJAAAAKHRSTlMAAQIDCQ8RFhkiJjE1QlFWZ2h6fI6QoqO0ub6/wsbP4eTp6/L0+fv92ny6iQAAAAFiS0dEKcq3hSQAAABlSURBVBgZZcEHEoIwAEXBh4LYQOwFAvb8+59QBjNMCLuUGrlRa6Rm9VHgu4a9AjtgUmnATGktXvK8l3S28hT8RRf1rhFO+pDznNPL5WzwnNU54Usate4zBjIr2YzAUToQio2JcX4Tjhpu0b32YgAAAABJRU5ErkJggg==" alt="Arrow Red" />
                 </td>
                 <td
                   style={{
@@ -4064,7 +4716,7 @@ function Index() {
                   B2B Sales
                 </td>
                 <td align="center">
-                  <img src="/static/arrow-up-green.svg" alt="Arrow Green" />
+                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" />
                 </td>
                 <td
                   style={{
@@ -4107,7 +4759,7 @@ function Index() {
                 </td>
 
                 <td align="center">
-                  <img src="/static/arrow-up-green.svg" alt="Arrow Green" />
+                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" />
                 </td>
                 <td
                   style={{
@@ -4150,7 +4802,7 @@ function Index() {
                 </td>
 
                 <td align="center">
-                  <img src="/static/arrow-up-green.svg" alt="Arrow Green" />
+                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" />
                 </td>
                 <td
                   style={{
@@ -4193,7 +4845,7 @@ function Index() {
                 </td>
 
                 <td align="center">
-                  <img src="/static/arrow-up-green.svg" alt="Arrow Green" />
+                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" />
                 </td>
                 <td
                   style={{
@@ -4236,7 +4888,7 @@ function Index() {
                 </td>
 
                 <td align="center">
-                  <img src="/static/arrow-up-green.svg" alt="Arrow Green" />
+                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" />
                 </td>
                 <td
                   style={{
@@ -4279,7 +4931,7 @@ function Index() {
                   Gross Margin
                 </td>
                 <td align="center" style={{ paddingBottom: '78px' }}>
-                  <img src="/static/arrow-up-green.svg" alt="Arrow Green" />
+                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" />
                 </td>
                 <td
                   style={{
@@ -4313,6 +4965,10 @@ function Index() {
                 </td>
               </tr>
             </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
             <table
               width="100%"
               bgColor="#ffffff"
@@ -4333,18 +4989,12 @@ function Index() {
                   style={{
                     padding: '0 35px',
                     borderBottom: '2px solid #CAD6E6',
-                  }}
-                >
-                  <h3
-                    style={{
                       fontSize: '22px',
                       color: '#3687E8',
                       lineHeight: '27px',
                       fontWeight: 'bold',
                     }}
-                  >
-                    Financial Summary
-                  </h3>
+                  >Financial Summary
                 </td>
               </tr>
               <tr>
@@ -4368,7 +5018,7 @@ function Index() {
                           border="0"
                         >
                           <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
-                            <th
+                            <td
                               width="50%"
                               style={{
                                 fontSize: '22px',
@@ -4379,8 +5029,8 @@ function Index() {
                               }}
                             >
                               Liabilities
-                            </th>
-                            <th
+                            </td>
+                            <td
                               style={{
                                 fontSize: '15px',
                                 color: '#8492A6',
@@ -4394,8 +5044,8 @@ function Index() {
                               )
                                 .format('MMM-YY')
                                 ?.toUpperCase()}
-                            </th>
-                            <th
+                            </td>
+                            <td
                               style={{
                                 fontSize: '15px',
                                 color: '#8492A6',
@@ -4409,7 +5059,7 @@ function Index() {
                               )
                                 .format('MMM-YY')
                                 ?.toUpperCase()}
-                            </th>
+                            </td>
                           </tr>
                           <tr>
                             <td
@@ -4637,7 +5287,7 @@ function Index() {
                               borderTop: '2px solid #CAD6E6',
                             }}
                           >
-                            <th
+                            <td
                               colSpan={3}
                               style={{
                                 fontSize: '22px',
@@ -4648,7 +5298,7 @@ function Index() {
                               }}
                             >
                               Assets
-                            </th>
+                            </td>
                           </tr>
                           <tr>
                             <td
@@ -4865,7 +5515,7 @@ function Index() {
                               borderTop: '2px solid #CAD6E6',
                             }}
                           >
-                            <th
+                            <td
                               colSpan={3}
                               style={{
                                 fontSize: '22px',
@@ -4876,7 +5526,7 @@ function Index() {
                               }}
                             >
                               P/L
-                            </th>
+                            </td>
                           </tr>
                           <tr>
                             <td
@@ -4954,7 +5604,7 @@ function Index() {
                     </tr>
                   </table>
                 </td>
-                <td valign="top" width="50%">
+                <td valign="top">
                   <table
                     width="100%"
                     cellPadding="15"
@@ -4962,7 +5612,7 @@ function Index() {
                     border="0"
                   >
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
-                      <th
+                      <td
                         width="50%"
                         style={{
                           fontSize: '22px',
@@ -4973,8 +5623,8 @@ function Index() {
                         }}
                       >
                         Ratios
-                      </th>
-                      <th
+                      </td>
+                      <td
                         style={{
                           fontSize: '15px',
                           color: '#8492A6',
@@ -4984,8 +5634,8 @@ function Index() {
                         }}
                       >
                         MAR-20
-                      </th>
-                      <th
+                      </td>
+                      <td
                         style={{
                           fontSize: '15px',
                           color: '#8492A6',
@@ -4995,7 +5645,7 @@ function Index() {
                         }}
                       >
                         MAR-19
-                      </th>
+                      </td>
                     </tr>
                     <tr>
                       <td
@@ -5471,6 +6121,10 @@ function Index() {
                 </td>
               </tr>
             </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
             <table
               width="100%"
               bgColor="#ffffff"
@@ -5491,18 +6145,12 @@ function Index() {
                   style={{
                     padding: '0 35px',
                     borderBottom: '2px solid #CAD6E6',
+                    fontSize: '22px',
+                    color: '#3687E8',
+                    lineHeight: '27px',
+                    fontWeight: 'bold',
                   }}
-                >
-                  <h3
-                    style={{
-                      fontSize: '22px',
-                      color: '#3687E8',
-                      lineHeight: '27px',
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    Compliance Status
-                  </h3>
+                  >Compliance Status
                 </td>
               </tr>
               <tr>
@@ -5704,6 +6352,10 @@ function Index() {
                 </td>
               </tr>
             </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
             <table
               width="100%"
               bgColor="#ffffff"
@@ -5724,18 +6376,12 @@ function Index() {
                   style={{
                     padding: '0 35px',
                     borderBottom: '2px solid #CAD6E6',
+                    fontSize: '22px',
+                    color: '#3687E8',
+                    lineHeight: '27px',
+                    fontWeight: 'bold',
                   }}
-                >
-                  <h3
-                    style={{
-                      fontSize: '22px',
-                      color: '#3687E8',
-                      lineHeight: '27px',
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    Strength &amp; Weakness
-                  </h3>
+                  >Strength &amp; Weakness
                 </td>
               </tr>
               <tr>
@@ -5835,6 +6481,10 @@ function Index() {
                 </td>
               </tr>
             </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
             <table
               width="100%"
               bgColor="#ffffff"
@@ -5849,17 +6499,13 @@ function Index() {
               }}
             >
               <tr style={{ borderBottom: '2px solid #CAD6E6' }}>
-                <td width="40%" height="78" style={{ padding: '0 35px' }}>
-                  <h3
-                    style={{
-                      fontSize: '22px',
-                      color: '#3687E8',
-                      lineHeight: '27px',
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    Sanction Terms
-                  </h3>
+                <td width="40%" height="78" style={{ padding: '0 35px',
+                    fontSize: '22px',
+                    color: '#3687E8',
+                    lineHeight: '27px',
+                    fontWeight: 'bold',
+                  }}
+                  >Sanction Terms
                 </td>
                 <td
                   height="78"
@@ -5943,15 +6589,15 @@ function Index() {
                     border="0"
                   >
                     <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
-                      <th
+                      <td
                         style={{
                           fontSize: '15px',
                           color: '#8492A6',
                           lineHeight: '18px',
                           textTransform: 'uppercase',
                         }}
-                      ></th>
-                      <th
+                      ></td>
+                      <td
                         style={{
                           fontSize: '15px',
                           color: '#8492A6',
@@ -5961,8 +6607,8 @@ function Index() {
                         }}
                       >
                         PREVIOUS LIMIT
-                      </th>
-                      <th
+                      </td>
+                      <td
                         style={{
                           fontSize: '15px',
                           color: '#8492A6',
@@ -5972,8 +6618,8 @@ function Index() {
                         }}
                       >
                         APPLIED VALUE
-                      </th>
-                      <th
+                      </td>
+                      <td
                         style={{
                           fontSize: '15px',
                           color: '#8492A6',
@@ -5983,8 +6629,8 @@ function Index() {
                         }}
                       >
                         DERIVED VALUE
-                      </th>
-                      <th
+                      </td>
+                      <td
                         style={{
                           fontSize: '15px',
                           color: '#8492A6',
@@ -5994,8 +6640,8 @@ function Index() {
                         }}
                       >
                         SUGGESTED VALUE
-                      </th>
-                      <th
+                      </td>
+                      <td
                         style={{
                           fontSize: '15px',
                           color: '#8492A6',
@@ -6005,8 +6651,8 @@ function Index() {
                         }}
                       >
                         REVISED
-                      </th>
-                      <th
+                      </td>
+                      <td
                         style={{
                           fontSize: '15px',
                           color: '#8492A6',
@@ -6016,7 +6662,7 @@ function Index() {
                         }}
                       >
                         APPROVED VALUE
-                      </th>
+                      </td>
                     </tr>
                     <tr>
                       <td
@@ -6267,7 +6913,6 @@ function Index() {
                 </td>
               </tr>
             </table>
-          
           </td>
         </tr>
       </table>
