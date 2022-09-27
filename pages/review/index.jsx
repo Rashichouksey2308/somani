@@ -36,6 +36,8 @@ import {
   removePrefixOrSuffix,
   CovertvaluefromtoCR,
   checkNan,
+  addPrefixOrSuffix,
+  convertValue
 } from '../../src/utils/helper'
 //redux
 import { UpdateCompanyDetails } from '../../src/redux/companyDetail/action'
@@ -1597,7 +1599,7 @@ function Index() {
 
     return length
   }
-  const toPrintPdf = (camData, RevenueDetails, trendChartRevenueImg,trendChartPurchasesImg,skewnessChartRevenueImg,skewnessChartPurchasesImg) => {
+  const toPrintPdf = (camData, RevenueDetails, trendChartRevenueImg,trendChartPurchasesImg,skewnessChartRevenueImg,skewnessChartPurchasesImg,shareHoldingChartImg,openBankChargeChartImg) => {
     console.log(_get, 'get')
     function calcPc(n1, n2) {
       if (n1 === 0) {
@@ -1605,11 +1607,12 @@ function Index() {
       }
       return ((n2 - n1) / n1) * 100
     }
-  
-    console.log(trendChartRevenueImg,"trendChartRevenueImg")
+   let backgroundColor = ['#4CAF50', '#FF9D00', '#2884DE']
+
+   
     return (
       <table
-        width="1500px"
+        width="1000px"
         style={{ fontFamily: 'Arial, Helvetica, sans-serif' }}
         cellPadding="0"
         cellSpacing="0"
@@ -3392,15 +3395,20 @@ function Index() {
                 <td width="33%" valign='middle' style={{borderRight: '2px solid #CAD6E6'}}>
                   <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
-                      <td align='center' style={{padding:'35px'}}>Graph</td>
+                      <td align='center' style={{padding:'35px'}}><img src={`${shareHoldingChartImg}`}></img></td>
                     </tr>
                     <tr>
                       <td valign='top' style={{padding:'20px 35px'}}>
                         <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                           <tr>
-                            <td align='center' style={{fontSize: '16px', color: '#111111', lineHeight: '19px', fontWeight: '500'}}><span style={{background:'#61C554', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span>&nbsp; Sagar Sinha</td>
-                            <td align='center' style={{fontSize: '16px', color: '#111111', lineHeight: '19px', fontWeight: '500'}}><span style={{background:'#FF9D00', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span>&nbsp; Radhe Singh</td>
-                            <td align='center' style={{fontSize: '16px', color: '#111111', lineHeight: '19px', fontWeight: '500'}}><span style={{background:'#3687E8', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span>&nbsp; Arv Jay</td>
+                               {top3Share.datasets && top3Share?.datasets[0]?.data.map((val, index) => {
+                            return (
+                               <td align='center' style={{fontSize: '16px', color: '#111111', lineHeight: '19px', fontWeight: '500'}}><span style={{background:`${backgroundColor[index]}`, borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span>&nbsp; 
+                               {top3Share.labels[index] == "" ? "NA" : top3Share.labels[index]}</td>
+                            
+                            )
+                  })}
+                           
                           </tr>
                         </table>
                       </td>
@@ -3465,7 +3473,7 @@ function Index() {
 
                         let colors = [
                           {
-                            primary: '#3189eb',
+                            primary: '#ECF9ED',
                             secondary: '#3687E8',
                           },
                           {
@@ -3592,15 +3600,19 @@ function Index() {
                 <td width="33%" valign='middle' style={{borderRight: '2px solid #CAD6E6'}}>
                   <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
-                      <td align='center' style={{padding:'35px'}}>Graph</td>
+                      <td align='center' style={{padding:'35px'}}><img src={`${openBankChargeChartImg}`}></img></td>
                     </tr>
                     <tr>
                       <td valign='top' style={{padding:'20px 35px'}}>
                         <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                           <tr>
-                            <td align='center' style={{fontSize: '16px', color: '#111111', lineHeight: '19px', fontWeight: '500'}}><span style={{background:'#61C554', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span>&nbsp; Sagar Sinha</td>
-                            <td align='center' style={{fontSize: '16px', color: '#111111', lineHeight: '19px', fontWeight: '500'}}><span style={{background:'#FF9D00', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span>&nbsp; Radhe Singh</td>
-                            <td align='center' style={{fontSize: '16px', color: '#111111', lineHeight: '19px', fontWeight: '500'}}><span style={{background:'#3687E8', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span>&nbsp; Arv Jay</td>
+                  {top3Open.datasets && top3Open?.datasets[0]?.data.map((val, index) => {
+                    return (
+                      <td align='center' style={{fontSize: '16px', color: '#111111', lineHeight: '19px', fontWeight: '500'}}><span style={{background:`${backgroundColor[index]}`, borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span>&nbsp; {top3Open.labels[index] == "" ? "NA" : top3Open.labels[index]}</td>
+                     
+                    )
+                  })}
+                            
                           </tr>
                         </table>
                       </td>
@@ -3654,7 +3666,7 @@ function Index() {
 
                         let colors = [
                           {
-                            primary: 'rgba(54, 135, 232, 0.1)',
+                            primary: '#ECF9ED',
                             secondary: '#3687E8',
                           },
                           {
@@ -3876,7 +3888,7 @@ function Index() {
                           <span
                             style={{
                               background: '#3687E8',
-                              width: '90%',
+                              width: '100%',
                               height: '18px',
                               borderRadius: '2px',
                               display: 'inline-block',
@@ -3886,6 +3898,9 @@ function Index() {
                         </span>
                       </td>
                     </tr>
+                    {camData &&
+                  camData?.company?.debtProfile?.map((debt, index) => (
+                    <div>
                     <tr>
                       <td
                         style={{
@@ -3897,7 +3912,7 @@ function Index() {
                           padding: '40px 6px 0 35px',
                         }}
                       >
-                        ICICI BANK
+                         {debt.bankName}
                       </td>
                       <td
                         align="right"
@@ -3909,7 +3924,7 @@ function Index() {
                           padding: '40px 35px 0 6px',
                         }}
                       >
-                        1,900.00
+                       {debt.limit}
                       </td>
                     </tr>
                     <tr>
@@ -3926,8 +3941,18 @@ function Index() {
                         >
                           <span
                             style={{
-                              background: '#EA3F3F',
-                              width: '90%',
+                              background: `${debt.conduct == 'Good'
+                                ? '#43C34D'
+                                : debt.conduct == 'Satisfactory'
+                                  ? '#FF9D00'
+                                  : debt.conduct == 'Average'
+                                    ? 'average'
+                                    : '#EA3F3F'
+                                }`,
+                              width: `${(Number(debt.limit) / 1900 > 1
+                                ? 1
+                                : Number(debt.limit) / 1900) * 100
+                                }%`,
                               height: '10px',
                               borderRadius: '2px',
                               display: 'inline-block',
@@ -3937,156 +3962,10 @@ function Index() {
                         </span>
                       </td>
                     </tr>
-                    <tr>
-                      <td
-                        align="right"
-                        colSpan={2}
-                        style={{
-                          fontSize: '17px',
-                          color: '#EA3F3F',
-                          lineHeight: '21px',
-                          fontWeight: 'bold',
-                          textTransform: 'capitalize',
-                          padding: '6px 35px 0',
-                        }}
-                      >
-                        Cash Credit
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        style={{
-                          fontSize: '15px',
-                          color: '#8492A6',
-                          lineHeight: '18px',
-                          fontWeight: 'bold',
-                          textTransform: 'uppercase',
-                          padding: '19px 6px 0 35px',
-                        }}
-                      >
-                        HDFC BANK
-                      </td>
-                      <td
-                        align="right"
-                        style={{
-                          fontSize: '15px',
-                          color: '#8492A6',
-                          lineHeight: '18px',
-                          fontWeight: 'bold',
-                          padding: '19px 35px 0 6px',
-                        }}
-                      >
-                        1,900.00
-                      </td>
-                    </tr>
-                    <tr>
-                      <td colSpan={2} style={{ padding: '0 35px' }}>
-                        <span
-                          style={{
-                            background: '#E4ECF7',
-                            borderRadius: '2px',
-                            height: '10px',
-                            width: '100%',
-                            display: 'inline-block',
-                            float: 'left',
-                          }}
-                        >
-                          <span
-                            style={{
-                              background: '#43C34D',
-                              width: '20%',
-                              height: '10px',
-                              borderRadius: '2px',
-                              display: 'inline-block',
-                              float: 'left',
-                            }}
-                          ></span>
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        align="right"
-                        colSpan={2}
-                        style={{
-                          fontSize: '17px',
-                          color: '#43C34D',
-                          lineHeight: '21px',
-                          fontWeight: 'bold',
-                          textTransform: 'capitalize',
-                          padding: '6px 35px 0',
-                        }}
-                      >
-                        Post Ship Credit
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        style={{
-                          fontSize: '15px',
-                          color: '#8492A6',
-                          lineHeight: '18px',
-                          fontWeight: 'bold',
-                          textTransform: 'uppercase',
-                          padding: '19px 6px 0 35px',
-                        }}
-                      >
-                        SBI BANK
-                      </td>
-                      <td
-                        align="right"
-                        style={{
-                          fontSize: '15px',
-                          color: '#8492A6',
-                          lineHeight: '18px',
-                          fontWeight: 'bold',
-                          padding: '19px 35px 0 6px',
-                        }}
-                      >
-                        1,900.00
-                      </td>
-                    </tr>
-                    <tr>
-                      <td colSpan={2} style={{ padding: '0 35px' }}>
-                        <span
-                          style={{
-                            background: '#E4ECF7',
-                            borderRadius: '2px',
-                            height: '10px',
-                            width: '100%',
-                            display: 'inline-block',
-                            float: 'left',
-                          }}
-                        >
-                          <span
-                            style={{
-                              background: '#FF9D00',
-                              width: '40%',
-                              height: '10px',
-                              borderRadius: '2px',
-                              display: 'inline-block',
-                              float: 'left',
-                            }}
-                          ></span>
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        align="right"
-                        colSpan={2}
-                        style={{
-                          fontSize: '17px',
-                          color: '#FF9D00',
-                          lineHeight: '21px',
-                          fontWeight: 'bold',
-                          textTransform: 'capitalize',
-                          padding: '6px 35px 43px',
-                        }}
-                      >
-                        Bank Guarantee
-                      </td>
-                    </tr>
+                    </div>
+                  ))}
+                    
+                   
                   </table>
                 </td>
                 <td valign="top" style={{ borderLeft: '2px solid #CAD6E6' }}>
@@ -5138,12 +5017,28 @@ function Index() {
                   fontWeight: 'bold'}}>Display By: <span style={{color: '#3687E8'}}>Quarterly</span></td>
               </tr>
               <tr>
-                <td height="67" bgColor="#FAFAFB" width="50%" style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', padding:'0 35px', borderRight:'2px solid #CAD6E6'}}>Gross Revenue <span style={{fontWeight: '500'}}>: 1,900.00</span></td>
-                <td height="67" bgColor="#FAFAFB" width="50%" style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', padding:'0 35px'}}>Gross Purchases <span style={{fontWeight: '500'}}>: 1,900.00</span></td>
+                <td height="67" bgColor="#FAFAFB" width="50%" style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', padding:'0 35px', borderRight:'2px solid #CAD6E6'}}>Gross Revenue <span style={{fontWeight: '500'}}>: {checkNan(
+                      CovertvaluefromtoCR(Number(
+                        gstData?.detail?.salesDetailAnnual?.saleSummary
+                          ?.grossTurnover?.current?.value,
+                      )).toFixed(2),
+                      true,
+                    )} Cr</span></td>
+                <td height="67" bgColor="#FAFAFB" width="50%" style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', padding:'0 35px'}}>Gross Purchases <span style={{fontWeight: '500'}}>:  {checkNan(
+                      CovertvaluefromtoCR(Number(
+                        gstData?.detail?.purchaseDetailAnnual?.saleSummary
+                          ?.grossPurchases?.current?.value,
+                      )).toFixed(2),
+                      true,
+                    )} Cr</span></td>
               </tr>
               <tr>
-                <td align='centet' style={{borderRight:'2px solid #CAD6E6', padding:'35px'}}>Graph</td>
-                <td align='centet' style={{padding:'35px'}}>Graph</td>
+                <td align='center' style={{borderRight:'2px solid #CAD6E6', padding:'35px'}}>
+                  <img src={`${trendChartRevenueImg}`}></img>
+                </td>
+                <td align='center' style={{padding:'35px'}}>
+                  <img src={`${trendChartPurchasesImg}`}></img>
+                </td>
               </tr>
               <tr>
                 <td valign='top' style={{borderRight:'2px solid #CAD6E6', padding:'35px'}}>
@@ -5199,41 +5094,46 @@ function Index() {
                   fontWeight: 'bold'}}>Display By: <span style={{color: '#3687E8'}}>Quarterly</span></td>
               </tr>
               <tr>
-                <td height="67" bgColor="#FAFAFB" width="50%" style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', padding:'0 35px', borderRight:'2px solid #CAD6E6'}}>Gross Revenue <span style={{fontWeight: '500'}}>: 1,900.00</span></td>
-                <td height="67" bgColor="#FAFAFB" width="50%" style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', padding:'0 35px'}}>Gross Purchases <span style={{fontWeight: '500'}}>: 1,900.00</span></td>
+                <td height="67" bgColor="#FAFAFB" width="50%" style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', padding:'0 35px', borderRight:'2px solid #CAD6E6'}}>Gross Revenue <span style={{fontWeight: '500'}}>:  {checkNan(
+                      CovertvaluefromtoCR(Number(
+                        gstData?.detail?.salesDetailAnnual?.saleSummary
+                          ?.grossTurnover?.current?.value,
+                      )).toFixed(2),
+                      true,
+                    )} Cr</span></td>
+                <td height="67" bgColor="#FAFAFB" width="50%" style={{fontSize:'22px', color:'#111111', lineHeight:'27px', fontWeight:'bold', padding:'0 35px'}}>Gross Purchases <span style={{fontWeight: '500'}}>:  {checkNan(
+                      CovertvaluefromtoCR(Number(
+                        gstData?.detail?.purchaseDetailAnnual?.saleSummary
+                          ?.grossPurchases?.current?.value,
+                      )).toFixed(2),
+                      true,
+                    )} Cr</span></td>
               </tr>
               <tr>
                 <td align='left' valign='middle' style={{borderRight:'2px solid #CAD6E6'}}>
                   <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
-                      <td width="45%" style={{padding:'35px'}}>Graph</td>
+                      <td width="45%" style={{padding:'35px'}}><img src={`${skewnessChartRevenueImg}`}></img></td>
                       <td width="55%" style={{padding:'35px'}}>
                         <table width="100%" cellPadding="10" cellSpacing="0" border="0">
+                      {top5Customers.datasets && top5Customers?.datasets[0]?.data?.map((val, index) => {
+                        return (
+                          <tr>
+                            <td width="5%" align='left'><span style={{background:`${backgroundColor[index]}`, borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span></td>
+                            <td width="55%" align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>{top5Customers.labels[index]}</td>
+                            <td width="40%" align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>{
+                                  ((val / totalCustomer) * 100)?.toFixed(2)
+                                }%</td>
+                          </tr>
+                       
+                        )
+                      })}
                           <tr>
                             <td width="5%" align='left'><span style={{background:'#61C555', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span></td>
                             <td width="55%" align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>Customer 1</td>
                             <td width="40%" align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>83.80%</td>
                           </tr>
-                          <tr>
-                            <td align='left'><span style={{background:'#876EB1', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span></td>
-                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>Customer 2</td>
-                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>83.80%</td>
-                          </tr>
-                          <tr>
-                            <td align='left'><span style={{background:'#F4BF50', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span></td>
-                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>Customer 3</td>
-                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>83.80%</td>
-                          </tr>
-                          <tr>
-                            <td align='left'><span style={{background:'#ED6B5F', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span></td>
-                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>Customer 4</td>
-                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>83.80%</td>
-                          </tr>
-                          <tr>
-                            <td align='left'><span style={{background:'#2884DE', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span></td>
-                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>Customer 5</td>
-                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>83.80%</td>
-                          </tr>
+                         
                         </table>
                       </td>
                     </tr>
@@ -5242,34 +5142,21 @@ function Index() {
                 <td align='left' valign='middle'>
                   <table width="100%" cellPadding="0" cellSpacing="0" border="0">
                     <tr>
-                      <td width="45%" style={{padding:'35px'}}>Graph</td>
+                      <td width="45%" style={{padding:'35px'}}><img src={`${skewnessChartPurchasesImg}`}></img></td>
                       <td width="45%" style={{padding:'35px'}}>
                         <table width="100%" cellPadding="10" cellSpacing="0" border="0">
+                          {top5Suppliers.datasets && top5Customers?.datasets[0]?.data?.map((val, index) => {
+                        return (
                           <tr>
-                            <td width="5%" align='left'><span style={{background:'#61C555', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span></td>
-                            <td width="55%" align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>Supplier 1</td>
-                            <td width="40%" align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>83.80%</td>
+                            <td width="5%" align='left'><span style={{background:`${backgroundColor[index]}`, borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span></td>
+                            <td width="55%" align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>{top5Suppliers.labels[index]}</td>
+                            <td width="40%" align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>{
+                                  ((val / totalSupplier) * 100)?.toFixed(2)
+                                }%</td>
                           </tr>
-                          <tr>
-                            <td align='left'><span style={{background:'#876EB1', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span></td>
-                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>Supplier 2</td>
-                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>83.80%</td>
-                          </tr>
-                          <tr>
-                            <td align='left'><span style={{background:'#F4BF50', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span></td>
-                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>Supplier 3</td>
-                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>83.80%</td>
-                          </tr>
-                          <tr>
-                            <td align='left'><span style={{background:'#ED6B5F', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span></td>
-                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>Supplier 4</td>
-                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>83.80%</td>
-                          </tr>
-                          <tr>
-                            <td align='left'><span style={{background:'#2884DE', borderRadius:'4px', width:'16px', height:'16px', display:'inline-block'}}></span></td>
-                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>Supplier 5</td>
-                            <td align='left' style={{fontSize:'19px', color:'#111111', lineHeight:'23px'}}>83.80%</td>
-                          </tr>
+                       
+                        )
+                      })}
                         </table>
                       </td>
                     </tr>
@@ -5394,12 +5281,14 @@ function Index() {
                                 paddingTop: '33px',
                               }}
                             >
-                              {companyData?.financial?.balanceSheet[0]?.equityLiabilities?.totalEquity?.toLocaleString(
-                                undefined,
-                                {
-                                  minimumFractionDigits: 2,
-                                },
-                              )}
+                              {convertValue(_get(
+                        companyData,
+                        'financial.balanceSheet[0].equityLiabilities.totalEquity',
+                        '',
+                      )).toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
+                      })}
                             </td>
                             <td
                               style={{
@@ -5410,12 +5299,14 @@ function Index() {
                                 paddingTop: '33px',
                               }}
                             >
-                              {companyData?.financial?.balanceSheet[1]?.equityLiabilities?.totalEquity?.toLocaleString(
-                                undefined,
-                                {
-                                  minimumFractionDigits: 2,
-                                },
-                              )}
+                               {convertValue(_get(
+                        companyData,
+                        'financial.balanceSheet[1].equityLiabilities.totalEquity',
+                        '',
+                      )).toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
+                      })}
                             </td>
                           </tr>
                           <tr>
@@ -5437,20 +5328,21 @@ function Index() {
                                 fontWeight: '500',
                               }}
                             >
-                              {Number(
-                                _get(
-                                  companyData,
-                                  'financial.balanceSheet[0].equityLiabilities.borrowingsCurrent',
-                                  '',
-                                ) +
-                                _get(
-                                  companyData,
-                                  'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent',
-                                  '',
-                                ),
-                              )?.toLocaleString(undefined, {
-                                minimumFractionDigits: 2,
-                              })}
+                                  {convertValue(Number(
+                        _get(
+                          companyData,
+                          'financial.balanceSheet[0].equityLiabilities.borrowingsCurrent',
+                          '',
+                        ) +
+                        _get(
+                          companyData,
+                          'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent',
+                          '',
+                        ),
+                      ))?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
+                      })}
                             </td>
                             <td
                               style={{
@@ -5460,20 +5352,21 @@ function Index() {
                                 fontWeight: '500',
                               }}
                             >
-                              {Number(
-                                _get(
-                                  companyData,
-                                  'financial.balanceSheet[1].equityLiabilities.borrowingsCurrent',
-                                  '',
-                                ) +
-                                _get(
-                                  companyData,
-                                  'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent',
-                                  '',
-                                ),
-                              )?.toLocaleString(undefined, {
-                                minimumFractionDigits: 2,
-                              })}
+                          {convertValue(Number(
+                        _get(
+                          companyData,
+                          'financial.balanceSheet[1].equityLiabilities.borrowingsCurrent',
+                          '',
+                        ) +
+                        _get(
+                          companyData,
+                          'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent',
+                          '',
+                        ),
+                      ))?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
+                      })}
                             </td>
                           </tr>
                           <tr>
@@ -5495,20 +5388,21 @@ function Index() {
                                 fontWeight: '500',
                               }}
                             >
-                              {Number(
-                                _get(
-                                  companyData,
-                                  'financial.balanceSheet[0].equityLiabilities.tradePay',
-                                  '',
-                                ) +
-                                _get(
-                                  companyData,
-                                  'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
-                                  '',
-                                ),
-                              )?.toLocaleString(undefined, {
-                                minimumFractionDigits: 2,
-                              })}
+                        {convertValue(Number(
+                        _get(
+                          companyData,
+                          'financial.balanceSheet[0].equityLiabilities.tradePay',
+                          '',
+                        ) +
+                        _get(
+                          companyData,
+                          'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
+                          '',
+                        ),
+                      ))?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
+                      })}
                             </td>
                             <td
                               style={{
@@ -5518,20 +5412,21 @@ function Index() {
                                 fontWeight: '500',
                               }}
                             >
-                              {Number(
-                                _get(
-                                  companyData,
-                                  'financial.balanceSheet[1].equityLiabilities.tradePay',
-                                  '',
-                                ) +
-                                _get(
-                                  companyData,
-                                  'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
-                                  '',
-                                ),
-                              )?.toLocaleString(undefined, {
-                                minimumFractionDigits: 2,
-                              })}
+                              {convertValue(Number(
+                        _get(
+                          companyData,
+                          'financial.balanceSheet[1].equityLiabilities.tradePay',
+                          '',
+                        ) +
+                        _get(
+                          companyData,
+                          'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
+                          '',
+                        ),
+                      ))?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
+                      })}
                             </td>
                           </tr>
                           <tr>
@@ -5555,13 +5450,14 @@ function Index() {
                                 paddingBottom: '38px',
                               }}
                             >
-                              {_get(
-                                companyData,
-                                'financial.balanceSheet[0].equityLiabilities.otherCurrentLiabilities',
-                                '',
-                              )?.toLocaleString(undefined, {
-                                minimumFractionDigits: 2,
-                              })}
+                               {convertValue(_get(
+                        companyData,
+                        'financial.balanceSheet[0].equityLiabilities.otherCurrentLiabilities',
+                        '',
+                      ))?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
+                      })}
                             </td>
                             <td
                               style={{
@@ -5572,13 +5468,14 @@ function Index() {
                                 paddingBottom: '38px',
                               }}
                             >
-                              {_get(
-                                companyData,
-                                'financial.balanceSheet[1].equityLiabilities.otherCurrentLiabilities',
-                                '',
-                              )?.toLocaleString(undefined, {
-                                minimumFractionDigits: 2,
-                              })}
+                                {convertValue(_get(
+                        companyData,
+                        'financial.balanceSheet[1].equityLiabilities.otherCurrentLiabilities',
+                        '',
+                      ))?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
+                      })}
                             </td>
                           </tr>
                         </table>
@@ -5981,13 +5878,14 @@ function Index() {
                         }}
                       >
                         {' '}
-                        {_get(
-                          companyData,
-                          'financial.cashFlowStatement[0].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
-                          '',
-                        )?.toLocaleString(undefined, {
-                          minimumFractionDigits: 2,
-                        })}
+                        {convertValue(_get(
+                        companyData,
+                        'financial.cashFlowStatement[0].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
+                        '',
+                      ))?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
+                      })}
                       </td>
                       <td
                         style={{
@@ -5999,13 +5897,14 @@ function Index() {
                         }}
                       >
                         {' '}
-                        {_get(
-                          companyData,
-                          'financial.cashFlowStatement[1].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
-                          '',
-                        )?.toLocaleString(undefined, {
-                          minimumFractionDigits: 2,
-                        })}
+                       {convertValue(_get(
+                        companyData,
+                        'financial.cashFlowStatement[1].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
+                        '',
+                      ))?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
+                      })}
                       </td>
                     </tr>
                     <tr>
@@ -6027,13 +5926,14 @@ function Index() {
                           fontWeight: '500',
                         }}
                       >
-                        {_get(
-                          companyData,
-                          'financial.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
-                          '',
-                        )?.toLocaleString(undefined, {
-                          minimumFractionDigits: 2,
-                        })}
+                        {convertValue(_get(
+                        companyData,
+                        'financial.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
+                        '',
+                      ))?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
+                      })}
                       </td>
                       <td
                         style={{
@@ -6044,13 +5944,14 @@ function Index() {
                         }}
                       >
                         {' '}
-                        {_get(
-                          companyData,
-                          'financial.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
-                          '',
-                        )?.toLocaleString(undefined, {
-                          minimumFractionDigits: 2,
-                        })}
+                         {convertValue(_get(
+                        companyData,
+                        'financial.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
+                        '',
+                      ))?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
+                      })}
                       </td>
                     </tr>
                     <tr>
@@ -6075,13 +5976,14 @@ function Index() {
                         }}
                       >
                         {' '}
-                        {_get(
-                          companyData,
-                          'financial.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
-                          '',
-                        )?.toLocaleString(undefined, {
-                          minimumFractionDigits: 2,
-                        })}
+                         {convertValue(_get(
+                        companyData,
+                        'financial.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
+                        '',
+                      ))?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
+                      })}
                       </td>
                       <td
                         style={{
@@ -6093,13 +5995,14 @@ function Index() {
                         }}
                       >
                         {' '}
-                        {_get(
-                          companyData,
-                          'financial.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
-                          '',
-                        )?.toLocaleString(undefined, {
-                          minimumFractionDigits: 2,
-                        })}
+                        {convertValue(_get(
+                        companyData,
+                        'financial.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
+                        '',
+                      ))?.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumSignificantDigits: 2,
+                      })}
                       </td>
                     </tr>
                     <tr>
@@ -6840,7 +6743,7 @@ function Index() {
                     }}
                   >
                     {' '}
-                    {camData?.company?.creditLimit?.totalLimit}
+                    {addPrefixOrSuffix(convertValue(camData?.company?.creditLimit?.totalLimit), 'Cr', '')}
                   </span>
                 </td>
                 <td
@@ -6864,7 +6767,7 @@ function Index() {
                     }}
                   >
                     {' '}
-                    {camData?.company?.creditLimit?.utilizedLimit}
+                     {camData?.company?.creditLimit?.utilizedLimit}
                   </span>
                 </td>
                 <td
@@ -6888,7 +6791,7 @@ function Index() {
                     }}
                   >
                     {' '}
-                    {camData?.company?.creditLimit?.availableLimit}
+                   {camData?.company?.creditLimit?.availableLimit}
                   </span>
                 </td>
               </tr>
@@ -7192,7 +7095,7 @@ function Index() {
                       </td>
                     </tr>
                     <tr>
-                      <td
+                      {/* <td
                         colSpan={7}
                         style={{
                           fontSize: '22px',
@@ -7219,7 +7122,7 @@ function Index() {
                           manganese content shown on the certificate of typical
                           analysis.
                         </span>
-                      </td>
+                      </td> */}
                     </tr>
                   </table>
                 </td>
@@ -7549,6 +7452,24 @@ function Index() {
   }, [companyData?.profile?.directorDetai])
   console.log(personData, 'per')
   console.log(companyData?.profile?.directorDetail, 'director')
+  const [top5Customers, setTop5Customers1] = useState({
+    labels: [],
+    datasets: []
+  })
+  const [totalCustomer, setTotalCustomer1] = useState(0)
+  const [totalSupplier, setTotalSupplier1] = useState(0)
+  const [top5Suppliers, setTop5Suppliers1] = useState({
+    labels: [],
+    datasets: []
+  })
+  const [top3Share, setTop3Share1] = useState({
+    labels: [],
+    datasets: []
+  })
+  const [top3Open, setTop3Open1] = useState({
+    labels: [],
+    datasets: []
+  })
   const exportPDF = async() => {
     console.log(orderList, 'orderList')
     const doc = new jsPDF('p', 'pt', [1500, 1500])
@@ -7571,7 +7492,8 @@ function Index() {
     doc.html(
       ReactDOMServer.renderToString(
         toPrintPdf(orderList, 
-        gstData?.detail?.salesDetailAnnual?.saleSummary,trendChartRevenueImg,
+        gstData?.detail?.salesDetailAnnual?.saleSummary,
+        trendChartRevenueImg,
         trendChartPurchasesImg,
         skewnessChartRevenueImg,
         skewnessChartPurchasesImg,
@@ -8552,6 +8474,12 @@ function Index() {
                     approvedCredit={approvedCredit}
                     orderDetails={orderList}
                     GstData={gstData}
+                    setTotalCustomer1={setTotalCustomer1}
+                    setTotalSupplier1={setTotalSupplier1}
+                    setTop5Suppliers1={setTop5Suppliers1}
+                    setTop3Share1={setTop3Share1}
+                    setTop3Open1={setTop3Open1}
+                    setTop5Customers1={setTop5Customers1}
                   />
                 </div>
               </div>
