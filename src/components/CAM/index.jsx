@@ -826,7 +826,7 @@ const basicInfo = (camData, orderDetails) => {
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label1`}>Order Value</span>
                   <span className={`${styles.value} value pr-5`}>
-                    {convertValue(camData?.orderValue)?.toLocaleString()}{' '}
+                    {convertValue(camData?.orderValue)?.toLocaleString('en-In')}{' '}
                     {camData?.unitOfValue == 'Crores'
                       ? 'Cr'
                       : camData?.unitOfValue}
@@ -848,7 +848,7 @@ const basicInfo = (camData, orderDetails) => {
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label1`}>Quantity</span>
                   <span className={`${styles.value} value pr-5`}>
-                    {camData?.quantity?.toLocaleString()} {camData?.unitOfQuantity.toUpperCase()}
+                    {camData?.quantity?.toLocaleString('en-In')} {camData?.unitOfQuantity.toUpperCase()}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
@@ -2719,7 +2719,7 @@ const financeDetails = (
                         companyData,
                         'financial.balanceSheet[0].equityLiabilities.totalEquity',
                         '',
-                      )).toLocaleString(undefined, {
+                      )).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
                       })}
@@ -2729,7 +2729,7 @@ const financeDetails = (
                         companyData,
                         'financial.balanceSheet[1].equityLiabilities.totalEquity',
                         '',
-                      )).toLocaleString(undefined, {
+                      )).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
                       })}
@@ -2749,7 +2749,7 @@ const financeDetails = (
                           'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent',
                           '',
                         ),
-                      ))?.toLocaleString(undefined, {
+                      ))?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
                       })}
@@ -2766,7 +2766,7 @@ const financeDetails = (
                           'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent',
                           '',
                         ),
-                      ))?.toLocaleString(undefined, {
+                      ))?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
                       })}
@@ -2786,7 +2786,7 @@ const financeDetails = (
                           'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
                           '',
                         ),
-                      ))?.toLocaleString(undefined, {
+                      ))?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
                       })}
@@ -2803,7 +2803,7 @@ const financeDetails = (
                           'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
                           '',
                         ),
-                      ))?.toLocaleString(undefined, {
+                      ))?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
                       })}
@@ -2816,7 +2816,7 @@ const financeDetails = (
                         companyData,
                         'financial.balanceSheet[0].equityLiabilities.otherCurrentLiabilities',
                         '',
-                      ))?.toLocaleString(undefined, {
+                      ))?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
                       })}
@@ -2826,7 +2826,7 @@ const financeDetails = (
                         companyData,
                         'financial.balanceSheet[1].equityLiabilities.otherCurrentLiabilities',
                         '',
-                      ))?.toLocaleString(undefined, {
+                      ))?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
                       })}
@@ -2958,7 +2958,7 @@ const financeDetails = (
                         companyData,
                         'financial.cashFlowStatement[0].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
                         '',
-                      ))?.toLocaleString(undefined, {
+                      ))?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
                       })}
@@ -2968,7 +2968,7 @@ const financeDetails = (
                         companyData,
                         'financial.cashFlowStatement[1].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
                         '',
-                      ))?.toLocaleString(undefined, {
+                      ))?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
                       })}
@@ -2981,7 +2981,7 @@ const financeDetails = (
                         companyData,
                         'financial.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
                         '',
-                      ))?.toLocaleString(undefined, {
+                      ))?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
                       })}
@@ -2991,7 +2991,7 @@ const financeDetails = (
                         companyData,
                         'financial.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
                         '',
-                      ))?.toLocaleString(undefined, {
+                      ))?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
                       })}
@@ -3004,7 +3004,7 @@ const financeDetails = (
                         companyData,
                         'financial.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
                         '',
-                      ))?.toLocaleString(undefined, {
+                      ))?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
                       })}
@@ -3014,7 +3014,7 @@ const financeDetails = (
                         companyData,
                         'financial.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
                         '',
-                      ))?.toLocaleString(undefined, {
+                      ))?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
                       })}
