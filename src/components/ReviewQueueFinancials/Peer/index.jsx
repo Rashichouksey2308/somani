@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styles from '../index.module.scss'
 import moment from 'moment'
-import { convertValue } from 'utils/helper'
+import { checkNan, convertValue } from 'utils/helper'
 
 function Index({ peerData }) {
   const [conversionUnit, setConversionUnit] = useState(10000000)
@@ -52,12 +52,24 @@ function Index({ peerData }) {
                     {peerData && peerData?.financial?.peerComparison?.map((peers, index) => (<tr key={index}>
                       <td>{peers.name}</td>
                       <td className="text-center">{moment(peers?.finyrEnddate)
-                          .format('MMM-YY')
-                          .toUpperCase()}</td>
-                      <td className="text-center">{peers.revenue?.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
-                      <td className="text-center">{peers.ebidtaMargin?.toFixed(2)} %</td>
-                      <td className="text-center">{peers.patMargin?.toFixed(2)}%</td>
-                      <td className="text-center">{peers.borrowings?.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+                        .format('MMM-YY')
+                        .toUpperCase()}</td>
+                      <td className="text-center">{peers.revenue?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })}</td>
+                      <td className="text-center">{checkNan(peers?.ebidtaMargin*100)?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })} %</td>
+                      <td className="text-center">{checkNan(peers?.patMargin*100)?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })}%</td>
+                      <td className="text-center">{peers.borrowings?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })}</td>
                     </tr>))}
                     {/* <tr>
                       <td>Ascent Hotels Private Limited</td>

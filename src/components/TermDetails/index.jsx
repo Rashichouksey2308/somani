@@ -835,7 +835,7 @@ const Index = ({
                   isFieldInFocus.lcOpeningCharges ?
                     termsheetDetails?.commercials?.lcOpeningChargesUnit :
                      `USD` + ` ` +
-                    Number(termsheetDetails?.commercials?.lcOpeningChargesUnit).toLocaleString() }
+                    Number(termsheetDetails?.commercials?.lcOpeningChargesUnit).toLocaleString('en-In') }
 
 
                 onChange={onChangeCommercialTerms}
