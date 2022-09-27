@@ -923,7 +923,7 @@ function Index() {
     
   ])
   useEffect(() => {
-    if(orderList?.company?.debtProfile.length>0){
+    if(orderList?.company?.debtProfile?.length>0){
       let temp=[]
       orderList?.company?.debtProfile.forEach((val,index)=>{
          temp.push({
@@ -1355,6 +1355,11 @@ function Index() {
       tempPerson.forEach((val, index) => {
         delete val.isEdit
       })
+
+      let tempDebtData = [...debtData]
+      tempDebtData.forEach((val, index) => {
+        delete val.action && val.actions
+      })
       let data = { ...product }
       data.monthlyProductionCapacity = removePrefixOrSuffix(
         product.monthlyProductionCapacity,
@@ -1404,7 +1409,7 @@ function Index() {
           sanctionTerms: [...sanctionComment],
           weakness: [...weaknessComment],
         },
-        debtProfile: [...debtData],
+        debtProfile: tempDebtData,
         groupExposureDetail: [...groupExposureData],
         suggestedOrderValue:
           removePrefixOrSuffix(suggestedCredit.suggestedOrderValue) * 10000000,
