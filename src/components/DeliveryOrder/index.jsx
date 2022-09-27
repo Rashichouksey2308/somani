@@ -90,7 +90,7 @@ export default function Index(props) {
                       Balance Quantity
                     </div>
                     <span className={styles.value}>
-                      {props.BalanceQuantity().toLocaleString()}{' '}
+                      {props.BalanceQuantity()?.toLocaleString('en-In')}{' '}
                       {_get(
                         props,
                         'ReleaseOrder.data[0].order.unitOfQuantity',
@@ -221,7 +221,7 @@ export default function Index(props) {
                                     Quantity Released
                                   </div>
                                   <span className={styles.value}>
-                                    {val.Quantity}
+                                    { val.Quantity ? Number(val.Quantity)?.toLocaleString('en-In') : ''}
                                   </span>
                                 </>
                               )}

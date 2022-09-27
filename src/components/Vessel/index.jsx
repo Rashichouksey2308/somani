@@ -683,7 +683,7 @@ function Index({
                                       }
                                       className={`${styles.input_field} input form-control`}
                                       required
-                                      type="text"
+                                      type="number"
                                       onChange={(e) =>
                                         onVesselInfoChangeHandlerForBulk(
                                           e,

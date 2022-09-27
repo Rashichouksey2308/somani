@@ -579,15 +579,15 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Quantity</Col>
-            <Col md={7} className={styles.right}>{(data.quan)?.toLocaleString()} {data?.unitOfQuantity?.toUpperCase()}</Col>
+            <Col md={7} className={styles.right}>{(data.quan)?.toLocaleString('en-In')} {data?.unitOfQuantity?.toUpperCase()}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Unit Price</Col>
-            <Col md={7} className={styles.right}>{data.curr} {(data.unitPrice)?.toLocaleString()}</Col>
+            <Col md={7} className={styles.right}>{data.curr} {(data.unitPrice)?.toLocaleString('en-In')}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Total Order Value</Col>
-            <Col md={7} className={styles.right}> USD {(data.totalOrderValue)?.toLocaleString()} </Col>
+            <Col md={7} className={styles.right}> USD {(data.totalOrderValue)?.toLocaleString('en-In')} </Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Load Port</Col>
