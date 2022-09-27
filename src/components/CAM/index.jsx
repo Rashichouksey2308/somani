@@ -1840,7 +1840,7 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor) => 
                                 {charge?.nameOfChargeHolder1}
                               </span>
                             </td>
-                            <td>{Number(charge?.finalAmountSecured)?.toLocaleString()}</td>
+                            <td>{Number(charge?.finalAmountSecured)?.toLocaleString('en-In')}</td>
 
                             <td>
                               {charge?.dateOfCreationOfCharge

@@ -3725,7 +3725,7 @@ function Index() {
                           paddingTop: '21px',
                           paddingBottom: '21px',
                         }}
-                      >{Number(charge?.finalAmountSecured)?.toLocaleString()}
+                      >{Number(charge?.finalAmountSecured)?.toLocaleString('en-In')}
                       </td>
                       <td
                         style={{
@@ -3736,7 +3736,7 @@ function Index() {
                           paddingBottom: '21px',
                         }}
                       >{charge?.dateOfCreationOfCharge
-                                ? moment(charge?.dateOfCreationOfCharge).format(
+                                ? moment(charge?.dateOfCreationOfCharge, 'DD-MM-YYYY').format(
                                   'DD-MM-YYYY',
                                 )
                                 : ''}
