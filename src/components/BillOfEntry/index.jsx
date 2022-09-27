@@ -1205,7 +1205,7 @@ export default function Index({
                           Total Custom Duty:
                         </div>
                         <div className={`${styles.value} ml-2 mt-4`}>
-                          {totalCustomDuty()}
+                          {totalCustomDuty()?.toLocaleString('en-In')}
                         </div>
                       </div>
                       <div
@@ -1264,7 +1264,7 @@ export default function Index({
                             <strong className="text-danger ml-n1">*</strong>{' '}
                           </div>
                           <span className={styles.value}>
-                            {bl?.blQuantity}{' '}
+                            {bl?.blQuantity ? Number(bl?.blQuantity)?.toLocaleString('en-In') : ''}{' '}
                             {customData?.order?.unitOfQuantity.toUpperCase()}
                           </span>
                         </div>
@@ -1288,7 +1288,7 @@ export default function Index({
                 <div className={`${styles.total_quantity} text `}>
                   Total:{' '}
                   <span className="form-check-label ml-2">
-                    {isNaN(totalBl) ? '' : totalBl}{' '}
+                    {isNaN(totalBl) ? '' : totalBl?.toLocaleString('en-In')}{' '}
                     {isNaN(totalBl)
                       ? ''
                       : customData?.order?.unitOfQuantity.toUpperCase()}

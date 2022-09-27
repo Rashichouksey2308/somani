@@ -3725,7 +3725,7 @@ function Index() {
                           paddingTop: '21px',
                           paddingBottom: '21px',
                         }}
-                      >{Number(charge?.finalAmountSecured)?.toLocaleString()}
+                      >{Number(charge?.finalAmountSecured)?.toLocaleString('en-In')}
                       </td>
                       <td
                         style={{
@@ -3736,7 +3736,7 @@ function Index() {
                           paddingBottom: '21px',
                         }}
                       >{charge?.dateOfCreationOfCharge
-                                ? moment(charge?.dateOfCreationOfCharge).format(
+                                ? moment(charge?.dateOfCreationOfCharge, 'DD-MM-YYYY').format(
                                   'DD-MM-YYYY',
                                 )
                                 : ''}
@@ -8551,7 +8551,7 @@ const uploadButton = (dispatch, orderList, companyData) => {
         Update Info
       </button>
       <div className={`${styles.lastModified} text `}>
-        <span>Last Modified:</span>
+        <span className='accordion_Text'>Last Modified:</span>
         {moment(companyData?.updatedAt).format(' D MMM , h:mm a')}
       </div>
     </>

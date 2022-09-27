@@ -275,24 +275,24 @@ export default function Index({
                       <option value="">Please select a vessel</option>
                       {shipmentTypeBulk
                         ? _get(customData, 'order.vessel.vessels', []).map(
-                            (vessel, index) => (
-                              <option
-                                value={vessel?.vesselInformation?.name}
-                                key={index}
-                              >
-                                {vessel?.vesselInformation[0]?.name}
-                              </option>
-                            ),
-                          )
-                        : _get(
-                            customData,
-                            'order.vessel.vessels[0].vesselInformation',
-                            [],
-                          ).map((vessel, index) => (
-                            <option value={vessel?.name} key={index}>
-                              {vessel?.name}
+                          (vessel, index) => (
+                            <option
+                              value={vessel?.vesselInformation?.name}
+                              key={index}
+                            >
+                              {vessel?.vesselInformation[0]?.name}
                             </option>
-                          ))}
+                          ),
+                        )
+                        : _get(
+                          customData,
+                          'order.vessel.vessels[0].vesselInformation',
+                          [],
+                        ).map((vessel, index) => (
+                          <option value={vessel?.name} key={index}>
+                            {vessel?.name}
+                          </option>
+                        ))}
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Vessel Name<strong className="text-danger">*</strong>
@@ -329,10 +329,10 @@ export default function Index({
                       isFieldInFocus
                         ? dischargeOfCargo?.dischargeOfCargo?.dischargeQuantity
                         : Number(
-                            dischargeOfCargo?.dischargeOfCargo
-                              ?.dischargeQuantity,
-                          )?.toLocaleString("en-IN") +
-                          ` ${_get(customData, 'order.unitOfQuantity', '')}`
+                          dischargeOfCargo?.dischargeOfCargo
+                            ?.dischargeQuantity,
+                        )?.toLocaleString("en-IN") +
+                        ` ${_get(customData, 'order.unitOfQuantity', '')}`
                     }
                     onChange={(e) =>
                       onChangeDischargeOfCargo(e.target.id, e.target.value)
@@ -488,12 +488,12 @@ export default function Index({
                           {dischargeOfCargo.document1 === null
                             ? ''
                             : moment(dischargeOfCargo?.document1?.Date).format(
-                                'DD-MM-YYYY, h:mm a',
-                              )}
+                              'DD-MM-YYYY, h:mm a',
+                            )}
                         </td>
                         <td>
                           {dischargeOfCargo &&
-                          dischargeOfCargo.document1 === null ? (
+                            dischargeOfCargo.document1 === null ? (
                             <>
                               <div className={styles.uploadBtnWrapper}>
                                 <input
@@ -543,12 +543,12 @@ export default function Index({
                           {dischargeOfCargo.document2 === null
                             ? ''
                             : moment(dischargeOfCargo?.document2?.Date).format(
-                                'DD-MM-YYYY, h:mm a',
-                              )}
+                              'DD-MM-YYYY, h:mm a',
+                            )}
                         </td>
                         <td>
                           {dischargeOfCargo &&
-                          dischargeOfCargo.document2 === null ? (
+                            dischargeOfCargo.document2 === null ? (
                             <>
                               <div className={styles.uploadBtnWrapper}>
                                 <input
@@ -665,7 +665,7 @@ export default function Index({
                         ).format('DD-MM-YYYY')}
                       </td>
                       <td>
-                        {bl?.blQuantity} {customData?.order?.unitOfQuantity}
+                        {bl?.blQuantity ? Number(bl?.blQuantity)?.toLocaleString('en-In') : ''} {customData?.order?.unitOfQuantity}
                       </td>
                     </tr>
                   ),
@@ -675,7 +675,7 @@ export default function Index({
           </div>
           <div className={`${styles.bottom}`}>
             <span className="text">Total Quantity: </span> &nbsp;{' '}
-            {isNaN(totalBl) ? '' : totalBl}{' '}
+            {isNaN(totalBl) ? '' : totalBl?.toLocaleString('en-In')}{' '}
             {isNaN(totalBl)
               ? ''
               : customData?.order?.unitOfQuantity.toUpperCase()}

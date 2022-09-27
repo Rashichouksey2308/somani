@@ -119,7 +119,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           latestYearData?.cashFlowsFromUsedInOperatingActivities
                             ?.cashFlowsFromUsedInOperatingActivities,
                           unit,
-                        )?.toLocaleString(undefined, {
+                        )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         })}
@@ -134,7 +134,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             ?.cashFlowsFromUsedInOperatingActivities
                             ?.cashFlowsFromUsedInOperatingActivities,
                           unit,
-                        )?.toLocaleString(undefined, {
+                        )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         })}
@@ -148,7 +148,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           lastYearData?.cashFlowsFromUsedInOperatingActivities
                             ?.cashFlowsFromUsedInOperatingActivities,
                           unit,
-                        )?.toLocaleString(undefined, {
+                        )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         })}
@@ -177,7 +177,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           latestYearData?.cashFlowsFromUsedInInvestingActivities
                             ?.cashFlowsFromUsedInInvestingActivities,
                           unit,
-                        )?.toLocaleString(undefined, {
+                        )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         })}
@@ -192,7 +192,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             ?.cashFlowsFromUsedInInvestingActivities
                             ?.cashFlowsFromUsedInInvestingActivities,
                           unit,
-                        )?.toLocaleString(undefined, {
+                        )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         })}
@@ -206,7 +206,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           lastYearData?.cashFlowsFromUsedInInvestingActivities
                             ?.cashFlowsFromUsedInInvestingActivities,
                           unit,
-                        )?.toLocaleString(undefined, {
+                        )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         })}
@@ -235,7 +235,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           latestYearData?.cashFlowsFromUsedInFinancingActivities
                             ?.cashFlowsFromUsedInFinancingActivities,
                           unit,
-                        )?.toLocaleString(undefined, {
+                        )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         })}
@@ -250,7 +250,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             ?.cashFlowsFromUsedInFinancingActivities
                             ?.cashFlowsFromUsedInFinancingActivities,
                           unit,
-                        )?.toLocaleString(undefined, {
+                        )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         })}
@@ -264,7 +264,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                           lastYearData?.cashFlowsFromUsedInFinancingActivities
                             ?.cashFlowsFromUsedInFinancingActivities,
                           unit,
-                        )?.toLocaleString(undefined, {
+                        )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         })}
@@ -294,7 +294,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             ?.effectOfExchangeRateChangesOnCashAndCashEquivalents
                             ?.increaseDecreaseInCashAndCashEquivalents,
                           unit,
-                        )?.toLocaleString(undefined, {
+                        )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         })}
@@ -311,7 +311,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             ?.effectOfExchangeRateChangesOnCashAndCashEquivalents
                             ?.increaseDecreaseInCashAndCashEquivalents,
                           unit,
-                        )?.toLocaleString(undefined, {
+                        )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         })}
@@ -327,7 +327,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             ?.effectOfExchangeRateChangesOnCashAndCashEquivalents
                             ?.increaseDecreaseInCashAndCashEquivalents,
                           unit,
-                        )?.toLocaleString(undefined, {
+                        )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         })}
@@ -356,7 +356,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                               ?.propertyPlantAndEquipment +
                             latestIncomeStatement?.expenses?.deprcnAmort,
                           unit,
-                        )?.toLocaleString(undefined, {
+                        )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         })}
@@ -370,7 +370,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                               ?.propertyPlantAndEquipment +
                             previousIncomeStatement?.expenses?.deprcnAmort,
                           unit,
-                        )?.toLocaleString(undefined, {
+                        )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         })}
@@ -383,7 +383,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             lastYearData?.previous?.propertyPlantAndEquipment +
                             previousIncomeStatement?.expenses?.deprcnAmort,
                           unit,
-                        )?.toLocaleString(undefined, {
+                        )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         })}
@@ -418,7 +418,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                               ?.propertyPlantAndEquipment +
                             latestIncomeStatement?.expenses?.deprcnAmort,
                           unit,
-                        )?.toLocaleString(undefined, {
+                        )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         })}
@@ -434,7 +434,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                               ?.propertyPlantAndEquipment +
                             previousIncomeStatement?.expenses?.deprcnAmort,
                           unit,
-                        )?.toLocaleString(undefined, {
+                        )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         })}
@@ -449,7 +449,7 @@ function Index({ cashData, rtrnChartIndiaction }) {
                             lastYearData?.previous?.propertyPlantAndEquipment +
                             lastYearIncomeStatement?.expenses?.deprcnAmort,
                           unit,
-                        )?.toLocaleString(undefined, {
+                        )?.toLocaleString('en-In', {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         })}
