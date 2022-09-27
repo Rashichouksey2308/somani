@@ -54,19 +54,19 @@ function Index({ peerData }) {
                       <td className="text-center">{moment(peers?.finyrEnddate)
                         .format('MMM-YY')
                         .toUpperCase()}</td>
-                      <td className="text-center">{peers.revenue?.toLocaleString('en-In', {
+                      <td className="text-center">{convertValue(peers.revenue, conversionUnit)?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}</td>
-                      <td className="text-center">{checkNan(peers?.ebidtaMargin*100)?.toLocaleString('en-In', {
+                      <td className="text-center">{checkNan(peers?.ebidtaMargin * 100)?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })} %</td>
-                      <td className="text-center">{checkNan(peers?.patMargin*100)?.toLocaleString('en-In', {
+                      <td className="text-center">{checkNan(peers?.patMargin * 100)?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}%</td>
-                      <td className="text-center">{peers.borrowings?.toLocaleString('en-In', {
+                      <td className="text-center">{convertValue(peers.borrowings,conversionUnit)?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}</td>

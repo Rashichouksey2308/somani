@@ -318,37 +318,45 @@ function Index({ shareHolding }) {
                       </tr>
                       {shareHolding?.map((shareHolder, index) => {
                         if (shareHolder.type !== 'EquitySharesMember') {
-                          return (
-                            <tr key={index}>
-                              <td
-                                className={`${styles.legends} ${styles.green} border-top-0 border-bottom-0`}
-                              >
-                                <span></span>
-                              </td>
-                              <td className={`${styles.name} border-top-0 border-bottom-0`}>
-                                {shareHolder.fullName}
-                              </td>
-                              <td className="border-top-0 border-bottom-0">
-                                {Number(shareHolder.numberOfShares).toLocaleString()}
-                              </td>
-                              <td className="border-top-0 border-bottom-0">
-                                {shareHolder.percentageShareHolding.toFixed(2)}
-                              </td>
-                              <td className="border-top-0 border-bottom-0">
-                                {shareHolder.pan}
-                              </td>
-                              <td className="border-top-0 border-bottom-0">
-                                {shareHolder.director ? 'Yes' : 'No'}
-                              </td>
-                            </tr>
-                          )
+                          if (shareHolder.type !== 'EquityShares1Member') {
+                            return (
+                              <tr key={index}>
+                                <td
+                                  className={`${styles.legends} ${styles.green} border-top-0 border-bottom-0`}
+                                >
+                                  <span></span>
+                                </td>
+                                <td className={`${styles.name} border-top-0 border-bottom-0`}>
+                                  {shareHolder.fullName}
+                                </td>
+                                <td className="border-top-0 border-bottom-0">
+                                  {Number(shareHolder.numberOfShares).toLocaleString('en-In')}
+                                </td>
+                                <td className="border-top-0 border-bottom-0">
+                                  {shareHolder?.percentageShareHolding ? (shareHolder.percentageShareHolding * 100)?.toLocaleString("en-IN", {
+                                    maximumFractionDigits: 2,
+                                    minimumFractionDigits: 2,
+                                  }) : ''}
+                                </td>
+                                <td className="border-top-0 border-bottom-0">
+                                  {shareHolder.pan}
+                                </td>
+                                <td className="border-top-0 border-bottom-0">
+                                  {shareHolder.director ? 'Yes' : 'No'}
+                                </td>
+                              </tr>
+                            )
+                          }
                         }
                       })}
                       <tr>
                         <td className='border-top-0'></td>
                         <td className="border-top-0"></td>
-                        <td>{Number(totalPrefrenceShare)?.toLocaleString()}</td>
-                        <td>{totalPrefrenceSharePercentage.toFixed(2)}%</td>
+                        <td>{Number(totalPrefrenceShare)?.toLocaleString('en-In')}</td>
+                        <td>{totalPrefrenceSharePercentage?.toLocaleString("en-IN", {
+                          maximumFractionDigits: 2,
+                          minimumFractionDigits: 2,
+                        })}%</td>
                         <td className="border-top-0"></td>
                         <td className="border-top-0"></td>
                       </tr>
