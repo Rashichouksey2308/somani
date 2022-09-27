@@ -108,9 +108,9 @@ const index = ({
       ...debtData,
       {
         bankName: '',
-        primaryBank: '',
+        primaryBank: false,
         conduct: '',
-        limit: '',
+        limit: null,
         action: false,
       },
     ])
@@ -157,7 +157,7 @@ const index = ({
   const FilterUniqueBank = () => {
     let filtered = _get(companyData, 'financial.openCharges', [])
     const unique = [
-      ...new Set(filtered.map((item) => item.nameOfChargeHolder1)),
+      ...new Set(filtered.map((item) => item.nameOfChargeHolder)),
     ]
     console.log(unique, 'unique')
     return unique
@@ -2232,11 +2232,11 @@ const index = ({
                             disabled={!profile.actions}
                             value={profile.bankName}
                           >
-                            <option disabled selected>
-                              Select
-                            </option>
-                            {FilterUniqueBank().map((item) => (
+                             <option selected disabled>Select</option>
+                            {FilterUniqueBank().map((item) => (<>
+                             
                               <option value={item}>{item}</option>
+                              </>
                             ))}
                           </select>
                           {/* <input
@@ -2307,6 +2307,7 @@ const index = ({
                               Number(profile?.limit)?.toLocaleString('en-In')
                             }
                             className="input"
+                            // type='number'
                             name="limit"
                             disabled={!profile.actions}
                             onChange={(e) =>
