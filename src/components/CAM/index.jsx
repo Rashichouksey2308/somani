@@ -49,7 +49,13 @@ function Index({
   saveApprovedCreditData,
   approvedCredit,
   orderDetails,
-  GstData
+  GstData,
+  setTotalCustomer1,
+  setTotalSupplier1,
+  setTop5Suppliers1,
+  setTop3Share1,
+  setTop3Open1,
+  setTop5Customers1
 }) {
   const dispatch = useDispatch()
   console.log(GstData, 'GstData')
@@ -420,6 +426,8 @@ function Index({
       }
       setTotalCustomer(total)
       setTop5Customers({ ...top5data })
+       setTotalCustomer1(total)
+      setTop5Customers1({ ...top5data })
 
     }
 
@@ -457,6 +465,8 @@ function Index({
       }
       setTotalSupplier(total)
       setTop5Suppliers({ ...top5data })
+      setTotalSupplier1(total)
+      setTop5Suppliers1({ ...top5data })
 
     }
 
@@ -495,6 +505,7 @@ function Index({
       }
 
       setTop3Share({ ...top5data })
+      setTop3Share1({ ...top5data })
 
     }
 
@@ -536,6 +547,7 @@ function Index({
       }
 
       setTop3Open({ ...top5data })
+      setTop3Open1({ ...top5data })
 
     }
 
@@ -1577,7 +1589,7 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => 
         </div>
         <div
           id="shareHolding"
-          className="collapse"
+          // className="collapse open"
           aria-labelledby="shareHolding"
           data-parent="#profileAccordion"
         >
@@ -1738,7 +1750,7 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor) => 
         </div>
         <div
           id="chargeDetails"
-          className="collapse"
+          // className="collapse open"
           aria-labelledby="chargeDetails"
           data-parent="#profileAccordion"
         >
@@ -3795,7 +3807,7 @@ const trends = (
         </div>
         <div
           id="trends"
-          className="collapse"
+          //  className="collapse open"
           aria-labelledby="trends"
           data-parent="#profileAccordion"
         >
@@ -3922,7 +3934,7 @@ const skewness = (top5Customers, options, tempArr, gstData, top5Suppliers, backg
         </div>
         <div
           id="skewness"
-          className="collapse"
+            // className="collapse open"
           aria-labelledby="skewness"
           data-parent="#profileAccordion"
         >
