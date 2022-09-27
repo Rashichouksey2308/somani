@@ -10,7 +10,7 @@ import Modal from 'react-bootstrap/Modal'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetLcModule } from 'redux/lcModule/action'
 import moment from 'moment'
-import { addPrefixOrSuffix } from 'utils/helper'
+import { addPrefixOrSuffix, checkNan } from 'utils/helper'
 import _get from 'lodash/get'
 import jsPDF from 'jspdf'
 import ReactDOMServer from 'react-dom/server'
@@ -165,7 +165,10 @@ function Index() {
                           </td>
                           <td align='left' style={{borderBottom:'2px solid rgba(202, 214, 230, 0.3)'}}>
                             <p style={{fontSize:'20px', color:'#111111', lineHeight:'24px', fontWeight:'500', padding:'16px 15px 16px 24px', marginBottom:'0'}}> {addPrefixOrSuffix(
-                            lcModuleData?.lcApplication?.tolerancePercentage?.toUpperCase(),
+                            lcModuleData?.lcApplication?.tolerancePercentage?.toLocaleString("en-IN", {
+                              maximumFractionDigits: 2,
+                              minimumFractionDigits: 2,
+                            }),
                             '%',
                             '',
                           )}</p>
@@ -629,11 +632,13 @@ function Index() {
                         </td>
                         <td className="term_para">
                           +/-{' '}
-                          {addPrefixOrSuffix(
-                            lcModuleData?.lcApplication?.tolerancePercentage?.toUpperCase(),
-                            '%',
-                            '',
-                          )}
+                          {checkNan(
+                            Number(lcModuleData?.lcApplication?.tolerancePercentage)?.toLocaleString("en-IN", {
+                              maximumFractionDigits: 2,
+                              minimumFractionDigits: 2,
+                            })
+                          
+                          )} %
                         </td>
                       </tr>
                       <tr className="table_row">
