@@ -467,6 +467,10 @@ export default function Index(props) {
                                     required
                                     type="number"
                                     name="rrlrNumber"
+                                    onKeyDown={(evt) =>
+                                      ['e', 'E', '+', '-'].includes(evt.key) &&
+                                      evt.preventDefault()
+                                    }
                                     value={val2.rrlrNumber}
                                     onChange={(e) => {
                                       props.handleChange(
