@@ -8305,7 +8305,7 @@ const uploadButton = (dispatch, orderList, companyData) => {
         Update Info
       </button>
       <div className={`${styles.lastModified} text `}>
-        <span>Last Modified:</span>
+        <span className='accordion_Text'>Last Modified:</span>
         {moment(companyData?.updatedAt).format(' D MMM , h:mm a')}
       </div>
     </>

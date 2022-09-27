@@ -70,7 +70,7 @@ function Index() {
             <div className="ml-auto">
               <div className={`${styles.lastModified} text `}
              >
-                <span style={{marginRight:'7px'}}>Last Modified:</span>{lastModified}
+                <span style={{marginRight:'7px'}} className='accordion_Text'>Last Modified:</span>{lastModified}
               </div>
             </div>
           </div>

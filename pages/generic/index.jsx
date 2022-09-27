@@ -58,7 +58,7 @@ function Index(props) {
         </div>
         <div className={"ml-auto d-flex"}>
           <div className="ml-auto  mr-2">
-            <div className={`${styles.lastModified} text `}><span>Last Modified:</span> {lastModified}</div>
+            <div className={`${styles.lastModified} text `}><span className='accordion_Text'>Last Modified:</span> {lastModified}</div>
 
           </div>
           
