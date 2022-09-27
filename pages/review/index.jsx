@@ -1358,7 +1358,7 @@ function Index() {
 
       let tempDebtData = [...debtData]
       tempDebtData.forEach((val, index) => {
-        delete val.action && val.actions
+        delete val.action &&  delete val.actions
       })
       let data = { ...product }
       data.monthlyProductionCapacity = removePrefixOrSuffix(
@@ -1409,7 +1409,7 @@ function Index() {
           sanctionTerms: [...sanctionComment],
           weakness: [...weaknessComment],
         },
-        debtProfile: [...debtData],
+        debtProfile: tempDebtData,
         groupExposureDetail: [...groupExposureData],
         suggestedOrderValue:
           removePrefixOrSuffix(suggestedCredit.suggestedOrderValue) * 10000000,

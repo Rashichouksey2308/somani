@@ -108,9 +108,9 @@ const index = ({
       ...debtData,
       {
         bankName: '',
-        primaryBank: '',
+        primaryBank: false,
         conduct: '',
-        limit: '',
+        limit: null,
         action: false,
       },
     ])
@@ -2307,7 +2307,7 @@ const index = ({
                               Number(profile?.limit)?.toLocaleString('en-In')
                             }
                             className="input"
-                            type='Number'
+                            // type='number'
                             name="limit"
                             disabled={!profile.actions}
                             onChange={(e) =>
