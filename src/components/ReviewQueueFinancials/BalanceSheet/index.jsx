@@ -381,7 +381,7 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                         {/* {checkNan(
                           (latestYearData?.equityLiabilities?.otherCurrentLiabilities), true
                         )} */}
-                        {convertValue((latestYearData?.equityLiabilities?.otherCurrentLiabilities), unit)?.toLocaleString(undefined, {
+                        {convertValue(( latestYearData?.equityLiabilities?.totalEl - (latestYearData?.equityLiabilities?.totalEquity + latestYearData?.equityLiabilities?.borrowingsNonCurrent + latestYearData?.equityLiabilities?.borrowingsCurrent + latestYearData?.equityLiabilities?.tradePay + latestYearData?.equityLiabilities?.tradePayablesNoncurrent)), unit)?.toLocaleString(undefined, {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         })}
@@ -392,25 +392,24 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                           (previousYearData?.equityLiabilities
                             ?.otherCurrentLiabilities), true
                         )} */}
-                        {convertValue((previousYearData?.equityLiabilities
-                          ?.otherCurrentLiabilities), unit)?.toLocaleString(undefined, {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2
-                          })}
-
-                      </td>
-                      <td className="text-center">
-                        {/* {checkNan(
-                          (lastYearData?.equityLiabilities?.otherCurrentLiabilities), true
-                        )} */}
-                        {convertValue((lastYearData?.equityLiabilities?.otherCurrentLiabilities), unit)?.toLocaleString(undefined, {
+                        {convertValue(( previousYearData?.equityLiabilities?.totalEl - (previousYearData?.equityLiabilities?.totalEquity + previousYearData?.equityLiabilities?.borrowingsNonCurrent + previousYearData?.equityLiabilities?.borrowingsCurrent + previousYearData?.equityLiabilities?.tradePay + previousYearData?.equityLiabilities?.tradePayablesNoncurrent)), unit)?.toLocaleString(undefined, {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2
                         })}
 
                       </td>
                       <td className="text-center">
-                        {rtrnChartIndiaction(latestYearData?.equityLiabilities?.otherCurrentLiabilities, previousYearData?.equityLiabilities?.otherCurrentLiabilities, lastYearData?.equityLiabilities?.otherCurrentLiabilities)}
+                        {/* {checkNan(
+                          (lastYearData?.equityLiabilities?.otherCurrentLiabilities), true
+                        )} */}
+                        {convertValue(( lastYearData?.equityLiabilities?.totalEl - (lastYearData?.equityLiabilities?.totalEquity + lastYearData?.equityLiabilities?.borrowingsNonCurrent + lastYearData?.equityLiabilities?.borrowingsCurrent + lastYearData?.equityLiabilities?.tradePay + lastYearData?.equityLiabilities?.tradePayablesNoncurrent)), unit)?.toLocaleString(undefined, {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
+                        })}
+
+                      </td>
+                      <td className="text-center">
+                        {rtrnChartIndiaction(( latestYearData?.equityLiabilities?.totalEl - (latestYearData?.equityLiabilities?.totalEquity + latestYearData?.equityLiabilities?.borrowingsNonCurrent + latestYearData?.equityLiabilities?.borrowingsCurrent + latestYearData?.equityLiabilities?.tradePay + latestYearData?.equityLiabilities?.tradePayablesNoncurrent)),( previousYearData?.equityLiabilities?.totalEl - (previousYearData?.equityLiabilities?.totalEquity + previousYearData?.equityLiabilities?.borrowingsNonCurrent + previousYearData?.equityLiabilities?.borrowingsCurrent + previousYearData?.equityLiabilities?.tradePay + previousYearData?.equityLiabilities?.tradePayablesNoncurrent)), ( lastYearData?.equityLiabilities?.totalEl - (lastYearData?.equityLiabilities?.totalEquity + lastYearData?.equityLiabilities?.borrowingsNonCurrent + lastYearData?.equityLiabilities?.borrowingsCurrent + lastYearData?.equityLiabilities?.tradePay + lastYearData?.equityLiabilities?.tradePayablesNoncurrent)))}
 
                       </td>
                     </tr>
@@ -424,7 +423,7 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                       <td className="text-center border-top">
                         <strong>
                           {/* {latestYearData?.equityLiabilities?.totalLiabilities?.toLocaleString()} */}
-                          {convertValue((latestYearData?.equityLiabilities?.totalLiabilities), unit)?.toLocaleString(undefined, {
+                          {convertValue((latestYearData?.equityLiabilities?.totalEl), unit)?.toLocaleString(undefined, {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2
                           })}
@@ -433,7 +432,7 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                       <td className="text-center border-top">
                         <strong>
                           {/* {previousYearData?.equityLiabilities?.totalLiabilities?.toLocaleString()} */}
-                          {convertValue((previousYearData?.equityLiabilities?.totalLiabilities), unit)?.toLocaleString(undefined, {
+                          {convertValue((previousYearData?.equityLiabilities?.totalEl), unit)?.toLocaleString(undefined, {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2
                           })}
@@ -442,14 +441,14 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                       <td className="text-center border-top">
                         <strong>
                           {/* {lastYearData?.equityLiabilities?.totalLiabilities?.toLocaleString()} */}
-                          {convertValue((lastYearData?.equityLiabilities?.totalLiabilities), unit)?.toLocaleString(undefined, {
+                          {convertValue((lastYearData?.equityLiabilities?.totalEl), unit)?.toLocaleString(undefined, {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2
                           })}
                         </strong>
                       </td>
                       <td className="text-center border-top">
-                        {rtrnChartIndiaction(latestYearData?.equityLiabilities?.totalLiabilities, previousYearData?.equityLiabilities?.totalLiabilities, lastYearData?.equityLiabilities?.totalLiabilities)}
+                        {rtrnChartIndiaction(latestYearData?.equityLiabilities?.totalEl, previousYearData?.equityLiabilities?.totalEl, lastYearData?.equityLiabilities?.totalEl)}
 
                       </td>
                     </tr>
