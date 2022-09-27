@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import styles from './index.module.scss'
 import RevisedMargin from '../../src/components/RevisedMargin'
 import { Form } from 'react-bootstrap'
-
+import { toast } from 'react-toastify'
 import _get from 'lodash/get'
 import UploadOther from '../../src/components/UploadOther'
 import DownloadBar from '../../src/components/DownloadBar'
@@ -71,7 +71,7 @@ function Index() {
       setDarkMode(false)
     }
   }, [])
-  console.log(marginData?.isUsanceInterestIncluded, " marginData?.isUsanceInterestIncluded")
+ 
   const [forCalculation, setForCalculation] = useState({
     isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || true,
     status: marginData?.status || '',
@@ -261,24 +261,7 @@ function Index() {
     Router.push('/margin-preview')
   }
 
-  const [invoiceData, setInvoiceData] = useState({
-    buyerName: marginData?.company?.companyName || '',
-    buyerGSTIN: marginData?.invoiceDetail?.buyerGSTIN || '',
-    buyerAddress: marginData?.invoiceDetail?.buyerAddress || '',
-    isConsigneeSameAsBuyer: marginData?.invoiceDetail?.isConsigneeSameAsBuyer,
-    consigneeName: marginData?.invoiceDetail?.consigneeName || '',
-    consigneeGSTIN: marginData?.invoiceDetail?.consigneeGSTIN || '',
-    consigneeAddress: marginData?.invoiceDetail?.consigneeAddress || '',
-    importerName: marginData?.invoiceDetail?.importerName || '',
-    branchOffice: marginData?.invoiceDetail?.branchOffice || '',
-    companyAddress: marginData?.invoiceDetail?.companyAddress || '',
-    importerGSTIN: marginData?.invoiceDetail?.importerGSTIN || '',
-    bankName: marginData?.invoiceDetail?.bankName || '',
-    branch: marginData?.invoiceDetail?.branch || '',
-    branchAddress: marginData?.invoiceDetail?.branchAddress || '',
-    IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
-    accountNo: marginData?.invoiceDetail?.accountNo || '',
-  })
+  const [invoiceData, setInvoiceData] = useState({})
   useEffect(() => {
     if (marginData) {
       setInvoiceData({
@@ -297,10 +280,11 @@ function Index() {
         branch: marginData?.invoiceDetail?.branch || '',
         branchAddress: marginData?.invoiceDetail?.branchAddress || '',
         IFSCcode: marginData?.invoiceDetail?.IFSCcode || '',
-        accountNo: marginData?.invoiceDetail?.accountNo || '',
+        accountNo: marginData?.invoiceDetail?.accountNo || '123456',
       })
     }
   }, [marginData])
+  console.log(invoiceData,"invoiceData")
   // console.log(invoiceData, 'invoiceData')
 
   const saveInvoiceData = (name, value) => {
@@ -409,8 +393,125 @@ function Index() {
       })
     }
   }
-
+ const validate=()=>{
+   if (invoiceData.buyerName === null||invoiceData.buyerName === undefined|| invoiceData.buyerName === '') {
+      let toastMessage = 'Please add buyer name'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+      if (invoiceData.buyerGSTIN === null||invoiceData.buyerGSTIN === undefined|| invoiceData.buyerGSTIN === '') {
+      let toastMessage = 'Please add buyer gstin'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return false
+    }
+      if (invoiceData.buyerAddress === null||invoiceData.buyerAddress === undefined|| invoiceData.buyerAddress === '') {
+      let toastMessage = 'Please add buyer address'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+       return false
+    }
+      if (invoiceData.consigneeName === null||invoiceData.consigneeName === undefined|| invoiceData.consigneeName === '') {
+      let toastMessage = 'Please add consignee Name'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+       return false
+    }
+        if (invoiceData.consigneeGSTIN === null||invoiceData.consigneeGSTIN === undefined|| invoiceData.consigneeGSTIN === '') {
+      let toastMessage = 'Please add consignee gstin'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+       return false
+    }
+    if (invoiceData.consigneeAddress === null||invoiceData.consigneeAddress === undefined|| invoiceData.consigneeAddress === '') {
+      let toastMessage = 'Please add consignee address'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+       return false
+    }
+     if (invoiceData.importerName === null||invoiceData.importerName === undefined|| invoiceData.importerName === '') {
+      let toastMessage = 'Please add importer name'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+       return false
+    }
+    if (invoiceData.branchOffice === null||invoiceData.branchOffice === undefined|| invoiceData.branchOffice === '') {
+      let toastMessage = 'Please add branch Office'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+       return false
+    }
+     if (invoiceData.companyAddress === null||invoiceData.companyAddress === undefined|| invoiceData.companyAddress === '') {
+      let toastMessage = 'Please add company Address'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+       return false
+    }
+     if (invoiceData.importerGSTIN === null||invoiceData.importerGSTIN === undefined|| invoiceData.importerGSTIN === '') {
+      let toastMessage = 'Please add importer GSTIN'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+       return false
+    }
+     if (invoiceData.bankName === null||invoiceData.bankName === undefined|| invoiceData.bankName === '') {
+      let toastMessage = 'Please add bank Name'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+       return false
+    }
+     if (invoiceData.branch === null||invoiceData.branch === undefined|| invoiceData.branch === '') {
+      let toastMessage = 'Please add branch'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+       return false
+    }
+      if (invoiceData.branch === null||invoiceData.branch === undefined|| invoiceData.branch === '') {
+      let toastMessage = 'Please add branch'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+       return false
+    }
+     if (invoiceData.branchAddress === null||invoiceData.branchAddress === undefined|| invoiceData.branchAddress === '') {
+      let toastMessage = 'Please add branch Address'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+       return false
+    }
+      if (invoiceData.IFSCcode === null||invoiceData.IFSCcode === undefined|| invoiceData.IFSCcode === '') {
+      let toastMessage = 'Please add  IFSC code'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+       return false
+    }
+     if (invoiceData.accountNo === null||invoiceData.accountNo === undefined|| invoiceData.accountNo === '') {
+      let toastMessage = 'Please add  account No'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+       return false
+    }
+    return true
+ }
   const handleUpdate = () => {
+    if(validate()){
+
+  
     let obj = {
       marginMoneyId: marginData?._id,
       conversionRate: forCalculation.conversionRate,
@@ -453,6 +554,7 @@ function Index() {
     // }
 
     dispatch(UpdateMarginMoney(obj))
+  }
   }
 
   const [revisedCalc, setRevisedCalc] = useState({
@@ -502,7 +604,7 @@ function Index() {
     importerGSTIN:
       marginData?.revisedMarginMoney?.invoiceDetail?.importerGSTIN || '',
     bankName: marginData?.revisedMarginMoney?.invoiceDetail?.bankName || '',
-    branch: marginData?.revisedMarginMoney?.invoiceDetail?.branch || '',
+    branch: marginData?.revisedMarginMoney?.invoiceDetail?.branch || 'Connaught Place, DELHI',
     branchAddress:
       marginData?.revisedMarginMoney?.invoiceDetail?.branchAddress || '',
     IFSCcode: marginData?.revisedMarginMoney?.invoiceDetail?.IFSCcode || '',
@@ -884,7 +986,7 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {addPrefixOrSuffix(
-                                    marginData?.order?.quantity?.toLocaleString(),
+                                    marginData?.order?.quantity?.toLocaleString('en-In'),
                                     '',
                                   )}{' '}
                                   {marginData?.order?.unitOfQuantity?.toUpperCase()}
@@ -911,7 +1013,7 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {marginData?.order?.quantity?.toLocaleString()}
+                                  {marginData?.order?.quantity?.toLocaleString('en-In')}
                                 </div>
                               </div>
                             </div>
@@ -924,7 +1026,7 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="quantity"
-                                defaultValue={marginData?.order?.quantity?.toLocaleString()}
+                                defaultValue={marginData?.order?.quantity?.toLocaleString('en-In')}
                                 onChange={(e) =>
                                   saveForCalculation(
                                     e.target.name,
@@ -992,11 +1094,11 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {"USD"}{' '}
+                                  {marginData?.order?.orderCurrency }{' '}
                                   {addPrefixOrSuffix(
                                     marginData?.order?.perUnitPrice,
                                     '',
-                                  )?.toLocaleString()}
+                                  )?.toLocaleString('en-In')}
                                 </div>
                               </div>
                             </div>
@@ -1136,7 +1238,7 @@ function Index() {
                                       ?.tradeMarginPercentage,
                                     '%',
                                     '',
-                                  )?.toLocaleString()}
+                                  )?.toLocaleString('en-In')}
                                 </div>
                               </div>
                             </div>
@@ -1161,7 +1263,7 @@ function Index() {
                                     marginData?.order?.tolerance,
                                     '%',
                                     '',
-                                  )?.toLocaleString()}
+                                  )?.toLocaleString('en-In')}
                                 </div>
                               </div>
                             </div>
@@ -1188,7 +1290,7 @@ function Index() {
                                       ?.transactionDetails?.marginMoney,
                                     '%',
                                     '',
-                                  )?.toLocaleString()}
+                                  )?.toLocaleString('en-In')}
                                 </div>
                               </div>
                             </div>
@@ -1316,7 +1418,7 @@ function Index() {
                                   >{`(A*B)`}</span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {"USD"}{' '}
+                                  {marginData?.order?.orderCurrency }{' '}
                                   {checkNan(Number(finalCal.orderValue), true)}
                                 </div>
                               </div>
@@ -1341,13 +1443,13 @@ function Index() {
                                   >{`(J*C)`}</span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {/* {finalCal.orderValueInINR?.toLocaleString()} */}
+                                  {/* {finalCal.orderValueInINR?.toLocaleString('en-In')} */}
                                   ₹{' '}
                                   {/* {checkNan(
                                     Number(finalCal.orderValueInINR),
                                     true,
                                   )} */}
-                                  {convertValue((finalCal.orderValueInINR), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.orderValueInINR), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1389,7 +1491,7 @@ function Index() {
                                     Number(finalCal.usanceInterest),
                                     true,
                                   )} */}
-                                  {convertValue((finalCal.usanceInterest), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.usanceInterest), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1418,11 +1520,11 @@ function Index() {
                                 <div className={`${styles.val} heading`}>
                                   ₹{' '}
                                   {/* {checkNan(Number(finalCal.tradeMargin), true)} */}
-                                  {convertValue((finalCal.tradeMargin), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.tradeMargin), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
-                                  {/* {finalCal.tradeMargin?.toLocaleString()} */}
+                                  {/* {finalCal.tradeMargin?.toLocaleString('en-In')} */}
                                 </div>
                               </div>
                             </div>
@@ -1446,9 +1548,9 @@ function Index() {
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {/* {finalCal.grossOrderValue?.toLocaleString()} */}
+                                  {/* {finalCal.grossOrderValue?.toLocaleString('en-In')} */}
                                   ₹{' '}
-                                  {convertValue((finalCal.grossOrderValue), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.grossOrderValue), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1480,7 +1582,7 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.toleranceValue} */}₹{' '}
-                                  {convertValue((finalCal.toleranceValue), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.toleranceValue), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1512,7 +1614,7 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.totalOrderValue} */}₹{' '}
-                                  {convertValue((finalCal.totalOrderValue), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.totalOrderValue), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1548,7 +1650,7 @@ function Index() {
                                     Number(finalCal.provisionalUnitPricePerTon),
                                     true,
                                   )} */}
-                                  {convertValue((finalCal.provisionalUnitPricePerTon), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.provisionalUnitPricePerTon), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1578,7 +1680,7 @@ function Index() {
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.marginMoney} */}₹{' '}
                                   {/* {checkNan(Number(finalCal.marginMoney), true)} */}
-                                  {convertValue((finalCal.marginMoney), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.marginMoney), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1607,7 +1709,7 @@ function Index() {
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.totalSPDC} */}₹{' '}
                                   {/* {checkNan(Number(finalCal.totalSPDC), true)} */}
-                                  {convertValue((finalCal.totalSPDC), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.totalSPDC), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1639,7 +1741,7 @@ function Index() {
                                     Number(finalCal.amountPerSPDC),
                                     true,
                                   )} */}
-                                  {convertValue((finalCal.amountPerSPDC), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.amountPerSPDC), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1712,11 +1814,14 @@ function Index() {
                                       e.target.value,
                                     )
                                   }
-                                  defaultValue={
-                                    marginData?.invoiceDetail?.buyerGSTIN
+                                  // defaultValue={
+                                  //   marginData?.invoiceDetail?.buyerGSTIN
+                                  // }
+                                  value={
+                                    invoiceData?.buyerGSTIN
                                   }
                                 >
-                                  <option selected disabled >Select an Option</option>
+                                  <option selected  >Select an Option</option>
                                   {orderList?.company?.gstList?.map((gstin, index) => (
                                     <option key={index} value={gstin}>
                                       {gstin}
@@ -1895,8 +2000,8 @@ function Index() {
                                   name="importerName"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   required
-                                  defaultValue={
-                                    marginData?.invoiceDetail?.importerName
+                                  value={
+                                    invoiceData?.importerName
                                   }
                                   onChange={(e) =>
                                     dropDownChange(
@@ -1939,7 +2044,7 @@ function Index() {
                                   value={
                                     changeImporterData?.branch
                                       ? changeImporterData?.branch
-                                      : marginData?.invoiceDetail?.branchOffice
+                                      :  invoiceData?.branchOffice
                                   }
                                   onChange={(e) => changeImporter(e)}
                                 >
@@ -1970,7 +2075,7 @@ function Index() {
                                 value={
                                   changeImporterData?.address
                                     ? changeImporterData?.address
-                                    : marginData?.invoiceDetail?.companyAddress
+                                    : invoiceData?.companyAddress
                                 }
                                 name="companyAddress"
                                 onChange={(e) => changeImporter(e)}
@@ -1997,7 +2102,7 @@ function Index() {
                                 value={
                                   changeImporterData?.GSTIN
                                     ? changeImporterData?.GSTIN
-                                    : marginData?.invoiceDetail?.importerGSTIN
+                                    : invoiceData?.importerGSTIN
                                 }
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -2020,8 +2125,8 @@ function Index() {
                                   name="bankName"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   required
-                                  defaultValue={
-                                    marginData?.invoiceDetail?.bankName
+                                  value={
+                                    invoiceData?.bankName
                                   }
                                   onChange={(e) =>
                                     saveInvoiceData(
@@ -2058,8 +2163,8 @@ function Index() {
                                   name="branch"
                                   className={`${styles.input_field} ${styles.customSelect} input form-control`}
                                   required
-                                  defaultValue={
-                                    marginData?.invoiceDetail?.branch
+                                  value={
+                                   invoiceData?.branch
                                   }
                                   onChange={(e) =>
                                     saveInvoiceData(
@@ -2069,8 +2174,8 @@ function Index() {
                                   }
                                 >
                                   {/* <option>Select an option</option> */}
-                                  <option value="Connaught Place, DELHI">
-                                    Connaught Place, DELHI
+                                  <option selected>
+                                    Select an option
                                   </option>
                                   <option value="Connaught Place, DELHI">
                                     Connaught Place, DELHI
@@ -2100,8 +2205,8 @@ function Index() {
                                 onChange={(e) =>
                                   saveInvoiceData(e.target.name, e.target.value)
                                 }
-                                defaultValue={
-                                  marginData?.invoiceDetail?.branchAddress
+                                value={
+                                  invoiceData?.branchAddress
                                 }
                                 className={`${styles.input_field} input form-control`}
                                 required
@@ -2126,11 +2231,11 @@ function Index() {
                                     e.target.value,
                                   )
                                 }
-                                defaultValue=
+                                value={invoiceData?.IFSCcode}
                                 // {
                                 //   marginData?.invoiceDetail?.IFSCcode
                                 // }
-                                "ICIC0000251"
+                                
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
@@ -2153,11 +2258,8 @@ function Index() {
                                 onChange={(e) =>
                                   saveInvoiceData(e.target.name, e.target.value)
                                 }
-                                defaultValue=
-                                // {
-                                //   marginData?.invoiceDetail?.accountNo
-                                // }
-                                "123456789"
+                                value={invoiceData?.accountNo}
+                                
                                 className={`${styles.input_field} input form-control`}
                                 required
                               />
