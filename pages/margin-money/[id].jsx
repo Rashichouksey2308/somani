@@ -884,7 +884,7 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {addPrefixOrSuffix(
-                                    marginData?.order?.quantity?.toLocaleString(),
+                                    marginData?.order?.quantity?.toLocaleString('en-In'),
                                     '',
                                   )}{' '}
                                   {marginData?.order?.unitOfQuantity?.toUpperCase()}
@@ -911,7 +911,7 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {marginData?.order?.quantity?.toLocaleString()}
+                                  {marginData?.order?.quantity?.toLocaleString('en-In')}
                                 </div>
                               </div>
                             </div>
@@ -924,7 +924,7 @@ function Index() {
                                 type="text"
                                 id="textInput"
                                 name="quantity"
-                                defaultValue={marginData?.order?.quantity?.toLocaleString()}
+                                defaultValue={marginData?.order?.quantity?.toLocaleString('en-In')}
                                 onChange={(e) =>
                                   saveForCalculation(
                                     e.target.name,
@@ -996,7 +996,7 @@ function Index() {
                                   {addPrefixOrSuffix(
                                     marginData?.order?.perUnitPrice,
                                     '',
-                                  )?.toLocaleString()}
+                                  )?.toLocaleString('en-In')}
                                 </div>
                               </div>
                             </div>
@@ -1136,7 +1136,7 @@ function Index() {
                                       ?.tradeMarginPercentage,
                                     '%',
                                     '',
-                                  )?.toLocaleString()}
+                                  )?.toLocaleString('en-In')}
                                 </div>
                               </div>
                             </div>
@@ -1161,7 +1161,7 @@ function Index() {
                                     marginData?.order?.tolerance,
                                     '%',
                                     '',
-                                  )?.toLocaleString()}
+                                  )?.toLocaleString('en-In')}
                                 </div>
                               </div>
                             </div>
@@ -1188,7 +1188,7 @@ function Index() {
                                       ?.transactionDetails?.marginMoney,
                                     '%',
                                     '',
-                                  )?.toLocaleString()}
+                                  )?.toLocaleString('en-In')}
                                 </div>
                               </div>
                             </div>
@@ -1341,7 +1341,7 @@ function Index() {
                                   >{`(J*C)`}</span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {/* {finalCal.orderValueInINR?.toLocaleString()} */}
+                                  {/* {finalCal.orderValueInINR?.toLocaleString('en-In')} */}
                                   ₹{' '}
                                   {/* {checkNan(
                                     Number(finalCal.orderValueInINR),
@@ -1422,7 +1422,7 @@ function Index() {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
-                                  {/* {finalCal.tradeMargin?.toLocaleString()} */}
+                                  {/* {finalCal.tradeMargin?.toLocaleString('en-In')} */}
                                 </div>
                               </div>
                             </div>
@@ -1446,7 +1446,7 @@ function Index() {
                                   </span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {/* {finalCal.grossOrderValue?.toLocaleString()} */}
+                                  {/* {finalCal.grossOrderValue?.toLocaleString('en-In')} */}
                                   ₹{' '}
                                   {convertValue((finalCal.grossOrderValue), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
