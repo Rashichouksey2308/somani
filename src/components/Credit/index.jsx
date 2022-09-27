@@ -979,7 +979,7 @@ const index = ({
                   required
                   type="number"
                   onKeyDown={(evt) =>
-                    ['e', 'E', '+', '-'].includes(evt.key) &&
+                    ['e', 'E', '+', '-','.'].includes(evt.key) &&
                     evt.preventDefault()
                   }
                   value={supplierCred?.shipmentNumber}
@@ -1001,7 +1001,7 @@ const index = ({
                   value={supplierCred?.consigneesNumber}
                   name="consigneesNumber"
                   onKeyDown={(evt) =>
-                    ['e', 'E', '+', '-'].includes(evt.key) &&
+                    ['e', 'E', '+', '-','.'].includes(evt.key) &&
                     evt.preventDefault()
                   }
                   onChange={(e) => {
@@ -1019,7 +1019,7 @@ const index = ({
                   required
                   type="number"
                   onKeyDown={(evt) =>
-                    ['e', 'E', '+', '-'].includes(evt.key) &&
+                    ['e', 'E', '+', '-','.'].includes(evt.key) &&
                     evt.preventDefault()
                   }
                   value={supplierCred?.HSCodesNumber}
@@ -1040,7 +1040,7 @@ const index = ({
                     required
                     type="number"
                     onKeyDown={(evt) =>
-                      ['e', 'E', '+', '-'].includes(evt.key) &&
+                      ['e', 'E', '+', '-','.'].includes(evt.key) &&
                       evt.preventDefault()
                     }
                     value={supplierCred?.countryOfOrigin}
@@ -1060,7 +1060,7 @@ const index = ({
                     className={`${styles.input_field} input form-control`}
                     required
                     onKeyDown={(evt) =>
-                      ['e', 'E', '+', '-'].includes(evt.key) &&
+                      ['e', 'E', '+', '-','.'].includes(evt.key) &&
                       evt.preventDefault()
                     }
                     type="number"

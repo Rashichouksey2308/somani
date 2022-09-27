@@ -16,7 +16,10 @@ function Index() {
 
   const [editInput, setEditInput] = useState(false)
   const [editCurrent, setEditCurrent] = useState()
-
+  const [isFieldInFocus, setIsFieldInFocus] = useState({
+    existingValue: false,
+    newValue: false,
+  })
   const handleEdit = (index) => {
     // console.log('THIS IS HANDLE EDIT', val)
     // setEditCurrent(val)
@@ -538,8 +541,21 @@ console.log(clauseData,"clauseData")
                               required
                               type="text"
                               ref={inputRef}
+                              // onFocus={(e) => {
+                              //   setIsFieldInFocus({ ...isFieldInFocus, existingValue: true }),
+                              //     e.target.type = 'number'
+                              // }}
+                              // onBlur={(e) => {
+                              //   setIsFieldInFocus({ ...isFieldInFocus, existingValue: false }),
+                              //     e.target.type = 'text'
+                              // }}
+            
+                              // value={isFieldInFocus.existingValue ?
+                              //   editInput ? editCurrent?.newValue : ''  :
+                              //   Number(editInput ? editCurrent?.newValue : '' ).toLocaleString('en-In')
+                              // }
                               defaultValue={
-                                editInput ? editCurrent?.newValue : ''
+                                editInput ? editCurrent?.newValue : '' 
                               }
                               onChange={(e) => {
                                 // inputRef.current.value = ''
