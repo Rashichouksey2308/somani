@@ -1566,7 +1566,7 @@ function Index(props) {
               <div
                 className={`${styles.multiPart} d-flex justify-content-center align-items-center`}
               >
-                <span className={`mr-4 text1`}>Multiple Parties Involved</span>
+                <span className={`mr-4 label`}>Multiple Parties Involved</span>
                 <div className={`d-flex mr-4`}>
                   <div className={`form-check  mr-4`}>
                     <input
@@ -1637,7 +1637,7 @@ function Index(props) {
               <div
                 className={`${styles.switchContainer} d-flex align-items-center`}
               >
-                <span>Same as CHA</span>
+                <span className='label'>Same as CHA</span>
                 <span className={` ${styles.yes} text-color`}>Yes</span>
                 <label className={styles.switch}>
                   <input

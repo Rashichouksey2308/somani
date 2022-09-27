@@ -893,6 +893,10 @@ const addDoc=(e,index)=>{
                              value={val.phoneNo}
                               className='input'
                               type="number"
+                              onKeyDown={(evt) =>
+                                ['e', 'E', '+', '-'].includes(evt.key) &&
+                                evt.preventDefault()
+                              }
                               name= "phoneNo"
                               onChange={(e)=>{
                                 handleChangeInput2(e.target.name,e.target.value,index)
