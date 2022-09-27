@@ -2233,7 +2233,7 @@ const index = ({
                             value={profile.bankName}
                           >
                             <option disabled selected>
-                              Select an option
+                              Select
                             </option>
                             {FilterUniqueBank().map((item) => (
                               <option value={item}>{item}</option>
@@ -2262,12 +2262,12 @@ const index = ({
                                 index,
                               )
                             }
-                            // value={profile?.limitType}
+                            value={profile?.limitType}
                             name="limitType"
                             className={`${styles.dropDown} heading input`}
                             disabled={!profile.actions}
                           >
-                            <option disabled>Select an option</option>
+                            <option selected disabled>Select</option>
                             <option value="Cash Credit">Cash Credit</option>
                             <option value="Bank Guarantee">
                               Bank Guarantee
@@ -2332,9 +2332,10 @@ const index = ({
                             }
                             name="conduct"
                             className={`${styles.dropDown} heading input`}
+                            value={profile?.conduct}
                             disabled={!profile.actions}
                           >
-                            <option>{profile.conduct}</option>
+                            <option selected disabled>Select</option>
                             <option value="Good">Good</option>
                             <option value="Satisfactory">Satisfactory</option>
                             <option value="Average">Average</option>
