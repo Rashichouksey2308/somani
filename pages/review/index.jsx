@@ -31,9 +31,7 @@ import IncomeStatement from '../../src/components/ReviewQueueFinancials/IncomeSt
 import OpenCharges from '../../src/components/ReviewQueueFinancials/OpenCharges'
 import Peer from '../../src/components/ReviewQueueFinancials/Peer'
 import Ratios from '../../src/components/ReviewQueueFinancials/Ratios'
-import * as htmlToImage from 'html-to-image';
-import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
-import html2canvas from 'html2canvas';
+
 import {
   removePrefixOrSuffix,
   CovertvaluefromtoCR,
@@ -1579,6 +1577,26 @@ function Index() {
       }),
     )
   }
+     const primaryBankName = () => {
+    console.log(orderList?.company?.debtProfile, "orderList?.company?.debtProfile")
+    let filteredData = []
+    filteredData =
+      orderList?.company?.debtProfile?.filter((data) => data.primaryBank) || []
+
+    const length = _get(filteredData[0], 'bankName', '')
+
+    return length
+  }
+    const openChargesLength = () => {
+    const filteredData =
+      orderList?.company?.detailedCompanyInfo?.financial?.openCharges?.filter(
+        (data) => data.dateOfSatisfactionOfChargeInFull === null,
+      )
+
+    const length = filteredData?.length
+
+    return length
+  }
   const toPrintPdf = (camData, RevenueDetails, trendChartRevenueImg,trendChartPurchasesImg,skewnessChartRevenueImg,skewnessChartPurchasesImg) => {
     console.log(_get, 'get')
     function calcPc(n1, n2) {
@@ -1587,6 +1605,7 @@ function Index() {
       }
       return ((n2 - n1) / n1) * 100
     }
+  
     console.log(trendChartRevenueImg,"trendChartRevenueImg")
     return (
       <table
@@ -3036,7 +3055,7 @@ function Index() {
                     paddingTop: '31px',
                   }}
                 >
-                  value
+                   {primaryBankName()}
                 </td>
                 <td
                   style={{
@@ -3057,7 +3076,7 @@ function Index() {
                     paddingTop: '31px',
                   }}
                 >
-                  A3+
+                  {openChargesLength()}
                 </td>
               </tr>
               <tr>
@@ -3422,7 +3441,30 @@ function Index() {
                         DIRECTOR
                       </td>
                     </tr>
-                    <tr>
+                     {camData &&
+                    camData?.company?.detailedCompanyInfo?.profile?.shareholdingPattern?.map(
+                      (share, index) => {
+                        let name = share?.fullName ?? 'N A'
+                        let [fName, lName] = name?.split(' ')
+
+                        let colors = [
+                          {
+                            primary: '#3189eb',
+                            secondary: '#3687E8',
+                          },
+                          {
+                            primary: '#ECF9ED',
+                            secondary: '#43C34D',
+                          },
+                          {
+                            primary: '#FFECCF',
+                            secondary: '#FF9D00',
+                          },
+                        ]
+                       let randColor =
+                          colors[Math.floor(Math.random() * colors.length)]
+                        return (
+                          <tr>
                       <td width="5%"
                         // height="60"
                         style={{
@@ -3432,10 +3474,10 @@ function Index() {
                         <span
                           style={{
                             fontSize: '28px',
-                            color: '#FF9D00',
+                            color: `${randColor.secondary}`,
                             lineHeight: '34px',
                             fontWeight: 'bold',
-                            background: '#FFECCF',
+                            background: `${randColor.primary}`,
                             borderRadius: '8px',
                             padding: '13px 0',
                             width: '60px',
@@ -3443,7 +3485,8 @@ function Index() {
                             textAlign: 'center',
                             display: 'inline-block'
                           }}
-                        >AJ
+                        >{fName?.charAt(0) ? fName?.charAt(0) : 'N'}
+                         {lName?.charAt(0) ? lName?.charAt(0) : 'A'}
                         </span>
                       </td>
                       <td width="25%"
@@ -3455,7 +3498,7 @@ function Index() {
                           paddingTop: '21px',
                           paddingBottom: '21px',
                         }}
-                      >Arv Jay
+                      > {share?.fullName}
                       </td>
                       <td
                         style={{
@@ -3465,7 +3508,7 @@ function Index() {
                           paddingTop: '21px',
                           paddingBottom: '21px',
                         }}
-                      >120
+                      >{Number(share?.numberOfShares)?.toLocaleString('en-In')}
                       </td>
                       <td
                         style={{
@@ -3475,7 +3518,7 @@ function Index() {
                           paddingTop: '21px',
                           paddingBottom: '21px',
                         }}
-                      >80%
+                      >{share?.percentageShareHolding ? share?.percentageShareHolding + '%' : ''}
                       </td>
                       <td
                         style={{
@@ -3485,141 +3528,14 @@ function Index() {
                           paddingTop: '21px',
                           paddingBottom: '21px',
                         }}
-                      >Yes
+                      >{share?.director ? 'Yes' : 'No'}
                       </td>
                     </tr>
-                    <tr>
-                      <td
-                        height="60"
-                        style={{
-                          padding: '21px 12px 21px 35px'
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontSize: '28px',
-                            color: '#FF9D00',
-                            lineHeight: '34px',
-                            fontWeight: 'bold',
-                            background: '#FFECCF',
-                            borderRadius: '8px',
-                            padding: '13px 0',
-                            width: '60px',
-                            height: '60px',
-                            textAlign: 'center',
-                            display: 'inline-block'
-                          }}
-                        >RS
-                        </span>
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '20px',
-                          color: '#111111',
-                          lineHeight: '27px',
-                          fontWeight: 'bold',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >Radhe Singh
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >120
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >80%
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >Yes
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        height="60"
-                        style={{
-                          padding: '21px 12px 21px 35px'
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontSize: '28px',
-                            color: '#FF9D00',
-                            lineHeight: '34px',
-                            fontWeight: 'bold',
-                            background: '#FFECCF',
-                            borderRadius: '8px',
-                            padding: '13px 0',
-                            width: '60px',
-                            height: '60px',
-                            textAlign: 'center',
-                            display: 'inline-block'
-                          }}
-                        >SS
-                        </span>
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '20px',
-                          color: '#111111',
-                          lineHeight: '27px',
-                          fontWeight: 'bold',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >Sagar Sinha
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >120
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >80%
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >Yes
-                      </td>
-                    </tr>
+                        )
+                      },
+                    )}
+                    
+                    
                   </table>
                 </td>
               </tr>
@@ -3697,6 +3613,94 @@ function Index() {
                         DATE OF CREATION
                       </td>
                     </tr>
+                     {orderList &&
+                    orderList?.company?.detailedCompanyInfo?.financial?.openCharges?.map(
+                      (charge, index) => {
+                        let name = charge?.nameOfChargeHolder
+                        let [fName, lName] = name?.split(' ')
+
+                        let colors = [
+                          {
+                            primary: 'rgba(54, 135, 232, 0.1)',
+                            secondary: '#3687E8',
+                          },
+                          {
+                            primary: '#ECF9ED',
+                            secondary: '#43C34D',
+                          },
+                          {
+                            primary: '#FFECCF',
+                            secondary: '#FF9D00',
+                          },
+                        ]
+                       let randColor =
+                          colors[Math.floor(Math.random() * colors.length)]
+                        return (
+                          <tr>
+                      <td width="5%"
+                        height="60"
+                        style={{
+                          padding: '21px 12px 21px 35px'
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontSize: '28px',
+                            color: `${randColor.secondary}`,
+                            lineHeight: '34px',
+                            fontWeight: 'bold',
+                            background: `${randColor.primary}`,
+                            borderRadius: '8px',
+                            padding: '13px 0',
+                            width: '60px',
+                            height: '60px',
+                            textAlign: 'center',
+                            display: 'inline-block'
+                          }}
+                        > {fName?.charAt(0) ? fName?.charAt(0) : 'N'}
+                          {lName?.charAt(0) ? lName?.charAt(0) : 'A'}
+                        </span>
+                      </td>
+                      <td width="25%"
+                        style={{
+                          fontSize: '20px',
+                          color: '#111111',
+                          lineHeight: '27px',
+                          fontWeight: 'bold',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      > {charge?.nameOfChargeHolder1}
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >{Number(charge?.finalAmountSecured)?.toLocaleString()}
+                      </td>
+                      <td
+                        style={{
+                          fontSize: '19px',
+                          color: '#111111',
+                          lineHeight: '23px',
+                          paddingTop: '21px',
+                          paddingBottom: '21px',
+                        }}
+                      >{charge?.dateOfCreationOfCharge
+                                ? moment(charge?.dateOfCreationOfCharge).format(
+                                  'DD-MM-YYYY',
+                                )
+                                : ''}
+                      </td>
+                        </tr>
+                         
+                        )
+                      },
+                    )}
                     <tr>
                       <td width="5%"
                         height="60"
@@ -3753,118 +3757,7 @@ function Index() {
                       >22-02-2020
                       </td>
                     </tr>
-                    <tr>
-                      <td
-                        height="60"
-                        style={{
-                          padding: '21px 12px 21px 35px'
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontSize: '28px',
-                            color: '#FF9D00',
-                            lineHeight: '34px',
-                            fontWeight: 'bold',
-                            background: '#FFECCF',
-                            borderRadius: '8px',
-                            padding: '13px 0',
-                            width: '60px',
-                            height: '60px',
-                            textAlign: 'center',
-                            display: 'inline-block'
-                          }}
-                        >HB
-                        </span>
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '20px',
-                          color: '#111111',
-                          lineHeight: '27px',
-                          fontWeight: 'bold',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >HDFC Bank
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >1,900.00
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >22-02-2020
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        height="60"
-                        style={{
-                          padding: '21px 12px 21px 35px'
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontSize: '28px',
-                            color: '#FF9D00',
-                            lineHeight: '34px',
-                            fontWeight: 'bold',
-                            background: '#FFECCF',
-                            borderRadius: '8px',
-                            padding: '13px 0',
-                            width: '60px',
-                            height: '60px',
-                            textAlign: 'center',
-                            display: 'inline-block'
-                          }}
-                        >SB
-                        </span>
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '20px',
-                          color: '#111111',
-                          lineHeight: '27px',
-                          fontWeight: 'bold',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >SBI Bank
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >1,900.00
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '19px',
-                          color: '#111111',
-                          lineHeight: '23px',
-                          paddingTop: '21px',
-                          paddingBottom: '21px',
-                        }}
-                      >22-02-2020
-                      </td>
-                    </tr>
+                  
                   </table>
                 </td>
               </tr>
@@ -4561,7 +4454,22 @@ function Index() {
                   Gross Revenue
                 </td>
                 <td align="center" style={{ paddingTop: '23px' }}>
-                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" />
+                    {RevenueDetails?.grossTurnover?.previous?.value ||
+                    RevenueDetails?.grossTurnover?.current?.value ? (
+                    <img
+                      src={
+                        calcPc(
+                          RevenueDetails?.grossTurnover?.previous?.value,
+                          RevenueDetails?.grossTurnover?.current?.value,
+                        ) > 0
+                          ? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg=='
+                          : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAflBMVEUAAAD/AAD/AAD/VVXjOTnuRETwPDzoOjrrPT3pPDzrPDzqPj7sPz/sPj7pPz/qPj7rPj7pQEDqPz/qQEDpPz/qQEDrPz/rPz/qPj7qPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz////+T0xFJAAAAKHRSTlMAAQIDCQ8RFhkiJjE1QlFWZ2h6fI6QoqO0ub6/wsbP4eTp6/L0+fv92ny6iQAAAAFiS0dEKcq3hSQAAABlSURBVBgZZcEHEoIwAEXBh4LYQOwFAvb8+59QBjNMCLuUGrlRa6Rm9VHgu4a9AjtgUmnATGktXvK8l3S28hT8RRf1rhFO+pDznNPL5WzwnNU54Usate4zBjIr2YzAUToQio2JcX4Tjhpu0b32YgAAAABJRU5ErkJggg=='
+                      }
+                      alt="Arrow Green"
+
+                    />
+                  ) : null}
+                  {/* <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" /> */}
                 </td>
                 <td
                   style={{
@@ -4571,7 +4479,12 @@ function Index() {
                     paddingTop: '23px',
                   }}
                 >
-                  {checkNan(RevenueDetails?.grossTurnover?.current?.value)}
+                  {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.grossTurnover?.current?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
                 </td>
                 <td
                   style={{
@@ -4582,7 +4495,12 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {checkNan(RevenueDetails?.grossTurnover?.previous?.value)}
+                  {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.grossTurnover?.previous?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
                 </td>
                 <td
                   style={{
@@ -4612,7 +4530,21 @@ function Index() {
                   Related Party Sales
                 </td>
                 <td align="center">
-                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" />
+                     {RevenueDetails?.relatedPartySales?.previous?.value ||
+                    RevenueDetails?.relatedPartySales?.current?.value ? (
+                    <img
+                      src={
+                        calcPc(
+                          RevenueDetails?.relatedPartySales?.previous?.value,
+                          RevenueDetails?.relatedPartySales?.current?.value,
+                        ) > 0
+                          ? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg=='
+                          : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAflBMVEUAAAD/AAD/AAD/VVXjOTnuRETwPDzoOjrrPT3pPDzrPDzqPj7sPz/sPj7pPz/qPj7rPj7pQEDqPz/qQEDpPz/qQEDrPz/rPz/qPj7qPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz////+T0xFJAAAAKHRSTlMAAQIDCQ8RFhkiJjE1QlFWZ2h6fI6QoqO0ub6/wsbP4eTp6/L0+fv92ny6iQAAAAFiS0dEKcq3hSQAAABlSURBVBgZZcEHEoIwAEXBh4LYQOwFAvb8+59QBjNMCLuUGrlRa6Rm9VHgu4a9AjtgUmnATGktXvK8l3S28hT8RRf1rhFO+pDznNPL5WzwnNU54Usate4zBjIr2YzAUToQio2JcX4Tjhpu0b32YgAAAABJRU5ErkJggg=='
+                      }
+                      alt="Arrow Green"
+
+                    />
+                  ) : null}
                 </td>
                 <td
                   style={{
@@ -4622,20 +4554,12 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {RevenueDetails?.relatedPartySales?.current?.value
-                    .toFixed(2)
-                    ?.toLocaleString()}
-                </td>
-                <td
-                  style={{
-                    fontSize: '19px',
-                    color: '#111111',
-                    lineHeight: '23px',
-                  }}
-                >
-                  {RevenueDetails?.relatedPartySales?.previous?.value
-                    .toFixed(2)
-                    ?.toLocaleString()}
+                  {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.relatedPartySales?.current?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
                 </td>
                 <td
                   style={{
@@ -4645,6 +4569,20 @@ function Index() {
                   }}
                 >
                   {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.relatedPartySales?.previous?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
+                </td>
+                <td
+                  style={{
+                    fontSize: '19px',
+                    color: '#111111',
+                    lineHeight: '23px',
+                  }}
+                >
+                 {checkNan(
                     calcPc(
                       RevenueDetails?.relatedPartySales?.previous?.value,
                       RevenueDetails?.relatedPartySales?.current?.value,
@@ -4664,7 +4602,21 @@ function Index() {
                   Intra Organization Sales
                 </td>
                 <td align="center">
-                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAflBMVEUAAAD/AAD/AAD/VVXjOTnuRETwPDzoOjrrPT3pPDzrPDzqPj7sPz/sPj7pPz/qPj7rPj7pQEDqPz/qQEDpPz/qQEDrPz/rPz/qPj7qPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz////+T0xFJAAAAKHRSTlMAAQIDCQ8RFhkiJjE1QlFWZ2h6fI6QoqO0ub6/wsbP4eTp6/L0+fv92ny6iQAAAAFiS0dEKcq3hSQAAABlSURBVBgZZcEHEoIwAEXBh4LYQOwFAvb8+59QBjNMCLuUGrlRa6Rm9VHgu4a9AjtgUmnATGktXvK8l3S28hT8RRf1rhFO+pDznNPL5WzwnNU54Usate4zBjIr2YzAUToQio2JcX4Tjhpu0b32YgAAAABJRU5ErkJggg==" alt="Arrow Red" />
+                  {RevenueDetails?.intraOrgSalesPercent?.previous?.value ||
+                    RevenueDetails?.intraOrgSalesPercent?.current?.value ? (
+                    <img
+                      src={
+                        calcPc(
+                          RevenueDetails?.intraOrgSalesPercent?.previous?.value,
+                          RevenueDetails?.intraOrgSalesPercent?.current?.value,
+                        ) > 0
+                         ? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg=='
+                          : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAflBMVEUAAAD/AAD/AAD/VVXjOTnuRETwPDzoOjrrPT3pPDzrPDzqPj7sPz/sPj7pPz/qPj7rPj7pQEDqPz/qQEDpPz/qQEDrPz/rPz/qPj7qPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz////+T0xFJAAAAKHRSTlMAAQIDCQ8RFhkiJjE1QlFWZ2h6fI6QoqO0ub6/wsbP4eTp6/L0+fv92ny6iQAAAAFiS0dEKcq3hSQAAABlSURBVBgZZcEHEoIwAEXBh4LYQOwFAvb8+59QBjNMCLuUGrlRa6Rm9VHgu4a9AjtgUmnATGktXvK8l3S28hT8RRf1rhFO+pDznNPL5WzwnNU54Usate4zBjIr2YzAUToQio2JcX4Tjhpu0b32YgAAAABJRU5ErkJggg=='
+                      }
+                      alt="Arrow Green"
+
+                    />
+                  ) : null}
                 </td>
                 <td
                   style={{
@@ -4673,9 +4625,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  {RevenueDetails?.intraOrgSalesPercent?.current?.value
-                    .toFixed(2)
-                    ?.toLocaleString()}
+                   {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.intraOrgSalesPercent?.current?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
                 </td>
                 <td
                   style={{
@@ -4684,9 +4639,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  {RevenueDetails?.intraOrgSalesPercent?.previous?.value
-                    .toFixed(2)
-                    ?.toLocaleString()}
+                   {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.intraOrgSalesPercent?.previous?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
                 </td>
                 <td
                   style={{
@@ -4696,7 +4654,7 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {checkNan(
+                   {checkNan(
                     calcPc(
                       RevenueDetails?.intraOrgSalesPercent?.previous?.value,
                       RevenueDetails?.intraOrgSalesPercent?.current?.value,
@@ -4716,7 +4674,21 @@ function Index() {
                   B2B Sales
                 </td>
                 <td align="center">
-                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" />
+                       {RevenueDetails?.B2BSales?.previous?.value ||
+                    RevenueDetails?.B2BSales?.current?.value ? (
+                    <img
+                      src={
+                        calcPc(
+                          RevenueDetails?.B2BSales?.previous?.value,
+                          RevenueDetails?.B2BSales?.current?.value,
+                        ) > 0
+                          ? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg=='
+                          : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAflBMVEUAAAD/AAD/AAD/VVXjOTnuRETwPDzoOjrrPT3pPDzrPDzqPj7sPz/sPj7pPz/qPj7rPj7pQEDqPz/qQEDpPz/qQEDrPz/rPz/qPj7qPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz////+T0xFJAAAAKHRSTlMAAQIDCQ8RFhkiJjE1QlFWZ2h6fI6QoqO0ub6/wsbP4eTp6/L0+fv92ny6iQAAAAFiS0dEKcq3hSQAAABlSURBVBgZZcEHEoIwAEXBh4LYQOwFAvb8+59QBjNMCLuUGrlRa6Rm9VHgu4a9AjtgUmnATGktXvK8l3S28hT8RRf1rhFO+pDznNPL5WzwnNU54Usate4zBjIr2YzAUToQio2JcX4Tjhpu0b32YgAAAABJRU5ErkJggg=='
+                      }
+                      alt="Arrow Green"
+
+                    />
+                  ) : null}
                 </td>
                 <td
                   style={{
@@ -4725,7 +4697,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  83.80%
+                     {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.B2BSales?.current?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
                 </td>
                 <td
                   style={{
@@ -4734,7 +4711,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  83.80%
+                   {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.B2BSales?.previous?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
                 </td>
                 <td
                   style={{
@@ -4743,7 +4725,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  40%
+                  {checkNan(
+                    calcPc(
+                      RevenueDetails?.B2BSales?.previous?.value,
+                      RevenueDetails?.B2BSales?.current?.value,
+                    ),
+                  ) + '%'}
                 </td>
               </tr>
               <tr>
@@ -4759,7 +4746,21 @@ function Index() {
                 </td>
 
                 <td align="center">
-                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" />
+                   {RevenueDetails?.B2CSales?.previous?.value ||
+                    RevenueDetails?.B2CSales?.current?.value ? (
+                    <img
+                      src={
+                        calcPc(
+                          RevenueDetails?.B2CSales?.previous?.value,
+                          RevenueDetails?.B2CSales?.current?.value,
+                        ) > 0
+                           ? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg=='
+                          : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAflBMVEUAAAD/AAD/AAD/VVXjOTnuRETwPDzoOjrrPT3pPDzrPDzqPj7sPz/sPj7pPz/qPj7rPj7pQEDqPz/qQEDpPz/qQEDrPz/rPz/qPj7qPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz////+T0xFJAAAAKHRSTlMAAQIDCQ8RFhkiJjE1QlFWZ2h6fI6QoqO0ub6/wsbP4eTp6/L0+fv92ny6iQAAAAFiS0dEKcq3hSQAAABlSURBVBgZZcEHEoIwAEXBh4LYQOwFAvb8+59QBjNMCLuUGrlRa6Rm9VHgu4a9AjtgUmnATGktXvK8l3S28hT8RRf1rhFO+pDznNPL5WzwnNU54Usate4zBjIr2YzAUToQio2JcX4Tjhpu0b32YgAAAABJRU5ErkJggg=='
+                      }
+                      alt="Arrow Green"
+
+                    />
+                  ) : null}
                 </td>
                 <td
                   style={{
@@ -4768,7 +4769,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  83.80%
+                   {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.B2CSales?.current?.value,
+                    )).toFixed(2),
+                    true,
+                  )}  Cr
                 </td>
                 <td
                   style={{
@@ -4777,7 +4783,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  83.80%
+                    {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.B2CSales?.previous?.value,
+                    )).toFixed(2),
+                    true,
+                  )}   Cr
                 </td>
                 <td
                   style={{
@@ -4786,7 +4797,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  40%
+                  {checkNan(
+                    calcPc(
+                      RevenueDetails?.B2CSales?.previous?.value,
+                      RevenueDetails?.B2CSales?.current?.value,
+                    ),
+                  ) + '%'}
                 </td>
               </tr>
               <tr>
@@ -4802,7 +4818,21 @@ function Index() {
                 </td>
 
                 <td align="center">
-                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" />
+                    {RevenueDetails?.exportSales?.previous?.value ||
+                    RevenueDetails?.exportSales?.current?.value ? (
+                    <img
+                      src={
+                        calcPc(
+                          RevenueDetails?.exportSales?.previous?.value,
+                          RevenueDetails?.exportSales?.current?.value,
+                        ) > 0
+                          ? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg=='
+                          : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAflBMVEUAAAD/AAD/AAD/VVXjOTnuRETwPDzoOjrrPT3pPDzrPDzqPj7sPz/sPj7pPz/qPj7rPj7pQEDqPz/qQEDpPz/qQEDrPz/rPz/qPj7qPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz////+T0xFJAAAAKHRSTlMAAQIDCQ8RFhkiJjE1QlFWZ2h6fI6QoqO0ub6/wsbP4eTp6/L0+fv92ny6iQAAAAFiS0dEKcq3hSQAAABlSURBVBgZZcEHEoIwAEXBh4LYQOwFAvb8+59QBjNMCLuUGrlRa6Rm9VHgu4a9AjtgUmnATGktXvK8l3S28hT8RRf1rhFO+pDznNPL5WzwnNU54Usate4zBjIr2YzAUToQio2JcX4Tjhpu0b32YgAAAABJRU5ErkJggg=='
+                      }
+                      alt="Arrow Green"
+                     
+                    />
+                  ) : null}
                 </td>
                 <td
                   style={{
@@ -4811,7 +4841,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  83.80%
+                    {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.exportSales?.current?.value,
+                    )).toFixed(2),
+                    true,
+                  )}   Cr
                 </td>
                 <td
                   style={{
@@ -4820,7 +4855,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  83.80%
+                 {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.exportSales?.previous?.value,
+                    )).toFixed(2),
+                    true,
+                  )}  Cr
                 </td>
                 <td
                   style={{
@@ -4829,7 +4869,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  40%
+                   {checkNan(
+                    calcPc(
+                      RevenueDetails?.exportSales?.previous?.value,
+                      RevenueDetails?.exportSales?.current?.value,
+                    ),
+                  ) + '%'}
                 </td>
               </tr>
               <tr>
@@ -4845,7 +4890,21 @@ function Index() {
                 </td>
 
                 <td align="center">
-                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" />
+                     {RevenueDetails?.ttlCustomer?.previous?.value ||
+                    RevenueDetails?.ttlCustomer?.current?.value ? (
+                    <img
+                      src={
+                        calcPc(
+                          RevenueDetails?.ttlCustomer?.previous?.value,
+                          RevenueDetails?.ttlCustomer?.current?.value,
+                        ) > 0
+                           ? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg=='
+                          : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAflBMVEUAAAD/AAD/AAD/VVXjOTnuRETwPDzoOjrrPT3pPDzrPDzqPj7sPz/sPj7pPz/qPj7rPj7pQEDqPz/qQEDpPz/qQEDrPz/rPz/qPj7qPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz////+T0xFJAAAAKHRSTlMAAQIDCQ8RFhkiJjE1QlFWZ2h6fI6QoqO0ub6/wsbP4eTp6/L0+fv92ny6iQAAAAFiS0dEKcq3hSQAAABlSURBVBgZZcEHEoIwAEXBh4LYQOwFAvb8+59QBjNMCLuUGrlRa6Rm9VHgu4a9AjtgUmnATGktXvK8l3S28hT8RRf1rhFO+pDznNPL5WzwnNU54Usate4zBjIr2YzAUToQio2JcX4Tjhpu0b32YgAAAABJRU5ErkJggg=='
+                      }
+                      alt="Arrow Green"
+                     
+                    />
+                  ) : null}
                 </td>
                 <td
                   style={{
@@ -4854,7 +4913,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  1,900.00
+                  {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.ttlCustomer?.current?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
                 </td>
                 <td
                   style={{
@@ -4863,7 +4927,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  1,900.00
+                 {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.ttlCustomer?.previous?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
                 </td>
                 <td
                   style={{
@@ -4872,7 +4941,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  40%
+                   {checkNan(
+                    calcPc(
+                      RevenueDetails?.ttlCustomer?.previous?.value,
+                      RevenueDetails?.ttlCustomer?.current?.value,
+                    ),
+                  ) + '%'}
                 </td>
               </tr>
               <tr>
@@ -4888,7 +4962,21 @@ function Index() {
                 </td>
 
                 <td align="center">
-                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" />
+                   {RevenueDetails?.ttlInv?.previous?.value ||
+                    RevenueDetails?.ttlInv?.current?.value ? (
+                    <img
+                      src={
+                        calcPc(
+                          RevenueDetails?.ttlInv?.previous?.value,
+                          RevenueDetails?.ttlInv?.current?.value,
+                        ) > 0
+                          ? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg=='
+                          : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAflBMVEUAAAD/AAD/AAD/VVXjOTnuRETwPDzoOjrrPT3pPDzrPDzqPj7sPz/sPj7pPz/qPj7rPj7pQEDqPz/qQEDpPz/qQEDrPz/rPz/qPj7qPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz/qPz/qPz/pPz/qPz/qPz/qPz////+T0xFJAAAAKHRSTlMAAQIDCQ8RFhkiJjE1QlFWZ2h6fI6QoqO0ub6/wsbP4eTp6/L0+fv92ny6iQAAAAFiS0dEKcq3hSQAAABlSURBVBgZZcEHEoIwAEXBh4LYQOwFAvb8+59QBjNMCLuUGrlRa6Rm9VHgu4a9AjtgUmnATGktXvK8l3S28hT8RRf1rhFO+pDznNPL5WzwnNU54Usate4zBjIr2YzAUToQio2JcX4Tjhpu0b32YgAAAABJRU5ErkJggg=='
+                      }
+                      alt="Arrow Green"
+                     
+                    />
+                  ) : null}
                 </td>
                 <td
                   style={{
@@ -4897,7 +4985,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  1,900.00
+                 {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.ttlInv?.current?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
                 </td>
                 <td
                   style={{
@@ -4906,7 +4999,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  1,900.00
+                    {checkNan(
+                    CovertvaluefromtoCR(Number(
+                      RevenueDetails?.ttlInv?.previous?.value,
+                    )).toFixed(2),
+                    true,
+                  )} Cr
                 </td>
                 <td
                   style={{
@@ -4915,7 +5013,12 @@ function Index() {
                     lineHeight: '23px',
                   }}
                 >
-                  40%
+                  {checkNan(
+                    calcPc(
+                      RevenueDetails?.ttlInv?.previous?.value,
+                      RevenueDetails?.ttlInv?.current?.value,
+                    ),
+                  ) + '%'}
                 </td>
               </tr>
               <tr>
@@ -4931,7 +5034,7 @@ function Index() {
                   Gross Margin
                 </td>
                 <td align="center" style={{ paddingBottom: '78px' }}>
-                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" />
+                  {/* <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAPCAMAAADTRh9nAAAAeFBMVEUAAAAA/wBAv0AzzGY5xlVEu1VHxkdHwlJAv0lEw0tDw0pEwU5CwkxFwkxDw05Cw0xDxExEwk5DxE5Dw0xDwk5DxE1Dw01Dw01Dw01Ew05Dw05Dw01Dw01Dw01Dwk1Dw01Dw01Dw01Dw01Dw01Dw01Dw01Dw03////lRK50AAAAJnRSTlMAAQQFCQ8SGRwiJjE2Q0hRV2l9kKS0ur7HzM/Q4eTs7/P1+fv9/koV0KEAAAABYktHRCctD6gjAAAAZElEQVQYGWXBBxKCMABFwYdiF5QeC9j//Y8IA5EJYZe/0JgQXyZleKKv9IuZWN3Vqde4cvVyHCdZZ0abRtZjixUUGpUBg0SOhN7uKcdrT2dhNHFZAqk8KRze8nyOXDVzo9JM1QLS+RkCKKeivAAAAABJRU5ErkJggg==" alt="Arrow Green" /> */}
                 </td>
                 <td
                   style={{
@@ -4941,7 +5044,7 @@ function Index() {
                     paddingBottom: '78px',
                   }}
                 >
-                  83.80%
+                 11,900.00
                 </td>
                 <td
                   style={{
@@ -4951,7 +5054,7 @@ function Index() {
                     paddingBottom: '78px',
                   }}
                 >
-                  83.80%
+                 1,900.00
                 </td>
                 <td
                   style={{
@@ -7258,11 +7361,17 @@ function Index() {
   
     doc.html(
       ReactDOMServer.renderToString(
-        toPrintPdf(orderList, gstData?.detail?.salesDetailAnnual?.saleSummary,trendChartRevenueImg,trendChartPurchasesImg,skewnessChartRevenueImg,skewnessChartPurchasesImg),
+        toPrintPdf(orderList, 
+        gstData?.detail?.salesDetailAnnual?.saleSummary,trendChartRevenueImg,
+        trendChartPurchasesImg,
+        skewnessChartRevenueImg,
+        skewnessChartPurchasesImg,
+        shareHoldingChartImg,
+        openBankChargeChartImg),
       ),
       {
         callback: function (doc) {
-          doc.save('sample.pdf')
+          doc.save('CAM.pdf')
         },
         // margin:margins,
         autoPaging: 'text',
