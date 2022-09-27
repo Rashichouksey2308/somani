@@ -19,6 +19,7 @@ import ReactDOMServer from 'react-dom/server'
 
 
 import _get from 'lodash/get'
+import { number } from 'prop-types'
 
 function Index() {
   const toPrint = useRef()
@@ -47,8 +48,8 @@ function Index() {
   const [otherTermConditions, setOtherTermConditions] = useState({})
   const [additionalComments, setAdditionalComments] = useState({})
   const date = new Date()
- console.log(otherTermConditions?.dutyAndTaxes
-                              ?.taxCollectedatSource,"asasas")
+  console.log(otherTermConditions?.dutyAndTaxes
+    ?.taxCollectedatSource, "asasas")
   useEffect(() => {
     const commentData = _get(termsheet, 'data[0].additionalComments', [])
     console.log(commentData, 'comment')
@@ -455,7 +456,10 @@ function Index() {
                     {Number(termsheetDetails?.transactionDetails?.lcValue)?.toLocaleString("en-IN")}
                   </li>
                   <li>{termsheetDetails?.transactionDetails?.lcOpeningBank}</li>
-                  <li>{termsheetDetails?.transactionDetails?.marginMoney}%</li>
+                  <li>{termsheetDetails?.transactionDetails?.marginMoney?.toLocaleString("en-IN", {
+                    maximumFractionDigits: 2,
+                    minimumFractionDigits: 2,
+                  })}%</li>
                   <li>{termsheetDetails?.transactionDetails?.incoTerms}</li>
                   <li>{termsheetDetails?.transactionDetails?.loadPort}</li>
                   <li>
@@ -605,7 +609,10 @@ function Index() {
                 <ul>
                   <li>
                     {' '}
-                    {termsheetDetails.commercials?.tradeMarginPercentage}%{' '}
+                    {termsheetDetails.commercials?.tradeMarginPercentage ? Number(termsheetDetails.commercials?.tradeMarginPercentage)?.toLocaleString("en-IN", {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2,
+                    }) : ''}%{' '}
                   </li>
                   <li>
                     {`USD`}{' '}
@@ -614,18 +621,27 @@ function Index() {
                   <li>
                     {' '}
                     {
-                      termsheetDetails.commercials?.lcOpeningChargesPercentage ? Number(termsheetDetails.commercials?.lcOpeningChargesPercentage)?.toFixed(2) + '%' : ''
+                      termsheetDetails.commercials?.lcOpeningChargesPercentage ? Number(termsheetDetails.commercials?.lcOpeningChargesPercentage)?.toLocaleString("en-IN", {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      }) + '%' : ''
                     }{' '}
                   </li>
                   <li>
                     {' '}
-                    {termsheetDetails.commercials?.usanceInterestPercetage ? Number(termsheetDetails.commercials?.usanceInterestPercetage)?.toFixed(2) + '%' : ''}
+                    {termsheetDetails.commercials?.usanceInterestPercetage ? Number(termsheetDetails.commercials?.usanceInterestPercetage)?.toLocaleString("en-IN", {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2,
+                    }) + '%' : ''}
 
                     {/* {termsheetDetails.commercials?.usanceInterestPercetage}% */}
                   </li>
                   <li>
                     {' '}
-                    {termsheetDetails.commercials?.overDueInterestPerMonth ? Number(termsheetDetails.commercials?.overDueInterestPerMonth)?.toFixed(2) + '%' : ''}
+                    {termsheetDetails.commercials?.overDueInterestPerMonth ? Number(termsheetDetails.commercials?.overDueInterestPerMonth)?.toLocaleString("en-IN", {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2,
+                    }) + '%' : ''}
                     {/* {termsheetDetails.commercials?.overDueInterestPerMonth}% */}
                   </li>
                   <li> {termsheetDetails.commercials?.exchangeFluctuation}</li>
@@ -1656,7 +1672,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                             marginBottom: '0',
                           }}
                         >
-                          {termsheetDetails?.commodityDetails?.quantity} MT
+                          {termsheetDetails?.commodityDetails?.quantity?.toLocaleString('en-In')} MT
                         </p>
                       </td>
                     </tr>
@@ -1698,7 +1714,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                             marginBottom: '0',
                           }}
                         >
-                          {termsheetDetails?.commodityDetails?.perUnitPrice}
+                          {termsheetDetails?.commodityDetails?.perUnitPrice?.toLocaleString('en-In')}
                         </p>
                       </td>
                     </tr>
@@ -1762,7 +1778,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
-                          {termsheetDetails?.transactionDetails?.lcValue}
+                          {termsheetDetails?.transactionDetails?.lcValue ? Number(termsheetDetails?.transactionDetails?.lcValue)?.toLocaleString('en-In') : ''}
                         </p>
                       </td>
                     </tr>
@@ -2394,7 +2410,11 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                         >
                           {
                             termsheetDetails.commercials
-                              ?.tradeMarginPercentage
+                              ?.tradeMarginPercentage ? Number(termsheetDetails.commercials
+                                ?.tradeMarginPercentage)?.toLocaleString("en-IN", {
+                                  maximumFractionDigits: 2,
+                                  minimumFractionDigits: 2,
+                                }) +' %' : ''
                           }
                         </p>
                       </td>
@@ -2437,7 +2457,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           }}
                         >
                           {`USD`}{' '}
-                          {termsheetDetails.commercials?.lcOpeningChargesUnit}
+                          {termsheetDetails.commercials?.lcOpeningChargesUnit ? Number(termsheetDetails.commercials?.lcOpeningChargesUnit)?.toLocaleString('en-In') : ''}
                         </p>
                       </td>
                     </tr>
@@ -2480,7 +2500,11 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                         >
                           {
                             termsheetDetails.commercials
-                              ?.lcOpeningChargesPercentage
+                              ?.lcOpeningChargesPercentage ? Number(termsheetDetails.commercials
+                                ?.lcOpeningChargesPercentage)?.toLocaleString("en-IN", {
+                                  maximumFractionDigits: 2,
+                                  minimumFractionDigits: 2,
+                                }) : ''
                           }
                           %{' '}
                         </p>
@@ -2525,8 +2549,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                         >
                           {' '}
                           {
-                            termsheetDetails.commercials
-                              ?.usanceInterestPercetage
+                             termsheetDetails.commercials
+                             ?.usanceInterestPercetage ? Number(termsheetDetails.commercials
+                              ?.usanceInterestPercetage)?.toLocaleString("en-IN", {
+                                maximumFractionDigits: 2,
+                                minimumFractionDigits: 2,
+                              }) : ''
                           }
                           %
                         </p>
@@ -2572,7 +2600,11 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           {' '}
                           {
                             termsheetDetails.commercials
-                              ?.overDueInterestPerMonth
+                            ?.overDueInterestPerMonth ? Number(termsheetDetails.commercials
+                              ?.overDueInterestPerMonth)?.toLocaleString("en-IN", {
+                                maximumFractionDigits: 2,
+                                minimumFractionDigits: 2,
+                              }): ''
                           }
                           %
                         </p>

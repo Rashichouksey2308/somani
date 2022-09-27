@@ -154,7 +154,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   value={
                     isFieldInFocus.quantity ?
                       orderDetail?.quantity :
-                      Number(orderDetail?.quantity).toLocaleString() + ` ${orderDetail?.unitOfQuantity?.toUpperCase()}`}
+                      Number(orderDetail?.quantity).toLocaleString('en-In') + ` ${orderDetail?.unitOfQuantity?.toUpperCase()}`}
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)
                   }}
@@ -181,7 +181,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
                   value={
                     isFieldInFocus.orderValue ?
                       orderDetail?.orderValue :
-                      Number(orderDetail?.orderValue).toLocaleString() + ` ${orderDetail?.unitOfValue == 'Crores'
+                      Number(orderDetail?.orderValue).toLocaleString('en-In') + ` ${orderDetail?.unitOfValue == 'Crores'
                         ? 'Cr'
                         : orderDetail?.unitOfValue}`}
                   // value={addPrefixOrSuffix(
