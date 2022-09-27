@@ -992,7 +992,7 @@ function Index() {
                                   <strong className="text-danger">*</strong>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {"USD"}{' '}
+                                  {marginData?.order?.orderCurrency }{' '}
                                   {addPrefixOrSuffix(
                                     marginData?.order?.perUnitPrice,
                                     '',
@@ -1316,7 +1316,7 @@ function Index() {
                                   >{`(A*B)`}</span>
                                 </label>
                                 <div className={`${styles.val} heading`}>
-                                  {"USD"}{' '}
+                                  {marginData?.order?.orderCurrency }{' '}
                                   {checkNan(Number(finalCal.orderValue), true)}
                                 </div>
                               </div>
@@ -1347,7 +1347,7 @@ function Index() {
                                     Number(finalCal.orderValueInINR),
                                     true,
                                   )} */}
-                                  {convertValue((finalCal.orderValueInINR), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.orderValueInINR), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1389,7 +1389,7 @@ function Index() {
                                     Number(finalCal.usanceInterest),
                                     true,
                                   )} */}
-                                  {convertValue((finalCal.usanceInterest), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.usanceInterest), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1418,7 +1418,7 @@ function Index() {
                                 <div className={`${styles.val} heading`}>
                                   ₹{' '}
                                   {/* {checkNan(Number(finalCal.tradeMargin), true)} */}
-                                  {convertValue((finalCal.tradeMargin), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.tradeMargin), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1448,7 +1448,7 @@ function Index() {
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.grossOrderValue?.toLocaleString()} */}
                                   ₹{' '}
-                                  {convertValue((finalCal.grossOrderValue), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.grossOrderValue), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1480,7 +1480,7 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.toleranceValue} */}₹{' '}
-                                  {convertValue((finalCal.toleranceValue), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.toleranceValue), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1512,7 +1512,7 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.totalOrderValue} */}₹{' '}
-                                  {convertValue((finalCal.totalOrderValue), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.totalOrderValue), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1548,7 +1548,7 @@ function Index() {
                                     Number(finalCal.provisionalUnitPricePerTon),
                                     true,
                                   )} */}
-                                  {convertValue((finalCal.provisionalUnitPricePerTon), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.provisionalUnitPricePerTon), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1578,7 +1578,7 @@ function Index() {
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.marginMoney} */}₹{' '}
                                   {/* {checkNan(Number(finalCal.marginMoney), true)} */}
-                                  {convertValue((finalCal.marginMoney), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.marginMoney), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1607,7 +1607,7 @@ function Index() {
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.totalSPDC} */}₹{' '}
                                   {/* {checkNan(Number(finalCal.totalSPDC), true)} */}
-                                  {convertValue((finalCal.totalSPDC), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.totalSPDC), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
@@ -1639,7 +1639,7 @@ function Index() {
                                     Number(finalCal.amountPerSPDC),
                                     true,
                                   )} */}
-                                  {convertValue((finalCal.amountPerSPDC), coversionUnit).toLocaleString(undefined, {
+                                  {convertValue((finalCal.amountPerSPDC), coversionUnit).toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
