@@ -726,7 +726,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     return finacialYear
   }
   console.log(
-    gstFilteredData?.detail?.summaryInformation?.businessProfile,
+(_get(gstFilteredData, 'detail.salesDetailAnnual.saleSummary.quaterlyGrowthRate.current.value', 0) * 100 ?? '')?.toLocaleString(
+                          "en-IN",
+                          { minimumFractionDigits: 2 },
+                        ) ,
     'busis',
   )
   return (
@@ -1639,10 +1642,12 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       Annual Summary
                     </th>
                     <th colSpan={2} className='text-color'>
-                      {finacialYear(
+                      {
+                      finacialYear(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.B2BSales?.current?.financialYear,
-                      )}
+                      )
+                      }
                     </th>
                     <th colSpan={2} className='text-color'>
 
@@ -1670,45 +1675,74 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   <tr>
                     <td colSpan={2}>Gross Revenue</td>
                     <td>
-                      {convertValue(
+                      {
+                      convertValue(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
-                          ?.grossTurnover?.current?.value,
+                        ?.grossTurnover?.current?.value,
                         saleDetails,
                       )?.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
 
-                      })}
+                      })?convertValue(
+                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
+                        ?.grossTurnover?.current?.value,
+                        saleDetails,
+                      )?.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+
+                      }):"-"
+                      
+                      }
                       {/* {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.value?.toLocaleString(
                         undefined,
                         { minimumFractionDigits: 2 },
                       )} */}
                     </td>
                     <td className="border-left-0">
-                      {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.percentage?.toFixed(
-                        2,
-                      )}
-                      %
+                      {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.percentage?.toFixed(2)
+                      ?
+                     `${gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.current?.percentage?.toFixed(2)} %`
+                      :"-"
+                      }
+                      
                     </td>
                     <td>
-                      {convertValue(
+                      {
+                      convertValue(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.grossTurnover?.previous?.value,
                         saleDetails,
                       )?.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
-                      })}
+                      })?
+                       convertValue(
+                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
+                          ?.grossTurnover?.previous?.value,
+                        saleDetails,
+                      )?.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      }):"-"
+                      }
                       {/* {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.previous?.value?.toLocaleString(
                         undefined,
                         { minimumFractionDigits: 2 },
                       )} */}
                     </td>
                     <td className="border-left-0">
-                      {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.previous?.percentage?.toFixed(
+                      {
+                      gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.previous?.percentage?.toFixed(
                         2,
-                      )}
-                      %
+                      )?
+                      `${gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.grossTurnover?.previous?.percentage?.toFixed(
+                        2,
+                      )} %`
+                      :"-"
+                      }
+                     
                     </td>
                   </tr>
                   <tr>
@@ -1718,40 +1752,71 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         undefined,
                         { minimumFractionDigits: 2 },
                       )} */}
-                      {convertValue(
+                      {
+                      convertValue(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.recurringSales?.current?.value,
                         saleDetails,
                       )?.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
-                      })}
+                      })?
+                      convertValue(
+                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
+                          ?.recurringSales?.current?.value,
+                        saleDetails,
+                      )?.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      }):"-"
+                      }
                     </td>
                     <td className="border-left-0">
                       {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.current?.percentage?.toFixed(
                         2,
-                      )}
-                      %
+                      )?
+                      `${gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.current?.percentage?.toFixed(
+                        2,
+                      )}  %`
+                      :"-"
+                      
+                      }
+                     
                     </td>
                     <td>
                       {/* {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.previous?.value?.toLocaleString(
                         undefined,
                         { minimumFractionDigits: 2 },
                       )} */}
-                      {convertValue(
+                      {
+                      convertValue(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.recurringSales?.previous?.value,
                         saleDetails,
                       )?.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
-                      })}
+                      })? convertValue(
+                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
+                          ?.recurringSales?.previous?.value,
+                        saleDetails,
+                      )?.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      }):"-"
+                      
+                      }
                     </td>
                     <td className="border-left-0">
                       {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.previous?.percentage?.toFixed(
                         2,
-                      )}
-                      %
+                      )?
+                      `${gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.recurringSales?.previous?.percentage?.toFixed(
+                        2,
+                      )} %`
+                      :"-"
+                      }
+                      
                     </td>
                   </tr>
                   <tr>
@@ -1768,13 +1833,26 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       )?.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
-                      })}
+                      })?
+                      convertValue(
+                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
+                          ?.relatedPartySales?.current?.value,
+                        saleDetails,
+                      )?.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      }):"-"
+                      }
                     </td>
                     <td className="border-left-0">
                       {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.relatedPartySales?.current?.percentage?.toFixed(
                         2,
-                      )}
-                      %
+                      )?
+                      `${gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.relatedPartySales?.current?.percentage?.toFixed(
+                        2,
+                      )} %`
+                      :"-"}
+                      
                     </td>
                     <td>
                       {/* {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.relatedPartySales?.previous?.value?.toLocaleString(
@@ -1788,13 +1866,27 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       )?.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
-                      })}
+                      })?convertValue(
+                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
+                          ?.relatedPartySales?.previous?.value,
+                        saleDetails,
+                      )?.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      }):"-"
+                      }
                     </td>
                     <td className="border-left-0">
-                      {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.relatedPartySales?.previous?.percentage?.toFixed(
+                      {
+                      gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.relatedPartySales?.previous?.percentage?.toFixed(
                         2,
-                      )}
-                      %
+                      )?
+                      `${gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.relatedPartySales?.previous?.percentage?.toFixed(
+                        2,
+                      )} %`
+                      :"-"
+                      }
+                      
                     </td>
                   </tr>
                   <tr>
@@ -1811,13 +1903,26 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       )?.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
-                      })}
+                      })?
+                      convertValue(
+                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
+                          ?.intraOrgSalesPercent?.current?.value,
+                        saleDetails,
+                      )?.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      }):"-"
+                      }
                     </td>
                     <td className="border-left-0">
                       {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.intraOrgSalesPercent?.current?.percentage?.toFixed(
                         2,
-                      )}
-                      %
+                      )?
+                      `${gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.intraOrgSalesPercent?.current?.percentage?.toFixed(
+                        2,
+                      )} %`
+                      :"-"}
+                      
                     </td>
                     <td>
                       {/* {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.intraOrgSalesPercent?.previous?.value?.toLocaleString(
@@ -1831,13 +1936,25 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       )?.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
-                      })}
+                      })?
+                    convertValue(
+                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
+                          ?.intraOrgSalesPercent?.previous?.value,
+                        saleDetails,
+                      )?.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      }):"-"}
                     </td>
                     <td className="border-left-0">
                       {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.intraOrgSalesPercent?.previous?.percentage?.toFixed(
                         2,
-                      )}
-                      %
+                      )?
+                      `${gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.intraOrgSalesPercent?.previous?.percentage?.toFixed(
+                        2,
+                      )} %`
+                      :"-"}
+                      
                     </td>
                   </tr>
                   <tr>
@@ -1854,13 +1971,26 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       )?.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
-                      })}
+                      })?convertValue(
+                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
+                          ?.B2BSales?.current?.value,
+                        saleDetails,
+                      )?.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      }):"-"
+                      
+                      }
                     </td>
                     <td className="border-left-0">
                       {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.current?.percentage?.toFixed(
                         2,
-                      )}
-                      %
+                      )?`${gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.current?.percentage?.toFixed(
+                        2,
+                      )}%`:"-"
+                      
+                      }
+                      
                     </td>
                     <td>
                       {/* {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.previous?.value?.toLocaleString(
@@ -1874,13 +2004,24 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       )?.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
-                      })}
+                      })?convertValue(
+                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
+                          ?.B2BSales?.previous?.value,
+                        saleDetails,
+                      )?.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      }):"-"}
                     </td>
                     <td className="border-left-0">
                       {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.previous?.percentage?.toFixed(
                         2,
-                      )}
-                      %
+                      )?
+                      `${gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2BSales?.previous?.percentage?.toFixed(
+                        2,
+                      )}  %`
+                      :"-"}
+                     
                     </td>
                   </tr>
                   <tr>
@@ -1897,13 +2038,25 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       )?.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
-                      })}
+                      })?
+                    convertValue(
+                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
+                          ?.B2CSales?.current?.value,
+                        saleDetails,
+                      )?.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      }):"-"}
                     </td>
                     <td className="border-left-0">
                       {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2CSales?.current?.percentage?.toFixed(
                         2,
-                      )}
-                      %
+                      )?
+                      `${gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2CSales?.current?.percentage?.toFixed(
+                        2,
+                      )} %`
+                      :"-"}
+                      
                     </td>
                     <td>
                       {/* {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2CSales?.previous?.value?.toLocaleString(
@@ -1917,13 +2070,25 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       )?.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
-                      })}
+                      })?
+                    convertValue(
+                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
+                          ?.B2CSales?.previous?.value,
+                        saleDetails,
+                      )?.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      }):"-"}
                     </td>
                     <td className="border-left-0">
                       {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2CSales?.previous?.percentage?.toFixed(
                         2,
-                      )}
-                      %
+                      )?
+                      `${gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.B2CSales?.previous?.percentage?.toFixed(
+                        2,
+                      )} %`
+                      :"-"}
+                      
                     </td>
                   </tr>
                   <tr>
@@ -1940,13 +2105,22 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       )?.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
-                      })}
+                      })?convertValue(
+                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
+                          ?.exportSales?.current?.value,
+                        saleDetails,
+                      )?.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      }):"-"}
                     </td>
                     <td className="border-left-0">
                       {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.current?.percentage?.toFixed(
                         2,
-                      )}
-                      %
+                      )?`${gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.current?.percentage?.toFixed(
+                        2,
+                      )}  %`:"-"}
+                     
                     </td>
                     <td>
                       {/* {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.current?.value?.toLocaleString(
@@ -1960,13 +2134,22 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       )?.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
-                      })}
+                      })?convertValue(
+                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
+                          ?.exportSales?.previous?.value,
+                        saleDetails,
+                      )?.toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      }):"-"}
                     </td>
                     <td className="border-left-0">
                       {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.previous?.percentage?.toFixed(
                         2,
-                      )}
-                      %
+                      )?`${gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.exportSales?.previous?.percentage?.toFixed(
+                        2,
+                      )}%`:"-"}
+                      
                     </td>
                   </tr>
                   <tr>
@@ -1975,7 +2158,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlCustomer?.current?.value?.toLocaleString(
                         undefined,
                         { maximumFractionDigits: 0 },
-                      )}
+                      )?gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlCustomer?.current?.value?.toLocaleString(
+                        undefined,
+                        { maximumFractionDigits: 0 },
+                      ):"-"}
                       {/* {convertValue(gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlCustomer?.previous?.value, saleDetails)?.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
  minimumFractionDigits: 2,
@@ -1992,7 +2178,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlCustomer?.previous?.value?.toLocaleString(
                         undefined,
                         { maximumFractionDigits: 0 },
-                      )}
+                      )?gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlCustomer?.previous?.value?.toLocaleString(
+                        undefined,
+                        { maximumFractionDigits: 0 },
+                      ):"-"}
                       {/* {convertValue(gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlCustomer?.previous?.value, saleDetails)?.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
  minimumFractionDigits: 2,
@@ -2011,7 +2200,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlInv?.current?.value?.toLocaleString(
                         undefined,
                         { maximumFractionDigits: 0 },
-                      )}
+                      )?gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlInv?.current?.value?.toLocaleString(
+                        undefined,
+                        { maximumFractionDigits: 0 },
+                      ):"-"}
                       {/* {convertValue(gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlInv?.previous?.value, saleDetails)?.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
  minimumFractionDigits: 2,
@@ -2020,9 +2212,12 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td className="border-left-0">-</td>
                     <td>
                       {gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlInv?.previous?.value?.toLocaleString(
-                        undefined,
+                        "en-IN",
                         { maximumFractionDigits: 0 },
-                      )}
+                      )!==undefined?gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlInv?.previous?.value?.toLocaleString(
+                        "en-IN",
+                        { maximumFractionDigits: 0 },
+                      ):"-"}
                       {/* {convertValue(gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.ttlInv?.previous?.value, saleDetails)?.toLocaleString(undefined, {
                         maximumFractionDigits: 2,
  minimumFractionDigits: 2,
@@ -2040,8 +2235,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         {(gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.salesGrowthRate?.current?.value * 100 ?? '')?.toLocaleString(
                           undefined,
                           { minimumFractionDigits: 2 },
-                        )}
-                        %
+                        )!=="NaN"?
+                      `${(gstFilteredData?.detail?.salesDetailAnnual?.saleSummary?.salesGrowthRate?.current?.value * 100 ?? '')?.toLocaleString(
+                          undefined,
+                          { minimumFractionDigits: 2 },
+                        )} %`:"-"
+                      }
+                        
                       </strong>
                     </td>
                     <td></td>
@@ -2054,11 +2254,16 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td></td>
                     <td className="border-left-0">
                       <strong>
-                        {(_get(gstFilteredData, 'detail.salesDetailAnnual.saleSummary.quaterlyGrowthRate.current.value', null) * 100 ?? '')?.toLocaleString(
-                          undefined,
+                        {
+                        (_get(gstFilteredData, 'detail.salesDetailAnnual.saleSummary.quaterlyGrowthRate.current.value', 0) * 100 ?? '')?.toLocaleString(
+                          "en-IN",
                           { minimumFractionDigits: 2 },
-                        )}
-                        %
+                        )
+                        ?`${(_get(gstFilteredData, 'detail.salesDetailAnnual.saleSummary.quaterlyGrowthRate.current.value', 0) * 100 ?? '')?.toLocaleString(
+                          "en-IN",
+                          { minimumFractionDigits: 2 },
+                        )} %`:"-"}
+                       
                       </strong>
                     </td>
 
@@ -2079,14 +2284,20 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       {finacialYear(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.B2BSales?.current?.financialYear,
-                      )}
+                      )?finacialYear(
+                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
+                          ?.B2BSales?.current?.financialYear,
+                      ):"-"}
                     </th>
                     <th width="33%" className='text-color'>
 
                       {finacialYear(
                         gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
                           ?.B2BSales?.previous?.financialYear,
-                      )}
+                      )?finacialYear(
+                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
+                          ?.B2BSales?.previous?.financialYear,
+                      ):"-"}
                     </th>
                   </tr>
 
@@ -2616,7 +2827,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.current?.value?.toLocaleString(
                         undefined,
                         { maximumFractionDigits: 0 },
-                      )}
+                      )?gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.current?.value?.toLocaleString(
+                        undefined,
+                        { maximumFractionDigits: 0 },
+                      ):"-"}
                     </td>
                     <td className="border-left-0">-
                       {/* {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.current?.percentage?.toFixed(
@@ -2628,7 +2842,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.previous?.value?.toLocaleString(
                         undefined,
                         { maximumFractionDigits: 2 },
-                      )}
+                      )?gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.previous?.value?.toLocaleString(
+                        undefined,
+                        { maximumFractionDigits: 2 },
+                      ):"-"}
                     </td>
                     <td className="border-left-0">-
                       {/* {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.ttlRec?.previous?.percentage?.toFixed(
