@@ -496,7 +496,10 @@ function Index() {
                           >
                             {addPrefixOrSuffix(
                               marginData?.order?.tolerance
-                                ? marginData?.order?.tolerance
+                                ? marginData?.order?.tolerance?.toLocaleString('en-In', {
+                                  maximumFractionDigits: 2,
+                                  minimumFractionDigits: 2,
+                                })
                                 : 0,
                               '%',
                               '',
@@ -1604,7 +1607,10 @@ function Index() {
                     <td className={`${styles.good} `}>
                       {addPrefixOrSuffix(
                         marginData?.order?.tolerance
-                          ? marginData?.order?.tolerance
+                          ? marginData?.order?.tolerance?.toLocaleString('en-In', {
+                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                          })
                           : 0,
                         '%',
                         '',
