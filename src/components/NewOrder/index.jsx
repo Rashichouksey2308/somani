@@ -9,7 +9,7 @@ const Index = ({ saveOrderData, orderData }) => {
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     orderValue: false,
-    tolerance : false
+    tolerance: false
   })
   const saveDate = (value, name) => {
     const d = new Date(value)
@@ -174,10 +174,10 @@ const Index = ({ saveOrderData, orderData }) => {
                   value={isFieldInFocus.orderValue ?
                     orderData.orderValue :
                     Number(orderData.orderValue).toLocaleString('en-In') + ` ${orderData.unitOfValue == 'Crores'
-                          ? 'Cr'
-                          : orderData.unitOfValue == 'Million'
-                            ? 'Mn'
-                            : orderData.unitOfValue}`
+                      ? 'Cr'
+                      : orderData.unitOfValue == 'Million'
+                        ? 'Mn'
+                        : orderData.unitOfValue}`
                   }
                   // value={addPrefixOrSuffix(
                   //   orderData.orderValue ? orderData.orderValue : 0,
@@ -264,9 +264,11 @@ const Index = ({ saveOrderData, orderData }) => {
                   }}
                   type="text"
                   name="tolerance"
-                  value= {isFieldInFocus.tolerance ?
+                  value={isFieldInFocus.tolerance ?
                     orderData.tolerance :
-                 '± '+ Number(orderData.tolerance)?.toLocaleString() + ' %'
+                    '± ' + Number(orderData.tolerance)?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                    }) + ' %'
                   }
                   // value={addPrefixOrSuffix(orderData.tolerance, '%', '')}
                   onChange={(e) => {

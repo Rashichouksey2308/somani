@@ -339,7 +339,9 @@ const Index = ({
                     </label>
                     <div className={`${styles.val} heading`}>
                       (+/-){' '}
-                      {addPrefixOrSuffix(marginData?.order?.tolerance, '%', '')}
+                      {addPrefixOrSuffix(marginData?.order?.tolerance?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                      }), '%', '')}
                     </div>
                   </div>
                 </div>
@@ -441,7 +443,7 @@ const Index = ({
                       <span className={`${styles.blue}`}>{`(A*B)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                    {marginData?.order?.orderCurrency + ' '}
+                      {marginData?.order?.orderCurrency + ' '}
                       {finalCal.orderValue ? Number(finalCal.orderValue)?.toLocaleString('en-In') : 0}
                     </div>
                   </div>
@@ -1188,7 +1190,7 @@ const Index = ({
                       onChange={(e) =>
                         dropDownChange(e.target.name, e.target.value)
                       }
-                      style={{paddingRight:'40px'}}
+                      style={{ paddingRight: '40px' }}
                     >
                       <option>Select an option</option>
                       <option value="INDO GERMAN INTERNATIONAL PRIVATE LIMITED">
@@ -1449,7 +1451,7 @@ const Index = ({
       </div>
 
       <DownloadBar
-       handleReject={exportPDF}
+        handleReject={exportPDF}
         downLoadButtonName={`Download`}
         isPrevious={true}
         leftButtonName={`Save`}
