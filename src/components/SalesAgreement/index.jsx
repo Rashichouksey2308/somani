@@ -1139,17 +1139,17 @@ function Index(props) {
         'Product',
         JSON.stringify({ list: data.addressList, excel: data?.excelData }),
       )
-      if (
-        dataToSend.productSpecifications.comments.length <= 0 ||
-        dataToSend.productSpecifications.comments == undefined
-      ) {
-        toastMessage = `Please add comments `
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          setSubmitData(false)
-          return
-        }
-      }
+      // if (
+      //   dataToSend.productSpecifications.comments.length <= 0 ||
+      //   dataToSend.productSpecifications.comments == undefined
+      // ) {
+      //   toastMessage = `Please add comments `
+      //   if (!toast.isActive(toastMessage.toUpperCase())) {
+      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      //     setSubmitData(false)
+      //     return
+      //   }
+      // }
       if (
         dataToSend?.productSpecifications?.specificationTable?.length <= 0 ||
         dataToSend?.productSpecifications?.specificationTable == undefined

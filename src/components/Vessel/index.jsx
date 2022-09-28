@@ -133,6 +133,7 @@ function Index({
                         </label>
                         <div disabled className="position-relative">
                           <select
+                            disabled
                             value={partShipmentAllowed}
                             onChange={(e) =>
                               setPartShipmentAllowed(e.target.value)
