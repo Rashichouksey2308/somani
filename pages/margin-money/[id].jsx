@@ -4574,13 +4574,13 @@ function Index() {
                                 </label>
                                 <div className={`${styles.val} heading`}>
                                   {addPrefixOrSuffix(
-                                    marginData?.order?.tolerance,
+                                    marginData?.order?.tolerance?.toLocaleString('en-In', {
+                                      maximumFractionDigits: 2,
+                                      minimumFractionDigits: 2,
+                                    }),
                                     '%',
                                     '',
-                                  )?.toLocaleString('en-In', {
-                                    maximumFractionDigits: 2,
-                                    minimumFractionDigits: 2,
-                                  })}
+                                  )}
                                 </div>
                               </div>
                             </div>

@@ -272,7 +272,10 @@ const Index = ({
                   value={
                     isFieldInFocus.tolerance ?
                       termsheetDetails?.commodityDetails?.tolerance :
-                    '±'+  Number(termsheetDetails?.commodityDetails?.tolerance).toLocaleString() + ` %`}
+                    '±'+  Number(termsheetDetails?.commodityDetails?.tolerance)?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2,
+                    }) + ` %`}
                   // value={
                   //   addPrefixOrSuffix(termsheetDetails?.commodityDetails?.tolerance,"%")
                   // }
