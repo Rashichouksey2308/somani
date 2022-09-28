@@ -590,7 +590,10 @@ function Index() {
                         >
                           {addPrefixOrSuffix(
                             marginData?.order?.tolerance
-                              ? marginData?.order?.tolerance
+                              ? Number(marginData?.order?.tolerance)?.toLocaleString('en-In', {
+                                maximumFractionDigits: 2,
+                                minimumFractionDigits: 2,
+                              })
                               : 0,
                             '%',
                             '',
@@ -611,7 +614,10 @@ function Index() {
                         >
                           {addPrefixOrSuffix(
                             marginData?.order?.tolerance
-                              ? marginData?.order?.tolerance
+                              ? Number(marginData?.order?.tolerance)?.toLocaleString('en-In', {
+                                maximumFractionDigits: 2,
+                                minimumFractionDigits: 2,
+                              })
                               : 0,
                             '%',
                             '',
@@ -1574,8 +1580,8 @@ function Index() {
                             lineHeight: '24px'
                           }}
                         >
-                           ₹  {marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC?.toLocaleString() ??
-                        0}
+                          ₹  {marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC?.toLocaleString() ??
+                            0}
                         </p>
                       </td>
                       <td align="left">
@@ -1642,8 +1648,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                            ₹  {marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue?.toLocaleString() ??
-                        0}
+                          ₹  {marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue?.toLocaleString() ??
+                            0}
                         </p>
                       </td>
                       <td align="left">
@@ -1702,8 +1708,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                           ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoney?.toLocaleString() ??
-                        0}
+                          ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoney?.toLocaleString() ??
+                            0}
                         </p>
                       </td>
                       <td align="left">
@@ -1770,8 +1776,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                           ₹  {marginData?.revisedMarginMoney?.calculation?.revisedMarginMoney?.toLocaleString() ??
-                        0}
+                          ₹  {marginData?.revisedMarginMoney?.calculation?.revisedMarginMoney?.toLocaleString() ??
+                            0}
                         </p>
                       </td>
                       <td align="left">
@@ -1830,8 +1836,8 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                           ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived?.toLocaleString() ??
-                        0}
+                          ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived?.toLocaleString() ??
+                            0}
                         </p>
                       </td>
                       <td align="left">
@@ -1898,8 +1904,8 @@ function Index() {
                             marginBottom: '0'
                           }}
                         >
-                           ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable?.toLocaleString() ??
-                        0}
+                          ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable?.toLocaleString() ??
+                            0}
                         </p>
                       </td>
                       <td align="left">
@@ -1936,8 +1942,8 @@ function Index() {
       autoPaging: 'text',
     })
   }
-console.log(marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived?.toLocaleString() ??
-                        0,"asasasasasas")
+  console.log(marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived?.toLocaleString() ??
+    0, "asasasasasas")
   return (
     <>
       <div className={`${styles.root_container} bg-transparent`}>
@@ -2100,7 +2106,10 @@ console.log(marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived?.to
                     <td className={`${styles.good} `}>
                       {addPrefixOrSuffix(
                         marginData?.order?.tolerance
-                          ? marginData?.order?.tolerance
+                          ? Number(marginData?.order?.tolerance)?.toLocaleString('en-In', {
+                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                          })
                           : 0,
                         '%',
                         '',
@@ -2109,7 +2118,10 @@ console.log(marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived?.to
                     <td>
                       {addPrefixOrSuffix(
                         marginData?.order?.tolerance
-                          ? marginData?.order?.tolerance
+                          ? Number(marginData?.order?.tolerance)?.toLocaleString('en-In', {
+                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                          })
                           : 0,
                         '%',
                         '',
@@ -2355,7 +2367,7 @@ console.log(marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived?.to
                     <td
                       className={`${styles.good} ${styles.highlight2} satisfactory`}
                     >
-                    ₹  {marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC?.toLocaleString() ??
+                      ₹  {marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC?.toLocaleString() ??
                         0}
                     </td>
                     <td>-</td>
@@ -2371,7 +2383,7 @@ console.log(marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived?.to
                       </span>
                     </td>
                     <td className={`${styles.good} good`}>
-                    ₹  {marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue?.toLocaleString() ??
+                      ₹  {marginData?.revisedMarginMoney?.calculation?.revisedNetOrderValue?.toLocaleString() ??
                         0}
                     </td>
                     <td>-</td>
@@ -2382,7 +2394,7 @@ console.log(marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived?.to
                       <span className={`ml-2`}>Margin Money (INR) </span>
                     </td>
                     <td className={`${styles.good} good`}>
-                    ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoney?.toLocaleString() ??
+                      ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoney?.toLocaleString() ??
                         0}
                     </td>
                     <td>-</td>
@@ -2397,7 +2409,7 @@ console.log(marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived?.to
                       <span className={`${styles.formula} ml-2`}>(R)</span>
                     </td>
                     <td className={`${styles.good} good`}>
-                    ₹  {marginData?.revisedMarginMoney?.calculation?.revisedMarginMoney?.toLocaleString() ??
+                      ₹  {marginData?.revisedMarginMoney?.calculation?.revisedMarginMoney?.toLocaleString() ??
                         0}
                     </td>
                     <td>-</td>
@@ -2410,7 +2422,7 @@ console.log(marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived?.to
                       </span>
                     </td>
                     <td className={`${styles.good} good`}>
-                    ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived?.toLocaleString() ??
+                      ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived?.toLocaleString() ??
                         0}
                     </td>
                     <td>-</td>
@@ -2426,7 +2438,7 @@ console.log(marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived?.to
                     <td
                       className={`${styles.good} ${styles.highlight2} satisfactory`}
                     >
-                    ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable?.toLocaleString() ??
+                      ₹  {marginData?.revisedMarginMoney?.calculation?.marginMoneyPayable?.toLocaleString() ??
                         0}
                     </td>
                     <td>-</td>

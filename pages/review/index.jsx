@@ -1842,7 +1842,7 @@ function Index() {
                     paddingTop: '29px',
                   }}
                 >
-                  {camData?.orderValue?.toLocaleString('en-In', {
+                  {convertValue(camData?.orderValue)?.toLocaleString('en-In', {
                     maximumFractionDigits: 2,
                   })}{' '}
                   {camData?.unitOfValue == 'Crores'
@@ -4003,75 +4003,7 @@ function Index() {
 
                   </table>
                 </td>
-                <td valign="top" style={{ borderLeft: '2px solid #CAD6E6' }}>
-                  <table
-                    width="100%"
-                    cellPadding="12"
-                    cellSpacing="0"
-                    border="0"
-                  >
-                    <tr bgColor="#FAFAFB" style={{ height: '67px' }}>
-                      <td
-                        style={{
-                          fontSize: '15px',
-                          color: '#8492A6',
-                          lineHeight: '18px',
-                          fontWeight: 'bold',
-                          paddingLeft: '35px',
-                          textTransform: 'uppercase',
-                        }}
-                      >
-                        BANK NAME
-                      </td>
-                      <td
-                        style={{
-                          fontSize: '15px',
-                          color: '#8492A6',
-                          lineHeight: '18px',
-                          fontWeight: 'bold',
-                          textTransform: 'uppercase',
-                        }}
-                      >
-                       {debt.limit}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td colSpan={2} style={{ padding:'0 35px'}}>
-                        <span
-                          style={{
-                            background: '#E4ECF7',
-                            borderRadius: '2px',
-                            height: '10px',
-                            width: '100%',
-                            display: 'inline-block',
-                            float: 'left',
-                          }}
-                        >
-                          <span
-                            style={{
-                              background: `${debt.conduct == 'Good'
-                                ? '#43C34D'
-                                : debt.conduct == 'Satisfactory'
-                                  ? '#FF9D00'
-                                  : debt.conduct == 'Average'
-                                    ? 'average'
-                                    : '#EA3F3F'
-                                }`,
-                              width: `${(Number(debt.limit) / 1900 > 1
-                                ? 1
-                                : Number(debt.limit) / 1900) * 100
-                                }%`,
-                              height: '10px',
-                              borderRadius: '2px',
-                              display: 'inline-block',
-                              float: 'left',
-                            }}
-                          ></span>
-                        </span>
-                      </td>
-                    </tr>                   
-                  </table>
-                </td>
+              
                 <td valign="top" style={{ borderLeft: '2px solid #CAD6E6' }}>
                   <table
                     width="100%"
@@ -7531,8 +7463,8 @@ console.log(highCourt,"highCourt111")
           }
           }
         
-    }
-    
+     }
+     
   supremeCourt = 
    supremeCourt.length<=0? companyData?.compliance?.supremeCourt?.cases?.filter(
       (val) => {
