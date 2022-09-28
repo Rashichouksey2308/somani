@@ -1525,7 +1525,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         className={`${styles.verify_gst} vessel_card card verify_gst`}
       >
         <Modal.Header
-          className={`${styles.card_header} card-header bg-transparent`}
+          className={`${styles.card_header} card-header lead_main border_color`}
         >
           <Modal.Title>
             <h3>Verify GST</h3>
@@ -1535,11 +1535,11 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           onHide={() => console.log('modal Closed')}
           className={`${styles.card_body} card-body`}
         >
-          <p className="card-text">
+          <p className="card-text label">
             Please verify your email to verify you GST
           </p>
           <ul
-            className={`${styles.nav_tabs} nav nav-tabs`}
+            className={`${styles.nav_tabs} border_color nav nav-tabs`}
             id="verifyGST"
             role="tablist"
           >
@@ -1643,7 +1643,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   <button
                     onClick={handleClose}
                     type="button"
-                    className={`${styles.close} ${styles.btn} btn w-50`}
+                    className={`${styles.close} ${styles.btn} border_color btn w-50`}
                   >
                     Close
                   </button>
@@ -3805,6 +3805,8 @@ const gstCustomerDetail = (
             className={`${styles.CustomercardBody} card-body border-top-0 border_color`}
           >
             <div className={`${styles.content}`}>
+            <div  className={`${styles.first} card_sub_header text-color`}>Recurring Party Sales In Last 12 Months</div> 
+
               <div className={` ${styles.body}`}>
                 <div className={`${styles.scrollouter}`}>
                   <div className={`${styles.scrollInner}`}>
@@ -3813,14 +3815,14 @@ const gstCustomerDetail = (
                       cellPadding="0"
                       cellSpacing="0"
                     >
-                      <tr>
+                      {/* <tr>
                         <th
                           className={`${styles.first} text-color`}
                           colSpan={6}
                         >
                           Recurring Party Sales In Last 12 Months
                         </th>
-                      </tr>
+                      </tr> */}
                       <tr className={styles.second_head}>
                         <td className='text-nowrap'>CUSTOMER NAME</td>
                         <td>PAN</td>
@@ -3876,6 +3878,8 @@ const gstCustomerDetail = (
               </div>
             </div>
             <div className={` ${styles.content}`}>
+            <div  className={`${styles.first} card_sub_header text-color`}>Related Party Sales In Last 12 Months</div> 
+
               <div className={` ${styles.body}`}>
                 <div className={`${styles.scrollouter}`}>
                   <div className={`${styles.scrollInner}`}>
@@ -3884,14 +3888,14 @@ const gstCustomerDetail = (
                       cellPadding="0"
                       cellSpacing="0"
                     >
-                      <tr>
+                      {/* <tr>
                         <th
                           className={`${styles.first} text-color`}
                           colSpan={6}
                         >
                           Related Party Sales In Last 12 Months
                         </th>
-                      </tr>
+                      </tr> */}
                       <tr className={styles.second_head}>
                         <td className='text-nowrap'>CUSTOMER NAME</td>
                         <td>PAN</td>
@@ -3944,7 +3948,9 @@ const gstCustomerDetail = (
               </div>
             </div>
             <div className={` ${styles.content}`}>
+            <div  className={`${styles.first} card_sub_header text-color`}>Top 10 Customers</div> 
               <div className={` ${styles.body} ${styles.body_noscroll}`}>
+               
                 <div className={`${styles.scrollouter}`}>
                   <div className={`${styles.scrollInner}`}>
                     <table
@@ -3952,14 +3958,14 @@ const gstCustomerDetail = (
                       cellPadding="0"
                       cellSpacing="0"
                     >
-                      <tr>
+               {/* <tr>
                         <th
                           className={`${styles.first} text-color`}
                           colSpan={6}
                         >
                           Top 10 Customers
                         </th>
-                      </tr>
+                      </tr> */}
                       <tr className={styles.second_head}>
                         <td className='text-nowrap'>CUSTOMER NAME</td>
                         <td>PAN</td>
@@ -4014,6 +4020,8 @@ const gstCustomerDetail = (
               </div>
             </div>
             <div className={` ${styles.content}`}>
+            <div  className={`${styles.first} card_sub_header text-color`}>Statewise Sales</div> 
+
               <div className={` ${styles.body} ${styles.body_noscroll}`}>
                 <div className={`${styles.scrollouter}`}>
                   <div className={`${styles.scrollInner}`}>
@@ -4022,14 +4030,14 @@ const gstCustomerDetail = (
                       cellPadding="0"
                       cellSpacing="0"
                     >
-                      <tr>
+                      {/* <tr>
                         <th
                           className={`${styles.first} text-color`}
                           colSpan={6}
                         >
                           Statewise Sales
                         </th>
-                      </tr>
+                      </tr> */}
                       <tr className={styles.second_head}>
                         <td>STATE</td>
                         <td className='text-nowrap'>STATE CODE</td>
@@ -4138,6 +4146,7 @@ const gstSupplierDetail = (
             className={` ${styles.CustomercardBody} card-body border-top-0 border_color`}
           >
             <div className={` ${styles.content}`}>
+            <div  className={`${styles.first} card_sub_header text-color`}>Recurring Party Purchases In Last 12 Months</div> 
               <div className={` ${styles.body}`}>
                 <div className={`${styles.scrollouter}`}>
                   <div className={`${styles.scrollInner}`}>
@@ -4146,14 +4155,14 @@ const gstSupplierDetail = (
                       cellPadding="0"
                       cellSpacing="0"
                     >
-                      <tr>
+                      {/* <tr>
                         <th
                           className={`${styles.first} text-color`}
                           colSpan={6}
                         >
                           Recurring Party Purchases In Last 12 Months
                         </th>
-                      </tr>
+                      </tr> */}
                       <tr className={styles.second_head}>
                         <td className='text-nowrap'>SUPPLIER NAME</td>
                         <td>PAN</td>
@@ -4209,6 +4218,7 @@ const gstSupplierDetail = (
               </div>
             </div>
             <div className={` ${styles.content}`}>
+            <div  className={`${styles.first} card_sub_header text-color`}>Related Party Purchases In Last 12 Months</div> 
               <div className={` ${styles.body}`}>
                 <div className={`${styles.scrollouter}`}>
                   <div className={`${styles.scrollInner}`}>
@@ -4217,14 +4227,14 @@ const gstSupplierDetail = (
                       cellPadding="0"
                       cellSpacing="0"
                     >
-                      <tr>
+                      {/* <tr>
                         <th
                           className={`${styles.first} text-color`}
                           colSpan={6}
                         >
                           Related Party Purchases In Last 12 Months
                         </th>
-                      </tr>
+                      </tr> */}
                       <tr className={styles.second_head}>
                         <td className='text-nowrap'>SUPPLIER NAME</td>
                         <td>PAN</td>
@@ -4278,6 +4288,7 @@ const gstSupplierDetail = (
               </div>
             </div>
             <div className={` ${styles.content}`}>
+            <div  className={`${styles.first} card_sub_header text-color`}>Top 10 Suppliers</div> 
               <div className={` ${styles.body} ${styles.body_noscroll}`}>
                 <div className={`${styles.scrollouter}`}>
                   <div className={`${styles.scrollInner}`}>
@@ -4286,7 +4297,7 @@ const gstSupplierDetail = (
                       cellPadding="0"
                       cellSpacing="0"
                     >
-                      <tr>
+                      {/* <tr>
                         <th
                           className={`${styles.first} py-0 text-color`}
                           colSpan={6}
@@ -4294,7 +4305,7 @@ const gstSupplierDetail = (
                           Top 10 Suppliers
                           <span className={`${styles.small} text_light`}>(Domestic)</span>
                         </th>
-                      </tr>
+                      </tr> */}
                       <tr className={styles.second_head}>
                         <td className='text-nowrap'>SUPPLIER NAME</td>
                         <td>PAN</td>
@@ -4348,6 +4359,7 @@ const gstSupplierDetail = (
               </div>
             </div>
             <div className={` ${styles.content}`}>
+            <div  className={`${styles.first} card_sub_header text-color`}>Statewise Purchase</div> 
               <div
                 className={` ${styles.body} ${styles.body_noscroll} border_color`}
               >
@@ -4358,14 +4370,14 @@ const gstSupplierDetail = (
                       cellPadding="0"
                       cellSpacing="0"
                     >
-                      <tr>
+                      {/* <tr>
                         <th
                           className={`${styles.first} text-color`}
                           colSpan={6}
                         >
                           Statewise Purchase
                         </th>
-                      </tr>
+                      </tr> */}
                       <tr className={styles.second_head}>
                         <td className='text-nowrap'>STATE</td>
                         <td>STATE CODE</td>

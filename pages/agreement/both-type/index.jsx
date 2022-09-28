@@ -36,7 +36,36 @@ function Index() {
   const { insuranceResponse } = useSelector((state) => state.insurance)
 
   let insuranceData = _get(insuranceResponse, 'data[0]', {})
-
+  const [emailAdd, setEmailAdd] = useState([
+    {
+      emailID: '',
+    },
+  ])
+    const [insuranceAdd, setinsuranceAdd] = useState([
+    {
+      insurance: '',
+    },
+  ])
+  console.log(insuranceAdd,emailAdd,"emailAdd")
+  const addMoreRows = (val) => {
+    console.log(val,"vak")
+    if(val=="email"){
+      setEmailAdd([
+            ...emailAdd,
+            {
+              emailID: '',
+            },
+    ])
+    }else{
+       setinsuranceAdd([
+            ...insuranceAdd,
+            {
+              insurance: '',
+            },
+    ])
+    }
+   
+  }
   dispatch(setPageName('insurance Request Letter'))
   dispatch(
     setDynamicName(_get(insuranceData, 'company.companyName', 'Company Name')),
@@ -1193,7 +1222,9 @@ function Index() {
                     INR{' '}
                     {Number(
                       convertValue(insuranceData?.quotationRequest?.sumInsured),
-                    )?.toLocaleString("en-IN")}{' '}
+                    )?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                    })}{' '}
                     Crores (Including 110%)
                   </Col>
                 </Row>
@@ -1237,7 +1268,9 @@ function Index() {
                     Quantity
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    BL Weight {insuranceData?.order?.quantity?.toLocaleString("en-IN")} MTs. (+/{insuranceData?.order?.tolerance??0}%)
+                    BL Weight {insuranceData?.order?.quantity?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                        })} MTs. (+/{insuranceData?.order?.tolerance??0}%)
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -1477,7 +1510,7 @@ function Index() {
         openbar={handlePopup}
       />
 
-      <Modal
+    <Modal
         show={show}
         className={`${styles.share_lc} vessel_card card share_lc`}
       >
@@ -1545,6 +1578,7 @@ function Index() {
                       role="tab"
                       aria-controls="insuranceCompany"
                       aria-selected="true"
+                     
                     >
                       <img
                         src="/static/groups.svg"
@@ -1564,6 +1598,7 @@ function Index() {
                       role="tab"
                       aria-controls="emailAddress"
                       aria-selected="false"
+                     
                     >
                       <img
                         src="/static/email-icon.png"
@@ -1586,7 +1621,7 @@ function Index() {
                     aria-labelledby="insurance-company"
                   >
                     <div className={`${styles.each_input} form-group`}>
-                      <div className="d-flex">
+                         <div className="d-flex">
                         <select
                           id="email"
                           name="email"
@@ -1604,39 +1639,47 @@ function Index() {
                           alt="Search"
                         />
                       </div>
+                    
                     </div>
-
-                    <div className={`${styles.radio_form} ml-1`}>
-                      {['radio'].map((type) => (
-                        <div
-                          key={`inline-${type}`}
-                          className={styles.radio_group}
-                        >
-                          <Form.Check
-                            className={styles.radio}
-                            inline
-                            label="abcz@email.com"
-                            name="group1"
-                            id={`inline-${type}-1`}
-                          />
-                          <Form.Check
-                            className={styles.radio}
-                            inline
-                            label="abcz@email.com"
-                            name="group1"
-                            id={`inline-${type}-2`}
-                          />
+                    {insuranceAdd.map((val, index) => {
+                      return(
+                      <>
+                        <div className={`${styles.radio_form} ml-1`}>
+                          {['radio'].map((type) => (
+                            <div
+                              key={`inline-${type}`}
+                              className={styles.radio_group}
+                            >
+                              <Form.Check
+                                className={styles.radio}
+                                inline
+                                label="abcz@email.com"
+                                name="group1"
+                                id={`inline-${type}-1`}
+                              />
+                              <Form.Check
+                                className={styles.radio}
+                                inline
+                                label="abcz@email.com"
+                                name="group1"
+                                id={`inline-${type}-2`}
+                              />
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
-                    <hr></hr>
+                        <hr></hr>
+                      </>
+                      )
+                      })}
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        // addMoreRows()
+                         addMoreRows("insurance")
                       }}
                     >
-                      <span style={{ fontSize: '2rem' }} className={`mr-2`}>
+                      <span style={{ fontSize: '2rem' }} className={`mr-2`}
+                      
+                      >
                         +
                       </span>{' '}
                       add another
@@ -1664,8 +1707,12 @@ function Index() {
                     aria-labelledby="email-address"
                   >
                     <div className={`${styles.each_input} form-group`}>
-                      <div className="d-flex">
-                        <select
+                     
+                        {emailAdd.map((val,index)=>{
+                        return(
+                        <>
+                         <div className="d-flex">
+                          <select
                           id="email"
                           name="email"
                           className={`${styles.formControl} ${styles.customSelect} input form-control`}
@@ -1686,7 +1733,13 @@ function Index() {
                           src="/static/inputDropDown.svg"
                           alt="Search"
                         />
-                      </div>
+                        </div>
+                        </>
+                      
+                      
+                        )
+                      })}
+                    
                     </div>
                     {/* <div className={`${styles.labelFloat} form-group`}>
                           <input type='text' id='phone' name="phone" className={`${styles.formControl} ${styles.input} input form-control`} required />
@@ -1694,11 +1747,14 @@ function Index() {
                         </div> */}
                     <div
                       className={`${styles.addMoreRows}`}
-                      onClick={(e) => {
-                        addMoreRows()
+                     onClick={(e) => {
+                        console.log(this)
+                        addMoreRows("email")
                       }}
                     >
-                      <span style={{ fontSize: '2rem' }} className={`mr-2`}>
+                      <span style={{ fontSize: '2rem' }} className={`mr-2`}
+                       
+                      >
                         +
                       </span>{' '}
                       add another

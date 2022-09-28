@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { GettingAllInsurance } from 'redux/insurance/action'
 import { Router } from 'next/router'
 import _get from 'lodash/get'
+import moment from 'moment/moment'
 
 function Index({
   tableName,
@@ -145,9 +146,10 @@ function Index({
                     <td>{insured?.quotationRequest?.insuranceType}</td>
                     <td>
                       {
-                        insured?.quotationRequest?.expectedTimeOfDispatch?.split(
-                          'T',
-                        )[0]
+                        moment(insured?.quotationRequest?.expectedTimeOfDispatch).format("DD-MM-YYYY")
+                        // insured?.quotationRequest?.expectedTimeOfDispatch?.split(
+                        //   'T',
+                        // )[0]
                       }
                     </td>
                     <td>

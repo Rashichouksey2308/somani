@@ -623,8 +623,8 @@ function Index({
                                           // moment(vesselInfo.yearOfBuilt).format("YYYY")
                                           : ''}
                                         className={`${styles.input_field} input form-control`}
-                                        type="text"
-                                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                                        type="number"
+                                        onKeyDown={(evt) => ["e", "E", "+", "-",'.'].includes(evt.key) && evt.preventDefault()}
 
                                         onChange={(e) =>
                                           onVesselInfoChangeHandlerForBulk(
@@ -899,7 +899,7 @@ function Index({
                                     // defaultValue={newVessel.yearOfBuilt}
                                     className={`${styles.input_field} input form-control`}
                                     type="number"
-                                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                                    onKeyDown={(evt) => ["e", "E", "+", "-",'.'].includes(evt.key) && evt.preventDefault()}
 
                                     onChange={(e) =>
                                       onVesselInfoChangeHandlerForLiner(
