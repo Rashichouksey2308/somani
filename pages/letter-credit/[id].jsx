@@ -23,6 +23,7 @@ function Index() {
   const [editInput, setEditInput] = useState(false)
   const [editCurrent, setEditCurrent] = useState()
 
+  console.log(editCurrent,'this is edit current')
   const handleEdit = (val) => {
     console.log('THIS IS HANDLE EDIT', val)
     setEditCurrent(val)
@@ -37,7 +38,7 @@ function Index() {
   const [lcData, setLcData] = useState()
 
   // console.log(lcData, "THIS IS LC USE STATE")
-
+ console.log(editCurrent,"editCurrent")
   useEffect(() => {
     setLcData({
       formOfDocumentaryCredit:
@@ -115,7 +116,7 @@ function Index() {
 
   const [drop, setDrop] = useState('')
 
-  const [fieldType, setFieldType] = useState(false)
+  const [fieldType, setFieldType] = useState("")
 
   const inputRef = useRef(null)
 
@@ -124,9 +125,12 @@ function Index() {
       e.target.value == 'latestDateOfShipment' ||
       e.target.value == 'dateOfExpiry'
     ) {
-      setFieldType(true)
-    } else {
-      setFieldType(false)
+      setFieldType("date")
+    }else if( e.target.value=="partialShipment" ){
+       setFieldType("drop")
+    }
+     else {
+       setFieldType('')
     }
 
     let newInput = { ...clauseObj }
@@ -134,13 +138,13 @@ function Index() {
     let val1 = e.target.options[e.target.selectedIndex].text
     let val2 = e.target.value
     setDrop(val2)
-
+    console.log(lcData[e.target.value],"lcData[e.target.value]",e.target.value)
     newInput['existingValue'] = lcData[e.target.value] || ''
     newInput['dropDownValue'] = val1 || ''
     console.log(newInput, 'dropDownChange')
     setClauseObj(newInput)
   }
-
+ console.log(lcData,"lcData")
   const arrChange = (name, value) => {
     const newInput = { ...clauseObj }
     newInput[name] = value
@@ -161,18 +165,33 @@ function Index() {
 
   const addToArr = () => {
     const newArr = [...clauseArr]
-    if (
-      clauseArr.map((e) => e.dropDownValue).includes(clauseObj.dropDownValue)
-    ) {
-      let toastMessage = 'CLAUSE ALREADY ADDED'
+    if (clauseObj.dropDownValue === 'Select an option' || clauseObj.dropDownValue === '') {
+      let toastMessage = 'please select a dropdown value first '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
     } else {
-      newArr.push(clauseObj)
+      console.log('this is ccccc')
+      if (
+        clauseArr.map((e) => e.dropDownValue).includes(clauseObj.dropDownValue)
+      ) {
+        let toastMessage = 'CLAUSE ALREADY ADDED'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage, { toastId: toastMessage })
+        }
+      } else {
+        newArr.push(clauseObj)
 
-      setClauseArr(newArr)
+        setClauseArr(newArr)
+        // setClauseObj({
+        //   existingValue: '',
+        //   dropDownValue: '',
+        //   newValue: '',
+        // })
+      }
     }
+
+
   }
 
   const removeFromArr = (arr) => {
@@ -264,13 +283,16 @@ function Index() {
     // console.log(value,"775456")
     if (type == '(44C) Latest Date Of Shipment') {
       return moment(value).format('DD-MM-YYYY')
-    } else {
+    } else if (type == '(43P) Partial Shipment') {
+      return value=="Yes"?"Allowed":"Not Allowed"
+    }
+     else {
       return value
     }
   }
   const getDataFormDropDown = (value) => {
     // console.log(value,"ssdsdsdsd")
-    if (fieldType) {
+    if (fieldType=="date") {
       return moment(value).format('DD-MM-YYYY')
     } else {
       return value
@@ -344,11 +366,7 @@ function Index() {
                         </div>
                         <span className={styles.value}>
                           {lcModuleData?.lcApplication?.dateOfIssue
-                            ? moment(
-                                lcModuleData?.lcApplication?.dateOfIssue?.split(
-                                  'T',
-                                )[0],
-                              ).format('DD-MM-YYYY')
+                            ? moment( lcModuleData?.lcApplication?.dateOfIssue).format('DD-MM-YYYY')
                             : ''}
                         </span>
                       </div>
@@ -410,7 +428,7 @@ function Index() {
                             onChange={(e) => dropDownChange(e)}
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           >
-                            <option>Select an option</option>
+                            <option value=''>Select an option</option>
                             <option value="shipmentForm">
                               (44A) Shipment From
                             </option>
@@ -502,7 +520,7 @@ function Index() {
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6}>
                         <div className="d-flex">
-                          {!fieldType ? (
+                          {fieldType=="" ? (
                             <input
                               className={`${styles.input_field} input form-control`}
                               required
@@ -516,7 +534,10 @@ function Index() {
                                 arrChange('newValue', e.target.value)
                               }}
                             />
-                          ) : (
+                          ) :null}
+                          {
+                            fieldType=="date"?
+                             (
                             <>
                               <DateCalender
                                 name="newValue"
@@ -530,13 +551,46 @@ function Index() {
                                 alt="Search"
                               />
                             </>
-                          )}
+                          )
+                            :null
+                          }
+                            {
+                            fieldType=="drop"?
+                             (
+                            <>
+                            <select
+                            name="partialShipment"
+                            onChange={(e) => {
+                              arrChange('newValue', e.target.value)
+                            }}
+                            // value={
+                             
+                            // }
+                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                          >
+                            <option selected disabled>
+                              Select an option
+                            </option>
+                            
+                            <option value="Yes">Allowed</option>
+                            <option value="No">Not Allowed</option>
+                            <option value="No">Conditional</option>
+                          </select>
+                           <img
+                            className={`${styles.arrow} image_arrow img-fluid`}
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
+                            </>
+                          )
+                            :null
+                          }
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
                             New Value<strong className="text-danger">*</strong>
                           </label>
-                          {!fieldType ? (
+                          {fieldType== ""   ? (
                             <img
                               className="img-fluid ml-4"
                               src="/static/add-btn.svg"

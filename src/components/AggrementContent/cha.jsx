@@ -628,7 +628,7 @@ setEditAddress(
                   />
                 </div>
               </Form.Group>
-          {addressType=="Registered" || addressType=="Supplier"?
+           { addressType=="Supplier"?
               <>
               <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
                 <Form.Control

@@ -725,7 +725,7 @@ setEditAddress(
                 <Form.Control
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="text"
+                  type="number"
                   name="accountNo"
                     value={supplierState.bankDetails.accountNo}
                   onChange={(e) => {

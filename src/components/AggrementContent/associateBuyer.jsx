@@ -966,7 +966,7 @@ console.log(associateData.gstin,"associateData")
                       <td><img src="/static/pdf.svg" className="img-fluid" alt="Pdf"/>{/* {val.designation} */}</td>
                       <td>{`28-02-2022,5:30 PM`}</td>
                       <td>
-                    {val.attachDoc == '' ? (
+                    {val.attachDoc == '' ||val.attachDoc == "new" ? (
                       <div className={styles.uploadBtnWrapper}>
                         <input
                           type="file"

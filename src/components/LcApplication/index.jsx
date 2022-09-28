@@ -701,7 +701,7 @@ function Index({
                           required
                           type="text"
                           name="DescriptionOfGoods"
-                          defaultValue={lcData?.DescriptionOfGoods}
+                          value={lcData?.DescriptionOfGoods}
                           onChange={(e) => {
                             saveLcData(e.target.name, e.target.value)
                           }}
