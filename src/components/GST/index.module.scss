@@ -253,7 +253,7 @@
         padding: 21px 35px 51px;
         p {            
             font-size: 16px;
-            color: #00000080;
+            //color: #00000080;
             font-weight: 500;
             line-height: 22px;
             letter-spacing: 0.53px;
@@ -341,13 +341,13 @@
                             transform: translateY(-30px);
                         }
                     }
-                    &:-webkit-autofill,
-                    &:-webkit-autofill:hover,
-                    &:-webkit-autofill:focus,
-                    &:-webkit-autofill:active {
-                        box-shadow: 0 0 0 30px #F8F8F8 inset !important;
-                        -webkit-box-shadow: 0 0 0 30px #F8F8F8 inset !important;
-                    }
+                    // &:-webkit-autofill,
+                    // &:-webkit-autofill:hover,
+                    // &:-webkit-autofill:focus,
+                    // &:-webkit-autofill:active {
+                    //     box-shadow: 0 0 0 30px #F8F8F8 inset !important;
+                    //     -webkit-box-shadow: 0 0 0 30px #F8F8F8 inset !important;
+                    // }
                 }
                 img {
                     top: 50%;
@@ -377,7 +377,7 @@
             }
             &.close {
                 color: #4D4D4D;
-                background: #FFFFFF;
+               // background: #FFFFFF;
                 border: 3px solid #D5D5D5;
             }
             &.submit {
@@ -1141,4 +1141,24 @@
 //   }
 .verify_gst .modal-content {
     border: none;
+}
+.first {
+    font-size: 15px;
+    // color: #111111;
+    font-weight: bold;
+    line-height: 18px;
+    height: 67px;
+    //background: #FAFAFB;
+    vertical-align: middle;
+    white-space: nowrap;
+    padding:20px 35px;
+
+    font-size: 22px;
+    line-height: 27px;
+    border-top: 1.5px solid #dae2ed;
+
+    border-right: 1.5px solid #dae2ed;
+    @include respond(md-desktop) {
+        padding-left: 15px;
+    }
 }
