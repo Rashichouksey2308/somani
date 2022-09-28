@@ -1,5 +1,12 @@
 @import '../styles/Core/config';
 .container {
+    textarea {
+        width:100%;
+        /* UI Properties */
+        border-radius: 4px;
+        outline: none;
+        padding: 0 10px;
+      }
   .form_group {
     position: relative;
     margin-top: 13px;
@@ -7,6 +14,7 @@
     @include respond(phone) {
       margin-top: 10px;
     }
+ 
     .label_heading {
       top: 22px;
       left: 30px;
