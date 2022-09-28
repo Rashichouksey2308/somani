@@ -725,11 +725,14 @@ setEditAddress(
                 <Form.Control
                   className={`${styles.input_field} input form-control`}
                   required
-                  type="text"
+                  type="number"
                   name="accountNo"
                     value={supplierState.bankDetails.accountNo}
                   onChange={(e) => {
-                      let temp =  e.target.value.replace(/[^\w\s]/gi, "")
+                    let temp =  e.target.value.replace(/[^\w\s]/gi, "")
+                      if(temp=="_"){
+                        temp=""
+                      }
 
                       handleInput(e.target.name,temp,"bankName")
                   }}

@@ -111,6 +111,31 @@ function Index(props) {
   }
   const addressValidation = (type, data, check = true) => {
     console.log(type, data, 'type,data')
+      if (type == 'Branch' || active == 'CHA') {
+      if (check) {
+        if (data.gstin === '' || data.gstin == undefined) {
+          let toastMessage = 'Please add gstin'
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
+          return false
+        }
+        if (data.state === '' || data.state == undefined) {
+          let toastMessage = 'Please add state'
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
+          return false
+        }
+      }
+      if (data.city === '' || data.city == undefined) {
+        let toastMessage = 'Please add city'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        return false
+      }
+    }
     if (data.addressType === '' || data.addressType == undefined) {
       let toastMessage = 'Please add address Type'
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -139,31 +164,7 @@ function Index(props) {
       }
       return false
     }
-    if (type == 'Branch') {
-      if (check) {
-        if (data.gstin === '' || data.gstin == undefined) {
-          let toastMessage = 'Please add gstin'
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          }
-          return false
-        }
-        if (data.state === '' || data.state == undefined) {
-          let toastMessage = 'Please add state'
-          if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          }
-          return false
-        }
-      }
-      if (data.city === '' || data.city == undefined) {
-        let toastMessage = 'Please add city'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
-        return false
-      }
-    }
+  
 
     return true
   }
@@ -1139,17 +1140,17 @@ function Index(props) {
         'Product',
         JSON.stringify({ list: data.addressList, excel: data?.excelData }),
       )
-      if (
-        dataToSend.productSpecifications.comments.length <= 0 ||
-        dataToSend.productSpecifications.comments == undefined
-      ) {
-        toastMessage = `Please add comments `
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          setSubmitData(false)
-          return
-        }
-      }
+      // if (
+      //   dataToSend.productSpecifications.comments.length <= 0 ||
+      //   dataToSend.productSpecifications.comments == undefined
+      // ) {
+      //   toastMessage = `Please add comments `
+      //   if (!toast.isActive(toastMessage.toUpperCase())) {
+      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      //     setSubmitData(false)
+      //     return
+      //   }
+      // }
       if (
         dataToSend?.productSpecifications?.specificationTable?.length <= 0 ||
         dataToSend?.productSpecifications?.specificationTable == undefined

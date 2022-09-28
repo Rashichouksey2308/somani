@@ -134,7 +134,7 @@ function Index({
                           className={`${styles.label_heading} label_heading`}
                         >
                           (40E) Applicable Rules
-                          <strong className="text-danger">*</strong>
+                          {/* <strong className="text-danger">*</strong> */}
                         </label>
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
@@ -701,7 +701,7 @@ function Index({
                           required
                           type="text"
                           name="DescriptionOfGoods"
-                          defaultValue={lcData?.DescriptionOfGoods}
+                          value={lcData?.DescriptionOfGoods}
                           onChange={(e) => {
                             saveLcData(e.target.name, e.target.value)
                           }}
