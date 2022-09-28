@@ -1643,7 +1643,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   <button
                     onClick={handleClose}
                     type="button"
-                    className={`${styles.close} ${styles.btn} border_color btn w-50`}
+                    className={`${styles.close} ${styles.btn} text border_color btn w-50`}
                   >
                     Close
                   </button>

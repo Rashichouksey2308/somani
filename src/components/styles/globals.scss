@@ -779,7 +779,17 @@ body.dark-mode .LC_draft_tabs .nav-link.active {
   border-bottom: 2px solid #3687E8;
   box-shadow: inset -4px -4px 6px #00000029;
 }
+body.light-mode .share_h3 {
+ 
+  color: #344054 !important;
 
+}
+
+body.dark-mode .share_h3 {
+ 
+  color: #ffffff80 !important;
+
+}
 body.light-mode .share_via .nav-link,
 body.light-mode .verify_gst .nav-link {
   border: none;
@@ -878,7 +888,9 @@ body.light-mode th {
 body.dark-mode td {
   color: rgba(255, 255, 255, 0.7);
   border-color: #434e61 !important;
+  background-color: #232936 !important;
 }
+
 body.light-mode td {
   border-color: #d9dde8 !important;
   color: rgba(17, 17, 17, 0.7);
