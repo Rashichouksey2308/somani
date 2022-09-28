@@ -1358,7 +1358,7 @@ function Index() {
 
       let tempDebtData = [...debtData]
       tempDebtData.forEach((val, index) => {
-        delete val.action &&  delete val.actions
+        delete val.action && delete val.actions
       })
       let data = { ...product }
       data.monthlyProductionCapacity = removePrefixOrSuffix(
@@ -1842,7 +1842,9 @@ function Index() {
                     paddingTop: '29px',
                   }}
                 >
-                  {camData?.orderValue?.toLocaleString('en-In')}{' '}
+                  {camData?.orderValue?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                  })}{' '}
                   {camData?.unitOfValue == 'Crores'
                     ? 'Cr'
                     : camData?.unitOfValue}
@@ -1889,7 +1891,9 @@ function Index() {
                     lineHeight: '25px',
                   }}
                 >
-                  {camData?.quantity?.toLocaleString('en-In')} {camData?.unitOfQuantity?.toUpperCase()}
+                  {camData?.quantity?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                  })} {camData?.unitOfQuantity?.toUpperCase()}
                 </td>
                 <td
                   style={{
@@ -2152,7 +2156,9 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {camData?.supplierCredential?.shipmentNumber}
+                  {camData?.supplierCredential?.shipmentNumber?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                  })}
                 </td>
                 <td
                   style={{
@@ -2197,7 +2203,9 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {camData?.supplierCredential?.consigneesNumber}
+                  {camData?.supplierCredential?.consigneesNumber?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                  })}
                 </td>
                 <td
                   style={{
@@ -2942,7 +2950,9 @@ function Index() {
                     paddingBottom: '21px',
                   }}
                 >
-                  {convertValue(camData?.orderValue)?.toLocaleString('en-In')}
+                  {convertValue(camData?.orderValue)?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                  })}
                 </td>
                 <td
                   style={{
@@ -3532,7 +3542,7 @@ function Index() {
                                 }}
                               >{share?.percentageShareHolding ? Number(share?.percentageShareHolding)?.toLocaleString('en-In', {
                                 minimumFractionDigits: 2,
-                                maximumSignificantDigits: 2,
+                                maximumFractionDigits: 2,
                               }) + '%' : ''}
                               </td>
                               <td
@@ -4125,7 +4135,13 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {camData?.productSummary?.monthlyProductionCapacity}
+                  {camData?.productSummary?.monthlyProductionCapacity ?
+                    Number(
+                      camData?.productSummary?.monthlyProductionCapacity,
+                    )?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                    }) : ''}
+                  {" "} {camData?.productSummary?.monthlyProductionCapacity ? "MT" : ""}
                 </td>
                 <td
                   width="30%"
@@ -4149,7 +4165,12 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {camData?.productSummary?.averageStockInTransit}
+                  {camData?.productSummary?.averageStockInTransit ?
+                    Number(camData?.productSummary?.averageStockInTransit)
+                      ?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                      }) : ''}
+                  {" "} {camData?.productSummary?.averageStockInTransit ? "MT" : ""}
                 </td>
               </tr>
               <tr>
@@ -4172,7 +4193,9 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {camData?.productSummary?.capacityUtilization}
+                  {camData?.productSummary?.capacityUtilization?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                  })}{" "} {camData?.productSummary?.capacityUtilization ? "%" : ""}
                 </td>
                 <td
                   style={{
@@ -4191,7 +4214,10 @@ function Index() {
                     lineHeight: '25px',
                   }}
                 >
-                  {camData?.productSummary?.averageStockOfCommodity}
+
+                  {camData?.productSummary?.averageStockOfCommodity?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                  })} {camData?.productSummary?.averageStockOfCommodity ? "Days" : ""}
                 </td>
               </tr>
               <tr>
@@ -4214,7 +4240,10 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {camData?.productSummary?.availableStock}
+                  {camData?.productSummary?.availableStock ? Number(camData?.productSummary?.availableStock)?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                  }) : ''}
+                  {" "} {camData?.productSummary?.availableStock ? "MT" : ""}
                 </td>
                 <td
                   style={{
@@ -4234,7 +4263,17 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {camData?.productSummary?.AvgMonthlyElectricityBill}
+                  {camData?.productSummary?.AvgMonthlyElectricityBill ? "₹" : ""} {" "}
+                  {/* {checkNan(
+                      Number(
+                        camData?.productSummary?.AvgMonthlyElectricityBill,
+                      ),
+                      true,
+                    )} */}
+
+                  {camData?.productSummary?.AvgMonthlyElectricityBill ? Number(camData?.productSummary?.AvgMonthlyElectricityBill)?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                  }) : ''}
                 </td>
               </tr>
               <tr>
@@ -4260,7 +4299,10 @@ function Index() {
                   }}
                 >
                   {' '}
-                  {camData?.productSummary?.dailyConsumptionOfCommodity}
+                  {camData?.productSummary?.dailyConsumptionOfCommodity ? Number(camData?.productSummary?.dailyConsumptionOfCommodity)?.toLocaleString('en-In', {
+                    maximumFractionDigits: 2,
+                  }) : ''}
+                  {" "} {camData?.productSummary?.dailyConsumptionOfCommodity ? "MT" : ""}
                 </td>
               </tr>
             </table>
@@ -6924,7 +6966,7 @@ function Index() {
                             return camData?._id === rating.order
                           })
                           .map((val, index) => {
-                             <td key={index}>{(val?.derived?.value)?.toLocaleString('en-In')}</td>
+                            <td key={index}>{(val?.derived?.value)?.toLocaleString('en-In')}</td>
                           })}
                       </td>
                       <td
@@ -6954,7 +6996,7 @@ function Index() {
                           .map((val, index) => {
                             ; <td key={index}>
                               {checkNan(
-                                CovertvaluefromtoCR(val?.suggested?.value)?.toLocaleString('en-In'),
+                                convertValue(val?.suggested?.value)?.toLocaleString('en-In'),
                               )}{' '}
                               Cr
                             </td>
@@ -7003,7 +7045,9 @@ function Index() {
                           padding: '24px 10px 54px',
                         }}
                       >
-                        {camData?.orderValue?.toLocaleString('en-In')}
+                        {camData?.orderValue?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                        })}
                       </td>
                       <td
                         align="center"
@@ -7026,7 +7070,9 @@ function Index() {
                         }}
                       >
                         {checkNan(
-                          convertValue(camData?.suggestedOrderValue)?.toLocaleString('en-In'),
+                          convertValue(camData?.suggestedOrderValue)?.toLocaleString('en-In', {
+                            maximumFractionDigits: 2,
+                          }),
                         )}{' '}
                         Cr
                       </td>

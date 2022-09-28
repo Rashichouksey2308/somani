@@ -23,6 +23,7 @@ function Index() {
   const [editInput, setEditInput] = useState(false)
   const [editCurrent, setEditCurrent] = useState()
 
+  console.log(editCurrent,'this is edit current')
   const handleEdit = (val) => {
     console.log('THIS IS HANDLE EDIT', val)
     setEditCurrent(val)
@@ -161,18 +162,33 @@ function Index() {
 
   const addToArr = () => {
     const newArr = [...clauseArr]
-    if (
-      clauseArr.map((e) => e.dropDownValue).includes(clauseObj.dropDownValue)
-    ) {
-      let toastMessage = 'CLAUSE ALREADY ADDED'
+    if (clauseObj.dropDownValue === 'Select an option' || clauseObj.dropDownValue === '') {
+      let toastMessage = 'please select a dropdown value first '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage, { toastId: toastMessage })
       }
     } else {
-      newArr.push(clauseObj)
+      console.log('this is ccccc')
+      if (
+        clauseArr.map((e) => e.dropDownValue).includes(clauseObj.dropDownValue)
+      ) {
+        let toastMessage = 'CLAUSE ALREADY ADDED'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage, { toastId: toastMessage })
+        }
+      } else {
+        newArr.push(clauseObj)
 
-      setClauseArr(newArr)
+        setClauseArr(newArr)
+        // setClauseObj({
+        //   existingValue: '',
+        //   dropDownValue: '',
+        //   newValue: '',
+        // })
+      }
     }
+
+
   }
 
   const removeFromArr = (arr) => {
@@ -344,11 +360,7 @@ function Index() {
                         </div>
                         <span className={styles.value}>
                           {lcModuleData?.lcApplication?.dateOfIssue
-                            ? moment(
-                                lcModuleData?.lcApplication?.dateOfIssue?.split(
-                                  'T',
-                                )[0],
-                              ).format('DD-MM-YYYY')
+                            ? moment( lcModuleData?.lcApplication?.dateOfIssue).format('DD-MM-YYYY')
                             : ''}
                         </span>
                       </div>
@@ -410,7 +422,7 @@ function Index() {
                             onChange={(e) => dropDownChange(e)}
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           >
-                            <option>Select an option</option>
+                            <option value=''>Select an option</option>
                             <option value="shipmentForm">
                               (44A) Shipment From
                             </option>
