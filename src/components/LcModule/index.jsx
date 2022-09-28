@@ -8,7 +8,7 @@ import { GetLcModule } from 'redux/lcModule/action'
 import Filter from '../Filter'
 import _get from 'lodash/get'
 import { setPageName,setDynamicName,setDynamicOrder } from '../../redux/userData/action'
-
+import moment from 'moment'
 function Index() {
   const [edit, setEdit] = useState(false)
 
@@ -160,7 +160,7 @@ function Index() {
                           </td>
                         ) : (
                           <>
-                            <td>Updated on: {lc?.updatedAt?.split('T')[0]}</td>
+                            <td>Updated on: {moment(lc?.updatedAt).format("DD-MM-YYYY")}</td>
                             <td>
                               <img
                                 src="/static/mode_edit.svg"

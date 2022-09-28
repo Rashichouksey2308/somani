@@ -7463,8 +7463,8 @@ console.log(highCourt,"highCourt111")
           }
           }
         
-    }
-    
+     }
+     
   supremeCourt = 
    supremeCourt.length<=0? companyData?.compliance?.supremeCourt?.cases?.filter(
       (val) => {

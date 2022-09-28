@@ -499,6 +499,7 @@ function Index({
             label: lable,
             data: dataSet,
             backgroundColor: backgroundColor,
+            hoverOffset: 4
           }
         ]
 
@@ -541,6 +542,7 @@ function Index({
             label: lable,
             data: dataSet,
             backgroundColor: backgroundColor,
+            hoverOffset: 20
           }
         ]
 
