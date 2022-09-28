@@ -39,7 +39,36 @@ function Index() {
   dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')))
 
   console.log(insuranceData, 'INSURANCE DATA LETTER')
-
+ const [emailAdd, setEmailAdd] = useState([
+    {
+      emailID: '',
+    },
+  ])
+    const [insuranceAdd, setinsuranceAdd] = useState([
+    {
+      insurance: '',
+    },
+  ])
+  console.log(insuranceAdd,emailAdd,"emailAdd")
+  const addMoreRows = (val) => {
+    console.log(val,"vak")
+    if(val=="email"){
+      setEmailAdd([
+            ...emailAdd,
+            {
+              emailID: '',
+            },
+    ])
+    }else{
+       setinsuranceAdd([
+            ...insuranceAdd,
+            {
+              insurance: '',
+            },
+    ])
+    }
+   
+  }
   return (
     <>
       <div className="container-fluid p-0">
@@ -438,7 +467,7 @@ function Index() {
         openbar={handlePopup}
       />
 
-      <Modal
+     <Modal
         show={show}
         className={`${styles.share_lc} vessel_card card share_lc`}
       >
@@ -500,12 +529,13 @@ function Index() {
                   <li className={`${styles.nav_item} nav-item`}>
                     <a
                       className={`${styles.nav_link} nav-link active`}
-                      id="email-address"
+                      id="insurance-company"
                       data-toggle="tab"
-                      href="#emailAddress"
+                      href="#insuranceCompany"
                       role="tab"
-                      aria-controls="emailAddress"
+                      aria-controls="insuranceCompany"
                       aria-selected="true"
+                     
                     >
                       <img
                         src="/static/groups.svg"
@@ -519,18 +549,19 @@ function Index() {
                   <li className={`${styles.nav_item} nav-item`}>
                     <a
                       className={`${styles.nav_link} nav-link`}
-                      id="whatsapp"
+                      id="email-address"
                       data-toggle="tab"
-                      href="#whatsApp"
+                      href="#emailAddress"
                       role="tab"
-                      aria-controls="whatsApp"
+                      aria-controls="emailAddress"
                       aria-selected="false"
+                     
                     >
                       <img
-                        src="/static/icons8-whatsapp.svg"
+                        src="/static/email-icon.png"
                         width={`27px`}
                         className="img-fluid"
-                        alt="WhatsApp"
+                        alt="Email"
                       />
                       Email Address
                     </a>
@@ -542,12 +573,12 @@ function Index() {
                 >
                   <div
                     className="tab-pane fade show active"
-                    id="emailAddress"
+                    id="insuranceCompany"
                     role="tabpanel"
-                    aria-labelledby="email-address"
+                    aria-labelledby="insurance-company"
                   >
                     <div className={`${styles.each_input} form-group`}>
-                      <div className="d-flex">
+                         <div className="d-flex">
                         <select
                           id="email"
                           name="email"
@@ -565,39 +596,47 @@ function Index() {
                           alt="Search"
                         />
                       </div>
+                    
                     </div>
-
-                    <div className={`${styles.radio_form} ml-1`}>
-                      {['radio'].map((type) => (
-                        <div
-                          key={`inline-${type}`}
-                          className={styles.radio_group}
-                        >
-                          <Form.Check
-                            className={styles.radio}
-                            inline
-                            label="abcz@email.com"
-                            name="group1"
-                            id={`inline-${type}-1`}
-                          />
-                          <Form.Check
-                            className={styles.radio}
-                            inline
-                            label="abcz@email.com"
-                            name="group1"
-                            id={`inline-${type}-2`}
-                          />
+                    {insuranceAdd.map((val, index) => {
+                      return(
+                      <>
+                        <div className={`${styles.radio_form} ml-1`}>
+                          {['radio'].map((type) => (
+                            <div
+                              key={`inline-${type}`}
+                              className={styles.radio_group}
+                            >
+                              <Form.Check
+                                className={styles.radio}
+                                inline
+                                label="abcz@email.com"
+                                name="group1"
+                                id={`inline-${type}-1`}
+                              />
+                              <Form.Check
+                                className={styles.radio}
+                                inline
+                                label="abcz@email.com"
+                                name="group1"
+                                id={`inline-${type}-2`}
+                              />
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
-                    <hr></hr>
+                        <hr></hr>
+                      </>
+                      )
+                      })}
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        // addMoreRows()
+                         addMoreRows("insurance")
                       }}
                     >
-                      <span style={{ fontSize: '2rem' }} className={`mr-2`}>
+                      <span style={{ fontSize: '2rem' }} className={`mr-2`}
+                      
+                      >
                         +
                       </span>{' '}
                       add another
@@ -620,13 +659,17 @@ function Index() {
                   </div>
                   <div
                     className="tab-pane fade"
-                    id="whatsApp"
+                    id="emailAddress"
                     role="tabpanel"
-                    aria-labelledby="whatsapp"
+                    aria-labelledby="email-address"
                   >
                     <div className={`${styles.each_input} form-group`}>
-                      <div className="d-flex">
-                        <select
+                     
+                        {emailAdd.map((val,index)=>{
+                        return(
+                        <>
+                         <div className="d-flex">
+                          <select
                           id="email"
                           name="email"
                           className={`${styles.formControl} ${styles.customSelect} input form-control`}
@@ -647,7 +690,13 @@ function Index() {
                           src="/static/inputDropDown.svg"
                           alt="Search"
                         />
-                      </div>
+                        </div>
+                        </>
+                      
+                      
+                        )
+                      })}
+                    
                     </div>
                     {/* <div className={`${styles.labelFloat} form-group`}>
                           <input type='text' id='phone' name="phone" className={`${styles.formControl} ${styles.input} input form-control`} required />
@@ -655,11 +704,14 @@ function Index() {
                         </div> */}
                     <div
                       className={`${styles.addMoreRows}`}
-                      onClick={(e) => {
-                        addMoreRows()
+                     onClick={(e) => {
+                        console.log(this)
+                        addMoreRows("email")
                       }}
                     >
-                      <span style={{ fontSize: '2rem' }} className={`mr-2`}>
+                      <span style={{ fontSize: '2rem' }} className={`mr-2`}
+                       
+                      >
                         +
                       </span>{' '}
                       add another
