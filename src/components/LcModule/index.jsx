@@ -26,11 +26,19 @@ function Index() {
 
 
   const handleRoute = (lc) => {
+    console.log(lc,"lc-module")
+    if(!lc.firstTimeUpdate){
     dispatch(GetLcModule(`?lcModuleId=${lc.order.lc}`))
-    sessionStorage.setItem('lcOrder', lc.order.lc)
-    Router.push('/letter-credit/lc-create')
+      sessionStorage.setItem('lcOrder', lc.order.lc)
+      Router.push('/letter-credit/lc-create')
+    }
+  
+    else{
+       sessionStorage.setItem('lcOrder', lc.order.lc)
+       Router.push('/letter-table/letter-amend/id')
+    }
+  
   }
-
   const handleLcAmmendRoute = (lc) => {
     dispatch(GetLcModule(`?lcModuleId=${lc.order.lc}`))
     sessionStorage.setItem('lcAmmend', lc.order.lc)

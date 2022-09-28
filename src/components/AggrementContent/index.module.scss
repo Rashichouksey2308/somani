@@ -79,6 +79,13 @@
       left: 30px;
     }
   }
+textarea {
+ 
+  /* UI Properties */
+  border-radius: 4px;
+  outline: none;
+  padding: 0 10px;
+}
   .addIcon {
     width: 36px;
     height: 36px;
@@ -892,6 +899,12 @@ img {
       border-bottom: none;
     }
     input {
+      width: 90%;
+      outline: none;
+      // border: none;
+      margin-bottom: 0px !important;
+    }
+    textarea {
       width: 90%;
       outline: none;
       // border: none;

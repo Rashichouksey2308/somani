@@ -511,7 +511,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            BL Weight {insuranceData?.order?.quantity?.toLocaleString("en-IN")} MTs. (+/-00%)
+                            BL Weight {insuranceData?.order?.quantity?.toLocaleString("en-IN")} MTs. (+/{insuranceData?.order?.tolerance??0}%)
                           </p>
                         </td>
                       </tr>
@@ -1107,7 +1107,7 @@ function Index() {
                     Quantity
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    BL Weight {insuranceData?.order?.quantity?.toLocaleString("en-IN")} MTs. (+/-00%)
+                    BL Weight {insuranceData?.order?.quantity?.toLocaleString("en-IN")} MTs.(+/{insuranceData?.order?.tolerance??0}%)
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>

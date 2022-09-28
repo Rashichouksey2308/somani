@@ -729,7 +729,10 @@ setEditAddress(
                   name="accountNo"
                     value={supplierState.bankDetails.accountNo}
                   onChange={(e) => {
-                      let temp =  e.target.value.replace(/[^\w\s]/gi, "")
+                    let temp =  e.target.value.replace(/[^\w\s]/gi, "")
+                      if(temp=="_"){
+                        temp=""
+                      }
 
                       handleInput(e.target.name,temp,"bankName")
                   }}
