@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { ChangeCurrency } from '../../redux/userData/action'
 import { addPrefixOrSuffix, removePrefixOrSuffix } from 'utils/helper'
+import { GetPanGst } from 'redux/GetPanGst/action'
 
 const Index = ({
   saveCompanyData,
@@ -21,6 +22,7 @@ const Index = ({
 }) => {
 
   const { gstList } = useSelector((state) => state.buyer)
+  const { gettingCompanyPanResponse } = useSelector((state) => state.GetPan)
 
   const dispatch = useDispatch()
   console.log(orderDetails,"orderDetails")
@@ -95,6 +97,15 @@ const Index = ({
           </div>
         </div>
       )
+    }
+  }
+  const [serachterm ,setSearchTerm] = useState("")
+   const handleSearch = (e) => {
+    const query = `${e.target.value}`
+    setSearchTerm(query)
+    if (query.length >= 3) {
+      console.log(query,"queryquery")
+      dispatch(GetPanGst({query:query}))
     }
   }
   console.log(sliderWithCr, 'demo')
@@ -215,7 +226,10 @@ const Index = ({
             <div className={`${styles.each_input} col-md-4 col-sm-6`}>
               <input
                 type="text"
-                onBlur={(e) => {saveCompanyData(e.target.name, e.target.value);}}
+                onBlur={(e) => {
+                  saveCompanyData(e.target.name, e.target.value);
+                  handleSearch(e)
+                }}
                 // onChange={handleSearch}
                 value={gstList?.data?.companyData?.companyName}
                 id="companyInput"
@@ -224,7 +238,7 @@ const Index = ({
                 required
               />
             
-              {/* {gettingCompanyPanResponse && serachterm && 
+              {gettingCompanyPanResponse && serachterm && 
               <div className={styles.searchResults}>
                 <ul>
                   {gettingCompanyPanResponse?.data?.map((results, index) => (
@@ -232,7 +246,7 @@ const Index = ({
                   ))}
                 </ul>
               </div>
-              } */}
+              }
          
             {/* <Filter/> */}
               <label

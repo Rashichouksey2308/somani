@@ -15,6 +15,7 @@ const Index = ({
   setInvoiceDataRevised,
   calcRevised,
   handleUpdateRevisedMarginMoney,
+  exportPDF
 }) => {
   console.log(marginData, 'marginData')
 
@@ -1447,6 +1448,7 @@ const Index = ({
       </div>
 
       <DownloadBar
+       handleReject={exportPDF}
         downLoadButtonName={`Download`}
         isPrevious={true}
         leftButtonName={`Save`}
