@@ -294,12 +294,43 @@ body.light-mode .input {
   background: #c3c3c31f;
   border: 1px solid #0000001f;
 }
+
+body.dark-mode .input:-webkit-autofill,
+body.dark-mode .input:-webkit-autofill:hover,
+body.dark-mode .input:-webkit-autofill:focus,
+body.dark-mode .input:-webkit-autofill:active {
+    box-shadow: 0 0 0 30px #1d2530 inset !important;
+    -webkit-box-shadow: 0 0 0 30px #1d2530 inset !important;
+
+}
+body.light-mode .input:-webkit-autofill,
+body.light-mode .input:-webkit-autofill:hover,
+body.light-mode .input:-webkit-autofill:focus,
+body.light-mode .input:-webkit-autofill:active {
+    box-shadow: 0 0 0 30px #F8F8F8 inset !important;
+    -webkit-box-shadow: 0 0 0 30px #F8F8F8 inset !important;
+}
+// body.dark-mode .input:-webkit-autofill + label,
+// body.dark-mode .input:-webkit-autofill:hover + label,
+// body.dark-mode .input:-webkit-autofill:focus + label,
+// body.dark-mode .input:-webkit-autofill:active + label {
+//   color: #ffffff80;
+
+// }
+// body.light-mode .input:-webkit-autofill + label,
+// body.light-mode .input:-webkit-autofill:hover + label,
+// body.light-mode .input:-webkit-autofill:focus + label,
+// body.light-mode .input:-webkit-autofill:active + label {
+//   color: #00000080;
+// }
 body.dark-mode .vessel_card .label_heading::before,
+body.dark-mode .label_heading::before, 
 body.dark-mode .label_heading {
   color: #ffffff80;
   background: #293141;
 }
 body.light-mode .vessel_card .label_heading::before,
+body.light-mode .label_heading::before, 
 body.light-mode .label_heading {
   color: #00000080;
   background: #ffffff;
