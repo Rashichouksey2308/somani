@@ -1188,6 +1188,7 @@ const Index = ({
                       onChange={(e) =>
                         dropDownChange(e.target.name, e.target.value)
                       }
+                      style={{paddingRight:'40px'}}
                     >
                       <option>Select an option</option>
                       <option value="INDO GERMAN INTERNATIONAL PRIVATE LIMITED">
