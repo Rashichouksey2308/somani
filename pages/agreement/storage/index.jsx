@@ -480,7 +480,7 @@ function Index() {
                 role="tabpanel"
                 aria-labelledby="share-LC-draft"
               >
-                <h3>Share as</h3>
+                  <h3 className='share_h3'>Share as</h3>
                 <div className="d-flex align-items-center justify-content-between">
                   <div
                     className={`${styles.lc_document} ${styles.box} d-flex align-items-center`}
