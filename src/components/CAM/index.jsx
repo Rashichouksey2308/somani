@@ -826,7 +826,9 @@ const basicInfo = (camData, orderDetails) => {
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label1`}>Order Value</span>
                   <span className={`${styles.value} value pr-5`}>
-                    {convertValue(camData?.orderValue)?.toLocaleString('en-In')}{' '}
+                    {convertValue(camData?.orderValue)?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                    })}{' '}
                     {camData?.unitOfValue == 'Crores'
                       ? 'Cr'
                       : camData?.unitOfValue}
@@ -848,7 +850,9 @@ const basicInfo = (camData, orderDetails) => {
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label1`}>Quantity</span>
                   <span className={`${styles.value} value pr-5`}>
-                    {camData?.quantity?.toLocaleString('en-In')} {camData?.unitOfQuantity.toUpperCase()}
+                    {camData?.quantity?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                    })} {camData?.unitOfQuantity.toUpperCase()}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
@@ -2126,12 +2130,12 @@ const operationalDetails = (camData) => {
                     Plant Production Capacity
                   </span>
                   <span className={`${styles.value} value pr-5`}>
-                    {checkNan(
+                    {camData?.productSummary?.monthlyProductionCapacity ?
                       Number(
                         camData?.productSummary?.monthlyProductionCapacity,
-                      ),
-                      true,
-                    )}
+                      )?.toLocaleString('en-In', {
+                        maximumFractionDigits: 2,
+                      }) : ''}
                     {" "} {camData?.productSummary?.monthlyProductionCapacity ? "MT" : ""}
                   </span>
                 </Col>
@@ -2143,12 +2147,11 @@ const operationalDetails = (camData) => {
                     Stock in Transit - Commodity
                   </span>
                   <span className={`${styles.value} value`}>
-                    {checkNan(
-                      Number(
-                        camData?.productSummary?.averageStockInTransit,
-                      ),
-                      true,
-                    )}
+                    {camData?.productSummary?.averageStockInTransit ?
+                      Number(camData?.productSummary?.averageStockInTransit)
+                        ?.toLocaleString('en-In', {
+                          maximumFractionDigits: 2,
+                        }) : ''}
                     {" "} {camData?.productSummary?.averageStockInTransit ? "MT" : ""}
                   </span>
                 </Col>
@@ -2159,7 +2162,9 @@ const operationalDetails = (camData) => {
                     Capacity Utilization
                   </span>
                   <span className={`${styles.value} value pr-5`}>
-                    {camData?.productSummary?.capacityUtilization}{" "} {camData?.productSummary?.capacityUtilization ? "%" : ""}
+                    {camData?.productSummary?.capacityUtilization?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                    })}{" "} {camData?.productSummary?.capacityUtilization ? "%" : ""}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={6}>
@@ -2168,7 +2173,9 @@ const operationalDetails = (camData) => {
                   </span>
                   <span className={`${styles.value} value`}>
 
-                    {camData?.productSummary?.averageStockOfCommodity} {camData?.productSummary?.averageStockOfCommodity ? "Days" : ""}
+                    {camData?.productSummary?.averageStockOfCommodity?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                    })} {camData?.productSummary?.averageStockOfCommodity ? "Days" : ""}
                   </span>
                 </Col>
               </Row>
@@ -2178,12 +2185,18 @@ const operationalDetails = (camData) => {
                     Available Stock of Commodity
                   </span>
                   <span className={`${styles.value} value pr-5`}>
-                    {checkNan(
+                    {/* {checkNan(
                       Number(
                         camData?.productSummary?.availableStock,
                       ),
                       true,
-                    )}
+                    )?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                    })} */}
+
+                    {camData?.productSummary?.availableStock ? Number(camData?.productSummary?.availableStock)?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                    }) : ''}
                     {" "} {camData?.productSummary?.availableStock ? "MT" : ""}
                   </span>
                 </Col>
@@ -2193,12 +2206,17 @@ const operationalDetails = (camData) => {
                   </span>
                   <span className={`${styles.value} value`}>
 
-                    {camData?.productSummary?.AvgMonthlyElectricityBill ? "₹" : ""} {" "}  {checkNan(
+                    {camData?.productSummary?.AvgMonthlyElectricityBill ? "₹" : ""} {" "}
+                    {/* {checkNan(
                       Number(
                         camData?.productSummary?.AvgMonthlyElectricityBill,
                       ),
                       true,
-                    )}
+                    )} */}
+
+                    {camData?.productSummary?.AvgMonthlyElectricityBill ? Number(camData?.productSummary?.AvgMonthlyElectricityBill)?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                    }) : ''}
                   </span>
                 </Col>
               </Row>
@@ -2208,12 +2226,15 @@ const operationalDetails = (camData) => {
                     Daily Consumption of Commodity
                   </span>
                   <span className={`${styles.value} value`}>
-                    {checkNan(
+                    {/* {checkNan(
                       Number(
                         camData?.productSummary?.dailyConsumptionOfCommodity,
                       ),
                       true,
-                    )}
+                    )} */}
+                    {camData?.productSummary?.dailyConsumptionOfCommodity ? Number(camData?.productSummary?.dailyConsumptionOfCommodity)?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                    }) : ''}
                     {" "} {camData?.productSummary?.dailyConsumptionOfCommodity ? "MT" : ""}
                   </span>
                 </Col>

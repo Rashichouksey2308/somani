@@ -88,7 +88,7 @@ const Index = ({ saveOrderData, darkMode, orderDetails }) => {
               value={
                 isFieldInFocus.quantity ?
                   orderDetails?.quantity :
-                  Number(orderDetails?.quantity).toLocaleString() + ` ${orderDetails.unitOfQuantity}`}
+                  Number(orderDetails?.quantity).toLocaleString('en-In') + ` ${orderDetails.unitOfQuantity}`}
               className={`${styles.input_field} input form-control`}
               required
             // value={addPrefixOrSuffix(orderDetails?.quantity?.toString(), orderDetails.unitOfQuantity == "mt" ? "MT" : orderDetails.unitOfQuantity)}
@@ -118,7 +118,7 @@ const Index = ({ saveOrderData, darkMode, orderDetails }) => {
               value={
                 isFieldInFocus.orderValue ?
                   orderDetails?.orderValue :
-                  orderDetails?.orderValue + ` ${orderDetails?.unitOfValue == "Millions" ? "Mn" :
+                  Number(orderDetails?.orderValue)?.toLocaleString('en-In') + ` ${orderDetails?.unitOfValue == "Millions" ? "Mn" :
                     orderDetails?.unitOfValue == "Crores" ? "Cr" : orderDetails?.unitOfValue}`}
             onChange={(e) => {
               // e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0)
