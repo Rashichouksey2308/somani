@@ -438,7 +438,8 @@ export default function Index({}) {
                   data-toggle="collapse"
                   data-target="#transactionDetails"
                   aria-expanded="true"
-                  aria-controls="transactionDetails" >
+                  aria-controls="transactionDetails"
+                >
                   <div className={`${styles.card_sub_heading}`}>
                     Transactional Details
                   </div>
@@ -446,14 +447,12 @@ export default function Index({}) {
                     <button className={styles.add_btn}>
                       <span className={styles.add_sign}>+</span>Add
                     </button>
-                    <div className={`${styles.img_arrow} mt-n2 image_arrow`}
-                   >
+                    <div className={`${styles.img_arrow} mt-n2 image_arrow`}>
                       <Image
                         width="13px"
                         height="8px"
                         src="/static/inputDropDown.svg"
                         alt="Search"
-                        
                       />
                     </div>
                   </div>
@@ -734,317 +733,347 @@ export default function Index({}) {
                   </div>
                 </div>
               </div>
-              {radioBtn === 'domestic' ?
-              <div className={`${styles.bill_landing} card border_color mt-4`}>
+              {radioBtn === 'domestic' ? (
                 <div
-                  className={`${styles.vessel_card} align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
-                  data-toggle="collapse"
-                  data-target="#bankDetails"
-                  aria-expanded="true"
-                  aria-controls="bankDetails" >
-                  <div className={`${styles.card_sub_heading}`}>
-                    Bank Details
-                  </div>
-                  <div className={`${styles.img_arrow} image_arrow`}>
-                    <Image
-                      width="13px"
-                      height="8px"
-                      src="/static/inputDropDown.svg"
-                      alt="Search"
-                    />
-                  </div>
-                </div>
-                <div
-                  id="bankDetails"
-                  className="collapse"
-                  aria-labelledby="bankDetails"
+                  className={`${styles.bill_landing} card border_color mt-4`}
                 >
-                <div className="row m-3">
                   <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                    className={`${styles.vessel_card} align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
+                    data-toggle="collapse"
+                    data-target="#bankDetails"
+                    aria-expanded="true"
+                    aria-controls="bankDetails"
                   >
-                    <div className="d-flex">
-                      <select
-                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                      >
-                        <option value="">Abc Bank</option>
-                        <option value="">AU Bank</option>
-                      </select>
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        Bank Name<strong className="text-danger">*</strong>
-                      </label>
-                      <div className={`${styles.img_arrow} image_arrow`}>
-                        <Image
-                          width="13px"
-                          height="8px"
-                          src="/static/inputDropDown.svg"
-                          alt="Search"
-                        />
-                      </div>
+                    <div className={`${styles.card_sub_heading}`}>
+                      Bank Details
+                    </div>
+                    <div className={`${styles.img_arrow} image_arrow`}>
+                      <Image
+                        width="13px"
+                        height="8px"
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                      />
                     </div>
                   </div>
                   <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
-                    style={{ marginTop: '37px' }}
+                    id="bankDetails"
+                    className="collapse"
+                    aria-labelledby="bankDetails"
                   >
-                    <p className={` label_heading`}>Branch</p>
-                    <span>Abc</span>
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="number"
-                      required
-                      onKeyDown={(evt) =>
-                        ['e', 'E', '+', '-'].includes(evt.key) &&
-                        evt.preventDefault()
-                      }
-                    />
+                    <div className="row m-3">
+                      <div
+                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                      >
+                        <div className="d-flex">
+                          <select
+                            className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                          >
+                            <option value="">Abc Bank</option>
+                            <option value="">AU Bank</option>
+                          </select>
+                          <label
+                            className={`${styles.label_heading} label_heading`}
+                          >
+                            Bank Name<strong className="text-danger">*</strong>
+                          </label>
+                          <div className={`${styles.img_arrow} image_arrow`}>
+                            <Image
+                              width="13px"
+                              height="8px"
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                        style={{ marginTop: '37px' }}
+                      >
+                        <p className={` label_heading`}>Branch</p>
+                        <span>Abc</span>
+                      </div>
+                      <div
+                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                      >
+                        <input
+                          className={`${styles.input_field} input form-control`}
+                          type="number"
+                          required
+                          onKeyDown={(evt) =>
+                            ['e', 'E', '+', '-'].includes(evt.key) &&
+                            evt.preventDefault()
+                          }
+                        />
 
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Account/IBAN No.{' '}
-                      <strong className="text-danger">*</strong>
-                    </label>
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="text"
-                      required
-                      // onKeyDown={(evt) =>
-                      //   ['e', 'E', '+', '-'].includes(evt.key) &&
-                      //   evt.preventDefault()
-                      // }
-                    />
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          Account/IBAN No.{' '}
+                          <strong className="text-danger">*</strong>
+                        </label>
+                      </div>
+                      <div
+                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                      >
+                        <input
+                          className={`${styles.input_field} input form-control`}
+                          type="text"
+                          required
+                          // onKeyDown={(evt) =>
+                          //   ['e', 'E', '+', '-'].includes(evt.key) &&
+                          //   evt.preventDefault()
+                          // }
+                        />
 
-                    <label className={`${styles.label_heading} label_heading`}>
-                      IFSC No. <strong className="text-danger">*</strong>
-                    </label>
-                  </div>
-                  <div className={`${styles.form_group} col-lg-8 col-md-12`}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="text"
-                      required
-                    />
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          IFSC No. <strong className="text-danger">*</strong>
+                        </label>
+                      </div>
+                      <div
+                        className={`${styles.form_group} col-lg-8 col-md-12`}
+                      >
+                        <input
+                          className={`${styles.input_field} input form-control`}
+                          type="text"
+                          required
+                        />
 
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Address <strong className="text-danger">*</strong>
-                    </label>
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          Address <strong className="text-danger">*</strong>
+                        </label>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                </div>
-              </div>
-              : radioBtn === 'import' ?
-              <div className={`${styles.bill_landing} card border_color mt-4`}>
+              ) : radioBtn === 'import' ? (
                 <div
-                  className={`${styles.vessel_card} align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
-                  data-toggle="collapse"
-                  data-target="#bankDetailsImport"
-                  aria-expanded="true"
-                  aria-controls="bankDetailsImport" >
-                  <div className={`${styles.card_sub_heading}`}>
-                    Bank Details
-                  </div>
-                  <div className={`${styles.img_arrow} image_arrow`}>
-                    <Image
-                      width="13px"
-                      height="8px"
-                      src="/static/inputDropDown.svg"
-                      alt="Search"
-                    />
-                  </div>
-                </div>
-                <div
-                  id="bankDetailsImport"
-                  className="collapse"
-                  aria-labelledby="bankDetailsImport"
+                  className={`${styles.bill_landing} card border_color mt-4`}
                 >
-                <div className="row m-3">
                   <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                    className={`${styles.vessel_card} align-items-center border_color head_container justify-content-between d-flex bg-transparent`}
+                    data-toggle="collapse"
+                    data-target="#bankDetailsImport"
+                    aria-expanded="true"
+                    aria-controls="bankDetailsImport"
                   >
-                    <div className="d-flex">
-                      <select
-                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                      >
-                        <option value="">Abc Bank</option>
-                        <option value="">AU Bank</option>
-                      </select>
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        Bank Name <strong className="text-danger">*</strong>
-                      </label>
-                      <div className={`${styles.img_arrow} image_arrow`}>
-                        <Image
-                          width="13px"
-                          height="8px"
-                          src="/static/inputDropDown.svg"
-                          alt="Search"
-                        />
-                      </div>
+                    <div className={`${styles.card_sub_heading}`}>
+                      Bank Details
+                    </div>
+                    <div className={`${styles.img_arrow} image_arrow`}>
+                      <Image
+                        width="13px"
+                        height="8px"
+                        src="/static/inputDropDown.svg"
+                        alt="Search"
+                      />
                     </div>
                   </div>
                   <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                    id="bankDetailsImport"
+                    className="collapse"
+                    aria-labelledby="bankDetailsImport"
                   >
-                    <div className="d-flex">
-                      <select
-                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                    <div className="row m-3">
+                      <div
+                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                       >
-                        <option value="">Abc</option>
-                        <option value="">Abcz</option>
-                      </select>
-                      <label
-                        className={`${styles.label_heading} label_heading`}
+                        <div className="d-flex">
+                          <select
+                            className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                          >
+                            <option value="">Abc Bank</option>
+                            <option value="">AU Bank</option>
+                          </select>
+                          <label
+                            className={`${styles.label_heading} label_heading`}
+                          >
+                            Bank Name <strong className="text-danger">*</strong>
+                          </label>
+                          <div className={`${styles.img_arrow} image_arrow`}>
+                            <Image
+                              width="13px"
+                              height="8px"
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                       >
-                        Branch <strong className="text-danger">*</strong>
-                      </label>
-                      <div className={`${styles.img_arrow} image_arrow`}>
-                        <Image
-                          width="13px"
-                          height="8px"
-                          src="/static/inputDropDown.svg"
-                          alt="Search"
+                        <div className="d-flex">
+                          <select
+                            className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                          >
+                            <option value="">Abc</option>
+                            <option value="">Abcz</option>
+                          </select>
+                          <label
+                            className={`${styles.label_heading} label_heading`}
+                          >
+                            Branch <strong className="text-danger">*</strong>
+                          </label>
+                          <div className={`${styles.img_arrow} image_arrow`}>
+                            <Image
+                              width="13px"
+                              height="8px"
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                      >
+                        <input
+                          className={`${styles.input_field} input form-control`}
+                          type="number"
+                          required
+                          onKeyDown={(evt) =>
+                            ['e', 'E', '+', '-'].includes(evt.key) &&
+                            evt.preventDefault()
+                          }
                         />
+
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          Account/IBAN No.{' '}
+                          <strong className="text-danger">*</strong>
+                        </label>
+                      </div>
+                      <div
+                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                      >
+                        <input
+                          className={`${styles.input_field} input form-control`}
+                          type="text"
+                          required
+                          // onKeyDown={(evt) =>
+                          //   ['e', 'E', '+', '-'].includes(evt.key) &&
+                          //   evt.preventDefault()
+                          // }
+                        />
+
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          Swift Code <strong className="text-danger">*</strong>
+                        </label>
+                      </div>
+                      <div
+                        className={`${styles.form_group} col-lg-8 col-md-12`}
+                      >
+                        <input
+                          className={`${styles.input_field} input form-control`}
+                          type="text"
+                          required
+                        />
+
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          Address
+                        </label>
+                      </div>
+                      <div
+                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                      >
+                        <div className="d-flex">
+                          <select
+                            className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                          >
+                            <option value="">Abc Bank</option>
+                            <option value="">AU Bank</option>
+                          </select>
+                          <label
+                            className={`${styles.label_heading} label_heading`}
+                          >
+                            Correspondent Bank Name
+                          </label>
+                          <div className={`${styles.img_arrow} image_arrow`}>
+                            <Image
+                              width="13px"
+                              height="8px"
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                      >
+                        <div className="d-flex">
+                          <select
+                            className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                          >
+                            <option value="">Abc</option>
+                            <option value="">Abcz</option>
+                          </select>
+                          <label
+                            className={`${styles.label_heading} label_heading`}
+                          >
+                            Branch
+                          </label>
+                          <div className={`${styles.img_arrow} image_arrow`}>
+                            <Image
+                              width="13px"
+                              height="8px"
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                      >
+                        <input
+                          className={`${styles.input_field} input form-control`}
+                          type="text"
+                          required
+                          // onKeyDown={(evt) =>
+                          //   ['e', 'E', '+', '-'].includes(evt.key) &&
+                          //   evt.preventDefault()
+                          // }
+                        />
+
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          Swift Code
+                        </label>
+                      </div>
+                      <div
+                        className={`${styles.form_group} col-lg-8 col-md-12`}
+                      >
+                        <input
+                          className={`${styles.input_field} input form-control`}
+                          type="text"
+                          required
+                        />
+
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          Address
+                        </label>
                       </div>
                     </div>
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="number"
-                      required
-                      onKeyDown={(evt) =>
-                        ['e', 'E', '+', '-'].includes(evt.key) &&
-                        evt.preventDefault()
-                      }
-                    />
-
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Account/IBAN No.{' '}
-                      <strong className="text-danger">*</strong>
-                    </label>
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="text"
-                      required
-                      // onKeyDown={(evt) =>
-                      //   ['e', 'E', '+', '-'].includes(evt.key) &&
-                      //   evt.preventDefault()
-                      // }
-                    />
-
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Swift Code <strong className="text-danger">*</strong>
-                    </label>
-                  </div>
-                  <div className={`${styles.form_group} col-lg-8 col-md-12`}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="text"
-                      required
-                    />
-
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Address
-                    </label>
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
-                    <div className="d-flex">
-                      <select
-                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                      >
-                        <option value="">Abc Bank</option>
-                        <option value="">AU Bank</option>
-                      </select>
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        Correspondent Bank Name
-                      </label>
-                      <div className={`${styles.img_arrow} image_arrow`}>
-                        <Image
-                          width="13px"
-                          height="8px"
-                          src="/static/inputDropDown.svg"
-                          alt="Search"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
-                    <div className="d-flex">
-                      <select
-                        className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                      >
-                        <option value="">Abc</option>
-                        <option value="">Abcz</option>
-                      </select>
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        Branch
-                      </label>
-                      <div className={`${styles.img_arrow} image_arrow`}>
-                        <Image
-                          width="13px"
-                          height="8px"
-                          src="/static/inputDropDown.svg"
-                          alt="Search"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                  >
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="text"
-                      required
-                      // onKeyDown={(evt) =>
-                      //   ['e', 'E', '+', '-'].includes(evt.key) &&
-                      //   evt.preventDefault()
-                      // }
-                    />
-
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Swift Code
-                    </label>
-                  </div>
-                  <div className={`${styles.form_group} col-lg-8 col-md-12`}>
-                    <input
-                      className={`${styles.input_field} input form-control`}
-                      type="text"
-                      required
-                    />
-
-                    <label className={`${styles.label_heading} label_heading`}>
-                      Address
-                    </label>
                   </div>
                 </div>
-                </div>
-              </div>
-                    : ''}
+              ) : (
+                ''
+              )}
               <Row className="mt-4">
                 <Col lg={12}>
                   <div className="mt-4">
@@ -1070,7 +1099,8 @@ export default function Index({}) {
                   data-toggle="collapse"
                   data-target="#documents"
                   aria-expanded="true"
-                  aria-controls="documents">
+                  aria-controls="documents"
+                >
                   <div className={`${styles.card_sub_heading}`}>Documents</div>
                   <div className={`${styles.img_arrow} image_arrow`}>
                     <Image
@@ -1082,156 +1112,157 @@ export default function Index({}) {
                   </div>
                 </div>
                 <div
-                id="documents"
+                  id="documents"
                   className="collapse"
-                  aria-labelledby="documents" >
-                <div className={`${styles.table_form}`}>
-                  <div className={styles.table_container}>
-                    <div className={styles.table_scroll_outer}>
-                      <div className={styles.table_scroll_inner}>
-                        <table
-                          className={`${styles.table} table`}
-                          cellPadding="0"
-                          cellSpacing="0"
-                          border="0"
-                        >
-                          <thead>
-                            <tr>
-                              <th>
-                                DOCUMENT NAME{' '}
-                                <Image
-                                  width="14px"
-                                  height="14px"
-                                  className={`${styles.sort_img}`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
-                              </th>
-                              <th>
-                                FORMAT{' '}
-                                <Image
-                                  width="14px"
-                                  height="14px"
-                                  className={`${styles.sort_img}`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
-                              </th>
-                              <th>
-                                DOCUMENT DATE{' '}
-                                <Image
-                                  width="14px"
-                                  height="14px"
-                                  className={`${styles.sort_img}`}
-                                  src="/static/icons8-sort-24.svg"
-                                  alt="Sort icon"
-                                />
-                              </th>
-                              <th>ACTION</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr className="table_row">
-                              <td>
-                                Purchase Invoice
-                                <strong className="text-danger">*</strong>
-                              </td>
-                              <td>
-                                <Image
-                                  width="57px"
-                                  height="25px"
-                                  src="/static/pdf.svg"
-                                  className={`${styles.pdfImage} img-fluid`}
-                                  alt="Pdf"
-                                />
-                              </td>
-                              <td>28-02-2022,5:30 PM</td>
-                              <td>
-                                {' '}
-                                <div className={`${styles.delete_image}`}>
-                                  <Image
-                                    src="/static/delete.svg"
-                                    width="40px"
-                                    height="40px"
-                                    alt="Bin"
-                                  />
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-               
-                <div
-                  className={`${styles.vessel_card} mt-5 mb-5 align-items-center border_color head_container  bg-transparent`}
+                  aria-labelledby="documents"
                 >
-                  <div className={`${styles.card_sub_heading}`}>
-                    Other Documents
-                  </div>
-
-                  <div className="row">
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
-                      <div className="d-flex">
-                        <select
-                          className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                        >
-                          <option value="">Others</option>
-                          <option value="">Certificate</option>
-                        </select>
-                        <label
-                          className={`${styles.label_heading} label_heading`}
-                        >
-                          Document Type
-                          <strong className="text-danger">*</strong>
-                        </label>
-                        <div className={`${styles.img_arrow} image_arrow`}>
-                          <Image
-                            width="13px"
-                            height="8px"
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
+                  <div className={`${styles.table_form}`}>
+                    <div className={styles.table_container}>
+                      <div className={styles.table_scroll_outer}>
+                        <div className={styles.table_scroll_inner}>
+                          <table
+                            className={`${styles.table} table`}
+                            cellPadding="0"
+                            cellSpacing="0"
+                            border="0"
+                          >
+                            <thead>
+                              <tr>
+                                <th>
+                                  DOCUMENT NAME{' '}
+                                  <Image
+                                    width="14px"
+                                    height="14px"
+                                    className={`${styles.sort_img}`}
+                                    src="/static/icons8-sort-24.svg"
+                                    alt="Sort icon"
+                                  />
+                                </th>
+                                <th>
+                                  FORMAT{' '}
+                                  <Image
+                                    width="14px"
+                                    height="14px"
+                                    className={`${styles.sort_img}`}
+                                    src="/static/icons8-sort-24.svg"
+                                    alt="Sort icon"
+                                  />
+                                </th>
+                                <th>
+                                  DOCUMENT DATE{' '}
+                                  <Image
+                                    width="14px"
+                                    height="14px"
+                                    className={`${styles.sort_img}`}
+                                    src="/static/icons8-sort-24.svg"
+                                    alt="Sort icon"
+                                  />
+                                </th>
+                                <th>ACTION</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr className="table_row">
+                                <td>
+                                  Purchase Invoice
+                                  <strong className="text-danger">*</strong>
+                                </td>
+                                <td>
+                                  <Image
+                                    width="57px"
+                                    height="25px"
+                                    src="/static/pdf.svg"
+                                    className={`${styles.pdfImage} img-fluid`}
+                                    alt="Pdf"
+                                  />
+                                </td>
+                                <td>28-02-2022,5:30 PM</td>
+                                <td>
+                                  {' '}
+                                  <div className={`${styles.delete_image}`}>
+                                    <Image
+                                      src="/static/delete.svg"
+                                      width="40px"
+                                      height="40px"
+                                      alt="Bin"
+                                    />
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
                     </div>
+                  </div>
 
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
-                      <input
-                        className={`${styles.input_field} input form-control`}
-                        type="text"
-                        required
-                      />
-                      <label
-                        className={`${styles.label_heading} label_heading`}
-                      >
-                        Please Specify Document Name
-                      </label>
+                  <div
+                    className={`${styles.vessel_card} mt-5 mb-5 align-items-center border_color head_container  bg-transparent`}
+                  >
+                    <div className={`${styles.card_sub_heading}`}>
+                      Other Documents
                     </div>
-                    <div
-                      className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
-                    >
-                      <div className={styles.uploadBtnWrapper}>
+
+                    <div className="row">
+                      <div
+                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                      >
+                        <div className="d-flex">
+                          <select
+                            className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                          >
+                            <option value="">Others</option>
+                            <option value="">Certificate</option>
+                          </select>
+                          <label
+                            className={`${styles.label_heading} label_heading`}
+                          >
+                            Document Type
+                            <strong className="text-danger">*</strong>
+                          </label>
+                          <div className={`${styles.img_arrow} image_arrow`}>
+                            <Image
+                              width="13px"
+                              height="8px"
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                      >
                         <input
-                          id="containerExcel"
-                          onChange={(e) => uploadDocHandler1(e)}
-                          type="file"
-                          name="myfile"
-                          accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                          className={`${styles.input_field} input form-control`}
+                          type="text"
+                          required
                         />
-                        <button className={`${styles.upload_button} btn`}>
-                          Upload
-                        </button>
+                        <label
+                          className={`${styles.label_heading} label_heading`}
+                        >
+                          Please Specify Document Name
+                        </label>
+                      </div>
+                      <div
+                        className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
+                      >
+                        <div className={styles.uploadBtnWrapper}>
+                          <input
+                            id="containerExcel"
+                            onChange={(e) => uploadDocHandler1(e)}
+                            type="file"
+                            name="myfile"
+                            accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                          />
+                          <button className={`${styles.upload_button} btn`}>
+                            Upload
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
                 </div>
               </div>
             </div>

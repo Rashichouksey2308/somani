@@ -36,19 +36,36 @@ function Index() {
   const handlePopup = () => {
     setShow(true)
   }
+  const [modalviewShow, setModalViewShow] = useState("insurance")
   const [emailAdd, setEmailAdd] = useState([
     {
       emailID: '',
     },
   ])
-  
-  const addMoreRows = () => {
-    setEmailAdd([
-      ...emailAdd,
-      {
-        emailID: '',
-      },
-    ])
+  const [insuranceAdd, setinsuranceAdd] = useState([
+    {
+      insurance: '',
+    },
+  ])
+  console.log(insuranceAdd, emailAdd, "emailAdd")
+  const addMoreRows = (val) => {
+    console.log(val, "vak")
+    if (val == "email") {
+      setEmailAdd([
+        ...emailAdd,
+        {
+          emailID: '',
+        },
+      ])
+    } else {
+      setinsuranceAdd([
+        ...insuranceAdd,
+        {
+          insurance: '',
+        },
+      ])
+    }
+
   }
   dispatch(setPageName('insurance Request Letter'))
   dispatch(
@@ -129,7 +146,7 @@ function Index() {
                             >
                               Order ID:{' '}
                             </span>
-                           {insuranceData?.order?.orderId}
+                            {insuranceData?.order?.orderId}
                           </p>
                         </td>
                       </tr>
@@ -248,10 +265,10 @@ function Index() {
                             }}
                           >
                             {_get(
-                      insuranceData,
-                      'order.vessel.vessels[0].vesselInformation[0].name',
-                      '',
-                    )}
+                              insuranceData,
+                              'order.vessel.vessels[0].vesselInformation[0].name',
+                              '',
+                            )}
                           </p>
                         </td>
                       </tr>
@@ -292,11 +309,11 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                           {_get(
-                      insuranceData,
-                      'order.vessel.vessels[0].vesselInformation[0].IMONumber',
-                      '',
-                    )}
+                            {_get(
+                              insuranceData,
+                              'order.vessel.vessels[0].vesselInformation[0].IMONumber',
+                              '',
+                            )}
                           </p>
                         </td>
                       </tr>
@@ -338,10 +355,10 @@ function Index() {
                             }}
                           >
                             {_get(
-                      insuranceData,
-                      'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt',
-                      '',
-                    )?.slice(0, 4)}
+                              insuranceData,
+                              'order.vessel.vessels[0].vesselInformation[0].yearOfBuilt',
+                              '',
+                            )?.slice(0, 4)}
                           </p>
                         </td>
                       </tr>
@@ -382,10 +399,10 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            INR { Number(convertValue(insuranceData?.quotationRequest?.sumInsured))?.toLocaleString("en-IN", {
-                             minimumFractionDigits: 2,
-                           })} Crores
-                    (Including 110%)
+                            INR {Number(convertValue(insuranceData?.quotationRequest?.sumInsured))?.toLocaleString("en-IN", {
+                              minimumFractionDigits: 2,
+                            })} Crores
+                            (Including 110%)
                           </p>
                         </td>
                       </tr>
@@ -426,7 +443,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                             {insuranceData?.order?.commodity}
+                            {insuranceData?.order?.commodity}
                           </p>
                         </td>
                       </tr>
@@ -467,11 +484,11 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                             {_get(
-                      insuranceData,
-                      'order.vessel.vessels[0].transitDetails.countryOfOrigin',
-                      '',
-                    )}
+                            {_get(
+                              insuranceData,
+                              'order.vessel.vessels[0].transitDetails.countryOfOrigin',
+                              '',
+                            )}
                           </p>
                         </td>
                       </tr>
@@ -512,7 +529,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                            BL Weight {insuranceData?.order?.quantity?.toLocaleString("en-IN")} MTs. (+/{insuranceData?.order?.tolerance??0}%)
+                            BL Weight {insuranceData?.order?.quantity?.toLocaleString("en-IN")} MTs. (+/{insuranceData?.order?.tolerance ?? 0}%)
                           </p>
                         </td>
                       </tr>
@@ -553,11 +570,11 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                             {_get(
-                      insuranceData,
-                      'order.vessel.vessels[0].transitDetails.portOfLoading',
-                      '',
-                    )}
+                            {_get(
+                              insuranceData,
+                              'order.vessel.vessels[0].transitDetails.portOfLoading',
+                              '',
+                            )}
                           </p>
                         </td>
                       </tr>
@@ -598,11 +615,11 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                             {_get(
-                      insuranceData,
-                      'order.vessel.vessels[0].transitDetails.portOfDischarge',
-                      '',
-                    )}
+                            {_get(
+                              insuranceData,
+                              'order.vessel.vessels[0].transitDetails.portOfDischarge',
+                              '',
+                            )}
                           </p>
                         </td>
                       </tr>
@@ -643,13 +660,13 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                             {moment(
-                      insuranceData?.quotationRequest?.laycanFrom
-                    ).format('DD MMM')}{' '}
-                    -{' '}
-                    {moment(
-                      insuranceData?.quotationRequest?.laycanTo
-                    ).format('DD MMM, YYYY')}
+                            {moment(
+                              insuranceData?.quotationRequest?.laycanFrom
+                            ).format('DD MMM')}{' '}
+                            -{' '}
+                            {moment(
+                              insuranceData?.quotationRequest?.laycanTo
+                            ).format('DD MMM, YYYY')}
                           </p>
                         </td>
                       </tr>
@@ -690,9 +707,9 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                           {moment(
-                      insuranceData?.quotationRequest?.expectedTimeOfDispatch
-                    ).format('DD MMMM , YYYY')}
+                            {moment(
+                              insuranceData?.quotationRequest?.expectedTimeOfDispatch
+                            ).format('DD MMMM , YYYY')}
                           </p>
                         </td>
                       </tr>
@@ -734,8 +751,8 @@ function Index() {
                             }}
                           >
                             {moment(
-                      insuranceData?.quotationRequest?.expectedTimeOfArrival
-                    ).format('DD MMMM , YYYY')}
+                              insuranceData?.quotationRequest?.expectedTimeOfArrival
+                            ).format('DD MMMM , YYYY')}
                           </p>
                         </td>
                       </tr>
@@ -776,7 +793,7 @@ function Index() {
                               marginBottom: '0',
                             }}
                           >
-                             All Risks Including ICC-A, War, SRCC, Theft, Loading, Unloading, Act of God etc.
+                            All Risks Including ICC-A, War, SRCC, Theft, Loading, Unloading, Act of God etc.
                           </p>
                         </td>
                       </tr>
@@ -933,7 +950,7 @@ function Index() {
                             Email ID - vipinrajput@gmail.com
                           </p>
                         </td>
-                      </tr> 
+                      </tr>
                     </table>
                   </td>
                 </tr>
@@ -959,12 +976,12 @@ function Index() {
         >
           <div className={`${styles.head_header} align-items-center`}>
             <div onClick={() => Router.push('/insurance/form')}>
-                 <img
-              className={`${styles.arrow} img-fluid image_arrow mr-2`}
-              src="/static/keyboard_arrow_right-3.svg"
-              alt="arrow"
-            />
-             </div>
+              <img
+                className={`${styles.arrow} img-fluid image_arrow mr-2`}
+                src="/static/keyboard_arrow_right-3.svg"
+                alt="arrow"
+              />
+            </div>
             <h1 className={`${styles.heading} heading`}>
               {insuranceData?.company?.companyName}
             </h1>
@@ -1064,7 +1081,7 @@ function Index() {
                     Sum Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    INR { Number(convertValue(insuranceData?.quotationRequest?.sumInsured))?.toLocaleString("en-IN", { maximumFractionDigits: 2 })} Crores
+                    INR {Number(convertValue(insuranceData?.quotationRequest?.sumInsured))?.toLocaleString("en-IN", { maximumFractionDigits: 2 })} Crores
                     (Including 110%)
                   </Col>
                 </Row>
@@ -1108,7 +1125,9 @@ function Index() {
                     Quantity
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    BL Weight {insuranceData?.order?.quantity?.toLocaleString("en-IN")} MTs.(+/{insuranceData?.order?.tolerance??0}%)
+                    BL Weight {insuranceData?.order?.quantity?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                    })} MTs.(+/{insuranceData?.order?.tolerance ?? 0}%)
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -1217,7 +1236,7 @@ function Index() {
                     Name of Insured
                   </Col>
                   <Col md={9} sm={9} xs={8} className={`${styles.content_val}`}>
-                    {insuranceData?.company?.companyName} ,<br></br> {  insuranceData?.company?.detailedCompanyInfo?.profile?.companyDetail?.registeredAddress}
+                    {insuranceData?.company?.companyName} ,<br></br> {insuranceData?.company?.detailedCompanyInfo?.profile?.companyDetail?.registeredAddress}
                   </Col>
                 </Row>
                 <Row className={`${styles.row}`}>
@@ -1307,7 +1326,7 @@ function Index() {
                 role="tabpanel"
                 aria-labelledby="share-LC-draft"
               >
-                <h3>Share as</h3>
+                 <h3 className='share_h3'>Share as</h3>
                 <div className="d-flex align-items-center justify-content-between">
                   <div
                     className={`${styles.lc_document} ${styles.box} d-flex align-items-center`}
@@ -1362,6 +1381,7 @@ function Index() {
                       role="tab"
                       aria-controls="insuranceCompany"
                       aria-selected="true"
+
                     >
                       <img
                         src="/static/groups.svg"
@@ -1381,6 +1401,7 @@ function Index() {
                       role="tab"
                       aria-controls="emailAddress"
                       aria-selected="false"
+
                     >
                       <img
                         src="/static/email-icon.png"
@@ -1421,42 +1442,47 @@ function Index() {
                           alt="Search"
                         />
                       </div>
+
                     </div>
-                    {emailAdd.map((val, index) => (
-                      <>
-                        <div className={`${styles.radio_form} ml-1`}>
-                          {['radio'].map((type) => (
-                            <div
-                              key={`inline-${type}`}
-                              className={styles.radio_group}
-                            >
-                              <Form.Check
-                                className={styles.radio}
-                                inline
-                                label="abcz@email.com"
-                                name="group1"
-                                id={`inline-${type}-1`}
-                              />
-                              <Form.Check
-                                className={styles.radio}
-                                inline
-                                label="abcz@email.com"
-                                name="group1"
-                                id={`inline-${type}-2`}
-                              />
-                            </div>
-                          ))}
-                        </div>
-                        <hr></hr>
-                      </>
-                    ))}
+                    {insuranceAdd.map((val, index) => {
+                      return (
+                        <>
+                          <div className={`${styles.radio_form} ml-1`}>
+                            {['radio'].map((type) => (
+                              <div
+                                key={`inline-${type}`}
+                                className={styles.radio_group}
+                              >
+                                <Form.Check
+                                  className={styles.radio}
+                                  inline
+                                  label="abcz@email.com"
+                                  name="group1"
+                                  id={`inline-${type}-1`}
+                                />
+                                <Form.Check
+                                  className={styles.radio}
+                                  inline
+                                  label="abcz@email.com"
+                                  name="group1"
+                                  id={`inline-${type}-2`}
+                                />
+                              </div>
+                            ))}
+                          </div>
+                          <hr></hr>
+                        </>
+                      )
+                    })}
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        addMoreRows()
+                        addMoreRows("insurance")
                       }}
                     >
-                      <span style={{ fontSize: '2rem' }} className={`mr-2`}>
+                      <span style={{ fontSize: '2rem' }} className={`mr-2`}
+
+                      >
                         +
                       </span>{' '}
                       add another
@@ -1484,29 +1510,39 @@ function Index() {
                     aria-labelledby="email-address"
                   >
                     <div className={`${styles.each_input} form-group`}>
-                      <div className="d-flex">
-                        <select
-                          id="email"
-                          name="email"
-                          className={`${styles.formControl} ${styles.customSelect} input form-control`}
-                          selected
-                        >
-                          <option value="javanika.seth@hdfcbank.com">
-                            javanika.seth@hdfcbank.com
-                          </option>
-                        </select>
-                        <label
-                          className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
-                          htmlFor="email"
-                        >
-                          Email
-                        </label>
-                        <img
-                          className={`${styles.arrow} image_arrow img-fluid`}
-                          src="/static/inputDropDown.svg"
-                          alt="Search"
-                        />
-                      </div>
+
+                      {emailAdd.map((val, index) => {
+                        return (
+                          <>
+                            <div className="d-flex">
+                              <select
+                                id="email"
+                                name="email"
+                                className={`${styles.formControl} ${styles.customSelect} input form-control`}
+                                selected
+                              >
+                                <option value="javanika.seth@hdfcbank.com">
+                                  javanika.seth@hdfcbank.com
+                                </option>
+                              </select>
+                              <label
+                                className={`${styles.label_heading} label_heading_login label_heading bg-transparent`}
+                                htmlFor="email"
+                              >
+                                Email
+                              </label>
+                              <img
+                                className={`${styles.arrow} image_arrow img-fluid`}
+                                src="/static/inputDropDown.svg"
+                                alt="Search"
+                              />
+                            </div>
+                          </>
+
+
+                        )
+                      })}
+
                     </div>
                     {/* <div className={`${styles.labelFloat} form-group`}>
                           <input type='text' id='phone' name="phone" className={`${styles.formControl} ${styles.input} input form-control`} required />
@@ -1515,10 +1551,13 @@ function Index() {
                     <div
                       className={`${styles.addMoreRows}`}
                       onClick={(e) => {
-                        addMoreRows()
+                        console.log(this)
+                        addMoreRows("email")
                       }}
                     >
-                      <span style={{ fontSize: '2rem' }} className={`mr-2`}>
+                      <span style={{ fontSize: '2rem' }} className={`mr-2`}
+
+                      >
                         +
                       </span>{' '}
                       add another
