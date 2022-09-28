@@ -36,7 +36,7 @@ const Index = ({ setAdditionalComments, additionalComments , termsheetDetails })
     }
 
 
-console.log(termsheetDetails,"termsheetDetails")
+console.log(isCommentEditable,"termsheetDetails")
 
     const getInputValue = (name, value) => {
         console.log(name, value, "name,value")
@@ -67,7 +67,22 @@ console.log(termsheetDetails,"termsheetDetails")
             return text
         }
     }
-    const addComment = () => {
+    const [newComment,setNewComment]=useState("")
+    const addComment = (type) => {
+        if(commentType !=="Deliveries/Due Date/Payment" && commentType !=="Storage of Goods"){
+            if(newComment==""){
+                let toastMessage="Comment cannot be empty"
+            if (!toast.isActive(toastMessage.toUpperCase())) {
+                toast.error(toastMessage.toUpperCase(), { toastId:toastMessage })
+            
+              return
+            }
+               
+            }
+          setAdditionalComments([...additionalComments, { additionalCommentType: commentType, comment: newComment }]) 
+          setNewComment("")
+          return
+        }
         console.log(inputs,"commentType")
         if(commentType=="Deliveries/Due Date/Payment"){
             if(days.day1==''|| days.day1==undefined){
@@ -135,6 +150,12 @@ console.log(termsheetDetails,"termsheetDetails")
         })
         setAdditionalComments(tempArr)
     }
+    const getValue=()=>{
+        if(commentType=="Forex Hedging"){
+             return termsheetDetails?.commercials?.forexHedging
+        }
+        return "None"
+    }
     console.log(comment, "comment")
     return (
         <div className={`${styles.main} vessel_card main`}>
@@ -158,6 +179,8 @@ console.log(termsheetDetails,"termsheetDetails")
                                             <option disabled selected>Select an option</option>
                                             <option value="Deliveries/Due Date/Payment">Deliveries/Due Date/Payment</option>
                                             <option value="Storage of Goods">Storage of Goods</option>
+                                            <option value="Forex Hedging">Forex Hedging</option>
+                                            
                                         </select>
                                         <label className={`${styles.label} label_heading`}
                                             style={{ left: "20px" }}
@@ -186,7 +209,11 @@ console.log(termsheetDetails,"termsheetDetails")
                                         defaultValue={days.day2}
                                         className={styles.grow_input} type="text" /> days  from the BL date, whichever is earlier, through TT or LC (in case of LC all Bank charges to be borne by the Buyer).  </p>
                                         :
-                                        <p>Cargo to be stored in Custom Bonded Warehouse at port of Discharge (
+                                      null
+                                    }
+                                    {
+                                        commentType=="Storage of Goods"?
+                                             <p>Cargo to be stored in Custom Bonded Warehouse at port of Discharge (
                                             <GrowInput name={"input1"}
                                             defaultValue={inputs.input1}
                                             getValue={getInputValue} className={styles.grow_input} type="text" />
@@ -195,6 +222,28 @@ console.log(termsheetDetails,"termsheetDetails")
                                             getValue={getInputValue} className={styles.grow_input} type="text" />. “<GrowInput 
                                             defaultValue={inputs.input3}
                                             name={"input3"} getValue={getInputValue} className={styles.grow_input} type="text" /> and Into Bond Bill of Entry” shall be filled by the lndo’s nominated party and all expenses/charges to be born and paid by the Buyer.</p>
+                                        :null
+                                    }
+                                    {
+                                        commentType !=="Storage of Goods" && commentType !== "Deliveries/Due Date/Payment"?
+                                           <>
+                                           <div className={`mb-2`}>
+                                            {commentType}:{getValue()}
+                                           </div>
+                                           <Form.Control className={`${styles.comment} text_area text_input border_color }
+                                            
+                                            `}
+                                            as="textarea"
+                                            rows={3}
+                                            //On Change TO BE Done
+                                           
+                                            value={newComment}
+                                            onChange={(e) => {
+                                                setNewComment(e.target.value)
+                                            }}
+                                        />
+                                           </>
+                                        :null
                                     }
 
                                 </div>
@@ -229,13 +278,23 @@ console.log(termsheetDetails,"termsheetDetails")
                                                 changeComment(e.target.value, index)
                                             }}
                                         />
-
+                                      {
+                                        !isCommentEditable[index]?
                                         <img src="/static/mode_edit.svg"
                                             className="img-fluid ml-2"
                                             alt="Edit"
                                             index={index}
                                             onClick={() => manageCommentEditable(index)}
                                         />
+                                        :
+                                        <img src="/static/save-3.svg"
+                                            className="img-fluid ml-2"
+                                            alt="Edit"
+                                            index={index}
+                                            onClick={() => manageCommentEditable(index)}
+                                        />
+                                      }
+                                       
                                         <img
                                             src="/static/delete 2.svg"
                                             className="img-fluid ml-2" alt="Delete"

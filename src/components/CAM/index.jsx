@@ -426,7 +426,7 @@ function Index({
       }
       setTotalCustomer(total)
       setTop5Customers({ ...top5data })
-       setTotalCustomer1(total)
+      setTotalCustomer1(total)
       setTop5Customers1({ ...top5data })
 
     }
@@ -826,7 +826,7 @@ const basicInfo = (camData, orderDetails) => {
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label1`}>Order Value</span>
                   <span className={`${styles.value} value pr-5`}>
-                    {convertValue(camData?.orderValue)?.toLocaleString()}{' '}
+                    {convertValue(camData?.orderValue)?.toLocaleString('en-In')}{' '}
                     {camData?.unitOfValue == 'Crores'
                       ? 'Cr'
                       : camData?.unitOfValue}
@@ -848,7 +848,7 @@ const basicInfo = (camData, orderDetails) => {
                 <Col className={`d-flex justify-content-between`} md={5}>
                   <span className={`${styles.key} label1`}>Quantity</span>
                   <span className={`${styles.value} value pr-5`}>
-                    {camData?.quantity?.toLocaleString()} {camData?.unitOfQuantity.toUpperCase()}
+                    {camData?.quantity?.toLocaleString('en-In')} {camData?.unitOfQuantity.toUpperCase()}
                   </span>
                 </Col>
                 <Col className={`d-flex justify-content-between`} md={5}>
@@ -1678,7 +1678,10 @@ const shareHolding = (top3Share, options, tempArr, camData, backgroundColor) => 
                               </span>
                             </td>
                             <td>{Number(share?.numberOfShares)?.toLocaleString('en-In')}</td>
-                            <td>{share?.percentageShareHolding ? share?.percentageShareHolding + '%' : ''}</td>
+                            <td>{share?.percentageShareHolding ? (share?.percentageShareHolding)?.toLocaleString("en-IN", {
+                              maximumFractionDigits: 2,
+                              minimumFractionDigits: 2,
+                            }) + '%' : ''}</td>
                             <td>{share?.director ? 'Yes' : 'No'}</td>
                           </tr>
                         )
@@ -1837,11 +1840,11 @@ const chargeDetails = (top3Open, options, tempArr, camData, backgroundColor) => 
                                 {charge?.nameOfChargeHolder1}
                               </span>
                             </td>
-                            <td>{Number(charge?.finalAmountSecured)?.toLocaleString()}</td>
+                            <td>{Number(charge?.finalAmountSecured)?.toLocaleString('en-In')}</td>
 
                             <td>
                               {charge?.dateOfCreationOfCharge
-                                ? moment(charge?.dateOfCreationOfCharge).format(
+                                ? moment(charge?.dateOfCreationOfCharge, 'DD-YY-MMMM').format(
                                   'DD-MM-YYYY',
                                 )
                                 : ''}
@@ -2716,7 +2719,7 @@ const financeDetails = (
                         companyData,
                         'financial.balanceSheet[0].equityLiabilities.totalEquity',
                         '',
-                      )).toLocaleString(undefined, {
+                      )).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
                       })}
@@ -2726,7 +2729,7 @@ const financeDetails = (
                         companyData,
                         'financial.balanceSheet[1].equityLiabilities.totalEquity',
                         '',
-                      )).toLocaleString(undefined, {
+                      )).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
                       })}
@@ -2746,7 +2749,7 @@ const financeDetails = (
                           'financial.balanceSheet[0].equityLiabilities.borrowingsNonCurrent',
                           '',
                         ),
-                      ))?.toLocaleString(undefined, {
+                      ))?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
                       })}
@@ -2763,7 +2766,7 @@ const financeDetails = (
                           'financial.balanceSheet[1].equityLiabilities.borrowingsNonCurrent',
                           '',
                         ),
-                      ))?.toLocaleString(undefined, {
+                      ))?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
                       })}
@@ -2783,7 +2786,7 @@ const financeDetails = (
                           'financial.balanceSheet[0].equityLiabilities.tradePayablesNoncurrent',
                           '',
                         ),
-                      ))?.toLocaleString(undefined, {
+                      ))?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
                       })}
@@ -2800,7 +2803,7 @@ const financeDetails = (
                           'financial.balanceSheet[1].equityLiabilities.tradePayablesNoncurrent',
                           '',
                         ),
-                      ))?.toLocaleString(undefined, {
+                      ))?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
                       })}
@@ -2813,7 +2816,7 @@ const financeDetails = (
                         companyData,
                         'financial.balanceSheet[0].equityLiabilities.otherCurrentLiabilities',
                         '',
-                      ))?.toLocaleString(undefined, {
+                      ))?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
                       })}
@@ -2823,7 +2826,7 @@ const financeDetails = (
                         companyData,
                         'financial.balanceSheet[1].equityLiabilities.otherCurrentLiabilities',
                         '',
-                      ))?.toLocaleString(undefined, {
+                      ))?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
                       })}
@@ -2955,7 +2958,7 @@ const financeDetails = (
                         companyData,
                         'financial.cashFlowStatement[0].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
                         '',
-                      ))?.toLocaleString(undefined, {
+                      ))?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
                       })}
@@ -2965,7 +2968,7 @@ const financeDetails = (
                         companyData,
                         'financial.cashFlowStatement[1].cashFlowsFromUsedInOperatingActivities.cashFlowsFromUsedInOperatingActivities',
                         '',
-                      ))?.toLocaleString(undefined, {
+                      ))?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
                       })}
@@ -2978,7 +2981,7 @@ const financeDetails = (
                         companyData,
                         'financial.cashFlowStatement[0].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
                         '',
-                      ))?.toLocaleString(undefined, {
+                      ))?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
                       })}
@@ -2988,7 +2991,7 @@ const financeDetails = (
                         companyData,
                         'financial.cashFlowStatement[1].cashFlowsFromUsedInFinancingActivities.cashFlowsFromUsedInFinancingActivities',
                         '',
-                      ))?.toLocaleString(undefined, {
+                      ))?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
                       })}
@@ -3001,7 +3004,7 @@ const financeDetails = (
                         companyData,
                         'financial.cashFlowStatement[0].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
                         '',
-                      ))?.toLocaleString(undefined, {
+                      ))?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
                       })}
@@ -3011,7 +3014,7 @@ const financeDetails = (
                         companyData,
                         'financial.cashFlowStatement[1].cashFlowsFromUsedInInvestingActivities.cashFlowsFromUsedInInvestingActivities',
                         '',
-                      ))?.toLocaleString(undefined, {
+                      ))?.toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumSignificantDigits: 2,
                       })}
@@ -3597,7 +3600,7 @@ const sectionTerms = (
             </div>
             <div>
               <div className={`${styles.approve}`}>
-               
+
 
                 <div className={`mb-3 ${styles.heading} heading `}>
                   Approval Remarks
@@ -3617,7 +3620,7 @@ const sectionTerms = (
                 >
                   Add
                 </button>
-                 {approveComment &&
+                {approveComment &&
                   approveComment?.map((approve, index) => (
                     <div key={index} className={`${styles.remarks}`}>
                       <span>{approve}</span>
@@ -3835,7 +3838,7 @@ const trends = (
                   </span>
                 </div>
                 <div className={`${styles.chart}  `}>
-                  <Line  id="trendChartRevenue" data={chartData} ref={chartRef} options={lineOption} />
+                  <Line id="trendChartRevenue" data={chartData} ref={chartRef} options={lineOption} />
                 </div>
                 <div className={`${styles.name}`}>
                   <div
@@ -3934,7 +3937,7 @@ const skewness = (top5Customers, options, tempArr, gstData, top5Suppliers, backg
         </div>
         <div
           id="skewness"
-            // className="collapse open"
+          // className="collapse open"
           aria-labelledby="skewness"
           data-parent="#profileAccordion"
         >
@@ -4021,7 +4024,7 @@ const skewness = (top5Customers, options, tempArr, gstData, top5Suppliers, backg
                 >
                   <Col md={6} className={`${styles.col}`}>
                     <div className={styles.chart2}>
-                      <Doughnut  id="skewnessChartPurchases" data={top5Suppliers} options={options} />
+                      <Doughnut id="skewnessChartPurchases" data={top5Suppliers} options={options} />
                       {/* <div className={styles.total_value}>
                         <span>{top5Suppliers?.labels[0]}</span>
                         <span className={styles.highlight}> {

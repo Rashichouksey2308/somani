@@ -17,7 +17,7 @@ const Index = ({
 }) => {
   const [IsBlSelected, setIsBlSelected] = useState(false)
   const [thirdPartyInspection, setThirdPartyInspection] = useState(false)
-
+  
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     quantity: false,
     unitPrice: false,
@@ -272,7 +272,10 @@ const Index = ({
                   value={
                     isFieldInFocus.tolerance ?
                       termsheetDetails?.commodityDetails?.tolerance :
-                    '±'+  Number(termsheetDetails?.commodityDetails?.tolerance).toLocaleString() + ` %`}
+                    '±'+  Number(termsheetDetails?.commodityDetails?.tolerance)?.toLocaleString('en-In', {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2,
+                    }) + ` %`}
                   // value={
                   //   addPrefixOrSuffix(termsheetDetails?.commodityDetails?.tolerance,"%")
                   // }
@@ -835,7 +838,7 @@ const Index = ({
                   isFieldInFocus.lcOpeningCharges ?
                     termsheetDetails?.commercials?.lcOpeningChargesUnit :
                      `USD` + ` ` +
-                    Number(termsheetDetails?.commercials?.lcOpeningChargesUnit).toLocaleString() }
+                    Number(termsheetDetails?.commercials?.lcOpeningChargesUnit).toLocaleString('en-In') }
 
 
                 onChange={onChangeCommercialTerms}

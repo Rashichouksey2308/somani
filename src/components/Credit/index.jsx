@@ -108,9 +108,9 @@ const index = ({
       ...debtData,
       {
         bankName: '',
-        primaryBank: '',
+        primaryBank: false,
         conduct: '',
-        limit: '',
+        limit: null,
         action: false,
       },
     ])
@@ -157,7 +157,7 @@ const index = ({
   const FilterUniqueBank = () => {
     let filtered = _get(companyData, 'financial.openCharges', [])
     const unique = [
-      ...new Set(filtered.map((item) => item.nameOfChargeHolder1)),
+      ...new Set(filtered.map((item) => item.nameOfChargeHolder)),
     ]
     console.log(unique, 'unique')
     return unique
@@ -979,7 +979,7 @@ const index = ({
                   required
                   type="number"
                   onKeyDown={(evt) =>
-                    ['e', 'E', '+', '-'].includes(evt.key) &&
+                    ['e', 'E', '+', '-','.'].includes(evt.key) &&
                     evt.preventDefault()
                   }
                   value={supplierCred?.shipmentNumber}
@@ -1001,7 +1001,7 @@ const index = ({
                   value={supplierCred?.consigneesNumber}
                   name="consigneesNumber"
                   onKeyDown={(evt) =>
-                    ['e', 'E', '+', '-'].includes(evt.key) &&
+                    ['e', 'E', '+', '-','.'].includes(evt.key) &&
                     evt.preventDefault()
                   }
                   onChange={(e) => {
@@ -1019,7 +1019,7 @@ const index = ({
                   required
                   type="number"
                   onKeyDown={(evt) =>
-                    ['e', 'E', '+', '-'].includes(evt.key) &&
+                    ['e', 'E', '+', '-','.'].includes(evt.key) &&
                     evt.preventDefault()
                   }
                   value={supplierCred?.HSCodesNumber}
@@ -1040,7 +1040,7 @@ const index = ({
                     required
                     type="number"
                     onKeyDown={(evt) =>
-                      ['e', 'E', '+', '-'].includes(evt.key) &&
+                      ['e', 'E', '+', '-','.'].includes(evt.key) &&
                       evt.preventDefault()
                     }
                     value={supplierCred?.countryOfOrigin}
@@ -1060,7 +1060,7 @@ const index = ({
                     className={`${styles.input_field} input form-control`}
                     required
                     onKeyDown={(evt) =>
-                      ['e', 'E', '+', '-'].includes(evt.key) &&
+                      ['e', 'E', '+', '-','.'].includes(evt.key) &&
                       evt.preventDefault()
                     }
                     type="number"
@@ -2232,11 +2232,11 @@ const index = ({
                             disabled={!profile.actions}
                             value={profile.bankName}
                           >
-                            <option disabled selected>
-                              Select an option
-                            </option>
-                            {FilterUniqueBank().map((item) => (
+                             <option selected disabled>Select</option>
+                            {FilterUniqueBank().map((item) => (<>
+                             
                               <option value={item}>{item}</option>
+                              </>
                             ))}
                           </select>
                           {/* <input
@@ -2262,12 +2262,12 @@ const index = ({
                                 index,
                               )
                             }
-                            // value={profile?.limitType}
+                            value={profile?.limitType}
                             name="limitType"
                             className={`${styles.dropDown} heading input`}
                             disabled={!profile.actions}
                           >
-                            <option disabled>Select an option</option>
+                            <option selected disabled>Select</option>
                             <option value="Cash Credit">Cash Credit</option>
                             <option value="Bank Guarantee">
                               Bank Guarantee
@@ -2307,6 +2307,7 @@ const index = ({
                               Number(profile?.limit)?.toLocaleString('en-In')
                             }
                             className="input"
+                            // type='number'
                             name="limit"
                             disabled={!profile.actions}
                             onChange={(e) =>
@@ -2332,9 +2333,10 @@ const index = ({
                             }
                             name="conduct"
                             className={`${styles.dropDown} heading input`}
+                            value={profile?.conduct}
                             disabled={!profile.actions}
                           >
-                            <option>{profile.conduct}</option>
+                            <option selected disabled>Select</option>
                             <option value="Good">Good</option>
                             <option value="Satisfactory">Satisfactory</option>
                             <option value="Average">Average</option>

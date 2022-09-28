@@ -729,7 +729,10 @@ setEditAddress(
                   name="accountNo"
                     value={supplierState.bankDetails.accountNo}
                   onChange={(e) => {
-                      let temp =  e.target.value.replace(/[^\w\s]/gi, "")
+                    let temp =  e.target.value.replace(/[^\w\s]/gi, "")
+                      if(temp=="_"){
+                        temp=""
+                      }
 
                       handleInput(e.target.name,temp,"bankName")
                   }}
@@ -1167,6 +1170,10 @@ setEditAddress(
                               className='input'
                               name= "phoneNo"
                              type="number"
+                             onKeyDown={(evt) =>
+                              ['e', 'E', '+', '-'].includes(evt.key) &&
+                              evt.preventDefault()
+                            }
                               onChange={(e)=>{
                                 handleChangeInput2(e.target.name,e.target.value,index)
                               }}

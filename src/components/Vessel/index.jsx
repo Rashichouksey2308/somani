@@ -99,7 +99,7 @@ function Index({
             <h1 className={`${styles.title} heading`}>{companyName}</h1>
             <div className="ml-auto">
               <div className={`${styles.lastModified} text `}>
-                <div>Last Modified:</div> {moment((vesselUpdatedAt ? vesselUpdatedAt : '')?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY,h:mm a")}
+                <div className='accordion_Text'>Last Modified:</div> {moment((vesselUpdatedAt ? vesselUpdatedAt : '')?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY,h:mm a")}
               </div>
             </div>
           </div>
@@ -133,6 +133,7 @@ function Index({
                         </label>
                         <div disabled className="position-relative">
                           <select
+                            disabled
                             value={partShipmentAllowed}
                             onChange={(e) =>
                               setPartShipmentAllowed(e.target.value)
@@ -683,7 +684,7 @@ function Index({
                                       }
                                       className={`${styles.input_field} input form-control`}
                                       required
-                                      type="text"
+                                      type="number"
                                       onChange={(e) =>
                                         onVesselInfoChangeHandlerForBulk(
                                           e,

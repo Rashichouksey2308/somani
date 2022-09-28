@@ -3,6 +3,7 @@ import styles from './index.module.scss'
 import { Row, Col, Container, Card } from 'react-bootstrap'
 import Paginatebar from '../Paginatebar'
 import TermsheetPopUp from '../TermsheetPopUp'
+import Router from 'next/router'
 import { Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPageName } from 'redux/userData/action'
@@ -495,7 +496,10 @@ function Index() {
                           >
                             {addPrefixOrSuffix(
                               marginData?.order?.tolerance
-                                ? marginData?.order?.tolerance
+                                ? marginData?.order?.tolerance?.toLocaleString('en-In', {
+                                  maximumFractionDigits: 2,
+                                  minimumFractionDigits: 2,
+                                })
                                 : 0,
                               '%',
                               '',
@@ -1475,6 +1479,7 @@ function Index() {
               className={styles.arrow}
               src="/static/keyboard_arrow_right-3.svg"
               alt="Arrow"
+              onClick={() => Router.push('/margin-money/id')}
             />
             <h1 className={`${styles.heading} heading`}>
               Margin Money Preview
@@ -1602,7 +1607,10 @@ function Index() {
                     <td className={`${styles.good} `}>
                       {addPrefixOrSuffix(
                         marginData?.order?.tolerance
-                          ? marginData?.order?.tolerance
+                          ? marginData?.order?.tolerance?.toLocaleString('en-In', {
+                            maximumFractionDigits: 2,
+                            minimumFractionDigits: 2,
+                          })
                           : 0,
                         '%',
                         '',

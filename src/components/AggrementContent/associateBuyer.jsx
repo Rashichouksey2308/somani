@@ -858,6 +858,7 @@ console.log(associateData.gstin,"associateData")
                               className='input'
                               name= "phoneNo"
                               type="number"
+                              onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                               onChange={(e)=>{
                                 handleChangeInput2(e.target.name,e.target.value,index)
                               }}

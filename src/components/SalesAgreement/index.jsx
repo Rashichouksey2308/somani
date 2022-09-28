@@ -1139,17 +1139,17 @@ function Index(props) {
         'Product',
         JSON.stringify({ list: data.addressList, excel: data?.excelData }),
       )
-      if (
-        dataToSend.productSpecifications.comments.length <= 0 ||
-        dataToSend.productSpecifications.comments == undefined
-      ) {
-        toastMessage = `Please add comments `
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          setSubmitData(false)
-          return
-        }
-      }
+      // if (
+      //   dataToSend.productSpecifications.comments.length <= 0 ||
+      //   dataToSend.productSpecifications.comments == undefined
+      // ) {
+      //   toastMessage = `Please add comments `
+      //   if (!toast.isActive(toastMessage.toUpperCase())) {
+      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      //     setSubmitData(false)
+      //     return
+      //   }
+      // }
       if (
         dataToSend?.productSpecifications?.specificationTable?.length <= 0 ||
         dataToSend?.productSpecifications?.specificationTable == undefined
@@ -1566,7 +1566,7 @@ function Index(props) {
               <div
                 className={`${styles.multiPart} d-flex justify-content-center align-items-center`}
               >
-                <span className={`mr-4`}>Multiple Parties Involved</span>
+                <span className={`mr-4 label`}>Multiple Parties Involved</span>
                 <div className={`d-flex mr-4`}>
                   <div className={`form-check  mr-4`}>
                     <input
@@ -1637,7 +1637,7 @@ function Index(props) {
               <div
                 className={`${styles.switchContainer} d-flex align-items-center`}
               >
-                <span>Same as CHA</span>
+                <span className='label'>Same as CHA</span>
                 <span className={` ${styles.yes} text-color`}>Yes</span>
                 <label className={styles.switch}>
                   <input

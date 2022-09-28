@@ -1936,7 +1936,8 @@ function Index() {
       autoPaging: 'text',
     })
   }
-
+console.log(marginData?.revisedMarginMoney?.calculation?.marginMoneyReceived?.toLocaleString() ??
+                        0,"asasasasasas")
   return (
     <>
       <div className={`${styles.root_container} bg-transparent`}>

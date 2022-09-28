@@ -15,6 +15,7 @@ const Index = ({
   setInvoiceDataRevised,
   calcRevised,
   handleUpdateRevisedMarginMoney,
+  exportPDF
 }) => {
   console.log(marginData, 'marginData')
 
@@ -186,11 +187,10 @@ const Index = ({
                       Unit Price<strong className="text-danger">*</strong>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      {addPrefixOrSuffix(
-                        marginData?.order?.perUnitPrice,
-                        'INR',
-                        'front',
-                      )}
+
+                      {marginData?.order?.orderCurrency + ' '}
+                      {marginData?.order?.perUnitPrice ? Number(marginData?.order?.perUnitPrice)?.toLocaleString('en-In') : ''}
+
                     </div>
                   </div>
                 </div>
@@ -441,11 +441,8 @@ const Index = ({
                       <span className={`${styles.blue}`}>{`(A*B)`}</span>
                     </label>
                     <div className={`${styles.val} heading`}>
-                      {addPrefixOrSuffix(
-                        finalCal.orderValue ? finalCal.orderValue : 0,
-                        'USD',
-                        'front',
-                      )}
+                    {marginData?.order?.orderCurrency + ' '}
+                      {finalCal.orderValue ? Number(finalCal.orderValue)?.toLocaleString('en-In') : 0}
                     </div>
                   </div>
                 </div>
@@ -477,7 +474,7 @@ const Index = ({
                       {convertValue(
                         finalCal.orderValueInINR,
                         conversionRateUnit,
-                      ).toLocaleString(undefined, {
+                      ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -518,7 +515,7 @@ const Index = ({
                       {convertValue(
                         finalCal.usanceInterest,
                         conversionRateUnit,
-                      ).toLocaleString(undefined, {
+                      ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -552,7 +549,7 @@ const Index = ({
                       {convertValue(
                         finalCal.tradeMargin,
                         conversionRateUnit,
-                      ).toLocaleString(undefined, {
+                      ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -586,7 +583,7 @@ const Index = ({
                       {convertValue(
                         finalCal.grossOrderValue,
                         conversionRateUnit,
-                      ).toLocaleString(undefined, {
+                      ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -626,7 +623,7 @@ const Index = ({
                       {convertValue(
                         finalCal.toleranceValue,
                         conversionRateUnit,
-                      ).toLocaleString(undefined, {
+                      ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -655,7 +652,7 @@ const Index = ({
                       {convertValue(
                         finalCal.totalOrderValue,
                         conversionRateUnit,
-                      ).toLocaleString(undefined, {
+                      ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -684,7 +681,7 @@ const Index = ({
                       {convertValue(
                         finalCal.provisionalUnitPricePerTon,
                         conversionRateUnit,
-                      ).toLocaleString(undefined, {
+                      ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -713,7 +710,7 @@ const Index = ({
                       {convertValue(
                         finalCal.marginMoney,
                         conversionRateUnit,
-                      ).toLocaleString(undefined, {
+                      ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -742,7 +739,7 @@ const Index = ({
                       {convertValue(
                         finalCal.totalSPDC,
                         conversionRateUnit,
-                      ).toLocaleString(undefined, {
+                      ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -784,7 +781,7 @@ const Index = ({
                       {convertValue(
                         calcRevised.additionalAmountPerPDC,
                         conversionRateUnit,
-                      ).toLocaleString(undefined, {
+                      ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -822,7 +819,7 @@ const Index = ({
                       {convertValue(
                         calcRevised.revisedNetOrderValue,
                         conversionRateUnit,
-                      ).toLocaleString(undefined, {
+                      ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -850,7 +847,7 @@ const Index = ({
                       {convertValue(
                         calcRevised.marginMoney,
                         conversionRateUnit,
-                      ).toLocaleString(undefined, {
+                      ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -879,7 +876,7 @@ const Index = ({
                       {convertValue(
                         calcRevised.marginMoney,
                         conversionRateUnit,
-                      ).toLocaleString(undefined, {
+                      ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
@@ -1191,6 +1188,7 @@ const Index = ({
                       onChange={(e) =>
                         dropDownChange(e.target.name, e.target.value)
                       }
+                      style={{paddingRight:'40px'}}
                     >
                       <option>Select an option</option>
                       <option value="INDO GERMAN INTERNATIONAL PRIVATE LIMITED">
@@ -1224,7 +1222,7 @@ const Index = ({
                         changeImporterData?.branch
                           ? changeImporterData?.branch
                           : marginData?.revisedMarginMoney?.invoiceDetail
-                              ?.branchOffice
+                            ?.branchOffice
                       }
                       onChange={(e) => changeImporter(e)}
                     >
@@ -1256,7 +1254,7 @@ const Index = ({
                       changeImporterData?.address
                         ? changeImporterData?.address
                         : marginData?.revisedMarginMoney?.invoiceDetail
-                            ?.companyAddress
+                          ?.companyAddress
                     }
                     name="companyAddress"
                     onChange={(e) => changeImporter(e)}
@@ -1281,7 +1279,7 @@ const Index = ({
                       changeImporterData?.GSTIN
                         ? changeImporterData?.GSTIN
                         : marginData?.revisedMarginMoney?.invoiceDetail
-                            ?.importerGSTIN
+                          ?.importerGSTIN
                     }
                     className={`${styles.input_field} input form-control`}
                     required
@@ -1451,6 +1449,7 @@ const Index = ({
       </div>
 
       <DownloadBar
+       handleReject={exportPDF}
         downLoadButtonName={`Download`}
         isPrevious={true}
         leftButtonName={`Save`}
