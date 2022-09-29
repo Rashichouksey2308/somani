@@ -1952,18 +1952,14 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       Annual Summary
                     </th>
                     <th colSpan={2} className='text-color'>
-                      {
-                        finacialYear(
-                          gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
-                            ?.B2BSales?.current?.financialYear,
-                        )
-                      }
+                      {finacialYear(gstFilteredData?.detail?.other?.period?.current?.financialPeriod ?
+                        gstFilteredData?.detail?.other?.period?.current?.financialPeriod : gstFilteredData?.detail?.other?.period?.current?.financialYear
+                      )}
                     </th>
                     <th colSpan={2} className='text-color'>
 
-                      {finacialYear(
-                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
-                          ?.B2BSales?.previous?.financialYear,
+                      {finacialYear(gstFilteredData?.detail?.other?.period?.previous?.financialPeriod ?
+                        gstFilteredData?.detail?.other?.period?.previous?.financialPeriod : gstFilteredData?.detail?.other?.period?.previous?.financialYear
                       )}
                     </th>
                   </tr>
@@ -3805,7 +3801,7 @@ const gstCustomerDetail = (
             className={`${styles.CustomercardBody} card-body border-top-0 border_color`}
           >
             <div className={`${styles.content}`}>
-            <div  className={`${styles.first} card_sub_header text-color`}>Recurring Party Sales In Last 12 Months</div> 
+              <div className={`${styles.first} card_sub_header text-color`}>Recurring Party Sales In Last 12 Months</div>
 
               <div className={` ${styles.body}`}>
                 <div className={`${styles.scrollouter}`}>
@@ -3878,7 +3874,7 @@ const gstCustomerDetail = (
               </div>
             </div>
             <div className={` ${styles.content}`}>
-            <div  className={`${styles.first} card_sub_header text-color`}>Related Party Sales In Last 12 Months</div> 
+              <div className={`${styles.first} card_sub_header text-color`}>Related Party Sales In Last 12 Months</div>
 
               <div className={` ${styles.body}`}>
                 <div className={`${styles.scrollouter}`}>
@@ -3948,9 +3944,9 @@ const gstCustomerDetail = (
               </div>
             </div>
             <div className={` ${styles.content}`}>
-            <div  className={`${styles.first} card_sub_header text-color`}>Top 10 Customers</div> 
+              <div className={`${styles.first} card_sub_header text-color`}>Top 10 Customers</div>
               <div className={` ${styles.body} ${styles.body_noscroll}`}>
-               
+
                 <div className={`${styles.scrollouter}`}>
                   <div className={`${styles.scrollInner}`}>
                     <table
@@ -3958,7 +3954,7 @@ const gstCustomerDetail = (
                       cellPadding="0"
                       cellSpacing="0"
                     >
-               {/* <tr>
+                      {/* <tr>
                         <th
                           className={`${styles.first} text-color`}
                           colSpan={6}
@@ -4020,7 +4016,7 @@ const gstCustomerDetail = (
               </div>
             </div>
             <div className={` ${styles.content}`}>
-            <div  className={`${styles.first} card_sub_header text-color`}>Statewise Sales</div> 
+              <div className={`${styles.first} card_sub_header text-color`}>Statewise Sales</div>
 
               <div className={` ${styles.body} ${styles.body_noscroll}`}>
                 <div className={`${styles.scrollouter}`}>
@@ -4146,7 +4142,7 @@ const gstSupplierDetail = (
             className={` ${styles.CustomercardBody} card-body border-top-0 border_color`}
           >
             <div className={` ${styles.content}`}>
-            <div  className={`${styles.first} card_sub_header text-color`}>Recurring Party Purchases In Last 12 Months</div> 
+              <div className={`${styles.first} card_sub_header text-color`}>Recurring Party Purchases In Last 12 Months</div>
               <div className={` ${styles.body}`}>
                 <div className={`${styles.scrollouter}`}>
                   <div className={`${styles.scrollInner}`}>
@@ -4218,7 +4214,7 @@ const gstSupplierDetail = (
               </div>
             </div>
             <div className={` ${styles.content}`}>
-            <div  className={`${styles.first} card_sub_header text-color`}>Related Party Purchases In Last 12 Months</div> 
+              <div className={`${styles.first} card_sub_header text-color`}>Related Party Purchases In Last 12 Months</div>
               <div className={` ${styles.body}`}>
                 <div className={`${styles.scrollouter}`}>
                   <div className={`${styles.scrollInner}`}>
@@ -4288,7 +4284,7 @@ const gstSupplierDetail = (
               </div>
             </div>
             <div className={` ${styles.content}`}>
-            <div  className={`${styles.first} card_sub_header text-color`}>Top 10 Suppliers</div> 
+              <div className={`${styles.first} card_sub_header text-color`}>Top 10 Suppliers</div>
               <div className={` ${styles.body} ${styles.body_noscroll}`}>
                 <div className={`${styles.scrollouter}`}>
                   <div className={`${styles.scrollInner}`}>
@@ -4359,7 +4355,7 @@ const gstSupplierDetail = (
               </div>
             </div>
             <div className={` ${styles.content}`}>
-            <div  className={`${styles.first} card_sub_header text-color`}>Statewise Purchase</div> 
+              <div className={`${styles.first} card_sub_header text-color`}>Statewise Purchase</div>
               <div
                 className={` ${styles.body} ${styles.body_noscroll} border_color`}
               >

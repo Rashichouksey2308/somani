@@ -75,11 +75,11 @@ export default function Home() {
         []
       ).length, "Vessel123")
 
-    // setCurrency(_get(
-    //   Vessel,
-    //   "data[0].order.orderCurrency",
-    //   "USD"
-    // ))
+    setCurrency(_get(
+      Vessel,
+      "data[0].order.marginMoney.calculation.orderValueCurrency",
+      "USD"
+    ))
     setVesselUpdatedAt(_get(
       Vessel,
       "data[0].updatedAt",
@@ -178,7 +178,7 @@ export default function Home() {
               ""
             ) : _get(
               Vessel,
-              "data[0].order.portOfDischarge",
+              "data[0].order.termsheet.transactionDetails.portOfDischarge",
               ""
             ) || _get(
               Vessel,
@@ -189,42 +189,46 @@ export default function Home() {
               Vessel,
               "data[0].vessels[0].transitDetails.laycanFrom",
               ""
-            ) !== '' ? _get(
-              Vessel,
-              "data[0].vessels[0].transitDetails.laycanFrom",
-              ""
-            ) : _get(
-              Vessel,
-              "data[0].order.shipmentDetail.loadPort.fromDate",
-              ""
-            ),
+            )
+            //  !== '' ? _get(
+            //   Vessel,
+            //   "data[0].vessels[0].transitDetails.laycanFrom",
+            //   ""
+            // ) : _get(
+            //   Vessel,
+            //   "data[0].order.shipmentDetail.loadPort.fromDate",
+            //   ""
+            // )
+            ,
             laycanTo: "" || _get(
               Vessel,
               "data[0].vessels[0].transitDetails.laycanTo",
               ""
-            ) !== '' ? _get(
-              Vessel,
-              "data[0].vessels[0].transitDetails.laycanTo",
-              ""
-            ) : _get(
-              Vessel,
-              "data[0].order.shipmentDetail.loadPort.toDate",
-              ""
-            ),
+            )
+            // !== '' ? _get(
+            //   Vessel,
+            //   "data[0].vessels[0].transitDetails.laycanTo",
+            //   ""
+            // ) : _get(
+            //   Vessel,
+            //   "data[0].order.shipmentDetail.loadPort.toDate",
+            //   ""
+            // )
+            ,
             EDTatLoadPort: "" || _get(
               Vessel,
               "data[0].vessels[0].transitDetails.EDTatLoadPort",
               ""
             )
-            //  !== '' ? _get(
-            //   Vessel,
-            //   "data[0].vessels[0].transitDetails.EDTatLoadPort",
-            //   ""
-            // ) : _get(
-            //   Vessel,
-            //   "data[0].order.shipmentDetail.ETAofDischarge.toDate",
-            //   ""
-            // )
+              !== '' ? _get(
+                Vessel,
+                "data[0].vessels[0].transitDetails.EDTatLoadPort",
+                ""
+              ) : _get(
+                Vessel,
+                "data[0].order.shipmentDetail.ETAofDischarge.toDate",
+                ""
+              )
             ,
             ETAatDischargePort: _get(
               Vessel,
@@ -240,6 +244,23 @@ export default function Home() {
             //   "data[0].order.shipmentDetail.ETAofDischarge.fromDate",
             //   ""
             // )
+          },
+          shippingInformation: {
+            shippingLineOrCharter: _get(
+              Vessel,
+              "data[0].vessels[0].shippingInformation.shippingLineOrCharter",
+              ""
+            ),
+            numberOfContainers: _get(
+              Vessel,
+              "data[0].vessels[0].shippingInformation.numberOfContainers",
+              ""
+            ),
+            freeDetentionPeriod: _get(
+              Vessel,
+              "data[0].vessels[0].shippingInformation.freeDetentionPeriod",
+              ""
+            )
           },
 
           vesselInformation: [{
