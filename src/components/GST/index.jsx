@@ -1026,11 +1026,32 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     ],
   }
 
-  const finacialYear = (text) => {
-    let [startYear, endYear] = (text ? text : '').split('-')
-    let finacialYear = `MAR ${startYear ? startYear : ''} - APR ${endYear ? endYear : ''
-      }`
-    return finacialYear
+  const finacialYear = (period) => {
+    let currentperiod = gstFilteredData?.detail?.other?.period?.current?.financialPeriod ?
+      gstFilteredData?.detail?.other?.period?.current?.financialPeriod : gstFilteredData?.detail?.other?.period?.current?.financialYear
+
+    let previousPeriod = gstFilteredData?.detail?.other?.period?.previous?.financialPeriod ?
+      gstFilteredData?.detail?.other?.period?.previous?.financialPeriod : gstFilteredData?.detail?.other?.period?.previous?.financialYear
+    let financialYear = ''
+    if (period = 'current') {
+      let [startYear, endYear] = (currentperiod ? currentperiod : '').split('-')
+
+      financialYear = `${moment(startYear, 'MMYYYY').format('MMM YYYY')?.toUpperCase()} - ${moment(endYear, 'MMYYYY').format('MMM YYYY')?.toUpperCase()}`
+
+      return financialYear
+    }
+    else {
+      let [startYear, endYear] = (previousPeriod ? previousPeriod : '').split('-')
+
+      financialYear = `${moment(startYear, 'MMYYYY').format('MMMM YYYY')?.toUpperCase()} - ${moment(endYear, 'MMYYYY').format('MMM YYYY')?.toUpperCase()}`
+
+      return financialYear
+    }
+    // return financialYear
+
+    // let finacialYear = `MAR ${startYear ? startYear : ''} - APR ${endYear ? endYear : ''
+    // }`
+
   }
   console.log(
     (_get(gstFilteredData, 'detail.salesDetailAnnual.saleSummary.quaterlyGrowthRate.current.value', 0) * 100)?.toLocaleString(
@@ -1039,6 +1060,20 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     ),
     'busis',
   )
+
+  const getCompliencePeriod = (period, chart) => {
+    let item = (period ? period : '')?.split('-')
+    let text = `${item[0]?.slice(2, 6)}-${item[1]?.slice(2, 6)}`
+
+    if (chart) {
+      text = `${moment(item[0], 'MMYYYY').format('MM-YYYY')} to ${moment(item[1], 'MMYYYY').format('MM-YYYY')}`
+    }
+    if (!period) {
+      text = ''
+    }
+    return text
+  }
+  console.log(getCompliencePeriod(gstFilteredData?.detail?.complianceDetail?.financialPeriod), 'jdhgvdfghkzjdshfiugdsfjh')
   return (
     <>
       <div className={`${styles.wrapper} card`}>
@@ -1855,10 +1890,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <div className={`${styles.legend_box} text-center`}>
                       <span className={`${styles.legend} legend`}>
                         Financial Period{' '}
-                        {
-                          gstFilteredData?.detail?.salesDetailAnnual
-                            ?.saleSummary?.B2BSales?.current?.financialYear
-                        }
+                        {getCompliencePeriod(gstFilteredData?.detail?.other?.period?.current?.financialPeriod, true)}
                       </span>
                     </div>
                   </div>
@@ -1952,9 +1984,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       Annual Summary
                     </th>
                     <th colSpan={2} className='text-color'>
-                      {finacialYear(gstFilteredData?.detail?.other?.period?.current?.financialPeriod ?
-                        gstFilteredData?.detail?.other?.period?.current?.financialPeriod : gstFilteredData?.detail?.other?.period?.current?.financialYear
-                      )}
+                      {finacialYear()}
                     </th>
                     <th colSpan={2} className='text-color'>
 
@@ -2594,14 +2624,14 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td>-</td>
                     <td className="border-left-0">
                       <strong>
-                        {(_get(gstFilteredData, 'detail.salesDetailAnnual.saleSummary.quaterlyGrowthRate.current.value', null) * 100 ?? '')?.toLocaleString(
+                        {(_get(gstFilteredData, 'detail.salesDetailAnnual.saleSummary.quaterlyGrowthRate.current.value', null) ?? '')?.toLocaleString(
                           'en-In',
                           {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2,
                           },
                         ) ?
-                          `${(_get(gstFilteredData, 'detail.salesDetailAnnual.saleSummary.quaterlyGrowthRate.current.value', null) * 100 ?? '')?.toLocaleString(
+                          `${(_get(gstFilteredData, 'detail.salesDetailAnnual.saleSummary.quaterlyGrowthRate.current.value', null) ?? '')?.toLocaleString(
                             'en-In',
                             {
                               minimumFractionDigits: 2,
@@ -3339,11 +3369,11 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td>-</td>
                     <td className="border-left-0">
                       <strong>
-                        {checkNan((gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.purchasesGrowthRate?.previous?.value * 100)?.toLocaleString('en-In', {
+                        {/* {checkNan((gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.purchasesGrowthRate?.previous?.value * 100)?.toLocaleString('en-In', {
                           maximumFractionDigits: 2,
                           minimumFractionDigits: 2,
                         }))}
-                        %
+                        % */}-
                       </strong>
                     </td>
                   </tr>
@@ -3354,7 +3384,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td>-</td>
                     <td className="border-left-0">
                       <strong>
-                        {checkNan((gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.current?.value * 100)?.toLocaleString('en-In', {
+                        {checkNan((gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.current?.value)?.toLocaleString('en-In', {
                           maximumFractionDigits: 2,
                           minimumFractionDigits: 2,
                         }))}
@@ -3364,11 +3394,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <td>-</td>
                     <td className="border-left-0">
                       <strong>
-                        {checkNan((gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.quaterlyGrowthRate?.previous?.value * 100)?.toLocaleString('en-In', {
-                          maximumFractionDigits: 2,
-                          minimumFractionDigits: 2,
-                        }))}
-                        %
+                        -
                       </strong>
                     </td>
                   </tr>
@@ -3652,7 +3678,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
               >
                 Financial Period:
               </div>
-              {gstFilteredData?.detail?.complianceDetail?.financialPeriod?.toLocaleString()}
+              {getCompliencePeriod(gstFilteredData?.detail?.complianceDetail?.financialPeriod)}
             </div>
           </div>
           <span
@@ -3742,13 +3768,14 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         supplierDetailsUnit,
         setSupplierDetailsUnit,
       )}
-      {gstSales('Sales', gstFilteredData, salesUnit, setSalesUnit, arrSales)}
+      {gstSales('Sales', gstFilteredData, salesUnit, setSalesUnit, arrSales, getCompliencePeriod)}
       {gstPurchase(
         'Purchase',
         gstFilteredData,
         purchasesUnit,
         setPurchasesUnit,
-        arr
+        arr,
+        getCompliencePeriod
       )}
     </>
   )
@@ -3919,7 +3946,10 @@ const gstCustomerDetail = (
                                     minimumFractionDigits: 2,
                                   })} */}
                                 </td>
-                                <td>{customer?.percentageOfTotalSales}%</td>
+                                <td>{customer?.percentageOfTotalSales?.toLocaleString('en-In', {
+                                  maximumFractionDigits: 2,
+                                  minimumFractionDigits: 2,
+                                })}%</td>
                                 <td>{customer?.invoice}</td>
                                 <td>
                                   {convertValue(
@@ -3988,7 +4018,7 @@ const gstCustomerDetail = (
                                   {/* {Number(customer?.ttlVal)?.toLocaleString()} */}
                                 </td>
                                 <td>
-                                  {(customer?.percentageOfTotalSales ? (customer?.percentageOfTotalSales * 100)?.toLocaleString('en-In', {
+                                  {(customer?.percentageOfTotalSales ? (customer?.percentageOfTotalSales)?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
                                     minimumFractionDigits: 2,
                                   }) : '')}%
@@ -4187,7 +4217,7 @@ const gstSupplierDetail = (
                                   )?.toFixed(2)} */}
                                 </td>
                                 <td>
-                                  {customer?.percentageOfTotalPurchase ? (Number(customer?.percentageOfTotalPurchase) * 100)?.toLocaleString('en-In', {
+                                  {customer?.percentageOfTotalPurchase ? (Number(customer?.percentageOfTotalPurchase))?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
                                     minimumFractionDigits: 2,
                                   }) : '-'}
@@ -4328,10 +4358,10 @@ const gstSupplierDetail = (
                                   })}
                                 </td>
                                 <td>
-                                  {checkNan((customer?.percentageOfTotalPurchase ? customer?.percentageOfTotalPurchase * 100 : '')?.toLocaleString('en-In', {
+                                  {checkNan(Number(customer?.percentageOfTotalPurchase))?.toLocaleString('en-In', {
                                     maximumFractionDigits: 2,
                                     minimumFractionDigits: 2,
-                                  }))}
+                                  })}
                                   %
                                 </td>
                                 <td>{customer?.invoice}</td>
@@ -4438,7 +4468,7 @@ const gstSupplierDetail = (
   )
 }
 
-const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
+const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales, getCompliencePeriod) => {
   return (
     <>
       <div className={`${styles.wrapper} card`}>
@@ -4493,9 +4523,8 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales) => {
                           colSpan={13}
                         >
                           Financial Period{' '}
-                          {
-                            gstFilteredData?.detail?.salesDetailAnnual
-                              ?.saleSummary?.B2BSales?.current?.financialYear
+                          {getCompliencePeriod(gstFilteredData?.detail?.other?.period?.current?.financialPeriod)
+
                           }
                         </th>
                       </tr>
@@ -4795,7 +4824,9 @@ const gstPurchase = (
   gstFilteredData,
   purchasesUnit,
   setPurchasesUnit,
-  arr
+  arr,
+  getCompliencePeriod
+
 ) => {
   return (
     <>
@@ -4851,9 +4882,8 @@ const gstPurchase = (
                           colSpan={13}
                         >
                           Financial Period{' '}
-                          {
-                            gstFilteredData?.detail?.purchaseDetailAnnual
-                              ?.saleSummary?.B2BPurchase?.current?.financialYear
+                          {getCompliencePeriod(gstFilteredData?.detail?.other?.period?.current?.financialPeriod)
+
                           }
                         </th>
                       </tr>
