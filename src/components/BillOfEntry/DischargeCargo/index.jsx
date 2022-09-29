@@ -272,7 +272,7 @@ export default function Index({
                       value={dischargeOfCargo?.dischargeOfCargo?.vesselName}
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
-                      <option value="">Please select a vessel</option>
+                      <option selected disabled>Please select a vessel</option>
                       {shipmentTypeBulk
                         ? _get(customData, 'order.vessel.vessels', []).map(
                           (vessel, index) => (
@@ -280,7 +280,7 @@ export default function Index({
                               value={vessel?.vesselInformation?.name}
                               key={index}
                             >
-                              {vessel?.vesselInformation[0]?.name}
+                              {_get(vessel, 'vesselInformation[0].name', '')}
                             </option>
                           ),
                         )

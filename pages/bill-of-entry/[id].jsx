@@ -160,7 +160,7 @@ function Index() {
                   )
                 }}
               >
-                Discharge of Cargooo
+                Discharge of Cargo
               </a>
             </li>
             <li className={`${styles.navItem} nav-item`}>
