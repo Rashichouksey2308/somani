@@ -275,7 +275,7 @@ body.light-mode .text1 {
 }
 body.dark-mode .label_heading_login {
   color: #ffffff80;
-  background: #171e27 !important;
+  background: #171e27 ;
 }
 
 body.light-mode .label_heading_login {
@@ -580,6 +580,14 @@ body.light-mode .status_number {
 body.dark-mode .status_number {
   color: #ffffff;
 }
+body.light-mode .size_number {
+  color: #1e1e1e ;
+}
+body.dark-mode .size_number {
+  color: #8492A6;
+}
+
+
 body.light-mode .datatable {
   box-shadow: 0 3px 6px #cad0e2;
   border: 1px solid #d2d7e5;
