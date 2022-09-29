@@ -139,7 +139,7 @@ function Index(props) {
           supplierEmail:"",
           toleranceLevel:data?.order?.tolerance,
           incoTerms:data?.order?.termsheet?.transactionDetails?.incoTerms,
-          financialBank:data.financingBank.name,
+          financialBank:data?.financingBank?.name,
           financialAddress:"",
         })
       }
