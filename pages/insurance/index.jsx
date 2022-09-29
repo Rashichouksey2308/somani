@@ -38,19 +38,21 @@ function Index() {
   }
 
   const changeRoute = (insured) => {
-    console.log(insured,"insured")
     sessionStorage.setItem('quotationId', insured._id)
-    dispatch(GettingAllInsurance(`?insuranceId=${insured?._id}`))
-
-    Router.push('/insurance/form')
+    if (moment(insured?.marineInsurance?.insuranceTo).toDate() <= d || moment(insured?.storageInsurance?.insuranceTo).toDate() <= d) {
+      dispatch(GettingAllInsurance(`?insuranceId=${insured?._id}`))
+      Router.push('/insurance-renew/id')
+    } else{
+      dispatch(GettingAllInsurance(`?insuranceId=${insured?._id}`))
+      Router.push('/insurance/form')
+    }
   }
 
   const handleEditRoute = (insured) => {
     // console.log("asdas",d,insured)
     sessionStorage.setItem('quotationId', insured._id)
-    if (moment(insured?.marineInsurance?.insuranceTo).toDate() <= d || moment(insured?.storageInsurance?.insuranceTo).toDate() <= d) {
-      Router.push('/insurance-renew/id')
-    } else if (insured?.quotationRequest?.quotationRequestSubmitted === true) {
+    
+     if (insured?.quotationRequest?.quotationRequestSubmitted === true) {
       Router.push('/insurance/form/both')
     }
   }

@@ -20,6 +20,8 @@ function Index({
 
   const [currentPage, setCurrentPage] = useState(0)
 
+  let d = new Date()
+
   const { insuranceResponse } = useSelector((state) => state.insurance)
 
   // console.log(insuranceResponse, 'INSURANCE RESPONSE')
@@ -152,12 +154,17 @@ function Index({
                         // )[0]
                       }
                     </td>
-                    <td>
+                    {insured && (moment(insured?.marineInsurance?.insuranceTo).toDate() < d || moment(insured?.storageInsurance?.insuranceTo).toDate() < d) ? <td>
+                      <span
+                        className={`${styles.status} ${styles.rejected}`}
+                      ></span>{' '}
+                      Expired
+                    </td> :  <td>
                       <span
                         className={`${styles.status} ${styles.approved}`}
                       ></span>{' '}
                       Active
-                    </td>
+                    </td>}
                     <td>
                       {_get(insured, 'quotationRequest.quotationRequestSubmitted', false) && <span onClick={() => handleEditRoute(insured)}>
                         <img
