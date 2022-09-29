@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import styles from './insurance.module.scss'
 import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../../../src/components/SaveBar'
-import Router from 'next/router'
+import Router, { useRouter } from 'next/router'
 import DateCalender from '../../../src/components/DateCalender'
 import { useDispatch } from 'react-redux'
 import {
@@ -28,6 +28,7 @@ import {
 
 const Index = () => {
   const dispatch = useDispatch()
+  const router = useRouter()
 
   useEffect(() => {
     let id = sessionStorage.getItem('quotationId')
@@ -37,10 +38,7 @@ const Index = () => {
   const { insuranceResponse } = useSelector((state) => state.insurance)
   const [isFieldInFocus, setIsFieldInFocus] = useState(false)
   let insuranceData = _get(insuranceResponse, 'data[0]', {})
-  console.log(
-    insuranceData,
-    'This is InsuranceData',
-  )
+  console.log(insuranceData, 'This is InsuranceData')
   const [dateStartFrom, setDateStartFrom] = useState({
     laycan: '',
     eta: '',
@@ -58,13 +56,15 @@ const Index = () => {
       periodOfInsurance: null,
       storagePlotAddress: '',
     },
-    sumInsured: insuranceData?.quotationRequest?.sumInsured ? (Number(insuranceData?.quotationRequest?.sumInsured) / 10000000) : sumInsuredCalc,
+    sumInsured: insuranceData?.quotationRequest?.sumInsured
+      ? Number(insuranceData?.quotationRequest?.sumInsured) / 10000000
+      : sumInsuredCalc,
   })
 
   let sumInsuredCalc = parseFloat(
     ((Number(insuranceData?.order?.orderValue) / 10000000) * 110) / 100,
   )
-  console.log(sumInsuredCalc, "THIS IS SUM INSURED CAL")
+  console.log(sumInsuredCalc, 'THIS IS SUM INSURED CAL')
   // console.log(quotationData.expectedTimeOfDispatch, 'insuranceData')
   useEffect(() => {
     dispatch(setPageName('insurance'))
@@ -83,9 +83,15 @@ const Index = () => {
         insuranceData?.quotationRequest?.expectedTimeOfDispatch || undefined,
       insuranceType:
         insuranceData?.quotationRequest?.insuranceType || 'Marine Insurance',
-      laycanFrom: insuranceData?.quotationRequest?.laycanFrom ? insuranceData?.quotationRequest?.laycanFrom : insuranceData?.order?.shipmentDetail?.loadPort?.fromDate,
-      laycanTo: insuranceData?.quotationRequest?.laycanTo ? insuranceData?.quotationRequest?.laycanTo : insuranceData?.order?.shipmentDetail?.loadPort?.toDate,
-      lossPayee: insuranceData?.quotationRequest?.lossPayee ? insuranceData?.quotationRequest?.lossPayee : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank,
+      laycanFrom: insuranceData?.quotationRequest?.laycanFrom
+        ? insuranceData?.quotationRequest?.laycanFrom
+        : insuranceData?.order?.shipmentDetail?.loadPort?.fromDate,
+      laycanTo: insuranceData?.quotationRequest?.laycanTo
+        ? insuranceData?.quotationRequest?.laycanTo
+        : insuranceData?.order?.shipmentDetail?.loadPort?.toDate,
+      lossPayee: insuranceData?.quotationRequest?.lossPayee
+        ? insuranceData?.quotationRequest?.lossPayee
+        : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank,
       storageDetails: {
         placeOfStorage:
           insuranceData?.quotationRequest?.storageDetails?.placeOfStorage || '',
@@ -96,7 +102,9 @@ const Index = () => {
           insuranceData?.quotationRequest?.storageDetails?.storagePlotAddress ||
           '',
       },
-      sumInsured: insuranceData?.quotationRequest?.sumInsured ? (Number(insuranceData?.quotationRequest?.sumInsured) / 10000000) : sumInsuredCalc,
+      sumInsured: insuranceData?.quotationRequest?.sumInsured
+        ? Number(insuranceData?.quotationRequest?.sumInsured) / 10000000
+        : sumInsuredCalc,
     })
   }, [insuranceData])
   //  console.log(quotationData.sumInsured,"sumInsured",insuranceData?.quotationRequest?.sumInsured,sumInsuredCalc)
@@ -127,7 +135,11 @@ const Index = () => {
       setDateStartFrom({ ...dateStartFrom, eta: new_date })
     }
   }
-  console.log(quotationData?.sumInsured, "quotationData?.sumInsured", insuranceData?.quotationRequest?.sumInsured)
+  console.log(
+    quotationData?.sumInsured,
+    'quotationData?.sumInsured',
+    insuranceData?.quotationRequest?.sumInsured,
+  )
   const [reset, setReset] = useState(false)
   const clearAll = () => {
     // document.getElementById('FormInsurance').value = ''
@@ -148,16 +160,20 @@ const Index = () => {
     })
 
     setDateStartFrom({
-      laycan: "",
-      eta: ""
+      laycan: '',
+      eta: '',
     })
     setReset(!reset)
   }
 
   const validation = () => {
-    console.log(quotationData.lossPayee, "quotationData.lossPayee ")
+    console.log(quotationData.lossPayee, 'quotationData.lossPayee ')
     let toastMessage = ''
-    if (quotationData.lossPayee == '' || quotationData.lossPayee == 'Select an option' || quotationData.lossPayee == undefined) {
+    if (
+      quotationData.lossPayee == '' ||
+      quotationData.lossPayee == 'Select an option' ||
+      quotationData.lossPayee == undefined
+    ) {
       toastMessage = 'Please Select loss Payee'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -253,12 +269,14 @@ const Index = () => {
     if (quotationData?.insuranceType !== '') {
       if (validation()) {
         let insuranceObj = { ...quotationData }
-        insuranceObj.sumInsured = removePrefixOrSuffix(quotationData.sumInsured) * 10000000
+        insuranceObj.sumInsured =
+          removePrefixOrSuffix(quotationData.sumInsured) * 10000000
         let obj = {
           quotationRequest: { ...insuranceObj },
           insuranceId: insuranceData?._id,
         }
         dispatch(UpdateQuotation(obj))
+        router.push(`/third-party`)
       }
     } else {
       let toastMessage = 'Insurance type is mandatory'
@@ -290,13 +308,14 @@ const Index = () => {
       >
         <div className={`${styles.accordion_body} bg-transparent`}>
           <div className={`${styles.head_container} align-items-center`}>
-            <div onClick={() => Router.push('/insurance')} className={`${styles.head_header} align-items-center`}>
+            <div
+              onClick={() => Router.push('/insurance')}
+              className={`${styles.head_header} align-items-center`}
+            >
               <img
-
                 className={`${styles.arrow} img-fluid mr-2 image_arrow`}
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="ArrowRight"
-
               />
               <h1 className={styles.heading}>
                 {insuranceData?.company?.companyName}
@@ -369,7 +388,7 @@ const Index = () => {
                         name="group1"
                         checked={
                           quotationData.insuranceType ==
-                            'Marine & Storage Insurance'
+                          'Marine & Storage Insurance'
                             ? 'checked'
                             : ''
                         }
@@ -431,9 +450,12 @@ const Index = () => {
                               Quantity
                             </div>
                             <div className={styles.col_body}>
-                              {Number(insuranceData?.order?.quantity)?.toLocaleString('en-In', {
+                              {Number(
+                                insuranceData?.order?.quantity,
+                              )?.toLocaleString('en-In', {
                                 maximumFractionDigits: 2,
-                              })} MT
+                              })}{' '}
+                              MT
                             </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
@@ -528,10 +550,17 @@ const Index = () => {
                                     e.target.value,
                                   )
                                 }}
-                                value={quotationData?.lossPayee ? quotationData?.lossPayee : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank}
+                                value={
+                                  quotationData?.lossPayee
+                                    ? quotationData?.lossPayee
+                                    : insuranceData?.order?.termsheet
+                                        ?.transactionDetails?.lcOpeningBank
+                                }
                                 className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                               >
-                                <option disabled selected >Select an option</option>
+                                <option disabled selected>
+                                  Select an option
+                                </option>
                                 <option value="Reserve Bank of Spain">
                                   Reserve Bank of Spain
                                 </option>
@@ -557,7 +586,12 @@ const Index = () => {
                               <DateCalender
                                 name="laycanFrom"
                                 saveDate={saveDate}
-                                defaultDate={quotationData.laycanFrom ? quotationData.laycanFrom : insuranceData?.order?.shipmentDetail?.loadPort?.fromDate}
+                                defaultDate={
+                                  quotationData.laycanFrom
+                                    ? quotationData.laycanFrom
+                                    : insuranceData?.order?.shipmentDetail
+                                        ?.loadPort?.fromDate
+                                }
                                 labelName="Laycan from"
                               />
                               <img
@@ -571,7 +605,12 @@ const Index = () => {
                             <div className="d-flex">
                               <DateCalender
                                 name="laycanTo"
-                                defaultDate={quotationData.laycanTo ? quotationData.laycanTo : insuranceData?.order?.shipmentDetail?.loadPort?.toDate}
+                                defaultDate={
+                                  quotationData.laycanTo
+                                    ? quotationData.laycanTo
+                                    : insuranceData?.order?.shipmentDetail
+                                        ?.loadPort?.toDate
+                                }
                                 saveDate={saveDate}
                                 labelName="Laycan to"
                                 startFrom={dateStartFrom.laycan}
@@ -624,23 +663,29 @@ const Index = () => {
                             <input
                               onFocus={(e) => {
                                 setIsFieldInFocus(true),
-                                  e.target.type = 'number'
+                                  (e.target.type = 'number')
                               }}
                               onBlur={(e) => {
                                 setIsFieldInFocus(false),
-                                  e.target.type = 'text'
+                                  (e.target.type = 'text')
                               }}
                               id="FormInsurance"
                               className={`${styles.input_field} input form-control`}
                               type="text"
                               name="sumInsured"
-                              onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
-                              value={isFieldInFocus ?
-                                quotationData?.sumInsured :
-                                Number(quotationData?.sumInsured)?.toLocaleString('en-In', {
-                                  maximumFractionDigits: 2,
-                                }) + ` Cr`}
+                              onKeyDown={(evt) =>
+                                ['e', 'E', '+', '-'].includes(evt.key) &&
+                                evt.preventDefault()
+                              }
+                              value={
+                                isFieldInFocus
+                                  ? quotationData?.sumInsured
+                                  : Number(
+                                      quotationData?.sumInsured,
+                                    )?.toLocaleString('en-In', {
+                                      maximumFractionDigits: 2,
+                                    }) + ` Cr`
+                              }
                               // value={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr')}
                               onChange={(e) => {
                                 saveQuotationData(e.target.name, e.target.value)
@@ -698,9 +743,12 @@ const Index = () => {
                               Quantity
                             </div>
                             <div className={styles.col_body}>
-                              {Number(insuranceData?.order?.quantity)?.toLocaleString('en-In', {
+                              {Number(
+                                insuranceData?.order?.quantity,
+                              )?.toLocaleString('en-In', {
                                 maximumFractionDigits: 2,
-                              })} MT
+                              })}{' '}
+                              MT
                             </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>
@@ -795,9 +843,16 @@ const Index = () => {
                                   )
                                 }}
                                 className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                                value={quotationData?.lossPayee ? quotationData?.lossPayee : insuranceData?.order?.termsheet?.transactionDetails?.lcOpeningBank}
+                                value={
+                                  quotationData?.lossPayee
+                                    ? quotationData?.lossPayee
+                                    : insuranceData?.order?.termsheet
+                                        ?.transactionDetails?.lcOpeningBank
+                                }
                               >
-                                <option selected disabled>Select an option</option>
+                                <option selected disabled>
+                                  Select an option
+                                </option>
                                 {/* <option selected>
                                   {insuranceData?.quotationRequest?.lossPayee}
                                 </option> */}
@@ -899,31 +954,29 @@ const Index = () => {
                           </Col>
                           <Col className="mt-5" lg={4} md={6} sm={6}>
                             <input
-
                               onFocus={(e) => {
                                 setIsFieldInFocus(true),
-                                  e.target.type = 'number'
+                                  (e.target.type = 'number')
                               }}
                               onBlur={(e) => {
                                 setIsFieldInFocus(false),
-                                  e.target.type = 'text'
+                                  (e.target.type = 'text')
                               }}
                               className={`${styles.input_field} input form-control`}
                               type="text"
                               name="sumInsured"
-
-
-                              value={isFieldInFocus ?
-                                quotationData?.sumInsured :
-                                Number(quotationData?.sumInsured)?.toLocaleString('en-In', {
-                                  maximumFractionDigits: 2,
-                                }) + ` Cr`}
+                              value={
+                                isFieldInFocus
+                                  ? quotationData?.sumInsured
+                                  : Number(
+                                      quotationData?.sumInsured,
+                                    )?.toLocaleString('en-In', {
+                                      maximumFractionDigits: 2,
+                                    }) + ` Cr`
+                              }
                               // value={addPrefixOrSuffix(checkNan(CovertvaluefromtoCR(quotationData?.sumInsured)), 'Cr')}
                               onChange={(e) =>
-                                saveQuotationData(
-                                  e.target.name,
-                                  e.target.value,
-                                )
+                                saveQuotationData(e.target.name, e.target.value)
                               }
                               required
                             />
@@ -984,8 +1037,10 @@ const Index = () => {
                               className={`${styles.input_field} input form-control`}
                               required
                               type="number"
-                              onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                              onKeyDown={(evt) =>
+                                ['e', 'E', '+', '-'].includes(evt.key) &&
+                                evt.preventDefault()
+                              }
                               defaultValue={
                                 quotationData.storageDetails.periodOfInsurance
                               }

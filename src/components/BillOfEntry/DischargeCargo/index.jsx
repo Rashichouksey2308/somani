@@ -9,6 +9,7 @@ import { UpdateCustomClearance } from '../../../redux/CustomClearance&Warehousin
 import { useDispatch } from 'react-redux'
 import moment from 'moment'
 import { toast } from 'react-toastify'
+import { removePrefixOrSuffix, addPrefixOrSuffix } from 'utils/helper'
 
 export default function Index({
   OrderId,
@@ -23,6 +24,18 @@ export default function Index({
   const [show, setShow] = useState(false)
   const [totalBl, setTotalBl] = useState(0)
   const [isFieldInFocus, setIsFieldInFocus] = useState(false)
+  const [billOfEntryData, setBillOfEntryData] = useState({
+    // boeAssessment: '',
+    // pdBond: true,
+    billOfEntryFor: '',
+    // boeNumber: '',
+    // boeDate: '',
+
+    boeDetails: {
+      invoiceQuantity: '',
+      invoiceQuantityUnit: '',
+    },
+  })
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
@@ -67,14 +80,14 @@ export default function Index({
     newData.dischargeOfCargo[name] = text
     setDischargeOfCargo(newData)
   }
-  // const uploadDoc1 = async (e) => {
-  //   let name = e.target.id
-  //   let docs = await uploadDoc(e)
+  const uploadDoc1 = async (e) => {
+    let name = e.target.id
+    let docs = await uploadDoc(e)
 
-  //   let newInput = { ...dischargeOfCargo }
-  //   newInput[name] = docs
-  //   setBillOfEntryData(newInput)
-  // }
+    let newInput = { ...dischargeOfCargo }
+    newInput[name] = docs
+    setBillOfEntryData(newInput)
+  }
 
   const onSaveDocument = async (e) => {
     let name = e.target.name
@@ -231,6 +244,40 @@ export default function Index({
     }
   }, [customData])
 
+  useEffect(() => {
+    if (customData) {
+      let total = 0
+      let data = customData?.order?.transit?.BL?.billOfLanding
+      if (data && data.length > 0) {
+        for (let i = 0; i <= data.length - 1; i++) {
+          total = total + Number(data[i].blQuantity)
+        }
+      }
+      setTotalBl(total)
+    }
+
+    if (customData?.billOfEntry?.billOfEntry) {
+      let data = _get(customData, 'billOfEntry.billOfEntry[0]', [{}])
+      let tempArray = {
+        boeAssessment: data?.boeAssessment,
+        pdBond: data?.pdBond,
+        billOfEntryFor: _get(
+          customData,
+          'order.termsheet.transactionDetails.billOfEntity',
+          '',
+        ),
+        // boeNumber: data?.boeNumber,
+        // boeDate: data?.boeDate,
+
+        boeDetails: {
+          invoiceQuantity: data?.boeDetails?.invoiceQuantity,
+          invoiceQuantityUnit: data?.boeDetails?.invoiceQuantityUnit,
+        },
+      }
+      setBillOfEntryData(tempArray)
+    }
+  }, [customData])
+
   console.log(customData, dischargeOfCargo, 'customData')
   return (
     <>
@@ -272,7 +319,7 @@ export default function Index({
                       value={dischargeOfCargo?.dischargeOfCargo?.vesselName}
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
-                      <option value="">Please select a vessel</option>
+                      <option selected disabled>Please select a vessel</option>
                       {shipmentTypeBulk
                         ? _get(customData, 'order.vessel.vessels', []).map(
                           (vessel, index) => (
@@ -280,19 +327,19 @@ export default function Index({
                               value={vessel?.vesselInformation?.name}
                               key={index}
                             >
-                              {vessel?.vesselInformation[0]?.name}
+                              {_get(vessel, 'vesselInformation[0].name', '')}
                             </option>
                           ),
                         )
                         : _get(
-                          customData,
-                          'order.vessel.vessels[0].vesselInformation',
-                          [],
-                        ).map((vessel, index) => (
-                          <option value={vessel?.name} key={index}>
-                            {vessel?.name}
-                          </option>
-                        ))}
+                            customData,
+                            'order.vessel.vessels[0].vesselInformation',
+                            [],
+                          ).map((vessel, index) => (
+                            <option value={vessel?.name} key={index}>
+                              {vessel?.name}
+                            </option>
+                          ))}
                     </select>
                     <label className={`${styles.label_heading} label_heading`}>
                       Vessel Name<strong className="text-danger">*</strong>
@@ -319,34 +366,20 @@ export default function Index({
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <input
-                    onFocus={(e) => {
-                      setIsFieldInFocus(true), (e.target.type = 'number')
-                    }}
-                    onBlur={(e) => {
-                      setIsFieldInFocus(false), (e.target.type = 'text')
-                    }}
-                    value={
-                      isFieldInFocus
-                        ? dischargeOfCargo?.dischargeOfCargo?.dischargeQuantity
-                        : Number(
-                          dischargeOfCargo?.dischargeOfCargo
-                            ?.dischargeQuantity,
-                        )?.toLocaleString("en-IN") +
-                        ` ${_get(customData, 'order.unitOfQuantity', '')}`
-                    }
-                    onChange={(e) =>
-                      onChangeDischargeOfCargo(e.target.id, e.target.value)
-                    }
-                    id="dischargeQuantity"
+                    // value={billOfEntryData?.boeDetails?.invoiceQuantity}
                     className={`${styles.input_field} input form-control`}
                     type="text"
-                    min={0}
-                    onKeyPress={preventMinus}
-                    onKeyDown={(evt) =>
-                      ['e', 'E', '+', '-'].includes(evt.key) &&
-                      evt.preventDefault()
+                    // onKeyPress={preventMinus}
+                    value={addPrefixOrSuffix(
+                      billOfEntryData?.boeDetails?.invoiceQuantity,
+                      'MT',
+                    )}
+                    name="boeDetails.invoiceQuantity"
+                    onChange={(e) =>
+                      saveBillOfEntryData(e.target.name, e.target.value)
                     }
                     required
+                    // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Discharge Quantity<strong className="text-danger">*</strong>
@@ -488,12 +521,12 @@ export default function Index({
                           {dischargeOfCargo.document1 === null
                             ? ''
                             : moment(dischargeOfCargo?.document1?.Date).format(
-                              'DD-MM-YYYY, h:mm a',
-                            )}
+                                'DD-MM-YYYY, h:mm a',
+                              )}
                         </td>
                         <td>
                           {dischargeOfCargo &&
-                            dischargeOfCargo.document1 === null ? (
+                          dischargeOfCargo.document1 === null ? (
                             <>
                               <div className={styles.uploadBtnWrapper}>
                                 <input
@@ -543,12 +576,12 @@ export default function Index({
                           {dischargeOfCargo.document2 === null
                             ? ''
                             : moment(dischargeOfCargo?.document2?.Date).format(
-                              'DD-MM-YYYY, h:mm a',
-                            )}
+                                'DD-MM-YYYY, h:mm a',
+                              )}
                         </td>
                         <td>
                           {dischargeOfCargo &&
-                            dischargeOfCargo.document2 === null ? (
+                          dischargeOfCargo.document2 === null ? (
                             <>
                               <div className={styles.uploadBtnWrapper}>
                                 <input
@@ -649,9 +682,10 @@ export default function Index({
                 border="0"
               >
                 <tr className="table_row">
-                  <th width="33%">BL NUMBER</th>
-                  <th width="33%">BL DATE</th>
-                  <th width="33%">BL QUANTITY</th>
+                  <th width="25%">BL NUMBER</th>
+                  <th width="25%">BL DATE</th>
+                  <th width="25%">NO. OF CONTAINERS</th>
+                  <th width="25%">BL QUANTITY</th>
                 </tr>
                 {_get(customData, 'order.transit.BL.billOfLanding', [{}]).map(
                   (bl, indexbl) => (
@@ -665,7 +699,16 @@ export default function Index({
                         ).format('DD-MM-YYYY')}
                       </td>
                       <td>
-                        {bl?.blQuantity ? Number(bl?.blQuantity)?.toLocaleString('en-In') : ''} {customData?.order?.unitOfQuantity}
+                        {bl?.blQuantity
+                          ? Number(bl?.blQuantity)?.toLocaleString('en-In')
+                          : ''}{' '}
+                        {/* {customData?.order?.unitOfQuantity} */}
+                      </td>
+                      <td>
+                        {bl?.blQuantity
+                          ? Number(bl?.blQuantity)?.toLocaleString('en-In')
+                          : ''}{' '}
+                        {customData?.order?.unitOfQuantity}
                       </td>
                     </tr>
                   ),

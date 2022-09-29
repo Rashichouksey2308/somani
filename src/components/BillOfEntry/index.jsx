@@ -262,65 +262,57 @@ export default function Index({
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-    }
-    else if (billOfEntryData.boeDate === null || billOfEntryData.boeDate === '') {
+    } else if (
+      billOfEntryData.boeDate === null ||
+      billOfEntryData.boeDate === ''
+    ) {
       let toastMessage = 'BOE DATE CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-
-    }
-    else if (billOfEntryData.boeDetails.currency === '') {
+    } else if (billOfEntryData.boeDetails.currency === '') {
       let toastMessage = 'CURRENCY CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-
-    }
-    else if (billOfEntryData.boeDetails.currency === '') {
+    } else if (billOfEntryData.boeDetails.currency === '') {
       let toastMessage = 'CURRENCY CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-
     } else if (billOfEntryData.boeDetails.invoiceNumber === '') {
       let toastMessage = 'INVOICE NUMBER CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-
     } else if (billOfEntryData.boeDetails.invoiceDate === '') {
       let toastMessage = 'INVOICE DATE CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-
     } else if (billOfEntryData.boeDetails.invoiceQuantity === '') {
       let toastMessage = 'INVOICE QUANTITY CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-
     } else if (billOfEntryData.boeDetails.invoiceValue === '') {
       let toastMessage = 'INVOICE VALUE CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-
     } else if (billOfEntryData.boeDetails.conversionRate === '') {
       let toastMessage = 'COVERSION RATE CANNOT BE EMPTY'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       isOk = false
-
     } else if (
       billOfEntryData.boeDetails.invoiceQuantity > customData?.order?.quantity
     ) {
@@ -331,7 +323,9 @@ export default function Index({
       }
       isOk = false
     } else if (billOfEntryData.document1 === null) {
-      let toastMessage = `please upload Boe ${billOfEntryData.boeAssessment === 'Final' ? 'final' : 'provisional'}`
+      let toastMessage = `please upload Boe ${
+        billOfEntryData.boeAssessment === 'Final' ? 'final' : 'provisional'
+      }`
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
@@ -414,7 +408,7 @@ export default function Index({
     setAcc(
       checkNan(
         removePrefixOrSuffix(billOfEntryData.boeDetails.invoiceValue) *
-        removePrefixOrSuffix(billOfEntryData?.boeDetails?.conversionRate),
+          removePrefixOrSuffix(billOfEntryData?.boeDetails?.conversionRate),
       ),
     )
   }, [
@@ -689,11 +683,13 @@ export default function Index({
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <div className={`${styles.label} text`}>
-                    Quantity <strong className="text-danger ml-n1">*</strong>
+                    BL Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
-                    {customData?.order?.quantity?.toLocaleString("en-IN",{ maximumFractionDigits: 2})}{' '}
-                    {customData?.order?.unitOfQuantity?.toUpperCase()}
+                    {customData?.order?.quantity?.toLocaleString('en-IN', {
+                      maximumFractionDigits: 2,
+                    })}{' '}
+                    {/* {customData?.order?.unitOfQuantity?.toUpperCase()} */}
                   </span>
                 </div>
                 <div
@@ -765,23 +761,23 @@ export default function Index({
                       'order.transit.IGM.igmDetails[0].igmFiling',
                       '',
                     ) ||
-                      _get(
-                        customData,
-                        'order.transit.IGM.igmDetails[0].igmFiling',
-                        '',
-                      ) === ''
+                    _get(
+                      customData,
+                      'order.transit.IGM.igmDetails[0].igmFiling',
+                      '',
+                    ) === ''
                       ? ''
                       : moment(
-                        _get(
-                          customData,
-                          'order.transit.IGM.igmDetails[0].igmFiling',
-                          '',
-                        ),
-                      ).format('DD-MM-YYYY')}
+                          _get(
+                            customData,
+                            'order.transit.IGM.igmDetails[0].igmFiling',
+                            '',
+                          ),
+                        ).format('DD-MM-YYYY')}
                   </span>
                 </div>
                 {_get(customData, 'order.commodity', '').toLowerCase() ===
-                  'coal' ? (
+                'coal' ? (
                   <>
                     <div
                       className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
@@ -804,9 +800,9 @@ export default function Index({
                         {customData?.order?.transit?.CIMS?.cimsDetails[0]
                           ?.circDate
                           ? moment(
-                            customData?.order?.transit?.CIMS?.cimsDetails[0]
-                              ?.circDate,
-                          ).format('DD-MM-YYYY')
+                              customData?.order?.transit?.CIMS?.cimsDetails[0]
+                                ?.circDate,
+                            ).format('DD-MM-YYYY')
                           : ''}
                       </span>
                     </div>
@@ -896,7 +892,7 @@ export default function Index({
                       saveBillOfEntryData(e.target.name, e.target.value)
                     }
                     required
-                  // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
+                    // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   />
                   <label className={`${styles.label_heading} label_heading`}>
                     Invoice Quantity<strong className="text-danger">*</strong>
@@ -944,7 +940,8 @@ export default function Index({
                   />
 
                   <label className={`${styles.label_heading} label_heading`}>
-                    Conversion Rate<strong className="text-danger">*</strong>
+                    Custom Conversion Rate
+                    <strong className="text-danger">*</strong>
                   </label>
                 </div>
                 <div
@@ -1058,15 +1055,15 @@ export default function Index({
                                   <td>
                                     {val.amount
                                       ? `${'INR'} ${Number(
-                                        val.amount,
-                                      )?.toLocaleString('en-IN')}  `
+                                          val.amount,
+                                        )?.toLocaleString('en-IN')}  `
                                       : ''}
                                   </td>
                                   <td>
                                     {val.percentage
                                       ? `${Number(
-                                        val?.percentage,
-                                      )?.toFixed()} ${'%'}`
+                                          val?.percentage,
+                                        )?.toFixed()} ${'%'}`
                                       : ''}
                                   </td>
                                 </>
@@ -1116,7 +1113,9 @@ export default function Index({
                                         isFieldInFocus[index].value
                                           ? val.amount
                                           : `${'INR'}  ` +
-                                          Number(val.amount)?.toLocaleString("en-IN")
+                                            Number(val.amount)?.toLocaleString(
+                                              'en-IN',
+                                            )
                                       }
                                       disabled={!val.actions}
                                       onChange={(e) =>
@@ -1145,9 +1144,8 @@ export default function Index({
                                       value={
                                         isFieldInFocus[index].value
                                           ? val.percentage
-                                          : Number(
-                                            val.percentage,
-                                          ).toFixed(2) + `${'%'}`
+                                          : Number(val.percentage).toFixed(2) +
+                                            `${'%'}`
                                       }
                                       name="percentage"
                                       // value={val.percentage}
@@ -1264,7 +1262,9 @@ export default function Index({
                             <strong className="text-danger ml-n1">*</strong>{' '}
                           </div>
                           <span className={styles.value}>
-                            {bl?.blQuantity ? Number(bl?.blQuantity)?.toLocaleString('en-In') : ''}{' '}
+                            {bl?.blQuantity
+                              ? Number(bl?.blQuantity)?.toLocaleString('en-In')
+                              : ''}{' '}
                             {customData?.order?.unitOfQuantity.toUpperCase()}
                           </span>
                         </div>

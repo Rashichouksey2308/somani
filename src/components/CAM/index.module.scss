@@ -80,7 +80,7 @@
   .exposureCard {
     padding: 25px 35px !important;
     height: fit-content;
-    background: #ffffff;
+    //background: #ffffff;
     border: 1px solid #d2d7e5;
     border-radius: 6px;
     padding: 1rem;
@@ -106,7 +106,7 @@
       font-size: 22px;
       line-height: 27px;
       font-weight: bold;
-      color: #111111;
+      //color: #111111;
       align-items: center;
       justify-content: center;
       display: flex;
@@ -398,6 +398,7 @@
         background: #fafafb;
       }
       td {
+        border-top: none;
         vertical-align: baseline;
 
         .dashedLine {
@@ -408,6 +409,7 @@
           border-radius: 8px;
           width: 60px;
           height: 60px;
+          min-width: 60px;
           padding: 0px;
 
           span {
@@ -1032,7 +1034,7 @@
       .creditScore {
         width: 287px;
         height: 107px;
-        background: #ffffff;
+        //background: #ffffff;
         border: 1px solid #d2d7e5;
         border-radius: 6px;
         padding: 22px;
@@ -1070,7 +1072,7 @@
             }
             .outOF {
               font-size: 20px;
-              color: #111111;
+             color: #111111;
               font-weight: bold;
               line-height: 25px;
               opacity: 0.2;
@@ -1088,7 +1090,7 @@
     border-right: 2px solid red !important;
     padding: 25px 35px !important;
     .fillWrapper {
-      background: #ffffff;
+      //background: #ffffff;
       border: 1px solid #d2d7e5;
       border-radius: 6px;
       height: 106px;

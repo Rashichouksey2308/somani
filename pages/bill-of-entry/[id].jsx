@@ -107,14 +107,14 @@ function Index() {
               className="img-fluid mr-2 image_arrow"
               onClick={() => Router.push('/bill-of-entry')}
             />
-            <h1 className={`${styles.title} heading`}>
+            <h3 className={`${styles.title} heading`}>
               <span
                 // className={`${styles.title} heading`}
                 style={{ textTransform: 'capitalize' }}
               >
                 {customData?.company?.companyName} - {CompanyOrderId?.orderId}
               </span>
-            </h1>
+            </h3>
           </div>
           <ul className={`${styles.navTabs} nav nav-tabs`}>
             <li className={`${styles.navItem}  nav-item`}>

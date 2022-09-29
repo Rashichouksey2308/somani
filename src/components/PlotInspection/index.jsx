@@ -11,9 +11,11 @@ import _get from 'lodash/get'
 import UploadOther from '../UploadOther'
 import { toast } from 'react-toastify'
 import moment from 'moment'
+import { useRouter } from 'next/router'
 
 export default function Index({ inspectionData }) {
   let dispatch = useDispatch()
+  const router = useRouter()
 
   let orderid = _get(inspectionData, 'order._id', '')
 
@@ -80,6 +82,7 @@ export default function Index({ inspectionData }) {
       // console.log('payload Third party2', 'Payload')
 
       dispatch(UpdateInspection({ fd, task }))
+      router.push(`/transit/id`)
     }
   }
 
@@ -101,9 +104,7 @@ export default function Index({ inspectionData }) {
 
   return (
     <>
-      <div
-        className={`${styles.backgroundMain} container-fluid p-0 `}
-      >
+      <div className={`${styles.backgroundMain} container-fluid p-0 `}>
         <div className={`${styles.vessel_card}`}>
           <div className={`${styles.main} card border-color`}>
             <div

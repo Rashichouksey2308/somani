@@ -18,7 +18,7 @@ export default function Index(props) {
   }
   console.log(props, 'props')
 
-  const handleClose = () => {}
+  const handleClose = () => { }
 
   return (
     <>
@@ -190,13 +190,13 @@ export default function Index(props) {
                                       isFieldInFocus
                                         ? val.Quantity
                                         : Number(val.Quantity)?.toLocaleString(
-                                            'en-IN',
-                                          ) +
-                                          ` ${_get(
-                                            props,
-                                            'ReleaseOrder.data[0].order.unitOfQuantity',
-                                            '',
-                                          )}`
+                                          'en-IN',
+                                        ) +
+                                        ` ${_get(
+                                          props,
+                                          'ReleaseOrder.data[0].order.unitOfQuantity',
+                                          '',
+                                        )}`
                                     }
                                     name="Quantity"
                                     onChange={(e) => {
@@ -221,7 +221,7 @@ export default function Index(props) {
                                     Quantity Released
                                   </div>
                                   <span className={styles.value}>
-                                    { val.Quantity ? Number(val.Quantity)?.toLocaleString('en-In') : ''}
+                                    {val.Quantity ? Number(val.Quantity)?.toLocaleString('en-In') : ''}
                                   </span>
                                 </>
                               )}
@@ -274,14 +274,14 @@ export default function Index(props) {
                                         props.onEdit(index, false)
                                       }}
                                     />
-                                    <img
+                                    {props.releaseOrderData.length > 1 && <img
                                       className={`${styles.shareImg} border-0 p-0 bg-transparent ml-3`}
                                       src="/static/delete 2.svg"
                                       alt="Search"
                                       onClick={(e) => {
                                         props.deleteNewDelivery(index)
                                       }}
-                                    />
+                                    />}
                                   </div>
                                 ) : (
                                   <div
@@ -306,8 +306,7 @@ export default function Index(props) {
                                       }
                                     />
 
-                                    {props.releaseOrderData.length ===
-                                    index ? null : (
+                                    {props.releaseOrderData.length > 1 &&
                                       <img
                                         className={`${styles.shareImg} border-0 p-0 bg-transparent ml-2 mr-2`}
                                         src="/static/delete 2.svg"
@@ -316,18 +315,18 @@ export default function Index(props) {
                                           props.deleteNewDelivery(index)
                                         }}
                                       />
-                                    )}
+                                    }
                                     {props.releaseOrderData.length - 1 ===
                                       index && (
-                                      <img
-                                        onClick={(e) => {
-                                          props.addNewDelivery()
-                                        }}
-                                        src="/static/add-btn.svg"
-                                        className={`${styles.shareImg} border-0 p-0 bg-transparent`}
-                                        alt="add"
-                                      />
-                                    )}
+                                        <img
+                                          onClick={(e) => {
+                                            props.addNewDelivery()
+                                          }}
+                                          src="/static/add-btn.svg"
+                                          className={`${styles.shareImg} border-0 p-0 bg-transparent`}
+                                          alt="add"
+                                        />
+                                      )}
                                   </div>
                                 )}
                               </div>
@@ -382,8 +381,8 @@ export default function Index(props) {
         <SaveBar
           handleSave={props.onSaveHAndler}
           rightBtn="null"
-          // rightBtnClick={() => setShow(true)}
-          // handleRoute={handleRoute}
+        // rightBtnClick={() => setShow(true)}
+        // handleRoute={handleRoute}
         />
       </div>
 
