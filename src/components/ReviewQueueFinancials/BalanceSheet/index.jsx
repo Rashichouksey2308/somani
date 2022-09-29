@@ -456,6 +456,7 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                 </table>
               </div>
             </div>
+            <hr className='border_color m-0' style={{borderWidth:'2px'}} />
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
                 <table className={`${styles.table} table border_color`} cellPadding="0" cellSpacing="0" border="0">

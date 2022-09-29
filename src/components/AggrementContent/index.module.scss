@@ -756,6 +756,10 @@ textarea {
   font-weight: bold;
   cursor: pointer;
   display: inline-block;
+  span {
+    font-size: 24px;
+    padding-right: 5px;
+  }
 }
 .form {
   border-bottom: 2px solid #cad6e6;
