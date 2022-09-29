@@ -309,11 +309,11 @@ const Index = ({
           <Form>
             <div className="row align-items-center pb-4">
               <div
-                className={`${styles.drop_container} d-flex align-items-center justify-content-around col-sm-6`}
+                className={`${styles.drop_container} d-inline-flex align-items-center justify-content-around col-sm-6`}
               >
                 <div className="text-center w-100">
                   <img
-                    className={`${styles.upload_image} img-fluid`}
+                    className={`${styles.upload_image} img-fluid d-block mx-auto`}
                     src="/static/browse.svg"
                     alt="Browse"
                     onChange={(e) => uploadDocument2(e)}

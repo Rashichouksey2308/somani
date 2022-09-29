@@ -167,6 +167,9 @@ function Index() {
   }
 
   const addToArr = () => {
+    if(fieldType == 'date'){
+      setFieldType('')
+    }
     inputRef1.current.value = ''
     setClauseObj(initialState)
     const newArr = [...clauseArr]

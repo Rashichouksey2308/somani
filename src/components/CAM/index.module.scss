@@ -398,6 +398,7 @@
         background: #fafafb;
       }
       td {
+        border-top: none;
         vertical-align: baseline;
 
         .dashedLine {
@@ -408,6 +409,7 @@
           border-radius: 8px;
           width: 60px;
           height: 60px;
+          min-width: 60px;
           padding: 0px;
 
           span {

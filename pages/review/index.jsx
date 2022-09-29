@@ -7643,7 +7643,7 @@ console.log(highCourt,"highCourt111")
   })
   const exportPDF = async () => {
     console.log(orderList, 'orderList')
-    const doc = new jsPDF('p', 'pt', [1500, 1500])
+    const doc = new jsPDF('p', 'pt', [1500, 1550])
 
     const trendChartRevenue = document.getElementById('trendChartRevenue');
     const trendChartRevenueImg = trendChartRevenue?.toDataURL('image/png', 1.0)
