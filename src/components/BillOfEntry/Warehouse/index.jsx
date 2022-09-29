@@ -9,10 +9,12 @@ import { UpdateCustomClearance } from '../../../redux/CustomClearance&Warehousin
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import moment from 'moment'
+import { useRouter } from 'next/router'
 
 export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
   console.log(customData, 'customData')
   const dispatch = useDispatch()
+  const router = useRouter()
   const [editInput, setEditInput] = useState(true)
   const [warehouseDetails, setWarehouseDetails] = useState({
     wareHouseDetails: {
@@ -100,6 +102,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
       // fd.append('document', warehouseDetails.document)
       let task = 'submit'
       dispatch(UpdateCustomClearance({ fd, task }))
+      router.push(`/payment/id`)
     }
   }
 
@@ -202,7 +205,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
                           ? warehouseDetails?.wareHouseDetails?.quantity
                           : Number(
                               warehouseDetails?.wareHouseDetails?.quantity,
-                            )?.toLocaleString("en-IN") +
+                            )?.toLocaleString('en-IN') +
                             ` ${_get(customData, 'order.unitOfQuantity', '')}`
                       }
                       onKeyDown={(evt) =>
