@@ -250,6 +250,9 @@ console.log(clauseData,"clauseData")
   const addToArr = () => {
     // console.log(inputRef, 'THIS IN INPUT REF')
     // inputRef.current.value = '';
+    if(fieldType == 'date'){
+      setFieldType('')
+    }
     inputRef1.current.value = '';
     setClauseObj(initialState)
     if (clauseObj.existingValue === '' || clauseObj.newValue === '') {
