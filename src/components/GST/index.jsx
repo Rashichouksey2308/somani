@@ -4942,7 +4942,7 @@ const gstPurchase = (
                           )}
                         </tr>
                         <tr>
-                          <td>Growth Trend</td>
+                          <td>Growth</td>
                           {arr && arr?.length > 0 && arr?.slice()?.reverse().map(
                             (sales, index) => (
                               <td style={{ color: Math.sign(sales) === -1 ? 'red' : 'black' }} key={index}>

@@ -52,9 +52,13 @@
       }
     }
     .search {
-      width: 492px;
+      width: 100%;
+      max-width: 492px;
       position: relative;
       margin-left: 20px;
+      @include respond(lg-desktop) {
+        width: auto;
+      }
       @include respond(sm-desktop) {
         width: 100%;
         margin-bottom: 15px;

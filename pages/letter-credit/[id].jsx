@@ -633,14 +633,14 @@ function Index() {
                               <tr>
                                 <th
                                   width="35%"
-                                  className={`${styles.table_header}`}
+                                  className={`${styles.table_header} label_heading`}
                                 >
                                   CLAUSE{' '}
                                 </th>
-                                <th className={`${styles.table_header}`}>
+                                <th className={`${styles.table_header} label_heading`}>
                                   EXISTING VALUE{' '}
                                 </th>
-                                <th className={`${styles.table_header}`}>
+                                <th className={`${styles.table_header} label_heading`}>
                                   NEW VALUE{' '}
                                 </th>
                                 <th className={`${styles.table_header}`}></th>
