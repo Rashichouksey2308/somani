@@ -144,7 +144,7 @@ function Index(props) {
           supplierEmail:"",
           toleranceLevel:data?.order?.tolerance,
           incoTerms:data?.order?.termsheet?.transactionDetails?.incoTerms,
-          financialBank:data.financingBank.name,
+          financialBank:data?.financingBank?.name,
           financialAddress:"",
           associateBuyer:"ADANI PORTS AND SPECIAL ECONOMIC ZONE LIMITED",
           associateBuyerAddress:_get(data,"associateBuyer.addresses.[0].fullAddress",""),
