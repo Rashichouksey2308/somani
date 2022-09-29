@@ -382,7 +382,7 @@ export default function Index({
                     // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   />
                   <label className={`${styles.label_heading} label_heading`}>
-                    Invoice Quantity<strong className="text-danger">*</strong>
+                    Discharge Quantity<strong className="text-danger">*</strong>
                   </label>
                 </div>
                 {!shipmentTypeBulk && (
