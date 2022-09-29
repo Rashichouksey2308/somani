@@ -410,7 +410,7 @@ export default function Index({
                             ? list.quantity
                             : _get(TransitDetails, 'data[0].order.quantity', '')
                           : (list.quantity
-                              ? Number(list.quantity)?.toLocaleString()
+                              ? Number(list.quantity)?.toLocaleString("en-IN")
                               : Number(
                                   _get(
                                     TransitDetails,

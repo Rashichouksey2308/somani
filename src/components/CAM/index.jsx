@@ -1135,7 +1135,7 @@ const groupExposure = (camData) => {
                   console.log(name, 'thirdkjdfbh')
                   return (
                     <Col key={index} md={4}>
-                      <div className={`${styles.exposureCard}`}>
+                      <div className={`${styles.exposureCard} border_color`}>
                         <Row>
                           <Col
                             sm={12}
@@ -4295,7 +4295,7 @@ const customerRating = (data, filteredCreditRating, rating) => {
                         : ''}
                     </span>
                   </div>
-                  <div className={`${styles.creditScore}`}>
+                  <div className={`${styles.creditScore} border_color`}>
                     <div className={`${styles.tickContainer}`}>
                       <img src="static/darktick.svg"></img>
                     </div>
@@ -4319,7 +4319,7 @@ const customerRating = (data, filteredCreditRating, rating) => {
                       </div>
                     </div>
                   </div>
-                  <div className={`${styles.creditScore}`}>
+                  <div className={`${styles.creditScore} border_color`}>
                     <div className={`${styles.tickContainer}`}>
                       <img src="static/star.svg"></img>
                     </div>
@@ -4340,7 +4340,7 @@ const customerRating = (data, filteredCreditRating, rating) => {
               </Col>
               <Col md={6} className={`${styles.rightCol} pl-0 border_color`}>
                 <div
-                  className={`${styles.fillWrapper} d-flex justify-content-startt align-items-center`}
+                  className={`${styles.fillWrapper} border_color d-flex justify-content-startt align-items-center`}
                 >
                   <div>
                     <span>BUSINESS PROFILE</span>
@@ -4354,7 +4354,7 @@ const customerRating = (data, filteredCreditRating, rating) => {
                   </div>
                 </div>
                 <div
-                  className={`${styles.fillWrapper} d-flex justify-content-startt align-items-center`}
+                  className={`${styles.fillWrapper} border_color d-flex justify-content-startt align-items-center`}
                 >
                   <div>
                     <span>REVENUE PROFILE</span>
@@ -4368,7 +4368,7 @@ const customerRating = (data, filteredCreditRating, rating) => {
                   </div>
                 </div>
                 <div
-                  className={`${styles.fillWrapper} d-flex justify-content-startt align-items-center`}
+                  className={`${styles.fillWrapper} border_color d-flex justify-content-startt align-items-center`}
                 >
                   <div>
                     <span>FINANCIAL PROFILE</span>

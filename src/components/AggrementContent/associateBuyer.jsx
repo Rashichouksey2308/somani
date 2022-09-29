@@ -351,12 +351,22 @@ const handleChangeInput = (name, value, index) => {
      name:"",designation:"",email:"",phoneNo:"",
       actions:"false",addnew:"false"
    }
+   
    if(value=="addnew"){
+    if(docList.length<1){
    arrayToSave={
      name:"",designation:"",email:"",phoneNo:"",
      actions:"false",addnew:"true",document:"new"
    }
    setDocList([...docList,{attachDoc:"",index:index}])
+    }else{
+      console.log("herehr")
+    arrayToSave={
+     name:"",designation:"",email:"",phoneNo:"",
+     actions:"false",addnew:"true",
+   }
+    }
+
    }else{
       masterList.forEach((val,index)=>{
     if(val.name==value){
