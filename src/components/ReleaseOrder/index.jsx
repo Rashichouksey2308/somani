@@ -39,7 +39,7 @@ export default function Index({
   const [netBalanceQuantity, setNetBalanceQuantity] = useState(InvoiceQuantity)
   const [isFieldInFocus, setIsFieldInFocus] = useState(false)
 
-  console.log(releaseDetail, '11')
+  console.log(releaseDetail, 'releaseDetail')
   console.log(releaseDetail.length - 1, '111')
   useEffect(() => {
     if (releaseDetail) {
@@ -216,7 +216,40 @@ export default function Index({
     await dispatch(UpdateDelivery({ payload, task }))
   }
 
+  const validation = () => {
+    let isOk = true
+    let toastMessage = ''
+    for (let i = 0; i <= releaseDetail.length - 1; i++) {
+      console.log(i, 'INSIDE FOR LOOP', releaseDetail.length)
+      if (
+        releaseDetail[i]?.releaseOrderDate == '' ||
+        releaseDetail[i]?.releaseOrderDate == null
+      ) {
+        toastMessage = `please input a date for release order   ${i +1}  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break
+        }
+      }
+      if (
+        releaseDetail[i]?.netQuantityReleased == '' ||
+        releaseDetail[i]?.netQuantityReleased == null
+      ) {
+        toastMessage = `please provide a value for net quantity release in release order no ${i+1}  `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          isOk = false
+          break
+        }
+      }
+    }
+    return isOk
+    console.log(isOk, 'isOktrue')
+  }
+
   const onSubmitHanler = async () => {
+    if (!validation()) return
     let payload = {
       deliveryId: _get(ReleaseOrderData, 'data[0]._id', ''),
       releaseDetail: [...releaseDetail],
@@ -378,19 +411,19 @@ export default function Index({
                               isFieldInFocus
                                 ? item.netQuantityReleased
                                 : Number(
-                                    item.netQuantityReleased,
-                                  )?.toLocaleString('en-IN') +
-                                  ` ${_get(
-                                    ReleaseOrderData,
-                                    'data[0].order.unitOfQuantity',
-                                    '',
-                                  )}`
+                                  item.netQuantityReleased,
+                                )?.toLocaleString('en-IN') +
+                                ` ${_get(
+                                  ReleaseOrderData,
+                                  'data[0].order.unitOfQuantity',
+                                  '',
+                                )}`
                             }
                             className={`${styles.input_field} input form-control`}
 
-                            // onKeyDown={(evt) =>
-                            //   evt.key === 'e' && evt.preventDefault()
-                            // }
+                          // onKeyDown={(evt) =>
+                          //   evt.key === 'e' && evt.preventDefault()
+                          // }
                           />
                           <label
                             className={`${styles.label_heading} label_heading`}
@@ -435,14 +468,14 @@ export default function Index({
                                 </div>   */}
 
                                 <div>
-                                  {releaseDetail.length === 1 ? null : (
+                                  {releaseDetail.length > 1 &&
                                     <img
                                       onClick={() => handleDeleteRow(index)}
                                       src="/static/delete 2.svg"
                                       className={`${styles.delete_image} img-fluid ml-3 mr-3`}
                                       alt="Delete"
                                     />
-                                  )}
+                                  }
 
                                   {Number(netBalanceQuantity) >= 0 &&
                                     releaseDetail.length - 1 === index && (
@@ -482,30 +515,30 @@ export default function Index({
                                   alt="Close"
                                 />{' '}
                               </div>
-                              {Number(netBalanceQuantity) > 0 && (
-                                <>
-                                  {releaseDetail.length === 1 ? null : (
+
+                              <>
+                                {releaseDetail.length > 1 &&
+                                  <img
+                                    onClick={() => handleDeleteRow(index)}
+                                    src="/static/delete 2.svg"
+                                    className={`${styles.delete_image} img-fluid ml-3 mr-3`}
+                                    alt="Delete"
+                                  />
+                                }
+
+                                {Number(netBalanceQuantity) >= 0 &&
+                                  releaseDetail.length - 1 === index && (
                                     <img
-                                      onClick={() => handleDeleteRow(index)}
-                                      src="/static/delete 2.svg"
-                                      className={`${styles.delete_image} img-fluid ml-3 mr-3`}
-                                      alt="Delete"
+                                      onClick={() =>
+                                        addMorereleaseDetailDataRows(index)
+                                      }
+                                      src="/static/add-btn.svg"
+                                      className={`${styles.delete_image} ml-3 img-fluid`}
+                                      alt="Add button"
                                     />
                                   )}
+                              </>
 
-                                  {Number(netBalanceQuantity) >= 0 &&
-                                    releaseDetail.length - 1 === index && (
-                                      <img
-                                        onClick={() =>
-                                          addMorereleaseDetailDataRows(index)
-                                        }
-                                        src="/static/add-btn.svg"
-                                        className={`${styles.delete_image} ml-3 img-fluid`}
-                                        alt="Add button"
-                                      />
-                                    )}
-                                </>
-                              )}
                             </>
                           )}
                           {/* {releaseDetail.length > 1 && (

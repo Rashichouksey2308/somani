@@ -45,19 +45,19 @@ function Index({ auditorsDetails }) {
                     <th width="25%">
                       {latestYearData?.financialEndDate
                         ? moment(latestYearData?.financialEndDate)
-                            .format('MMM-YY')
-                            .toUpperCase()
+                          .format('MMM-YY')
+                          .toUpperCase()
                         : ''}
                     </th>
                     <th width="25%">
-                      {moment(previousYearData?.financialEndDate)
+                      {previousYearData?.financialEndDate ? moment(previousYearData?.financialEndDate)
                         .format('MMM-YY')
-                        .toUpperCase()}
+                        .toUpperCase() : ''}
                     </th>
                     <th width="25%">
-                      {moment(lastYearData?.financialEndDate)
+                      {lastYearData?.financialEndDate ? moment(lastYearData?.financialEndDate)
                         .format('MMM-YY')
-                        .toUpperCase()}
+                        .toUpperCase() : ''}
                     </th>
                   </tr>
                 </thead>
@@ -77,70 +77,61 @@ function Index({ auditorsDetails }) {
                   <tr>
                     <td>Change in Auditor</td>
                     <td
-                      className={`${
-                        latestYearData?.nameOfAuditor?.trim() ===
-                        previousYearData?.nameOfAuditor?.trim()
+                      className={`${latestYearData?.nameOfAuditor?.trim() ===
+                          previousYearData?.nameOfAuditor?.trim()
                           ? null
                           : styles.danger
-                      }`}
+                        }`}
                     >
-                      {latestYearData?.nameOfAuditor?.trim()
+                      {latestYearData?.nameOfAuditor
                         ? latestYearData?.nameOfAuditor?.trim() ===
                           previousYearData?.nameOfAuditor?.trim()
                           ? 'No'
                           : 'Yes'
                         : ''}
-                      {`${
-                        latestYearData?.nameOfAuditor?.trim() !==
+                      {`${latestYearData?.nameOfAuditor?.trim() !==
                           previousYearData?.nameOfAuditor?.trim() ?
-                        (latestYearData?.financialEndDate
-                          ? moment(latestYearData?.financialEndDate).format(
+                          (latestYearData?.financialEndDate
+                            ? moment(latestYearData?.financialEndDate).format(
                               'YYYY',
                             )
-                          : '') : ''
-                      }`}
+                            : '') : ''
+                        }`}
                     </td>
                     <td
-                      className={`${
-                        previousYearData?.nameOfAuditor?.trim() ===
-                        previousYearData?.nameOfAuditor?.trim()
+                      className={`${previousYearData?.nameOfAuditor?.trim() ===
+                          lastYearData?.nameOfAuditor?.trim()
                           ? null
                           : styles.danger
-                      }`}
+                        }`}
                     >
-                      {previousYearData?.nameOfAuditor?.trim() ===
-                      lastYearData?.nameOfAuditor?.trim()
-                        ? 'No'
-                        : 'Yes'}
-                      {` ${
-                        previousYearData?.nameOfAuditor?.trim() !==
+                      {previousYearData?.nameOfAuditor ? previousYearData?.nameOfAuditor?.trim() ===
                         lastYearData?.nameOfAuditor?.trim()
+                        ? 'No'
+                        : 'Yes' : ''}
+                      {` ${previousYearData?.nameOfAuditor?.trim() !==
+                          lastYearData?.nameOfAuditor?.trim()
                           ? `${moment(
-                              previousYearData?.financialEndDate,
-                            ).format('YYYY')}`
+                            previousYearData?.financialEndDate,
+                          ).format('YYYY')}`
                           : ''
-                      }`}
+                        }`}
                     </td>
                     <td
-                      className={`${
-                        previousYearData?.nameOfAuditor?.trim() ===
-                        previousYearData?.nameOfAuditor?.trim()
+                      className={`${previousYearData?.nameOfAuditor?.trim() ===
+                          previousYearData?.nameOfAuditor?.trim()
                           ? null
                           : styles.danger
-                      }`}
+                        }`}
                     >
-                      {previousYearData?.nameOfAuditor?.trim() ===
-                      previousYearData?.nameOfAuditor?.trim()
-                        ? 'No'
-                        : 'Yes'}
-                      {`${
-                        previousYearData?.nameOfAuditor?.trim() !==
-                        previousYearData?.nameOfAuditor?.trim()
+                     
+                      {`${previousYearData?.nameOfAuditor?.trim() !==
+                          previousYearData?.nameOfAuditor?.trim()
                           ? moment(lastYearData?.financialEndDate).format(
-                              'YYYY',
-                            )
+                            'YYYY',
+                          )
                           : ''
-                      }`}
+                        }`}
                     </td>
                   </tr>
                 </tbody>
