@@ -63,10 +63,10 @@ if(window){
           <div
             className={`${styles.tableFilter} d-flex align-items-center justify-content-between`}
           >
-            <h5 className="heading_card">200 Results found</h5>
+            <h5 className="heading_card">Shipments</h5>
             <div className={`${styles.pageList} d-flex align-items-center`}>
               <div className={`${styles.showPage}`}>
-                Showing Page 1 out of 10
+                Showing Page 1 out of 1
               </div>
               <a
                 href="#"
@@ -124,32 +124,7 @@ if(window){
                       <button className={`${styles.trackBtn}`}>Track</button>
                     </td>
                   </tr>
-                  <tr className="table_row">
-                    <td>
-                      <strong>01</strong>
-                    </td>
-                    <td>12323</td>
-                    <td>Ramakrishnan Traders</td>
-                    <td>465SD465D</td>
-                    <td>ABCZ</td>
-                    <td>465SD465D</td>
-                    <td>
-                      <button className={`${styles.trackBtn}`}>Track</button>
-                    </td>
-                  </tr>
-                  <tr className="table_row">
-                    <td>
-                      <strong>01</strong>
-                    </td>
-                    <td>12323</td>
-                    <td>Ramakrishnan Traders</td>
-                    <td>465SD465D</td>
-                    <td>ABCZ</td>
-                    <td>465SD465D</td>
-                    <td>
-                      <button className={`${styles.trackBtn}`}>Track</button>
-                    </td>
-                  </tr>
+                
                 </tbody>
               </table>
             </div>

@@ -1,13 +1,167 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './index.module.scss'
-import { Row, Col } from "react-bootstrap"
+import {Row, Col} from "react-bootstrap"
 import GrowInput from '../GrowInput'
+import _get from 'lodash/get'
 
-function Index() {
+function Index(props) {
   const [active, setActive] = useState("none")
+     const [data, setData] = useState({
+    seller: "",
+    buyer: "",
+    sellerAddress:"",
+     buyerAddress:"",
+    shortseller: "",
+    shortbuyer: "",
+    sellerSignature: "",
+    buyerSignature: "",
+    dateOfExecution: "",
+    placeOfExecution: "",
+    details: "",
+    detailsOfEndBuyer: "",
+    detailsOfComm: "",
+    quan: "",
+    unitPrice: "",
+    totalOrderValue: "",
+    lordPort: "",
+    dischargePort: "",
+    lastDate: "",
+    terms: "",
+    addComm: "",
+    spec: "",
+    unitOfGrade: "",
+    unitOfQuantity: "",
+    unitOfValue: "",
+    curr: "",
+    specComment:""
+
+
+  })
+   const getAddress=(buyer)=>{
+   if(buyer.name=="Indo German International Private Limited"){
+     if(buyer.branch=="Delhi"){
+       return "7A , SAGAR APARTMENTS,6 TILAK MARG,DELHI,NEW DELHI,110001"
+     }else{
+      return "Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016"
+     }
+   }
+   if(buyer.name=="Emergent Industrial Solution Limited"){
+     if(buyer.branch=="Delhi"){
+       return "8B, SAGAR, 6 TILAK MARG,DELHI,NEW DELHI,110001"
+     }else{
+      return "49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM,,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016"
+     }
+   }
+ }
+  useEffect(() => {
+    if (window) {
+      if (props.preview) {
+        const data = JSON.parse(sessionStorage.getItem("preview"))
+
+        setData({
+          seller: data?.seller,
+          buyer: data?.buyer?.toLowerCase(),
+          sellerAddress:data.sellerAddress,
+          buyerAddress:data.buyerAddress,
+          shortseller: data?.shortseller,
+          shortbuyer: `${data?.buyer == "Indo German International Private Limited" ? "IGPL" : "EISL"}`,
+          sellerSignature: data?.sellerSignature,
+          buyerSignature: data?.buyerSignature,
+          dateOfExecution: data?.dateOfExecution,
+          placeOfExecution: data?.placeOfExecution,
+          details: data?.details,
+          detailsOfEndBuyer: data?.detailsOfEndBuyer,
+          detailsOfComm: data?.detailsOfComm,
+          quan: data?.quan,
+          unitPrice: data?.unitPrice,
+          totalOrderValue: data?.totalOrderValue,
+          lordPort: data?.lordPort,
+          dischargePort: data?.dischargePort,
+          lastDate: data?.lastDate,
+          terms: data?.terms,
+          addComm: data?.addComm,
+          spec: data?.spec,
+          unitOfGrade: data?.unitOfGrade,
+          unitOfQuantity: data?.unitOfQuantity,
+          unitOfValue: data?.unitOfValue,
+          curr: data?.orderCurrency,
+          specComment: data?.specComment,
+          
+        })
+      } else {
+
+        const data = JSON.parse(sessionStorage.getItem("genericSelected"))
+        console.log(data, "data22222")
+        let exe;
+        let dat = "";
+        data?.placeOfExecution?.execution?.forEach((val, index) => {
+          if (val.agreementName == "Sales Agreement") {
+            exe = val.place
+            if (val.dateOfExecution) {
+              dat = moment(val.dateOfExecution).format("DD-MM-YYYY")
+            }
+          }
+        })
+
+        console.log(dat, exe, "exedasa")
+
+        setData({
+          seller: data?.seller?.name,
+          buyer: data?.buyer?.name,
+          sellerAddress:data?.seller?.name=="Indo Intertrade Ag"?"Industriestrasse 16, Zug,6300":"",
+          buyerAddress:data?.buyer?.name?getAddress(data?.buyer):"",
+          shortseller:data?.seller?.shortName,
+          shortbuyer: `${data?.buyer?.name == "Indo German International Private Limited" ? "IGPL" : "EISL"}`,
+          sellerSignature:data?.seller?.name,
+          buyerSignature: data?.buyer?.name,
+          dateOfExecution: dat,
+          placeOfExecution: exe,
+          details: data?.supplier?.name,
+          detailsOfEndBuyer: "",
+          detailsOfComm: data?.order?.commodity,
+          quan: data?.order?.quantity,
+          unitPrice: data.order?.perUnitPrice,
+          totalOrderValue: data?.order?.marginMoney?.calculation?.orderValue ?? '',
+          lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
+          dischargePort: data?.order?.portOfDischarge,
+          lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
+          terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed == "Yes" ? "Full" : "Partial"}`,
+          addComm: data?.additionalComments?.comments,
+          spec: data?.productSpecifications?.specificationTable,
+          specComment: data?.productSpecifications.comments,
+          unitOfGrade: data?.order?.unitOfGrade,
+          unitOfQuantity: data?.order?.unitOfQuantity,
+          unitOfValue: data?.order?.unitOfValue,
+          curr: data?.order?.orderCurrency,
+          supplier:data?.supplier?.name,
+          supplierAddress:_get(data,"supplier.addresses.[0].fullAddress",""),
+          supplierAuthorized:_get(data,"supplier.authorisedSignatoryDetails",[]),
+          buyerAuthorized:_get(data,"buyer.authorisedSignatoryDetails",[]),
+          buyerEmail:"",
+          supplierEmail:"",
+          toleranceLevel:data?.order?.tolerance,
+          incoTerms:data?.order?.termsheet?.transactionDetails?.incoTerms,
+          financialBank:data.financingBank.name,
+          financialAddress:"",
+          associateBuyer:"ADANI PORTS AND SPECIAL ECONOMIC ZONE LIMITED",
+          associateBuyerAddress:_get(data,"associateBuyer.addresses.[0].fullAddress",""),
+          associateBuyerGst:data?.associateBuyer?.gstin,
+          associateBuyerPan:"AAACG7917K",
+          associateBuyerAuthorized:_get(data,"buyer.authorisedSignatoryDetails",[]),
+          stevedore:data?.stevedore?.name,
+          stevedoreAddress:_get(data,"stevedore.addresses.[0].fullAddress",""),
+          stevedoreAuthorized:_get(data,"stevedore.authorisedSignatoryDetails",[]),
+          cma:data?.CMA?.name,
+          cmaAddress:"Embassy Chambers, 6th Floor, Plot No. 5, Road No. 3 ,Khar (West) Mumba",
+          cmaAuthorized:_get(data,"CMA.authorisedSignatoryDetails",[]),
+          vessel:"",
+        })
+      }
+    }
+  }, [props])
   return (
     <div className={`${styles.root}`}>
 
@@ -42,7 +196,7 @@ function Index() {
 
 
         </div>
-        {active == "none" ? associateShip() : active == "one" ? underTaking1() : underTaking2()}
+        {active == "none" ? associateShip(data) : active == "one" ? underTaking1(data) : underTaking2(data)}
         {/* {underTaking1()} */}
         {/* <div className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`} data-toggle="collapse" data-target="#cashFlowStatement" aria-expanded="true" aria-controls="cashFlowStatement">
               <div className={styles.reject}><span>Save</span></div>
@@ -754,7 +908,7 @@ const tpaSeller = () => {
       <p className="text-center text_sales"> <strong>TRIPARTITE AGREEMENT</strong></p>
       <p className="text-center text_sales"> <strong>FOR RECEIPT, STORAGE, CUSTODY AND ISSUE OF PLEDGED GOODS </strong></p>
       <p className="text_sales"> This Tripartite Agreement (<strong>“Agreement”</strong>) is made at the place and on the day as set out in <strong>Schedule I </strong>hereto by and between:</p>
-      <p className="text_sales"> <GrowInput placeholder="Indo German International Private Limited, (CIN: U74899DL1994PTC063676)"></GrowInput>, a Company incorporated under the Companies Act, 1956, having its <GrowInput placeholder="registered office"></GrowInput> at <GrowInput placeholder="7A, Sagar Apartments, 6, Tilak Marg, New Delhi-110001"></GrowInput> through its Authorised Signatory (hereinafter referred as the “<GrowInput placeholder="IGI"></GrowInput>”, which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the First Part.)
+      <p className="text_sales"> <GrowInput placeholder="Indo German International Private Limited, (CIN: U74899DL1994PTC063676)"></GrowInput>, a Company incorporated under the Companies Act, 1956, having its <GrowInput placeholder="registered office"></GrowInput> at <GrowInput placeholder="7A, Sagar Apartments, 6, Tilak Marg, New Delhi-110001"></GrowInput> through its Authorised Signatory (hereinafter referred as the “<b>{data.shortbuyer}</b>”, which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the First Part.)
 
       </p>
       <p className="text-center text_sales">And</p>
@@ -768,18 +922,18 @@ const tpaSeller = () => {
       <p className="text_sales"><GrowInput placeholder="IGI "></GrowInput> has purchased Commodity from the Supplier, that has been financed by the “Financing Bank”. The details of the commodity purchased, Supplier and the Financing Bank are mentioned in Schedule-I.</p>
       <p className="text_sales">Financing Bank has a first ranking security right over the Goods in the form of a pledge, and has appointed Collateral Manager pursuant to the terms of the tripartite collateral management agreement executed between <GrowInput placeholder="IIAG"></GrowInput>, Collateral Manager and Financing Bank as amended from time to time (the “<strong>Collateral Management Agreement</strong>”) for the purpose of keeping the custody and control of Goods.</p>
       <p className="text_sales">Pursuant to the Collateral Management Agreement, the Goods shall remain under the exclusive custody, control and supervision of Collateral Manager and under the order of Financing Bank.</p>
-      <p className="text_sales"><GrowInput placeholder="IGI"></GrowInput>hereby agrees that it shall grant unrestricted access to a clearly demarcated part of the Storage Facility (as per stocking requirement) in ready-to-operate-condition exclusively for the use of Collateral Manager where the pledged Goods shall only be stored (the “<strong>Designated Storage Area</strong>”).</p>
-      <p className="text_sales"><GrowInput placeholder="IGI"></GrowInput>hereby agrees that it shall grant unrestricted access to a clearly demarcated part of the Storage Facility (as per stocking requirement) in ready-to-operate-condition exclusively for the use of Collateral Manager where the pledged Goods shall only be stored (the “<strong>Designated Storage Area</strong>”).</p>
+      <p className="text_sales"><b>{data.shortbuyer}</b>hereby agrees that it shall grant unrestricted access to a clearly demarcated part of the Storage Facility (as per stocking requirement) in ready-to-operate-condition exclusively for the use of Collateral Manager where the pledged Goods shall only be stored (the “<strong>Designated Storage Area</strong>”).</p>
+      <p className="text_sales"><b>{data.shortbuyer}</b>hereby agrees that it shall grant unrestricted access to a clearly demarcated part of the Storage Facility (as per stocking requirement) in ready-to-operate-condition exclusively for the use of Collateral Manager where the pledged Goods shall only be stored (the “<strong>Designated Storage Area</strong>”).</p>
       <p className=" text_sales">IT IS HEREBY AGREED AS FOLLOWS:</p>
       <p className=" text_sales"><strong>Article 1 - STORAGE FACILITY</strong></p>
-      <p className=" text_sales"><GrowInput placeholder="IGI"></GrowInput>hereby grants unrestricted access of the Designated Storage Area to Collateral Manager, which is in a ready to store condition. The Plan duly marking the Designated Storage Area is attached Schedule 1 to this Agreement. The Goods deposited in the Designated Storage Area shall be accessed exclusively by Collateral Manager during the term of this Agreement. </p>
-      <p className=" text_sales"><strong>Article- 2-RESPONSIBILITY OF <GrowInput placeholder="IGI"></GrowInput> </strong></p>
-      <p className=" text_sales"><GrowInput placeholder="IGI"></GrowInput> shall:</p>
+      <p className=" text_sales"><b>{data.shortbuyer}</b>hereby grants unrestricted access of the Designated Storage Area to Collateral Manager, which is in a ready to store condition. The Plan duly marking the Designated Storage Area is attached Schedule 1 to this Agreement. The Goods deposited in the Designated Storage Area shall be accessed exclusively by Collateral Manager during the term of this Agreement. </p>
+      <p className=" text_sales"><strong>Article- 2-RESPONSIBILITY OF <b>{data.shortbuyer}</b> </strong></p>
+      <p className=" text_sales"><b>{data.shortbuyer}</b> shall:</p>
 
       <p className=" text_sales"><span className="mr-6">2.1</span> prior to granting access to the Designated Storage Area, be responsible for clearly   demarcating the Designated Storage Area with chalk and rope from all sides for clear demarcation and identification for the exclusive and sole access of Collateral Manager for storing the Goods or any other materials as agreed in writing.</p>
       <p className=" text_sales"><span className="mr-6">2.2</span> be responsible for prominently displaying on the board at the entrance of the Designated Storage Area clearly stating that the Goods are under the custody of Collateral Manager and held on behalf of <GrowInput placeholder="IIAG"></GrowInput> </p>
       <p className=" text_sales"><span className="mr-6">2.3</span> be responsible for putting a Placard on each lot of Goods stored at the Designated Storage Area clearly specifying the name of <GrowInput placeholder="IIAG"></GrowInput> as the owner of the Goods and Collateral Manager as the Collateral Manager as custodian of the Goods; </p>
-      <p className=" text_sales"><span className="mr-6">2.4</span> be responsible for providing an office equipped with required infrastructure such as electricity, toilet, telephone, access to fax, email etc. will have to be provided free of cost to Collateral Manager and the running cost of these facilities will also be borne by <GrowInput placeholder="IGI"></GrowInput>. Collateral Manager and their representatives shall have unfettered access to the warehouse/stockyard;  </p>
+      <p className=" text_sales"><span className="mr-6">2.4</span> be responsible for providing an office equipped with required infrastructure such as electricity, toilet, telephone, access to fax, email etc. will have to be provided free of cost to Collateral Manager and the running cost of these facilities will also be borne by <b>{data.shortbuyer}</b>. Collateral Manager and their representatives shall have unfettered access to the warehouse/stockyard;  </p>
       <p className=" text_sales"><span className="mr-6">2.5</span> 	be responsible for granting unrestricted and unfettered control and access to Collateral Manager over the Designated Storage Area;</p>
       <p className=" text_sales"><span className="mr-6">2.6</span> Obtain permission from Customs to open the Customs Notified Area where the Designated Storage area is located for conducting audit/stock verification/stock assessment as and when required by Collateral Manager or its authorised representatives by providing full cooperation and without creating any hindrance or obstacle</p>
       <p className=" text_sales"><span className="mr-6">2.6</span> ensure that the Designated Storage Area where pledged Goods being stored is suitable for the storage of the goods being stored therein; and
@@ -811,58 +965,58 @@ const tpaSeller = () => {
 
       <p className=" text_sales"><strong>Article 7 - INSURANCE</strong></p>
 
-      <p className=" text_sales"><span className="mr-6">7.1</span> <GrowInput placeholder="IGI"></GrowInput> shall take out and maintain an all risks cargo insurance policy in respect of the Goods which terms are acceptable to the respective Financing Bank at its full discretion. The policy shall cover loss, strikes, riots, civil commotion, theft, misappropriation and damage of the Goods during storage in the Designated Storage Area and while under transport to and from the Designated Storage Area. The Insurance shall remain valid until the period that the entire Goods at the Designated Storage Area have been released by Collateral Manager to <GrowInput placeholder="IGI"></GrowInput>. The insurance policy shall name the Financing Bank as a beneficiary of insurances and loss payee.</p>
-      <p className=" text_sales"><span className="mr-6">7.2</span> 	Upon request <GrowInput placeholder="IGI"></GrowInput> will deliver to Collateral Manager and IIAG a copy of the relevant insurance agreements, policies and related documents together with evidence that the premiums have been paid.</p>
+      <p className=" text_sales"><span className="mr-6">7.1</span> <b>{data.shortbuyer}</b> shall take out and maintain an all risks cargo insurance policy in respect of the Goods which terms are acceptable to the respective Financing Bank at its full discretion. The policy shall cover loss, strikes, riots, civil commotion, theft, misappropriation and damage of the Goods during storage in the Designated Storage Area and while under transport to and from the Designated Storage Area. The Insurance shall remain valid until the period that the entire Goods at the Designated Storage Area have been released by Collateral Manager to <b>{data.shortbuyer}</b>. The insurance policy shall name the Financing Bank as a beneficiary of insurances and loss payee.</p>
+      <p className=" text_sales"><span className="mr-6">7.2</span> 	Upon request <b>{data.shortbuyer}</b> will deliver to Collateral Manager and IIAG a copy of the relevant insurance agreements, policies and related documents together with evidence that the premiums have been paid.</p>
 
 
       <p className=" text_sales"><strong>Article 8 - PROPERTY TAXES</strong></p>
-      <p className=" text_sales"><GrowInput placeholder="IGI"></GrowInput>  shall be responsible for the payment of all Land and Building taxes as may be applicable and that relate to the Designated Storage Area.
+      <p className=" text_sales"><b>{data.shortbuyer}</b>  shall be responsible for the payment of all Land and Building taxes as may be applicable and that relate to the Designated Storage Area.
       </p>
 
       <p className=" text_sales"><strong>Article 9 - ELECTRICITY AND WATER SUPPLY</strong></p>
-      <p className=" text_sales">During the period of this Agreement, <GrowInput placeholder="IGI"></GrowInput>  shall be responsible for payment of all charges with regard to water and electricity.
+      <p className=" text_sales">During the period of this Agreement, <b>{data.shortbuyer}</b>  shall be responsible for payment of all charges with regard to water and electricity.
       </p>
       <p className=" text_sales"><strong>Article 10 - CHARGES/DUTIES/TAXES</strong></p>
-      <p className=" text_sales"><GrowInput placeholder="IGI"></GrowInput>  shall bear all duties, taxes, cesses, levies etc. payable under present Indian State/Central Government/Semi Government Policies or payable in future under any newly implemented Government Policy/ies in respect of the said Designated Storage Area</p>
-      <p className=" text_sales"><GrowInput placeholder="IGI"></GrowInput>hereby agrees to make the payments referred above regularly without any delay and default and shall produce to Collateral Manager, after expiry of every 12 months, certified copies of the receipts for the payments made during such period.</p>
+      <p className=" text_sales"><b>{data.shortbuyer}</b>  shall bear all duties, taxes, cesses, levies etc. payable under present Indian State/Central Government/Semi Government Policies or payable in future under any newly implemented Government Policy/ies in respect of the said Designated Storage Area</p>
+      <p className=" text_sales"><b>{data.shortbuyer}</b>hereby agrees to make the payments referred above regularly without any delay and default and shall produce to Collateral Manager, after expiry of every 12 months, certified copies of the receipts for the payments made during such period.</p>
 
       <p className=" text_sales"><strong>Article 11 - RENOVATIONS / ALTERATIONS</strong></p>
       <p className=" text_sales">Collateral Manager will not make any renovations or alterations to the Designated Storage Area.</p>
 
       <p className=" text_sales"><strong>Article 12 - DEPOSITS</strong></p>
-      <p className=" text_sales"><GrowInput placeholder="IGI"></GrowInput> will pay any deposits due in respect of water and electricity charges as may be required. <GrowInput placeholder="IGI"></GrowInput> hereby indemnifies Collateral Manager against any consequences that may arise as a result of failure to pay said deposits or any claims whatsoever with regards to any of the charges.</p>
+      <p className=" text_sales"><b>{data.shortbuyer}</b> will pay any deposits due in respect of water and electricity charges as may be required. <b>{data.shortbuyer}</b> hereby indemnifies Collateral Manager against any consequences that may arise as a result of failure to pay said deposits or any claims whatsoever with regards to any of the charges.</p>
 
       <p className=" text_sales"><strong>Article 13 - IGI 's OBLIGATIONS</strong></p>
       <ul>
-        <li><p className=" text_sales"><GrowInput placeholder="IGI"></GrowInput> shall arrange to obtain no claim on inventory letters from all and any party who has an interest in the Storage Facility/Designated Storage Area. Such letters shall proclaim that the parties concerned recognize and agree that they do not have any ownership or title rights to the Goods stored at the Designated Storage Area, and that they shall not bring any claim to bear on the Goods, under the custody, control and supervision of Collateral Manager and stored in the Designated Storage Area. </p></li>
-        <li><p className=" text_sales"><GrowInput placeholder="IGI"></GrowInput>shall furnish written confirmation to Collateral Manager that there are no circumstances of which he is aware that may give rise to a claim over the land, plot, Designated Storage Area or the Goods stored therein during the period of this Agreement.
+        <li><p className=" text_sales"><b>{data.shortbuyer}</b> shall arrange to obtain no claim on inventory letters from all and any party who has an interest in the Storage Facility/Designated Storage Area. Such letters shall proclaim that the parties concerned recognize and agree that they do not have any ownership or title rights to the Goods stored at the Designated Storage Area, and that they shall not bring any claim to bear on the Goods, under the custody, control and supervision of Collateral Manager and stored in the Designated Storage Area. </p></li>
+        <li><p className=" text_sales"><b>{data.shortbuyer}</b>shall furnish written confirmation to Collateral Manager that there are no circumstances of which he is aware that may give rise to a claim over the land, plot, Designated Storage Area or the Goods stored therein during the period of this Agreement.
         </p></li>
-        <li><p className=" text_sales">During the period of this Agreement, <GrowInput placeholder="IGI"></GrowInput> shall warrant that it will allow Collateral Manager  to have the custody, control and supervision of the Goods stored at the Designated Storage Area without any interruption and obstruction
+        <li><p className=" text_sales">During the period of this Agreement, <b>{data.shortbuyer}</b> shall warrant that it will allow Collateral Manager  to have the custody, control and supervision of the Goods stored at the Designated Storage Area without any interruption and obstruction
         </p></li>
-        <li><p className=" text_sales"><GrowInput placeholder="IGI"></GrowInput> further agrees that he shall not, for any reason whatsoever, prevent Collateral Manager from entering or leaving the Designated Storage Area nor shall it at any time prevent Collateral Manager from taking in, or delivering out, the Goods stored therein which shall be done under the supervision of Collateral Manager at the written instance of the Financing Bank.
+        <li><p className=" text_sales"><b>{data.shortbuyer}</b> further agrees that he shall not, for any reason whatsoever, prevent Collateral Manager from entering or leaving the Designated Storage Area nor shall it at any time prevent Collateral Manager from taking in, or delivering out, the Goods stored therein which shall be done under the supervision of Collateral Manager at the written instance of the Financing Bank.
 
         </p></li>
-        <li><p className=" text_sales"><GrowInput placeholder="IGI"></GrowInput> hereby waives all rights to the Goods stored under the custody of Collateral Manager  and shall not remove, transfer or otherwise attempt to gain control of the Goods unless authorized in writing by Collateral Manager .
+        <li><p className=" text_sales"><b>{data.shortbuyer}</b> hereby waives all rights to the Goods stored under the custody of Collateral Manager  and shall not remove, transfer or otherwise attempt to gain control of the Goods unless authorized in writing by Collateral Manager .
 
         </p></li>
-        <li><p className=" text_sales"><GrowInput placeholder="IGI"></GrowInput>  shall take the delivery of the Goods from Collateral Manager only upon receipt [by Collateral Manager] of the Release Orders from the Financing Bank and then released by Collateral Manager on instructions of <GrowInput placeholder="IIAG"></GrowInput>
+        <li><p className=" text_sales"><b>{data.shortbuyer}</b>  shall take the delivery of the Goods from Collateral Manager only upon receipt [by Collateral Manager] of the Release Orders from the Financing Bank and then released by Collateral Manager on instructions of <GrowInput placeholder="IIAG"></GrowInput>
 
         </p></li>
-        <li><p className=" text_sales"><GrowInput placeholder="IGI"></GrowInput> warrants that Collateral Manager shall enjoy complete and uninterrupted custody of the Goods in the Designated Storage Area
+        <li><p className=" text_sales"><b>{data.shortbuyer}</b> warrants that Collateral Manager shall enjoy complete and uninterrupted custody of the Goods in the Designated Storage Area
 
         </p></li>
       </ul>
 
       <p className=" text_sales"><strong>Article 14-WARRANTIES OF IGI </strong></p>
-      <p className=" text_sales"><GrowInput placeholder="IGI"></GrowInput> HEREBY WARRANTS AS FOLLOWS:
+      <p className=" text_sales"><b>{data.shortbuyer}</b> HEREBY WARRANTS AS FOLLOWS:
       </p>
       <ul>
         <li><p className=" text_sales">It has full right and absolute authority to provide the Designated Storage Area to Collateral Manager for its exclusive use to enable Collateral Manager to carry out its obligations under the Collateral Management Agreement.</p></li>
-        <li><p className=" text_sales"><GrowInput placeholder="IGI"></GrowInput>shall furnish written confirmation to Collateral Manager that there are no circumstances of which he is aware that may give rise to a claim over the land, plot, Designated Storage Area or the Goods stored therein during the period of this Agreement.
+        <li><p className=" text_sales"><b>{data.shortbuyer}</b>shall furnish written confirmation to Collateral Manager that there are no circumstances of which he is aware that may give rise to a claim over the land, plot, Designated Storage Area or the Goods stored therein during the period of this Agreement.
         </p></li>
-        <li><p className=" text_sales">During the period of this Agreement, <GrowInput placeholder="IGI"></GrowInput> shall warrant that it will allow Collateral Manager  to have the custody, control and supervision of the Goods stored at the Designated Storage Area without any interruption and obstruction
+        <li><p className=" text_sales">During the period of this Agreement, <b>{data.shortbuyer}</b> shall warrant that it will allow Collateral Manager  to have the custody, control and supervision of the Goods stored at the Designated Storage Area without any interruption and obstruction
         </p></li>
-        <li><p className=" text_sales">Collateral Manager shall peacefully hold and enjoy unrestricted access of the Designated Storage Area during the term or duration of this Agreement, without disturbance or interruption or obstruction from <GrowInput placeholder="IGI"></GrowInput> or any person claiming under it.
+        <li><p className=" text_sales">Collateral Manager shall peacefully hold and enjoy unrestricted access of the Designated Storage Area during the term or duration of this Agreement, without disturbance or interruption or obstruction from <b>{data.shortbuyer}</b> or any person claiming under it.
 
 
         </p></li>
@@ -871,17 +1025,17 @@ const tpaSeller = () => {
 
 
       <p className=" text_sales"><strong>Article 15-INDEMNITY BY IGI  </strong></p>
-      <p className=" text_sales"><GrowInput placeholder="IGI"></GrowInput> agrees to indemnify and keep indemnified, defend and hold harmless Collateral Manager  and <GrowInput placeholder="IGI"></GrowInput>, its officers, directors, employees and agents from and against any and all losses, liabilities, claims, obligations, costs, expenses arising during the duration of this Agreement, which result from, arise in connection with or are related in any way to claims by third parties or regulatory authorities, and which directly arise due to any reasons whatsoever and including the following</p>
+      <p className=" text_sales"><b>{data.shortbuyer}</b> agrees to indemnify and keep indemnified, defend and hold harmless Collateral Manager  and <b>{data.shortbuyer}</b>, its officers, directors, employees and agents from and against any and all losses, liabilities, claims, obligations, costs, expenses arising during the duration of this Agreement, which result from, arise in connection with or are related in any way to claims by third parties or regulatory authorities, and which directly arise due to any reasons whatsoever and including the following</p>
       <ol type="i">
-        <li><p className=" text_sales"><GrowInput placeholder="IGI"></GrowInput> 's breach of the terms of this Agreement or;</p></li>
-        <li><p className=" text_sales">negligence, fault or misconduct by <GrowInput placeholder="IGI"></GrowInput> or its officers, employees, agents, subcontractors and/or representatives and/or other persons authorized to act on its behalf;
+        <li><p className=" text_sales"><b>{data.shortbuyer}</b> 's breach of the terms of this Agreement or;</p></li>
+        <li><p className=" text_sales">negligence, fault or misconduct by <b>{data.shortbuyer}</b> or its officers, employees, agents, subcontractors and/or representatives and/or other persons authorized to act on its behalf;
 
         </p></li>
 
 
       </ol>
       <p className=" text_sales"><strong>Article 16-SURVIVAL OF INDEMNITY </strong></p>
-      <p className=" text_sales">The responsibility of <GrowInput placeholder="IGI"></GrowInput> to indemnify set forth in this Clause and the obligations there under, shall survive the termination of this Tripartite Agreement for any reason whatsoever with regard to any indemnity claims arising out of or in relation to the performance hereof.</p>
+      <p className=" text_sales">The responsibility of <b>{data.shortbuyer}</b> to indemnify set forth in this Clause and the obligations there under, shall survive the termination of this Tripartite Agreement for any reason whatsoever with regard to any indemnity claims arising out of or in relation to the performance hereof.</p>
       <p className=" text_sales"><strong> Article 17- GOVERNING LAW AND ARBITRATION</strong></p>
       <p className=" text_sales"> Any disputes or differences in respect of any matter relating to or arising out of this Quadripartite Agreement between the parties hereto shall be settled mutually and if the same is not resolved amicably, then the same will be settled by Arbitration by a Sole Arbitrator in accordance with Rules of Arbitration formulated by Indian Council of Arbitration (ICA). The Award made in pursuance thereof shall be binding on the parties. The seat and venue of the Arbitration will be New Delhi and the language of Arbitration Proceedings shall be in English.</p>
       <p className=" text_sales"> IN WITNESS WHEREOF the parties hereto caused this Agreement to be executed by their duly authorized representatives on the date first written above.</p>
@@ -961,23 +1115,23 @@ const tpaSeller = () => {
   )
 }
 
-const associateShip = () => {
+const associateShip = (data) => {
   return (
     <>
       <div className="card-body">
         <p className="text-center text_sales"> <strong><u>ASSOCIATESHIP AGREEMENT</u></strong></p>
         <p className="text_sales">This Agreement (<strong>“Agreement”</strong>) is made at the place and on the day as set out in <strong>Schedule I</strong> hereto by and between:</p>
-        <p className="text_sales"><GrowInput placeholder="Indo German International Private Limited, (CIN: U74899DL1994PTC063676)"></GrowInput>, a company incorporated under the Indian Companies Act, 1956, having its <GrowInput placeholder="Registered Office"></GrowInput> at <GrowInput placeholder="7A, Sagar Apartments, 6, Tilak Marg, New Delhi- 110 001"></GrowInput>, through its Authorised Signatory (hereinafter called <GrowInput placeholder="“IGI”"></GrowInput> or <strong>“Seller”</strong>, which expression shall, unless it be repugnant to the context or meaning thereof, be deemed to mean and include its successors and permitted assigns, attorneys) of One Part.</p>
+        <p className="text_sales"> <b>{data.buyer}</b>, a company incorporated under the Indian Companies Act, 1956, having its Registered Office at <b>{data.buyerAddress}</b>, through its Authorised Signatory (hereinafter called <b>{data.shortbuyer}</b> or <strong>“Seller”</strong>, which expression shall, unless it be repugnant to the context or meaning thereof, be deemed to mean and include its successors and permitted assigns, attorneys) of One Part.</p>
         <p className=" text-center text_sales">And</p>
         <p className="text_sales">Person(s) detailed in <strong>Schedule I</strong> hereof (hereinafter referred to as the "<strong>Associate Buyer</strong>") of the other Part.</p>
-        <p className="text_sales"><GrowInput placeholder="IGI"></GrowInput> and the Associate Buyer, wherever required, are collectively referred to as the “Parties” and individually as the “Party”.</p>
+        <p className="text_sales"><b>{data.shortbuyer}</b> and the Associate Buyer, wherever required, are collectively referred to as the “Parties” and individually as the “Party”.</p>
         <p className="  text_sales"><strong>Recitals</strong></p>
         <p className="text_sales">WHEREAS Associate Buyer has requested IGI to arrange import purchase of Goods (Details of the Goods including quantity, quality, Inco terms is annexed in Schedule I) from the Supplier and sale of the same to the Associate Buyer on stock &amp; sale basis. </p>
-        <p className="text_sales">Relying upon the representations and information provided by the Associate Buyer in the Request and in the Agreement, <GrowInput placeholder="IGI"></GrowInput> has agreed to arrange import/ purchase of Goods from the Supplier (Details of Supplier in Schedule-I) and to sell the same to the Associate Buyer on stock &amp; sale basis.
+        <p className="text_sales">Relying upon the representations and information provided by the Associate Buyer in the Request and in the Agreement, <b>{data.shortbuyer}</b> has agreed to arrange import/ purchase of Goods from the Supplier (Details of Supplier in Schedule-I) and to sell the same to the Associate Buyer on stock &amp; sale basis.
         </p>
-        <p className="text_sales" >Whereas, Supplier shall sell the Goods to <GrowInput placeholder="Indo Intertrade Ag"></GrowInput>, Zug (hereinafter referred to as <GrowInput placeholder="“Indo”"></GrowInput>) for onward sale to <GrowInput placeholder="IGI"></GrowInput> and <GrowInput placeholder="IGI"></GrowInput> shall, in terms of this Agreement, sell the same to the Associate Buyer.</p>
-        <p className="text_sales" >Whereas <GrowInput placeholder="IGI"></GrowInput> shall import Goods for and on behalf of the Associate Buyer, at the sole risk and responsibility of the Associate Buyer and shall store the same under the custody of the Customs House Agent/ Collateral Manager appointed on mutually agreed terms.</p>
-        <p className="text_sales">WHEREAS the Associate Buyer has also submitted undertakings for (a) Price Justification along with Quality and Quantity of the material and (b) Postdated Cheques to pay the balance/ outstanding amount to <GrowInput placeholder="IGI"></GrowInput> at the time of making the above request for import of the Goods and these undertaking(s) form an integral part of this Agreement.
+        <p className="text_sales" >Whereas, Supplier shall sell the Goods to <b>{data.seller}</b>, Zug (hereinafter referred to as <b>{data.buyer}</b>) for onward sale to <b>{data.shortbuyer}</b> and <b>{data.shortbuyer}</b> shall, in terms of this Agreement, sell the same to the Associate Buyer.</p>
+        <p className="text_sales" >Whereas <b>{data.shortbuyer}</b> shall import Goods for and on behalf of the Associate Buyer, at the sole risk and responsibility of the Associate Buyer and shall store the same under the custody of the Customs House Agent/ Collateral Manager appointed on mutually agreed terms.</p>
+        <p className="text_sales">WHEREAS the Associate Buyer has also submitted undertakings for (a) Price Justification along with Quality and Quantity of the material and (b) Postdated Cheques to pay the balance/ outstanding amount to <b>{data.shortbuyer}</b> at the time of making the above request for import of the Goods and these undertaking(s) form an integral part of this Agreement.
         </p>
         <p><strong>Now Therefore</strong>, in consideration of the promises and of the mutual agreements, covenants, representations and warranties hereinafter contained, and for other good and valuable consideration the Parties hereby agree as follows:</p>
         <ol className={`${styles.oderListParent}`}>
@@ -1281,75 +1435,75 @@ const associateShip = () => {
         <div className={`${styles.inputsContainer}`}>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Place of execution of  Assignment Letter</Col>
-            <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+            <Col md={7} className={styles.right}>{data.placeOfExecution}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Date of execution of Assignment Letter</Col>
-            <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+            <Col md={7} className={styles.right}>{data.dateOfExecution}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Name of Seller</Col>
-            <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+            <Col md={7} className={styles.right}>{data.seller}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Address of Seller</Col>
-            <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+            <Col md={7} className={styles.right}>{data.sellerAddress}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Name of Buyer</Col>
-            <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+            <Col md={7} className={styles.right}>{data.seller}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Address of Buyer</Col>
-            <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+            <Col md={7} className={styles.right}>{data.buyerAddress}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Name of Supplier</Col>
-            <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+            <Col md={7} className={styles.right}>{data.seller}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Address of Supplier</Col>
-            <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+            <Col md={7} className={styles.right}>{data.supplier}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Description of Goods</Col>
-            <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+            <Col md={7} className={styles.right}>{""}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Quantity of Goods in MT</Col>
-            <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+            <Col md={7} className={styles.right}>{data.quan} MT</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Date of execution of Assignment Letter</Col>
-            <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+            <Col md={7} className={styles.right}>{data.dateOfExecution}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Price of Goods / MT</Col>
-            <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+            <Col md={7} className={styles.right}>{""}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Tolerance levels</Col>
-            <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+            <Col md={7} className={styles.right}>{data.toleranceLevel}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Load Port</Col>
-            <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+            <Col md={7} className={styles.right}>{data.lordPort}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Discharge Port</Col>
-            <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+            <Col md={7} className={styles.right}>{data.dischargePort}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Inco-Terms</Col>
-            <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+            <Col md={7} className={styles.right}>{data.incoTerms}</Col>
           </Row>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Month of loading of Cargo</Col>
-            <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+            <Col md={7} className={styles.right}>{""}</Col>
           </Row>
           <Row className={`${styles.row} ${styles.last}`}>
             <Col md={5} className={styles.left}>Date of Sales Contract between Supplier and Buyer</Col>
-            <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+            <Col md={7} className={styles.right}>{""}</Col>
           </Row>
 
         </div>
@@ -1968,7 +2122,7 @@ const qpa = () => {
       <p className="text-center text_sales"> <strong>Quadripartite Agreement</strong></p>
       <p className="text-center text_sales">This Quadripartite Agreement (<strong>“Agreement”</strong>) is made at the place and on the day as set out in <strong>Schedule I </strong>hereto by and between:
       </p>
-      <p className="text_sales"> <GrowInput placeholder="M/s INDO GERMAN INTERNATIONAL PRIVATE LIMITED, (CIN: U74899DL1994PTC063676)"></GrowInput>, a company incorporated under the Companies Act, 1956, having its registered office at <GrowInput placeholder="7A, Sagar Apartments, 6, Tilak Marg, New Delhi-110001"></GrowInput> through its Authorised Signatory (hereinafter called <GrowInput placeholder="“IGI”"></GrowInput>, which expression shall, where subject and content allow or admit, be deemed to include its successors, legal representatives and assigns) of the First Part,
+      <p className="text_sales"> <GrowInput placeholder="M/s INDO GERMAN INTERNATIONAL PRIVATE LIMITED, (CIN: U74899DL1994PTC063676)"></GrowInput>, a company incorporated under the Companies Act, 1956, having its registered office at <GrowInput placeholder="7A, Sagar Apartments, 6, Tilak Marg, New Delhi-110001"></GrowInput> through its Authorised Signatory (hereinafter called<b>{data.shortbuyer}</b>, which expression shall, where subject and content allow or admit, be deemed to include its successors, legal representatives and assigns) of the First Part,
       </p>
       <p className="text-center text_sales">And</p>
       <p className="text_sales"><strong>Associate Buyer</strong>, as detailed in <strong>Schedule I</strong> hereof (hereinafter referred to as the “<strong>Associate Buyer</strong>”, which expression shall, where subject and content allow or admit, be deemed to include its successors, legal representatives and assigns) of the Second Part.
@@ -1982,27 +2136,27 @@ const qpa = () => {
       <p className="text-center text_sales">And</p>
       <p className="text_sales"><strong>CMA Agent</strong> (s), as detailed in <strong>Schedule I</strong> hereof (hereinafter referred to as the “<strong>CMA Agent</strong>”, which expression shall, where subject and content allow or admit, be deemed to include its successors, legal representatives and assigns) of the Fourth Part.
       </p>
-      <p className=" text_sales">WHEREAS <GrowInput placeholder="IGI"></GrowInput> has agreed to import Goods as detailed in <strong>Schedule I </strong>hereof on stock and sale basis as per Associateship Agreement entered into between <GrowInput placeholder="IGI"></GrowInput> and the Associate Buyer.
+      <p className=" text_sales">WHEREAS <b>{data.shortbuyer}</b> has agreed to import Goods as detailed in <strong>Schedule I </strong>hereof on stock and sale basis as per Associateship Agreement entered into between <b>{data.shortbuyer}</b> and the Associate Buyer.
       </p>
-      <p className="text_sales">WHEREAS <GrowInput placeholder="IGI"></GrowInput>has appointed the Stevedore for handling the vessel as detailed in <strong>Schedule I</strong> at Discharge Port. The complete details of vessel, Discharge port and the plot allotted to <GrowInput placeholder="IGI"></GrowInput>are mentioned at Schedule I.
+      <p className="text_sales">WHEREAS <b>{data.shortbuyer}</b>has appointed the Stevedore for handling the vessel as detailed in <strong>Schedule I</strong> at Discharge Port. The complete details of vessel, Discharge port and the plot allotted to <b>{data.shortbuyer}</b>are mentioned at Schedule I.
       </p>
 
       <p className=" text_sales">WHEREAS the, LC opening Bank has  a first ranking security right over the Goods and it has appointed the CMA Agent in accordance with the terms of the Collateral Management Agreement executed by Financing Bank</p>
       <p className=" text_sales">IT IS NOW HEREBY AGREED BY AND BETWEEN THE PARTIES AS UNDER: -
       </p>
       <ol type="1">
-        <li><p className=" text_sales"> The Goods shall be stored at the Plot allotted to <GrowInput placeholder="IGI"></GrowInput> by the Discharge Port authorities and shall be kept under the control and custody of CHA on behalf of <GrowInput placeholder="IGI"></GrowInput>. All dispatches from the plot shall be done by CHA solely on the basis of Written Delivery Orders issued by <GrowInput placeholder="IGI"></GrowInput>. </p></li>
+        <li><p className=" text_sales"> The Goods shall be stored at the Plot allotted to <b>{data.shortbuyer}</b> by the Discharge Port authorities and shall be kept under the control and custody of CHA on behalf of <b>{data.shortbuyer}</b>. All dispatches from the plot shall be done by CHA solely on the basis of Written Delivery Orders issued by <b>{data.shortbuyer}</b>. </p></li>
         <li>
           <p className=" text_sales"> Scope of Work of CHA: </p>
           <p className=" text_sales"> The Scope of work of CHA shall include but not be limited to: </p>
           <ol type="a">
-            <li><p className=" text_sales">arranging plot allotment in the name of <GrowInput placeholder="IGI"></GrowInput> from the discharge Port authorities to store <GrowInput placeholder="IGI"></GrowInput>'s cargo</p></li>
+            <li><p className=" text_sales">arranging plot allotment in the name of <b>{data.shortbuyer}</b> from the discharge Port authorities to store <b>{data.shortbuyer}</b>'s cargo</p></li>
             <li><p className=" text_sales">discharge of cargo from the Vessel,</p></li>
             <li><p className=" text_sales">loading of wharf, intra carting at Port,
             </p></li>
             <li><p className=" text_sales">deployment of labors and equipments,</p></li>
 
-            <li><p className=" text_sales">transportation from wharf to <GrowInput placeholder="IGI"></GrowInput> allotted plot, ensure that the plot where goods are being stored is suitable for the storage of the goods, </p></li>
+            <li><p className=" text_sales">transportation from wharf to <b>{data.shortbuyer}</b> allotted plot, ensure that the plot where goods are being stored is suitable for the storage of the goods, </p></li>
             <li><p className=" text_sales">segregated stacking cargo at plot grade wise,
             </p></li>
             <li><p className=" text_sales">placement of wagon indents, wagon cleaning, wooden plugging </p></li>
@@ -2011,49 +2165,49 @@ const qpa = () => {
             <li><p className=" text_sales">Arranging round the clock security cover at the storage area,  </p></li>
             <li><p className=" text_sales">liaison with Discharge Port authorities </p></li>
             <li>
-              <p className=" text_sales">obtaining RRs and arranging dispatches as per Written release orders issued by <GrowInput placeholder="IGI"></GrowInput>,
+              <p className=" text_sales">obtaining RRs and arranging dispatches as per Written release orders issued by <b>{data.shortbuyer}</b>,
                 obtaining gate passes,
               </p></li>
             <li><p className=" text_sales">yard management, </p></li>
             <li><p className=" text_sales">maintenance of proper records and registers for incoming and outgoing of material,</p></li>
-            <li><p className=" text_sales">water sprinkling as per PCB norms and other services as may be required by <GrowInput placeholder="IGI"></GrowInput> </p></li>
+            <li><p className=" text_sales">water sprinkling as per PCB norms and other services as may be required by <b>{data.shortbuyer}</b> </p></li>
 
           </ol>
 
         </li>
-        <li><p className=" text_sales"> Safekeeping and Security of the Goods-Proper safekeeping and security of Goods shall be the joint and several responsibilities of the Associate Buyer and Stevedore. The Associate Buyer and Stevedore shall provide round the clock security guards at the Storage Plot allotted at Discharge Port, where Goods shall be stored. <GrowInput placeholder="IGI"></GrowInput> shall in no way be responsible or liable for any loss or damage to the Goods for any reason whatsoever including shortage, theft or mix up.
+        <li><p className=" text_sales"> Safekeeping and Security of the Goods-Proper safekeeping and security of Goods shall be the joint and several responsibilities of the Associate Buyer and Stevedore. The Associate Buyer and Stevedore shall provide round the clock security guards at the Storage Plot allotted at Discharge Port, where Goods shall be stored. <b>{data.shortbuyer}</b> shall in no way be responsible or liable for any loss or damage to the Goods for any reason whatsoever including shortage, theft or mix up.
         </p></li>
-        <li><p className=" text_sales"> Bill of Entry to be filed in the name <GrowInput placeholder="IGI"></GrowInput>. Payment of customs duty, IGST, energy cess, Wharfage, CIMS and all other statutory charges shall be paid by the Associate Buyer to <GrowInput placeholder="IGI"></GrowInput> in advance at the time of Custom Clearance. The Associate Buyer shall pay Port Charges directly to port or through the Stevedore who will take care of the payments to Port and raise bills on IGI for this. A copy of the same has to be furnished to IGI. Any penalty/demurrage on account of delayed payment shall be solely to the account of the Associate Buyer
+        <li><p className=" text_sales"> Bill of Entry to be filed in the name <b>{data.shortbuyer}</b>. Payment of customs duty, IGST, energy cess, Wharfage, CIMS and all other statutory charges shall be paid by the Associate Buyer to <b>{data.shortbuyer}</b> in advance at the time of Custom Clearance. The Associate Buyer shall pay Port Charges directly to port or through the Stevedore who will take care of the payments to Port and raise bills on IGI for this. A copy of the same has to be furnished to IGI. Any penalty/demurrage on account of delayed payment shall be solely to the account of the Associate Buyer
         </p></li>
-        <li><p className=" text_sales">Port wharfage, pollution charges, plot rental, wagon haulage and terminal charges, Port Royalty (if applicable) are to be paid by the Associate Buyer in advance to <GrowInput placeholder="IGI"></GrowInput> as per the Discharge Port. HMC crane charges at the Discharge Port and any pre berthing delays/detentions/demurrages will be to the account of the Associate Buyer on actual basis.
+        <li><p className=" text_sales">Port wharfage, pollution charges, plot rental, wagon haulage and terminal charges, Port Royalty (if applicable) are to be paid by the Associate Buyer in advance to <b>{data.shortbuyer}</b> as per the Discharge Port. HMC crane charges at the Discharge Port and any pre berthing delays/detentions/demurrages will be to the account of the Associate Buyer on actual basis.
         </p></li>
         <li><p className=" text_sales">CHA/Stevedore will raise invoice on the Associate Buyer and payments shall be made by the Associate Buyer to Stevedore based on the agreed rate terms &amp; Conditions.
         </p></li>
         <li><p className=" text_sales">CHA/Stevedore will apply for EDRM permission and place indent online. The Associate Buyer will pay the railway freight and related charges directly.
         </p></li>
-        <li><p className=" text_sales">Scanned copy of RR shall be furnished by Stevedore to <GrowInput placeholder="IGI"></GrowInput> as well as to Associate Buyer as soon as it is issued after loading. The original RR shall be sent by Stevedore to the Associate Buyer for taking delivery of the rake. The final reconciliation shall be done based on the BL quantity.
+        <li><p className=" text_sales">Scanned copy of RR shall be furnished by Stevedore to <b>{data.shortbuyer}</b> as well as to Associate Buyer as soon as it is issued after loading. The original RR shall be sent by Stevedore to the Associate Buyer for taking delivery of the rake. The final reconciliation shall be done based on the BL quantity.
         </p></li>
-        <li><p className=" text_sales">The Associate Buyer will arrange comprehensive storage insurance against all risks for <GrowInput placeholder="110"></GrowInput> of the value of goods. The insurance policy will indicate <GrowInput placeholder="IGI"></GrowInput> or its nominated Bank (as per <GrowInput placeholder="IGI"></GrowInput>'s discretion), as sole beneficiary. The Associate Buyer shall inform Stevedore the details of the goods for which <GrowInput placeholder="IGI"></GrowInput>/IGI's nominated Bank shall be the beneficiary for the entire insured value of such pledged goods as per the B/L, quantity kept in the custody of CHA/Stevedore. In case of any claim on insurance company the same shall be claimed and pursued till realization by the Associate Buyer at its sole cost and the Associate Buyer shall indemnify Stevedore and IGI against all risks.
+        <li><p className=" text_sales">The Associate Buyer will arrange comprehensive storage insurance against all risks for <GrowInput placeholder="110"></GrowInput> of the value of goods. The insurance policy will indicate <b>{data.shortbuyer}</b> or its nominated Bank (as per <b>{data.shortbuyer}</b>'s discretion), as sole beneficiary. The Associate Buyer shall inform Stevedore the details of the goods for which <b>{data.shortbuyer}</b>/IGI's nominated Bank shall be the beneficiary for the entire insured value of such pledged goods as per the B/L, quantity kept in the custody of CHA/Stevedore. In case of any claim on insurance company the same shall be claimed and pursued till realization by the Associate Buyer at its sole cost and the Associate Buyer shall indemnify Stevedore and IGI against all risks.
         </p></li>
-        <li><p className=" text_sales"><GrowInput placeholder="IGI"></GrowInput>  and CMA Agent (Collateral Manager appointed by LC opening Bank) shall have free and unfettered access to the plot where the goods are stored without any prior notice to the plot keeper during all reasonable hours including the right of ingress and egress to and from the plot by <GrowInput placeholder="IGI"></GrowInput> 's and /or CMA Agent's officials, agents, other nominated buyers, if any, of <GrowInput placeholder="IGI"></GrowInput>  and/or CMA Agent, its vehicles, any Government Agency, for storing/de-storing/removing the material in or from the plot without any hindrance or obstruction.
+        <li><p className=" text_sales"><b>{data.shortbuyer}</b>  and CMA Agent (Collateral Manager appointed by LC opening Bank) shall have free and unfettered access to the plot where the goods are stored without any prior notice to the plot keeper during all reasonable hours including the right of ingress and egress to and from the plot by <b>{data.shortbuyer}</b> 's and /or CMA Agent's officials, agents, other nominated buyers, if any, of <b>{data.shortbuyer}</b>  and/or CMA Agent, its vehicles, any Government Agency, for storing/de-storing/removing the material in or from the plot without any hindrance or obstruction.
 
         </p></li>
         <li><p className=" text_sales">The role of CMA Agent shall be to supervise the storage, ingress and exit of material at the storage area in accordance with the Collateral Management Agreement entered into by CMA Agent. The Stevedore and the Associate Buyer shall provide necessary support, help and assistance to CMA Agent as may be required by them at all times. CMA Agent's Officials/ representatives/agents shall peacefully enjoy unrestricted and unfettered access to the Storage Area during the term or duration of this Agreement, without disturbance or interruption or obstruction from the Associate Buyer or Stevedore or any person claiming under them. Port safety precautions, indemnity as conveyed to the service providers and the Associate Buyer to be complied with at all times.
 
         </p></li>
-        <li><p className=" text_sales">CHA/Stevedore shall at all times follow and be bound by the instructions solely of <GrowInput placeholder="IGI"></GrowInput> with regard to delivery of the Goods. Stevedore confirms and undertakes that it shall not release the Goods without the written Release Order of <GrowInput placeholder="IGI"></GrowInput>. Stevedore shall have no objection whatsoever, if <GrowInput placeholder="Indo German"></GrowInput>instructs it to deliver the Goods to any third party so nominated by them. The instructions of the <GrowInput placeholder="Indo German"></GrowInput>shall be followed forthwith, without any objection, hindrance or delay whatsoever
+        <li><p className=" text_sales">CHA/Stevedore shall at all times follow and be bound by the instructions solely of <b>{data.shortbuyer}</b> with regard to delivery of the Goods. Stevedore confirms and undertakes that it shall not release the Goods without the written Release Order of <b>{data.shortbuyer}</b>. Stevedore shall have no objection whatsoever, if <GrowInput placeholder="Indo German"></GrowInput>instructs it to deliver the Goods to any third party so nominated by them. The instructions of the <GrowInput placeholder="Indo German"></GrowInput>shall be followed forthwith, without any objection, hindrance or delay whatsoever
 
         </p></li>
-        <li><p className=" text_sales">CHA/Stevedore shall maintain all records as necessary, statutorily or otherwise for the receipt, storage and release of goods from the warehouse and furnish a daily report to <GrowInput placeholder="IGI"></GrowInput> &amp; the Associate Buyer. Under no circumstance releases will be made by Stevedore or be taken by the Associate Buyer without obtaining proper Release Order in writing from <GrowInput placeholder="IGI"></GrowInput>. Stevedore and the Associate Buyer jointly and severally agree to indemnify and hold harmless at all times <GrowInput placeholder="IGI"></GrowInput>, its officers, agents, employees for any losses, damages, claims, costs and expenses incurred by <GrowInput placeholder="IGI"></GrowInput> due to unauthorized, improper release of the Goods, shortage and/or for breach of the terms of this Agreement.
-
-
-        </p></li>
-        <li><p className=" text_sales">This Agreement is irrevocable and non-assignable by the Associate Buyer and Stevedore until the entire Goods stored at the storage facility have been delivered to the Associate Buyer, or to the persons nominated by <GrowInput placeholder="IGI"></GrowInput> under the Authorized Release Orders.
-
+        <li><p className=" text_sales">CHA/Stevedore shall maintain all records as necessary, statutorily or otherwise for the receipt, storage and release of goods from the warehouse and furnish a daily report to <b>{data.shortbuyer}</b> &amp; the Associate Buyer. Under no circumstance releases will be made by Stevedore or be taken by the Associate Buyer without obtaining proper Release Order in writing from <b>{data.shortbuyer}</b>. Stevedore and the Associate Buyer jointly and severally agree to indemnify and hold harmless at all times <b>{data.shortbuyer}</b>, its officers, agents, employees for any losses, damages, claims, costs and expenses incurred by <b>{data.shortbuyer}</b> due to unauthorized, improper release of the Goods, shortage and/or for breach of the terms of this Agreement.
 
 
         </p></li>
-        <li><p className=" text_sales">In the event the Associate Buyer does not lift the goods/material within the scheduled period <GrowInput placeholder="IGI"></GrowInput> has the right to sell/dispose of the Goods at the sole risk, cost of the Associate Buyer. The Associate Buyer shall liable to pay to <GrowInput placeholder="IGI"></GrowInput> the loss (if any) incurred by <GrowInput placeholder="IGI"></GrowInput>.
+        <li><p className=" text_sales">This Agreement is irrevocable and non-assignable by the Associate Buyer and Stevedore until the entire Goods stored at the storage facility have been delivered to the Associate Buyer, or to the persons nominated by <b>{data.shortbuyer}</b> under the Authorized Release Orders.
+
+
+
+        </p></li>
+        <li><p className=" text_sales">In the event the Associate Buyer does not lift the goods/material within the scheduled period <b>{data.shortbuyer}</b> has the right to sell/dispose of the Goods at the sole risk, cost of the Associate Buyer. The Associate Buyer shall liable to pay to <b>{data.shortbuyer}</b> the loss (if any) incurred by <b>{data.shortbuyer}</b>.
 
 
 
@@ -2071,83 +2225,83 @@ const qpa = () => {
       <div className={`${styles.inputsContainer}`}>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>Date of execution</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.dateOfExecution}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>Place of execution</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.placeOfExecution}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>Name of Associate Buyer</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.associateBuyer}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>Address of Associate Buyer</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.associateBuyerAddress}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>GST of Associate Buyerager</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.associateBuyerGst}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>PAN of Associate Buyer</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.associateBuyerPan}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>Signatory of Associate Buyer</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{""}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>Name of Stevedore</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.stevedore}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>Address of Stevedore</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.stevedoreAddress}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>Signatory of Stevedore</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{""}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>Name of CMA Agent</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data.cma}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
           <Col md={5} className={styles.left}>Address of CMA Agent</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.cmaAddress}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
           <Col md={5} className={styles.left}>Signatory of CMA Agent</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}></Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
           <Col md={5} className={styles.left}>Commodity Details</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.detailsOfComm}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
           <Col md={5} className={styles.left}>Quantity</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.quan}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
           <Col md={5} className={styles.left}>Name of Supplier</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.supplier}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
           <Col md={5} className={styles.left}>Details of Vessel</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.vessel}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
           <Col md={5} className={styles.left}>Port of Loading</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.lordPort}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
           <Col md={5} className={styles.left}>Port of Discharge</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.dischargePort}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
           <Col md={5} className={styles.left}>Storage Plot allotted to IGI</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}> </Col>
         </Row>
 
 
@@ -2163,8 +2317,8 @@ const qpa = () => {
 
         </Col>
         <Col md={12} className={`d-flex justify-content-around`}>
-          <GrowInput></GrowInput>
-          <GrowInput></GrowInput>
+         {data.seller}
+         {data.buyer}
 
         </Col>
 
@@ -2172,7 +2326,7 @@ const qpa = () => {
     </div>
   )
 }
-const underTaking1 = () => {
+const underTaking1 = (data) => {
   return (
     <div className={`${styles.cardBody} card-body pt-3`}>
       <p className="text-center text_sales"> <strong>Undertaking for Post-dated Cheques issued by Associate Buyer
@@ -2229,83 +2383,83 @@ New Delhi
       <div className={`${styles.inputsContainer}`}>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>Date of execution</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.dateOfExecution}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>Place of execution</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.placeOfExecution}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>Name of Associate Buyer</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.associateBuyer}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>Address of Associate Buyer</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.associateBuyerAddress}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>GST of Associate Buyerager</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.associateBuyerGst}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>PAN of Associate Buyer</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.associateBuyerPan}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>Signatory of Associate Buyer</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{""}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>Name of Stevedore</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.stevedore}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>Address of Stevedore</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.stevedoreAddress}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>Signatory of Stevedore</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{""}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>Name of CMA Agent</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data.cma}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
           <Col md={5} className={styles.left}>Address of CMA Agent</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.cmaAddress}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
           <Col md={5} className={styles.left}>Signatory of CMA Agent</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}></Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
           <Col md={5} className={styles.left}>Commodity Details</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.detailsOfComm}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
           <Col md={5} className={styles.left}>Quantity</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.quan}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
           <Col md={5} className={styles.left}>Name of Supplier</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.supplier}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
           <Col md={5} className={styles.left}>Details of Vessel</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.vessel}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
           <Col md={5} className={styles.left}>Port of Loading</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.lordPort}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
           <Col md={5} className={styles.left}>Port of Discharge</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.dischargePort}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
           <Col md={5} className={styles.left}>Storage Plot allotted to IGI</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}> </Col>
         </Row>
 
 
@@ -2321,8 +2475,8 @@ New Delhi
 
         </Col>
         <Col md={12} className={`d-flex justify-content-around`}>
-          <GrowInput></GrowInput>
-          <GrowInput></GrowInput>
+          {data.seller}
+         {data.buyer}
 
         </Col>
 
@@ -2330,7 +2484,7 @@ New Delhi
     </div>
   )
 }
-const underTaking2 = () => {
+const underTaking2 = (data) => {
   return (
     <div className={`${styles.cardBody} card-body pt-3`}>
       <p className="text-center text_sales"> <strong>Undertaking by Associate Buyer for Price, Quality &amp; Quantity
@@ -2388,87 +2542,87 @@ New Delhi
 
 
 
-      <p className="text-center text_sales"> <strong>Schedule I</strong></p>
+       <p className="text-center text_sales"> <strong>Schedule I</strong></p>
       <div className={`${styles.inputsContainer}`}>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>Date of execution</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.dateOfExecution}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>Place of execution</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.placeOfExecution}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>Name of Associate Buyer</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.associateBuyer}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>Address of Associate Buyer</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.associateBuyerAddress}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>GST of Associate Buyerager</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.associateBuyerGst}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>PAN of Associate Buyer</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.associateBuyerPan}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>Signatory of Associate Buyer</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{""}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>Name of Stevedore</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.stevedore}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>Address of Stevedore</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.stevedoreAddress}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>Signatory of Stevedore</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{""}</Col>
         </Row>
         <Row className={`${styles.row}`}>
           <Col md={5} className={styles.left}>Name of CMA Agent</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data.cma}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
           <Col md={5} className={styles.left}>Address of CMA Agent</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.cmaAddress}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
           <Col md={5} className={styles.left}>Signatory of CMA Agent</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}></Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
           <Col md={5} className={styles.left}>Commodity Details</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.detailsOfComm}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
           <Col md={5} className={styles.left}>Quantity</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.quan}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
           <Col md={5} className={styles.left}>Name of Supplier</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.supplier}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
           <Col md={5} className={styles.left}>Details of Vessel</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.vessel}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
           <Col md={5} className={styles.left}>Port of Loading</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.lordPort}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
           <Col md={5} className={styles.left}>Port of Discharge</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}>{data?.dischargePort}</Col>
         </Row>
         <Row className={`${styles.row} ${styles.last}`}>
           <Col md={5} className={styles.left}>Storage Plot allotted to IGI</Col>
-          <Col md={7} className={styles.right}><input className={`${styles.para} input`}></input></Col>
+          <Col md={7} className={styles.right}> </Col>
         </Row>
 
 
@@ -2484,8 +2638,8 @@ New Delhi
 
         </Col>
         <Col md={12} className={`d-flex justify-content-around`}>
-          <GrowInput></GrowInput>
-          <GrowInput></GrowInput>
+          {data.seller}
+         {data.buyer}
 
         </Col>
 
