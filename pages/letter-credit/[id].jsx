@@ -103,11 +103,13 @@ function Index() {
     saveAmendmentData(name, text)
   }
 
-  const [clauseObj, setClauseObj] = useState({
+  const initialState = {
     existingValue: '',
     dropDownValue: '',
     newValue: '',
-  })
+  }
+
+  const [clauseObj, setClauseObj] = useState(initialState)
 
   console.log(clauseObj, 'this is ccccc')
 
@@ -119,6 +121,7 @@ function Index() {
   const [fieldType, setFieldType] = useState("")
 
   const inputRef = useRef(null)
+  const inputRef1 = useRef(null)
 
   const dropDownChange = (e) => {
     if (
@@ -144,7 +147,7 @@ function Index() {
     console.log(newInput, 'dropDownChange')
     setClauseObj(newInput)
   }
- console.log(lcData,"lcData")
+//  console.log(lcData,"lcData")
   const arrChange = (name, value) => {
     const newInput = { ...clauseObj }
     newInput[name] = value
@@ -164,6 +167,11 @@ function Index() {
   }
 
   const addToArr = () => {
+    if(fieldType == 'date'){
+      setFieldType('')
+    }
+    inputRef1.current.value = ''
+    setClauseObj(initialState)
     const newArr = [...clauseArr]
     if (clauseObj.dropDownValue === 'Select an option' || clauseObj.dropDownValue === '') {
       let toastMessage = 'please select a dropdown value first '
@@ -425,6 +433,7 @@ function Index() {
                             defaultValue={
                               editInput ? editCurrent.dropDownValue : ''
                             }
+                            ref={inputRef1}
                             onChange={(e) => dropDownChange(e)}
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           >
@@ -526,9 +535,10 @@ function Index() {
                               required
                               type="text"
                               ref={inputRef}
-                              defaultValue={
-                                editInput ? editCurrent?.newValue : ''
-                              }
+                              // defaultValue={
+                              //   editInput ? editCurrent?.newValue : ''
+                              // }
+                              value={clauseObj?.newValue}
                               onChange={(e) => {
                                 // inputRef.current.value = ''
                                 arrChange('newValue', e.target.value)
@@ -541,7 +551,7 @@ function Index() {
                             <>
                               <DateCalender
                                 name="newValue"
-                                // defaultDate={lcData?.dateOfIssue?.split('T')[0]}
+                                defaultDate={clauseObj?.newValue}
                                 saveDate={saveDropDownDate}
                                 // labelName="New Value"
                               />

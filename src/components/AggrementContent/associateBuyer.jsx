@@ -975,7 +975,7 @@ console.log(associateData.gstin,"associateData")
                           onChange={async(e) => {
                              let data = await props.uploadDoc(e)
                               addDoc(data, index)
-                            // uploadDocument2(e)
+                            // uploadDocument2(e) 
                           }}
                         />
                         <button className={`${styles.button_upload} btn`}>
@@ -988,7 +988,7 @@ console.log(associateData.gstin,"associateData")
                           {val.attachDoc?.originalName}
                         </span>
                         <img
-                          className={`${styles.close_image}  image_arrow`}
+                          className={`${styles.close_image} image_arrow`}
                           src="/static/close.svg"
                           onClick={() => removeDoc(index)}
                           alt="Close"

@@ -184,14 +184,17 @@ console.log(clauseData,"clauseData")
 
   console.log(clauseData, 'CLAUSE DATA')
 
-  const [clauseObj, setClauseObj] = useState({
+  const initialState = {
     existingValue: '',
     dropDownValue: '',
     newValue: '',
     isEdit: false,
-  })
+  }
+
+  const [clauseObj, setClauseObj] = useState(initialState)
 
   const inputRef = useRef(null)
+  const inputRef1 = useRef(null)
 
   console.log(clauseObj, 'this is ccccc')
 
@@ -202,7 +205,8 @@ console.log(clauseData,"clauseData")
 
   const [fieldType, setFieldType] = useState("")
 
-  const dropDownChange = (e) => {
+  const dropDownChange = (e) => {  
+
     if (
       e.target.value == 'latestDateOfShipment' ||
       e.target.value == 'dateOfExpiry'
@@ -228,14 +232,12 @@ console.log(clauseData,"clauseData")
   }
 
   const arrChange = (name, value) => {
-    console.log(value,name, "arr change value")
     const newInput = { ...clauseObj }
     newInput[name] = value
     setClauseObj(newInput)
 
     const newInput1 = { ...clauseData }
     newInput1[drop] = value
-    console.log(newInput1, "NEW INPUT 1")
     setClauseData(newInput1)
   }
 
@@ -246,6 +248,13 @@ console.log(clauseData,"clauseData")
   }
 
   const addToArr = () => {
+    // console.log(inputRef, 'THIS IN INPUT REF')
+    // inputRef.current.value = '';
+    if(fieldType == 'date'){
+      setFieldType('')
+    }
+    inputRef1.current.value = '';
+    setClauseObj(initialState)
     if (clauseObj.existingValue === '' || clauseObj.newValue === '') {
       let toastMessage = 'CANNOT ADD A CLAUSE WITH EMPTY VALUES'
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -417,7 +426,7 @@ console.log(clauseData,"clauseData")
                         <div className="d-flex">
                           <DateCalender
                             name="dateOfIssue"
-                            defaultDate={lcData?.dateOfIssue?.split('T')[0]}
+                            defaultDate={lcData?.dateOfIssue}
                             saveDate={saveDate}
                             labelName="(31C) Date Of Issue"
                           />
@@ -436,12 +445,14 @@ console.log(clauseData,"clauseData")
                 <div className={` ${styles.content}`}>
                   <div className={` ${styles.body}`}>
                     <Row>
+                   
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
                           <select
                             defaultValue={
                               editInput ? editCurrent.dropDownValue : ''
                             }
+                            ref={inputRef1}
                             onChange={(e) => dropDownChange(e)}
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           >
@@ -518,15 +529,16 @@ console.log(clauseData,"clauseData")
                         </div>
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
+                        <form id='myForm'>
                         <input
                           className={`${styles.input_field} input form-control`}
                           disabled
+                          
                           type="text"
                           value={clauseObj?.existingValue}
-                        // onChange={(e)=>{
-
-                        // }}
+                       
                         />
+                        </form>
                         <label
                           className={`${styles.label_heading} label_heading`}
                         >
@@ -540,7 +552,7 @@ console.log(clauseData,"clauseData")
                               className={`${styles.input_field} input form-control`}
                               required
                               type="text"
-                              ref={inputRef}
+                              // ref={inputRef}
                               // onFocus={(e) => {
                               //   setIsFieldInFocus({ ...isFieldInFocus, existingValue: true }),
                               //     e.target.type = 'number'
@@ -554,9 +566,10 @@ console.log(clauseData,"clauseData")
                               //   editInput ? editCurrent?.newValue : ''  :
                               //   Number(editInput ? editCurrent?.newValue : '' ).toLocaleString('en-In')
                               // }
-                              defaultValue={
-                                editInput ? editCurrent?.newValue : '' 
-                              }
+                              // defaultValue={
+                              //   editInput ? editCurrent?.newValue : '' 
+                              // }
+                              value={clauseObj?.newValue}
                               onChange={(e) => {
                                 // inputRef.current.value = ''
                                 arrChange('newValue', e.target.value)
@@ -568,7 +581,7 @@ console.log(clauseData,"clauseData")
                             <>
                               <DateCalender
                                 name="newValue"
-                                // defaultDate={lcData?.dateOfIssue?.split('T')[0]}
+                                defaultDate={clauseObj?.newValue}
                                 saveDate={saveDropDownDate}
                               // labelName="New Value"
                               />
@@ -594,7 +607,7 @@ console.log(clauseData,"clauseData")
                               }}
                             className={`${styles.input_field} ${styles.customSelect} input form-control`}
                           >
-                            <option selected>Select an option</option>
+                            <option disabled selected>Select an option</option>
                              <option value="No">Prohibited</option>
                              <option value="Yes">Allowed</option>
                              
@@ -623,6 +636,7 @@ console.log(clauseData,"clauseData")
                           />
                         </div>
                       </Col>
+                     
                     </Row>
 
                     <div className={styles.table_container}>
@@ -809,12 +823,12 @@ console.log(clauseData,"clauseData")
                                           </div>
                                         </td>
                                         <td>
-                                          <img
+                                          {/* <img
                                             src="/static/mode_edit.svg"
                                             className={`${styles.image} ml-3`}
                                             alt="edit"
                                             onClick={() => handleEdit(index)}
-                                          />
+                                          /> */}
                                           <img
                                             src="/static/delete 2.svg"
                                             className="ml-3"
@@ -833,12 +847,12 @@ console.log(clauseData,"clauseData")
                                         <td>{arr.existingValue}</td>
                                         <td>{arr.newValue}</td>
                                         <td>
-                                          <img
+                                          {/* <img
                                             src="/static/mode_edit.svg"
                                             className={`${styles.image} ml-3`}
                                             alt="edit"
                                             onClick={() => handleEdit(index)}
-                                          />
+                                          /> */}
                                           <img
                                             src="/static/delete 2.svg"
                                             className="ml-3"
