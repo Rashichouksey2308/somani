@@ -14,7 +14,7 @@ import jsPDF from 'jspdf'
 import ReactDOMServer from 'react-dom/server'
 
 function Index() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch() 
 
   const { margin } = useSelector((state) => state.marginMoney)
 
@@ -2009,7 +2009,7 @@ function Index() {
                 <tbody>
                   <tr>
                     <td>
-                      <span className={`${styles.sno}`}>A</span>
+                      <span className={`${styles.sno} text1`}>A</span>
                       <span className={`ml-2`}>Quantity</span>
                     </td>
                     <td className={`${styles.good} good`}>
@@ -2034,7 +2034,7 @@ function Index() {
                   </tr>
                   <tr>
                     <td>
-                      <span className={`${styles.sno}`}>B</span>
+                      <span className={`${styles.sno} text1`}>B</span>
                       <span className={`ml-2`}>Unit Price</span>
                     </td>
                     <td className={`${styles.good} `}>
@@ -2046,7 +2046,7 @@ function Index() {
                   </tr>
                   <tr>
                     <td>
-                      <span className={`${styles.sno}`}>C</span>
+                      <span className={`${styles.sno} text1`}>C</span>
                       <span className={`ml-2`}>Conversion Rate</span>
                     </td>
                     <td className={`${styles.good} `}>
@@ -2056,7 +2056,7 @@ function Index() {
                   </tr>
                   <tr>
                     <td>
-                      <span className={`${styles.sno}`}>D</span>
+                      <span className={`${styles.sno} text1`}>D</span>
                       <span className={`ml-2`}>Usance Interest (%)</span>
                     </td>
                     <td className={`${styles.good} `}>
@@ -2078,7 +2078,7 @@ function Index() {
                   </tr>
                   <tr>
                     <td>
-                      <span className={`${styles.sno}`}>E</span>
+                      <span className={`${styles.sno} text1`}>E</span>
                       <span className={`ml-2`}>Trade Margin</span>
                     </td>
                     <td className={`${styles.good} `}>
@@ -2100,7 +2100,7 @@ function Index() {
                   </tr>
                   <tr>
                     <td>
-                      <span className={`${styles.sno}`}>F</span>
+                      <span className={`${styles.sno} text1`}>F</span>
                       <span className={`ml-2`}>Tolerance (+/-) Percentage</span>
                     </td>
                     <td className={`${styles.good} `}>
@@ -2130,7 +2130,7 @@ function Index() {
                   </tr>
                   <tr>
                     <td>
-                      <span className={`${styles.sno}`}>G</span>
+                      <span className={`${styles.sno} text1`}>G</span>
                       <span className={`ml-2`}>Margin Money (%)</span>
                     </td>
                     <td className={`${styles.good} good`}>
@@ -2158,7 +2158,7 @@ function Index() {
                   </tr>
                   <tr>
                     <td>
-                      <span className={`${styles.sno}`}>H</span>
+                      <span className={`${styles.sno} text1`}>H</span>
                       <span className={`ml-2`}>No. of PDC's</span>
                     </td>
                     <td className={`${styles.good} good`}>
@@ -2169,7 +2169,7 @@ function Index() {
 
                   <tr>
                     <td>
-                      <span className={`${styles.sno}`}>I</span>
+                      <span className={`${styles.sno} text1`}>I</span>
                       <span className={`ml-2`}>Additional PDC's</span>
                     </td>
                     <td className={`${styles.highlight} satisfactory`}>
@@ -2196,9 +2196,9 @@ function Index() {
                 <tbody>
                   <tr>
                     <td>
-                      <span className={`${styles.sno}`}>J</span>
+                      <span className={`${styles.sno} text1`}>J</span>
                       <span className={`ml-2`}>Order Value</span>
-                      <span className={`${styles.formula} ml-2`}>(A*B)</span>
+                      <span className={`${styles.formula} text1 ml-2`}>(A*B)</span>
                     </td>
                     <td>
                       USD  {marginData?.calculation?.orderValue?.toLocaleString() ??
@@ -2211,9 +2211,9 @@ function Index() {
                   </tr>
                   <tr>
                     <td>
-                      <span className={`${styles.sno}`}>K</span>
+                      <span className={`${styles.sno} text1`}>K</span>
                       <span className={`ml-2`}>Order Value (INR)</span>
-                      <span className={`${styles.formula} ml-2`}>(J*C)</span>
+                      <span className={`${styles.formula} text1 ml-2`}>(J*C)</span>
                     </td>
                     <td>
                       ₹    {marginData?.calculation?.orderValueInINR?.toLocaleString() ??
@@ -2226,11 +2226,11 @@ function Index() {
                   </tr>
                   <tr>
                     <td>
-                      <span className={`${styles.sno}`}>L</span>
+                      <span className={`${styles.sno} text1`}>L</span>
                       <span className={`ml-2`}>
                         Usance Interest (%) for 90 days (INR)
                       </span>
-                      <span className={`${styles.formula} ml-2`}>
+                      <span className={`${styles.formula} text1 ml-2`}>
                         (K*D*90)/365
                       </span>
                     </td>
@@ -2245,9 +2245,9 @@ function Index() {
                   </tr>
                   <tr>
                     <td>
-                      <span className={`${styles.sno}`}>M</span>
+                      <span className={`${styles.sno} text1`}>M</span>
                       <span className={`ml-2`}>Trade Margin (INR)</span>
-                      <span className={`${styles.formula} ml-2`}>(K*E)</span>
+                      <span className={`${styles.formula} text1 ml-2`}>(K*E)</span>
                     </td>
                     <td>
                       ₹  {marginData?.calculation?.tradeMargin?.toLocaleString() ??
@@ -2260,9 +2260,9 @@ function Index() {
                   </tr>
                   <tr>
                     <td>
-                      <span className={`${styles.sno}`}>N</span>
+                      <span className={`${styles.sno} text1`}>N</span>
                       <span className={`ml-2`}>Gross Order Value (INR)</span>
-                      <span className={`${styles.formula} ml-2`}>(K+L+M)</span>
+                      <span className={`${styles.formula} text1 ml-2`}>(K+L+M)</span>
                     </td>
                     <td>
                       ₹  {marginData?.calculation?.grossOrderValue?.toLocaleString() ??
@@ -2276,9 +2276,9 @@ function Index() {
 
                   <tr>
                     <td>
-                      <span className={`${styles.sno}`}>O</span>
+                      <span className={`${styles.sno} text1`}>O</span>
                       <span className={`ml-2`}>Tolerance Value (INR)</span>
-                      <span className={`${styles.formula} ml-2`}>(N*F)</span>
+                      <span className={`${styles.formula} text1 ml-2`}>(N*F)</span>
                     </td>
                     <td>
                       ₹ {marginData?.calculation?.toleranceValue?.toLocaleString() ??
@@ -2291,9 +2291,9 @@ function Index() {
                   </tr>
                   <tr>
                     <td>
-                      <span className={`${styles.sno}`}>P</span>
+                      <span className={`${styles.sno} text1`}>P</span>
                       <span className={`ml-2`}>Total Order Value (INR)</span>
-                      <span className={`${styles.formula} ml-2`}>(N+O)</span>
+                      <span className={`${styles.formula} text1 ml-2`}>(N+O)</span>
                     </td>
                     <td>
                       ₹ {marginData?.calculation?.totalOrderValue?.toLocaleString() ??
@@ -2307,11 +2307,11 @@ function Index() {
 
                   <tr>
                     <td>
-                      <span className={`${styles.sno}`}>Q</span>
+                      <span className={`${styles.sno} text1`}>Q</span>
                       <span className={`ml-2`}>
                         Provisional Unit Price Per Ton (INR)
                       </span>{' '}
-                      <span className={`${styles.formula} ml-2`}>(N/A)</span>
+                      <span className={`${styles.formula} text1 ml-2`}>(N/A)</span>
                     </td>
                     <td>
                       ₹  {marginData?.calculation?.provisionalUnitPricePerTon?.toLocaleString() ??
@@ -2324,9 +2324,9 @@ function Index() {
                   </tr>
                   <tr>
                     <td>
-                      <span className={`${styles.sno}`}>R</span>
+                      <span className={`${styles.sno} text1`}>R</span>
                       <span className={`ml-2`}>Margin Money (INR)</span>{' '}
-                      <span className={`${styles.formula} ml-2`}>(P*G)</span>
+                      <span className={`${styles.formula} text1 ml-2`}>(P*G)</span>
                     </td>
                     <td>
                       ₹  {marginData?.calculation?.marginMoney?.toLocaleString() ??
@@ -2339,11 +2339,11 @@ function Index() {
                   </tr>
                   <tr>
                     <td>
-                      <span className={`${styles.sno}`}>S</span>
+                      <span className={`${styles.sno} text1`}>S</span>
                       <span className={`ml-2`}>
                         Total SPDC Amount Req. (INR)
                       </span>{' '}
-                      <span className={`${styles.formula} ml-2`}>(P-R)</span>
+                      <span className={`${styles.formula} text1 ml-2`}>(P-R)</span>
                     </td>
                     <td>
                       ₹  {marginData?.calculation?.totalSPDC?.toLocaleString() ??
@@ -2356,11 +2356,11 @@ function Index() {
                   </tr>
                   <tr className={`${styles.bordertop} border_color`}>
                     <td>
-                      <span className={`${styles.sno}`}>T</span>
+                      <span className={`${styles.sno} text1`}>T</span>
                       <span className={`ml-2`}>
                         Additional Amount Per SPDC (INR){' '}
                       </span>{' '}
-                      <span className={`${styles.formula} ml-2`}>
+                      <span className={`${styles.formula} text1 ml-2`}>
                         [(S-Previous Value)/I)]
                       </span>
                     </td>
@@ -2374,11 +2374,11 @@ function Index() {
                   </tr>
                   <tr>
                     <td>
-                      <span className={`${styles.sno}`}>U</span>
+                      <span className={`${styles.sno} text1`}>U</span>
                       <span className={`ml-2`}>
                         Revised Net Order Value (INR){' '}
                       </span>
-                      <span className={`${styles.formula} ml-2`}>
+                      <span className={`${styles.formula} text1 ml-2`}>
                         [(S-Previous Value)/I)]
                       </span>
                     </td>
@@ -2390,7 +2390,7 @@ function Index() {
                   </tr>
                   <tr>
                     <td>
-                      <span className={`${styles.sno}`}>V</span>
+                      <span className={`${styles.sno} text1`}>V</span>
                       <span className={`ml-2`}>Margin Money (INR) </span>
                     </td>
                     <td className={`${styles.good} good`}>
@@ -2402,11 +2402,11 @@ function Index() {
 
                   <tr>
                     <td>
-                      <span className={`${styles.sno}`}>W</span>
+                      <span className={`${styles.sno} text1`}>W</span>
                       <span className={`ml-2`}>
                         Revised Margin Money Calculation (INR){' '}
                       </span>
-                      <span className={`${styles.formula} ml-2`}>(R)</span>
+                      <span className={`${styles.formula} text1 ml-2`}>(R)</span>
                     </td>
                     <td className={`${styles.good} good`}>
                       ₹  {marginData?.revisedMarginMoney?.calculation?.revisedMarginMoney?.toLocaleString() ??
@@ -2416,7 +2416,7 @@ function Index() {
                   </tr>
                   <tr>
                     <td>
-                      <span className={`${styles.sno}`}>X</span>
+                      <span className={`${styles.sno} text1`}>X</span>
                       <span className={`ml-2`}>
                         Margin Money Received (INR){' '}
                       </span>
@@ -2429,11 +2429,11 @@ function Index() {
                   </tr>
                   <tr>
                     <td>
-                      <span className={`${styles.sno}`}>Y</span>
+                      <span className={`${styles.sno} text1`}>Y</span>
                       <span className={`ml-2`}>
                         Margin Money Payable (INR){' '}
                       </span>{' '}
-                      <span className={`${styles.formula} ml-2`}>[(W-X))]</span>
+                      <span className={`${styles.formula} text1 ml-2`}>[(W-X))]</span>
                     </td>
                     <td
                       className={`${styles.good} ${styles.highlight2} satisfactory`}
