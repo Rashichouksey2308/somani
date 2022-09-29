@@ -1960,7 +1960,7 @@ const debtProfile = (data, options, tempArr, camData) => {
                               {debt.bankName}
                             </span>
                           </div>
-                          <span>{debt.limit}</span>
+                          <span>{debt.limit?.toLocaleString('en-In', {maximumFractionDigits: 2})}</span>
                         </div>
                         <div className={`${styles.bar} ${styles.small_bar}`}>
                           <span
@@ -2055,7 +2055,7 @@ const debtProfile = (data, options, tempArr, camData) => {
                         <td>{debt?.bankName}</td>
                         <td> {debt?.limitType} </td>
 
-                        <td>{debt?.limit}</td>
+                        <td>{debt?.limit?.toLocaleString('en-In', {maximumFractionDigits: 2})}</td>
                         <td
                           className={`${styles.conduct}  ${debt.conduct == 'Good'
                             ? 'good'

@@ -74,7 +74,7 @@ export default function Index(props) {
                           'ReleaseOrder.data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
                           '',
                         ),
-                      )?.toLocaleString()}{' '}
+                      )?.toLocaleString('en-In', {maximumFractionDigits: 2})}{' '}
                       {_get(
                         props,
                         'ReleaseOrder.data[0].order.unitOfQuantity',
@@ -90,7 +90,7 @@ export default function Index(props) {
                       Balance Quantity
                     </div>
                     <span className={styles.value}>
-                      {props.BalanceQuantity()?.toLocaleString('en-In')}{' '}
+                      {props.BalanceQuantity()?.toLocaleString('en-In', {maximumFractionDigits: 2})}{' '}
                       {_get(
                         props,
                         'ReleaseOrder.data[0].order.unitOfQuantity',

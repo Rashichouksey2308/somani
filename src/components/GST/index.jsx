@@ -4438,8 +4438,8 @@ const gstSupplierDetail = (
                                 </td>
                                 <td>
                                   {customer?.invoice?.toLocaleString('en-In', {
-                                    maximumFractionDigits: 2,
-                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 0,
+                                   
                                   })}
                                 </td>
                                 <td>
