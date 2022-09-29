@@ -306,7 +306,7 @@ export default function Index({
                           'data[0].order.customClearance.billOfEntry.billOfEntry[0].boeDetails.invoiceQuantity',
                           0,
                         ),
-                      )?.toLocaleString()}{' '}
+                      )?.toLocaleString('en-In', {maximumFractionDigits: 2})}{' '}
                       {_get(
                         ReleaseOrderData,
                         'data[0].order.unitOfQuantity',
