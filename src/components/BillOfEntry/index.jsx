@@ -683,13 +683,13 @@ export default function Index({
                   className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6 `}
                 >
                   <div className={`${styles.label} text`}>
-                    Quantity <strong className="text-danger ml-n1">*</strong>
+                    BL Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
                     {customData?.order?.quantity?.toLocaleString('en-IN', {
                       maximumFractionDigits: 2,
                     })}{' '}
-                    {customData?.order?.unitOfQuantity?.toUpperCase()}
+                    {/* {customData?.order?.unitOfQuantity?.toUpperCase()} */}
                   </span>
                 </div>
                 <div

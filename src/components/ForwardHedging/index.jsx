@@ -5,7 +5,7 @@ import { Form, Row, Col } from 'react-bootstrap'
 import SaveBar from '../SaveBar'
 import { useState, useEffect } from 'react'
 import DateCalender from '../DateCalender'
-import Router from 'next/router'
+import Router, { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   GetAllForwardHedging,
@@ -17,14 +17,17 @@ import _get from 'lodash/get'
 import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
 import Axios from 'axios'
-import { setPageName, setDynamicName, setDynamicOrder } from '../../redux/userData/action'
+import {
+  setPageName,
+  setDynamicName,
+  setDynamicOrder,
+} from '../../redux/userData/action'
 import moment from 'moment'
 import { toast } from 'react-toastify'
 
-
-
 export default function Index() {
   const dispatch = useDispatch()
+  const router = useRouter()
 
   useEffect(() => {
     let ForwardHeading = sessionStorage.getItem('headgingId')
@@ -39,8 +42,12 @@ export default function Index() {
 
   useEffect(() => {
     dispatch(setPageName('forward'))
-    dispatch(setDynamicName(_get(allForwardHedging, 'data[0].company.companyName')))
-    dispatch(setDynamicOrder(_get(allForwardHedging, 'data[0].order.orderId', {})))
+    dispatch(
+      setDynamicName(_get(allForwardHedging, 'data[0].company.companyName')),
+    )
+    dispatch(
+      setDynamicOrder(_get(allForwardHedging, 'data[0].order.orderId', {})),
+    )
   }, [allForwardHedging])
   const [list, setList] = useState([
     {
@@ -72,7 +79,7 @@ export default function Index() {
         bookedRate: hedgingDataDetail?.bookedRate ?? '',
         bookedRateCurrency: hedgingDataDetail?.bookedRateCurrency || 'INR',
         bookedAmount: hedgingDataDetail?.bookedAmount ?? '',
-        validityFrom: hedgingDataDetail?.validityFrom ,
+        validityFrom: hedgingDataDetail?.validityFrom,
         validityTo: hedgingDataDetail?.validityTo,
         closingDate: '',
         closingRate: '',
@@ -109,7 +116,7 @@ export default function Index() {
   const saveHedgingData = (name, value, index = 0) => {
     // const name = name
     // const value = value
-    console.log(name, value, "Dsdff")
+    console.log(name, value, 'Dsdff')
     setList((prevState) => {
       const newState = prevState.map((obj, i) => {
         if (i == index) {
@@ -251,101 +258,124 @@ export default function Index() {
     let task = 'save'
     dispatch(UpdateForwardHedging({ obj, task }))
   }
-  console.log(list,"listlistlistlist")
-  const validation=()=>{
-    let isOk=true
-    for(let i=0;i<list.length;i++){
-      if (list[i].bankName === null || list[i].bankName === undefined  || list[i].bankName === "") {
-      let toastMessage = `Please enter bank name ${i} `
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+  console.log(list, 'listlistlistlist')
+  const validation = () => {
+    let isOk = true
+    for (let i = 0; i < list.length; i++) {
+      if (
+        list[i].bankName === null ||
+        list[i].bankName === undefined ||
+        list[i].bankName === ''
+      ) {
+        let toastMessage = `Please enter bank name ${i} `
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        isOk = false
+        break
       }
-       isOk= false
-      break;
-     
-    }
-     if (list[i].currency === null || list[i].currency === undefined  || list[i].currency === "") {
-      let toastMessage = `Please enter currency ${i}`
-      if (!toast.isActive(toastMessage.toUpperCase())) {
-        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      if (
+        list[i].currency === null ||
+        list[i].currency === undefined ||
+        list[i].currency === ''
+      ) {
+        let toastMessage = `Please enter currency ${i}`
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        isOk = false
+        break
       }
-       isOk= false
-      break;
-     
-    }
-    if (list[i].bookedRate === null || list[i].bookedRate === undefined  || list[i].bookedRate === "") {
-    let toastMessage = `Please enter booked Rate ${i}`
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
-     isOk= false
-    break;
-   
-    }
-    if (list[i].bookedAmount === null || list[i].bookedAmount === undefined  || list[i].bookedAmount === "") {
-    let toastMessage = `Please enter booked Amount ${i}`
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
-     isOk= false
-    break;
-   
-    }
-     if (list[i].validityFrom === null || list[i].validityFrom === undefined  || list[i].validityFrom === "") {
-    let toastMessage = `Please enter validity From ${i}`
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
-     isOk= false
-    break;
-   
-    }
-    if (list[i].validityTo === null || list[i].validityTo === undefined  || list[i].validityTo === "") {
-    let toastMessage = `Please enter validity To ${i}`
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
-     isOk= false
-    break;
-   
-    }
-     if (list[i].validityTo === null || list[i].validityTo === undefined  || list[i].validityTo === "") {
-    let toastMessage = `Please enter validity To ${i}`
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
-     isOk= false
-    break;
-   
-    }
-     if (list[i].forwardSalesContract === null || list[i].forwardSalesContract === undefined  || list[i].forwardSalesContract === "") {
-    let toastMessage = `Please add forward Sale Contract ${i}`
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-    toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-    }
-     isOk= false
-    break;
-   
-    }
+      if (
+        list[i].bookedRate === null ||
+        list[i].bookedRate === undefined ||
+        list[i].bookedRate === ''
+      ) {
+        let toastMessage = `Please enter booked Rate ${i}`
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        isOk = false
+        break
+      }
+      if (
+        list[i].bookedAmount === null ||
+        list[i].bookedAmount === undefined ||
+        list[i].bookedAmount === ''
+      ) {
+        let toastMessage = `Please enter booked Amount ${i}`
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        isOk = false
+        break
+      }
+      if (
+        list[i].validityFrom === null ||
+        list[i].validityFrom === undefined ||
+        list[i].validityFrom === ''
+      ) {
+        let toastMessage = `Please enter validity From ${i}`
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        isOk = false
+        break
+      }
+      if (
+        list[i].validityTo === null ||
+        list[i].validityTo === undefined ||
+        list[i].validityTo === ''
+      ) {
+        let toastMessage = `Please enter validity To ${i}`
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        isOk = false
+        break
+      }
+      if (
+        list[i].validityTo === null ||
+        list[i].validityTo === undefined ||
+        list[i].validityTo === ''
+      ) {
+        let toastMessage = `Please enter validity To ${i}`
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        isOk = false
+        break
+      }
+      if (
+        list[i].forwardSalesContract === null ||
+        list[i].forwardSalesContract === undefined ||
+        list[i].forwardSalesContract === ''
+      ) {
+        let toastMessage = `Please add forward Sale Contract ${i}`
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
+        isOk = false
+        break
+      }
     }
     return isOk
   }
   const handleSubmit = () => {
-    if(validation()){
+    if (validation()) {
+      let hedgingObj = [...list]
 
-   
-    let hedgingObj = [...list]
+      // hedgingObj.balanceAmount = list.bookedAmount
+      console.log(hedgingObj, 'dasd')
 
-    // hedgingObj.balanceAmount = list.bookedAmount
-    console.log(hedgingObj, "dasd")
-
-    let obj = {
-      forwardHedgingId: hedgingData?._id,
-      detail: hedgingObj,
+      let obj = {
+        forwardHedgingId: hedgingData?._id,
+        detail: hedgingObj,
+      }
+      let task = 'submit'
+      dispatch(UpdateForwardHedging({ obj, task }))
+      router.push(`/track-shipment`)
     }
-    let task = 'submit'
-    dispatch(UpdateForwardHedging({ obj, task }))
-     }
   }
   console.log(list[0]?.item?.bookedRate, 'list')
 
@@ -359,8 +389,6 @@ export default function Index() {
                 className={`${styles.arrow} image_arrow mr-2 img-fluid`}
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="ArrowRight"
-
-
               />
             </div>
             <h1 className={`${styles.heading}`}>
@@ -465,20 +493,33 @@ export default function Index() {
                             required
                             type="text"
                             onFocus={(e) => {
-                              setIsFieldInFocus({ ...isFieldInFocus, bookedRate: true }),
-                                e.target.type = 'number'
+                              setIsFieldInFocus({
+                                ...isFieldInFocus,
+                                bookedRate: true,
+                              }),
+                                (e.target.type = 'number')
                             }}
                             onBlur={(e) => {
-                              setIsFieldInFocus({ ...isFieldInFocus, bookedRate: false }),
-                                e.target.type = 'text'
+                              setIsFieldInFocus({
+                                ...isFieldInFocus,
+                                bookedRate: false,
+                              }),
+                                (e.target.type = 'text')
                             }}
                             name="bookedRate"
-                            value={isFieldInFocus.bookedRate ?
-                              item.bookedRate :
-                              `${item.currency} `  +item.bookedRate? Number(item.bookedRate)?.toLocaleString(item.currency=="INR"?"en-IN":"en-US"):""}
-                            onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
-
+                            value={
+                              isFieldInFocus.bookedRate
+                                ? item.bookedRate
+                                : `${item.currency} ` + item.bookedRate
+                                ? Number(item.bookedRate)?.toLocaleString(
+                                    item.currency == 'INR' ? 'en-IN' : 'en-US',
+                                  )
+                                : ''
+                            }
+                            onKeyDown={(evt) =>
+                              ['e', 'E', '+', '-'].includes(evt.key) &&
+                              evt.preventDefault()
+                            }
                             onChange={(e) =>
                               saveHedgingData(
                                 e.target.name,
@@ -501,20 +542,33 @@ export default function Index() {
                             type="text"
                             required
                             onFocus={(e) => {
-                              setIsFieldInFocus({ ...isFieldInFocus, bookedAmount: true }),
-                                e.target.type = 'number'
+                              setIsFieldInFocus({
+                                ...isFieldInFocus,
+                                bookedAmount: true,
+                              }),
+                                (e.target.type = 'number')
                             }}
                             onBlur={(e) => {
-                              setIsFieldInFocus({ ...isFieldInFocus, bookedAmount: false }),
-                                e.target.type = 'text'
+                              setIsFieldInFocus({
+                                ...isFieldInFocus,
+                                bookedAmount: false,
+                              }),
+                                (e.target.type = 'text')
                             }}
                             name="bookedAmount"
                             // value={item.bookedAmount}
-                            value={isFieldInFocus.bookedAmount ?
-                              item.bookedAmount :
-                             `${item.currency} ` + Number(item.bookedAmount)?.toLocaleString(item.currency=="INR"?"en-IN":"en-US")}
-
-                            onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                            value={
+                              isFieldInFocus.bookedAmount
+                                ? item.bookedAmount
+                                : `${item.currency} ` +
+                                  Number(item.bookedAmount)?.toLocaleString(
+                                    item.currency == 'INR' ? 'en-IN' : 'en-US',
+                                  )
+                            }
+                            onKeyDown={(evt) =>
+                              ['e', 'E', '+', '-'].includes(evt.key) &&
+                              evt.preventDefault()
+                            }
                             onChange={(e) =>
                               saveHedgingData(
                                 e.target.name,
@@ -554,7 +608,10 @@ export default function Index() {
                           <div className="d-flex">
                             <DateCalender
                               name="validityTo"
-                              startFrom={item?.validityFrom!=""&& moment(item.validityFrom).format('DD-MM-YYYY')}
+                              startFrom={
+                                item?.validityFrom != '' &&
+                                moment(item.validityFrom).format('DD-MM-YYYY')
+                              }
                               defaultDate={item?.validityTo ?? ''}
                               // defaultDate={list?.validityTo}
                               saveDate={saveDate}
@@ -584,7 +641,12 @@ export default function Index() {
                             Balance Amount
                           </div>
                           <span className={`${styles.value}`}>
-                           {item.currency} {" "} {item?.bookedAmount?Number(item?.bookedAmount)?.toLocaleString(item.currency=="INR"?"en-IN":"en-US"):""}
+                            {item.currency}{' '}
+                            {item?.bookedAmount
+                              ? Number(item?.bookedAmount)?.toLocaleString(
+                                  item.currency == 'INR' ? 'en-IN' : 'en-US',
+                                )
+                              : ''}
                           </span>
                         </div>
                       </div>
@@ -599,8 +661,10 @@ export default function Index() {
                               required
                               name="closingRate"
                               value={item?.closingRate}
-                              onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                              onKeyDown={(evt) =>
+                                ['e', 'E', '+', '-'].includes(evt.key) &&
+                                evt.preventDefault()
+                              }
                               onChange={(e) =>
                                 saveHedgingData(
                                   e.target.name,
@@ -716,7 +780,11 @@ export default function Index() {
                                   />
                                 </td>
                                 <td className={styles.doc_row}>
-                                  {item?.forwardSalesContract == null ? '' : moment(item?.forwardSalesContract.date).format('DD-MM-YYYY , h:mm a ')}
+                                  {item?.forwardSalesContract == null
+                                    ? ''
+                                    : moment(
+                                        item?.forwardSalesContract.date,
+                                      ).format('DD-MM-YYYY , h:mm a ')}
                                 </td>
                                 <td>
                                   {/* <div className={styles.uploadBtnWrapper}>
@@ -730,7 +798,7 @@ export default function Index() {
                                 />
                               </div> */}
                                   {item &&
-                                    item?.forwardSalesContract == null ? (
+                                  item?.forwardSalesContract == null ? (
                                     <>
                                       <div className={styles.uploadBtnWrapper}>
                                         <input
@@ -760,9 +828,14 @@ export default function Index() {
                                 </div> */}
                                     </>
                                   ) : (
-                                    <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
+                                    <div
+                                      className={`${styles.certificate} text1 d-flex justify-content-between`}
+                                    >
                                       <span>
-                                        {item?.forwardSalesContract?.originalName}
+                                        {
+                                          item?.forwardSalesContract
+                                            ?.originalName
+                                        }
                                       </span>
                                       <img
                                         className={`${styles.close_image} image_arrow`}
