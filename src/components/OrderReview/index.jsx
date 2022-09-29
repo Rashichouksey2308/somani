@@ -15,7 +15,10 @@ function Index() {
   // }, [dispatch])
 
   const { buyerList } = useSelector((state) => state.buyer)
-  console.log(moment(buyerList?.order?.ExpectedDateOfShipment).format('DD-MM-YYYY'), 'moment list')
+  console.log(
+    moment(buyerList?.order?.ExpectedDateOfShipment).format('DD-MM-YYYY'),
+    'moment list',
+  )
 
   return (
     <div className={`${styles.wrapper} card`}>
