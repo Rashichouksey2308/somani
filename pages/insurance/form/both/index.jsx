@@ -1712,7 +1712,7 @@ const Index = () => {
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              GST of Insurer
+                              GSTIN of Insurer
                             </label>
 
                           </div>

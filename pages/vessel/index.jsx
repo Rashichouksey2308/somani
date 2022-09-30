@@ -73,14 +73,23 @@ export default function Home() {
   const setData = (Vessel) => {
     setOrderId(_get(Vessel, 'data[0].order._id', ''))
 
-    console.log(_get(Vessel, 'data[0].vessels', []).length, 'Vessel123')
+    console.log(
+      _get(
+        Vessel,
+        "data[0].vessels",
+        []
+      ).length, "Vessel123")
 
-    // setCurrency(_get(
-    //   Vessel,
-    //   "data[0].order.orderCurrency",
-    //   "USD"
-    // ))
-    setVesselUpdatedAt(_get(Vessel, 'data[0].updatedAt', false))
+    setCurrency(_get(
+      Vessel,
+      "data[0].order.marginMoney.calculation.orderValueCurrency",
+      "USD"
+    ))
+    setVesselUpdatedAt(_get(
+      Vessel,
+      "data[0].updatedAt",
+      false
+    ))
     setVesselData(Vessel)
     setPartShipmentAllowed(
       _get(
@@ -113,104 +122,114 @@ export default function Home() {
             'data[0].order.termsheet.transactionDetails.shipmentType',
             '',
           ),
-          commodity: _get(Vessel, 'data[0].order.commodity', ''),
-          quantity: _get(Vessel, 'data[0].order.quantity', ''),
-          orderCurrency: _get(Vessel, 'data[0].order.orderCurrency', ''),
+          commodity: _get(
+            Vessel,
+            "data[0].order.commodity",
+            ""
+          ),
+          quantity: _get(
+            Vessel,
+            "data[0].order.quantity",
+            ""
+          ),
+          orderCurrency: _get(
+            Vessel,
+            "data[0].order.orderCurrency",
+            ""
+          ),
           orderValue: _get(
             Vessel,
-            'data[0].order.marginMoney.calculation.orderValue',
-            '',
-          ),
-          transitDetails: {
-            countryOfOrigin:
-              _get(
-                Vessel,
-                'data[0].vessels[0].transitDetails.countryOfOrigin',
-                '',
-              ) !== ''
-                ? _get(
-                    Vessel,
-                    'data[0].vessels[0].transitDetails.countryOfOrigin',
-                    '',
-                  )
-                : _get(Vessel, 'data[0].order.countryOfOrigin', ''),
-            portOfLoading:
-              '' ||
-              _get(
-                Vessel,
-                'data[0].vessels[0].transitDetails.portOfLoading',
-                '',
-              ) !== ''
-                ? _get(
-                    Vessel,
-                    'data[0].vessels[0].transitDetails.portOfLoading',
-                    '',
-                  )
-                : _get(
-                    Vessel,
-                    'data[0].order.termsheet.transactionDetails.loadPort',
-                    '',
-                  ),
-            portOfDischarge:
-              _get(
-                Vessel,
-                'data[0].vessels[0].transitDetails.portOfDischarge',
-                '',
-              ) !== ''
-                ? _get(
-                    Vessel,
-                    'data[0].vessels[0].transitDetails.portOfDischarge',
-                    '',
-                  )
-                : _get(Vessel, 'data[0].order.portOfDischarge', '') ||
-                  _get(
-                    Vessel,
-                    'data[0].vessels[0].transitDetails.portOfDischarge',
-                    '',
-                  ),
-            laycanFrom:
-              '' ||
-              _get(
-                Vessel,
-                'data[0].vessels[0].transitDetails.laycanFrom',
-                '',
-              ) !== ''
-                ? _get(
-                    Vessel,
-                    'data[0].vessels[0].transitDetails.laycanFrom',
-                    '',
-                  )
-                : _get(
-                    Vessel,
-                    'data[0].order.shipmentDetail.loadPort.fromDate',
-                    '',
-                  ),
-            laycanTo:
-              '' ||
-              _get(Vessel, 'data[0].vessels[0].transitDetails.laycanTo', '') !==
-                ''
-                ? _get(Vessel, 'data[0].vessels[0].transitDetails.laycanTo', '')
-                : _get(
-                    Vessel,
-                    'data[0].order.shipmentDetail.loadPort.toDate',
-                    '',
-                  ),
-            EDTatLoadPort:
-              '' ||
-              _get(
-                Vessel,
-                'data[0].vessels[0].transitDetails.EDTatLoadPort',
-                '',
-              ),
+            "data[0].order.marginMoney.calculation.orderValue",
+            ""
+          ), transitDetails: {
+            countryOfOrigin: _get(
+              Vessel,
+              "data[0].vessels[0].transitDetails.countryOfOrigin",
+              ""
+            ) !== '' ? _get(
+              Vessel,
+              "data[0].vessels[0].transitDetails.countryOfOrigin",
+              ""
+            ) : _get(
+              Vessel,
+              "data[0].order.countryOfOrigin",
+              ""
+            ),
+            portOfLoading: "" || _get(
+              Vessel,
+              "data[0].vessels[0].transitDetails.portOfLoading",
+              ""
+            ) !== '' ? _get(
+              Vessel,
+              "data[0].vessels[0].transitDetails.portOfLoading",
+              ""
+            ) : _get(
+              Vessel,
+              "data[0].order.termsheet.transactionDetails.loadPort",
+              ""
+            ),
+            portOfDischarge: _get(
+              Vessel,
+              "data[0].vessels[0].transitDetails.portOfDischarge",
+              ""
+            ) !== '' ? _get(
+              Vessel,
+              "data[0].vessels[0].transitDetails.portOfDischarge",
+              ""
+            ) : _get(
+              Vessel,
+              "data[0].order.termsheet.transactionDetails.portOfDischarge",
+              ""
+            ) || _get(
+              Vessel,
+              "data[0].vessels[0].transitDetails.portOfDischarge",
+              ""
+            ),
+            laycanFrom: "" || _get(
+              Vessel,
+              "data[0].vessels[0].transitDetails.laycanFrom",
+              ""
+            )
             //  !== '' ? _get(
             //   Vessel,
-            //   "data[0].vessels[0].transitDetails.EDTatLoadPort",
+            //   "data[0].vessels[0].transitDetails.laycanFrom",
             //   ""
             // ) : _get(
             //   Vessel,
-            //   "data[0].order.shipmentDetail.ETAofDischarge.toDate",
+            //   "data[0].order.shipmentDetail.loadPort.fromDate",
             //   ""
             // )
+            ,
+            laycanTo: "" || _get(
+              Vessel,
+              "data[0].vessels[0].transitDetails.laycanTo",
+              ""
+            )
+            // !== '' ? _get(
+            //   Vessel,
+            //   "data[0].vessels[0].transitDetails.laycanTo",
+            //   ""
+            // ) : _get(
+            //   Vessel,
+            //   "data[0].order.shipmentDetail.loadPort.toDate",
+            //   ""
+            // )
+            ,
+            EDTatLoadPort: "" || _get(
+              Vessel,
+              "data[0].vessels[0].transitDetails.EDTatLoadPort",
+              ""
+            )
+              !== '' ? _get(
+                Vessel,
+                "data[0].vessels[0].transitDetails.EDTatLoadPort",
+                ""
+              ) : _get(
+                Vessel,
+                "data[0].order.shipmentDetail.ETAofDischarge.toDate",
+                ""
+              )
+            ,
             ETAatDischargePort: _get(
               Vessel,
               'data[0].vessels[0].transitDetails.ETAatDischargePort',
@@ -226,46 +245,52 @@ export default function Home() {
             //   ""
             // )
           },
+          shippingInformation: {
+            shippingLineOrCharter: _get(
+              Vessel,
+              "data[0].vessels[0].shippingInformation.shippingLineOrCharter",
+              ""
+            ),
+            numberOfContainers: _get(
+              Vessel,
+              "data[0].vessels[0].shippingInformation.numberOfContainers",
+              ""
+            ),
+            freeDetentionPeriod: _get(
+              Vessel,
+              "data[0].vessels[0].shippingInformation.freeDetentionPeriod",
+              ""
+            )
+          },
 
-          vesselInformation: [
-            {
-              name:
-                '' ||
-                _get(
-                  Vessel,
-                  'data[0].vessels[0].vesselInformation[0].name',
-                  '',
-                ),
-              IMONumber:
-                '' ||
-                _get(
-                  Vessel,
-                  'data[0].vessels[0].vesselInformation[0].IMONumber',
-                  '',
-                ),
-              flag:
-                '' ||
-                _get(
-                  Vessel,
-                  'data[0].vessels[0].vesselInformation[0].flag',
-                  '',
-                ),
-              yearOfBuilt:
-                '' ||
-                _get(
-                  Vessel,
-                  'data[0].vessels[0].vesselInformation[0].yearOfBuilt',
-                  '',
-                ),
-              shippingLineOrCharter:
-                '' ||
-                _get(
-                  Vessel,
-                  'data[0].vessels[0].vesselInformation[0].shippingLineOrCharter',
-                  '',
-                ),
-            },
-          ],
+          vesselInformation: [{
+            name: '' || _get(
+              Vessel,
+              "data[0].vessels[0].vesselInformation[0].name",
+              ""
+            )
+            ,
+            IMONumber: '' || _get(
+              Vessel,
+              "data[0].vessels[0].vesselInformation[0].IMONumber",
+              ""
+            ),
+            flag: '' || _get(
+              Vessel,
+              "data[0].vessels[0].vesselInformation[0].flag",
+              ""
+            ),
+            yearOfBuilt: '' || _get(
+              Vessel,
+              "data[0].vessels[0].vesselInformation[0].yearOfBuilt",
+              ""
+            ),
+            shippingLineOrCharter: '' || _get(
+              Vessel,
+              "data[0].vessels[0].vesselInformation[0].shippingLineOrCharter",
+              ""
+            ),
+          }]
         },
       ])
     } else {

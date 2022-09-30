@@ -4867,7 +4867,7 @@ function Index() {
                                 <div className={`${styles.val} heading`}>
                                   {/* {finalCal.grossOrderValue?.toLocaleString('en-In')} */}
                                   ₹{' '}
-                                  {convertValue((finalCal.grossOrderValue), coversionUnit).toLocaleString('en-In', {
+                                  {convertValue((finalCal.grossOrderValue), coversionUnit)?.toLocaleString('en-In', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                   })}
