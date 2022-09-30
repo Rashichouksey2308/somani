@@ -1254,7 +1254,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                               >
                                 <div
                                   className={styles.dot}
-                                  style={{ backgroundColor: '#3F66EA' }}
+                                  // style={{ backgroundColor: '#3F66EA' }}
+                                  style={{ backgroundColor: '#e31e10' }}
                                 ></div>
                                 <span>
                                   {alertObj[alert.alert] ?? alert.alert}
@@ -1279,7 +1280,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                               >
                                 <div
                                   className={styles.dot}
-                                  style={{ backgroundColor: '#28BE39' }}
+                                  style={{ backgroundColor: '#e31e10' }}
+                                  // style={{ backgroundColor: '#28BE39' }}
                                 ></div>
                                 <span>
                                   {alertObj[alert.alert] ?? alert.alert}
@@ -1303,7 +1305,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                               >
                                 <div
                                   className={styles.dot}
-                                  style={{ backgroundColor: '#EA3FD6' }}
+                                  style={{ backgroundColor: '#e31e10' }}
                                 ></div>
                                 <span>
                                   {alertObj[alert.alert] ?? alert.alert}
@@ -1327,7 +1329,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                               >
                                 <div
                                   className={styles.dot}
-                                  style={{ backgroundColor: '#EA3FD6' }}
+                                  style={{ backgroundColor: '#e31e10' }}
                                 ></div>
                                 <span>
                                   {alertObj[alert.alert] ?? alert.alert}
