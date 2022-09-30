@@ -2031,10 +2031,10 @@ const index = ({
                       </label>
                     </div>
                     <div
-                      className={`${styles.btn_outer} d-flex justify-center-center align-items-center col-md-4`}
+                      className={`${styles.btn_outer} d-flex flex-nowrap justify-center-center align-items-center col-md-4`}
                     >
                       <div className={`${styles.btn_container}`}>
-                        <button className={`${styles.gst_btn}`}>
+                        <button className={`${styles.gst_btn} d-flex align-items-center text-nowrap`}>
                           {' '}
                           <input
                             type="file"
@@ -2046,7 +2046,7 @@ const index = ({
                             }}
                           />
                           <img
-                            className="img-fluid mr-2 mb-1"
+                            className="img-fluid mr-2"
                             src="/static/file_upload.svg"
                             alt="file upload"
                           />
