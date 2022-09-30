@@ -31,18 +31,27 @@ function index({
       <div className="d-flex">
         <select
          
-          className={`${styles.input_field} ${styles.customSelect} form-control`}
+          className={`${styles.input_field} form-control`}
         >
-          <option>Select an option</option>
+          <option>GST Report </option>
           <option value={true}>GST Report in Pdf</option>
           <option value={false}>GST Report in Excel</option>
         </select>
-       
-        <img
+      <div className={`${styles.download_icon} my-auto`}>
+        <Image
+        
+            src="/static/file_download.svg"
+            alt="Picture of the author"
+            width={14}
+            height={17}
+          />
+          </div>
+        {/* <img
           className={`${styles.arrow} image_arrow img-fluid`}
           src="/static/inputDropDown.svg"
           alt="Search"
-        />
+        /> */}
+     
       </div>
     </div>
       :
