@@ -169,6 +169,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                     alt="Browse"
                   />
                   {newDoc?.document?.name ? (
+                    <div className='d-flex justify-content-center align-items-center'>
                     <div
                       className={`${styles.certificate} text1 d-flex justify-content-between`}
                     >
@@ -179,6 +180,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                         onClick={(e) => handleCloseDoc()}
                         alt="Close"
                       />{' '}
+                    </div>
                     </div>
                   ) : (
                     <p className={styles.drop_para}>

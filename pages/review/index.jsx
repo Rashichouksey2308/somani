@@ -9480,6 +9480,7 @@ function Index() {
           leftButtonName={`Previous`}
           rightButtonName={`Next`}
           handleApprove={onNext}
+          isDropdown={true}
         />
       ) : null}
       {selectedTab == 'CAM' ? (

@@ -319,6 +319,7 @@ const Index = ({
                     onChange={(e) => uploadDocument2(e)}
                   />
                   {newDoc?.document?.name ? (
+                      <div className='d-flex justify-content-center align-items-center'>
                     <div
                       className={`${styles.certificate} text1 d-flex justify-content-between`}
                     >
@@ -329,6 +330,7 @@ const Index = ({
                         onClick={(e) => handleCloseDoc()}
                         alt="Close"
                       />{' '}
+                    </div>
                     </div>
                   ) : (
                     <p className={styles.drop_para}>

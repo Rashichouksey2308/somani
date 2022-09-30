@@ -13,6 +13,7 @@ function index({
   rightButtonName,
   isApprove,
   handleUpdate,
+  isDropdown,
 }) {
   const sidebar = useSelector((state) => state.sidebar.show_sidebar)
   const isMobile = useSelector((state) => state.sidebar.isMobile)
@@ -21,6 +22,30 @@ function index({
       !sidebar ? styles.no_sidebar : null
     }
     ${isMobile ? styles.no_sidebar_mobile : null} cta_bar`}>
+
+      { isDropdown ? 
+      <div
+      className={`${styles.form_group}`}
+      style={{ top: '5px' }}
+    >
+      <div className="d-flex">
+        <select
+         
+          className={`${styles.input_field} ${styles.customSelect} form-control`}
+        >
+          <option>Select an option</option>
+          <option value={true}>GST Report in Pdf</option>
+          <option value={false}>GST Report in Excel</option>
+        </select>
+       
+        <img
+          className={`${styles.arrow} image_arrow img-fluid`}
+          src="/static/inputDropDown.svg"
+          alt="Search"
+        />
+      </div>
+    </div>
+      :
       <div className="d-flex justify-content-between align-items-center w-100">
         <div
           className={`${styles.reject} `}
@@ -39,6 +64,8 @@ function index({
           />
         </div>
       </div>
+      
+}
       <div className="d-flex justify-content-between align-items-center">
         {isPrevious ? (
           <div
