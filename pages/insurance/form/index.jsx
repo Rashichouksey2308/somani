@@ -450,11 +450,11 @@ const Index = () => {
                               Quantity
                             </div>
                             <div className={styles.col_body}>
-                              {Number(
+                              {checkNan(Number(
                                 insuranceData?.order?.quantity,
                               )?.toLocaleString('en-In', {
                                 maximumFractionDigits: 2,
-                              })}{' '}
+                              }))}{' '}
                               MT
                             </div>
                           </Col>

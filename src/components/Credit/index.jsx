@@ -44,7 +44,7 @@ const index = ({
   const [saveContactTable, setContactTable] = useState(false)
 
   const { gstDocument } = useSelector((state) => state.buyer)
-
+  console.log(gstDocument,"gstDocument")
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     monthlyCapacity: false,
     capacityUtilization: false,
@@ -98,7 +98,14 @@ const index = ({
     newInput.GSTIN_document.date = gstDocument.date
     setKeyAddressData(newInput)
   }, [gstDocument])
-
+console.log(keyAddressData,"keyAddressData")
+const removeDoc= ()=>{
+   const newInput = { ...keyAddressData }
+    newInput.GSTIN_document.name = undefined
+    newInput.GSTIN_document.path = undefined
+    newInput.GSTIN_document.date = undefined
+    setKeyAddressData(newInput)
+}
   //const [deleteRow, setDeleteRow] = useState(true)
 
   // const [debt, setDebtData] = useState([])
@@ -337,6 +344,25 @@ const index = ({
   const handleClick = () => {
     if (addressValidtion(keyAddressData)) {
       keyAddDataArr(keyAddressData)
+  setKeyAddressData({
+    GSTIN: '',
+    GSTIN_document: {
+      name: undefined,
+      path: undefined,
+      date: undefined,
+    },
+    addressType: '',
+    branch: '',
+    city: '',
+    state: '',
+    email: '',
+    completeAddress: '',
+    contact: {
+      callingCode: null,
+      number: null,
+    },
+    pinCode: null,
+  })
     }
   }
 
@@ -1554,6 +1580,7 @@ const index = ({
                         <select
                           className={`${styles.input_field} ${styles.small_input} ${styles.customSelect}  input form-control`}
                           name="addressType"
+                          value={keyAddressData.addressType}
                           onChange={(e) => {
                             handleChange(e.target.name, e.target.value)
                           }}
@@ -1589,6 +1616,7 @@ const index = ({
                           required
                           type="text"
                           name="pinCode"
+                          value={keyAddressData.pinCode==null?"":keyAddressData.pinCode}
                           onChange={(e) => {
                             handleChange(e.target.name, e.target.value)
                           }}
@@ -1614,6 +1642,7 @@ const index = ({
                         required
                         type="text"
                         name="state"
+                        value={keyAddressData.state}
                         onChange={(e) => {
                           handleChange(e.target.name, e.target.value)
                         }}
@@ -1633,6 +1662,7 @@ const index = ({
                         required
                         type="text"
                         name="city"
+                        value={keyAddressData.city}
                         onChange={(e) => {
                           handleChange(e.target.name, e.target.value)
                         }}
@@ -1650,6 +1680,7 @@ const index = ({
                         required
                         type="text"
                         name="email"
+                         value={keyAddressData.email}
                         onChange={(e) => {
                           handleChange(e.target.name, e.target.value)
                         }}
@@ -1667,6 +1698,7 @@ const index = ({
                         <select
                           name="callingCode"
                           id="Code"
+                          value={keyAddressData.contact.callingCode}
                           className={`${styles.code_phone} input border-right-0`}
                         >
                           <option>+91</option>
@@ -1680,6 +1712,7 @@ const index = ({
                           required
                           type="tel"
                           name="contact.number"
+                          value={keyAddressData.contact.number==null?"":keyAddressData.contact.number}
                           onChange={(e) => {
                             mobileFunction(e)
                           }}
@@ -1714,6 +1747,7 @@ const index = ({
                         type="text"
                         required
                         name="completeAddress"
+                         value={keyAddressData.completeAddress}
                         onChange={(e) => {
                           handleChange(e.target.name, e.target.value)
                         }}
@@ -1730,6 +1764,7 @@ const index = ({
                         type="text"
                         name="branch"
                         required
+                         value={keyAddressData.branch}
                         onChange={(e) => {
                           handleChange(e.target.name, e.target.value)
                         }}
@@ -1746,6 +1781,7 @@ const index = ({
                         required
                         type="text"
                         name="GSTIN"
+                         value={keyAddressData.GSTIN}
                         onChange={(e) => {
                           handleChange(e.target.name, e.target.value)
                         }}
@@ -1761,7 +1797,8 @@ const index = ({
                       className={`${styles.btn_outer} d-flex justify-center-center align-items-center col-md-4`}
                     >
                       <div className={`${styles.btn_container}`}>
-                        <button className={`${styles.gst_btn}`}>
+                        {keyAddressData?.GSTIN_document?.name==undefined?
+                         <button className={`${styles.gst_btn}`}>
                           {' '}
                           <input
                             type="file"
@@ -1779,6 +1816,22 @@ const index = ({
                           />
                           GST Doc
                         </button>
+                        :
+                        (
+                      <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
+                        <span className="text-color">
+                          {keyAddressData?.GSTIN_document?.name}
+                        </span>
+                        <img
+                          className={`${styles.close_image} image_arrow`}
+                          src="/static/close.svg"
+                          onClick={() => removeDoc(index)}
+                          alt="Close"
+                        />{' '}
+                      </div>
+                    )
+                        }
+                       
                       </div>
                       <button
                         className={`${styles.add_btn}`}

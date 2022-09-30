@@ -85,6 +85,7 @@ const Index = ({ saveOrderData, darkMode, orderDetails }) => {
                 // e.target.value = (parseInt(e.target.value.replace(/[^\d]+/gi, '')) || 0)
                 saveOrderData(e.target.name, e.target.value)
               }}
+              onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
               value={
                 isFieldInFocus.quantity ?
                   orderDetails?.quantity :
@@ -115,6 +116,7 @@ const Index = ({ saveOrderData, darkMode, orderDetails }) => {
                 setIsFieldInFocus({ ...isFieldInFocus, orderValue: false }),
                   e.target.type = 'text'
               }}
+                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
               value={
                 isFieldInFocus.orderValue ?
                   orderDetails?.orderValue :

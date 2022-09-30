@@ -27,6 +27,7 @@
             width: 13px;
             height: 21px;
             background: transparent;
+            cursor: pointer;
             @include respond(phone) {
                 height: 18px;
             }
