@@ -124,6 +124,7 @@
       letter-spacing: 0.19px;
       cursor: pointer;
       font-weight: bold;
+      background: transparent;
       width: 260px;
       height: 48px;
       border: 3px solid #3687E8 !important;
@@ -165,4 +166,7 @@
       -webkit-appearance: none;
     }
   }
- 
+ .download_icon {
+  margin-left: -40px;
+  
+ }
