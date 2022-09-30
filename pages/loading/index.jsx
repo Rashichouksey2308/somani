@@ -39,7 +39,7 @@ function Index() {
               </div>
               <input
                 type="text"
-                className={`${styles.formControl} form-control formControl `}
+                className={`${styles.formControl} text_area border form-control formControl `}
                 placeholder="Search"
               />
             </div>

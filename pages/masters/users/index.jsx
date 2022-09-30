@@ -21,7 +21,7 @@ const index = () => {
               </div>
               <input
                 type="text"
-                className={`${styles.formControl} formControl form-control`}
+                className={`${styles.formControl} text_area border formControl form-control`}
                 placeholder="Search"
               />
             </div>
