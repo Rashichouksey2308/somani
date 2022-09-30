@@ -8,15 +8,13 @@ import moment from 'moment'
 import { CovertvaluefromtoCR } from '../../utils/helper'
 
 import DateCalender from '../DateCalender'
-function Index({ handleChange, reviewedProfile, isAddedRow }) {
-  console.log(
-    '🚀 ~ file: index.jsx ~ line 9 ~ Index ~ reviewedProfile',
-    reviewedProfile?.orderValues?.apiResponse,
-  )
+function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
+
   const [transactionTypeDropdown, settransactionTypeDropdown] = useState([
     'Import',
     'Domestic',
   ])
+  console.log(payloadData,"payloadData")
   const commodityDropdown = ['Iron', 'Crude', 'Steel',"Coal"]
   const countryOfOriginDropdown = ['India', 'Australia',"Sri Lanka","Qatar","Dubai"]
   const portOfDischargeDropdown = [
@@ -37,12 +35,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
   }, [reviewedProfile])
   const typeOfBusinessDropdown = ['Manufacturer', 'Trader', 'Retail']
 
-  console.log(
-    moment(reviewedProfile?.ExpectedDateOfShipment?.originalValue.split('T')[0])
-      .add(90, 'days')
-      .toDate(),
-    'reviewedProfile?.orderValue?.originalValue',
-  )
+   const [isFieldInFocus, setIsFieldInFocus] = useState(false)
   const DropDown = (values, name, disabled) => {
     return (
         <div className="d-flex align-items-center">
@@ -261,16 +254,27 @@ function Index({ handleChange, reviewedProfile, isAddedRow }) {
                   <td>
                     {!reviewedProfile?.turnOver?.apiResponse && (
                       <Form.Control
-                        type="number"
+                         type="text"
+                            onFocus={(e) => {
+                              setIsFieldInFocus(true),
+                                e.target.type = 'number'
+                            }}
+                            onBlur={(e) => {
+                              setIsFieldInFocus(false),
+                                e.target.type = 'text'
+                            }}
                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
+                          
                         name="turnOver"
                         id="textDate"
+                      value={isFieldInFocus ?
+                               payloadData?.turnOver :
+                               Number(payloadData?.turnOver?payloadData?.turnOver:0)?.toLocaleString("en-IN")+ ` Cr`}
                         className={`${styles.input}`}
-                        onBlur={(e) =>
+                        onChange={(e) =>
                           handleChange(
                             e.target.name,
-                            Number(e.target.value * 10000000),
+                            Number(e.target.value ),
                           )
                         }
                         disabled={fields[2]?.isEdit}

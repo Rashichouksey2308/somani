@@ -62,6 +62,19 @@ function Index() {
     dispatch(GetAllBuyer(`?company=${id}`))
   }
 
+  const [sorting, setSorting] = useState(1)
+
+  const handleSort = () => {
+    if(sorting == -1){
+    dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'ReviewQueue'}&limit=${7}&createdAt=${sorting}`))
+    setSorting(1)
+    }else if(sorting == 1){
+      
+      dispatch(GetAllBuyer(`?page=${currentPage}&queue=${'ReviewQueue'}&limit=${7}&createdAt=${sorting}`))
+      setSorting(-1)
+    }
+  }
+
   return (
     <>
       {' '}
@@ -84,7 +97,7 @@ function Index() {
                   value={serachterm}
                   onChange={handleSearch}
                   type="text"
-                  className={`${styles.formControl} border form-control formControl`}
+                  className={`${styles.formControl} border text_area form-control formControl`}
                   placeholder="Search"
                 />
               </div>
@@ -247,6 +260,7 @@ function Index() {
                         <img
                           className={`mb-1`}
                           src="./static/icons8-sort-24.svg"
+                          onClick={()=>handleSort()}
                         />
                       </th>
                       <th>BUYER NAME</th>

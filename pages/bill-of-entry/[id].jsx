@@ -106,6 +106,7 @@ function Index() {
               alt="arrow right"
               className="img-fluid mr-2 image_arrow"
               onClick={() => Router.push('/bill-of-entry')}
+              style={{cursor:'pointer'}}
             />
             <h3 className={`${styles.title} heading`}>
               <span
