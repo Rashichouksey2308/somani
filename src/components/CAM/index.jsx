@@ -4340,7 +4340,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                         cy="21"
                         r="15.91549430918954"
                         fill="transparent"
-                        stroke="#ffffff"
+                        stroke={`${!darkMode ? '#fff' : '#293141'}`}
                         strokeWidth="3"
                       ></circle>
 
@@ -4402,7 +4402,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                         cy="21"
                         r="15.91549430918954"
                         // fill='#000'
-                       fill={`${!darkMode ? '#fff' : '#171e27'}`}
+                       fill={`${!darkMode ? '#fff' : '#293141'}`}
                       ></circle>
                       <circle
                         className={`${styles.donutRing}`}
@@ -4410,7 +4410,8 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                         cy="21"
                         r="15.91549430918954"
                         fill="transparent"
-                        stroke="white"
+                       // stroke="white"
+                       stroke={`${!darkMode ? '#fff' : '#293141'}`}
                         strokeWidth="3"
                       ></circle>
 
@@ -4508,7 +4509,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                             1,
                           )}
                         </span>
-                        <span className={`${styles.outOF}`}>/10</span>
+                        <span className={`${styles.outOF} text1`}>/10</span>
                       </div>
                     </div>
                   </div>
