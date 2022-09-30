@@ -304,6 +304,7 @@ const Index = () => {
         <div className={`${styles.head_container}`}>
           <div className={`${styles.head_header} align-items-center`}>
             <img
+              onClick={() => Router.push('/order-list')}
               className={`${styles.arrow} img-fluid mr-2 image_arrow`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
