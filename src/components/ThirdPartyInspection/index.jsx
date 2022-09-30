@@ -1620,7 +1620,7 @@ export default function Index({ addButton }) {
                     <Form>
                       <div className="row align-items-center mt-4 pb-4">
                         <div
-                          className={`${styles.drop_container} d-inline-flex align-items-center justify-content-around col-sm-6`}
+                          className={`${styles.drop_container} d-flex align-items-center justify-content-around col-sm-6`}
                         >
                           <div className="text-center w-100">
                             <img
