@@ -23,6 +23,7 @@
       .arrow {
         width: 13px;
         height: 21px;
+        cursor: pointer;
         @include respond(sm-desktop) {
           width: 11px;
           height: 17px;

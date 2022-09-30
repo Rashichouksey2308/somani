@@ -8623,6 +8623,7 @@ function Index() {
                 alt="arrow right"
                 className="img-fluid image_arrow mr-2"
                 onClick={() => Router.push('/credit-queue')}
+                style={{cursor:'pointer'}}
               />
               <h1 className={`${styles.title} heading`}>
                 {orderList?.company?.companyName

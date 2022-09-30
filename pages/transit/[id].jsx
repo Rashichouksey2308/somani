@@ -132,6 +132,7 @@ function Index() {
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
               onClick={() => Router.push('/transit')}
+              style={{cursor:'pointer'}}
             />
             <h1 className={`${styles.title} heading`}>
               <span>
