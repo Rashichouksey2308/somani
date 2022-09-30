@@ -256,6 +256,7 @@ export default function Index({ isQuery }) {
         `/${order}`
     }
     if ('insurance Request Letter' == pageName) {
+      // console.log(id, order, 'bredcrums')
       router.route =
         '/Agreement & LC' +
         `/${id?.toLowerCase()}` +
