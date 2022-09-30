@@ -8208,6 +8208,7 @@ function Index() {
     setFilterType({ ...filter })
   }
   const filterLitigation = () => {
+    console.log("hit")
     let count = {
       pending: 0,
       disposed: 0,
@@ -8299,30 +8300,46 @@ function Index() {
 
     /////***********filterby */
     const filter = (val) => {
-      if (filterType.filterBy.pending) {
+      if (filterType.filterBy.pending&&
+        !filterType.filterBy.total &&
+        !filterType.filterBy.disposed) {
         if (val.caseStatus == 'Pending') {
-          console.log('thisisis')
+          console.log("Ssssss1")
           return val
         }
       }
-      if (filterType.filterBy.disposed) {
+      if (filterType.filterBy.disposed&&
+        !filterType.filterBy.total &&
+        !filterType.filterBy.pending) {
         if (val.caseStatus == 'Disposed') {
+          console.log("Ssssss2")
           return val
         }
       }
-      if (filterType.filterBy.total) {
+      if (filterType.filterBy.total&&
+        !filterType.filterBy.disposed &&
+        !filterType.filterBy.pending) {
+         console.log("Ssssss3")
         return val
       }
-      if (filterType.filterBy.pending && filterType.filterBy.disposed) {
+      if (filterType.filterBy.pending && filterType.filterBy.disposed &&
+        !filterType.filterBy.total) {
         if (val.caseStatus == 'Pending' || val.caseStatus == 'Disposed') {
+           console.log("Ssssss5")
           return val
         }
       }
 
-      if (filterType.filterBy.pending && filterType.filterBy.total) {
+      if (filterType.filterBy.pending && filterType.filterBy.totall &&
+        !filterType.filterBy.disposed) {
+         console.log("Ssssss6")
         return val
       }
-      if (filterType.filterBy.disposed && filterType.filterBy.total) {
+      if (filterType.filterBy.disposed && filterType.filterBy.total
+        &&
+        !filterType.filterBy.pending
+        ) {
+         console.log("Ssssss7")
         return val
       }
       if (
@@ -8330,6 +8347,7 @@ function Index() {
         filterType.filterBy.total &&
         filterType.filterBy.pending
       ) {
+        console.log("Ssssss")
         return val
       }
     }
@@ -8427,56 +8445,7 @@ function Index() {
     //   }
     // })
 
-    // tribunalCourts = companyData?.compliance?.tribunalCourts?.cases?.filter(
-    //   (val) => {
-    //     if (val.civilCriminal == filterType.class) {
-    //       return val
-    //     }
-    //   },
-    // )
-    // //risk:
-    // // districtCourt = companyData?.compliance?.districtCourt?.cases?.filter(
-    // //   (val) => {
-    // //     if (
-    // //       (val.severity_ == filterType.risk) == 'high'
-    // //         ? 'High' || 'high'
-    // //         : filterType.risk
-    // //     ) {
-    // //       return val
-    // //     }
-    // //   },
-    // // )
-    // supremeCourt = companyData?.compliance?.supremeCourt?.cases?.filter(
-    //   (val) => {
-    //     if (
-    //       (val.severity_ == filterType.risk) == 'high'
-    //         ? 'High' || 'high'
-    //         : filterType.risk
-    //     ) {
-    //       return val
-    //     }
-    //   },
-    // )
-    // highCourt = companyData?.compliance?.highCourt?.cases?.filter((val) => {
-    //   if (
-    //     (val.severity_ == filterType.risk) == 'high'
-    //       ? 'High' || 'high'
-    //       : filterType.risk
-    //   ) {
-    //     return val
-    //   }
-    // })
-    // tribunalCourts = companyData?.compliance?.tribunalCourts?.cases?.filter(
-    //   (val) => {
-    //     if (
-    //       (val.severity_ == filterType.risk) == 'high'
-    //         ? 'High' || 'high'
-    //         : filterType.risk
-    //     ) {
-    //       return val
-    //     }
-    //   },
-    // )
+
     // //filterBY
     // // districtCourt = companyData?.compliance?.districtCourt?.cases?.filter(
     // //   (val) => {
@@ -8497,7 +8466,7 @@ function Index() {
     setSupreme([...supremeCourt])
     setTribunal([...tribunalCourts])
     setHigh([...highCourt])
-    // setDistrict(districtCourt)
+    setDistrict([...districtCourt])
 
     setTotalCourt(count)
   }

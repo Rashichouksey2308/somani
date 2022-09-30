@@ -1026,14 +1026,14 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     ],
   }
 
-  const finacialYear = (period) => {
+  const finacialYear = (current) => {
     let currentperiod = gstFilteredData?.detail?.other?.period?.current?.financialPeriod ?
       gstFilteredData?.detail?.other?.period?.current?.financialPeriod : gstFilteredData?.detail?.other?.period?.current?.financialYear
 
     let previousPeriod = gstFilteredData?.detail?.other?.period?.previous?.financialPeriod ?
       gstFilteredData?.detail?.other?.period?.previous?.financialPeriod : gstFilteredData?.detail?.other?.period?.previous?.financialYear
     let financialYear = ''
-    if (period = 'current') {
+    if (current) {
       let [startYear, endYear] = (currentperiod ? currentperiod : '').split('-')
 
       financialYear = `${moment(startYear, 'MMYYYY').format('MMM YYYY')?.toUpperCase()} - ${moment(endYear, 'MMYYYY').format('MMM YYYY')?.toUpperCase()}`
@@ -1043,7 +1043,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     else {
       let [startYear, endYear] = (previousPeriod ? previousPeriod : '').split('-')
 
-      financialYear = `${moment(startYear, 'MMYYYY').format('MMMM YYYY')?.toUpperCase()} - ${moment(endYear, 'MMYYYY').format('MMM YYYY')?.toUpperCase()}`
+      financialYear = `${moment(startYear, 'MMYYYY').format('MMM YYYY')?.toUpperCase()} - ${moment(endYear, 'MMYYYY').format('MMM YYYY')?.toUpperCase()}`
 
       return financialYear
     }
@@ -1984,13 +1984,11 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       Annual Summary
                     </th>
                     <th colSpan={2} className='text-color'>
-                      {finacialYear()}
+                      {finacialYear('current')}
                     </th>
                     <th colSpan={2} className='text-color'>
 
-                      {finacialYear(gstFilteredData?.detail?.other?.period?.previous?.financialPeriod ?
-                        gstFilteredData?.detail?.other?.period?.previous?.financialPeriod : gstFilteredData?.detail?.other?.period?.previous?.financialYear
-                      )}
+                      {finacialYear()}
                     </th>
                   </tr>
                   <tr className={styles.second_head}>
@@ -2657,23 +2655,11 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <th width="34%" className={`${styles.first} text-color`}>Averages</th>
                     <th width="33%" className='text-color'>
 
-                      {finacialYear(
-                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
-                          ?.B2BSales?.current?.financialYear,
-                      ) ? finacialYear(
-                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
-                          ?.B2BSales?.current?.financialYear,
-                      ) : "-"}
+                      {finacialYear('current') ? finacialYear('current') : "-"}
                     </th>
                     <th width="33%" className='text-color'>
 
-                      {finacialYear(
-                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
-                          ?.B2BSales?.previous?.financialYear,
-                      ) ? finacialYear(
-                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
-                          ?.B2BSales?.previous?.financialYear,
-                      ) : "-"}
+                      {finacialYear() ? finacialYear() : "-"}
                     </th>
                   </tr>
 
@@ -2903,13 +2889,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       <span className='breadcrum_mode mr-1'>
                         Financial Period:
                       </span>
-                      {finacialYear(
-                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
-                          ?.B2BSales?.current?.financialYear,
-                      ) ? finacialYear(
-                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
-                          ?.B2BSales?.current?.financialYear,
-                      ) : "-"}
+                      {finacialYear('current') ? finacialYear('current') : "-"}
                     </th>
                   </tr>
                   <tr className={`${styles.second_head}`}>
@@ -3028,16 +3008,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       Annual Summary
                     </th>
                     <th colSpan={2} className='text-color'>
-                      {finacialYear(
-                        gstFilteredData?.detail?.purchaseDetailAnnual
-                          ?.saleSummary?.B2BPurchase?.current?.financialYear,
-                      )}
+                      {finacialYear('current')}
                     </th>
                     <th colSpan={2} className='text-color'>
-                      {finacialYear(
-                        gstFilteredData?.detail?.purchaseDetailAnnual
-                          ?.saleSummary?.B2BPurchase?.previous?.financialYear,
-                      )}
+                      {finacialYear()}
                     </th>
                   </tr>
                   <tr className={styles.second_head}>
@@ -3408,16 +3382,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   <tr>
                     <th width="34%" className={`${styles.first} text-color`}>Averages</th>
                     <th width="33%" className='text-color'>
-                      {finacialYear(
-                        gstFilteredData?.detail?.purchaseDetailAnnual
-                          ?.saleSummary?.B2BPurchase?.current?.financialYear,
-                      )}
+                      {finacialYear('current')}
                     </th>
                     <th width="33%" className='text-color'>
-                      {finacialYear(
-                        gstFilteredData?.detail?.purchaseDetailAnnual
-                          ?.saleSummary?.B2BPurchase?.previous?.financialYear,
-                      )}
+                      {finacialYear()}
                     </th>
                   </tr>
 
@@ -4439,7 +4407,7 @@ const gstSupplierDetail = (
                                 <td>
                                   {customer?.invoice?.toLocaleString('en-In', {
                                     maximumFractionDigits: 0,
-                                   
+
                                   })}
                                 </td>
                                 <td>
