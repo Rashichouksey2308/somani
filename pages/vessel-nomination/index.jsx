@@ -66,7 +66,7 @@ function Index() {
   const [sorting, setSorting] = useState(1)
 
   const handleSort = () => {
-    let id = sessionStorage.getItem('lcCompanyId')
+  
     if(sorting == -1){
     dispatch(GetAllVessel(`?page=${currentPage}&limit=7&createdAt=${sorting}`))
     setSorting(1)
