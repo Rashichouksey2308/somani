@@ -9,7 +9,11 @@ import Filter from '../Filter'
 import _get from 'lodash/get'
 import { setPageName,setDynamicName,setDynamicOrder } from '../../redux/userData/action'
 import moment from 'moment'
+
 function Index() {
+
+  const [currentPage, setCurrentPage] = useState(0)
+
   const [edit, setEdit] = useState(false)
 
   const dispatch = useDispatch()
@@ -20,9 +24,10 @@ function Index() {
 
   useEffect(() => {
     let id = sessionStorage.getItem('lcCompanyId')
-    dispatch(GetLcModule(`?company=${id}`))
+    dispatch(GetLcModule(`?company=${id}&page=${currentPage}&limit=7`))
+    
    
-  }, [dispatch])
+  }, [dispatch, currentPage])
 
 
   const handleRoute = (lc) => {
@@ -49,6 +54,20 @@ function Index() {
     dispatch(GetLcModule(`?lcModuleId=${lc.order.lc}`))
     sessionStorage.setItem('lcAmmend', lc.order.lc)
     Router.push('/letter-credit/id')
+  }
+
+  const [sorting, setSorting] = useState(1)
+
+  const handleSort = () => {
+    let id = sessionStorage.getItem('lcCompanyId')
+    if(sorting == -1){
+    dispatch(GetLcModule(`?company=${id}&page=${currentPage}&limit=${7}&createdAt=${sorting}`))
+    setSorting(1)
+    }else if(sorting == 1){
+      
+      dispatch(GetLcModule(`?company=${id}&page=${currentPage}&limit=${7}&createdAt=${sorting}`))
+      setSorting(-1)
+    }
   }
 
   return (
@@ -101,6 +120,50 @@ function Index() {
             <h3 className="heading_card">
               {_get(lcModule, 'data[0].company.companyName', '')?.replace(/(^\w|\s\w)(\S*)/g, (_,m1,m2) => m1.toUpperCase()+m2.toLowerCase())}
             </h3>
+            <div
+                className={`${styles.pageList} d-flex justify-content-end align-items-center`}
+              >
+                <span>
+                  Showing Page {currentPage + 1} out of{' '}
+                  {Math.ceil(lcModule?.totalCount / 10)}
+                </span>
+                <a
+                  onClick={() => {
+                    if (currentPage === 0) {
+                      return
+                    } else {
+                      setCurrentPage((prevState) => prevState - 1)
+                    }
+                  }}
+                  href="#"
+                  className={`${styles.arrow} ${styles.leftArrow} arrow`}
+                >
+                  {' '}
+                  <img
+                    src="/static/keyboard_arrow_right-3.svg"
+                    alt="arrow right"
+                    className="img-fluid"
+                  />
+                </a>
+                <a
+                  onClick={() => {
+                    if (
+                      currentPage + 1 <
+                      Math.ceil(lcModule?.totalCount / 10)
+                    ) {
+                      setCurrentPage((prevState) => prevState + 1)
+                    }
+                  }}
+                  href="#"
+                  className={`${styles.arrow} ${styles.rightArrow} arrow`}
+                >
+                  <img
+                    src="/static/keyboard_arrow_right-3.svg"
+                    alt="arrow right"
+                    className="img-fluid"
+                  />
+                </a>
+              </div>
           </div>
           <div className={styles.table_scroll_outer}>
             <div className={styles.table_scroll_inner}>
@@ -118,6 +181,7 @@ function Index() {
                         className={`mb-1`}
                         src="/static/icons8-sort-24.svg"
                         alt="Sort icon"
+                        onClick={()=>handleSort()}
                       />{' '}
                     </th>
                     <th>COMMODITY</th>
