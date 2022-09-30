@@ -1254,7 +1254,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                               >
                                 <div
                                   className={styles.dot}
-                                  style={{ backgroundColor: '#3F66EA' }}
+                                  // style={{ backgroundColor: '#3F66EA' }}
+                                  style={{ backgroundColor: '#e31e10' }}
                                 ></div>
                                 <span>
                                   {alertObj[alert.alert] ?? alert.alert}
@@ -1279,7 +1280,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                               >
                                 <div
                                   className={styles.dot}
-                                  style={{ backgroundColor: '#28BE39' }}
+                                  style={{ backgroundColor: '#e31e10' }}
+                                  // style={{ backgroundColor: '#28BE39' }}
                                 ></div>
                                 <span>
                                   {alertObj[alert.alert] ?? alert.alert}
@@ -1303,7 +1305,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                               >
                                 <div
                                   className={styles.dot}
-                                  style={{ backgroundColor: '#EA3FD6' }}
+                                  style={{ backgroundColor: '#e31e10' }}
                                 ></div>
                                 <span>
                                   {alertObj[alert.alert] ?? alert.alert}
@@ -1327,7 +1329,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                               >
                                 <div
                                   className={styles.dot}
-                                  style={{ backgroundColor: '#EA3FD6' }}
+                                  style={{ backgroundColor: '#e31e10' }}
                                 ></div>
                                 <span>
                                   {alertObj[alert.alert] ?? alert.alert}
@@ -3236,7 +3238,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   <tr>
                     <td colSpan={2}>Other Purchases (total - B2B)</td>
                     <td>
-                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.current?.value?.toLocaleString('en-In', {
+                      {convertValue(gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.current?.value, purchasesDetailsUnit)?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
@@ -3249,7 +3251,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       %
                     </td>
                     <td>
-                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.previous?.value?.toLocaleString('en-In', {
+                      {convertValue(gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.previous?.value, purchasesDetailsUnit)?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}

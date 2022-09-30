@@ -59,6 +59,7 @@ function Index() {
       Router.push('/insurance/form/both')
     }
   }
+
   useEffect(() => {
     if (window) {
       sessionStorage.setItem('loadedPage', 'Agreement & LC Module')
@@ -70,6 +71,7 @@ function Index() {
     dispatch(setDynamicName(null))
     dispatch(setDynamicOrder(null))
   }, [])
+
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
