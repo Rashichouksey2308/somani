@@ -91,7 +91,7 @@ function Index({
           >
             <img
               onClick={() => { Router.push('/vessel-nomination/id') }}
-
+              style={{cursor:'pointer'}}
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow right"
               className="img-fluid mr-2 image_arrow"

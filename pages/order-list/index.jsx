@@ -26,8 +26,8 @@ function Index() {
 
   useEffect(() => {
     let companyIDnewOrder = sessionStorage.getItem('companyID')
-    console.log(companyIDnewOrder, 'companyIDnewOrder')
-    dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}`))
+
+    dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${7}`))
   }, [dispatch, currentPage])
 
   useEffect(() => {
@@ -51,29 +51,34 @@ function Index() {
     }, 1000)
   }
 
-  // buyer.queue === 'Rejected'
-  //                             ? 'Rejected'
-  //                             : buyer.queue === 'ReviewQueue'
-  //                               ? 'Review'
-  //                               : buyer.queue === 'CreditQueue'
-  //                                 ? 'Approved'
-  //                                 : 'Rejected'
   const handleRoute = (buyer) => {
     sessionStorage.setItem('orderID', buyer._id)
     sessionStorage.setItem('company', buyer.company._id)
-    // console.log(buyer,'butyer')
 
-    console.log(' before go to get document')
+ 
     sessionStorage.setItem('company', buyer.company._id)
     if (buyer.queue === 'CreditQueue') {
-      // dispatch(GetAllOrders({ orderId: buyer._id }))
-      //dispatch(GetDocuments({order: buyer._id}))
+  
       dispatch(GetCompanyDetails({ company: buyer.company._id }))
       Router.push('/review')
     }
     if (buyer.queue === 'ReviewQueue') {
       dispatch(GetBuyer({ companyId: buyer.company._id, orderId: buyer._id }))
       Router.push('/review/id')
+    }
+  }
+
+  const [sorting, setSorting] = useState(1)
+
+  const handleSort = () => {
+    let companyIDnewOrder = sessionStorage.getItem('companyID')
+    if(sorting == -1){
+    dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${7}&createdAt=${sorting}`))
+    setSorting(1)
+    }else if(sorting == 1){
+      
+      dispatch(GetOrders(`?page=${currentPage}&company=${companyIDnewOrder}&limit=${7}&createdAt=${sorting}`))
+      setSorting(-1)
     }
   }
 
@@ -100,7 +105,7 @@ function Index() {
               className={`${styles.btnPrimary} btn ml-auto btn-primary d-flex align-items-center`}
               onClick={() => handleRouteNewOrder()}
             >
-              <span className={`ml-4 mb-1`}>+</span>
+              <span className={`ml-4 mb-1 p-1`} style={{fontSize:'30px'}}>+</span>
               <span className={`mr-3 ml-1 `}>New Order</span>
             </button>
           </div>
@@ -194,46 +199,39 @@ function Index() {
               <div
                 className={`${styles.pageList} d-flex justify-content-end align-items-center`}
               >
-                <span>
-                  Showing Page {currentPage + 1} out of{' '}
-                  {Math.ceil(singleOrder?.totalCount / 10)}
-                </span>
-                <a
-                  onClick={() => {
-                    if (currentPage === 0) {
-                      return
-                    } else {
-                      setCurrentPage((prevState) => prevState - 1)
-                    }
-                  }}
-                  href="#"
-                  className={`${styles.arrow} ${styles.leftArrow} arrow`}
-                >
-                  {' '}
-                  <img
-                    src="/static/keyboard_arrow_right-3.svg"
-                    alt="arrow right"
-                    className="img-fluid"
-                  />
-                </a>
-                <a
-                  onClick={() => {
-                    if (
-                      currentPage + 1 <
-                      Math.ceil(singleOrder?.totalCount / 10)
-                    ) {
-                      setCurrentPage((prevState) => prevState + 1)
-                    }
-                  }}
-                  href="#"
-                  className={`${styles.arrow} ${styles.rightArrow} arrow`}
-                >
-                  <img
-                    src="/static/keyboard_arrow_right-3.svg"
-                    alt="arrow right"
-                    className="img-fluid"
-                  />
-                </a>
+                <span>Showing Page {currentPage + 1}  out of {Math.ceil(singleOrder?.totalCount / 7)}</span>
+            <a
+              onClick={() => {
+                if (currentPage === 0) {
+                  return
+                } else {
+                  setCurrentPage((prevState) => prevState - 1)
+                }
+              }}
+              href="#" className={`${styles.arrow} ${styles.leftArrow} arrow`}>
+              {' '}
+              <img
+                src="/static/keyboard_arrow_right-3.svg"
+                alt="arrow right"
+                className="img-fluid"
+              />
+            </a>
+            <a
+               onClick={() => {
+                if (currentPage+1 < Math.ceil(singleOrder?.totalCount / 7)) {
+                  setCurrentPage((prevState) => prevState + 1)
+                }
+
+              }}
+              href="#"
+              className={`${styles.arrow} ${styles.rightArrow} arrow`}
+            >
+              <img
+                src="/static/keyboard_arrow_right-3.svg"
+                alt="arrow right"
+                className="img-fluid"
+              />
+            </a>
               </div>
             </div>
             <div className={styles.table_scroll_outer}>
@@ -251,6 +249,7 @@ function Index() {
                         <img
                           className={`mb-1`}
                           src="/static/icons8-sort-24.svg"
+                          onClick={()=>handleSort()}
                         />
                       </th>
                       <th>COMMODITY</th>

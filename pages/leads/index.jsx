@@ -62,6 +62,19 @@ function Index() {
     dispatch(GetAllBuyer(`?company=${id}`))
   }
 
+  const [sorting, setSorting] = useState(1)
+
+  const handleSort = () => {
+    if(sorting == -1){
+    dispatch(GetAllBuyer(`?page=${currentPage}&createdAt=${sorting}`))
+    setSorting(1)
+    }else if(sorting == 1){
+      
+      dispatch(GetAllBuyer(`?page=${currentPage}&createdAt=${sorting}`))
+      setSorting(-1)
+    }
+  }
+
   return (
     <>
       {' '}
@@ -120,7 +133,8 @@ function Index() {
               className={`${styles.btnPrimary} btn ml-auto btn-primary`}
               onClick={() => Router.push('/leads/12')}
             >
-              + New Customer
+                <span style={{fontSize:'28px'}}>+</span>
+              <span className={`ml-1 mr-2`}>New Customer</span>
             </button>
           </div>
 
@@ -270,6 +284,7 @@ function Index() {
                         <img
                           className={`mb-1`}
                           src="/static/icons8-sort-24.svg"
+                          onClick={()=>handleSort()}
                         />
                       </th>
                       <th>BUYER NAME</th>

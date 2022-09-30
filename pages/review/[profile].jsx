@@ -23,8 +23,9 @@ const Index = () => {
 
   const [payloadData, setPayloadData] = useState({
     action: 'APPROVE',
+    
   })
-
+  console.log(payloadData,"payloadData")
   const [rejectPayloadData, setRejectPayloadData] = useState({
     action: 'REJECT',
   })
@@ -104,7 +105,10 @@ const Index = () => {
         return
       }
     }
-
+     let tempData=payloadData
+    if(tempData.turnOver){
+       tempData.turnOver= Number(payloadData.turnOver)*10000000
+    }
     const payload = { ...payloadData, orderReviewId: buyerList._id }
 
     dispatch(UpdateBuyer(payload))
@@ -118,6 +122,7 @@ const Index = () => {
   }
 
   const handleChange = (name, value) => {
+    console.log(name,"nammwaa")
     const newInput = { ...payloadData, [name]: value }
     setPayloadData(newInput)
   }
@@ -138,6 +143,7 @@ const Index = () => {
           <ReviewProfile
             reviewedProfile={buyerList}
             handleChange={handleChange}
+            payloadData={payloadData}
           />
           <CompanyProfile />
           <OrderProfile />

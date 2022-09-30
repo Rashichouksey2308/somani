@@ -343,3 +343,29 @@
     }
   }
 }
+
+.datatable .tableFilter .pageList span {
+  font-size: 18px;
+  color: #718096;
+  font-weight: 500;
+  line-height: 23px;
+  margin-right: 38px;
+}
+
+.datatable .tableFilter .pageList .arrow {
+  width: 50px;
+  height: 50px;
+  margin-left: 10px;
+  line-height: 45px;
+  text-align: center;
+  border-radius: 8px;
+  background: #fafafb;
+  display: inline-block;
+  border: 1px solid #f2f5f9;
+}
+
+.datatable .tableFilter .pageList .rightArrow img {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
