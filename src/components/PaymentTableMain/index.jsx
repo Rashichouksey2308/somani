@@ -19,7 +19,6 @@ function Index({
 
   const [currentPage, setCurrentPage] = useState(0)
   const { allReleaseOrder } = useSelector((state) => state.Release)
-  console.log(allReleaseOrder, 'allReleaseOrder')
 
   useEffect(() => {
     dispatch(GetAllDelivery(`?page=${currentPage}&limit=7`))
@@ -30,6 +29,20 @@ function Index({
     dispatch(GetDelivery(`?deliveryId=${sheet._id}`))
     sessionStorage.setItem('company', sheet.company._id)
     Router.push('/payment/id')
+  }
+
+  const [sorting, setSorting] = useState(1)
+
+  const handleSort = () => {
+   
+    if(sorting == -1){
+    dispatch(GetAllDelivery(`?page=${currentPage}&limit=7&createdAt=${sorting}`))
+    setSorting(1)
+    }else if(sorting == 1){
+      
+      dispatch(GetAllDelivery(`?page=${currentPage}&limit=7&createdAt=${sorting}`))
+      setSorting(-1)
+    }
   }
 
   return (
@@ -99,6 +112,7 @@ function Index({
                     className={`mb-1`}
                     src="/static/icons8-sort-24.svg"
                     alt="Sort icon"
+                    onClick={()=>handleSort()}
                   />{' '}
                 </th>
                 <th>BUYER NAME</th>
