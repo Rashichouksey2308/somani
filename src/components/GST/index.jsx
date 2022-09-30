@@ -4282,7 +4282,7 @@ const gstSupplierDetail = (
               </div>
             </div>
             <div className={` ${styles.content}`}>
-              <div className={`${styles.first} card_sub_header text-color`}>Top 10 Suppliers</div>
+              {/* <div className={`${styles.first} card_sub_header text-color`}>Top 10 Suppliers</div> */}
               <div className={` ${styles.body} ${styles.body_noscroll}`}>
                 <div className={`${styles.scrollouter}`}>
                   <div className={`${styles.scrollInner}`}>
@@ -4291,7 +4291,7 @@ const gstSupplierDetail = (
                       cellPadding="0"
                       cellSpacing="0"
                     >
-                      {/* <tr>
+                      <tr>
                         <th
                           className={`${styles.first} py-0 text-color`}
                           colSpan={6}
@@ -4299,7 +4299,7 @@ const gstSupplierDetail = (
                           Top 10 Suppliers
                           <span className={`${styles.small} text_light`}>(Domestic)</span>
                         </th>
-                      </tr> */}
+                      </tr>
                       <tr className={styles.second_head}>
                         <td className='text-nowrap'>SUPPLIER NAME</td>
                         <td>PAN</td>

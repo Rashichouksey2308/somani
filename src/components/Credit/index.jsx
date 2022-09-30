@@ -1300,7 +1300,7 @@ const removeDoc= ()=>{
                     <tbody key={index}>
                       <tr className="table_credit shadow-none">
                         <td>
-                          <div className="d-flex mr-4">
+                          <div className="d-flex">
                             {person.addnew ?
 
                               <>
@@ -1351,7 +1351,7 @@ const removeDoc= ()=>{
                           /> */}
                         </td>
                         <td>
-                          <div className="d-flex mr-4">
+                          <div className="d-flex">
                             <select
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               value={person.designation}
@@ -1379,8 +1379,8 @@ const removeDoc= ()=>{
                             readOnly={!saveContactTable}
                           /> */}
                         </td>
-                        <td>
-                          <div className="d-flex mr-4">
+                        <td width="25%">
+                          <div className="d-flex">
                             <select
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               value={person.department}
@@ -1404,6 +1404,7 @@ const removeDoc= ()=>{
                             className="input"
                             defaultValue={person.contact.number}
                             name="contact.number"
+                            style={{maxWidth:'170px'}}
                             onChange={(e) => {
                               handlePersonChange(e, index)
                             }}
@@ -1794,11 +1795,11 @@ const removeDoc= ()=>{
                     </div>
 
                     <div
-                      className={`${styles.btn_outer} d-flex justify-center-center align-items-center col-md-4`}
+                      className={`${styles.btn_outer} d-flex flex-nowrap justify-center-center align-items-center col-md-4`}
                     >
                       <div className={`${styles.btn_container}`}>
                         {keyAddressData?.GSTIN_document?.name==undefined?
-                         <button className={`${styles.gst_btn}`}>
+                         <button className={`${styles.gst_btn} d-flex align-items-center text-nowrap`}>
                           {' '}
                           <input
                             type="file"
@@ -2164,10 +2165,10 @@ const removeDoc= ()=>{
                   </label>
                 </div>
                 <div
-                  className={`${styles.btn_outer} d-flex justify-center-center align-items-center col-md-4`}
+                  className={`${styles.btn_outer} d-flex flex-nowrap justify-center-center align-items-center col-md-4`}
                 >
                   <div className={`${styles.btn_container}`}>
-                    <button className={`${styles.gst_btn}`}>
+                    <button className={`${styles.gst_btn} d-flex align-items-center text-nowrap`}>
                       {' '}
                       <input
                         type="file"
