@@ -270,7 +270,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
                       value={isFieldInFocus ?
                                payloadData?.turnOver :
                                Number(payloadData?.turnOver?payloadData?.turnOver:0)?.toLocaleString("en-IN")+ ` Cr`}
-                        className={`${styles.input}`}
+                        className={`${styles.input} input`}
                         onChange={(e) =>
                           handleChange(
                             e.target.name,
@@ -352,7 +352,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                         id="textDate"
-                        className={`${styles.input}`}
+                        className={`${styles.input} input`}
                         onBlur={(e) =>
                           handleChange(
                             e.target.name,
@@ -549,8 +549,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
               </tbody>
             </table>
           </form>
-        </div>
-      </div>
+       
       <div className={`${styles.remarks} table_row`}>
         <Form.Label className={styles.remarksName}>User Remarks</Form.Label>
         <Form.Control
@@ -558,6 +557,8 @@ function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
           rows={3}
           className={`${styles.remarksTextarea} input`}
         />
+      </div>
+      </div>
       </div>
     </div>
   )
