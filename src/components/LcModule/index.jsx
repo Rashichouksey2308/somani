@@ -24,7 +24,7 @@ function Index() {
 
   useEffect(() => {
     let id = sessionStorage.getItem('lcCompanyId')
-    dispatch(GetLcModule(`?company=${id}&page=${currentPage}&limit=7`))
+    dispatch(GetLcModule(`?company=${id}&page=${currentPage}&limit=${7}`))
     
    
   }, [dispatch, currentPage])
