@@ -332,7 +332,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {marginData?.order?.perUnitPrice?.toLocaleString('en-In', {maximumFractionDigits: 2}) ?? 0}
+                        USD  {marginData?.order?.perUnitPrice?.toLocaleString('en-EN', {maximumFractionDigits: 2}) ?? 0}
                         </p>
                       </td>
                       <td align="left">
@@ -347,7 +347,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          {marginData?.order?.perUnitPrice?.toLocaleString('en-In', {maximumFractionDigits: 2}) ?? 0}
+                          USD {marginData?.order?.perUnitPrice?.toLocaleString('en-In', {maximumFractionDigits: 2}) ?? 0}
                         </p>
                       </td>
                     </tr>
@@ -889,7 +889,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          USD  {marginData?.calculation?.orderValue?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                          USD  {marginData?.calculation?.orderValue?.toLocaleString('en-EN', {maximumFractionDigits: 2}) ??
                             0}
                         </p>
                       </td>
@@ -905,7 +905,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
-                          USD  {marginData?.calculation?.orderValue?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                          USD  {marginData?.calculation?.orderValue?.toLocaleString('en-EN', {maximumFractionDigits: 2}) ??
                             0}
                         </p>
                       </td>
@@ -2038,10 +2038,10 @@ function Index() {
                       <span className={`ml-2`}>Unit Price</span>
                     </td>
                     <td className={`${styles.good} `}>
-                      USD  {marginData?.order?.perUnitPrice?.toLocaleString('en-In', {maximumFractionDigits: 2}) ?? 0}
+                      USD  {marginData?.order?.perUnitPrice?.toLocaleString('en-EN', {maximumFractionDigits: 2}) ?? 0}
                     </td>
                     <td>
-                      USD  {marginData?.order?.perUnitPrice?.toLocaleString('en-In', {maximumFractionDigits: 2}) ?? 0}
+                      USD  {marginData?.order?.perUnitPrice?.toLocaleString('en-EN', {maximumFractionDigits: 2}) ?? 0}
                     </td>
                   </tr>
                   <tr>
@@ -2201,11 +2201,11 @@ function Index() {
                       <span className={`${styles.formula} text1 ml-2`}>(A*B)</span>
                     </td>
                     <td>
-                      USD  {marginData?.calculation?.orderValue?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                      USD  {marginData?.calculation?.orderValue?.toLocaleString('en-EN', {maximumFractionDigits: 2}) ??
                         0}
                     </td>
                     <td>
-                      USD  {marginData?.calculation?.orderValue?.toLocaleString('en-In', {maximumFractionDigits: 2}) ??
+                      USD  {marginData?.calculation?.orderValue?.toLocaleString('en-EN', {maximumFractionDigits: 2}) ??
                         0}
                     </td>
                   </tr>

@@ -107,7 +107,7 @@ export default function Index({
   }
 
   const onSaveDischarge = () => {
-    if (dischargeOfCargo.dischargeOfCargo.dischargeQuantity === '') {
+    if (billOfEntryData?.boeDetails?.invoiceQuantity === '') {
       let toastMessage = 'DISCHARGE QUANTITY CANNOT BE EMPTY  '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -319,18 +319,20 @@ export default function Index({
                       value={dischargeOfCargo?.dischargeOfCargo?.vesselName}
                       className={`${styles.input_field} ${styles.customSelect} input form-control`}
                     >
-                      <option selected disabled>Please select a vessel</option>
+                      <option selected disabled>
+                        Please select a vessel
+                      </option>
                       {shipmentTypeBulk
                         ? _get(customData, 'order.vessel.vessels', []).map(
-                          (vessel, index) => (
-                            <option
-                              value={vessel?.vesselInformation?.name}
-                              key={index}
-                            >
-                              {_get(vessel, 'vesselInformation[0].name', '')}
-                            </option>
-                          ),
-                        )
+                            (vessel, index) => (
+                              <option
+                                value={vessel?.vesselInformation?.name}
+                                key={index}
+                              >
+                                {_get(vessel, 'vesselInformation[0].name', '')}
+                              </option>
+                            ),
+                          )
                         : _get(
                             customData,
                             'order.vessel.vessels[0].vesselInformation',
@@ -375,9 +377,9 @@ export default function Index({
                       'MT',
                     )}
                     name="boeDetails.invoiceQuantity"
-                    onChange={(e) =>
-                      saveBillOfEntryData(e.target.name, e.target.value)
-                    }
+                    // onChange={(e) =>
+                    //   saveBillOfEntryData(e.target.name, e.target.value)
+                    // }
                     required
                     // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   />
