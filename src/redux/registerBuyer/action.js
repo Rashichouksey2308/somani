@@ -203,7 +203,7 @@ export const CreateBuyer = (payload) => async (dispatch, getState, api) => {
           response.data.data.form.orderDetails[0],
         )
         sessionStorage.setItem('company', response.data.data.form._id)
-        Router.push('/review/id')
+        Router.push(`/review/${response.data.data.form._id}`)
         // if (response.data.data.queue == 'ReviewQueue') {
         //   dispatch(
         //     GetBuyer({

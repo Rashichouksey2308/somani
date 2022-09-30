@@ -35,14 +35,16 @@ const Index = () => {
   const { insuranceResponse } = useSelector((state) => state.insurance)
   const [insuranceData, setInsuranceData] = useState()
 
+
   useEffect(() => {
     dispatch(setPageName('insurance Request Letter'))
     dispatch(
-      setDynamicName(_get(insuranceData, 'company.companyName', 'Company Name')),
+      setDynamicName(_get(insuranceResponse, 'data[0].company.companyName', 'Company Name')),
     )
-    dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')))
+    dispatch(setDynamicOrder(_get(insuranceResponse, 'data[0].order.orderId', 'Order Id')))
     setInsuranceData(_get(insuranceResponse, 'data[0]', {}))
   }, [insuranceResponse])
+  
   console.log(insuranceResponse, 'insuranceResponse')
 
   const [marineData, setMarineData] = useState({
@@ -1712,7 +1714,7 @@ const Index = () => {
                             <label
                               className={`${styles.label_heading} label_heading`}
                             >
-                              GST of Insurer
+                              GSTIN of Insurer
                             </label>
 
                           </div>

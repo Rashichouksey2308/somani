@@ -1535,7 +1535,7 @@ function Index() {
                       className="img-fluid"
                     />
                     <label for="lc_document">
-                      Requestletter.pdf<span>128kb</span>
+                      Requestletter.pdf<span className='size_number'>128kb</span>
                     </label>
                     <input
                       type="checkbox"
@@ -1554,7 +1554,7 @@ function Index() {
                       className="img-fluid"
                     />
                     <label for="word_document">
-                      Requestletter.doc<span>128kb</span>
+                      Requestletter.doc<span className='size_number'>128kb</span>
                     </label>
                     <input
                       type="checkbox"
@@ -1796,7 +1796,7 @@ function Index() {
                       className="img-fluid"
                     />
                     <label for="lc_document">
-                      LC Document.pdf<span>128kb</span>
+                      LC Document.pdf<span className='size_number'>128kb</span>
                     </label>
                     <input
                       type="checkbox"
@@ -1815,7 +1815,7 @@ function Index() {
                       className="img-fluid"
                     />
                     <label for="word_document">
-                      word document.doc<span>128kb</span>
+                      word document.doc<span className='size_number'>128kb</span>
                     </label>
                     <input
                       type="checkbox"

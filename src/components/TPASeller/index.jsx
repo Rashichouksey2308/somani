@@ -1,15 +1,155 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './index.module.scss'
 import {Row, Col} from "react-bootstrap"
 import GrowInput from '../GrowInput'
+import _get from 'lodash/get'
+function Index(props) {
+  const [data, setData] = useState({
+    seller: "",
+    buyer: "",
+    sellerAddress:"",
+     buyerAddress:"",
+    shortseller: "",
+    shortbuyer: "",
+    sellerSignature: "",
+    buyerSignature: "",
+    dateOfExecution: "",
+    placeOfExecution: "",
+    details: "",
+    detailsOfEndBuyer: "",
+    detailsOfComm: "",
+    quan: "",
+    unitPrice: "",
+    totalOrderValue: "",
+    lordPort: "",
+    dischargePort: "",
+    lastDate: "",
+    terms: "",
+    addComm: "",
+    spec: "",
+    unitOfGrade: "",
+    unitOfQuantity: "",
+    unitOfValue: "",
+    curr: "",
+    specComment:""
 
-function index() {
+
+  })
+   const getAddress=(buyer)=>{
+   if(buyer.name=="Indo German International Private Limited"){
+     if(buyer.branch=="Delhi"){
+       return "7A , SAGAR APARTMENTS,6 TILAK MARG,DELHI,NEW DELHI,110001"
+     }else{
+      return "Ground Floor, Plot No-49-18-6/1 Lalitha Nagar, Sakshi Office Road,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016"
+     }
+   }
+   if(buyer.name=="Emergent Industrial Solution Limited"){
+     if(buyer.branch=="Delhi"){
+       return "8B, SAGAR, 6 TILAK MARG,DELHI,NEW DELHI,110001"
+     }else{
+      return "49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM,,Akkayyapalem,Visakhapatnam,Andhra Pradesh,530016"
+     }
+   }
+ }
+  useEffect(() => {
+    if (window) {
+      if (props.preview) {
+        const data = JSON.parse(sessionStorage.getItem("preview"))
+
+        setData({
+          seller: data?.seller,
+          buyer: data?.buyer?.toLowerCase(),
+          sellerAddress:data.sellerAddress,
+          buyerAddress:data.buyerAddress,
+          shortseller: data?.shortseller,
+          shortbuyer: `${data?.buyer == "Indo German International Private Limited" ? "IGPL" : "EISL"}`,
+          sellerSignature: data?.sellerSignature,
+          buyerSignature: data?.buyerSignature,
+          dateOfExecution: data?.dateOfExecution,
+          placeOfExecution: data?.placeOfExecution,
+          details: data?.details,
+          detailsOfEndBuyer: data?.detailsOfEndBuyer,
+          detailsOfComm: data?.detailsOfComm,
+          quan: data?.quan,
+          unitPrice: data?.unitPrice,
+          totalOrderValue: data?.totalOrderValue,
+          lordPort: data?.lordPort,
+          dischargePort: data?.dischargePort,
+          lastDate: data?.lastDate,
+          terms: data?.terms,
+          addComm: data?.addComm,
+          spec: data?.spec,
+          unitOfGrade: data?.unitOfGrade,
+          unitOfQuantity: data?.unitOfQuantity,
+          unitOfValue: data?.unitOfValue,
+          curr: data?.orderCurrency,
+          specComment: data?.specComment,
+          
+        })
+      } else {
+
+        const data = JSON.parse(sessionStorage.getItem("genericSelected"))
+        console.log(data, "data22222")
+        let exe;
+        let dat = "";
+        data?.placeOfExecution?.execution?.forEach((val, index) => {
+          if (val.agreementName == "Sales Agreement") {
+            exe = val.place
+            if (val.dateOfExecution) {
+              dat = moment(val.dateOfExecution).format("DD-MM-YYYY")
+            }
+          }
+        })
+
+        console.log(dat, exe, "exedasa")
+
+        setData({
+          seller: data?.seller?.name,
+          buyer: data?.buyer?.name,
+          sellerAddress:data?.seller?.name=="Indo Intertrade Ag"?"Industriestrasse 16, Zug,6300":"",
+          buyerAddress:data?.buyer?.name?getAddress(data?.buyer):"",
+          shortseller:data?.seller?.shortName,
+          shortbuyer: `${data?.buyer?.name == "Indo German International Private Limited" ? "IGPL" : "EISL"}`,
+          sellerSignature:data?.seller?.name,
+          buyerSignature: data?.buyer?.name,
+          dateOfExecution: dat,
+          placeOfExecution: exe,
+          details: data?.supplier?.name,
+          detailsOfEndBuyer: "",
+          detailsOfComm: data?.order?.commodity,
+          quan: data?.order?.quantity,
+          unitPrice: data.order?.perUnitPrice,
+          totalOrderValue: data?.order?.marginMoney?.calculation?.orderValue ?? '',
+          lordPort: data?.order?.termsheet?.transactionDetails?.loadPort,
+          dischargePort: data?.order?.portOfDischarge,
+          lastDate: data?.order?.shipmentDetail?.lastDateOfShipment,
+          terms: `${data?.order?.termsheet?.transactionDetails?.partShipmentAllowed == "Yes" ? "Full" : "Partial"}`,
+          addComm: data?.additionalComments?.comments,
+          spec: data?.productSpecifications?.specificationTable,
+          specComment: data?.productSpecifications.comments,
+          unitOfGrade: data?.order?.unitOfGrade,
+          unitOfQuantity: data?.order?.unitOfQuantity,
+          unitOfValue: data?.order?.unitOfValue,
+          curr: data?.order?.orderCurrency,
+          supplier:data?.supplier?.name,
+          supplierAddress:_get(data,"supplier.address[0]",""),
+          supplierAuthorized:_get(data,"supplier.authorisedSignatoryDetails",[]),
+          buyerAuthorized:_get(data,"buyer.authorisedSignatoryDetails",[]),
+          buyerEmail:"",
+          supplierEmail:"",
+          financialBank:"",
+          financialAddress:"",
+
+        })
+      }
+    }
+  }, [props])
   return (
     <div className={`${styles.root}`}>
      
       <div className={`${styles.content} card`}>
           
-           {tripartiteAgreement()}
+           {tripartiteAgreement(data)}
            <div className={`${styles.footer} card-body border_color d-flex align-items-center justify-content-end p-3 bg-transparent`} data-toggle="collapse" data-target="#cashFlowStatement" aria-expanded="true" aria-controls="cashFlowStatement">
               <div className={styles.reject}><span>Save</span></div>
         <div className={styles.approve}><span>Submit</span></div>                                
@@ -22,14 +162,14 @@ function index() {
   )
 }
 
-export default index
-const tripartiteAgreement=()=>{
+export default Index
+const tripartiteAgreement=(data)=>{
   return(
     <>
      <div className="card-body">
        <p className="text-center text_sales"> <strong><u>TRIPARTITE AGREEMENT</u></strong></p>
        <p className="text_sales">This Tripartite Agreement (“<strong>Agreement</strong>”) is made at the place and on the day as set out in <strong>Schedule I</strong> hereto by and between:</p>
-       <p className="text_sales"><GrowInput placeholder="INDO INTERTRADE AG"></GrowInput>, a company organized and existing in accordance with Law of Switzerland and having address at <GrowInput placeholder="Industriestrasse 16, Zug 6300"></GrowInput> through its Authorized Signatory (hereinafter referred to as the &quot;<strong>Buyer</strong>&quot;, which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the First Part.</p>
+       <p className="text_sales"><b>{data.seller}</b>, a company organized and existing in accordance with Law of Switzerland and having address at <b>{data.sellerAddress}</b> through its Authorized Signatory (hereinafter referred to as the &quot;<strong>Buyer</strong>&quot;, which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the First Part.</p>
        <p className="text_sales">And</p>
        <p className="text_sales"><strong>Supplier</strong>(s), as detailed in <strong>Schedule-I</strong> hereof (hereinafter referred to as the “<strong>Supplier</strong>”, which expression shall, unless excluded by or repugnant to the context be deemed to include its legal heirs, successors and permitted assigns) of the Second Part.</p>
        <p className=" text_sales">And</p>
@@ -58,43 +198,81 @@ const tripartiteAgreement=()=>{
      <div className={`${styles.inputsContainer}`}>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Date of execution</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
+        <Col md={7 } className={styles.right}>{data.dateOfExecution}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Place of execution</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
+        <Col md={7 } className={styles.right}>{data.placeOfExecution}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of Supplier</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
+        <Col md={7 } className={styles.right}>{data?.supplier}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Address of Supplier</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
+        <Col md={7 } className={styles.right}>{data?.supplierAddress}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Authorized signatory of Supplier</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
+        <Col md={7 } className={styles.right}>
+   <table>
+            <tr>
+              {data?.supplierAuthorized &&
+                data?.supplierAuthorized.length > 0 &&
+                Object.keys(data?.supplierAuthorized[0]).map((val, index) => (
+                  <th key={index}>{val}</th>
+                ))}
+            </tr>
+            {data?.supplierAuthorized &&
+              data?.supplierAuthorized.length > 0 &&
+              data?.supplierAuthorized.map((item, index) => (
+                <tr>
+                  {Object.values(item).map((value, id) => (
+                    <td key={id}>{value}</td>
+                  ))}
+                </tr>
+              ))}
+        </table>
+        </Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Email ID of Supplier</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
+        <Col md={7 } className={styles.right}>{data?.supplierEmailId}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Name of End buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
+        <Col md={7 } className={styles.right}>{data?.buyer}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Authorized signatory of End Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
+        <Col md={7 } className={styles.right}>
+          <table>
+            <tr>
+              {data?.buyerAuthorized &&
+                data?.buyerAuthorized.length > 0 &&
+                Object.keys(data?.buyerAuthorized[0]).map((val, index) => (
+                  <th key={index}>{val}</th>
+                ))}
+            </tr>
+            {data?.buyerAuthorized &&
+              data?.buyerAuthorized.length > 0 &&
+              data?.buyerAuthorized.map((item, index) => (
+                <tr>
+                  {Object.values(item).map((value, id) => (
+                    <td key={id}>{value}</td>
+                  ))}
+                </tr>
+              ))}
+        </table>
+        </Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Email ID of End Buyer</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
+        <Col md={7 } className={styles.right}>{data.buyerEmail}</Col>
       </Row>
       <Row className={`${styles.row}`}>
         <Col md={5} className={styles.left}>Details of Goods as per Sales Contract</Col>
-        <Col md={7 } className={styles.right}><input className={`${styles.para} input`}></input></Col>
+        <Col md={7 } className={styles.right}>{""}</Col>
       </Row>
    
       

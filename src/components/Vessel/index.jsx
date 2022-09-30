@@ -718,7 +718,7 @@ function Index({
                             >
                               <input
                                 id="shippingLineOrCharter"
-                                defaultChecked={
+                                value={
                                   val?.shippingInformation
                                     ?.shippingLineOrCharter
                                 }
@@ -741,7 +741,7 @@ function Index({
                             >
                               <input
                                 id="numberOfContainers"
-                                defaultChecked={
+                                value={
                                   val?.shippingInformation?.numberOfContainers
                                 }
                                 className={`${styles.input_field} input form-control`}
@@ -765,7 +765,7 @@ function Index({
                             >
                               <input
                                 id="freeDetentionPeriod"
-                                defaultChecked={
+                                value={
                                   val?.shippingInformation?.freeDetentionPeriod
                                 }
                                 className={`${styles.input_field} input form-control`}
