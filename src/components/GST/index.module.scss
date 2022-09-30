@@ -440,6 +440,7 @@
         }
     }
     .header {
+        max-height: 77px;
         background: #FAFAFB;
         span {
             font-weight: bold;
@@ -471,6 +472,8 @@
             font-size: 18px;
             line-height: 22px;
             font-weight: normal;
+            padding: 0 !important;
+            display: block;
         }
     }
     .chart {
