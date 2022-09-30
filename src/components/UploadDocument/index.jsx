@@ -2,10 +2,16 @@
 import React, { useState } from 'react'
 import styles from './index.module.scss'
 import moment from 'moment'
+import { useEffect } from 'react'
 
-const Index = ({ uploadDocument1, uploadDocument2, docName, docName2 }) => {
+const Index = ({ uploadDocument1, uploadDocument2, docName, docName2, containerListDocumentdoc, vesselCertificatedoc }) => {
   const [vesselCertificate, setVesselCertificate] = useState()
   const [containerList, setContainerList] = useState()
+
+  useEffect(() => {
+    setVesselCertificate(vesselCertificatedoc)
+    setContainerList(containerListDocumentdoc)
+  }, [vesselCertificatedoc, containerListDocumentdoc])
 
   const vesselDocFunction = (e) => {
     // console.log(e.target.files[0],  'THIS IS VESSEL CERTIFICATE')
@@ -18,7 +24,7 @@ const Index = ({ uploadDocument1, uploadDocument2, docName, docName2 }) => {
 
     uploadDocument1(e)
   }
-console.log(docName,docName2,"docName")
+  console.log(containerList, vesselCertificate, "docName")
   const handleClose = (e) => {
     if (e === 'Vessel Certificate') {
       setVesselCertificate(null)
@@ -98,7 +104,7 @@ console.log(docName,docName2,"docName")
                           alt="Pdf"
                         />
                       </td>
-                      <td className={styles.doc_row}>{ vesselCertificate == null ? '' : moment(vesselCertificate?.date).format('DD-MM-YYYY, h:mm a')}</td>
+                      <td className={styles.doc_row}>{vesselCertificate == null ? '' : moment(vesselCertificate?.date).format('DD-MM-YYYY, h:mm a')}</td>
                       <td>
                         {' '}
                         {vesselCertificate == null ? (
@@ -118,7 +124,7 @@ console.log(docName,docName2,"docName")
                           </>
                         ) : (
                           <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
-                            <span>{vesselCertificate?.name}</span>
+                            <span>{vesselCertificatedoc ? vesselCertificate?.originalName : vesselCertificate?.name }</span>
                             <img
                               className={`${styles.close_image} image_arrow mr-2`}
                               src="/static/close.svg"
@@ -141,7 +147,7 @@ console.log(docName,docName2,"docName")
                           alt="Pdf"
                         />
                       </td>
-                      <td className={styles.doc_row}>{ containerList == null ? '' : moment(containerList?.date).format('DD-MM-YYYY, h:mm a')}</td>
+                      <td className={styles.doc_row}>{containerList == null ? '' : moment(containerList?.date).format('DD-MM-YYYY, h:mm a')}</td>
                       <td>
                         {' '}
                         {containerList == null ? (
@@ -172,7 +178,7 @@ console.log(docName,docName2,"docName")
                           </>
                         ) : (
                           <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
-                            <span>{containerList?.name}</span>
+                            <span>{containerListDocumentdoc ? containerList?.originalName : containerList?.name }</span>
                             <img
                               className={`${styles.close_image} image_arrow mr-2`}
                               src="/static/close.svg"

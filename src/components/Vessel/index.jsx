@@ -99,7 +99,7 @@ function Index({
             <h1 className={`${styles.title} heading`}>{companyName}</h1>
             <div className="ml-auto">
               <div className={`${styles.lastModified} text `}>
-                <div className='accordion_Text'>Last Modified:</div> {moment((vesselUpdatedAt ? vesselUpdatedAt : '')?.slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY,h:mm a")}
+                <div className='accordion_Text'>Last Modified:</div> {vesselUpdatedAt ? moment(vesselUpdatedAt).format("DD-MM-YYYY,h:mm a") : ''}
               </div>
             </div>
           </div>
@@ -248,7 +248,7 @@ function Index({
                             type="text"
                             value={isFieldInFocus[index]?.value ?
                               val.quantity :
-                              Number(val.quantity)?.toLocaleString("en-IN") + ` ${_get(vesselData, 'data[0].order.unitOfQuantity', '').toUpperCase()}`}
+                              Number(val.quantity)?.toLocaleString("en-IN", { maximumFractionDigits: 2 }) + ` ${_get(vesselData, 'data[0].order.unitOfQuantity', '').toUpperCase()}`}
 
                             onChange={(e) =>
                               OnVesselBasicFieldsChangeHandler(e, index)
@@ -293,7 +293,7 @@ function Index({
                             // value={Number(val.orderValue).toLocaleString()}
                             value={orderValueinFocus ?
                               val.orderValue :
-                              Number(val.orderValue)?.toLocaleString("en-IN")}
+                              Number(val.orderValue)?.toLocaleString("en-IN", { maximumFractionDigits: 2 })}
                             onChange={(e) =>
                               OnVesselBasicFieldsChangeHandler(e, index)
                             }
@@ -624,7 +624,7 @@ function Index({
                                           : ''}
                                         className={`${styles.input_field} input form-control`}
                                         type="number"
-                                        onKeyDown={(evt) => ["e", "E", "+", "-",'.'].includes(evt.key) && evt.preventDefault()}
+                                        onKeyDown={(evt) => ["e", "E", "+", "-", '.'].includes(evt.key) && evt.preventDefault()}
 
                                         onChange={(e) =>
                                           onVesselInfoChangeHandlerForBulk(
@@ -899,7 +899,7 @@ function Index({
                                     // defaultValue={newVessel.yearOfBuilt}
                                     className={`${styles.input_field} input form-control`}
                                     type="number"
-                                    onKeyDown={(evt) => ["e", "E", "+", "-",'.'].includes(evt.key) && evt.preventDefault()}
+                                    onKeyDown={(evt) => ["e", "E", "+", "-", '.'].includes(evt.key) && evt.preventDefault()}
 
                                     onChange={(e) =>
                                       onVesselInfoChangeHandlerForLiner(
@@ -970,7 +970,11 @@ function Index({
 
             <UploadDocument
               docName='Vessel Certificate'
-              docName2={shipmentTypeBulk === 'Bulk' ? false : 'Container List'} vesselCertificate={vesselCertificate} handleClose={handleClose} uploadDocument1={uploadDocHandler} />
+              docName2={shipmentTypeBulk === 'Bulk' ? false : 'Container List'}
+              vesselCertificatedoc={vesselCertificate}
+              containerListDocumentdoc={containerListDocument}
+              handleClose={handleClose}
+              uploadDocument1={uploadDocHandler} />
 
             <UploadOther
               module="Agreements&Insurance&LC&Opening"
