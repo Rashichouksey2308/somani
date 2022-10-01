@@ -558,6 +558,11 @@ function Index(props) {
     let toastMessage = ''
     let dataToSend = {}
     console.log('this13', data, key)
+    data.list.forEach((val,index)=>{
+      delete val['actions']
+      delete val['addnew']
+      val.document={}
+    })
     if (key == 'Supplier') {
       dataToSend = {
         genericId: props.genericData?._id,

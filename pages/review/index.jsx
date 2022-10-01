@@ -56,7 +56,11 @@ import {
   setPageName,
   setDynamicName,
   setDynamicOrder,
+  
 } from '../../src/redux/userData/action'
+import {
+ settingSidebar
+} from '../../src/redux/breadcrumb/action'
 
 import { RefetchCombineKarza } from '../../src/redux/companyDetail/action'
 import { UpdateCam } from '../../src/redux/creditQueueUpdate/action'
@@ -70,6 +74,7 @@ import { toast } from 'react-toastify'
 import UploadOther from '../../src/components/UploadOther'
 import _get from 'lodash/get'
 import Router from 'next/router'
+
 let alertObj = {
   isShell: 'Shell',
   isCompanyUnderLiquidation: 'Company Under Liquidation',
@@ -184,13 +189,7 @@ function Index() {
 
   const { fetchingKarzaGst } = useSelector((state) => state.review)
 
-  // const [newDoc, setNewDoc] = useState({
-  //   document: [],
-  //   order: orderList?.termsheet?.order,
-  //   type: 'notrelevent',
-  //   name: '',
-  //   module: 'LeadOnboarding,OrderApproval',
-  // })
+ 
 
   useEffect(() => {
     if (companyData) {
@@ -1495,7 +1494,7 @@ function Index() {
     }
   }
 
-  const handleCamApprove = () => {
+  const handleCamApprove = async () => {
     if (orderValidation() && creditValidation()) {
       if (gettingPercentageCredit && gettingPercentageOrder) {
         const obj = {
@@ -1505,8 +1504,13 @@ function Index() {
           order: orderList._id,
           status: 'Approved',
         }
-        dispatch(UpdateCam(obj))
-        router.push(`/termsheet/${orderList._id}`)
+       let code= await  dispatch(UpdateCam(obj))
+       console.log(code,"code")
+        if(code==200){
+          dispatch(settingSidebar('Leads', 'Termsheet', 'Termsheet', '1'))
+          // router.push(`/termsheet/${orderList._id}`)
+        }
+       
       }
     }
   }

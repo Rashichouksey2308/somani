@@ -510,7 +510,7 @@ function Index() {
     }
     return true
   }
-  const handleUpdate = () => {
+  const handleUpdate = async() => {
     if (validate()) {
 
 

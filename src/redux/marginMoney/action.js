@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import API from '../../utils/endpoints'
 import Cookies from 'js-cookie'
 import router from 'next/router'
-
+import { settingSidebar } from '../breadcrumb/action'
 
 function getAllMarginMoney() {
   return {
@@ -94,7 +94,8 @@ export const GetAllMarginMoney =
           dispatch(getAllMarginMoneyFailed(response.data.data))
           let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
         }
       })
     } catch (error) {
@@ -126,7 +127,8 @@ export const GetMarginMoney = (payload) => async (dispatch, getState, api) => {
         dispatch(getMarginMoneyFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
       }
     })
   } catch (error) {
@@ -154,13 +156,18 @@ export const UpdateMarginMoney =
           dispatch(updateMarginMoneySuccess(response.data))
           let toastMessage = 'SAVED SUCCESSFULLY'
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })   }
-          router.push('/margin-money')
+            toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
+          dispatch(
+            settingSidebar('Agreement & LC Module', 'Generic', 'Generic', '2'),
+          )
+          router.push('/generic/generic-list')
         } else {
           dispatch(updateMarginMoneyFailed(response.data))
           let toastMessage = 'UPDATE REQUEST FAILED'
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
         }
       })
     } catch (error) {
@@ -187,13 +194,15 @@ export const RevisedMarginMoney =
           dispatch(updatingRevisedMarginMoneySuccess(response.data))
           let toastMessage = 'SAVED SUCCESSFULLY'
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })   }
+            toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
           // router.push('/margin-money')
         } else {
           dispatch(updatingRevisedMarginMoneyFailed(response.data))
           let toastMessage = 'UPDATE REQUEST FAILED'
           if (!toast.isActive(toastMessage.toUpperCase())) {
-            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })   }
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
         }
       })
     } catch (error) {

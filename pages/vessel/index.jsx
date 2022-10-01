@@ -826,10 +826,13 @@ export default function Home() {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
+         await   fetchInitialData()
+        //  sessionStorage.setItem('quotationId',"")
+        // router.push(`/insurance/form`)
       }
 
-      fetchInitialData()
-      router.push(`/insurance/form`)
+      
+      
     }
   }
   // // console.log(Vessel, "Vessel")

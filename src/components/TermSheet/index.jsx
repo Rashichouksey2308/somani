@@ -11,6 +11,7 @@ import Router from 'next/router'
 
 import { setPageName } from '../../redux/userData/action'
 import { GetTermsheet, updateTermsheet } from 'redux/buyerProfile/action'
+import { settingSidebar } from 'redux/breadcrumb/action'
 import { useRouter } from 'next/router'
 import { data } from 'jquery'
 import _get from 'lodash/get'
@@ -356,7 +357,7 @@ const Index = () => {
   }
   console.log(termsheetDetails, 'tempSheet')
   const changePayment = () => {}
-  const handleSave = () => {
+  const handleSave = async () => {
     // console.log(termsheetDetails.commercials.overDueInterestPerMont, "tempSheet2")
     let tempSheet = { ...termsheetDetails }
 
@@ -751,8 +752,13 @@ const Index = () => {
     }
 
     // console.log(termsheetDetails, 'updatedtermsheet')
-    dispatch(updateTermsheet(UpdatedTermsheet))
-    router.push(`/margin-money/id`)
+    let code = await dispatch(updateTermsheet(UpdatedTermsheet))
+    if(code==200){
+    //  sessionStorage.setItem('marginId', margin?.order?._id )
+      dispatch(settingSidebar('Leads', 'Margin Money', 'Margin Money', '1'))
+    //  router.push(`/margin-money/id`)
+    }
+    
   }
 
   const handleChange = (name, value) => {

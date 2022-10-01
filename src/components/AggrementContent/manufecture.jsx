@@ -55,6 +55,7 @@ function Index(props) {
                 "city": ""
             }
   )
+  const [removedOption,setRemovedOption]=useState(null)
 const [addressType,setAddressType]=useState("Registered")
 const [addressEditType,setAddressEditType]=useState("Registered")
 const [options,setOptions]=useState([
@@ -260,9 +261,12 @@ console.log(props?.order?.supplierName,"props?.order?.supplierName")
       });
       let temp=[...options]
       var indexOption = temp.indexOf(value.name);
+      console.log(value.name,"value.name")
+      setRemovedOption(value.name)
       if (indexOption !== -1) {
       temp.splice(indexOption, 1);
       }
+      
       setOptions([...temp])
   }
     const addMoreRows=()=>{
@@ -281,6 +285,7 @@ docList.forEach((val,i)=>{
     }
   })
 setList([...list.slice(0, index), ...list.slice(index + 1)])
+setRemovedOption(null)
 
 if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" ||val.name=="atima Yannoulis"  ){
   let temp=[...options]
@@ -302,6 +307,7 @@ if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" 
     
 
   }
+  console.log(removedOption,"removedOption")
 const removeDoc=(index)=>{
     console.log("removeDOc")
      setDocList(prevState => {
@@ -1110,11 +1116,15 @@ setEditAddress(
                            <select 
                             value={val.name}
                             className={`${styles.customSelect} input`}
+                            
                             onChange={(e)=>{
                               handleChangeInput(e.target.name,e.target.value,index)
                              
                             }}>
                               <option>Select an option</option>
+                              {removedOption!=null?
+                              <option value={removedOption}>{removedOption}</option>
+                              :null}
                               {options.map((val,i)=>{
                                 return(<option value={val}>{val}</option>)
                               })}
@@ -1127,8 +1137,38 @@ setEditAddress(
                               alt="Search"
                             />
                          </>  : 
-                           
-                         <>
+                          <>
+                          {
+                            val.name=="Vipin Kumar" || val.name=="Bhawana Jain"?
+                            <>
+                             <select 
+                            value={val.name}
+                            className={`${styles.customSelect} input`}
+                            
+                            onChange={(e)=>{
+                              handleChangeInput(e.target.name,e.target.value,index)
+                             
+                            }}>
+                              <option>Select an option</option>
+                              <option value={"Vipin Kumar"}>Vipin Kumar</option>
+                              <option value={"Bhawana Jain"}>Bhawana Jain</option>
+                              <option value={"Devesh Jain"}>Devesh Jain</option>
+                              <option value={"Fatima Yannoulis"}>Fatima Yannoulis</option>
+                             
+                              {/* {options.map((val,i)=>{
+                                return(<option value={val}>{val}</option>)
+                              })} */}
+                              
+                              <option value={"addnew"}>{"Add New"}</option>
+                            </select>
+                            <img
+                              className={`${styles.arrow2} image_arrow img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                            </>
+                            :
+                          <>
                           <input type="text" 
                             className='input'
                             placeholder={"Add new"}
@@ -1139,7 +1179,10 @@ setEditAddress(
                             }}
                           />
                         </>
-                      }
+                          }
+                          </>
+                       
+                           }
                             
                           </td>
                           <td>

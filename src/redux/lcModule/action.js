@@ -89,7 +89,8 @@ export const GetLcModule = (payload) => async (dispatch, getState, api) => {
         dispatch(getLcModuleFailed(response.data.data))
         let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
       }
     })
   } catch (error) {
@@ -109,25 +110,31 @@ export const UpdateLcModule = (payload) => async (dispatch, getState, api) => {
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.put(`${API.corebaseUrl}${API.updateLcModule}`, payload.obj, {
-      headers: headers,
-    }).then((response) => {
-      if (response.data.code === 200) {
-        dispatch(updateLcModuleSuccess(response.data.data))
-        if(payload.task === 'preview'){
-          Router.push('/letter-table/letter-amend/id')
-        }
-        let toastMessage = 'Updated SUCCESSFULLY'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage }) }
-        // router.push('/margin-money')
-      } else {
-        dispatch(updateLcModuleFailed(response.data.data))
-        let toastMessage = 'UPDATE REQUEST FAILED'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+    let response = await Axios.put(
+      `${API.corebaseUrl}${API.updateLcModule}`,
+      payload.obj,
+      {
+        headers: headers,
+      },
+    )
+    if (response.data.code === 200) {
+      dispatch(updateLcModuleSuccess(response.data.data))
+      if (payload.task === 'preview') {
+        Router.push('/letter-table/letter-amend/id')
       }
-    })
+      let toastMessage = 'Updated SUCCESSFULLY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      // router.push('/margin-money')
+      return response.data.code
+    } else {
+      dispatch(updateLcModuleFailed(response.data.data))
+      let toastMessage = 'UPDATE REQUEST FAILED'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+    }
   } catch (error) {
     dispatch(updateLcModuleFailed())
     let toastMessage = 'COULD NOT UPDATE LC AT THIS TIME'
@@ -137,37 +144,40 @@ export const UpdateLcModule = (payload) => async (dispatch, getState, api) => {
   }
 }
 
-export const UpdateLcAmendment = (payload) => async (dispatch, getState, api) => {
-  let cookie = Cookies.get('SOMANI')
-  const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
+export const UpdateLcAmendment =
+  (payload) => async (dispatch, getState, api) => {
+    let cookie = Cookies.get('SOMANI')
+    const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
 
-  let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
-  var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
-  try {
-    Axios.put(`${API.corebaseUrl}${API.updateLcModuleAmendment}`, payload, {
-      headers: headers,
-    }).then((response) => {
-      if (response.data.code === 200) {
-        dispatch(updatingLcAmendmentSuccess(response.data.data))
-        let toastMessage = 'SAVED SUCCESSFULLY'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage }) }
-        Router.push('/lc-module')
-      } else {
-        dispatch(updatingLcAmendmentFailed(response.data.data))
-        let toastMessage = 'UPDATE REQUEST FAILED'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+    let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
+    var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
+    try {
+      Axios.put(`${API.corebaseUrl}${API.updateLcModuleAmendment}`, payload, {
+        headers: headers,
+      }).then((response) => {
+        if (response.data.code === 200) {
+          dispatch(updatingLcAmendmentSuccess(response.data.data))
+          let toastMessage = 'SAVED SUCCESSFULLY'
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
+          Router.push('/lc-module')
+        } else {
+          dispatch(updatingLcAmendmentFailed(response.data.data))
+          let toastMessage = 'UPDATE REQUEST FAILED'
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
+        }
+      })
+    } catch (error) {
+      dispatch(updatingLcAmendmentFailed())
+      let toastMessage = 'COULD NOT UPDATE LC AT THIS TIME'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-    })
-  } catch (error) {
-    dispatch(updatingLcAmendmentFailed())
-    let toastMessage = 'COULD NOT UPDATE LC AT THIS TIME'
-    if (!toast.isActive(toastMessage.toUpperCase())) {
-      toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
     }
   }
-}
 export const UpdateAmendment = (payload) => async (dispatch, getState, api) => {
   let cookie = Cookies.get('SOMANI')
   const decodedString = Buffer.from(cookie, 'base64').toString('ascii')
@@ -182,14 +192,16 @@ export const UpdateAmendment = (payload) => async (dispatch, getState, api) => {
         dispatch(updatingAmendmentSuccess(response.data.data))
         let toastMessage = 'SAVED SUCCESSFULLY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
         // router.push('/margin-money')
         Router.push('/amend-letter')
       } else {
         dispatch(updatingAmendmentFailed(response.data.data))
         let toastMessage = 'UPDATE REQUEST FAILED'
         if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+        }
       }
     })
   } catch (error) {

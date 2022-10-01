@@ -9,6 +9,8 @@ const initialState = {
   },
   currency: 'crores',
   unit: 'inr',
+  sideBarMain: '',
+  subsideBarMain: '',
 }
 
 function BreadcrumbReducer(state = initialState, action) {
@@ -29,6 +31,12 @@ function BreadcrumbReducer(state = initialState, action) {
       return {
         ...state,
         unit: action.payload,
+      }
+    case types.SIDEBAR:
+      return {
+        ...state,
+        sideBarMain: action.payload.sideBarMain,
+        subsideBarMain: action.payload.subsideBarMain,
       }
 
     case types.CLEAR_BREADCRUMB_DATA:

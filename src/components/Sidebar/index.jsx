@@ -139,8 +139,10 @@ function Index() {
   const [category, setcategory] = useState('Dashboard')
   const [subCategory, setsubCategory] = useState(null)
   const [index12, setIndex] = useState('')
-
+ const side = useSelector((state) => state.breadcrumb)
+ console.log(side,"subsideBarMain")
   useEffect(() => {
+    console.log("aaasqqaq")
     if (window) {
       sessionStorage.setItem('sideBarMain', sessionStorage.getItem("loadedPage")? sessionStorage.getItem("loadedPage"):"Dashboard")
       sessionStorage.setItem('subsideBarMain', sessionStorage.getItem("loadedSubPage")?sessionStorage.getItem("loadedSubPage"):null)
@@ -159,6 +161,38 @@ function Index() {
       
     }
   }, [])
+    useEffect(() => {
+    if (window) {
+      console.log("changed",sessionStorage.getItem('sideBarMain'),sessionStorage.getItem('subsideBarMain'))
+     
+      setcategory(sessionStorage.getItem('sideBarMain'))
+      setsubCategory(sessionStorage.getItem('subsideBarMain'))
+     if(sessionStorage.getItem('openList')){
+   
+      setIndex(sessionStorage.getItem('openList'))
+      setClassName(`${styles.openlist}`)
+     }else{
+     
+      setIndex(``)
+      setClassName(``)
+     }
+      
+      
+    }
+  }, [Router.asPath]);
+  
+    // useEffect(() => {
+    //     const onHashChangeStart = (url) => {
+    //         console.log(`Path changing to ${url}`);
+    //     };
+
+    //       Router.events.on("hashChangeStart", onHashChangeStart);
+
+    //     return () => {
+    //         Router.events.off("hashChangeStart", onHashChangeStart);
+    //     };
+    // }, [Router.events]);
+
   console.log(subCategory,"opne")
   const handleOpen = (val, index, from) => {
     console.log(val, 'val233')
@@ -184,7 +218,7 @@ function Index() {
 
   const sidebar = useSelector((state) => state.sidebar.show_sidebar)
   const openList = useSelector((state) => state.sidebar.openList)
-  
+ 
   const isMobile = useSelector((state) => state.sidebar.isMobile)
   //   console.log(isMobile,"isMobile123")
   //   console.log("sidebar",)

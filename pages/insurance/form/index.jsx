@@ -454,8 +454,15 @@ const Index = () => {
                                 insuranceData?.order?.quantity,
                               )?.toLocaleString('en-In', {
                                 maximumFractionDigits: 2,
-                              })}{' '}
-                              MT
+                              })==NaN?"":
+                             `${
+                               Number(
+                                insuranceData?.order?.quantity,
+                              )?.toLocaleString('en-In', {
+                                maximumFractionDigits: 2,
+                              })
+                             }   MT` }
+                             
                             </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>

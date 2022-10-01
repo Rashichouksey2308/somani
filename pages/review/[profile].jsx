@@ -112,7 +112,7 @@ const Index = () => {
     const payload = { ...payloadData, orderReviewId: buyerList._id }
 
     dispatch(UpdateBuyer(payload))
-    router.push('/review')
+
   }
   const handleReject = () => {
     const payload = { ...rejectPayloadData, orderReviewId: buyerList._id }
