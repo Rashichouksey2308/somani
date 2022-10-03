@@ -375,7 +375,7 @@ const toPdf=(data)=>{
           </td>
         </tr>
         <tr>
-          <td valign='top' align='center' style={{fontFamily:'Times New Roman, Times, serif', fontSize:'12px', lineHeight:'1.5', color:'#000000', padding:'20px'}}><h3 style={{fontSize:'15px'}}>Schedule I</h3>
+          <td valign='top' align='center' style={{fontFamily:'Times New Roman, Times, serif', fontSize:'12px', lineHeight:'1.5', color:'#000000', padding:'20px'}}><h3 style={{fontSize:'15px', fontWeight:'bold'}}>Schedule I</h3>
             <table width="100%" cellPadding="10" style={{border:'1px solid #000000'}} cellSpacing="0" border="0">
               <tr>
                 <td width="30%" style={{borderBottom:'1px solid #000000', borderRight:'1px solid #000000'}}>Date of Execution</td>
