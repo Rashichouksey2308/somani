@@ -833,7 +833,9 @@ setEditAddress(
         </div>
         {
         isEdit && editData(addressEditType,EditAddress,setEditAddress,editNewAddress,cancelEditAddress,saveNewAddress,setAddressEditType)}        
-          <div className={`${styles.newAddressContainer} card m-0 border_color`}>
+        {
+        isEdit==false && 
+        <div className={`${styles.newAddressContainer} card m-0 border_color`}>
             <div className={`${styles.newAddressHead} border_color`}><span>Add a new address</span>
             </div>
             <div className="card-body p-0 rounded-0">
@@ -890,9 +892,9 @@ setEditAddress(
                   <Form.Control
                     className={`${styles.input_field} input form-control`}
                     required
-                    type="number"
+                    type="text"
                     name="pinCode"
-                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                    // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                     value={newAddress.pinCode}
                     onChange={(e) => {
@@ -960,10 +962,10 @@ setEditAddress(
                   <Form.Control
                     className={`${styles.input_field} input form-control`}
                     required
-                    type="number"
+                    type="text"
                     name="pinCode"
                     value={newAddress.pinCode}
-                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                    // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                     onChange={(e) => {
                       setAddress(e.target.name,e.target.value)
@@ -1060,7 +1062,9 @@ setEditAddress(
                 </div>
               </div>
             </div>
-          </div>           
+        </div>
+        }
+                 
         <div className={`${styles.tableContainer} border_color card p-0`}>
           <div
             className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
@@ -1079,7 +1083,7 @@ setEditAddress(
           </div>
           <div
             id="customerDetail"
-            className={`collapse ${styles.body}  value_card card-body row`}
+            className={`collapse ${styles.body}  show value_card card-body row`}
             aria-labelledby="customerDetail"
         
           >
@@ -1118,6 +1122,7 @@ setEditAddress(
                             className={`${styles.customSelect} input`}
                             
                             onChange={(e)=>{
+                              setRemovedOption(e.target.value)
                               handleChangeInput(e.target.name,e.target.value,index)
                              
                             }}>
@@ -1139,7 +1144,11 @@ setEditAddress(
                          </>  : 
                           <>
                           {
-                            val.name=="Vipin Kumar" || val.name=="Bhawana Jain"?
+                              val.name=="Vipin Kumar" 
+                            || val.name=="Bhawana Jain"
+                            || val.name=="Devesh Jain"
+                            || val.name=="Fatima Yannoulis"
+                            ?
                             <>
                              <select 
                             value={val.name}
@@ -1438,7 +1447,7 @@ setEditAddress(
           <div className={`row`}>
 
            
-            <div className={`${styles.newAddressContainer} ${styles.newAddressContainer2} m-0`}>
+            {isEditMulti==false && <div className={`${styles.newAddressContainer} ${styles.newAddressContainer2} m-0`}>
                   <div className={styles.newAddressHead}><span>Add a new {/*{props.multiPartValue}*/} address</span></div>
                     <div className={`${styles.newAddressContent} row`}>
                     <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
@@ -1493,10 +1502,10 @@ setEditAddress(
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="number"
+                        type="text"
                         name="pinCode"
                         value={newMultiAddress.pinCode}
-                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                        // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                         onChange={(e) => {
                           setMultiAddress(e.target.name,e.target.value)
@@ -1563,10 +1572,10 @@ setEditAddress(
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="number"
+                        type="text"
                         name="pinCode"
                         value={newMultiAddress.pinCode}
-                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                        // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                         onChange={(e) => {
                           setMultiAddress(e.target.name,e.target.value)
@@ -1661,7 +1670,7 @@ setEditAddress(
                     <span>Cancel</span>
                     </div>
                   </div>
-            </div>
+            </div>}
             
 
           </div>
@@ -1734,10 +1743,10 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="number"
+                        type="text"
                         name="pinCode"
                         value={EditAddress.pinCode}
-                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                        // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                         onChange={(e) => {
                           editNewAddress(e.target.name,e.target.value)
@@ -1804,10 +1813,10 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="number"
+                        type="text"
                         name="pinCode"
                          value={EditAddress.pinCode}
-                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                        //  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                         onChange={(e) => {
                           editNewAddress(e.target.name,e.target.value)

@@ -528,8 +528,10 @@ export default function Index({
                     Order Value <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
                   <span className={styles.value}>
-                    {convertValue(
-                      _get(TransitDetails, 'data[0].order.orderValue', ''),
+                    {_get(
+                      TransitDetails,
+                      'data[0].order.orderValue',
+                      '',
                     ).toLocaleString('en-IN', {
                       maximumFractionDigits: 2,
                     })}{' '}
@@ -920,7 +922,7 @@ export default function Index({
                                       alt="Add"
                                     />
                                   ) : null}
-                                  {item.blNumber.length >= 1 ? (
+                                  {item.blNumber.length > 1 ? (
                                     <img
                                       onClick={() =>
                                         onRemoveBlNumber(index, index2)
