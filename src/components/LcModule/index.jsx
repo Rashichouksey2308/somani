@@ -80,6 +80,7 @@ function Index() {
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
               onClick={() => Router.push('/letter-table')}
+              style={{cursor:'pointer'}}
             />
             <h1 className={styles.heading}>Letter of Credit </h1>
           </div>

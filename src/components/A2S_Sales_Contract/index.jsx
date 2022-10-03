@@ -555,7 +555,7 @@ const salesContract = (changeHandler, data, preview, CovertvaluefromtoCR) => {
         </div>
 
 
-        <h3 className='text-center mb-4'>Schedule I</h3>
+        <h3 className='text-center mb-4 font-weight-bold'>Schedule I</h3>
         <div className={`${styles.inputsContainer}`}>
           <Row className={`${styles.row}`}>
             <Col md={5} className={styles.left}>Date of Execution</Col>

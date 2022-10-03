@@ -975,7 +975,8 @@ function Index() {
           className={`${styles.card} tabHeader border-0 shadow-none bg-transparent card2`}
         >
           <div className={`${styles.head_header} align-items-center`}>
-            <div onClick={() => Router.push('/insurance/form')}>
+            <div onClick={() => Router.push('/insurance/form')}
+                 style={{cursor:'pointer'}}>
               <img
                 className={`${styles.arrow} img-fluid image_arrow mr-2`}
                 src="/static/keyboard_arrow_right-3.svg"
