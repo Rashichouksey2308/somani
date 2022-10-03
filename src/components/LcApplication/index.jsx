@@ -886,7 +886,7 @@ function Index({
                   <div className={styles.doc_card}>
                     <div className="d-flex justify-content-between align-items-center pt-4 pb-3">
                       <div className="d-flex">
-                        <div className={`${styles.number}`}>2.</div>
+                        <div className={`${styles.number}`}>1.</div>
                         <h5>PRODUCT SPECIFICATION</h5>
                       </div>
                       {/* <div className="mt-3">
