@@ -111,7 +111,7 @@ function Index() {
             <h3 className={`${styles.title} heading`}>
               <span
                 // className={`${styles.title} heading`}
-                style={{ textTransform: 'capitalize' }}
+                // style={{ textTransform: 'capitalize' }}
               >
                 {customData?.company?.companyName} - {CompanyOrderId?.orderId}
               </span>

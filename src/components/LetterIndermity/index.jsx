@@ -371,42 +371,8 @@ function Index({ TransitDetails }) {
 
         <div className={styles.body}>
           <p>
-            The above cargo was shipped on the above ship by{' '}
-            <span className={styles.bold}>
-              LAKE VERMONT MARKETING PTY LTD, LEVEL 7, 12 CREEK STREET, BRISBANE{' '}
-            </span>
-            and consigned to <span className={styles.bold}>TO ORDER</span> for
-            delivery at the port of{' '}
-            <span className={styles.bold}>ANY PORT (S) IN INDIA </span> but the
-            Bills of Lading has not arrived and we,{' '}
-            <span className={styles.bold}>
-              {' '}
-              EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR,
-              LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM,
-              ANDHRA PRADESH – 530016, INDIA
-            </span>{' '}
-            , hereby request you to deliver the said cargo to{' '}
-            <span className={styles.bold}>
-              {' '}
-              EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR,
-              LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM,
-              ANDHRA PRADESH – 530016, INDIA
-            </span>{' '}
-            or to such party as you believe to be or to represent{' '}
-            <span className={styles.bold}>
-              {' '}
-              EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR,
-              LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM,
-              ANDHRA PRADESH – 530016, INDIA
-            </span>{' '}
-            or to be acting on behalf of{' '}
-            <span className={styles.bold}>
-              {' '}
-              EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR,
-              LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM,
-              ANDHRA PRADESH – 530016, INDIA at VISAKHAPATNAM PORT (VSPL), INDIA
-            </span>{' '}
-            without production of the original Bill(s) of Lading.
+            The above cargo was shipped on the above ship by{' '} <span className={styles.bold}>
+            LAKE VERMONT MARKETING pTy LTD, LEVEL 7' 12 CREBK STREET, BRISBANE 4000 QUEBSLAND, AUSTRALIA{' '}</span>and consigned to <span className={styles.bold}>TO ORDER</span> for delivery at the port of{' '}<span className={styles.bold}>ANY PORT (S) lN INDIA </span> but the Bills of Lading has not arrived and we,{' '}EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 30016, INDIA{' '}, hereby request you to deliver the said cargo to{' '}EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, SAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA{' '} or to such party as you believe to be or to represent{' '} EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA {' '} or to be acting on behalf of{' '} EMERGENT INDUSTRIAL SOLUTIONS LIMITED, 49-18-6/1, GROUND FLOOR, LALITHA NAGAR, SAKSHI OFFICE ROAD AKKAYYAPALEM, VISAKHAPATNAM, ANDHRA PRADESH - 530016, INDIA at <span className={styles.bold}>VISAKHAPATNAM PORT (VSPL), INDIA</span>{' '} without production of the original Bill(s) of Lading.
           </p>
 
           <div className={`${styles.list}`}>

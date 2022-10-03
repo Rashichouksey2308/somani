@@ -414,13 +414,15 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                       </td>
                     </tr>
                     <tr>
-                      <td colSpan="5" height="5px"></td>
+                      <td colSpan="5" height="0">
+                        <hr className='m-0 border_color' />
+                      </td>
                     </tr>
                     <tr>
-                      <td className="border-top">
+                      <td>
                         <strong>Total Liabilities</strong>
                       </td>
-                      <td className="text-center border-top">
+                      <td className="text-center">
                         <strong>
                           {/* {latestYearData?.equityLiabilities?.totalLiabilities?.toLocaleString()} */}
                           {convertValue((latestYearData?.equityLiabilities?.totalEl), unit)?.toLocaleString('en-In', {
@@ -429,7 +431,7 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                           })}
                         </strong>
                       </td>
-                      <td className="text-center border-top">
+                      <td className="text-center">
                         <strong>
                           {/* {previousYearData?.equityLiabilities?.totalLiabilities?.toLocaleString()} */}
                           {convertValue((previousYearData?.equityLiabilities?.totalEl), unit)?.toLocaleString('en-In', {
@@ -438,7 +440,7 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                           })}
                         </strong>
                       </td>
-                      <td className="text-center border-top">
+                      <td className="text-center">
                         <strong>
                           {/* {lastYearData?.equityLiabilities?.totalLiabilities?.toLocaleString()} */}
                           {convertValue((lastYearData?.equityLiabilities?.totalEl), unit)?.toLocaleString('en-In', {
@@ -447,7 +449,7 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                           })}
                         </strong>
                       </td>
-                      <td className="text-center border-top">
+                      <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.equityLiabilities?.totalEl, previousYearData?.equityLiabilities?.totalEl, lastYearData?.equityLiabilities?.totalEl)}
 
                       </td>
@@ -993,13 +995,15 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                       </td>
                     </tr>
                     <tr>
-                      <td colSpan="5" height="5px"></td>
+                      <td colSpan="5" height="0">
+                        <hr className='m-0 border_color' />
+                      </td>
                     </tr>
                     <tr>
-                      <td className="border-top">
+                      <td>
                         <strong>Total Assets</strong>
                       </td>
-                      <td className="text-center border-top">
+                      <td className="text-center">
                         <strong>
                           {/* {latestYearData?.assets?.totalAssets?.toLocaleString()} */}
                           {convertValue((latestYearData?.assets?.totalAssets), unit)?.toLocaleString('en-In', {
@@ -1008,7 +1012,7 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                           })}
                         </strong>
                       </td>
-                      <td className="text-center border-top">
+                      <td className="text-center">
                         <strong>
                           {/* {previousYearData?.assets?.totalAssets?.toLocaleString()} */}
                           {convertValue((previousYearData?.assets?.totalAssets), unit)?.toLocaleString('en-In', {
@@ -1017,7 +1021,7 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                           })}
                         </strong>
                       </td>
-                      <td className="text-center border-top">
+                      <td className="text-center">
                         <strong>
                           {/* {lastYearData?.assets?.totalAssets?.toLocaleString()} */}
                           {convertValue((lastYearData?.assets?.totalAssets), unit)?.toLocaleString('en-In', {
@@ -1026,7 +1030,7 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                           })}
                         </strong>
                       </td>
-                      <td className="text-center border-top">
+                      <td className="text-center">
                         {rtrnChartIndiaction(latestYearData?.assets?.totalAssets, previousYearData?.assets?.totalAssets, lastYearData?.assets?.totalAssets)}
 
                       </td>
