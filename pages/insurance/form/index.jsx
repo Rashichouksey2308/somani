@@ -309,14 +309,16 @@ const Index = () => {
         <div className={`${styles.accordion_body} bg-transparent`}>
           <div className={`${styles.head_container} align-items-center`}>
             <div
-              onClick={() => Router.push('/insurance')}
+             
               className={`${styles.head_header} align-items-center`}
             >
+              <div style={{cursor:'pointer'}}  onClick={() => Router.push('/insurance')}>
               <img
                 className={`${styles.arrow} img-fluid mr-2 image_arrow`}
                 src="/static/keyboard_arrow_right-3.svg"
                 alt="ArrowRight"
               />
+              </div>
               <h1 className={styles.heading}>
                 {insuranceData?.company?.companyName}
               </h1>
