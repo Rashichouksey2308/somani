@@ -43,7 +43,7 @@ function Index() {
     )
   }, [lcModuleData])
   // console.log(lcData, "THIS IS LC USE STATE")
-
+console.log(lcModuleData,"lcModuleData")
   useEffect(() => {
     setLcData({
       formOfDocumentaryCredit:
@@ -510,7 +510,7 @@ function Index() {
     }
     return true
   }
-  const handleLcSave = () => {
+  const handleLcSave = async() => {
     if (checkValidation()) {
       let comment = []
       if (lcComments.length > 0) {
@@ -537,8 +537,15 @@ function Index() {
         documentRequired: [...doc],
         lcModuleId: lcModuleData._id,
       }
-      dispatch(UpdateLcModule({ obj: obj }))
-      router.push(`/vessel`)
+      console.log(lcModule,"lcModule")
+       let code = await dispatch(UpdateLcModule({ obj: obj }))
+       if(code==200){
+        // sessionStorage.setItem('VesselCompany',"")
+        // sessionStorage.setItem('VesselId',"")
+        // dispatch(settingSidebar('Agreement & LC Module', 'Vessel Nomination', 'Vessel Nomination', '2'))
+        // router.push(`/vessel`)
+       }
+      
     }
   }
 
@@ -598,6 +605,7 @@ function Index() {
         currentComment2={currentComment2}
         editLcComments={editLcComments}
         editLcDocComments={editLcDocComments}
+        name={_get(lcModule,"data[0].company.companyName","")}
       />
       <PreviewBar onSave={handleLcSave} leftButtonClick={changeRoute} />
     </>

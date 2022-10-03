@@ -11,6 +11,7 @@ import _get from 'lodash/get'
 import Router from 'next/router'
 import jsPDF from 'jspdf'
 import ReactDOMServer from 'react-dom/server'
+import moment from 'moment/moment'
 
 
 function Index() {
@@ -57,7 +58,7 @@ function Index() {
                       <tr>
                         <td align='left' style={{fontSize:'16px', color:'#111111', lineHeight:'22px', fontWeight:'bold', padding:'0 15px 30px 35px', marginBottom:'0'}}><span style={{display:'inline-block', float:'left', height:'60px', width:'30px', fontWeight:'normal'}}>To:</span>INDO INTERNATIONAL TRADING FZCO<br/>JAFZA VIEW-18, LOB-180504<br/>JEBEL ALI, DUBAI, U.A.E
                         </td>
-                        <td valign='top' align='right' style={{fontSize:'16px', color:'#111111', lineHeight:'22px', fontWeight:'normal', padding:'0 35px 30px 15px'}}>DATE: 05 APRIL 2021</td>
+                        <td valign='top' align='right' style={{fontSize:'16px', color:'#111111', lineHeight:'22px', fontWeight:'normal', padding:'0 35px 30px 15px'}}>DATE: {moment(_get(transitDetails,'data[0].LOI.loiIssueDate','').slice(0, 10).replace(/-/g, '/')).format("DD-MM-YYYY")}</td>
                       </tr>
                       <tr>
                         <td colSpan={2} align='left' style={{fontSize:'16px', color:'#111111', lineHeight:'22px', fontWeight:'bold', padding:'30px 35px 30px'}}><span style={{fontWeight:'normal'}}>Dear Sir,</span><br/><br/>
@@ -151,7 +152,7 @@ autoPaging: "text",
               </div>
             </div>
             <div>
-              <span>DATE:</span>{_get(transitDetails,'data[0].LOI.loiIssueDate','').slice(0, 10).replace(/-/g, '/')}
+              <span>DATE:</span>{moment(_get(transitDetails,'data[0].LOI.loiIssueDate','').slice(0, 10).replace(/-/g, '/')).format("DD-MM-YYYY")}
             </div>
           </div>
           <span>Dear Sir, </span>

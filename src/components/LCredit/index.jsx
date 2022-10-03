@@ -70,11 +70,6 @@ function Index() {
 
   const [lcData, setLcData] = useState()
 
-  // useEffect(() => {
-  //   sessionStorage.setItem('lcData', lcData)
-  // }, [lcData, lcModuleData])
-
-  // console.log(lcData, "THIS IS LC USE STATE")
 
   useEffect(() => {
     setLcData({
@@ -273,7 +268,7 @@ function Index() {
   const addToArr = () => {
     // console.log(inputRef, 'THIS IN INPUT REF')
     // inputRef.current.value = '';
-    if (fieldType == 'date') {
+    if (fieldType == 'date' || fieldType == 'select') {
       setFieldType('')
     }
     inputRef1.current.value = '';
@@ -364,11 +359,11 @@ function Index() {
         <div className={`${styles.container_inner} vessel_card`}>
           <div className={`${styles.head_header}`}>
             <img
-              className={`${styles.arrow} image_arrow mr-2 img-fluid`}
+              className={`${styles.back_arrow} image_arrow mr-2 img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
               onClick={() => Router.push('/lc-module')}
-
+              style={{cursor:'pointer'}}
             />
             <h1 className={`${styles.heading}`}>Letter of Credit </h1>
           </div>

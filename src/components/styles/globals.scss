@@ -202,7 +202,7 @@ body.light-mode .previewCard {
 }
 
 body.dark-mode .card_main {
-  background: #171e27;
+  background: #171e27 !important;
 }
 body.light-mode .card_main {
   background: #f3f4f7;
@@ -897,6 +897,14 @@ body.dark-mode td {
   color: rgba(255, 255, 255, 0.7);
   border-color: #434e61 !important;
   background-color: #232936 !important;
+}
+body.light-mode table_background {
+  color: #8492a6;
+  border-color: #d9dde8 !important;
+}
+body.dark-mode table_background {
+  color: rgba(255, 255, 255, 0.7);
+  border-color: #434e61 !important;
 }
 
 body.light-mode td {

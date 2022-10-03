@@ -5,6 +5,7 @@ import Router from 'next/router'
 import Cookies from 'js-cookie'
 import { toast } from 'react-toastify'
 import { data } from 'jquery'
+import { settingSidebar } from '../breadcrumb/action'
 
 function createBuyer() {
   return {
@@ -248,6 +249,8 @@ export const UpdateBuyer = (payload) => async (dispatch, getState, api) => {
     }).then((response) => {
       if (response.data.code === 200) {
         dispatch(updateBuyerSuccess(response.data))
+        dispatch(settingSidebar('Leads', 'Credit Queue', 'Credit Queue', '1'))
+        Router.push('/review')
       } else {
         dispatch(updateBuyerFailed(response.data))
         console.log('UPDATE REQUEST FAILED')

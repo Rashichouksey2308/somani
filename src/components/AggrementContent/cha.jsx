@@ -247,6 +247,7 @@ const onEditRemove=(index,value)=>{
       });
       let temp=[...options]
       var indexOption = temp.indexOf(value.name);
+        setRemovedOption(value.name)
       if (indexOption !== -1) {
       temp.splice(indexOption, 1);
       }
@@ -268,7 +269,7 @@ docList.forEach((val,i)=>{
     }
   })
 setList([...list.slice(0, index), ...list.slice(index + 1)])
-
+setRemovedOption(null)
 if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" ||val.name=="atima Yannoulis"  ){
   let temp=[...options]
   temp.push(val.name)
@@ -438,6 +439,7 @@ setEditAddress(newInput)
 }
 const cancelEditAddress=()=>{
 setIsEdit(false)
+const [removedOption,setRemovedOption]=useState(null)
 setEditAddress(
             {
             "addressType": "",
@@ -595,7 +597,7 @@ setEditAddress(
           </div>
         </div>
         {isEdit && editData(addressEditType,EditAddress,setEditAddress,editNewAddress,cancelEditAddress,saveNewAddress,setAddressEditType)}
-          <div className={`${styles.newAddressContainer} card m-0 border_color`}>
+        {isEdit == false &&   <div className={`${styles.newAddressContainer} card m-0 border_color`}>
             <div className={`${styles.newAddressHead} border_color`}><span>Add a new address</span></div>
             <div className="card-body p-0 rounded-0">
               <div className={`${styles.newAddressContent} row`}>
@@ -819,7 +821,7 @@ setEditAddress(
                 </div>
               </div>
             </div>
-          </div>
+          </div>}
           <div className={`${styles.tableContainer} border_color card p-0`}>
           <div
             className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
@@ -838,7 +840,7 @@ setEditAddress(
           </div>
           <div
             id="customerDetail"
-            className={`collapse ${styles.body}  value_card card-body row`}
+            className={`collapse ${styles.body} show  value_card card-body row`}
             aria-labelledby="customerDetail"
         
           >
@@ -853,7 +855,7 @@ setEditAddress(
                     <th>ACTION</th>
                   </tr>
                   <tbody>
-                    {list.length>0 && list.map((val,index)=>{
+                   {list.length>0 && list.map((val,index)=>{
                       return(
                         <>
                         {val.actions=="true"?
@@ -864,7 +866,7 @@ setEditAddress(
                           <td>{val.phoneNo}</td>
                           <td className={`d-flex`}>
                           <img className={`${styles.image} mr-3`} onClick={()=>(onEdit(index))} src="/static/mode_edit.svg" alt="edit"/>
-                          <img onClick={()=>(handleRemove(index))} src="/static/delete 2.svg" alt="delete"/>
+                          <img onClick={()=>(handleRemove(index,val))} src="/static/delete 2.svg" alt="delete"/>
                           </td>
 
                         </tr>
@@ -875,10 +877,16 @@ setEditAddress(
                            <select 
                             value={val.name}
                             className={`${styles.customSelect} input`}
+                            
                             onChange={(e)=>{
+                              setRemovedOption(e.target.value)
                               handleChangeInput(e.target.name,e.target.value,index)
+                             
                             }}>
-                             <option>Select an option</option>
+                              <option>Select an option</option>
+                              {removedOption!=null?
+                              <option value={removedOption}>{removedOption}</option>
+                              :null}
                               {options.map((val,i)=>{
                                 return(<option value={val}>{val}</option>)
                               })}
@@ -891,8 +899,42 @@ setEditAddress(
                               alt="Search"
                             />
                          </>  : 
-                           
-                         <>
+                          <>
+                          {
+                              val.name=="Vipin Kumar" 
+                            || val.name=="Bhawana Jain"
+                            || val.name=="Devesh Jain"
+                            || val.name=="Fatima Yannoulis"
+                            ?
+                            <>
+                             <select 
+                            value={val.name}
+                            className={`${styles.customSelect} input`}
+                            
+                            onChange={(e)=>{
+                              handleChangeInput(e.target.name,e.target.value,index)
+                             
+                            }}>
+                              <option>Select an option</option>
+                              <option value={"Vipin Kumar"}>Vipin Kumar</option>
+                              <option value={"Bhawana Jain"}>Bhawana Jain</option>
+                              <option value={"Devesh Jain"}>Devesh Jain</option>
+                              <option value={"Fatima Yannoulis"}>Fatima Yannoulis</option>
+                             
+                              {/* {options.map((val,i)=>{
+                                return(<option value={val}>{val}</option>)
+                              })} */}
+                              
+                              <option value={"addnew"}>{"Add New"}</option>
+                            </select>
+                            <img
+                              className={`${styles.arrow2} image_arrow img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                            </>
+                            :
+                          <>
                           <input type="text" 
                             className='input'
                             placeholder={"Add new"}
@@ -903,7 +945,10 @@ setEditAddress(
                             }}
                           />
                         </>
-                      }
+                          }
+                          </>
+                       
+                           }
                             
                           </td>
                           <td>
@@ -933,11 +978,11 @@ setEditAddress(
                             <input  value={val.phoneNo}
                               className='input'
                               name= "phoneNo"
-                               type="number"
-                               onKeyDown={(evt) =>
-                                ['e', 'E', '+', '-'].includes(evt.key) &&
-                                evt.preventDefault()
-                              }
+                             type="number"
+                             onKeyDown={(evt) =>
+                              ['e', 'E', '+', '-'].includes(evt.key) &&
+                              evt.preventDefault()
+                            }
                               onChange={(e)=>{
                                 handleChangeInput2(e.target.name,e.target.value,index)
                               }}
@@ -947,7 +992,7 @@ setEditAddress(
                             <div
                               className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
                               onClick={()=>{
-                             onEditRemove(index,val)
+                              onEditRemove(index,val)
                               }}
                             >
                               <img className={`${styles.image} mr-3`} src="/static/save-3.svg" alt="save"/>
@@ -955,7 +1000,7 @@ setEditAddress(
                             <div
                               className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center`}
                               onClick={()=>{
-                              handleRemove(index)
+                              handleRemove(index,val)
                               }}
                             >
                               <img src="/static/delete 2.svg" />
@@ -1019,7 +1064,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         />
                       </div>
                     </Form.Group>
-                {addressEditType=="Registered" || addressEditType=="Supplier"?
+                {addressEditType=="Supplier"?
                     <>
                     <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
                       <Form.Control

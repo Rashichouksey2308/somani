@@ -184,7 +184,7 @@ useEffect(() => {
     });
 
   }
-  const onEditRemove=(index)=>{
+  const onEditRemove=(index,value)=>{
  
 
        setList(prevState => {
@@ -200,7 +200,7 @@ useEffect(() => {
 
       return newState;
     });
-
+   setRemovedOption(value.name)
   }
   const addMoreRows=()=>{
 
@@ -218,6 +218,7 @@ const handleRemove = (index) => {
       }
     })
   setList([...list.slice(0, index), ...list.slice(index + 1)])
+ setRemovedOption(null)
 }
   const handleInput=(name,value,key)=>{
    
@@ -554,6 +555,7 @@ const addDoc=(e,index)=>{
           </div>
         </div>
         {isEdit && editData(addressEditType,EditAddress,setEditAddress,editNewAddress,cancelEditAddress,saveNewAddress,setAddressEditType)}
+        {isEdit== false &&  
         <div className={`${styles.newAddressContainer} card m-0 border_color`}>
           <div className={`${styles.newAddressHead} border_color`}><span>Add a new address</span></div>
           <div className="card-body p-0 rounded-0">
@@ -778,7 +780,7 @@ const addDoc=(e,index)=>{
               </div>
             </div>
           </div>
-        </div>
+        </div>}
         <div className={`${styles.tableContainer} border_color card p-0`}>
           <div
             className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
@@ -797,7 +799,7 @@ const addDoc=(e,index)=>{
           </div>
           <div
             id="customerDetail"
-            className={`collapse ${styles.body} card-body row`}
+            className={`collapse ${styles.body} show card-body row`}
             aria-labelledby="customerDetail"
         
           >
@@ -834,14 +836,20 @@ const addDoc=(e,index)=>{
                            <select 
                             value={val.name}
                             className={`${styles.customSelect} input`}
+                            
                             onChange={(e)=>{
+                              setRemovedOption(e.target.value)
                               handleChangeInput(e.target.name,e.target.value,index)
+                             
                             }}>
                               <option>Select an option</option>
-                              <option value={"Bhawana Jain"}>{"Bhawana Jain"}</option>
-                              <option value={"Vipin Kumar"}>{"Vipin Kumar"}</option>
-                              <option value={"Devesh Jain"}>{"Devesh Jain"}</option>
-                              <option value={"Fatima Yannoulis"}>{"Fatima Yannoulis"}</option>
+                              {removedOption!=null?
+                              <option value={removedOption}>{removedOption}</option>
+                              :null}
+                              {options.map((val,i)=>{
+                                return(<option value={val}>{val}</option>)
+                              })}
+                              
                               <option value={"addnew"}>{"Add New"}</option>
                             </select>
                             <img
@@ -850,8 +858,42 @@ const addDoc=(e,index)=>{
                               alt="Search"
                             />
                          </>  : 
-                           
-                         <>
+                          <>
+                          {
+                              val.name=="Vipin Kumar" 
+                            || val.name=="Bhawana Jain"
+                            || val.name=="Devesh Jain"
+                            || val.name=="Fatima Yannoulis"
+                            ?
+                            <>
+                             <select 
+                            value={val.name}
+                            className={`${styles.customSelect} input`}
+                            
+                            onChange={(e)=>{
+                              handleChangeInput(e.target.name,e.target.value,index)
+                             
+                            }}>
+                              <option>Select an option</option>
+                              <option value={"Vipin Kumar"}>Vipin Kumar</option>
+                              <option value={"Bhawana Jain"}>Bhawana Jain</option>
+                              <option value={"Devesh Jain"}>Devesh Jain</option>
+                              <option value={"Fatima Yannoulis"}>Fatima Yannoulis</option>
+                             
+                              {/* {options.map((val,i)=>{
+                                return(<option value={val}>{val}</option>)
+                              })} */}
+                              
+                              <option value={"addnew"}>{"Add New"}</option>
+                            </select>
+                            <img
+                              className={`${styles.arrow2} image_arrow img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                            </>
+                            :
+                          <>
                           <input type="text" 
                             className='input'
                             placeholder={"Add new"}
@@ -862,7 +904,10 @@ const addDoc=(e,index)=>{
                             }}
                           />
                         </>
-                      }
+                          }
+                          </>
+                       
+                           }
                             
                           </td>
                           <td>
@@ -907,7 +952,7 @@ const addDoc=(e,index)=>{
                             <div
                               className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
                               onClick={()=>{
-                              onEditRemove(index)
+                              onEditRemove(index,val)
                               }}
                             >
                               <img className={`${styles.image} mr-3`} src="/static/save-3.svg" alt="save"/>

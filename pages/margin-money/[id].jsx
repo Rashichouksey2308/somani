@@ -510,7 +510,7 @@ function Index() {
     }
     return true
   }
-  const handleUpdate = () => {
+  const handleUpdate = async() => {
     if (validate()) {
 
 
@@ -958,6 +958,7 @@ function Index() {
                             marginBottom: '0',
                           }}
                         >
+
                           Margin Money
                         </h3>
                       </td>
@@ -4114,7 +4115,7 @@ function Index() {
               style={{cursor:'pointer'}}
             />
             <h1 className={`${styles.title} heading`}>
-              <span>Margin Money</span>
+              <span>{_get(orderList,"company.companyName","")}</span>
             </h1>
             <div className="ml-auto">
               <button
@@ -4494,8 +4495,8 @@ function Index() {
                                             name="group1"
                                             type={type}
                                             id={`inline-${type}-1`}
-                                            defaultChecked={
-                                              marginData?.isUsanceInterestIncluded ===
+                                            checked={
+                                              forCalculation?.isUsanceInterestIncluded ===
                                               true
                                             }
                                             onChange={(e) =>
@@ -4512,8 +4513,8 @@ function Index() {
                                             name="group1"
                                             type={type}
                                             id={`inline-${type}-2`}
-                                            defaultChecked={
-                                              marginData?.isUsanceInterestIncluded ===
+                                            checked={
+                                              forCalculation?.isUsanceInterestIncluded ===
                                               false
                                             }
                                             onChange={(e) =>

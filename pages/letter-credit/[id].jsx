@@ -167,7 +167,7 @@ function Index() {
   }
 
   const addToArr = () => {
-    if(fieldType == 'date'){
+    if(fieldType == 'date' || fieldType == 'drop'){
       setFieldType('')
     }
     inputRef1.current.value = ''

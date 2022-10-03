@@ -31,8 +31,8 @@ function Index() {
     dispatch(getAllTermsheet(`?page=${currentPage}&limit=7`))
   }, [dispatch, currentPage])
 
-  const handleRoute = (sheet) => {
-    dispatch(GetTermsheet(`?company=${sheet.company._id}`))
+  const handleRoute = async (sheet) => {
+   await dispatch(GetTermsheet(`?company=${sheet.company._id}`))
     sessionStorage.setItem('termsheetId', sheet.company._id)
     Router.push('/termsheet/order-list')
   }
@@ -50,13 +50,13 @@ function Index() {
     const id = `${e.target.id}`
     dispatch(getAllTermsheet(`?company=${id}`))
   }
-  const handleRoutePreview = (buyer) => {
+  const handleRoutePreview = async (buyer) => {
     console.log(buyer, 'butyer')
     console.log("getDetails payload", buyer.company._id)
 
     // dispatch(GetAllOrders({ orderId: buyer._id }))
     //dispatch(GetDocuments({order: buyer._id}))
-    dispatch(GetCompanyDetails({ company: buyer.company._id }))
+    await dispatch(GetCompanyDetails({ company: buyer.company._id }))
     sessionStorage.setItem('orderID', buyer._id)
     sessionStorage.setItem('companyID', buyer.company._id)
     Router.push('/review')

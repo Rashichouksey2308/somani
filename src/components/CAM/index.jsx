@@ -16,6 +16,9 @@ import {
   Title,
   CategoryScale,
   Filler,
+  Tooltip,
+  Legend
+  
 } from 'chart.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetAllOrders } from 'redux/registerBuyer/action'
@@ -42,6 +45,9 @@ Chart.register(
   Title,
   CategoryScale,
   Filler,
+  Tooltip,
+  Legend
+  
 )
 
 function Index({
@@ -140,7 +146,7 @@ function Index({
   }
 
   const primaryBankName = () => {
-    console.log(camData?.company?.debtProfile, 'camData?.company?.debtProfile')
+    // console.log(camData?.company?.debtProfile, 'camData?.company?.debtProfile')
     let filteredData = []
     filteredData =
       camData?.company?.debtProfile?.filter((data) => data.primaryBank) || []
@@ -148,7 +154,16 @@ function Index({
     const length = _get(filteredData[0], 'bankName', '')
 
     return length
+  } 
+
+const totalLimitDebt = () => {
+    let sum = 0;
+    camData?.company?.debtProfile?.forEach(element => {
+      sum += element.limit;
+    })
+    return Number(sum)
   }
+  
 
   const latestAuditorData = _get(
     camData,
@@ -279,22 +294,15 @@ function Index({
     },
     plugins: {
       title: {
-        display: false,
-        text: 'Doughnut Chart',
-        color: 'blue',
-
-        font: {
-          size: 34,
-        },
-        padding: {
-          top: 30,
-          bottom: 30,
-        },
-
-        animation: {
+      animation: {
           animateScale: true,
         },
       },
+      
+     legend: {
+        display: false
+      }
+    
     },
     responsive: true,
     cutout: 130,
@@ -338,10 +346,14 @@ function Index({
     },
     plugins: {
       tooltip: {
-        enabled: false,
+        enabled: true,
         position: 'nearest',
         // external: externalTooltipHandler
       },
+       legend: {
+        display: false
+      }
+      
     },
   }
   console.log(
@@ -673,7 +685,7 @@ function Index({
       {directorDetails(camData)}
       {shareHolding(top3Share, options, tempArr, camData, backgroundColor)}
       {chargeDetails(top3Open, options, tempArr, camData, backgroundColor)}
-      {debtProfile(data, options, tempArr, camData)}
+      {debtProfile(data, options, tempArr, camData, totalLimitDebt)}
       {operationalDetails(camData)}
       {revenuDetails(gstData)}
       {trends(chartData, chartRef, chartRef2, chartData2, lineOption, gstData)}
@@ -1977,7 +1989,7 @@ const chargeDetails = (
     </>
   )
 }
-const debtProfile = (data, options, tempArr, camData) => {
+const debtProfile = (data, options, tempArr, camData, totalLimitDebt) => {
   return (
     <>
       <div className={`${styles.card} card`}>
@@ -2008,7 +2020,10 @@ const debtProfile = (data, options, tempArr, camData) => {
                       Total Limit
                     </span>
                   </div>
-                  <span>1,900.00</span>
+                  <span>{totalLimitDebt().toLocaleString( 'en-In',
+    {
+      maximumFractionDigits: 2,
+    })}</span>
                 </div>
                 <div className={`${styles.bar}`}>
                   <div
@@ -2066,9 +2081,9 @@ const debtProfile = (data, options, tempArr, camData) => {
                                   : '#EA3F3F'
                               }`,
                               width: `${
-                                (Number(debt.limit) / 1900 > 1
+                                (Number(debt.limit) / totalLimitDebt() > 1
                                   ? 1
-                                  : Number(debt.limit) / 1900) * 100
+                                  : Number(debt.limit) / totalLimitDebt()) * 100
                               }%`,
                             }}
                             className={`${styles.fill}`}
@@ -4481,7 +4496,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                   </div>
                 </div>
 
-                <div className={`${styles.score} `}>
+                <div className={`${styles.score}`}>
                   <div className={`${styles.excellent}`}>
                     <span>
                       {filteredCreditRating

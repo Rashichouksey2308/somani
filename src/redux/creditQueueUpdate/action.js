@@ -106,32 +106,39 @@ export const UpdateCam = (payload) => async (dispatch, getState, api) => {
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    Axios.put(`${API.corebaseUrl}${API.updateCam}`, payload, {
-      headers: headers,
-    }).then((response) => {
-      if (response.data.code === 200) {
-        {
-          console.log('www', response.data.data)
-        }
-        dispatch(updatingCamSuccess(response.data.data))
-        let toastMessage = 'CAM APPROVED'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
-        // sessionStorage.setItem(
-        //   'orderID',
-        //   response.data.data.form.orderDetails[0],
-        // )
-        // sessionStorage.setItem('company', response.data.data.form._id)
-        // Router.push(`/termsheet/${response.data.data.form._id}`)
-      } else {
-        dispatch(updatingCamFailed(response.data.data))
-        let toastMessage = response.data.message
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+    let response = await Axios.put(
+      `${API.corebaseUrl}${API.updateCam}`,
+      payload,
+      {
+        headers: headers,
+      },
+    )
+    if (response.data.code === 200) {
+      {
+        console.log('www', response.data.data)
       }
-    })
+      dispatch(updatingCamSuccess(response.data.data))
+      let toastMessage = 'CAM APPROVED'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      // sessionStorage.setItem('termsheetId', sheet.company._id)
+      // sessionStorage.setItem('termID', term._id)
+      // sessionStorage.setItem('termOrdID', term?.order._id)
+      return response.data.code
+      // sessionStorage.setItem(
+      //   'orderID',
+      //   response.data.data.form.orderDetails[0],
+      // )
+      // sessionStorage.setItem('company', response.data.data.form._id)
+      // Router.push(`/termsheet/${response.data.data.form._id}`)
+    } else {
+      dispatch(updatingCamFailed(response.data.data))
+      let toastMessage = response.data.message
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+    }
   } catch (error) {
     dispatch(updatingCamFailed())
     let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
