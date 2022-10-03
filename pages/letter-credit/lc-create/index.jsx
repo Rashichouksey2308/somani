@@ -43,7 +43,7 @@ function Index() {
     )
   }, [lcModuleData])
   // console.log(lcData, "THIS IS LC USE STATE")
-
+console.log(lcModuleData,"lcModuleData")
   useEffect(() => {
     setLcData({
       formOfDocumentaryCredit:
@@ -605,6 +605,7 @@ function Index() {
         currentComment2={currentComment2}
         editLcComments={editLcComments}
         editLcDocComments={editLcDocComments}
+        name={_get(lcModule,"data[0].company.companyName","")}
       />
       <PreviewBar onSave={handleLcSave} leftButtonClick={changeRoute} />
     </>

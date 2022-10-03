@@ -409,15 +409,9 @@ export default function Index({
                           ? list.quantity
                             ? list.quantity
                             : _get(TransitDetails, 'data[0].order.quantity', '')
-                          : (list.quantity
-                              ? Number(list.quantity)?.toLocaleString("en-IN")
-                              : Number(
-                                  _get(
-                                    TransitDetails,
-                                    'data[0].order.quantity',
-                                    0,
-                                  ),
-                                )?.toLocaleString()) +
+                          : Number(
+                              _get(TransitDetails, 'data[0].order.quantity', 0),
+                            )?.toLocaleString() +
                             ` ${_get(
                               TransitDetails,
                               'data[0].order.unitOfQuantity',
