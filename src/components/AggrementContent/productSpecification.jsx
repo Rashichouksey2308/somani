@@ -187,7 +187,7 @@ function Index(props) {
                 ARE ALLOWED <br /> &nbsp; &nbsp; &amp; MAX FILE SIZE UP TO 50 MB
               </span>
             </div>
-            {excelFile?<div className={`${styles.excel_close}
+            {excelFile?.length>0?<div className={`${styles.excel_close}
              d-flex align-items-center justify-content-center ml-auto`}
              onClick={()=>{
               setExcelFile(null) 
