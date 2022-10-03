@@ -474,7 +474,7 @@ function Index({
                                 evt.preventDefault()
                               }
                               disabled={
-                                lcData?.atSight == 'AT SIGHT' ? true : false
+                                lcData?.atSight == 'AT SIGHT' ||lcData?.atSight == undefined ? true : false
                               }
                               name="numberOfDays"
                               value={lcData?.numberOfDays}

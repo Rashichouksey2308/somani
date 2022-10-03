@@ -1547,6 +1547,7 @@ const removeDoc= ()=>{
                       editAddress={editAddress}
                       orderDetail={orderDetail}
                       path={address?.GSTIN_document?.path}
+                      communicationModeYes={address?.communicationModeYes}
                     />
                   </>
                 )
@@ -1592,7 +1593,13 @@ const removeDoc= ()=>{
                             type={type}
                             checked={keyAddressData.communicationModeYes=="Yes"}
                             onChange={(e) => {
-                            handleChange("communicationModeYes", "Yes")
+                              let send="Yes"
+                              if(keyAddressData.communicationModeYes=="Yes"){
+                                send="No"
+                              }else{
+                                send="Yes"
+                              }
+                            handleChange("communicationModeYes", send)
                           }}
                             id={`inline-${type}-1`}
                           />
@@ -1604,7 +1611,13 @@ const removeDoc= ()=>{
                             type={type}
                             checked={keyAddressData.communicationModeNo=="No"}
                              onChange={(e) => {
-                            handleChange("communicationModeNo", "No")
+                               let send="No"
+                              if(keyAddressData.communicationModeNo=="No"){
+                                send="Yes"
+                              }else{
+                                send="No"
+                              }
+                            handleChange("communicationModeNo", send)
                           }}
                             id={`inline-${type}-2`}
                           />
@@ -1923,7 +1936,13 @@ const removeDoc= ()=>{
                             type={type}
                             checked={editData.communicationModeYes=="Yes"}
                             onChange={(e) => {
-                            changeData("communicationModeYes", "Yes")
+                                let send="Yes"
+                              if(editData.communicationModeYes=="Yes"){
+                                send="No"
+                              }else{
+                                send="Yes"
+                              }
+                            changeData("communicationModeYes", send)
                           }}
                             id={`inline-${type}-1`}
                           />
@@ -1936,7 +1955,13 @@ const removeDoc= ()=>{
                             id={`inline-${type}-2`}
                             checked={editData.communicationModeNo=="No"}
                             onChange={(e) => {
-                            changeData("communicationModeNo", "No")
+                               let send="No"
+                              if(editData.communicationModeNo=="No"){
+                                send="Yes"
+                              }else{
+                                send="No"
+                              }
+                            changeData("communicationModeNo",send)
                           }}
                           />
                         </div>

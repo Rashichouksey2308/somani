@@ -797,7 +797,7 @@ const addDoc=(e,index)=>{
           </div>
           <div
             id="customerDetail"
-            className={`collapse ${styles.body} card-body row`}
+            className={`collapse ${styles.body} show card-body row`}
             aria-labelledby="customerDetail"
         
           >

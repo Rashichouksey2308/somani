@@ -1189,6 +1189,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
   )
 
   const getCompliencePeriod = (period, chart) => {
+    console.log(period,"period",chart)
     let item = (period ? period : '')?.split('-')
     let text = `${item[0]?.slice(2, 6)}-${item[1]?.slice(2, 6)}`
 
