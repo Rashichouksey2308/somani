@@ -38,7 +38,7 @@ function AddressComponent({
                 inline
                 name="group1"
                 type={'checkbox'}
-                checked={communicationModeYes == 'Yes' ? true : false}
+                checked={communicationModeYes == true ? true : false}
               />
               <h5 className={`mb-0`}>{Title}</h5>
             </div>

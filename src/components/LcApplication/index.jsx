@@ -27,9 +27,10 @@ function Index({
   addConditionArr,
   lcModuleData,
   editLcComments,
-  editLcDocComments
+  editLcDocComments,
+  name
 }) {
-  console.log(lcData?.atSight, 'lcCondition12234')
+  console.log(lcData, 'lcCondition12234')
   const [editStren, setEditStren] = useState(false)
   const [edit, setEdit] = useState(false)
   const [isFieldInFocus, setIsFieldInFocus] = useState({
@@ -65,7 +66,7 @@ function Index({
               alt="ArrowRight"
               onClick={() => Router.push('/lc-module')}
             />
-            <h1 className={`${styles.heading}`}>Letter of Credit </h1>
+            <h1 className={`${styles.heading}`}>{name} </h1>
           </div>
 
           <div className={`${styles.wrapper} border_color vessel_card card`}>

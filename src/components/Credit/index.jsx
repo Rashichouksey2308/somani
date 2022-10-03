@@ -88,8 +88,8 @@ const index = ({
       number: null,
     },
     pinCode: null,
-    communicationModeYes:"",
-    communicationModeNo:""
+    communication:false,
+    
   })
 console.log(keyAddressData,"keyAddressData")
   console.log(personData, 'personData')
@@ -364,8 +364,8 @@ const removeDoc= ()=>{
       number: null,
     },
     pinCode: null,
-    communicationModeYes:"",
-    communicationModeNo:""
+    communication:false
+    
   })
     }
   }
@@ -402,13 +402,15 @@ const removeDoc= ()=>{
       number: '',
     },
     pinCode: '',
-    communicationModeYes:"",
-    communicationModeNo:""
+    communication:false
+    
   })
+  console.log(editData,"editData")
   const editAddress = (index) => {
     setShowAddress(false)
     setShowEditAddress(true)
     setIndex(index)
+    console.log(keyAddData,"keyAddData")
     let tempArr = keyAddData
     setEditData({
       GSTIN: tempArr[index].GSTIN,
@@ -424,8 +426,8 @@ const removeDoc= ()=>{
         number: tempArr[index].contact.number,
       },
       pinCode: tempArr[index].pinCode,
-      communicationModeYes: tempArr[index].communicationModeYes,
-      communicationModeNo: tempArr[index].communicationModeNo,
+      communication: tempArr[index].communication|| false,
+     
      
     })
   }
@@ -1547,7 +1549,7 @@ const removeDoc= ()=>{
                       editAddress={editAddress}
                       orderDetail={orderDetail}
                       path={address?.GSTIN_document?.path}
-                      communicationModeYes={address?.communicationModeYes}
+                      communicationModeYes={address?.communication}
                     />
                   </>
                 )
@@ -1591,15 +1593,10 @@ const removeDoc= ()=>{
                             label="Yes"
                             name="group1"
                             type={type}
-                            checked={keyAddressData.communicationModeYes=="Yes"}
+                            checked={keyAddressData.communication==true}
                             onChange={(e) => {
-                              let send="Yes"
-                              if(keyAddressData.communicationModeYes=="Yes"){
-                                send="No"
-                              }else{
-                                send="Yes"
-                              }
-                            handleChange("communicationModeYes", send)
+                            
+                            handleChange("communication", !keyAddressData.communication)
                           }}
                             id={`inline-${type}-1`}
                           />
@@ -1609,15 +1606,10 @@ const removeDoc= ()=>{
                             label="No"
                             name="group1"
                             type={type}
-                            checked={keyAddressData.communicationModeNo=="No"}
+                            checked={keyAddressData.communication==false}
                              onChange={(e) => {
-                               let send="No"
-                              if(keyAddressData.communicationModeNo=="No"){
-                                send="Yes"
-                              }else{
-                                send="No"
-                              }
-                            handleChange("communicationModeNo", send)
+                              
+                            handleChange("communication", false)
                           }}
                             id={`inline-${type}-2`}
                           />
@@ -1934,15 +1926,10 @@ const removeDoc= ()=>{
                             label="Yes"
                             name="group1"
                             type={type}
-                            checked={editData.communicationModeYes=="Yes"}
+                            checked={editData.communication==true}
                             onChange={(e) => {
-                                let send="Yes"
-                              if(editData.communicationModeYes=="Yes"){
-                                send="No"
-                              }else{
-                                send="Yes"
-                              }
-                            changeData("communicationModeYes", send)
+                              
+                            changeData("communication", !editData.communication)
                           }}
                             id={`inline-${type}-1`}
                           />
@@ -1953,15 +1940,10 @@ const removeDoc= ()=>{
                             name="group1"
                             type={type}
                             id={`inline-${type}-2`}
-                            checked={editData.communicationModeNo=="No"}
+                            checked={editData.communication==false}
                             onChange={(e) => {
-                               let send="No"
-                              if(editData.communicationModeNo=="No"){
-                                send="Yes"
-                              }else{
-                                send="No"
-                              }
-                            changeData("communicationModeNo",send)
+                              
+                            changeData("communication",false)
                           }}
                           />
                         </div>
