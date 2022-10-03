@@ -41,7 +41,7 @@ function Layout({ children }) {
 
     router.events.on('routeChangeStart', doMagic) // add listener
     router.events.on('routeChangeComplete', (url, { shallow }) => {
-      // console.log('route change', router.asPath)
+      console.log('route change', router.asPath)
       setQuery(router.asPath)
     })
     return () => {
