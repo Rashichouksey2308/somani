@@ -426,6 +426,7 @@ export default function Index({
                         evt.preventDefault()
                       }
                     />
+
                     <label className={`${styles.label_heading} label_heading`}>
                       Quantity<strong className="text-danger">*</strong>
                     </label>

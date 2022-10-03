@@ -289,7 +289,7 @@ function Index() {
 
     //  ];
     console.log("here")
-    const doc = new jsPDF('p', 'pt', [1500, 1500])
+    const doc = new jsPDF('p', 'pt', [1500, 1600])
     doc.html(
       ReactDOMServer.renderToString(
         toPrintPdf(termsheet, termsheetDetails, additionalComments, otherTermConditions),

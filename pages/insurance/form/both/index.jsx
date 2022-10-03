@@ -105,6 +105,10 @@ const Index = () => {
       lossPayee: insuranceData?.storageInsurance?.lossPayee||"",
       premiumAmount: insuranceData?.storageInsurance?.premiumAmount ?? 0,
     })
+    setInsuranceDocument({
+      storagePolicyDocument: insuranceData?.storagePolicyDocument || null,
+    marinePolicyDocument: insuranceData?.marinePolicyDocument || null,
+    })
   }, [insuranceResponse,insuranceData])
  console.log(marineData,"marineData")
 
@@ -1934,7 +1938,7 @@ const Index = () => {
                           <tbody>
                             <tr className="table_row">
                               <td className={styles.doc_name}>
-                                Policy Document - Marine & Storage
+                                Policy Document - Marine
                                 <strong className="text-danger">*</strong>
                               </td>
                               <td>
