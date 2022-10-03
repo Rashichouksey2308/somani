@@ -64,7 +64,7 @@ function
                         <th width="15%" rowSpan="2">RATING AGENCY</th>
                         <th width="15%" rowSpan="2">TERM</th>
                         <th width="28%" rowSpan="2">INSTRUMENT</th>
-                        <th width="8%" rowSpan="2" className="text-center">CHANGE<br />IN RATING</th>
+                        {/* <th width="8%" rowSpan="2" className="text-center">CHANGE<br />IN RATING</th> */}
                         <th colSpan="3" className="text-center">CREDIT RATING</th>
                       </tr>
                       <tr>
@@ -83,11 +83,11 @@ function
                             <td>{rating?.ratingAgency}</td>
                             <td>{rating?.ratingTerm}</td>
                             <td>{rating?.instrument}</td>
-                            <td className="text-center"><img src={rating?.outlook === 'Stable' ? "/static/equal-icon.svg" : rating?.outlook === 'Negative' ?   "/static/arrow-down-red.svg" : "/static/arrow-up-green.svg"} alt="Arrow Red" className="img-fluid" /></td>
+                            {/* <td className="text-center"><img src={rating?.outlook === 'Stable' ? "/static/equal-icon.svg" : rating?.outlook === 'Negative' ?   "/static/arrow-down-red.svg" : "/static/arrow-up-green.svg"} alt="Arrow Red" className="img-fluid" /></td> */}
                             {rating?.dateOfIssuance?.slice(0, 4) === dates[0] ? <td className={`${rating?.outlook === 'Positive' ? styles.positive : rating?.outlook === 'Negative' ? styles.negative : styles.stable} text-center`}>
                               {rating?.rating_}<span>({rating?.outlook})
                               </span></td> :
-                              <td className="text-center">-</td>}
+                              <td className="text-center">-</td>} 
                             {rating?.dateOfIssuance?.slice(0, 4) === dates[1] ? <td className={`${rating?.outlook === 'Positive' ? styles.positive : rating?.outlook === 'Negative' ? styles.negative : styles.stable} text-center`}>
                               {rating?.rating_}<span>({rating?.outlook})
                               </span></td> :
