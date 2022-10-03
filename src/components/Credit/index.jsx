@@ -311,7 +311,7 @@ const removeDoc= ()=>{
       data.contact.number === '' ||
       data.contact.number === undefined
     ) {
-      let toastMessage = 'Please add number'
+      let toastMessage = 'Please add phone number'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
@@ -1615,8 +1615,9 @@ const removeDoc= ()=>{
                         <input
                           className={`${styles.input_field} input form-control`}
                           required
-                          type="text"
+                          type="number"
                           name="pinCode"
+                          onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                           value={keyAddressData.pinCode==null?"":keyAddressData.pinCode}
                           onChange={(e) => {
                             handleChange(e.target.name, e.target.value)
@@ -1711,13 +1712,14 @@ const removeDoc= ()=>{
                         <input
                           className={`${styles.input_field} input border-left-0 form-control`}
                           required
-                          type="tel"
+                          type="number"
                           name="contact.number"
+                          onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
                           value={keyAddressData.contact.number==null?"":keyAddressData.contact.number}
                           onChange={(e) => {
                             mobileFunction(e)
                           }}
-                        // onBlur={(e) => {
+                        // onBlur={(e) => {`  
                         //   if (phoneValidation(e.target.value)) {
                         //     mobileFunction(e)
                         //   } else {
