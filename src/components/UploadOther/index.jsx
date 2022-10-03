@@ -169,19 +169,19 @@ const Index = ({ orderid, module, isDocumentName }) => {
                     alt="Browse"
                   />
                   {newDoc?.document?.name ? (
-                    <div className='d-flex justify-content-center align-items-center'>
+                    // <div className=''>
                     <div
                       className={`${styles.certificate} text1 d-inline-flex justify-content-between`}
                     >
                       <span>{newDoc?.document?.name}</span>
                       <img
-                        className={`${styles.close_image}  image_arrow mr-2`}
+                        className={`${styles.close_image} image_arrow mx-2`}
                         src="/static/close.svg"
                         onClick={(e) => handleCloseDoc()}
                         alt="Close"
                       />{' '}
                     </div>
-                    </div>
+                    // </div>
                   ) : (
                     <p className={styles.drop_para}>
                       Drop Files here or
