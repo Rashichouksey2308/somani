@@ -33,6 +33,7 @@
         width: 13px;
         height: 21px;
         background: transparent;
+        cursor: pointer;
         margin: 0;
         @include respond(md-desktop) {
           width: 12px;

@@ -395,12 +395,16 @@ const Index = () => {
   return (
     <div className={`${styles.card} accordion_body container-fluid`}>
       <div className={styles.head_container}>
-        <div className={`${styles.head_header} ml-4`}>
+        <div className={`${styles.head_header}`}>
+           
           <img
-            className={`${styles.arrow} image_arrow img-fluid`}
+            style={{cursor:'pointer'}}  
+            onClick={() => Router.push('/insurance')}
+            className={`${styles.back_arrow} image_arrow img-fluid`}
             src="/static/keyboard_arrow_right-3.svg"
             alt="ArrowRight"
           />
+  
           <h1 className={styles.heading}>
             {insuranceData?.company?.companyName}
           </h1>
