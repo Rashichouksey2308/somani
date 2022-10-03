@@ -24,6 +24,7 @@ function Index(props) {
   const [docList, setDocList] = useState([])
   const [doc, setdoc] = useState({ attachDoc: '' })
   const [pan, setPan] = useState('AAACI3028D')
+    const [removedOption,setRemovedOption]=useState(null)
   const [newAddress, setNewAddress] = useState({
     addressType: 'Registered',
     fullAddress: '',
@@ -191,26 +192,31 @@ function Index(props) {
       return newState
     })
   }
-  const onEditRemove = (index, value) => {
-    console.log(value, 'value')
+ const onEditRemove=(index,value)=>{
+    console.log(value,"value")
 
-    setList((prevState) => {
-      const newState = prevState.map((obj, i) => {
-        if (i == index) {
-          return { ...obj, actions: 'true' }
-        }
+      setList(prevState => {
+      const newState = prevState.map((obj ,i)=> {
 
-        return obj
-      })
+      if (i == index) {
+      return {...obj, actions: 'true'};
+      }
 
-      return newState
-    })
-    let temp = [...options]
-    var indexOption = temp.indexOf(value.name)
-    if (indexOption !== -1) {
-      temp.splice(indexOption, 1)
-    }
-    setOptions([...temp])
+
+      return obj;
+      });
+
+      return newState;
+      });
+      let temp=[...options]
+      var indexOption = temp.indexOf(value.name);
+      console.log(value.name,"value.name")
+      setRemovedOption(value.name)
+      if (indexOption !== -1) {
+      temp.splice(indexOption, 1);
+      }
+      
+      setOptions([...temp])
   }
   const addMoreRows = () => {
     setList([
@@ -225,25 +231,21 @@ function Index(props) {
       },
     ])
   }
-  const handleRemove = (index, val) => {
-    docList.forEach((val, i) => {
-      if (index == val.index) {
-        setDocList([...docList.slice(0, i), ...docList.slice(i + 1)])
-      }
-    })
-    setList([...list.slice(0, index), ...list.slice(index + 1)])
-
-    if (
-      val.name == 'Bhawana Jain' ||
-      val.name == 'Vipin Kumar' ||
-      val.name == 'Devesh Jain' ||
-      val.name == 'atima Yannoulis'
-    ) {
-      let temp = [...options]
-      temp.push(val.name)
-      setOptions([...temp])
+const handleRemove = (index,val) => {
+docList.forEach((val,i)=>{
+    if(index==val.index){
+    setDocList([...docList.slice(0,i), ...docList.slice(i+1)])
     }
-  }
+  })
+setList([...list.slice(0, index), ...list.slice(index + 1)])
+setRemovedOption(null)
+
+if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" ||val.name=="atima Yannoulis"  ){
+  let temp=[...options]
+  temp.push(val.name)
+  setOptions([...temp])
+}
+}
   const handleInput = (name, value, key) => {
     const newInput = { ...buyerData }
 
@@ -684,7 +686,8 @@ function Index(props) {
             saveNewAddress,
             setAddressEditType,
           )}
-        <div className={`${styles.newAddressContainer} card m-0 border_color`}>
+         {isEdit==false &&
+         <div className={`${styles.newAddressContainer} card m-0 border_color`}>
           <div className={`${styles.newAddressHead} border_color`}>
             <span>Add a new address</span>
           </div>
@@ -947,6 +950,7 @@ function Index(props) {
             </div>
           </div>
         </div>
+         }
         <div className={`${styles.tableContainer} border_color card p-0`}>
           <div
             className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
@@ -983,161 +987,164 @@ function Index(props) {
                     <th>ACTION</th>
                   </tr>
                   <tbody>
-                    {list.length > 0 &&
-                      list.map((val, index) => {
-                        return (
-                          <>
-                            {val.actions == 'true' ? (
-                              <tr key={index} className="table_row">
-                                <td>{val.name}</td>
-                                <td>{val.designation}</td>
-                                <td>{val.email}</td>
-                                <td>{val.phoneNo}</td>
-                                <td className={`d-flex`}>
-                                  <img
-                                    className={`${styles.image} mr-3`}
-                                    onClick={() => onEdit(index)}
-                                    src="/static/mode_edit.svg"
-                                    alt="edit"
-                                  />
-                                  <img
-                                    onClick={() => handleRemove(index, val)}
-                                    src="/static/delete 2.svg"
-                                    alt="delete"
-                                  />
-                                </td>
-                              </tr>
-                            ) : (
-                              <tr key={index} className="table_row">
-                                <td>
-                                  {val.addnew == 'false' ? (
-                                    <>
-                                      <select
-                                        value={val.name}
-                                        className={`${styles.customSelect} input`}
-                                        onChange={(e) => {
-                                          handleChangeInput(
-                                            e.target.name,
-                                            e.target.value,
-                                            index,
-                                          )
-                                        }}
-                                      >
-                                        <option>Select an option</option>
-                                        {options.map((val, i) => {
-                                          return (
-                                            <option value={val}>{val}</option>
-                                          )
-                                        })}
+                   {list.length>0 && list.map((val,index)=>{
+                      return(
+                        <>
+                        {val.actions=="true"?
+                        <tr key={index} className='table_row'>
+                          <td>{val.name}</td>
+                          <td>{val.designation}</td>
+                          <td>{val.email}</td>
+                          <td>{val.phoneNo}</td>
+                          <td className={`d-flex`}>
+                          <img className={`${styles.image} mr-3`} onClick={()=>(onEdit(index))} src="/static/mode_edit.svg" alt="edit"/>
+                          <img onClick={()=>(handleRemove(index,val))} src="/static/delete 2.svg" alt="delete"/>
+                          </td>
 
-                                        <option value={'addnew'}>
-                                          {'Add New'}
-                                        </option>
-                                      </select>
-                                      <img
-                                        className={`${styles.arrow2} image_arrow img-fluid`}
-                                        src="/static/inputDropDown.svg"
-                                        alt="Search"
-                                      />
-                                    </>
-                                  ) : (
-                                    <>
-                                      <input
-                                        type="text"
-                                        className="input"
-                                        placeholder={'Add new'}
-                                        name="name"
-                                        value={val.name}
-                                        onChange={(e) => {
-                                          handleChangeInput2(
-                                            e.target.name,
-                                            e.target.value,
-                                            index,
-                                          )
-                                        }}
-                                      />
-                                    </>
-                                  )}
-                                </td>
-                                <td>
-                                  <input
-                                    type="text"
-                                    className="input"
-                                    value={val.designation}
-                                    name="designation"
-                                    // readOnly={val.addnew!="true"?true:false}
-                                    onChange={(e) => {
-                                      handleChangeInput2(
-                                        e.target.name,
-                                        e.target.value,
-                                        index,
-                                      )
-                                    }}
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    type="text"
-                                    value={val.email}
-                                    name="email"
-                                    className="input"
-                                    onChange={(e) => {
-                                      handleChangeInput2(
-                                        e.target.name,
-                                        e.target.value,
-                                        index,
-                                      )
-                                    }}
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    value={val.phoneNo}
-                                    className="input"
-                                    name="phoneNo"
-                                    type="number"
-                                    onKeyDown={(evt) =>
-                                      ['e', 'E', '+', '-'].includes(evt.key) &&
-                                      evt.preventDefault()
-                                    }
-                                    onChange={(e) => {
-                                      handleChangeInput2(
-                                        e.target.name,
-                                        e.target.value,
-                                        index,
-                                      )
-                                    }}
-                                  />
-                                </td>
-                                <td className={`d-flex`}>
-                                  <div
-                                    className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
-                                    onClick={() => {
-                                      onEditRemove(index, val)
-                                    }}
-                                  >
-                                    <img
-                                      className={`${styles.image} mr-3`}
-                                      src="/static/save-3.svg"
-                                      alt="save"
-                                    />
-                                  </div>
-                                  <div
-                                    className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center`}
-                                    onClick={() => {
-                                      handleRemove(index, val)
-                                    }}
-                                  >
-                                    <img src="/static/delete 2.svg" />
-                                  </div>
-                                  {/* <img  onClick={()=>(onEditRemove(index))}src="/static/save-3.svg"  />
-                            <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img> */}
-                                </td>
-                              </tr>
-                            )}
+                        </tr>
+                        :<tr key={index} className='table_row'>
+                          <td>
+                        {val.addnew=="false"?
+                         <>
+                           <select 
+                            value={val.name}
+                            className={`${styles.customSelect} input`}
+                            
+                            onChange={(e)=>{
+                              setRemovedOption(e.target.value)
+                              handleChangeInput(e.target.name,e.target.value,index)
+                             
+                            }}>
+                              <option>Select an option</option>
+                              {removedOption!=null?
+                              <option value={removedOption}>{removedOption}</option>
+                              :null}
+                              {options.map((val,i)=>{
+                                return(<option value={val}>{val}</option>)
+                              })}
+                              
+                              <option value={"addnew"}>{"Add New"}</option>
+                            </select>
+                            <img
+                              className={`${styles.arrow2} image_arrow img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                         </>  : 
+                          <>
+                          {
+                              val.name=="Vipin Kumar" 
+                            || val.name=="Bhawana Jain"
+                            || val.name=="Devesh Jain"
+                            || val.name=="Fatima Yannoulis"
+                            ?
+                            <>
+                             <select 
+                            value={val.name}
+                            className={`${styles.customSelect} input`}
+                            
+                            onChange={(e)=>{
+                              handleChangeInput(e.target.name,e.target.value,index)
+                             
+                            }}>
+                              <option>Select an option</option>
+                              <option value={"Vipin Kumar"}>Vipin Kumar</option>
+                              <option value={"Bhawana Jain"}>Bhawana Jain</option>
+                              <option value={"Devesh Jain"}>Devesh Jain</option>
+                              <option value={"Fatima Yannoulis"}>Fatima Yannoulis</option>
+                             
+                              {/* {options.map((val,i)=>{
+                                return(<option value={val}>{val}</option>)
+                              })} */}
+                              
+                              <option value={"addnew"}>{"Add New"}</option>
+                            </select>
+                            <img
+                              className={`${styles.arrow2} image_arrow img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                            </>
+                            :
+                          <>
+                          <input type="text" 
+                            className='input'
+                            placeholder={"Add new"}
+                            name= "name"
+                            value={val.name}
+                            onChange={(e)=>{
+                            handleChangeInput2(e.target.name,e.target.value,index)
+                            }}
+                          />
+                        </>
+                          }
                           </>
-                        )
-                      })}
+                       
+                           }
+                            
+                          </td>
+                          <td>
+                            <input type="text"
+                              className='input'
+                              value={val.designation}
+                              name="designation"
+                              // readOnly={val.addnew!="true"?true:false}
+                              onChange={(e)=>{
+                                handleChangeInput2(e.target.name,e.target.value,index)
+                              }}
+                            />
+                          
+                          </td>
+                          <td>
+                            <input type="text" 
+                            value={val.email}
+                              name= "email"
+                                                        
+                              className='input'
+                              onChange={(e)=>{
+                                handleChangeInput2(e.target.name,e.target.value,index)
+                              }}
+                            />
+                          </td>
+                          <td>
+                            <input  value={val.phoneNo}
+                              className='input'
+                              name= "phoneNo"
+                             type="number"
+                             onKeyDown={(evt) =>
+                              ['e', 'E', '+', '-'].includes(evt.key) &&
+                              evt.preventDefault()
+                            }
+                              onChange={(e)=>{
+                                handleChangeInput2(e.target.name,e.target.value,index)
+                              }}
+                            />
+                          </td>
+                          <td className={`d-flex`}>
+                            <div
+                              className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
+                              onClick={()=>{
+                              onEditRemove(index,val)
+                              }}
+                            >
+                              <img className={`${styles.image} mr-3`} src="/static/save-3.svg" alt="save"/>
+                            </div>
+                            <div
+                              className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center`}
+                              onClick={()=>{
+                              handleRemove(index,val)
+                              }}
+                            >
+                              <img src="/static/delete 2.svg" />
+                            </div>
+                            {/* <img  onClick={()=>(onEditRemove(index))}src="/static/save-3.svg"  />
+                            <img  onClick={()=>(handleRemove(index))} src="/static/delete 2.svg"></img> */}
+                          </td>
+
+                        </tr>}
+                        </>
+                      )
+                    })}
                   </tbody>
                 </table>
                 <div

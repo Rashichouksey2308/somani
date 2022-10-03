@@ -23,6 +23,7 @@ function Index(props) {
   const [addressList,setAddressList]=useState([
       
   ])
+    const [removedOption,setRemovedOption]=useState(null)
   const [newAddress,setNewAddress]=useState(
           {
           "addressType": "Registered",
@@ -243,9 +244,12 @@ let masterList=[
       });
       let temp=[...options]
       var indexOption = temp.indexOf(value.name);
+      console.log(value.name,"value.name")
+      setRemovedOption(value.name)
       if (indexOption !== -1) {
       temp.splice(indexOption, 1);
       }
+      
       setOptions([...temp])
   }
 const addMoreRows=()=>{
@@ -264,6 +268,7 @@ docList.forEach((val,i)=>{
     }
   })
 setList([...list.slice(0, index), ...list.slice(index + 1)])
+setRemovedOption(null)
 
 if(val.name=="Bhawana Jain" ||val.name=="Vipin Kumar" ||val.name=="Devesh Jain" ||val.name=="atima Yannoulis"  ){
   let temp=[...options]
@@ -602,6 +607,7 @@ const cancelAddress=()=>{
           </div>
         </div>
         {isEdit && editData(addressEditType,EditAddress,setEditAddress,editNewAddress,cancelEditAddress,saveNewAddress,setAddressEditType)}
+        {isEdit==false && 
         <div className={`${styles.newAddressContainer} card m-0 border_color`}>
           <div className={`${styles.newAddressHead} border_color`}><span>Add a new address</span>
           </div>
@@ -658,9 +664,9 @@ const cancelAddress=()=>{
               <Form.Control
                 className={`${styles.input_field} input form-control`}
                 required
-                type="number"
+                type="text"
                 name="pinCode"
-                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                 value={newAddress.pinCode}
                 onChange={(e) => {
@@ -728,10 +734,10 @@ const cancelAddress=()=>{
               <Form.Control
                 className={`${styles.input_field} input form-control`}
                 required
-                type="number"
+                type="text"
                 name="pinCode"
                 value={newAddress.pinCode}
-                onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                 onChange={(e) => {
                   setAddress(e.target.name,e.target.value)
@@ -827,7 +833,7 @@ const cancelAddress=()=>{
               </div>
             </div>
           </div>
-        </div>
+        </div>}
         <div className={`${styles.tableContainer} border_color card p-0`}>
           <div
             className={`${styles.sub_card}  card-header d-flex align-items-center justify-content-between bg-transparent`}
@@ -861,7 +867,7 @@ const cancelAddress=()=>{
                     <th>ACTION</th>
                   </tr>
                   <tbody>
-                    {list.length>0 && list.map((val,index)=>{
+                   {list.length>0 && list.map((val,index)=>{
                       return(
                         <>
                         {val.actions=="true"?
@@ -883,10 +889,16 @@ const cancelAddress=()=>{
                            <select 
                             value={val.name}
                             className={`${styles.customSelect} input`}
+                            
                             onChange={(e)=>{
+                              setRemovedOption(e.target.value)
                               handleChangeInput(e.target.name,e.target.value,index)
+                             
                             }}>
-                             <option>Select an option</option>
+                              <option>Select an option</option>
+                              {removedOption!=null?
+                              <option value={removedOption}>{removedOption}</option>
+                              :null}
                               {options.map((val,i)=>{
                                 return(<option value={val}>{val}</option>)
                               })}
@@ -899,8 +911,42 @@ const cancelAddress=()=>{
                               alt="Search"
                             />
                          </>  : 
-                           
-                         <>
+                          <>
+                          {
+                              val.name=="Vipin Kumar" 
+                            || val.name=="Bhawana Jain"
+                            || val.name=="Devesh Jain"
+                            || val.name=="Fatima Yannoulis"
+                            ?
+                            <>
+                             <select 
+                            value={val.name}
+                            className={`${styles.customSelect} input`}
+                            
+                            onChange={(e)=>{
+                              handleChangeInput(e.target.name,e.target.value,index)
+                             
+                            }}>
+                              <option>Select an option</option>
+                              <option value={"Vipin Kumar"}>Vipin Kumar</option>
+                              <option value={"Bhawana Jain"}>Bhawana Jain</option>
+                              <option value={"Devesh Jain"}>Devesh Jain</option>
+                              <option value={"Fatima Yannoulis"}>Fatima Yannoulis</option>
+                             
+                              {/* {options.map((val,i)=>{
+                                return(<option value={val}>{val}</option>)
+                              })} */}
+                              
+                              <option value={"addnew"}>{"Add New"}</option>
+                            </select>
+                            <img
+                              className={`${styles.arrow2} image_arrow img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                            </>
+                            :
+                          <>
                           <input type="text" 
                             className='input'
                             placeholder={"Add new"}
@@ -911,7 +957,10 @@ const cancelAddress=()=>{
                             }}
                           />
                         </>
-                      }
+                          }
+                          </>
+                       
+                           }
                             
                           </td>
                           <td>
@@ -941,11 +990,11 @@ const cancelAddress=()=>{
                             <input  value={val.phoneNo}
                               className='input'
                               name= "phoneNo"
-                              type="number"
-                              onKeyDown={(evt) =>
-                                ['e', 'E', '+', '-'].includes(evt.key) &&
-                                evt.preventDefault()
-                              }
+                             type="number"
+                             onKeyDown={(evt) =>
+                              ['e', 'E', '+', '-'].includes(evt.key) &&
+                              evt.preventDefault()
+                            }
                               onChange={(e)=>{
                                 handleChangeInput2(e.target.name,e.target.value,index)
                               }}
@@ -955,7 +1004,7 @@ const cancelAddress=()=>{
                             <div
                               className={`${styles.addressEdit} d-flex justify-content-center  align-items-start`}
                               onClick={()=>{
-                             onEditRemove(index,val)
+                              onEditRemove(index,val)
                               }}
                             >
                               <img className={`${styles.image} mr-3`} src="/static/save-3.svg" alt="save"/>
@@ -963,7 +1012,7 @@ const cancelAddress=()=>{
                             <div
                               className={`${styles.addressEdit} d-flex justify-content-center align-items align-items-center`}
                               onClick={()=>{
-                             handleRemove(index,val)
+                              handleRemove(index,val)
                               }}
                             >
                               <img src="/static/delete 2.svg" />
@@ -1050,10 +1099,10 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="number"
+                        type="text"
                         name="pinCode"
                         value={EditAddress.pinCode}
-                        onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                        // onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                         onChange={(e) => {
                           editNewAddress(e.target.name,e.target.value)
@@ -1120,10 +1169,10 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                       <Form.Control
                         className={`${styles.input_field} input form-control`}
                         required
-                        type="number"
+                        type="text"
                         name="pinCode"
                          value={EditAddress.pinCode}
-                         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                        //  onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
 
                         onChange={(e) => {
                           editNewAddress(e.target.name,e.target.value)
