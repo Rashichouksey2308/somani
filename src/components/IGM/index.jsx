@@ -708,16 +708,17 @@ export default function Index({
                           }
                           className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                           value={item.vesselName}
-                          disabled={_get(
+                          disabled={
+                            _get(
                               TransitDetails,
                               `data[0].order.termsheet.transactionDetails.shipmentType`,
                               '',
-                            ) === 'Bulk' &&  _get(
+                            ) === 'Bulk' &&
+                            _get(
                               TransitDetails,
                               `data[0].order.termsheet.transactionDetails.partShipmentAllowed`,
                               '',
                             ) === 'No'
-                          
                           }
                         >
                           {shipmentTypeBulk

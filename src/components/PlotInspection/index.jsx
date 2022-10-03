@@ -190,7 +190,7 @@ export default function Index({ inspectionData }) {
                                   alt="Sort icon"
                                 />
                               </th>
-                              <th width="35%">ACTION</th>
+                              <th width="7%">ACTION</th>
                             </tr>
                           </thead>
                           <tbody>
