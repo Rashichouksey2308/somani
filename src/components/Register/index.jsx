@@ -455,16 +455,19 @@ function Index() {
     <Card className={`${styles.card}`}>
       <Card.Header className={`${styles.head_container} border-0 p-0`}>
         <div className={`${styles.head_header} align-items-center`}>
+          <div  onClick={() => Router.push('/leads')} style={{cursor:'pointer'}}>
           <img
             className={`${styles.arrow} img-fluid image_arrow mr-2`}
             src="/static/keyboard_arrow_right-3.svg"
             alt="ArrowRight"
+            
           />
+          </div>
           <h1 className={styles.heading}>Register Your Company</h1>
         </div>
         <div>
           <button
-            onClick={clearData}
+            onClick={clearData} 
             className={`${styles.clear_btn} clear_btn`}
           >
             Clear All

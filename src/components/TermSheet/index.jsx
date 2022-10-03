@@ -56,7 +56,7 @@ const Index = () => {
               quantity: sheet?.order?.quantity,
               perUnitPrice: sheet?.order?.perUnitPrice ?? '',
               commodity: sheet?.order?.commodity,
-              tolerance: sheet?.order?.tolerance,
+              tolerance: sheet?.order?.tolerance ??'',
             },
             transactionDetails: {
               // lcValue: sheet?.transactionDetails?.lcValue ? sheet?.transactionDetails?.lcValue : Number(sheet?.order?.quantity * sheet?.order?.perUnitPrice),

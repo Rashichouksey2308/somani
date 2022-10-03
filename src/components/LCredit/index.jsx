@@ -10,6 +10,11 @@ import Router from 'next/router'
 import InspectionDocument from '../InspectionDocument'
 import { toast } from 'react-toastify'
 import _get from 'lodash/get'
+import {
+  setPageName,
+  setDynamicName,
+  setDynamicOrder,
+} from '../../../src/redux/userData/action'
 
 function Index() {
   const dispatch = useDispatch()
@@ -33,12 +38,30 @@ function Index() {
 
     setClauseArr(newArr)
   }
-console.log(clauseData,"clauseData")
+
+
+  console.log(clauseData, "clauseData")
   console.log(editCurrent, 'THIS IS EDIT LC', editInput)
 
   const { lcModule } = useSelector((state) => state.lc)
 
   let lcModuleData = _get(lcModule, 'data[0]', {})
+
+  useEffect(() => {
+    dispatch(setPageName('Lc'))
+    console.log(
+      lcModule?.data?.order?.orderId,
+      'lcModule?.data?.order?.orderId',
+    )
+    dispatch(
+      setDynamicName(
+        _get(lcModule, 'data[0].company.companyName', 'Company Name'),
+      ),
+    )
+    dispatch(
+      setDynamicOrder(_get(lcModule, 'data[0].order.orderId', 'Order Id')),
+    )
+  }, [lcModuleData])
 
   useEffect(() => {
     let id = sessionStorage.getItem('lcAmmend')
@@ -205,17 +228,17 @@ console.log(clauseData,"clauseData")
 
   const [fieldType, setFieldType] = useState("")
 
-  const dropDownChange = (e) => {  
+  const dropDownChange = (e) => {
 
     if (
       e.target.value == 'latestDateOfShipment' ||
       e.target.value == 'dateOfExpiry'
     ) {
       setFieldType("date")
-    }else if( e.target.value == 'partialShipment'){
+    } else if (e.target.value == 'partialShipment') {
       setFieldType("select")
     }
-     else {
+    else {
       setFieldType("")
     }
 
@@ -250,7 +273,7 @@ console.log(clauseData,"clauseData")
   const addToArr = () => {
     // console.log(inputRef, 'THIS IN INPUT REF')
     // inputRef.current.value = '';
-    if(fieldType == 'date'){
+    if (fieldType == 'date') {
       setFieldType('')
     }
     inputRef1.current.value = '';
@@ -363,7 +386,7 @@ console.log(clauseData,"clauseData")
             </div>
             <div
               id="lcApplication"
-             // className="collapse"
+              // className="collapse"
               aria-labelledby="lcApplication"
               data-parent="#lcApplication"
             >
@@ -445,7 +468,7 @@ console.log(clauseData,"clauseData")
                 <div className={` ${styles.content}`}>
                   <div className={` ${styles.body}`}>
                     <Row>
-                   
+
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <div className="d-flex">
                           <select
@@ -530,14 +553,14 @@ console.log(clauseData,"clauseData")
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6} sm={6}>
                         <form id='myForm'>
-                        <input
-                          className={`${styles.input_field} input form-control`}
-                          disabled
-                          
-                          type="text"
-                          value={clauseObj?.existingValue}
-                       
-                        />
+                          <input
+                            className={`${styles.input_field} input form-control`}
+                            disabled
+
+                            type="text"
+                            value={clauseObj?.existingValue}
+
+                          />
                         </form>
                         <label
                           className={`${styles.label_heading} label_heading`}
@@ -547,7 +570,7 @@ console.log(clauseData,"clauseData")
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6}>
                         <div className="d-flex">
-                          {fieldType=="" ? (
+                          {fieldType == "" ? (
                             <input
                               className={`${styles.input_field} input form-control`}
                               required
@@ -561,7 +584,7 @@ console.log(clauseData,"clauseData")
                               //   setIsFieldInFocus({ ...isFieldInFocus, existingValue: false }),
                               //     e.target.type = 'text'
                               // }}
-            
+
                               // value={isFieldInFocus.existingValue ?
                               //   editInput ? editCurrent?.newValue : ''  :
                               //   Number(editInput ? editCurrent?.newValue : '' ).toLocaleString('en-In')
@@ -575,54 +598,54 @@ console.log(clauseData,"clauseData")
                                 arrChange('newValue', e.target.value)
                               }}
                             />
-                          ) :null}
-                          {fieldType=="date"?
-                           (
-                            <>
-                              <DateCalender
-                                name="newValue"
-                                defaultDate={clauseObj?.newValue}
-                                saveDate={saveDropDownDate}
-                              // labelName="New Value"
-                              />
-                              <img
-                                className={`${styles.calanderIcon} image_arrow img-fluid`}
-                                src="/static/caldericon.svg"
-                                alt="Search"
-                              />
-                            </>
-                          )
-                          :null}
-                           {fieldType=="select"?
-                           (
-                            <>
-                            
-                           <select
-                             defaultValue={
-                                editInput ? editCurrent?.newValue : ''
-                              }
-                              onChange={(e) => {
-                                // inputRef.current.value = ''
-                                arrChange('newValue', e.target.value)
-                              }}
-                            className={`${styles.input_field} ${styles.customSelect} input form-control`}
-                          >
-                            <option disabled selected>Select an option</option>
-                             <option value="No">Prohibited</option>
-                             <option value="Yes">Allowed</option>
-                             
-                          </select>
+                          ) : null}
+                          {fieldType == "date" ?
+                            (
+                              <>
+                                <DateCalender
+                                  name="newValue"
+                                  defaultDate={clauseObj?.newValue}
+                                  saveDate={saveDropDownDate}
+                                // labelName="New Value"
+                                />
+                                <img
+                                  className={`${styles.calanderIcon} image_arrow img-fluid`}
+                                  src="/static/caldericon.svg"
+                                  alt="Search"
+                                />
+                              </>
+                            )
+                            : null}
+                          {fieldType == "select" ?
+                            (
+                              <>
 
-                         
-                          <img
-                            className={`${styles.arrow} image_arrow img-fluid`}
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
-                        
-                            </>
-                          )
-                          :null}
+                                <select
+                                  defaultValue={
+                                    editInput ? editCurrent?.newValue : ''
+                                  }
+                                  onChange={(e) => {
+                                    // inputRef.current.value = ''
+                                    arrChange('newValue', e.target.value)
+                                  }}
+                                  className={`${styles.input_field} ${styles.customSelect} input form-control`}
+                                >
+                                  <option disabled selected>Select an option</option>
+                                  <option value="No">Prohibited</option>
+                                  <option value="Yes">Allowed</option>
+
+                                </select>
+
+
+                                <img
+                                  className={`${styles.arrow} image_arrow img-fluid`}
+                                  src="/static/inputDropDown.svg"
+                                  alt="Search"
+                                />
+
+                              </>
+                            )
+                            : null}
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
@@ -636,7 +659,7 @@ console.log(clauseData,"clauseData")
                           />
                         </div>
                       </Col>
-                     
+
                     </Row>
 
                     <div className={styles.table_container}>

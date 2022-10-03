@@ -47,6 +47,20 @@ if(window){
     dispatch(GetAllInspection(`?page=${currentPage}&limit=7`))
   }, [dispatch, currentPage])
 
+  const [sorting, setSorting] = useState(1)
+
+  const handleSort = () => {
+   
+    if(sorting == -1){
+    dispatch(GetAllInspection(`?page=${currentPage}&limit=7&createdAt=${sorting}`))
+    setSorting(1)
+    }else if(sorting == 1){
+      
+      dispatch(GetAllInspection(`?page=${currentPage}&limit=7&createdAt=${sorting}`))
+      setSorting(-1)
+    }
+  }
+
   const { allInspection } = useSelector((state) => state.Inspection)
 
   const { searchedLeads } = useSelector((state) => state.order)
@@ -87,7 +101,7 @@ if(window){
                 value={searchTerm}
                 onChange={handleSearch}
                 type="text"
-                className={`${styles.formControl} border form-control formControl `}
+                className={`${styles.formControl} border text_area form-control formControl `}
                 placeholder="Search"
               />
             </div>
@@ -245,6 +259,7 @@ if(window){
                         className={`mb-1`}
                         src="/static/icons8-sort-24.svg"
                         alt="Sort icon"
+                        onClick={()=>handleSort()}
                       />{' '}
                     </th>
                     <th>BUYER NAME</th>

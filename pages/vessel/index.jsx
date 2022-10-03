@@ -67,7 +67,7 @@ export default function Home() {
   const [vesselData, setVesselData] = useState()
   const [orderID, setOrderId] = useState('')
   const [isFieldInFocus, setIsFieldInFocus] = useState([{ value: false }])
-  console.log(containerExcel, 'containerExcel')
+  console.log(containerExcel,vesselCertificate,containerListDocument, 'containerExcel')
   console.log(shipmentTypeBulk, '')
 
   const setData = (Vessel) => {
@@ -115,6 +115,9 @@ export default function Home() {
           'Bulk',
         ),
       )
+      setContainerExcel(_get(Vessel, 'data[0].containerExcel', null))
+      setContainerListDocument(_get(Vessel, 'data[0].containerListDocument', null))
+      setVesselCertificate(_get(Vessel, 'data[0].vesselCertificate', null))
       setList([
         {
           shipmentType: _get(

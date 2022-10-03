@@ -238,7 +238,8 @@
           font-weight: bold;
           line-height: 25px;
           background: transparent;
-          width: 176px;
+          max-width: 176px;
+          width: 100%;
           height: 50px;
           padding: 0 20px;
           @include respond(phone) {
@@ -257,7 +258,6 @@
           text-transform: capitalize;
           margin: 10px 10px 10px 0;
           background: #3687e8;
-          width: 200px;
           height: 48px;
           padding: 0 20px;
           @include respond(phone) {
@@ -558,7 +558,8 @@
   text-transform: capitalize;
   margin: 10px;
   background: #3687e8;
-  width: 200px;
+  width: 50%;
+  max-width: 200px;
   height: 48px;
 }
 .tooltip {
@@ -569,7 +570,7 @@
     margin-top: -145px;
     margin-right: 50px;
     line-height: 1;
-   
+    z-index: 2;
     @include respond(sm-desktop) {
       margin-left:230px ;
       margin-top: -130px;

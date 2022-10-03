@@ -450,19 +450,12 @@ const Index = () => {
                               Quantity
                             </div>
                             <div className={styles.col_body}>
-                              {Number(
+                              {checkNan(Number(
                                 insuranceData?.order?.quantity,
                               )?.toLocaleString('en-In', {
                                 maximumFractionDigits: 2,
-                              })==NaN?"":
-                             `${
-                               Number(
-                                insuranceData?.order?.quantity,
-                              )?.toLocaleString('en-In', {
-                                maximumFractionDigits: 2,
-                              })
-                             }   MT` }
-                             
+                              }))}{' '}
+                              MT
                             </div>
                           </Col>
                           <Col lg={4} md={6} sm={6}>

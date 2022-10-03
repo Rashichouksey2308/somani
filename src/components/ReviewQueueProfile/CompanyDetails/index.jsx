@@ -292,7 +292,7 @@ function Index({ order, companyDetail }) {
                   >
                     <option value="">Select</option>
 
-                    <option value="Sales Assocaite">Sales Assocaite</option>
+                    <option value="Sales Assocaite">Sales Associate</option>
                     <option value="Website">Website</option>
                     <option value="Customs Associate">
                       {' '}

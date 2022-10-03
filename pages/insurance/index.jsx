@@ -12,7 +12,7 @@ import {
   setDynamicName,
   setDynamicOrder,
 } from '../../src/redux/userData/action'
-import moment from  'moment'
+import moment from 'moment'
 
 function Index() {
   const dispatch = useDispatch()
@@ -39,10 +39,13 @@ function Index() {
 
   const changeRoute = (insured) => {
     sessionStorage.setItem('quotationId', insured._id)
-    if (moment(insured?.marineInsurance?.insuranceTo).toDate() <= d || moment(insured?.storageInsurance?.insuranceTo).toDate() <= d) {
+    if (
+      moment(insured?.marineInsurance?.insuranceTo).toDate() <= d ||
+      moment(insured?.storageInsurance?.insuranceTo).toDate() <= d
+    ) {
       dispatch(GettingAllInsurance(`?insuranceId=${insured?._id}`))
       Router.push('/insurance-renew/id')
-    } else{
+    } else {
       dispatch(GettingAllInsurance(`?insuranceId=${insured?._id}`))
       Router.push('/insurance/form')
     }
@@ -51,22 +54,24 @@ function Index() {
   const handleEditRoute = (insured) => {
     // console.log("asdas",d,insured)
     sessionStorage.setItem('quotationId', insured._id)
-    
-     if (insured?.quotationRequest?.quotationRequestSubmitted === true) {
+
+    if (insured?.quotationRequest?.quotationRequestSubmitted === true) {
       Router.push('/insurance/form/both')
     }
   }
-useEffect(() => {
-if(window){
-    sessionStorage.setItem('loadedPage',"Agreement & LC Module")
-    sessionStorage.setItem('loadedSubPage',`Insurance`)
-    sessionStorage.setItem('openList',2)
+
+  useEffect(() => {
+    if (window) {
+      sessionStorage.setItem('loadedPage', 'Agreement & LC Module')
+      sessionStorage.setItem('loadedSubPage', `Insurance`)
+      sessionStorage.setItem('openList', 2)
     }
 
     dispatch(setPageName('insurance'))
     dispatch(setDynamicName(null))
     dispatch(setDynamicOrder(null))
-},[])
+  }, [])
+
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
@@ -86,7 +91,7 @@ if(window){
                 value={searchTerm}
                 onChange={handleSearch}
                 type="text"
-                className={`${styles.formControl} border form-control formControl `}
+                className={`${styles.formControl} border text_area form-control formControl `}
                 placeholder="Search"
               />
             </div>

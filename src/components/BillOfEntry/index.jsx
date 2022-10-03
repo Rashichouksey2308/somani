@@ -888,10 +888,15 @@ export default function Index({
                       'MT',
                     )}
                     name="boeDetails.invoiceQuantity"
+                    required
+                    onKeyDown={(evt) =>
+                      ['e', 'E', '+', '-'].includes(evt.key) &&
+                      evt.preventDefault()
+                    }
                     onChange={(e) =>
                       saveBillOfEntryData(e.target.name, e.target.value)
                     }
-                    required
+                    // required
                     // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   />
                   <label className={`${styles.label_heading} label_heading`}>

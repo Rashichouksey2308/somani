@@ -160,7 +160,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
           <Form>
             <div className="row align-items-center vessel_card pb-4">
               <div
-                className={`${styles.drop_container} d-inline-flex align-items-center justify-content-around col-sm-6`}
+                className={`${styles.drop_container} d-flex align-items-center justify-content-around col-sm-6`}
               >
                 <div className="text-center w-100">
                   <img
@@ -169,8 +169,9 @@ const Index = ({ orderid, module, isDocumentName }) => {
                     alt="Browse"
                   />
                   {newDoc?.document?.name ? (
+                    <div className='d-flex justify-content-center align-items-center'>
                     <div
-                      className={`${styles.certificate} text1 d-flex justify-content-between`}
+                      className={`${styles.certificate} text1 d-inline-flex justify-content-between`}
                     >
                       <span>{newDoc?.document?.name}</span>
                       <img
@@ -179,6 +180,7 @@ const Index = ({ orderid, module, isDocumentName }) => {
                         onClick={(e) => handleCloseDoc()}
                         alt="Close"
                       />{' '}
+                    </div>
                     </div>
                   ) : (
                     <p className={styles.drop_para}>

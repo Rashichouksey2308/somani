@@ -30,6 +30,20 @@ function Index({
     dispatch(GettingAllInsurance(`?page=${currentPage}&limit=7`))
   }, [dispatch, currentPage])
 
+  const [sorting, setSorting] = useState(1)
+
+  const handleSort = () => {
+   
+    if(sorting == -1){
+    dispatch(GettingAllInsurance(`?page=${currentPage}&limit=7&createdAt=${sorting}`))
+    setSorting(1)
+    }else if(sorting == 1){
+      
+      dispatch(GettingAllInsurance(`?page=${currentPage}&limit=7&createdAt=${sorting}`))
+      setSorting(-1)
+    }
+  }
+
   return (
     <div className={`${styles.datatable} border datatable card`}>
       <div
@@ -97,6 +111,7 @@ function Index({
                     className={`mb-1`}
                     src="/static/icons8-sort-24.svg"
                     alt="Sort icon"
+                    onClick={()=>handleSort()}
                   />{' '}
                 </th>
                 <th>

@@ -1153,14 +1153,14 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     ],
   }
 
-  const finacialYear = (period) => {
+  const finacialYear = (current) => {
     let currentperiod = gstFilteredData?.detail?.other?.period?.current?.financialPeriod ?
       gstFilteredData?.detail?.other?.period?.current?.financialPeriod : gstFilteredData?.detail?.other?.period?.current?.financialYear
 
     let previousPeriod = gstFilteredData?.detail?.other?.period?.previous?.financialPeriod ?
       gstFilteredData?.detail?.other?.period?.previous?.financialPeriod : gstFilteredData?.detail?.other?.period?.previous?.financialYear
     let financialYear = ''
-    if (period = 'current') {
+    if (current) {
       let [startYear, endYear] = (currentperiod ? currentperiod : '').split('-')
 
       financialYear = `${moment(startYear, 'MMYYYY').format('MMM YYYY')?.toUpperCase()} - ${moment(endYear, 'MMYYYY').format('MMM YYYY')?.toUpperCase()}`
@@ -1170,7 +1170,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     else {
       let [startYear, endYear] = (previousPeriod ? previousPeriod : '').split('-')
 
-      financialYear = `${moment(startYear, 'MMYYYY').format('MMMM YYYY')?.toUpperCase()} - ${moment(endYear, 'MMYYYY').format('MMM YYYY')?.toUpperCase()}`
+      financialYear = `${moment(startYear, 'MMYYYY').format('MMM YYYY')?.toUpperCase()} - ${moment(endYear, 'MMYYYY').format('MMM YYYY')?.toUpperCase()}`
 
       return financialYear
     }
@@ -1381,7 +1381,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                               >
                                 <div
                                   className={styles.dot}
-                                  style={{ backgroundColor: '#3F66EA' }}
+                                  // style={{ backgroundColor: '#3F66EA' }}
+                                  style={{ backgroundColor: '#e31e10' }}
                                 ></div>
                                 <span>
                                   {alertObj[alert.alert] ?? alert.alert}
@@ -1406,7 +1407,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                               >
                                 <div
                                   className={styles.dot}
-                                  style={{ backgroundColor: '#28BE39' }}
+                                  style={{ backgroundColor: '#e31e10' }}
+                                  // style={{ backgroundColor: '#28BE39' }}
                                 ></div>
                                 <span>
                                   {alertObj[alert.alert] ?? alert.alert}
@@ -1430,7 +1432,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                               >
                                 <div
                                   className={styles.dot}
-                                  style={{ backgroundColor: '#EA3FD6' }}
+                                  style={{ backgroundColor: '#e31e10' }}
                                 ></div>
                                 <span>
                                   {alertObj[alert.alert] ?? alert.alert}
@@ -1454,7 +1456,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                               >
                                 <div
                                   className={styles.dot}
-                                  style={{ backgroundColor: '#EA3FD6' }}
+                                  style={{ backgroundColor: '#e31e10' }}
                                 ></div>
                                 <span>
                                   {alertObj[alert.alert] ?? alert.alert}
@@ -2111,13 +2113,11 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       Annual Summary
                     </th>
                     <th colSpan={2} className='text-color'>
-                      {finacialYear()}
+                      {finacialYear('current')}
                     </th>
                     <th colSpan={2} className='text-color'>
 
-                      {finacialYear(gstFilteredData?.detail?.other?.period?.previous?.financialPeriod ?
-                        gstFilteredData?.detail?.other?.period?.previous?.financialPeriod : gstFilteredData?.detail?.other?.period?.previous?.financialYear
-                      )}
+                      {finacialYear()}
                     </th>
                   </tr>
                   <tr className={styles.second_head}>
@@ -2784,23 +2784,11 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <th width="34%" className={`${styles.first} text-color`}>Averages</th>
                     <th width="33%" className='text-color'>
 
-                      {finacialYear(
-                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
-                          ?.B2BSales?.current?.financialYear,
-                      ) ? finacialYear(
-                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
-                          ?.B2BSales?.current?.financialYear,
-                      ) : "-"}
+                      {finacialYear('current') ? finacialYear('current') : "-"}
                     </th>
                     <th width="33%" className='text-color'>
 
-                      {finacialYear(
-                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
-                          ?.B2BSales?.previous?.financialYear,
-                      ) ? finacialYear(
-                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
-                          ?.B2BSales?.previous?.financialYear,
-                      ) : "-"}
+                      {finacialYear() ? finacialYear() : "-"}
                     </th>
                   </tr>
 
@@ -3030,13 +3018,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       <span className='breadcrum_mode mr-1'>
                         Financial Period:
                       </span>
-                      {finacialYear(
-                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
-                          ?.B2BSales?.current?.financialYear,
-                      ) ? finacialYear(
-                        gstFilteredData?.detail?.salesDetailAnnual?.saleSummary
-                          ?.B2BSales?.current?.financialYear,
-                      ) : "-"}
+                      {finacialYear('current') ? finacialYear('current') : "-"}
                     </th>
                   </tr>
                   <tr className={`${styles.second_head}`}>
@@ -3155,16 +3137,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       Annual Summary
                     </th>
                     <th colSpan={2} className='text-color'>
-                      {finacialYear(
-                        gstFilteredData?.detail?.purchaseDetailAnnual
-                          ?.saleSummary?.B2BPurchase?.current?.financialYear,
-                      )}
+                      {finacialYear('current')}
                     </th>
                     <th colSpan={2} className='text-color'>
-                      {finacialYear(
-                        gstFilteredData?.detail?.purchaseDetailAnnual
-                          ?.saleSummary?.B2BPurchase?.previous?.financialYear,
-                      )}
+                      {finacialYear()}
                     </th>
                   </tr>
                   <tr className={styles.second_head}>
@@ -3389,7 +3365,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   <tr>
                     <td colSpan={2}>Other Purchases (total - B2B)</td>
                     <td>
-                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.current?.value?.toLocaleString('en-In', {
+                      {convertValue(gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.current?.value, purchasesDetailsUnit)?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
@@ -3402,7 +3378,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       %
                     </td>
                     <td>
-                      {gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.previous?.value?.toLocaleString('en-In', {
+                      {convertValue(gstFilteredData?.detail?.purchaseDetailAnnual?.saleSummary?.otherPurchase?.previous?.value, purchasesDetailsUnit)?.toLocaleString('en-In', {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
@@ -3535,16 +3511,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   <tr>
                     <th width="34%" className={`${styles.first} text-color`}>Averages</th>
                     <th width="33%" className='text-color'>
-                      {finacialYear(
-                        gstFilteredData?.detail?.purchaseDetailAnnual
-                          ?.saleSummary?.B2BPurchase?.current?.financialYear,
-                      )}
+                      {finacialYear('current')}
                     </th>
                     <th width="33%" className='text-color'>
-                      {finacialYear(
-                        gstFilteredData?.detail?.purchaseDetailAnnual
-                          ?.saleSummary?.B2BPurchase?.previous?.financialYear,
-                      )}
+                      {finacialYear()}
                     </th>
                   </tr>
 
@@ -4441,7 +4411,7 @@ const gstSupplierDetail = (
               </div>
             </div>
             <div className={` ${styles.content}`}>
-              <div className={`${styles.first} card_sub_header text-color`}>Top 10 Suppliers</div>
+              {/* <div className={`${styles.first} card_sub_header text-color`}>Top 10 Suppliers</div> */}
               <div className={` ${styles.body} ${styles.body_noscroll}`}>
                 <div className={`${styles.scrollouter}`}>
                   <div className={`${styles.scrollInner}`}>
@@ -4450,7 +4420,7 @@ const gstSupplierDetail = (
                       cellPadding="0"
                       cellSpacing="0"
                     >
-                      {/* <tr>
+                      <tr>
                         <th
                           className={`${styles.first} py-0 text-color`}
                           colSpan={6}
@@ -4458,7 +4428,7 @@ const gstSupplierDetail = (
                           Top 10 Suppliers
                           <span className={`${styles.small} text_light`}>(Domestic)</span>
                         </th>
-                      </tr> */}
+                      </tr>
                       <tr className={styles.second_head}>
                         <td className='text-nowrap'>SUPPLIER NAME</td>
                         <td>PAN</td>
@@ -4566,7 +4536,7 @@ const gstSupplierDetail = (
                                 <td>
                                   {customer?.invoice?.toLocaleString('en-In', {
                                     maximumFractionDigits: 0,
-                                   
+
                                   })}
                                 </td>
                                 <td>
