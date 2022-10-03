@@ -312,7 +312,7 @@ export default function Home() {
         shipmentType: 'Bulk',
         commodity: _get(VesselToAdd, 'data[0].order.commodity', ''),
         quantity: _get(VesselToAdd, 'data[0].order.quantity', ''),
-        orderValue: _get(VesselToAdd, 'data[0].order.orderValue', ''),
+        orderValue: _get(VesselToAdd, 'data[0].order.orderValue', '')!=="",
         transitDetails: {
           countryOfOrigin: _get(
             VesselToAdd,
