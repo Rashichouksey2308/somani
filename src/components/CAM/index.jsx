@@ -16,6 +16,9 @@ import {
   Title,
   CategoryScale,
   Filler,
+  Tooltip,
+  Legend
+  
 } from 'chart.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { GetAllOrders } from 'redux/registerBuyer/action'
@@ -37,6 +40,9 @@ Chart.register(
   Title,
   CategoryScale,
   Filler,
+  Tooltip,
+  Legend
+  
 )
 
 function Index({
@@ -273,23 +279,15 @@ function Index({
     ,
     plugins: {
       title: {
-        display: false,
-        text: 'Doughnut Chart',
-        color: 'blue',
-
-        font: {
-          size: 34,
-        },
-        padding: {
-          top: 30,
-          bottom: 30,
-        },
-
-        animation: {
+      animation: {
           animateScale: true,
         },
       },
-
+      
+     legend: {
+        display: false
+      }
+    
     },
     responsive: true,
     cutout: 130
@@ -334,10 +332,14 @@ function Index({
     },
     plugins: {
       tooltip: {
-        enabled: false,
+        enabled: true,
         position: 'nearest',
         // external: externalTooltipHandler
       },
+       legend: {
+        display: false
+      }
+      
     },
   }
   console.log(
