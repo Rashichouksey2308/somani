@@ -9,7 +9,6 @@ import ApproveBar from '../ApproveBar'
 import { useDispatch, useSelector } from 'react-redux'
 import Router from 'next/router'
 
-import { setPageName } from '../../redux/userData/action'
 import { GetTermsheet, updateTermsheet } from 'redux/buyerProfile/action'
 import { settingSidebar } from 'redux/breadcrumb/action'
 import { useRouter } from 'next/router'
@@ -18,6 +17,11 @@ import _get from 'lodash/get'
 import { addPrefixOrSuffix, removePrefixOrSuffix } from '../../utils/helper'
 import moment from 'moment'
 import { toast } from 'react-toastify'
+import {
+  setPageName,
+  setDynamicName,
+  setDynamicOrder,
+} from '../../redux/userData/action'
 
 const Index = () => {
   const dispatch = useDispatch()
@@ -30,12 +34,20 @@ const Index = () => {
   const [order, setOrder] = useState('')
   console.log(termsheetDetails, 'termsheetDetails')
   // console.log(additionalComments, 'additionalCommentType')
-
+  let sheetData = _get(termsheet, 'data[0]', {})
   useEffect(() => {
     let Id = sessionStorage.getItem('termID')
+    
     dispatch(GetTermsheet(`?termsheetId=${Id}`))
     dispatch(setPageName('termsheet'))
-  }, [dispatch])
+    dispatch(setDynamicName(sheetData?.company?.companyName))
+    dispatch(
+      setDynamicOrder(
+        sheetData?.order?.orderId
+          ? sheetData?.order?.orderId : sheetData?.order?.applicationId
+      ),
+    )
+  }, [dispatch,sheetData])
   let OrdID = sessionStorage.getItem('termOrdID')
   let newLcVal =
     removePrefixOrSuffix(termsheetDetails?.commodityDetails?.quantity) *
@@ -56,7 +68,7 @@ const Index = () => {
               quantity: sheet?.order?.quantity,
               perUnitPrice: sheet?.order?.perUnitPrice ?? '',
               commodity: sheet?.order?.commodity,
-              tolerance: sheet?.order?.tolerance ??'',
+              tolerance: sheet?.order?.tolerance ?? '',
             },
             transactionDetails: {
               // lcValue: sheet?.transactionDetails?.lcValue ? sheet?.transactionDetails?.lcValue : Number(sheet?.order?.quantity * sheet?.order?.perUnitPrice),
@@ -356,7 +368,7 @@ const Index = () => {
     }))
   }
   console.log(termsheetDetails, 'tempSheet')
-  const changePayment = () => {}
+  const changePayment = () => { }
   const handleSave = async () => {
     // console.log(termsheetDetails.commercials.overDueInterestPerMont, "tempSheet2")
     let tempSheet = { ...termsheetDetails }
@@ -602,7 +614,7 @@ const Index = () => {
     }
     if (
       termsheetDetails.transactionDetails.portOfDischarge ==
-        'Select an option' ||
+      'Select an option' ||
       termsheetDetails.transactionDetails.portOfDischarge == '' ||
       termsheetDetails.transactionDetails.portOfDischarge == undefined
     ) {
@@ -753,12 +765,12 @@ const Index = () => {
 
     // console.log(termsheetDetails, 'updatedtermsheet')
     let code = await dispatch(updateTermsheet(UpdatedTermsheet))
-    if(code==200){
-    //  sessionStorage.setItem('marginId', margin?.order?._id )
+    if (code == 200) {
+      //  sessionStorage.setItem('marginId', margin?.order?._id )
       dispatch(settingSidebar('Leads', 'Margin Money', 'Margin Money', '1'))
-    //  router.push(`/margin-money/id`)
+      //  router.push(`/margin-money/id`)
     }
-    
+
   }
 
   const handleChange = (name, value) => {
@@ -858,10 +870,10 @@ const Index = () => {
                       <p className={`${styles.value} accordion_Text`}>
                         {sheet?.order?.cam?.approvedAt
                           ? moment(
-                              sheet?.order?.cam?.approvedAt?.slice(0, 10),
-                              'YYYY-MM-DD',
-                              true,
-                            ).format('DD-MM-YYYY')
+                            sheet?.order?.cam?.approvedAt?.slice(0, 10),
+                            'YYYY-MM-DD',
+                            true,
+                          ).format('DD-MM-YYYY')
                           : ''}
                       </p>
                     </div>

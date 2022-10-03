@@ -27,7 +27,7 @@ const Index = ({
   const dispatch = useDispatch()
   console.log(orderDetails,"orderDetails")
   // console.log(gstList?.data, "THIS IS GST LIST")
-  const [slider, setSlider] = useState(50)
+  const [slider, setSlider] = useState(0)
   const [typeOfSlider, setSliderType] = useState(1)
   const [isSliderOnFocus, setIsSliderOnFocus] = useState(false)
   const [sliderWithCr, setSliderWithCr] = useState('')
