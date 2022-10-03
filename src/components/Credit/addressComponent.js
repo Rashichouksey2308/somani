@@ -3,6 +3,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { ViewDocument } from 'redux/ViewDoc/action'
 import styles from './index.module.scss'
+import { Form, Row, Col } from 'react-bootstrap'
 
 function AddressComponent({
   Title,
@@ -16,8 +17,10 @@ function AddressComponent({
   index,
   editAddress,
   orderDetail,
-  path
+  path,
+  communicationModeYes,
 }) {
+  console.log(communicationModeYes, ' ')
   const dispatch = useDispatch()
 
   return (
@@ -27,26 +30,41 @@ function AddressComponent({
           <div
             className={`${styles.address_values} w-100 d-flex justify-content-between`}
           >
-            <h5>{Title}</h5>
+            <div
+              className={`d-flex justify-content-between align-items-center`}
+            >
+              <Form.Check
+                className={styles.radio}
+                inline
+                name="group1"
+                type={'checkbox'}
+                checked={communicationModeYes == true ? true : false}
+              />
+              <h5 className={`mb-0`}>{Title}</h5>
+            </div>
             <div>
-             {index !==0 && <img
-                className={`${styles.edit_image} img-fluid mr-3`}
-                src="/static/mode_edit.svg"
-                alt="edit"
-                onClick={() => {
-                  console.log('index', index)
-                  editAddress(index)
-                }}
-              />}
-            { index !==0 &&  <img
-                onClick={() => {
-                  // console.log('index', index)
-                  deleteComponent(index)
-                }}
-                src="/static/delete 2.svg"
-                className="img-fluid"
-                alt="delete"
-              />}
+              {index !== 0 && (
+                <img
+                  className={`${styles.edit_image} img-fluid mr-3`}
+                  src="/static/mode_edit.svg"
+                  alt="edit"
+                  onClick={() => {
+                    console.log('index', index)
+                    editAddress(index)
+                  }}
+                />
+              )}
+              {index !== 0 && (
+                <img
+                  onClick={() => {
+                    // console.log('index', index)
+                    deleteComponent(index)
+                  }}
+                  src="/static/delete 2.svg"
+                  className="img-fluid"
+                  alt="delete"
+                />
+              )}
             </div>
           </div>
           <div className={`${styles.address_values}`}>
@@ -71,10 +89,12 @@ function AddressComponent({
               </p>
               <span
                 onClick={() =>
-                  dispatch(ViewDocument({ order: orderDetail?._id, path: path }))
+                  dispatch(
+                    ViewDocument({ order: orderDetail?._id, path: path }),
+                  )
                 }
                 className={styles.view_btn}
-                style={{cursor: 'pointer'}}
+                style={{ cursor: 'pointer' }}
               >
                 View
               </span>

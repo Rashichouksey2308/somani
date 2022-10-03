@@ -1407,6 +1407,7 @@ function Index() {
       // })
 
       // console.log(tempArray, 'groupExposure')
+      
       let obj = {
         productSummary: { ...data },
         supplierCredential: { ...supplierData },

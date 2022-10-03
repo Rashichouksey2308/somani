@@ -4484,7 +4484,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
                   </div>
                 </div>
 
-                <div className={`${styles.score} `}>
+                <div className={`${styles.score}`}>
                   <div className={`${styles.excellent}`}>
                     <span>
                       {filteredCreditRating

@@ -528,8 +528,10 @@ export default function Index({
                     Order Value <strong className="text-danger ml-n1">*</strong>{' '}
                   </div>
                   <span className={styles.value}>
-                    {convertValue(
-                      _get(TransitDetails, 'data[0].order.orderValue', ''),
+                    {_get(
+                      TransitDetails,
+                      'data[0].order.orderValue',
+                      '',
                     ).toLocaleString('en-IN', {
                       maximumFractionDigits: 2,
                     })}{' '}
@@ -708,16 +710,17 @@ export default function Index({
                           }
                           className={`${styles.input_field} ${styles.customSelect}  input form-control`}
                           value={item.vesselName}
-                          disabled={_get(
+                          disabled={
+                            _get(
                               TransitDetails,
                               `data[0].order.termsheet.transactionDetails.shipmentType`,
                               '',
-                            ) === 'Bulk' &&  _get(
+                            ) === 'Bulk' &&
+                            _get(
                               TransitDetails,
                               `data[0].order.termsheet.transactionDetails.partShipmentAllowed`,
                               '',
                             ) === 'No'
-                          
                           }
                         >
                           {shipmentTypeBulk
@@ -919,7 +922,7 @@ export default function Index({
                                       alt="Add"
                                     />
                                   ) : null}
-                                  {item.blNumber.length >= 1 ? (
+                                  {item.blNumber.length > 1 ? (
                                     <img
                                       onClick={() =>
                                         onRemoveBlNumber(index, index2)
