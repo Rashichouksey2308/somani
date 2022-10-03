@@ -70,11 +70,6 @@ function Index() {
 
   const [lcData, setLcData] = useState()
 
-  // useEffect(() => {
-  //   sessionStorage.setItem('lcData', lcData)
-  // }, [lcData, lcModuleData])
-
-  // console.log(lcData, "THIS IS LC USE STATE")
 
   useEffect(() => {
     setLcData({
@@ -273,7 +268,7 @@ function Index() {
   const addToArr = () => {
     // console.log(inputRef, 'THIS IN INPUT REF')
     // inputRef.current.value = '';
-    if (fieldType == 'date') {
+    if (fieldType == 'date' || fieldType == 'select') {
       setFieldType('')
     }
     inputRef1.current.value = '';

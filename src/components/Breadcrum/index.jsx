@@ -32,6 +32,13 @@ export default function Index({ isQuery }) {
   console.log(router.pathname,"router.pathname")
   console.log(isQuery,"isQuery")
   useEffect(() => {
+    if(isQuery == '/letter-table' || router.pathname == '/letter-table'
+     || isQuery == '/vessel-nomination'|| router.pathname == '/vessel-nomination'
+     || isQuery == '/insurance'|| router.pathname == '/insurance'
+     
+    ){
+      removeStorage()
+    }
     if (
       isQuery?.match('/leads') ||
       isQuery?.match('/order-list') ||
@@ -45,6 +52,7 @@ export default function Index({ isQuery }) {
       isQuery == '/margin-preview' ||
       isQuery == '/generic/generic-list' ||
       isQuery == '/track-shipment' ||
+      
       isQuery?.match('/forward-hedging') || 
       router.pathname?.match('/leads') ||
       router.pathname?.match('/order-list') ||
@@ -102,6 +110,7 @@ export default function Index({ isQuery }) {
     } else {
       show.units = true
       show.currency = true
+      
       setShow({ ...show })
     }
   }, [isQuery,router.pathname])

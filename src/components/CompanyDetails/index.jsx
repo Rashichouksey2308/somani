@@ -125,7 +125,7 @@ const Index = ({
                   Quantity :
                 </h5>
                 <select
-                  className={`${styles.options} accordion_DropDown input`}
+                  className={`${styles.options} card_main accordion_DropDown input`}
                   name="unitOfQuantity"
                   onChange={(e) => saveOrderData(e.target.name, e.target.value)}
                 >
@@ -144,7 +144,7 @@ const Index = ({
                   Unit :
                 </h5>
                 <select
-                  className={`${styles.options} accordion_DropDown input`}
+                  className={`${styles.options} card_main accordion_DropDown input`}
                   name="unitOfValue"
                   onChange={(e) => {
                     saveOrderData(e.target.name, e.target.value)

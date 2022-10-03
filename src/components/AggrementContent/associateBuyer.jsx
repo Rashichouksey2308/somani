@@ -771,7 +771,7 @@ console.log(associateData.gstin,"associateData")
           </div>
           <div
             id="customerDetail"
-            className={`collapse ${styles.body}  value_card card-body row`}
+            className={`collapse ${styles.body} show  value_card card-body row`}
             aria-labelledby="customerDetail"
         
           >
