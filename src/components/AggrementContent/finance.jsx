@@ -112,7 +112,7 @@ const[financeData,setFinanceData]=useState(finance)
                   }}
                 >
                   <option>Select an option</option>
-                  <option value="Karol Bagh">Karol Bagh</option>
+                  <option value="Amsterdam">Amsterdam</option>
                 
                 </select>
                 <Form.Label

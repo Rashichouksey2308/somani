@@ -359,11 +359,11 @@ function Index() {
         <div className={`${styles.container_inner} vessel_card`}>
           <div className={`${styles.head_header}`}>
             <img
-              className={`${styles.arrow} image_arrow mr-2 img-fluid`}
+              className={`${styles.back_arrow} image_arrow mr-2 img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
               onClick={() => Router.push('/lc-module')}
-
+              style={{cursor:'pointer'}}
             />
             <h1 className={`${styles.heading}`}>Letter of Credit </h1>
           </div>

@@ -273,7 +273,7 @@ function Index({ TransitDetails }) {
             <span>DATE:</span>{' '}
             {moment(
               loi.loiIssueDate.toJSON().slice(0, 10).replace(/-/g, '/'),
-            ).format('DD/MM/YYYY')}
+            ).format('DD-MM-YYYY')}
           </div>
         </div>
         <div className={`${styles.salutations}`}>
