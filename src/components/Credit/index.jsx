@@ -88,8 +88,10 @@ const index = ({
       number: null,
     },
     pinCode: null,
+    communicationModeYes:"",
+    communicationModeNo:""
   })
-
+console.log(keyAddressData,"keyAddressData")
   console.log(personData, 'personData')
   useEffect(() => {
     const newInput = { ...keyAddressData }
@@ -362,6 +364,8 @@ const removeDoc= ()=>{
       number: null,
     },
     pinCode: null,
+    communicationModeYes:"",
+    communicationModeNo:""
   })
     }
   }
@@ -398,6 +402,8 @@ const removeDoc= ()=>{
       number: '',
     },
     pinCode: '',
+    communicationModeYes:"",
+    communicationModeNo:""
   })
   const editAddress = (index) => {
     setShowAddress(false)
@@ -418,6 +424,9 @@ const removeDoc= ()=>{
         number: tempArr[index].contact.number,
       },
       pinCode: tempArr[index].pinCode,
+      communicationModeYes: tempArr[index].communicationModeYes,
+      communicationModeNo: tempArr[index].communicationModeNo,
+     
     })
   }
   const changeData = (name, value) => {
@@ -1352,7 +1361,17 @@ const removeDoc= ()=>{
                         </td>
                         <td>
                           <div className="d-flex">
-                            <select
+                             <input
+                                  className="input"
+                                 
+                                  placeholder={"Designation"}
+                                  value={person.designation}
+                                  name="designation"
+                                  onChange={(e) => handlePersonChange(e, index)}
+                                  type="text"
+                                  readOnly={!person.isEdit}
+                                />
+                            {/* <select
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               value={person.designation}
                               name="designation"
@@ -1368,7 +1387,7 @@ const removeDoc= ()=>{
                               className={`${styles.arrow} ml-n4 img-fluid`}
                               src="/static/inputDropDown.svg"
                               alt="Search"
-                            />
+                            /> */}
                           </div>
                           {/* <input
                             className="input"
@@ -1381,7 +1400,17 @@ const removeDoc= ()=>{
                         </td>
                         <td width="25%">
                           <div className="d-flex">
-                            <select
+                              <input
+                                  className="input"
+                                 
+                                  placeholder={"Department"}
+                                   value={person.department}
+                                   name="department"
+                                  onChange={(e) => handlePersonChange(e, index)}
+                                  type="text"
+                                  readOnly={!person.isEdit}
+                                />
+                            {/* <select
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               value={person.department}
                               name="department"
@@ -1396,13 +1425,14 @@ const removeDoc= ()=>{
                               className={`${styles.arrow} ml-n4 img-fluid`}
                               src="/static/inputDropDown.svg"
                               alt="Search"
-                            />
+                            /> */}
                           </div>
                         </td>
                         <td>
                           <input
                             className="input"
                             defaultValue={person.contact.number}
+                             placeholder={"Contact number"}
                             name="contact.number"
                             style={{maxWidth:'170px'}}
                             onChange={(e) => {
@@ -1430,6 +1460,7 @@ const removeDoc= ()=>{
                           <input
                             className="input"
                             defaultValue={person.email}
+                             placeholder={"Email"}
                             name="email"
                             onChange={(e) => handlePersonChange(e, index)}
                             type="text"
@@ -1559,6 +1590,10 @@ const removeDoc= ()=>{
                             label="Yes"
                             name="group1"
                             type={type}
+                            checked={keyAddressData.communicationModeYes=="Yes"}
+                            onChange={(e) => {
+                            handleChange("communicationModeYes", "Yes")
+                          }}
                             id={`inline-${type}-1`}
                           />
                           <Form.Check
@@ -1567,6 +1602,10 @@ const removeDoc= ()=>{
                             label="No"
                             name="group1"
                             type={type}
+                            checked={keyAddressData.communicationModeNo=="No"}
+                             onChange={(e) => {
+                            handleChange("communicationModeNo", "No")
+                          }}
                             id={`inline-${type}-2`}
                           />
                         </div>
@@ -1882,6 +1921,10 @@ const removeDoc= ()=>{
                             label="Yes"
                             name="group1"
                             type={type}
+                            checked={editData.communicationModeYes=="Yes"}
+                            onChange={(e) => {
+                            changeData("communicationModeYes", "Yes")
+                          }}
                             id={`inline-${type}-1`}
                           />
                           <Form.Check
@@ -1891,6 +1934,10 @@ const removeDoc= ()=>{
                             name="group1"
                             type={type}
                             id={`inline-${type}-2`}
+                            checked={editData.communicationModeNo=="No"}
+                            onChange={(e) => {
+                            changeData("communicationModeNo", "No")
+                          }}
                           />
                         </div>
                       ))}
@@ -2121,84 +2168,8 @@ const removeDoc= ()=>{
                     </div>
                   </div>
                 </div>
-                <div className={`${styles.form_group} col-md-8 col-sm-6`}>
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    type="text"
-                    required
-                    name="completeAddress"
-                    defaultValue={editData.completeAddress}
-                    onChange={(e) => {
-                      changeData(e.target.name, e.target.value)
-                    }}
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    Address<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    type="text"
-                    name="branch"
-                    required
-                    defaultValue={editData.branch}
-                    onChange={(e) => {
-                      changeData(e.target.name, e.target.value)
-                    }}
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    Branch<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-                <div className={`${styles.form_group} col-md-4 col-sm-6`}>
-                  <input
-                    className={`${styles.input_field} input form-control`}
-                    required
-                    type="text"
-                    name="GSTIN"
-                    defaultValue={editData.GSTIN}
-                    onChange={(e) => {
-                      changeData(e.target.name, e.target.value)
-                    }}
-                  />
-                  <label className={`${styles.label_heading} label_heading`}>
-                    GSTIN<strong className="text-danger">*</strong>
-                  </label>
-                </div>
-                <div
-                  className={`${styles.btn_outer} d-flex flex-nowrap justify-center-center align-items-center col-md-4`}
-                >
-                  <div className={`${styles.btn_container}`}>
-                    <button className={`${styles.gst_btn} d-flex align-items-center text-nowrap`}>
-                      {' '}
-                      <input
-                        type="file"
-                        name={keyAddressData.GSTIN}
-                        // name="myfile"
-                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                        onChange={(e) => {
-                          uploadDocument(e)
-                        }}
-                      />
-                      <img
-                        className="img-fluid mr-2 mb-1"
-                        src="/static/file_upload.svg"
-                        alt="file upload"
-                      />
-                      GST Doc
-                    </button>
-                  </div>
-                  <button
-                    className={`${styles.add_btn}`}
-                    onClick={() => {
-                      updateKeyAddDataArr(editData, Index)
-                      setShowEditAddress(false)
-                    }}
-                  >
-                    Update
-                  </button>
-                </div>
+              
+               
               </div>
             ) : null}
             <div

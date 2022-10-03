@@ -292,20 +292,19 @@ export const GetTermsheet = (payload) => async (dispatch, getState, api) => {
 
     let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
     var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
-    Axios.get(
+    let response = await Axios.get(
       `${API.corebaseUrl}${API.gettermsheet}${payload ? payload : ''}`,
       { headers: headers },
-    ).then((response) => {
-      if (response.data.code === 200) {
-        dispatch(gettermsheetsuccess(response.data.data))
-      } else {
-        dispatch(gettermsheetfailed(response.data.data))
-        let toastMessage = 'Could not fetch Termsheet'
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        }
+    )
+    if (response.data.code === 200) {
+      dispatch(gettermsheetsuccess(response.data.data))
+    } else {
+      dispatch(gettermsheetfailed(response.data.data))
+      let toastMessage = 'Could not fetch Termsheet'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
-    })
+    }
   } catch (error) {
     dispatch(gettermsheetfailed())
 
