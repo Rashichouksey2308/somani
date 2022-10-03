@@ -8129,14 +8129,15 @@ function Index() {
 
   const handleGSTDownload = (value) => {
     // console.log(gstData?.detail?.other?.pdfLink, 'efgilegleghlui')
+    
     let path = ''
     if (value === 'pdf') {
-      path = gstData.detail.other.savedLinks.pdfPath
+      path = gstData?.detail?.other?.savedLinks?.pdfPath
     }
     if (value === 'excel') {
-      path = gstData.detail.other.savedLinks.excelPath
+      path = gstData?.detail?.other?.savedLinks?.excelPath
     }
-    if (path === '') {
+    if (path === ''|| !path ) {
       let toastMessage = 'GST report not Available'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })

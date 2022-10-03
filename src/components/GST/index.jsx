@@ -28,13 +28,13 @@ ChartJS.register(
   LineElement,
   PointElement,
   LinearScale,
- 
+
   CategoryScale,
   Filler,
   BarController,
   BarElement,
   Tooltip,
- 
+
 )
 import { CovertvaluefromtoCR, convertValue, checkNan } from '../../utils/helper'
 import _get from 'lodash/get'
@@ -391,9 +391,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       ),
       datasets: [
         {
-          label:covertMonths(
-        gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months,
-      ),
+          label: covertMonths(
+            gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months,
+          ),
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.revenueSummary?.totalSales,
           ),
@@ -403,9 +403,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           borderColor: '#2979F2',
         },
         {
-          label:covertMonths(
-        gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months,
-      ),
+          label: covertMonths(
+            gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months,
+          ),
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.revenueSummary
               ?.thirdPartySales,
@@ -416,9 +416,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           borderColor: '#FA5F1C',
         },
         {
-          label:covertMonths(
-        gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months,
-      ),
+          label: covertMonths(
+            gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months,
+          ),
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.revenueSummary
               ?.relatedPartySales,
@@ -429,9 +429,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           borderColor: '#FFD950',
         },
         {
-          label:covertMonths(
-        gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months,
-      ),
+          label: covertMonths(
+            gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months,
+          ),
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.revenueSummary
               ?.intraOrgSales,
@@ -454,8 +454,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       datasets: [
         {
           label: covertMonths(
-        gstFilteredData?.detail?.summaryCharts?.netPurchaseVsSale?.month,
-      ),
+            gstFilteredData?.detail?.summaryCharts?.netPurchaseVsSale?.month,
+          ),
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.netPurchaseVsSale?.sale,
           ),
@@ -470,8 +470,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         },
         {
           label: covertMonths(
-        gstFilteredData?.detail?.summaryCharts?.netPurchaseVsSale?.month,
-      ),
+            gstFilteredData?.detail?.summaryCharts?.netPurchaseVsSale?.month,
+          ),
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.netPurchaseVsSale
               ?.purchase,
@@ -499,8 +499,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       datasets: [
         {
           label: covertMonths(
-        gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.months,
-      ),
+            gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.months,
+          ),
           data:
             gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.customers,
 
@@ -515,8 +515,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         },
         {
           label: covertMonths(
-        gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.months,
-      ),
+            gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.months,
+          ),
           data: gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends
             ?.invoices,
           fill: true,
@@ -569,9 +569,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       ),
       datasets: [
         {
-          label:covertMonths(
-        gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months,
-      ),
+          label: covertMonths(
+            gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months,
+          ),
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.revenueSummary?.totalSales,
           ),
@@ -581,9 +581,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           borderColor: '#2979F2',
         },
         {
-          label:covertMonths(
-        gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months,
-      ),
+          label: covertMonths(
+            gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months,
+          ),
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.revenueSummary
               ?.thirdPartySales,
@@ -594,9 +594,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           borderColor: '#FA5F1C',
         },
         {
-          label:covertMonths(
-        gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months,
-      ),
+          label: covertMonths(
+            gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months,
+          ),
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.revenueSummary
               ?.relatedPartySales,
@@ -607,9 +607,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           borderColor: '#FFD950',
         },
         {
-          label:covertMonths(
-        gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months,
-      ),
+          label: covertMonths(
+            gstFilteredData?.detail?.summaryCharts?.revenueSummary?.months,
+          ),
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.revenueSummary
               ?.intraOrgSales,
@@ -632,8 +632,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       datasets: [
         {
           label: covertMonths(
-        gstFilteredData?.detail?.summaryCharts?.netPurchaseVsSale?.month,
-      ),
+            gstFilteredData?.detail?.summaryCharts?.netPurchaseVsSale?.month,
+          ),
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.netPurchaseVsSale?.sale,
           ),
@@ -647,9 +647,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           borderColor: 'rgb(71, 145, 255)',
         },
         {
-          label:covertMonths(
-        gstFilteredData?.detail?.summaryCharts?.netPurchaseVsSale?.month,
-      ),
+          label: covertMonths(
+            gstFilteredData?.detail?.summaryCharts?.netPurchaseVsSale?.month,
+          ),
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.netPurchaseVsSale
               ?.purchase,
@@ -677,8 +677,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       datasets: [
         {
           label: covertMonths(
-        gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.months,
-      ),
+            gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.months,
+          ),
           data:
             gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.customers,
 
@@ -692,9 +692,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           borderColor: 'rgb(41, 121, 242,1)',
         },
         {
-          label:covertMonths(
-        gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.months,
-      ),
+          label: covertMonths(
+            gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.months,
+          ),
           data: gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends
             ?.invoices,
           fill: true,
@@ -863,8 +863,8 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       intersect: false,
     },
     plugins: {
-     
-       legend: {
+
+      legend: {
         display: false
       }
     },
@@ -894,7 +894,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       intersect: false,
     },
     plugins: {
-      
+
       legend: {
         display: false
       }
@@ -955,13 +955,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
   // const getArray=(value)=>{
   //   let tempArr=[]
   //   // value.forEach((val,index)=>{
-    
+
   //   // })
   //   for(let i=0;i<value.length;i++){
   //     let toCheck 
   //     const result = value[i].trim().split(/\s+/)
   //     for(let j=0;j<result.length;j++){
-       
+
   //     if(j<result.length){
   //         toCheck = result[i]+" "+ result[i+1]
   //         if(toCheck.length>8){
@@ -989,7 +989,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
   //   //   }
   //   // }
   //   return tempArr
-    
+
   // }
   useEffect(() => {
     if (gstFilteredData?.detail?.summaryCharts?.top10Suppliers?.names.length > 0) {
@@ -1038,14 +1038,14 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           borderColor: '#ff000000',
           tickColor: '#ff000000',
         },
-      ticks: {
-            callback: function(t) {
-              console.log(t,"asasdasdasd")
-              let a=gstFilteredData?.detail?.summaryCharts?.top10Suppliers?.names[t]
-              var maxLabelLength = 8;
-              if (a.length > maxLabelLength) return a.substr(0, maxLabelLength) + '...';
-              else return t;
-            }
+        ticks: {
+          callback: function (t) {
+            console.log(t, "asasdasdasd")
+            let a = gstFilteredData?.detail?.summaryCharts?.top10Suppliers?.names[t]
+            var maxLabelLength = 8;
+            if (a.length > maxLabelLength) return a.substr(0, maxLabelLength) + '...';
+            else return t;
+          }
         }
       },
       y: {
@@ -1056,13 +1056,13 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       },
     },
     plugins: {
-      
+
       legend: {
         display: false
       }
     }
   }
-   const barOptions3 = {
+  const barOptions3 = {
     maintainAspectRatio: false,
     scales: {
       x: {
@@ -1071,14 +1071,14 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           borderColor: '#ff000000',
           tickColor: '#ff000000',
         },
-      ticks: {
-            callback: function(t) {
-              console.log(t,"asasdasdasd")
-              let a=gstFilteredData?.detail?.summaryCharts?.top10Cus?.names[t]
-              var maxLabelLength = 8;
-              if (a.length > maxLabelLength) return a.substr(0, maxLabelLength) + '...';
-              else return t;
-            }
+        ticks: {
+          callback: function (t) {
+            console.log(t, "asasdasdasd")
+            let a = gstFilteredData?.detail?.summaryCharts?.top10Cus?.names[t]
+            var maxLabelLength = 8;
+            if (a.length > maxLabelLength) return a.substr(0, maxLabelLength) + '...';
+            else return t;
+          }
         }
       },
       y: {
@@ -1089,7 +1089,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       },
     },
     plugins: {
-      
+
       legend: {
         display: false
       }
@@ -1114,7 +1114,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       },
     },
     plugins: {
-      
+
       legend: {
         display: false
       }
@@ -1189,7 +1189,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
   )
 
   const getCompliencePeriod = (period, chart) => {
-    console.log(period,"period",chart)
+    console.log(period, "period", chart)
     let item = (period ? period : '')?.split('-')
     let text = `${item[0]?.slice(2, 6)}-${item[1]?.slice(2, 6)}`
 
@@ -1409,7 +1409,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                                 <div
                                   className={styles.dot}
                                   style={{ backgroundColor: '#e31e10' }}
-                                  // style={{ backgroundColor: '#28BE39' }}
+                                // style={{ backgroundColor: '#28BE39' }}
                                 ></div>
                                 <span>
                                   {alertObj[alert.alert] ?? alert.alert}
@@ -5232,7 +5232,7 @@ const gstPurchase = (
                             (sales, index) => (
                               <td key={index}>
                                 {sales?.total?.toLocaleString('en-In', {
-                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 0,
                                 })}
                               </td>
                             ),
@@ -5244,7 +5244,8 @@ const gstPurchase = (
                             (sales, index) => (
                               <td key={index}>
                                 {sales?.b2b?.toLocaleString('en-In', {
-                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 0,
+
                                 })}
                               </td>
                             ),
@@ -5257,7 +5258,8 @@ const gstPurchase = (
                             (sales, index) => (
                               <td key={index}>
                                 {sales?.others?.toLocaleString('en-In', {
-                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 0,
+
                                 })}
                               </td>
                             ),
