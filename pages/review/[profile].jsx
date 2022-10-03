@@ -133,7 +133,7 @@ const Index = () => {
         <div className={styles.wrapper}>
           <div className={`${styles.head} align-items-center`}>
             <img
-              onClick={() => Router.push('/leads')}
+              onClick={() => Router.push('/review-queue')}
               className={`${styles.arrow} img-fluid mr-2 image_arrow`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow"
