@@ -287,12 +287,14 @@ body.dark-mode .input {
   color: #ffffff;
   background: #1d2530;
   border: 1px solid #434e61;
+  -webkit-text-fill-color: #ffffff;
 }
 
 body.light-mode .input {
   color: #111111;
   background: #c3c3c31f;
   border: 1px solid #0000001f;
+  -webkit-text-fill-color: #111111;
 }
 
 body.dark-mode .input:-webkit-autofill,
@@ -625,10 +627,10 @@ body.light-mode .table_row:first-child {
 body.dark-mode .table_row {
   color: #ffffff80;
   background: #232936;
-  border-bottom: 2px solid #434e61 !important;
+  border-bottom: 2px solid #434e61;
 }
 body.dark-mode .table_row:first-child {
-  border-top: 2px solid #434e61 !important;
+  border-top: 2px solid #434e61;
 }
 body.light-mode .uploadRowTable {
   background: #ffffff;

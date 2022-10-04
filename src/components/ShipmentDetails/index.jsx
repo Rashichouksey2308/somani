@@ -33,7 +33,7 @@ const index = ({ orderDetail, saveShipmentData,shipment }) => {
   console.log(dateStartFrom.laycan, 'dateStartFrom')
   console.log(orderDetail?.shipmentDetail, 'ravindra')
   return (
-    <div className={`${styles.main} vessel_card border-color card`}>
+    <div className={`${styles.main} card vessel_card border_color border-bottom`}>
       <div
         className={`${styles.head_container} d-flex border_color align-items-center head_container card-header justify-content-between bg-transparent`}
         data-toggle="collapse"

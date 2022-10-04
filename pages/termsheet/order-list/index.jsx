@@ -27,7 +27,7 @@ function Index() {
 
   useEffect(() => {
     let Id = sessionStorage.getItem('termsheetId')
-    dispatch(GetTermsheet(`?company=${Id}`))
+    dispatch(GetTermsheet(`?company=${Id}&page=${currentPage}&limit=${7}`))
   }, [dispatch])
 
   useEffect(() => {
@@ -52,7 +52,6 @@ function Index() {
       "All Termsheet Order"
     )))
   }, [dispatch, singleOrder, termsheet])
-  console.log(termsheet, "termsheet")
 
   const handleRoute =async (term, index) => {
     console.log("here", term)
@@ -60,29 +59,29 @@ function Index() {
     //dispatch(GetBuyer({ companyId: term.company._id, orderId: buyer._id }))
   await   dispatch(GetTermsheet(`?termsheetId=${term._id}`))
     sessionStorage.setItem('termID', term._id)
-    console.log(term, 'term.buyerName')
-    // dispatch(setDynamicName(term.company.companyName))
-    // dispatch(
-    //   setDynamicOrder(
-    //     term?.order?.orderId
-    //       ? term?.order?.orderId : term?.order?.applicationId
-    //   ),
-    // )
+    
     sessionStorage.setItem('termOrdID', term?.order._id)
-
-// const query = { id: 'foo'}
-// const url = { pathname: '/termsheet/[id]', query };
-// const urlAs = { pathname: '/termsheet/1234', query }
-
-// router.push(url, urlAs);
 
     Router.push({
       pathname :'/termsheet/[id]',
       query :  {id: 'id'}
   })
-    // Router.push(url, urlAs)
+ }
 
+ const [sorting, setSorting] = useState(1)
+
+  const handleSort = () => {
+    let Id = sessionStorage.getItem('termsheetId')
+    if(sorting == -1){
+      dispatch(GetTermsheet(`?page=${currentPage}&company=${Id}&limit=${7}&createdAt=${sorting}`))
+    setSorting(1)
+    }else if(sorting == 1){
+      
+      dispatch(GetTermsheet(`?page=${currentPage}&company=${Id}&limit=${7}&createdAt=${sorting}`))
+      setSorting(-1)
+    }
   }
+
 
   return (
     <>
@@ -255,6 +254,7 @@ function Index() {
                         <img
                           className={`mb-1`}
                           src="/static/icons8-sort-24.svg"
+                          onClick={()=>handleSort()}
                         />
                       </th>
                       <th>COMMODITY</th>
