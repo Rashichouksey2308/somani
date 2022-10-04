@@ -109,15 +109,7 @@ function Index({ directorData }) {
                         <label className={`accordion_Text`}>DSC Status</label>
                       </div>
                       <div className={`${styles.downArrow} `}>
-                        <img
-                          src={`${
-                            darkMode
-                              ? `/static/white-arrow.svg`
-                              : `/static/arrow-right.svg`
-                          }`}
-                          alt="arrow right"
-                          className="img-fluid image_arrow"
-                        />
+                        <img src="/static/arrow-right.svg" alt="arrow right" className="img-fluid image_arrow"/>
                       </div>
                     </div>
                   </div>
@@ -461,15 +453,7 @@ function Index({ directorData }) {
                             </div>
 
                             <div className={`${styles.downArrow} `}>
-                              <img
-                                src={`${
-                                  darkMode
-                                    ? `/static/white-arrow.svg`
-                                    : `/static/arrow-right.svg`
-                                }`}
-                                alt="arrow right"
-                                className="img-fluid image_arrow"
-                              />
+                              <img src="/static/arrow-right.svg" alt="arrow right" className="img-fluid image_arrow"/>
                             </div>
                           </div>
                         </div>

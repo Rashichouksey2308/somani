@@ -8689,7 +8689,7 @@ function Index() {
                   </h5>
                   <div className="d-flex align-items-center position-relative">
                     <select
-                      className={`${styles.select} ${styles.customSelect} accordion_body form-select`}
+                      className={`${styles.select} ${styles.customSelect} border_color accordion_body form-select`}
                       aria-label="Default select example"
                     >
                       <option selected value="Crores">

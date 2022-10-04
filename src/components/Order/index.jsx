@@ -29,31 +29,37 @@ const Index = ({ orderDetail, saveOrderData }) => {
             <h5 className={`${styles.unit_label} accordion_Text`}>
               Quantity :
             </h5>
-            <select
-              className={`${styles.options} accordion_DropDown`}
-              name="unitOfQuantity"
-              onChange={(e) => {
-                saveOrderData(e.target.name, e.target.value)
-              }}
-            >
-              <option>{orderDetail?.unitOfQuantity?.toUpperCase()}</option>
-              {/* <option selected>MT</option> */}
-            </select>
+            <div className="d-flex align-items-center position-relative">
+              <select
+                className={`${styles.options} ${styles.customSelect} accordion_DropDown`}
+                name="unitOfQuantity"
+                onChange={(e) => {
+                  saveOrderData(e.target.name, e.target.value)
+                }}
+              >
+                <option>{orderDetail?.unitOfQuantity?.toUpperCase()}</option>
+                {/* <option selected>MT</option> */}
+              </select>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+            </div>
           </div>
 
           <div className={`${styles.unit_container} d-flex align-items-center`}>
             <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
-            <select
-              className={`${styles.options} accordion_DropDown `}
-              name="unitOfValue"
-              onChange={(e) => saveOrderData(e.target.name, e.target.value)}
-            >
-              <option value="Crores">Crores</option>
+            <div className="d-flex align-items-center position-relative">
+              <select
+                className={`${styles.options} ${styles.customSelect} accordion_DropDown `}
+                name="unitOfValue"
+                onChange={(e) => saveOrderData(e.target.name, e.target.value)}
+              >
+                <option value="Crores">Crores</option>
 
-              {/* <option selected>Crores</option> */}
-              <option value="Million">Million</option>
-              <option value="Lakh">Lakh</option>
-            </select>
+                {/* <option selected>Crores</option> */}
+                <option value="Million">Million</option>
+                <option value="Lakh">Lakh</option>
+              </select>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+            </div>
             <span
               data-toggle="collapse"
               data-target="#orderSummary"
