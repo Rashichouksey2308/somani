@@ -50,13 +50,16 @@ function Index({ cashData, rtrnChartIndiaction }) {
           <h2 className="mb-0">Cash Flow Statement</h2>
           <div className={`${styles.unit_container} d-flex align-items-center`}>
             <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
-            <select
-              className={`${styles.options} accordion_DropDown`}
-              onChange={(e) => setUnit(e.target.value)}
-            >
-              <option value={10000000}>Crores</option>
-              <option value={100000}>Lakhs</option>
-            </select>
+            <div className="d-flex align-items-center position-relative">
+              <select
+                className={`${styles.options} ${styles.customSelect} accordion_DropDown`}
+                onChange={(e) => setUnit(e.target.value)}
+              >
+                <option value={10000000}>Crores</option>
+                <option value={100000}>Lakhs</option>
+              </select>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+            </div>
             <span
               data-toggle="collapse"
               data-target="#cashFlowStatement"

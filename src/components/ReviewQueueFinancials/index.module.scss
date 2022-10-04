@@ -390,21 +390,34 @@
         }
     }
     .options {
-        font-size:18px;
-        margin-right: 10px;
-        border-radius: 14px;
-        border: none;
+        font-size: 18px;
+        color: #3687E8;
         line-height: 23px;
-        height: 27px;
         font-weight: bold;
-        padding: 0 13px 0 15px;
-        margin-right: 30px;
+        border: none;
+        height: 27px;
         outline: none;
-        min-width: 102px;
+        border-radius: 14px;
+        padding: 0 20px 0 15px;
+        width: 102px;
         margin-right: 50px;
         @include respond(phone) {
             font-size: 12px;
             margin-right: 20px;
         }
     }
+}
+img {
+    &.arrow2 {
+      width: 13px !important;
+      pointer-events: none;
+      position: absolute;
+      right: 60px;
+      filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg)
+        brightness(103%) contrast(82%);
+    }
+}
+.customSelect {
+  appearance: none;
+  // position: relative;
 }
