@@ -1484,6 +1484,14 @@ img {
     }
   }
 }
+img {
+  &.arrow3 {
+    width: 13px !important;
+    right: 85px;
+    position: absolute;
+    pointer-events: none;
+  }
+}
 .customSelect {
   appearance: none;
   // position: relative;
