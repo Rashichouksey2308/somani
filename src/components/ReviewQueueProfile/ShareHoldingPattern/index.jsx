@@ -172,7 +172,7 @@ function Index({ shareHolding }) {
           <div
             className={`${styles.graphTable} ${styles.cardBody} card-body border_color`}
           >
-            <h3 className="label_heading">Equity Capital</h3>
+            <h3 className="label_heading text-color">Equity Capital</h3>
             <div className={`${styles.tableParent}`}>
               <div className={`${styles.table_scroll_outer}`}>
                 <div className={styles.table_scroll_inner}>
@@ -283,7 +283,7 @@ function Index({ shareHolding }) {
               </div>
             </div>
 
-            <h3 className="label_heading mt-4 pt-1">Preference Capital</h3>
+            <h3 className="label_heading mt-4 pt-1 text-color">Preference Capital</h3>
             <div className={styles.tableParent}>
               <div className={styles.table_scroll_outer}>
                 <div className={styles.table_scroll_inner}>

@@ -35,7 +35,7 @@ function index({ data, Heading, val, totalData }) {
   //const pendingCases = data.filter((e)=> e.)
   console.log(totalData, 'totalNumberOfCases')
   return (
-    <div className={`${styles.card_litigations} card shadow-none`}>
+    <div className={`${styles.card_litigations} card border_color shadow-none`}>
       <div className={`${styles.card_ligitations_holder}`}>
         <div
           className={`${styles.cardHeader_litigations} card-header d-flex border-bottom-0 align-items-center justify-content-between`}
