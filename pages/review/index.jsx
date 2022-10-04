@@ -9133,22 +9133,29 @@ function Index() {
                         className={`${styles.categories} mb-0 d-flex align-items-center`}
                       >
                         <label className={styles.label}>Categories:</label>
-                        <select
-                          onChange={(e) => setComplienceFilter(e.target.value)}
-                          className={`${styles.form_control} input form-control`}
-                        >
-                          <option>Select an option</option>
+                        <div className="d-flex align-items-center position-relative">
+                          <select
+                            onChange={(e) => setComplienceFilter(e.target.value)}
+                            className={`${styles.form_control} ${styles.customSelect} input form-control`}
+                          >
+                            <option>Select an option</option>
 
-                          <option selected value="All">
-                            All
-                          </option>
-                          <option value="StatutoryCompliance">
-                            Statutory Compliance
-                          </option>
-                          <option value="BankingDefaults">
-                            Banking Defaults
-                          </option>
-                        </select>
+                            <option selected value="All">
+                              All
+                            </option>
+                            <option value="StatutoryCompliance">
+                              Statutory Compliance
+                            </option>
+                            <option value="BankingDefaults">
+                              Banking Defaults
+                            </option>
+                          </select>
+                          <img
+                            className={`${styles.arrow3} image_arrow img-fluid`}
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
+                        </div>
                         <span
                           data-toggle="collapse"
                           data-target="#details"
@@ -9195,30 +9202,36 @@ function Index() {
                           <label className={styles.label}>
                             Litigations Status:
                           </label>
-                          <select
-                            onChange={updateLitigationStatus}
-                            className={`${styles.form_control} input form-control`}
-                          >
-                            {orderList?.company?.litigationStatus !==
-                              'Pending' ? (
-                              <>
-                                <option selected value="All">
-                                  All
-                                </option>
-                                <option value="Pending">Pending</option>
-                                <option value="Disposed">Disposed</option>
-                              </>
-                            ) : (
-                              <>
-                                <option selected value="All">
-                                  All
-                                </option>
-                                <option value="Disposed">Disposed</option>
-                                <option value="Pending">Pending</option>
-                              </>
-                            )}
-                          </select>
-
+                          <div className="d-flex align-items-center position-relative">
+                            <select
+                              onChange={updateLitigationStatus}
+                              className={`${styles.form_control} ${styles.customSelect} input form-control`}
+                            >
+                              {orderList?.company?.litigationStatus !==
+                                'Pending' ? (
+                                <>
+                                  <option selected value="All">
+                                    All
+                                  </option>
+                                  <option value="Pending">Pending</option>
+                                  <option value="Disposed">Disposed</option>
+                                </>
+                              ) : (
+                                <>
+                                  <option selected value="All">
+                                    All
+                                  </option>
+                                  <option value="Disposed">Disposed</option>
+                                  <option value="Pending">Pending</option>
+                                </>
+                              )}
+                            </select>
+                            <img
+                              className={`${styles.arrow3} image_arrow img-fluid`}
+                              src="/static/inputDropDown.svg"
+                              alt="Search"
+                            />
+                          </div>
                           <span
                             data-toggle="collapse"
                             data-target="#litigations"
