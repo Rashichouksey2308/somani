@@ -73,7 +73,7 @@ function Index() {
   dispatch(setDynamicOrder(_get(insuranceData, 'order.orderId', 'Order Id')))
 
   const exportPDF = () => {
-    const doc = new jsPDF('p', 'pt', [1500, 1830])
+    const doc = new jsPDF('p', 'pt', [1500, 1850])
     doc.html(
       ReactDOMServer.renderToString(
         <table width="1500px" cellPadding="0" cellSpacing="0" border="0">

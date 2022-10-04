@@ -1204,7 +1204,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
   console.log(getCompliencePeriod(gstFilteredData?.detail?.complianceDetail?.financialPeriod), 'jdhgvdfghkzjdshfiugdsfjh')
   return (
     <>
-      <div className={`${styles.wrapper} card`}>
+      <div className={`${styles.wrapper} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -1861,7 +1861,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         </Modal.Body>
       </Modal>
 
-      <div className={`${styles.wrapper} card`}>
+      <div className={`${styles.wrapper} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           style={{ cursor: 'default' }}
@@ -2064,7 +2064,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         </div>
       </div>
 
-      <div className={`${styles.wrapper} card`}>
+      <div className={`${styles.wrapper} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           style={{ cursor: 'default' }}
@@ -3090,7 +3090,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         </div>{' '}
       </div>
 
-      <div className={`${styles.wrapper} card`}>
+      <div className={`${styles.wrapper} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           style={{ cursor: 'default' }}
@@ -3741,7 +3741,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         </div>{' '}
       </div>
 
-      <div className={`${styles.wrapper} card`}>
+      <div className={`${styles.wrapper} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           style={{ cursor: 'default' }}
@@ -3888,7 +3888,7 @@ const gstCustomerDetail = (
 ) => {
   return (
     <>
-      <div className={`${styles.wrapper} card  `}>
+      <div className={`${styles.wrapper} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           style={{ cursor: 'default' }}
@@ -4232,7 +4232,7 @@ const gstSupplierDetail = (
 ) => {
   return (
     <>
-      <div className={`${styles.wrapper} card`}>
+      <div className={`${styles.wrapper} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           style={{ cursor: 'default' }}
@@ -4569,7 +4569,7 @@ const gstSupplierDetail = (
 const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales, getCompliencePeriod) => {
   return (
     <>
-      <div className={`${styles.wrapper} card`}>
+      <div className={`${styles.wrapper} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           style={{ cursor: 'default' }}
@@ -4928,7 +4928,7 @@ const gstPurchase = (
 ) => {
   return (
     <>
-      <div className={`${styles.wrapper} ${styles.lastComponent} card`}>
+      <div className={`${styles.wrapper} ${styles.lastComponent} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           style={{ cursor: 'default' }}

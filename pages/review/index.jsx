@@ -8839,7 +8839,7 @@ function Index() {
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Compliance" role="tabpanel">
-                  <div className={`${styles.card} card`}>
+                  <div className={`${styles.card} card border_color border-bottom`}>
                     <div
                       className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
                     // style={{ cursor: 'pointer' }}
@@ -9049,7 +9049,7 @@ function Index() {
                     </div>
                   </div>
                   {/* details */}
-                  <div className={`${styles.card} card`}>
+                  <div className={`${styles.card} card border_color border-bottom`}>
                     <div
                       className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
                       style={{ cursor: 'default' }}
@@ -9106,7 +9106,7 @@ function Index() {
                       </div>
                     </div>
                   </div>
-                  <div className={`${styles.card} card`}>
+                  <div className={`${styles.card} card border_color border-bottom`}>
                     <div
                       className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
                       style={{ cursor: 'default' }}
@@ -9445,7 +9445,7 @@ function Index() {
                   </div>
                 </div>
                 <div className="tab-pane fade" id="Orders" role="tabpanel">
-                  <div className={`${styles.card}`}>
+                  <div className={`${styles.card} `}>
                     <Order
                       orderDetail={orderDetails}
                       saveOrderData={saveOrderData}

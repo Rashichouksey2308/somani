@@ -47,7 +47,7 @@ function
   // console.log(creditRating, "creditRating")
   return (
     <>
-      <div className={`${styles.card} card mb-6`}>
+      <div className={`${styles.card} card mb-6 border_color border-bottom`}>
         <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`} data-toggle="collapse" data-target="#creditRatings" aria-expanded="true" aria-controls="creditRatings">
           <h2 className="mb-0">Credit Ratings</h2>
           <span>+</span>
