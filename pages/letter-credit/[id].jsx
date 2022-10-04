@@ -5,13 +5,22 @@ import { Row, Col, Form } from 'react-bootstrap'
 import InspectionDocument from '../../src/components/InspectionDocument'
 import DateCalender from '../../src/components/DateCalender'
 import SaveBar from '../../src/components/SaveBar'
-import { useDispatch, useSelector } from 'react-redux'
-import { GetLcModule, UpdateAmendment } from '../../src/redux/lcModule/action'
+
+
 import Router from 'next/router'
 import { removePrefixOrSuffix } from '../../src/utils/helper'
 import _get from 'lodash/get'
 import { toast } from 'react-toastify'
 import moment from 'moment/moment'
+
+///REDUX/////
+import { useDispatch, useSelector } from 'react-redux'
+import { GetLcModule, UpdateAmendment } from '../../src/redux/lcModule/action'
+import {
+  setPageName,
+  setDynamicName,
+  setDynamicOrder,
+} from '../../src/redux/userData/action'
 
 function Index() {
   const dispatch = useDispatch()
@@ -19,11 +28,12 @@ function Index() {
   const { lcModule } = useSelector((state) => state.lc)
 
   let lcModuleData = _get(lcModule, 'data[0]', {})
+  console.log(lcModuleData,'lcModuleData')
 
   const [editInput, setEditInput] = useState(false)
   const [editCurrent, setEditCurrent] = useState()
 
-  console.log(editCurrent,'this is edit current')
+  console.log(editCurrent, 'this is edit current')
   const handleEdit = (val) => {
     console.log('THIS IS HANDLE EDIT', val)
     setEditCurrent(val)
@@ -35,10 +45,21 @@ function Index() {
     dispatch(GetLcModule(`?lcModuleId=${id}`))
   }, [dispatch])
 
+  useEffect(() => {
+    dispatch(setPageName('Lc'))
+    dispatch(setDynamicName(lcModuleData?.company?.companyName))
+    dispatch(
+      setDynamicOrder(
+        lcModuleData?.order?.orderId
+          ? lcModuleData?.order?.orderId : lcModuleData?.order?.applicationId
+      ),
+    )
+  }, [lcModuleData])
+
   const [lcData, setLcData] = useState()
 
   // console.log(lcData, "THIS IS LC USE STATE")
- console.log(editCurrent,"editCurrent")
+  console.log(editCurrent, "editCurrent")
   useEffect(() => {
     setLcData({
       formOfDocumentaryCredit:
@@ -129,11 +150,11 @@ function Index() {
       e.target.value == 'dateOfExpiry'
     ) {
       setFieldType("date")
-    }else if( e.target.value=="partialShipment" ){
-       setFieldType("drop")
+    } else if (e.target.value == "partialShipment") {
+      setFieldType("drop")
     }
-     else {
-       setFieldType('')
+    else {
+      setFieldType('')
     }
 
     let newInput = { ...clauseObj }
@@ -141,13 +162,13 @@ function Index() {
     let val1 = e.target.options[e.target.selectedIndex].text
     let val2 = e.target.value
     setDrop(val2)
-    console.log(lcData[e.target.value],"lcData[e.target.value]",e.target.value)
+    console.log(lcData[e.target.value], "lcData[e.target.value]", e.target.value)
     newInput['existingValue'] = lcData[e.target.value] || ''
     newInput['dropDownValue'] = val1 || ''
     console.log(newInput, 'dropDownChange')
     setClauseObj(newInput)
   }
-//  console.log(lcData,"lcData")
+  //  console.log(lcData,"lcData")
   const arrChange = (name, value) => {
     const newInput = { ...clauseObj }
     newInput[name] = value
@@ -292,15 +313,15 @@ function Index() {
     if (type == '(44C) Latest Date Of Shipment') {
       return moment(value).format('DD-MM-YYYY')
     } else if (type == '(43P) Partial Shipment') {
-      return value=="Yes"?"Allowed":"Not Allowed"
+      return value == "Yes" ? "Allowed" : "Not Allowed"
     }
-     else {
+    else {
       return value
     }
   }
   const getDataFormDropDown = (value) => {
     // console.log(value,"ssdsdsdsd")
-    if (fieldType=="date") {
+    if (fieldType == "date") {
       return moment(value).format('DD-MM-YYYY')
     } else {
       return value
@@ -317,7 +338,7 @@ function Index() {
               src="/static/keyboard_arrow_right-3.svg"
               alt="ArrowRight"
             />
-            <h1 className={`${styles.heading}`}>Letter of Credit </h1>
+            <h1 className={`${styles.heading}`}>{lcModuleData?.company?.companyName} </h1>
           </div>
 
           <div className={`${styles.wrapper} vessel_card card upload_main`}>
@@ -374,7 +395,7 @@ function Index() {
                         </div>
                         <span className={styles.value}>
                           {lcModuleData?.lcApplication?.dateOfIssue
-                            ? moment( lcModuleData?.lcApplication?.dateOfIssue).format('DD-MM-YYYY')
+                            ? moment(lcModuleData?.lcApplication?.dateOfIssue).format('DD-MM-YYYY')
                             : ''}
                         </span>
                       </div>
@@ -529,7 +550,7 @@ function Index() {
                       </Col>
                       <Col className="mb-4 mt-4" lg={4} md={6}>
                         <div className="d-flex">
-                          {fieldType=="" ? (
+                          {fieldType == "" ? (
                             <input
                               className={`${styles.input_field} input form-control`}
                               required
@@ -544,63 +565,63 @@ function Index() {
                                 arrChange('newValue', e.target.value)
                               }}
                             />
-                          ) :null}
+                          ) : null}
                           {
-                            fieldType=="date"?
-                             (
-                            <>
-                              <DateCalender
-                                name="newValue"
-                                defaultDate={clauseObj?.newValue}
-                                saveDate={saveDropDownDate}
-                                // labelName="New Value"
-                              />
-                              <img
-                                className={`${styles.calanderIcon} image_arrow img-fluid`}
-                                src="/static/caldericon.svg"
-                                alt="Search"
-                              />
-                            </>
-                          )
-                            :null
+                            fieldType == "date" ?
+                              (
+                                <>
+                                  <DateCalender
+                                    name="newValue"
+                                    defaultDate={clauseObj?.newValue}
+                                    saveDate={saveDropDownDate}
+                                  // labelName="New Value"
+                                  />
+                                  <img
+                                    className={`${styles.calanderIcon} image_arrow img-fluid`}
+                                    src="/static/caldericon.svg"
+                                    alt="Search"
+                                  />
+                                </>
+                              )
+                              : null
                           }
-                            {
-                            fieldType=="drop"?
-                             (
-                            <>
-                            <select
-                            name="partialShipment"
-                            onChange={(e) => {
-                              arrChange('newValue', e.target.value)
-                            }}
-                            // value={
-                             
-                            // }
-                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
-                          >
-                            <option selected disabled>
-                              Select an option
-                            </option>
-                            
-                            <option value="Yes">Allowed</option>
-                            <option value="No">Not Allowed</option>
-                            <option value="No">Conditional</option>
-                          </select>
-                           <img
-                            className={`${styles.arrow} image_arrow img-fluid`}
-                            src="/static/inputDropDown.svg"
-                            alt="Search"
-                          />
-                            </>
-                          )
-                            :null
+                          {
+                            fieldType == "drop" ?
+                              (
+                                <>
+                                  <select
+                                    name="partialShipment"
+                                    onChange={(e) => {
+                                      arrChange('newValue', e.target.value)
+                                    }}
+                                    // value={
+
+                                    // }
+                                    className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                                  >
+                                    <option selected disabled>
+                                      Select an option
+                                    </option>
+
+                                    <option value="Yes">Allowed</option>
+                                    <option value="No">Not Allowed</option>
+                                    <option value="No">Conditional</option>
+                                  </select>
+                                  <img
+                                    className={`${styles.arrow} image_arrow img-fluid`}
+                                    src="/static/inputDropDown.svg"
+                                    alt="Search"
+                                  />
+                                </>
+                              )
+                              : null
                           }
                           <label
                             className={`${styles.label_heading} label_heading`}
                           >
                             New Value<strong className="text-danger">*</strong>
                           </label>
-                          {fieldType== ""   ? (
+                          {fieldType == "" ? (
                             <img
                               className="img-fluid ml-4"
                               src="/static/add-btn.svg"
@@ -608,7 +629,7 @@ function Index() {
                               onClick={() => addToArr()}
                             />
                           ) : (
-                            <img                           
+                            <img
                               className="img-fluid"
                               style={{ marginLeft: '40px' }}
                               src="/static/add-btn.svg"

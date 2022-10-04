@@ -9,6 +9,7 @@ import {
   addPrefixOrSuffix,
 } from '../../utils/helper'
 import { add } from 'lodash'
+import { array } from 'prop-types'
 
 const Index = ({
   financialsComment,
@@ -35,11 +36,11 @@ const Index = ({
   setSanctionComment,
   suggestedCredit,
 }) => {
-  const [editProfile, setEditProfile] = useState(false)
-  const [editFinance, setEditFinance] = useState(false)
+  const [editProfile, setEditProfile] = useState([])
+  const [editFinance, setEditFinance] = useState([])
   const [saveTable, setSaveTable] = useState(false)
-  const [editStren, setEditStren] = useState(false)
-  const [editWeak, setEditWeak] = useState(false)
+  const [editStren, setEditStren] = useState([])
+  const [editWeak, setEditWeak] = useState([])
   const [editSanc, setEditSanc] = useState(false)
   const [addRow, setAddRow] = useState(false)
 
@@ -57,7 +58,8 @@ const Index = ({
     suggestedCreditLimit: false,
   })
 
-  console.log(creditDetail, 'THIS IS CREDIT DETAIL')
+  console.log(financialsComment, editProfile, 'companyComments')
+  // console.log(creditDetail, 'THIS IS CREDIT DETAIL')
 
   const filteredCreditRating =
     creditDetail?.company?.creditLimit?.creditRating?.filter((rating) => {
@@ -72,6 +74,32 @@ const Index = ({
     name: '',
     outstandingLimit: null,
   })
+
+  useEffect(() => {
+    let companyCommentseditable = []
+    companyComment?.forEach((item) => {
+      companyCommentseditable.push({ editable: false })
+    })
+    setEditProfile(companyCommentseditable)
+
+    let financialCommentseditable = []
+    financialsComment?.forEach((item) => {
+      financialCommentseditable.push({ editable: false })
+    })
+    setEditFinance(financialCommentseditable)
+
+    let weakCommentseditable = []
+    weaknessComment?.forEach((item) => {
+      weakCommentseditable.push({ editable: false })
+    })
+    setEditWeak(weakCommentseditable)
+
+    let strenthCommentseditable = []
+    strengthsComment?.forEach((item) => {
+      strenthCommentseditable.push({ editable: false })
+    })
+    setEditStren(strenthCommentseditable)
+  }, [companyComment, financialsComment, strengthsComment, weaknessComment])
 
   // const handleGroupExpChange = (name, value) => {
   //   const newInput = { ...exposureData }
@@ -202,18 +230,20 @@ const Index = ({
                     as="textarea"
                     defaultValue={comment}
                     rows={3}
-                    readOnly={!editProfile}
+                    readOnly={!editProfile[index]?.editable}
                   />
 
                   <div className="mr-3">
                     <img
-                      src={`/static/${editProfile ? 'save-3.svg' : 'mode_edit.svg'
+                      src={`/static/${editProfile[index]?.editable ? 'save-3.svg' : 'mode_edit.svg'
                         }`}
                       role="button"
                       className={`${styles.edit_image} d-block`}
                       alt="edit"
                       onClick={(e) => {
-                        setEditProfile(!editProfile)
+                        let tempEditProfile = [...editProfile]
+                        tempEditProfile[index].editable = !tempEditProfile[index].editable
+                        setEditProfile(tempEditProfile)
                       }}
                     />
                     <img
@@ -269,16 +299,18 @@ const Index = ({
                     defaultValue={comment}
                     as="textarea"
                     rows={3}
-                    readOnly={!editFinance}
+                    readOnly={!editFinance[index]?.editable}
                   />
                   <div className="mr-3">
                     <img
-                      src={`/static/${editFinance ? 'save-3.svg' : 'mode_edit.svg'
+                      src={`/static/${editFinance[index]?.editable ? 'save-3.svg' : 'mode_edit.svg'
                         }`}
                       role="button"
                       className={`${styles.edit_image} d-block`}
-                      onClick={() => {
-                        setEditFinance(!editFinance)
+                      onClick={(e) => {
+                        let tempEdit = [...editFinance]
+                        tempEdit[index].editable = !tempEdit[index].editable
+                        setEditFinance(tempEdit)
                       }}
                     />
                     <img
@@ -591,17 +623,19 @@ const Index = ({
                       defaultValue={strengths}
                       as="textarea"
                       rows={3}
-                      readOnly={!editStren}
+                      readOnly={!editStren[index]?.editable}
                     />
                     <div className="mt-3">
                       <img
-                        src={`/static/${editStren ? 'save-3.svg' : 'mode_edit.svg'
+                        src={`/static/${editStren[index]?.editable ? 'save-3.svg' : 'mode_edit.svg'
                           }`}
                         role="button"
                         className={`${styles.edit_image} mr-4`}
                         alt="edit"
                         onClick={(e) => {
-                          setEditStren(!editStren)
+                          let tempArrEdit = [...editStren]
+                          tempArrEdit[index].editable = !tempArrEdit[index].editable
+                          setEditProfile(tempArrEdit)
                         }}
                       />
                       <img
@@ -654,17 +688,19 @@ const Index = ({
                       defaultValue={weakness}
                       as="textarea"
                       rows={3}
-                      readOnly={!editWeak}
+                      readOnly={!editWeak[index]?.editable}
                     />
                     <div className="mt-3">
                       <img
-                        src={`/static/${editWeak ? 'save-3.svg' : 'mode_edit.svg'
+                        src={`/static/${editWeak[index]?.editable ? 'save-3.svg' : 'mode_edit.svg'
                           }`}
                         role="button"
                         className={`${styles.edit_image} mr-4`}
                         alt="edit"
                         onClick={(e) => {
-                          setEditWeak(!editWeak)
+                          let tempArrEdit = [...editWeak]
+                          tempArrEdit[index].editable = !tempArrEdit[index].editable
+                          setEditWeak(tempArrEdit)
                         }}
                       />
                       <img

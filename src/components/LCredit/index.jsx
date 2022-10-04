@@ -365,7 +365,7 @@ function Index() {
               onClick={() => Router.push('/lc-module')}
               style={{cursor:'pointer'}}
             />
-            <h1 className={`${styles.heading}`}>Letter of Credit </h1>
+            <h1 className={`${styles.heading}`}>{lcModuleData?.company?.companyName} </h1>
           </div>
 
           <div className={`${styles.wrapper} card upload_main`}>

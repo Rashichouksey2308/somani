@@ -182,7 +182,7 @@ export default function Index({ inspectionData }) {
                                   alt="Sort icon"
                                 />
                               </th>
-                              <th width="25%">
+                              <th width="27%">
                                 DOCUMENT DATE{' '}
                                 <img
                                   className={`${styles.sort_img} mb-1`}
@@ -190,7 +190,7 @@ export default function Index({ inspectionData }) {
                                   alt="Sort icon"
                                 />
                               </th>
-                              <th width="7%">ACTION</th>
+                              <th width="9%">ACTION</th>
                             </tr>
                           </thead>
                           <tbody>

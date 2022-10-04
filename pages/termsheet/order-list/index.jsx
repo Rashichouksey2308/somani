@@ -61,14 +61,13 @@ function Index() {
     dispatch(GetTermsheet(`?termsheetId=${term._id}`))
     sessionStorage.setItem('termID', term._id)
     console.log(term, 'term.buyerName')
-    dispatch(setDynamicName(term.company.companyName))
-    dispatch(
-      setDynamicOrder(
-        term?.order?.applicationId
-          ? term.order.applicationId
-          : term.order.orderId,
-      ),
-    )
+    // dispatch(setDynamicName(term.company.companyName))
+    // dispatch(
+    //   setDynamicOrder(
+    //     term?.order?.orderId
+    //       ? term?.order?.orderId : term?.order?.applicationId
+    //   ),
+    // )
     sessionStorage.setItem('termOrdID', term?.order._id)
 
 // const query = { id: 'foo'}
@@ -274,7 +273,7 @@ function Index() {
                       <td className={`${styles.buyerName}`} onClick={() => handleRoute(term, index)} >{term?.order?.commodity}</td>
 
                       <td>{term?.createdBy?.userRole ? term?.createdBy?.userRole : "RM"} </td>
-                      <td>{term?.order?.existingCustomer ? moment((term?.order?.createdAt).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY") :term?.order?.cam?.approvedAt? moment((term?.order?.cam?.approvedAt).slice(0, 10), 'YYYY-MM-DD', true).format("DD-MM-YYYY"):""}</td>
+                      <td>{term?.order?.existingCustomer ? moment(term?.order?.createdAt).format("DD-MM-YYYY") :term?.order?.cam?.approvedAt? moment(term?.order?.cam?.approvedAt).format("DD-MM-YYYY"):""}</td>
                       <td>
                         <span
                           className={`${styles.status} ${term?.order?.queue === 'Rejected' ? styles.rejected : term?.order?.queue === 'ReviewQueue'
