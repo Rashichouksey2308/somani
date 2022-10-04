@@ -457,14 +457,7 @@ function Index({ directorData }) {
                             </div>
 
                             <div className={`${styles.downArrow} `}>
-                              <img
-                                src={`${darkMode
-                                    ? `/static/white-arrow.svg`
-                                    : `/static/arrow-right.svg`
-                                  }`}
-                                alt="arrow right"
-                                className="img-fluid image_arrow"
-                              />
+                              <img src="/static/arrow-right.svg" alt="arrow right" className="img-fluid image_arrow"/>
                             </div>
                           </div>
                         </div>

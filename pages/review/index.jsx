@@ -8180,7 +8180,7 @@ function Index() {
       total: false,
     },
     party: 'Respondent',
-    class: 'Civil',
+    class: '',
     risk: '',
   })
   // console.log(filterType, 'filtertype')
@@ -8305,7 +8305,8 @@ function Index() {
     let districtCourt = []
 
     /////***********filterby */
-    const filter = (val) => {
+     if(filterType.filterBy.pending || filterType.filterBy.disposed || filterType.filterBy.total){
+        const filter = (val) => {
       if (filterType.filterBy.pending&&
         !filterType.filterBy.total &&
         !filterType.filterBy.disposed) {
@@ -8377,9 +8378,11 @@ function Index() {
         return filter(val)
       },
     )
+     }
     //civil Crimnal
     console.log(highCourt, 'highCourt111')
-    const civilfilter = (val) => {
+  if(filterType.class=="Civil" || filterType.class=="Criminal"){
+        const civilfilter = (val) => {
       console.log(val.civilCriminal, 'val.civilCriminal')
       if (filterType.class == 'Criminal') {
         if (val.civilCriminal == 'Criminal') {
@@ -8428,52 +8431,122 @@ function Index() {
         : districtCourt?.filter((val) => {
           return civilfilter(val)
         })
+  }
     console.log(highCourt, 'highCourt222')
-    //    /////***********select a party */
-    // //civil
-    // // districtCourt = companyData?.compliance?.districtCourt?.cases?.filter(
-    // //   (val) => {
-    // //     if (val.civilCriminal == filterType.class) {
-    // //       return val
-    // //     }
-    // //   },
-    // // )
-    // supremeCourt = companyData?.compliance?.supremeCourt?.cases?.filter(
-    //   (val) => {
-    //     if (val.civilCriminal == filterType.class) {
-    //       return val
-    //     }
-    //   },
-    // )
-    // highCourt = companyData?.compliance?.highCourt?.cases?.filter((val) => {
-    //   if (val.civilCriminal == filterType.class) {
-    //     return val
-    //   }
-    // })
 
+    //party2
+   if(filterType.party=="Respondent" || filterType.party=="Petitioner"){
+        const partyFilter = (val) => {
+      console.log(val.civilCriminal, 'val.civilCriminal')
+      if (filterType.class == 'Respondent') {
+        if (val.memberType == 'Respondent') {
+          console.log('1111111111')
+          return val
+        }
+      }
+      if (filterType.class == 'Petitioner') {
+        if (val.memberType == 'Petitioner') {
+          return val
+        }
+      }
+    }
 
-    // //filterBY
-    // // districtCourt = companyData?.compliance?.districtCourt?.cases?.filter(
-    // //   (val) => {
-    // //     if (
-    // //       val.caseStatus == filterType.pending
-    // //         ? 'Pending'
-    // //         : null || val.caseStatus == filterType.disposed
-    // //         ? 'Disposed'
-    // //         : null
-    // //     ) {
-    // //       return val
-    // //     } else {
-    // //       return val
-    // //     }
-    // //   },
-    // // )
+    supremeCourt =
+      supremeCourt.length <= 0
+        ? companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
+          return partyFilter(val)
+        })
+        : supremeCourt?.filter((val) => {
+          return partyFilter(val)
+        })
+    highCourt =
+      highCourt.length <= 0
+        ? companyData?.compliance?.highCourt?.cases?.filter((val) => {
+          return partyFilter(val)
+        })
+        : highCourt?.filter((val) => {
+          console.log(val, 'secodnoneene')
+          return partyFilter(val)
+        })
 
+    tribunalCourts =
+      tribunalCourts.length <= 0
+        ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
+          return partyFilter(val)
+        })
+        : tribunalCourts?.filter((val) => {
+          return partyFilter(val)
+        })
+    districtCourt =
+      tribunalCourts.length <= 0
+        ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
+          return partyFilter(val)
+        })
+        : districtCourt?.filter((val) => {
+          return partyFilter(val)
+        })
+  }
+  //risk
+ if(filterType.risk=="relevence" || filterType.risk=="medium" ||filterType.risk=="high"){
+        const riskFilter = (val) => {
+      console.log(val.civilCriminal, 'val.civilCriminal')
+      if (filterType.risk == 'high') {
+        if (val.severity_ == 'Respondent') {
+          console.log('1111111111')
+          return val
+        }
+      }
+      if (filterType.risk == 'medium') {
+        if (val.severity_ == 'Petitioner') {
+          return val
+        }
+      }
+      if (filterType.risk == 'relevence') {
+        if (val.severity_ == 'Petitioner') {
+          return val
+        }
+      }
+    }
+
+    supremeCourt =
+      supremeCourt.length <= 0
+        ? companyData?.compliance?.supremeCourt?.cases?.filter((val) => {
+          return riskFilter(val)
+        })
+        : supremeCourt?.filter((val) => {
+          return riskFilter(val)
+        })
+    highCourt =
+      highCourt.length <= 0
+        ? companyData?.compliance?.highCourt?.cases?.filter((val) => {
+          return riskFilter(val)
+        })
+        : highCourt?.filter((val) => {
+          console.log(val, 'secodnoneene')
+          return riskFilter(val)
+        })
+
+    tribunalCourts =
+      tribunalCourts.length <= 0
+        ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
+          return riskFilter(val)
+        })
+        : tribunalCourts?.filter((val) => {
+          return riskFilter(val)
+        })
+    districtCourt =
+      tribunalCourts.length <= 0
+        ? companyData?.compliance?.tribunalCourts?.cases?.filter((val) => {
+          return riskFilter(val)
+        })
+        : districtCourt?.filter((val) => {
+          return riskFilter(val)
+        })
+  }
     setSupreme([...supremeCourt])
     setTribunal([...tribunalCourts])
     setHigh([...highCourt])
     setDistrict([...districtCourt])
-
     setTotalCourt(count)
   }
   console.log(High, 'highCourtDisplay')
@@ -8616,7 +8689,7 @@ function Index() {
                   </h5>
                   <div className="d-flex align-items-center position-relative">
                     <select
-                      className={`${styles.select} ${styles.customSelect} accordion_body form-select`}
+                      className={`${styles.select} ${styles.customSelect} border_color accordion_body form-select`}
                       aria-label="Default select example"
                     >
                       <option selected value="Crores">

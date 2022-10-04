@@ -3985,15 +3985,17 @@ const trends = (
             >
               Display By:
             </h5>
-            <select
-              className={`${styles.select} accordion_body form-select`}
-              aria-label="Default select example"
-            >
-              <option>Select an option</option>
-              <option selected value="1">
-                Quarterly
-              </option>
-            </select>
+            <div className="d-flex align-items-center position-relative">
+              <select
+                className={`${styles.select} ${styles.customSelect} accordion_body form-select`}
+                aria-label="Default select example">
+                <option>Select an option</option>
+                <option selected value="1">
+                  Quarterly
+                </option>
+              </select>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+            </div>
             <span
               data-toggle="collapse"
               data-target="#trends"
@@ -4127,19 +4129,21 @@ const skewness = (
           <h2 className="mb-0">Skewness</h2>
           <div className="d-flex align-items-center">
             <h5
-              className={`${styles.light}  ${styles.unit_label} accordion_Text`}
+              className={`${styles.light} ${styles.unit_label} accordion_Text`}
             >
               Display By:
             </h5>
-            <select
-              className={`${styles.select} accordion_body form-select`}
-              aria-label="Default select example"
-            >
-              <option>Select an option</option>
-              <option selected value="1">
-                Quarterly
-              </option>
-            </select>
+            <div className="d-flex align-items-center position-relative">
+              <select
+                className={`${styles.select} ${styles.customSelect} accordion_body form-select`}
+                aria-label="Default select example">
+                <option>Select an option</option>
+                <option selected value="1">
+                  Quarterly
+                </option>
+              </select>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+            </div>
             <span
               data-toggle="collapse"
               data-target="#skewness"
