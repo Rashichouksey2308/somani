@@ -45,8 +45,8 @@ function Index({ directorData }) {
     }
   }
 
-  console.log(_get(directorData,`profile.directorDetail[1].otherAssociatedEntities${otherAssociates[1]}`,[]),"otherAssociatedEntitiesCurrent",otherAssociates,`profile.directorDetail[1].otherAssociatedEntities${otherAssociates[index]}`)
- 
+  console.log(_get(directorData, `profile.directorDetail[1].otherAssociatedEntities${otherAssociates[1]}`, []), "otherAssociatedEntitiesCurrent", otherAssociates, `profile.directorDetail[1].otherAssociatedEntities${otherAssociates[index]}`)
+
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -61,7 +61,7 @@ function Index({ directorData }) {
           <span>+</span>
         </div>
         {directorData?.profile?.directorDetail?.length == 0 ||
-        directorData?.profile?.directorDetail == undefined ? (
+          directorData?.profile?.directorDetail == undefined ? (
           <div
             key={index}
             id={`directorDetails`}
@@ -109,7 +109,14 @@ function Index({ directorData }) {
                         <label className={`accordion_Text`}>DSC Status</label>
                       </div>
                       <div className={`${styles.downArrow} `}>
-                        <img src="/static/arrow-right.svg" alt="arrow right" className="img-fluid image_arrow"/>
+                        <img
+                          src={`${darkMode
+                              ? `/static/white-arrow.svg`
+                              : `/static/arrow-right.svg`
+                            }`}
+                          alt="arrow right"
+                          className="img-fluid image_arrow"
+                        />
                       </div>
                     </div>
                   </div>
@@ -329,19 +336,19 @@ function Index({ directorData }) {
                                           {' '}
                                           {fromDate
                                             ? moment(
-                                                fromDate?.slice(0, 10),
-                                                'YYYY-MM-DD',
-                                                true,
-                                              ).format('DD-MM-YYYY')
+                                              fromDate?.slice(0, 10),
+                                              'YYYY-MM-DD',
+                                              true,
+                                            ).format('DD-MM-YYYY')
                                             : ''}
                                         </td>
                                         <td>
                                           {toDate
                                             ? moment(
-                                                toDate?.slice(0, 10),
-                                                'YYYY-MM-DD',
-                                                true,
-                                              ).format('DD-MM-YYYY')
+                                              toDate?.slice(0, 10),
+                                              'YYYY-MM-DD',
+                                              true,
+                                            ).format('DD-MM-YYYY')
                                             : ''}
                                         </td>
                                       </tr>
@@ -416,15 +423,12 @@ function Index({ directorData }) {
                                 //     ? 'Expired'
                                 //     : 'Approved'
                                 //   : ''}
-                                className={`${
-                                  director?.dscExpiryDate !== null
-                                    ? moment(director?.dscExpiryDate).isBefore(
-                                        moment(new Date()),
-                                      )
+                                className={`${director?.dscExpiryDate !== null
+                                    ? dscStatus(director?.dscExpiryDate) === 'Expired'
                                       ? styles.danger
                                       : styles.success
                                     : styles.black
-                                }`}
+                                  }`}
                               >
                                 {director?.din}
                               </span>
@@ -720,10 +724,10 @@ function Index({ directorData }) {
                                     ),
                                   )
                                     ? _get(
-                                        director,
-                                        `otherAssociatedEntities${otherAssociates[index]}`,
-                                        [],
-                                      ).length
+                                      director,
+                                      `otherAssociatedEntities${otherAssociates[index]}`,
+                                      [],
+                                    ).length
                                     : ''}
                                   )
                                 </span>
@@ -750,10 +754,10 @@ function Index({ directorData }) {
                                     </thead>
                                     <tbody>
                                       {console.log(_get(
-                                          director,
-                                          `otherAssociatedEntities${otherAssociates[index]}`,
-                                          [],
-                                        ),"1212222")}
+                                        director,
+                                        `otherAssociatedEntities${otherAssociates[index]}`,
+                                        [],
+                                      ), "1212222")}
                                       {
                                         _get(
                                           director,
@@ -762,7 +766,7 @@ function Index({ directorData }) {
                                         ).map((associates, index2) => {
                                           const fromDate = associates?.fromDate
                                           const toDate = associates?.toDate
-                                           console.log(associates,"1212")
+                                          console.log(associates, "1212")
                                           return (
                                             <tr key={index2}>
                                               <td className="text-color">
@@ -775,19 +779,19 @@ function Index({ directorData }) {
                                                 {' '}
                                                 {fromDate
                                                   ? moment(
-                                                      fromDate?.slice(0, 10),
-                                                      'YYYY-MM-DD',
-                                                      true,
-                                                    ).format('DD-MM-YYYY')
+                                                    fromDate?.slice(0, 10),
+                                                    'YYYY-MM-DD',
+                                                    true,
+                                                  ).format('DD-MM-YYYY')
                                                   : ''}
                                               </td>
                                               <td className="text-color">
                                                 {toDate
                                                   ? moment(
-                                                      toDate?.slice(0, 10),
-                                                      'YYYY-MM-DD',
-                                                      true,
-                                                    ).format('DD-MM-YYYY')
+                                                    toDate?.slice(0, 10),
+                                                    'YYYY-MM-DD',
+                                                    true,
+                                                  ).format('DD-MM-YYYY')
                                                   : ''}
                                               </td>
                                             </tr>

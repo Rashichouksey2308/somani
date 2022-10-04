@@ -44,7 +44,7 @@ const index = ({
   const [saveContactTable, setContactTable] = useState(false)
 
   const { gstDocument } = useSelector((state) => state.buyer)
-  console.log(gstDocument,"gstDocument")
+  console.log(gstDocument, "gstDocument")
   const [isFieldInFocus, setIsFieldInFocus] = useState({
     monthlyCapacity: false,
     capacityUtilization: false,
@@ -88,10 +88,10 @@ const index = ({
       number: null,
     },
     pinCode: null,
-    communication:false,
-    
+    communication: false,
+
   })
-console.log(keyAddressData,"keyAddressData")
+  console.log(keyAddressData, "keyAddressData")
   console.log(personData, 'personData')
   useEffect(() => {
     const newInput = { ...keyAddressData }
@@ -100,14 +100,14 @@ console.log(keyAddressData,"keyAddressData")
     newInput.GSTIN_document.date = gstDocument.date
     setKeyAddressData(newInput)
   }, [gstDocument])
-console.log(keyAddressData,"keyAddressData")
-const removeDoc= ()=>{
-   const newInput = { ...keyAddressData }
+  console.log(keyAddressData, "keyAddressData")
+  const removeDoc = () => {
+    const newInput = { ...keyAddressData }
     newInput.GSTIN_document.name = undefined
     newInput.GSTIN_document.path = undefined
     newInput.GSTIN_document.date = undefined
     setKeyAddressData(newInput)
-}
+  }
   //const [deleteRow, setDeleteRow] = useState(true)
 
   // const [debt, setDebtData] = useState([])
@@ -346,27 +346,27 @@ const removeDoc= ()=>{
   const handleClick = () => {
     if (addressValidtion(keyAddressData)) {
       keyAddDataArr(keyAddressData)
-  setKeyAddressData({
-    GSTIN: '',
-    GSTIN_document: {
-      name: undefined,
-      path: undefined,
-      date: undefined,
-    },
-    addressType: '',
-    branch: '',
-    city: '',
-    state: '',
-    email: '',
-    completeAddress: '',
-    contact: {
-      callingCode: null,
-      number: null,
-    },
-    pinCode: null,
-    communication:false
-    
-  })
+      setKeyAddressData({
+        GSTIN: '',
+        GSTIN_document: {
+          name: undefined,
+          path: undefined,
+          date: undefined,
+        },
+        addressType: '',
+        branch: '',
+        city: '',
+        state: '',
+        email: '',
+        completeAddress: '',
+        contact: {
+          callingCode: null,
+          number: null,
+        },
+        pinCode: null,
+        communication: false
+
+      })
     }
   }
 
@@ -402,15 +402,15 @@ const removeDoc= ()=>{
       number: '',
     },
     pinCode: '',
-    communication:false
-    
+    communication: false
+
   })
-  console.log(editData,"editData")
+  console.log(editData, "editData")
   const editAddress = (index) => {
     setShowAddress(false)
     setShowEditAddress(true)
     setIndex(index)
-    console.log(keyAddData,"keyAddData")
+    console.log(keyAddData, "keyAddData")
     let tempArr = keyAddData
     setEditData({
       GSTIN: tempArr[index].GSTIN,
@@ -426,9 +426,9 @@ const removeDoc= ()=>{
         number: tempArr[index].contact.number,
       },
       pinCode: tempArr[index].pinCode,
-      communication: tempArr[index].communication|| false,
-     
-     
+      communication: tempArr[index].communication || false,
+
+
     })
   }
   const changeData = (name, value) => {
@@ -1016,7 +1016,7 @@ const removeDoc= ()=>{
                   required
                   type="number"
                   onKeyDown={(evt) =>
-                    ['e', 'E', '+', '-','.'].includes(evt.key) &&
+                    ['e', 'E', '+', '-', '.'].includes(evt.key) &&
                     evt.preventDefault()
                   }
                   value={supplierCred?.shipmentNumber}
@@ -1038,7 +1038,7 @@ const removeDoc= ()=>{
                   value={supplierCred?.consigneesNumber}
                   name="consigneesNumber"
                   onKeyDown={(evt) =>
-                    ['e', 'E', '+', '-','.'].includes(evt.key) &&
+                    ['e', 'E', '+', '-', '.'].includes(evt.key) &&
                     evt.preventDefault()
                   }
                   onChange={(e) => {
@@ -1056,7 +1056,7 @@ const removeDoc= ()=>{
                   required
                   type="number"
                   onKeyDown={(evt) =>
-                    ['e', 'E', '+', '-','.'].includes(evt.key) &&
+                    ['e', 'E', '+', '-', '.'].includes(evt.key) &&
                     evt.preventDefault()
                   }
                   value={supplierCred?.HSCodesNumber}
@@ -1077,7 +1077,7 @@ const removeDoc= ()=>{
                     required
                     type="number"
                     onKeyDown={(evt) =>
-                      ['e', 'E', '+', '-','.'].includes(evt.key) &&
+                      ['e', 'E', '+', '-', '.'].includes(evt.key) &&
                       evt.preventDefault()
                     }
                     value={supplierCred?.countryOfOrigin}
@@ -1097,7 +1097,7 @@ const removeDoc= ()=>{
                     className={`${styles.input_field} input form-control`}
                     required
                     onKeyDown={(evt) =>
-                      ['e', 'E', '+', '-','.'].includes(evt.key) &&
+                      ['e', 'E', '+', '-', '.'].includes(evt.key) &&
                       evt.preventDefault()
                     }
                     type="number"
@@ -1363,16 +1363,16 @@ const removeDoc= ()=>{
                         </td>
                         <td>
                           <div className="d-flex">
-                             <input
-                                  className="input"
-                                 
-                                  placeholder={"Designation"}
-                                  value={person.designation}
-                                  name="designation"
-                                  onChange={(e) => handlePersonChange(e, index)}
-                                  type="text"
-                                  readOnly={!person.isEdit}
-                                />
+                            <input
+                              className="input"
+
+                              placeholder={"Designation"}
+                              value={person.designation}
+                              name="designation"
+                              onChange={(e) => handlePersonChange(e, index)}
+                              type="text"
+                              readOnly={!person.isEdit}
+                            />
                             {/* <select
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               value={person.designation}
@@ -1402,16 +1402,16 @@ const removeDoc= ()=>{
                         </td>
                         <td width="25%">
                           <div className="d-flex">
-                              <input
-                                  className="input"
-                                 
-                                  placeholder={"Department"}
-                                   value={person.department}
-                                   name="department"
-                                  onChange={(e) => handlePersonChange(e, index)}
-                                  type="text"
-                                  readOnly={!person.isEdit}
-                                />
+                            <input
+                              className="input"
+
+                              placeholder={"Department"}
+                              value={person.department}
+                              name="department"
+                              onChange={(e) => handlePersonChange(e, index)}
+                              type="text"
+                              readOnly={!person.isEdit}
+                            />
                             {/* <select
                               className={`${styles.input_field} ${styles.customSelect} input form-control`}
                               value={person.department}
@@ -1434,9 +1434,9 @@ const removeDoc= ()=>{
                           <input
                             className="input"
                             defaultValue={person.contact.number}
-                             placeholder={"Contact number"}
+                            placeholder={"Contact number"}
                             name="contact.number"
-                            style={{maxWidth:'170px'}}
+                            style={{ maxWidth: '170px' }}
                             onChange={(e) => {
                               handlePersonChange(e, index)
                             }}
@@ -1462,7 +1462,7 @@ const removeDoc= ()=>{
                           <input
                             className="input"
                             defaultValue={person.email}
-                             placeholder={"Email"}
+                            placeholder={"Email"}
                             name="email"
                             onChange={(e) => handlePersonChange(e, index)}
                             type="text"
@@ -1593,11 +1593,11 @@ const removeDoc= ()=>{
                             label="Yes"
                             name="group1"
                             type={type}
-                            checked={keyAddressData.communication==true}
+                            checked={keyAddressData.communication == true}
                             onChange={(e) => {
-                            
-                            handleChange("communication", !keyAddressData.communication)
-                          }}
+
+                              handleChange("communication", !keyAddressData.communication)
+                            }}
                             id={`inline-${type}-1`}
                           />
                           <Form.Check
@@ -1606,11 +1606,11 @@ const removeDoc= ()=>{
                             label="No"
                             name="group1"
                             type={type}
-                            checked={keyAddressData.communication==false}
-                             onChange={(e) => {
-                              
-                            handleChange("communication", false)
-                          }}
+                            checked={keyAddressData.communication == false}
+                            onChange={(e) => {
+
+                              handleChange("communication", false)
+                            }}
                             id={`inline-${type}-2`}
                           />
                         </div>
@@ -1662,7 +1662,7 @@ const removeDoc= ()=>{
                           type="number"
                           name="pinCode"
                           onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-                          value={keyAddressData.pinCode==null?"":keyAddressData.pinCode}
+                          value={keyAddressData.pinCode == null ? "" : keyAddressData.pinCode}
                           onChange={(e) => {
                             handleChange(e.target.name, e.target.value)
                           }}
@@ -1726,7 +1726,7 @@ const removeDoc= ()=>{
                         required
                         type="text"
                         name="email"
-                         value={keyAddressData.email}
+                        value={keyAddressData.email}
                         onChange={(e) => {
                           handleChange(e.target.name, e.target.value)
                         }}
@@ -1758,10 +1758,11 @@ const removeDoc= ()=>{
                           required
                           type="number"
                           name="contact.number"
-                          onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-                          value={keyAddressData.contact.number==null?"":keyAddressData.contact.number}
+                          maxLength='10'
+                          onKeyDown={(evt) => ["e", "E", "+", "-", '.'].includes(evt.key) && evt.preventDefault()}
+                          value={keyAddressData.contact.number == null ? "" : keyAddressData.contact.number}
                           onChange={(e) => {
-                            mobileFunction(e)
+                              mobileFunction(e)
                           }}
                         // onBlur={(e) => {`  
                         //   if (phoneValidation(e.target.value)) {
@@ -1794,7 +1795,7 @@ const removeDoc= ()=>{
                         type="text"
                         required
                         name="completeAddress"
-                         value={keyAddressData.completeAddress}
+                        value={keyAddressData.completeAddress}
                         onChange={(e) => {
                           handleChange(e.target.name, e.target.value)
                         }}
@@ -1811,7 +1812,7 @@ const removeDoc= ()=>{
                         type="text"
                         name="branch"
                         required
-                         value={keyAddressData.branch}
+                        value={keyAddressData.branch}
                         onChange={(e) => {
                           handleChange(e.target.name, e.target.value)
                         }}
@@ -1828,7 +1829,7 @@ const removeDoc= ()=>{
                         required
                         type="text"
                         name="GSTIN"
-                         value={keyAddressData.GSTIN}
+                        value={keyAddressData.GSTIN}
                         onChange={(e) => {
                           handleChange(e.target.name, e.target.value)
                         }}
@@ -1844,41 +1845,41 @@ const removeDoc= ()=>{
                       className={`${styles.btn_outer} d-flex flex-nowrap justify-center-center align-items-center col-md-4`}
                     >
                       <div className={`${styles.btn_container}`}>
-                        {keyAddressData?.GSTIN_document?.name==undefined?
-                         <button className={`${styles.gst_btn} d-flex align-items-center text-nowrap`}>
-                          {' '}
-                          <input
-                            type="file"
-                            name={keyAddressData.GSTIN}
-                            // name="myfile"
-                            accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                            onChange={(e) => {
-                              uploadDocument(e)
-                            }}
-                          />
-                          <img
-                            className="img-fluid mr-2 mb-1"
-                            src="/static/file_upload.svg"
-                            alt="file upload"
-                          />
-                          GST Doc
-                        </button>
-                        :
-                        (
-                      <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
-                        <span className="text-color">
-                          {keyAddressData?.GSTIN_document?.name}
-                        </span>
-                        <img
-                          className={`${styles.close_image} image_arrow`}
-                          src="/static/close.svg"
-                          onClick={() => removeDoc(index)}
-                          alt="Close"
-                        />{' '}
-                      </div>
-                    )
+                        {keyAddressData?.GSTIN_document?.name == undefined ?
+                          <button className={`${styles.gst_btn} d-flex align-items-center text-nowrap`}>
+                            {' '}
+                            <input
+                              type="file"
+                              name={keyAddressData.GSTIN}
+                              // name="myfile"
+                              accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
+                              onChange={(e) => {
+                                uploadDocument(e)
+                              }}
+                            />
+                            <img
+                              className="img-fluid mr-2 mb-1"
+                              src="/static/file_upload.svg"
+                              alt="file upload"
+                            />
+                            GST Doc
+                          </button>
+                          :
+                          (
+                            <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
+                              <span className="text-color">
+                                {keyAddressData?.GSTIN_document?.name}
+                              </span>
+                              <img
+                                className={`${styles.close_image} image_arrow`}
+                                src="/static/close.svg"
+                                onClick={() => removeDoc(index)}
+                                alt="Close"
+                              />{' '}
+                            </div>
+                          )
                         }
-                       
+
                       </div>
                       <button
                         className={`${styles.add_btn}`}
@@ -1926,11 +1927,11 @@ const removeDoc= ()=>{
                             label="Yes"
                             name="group1"
                             type={type}
-                            checked={editData.communication==true}
+                            checked={editData.communication == true}
                             onChange={(e) => {
-                              
-                            changeData("communication", !editData.communication)
-                          }}
+
+                              changeData("communication", !editData.communication)
+                            }}
                             id={`inline-${type}-1`}
                           />
                           <Form.Check
@@ -1940,11 +1941,11 @@ const removeDoc= ()=>{
                             name="group1"
                             type={type}
                             id={`inline-${type}-2`}
-                            checked={editData.communication==false}
+                            checked={editData.communication == false}
                             onChange={(e) => {
-                              
-                            changeData("communication",false)
-                          }}
+
+                              changeData("communication", false)
+                            }}
                           />
                         </div>
                       ))}
@@ -2175,8 +2176,8 @@ const removeDoc= ()=>{
                     </div>
                   </div>
                 </div>
-              
-               
+
+
               </div>
             ) : null}
             <div
@@ -2266,11 +2267,11 @@ const removeDoc= ()=>{
                             disabled={!profile.actions}
                             value={profile.bankName}
                           >
-                             <option selected disabled>Select</option>
+                            <option selected disabled>Select</option>
                             {FilterUniqueBank().map((item) => (<>
-                             
+
                               <option value={item}>{item}</option>
-                              </>
+                            </>
                             ))}
                           </select>
                           {/* <input
