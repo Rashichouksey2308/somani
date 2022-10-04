@@ -1290,6 +1290,61 @@ function Index(props) {
           return
         }
       }
+      let error=false;
+         if (
+        dataToSend.associateBuyer.authorisedSignatoryDetails.length >= 0 
+      ) {
+        for(let i=0;i<dataToSend.associateBuyer.authorisedSignatoryDetails.length;i++){
+          if(dataToSend.associateBuyer.authorisedSignatoryDetails[i].addnew=="true"){
+           console.log(dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo,"dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo")
+           if(dataToSend.associateBuyer.authorisedSignatoryDetails[i].name=="" ||dataToSend.associateBuyer.authorisedSignatoryDetails[i].name==undefined){
+             toastMessage = `Please add authorised Signatory Details name of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+            if(dataToSend.associateBuyer.authorisedSignatoryDetails[i].designation==""||dataToSend.associateBuyer.authorisedSignatoryDetails[i].designation==undefined){
+             toastMessage = `Please add authorised Signatory Details designation of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+           
+        }
+           }
+             if(dataToSend.associateBuyer.authorisedSignatoryDetails[i].email==""||dataToSend.associateBuyer.authorisedSignatoryDetails[i].email==undefined){
+             toastMessage = `Please add authorised Signatory Details email of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+             if(dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo==""||dataToSend.associateBuyer.authorisedSignatoryDetails[i].phoneNo==undefined){
+             toastMessage = `Please add authorised Signatory Details phone of ${i} `
+             if (!toast.isActive(toastMessage.toUpperCase())) {
+          
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            setSubmitData(false)
+            error=true
+            return
+        }
+           }
+          }
+          
+        }
+      }
+      if(error){
+        return
+      }
       if (dataToSend.associateBuyer.authorisedSignatoryDetails.length > 0) {
         let isDoc = true
         for (

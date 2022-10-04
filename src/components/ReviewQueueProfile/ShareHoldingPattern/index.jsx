@@ -98,6 +98,9 @@ function Index({ shareHolding }) {
       }
     },
     plugins: {
+      legend: {
+        display: false
+      },
       title: {
         display: false,
         text: 'Doughnut Chart',

@@ -53,9 +53,11 @@ function Index() {
     )))
   }, [dispatch, singleOrder, termsheet])
 
-  const handleRoute = (term, index) => {
-  
-    dispatch(GetTermsheet(`?termsheetId=${term._id}`))
+  const handleRoute =async (term, index) => {
+    console.log("here", term)
+    // console.log(term?.order._id, "termtrem")
+    //dispatch(GetBuyer({ companyId: term.company._id, orderId: buyer._id }))
+  await   dispatch(GetTermsheet(`?termsheetId=${term._id}`))
     sessionStorage.setItem('termID', term._id)
     
     sessionStorage.setItem('termOrdID', term?.order._id)
