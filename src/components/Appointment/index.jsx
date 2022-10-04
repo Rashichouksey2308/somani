@@ -277,6 +277,7 @@ const editData = (
             <select
               className={`${styles.input_field} ${styles.customSelect} input form-control`}
               name="address.addressType"
+              value={appointmentData?.address?.addressType}
               onChange={(e) => {
                 // setAddressType(e.target.value)
                 handleEditInput(e.target.name, e.target.value)
@@ -364,7 +365,7 @@ const editData = (
           onClick={() => handleOnAdd()}
           className={`${styles.add} d-flex justify-content-center align-items-center`}
         >
-          <span>Add</span>
+          <span>Update</span>
         </div>
         <div
           onClick={() => handleEditCancel()}

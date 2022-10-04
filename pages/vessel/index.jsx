@@ -775,6 +775,17 @@ export default function Home() {
             break
           }
         }
+          if (
+          list[i]?.vesselInformation[0]?.shippingLineOrCharter == '' ||
+          list[i]?.vesselInformation[0]?.shippingLineOrCharter == undefined
+        ) {
+          toastMessage = `Please add shipping Line Or Charter  of Vessel Information ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break
+          }
+        }
       } else {
         if (
           list[i]?.shippingInformation?.shippingLineOrCharter == '' ||
