@@ -2114,11 +2114,11 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       Annual Summary
                     </th>
                     <th colSpan={2} className='text-color'>
-                      {finacialYear('current')}
+                      Period: {finacialYear('current')}
                     </th>
                     <th colSpan={2} className='text-color'>
 
-                      {finacialYear()}
+                      Period: {finacialYear()}
                     </th>
                   </tr>
                   <tr className={styles.second_head}>
@@ -3017,7 +3017,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <th width="66%" colSpan={3} className='text-color'>
 
                       <span className='breadcrum_mode mr-1'>
-                        Financial Period:
+                         Period:
                       </span>
                       {finacialYear('current') ? finacialYear('current') : "-"}
                     </th>
@@ -3138,10 +3138,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       Annual Summary
                     </th>
                     <th colSpan={2} className='text-color'>
-                      {finacialYear('current')}
+                     Period: {finacialYear('current')}
                     </th>
                     <th colSpan={2} className='text-color'>
-                      {finacialYear()}
+                     Period: {finacialYear()}
                     </th>
                   </tr>
                   <tr className={styles.second_head}>
@@ -3679,7 +3679,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </th>
                     <th width="66%" colSpan={6} className='text-color'>
                       <span className='breadcrum_mode'>
-                        Financial Period:
+                         Period:
                       </span>{' '}
                       {finacialYear(
                         gstFilteredData?.detail?.purchaseDetailAnnual
@@ -3774,7 +3774,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
               <div
                 className={`${styles.lightCompliance} accordion_Text ml-4 mr-2`}
               >
-                Financial Period:
+                 Period:
               </div>
               {getCompliencePeriod(gstFilteredData?.detail?.complianceDetail?.financialPeriod)}
             </div>
@@ -3866,14 +3866,15 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         supplierDetailsUnit,
         setSupplierDetailsUnit,
       )}
-      {gstSales('Sales', gstFilteredData, salesUnit, setSalesUnit, arrSales, getCompliencePeriod)}
+      {gstSales('Sales', gstFilteredData, salesUnit, setSalesUnit, arrSales, getCompliencePeriod,finacialYear)}
       {gstPurchase(
         'Purchase',
         gstFilteredData,
         purchasesUnit,
         setPurchasesUnit,
         arr,
-        getCompliencePeriod
+        getCompliencePeriod,
+        finacialYear
       )}
     </>
   )
@@ -4566,7 +4567,7 @@ const gstSupplierDetail = (
   )
 }
 
-const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales, getCompliencePeriod) => {
+const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales, getCompliencePeriod,finacialYear) => {
   return (
     <>
       <div className={`${styles.wrapper} card`}>
@@ -4620,10 +4621,9 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales, getC
                           className={`${styles.first} text-color`}
                           colSpan={13}
                         >
-                          Financial Period{' '}
-                          {getCompliencePeriod(gstFilteredData?.detail?.other?.period?.current?.financialPeriod)
-
-                          }
+                           Period:{' '}
+                          {/* {getCompliencePeriod(gstFilteredData?.detail?.other?.period?.current?.financialPeriod) } */}
+                          {finacialYear('current')}
                         </th>
                       </tr>
                       <tr className={styles.second_head}>
@@ -4923,7 +4923,8 @@ const gstPurchase = (
   purchasesUnit,
   setPurchasesUnit,
   arr,
-  getCompliencePeriod
+  getCompliencePeriod,
+  finacialYear
 
 ) => {
   return (
@@ -4979,10 +4980,11 @@ const gstPurchase = (
                           className={`${styles.first} text-color`}
                           colSpan={13}
                         >
-                          Financial Period{' '}
-                          {getCompliencePeriod(gstFilteredData?.detail?.other?.period?.current?.financialPeriod)
+                           Period{' '}
+                          {/* {getCompliencePeriod(gstFilteredData?.detail?.other?.period?.current?.financialPeriod) } */}
+                          {finacialYear('current')}
 
-                          }
+                          
                         </th>
                       </tr>
                       <tr className={styles.second_head}>
