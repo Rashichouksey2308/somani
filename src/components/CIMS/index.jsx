@@ -229,17 +229,17 @@ export default function Index({
           break
         }
       }
-      if (
-        cimsDetails[i]?.circDate == '' ||
-        cimsDetails[i]?.circDate == undefined
-      ) {
-        toastMessage = `Please  SELECT A CIRC DATE FOR CIMS NO   - ${i}  `
-        if (!toast.isActive(toastMessage.toUpperCase())) {
-          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-          isOk = false
-          break
-        }
-      }
+      // if (
+      //   cimsDetails[i]?.circDate == '' ||
+      //   cimsDetails[i]?.circDate == undefined
+      // ) {
+      //   toastMessage = `Please  SELECT A CIRC DATE FOR CIMS NO   - ${i}  `
+      //   if (!toast.isActive(toastMessage.toUpperCase())) {
+      //     toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      //     isOk = false
+      //     break
+      //   }
+      // }
       if (
         cimsDetails[i]?.cimsCharges == '' ||
         cimsDetails[i]?.cimsCharges == undefined
