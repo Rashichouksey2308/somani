@@ -149,7 +149,7 @@ function Index({ shareHolding }) {
   console.log(equitydata, "equitydata")
   return (
     <>
-      <div className={`${styles.card} card`}>
+      <div className={`${styles.card} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
