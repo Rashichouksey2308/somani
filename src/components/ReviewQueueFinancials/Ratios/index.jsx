@@ -33,22 +33,25 @@ function Index({ ratioData, rtrnChartIndiaction }) {
 
   return (
     <>
-      <div className={`${styles.card} card`}>
+      <div className={`${styles.card} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`}
         >
           <h2 className="mb-0">Ratio Analysis</h2>
           <div className={`${styles.unit_container} d-flex align-items-center`}>
             <h5 className={`${styles.unit_label} accordion_Text`}>Unit :</h5>
-            <select
-              onChange={(e) => setUnit(e.target.value)}
-              className={`${styles.options} accordion_DropDown`}
-            >
-              <option selected value={10000000}>
-                Crores
-              </option>
-              <option value={100000}>Lakhs</option>
-            </select>
+            <div className="d-flex align-items-center position-relative">
+              <select
+                onChange={(e) => setUnit(e.target.value)}
+                className={`${styles.options} ${styles.customSelect} accordion_DropDown`}
+              >
+                <option selected value={10000000}>
+                  Crores
+                </option>
+                <option value={100000}>Lakhs</option>
+              </select>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+            </div>
             <span
               data-toggle="collapse"
               data-target="#ratioAnalysis"
@@ -105,7 +108,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                   </thead>
                   <tbody>
                     <tr>
-                      <td className="text-primary font-weight-bold">
+                      <td colSpan={5} className="text-primary font-weight-bold">
                         ACTIVITY RATIO
                       </td>
                     </tr>
@@ -309,7 +312,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                       <td colSpan="5" height="5px"></td>
                     </tr>
                     <tr>
-                      <td className="text-primary font-weight-bold">
+                      <td colSpan={5} className="text-primary font-weight-bold">
                         PROFITIBILITY RATIO
                       </td>
                     </tr>
@@ -545,7 +548,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                   </thead>
                   <tbody>
                     <tr>
-                      <td className="text-primary font-weight-bold">
+                      <td colSpan={5} className="text-primary font-weight-bold">
                         COVERAGE RATIO
                       </td>
                     </tr>
@@ -676,7 +679,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                       <td colSpan="5" height="5px"></td>
                     </tr>
                     <tr>
-                      <td className="text-primary font-weight-bold">
+                      <td colSpan={5} className="text-primary font-weight-bold">
                         LIQUIDITY RATIO
                       </td>
                     </tr>
@@ -741,7 +744,7 @@ function Index({ ratioData, rtrnChartIndiaction }) {
                       <td colSpan="5" height="5px"></td>
                     </tr>
                     <tr>
-                      <td className="text-primary font-weight-bold">
+                      <td colSpan={5} className="text-primary font-weight-bold">
                         GROWTH RATIO
                       </td>
                     </tr>

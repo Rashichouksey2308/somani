@@ -36,17 +36,19 @@
     padding-top: 1rem;
     padding-bottom: 1rem;
     .key {
+      width: 48%;
       font-size: 20px;
       line-height: 24px;
+      margin-right: 2%;
 
       // opacity: 0.7;
     }
 
     .value {
+      width: 50%;
       font-size: 20px;
       line-height: 24px;
       font-weight: 500;
-      width: 15rem;
       // white-space: nowrap;
       opacity: 1;
     }
@@ -847,21 +849,16 @@
 
 .select {
   font-size: 18px;
-  line-height: 23px;
   color: #3687e8;
-  text-transform: capitalize;
-  margin-right: 10px;
-
-  border-radius: 14px;
-  border: none;
+  line-height: 23px;
   font-weight: bold;
-  text-align: center;
-  padding-left: 8px;
-  padding-right: 6px;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  margin-right: 50px;
+  border: none;
+  height: 27px;
   outline: none;
+  border-radius: 14px;
+  padding: 0 20px 0 15px;
+  min-width: 102px;
+  margin-right: 50px;
 }
 .name {
   display: flex;
@@ -1136,4 +1133,18 @@
       }
     }
   }
+}
+img {
+    &.arrow2 {
+      width: 13px !important;
+      pointer-events: none;
+      position: absolute;
+      right: 60px;
+      filter: invert(59%) sepia(99%) saturate(4810%) hue-rotate(199deg)
+        brightness(103%) contrast(82%);
+    }
+}
+.customSelect {
+    appearance: none;
+    // position: relative;
 }

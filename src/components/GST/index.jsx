@@ -1204,7 +1204,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
   console.log(getCompliencePeriod(gstFilteredData?.detail?.complianceDetail?.financialPeriod), 'jdhgvdfghkzjdshfiugdsfjh')
   return (
     <>
-      <div className={`${styles.wrapper} card`}>
+      <div className={`${styles.wrapper} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader}  card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -1517,16 +1517,17 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   <span className={`${styles.light} accordion_Text`}>
                     Unit :
                   </span>
-                  <select
-                    onChange={(e) => setRevenueProfile(e.target.value)}
-                    className={`${styles.select} accordion_DropDown form-select`}
-                    aria-label="Default select example"
-                  >
-                    <option selected value={10000000}>
-                      Crores
-                    </option>
-                    <option value={100000}>Lakhs</option>
-                  </select>
+                  <div className="d-flex align-items-center position-relative">
+                    <select
+                      onChange={(e) => setRevenueProfile(e.target.value)}
+                      className={`${styles.select} ${styles.customSelect} accordion_DropDown form-select`} aria-label="Default select example">
+                      <option selected value={10000000}>
+                        Crores
+                      </option>
+                      <option value={100000}>Lakhs</option>
+                    </select>
+                    <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+                  </div>
                 </span>
               </div>
               <div className={` ${styles.body}`}>
@@ -1861,35 +1862,38 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         </Modal.Body>
       </Modal>
 
-      <div className={`${styles.wrapper} card`}>
+      <div className={`${styles.wrapper} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           style={{ cursor: 'default' }}
         >
           <h2 className="mb-0">Summary Chart</h2>
           <div className="d-flex align-items-center">
-            <h5 className={`${styles.light} accordion_Text`}>Filter By: </h5>
-            <select
-              value={isChartFilterMonthly ? isChartFilterMonthly : 'Quarterly'}
-              className={`${styles.selectHead} accordion_body accordion_DropDown form-select`}
-              aria-label="Default select example"
-              onChange={(e) => {
-                if (e.target.value == 'monthly') {
-                  setIsChartFilterMonthly(true)
-                  handleMonthlyData()
-                } else if (e.target.value == 'Quarterly') {
-                  handleQuarterlyData()
-                  setIsChartFilterMonthly(false)
-                }
-              }}
-            >
-              <option selected value="monthly">
-                Monthly
-              </option>
-              <option value="Quarterly">
-                Quarterly
-              </option>
-            </select>
+            <h5 className={`${styles.light} accordion_Text`}>Filter By : </h5>
+            <div className="d-flex align-items-center position-relative">
+              <select
+                value={isChartFilterMonthly ? isChartFilterMonthly : 'Quarterly'}
+                className={`${styles.select} ${styles.customSelect} accordion_body accordion_DropDown form-select`}
+                aria-label="Default select example"
+                onChange={(e) => {
+                  if (e.target.value == 'monthly') {
+                    setIsChartFilterMonthly(true)
+                    handleMonthlyData()
+                  } else if (e.target.value == 'Quarterly') {
+                    handleQuarterlyData()
+                    setIsChartFilterMonthly(false)
+                  }
+                }}
+              >
+                <option selected value="monthly">
+                  Monthly
+                </option>
+                <option value="Quarterly">
+                  Quarterly
+                </option>
+              </select>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+            </div>
             <span
               data-toggle="collapse"
               data-target="#summaryCharts"
@@ -2064,7 +2068,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         </div>
       </div>
 
-      <div className={`${styles.wrapper} card`}>
+      <div className={`${styles.wrapper} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           style={{ cursor: 'default' }}
@@ -2072,16 +2076,17 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           <h2 className="mb-0">Sales Details</h2>
           <div className="d-flex align-items-center">
             <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
-            <select
-              onChange={(e) => setSalesDetails(e.target.value)}
-              className={`${styles.selectHead} accordion_body accordion_DropDown form-select`}
-              aria-label="Default select example"
-            >
-              <option selected value={10000000}>
-                Crores
-              </option>
-              <option value={100000}>Lakhs</option>
-            </select>
+            <div className="d-flex align-items-center position-relative">
+              <select
+                onChange={(e) => setSalesDetails(e.target.value)}
+                className={`${styles.select} ${styles.customSelect} accordion_body accordion_DropDown form-select`} aria-label="Default select example">
+                <option selected value={10000000}>
+                  Crores
+                </option>
+                <option value={100000}>Lakhs</option>
+              </select>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+            </div>
             <span
               data-toggle="collapse"
               data-target="#salesDetails"
@@ -2114,11 +2119,11 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       Annual Summary
                     </th>
                     <th colSpan={2} className='text-color'>
-                      {finacialYear('current')}
+                      Period: {finacialYear('current')}
                     </th>
                     <th colSpan={2} className='text-color'>
 
-                      {finacialYear()}
+                      Period: {finacialYear()}
                     </th>
                   </tr>
                   <tr className={styles.second_head}>
@@ -3017,7 +3022,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <th width="66%" colSpan={3} className='text-color'>
 
                       <span className='breadcrum_mode mr-1'>
-                        Financial Period:
+                         Period:
                       </span>
                       {finacialYear('current') ? finacialYear('current') : "-"}
                     </th>
@@ -3090,7 +3095,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         </div>{' '}
       </div>
 
-      <div className={`${styles.wrapper} card`}>
+      <div className={`${styles.wrapper} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           style={{ cursor: 'default' }}
@@ -3098,14 +3103,15 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           <h2 className="mb-0">Purchase Details</h2>
           <div className="d-flex align-items-center">
             <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
-            <select
-              onChange={(e) => setPurchasesDetailsUnit(e.target.value)}
-              className={`${styles.selectHead} accordion_body accordion_DropDown form-select`}
-              aria-label="Default select example"
-            >
-              <option value={10000000}>Crores</option>
-              <option value={100000}>Lakhs</option>
-            </select>
+            <div className="d-flex align-items-center position-relative">
+              <select
+                onChange={(e) => setPurchasesDetailsUnit(e.target.value)}
+                className={`${styles.select} ${styles.customSelect} accordion_body accordion_DropDown form-select`} aria-label="Default select example">
+                <option value={10000000}>Crores</option>
+                <option value={100000}>Lakhs</option>
+              </select>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+            </div>
             <span
               data-toggle="collapse"
               data-target="#purchaseDetails"
@@ -3138,10 +3144,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       Annual Summary
                     </th>
                     <th colSpan={2} className='text-color'>
-                      {finacialYear('current')}
+                     Period: {finacialYear('current')}
                     </th>
                     <th colSpan={2} className='text-color'>
-                      {finacialYear()}
+                     Period: {finacialYear()}
                     </th>
                   </tr>
                   <tr className={styles.second_head}>
@@ -3667,7 +3673,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </td>
                   </tr>
                 </table>
-                {/* <table
+                <table
                   className={`${styles.table_pricipal} border_color  table`}
                   cellPadding="0"
                   cellSpacing="0"
@@ -3679,12 +3685,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </th>
                     <th width="66%" colSpan={6} className='text-color'>
                       <span className='breadcrum_mode'>
-                        Financial Period:
+                         Period:
                       </span>{' '}
-                      {finacialYear(
-                        gstFilteredData?.detail?.purchaseDetailAnnual
-                          ?.saleSummary?.B2BPurchase?.current?.financialYear,
-                      )}
+                      {finacialYear('current')}
                     </th>
                   </tr>
                   <tr className={`${styles.second_head}`}>
@@ -3734,14 +3737,14 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         </tr>
                       ),
                     )}
-                </table> */}
+                </table>
               </div>
             </div>
           </div>
         </div>{' '}
       </div>
 
-      <div className={`${styles.wrapper} card`}>
+      <div className={`${styles.wrapper} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           style={{ cursor: 'default' }}
@@ -3774,7 +3777,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
               <div
                 className={`${styles.lightCompliance} accordion_Text ml-4 mr-2`}
               >
-                Financial Period:
+                 Period:
               </div>
               {getCompliencePeriod(gstFilteredData?.detail?.complianceDetail?.financialPeriod)}
             </div>
@@ -3866,14 +3869,15 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         supplierDetailsUnit,
         setSupplierDetailsUnit,
       )}
-      {gstSales('Sales', gstFilteredData, salesUnit, setSalesUnit, arrSales, getCompliencePeriod)}
+      {gstSales('Sales', gstFilteredData, salesUnit, setSalesUnit, arrSales, getCompliencePeriod,finacialYear)}
       {gstPurchase(
         'Purchase',
         gstFilteredData,
         purchasesUnit,
         setPurchasesUnit,
         arr,
-        getCompliencePeriod
+        getCompliencePeriod,
+        finacialYear
       )}
     </>
   )
@@ -3888,7 +3892,7 @@ const gstCustomerDetail = (
 ) => {
   return (
     <>
-      <div className={`${styles.wrapper} card  `}>
+      <div className={`${styles.wrapper} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           style={{ cursor: 'default' }}
@@ -3896,16 +3900,17 @@ const gstCustomerDetail = (
           <h2 className="mb-0">Customer Details</h2>
           <div className="d-flex align-items-center">
             <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
-            <select
-              onChange={(e) => setCustomerDetailsUnit(e.target.value)}
-              className={`${styles.selectHead} accordion_body accordion_DropDown form-select`}
-              aria-label="Default select example"
-            >
-              <option selected value={10000000}>
-                Crores
-              </option>
-              <option value={100000}>Lakhs</option>
-            </select>
+            <div className="d-flex align-items-center position-relative">
+              <select
+                onChange={(e) => setCustomerDetailsUnit(e.target.value)}
+                className={`${styles.select} ${styles.customSelect} accordion_body accordion_DropDown form-select`} aria-label="Default select example">
+                <option selected value={10000000}>
+                  Crores
+                </option>
+                <option value={100000}>Lakhs</option>
+              </select>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+            </div>
             <span
               data-toggle="collapse"
               data-target="#gstCustomerDetail"
@@ -4232,7 +4237,7 @@ const gstSupplierDetail = (
 ) => {
   return (
     <>
-      <div className={`${styles.wrapper} card`}>
+      <div className={`${styles.wrapper} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           style={{ cursor: 'default' }}
@@ -4240,16 +4245,18 @@ const gstSupplierDetail = (
           <h2 className="mb-0">Suppliers Details</h2>
           <div className="d-flex align-items-center">
             <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
-            <select
-              onChange={(e) => setSupplierDetailsUnit(e.target.value)}
-              className={`${styles.selectHead} accordion_DropDown form-select`}
-              aria-label="Default select example"
-            >
-              <option selected value={10000000}>
-                Crores
-              </option>
-              <option value={100000}>Lakhs</option>
-            </select>
+            <div className="d-flex align-items-center position-relative">
+              <select
+                onChange={(e) => setSupplierDetailsUnit(e.target.value)}
+                className={`${styles.select} ${styles.customSelect} accordion_DropDown form-select`}
+                aria-label="Default select example">
+                <option selected value={10000000}>
+                  Crores
+                </option>
+                <option value={100000}>Lakhs</option>
+              </select>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+            </div>
             <span
               data-toggle="collapse"
               data-target="#gstSupplierDetail"
@@ -4566,10 +4573,10 @@ const gstSupplierDetail = (
   )
 }
 
-const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales, getCompliencePeriod) => {
+const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales, getCompliencePeriod,finacialYear) => {
   return (
     <>
-      <div className={`${styles.wrapper} card`}>
+      <div className={`${styles.wrapper} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           style={{ cursor: 'default' }}
@@ -4577,16 +4584,19 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales, getC
           <h2 className="mb-0">{head}</h2>
           <div className="d-flex align-items-center">
             <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
-            <select
-              onClick={(e) => setSalesUnit(e.target.value)}
-              className={`${styles.selectHead} accordion_DropDown form-select`}
-              aria-label="Default select example"
-            >
-              <option selected value={10000000}>
-                Crores
-              </option>
-              <option value={100000}>Lakhs</option>
-            </select>
+            <div className="d-flex align-items-center position-relative">
+              <select
+                onClick={(e) => setSalesUnit(e.target.value)}
+                className={`${styles.select} ${styles.customSelect} accordion_DropDown form-select`}
+                aria-label="Default select example"
+              >
+                <option selected value={10000000}>
+                  Crores
+                </option>
+                <option value={100000}>Lakhs</option>
+              </select>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+            </div>
             <span
               data-toggle="collapse"
               data-target="#gstSalesAndPurchase"
@@ -4620,10 +4630,9 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales, getC
                           className={`${styles.first} text-color`}
                           colSpan={13}
                         >
-                          Financial Period{' '}
-                          {getCompliencePeriod(gstFilteredData?.detail?.other?.period?.current?.financialPeriod)
-
-                          }
+                           Period:{' '}
+                          {/* {getCompliencePeriod(gstFilteredData?.detail?.other?.period?.current?.financialPeriod) } */}
+                          {finacialYear('current')}
                         </th>
                       </tr>
                       <tr className={styles.second_head}>
@@ -4923,12 +4932,13 @@ const gstPurchase = (
   purchasesUnit,
   setPurchasesUnit,
   arr,
-  getCompliencePeriod
+  getCompliencePeriod,
+  finacialYear
 
 ) => {
   return (
     <>
-      <div className={`${styles.wrapper} ${styles.lastComponent} card`}>
+      <div className={`${styles.wrapper} ${styles.lastComponent} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           style={{ cursor: 'default' }}
@@ -4936,16 +4946,19 @@ const gstPurchase = (
           <h2 className="mb-0">{head}</h2>
           <div className="d-flex align-items-center">
             <h5 className={`${styles.light} accordion_Text`}>Unit :</h5>
-            <select
-              onChange={(e) => setPurchasesUnit(e.target.value)}
-              className={`${styles.selectHead} accordion_DropDown form-select`}
-              aria-label="Default select example"
-            >
-              <option selected value={10000000}>
-                Crores
-              </option>
-              <option value={100000}>Lakhs</option>
-            </select>
+            <div className="d-flex align-items-center position-relative">
+              <select
+                onChange={(e) => setPurchasesUnit(e.target.value)}
+                className={`${styles.select} ${styles.customSelect} accordion_DropDown form-select`}
+                aria-label="Default select example"
+              >
+                <option selected value={10000000}>
+                  Crores
+                </option>
+                <option value={100000}>Lakhs</option>
+              </select>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+            </div>
             <span
               data-toggle="collapse"
               data-target="#purchase"
@@ -4979,10 +4992,11 @@ const gstPurchase = (
                           className={`${styles.first} text-color`}
                           colSpan={13}
                         >
-                          Financial Period{' '}
-                          {getCompliencePeriod(gstFilteredData?.detail?.other?.period?.current?.financialPeriod)
+                           Period{' '}
+                          {/* {getCompliencePeriod(gstFilteredData?.detail?.other?.period?.current?.financialPeriod) } */}
+                          {finacialYear('current')}
 
-                          }
+                          
                         </th>
                       </tr>
                       <tr className={styles.second_head}>

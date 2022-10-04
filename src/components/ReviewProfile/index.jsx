@@ -101,7 +101,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
   console.log(reviewedProfile, 'this is reviewed')
 
   return (
-    <div className={`${styles.leads} border leads`}>
+    <div className={`${styles.leads} border card`}>
       <div
         className={`${styles.tableFilter} tableFilter d-flex justify-content-between align-items-center`}
       >
@@ -135,7 +135,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
                     VALUES
                   </th>
                   <th
-                    className={`${styles.table_heading} border_color table_heading`}
+                    className={`${styles.table_heading} border_color text-center table_heading`}
                   >
                     API RESPONSE
                   </th>
@@ -550,7 +550,7 @@ function Index({ handleChange, reviewedProfile, isAddedRow ,payloadData}) {
             </table>
           </form>
        
-      <div className={`${styles.remarks} table_row`}>
+      <div className={`${styles.remarks} border-bottom-0 table_row`}>
         <Form.Label className={styles.remarksName}>User Remarks</Form.Label>
         <Form.Control
           as="textarea"

@@ -736,7 +736,7 @@ const basicInfo = (camData, orderDetails) => {
   // console
   return (
     <>
-      <div className={`${styles.card} card`}>
+      <div className={`${styles.card} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -758,14 +758,14 @@ const basicInfo = (camData, orderDetails) => {
               className={`${styles.content} ${styles.highlight} card_sub_header  mb-4`}
             >
               <Row className={`mb-3`}>
-                <Col className={`d-flex justify-content-between`} md={5}>
+                <Col className={`d-flex justify-content-between`} md={6}>
                   <span
                     className={`${styles.key} label1`}
                     style={{ background: 'transparent' }}
                   >
                     Transaction Type
                   </span>
-                  <span className={`${styles.value} value pr-5`}>
+                  <span className={`${styles.value} value`}>
                     {orderDetails?.transactionType}
                   </span>
                 </Col>
@@ -773,19 +773,19 @@ const basicInfo = (camData, orderDetails) => {
             </div>
             <div className={`${styles.content} mb-4`}>
               <Row className={`mb-3`}>
-                <Col className={`d-flex justify-content-between`} md={5}>
+                <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>
                     Sourcing Channel
                   </span>
-                  <span className={`${styles.value} value pr-5`}>
+                  <span className={`${styles.value} value`}>
                     {orderDetails?.company?.sourceChanel}
                   </span>
                 </Col>
                 <Col
                   className={` col-md-offset-2 d-flex justify-content-between`}
-                  md={5}
+                  md={6}
                 >
-                  <span className={`${styles.key} label1 ml-5 pl-5`}>City</span>
+                  <span className={`${styles.key} label1`}>City</span>
                   <span className={`${styles.value} value`}>
                     {
                       camData?.company?.detailedCompanyInfo?.profile
@@ -795,14 +795,14 @@ const basicInfo = (camData, orderDetails) => {
                 </Col>
               </Row>
               <Row className={`mb-3`}>
-                <Col className={`d-flex justify-content-between`} md={5}>
+                <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Buyer</span>
-                  <span className={`${styles.value} value pr-5`}>
+                  <span className={`${styles.value} value`}>
                     {camData?.company?.companyName}
                   </span>
                 </Col>
-                <Col className={`d-flex justify-content-between`} md={5}>
-                  <span className={`${styles.key} label1 ml-5 pl-5`}>
+                <Col className={`d-flex justify-content-between`} md={6}>
+                  <span className={`${styles.key} label1`}>
                     State
                   </span>
                   <span className={`${styles.value} value`}>
@@ -814,16 +814,16 @@ const basicInfo = (camData, orderDetails) => {
                 </Col>
               </Row>
               <Row className={`mb-3`}>
-                <Col className={`d-flex justify-content-between`} md={5}>
+                <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>
                     Type of Business
                   </span>
-                  <span className={`${styles.value} value pr-5`}>
+                  <span className={`${styles.value} value`}>
                     {camData?.company?.typeOfBusiness}
                   </span>
                 </Col>
-                <Col className={`d-flex justify-content-between`} md={5}>
-                  <span className={`${styles.key} label1 ml-5 pl-5`}>
+                <Col className={`d-flex justify-content-between`} md={6}>
+                  <span className={`${styles.key} label1`}>
                     Industry
                   </span>
                   <span className={`${styles.value} value`}>
@@ -836,9 +836,9 @@ const basicInfo = (camData, orderDetails) => {
               className={`${styles.content} ${styles.highlight} card_sub_header  mb-4`}
             >
               <Row className={`mb-3`}>
-                <Col className={`d-flex justify-content-between`} md={5}>
+                <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Order Value</span>
-                  <span className={`${styles.value} value pr-5`}>
+                  <span className={`${styles.value} value`}>
                     {convertValue(camData?.orderValue)?.toLocaleString(
                       'en-In',
                       {
@@ -852,9 +852,9 @@ const basicInfo = (camData, orderDetails) => {
                 </Col>
                 <Col
                   className={` col-md-offset-2 d-flex justify-content-between`}
-                  md={5}
+                  md={6}
                 >
-                  <span className={`${styles.key} label1 ml-5 pl-5`}>
+                  <span className={`${styles.key} label1`}>
                     Commodity
                   </span>
                   <span className={`${styles.value} value`}>
@@ -863,17 +863,17 @@ const basicInfo = (camData, orderDetails) => {
                 </Col>
               </Row>
               <Row className={`mb-3`}>
-                <Col className={`d-flex justify-content-between`} md={5}>
+                <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Quantity</span>
-                  <span className={`${styles.value} value pr-5`}>
+                  <span className={`${styles.value} value`}>
                     {camData?.quantity?.toLocaleString('en-In', {
                       maximumFractionDigits: 2,
                     })}{' '}
                     {camData?.unitOfQuantity.toUpperCase()}
                   </span>
                 </Col>
-                <Col className={`d-flex justify-content-between`} md={5}>
-                  <span className={`${styles.key} label1 ml-5 pl-5`}>
+                <Col className={`d-flex justify-content-between`} md={6}>
+                  <span className={`${styles.key} label1`}>
                     Supplier
                   </span>
                   <span className={`${styles.value} value`}>
@@ -882,16 +882,16 @@ const basicInfo = (camData, orderDetails) => {
                 </Col>
               </Row>
               <Row className={`mb-3`}>
-                <Col className={`d-flex justify-content-between`} md={5}>
+                <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>
                     Country of Origin
                   </span>
-                  <span className={`${styles.value} value pr-5`}>
+                  <span className={`${styles.value} value`}>
                     {camData?.countryOfOrigin}
                   </span>
                 </Col>
-                <Col className={`d-flex justify-content-between`} md={5}>
-                  <span className={`${styles.key} label1 ml-5 pl-5`}>
+                <Col className={`d-flex justify-content-between`} md={6}>
+                  <span className={`${styles.key} label1`}>
                     Transaction Period (Days)
                   </span>
                   <span className={`${styles.value} value`}>
@@ -902,19 +902,19 @@ const basicInfo = (camData, orderDetails) => {
             </div>
             <div className={`${styles.content} mb-4`}>
               <Row className={`mb-3`}>
-                <Col className={`d-flex justify-content-between`} md={5}>
+                <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>
                     Port of Loading
                   </span>
-                  <span className={`${styles.value} value pr-5`}>
+                  <span className={`${styles.value} value`}>
                     {camData?.shipmentDetail?.portOfLoading}
                   </span>
                 </Col>
                 <Col
                   className={` col-md-offset-2 d-flex justify-content-between`}
-                  md={5}
+                  md={6}
                 >
-                  <span className={`${styles.key} label1 ml-5 pl-5`}>
+                  <span className={`${styles.key} label1`}>
                     Port of Discharge
                   </span>
                   <span className={`${styles.value} value`}>
@@ -923,11 +923,11 @@ const basicInfo = (camData, orderDetails) => {
                 </Col>
               </Row>
               <Row className={`mb-3`}>
-                <Col className={`d-flex justify-content-between`} md={5}>
+                <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>
                     Exp. Date of Shipment
                   </span>
-                  <span className={`${styles.value} value pr-5`}>
+                  <span className={`${styles.value} value`}>
                     {/* {camData?.ExpectedDateOfShipment.split('T')[0]} */}
                     {camData?.ExpectedDateOfShipment
                       ? moment(camData?.ExpectedDateOfShipment).format(
@@ -936,8 +936,8 @@ const basicInfo = (camData, orderDetails) => {
                       : ''}
                   </span>
                 </Col>
-                <Col className={`d-flex justify-content-between`} md={5}>
-                  <span className={`${styles.key} label1 ml-5 pl-5`}>
+                <Col className={`d-flex justify-content-between`} md={6}>
+                  <span className={`${styles.key} label1`}>
                     ETA at Discharge port
                   </span>
                   <span className={`${styles.value} value`}>
@@ -956,9 +956,9 @@ const basicInfo = (camData, orderDetails) => {
                 </Col>
               </Row>
               <Row className={`mb-3`}>
-                <Col className={`d-flex justify-content-between`} md={5}>
+                <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Laycan from</span>
-                  <span className={`${styles.value} value pr-5`}>
+                  <span className={`${styles.value} value`}>
                     {/* {camData?.shipmentDetail?.loadPort?.fromDate?.split('T')[0]} */}
                     {/* {camData?.shipmentDetail?.loadPort?.fromDate
                       ? moment(
@@ -977,8 +977,8 @@ const basicInfo = (camData, orderDetails) => {
                       : ''}
                   </span>
                 </Col>
-                <Col className={`d-flex justify-content-between`} md={5}>
-                  <span className={`${styles.key} label1 ml-5 pl-5`}>
+                <Col className={`d-flex justify-content-between`} md={6}>
+                  <span className={`${styles.key} label1`}>
                     Laycan to
                   </span>
                   <span className={`${styles.value} value`}>
@@ -1012,7 +1012,7 @@ const supplierInfo = (camData) => {
   console.log(camData, 'camData')
   return (
     <>
-      <div className={`${styles.card} card`}>
+      <div className={`${styles.card} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -1036,7 +1036,7 @@ const supplierInfo = (camData) => {
                   <span className={`${styles.key} label1`}>
                     No. of Shipments
                   </span>
-                  <span className={`${styles.value} value pr-5`}>
+                  <span className={`${styles.value} value`}>
                     {camData?.supplierCredential?.shipmentNumber}
                   </span>
                 </Col>
@@ -1057,7 +1057,7 @@ const supplierInfo = (camData) => {
                   <span className={`${styles.key} label1`}>
                     No. of Consignees
                   </span>
-                  <span className={`${styles.value} value pr-5`}>
+                  <span className={`${styles.value} value`}>
                     {camData?.supplierCredential?.consigneesNumber}
                   </span>
                 </Col>
@@ -1086,7 +1086,7 @@ const supplierInfo = (camData) => {
                   <span className={`${styles.key} label1`}>
                     No. of HS codes
                   </span>
-                  <span className={`${styles.value} value pr-5`}>
+                  <span className={`${styles.value} value`}>
                     {camData?.supplierCredential?.HSCodesNumber}
                   </span>
                 </Col>
@@ -1115,7 +1115,7 @@ const supplierInfo = (camData) => {
                   <span className={`${styles.key} label1`}>
                     Country of Origins
                   </span>
-                  <span className={`${styles.value} value pr-5`}>
+                  <span className={`${styles.value} value`}>
                     {camData?.supplierCredential?.countryOfOrigin}
                   </span>
                 </Col>
@@ -1144,7 +1144,7 @@ const supplierInfo = (camData) => {
 const groupExposure = (camData) => {
   return (
     <>
-      <div className={`${styles.card} card`}>
+      <div className={`${styles.card} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -1387,7 +1387,7 @@ const groupExposure = (camData) => {
 const orderSummary = (camData) => {
   return (
     <>
-      <div className={`${styles.card} card`}>
+      <div className={`${styles.card} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -1443,7 +1443,7 @@ const orderSummary = (camData) => {
                   </span>
                 </td>
                 <td>{camData?.orderId}</td>
-                <td>{CovertvaluefromtoCR(camData?.orderValue)}</td>
+                <td>{CovertvaluefromtoCR(camData?.orderValue)?.toLocaleString('en-In')}</td>
                 <td>{camData?.commodity}</td>
                 <td>In Process</td>
 
@@ -1465,7 +1465,7 @@ const creditProfile = (
 ) => {
   return (
     <>
-      <div className={`${styles.card} card`}>
+      <div className={`${styles.card} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -1487,7 +1487,7 @@ const creditProfile = (
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Main Banker</span>
-                  <span className={`${styles.value} value pr-5`}>
+                  <span className={`${styles.value} value`}>
                     {primaryBankName()}
                   </span>
                 </Col>
@@ -1501,7 +1501,7 @@ const creditProfile = (
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Open Charges</span>
-                  <span className={`${styles.value} value pr-5`}>
+                  <span className={`${styles.value} value`}>
                     {openChargesLength()}
                   </span>
                 </Col>
@@ -1519,7 +1519,7 @@ const creditProfile = (
                   <span className={`${styles.key} label1`}>
                     Name of Auditor
                   </span>
-                  <span className={`${styles.value} value pr-5`}>
+                  <span className={`${styles.value} value`}>
                     {latestAuditorData?.nameOfAuditor}
                   </span>
                 </Col>
@@ -1545,7 +1545,7 @@ const creditProfile = (
 const directorDetails = (camData) => {
   return (
     <>
-      <div className={`${styles.card} card`}>
+      <div className={`${styles.card} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -1623,7 +1623,7 @@ const shareHolding = (
 ) => {
   return (
     <>
-      <div className={`${styles.card} card`}>
+      <div className={`${styles.card} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -1813,7 +1813,7 @@ const chargeDetails = (
   console.log(top3Open, 'top3Open')
   return (
     <>
-      <div className={`${styles.card} card`}>
+      <div className={`${styles.card} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -1992,7 +1992,7 @@ const chargeDetails = (
 const debtProfile = (data, options, tempArr, camData, totalLimitDebt) => {
   return (
     <>
-      <div className={`${styles.card} card`}>
+      <div className={`${styles.card} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -2206,7 +2206,7 @@ const operationalDetails = (camData) => {
   )
   return (
     <>
-      <div className={`${styles.card} card`}>
+      <div className={`${styles.card} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -2230,7 +2230,7 @@ const operationalDetails = (camData) => {
                   <span className={`${styles.key} label1`}>
                     Plant Production Capacity
                   </span>
-                  <span className={`${styles.value} value pr-5`}>
+                  <span className={`${styles.value} value`}>
                     {camData?.productSummary?.monthlyProductionCapacity
                       ? Number(
                           camData?.productSummary?.monthlyProductionCapacity,
@@ -2267,7 +2267,7 @@ const operationalDetails = (camData) => {
                   <span className={`${styles.key} label1`}>
                     Capacity Utilization
                   </span>
-                  <span className={`${styles.value} value pr-5`}>
+                  <span className={`${styles.value} value`}>
                     {camData?.productSummary?.capacityUtilization?.toLocaleString(
                       'en-In',
                       {
@@ -2299,7 +2299,7 @@ const operationalDetails = (camData) => {
                   <span className={`${styles.key} label1`}>
                     Available Stock of Commodity
                   </span>
-                  <span className={`${styles.value} value pr-5`}>
+                  <span className={`${styles.value} value`}>
                     {/* {checkNan(
                       Number(
                         camData?.productSummary?.availableStock,
@@ -2386,7 +2386,7 @@ const revenuDetails = (gstData) => {
 
   return (
     <>
-      <div className={`${styles.card} card`}>
+      <div className={`${styles.card} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -2823,7 +2823,7 @@ const financeDetails = (
 ) => {
   return (
     <>
-      <div className={`${styles.card} card`}>
+      <div className={`${styles.card} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -3317,7 +3317,7 @@ const financeDetails = (
 const compilanceStatus = (companyData, camData) => {
   return (
     <>
-      <div className={`${styles.card} card`}>
+      <div className={`${styles.card} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -3342,7 +3342,7 @@ const compilanceStatus = (companyData, camData) => {
                     GST Return Filing
                   </span>
                   <span
-                    className={`${styles.value} value pr-5`}
+                    className={`${styles.value} value`}
                     style={{ color: '#EA3F3F' }}
                   >
                     {[].forEach((l, index2) => {})}
@@ -3376,7 +3376,7 @@ const compilanceStatus = (companyData, camData) => {
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>EPF Status</span>
                   <span
-                    className={`${styles.value} value pr-5`}
+                    className={`${styles.value} value`}
                     style={{ color: '#EA3F3F' }}
                   >
                     {companyData?.compliance.other?.epfStatus ? 'YES' : 'NO'}
@@ -3394,7 +3394,7 @@ const compilanceStatus = (companyData, camData) => {
                   <span className={`${styles.key} label1`}>
                     Litigation Status
                   </span>
-                  <span className={`${styles.value} value pr-5`}>
+                  <span className={`${styles.value} value`}>
                     {camData?.company?.litigationStatus}
                   </span>
                 </Col>
@@ -3414,7 +3414,7 @@ const compilanceStatus = (companyData, camData) => {
                   <span className={`${styles.key} label1`}>
                     Last Balance Sheet Dates
                   </span>
-                  <span className={`${styles.value} value pr-5`}>
+                  <span className={`${styles.value} value`}>
                     {companyData?.profile?.companyDetail?.lastBalanceSheet}
                   </span>
                 </Col>
@@ -3437,7 +3437,7 @@ const compilanceStatus = (companyData, camData) => {
 const strengthAndWeakness = (camData) => {
   return (
     <>
-      <div className={`${styles.card} card`}>
+      <div className={`${styles.card} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -3566,7 +3566,7 @@ const sectionTerms = (
   console.log(isFieldInFocus, 'setIsFieldInFocus')
   return (
     <>
-      <div className={`${styles.card} card`}>
+      <div className={`${styles.card} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           style={{ cursor: 'default' }}
@@ -3834,7 +3834,7 @@ const Documents = (documentsFetched) => {
   const dispatch = useDispatch()
   return (
     <>
-      <div className={`${styles.card} card`}>
+      <div className={`${styles.card} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"
@@ -3973,7 +3973,7 @@ const trends = (
 ) => {
   return (
     <>
-      <div className={`${styles.card} card`}>
+      <div className={`${styles.card} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           style={{ cursor: 'default' }}
@@ -3985,15 +3985,17 @@ const trends = (
             >
               Display By:
             </h5>
-            <select
-              className={`${styles.select} accordion_body form-select`}
-              aria-label="Default select example"
-            >
-              <option>Select an option</option>
-              <option selected value="1">
-                Quarterly
-              </option>
-            </select>
+            <div className="d-flex align-items-center position-relative">
+              <select
+                className={`${styles.select} ${styles.customSelect} accordion_body form-select`}
+                aria-label="Default select example">
+                <option>Select an option</option>
+                <option selected value="1">
+                  Quarterly
+                </option>
+              </select>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+            </div>
             <span
               data-toggle="collapse"
               data-target="#trends"
@@ -4119,7 +4121,7 @@ const skewness = (
 ) => {
   return (
     <>
-      <div className={`${styles.card} card`}>
+      <div className={`${styles.card} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           style={{ cursor: 'default' }}
@@ -4127,19 +4129,21 @@ const skewness = (
           <h2 className="mb-0">Skewness</h2>
           <div className="d-flex align-items-center">
             <h5
-              className={`${styles.light}  ${styles.unit_label} accordion_Text`}
+              className={`${styles.light} ${styles.unit_label} accordion_Text`}
             >
               Display By:
             </h5>
-            <select
-              className={`${styles.select} accordion_body form-select`}
-              aria-label="Default select example"
-            >
-              <option>Select an option</option>
-              <option selected value="1">
-                Quarterly
-              </option>
-            </select>
+            <div className="d-flex align-items-center position-relative">
+              <select
+                className={`${styles.select} ${styles.customSelect} accordion_body form-select`}
+                aria-label="Default select example">
+                <option>Select an option</option>
+                <option selected value="1">
+                  Quarterly
+                </option>
+              </select>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+            </div>
             <span
               data-toggle="collapse"
               data-target="#skewness"
@@ -4306,7 +4310,7 @@ const customerRating = (data, filteredCreditRating, rating, darkMode) => {
   console.log(filteredCreditRating, 'filteredCreditRating22')
   return (
     <>
-      <div className={`${styles.card} card`}>
+      <div className={`${styles.card} card border_color border-bottom`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between bg-transparent`}
           data-toggle="collapse"

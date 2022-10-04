@@ -67,7 +67,7 @@ export default function Home() {
   const [vesselData, setVesselData] = useState()
   const [orderID, setOrderId] = useState('')
   const [isFieldInFocus, setIsFieldInFocus] = useState([{ value: false }])
-  console.log(containerExcel,vesselCertificate,containerListDocument, 'containerExcel')
+  console.log(containerExcel, vesselCertificate, containerListDocument, 'containerExcel')
   console.log(shipmentTypeBulk, '')
 
   const setData = (Vessel) => {
@@ -472,32 +472,35 @@ export default function Home() {
   const onVesselInfoChangeHandlerForBulk = (e, index) => {
     const name = e.target.id
     let value = e.target.value
+    // let value = Math.max(1000, Math.min(2022, Number(e.target.value))) ?? 0
     // if (name === 'yearOfBuilt' && value.length === 4) {
     //   // value = new Date(e.target.value)
     //   // console.log(value, 'fghfhf')
     // }
-    // console.log(name, value, 'arrayvesselbulk')
+    // console.log(name, value,new Date().getFullYear(), Math.max(1000, Math.min(2022, Number(value))), 'arrayvesselbulk')
     if (name.trim() === 'yearOfBuilt' && !value.length === 4) {
       let toastMessage = 'provide a valid year'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-        return
       }
-    }
-    let array = { ...list[index].vesselInformation[0], [name]: value }
-    // console.log(array, 'arrayvessel')
-    setList((prevState) => {
-      const newState = prevState.map((obj, i) => {
-        if (i == index) {
-          return {
-            ...obj,
-            vesselInformation: [array],
+
+    } else {
+      let array = { ...list[index].vesselInformation[0], [name]: value }
+      // console.log(array, 'arrayvessel')
+      setList((prevState) => {
+        const newState = prevState.map((obj, i) => {
+          if (i == index) {
+            return {
+              ...obj,
+              vesselInformation: [array],
+            }
           }
-        }
-        return obj
+          return obj
+        })
+        return newState
       })
-      return newState
-    })
+    }
+
   }
   // console.log(list, 'vessel liner state')
 
@@ -766,9 +769,22 @@ export default function Home() {
         if (
           list[i].vesselInformation[0].yearOfBuilt == '' ||
           list[i].vesselInformation[0].yearOfBuilt == undefined ||
-          list[i].vesselInformation[0].yearOfBuilt == null
+          list[i].vesselInformation[0].yearOfBuilt == null ||
+          list[i].vesselInformation[0].yearOfBuilt.length !== 4
+
         ) {
-          toastMessage = `Please add yea Of Built  of Vessel Information ${i}  `
+          toastMessage = `Please add a valid year Of Built  of Vessel Information ${i}  `
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+            isOk = false
+            break
+          }
+        }
+          if (
+          list[i]?.vesselInformation[0]?.shippingLineOrCharter == '' ||
+          list[i]?.vesselInformation[0]?.shippingLineOrCharter == undefined
+        ) {
+          toastMessage = `Please add shipping Line Or Charter  of Vessel Information ${i}  `
           if (!toast.isActive(toastMessage.toUpperCase())) {
             toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
             isOk = false
@@ -829,13 +845,13 @@ export default function Home() {
         if (!toast.isActive(toastMessage.toUpperCase())) {
           toast.success(toastMessage.toUpperCase(), { toastId: toastMessage })
         }
-         await   fetchInitialData()
+        await fetchInitialData()
         //  sessionStorage.setItem('quotationId',"")
         // router.push(`/insurance/form`)
       }
 
-      
-      
+
+
     }
   }
   // // console.log(Vessel, "Vessel")

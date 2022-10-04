@@ -59,7 +59,7 @@ function Index({ order, companyDetail }) {
 
   return (
     <>
-      <div className={`${styles.card} vessel_card card`}>
+      <div className={`${styles.card} vessel_card border_color border-bottom card`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`}
           data-toggle="collapse"
@@ -237,7 +237,7 @@ function Index({ order, companyDetail }) {
                   Employee Count
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
-                  {companyDetail?.financial?.other?.employeeCount}
+                  {companyDetail?.financial?.other?.employeeCount ? companyDetail?.financial?.other?.employeeCount : companyDetail?.profile.companyDetail.employeeCount  }
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">

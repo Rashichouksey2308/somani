@@ -91,7 +91,7 @@ function Index({
           >
             <img
               onClick={() => { Router.push('/vessel-nomination/id') }}
-              style={{cursor:'pointer'}}
+              style={{ cursor: 'pointer' }}
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow right"
               className="img-fluid mr-2 image_arrow"
@@ -619,18 +619,20 @@ function Index({
                                         id="yearOfBuilt"
                                         // value={vesselInfo.yearOfBuilt}
                                         value={vesselInfo.yearOfBuilt ?
-                                          vesselInfo.yearOfBuilt?.slice(0, 4)
+                                          vesselInfo?.yearOfBuilt?.slice(0, 4)
                                           // moment(vesselInfo.yearOfBuilt).format("YYYY")
                                           : ''}
                                         className={`${styles.input_field} input form-control`}
                                         type="number"
                                         onKeyDown={(evt) => ["e", "E", "+", "-", '.'].includes(evt.key) && evt.preventDefault()}
 
-                                        onChange={(e) =>
+                                        onChange={(e) => {
+                                          e.target.value = Math.max(0, Math.min(2022, Number(e.target.value)))
                                           onVesselInfoChangeHandlerForBulk(
                                             e,
                                             index,
                                           )
+                                        }
                                         }
                                         required
                                       />
@@ -685,11 +687,15 @@ function Index({
                                       className={`${styles.input_field} input form-control`}
                                       required
                                       type="number"
-                                      onChange={(e) =>
+                                      min='5'
+                                      max='100'
+                                      onChange={(e) => {
+                                        e.target.value = Math.max(1000, Math.min(2022, Number(e.target.value)));
                                         onVesselInfoChangeHandlerForBulk(
                                           e,
                                           index,
                                         )
+                                      }
                                       }
                                     />
                                     <label
@@ -901,11 +907,13 @@ function Index({
                                     type="number"
                                     onKeyDown={(evt) => ["e", "E", "+", "-", '.'].includes(evt.key) && evt.preventDefault()}
 
-                                    onChange={(e) =>
+                                    onChange={(e) => {
+                                      e.target.value = Math.max(0, Math.min(2022, Number(e.target.value)))
                                       onVesselInfoChangeHandlerForLiner(
                                         e,
                                         index,
                                       )
+                                    }
                                     }
                                     required
                                   />
