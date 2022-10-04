@@ -94,7 +94,7 @@ const Index = ({
   }
   return (
     <>
-      <div className={`${styles.card}  accordionMargin card`}>
+      <div className={`${styles.card} vessel_card accordionMargin card`}>
         <div
           className={`${styles.cardHeader} d-flex align-items-center justify-content-between`}
           style={{ cursor: 'default' }}
@@ -148,20 +148,28 @@ const Index = ({
             <div className={`${styles.content} border_color`}>
               <div className={`${styles.input_container} row`}>
                 <div
-                  className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                  className={`${styles.filed} ${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
                 >
                   <div
-                    className={`${styles.alphabet} d-flex justify-content-center align-content-center`}
+                    className={`${styles.alphabet} d-flex mr-3 justify-content-center align-content-center`}
                   >
                     <span>A</span>
                   </div>
-                  <div className={`${styles.val_wrapper} ml-3`}>
-                    <label
-                      className={`${styles.label_heading} label_heading`}
-                      id="textInput"
-                    >
-                      Quantity<strong className="text-danger">*</strong>
-                    </label>
+                  <input
+                    type="number"
+                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
+                    id="textInput"
+                    className={`${styles.input_field} input form-control`}
+                    required
+                  />
+                  <label
+                    className={`${styles.label_heading} label_heading`} style={{left:'70px'}}
+                    id="textInput"
+                  >
+                    Quantity<strong className="text-danger">*</strong>
+                  </label>
+                  {/* <div className={`${styles.val_wrapper} ml-3`}>
                     <div className={`${styles.val}  heading`}>
                       {addPrefixOrSuffix(
                         marginData?.order?.quantity,
@@ -169,46 +177,62 @@ const Index = ({
                         '',
                       )?.toLocaleString()}
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 <div
-                  className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                  className={`${styles.filed} ${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
                 >
                   <div
-                    className={`${styles.alphabet} d-flex justify-content-center align-content-center`}
+                    className={`${styles.alphabet} d-flex mr-3 justify-content-center align-content-center`}
                   >
                     <span>B</span>
                   </div>
-                  <div className={`${styles.val_wrapper} ml-3`}>
-                    <label
-                      className={`${styles.label_heading} label_heading`}
-                      id="textInput"
-                    >
-                      Unit Price<strong className="text-danger">*</strong>
-                    </label>
+                  <input
+                    type="number"
+                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
+                    id="textInput"
+                    className={`${styles.input_field} input form-control`}
+                    required
+                  />
+                  <label
+                    className={`${styles.label_heading} label_heading`} style={{left:'70px'}}
+                    id="textInput"
+                  >
+                    Unit Price<strong className="text-danger">*</strong>
+                  </label>
+                  {/* <div className={`${styles.val_wrapper} ml-3`}>
                     <div className={`${styles.val} heading`}>
 
                       {marginData?.order?.orderCurrency + ' '}
                       {marginData?.order?.perUnitPrice ? Number(marginData?.order?.perUnitPrice)?.toLocaleString('en-In') : ''}
 
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 <div
-                  className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
+                  className={`${styles.filed} ${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
                 >
                   <div
-                    className={`${styles.alphabet} d-flex justify-content-center align-content-center`}
+                    className={`${styles.alphabet} d-flex mr-3 justify-content-center align-content-center`}
                   >
                     <span>C</span>
                   </div>
-                  <div className={`${styles.val_wrapper} ml-3`}>
-                    <label
-                      className={`${styles.label_heading} label_heading`}
-                      id="textInput"
-                    >
-                      Conversion Rate<strong className="text-danger">*</strong>
-                    </label>
+                  <input
+                    type="number"
+                    onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+
+                    id="textInput"
+                    className={`${styles.input_field} input form-control`}
+                    required
+                  />
+                  <label
+                    className={`${styles.label_heading} label_heading`} style={{left:'70px'}}
+                    id="textInput"
+                  >
+                    Conversion Rate<strong className="text-danger">*</strong>
+                  </label>
+                  {/* <div className={`${styles.val_wrapper} ml-3`}>
                     <div className={`${styles.val} heading`}>
                       {addPrefixOrSuffix(
                         marginData?.conversionRate,
@@ -216,7 +240,7 @@ const Index = ({
                         'front',
                       )}
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 <div
                   className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
