@@ -91,7 +91,7 @@ function Index({
           >
             <img
               onClick={() => { Router.push('/vessel-nomination/id') }}
-              style={{cursor:'pointer'}}
+              style={{ cursor: 'pointer' }}
               src="/static/keyboard_arrow_right-3.svg"
               alt="arrow right"
               className="img-fluid mr-2 image_arrow"
@@ -685,11 +685,15 @@ function Index({
                                       className={`${styles.input_field} input form-control`}
                                       required
                                       type="number"
-                                      onChange={(e) =>
+                                      min='5'
+                                      max='100'
+                                      onChange={(e) => {
+                                        e.target.value = Math.max(1900, Math.min(2022, Number(e.target.value)));
                                         onVesselInfoChangeHandlerForBulk(
                                           e,
                                           index,
                                         )
+                                      }
                                       }
                                     />
                                     <label

@@ -3667,7 +3667,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </td>
                   </tr>
                 </table>
-                {/* <table
+                <table
                   className={`${styles.table_pricipal} border_color  table`}
                   cellPadding="0"
                   cellSpacing="0"
@@ -3681,10 +3681,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       <span className='breadcrum_mode'>
                          Period:
                       </span>{' '}
-                      {finacialYear(
-                        gstFilteredData?.detail?.purchaseDetailAnnual
-                          ?.saleSummary?.B2BPurchase?.current?.financialYear,
-                      )}
+                      {finacialYear('current')}
                     </th>
                   </tr>
                   <tr className={`${styles.second_head}`}>
@@ -3734,7 +3731,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         </tr>
                       ),
                     )}
-                </table> */}
+                </table>
               </div>
             </div>
           </div>

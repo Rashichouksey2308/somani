@@ -37,17 +37,10 @@ const Index = () => {
   let sheetData = _get(termsheet, 'data[0]', {})
   useEffect(() => {
     let Id = sessionStorage.getItem('termID')
-    
+
     dispatch(GetTermsheet(`?termsheetId=${Id}`))
-    dispatch(setPageName('termsheet'))
-    dispatch(setDynamicName(sheetData?.company?.companyName))
-    dispatch(
-      setDynamicOrder(
-        sheetData?.order?.orderId
-          ? sheetData?.order?.orderId : sheetData?.order?.applicationId
-      ),
-    )
-  }, [dispatch,sheetData])
+
+  }, [dispatch])
   let OrdID = sessionStorage.getItem('termOrdID')
   let newLcVal =
     removePrefixOrSuffix(termsheetDetails?.commodityDetails?.quantity) *
@@ -58,6 +51,14 @@ const Index = () => {
 
   useEffect(() => {
     {
+      dispatch(setPageName('termsheet'))
+      dispatch(setDynamicName(sheetData?.company?.companyName))
+      dispatch(
+        setDynamicOrder(
+          sheetData?.order?.orderId
+            ? sheetData?.order?.orderId : sheetData?.order?.applicationId
+        ),
+      )
       termsheet &&
         termsheet?.data?.map((sheet) =>
           setTermsheetDetails({
