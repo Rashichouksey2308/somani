@@ -59,7 +59,7 @@ function Index({ order, companyDetail }) {
 
   return (
     <>
-      <div className={`${styles.card} vessel_card card`}>
+      <div className={`${styles.card} vessel_card border_color border-bottom card`}>
         <div
           className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`}
           data-toggle="collapse"

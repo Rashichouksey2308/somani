@@ -77,7 +77,7 @@ function Index() {
 
   const exportPDF = () => {
     console.log("hwhhwhhw,aas")
-    const doc = new jsPDF('p', 'pt', [1500, 1630])
+    const doc = new jsPDF('p', 'pt', [1500, 1850])
     doc.html(
       ReactDOMServer.renderToString(
         <table width="1500px" cellPadding="0" cellSpacing="0" border="0">

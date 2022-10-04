@@ -19,7 +19,7 @@ const Index = ({ orderDetail, saveOrderData }) => {
   }
   console.log(orderDetail?.transactionType, 'orderDetail')
   return (
-    <div className={`${styles.main} vessel_card card border-color`}>
+    <div className={`${styles.main} vessel_card card border_color border-bottom`}>
       <div
         className={`${styles.head_container} card-header align-items-center border_color head_container d-flex justify-content-between bg-transparent`}
       >

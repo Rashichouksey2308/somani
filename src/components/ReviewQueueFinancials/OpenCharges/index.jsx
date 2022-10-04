@@ -41,7 +41,7 @@ function Index({ chargesData }) {
   }, [chargesData])
   return (
     <>
-      <div className={`${styles.card} card mb-6`}>
+      <div className={`${styles.card} card mb-6 border_color border-bottom`}>
         <div className={`${styles.cardHeader} card-header d-flex align-items-center justify-content-between p-3 bg-transparent`}>
           <h2 className="mb-0">Charges</h2>
           <div className={`${styles.charges} form-group`}>
