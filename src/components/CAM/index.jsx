@@ -1443,7 +1443,7 @@ const orderSummary = (camData) => {
                   </span>
                 </td>
                 <td>{camData?.orderId}</td>
-                <td>{CovertvaluefromtoCR(camData?.orderValue)}</td>
+                <td>{CovertvaluefromtoCR(camData?.orderValue)?.toLocaleString('en-In')}</td>
                 <td>{camData?.commodity}</td>
                 <td>In Process</td>
 

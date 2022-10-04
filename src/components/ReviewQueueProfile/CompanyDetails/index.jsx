@@ -237,7 +237,7 @@ function Index({ order, companyDetail }) {
                   Employee Count
                 </div>
                 <div className={`${styles.value} accordion_Text`}>
-                  {companyDetail?.financial?.other?.employeeCount}
+                  {companyDetail?.financial?.other?.employeeCount ? companyDetail?.financial?.other?.employeeCount : companyDetail?.profile.companyDetail.employeeCount  }
                 </div>
               </div>
               <div className="col-lg-3 col-md-6 col-sm-6">
