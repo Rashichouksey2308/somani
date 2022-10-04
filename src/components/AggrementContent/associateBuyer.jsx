@@ -276,7 +276,7 @@ props.updateData("Associate Buyer",data)
 
    
   setList([...list,{
-      name:"",designation:"",email:"",phone:"",
+      name:"",designation:"",email:"",phoneNo:"",
       actions:"false",addnew:"false"
     }])
 
