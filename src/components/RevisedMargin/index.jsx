@@ -223,7 +223,7 @@ const Index = ({
                     value={
                       isFieldInFocus.perUnitPrice ?
                         forCalculationRevised?.perUnitPrice :
-                        ` ${marginData?.order?.orderCurrency.toUpperCase()} ` +   Number(forCalculationRevised?.perUnitPrice).toLocaleString('en-In')}
+                        ` ${marginData?.order?.orderCurrency?.toUpperCase()} ` +   Number(forCalculationRevised?.perUnitPrice).toLocaleString('en-In')}
                     className={`${styles.input_field} input form-control`}
                     required
                     onChange={(e)=>saveforCalculationRevised(e.target.name, e.target.value)}
@@ -542,7 +542,7 @@ const Index = ({
                       )} */}
                       ₹{' '}
                       {convertValue(
-                        finalCalRevised.orderValueInINR,
+                        finalCalRevised?.orderValueInINR,
                         conversionRateUnit,
                       ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
@@ -583,14 +583,14 @@ const Index = ({
                     <div className={`${styles.val} heading`}>
                       ₹{' '}
                       {convertValue(
-                        finalCalRevised.usanceInterest,
+                        finalCalRevised?.usanceInterest,
                         conversionRateUnit,
                       ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
                       {/* {addPrefixOrSuffix(
-                        finalCalRevised.usanceInterest ? finalCalRevised.usanceInterest : 0,
+                        finalCalRevised?.usanceInterest ? finalCalRevised?.usanceInterest : 0,
                         'INR',
                         'front',
                       )} */}
@@ -617,14 +617,14 @@ const Index = ({
                     <div className={`${styles.val} heading`}>
                       ₹{' '}
                       {convertValue(
-                        finalCalRevised.tradeMargin,
+                        finalCalRevised?.tradeMargin,
                         conversionRateUnit,
                       ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
                       {/* {addPrefixOrSuffix(
-                        finalCalRevised.tradeMargin ? finalCalRevised.tradeMargin : 0,
+                        finalCalRevised?.tradeMargin ? finalCalRevised?.tradeMargin : 0,
                         'Cr',
                         '',
                       )} */}
@@ -651,14 +651,14 @@ const Index = ({
                     <div className={`${styles.val} heading`}>
                       ₹{' '}
                       {convertValue(
-                        finalCalRevised.grossOrderValue,
+                        finalCalRevised?.grossOrderValue,
                         conversionRateUnit,
                       ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
                       {/* {addPrefixOrSuffix(
-                        finalCalRevised.grossOrderValue ? finalCalRevised.grossOrderValue : 0,
+                        finalCalRevised?.grossOrderValue ? finalCalRevised?.grossOrderValue : 0,
                         'Cr',
                         '',
                       )} */}
@@ -691,7 +691,7 @@ const Index = ({
                       )} */}
                       ₹{' '}
                       {convertValue(
-                        finalCalRevised.toleranceValue,
+                        finalCalRevised?.toleranceValue,
                         conversionRateUnit,
                       ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
@@ -720,7 +720,7 @@ const Index = ({
                     <div className={`${styles.val} heading`}>
                       {/* ₹ {finalCal.totalOrderValue} */}₹{' '}
                       {convertValue(
-                        finalCalRevised.totalOrderValue,
+                        finalCalRevised?.totalOrderValue,
                         conversionRateUnit,
                       ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
@@ -749,7 +749,7 @@ const Index = ({
                     <div className={`${styles.val} heading`}>
                       {/* ₹ {finalCal.provisionalUnitPricePerTon} */}₹{' '}
                       {convertValue(
-                        finalCalRevised.provisionalUnitPricePerTon,
+                        finalCalRevised?.provisionalUnitPricePerTon,
                         conversionRateUnit,
                       ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
@@ -778,7 +778,7 @@ const Index = ({
                     <div className={`${styles.val} heading`}>
                       {/* ₹ {finalCal.marginMoney} */}₹{' '}
                       {convertValue(
-                        finalCalRevised.marginMoney,
+                        finalCalRevised?.marginMoney,
                         conversionRateUnit,
                       ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
@@ -807,7 +807,7 @@ const Index = ({
                     <div className={`${styles.val} heading`}>
                       {/* ₹ {finalCal.totalSPDC} */}₹{' '}
                       {convertValue(
-                        finalCalRevised.totalSPDC,
+                        finalCalRevised?.totalSPDC,
                         conversionRateUnit,
                       ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
