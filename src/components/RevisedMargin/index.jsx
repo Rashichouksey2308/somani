@@ -7,17 +7,26 @@ import { addPrefixOrSuffix, convertValue } from 'utils/helper'
 
 const Index = ({
   finalCal,
+  finalCalRevised,
   marginData,
   saveInvoiceDataRevisedRevised,
   setSameRevised,
   invoiceDataRevised,
-  saveForCalculation,
   setInvoiceDataRevised,
   calcRevised,
   handleUpdateRevisedMarginMoney,
-  exportPDF
+  exportPDF,
+  saveforCalculationRevised,
+  forCalculationRevised
 }) => {
+
   console.log(marginData, 'marginData')
+
+  const [isFieldInFocus, setIsFieldInFocus] = useState({
+    quantity: false,
+    perUnitPrice: false,
+    conversionRate: false
+  })
 
   let emergent = {
     companyName: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
@@ -156,12 +165,24 @@ const Index = ({
                     <span>A</span>
                   </div>
                   <input
-                    type="number"
+                      onFocus={(e) => {
+                        setIsFieldInFocus({ ...isFieldInFocus, quantity: true }),
+                          e.target.type = 'number'
+                      }}
+                      onBlur={(e) => {
+                        setIsFieldInFocus({ ...isFieldInFocus, quantity: false }),
+                          e.target.type = 'text'
+                      }}
+                      value={
+                        isFieldInFocus.quantity ?
+                          forCalculationRevised?.quantity :
+                          Number(forCalculationRevised?.quantity).toLocaleString('en-In') + ` ${marginData?.order?.unitOfQuantity?.toUpperCase()}`}
                     onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
-                    id="textInput"
+                    name='quantity'
+                    id="quantity"
                     className={`${styles.input_field} input form-control`}
                     required
+                    onChange={(e)=>saveforCalculationRevised(e.target.name, e.target.value)}
                   />
                   <label
                     className={`${styles.label_heading} label_heading`} style={{left:'70px'}}
@@ -188,12 +209,24 @@ const Index = ({
                     <span>B</span>
                   </div>
                   <input
-                    type="number"
                     onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
-                    id="textInput"
+                    name='perUnitPrice'
+                    id="perUnitPrice"
+                    onFocus={(e) => {
+                      setIsFieldInFocus({ ...isFieldInFocus, perUnitPrice: true }),
+                        e.target.type = 'number'
+                    }}
+                    onBlur={(e) => {
+                      setIsFieldInFocus({ ...isFieldInFocus, perUnitPrice: false }),
+                        e.target.type = 'text'
+                    }}
+                    value={
+                      isFieldInFocus.perUnitPrice ?
+                        forCalculationRevised?.perUnitPrice :
+                        ` ${marginData?.order?.orderCurrency.toUpperCase()} ` +   Number(forCalculationRevised?.perUnitPrice).toLocaleString('en-In')}
                     className={`${styles.input_field} input form-control`}
                     required
+                    onChange={(e)=>saveforCalculationRevised(e.target.name, e.target.value)}
                   />
                   <label
                     className={`${styles.label_heading} label_heading`} style={{left:'70px'}}
@@ -219,12 +252,23 @@ const Index = ({
                     <span>C</span>
                   </div>
                   <input
-                    type="number"
                     onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-
-                    id="textInput"
+                    name='conversionRate'
+                    id="conversionRate"onFocus={(e) => {
+                      setIsFieldInFocus({ ...isFieldInFocus, conversionRate: true }),
+                        e.target.type = 'number'
+                    }}
+                    onBlur={(e) => {
+                      setIsFieldInFocus({ ...isFieldInFocus, conversionRate: false }),
+                        e.target.type = 'text'
+                    }}
+                    value={
+                      isFieldInFocus.conversionRate ?
+                        forCalculationRevised?.conversionRate :
+                        Number(forCalculationRevised?.conversionRate).toLocaleString('en-In')}
                     className={`${styles.input_field} input form-control`}
                     required
+                    onChange={(e)=>saveforCalculationRevised(e.target.name, e.target.value)}
                   />
                   <label
                     className={`${styles.label_heading} label_heading`} style={{left:'70px'}}
@@ -287,13 +331,13 @@ const Index = ({
                                 type={type}
                                 id={`inline-${type}-1`}
                                 onChange={(e) =>
-                                  saveForCalculation(
+                                  saveforCalculationRevised(
                                     'isUsanceInterestIncluded',
                                     true,
                                   )
                                 }
-                                defaultChecked={
-                                  finalCal?.isUsanceInterestIncluded === true
+                                checked={
+                                  forCalculationRevised?.isUsanceInterestIncluded === true
                                 }
                               />
                               <Form.Check
@@ -304,13 +348,13 @@ const Index = ({
                                 type={type}
                                 id={`inline-${type}-2`}
                                 onChange={(e) =>
-                                  saveForCalculation(
+                                  saveforCalculationRevised(
                                     'isUsanceInterestIncluded',
                                     false,
                                   )
                                 }
-                                defaultChecked={
-                                  finalCal?.isUsanceInterestIncluded === false
+                                checked={
+                                  forCalculationRevised?.isUsanceInterestIncluded === false
                                 }
                               />
                             </div>
@@ -437,7 +481,7 @@ const Index = ({
                       type="number"
                       name="additionalPDC"
                       onChange={(e) =>
-                        saveForCalculation(e.target.name, e.target.value)
+                        saveforCalculationRevised(e.target.name, e.target.value)
                       }
                       defaultValue={marginData?.additionalPDC}
                       className={`${styles.input_field} input form-control`}
@@ -468,7 +512,7 @@ const Index = ({
                     </label>
                     <div className={`${styles.val} heading`}>
                       {marginData?.order?.orderCurrency + ' '}
-                      {finalCal.orderValue ? Number(finalCal.orderValue)?.toLocaleString('en-In') : 0}
+                      {finalCalRevised?.orderValue ? Number(finalCalRevised?.orderValue)?.toLocaleString('en-In') : 0}
                     </div>
                   </div>
                 </div>
@@ -492,13 +536,13 @@ const Index = ({
                     </label>
                     <div className={`${styles.val} heading`}>
                       {/* {addPrefixOrSuffix(
-                        finalCal.orderValueInINR ? finalCal.orderValueInINR : 0,
+                        finalCalRevised.orderValueInINR ? finalCalRevised.orderValueInINR : 0,
                         'INR',
                         'front',
                       )} */}
                       ₹{' '}
                       {convertValue(
-                        finalCal.orderValueInINR,
+                        finalCalRevised.orderValueInINR,
                         conversionRateUnit,
                       ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
@@ -539,14 +583,14 @@ const Index = ({
                     <div className={`${styles.val} heading`}>
                       ₹{' '}
                       {convertValue(
-                        finalCal.usanceInterest,
+                        finalCalRevised.usanceInterest,
                         conversionRateUnit,
                       ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
                       {/* {addPrefixOrSuffix(
-                        finalCal.usanceInterest ? finalCal.usanceInterest : 0,
+                        finalCalRevised.usanceInterest ? finalCalRevised.usanceInterest : 0,
                         'INR',
                         'front',
                       )} */}
@@ -573,14 +617,14 @@ const Index = ({
                     <div className={`${styles.val} heading`}>
                       ₹{' '}
                       {convertValue(
-                        finalCal.tradeMargin,
+                        finalCalRevised.tradeMargin,
                         conversionRateUnit,
                       ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
                       {/* {addPrefixOrSuffix(
-                        finalCal.tradeMargin ? finalCal.tradeMargin : 0,
+                        finalCalRevised.tradeMargin ? finalCalRevised.tradeMargin : 0,
                         'Cr',
                         '',
                       )} */}
@@ -607,14 +651,14 @@ const Index = ({
                     <div className={`${styles.val} heading`}>
                       ₹{' '}
                       {convertValue(
-                        finalCal.grossOrderValue,
+                        finalCalRevised.grossOrderValue,
                         conversionRateUnit,
                       ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
                       {/* {addPrefixOrSuffix(
-                        finalCal.grossOrderValue ? finalCal.grossOrderValue : 0,
+                        finalCalRevised.grossOrderValue ? finalCalRevised.grossOrderValue : 0,
                         'Cr',
                         '',
                       )} */}
@@ -647,7 +691,7 @@ const Index = ({
                       )} */}
                       ₹{' '}
                       {convertValue(
-                        finalCal.toleranceValue,
+                        finalCalRevised.toleranceValue,
                         conversionRateUnit,
                       ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
@@ -676,7 +720,7 @@ const Index = ({
                     <div className={`${styles.val} heading`}>
                       {/* ₹ {finalCal.totalOrderValue} */}₹{' '}
                       {convertValue(
-                        finalCal.totalOrderValue,
+                        finalCalRevised.totalOrderValue,
                         conversionRateUnit,
                       ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
@@ -705,7 +749,7 @@ const Index = ({
                     <div className={`${styles.val} heading`}>
                       {/* ₹ {finalCal.provisionalUnitPricePerTon} */}₹{' '}
                       {convertValue(
-                        finalCal.provisionalUnitPricePerTon,
+                        finalCalRevised.provisionalUnitPricePerTon,
                         conversionRateUnit,
                       ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
@@ -734,7 +778,7 @@ const Index = ({
                     <div className={`${styles.val} heading`}>
                       {/* ₹ {finalCal.marginMoney} */}₹{' '}
                       {convertValue(
-                        finalCal.marginMoney,
+                        finalCalRevised.marginMoney,
                         conversionRateUnit,
                       ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,
@@ -763,7 +807,7 @@ const Index = ({
                     <div className={`${styles.val} heading`}>
                       {/* ₹ {finalCal.totalSPDC} */}₹{' '}
                       {convertValue(
-                        finalCal.totalSPDC,
+                        finalCalRevised.totalSPDC,
                         conversionRateUnit,
                       ).toLocaleString('en-In', {
                         minimumFractionDigits: 2,

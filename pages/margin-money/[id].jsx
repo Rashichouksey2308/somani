@@ -29,7 +29,9 @@ import { GetAllOrders } from '../../src/redux/registerBuyer/action'
 import jsPDF from 'jspdf'
 import ReactDOMServer from 'react-dom/server'
 import moment from 'moment'
+
 function Index() {
+
   const dispatch = useDispatch()
 
   const [darkMode, setDarkMode] = useState(false)
@@ -38,9 +40,9 @@ function Index() {
   const { margin } = useSelector((state) => state.marginMoney)
   // get gst list from below use effect and fetch data from selector
   const { orderList } = useSelector((state) => state.buyer)
-  console.log(orderList, "orderList?.company")
+
   const marginData = _get(margin, 'data.data[0]', '')
-  console.log(marginData, "marginData")
+
 
   let id = sessionStorage.getItem('marginId')
 
@@ -52,7 +54,7 @@ function Index() {
     'data.data[0].revisedMarginMoney.isActive',
     false,
   )
-  console.log(coversionUnit, 'coversionUnit')
+  
   useEffect(() => {
     let id = sessionStorage.getItem('marginId')
 
@@ -286,8 +288,8 @@ function Index() {
       })
     }
   }, [marginData])
-  console.log(invoiceData, "invoiceData")
-  // console.log(invoiceData, 'invoiceData')
+ 
+
 
   const saveInvoiceData = (name, value) => {
     // console.log(value, 'invoice data value', name)
@@ -316,7 +318,7 @@ function Index() {
     setInvoiceData({ ...newInput })
   }
 
-  console.log(invoiceData, 'invoice data value')
+ 
 
   let emergent = {
     companyName: 'EMERGENT INDUSTRIAL SOLUTIONS LIMITED',
@@ -376,7 +378,7 @@ function Index() {
       setChangeImporterData({ ...changeImporterData })
     }
   }
-  console.log(changeImporterData, 'THIS IS CHANGE IMPORTER')
+
 
   const setSame = (val) => {
     if (val == true) {
@@ -559,6 +561,193 @@ function Index() {
     }
   }
 
+  // RevisedMargin Money New Calculation
+
+  const [forCalculationRevised, setforCalculationRevised] = useState({
+    isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || true,
+    status: marginData?.status || '',
+    quantity: marginData?.order?.quantity || '',
+    additionalPDC: marginData?.additionalPDC || '',
+    conversionRate: marginData?.conversionRate || '',
+    perUnitPrice: marginData?.order?.perUnitPrice || '',
+    usanceInterestPercentage:
+      marginData?.order?.termsheet?.commercials?.usanceInterestPercetage || '',
+    numberOfPDC: marginData?.numberOfPDC || '',
+    tradeMarginPercentage:
+      marginData?.order?.termsheet?.commercials?.tradeMarginPercentage || '',
+    tolerance: marginData?.order?.tolerance || '',
+    marginMoney:
+      marginData?.order?.termsheet?.transactionDetails?.marginMoney || '',
+  })
+
+  // console.log(marginData?.order?.quantity, ' marginData?.order?.quantity')
+  const saveforCalculationRevised = (name, value) => {
+    const newInput = { ...forCalculationRevised }
+    newInput[name] = value
+    // console.log(newInput)
+    setforCalculationRevised(newInput)
+    getDataRevised()
+    getRevisedData2()
+  }
+
+  const [finalCalRevised, setfinalCalRevised] = useState({
+    orderValue: '',
+    orderValueCurrency: 'USD',
+    orderValueInINR: '',
+    usanceInterest: '',
+    tradeMargin: '',
+    grossOrderValue: '',
+    toleranceValue: '',
+    totalOrderValue: '',
+    provisionalUnitPricePerTon: '',
+    marginMoney: '',
+    totalSPDC: '',
+    amountPerSPDC: '',
+  })
+
+  useEffect(() => {
+    getDataRevised2()
+  }, [marginData])
+
+  const getDataRevised2 = () => {
+    setforCalculationRevised({
+      isUsanceInterestIncluded: marginData?.isUsanceInterestIncluded || true,
+      status: marginData?.status,
+      quantity: marginData?.order?.quantity,
+      additionalPDC: marginData?.additionalPDC,
+      conversionRate: marginData?.conversionRate,
+      perUnitPrice: marginData?.order?.perUnitPrice,
+      usanceInterestPercentage:
+        marginData?.order?.termsheet?.commercials?.usanceInterestPercetage,
+      numberOfPDC: marginData?.numberOfPDC,
+      tradeMarginPercentage:
+        marginData?.order?.termsheet?.commercials?.tradeMarginPercentage,
+      tolerance: marginData?.order?.tolerance,
+      marginMoney:
+        marginData?.order?.termsheet?.transactionDetails?.marginMoney,
+    })
+    let orderValue = parseFloat(
+      Number(forCalculationRevised.quantity) * Number(forCalculationRevised.perUnitPrice),
+    ).toFixed(2) //J
+    let orderValueCurrency = 'USD'
+    let orderValueInINR = parseFloat(
+      Number(orderValue) * Number(forCalculationRevised.conversionRate),
+    ).toFixed(2) //K
+    let usanceInterest = parseFloat(
+      (Number(orderValueInINR) *
+        (forCalculationRevised.isUsanceInterestIncluded
+          ? Number(forCalculationRevised.usanceInterestPercentage / 100)
+          : 1) *
+        90) /
+      365,
+    ).toFixed(2) //L
+    let tradeMargin = parseFloat(
+      Number(orderValueInINR) *
+      Number(Number(forCalculationRevised.tradeMarginPercentage) / 100),
+    ).toFixed(2) //M
+    let grossOrderValue = parseFloat(
+      Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
+    ).toFixed(2) //N
+    let toleranceValue = parseFloat(
+      Number(grossOrderValue) * Number(forCalculationRevised.tolerance / 100),
+    ).toFixed(2) //O
+    let totalOrderValue = parseFloat(
+      Number(grossOrderValue) + Number(toleranceValue),
+    ).toFixed(2) //P
+    let provisionalUnitPricePerTon = parseFloat(
+      Number(grossOrderValue) / Number(forCalculationRevised.quantity),
+    ).toFixed(2) //Q
+    let marginMoney = parseFloat(
+      Number(totalOrderValue) *
+      Number(Number(forCalculationRevised.marginMoney) / 100),
+    ).toFixed(2) //R
+    let totalSPDC = parseFloat(
+      Number(totalOrderValue) - Number(marginMoney),
+    ).toFixed(2) //S
+    let amountPerSPDC = parseFloat(
+      Number(totalSPDC) / Number(forCalculationRevised.numberOfPDC),
+    ).toFixed(2) //T
+
+    // console.log(orderValue, 'orderValue')
+    setfinalCalRevised({
+      orderValue: orderValue,
+      orderValueCurrency: orderValueCurrency,
+      orderValueInINR: orderValueInINR,
+      usanceInterest: usanceInterest,
+      tradeMargin: tradeMargin,
+      grossOrderValue: grossOrderValue,
+      toleranceValue: toleranceValue,
+      totalOrderValue: totalOrderValue,
+      provisionalUnitPricePerTon: provisionalUnitPricePerTon,
+      marginMoney: marginMoney,
+      totalSPDC: totalSPDC,
+      amountPerSPDC: amountPerSPDC,
+    })
+  }
+  useEffect(() => {
+    getDataRevised()
+  }, [forCalculationRevised])
+
+  const getDataRevised = () => {
+    let orderValue = parseFloat(
+      Number(forCalculationRevised.quantity) * Number(forCalculationRevised.perUnitPrice),
+    ).toFixed(2) //J
+    let orderValueCurrency = 'USD'
+    let orderValueInINR = parseFloat(
+      Number(orderValue) * Number(forCalculationRevised.conversionRate),
+    ).toFixed(2) //K
+    let usanceInterest = parseFloat(
+      (Number(orderValueInINR) *
+        (forCalculationRevised.isUsanceInterestIncluded
+          ? Number(forCalculationRevised.usanceInterestPercentage / 100)
+          : 0) *
+        90) /
+      365,
+    ).toFixed(2) //L
+    let tradeMargin = parseFloat(
+      Number(orderValueInINR) *
+      Number(Number(forCalculationRevised.tradeMarginPercentage) / 100),
+    ).toFixed(2) //M
+    let grossOrderValue = parseFloat(
+      Number(orderValueInINR) + Number(usanceInterest) + Number(tradeMargin),
+    ).toFixed(2) //N
+    let toleranceValue = parseFloat(
+      Number(grossOrderValue) * Number(forCalculationRevised.tolerance / 100),
+    ).toFixed(2) //O
+    let totalOrderValue = parseFloat(
+      Number(grossOrderValue) + Number(toleranceValue),
+    ).toFixed(2) //P
+    let provisionalUnitPricePerTon = parseFloat(
+      Number(grossOrderValue) / Number(forCalculationRevised.quantity),
+    ).toFixed(2) //Q
+    let marginMoney = parseFloat(
+      Number(totalOrderValue) *
+      Number(Number(forCalculationRevised.marginMoney) / 100),
+    ).toFixed(2) //R
+    let totalSPDC = parseFloat(
+      Number(totalOrderValue) - Number(marginMoney),
+    ).toFixed(2) //S
+    let amountPerSPDC = parseFloat(
+      Number(totalSPDC) / Number(forCalculationRevised.numberOfPDC),
+    ).toFixed(2) //T
+
+    // console.log(orderValue, 'orderValue')
+    setfinalCalRevised({
+      orderValue: orderValue,
+      orderValueCurrency: orderValueCurrency,
+      orderValueInINR: orderValueInINR,
+      usanceInterest: usanceInterest,
+      tradeMargin: tradeMargin,
+      grossOrderValue: grossOrderValue,
+      toleranceValue: toleranceValue,
+      totalOrderValue: totalOrderValue,
+      provisionalUnitPricePerTon: provisionalUnitPricePerTon,
+      marginMoney: marginMoney,
+      totalSPDC: totalSPDC,
+      amountPerSPDC: amountPerSPDC,
+    })
+  }
+
   const [revisedCalc, setRevisedCalc] = useState({
     additionalAmountPerPDC:
       marginData?.revisedMarginMoney?.calculation?.additionalAmountPerPDC,
@@ -582,7 +771,7 @@ function Index() {
     marginMoneyPayable: '',
   })
 
-  console.log(calcRevised, 'THIS IS CALC REVISED')
+  
 
   const [invoiceDataRevised, setInvoiceDataRevised] = useState({
     buyerName: marginData?.company?.companyName || '',
@@ -665,7 +854,7 @@ function Index() {
     let additionalAmountPerPDC = parseFloat(
       (marginData?.calculation?.totalSPDC -
         Number(revisedCalc.additionalAmountPerPDC)) /
-      Number(forCalculation.additionalPDC),
+      Number(forCalculationRevised.additionalPDC),
     ).toFixed(2)
     console.log(additionalAmountPerPDC, 'additionalAmountPerPDC')
     let revisedNetOrderValueNew = parseFloat(
@@ -697,7 +886,7 @@ function Index() {
             ? revisedCalc.additionalAmountPerPDC
             : 0,
         )) /
-      Number(forCalculation.additionalPDC),
+      Number(forCalculationRevised.additionalPDC),
     ).toFixed(2)
     console.log(additionalAmountPerPDC, 'additionalAmountPerPDC')
     let revisedNetOrderValueNew = parseFloat(
@@ -755,12 +944,33 @@ function Index() {
   const handleUpdateRevisedMarginMoney = () => {
     let obj = {
       marginMoneyId: marginData?._id,
-      additionalPDC: forCalculation.additionalPDC,
+      additionalPDC: forCalculationRevised.additionalPDC,
       revisedMarginMoney: {
         isActive: true,
         invoiceDetail: { ...invoiceDataRevised },
         calculation: { ...calcRevised },
       },
+      calculation: {
+        orderValue: finalCalRevised.orderValue,
+        orderValueCurrency: finalCalRevised.orderValueCurrency,
+        orderValueInINR: finalCalRevised.orderValueInINR,
+        usanceInterest: finalCalRevised.usanceInterest,
+        tradeMargin: finalCalRevised.tradeMargin,
+        grossOrderValue: finalCalRevised.grossOrderValue,
+        toleranceValue: finalCalRevised.toleranceValue,
+        totalOrderValue: finalCalRevised.totalOrderValue,
+        provisionalUnitPricePerTon: finalCalRevised.provisionalUnitPricePerTon,
+        marginMoney: finalCalRevised.marginMoney,
+        totalSPDC: finalCalRevised.totalSPDC,
+        amountPerSPDC: finalCalRevised.amountPerSPDC,
+      },
+      conversionRate: forCalculationRevised.conversionRate,
+        isUsanceInterestIncluded: forCalculationRevised.isUsanceInterestIncluded || true,
+        orderObj: {
+          quantity: forCalculationRevised.quantity,
+          perUnitPrice: forCalculationRevised.perUnitPrice,
+          orderValue: finalCalRevised.orderValue
+        },
     }
 
     dispatch(RevisedMarginMoney(obj))
@@ -787,6 +997,7 @@ function Index() {
     }
     setCoversionUnit(unit)
   }
+
   const exportPDF = () => {
     //  let margins = [
     //    10,
@@ -2200,6 +2411,7 @@ function Index() {
       autoPaging: 'text',
     })
   }
+
   const exportPDFReviced = () => {
     //  let margins = [
     //    10,
@@ -4101,7 +4313,9 @@ function Index() {
       autoPaging: 'text',
     })
   }
+
   const [active, setActive] = useState('Margin Money')
+
   return (
     <>
       <div className={`${styles.dashboardTab} w-100`}>
@@ -4309,90 +4523,6 @@ function Index() {
                                 </div>
                               </div>
                             </div>
-                            {/* <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
-                            >
-                              <div
-                              className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
-                            >
-                              <div
-                                className={`${styles.alphabet} d-flex justify-content-center align-content-center`}
-                              >
-                                <span>A</span>
-                              </div>
-                              <div className={`${styles.val_wrapper} ml-3`}>
-                                <label
-                                  className={`${styles.label_heading} label_heading`}
-                                  id="textInput"
-                                >
-                                     Quantity
-                                  <strong className="text-danger">*</strong>
-                                </label>
-                                <div className={`${styles.val} heading`}>
-                                  {marginData?.order?.quantity?.toLocaleString('en-In')}
-                                </div>
-                              </div>
-                            </div>
-                              {/* <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
-                              >
-                                <span>A</span>
-                              </div>
-                              <input
-                                type="text"
-                                id="textInput"
-                                name="quantity"
-                                defaultValue={marginData?.order?.quantity?.toLocaleString('en-In')}
-                                onChange={(e) =>
-                                  saveForCalculation(
-                                    e.target.name,
-                                    e.target.value,
-                                  )
-                                }
-                                className={`${styles.input_field} input form-control`}
-                                required
-                              />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                                id="textInput"
-                                style={{ left: '70px' }}
-                              >
-                                Quantity
-                                <strong className="text-danger">*</strong>
-                              </label> */}
-                            {/* </div> */}
-
-                            {/* <div
-                              className={`${styles.each_input} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
-                            >
-                              <div
-                                className={`${styles.alphabet} mr-3 d-flex justify-content-center align-content-center`}
-                              >
-                                <span>B</span>
-                              </div>
-                              <input
-                                type="text"
-                                id="textInput"
-                                defaultValue={marginData?.order?.perUnitPrice}
-                                name="perUnitPrice"
-                                onChange={(e) =>
-                                  saveForCalculation(
-                                    e.target.name,
-                                    e.target.value,
-                                  )
-                                }
-                                className={`${styles.input_field} input form-control`}
-                                required
-                              />
-                              <label
-                                className={`${styles.label_heading} label_heading`}
-                                id="textInput"
-                                style={{ left: '70px' }}
-                              >
-                                Unit Price
-                                <strong className="text-danger">*</strong>
-                              </label>
-                            </div> */}
                             <div
                               className={`${styles.filed} d-flex justify-content-start align-content-center col-md-4 col-sm-6`}
                             >
@@ -5618,6 +5748,8 @@ function Index() {
                       <RevisedMargin
                         marginData={marginData}
                         finalCal={finalCal}
+                        finalCalRevised={finalCalRevised}
+                        forCalculationRevised={forCalculationRevised}
                         saveInvoiceDataRevisedRevised={
                           saveInvoiceDataRevisedRevised
                         }
@@ -5629,6 +5761,7 @@ function Index() {
                         handleUpdateRevisedMarginMoney={
                           handleUpdateRevisedMarginMoney
                         }
+                        saveforCalculationRevised={saveforCalculationRevised}
                         exportPDF={exportPDFReviced}
                       />
                     </div>
