@@ -5,7 +5,7 @@ import SaveBar from '../../SaveBar'
 import DateCalender from '../../DateCalender'
 import UploadOther from '../../UploadOther'
 import _get from 'lodash/get'
-import { UpdateCustomClearance } from '../../../redux/CustomClearance&Warehousing/action'
+import { UpdateCustomClearance,GetAllCustomClearance } from '../../../redux/CustomClearance&Warehousing/action'
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import moment from 'moment'
@@ -33,11 +33,11 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
         quantityUnit: '',
         dateOfStorage: data?.wareHouseDetails?.dateOfStorage,
       },
-      document: data?.document,
+      document: data?.document||null,
     }
     setWarehouseDetails(tempData)
   }, [customData])
-
+ console.log(warehouseDetails,"warehouseDetails")
   const [plotInspectionData, setPlotInspectionData] = useState('')
   const [isWarehouseQuantityInFocus, setIsWarehouseQuantityInFocus] =
     useState(false)
@@ -73,7 +73,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
   const onSaveDocument = async (e) => {
     let name = e.target.id
     let doc = await uploadDoc(e)
-
+   console.log(doc,"doc")
     // onChangeWarehouseDetails('document', doc)
     let tempData = { ...warehouseDetails }
     tempData[name] = doc
@@ -102,7 +102,9 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
       // fd.append('document', warehouseDetails.document)
       let task = 'submit'
       dispatch(UpdateCustomClearance({ fd, task }))
-      router.push(`/payment/id`)
+      let id = sessionStorage.getItem('customId')
+      dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
+      // router.push(`/payment/id`)
     }
   }
 

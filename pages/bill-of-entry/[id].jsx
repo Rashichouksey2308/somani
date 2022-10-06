@@ -14,7 +14,7 @@ import {
 import { useSelector } from 'react-redux'
 import _get from 'lodash/get'
 import API from '../../src/utils/endpoints'
-import toast from 'react-toastify'
+import {toast} from 'react-toastify'
 import Router from 'next/router'
 import Cookies from 'js-cookie'
 import Axios from 'axios'
@@ -70,17 +70,18 @@ function Index() {
         // if (!toast.isActive(toastMessage.toUpperCase())) {
         //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
       } else {
+        
         // dispatch(getCustomClearanceFailed(response.data.data))
-        // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
-        // if (!toast.isActive(toastMessage.toUpperCase())) {
-        //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) // }
+        let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+           return null
       }
     } catch (error) {
-      // dispatch(getCustomClearanceFailed())
-      // let toastMessage = 'COULD NOT PROCESS YOUR REQUEST AT THIS TIME'
-      // if (!toast.isActive(toastMessage.toUpperCase())) {
-      //   toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
-      // }
+   let toastMessage = 'COULD NOT PROCESS YOUR REQUEST'
+        if (!toast.isActive(toastMessage.toUpperCase())) {
+          toast.error(toastMessage.toUpperCase(), { toastId: toastMessage }) }
+           return null
     }
   }
 

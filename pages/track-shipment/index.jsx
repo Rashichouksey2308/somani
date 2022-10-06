@@ -1,10 +1,13 @@
-import React,{useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
 import Image from 'next/image'
+import { useDispatch, useSelector } from 'react-redux'
 import DownloadBar from '../../src/components/DownloadBar'
 import Filter from '../../src/components/Filter'
 import { setPageName,setDynamicName ,setDynamicOrder} from '../../src/redux/userData/action'
-import { useDispatch, useSelector } from 'react-redux'
+
+import { GetAllVessel, GetVessel } from '../../src/redux/vessel/action'
+
 function Index() {
    const dispatch = useDispatch()
   useEffect(() => {
@@ -14,10 +17,55 @@ if(window){
     sessionStorage.setItem('openList',3)
     }
 },[])
+ const [currentPage, setCurrentPage] = useState(0)
+ const [table,setTable] = useState([])
   useEffect(() => {
     dispatch(setPageName('track'))
  
   },[])
+    useEffect(() => {
+   dispatch(GetAllVessel(`?page=${currentPage}&limit=7`))
+  }, [currentPage])
+    const { allVessel, Vessel } = useSelector((state) => state.vessel)
+    console.log(allVessel,Vessel,"Vessel")
+ useEffect(() => {
+  
+  if(allVessel?.data?.length > 0){
+    let temp=[]
+    allVessel.data.forEach((vessel,index)=>{
+      if(vessel?.vessels[0]?.shipmentType=="Bulk"){
+
+        temp.push({
+         orderID:vessel.order.orderId,
+         name:vessel.company.companyName,
+         imoNumber:vessel.vessels[0].IMONumber,
+         vesselName:vessel.vessels[0].vesselInformation[0].name,
+         containerNumber:vessel?.vessels[0]?.shippingInformation?.numberOfContainers
+        })
+      }
+      if(vessel?.vessels[0]?.shipmentType=="Liner"){
+    vessel.vessels[0].vesselInformation.forEach((v,index)=>{
+      console.log(v,"IMONumber")
+       temp.push({
+         orderID:vessel.order.orderId,
+         name:vessel.company.companyName,
+         imoNumber:v?.IMONumber||"",
+         vesselName:v?.name||"",
+         containerNumber:vessel?.vessels[0]?.shippingInformation?.numberOfContainers
+        })
+      })
+       
+      }
+      
+    })
+    setTable([...temp])
+    console.log(allVessel.data,"allVessel.data.data")
+  }
+ },[allVessel])
+ const getSn=(index)=>{
+  return index+1
+ }
+ console.log(table,"table")
   return (
     <div className="container-fluid p-0 border-0">
       <div className={styles.container_inner}>
@@ -66,9 +114,17 @@ if(window){
             <h5 className="heading_card">Shipments</h5>
             <div className={`${styles.pageList} d-flex align-items-center`}>
               <div className={`${styles.showPage}`}>
-                Showing Page 1 out of 1
+                Showing Page {currentPage + 1} out of{' '}
+                {Math.ceil(allVessel?.totalCount / 7)}
               </div>
               <a
+               onClick={() => {
+                  if (currentPage === 0) {
+                    return
+                  } else {
+                    setCurrentPage((prevState) => prevState - 1)
+                  }
+                }}
                 href="#"
                 className={`${styles.arrow} ${styles.leftArrow} arrow`}
               >
@@ -80,6 +136,11 @@ if(window){
                 />
               </a>
               <a
+               onClick={() => {
+                  if (currentPage + 1 < Math.ceil(allVessel?.totalCount / 7)) {
+                    setCurrentPage((prevState) => prevState + 1)
+                  }
+                }}
                 href="#"
                 className={`${styles.arrow} ${styles.rightArrow} arrow`}
               >
@@ -111,19 +172,22 @@ if(window){
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="table_row">
+                  {table.length>0 && table.map((val,index)=>{
+                   return( 
+                   <tr className="table_row">
                     <td>
-                      <strong>01</strong>
+                      <strong>{getSn(index)}</strong>
                     </td>
-                    <td>12323</td>
-                    <td>Ramakrishnan Traders</td>
-                    <td>465SD465D</td>
-                    <td>ABCZ</td>
-                    <td>465SD465D</td>
+                    <td>{val?.orderID}</td>
+                    <td>{val.name}</td>
+                    <td>{val.imoNumber}</td>
+                    <td>{val.vesselName}</td>
+                    <td>{val.containerNumber}</td>
                     <td>
                       <button className={`${styles.trackBtn}`}>Track</button>
                     </td>
-                  </tr>
+                  </tr>)
+                  })}
                 
                 </tbody>
               </table>
