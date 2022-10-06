@@ -4992,7 +4992,7 @@ const gstPurchase = (
                           className={`${styles.first} text-color`}
                           colSpan={13}
                         >
-                           Period{' '}
+                           Period:{' '}
                           {/* {getCompliencePeriod(gstFilteredData?.detail?.other?.period?.current?.financialPeriod) } */}
                           {finacialYear('current')}
 
