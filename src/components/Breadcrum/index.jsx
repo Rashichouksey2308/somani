@@ -221,7 +221,7 @@ export default function Index({ isQuery }) {
     if ('termsheet-preview' == pageName) {
       if (id !== null) {
         router.route =
-          '/Leads' + '/Termsheet' + `/${id?.toLowerCase()}` + `/${order}`
+          '/Leads' + '/Termsheet-Preview' + `/${id?.toLowerCase()}` + `/${order}`
         console.log('router123', router.route)
       } else {
         router.route = '/Leads' + '/Termsheet'
@@ -372,7 +372,7 @@ export default function Index({ isQuery }) {
         // `/${order}`
         console.log('router1234', router.route)
       } else if (id !== null) {
-        f
+      
         router.route =
           '/Loading, Transit & Unloading' + '/Track Shipments' + `/${id?.toLowerCase()} `
         console.log('router123', router.route)

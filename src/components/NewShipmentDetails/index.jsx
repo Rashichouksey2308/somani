@@ -67,7 +67,7 @@ const index = ({ saveShipmentData, shipment }) => {
                     Shipment Type<strong className="text-danger">*</strong>
                   </Form.Label>
                   <img
-                    className={`${styles.arrow} img-fluid`}
+                    className={`${styles.arrow} image_arrow img-fluid`}
                     src="/static/inputDropDown.svg"
                     alt="Search"
                   />

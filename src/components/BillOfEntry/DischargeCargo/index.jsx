@@ -5,7 +5,7 @@ import SaveBar from '../../SaveBar'
 import UploadOther from '../../UploadOther'
 import DateCalender from '../../DateCalender'
 import _get from 'lodash/get'
-import { UpdateCustomClearance } from '../../../redux/CustomClearance&Warehousing/action'
+import { UpdateCustomClearance,GetAllCustomClearance } from '../../../redux/CustomClearance&Warehousing/action'
 import { useDispatch } from 'react-redux'
 import moment from 'moment'
 import { toast } from 'react-toastify'
@@ -23,7 +23,7 @@ export default function Index({
   const dispatch = useDispatch()
   const [show, setShow] = useState(false)
   const [totalBl, setTotalBl] = useState(0)
-  const [isFieldInFocus, setIsFieldInFocus] = useState(false)
+  
   const [billOfEntryData, setBillOfEntryData] = useState({
     // boeAssessment: '',
     // pdBond: true,
@@ -36,7 +36,7 @@ export default function Index({
       invoiceQuantityUnit: '',
     },
   })
-
+ const [isFieldInFocus, setIsFieldInFocus] = useState(false)
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
@@ -56,7 +56,7 @@ export default function Index({
         'dischargeOfCargo.dischargeOfCargo.dischargeQuantity',
         '',
       ),
-      dischargeQuantity: '',
+      numberOfContainers:"",
       vesselArrivaldate: '',
       dischargeStartDate: '',
       dischargeEndDate: '',
@@ -64,7 +64,31 @@ export default function Index({
     document1: null,
     document2: null,
   })
-
+// useEffect((
+ 
+// ) => {
+//    setDischargeOfCargo({
+//     dischargeOfCargo: {
+//       vesselName: _get(
+//         customData,
+//         'dischargeOfCargo.dischargeOfCargo.vesselName',
+//         '',
+//       ),
+//       portOfDischarge: _get(customData, 'order.portOfDischarge', ''),
+//       dischargeQuantity: _get(
+//         customData,
+//         'dischargeOfCargo.dischargeOfCargo.dischargeQuantity',
+//         '',
+//       ),
+//       numberOfContainers:"",
+//       vesselArrivaldate: '',
+//       dischargeStartDate: '',
+//       dischargeEndDate: '',
+//     },
+//     document1: null,
+//     document2: null,
+//   })
+// },[customData])
   const saveDate = (value, name) => {
     console.log(value, name, 'save date')
     const d = new Date(value)
@@ -97,7 +121,7 @@ export default function Index({
     tempData[name] = doc
     setDischargeOfCargo(tempData)
   }
-  console.log(dischargeOfCargo, 'dischargeOfCargo3')
+  console.log(dischargeOfCargo, 'dischargeOfCargo3qqqq')
 
   const onRemoveDoc = (name) => {
     setDischargeOfCargo({ ...dischargeOfCargo, [name]: null })
@@ -113,12 +137,22 @@ export default function Index({
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
       return
-    } else if (
-      dischargeOfCargo.dischargeOfCargo.dischargeQuantity >
-      customData?.order?.quantity
+    }
+   
+    if (
+      Number(dischargeOfCargo.dischargeOfCargo.dischargeQuantity) >
+      Number(customData?.order?.quantity)
     ) {
       let toastMessage =
         'DISCHARGE QUANTITY CANNOT BE GREATER THAN ORDER QUANTITY'
+      if (!toast.isActive(toastMessage.toUpperCase())) {
+        toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+      }
+      return
+    }
+    
+    if (dischargeOfCargo?.dischargeOfCargo?.numberOfContainers === '' ||dischargeOfCargo?.dischargeOfCargo?.numberOfContainers === undefined) {
+      let toastMessage = 'Number  OF containers  CANNOT BE EMPTY  '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
       }
@@ -191,6 +225,8 @@ export default function Index({
 
       let task = 'submit'
       dispatch(UpdateCustomClearance({ fd, task }))
+      let id = sessionStorage.getItem('customId')
+      dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
       setComponentId(componentId + 1)
     }
   }
@@ -278,7 +314,7 @@ export default function Index({
     }
   }, [customData])
 
-  console.log(customData, dischargeOfCargo, 'customData')
+  console.log(dischargeOfCargo.dischargeOfCargo?.invoiceQuantity, 'dischargeOfCargo.dischargeOfCargo?.invoiceQuantity')
   return (
     <>
       <div className={`${styles.backgroundMain} container-fluid`}>
@@ -370,16 +406,25 @@ export default function Index({
                   <input
                     // value={billOfEntryData?.boeDetails?.invoiceQuantity}
                     className={`${styles.input_field} input form-control`}
-                    type="text"
-                    // onKeyPress={preventMinus}
-                    value={addPrefixOrSuffix(
-                      billOfEntryData?.boeDetails?.invoiceQuantity,
-                      'MT',
-                    )}
-                    name="boeDetails.invoiceQuantity"
-                    // onChange={(e) =>
-                    //   saveBillOfEntryData(e.target.name, e.target.value)
-                    // }
+                   
+                     type="text"
+                            onFocus={(e) => {
+                              setIsFieldInFocus(true),
+                                e.target.type = 'number'
+                            }}
+                            onBlur={(e) => {
+                              setIsFieldInFocus(false),
+                                e.target.type = 'text'
+                            }}
+                     onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
+                     value={isFieldInFocus ?
+                              dischargeOfCargo.dischargeOfCargo?.dischargeQuantity :
+                               Number(dischargeOfCargo.dischargeOfCargo?.dischargeQuantity)?.toLocaleString("en-IN")+ ` MT`}
+                    
+                    name="dischargeQuantity"
+                    onChange={(e) =>
+                      onChangeDischargeOfCargo(e.target.name, e.target.value)
+                    }
                     required
                     // onKeyDown={(evt) => evt.key === 'e' && evt.preventDefault()}
                   />
@@ -390,17 +435,21 @@ export default function Index({
                 {!shipmentTypeBulk && (
                   <div className={`${styles.form_group} col-md-4 col-sm-6`}>
                     <input
+                      name="numberOfContainers"
                       id="numberOfContainers"
                       // defaultChecked={
                       //   val?.shippingInformation?.numberOfContainers
                       // }
                       className={`${styles.input_field} input form-control`}
                       type="number"
+                      value={dischargeOfCargo.dischargeOfCargo?.numberOfContainers}
                       onKeyDown={(evt) =>
                         ['e', 'E', '+', '-'].includes(evt.key) &&
                         evt.preventDefault()
                       }
-                      // onChange={(e) => shippingInfoChangeHandler(e, index)}
+                       onChange={(e) =>
+                      onChangeDischargeOfCargo(e.target.name, e.target.value)
+                    }
                       required
                     />
                     <label className={`${styles.label_heading} label_heading`}>

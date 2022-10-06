@@ -368,6 +368,8 @@ export default function Index({
       let task = 'submit'
 
       dispatch(UpdateCustomClearance({ fd, task }))
+      let id = sessionStorage.getItem('customId')
+      dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
       setComponentId(componentId + 1)
     }
     console.log(isOk, 'billOfEntryDatasubmit1')

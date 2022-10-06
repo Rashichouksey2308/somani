@@ -34,7 +34,7 @@ const index = ({
   companyData,
   suggestedCredit,
 }) => {
-  console.log(personData, 'companyData')
+  console.log(personData, 'personData')
   console.log(debtData, 'debtData')
   const dispatch = useDispatch()
 
@@ -58,8 +58,9 @@ const index = ({
   })
   const { updatingCreditCalculate } = useSelector((state) => state.review)
   const [keyNameList, setKeyNameList] = useState([])
+
   useEffect(() => {
-    if (personData) {
+    if (personData?.length>0) {
       let temp = []
       personData.forEach((val) => {
         if (val.name !== "") {
@@ -70,6 +71,7 @@ const index = ({
       setKeyNameList([...temp])
     }
   }, [personData])
+  console.log(keyNameList,"keyNameList")
   const [keyAddressData, setKeyAddressData] = useState({
     GSTIN: '',
     GSTIN_document: {
@@ -182,7 +184,8 @@ const index = ({
     email: '',
     name: '',
   })
-  console.log(personData, "personData")
+  console.log(personData, "personData1111")
+
   useEffect(() => {
 
     setKeyPersonData(personData)
@@ -1307,13 +1310,40 @@ const index = ({
                       <th></th>
                     </tr>
                   </thead>
-                  <tbody>
-                    {personData?.map((person, index) => (
+                  {keyPersonData?.length>0 && keyPersonData?.map((person, index) => (
+                    <tbody>
+                    <>
+                    {!person.isEdit? <>
+                      <tr><td>{person.name}</td>
+                     <td>{person.designation}</td>
+                     <td>{person.department}</td>
+                     <td>{person.contact.number}</td>
+                     <td>{person.email}</td>
+                        <td>
+                          <div className="d-flex">
+                           
+                              <img
+                                src="/static/mode_edit.svg"
+                                className={`${styles.edit_image} mr-3`}
+                                onClick={(e) => {
+                                  setEditRow(index)
+                                }}
+                              />
+                      
+                            <img
+                              onClick={() => deleteAddress(index)}
+                              src="/static/delete 2.svg"
+                              alt="delete"
+                            />
+                          </div>
+                        </td>
+                     </tr>
+                    </> :
                       <tr key={index} className="table_credit shadow-none">
                         <td>
                           <div className="d-flex">
                             {person.addnew ?
-
+                              
                               <>
                                 <input
                                   className="input"
@@ -1497,9 +1527,10 @@ const index = ({
                             />
                           </div>
                         </td>
-                      </tr>
-                    ))}
-                  </tbody>
+                      </tr>}
+                    </>
+                    </tbody>
+                  ))}
                 </table>
               </div>
             </div>

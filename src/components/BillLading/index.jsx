@@ -731,7 +731,7 @@ export default function Index({
                       onClick={() => onDeleteClick(index)}
                       className={`${styles.add_btn} mr-0 d-flex align-items-center justify-content-between border-danger text-danger`}
                     >
-                      <img src="/static/delete.svg" width={15} alt="delete" />{' '}
+                      <img src="/static/delete.svg" width={12} alt="delete" />{' '}
                       Delete
                     </button>
                   ) : null}
@@ -1000,35 +1000,35 @@ export default function Index({
                             <strong className="text-danger">*</strong>
                           </h5>
                           <div className="row mt-n4">
-                            {bol?.containerDetails?.containerDoc !== null ? (
-                              <div
-                                className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                            {/* {bol?.containerDetails?.containerDoc !== null ? ( */}
+                            <div
+                              className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
+                            >
+                              <input
+                                // disabled
+                                onChange={(e) =>
+                                  onChangeContainerDetailsHandler(e, index)
+                                }
+                                value={
+                                  bol?.containerDetails?.numberOfContainers
+                                }
+                                className={`${styles.input_field} input form-control`}
+                                required
+                                id="numberOfContainers"
+                                type="number"
+                                onKeyDown={(evt) =>
+                                  ['e', 'E', '+', '-'].includes(evt.key) &&
+                                  evt.preventDefault()
+                                }
+                              />
+                              <label
+                                className={`${styles.label_heading} label_heading`}
                               >
-                                <input
-                                  disabled
-                                  // onChange={(e) =>
-                                  // onChangeContainerDetailsHandler(e, index)
-                                  // }
-                                  value={
-                                    bol?.containerDetails?.numberOfContainers
-                                  }
-                                  className={`${styles.input_field} input form-control`}
-                                  required
-                                  id="numberOfContainers"
-                                  type="number"
-                                  onKeyDown={(evt) =>
-                                    ['e', 'E', '+', '-'].includes(evt.key) &&
-                                    evt.preventDefault()
-                                  }
-                                />
-                                <label
-                                  className={`${styles.label_heading} label_heading`}
-                                >
-                                  Number of Containers
-                                  <strong className="text-danger">*</strong>
-                                </label>
-                              </div>
-                            ) : null}
+                                Number of Containers
+                                <strong className="text-danger">*</strong>
+                              </label>
+                            </div>
+                            {/* ) : null} */}
                             <div
                               className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
                             >
