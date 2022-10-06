@@ -66,7 +66,9 @@ function Index(props) {
           setGstin('37AAACI3028D2Z0')
         }
         setAddressList(savedData.addresses)
-        setList(savedData.authorisedSignatoryDetails)
+        setList(savedData.authorisedSignatoryDetails?.length>0?savedData.authorisedSignatoryDetails:[{
+      name:"",designation:"",email:"",phone:"",
+      actions:"false",addnew:"false" }])
 
         setBuyerData(buyer)
         let tempArr = savedData?.authorisedSignatoryDetails
@@ -100,7 +102,9 @@ function Index(props) {
           setGstin('37AAACI3028D2Z0')
         }
         setAddressList(props?.data.addresses)
-        setList(props?.data?.authorisedSignatoryDetails)
+        setList(props?.data?.authorisedSignatoryDetails.length>0?props?.data?.authorisedSignatoryDetails.length:  [{
+      name:"",designation:"",email:"",phone:"",
+      actions:"false",addnew:"false" }])
 
         setBuyerData(buyer)
         let tempArr = props.data?.authorisedSignatoryDetails
