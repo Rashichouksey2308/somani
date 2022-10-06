@@ -347,7 +347,7 @@ function Index({ TransitDetails }) {
                     '',
                   ).toUpperCase()}{' '}
                   {index1}
-                  {index1 == 0 ? (
+                  {index1 >= 0 ? (
                     <button
                       onClick={() => onAddClick()}
                       className={styles.add_btn}
@@ -358,7 +358,7 @@ function Index({ TransitDetails }) {
                   {index1 > 0 ? (
                     <button
                       onClick={() => onDeleteClick(index1)}
-                      className={styles.add_btn}
+                      className={`${styles.add_btn} ml-n1`}
                     >
                       <span className={styles.add_sign}>-</span>Delete
                     </button>
