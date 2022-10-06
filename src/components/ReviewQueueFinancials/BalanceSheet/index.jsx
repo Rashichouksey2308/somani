@@ -27,6 +27,8 @@ function Index({ balanceData, rtrnChartIndiaction }) {
   const previousYearData = _get(balanceData, 'financial.balanceSheet[1]', {})
   const lastYearData = _get(balanceData, 'financial.balanceSheet[2]', {})
 
+
+  const yearArray = _get(balanceData, 'financial.other.financialYears', ['', '', ''])
   // const checkTrend = (latest,previous,last) => {
   //   if(latest>=previous && previous>last){
   //     return 'green'
@@ -72,7 +74,7 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                 <option value={10000000}>Crores</option>
                 <option value={100000}>Lakhs</option>
               </select>
-              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>
             <span data-toggle="collapse" data-target="#balanceSheet1"
               aria-expanded="true" aria-controls="balanceSheet1">+</span>
@@ -89,16 +91,14 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                       <th width="50%">
                         <h3 className="text-color">Liabilities</h3>
                       </th>
-                      <th className="text-center" width="12.5%">
-                        {latestYearData?.date ? moment(latestYearData?.date).format('MMM-YY').toUpperCase() : ''}
+                      <th className="text-center" width="12.5%" style={{ color: `${latestYearData?.date ? '#3687e8' : 'red'}` }}>
+                        {latestYearData?.date ? moment(latestYearData?.date).format('MMM-YY').toUpperCase() : 'MAR-' + yearArray[0].slice(5, 7)}
                       </th>
-                      <th className="text-center" width="12.5%">
-                        {previousYearData?.date ? moment(previousYearData?.date)
-                          .format('MMM-YY')
-                          .toUpperCase() : ''}
+                      <th className="text-center" width="12.5%" style={{ color: `${previousYearData?.date ? '#3687e8' : 'red'}` }}>
+                        {previousYearData?.date ? moment(previousYearData?.date).format('MMM-YY').toUpperCase() : 'MAR-' + yearArray[1].slice(5, 7)}
                       </th>
-                      <th className="text-center" width="12.5%">
-                        {lastYearData?.date ? moment(lastYearData?.date).format('MMM-YY').toUpperCase() : ''}
+                      <th className="text-center" width="12.5%" style={{ color: `${lastYearData?.date ? '#3687e8' : 'red'}` }}>
+                        {lastYearData?.date ? moment(lastYearData?.date).format('MMM-YY').toUpperCase() : 'MAR-' + yearArray[2].slice(5, 7)}
                       </th>
                       <th className="text-center" width="12.5%">
                         TREND
@@ -461,7 +461,7 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                 </table>
               </div>
             </div>
-            <hr className='border_color m-0' style={{borderWidth:'2px'}} />
+            <hr className='border_color m-0' style={{ borderWidth: '2px' }} />
             <div className={styles.table_scroll_outer}>
               <div className={styles.table_scroll_inner}>
                 <table className={`${styles.table} table border_color`} cellPadding="0" cellSpacing="0" border="0">
@@ -470,16 +470,16 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                       <th width="50%">
                         <h3 className="text-color">Assets</h3>
                       </th>
-                      <th className="text-center" width="12.5%">
-                        {moment(latestYearData?.date).format('MMM-YY').toUpperCase()}
+                      <th className="text-center" width="12.5%" style={{ color: `${latestYearData?.date ? '#3687e8' : 'red'}` }}>
+                      {latestYearData?.date ? moment(latestYearData?.date).format('MMM-YY').toUpperCase() : 'MAR-' + yearArray[0].slice(5, 7)}
+
                       </th>
-                      <th className="text-center" width="12.5%">
-                        {moment(previousYearData?.date)
-                          .format('MMM-YY')
-                          .toUpperCase()}
+                      <th className="text-center" width="12.5%" style={{ color: `${previousYearData?.date ? '#3687e8' : 'red'}` }}>
+                      {previousYearData?.date ? moment(previousYearData?.date).format('MMM-YY').toUpperCase() : 'MAR-' + yearArray[0].slice(5, 7)}
+
                       </th>
-                      <th className="text-center" width="12.5%">
-                        {moment(lastYearData?.date).format('MMM-YY').toUpperCase()}
+                      <th className="text-center" width="12.5%" style={{ color: `${lastYearData?.date ? '#3687e8' : 'red'}` }}>
+                      {lastYearData?.date ? moment(lastYearData?.date).format('MMM-YY').toUpperCase() : 'MAR-' + yearArray[0].slice(5, 7)}
                       </th>
                       <th className="text-center" width="12.5%">
                         TREND

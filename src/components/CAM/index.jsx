@@ -753,7 +753,7 @@ const basicInfo = (camData, orderDetails) => {
           aria-labelledby="basicInfo"
           data-parent="#profileAccordion"
         >
-          <div className={`${styles.info_wrapper}  card-body border_color`}>
+          <div className={`${styles.info_wrapper}  card-body border_color pb-4`}>
             <div
               className={`${styles.content} ${styles.highlight} card_sub_header  mb-4`}
             >
@@ -900,7 +900,7 @@ const basicInfo = (camData, orderDetails) => {
                 </Col>
               </Row>
             </div>
-            <div className={`${styles.content} mb-4`}>
+            <div className={`${styles.content}`}>
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>
@@ -1406,7 +1406,7 @@ const orderSummary = (camData) => {
         >
           <div className={`${styles.order_wrapper} px-0 border_color`}>
             <table
-              className={`${styles.table} table  border_color`}
+              className={`${styles.table} table mb-0 border_color`}
               cellPadding="0"
               cellSpacing="0"
             >
@@ -1449,6 +1449,9 @@ const orderSummary = (camData) => {
 
                 <td>12</td>
               </tr>
+              <tr>
+                <td colSpan={6} height="10"></td>
+              </tr>
             </table>
           </div>
         </div>
@@ -1482,8 +1485,8 @@ const creditProfile = (
           aria-labelledby="creditProfile"
           data-parent="#profileAccordion"
         >
-          <div className={`${styles.info_wrapper} card-body border_color`}>
-            <div className={`${styles.content} mb-4`}>
+          <div className={`${styles.info_wrapper} card-body pb-4 border_color`}>
+            <div className={`${styles.content}`}>
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>Main Banker</span>
@@ -1564,7 +1567,7 @@ const directorDetails = (camData) => {
         >
           <div className={`${styles.order_wrapper} px-0 card-body`}>
             <table
-              className={`${styles.table} table  border_color`}
+              className={`${styles.table} table mb-0 border_color`}
               cellPadding="0"
               cellSpacing="0"
             >
@@ -1607,6 +1610,9 @@ const directorDetails = (camData) => {
                   )
                 },
               )}
+              <tr>
+                <td colSpan={5} height="10"></td>
+              </tr>
             </table>
           </div>
         </div>
@@ -2223,8 +2229,8 @@ const operationalDetails = (camData) => {
           aria-labelledby="operationalDetails"
           data-parent="#profileAccordion"
         >
-          <div className={`${styles.info_wrapper} card-body border_color`}>
-            <div className={`${styles.content} mb-4`}>
+          <div className={`${styles.info_wrapper} card-body pb-4 border_color`}>
+            <div className={`${styles.content}`}>
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>
@@ -2405,7 +2411,7 @@ const revenuDetails = (gstData) => {
         >
           <div className={`${styles.order_wrapper} p-0 card-body`}>
             <table
-              className={`${styles.table} table  border_color`}
+              className={`${styles.table} table mb-0 border_color`}
               cellPadding="0"
               cellSpacing="0"
             >
@@ -2803,6 +2809,9 @@ const revenuDetails = (gstData) => {
                 <td>11,900.00 </td>
                 <td>1,900.00</td>
                 <td>40%</td>
+              </tr>
+              <tr>
+                <td colSpan={5} height="10"></td>
               </tr>
             </table>
           </div>
@@ -3334,8 +3343,8 @@ const compilanceStatus = (companyData, camData) => {
           aria-labelledby="compilanceStatus"
           data-parent="#profileAccordion"
         >
-          <div className={`${styles.info_wrapper} card-body border_color`}>
-            <div className={`${styles.content} mb-4`}>
+          <div className={`${styles.info_wrapper} card-body pb-4 border_color`}>
+            <div className={`${styles.content}`}>
               <Row className={`mb-3`}>
                 <Col className={`d-flex justify-content-between`} md={6}>
                   <span className={`${styles.key} label1`}>
@@ -3797,7 +3806,7 @@ const sectionTerms = (
               </ul>
             </div>
             <div>
-              <div className={`${styles.approve}`}>
+              <div className={`${styles.approve} pb-4`}>
                 <div className={`mb-3 ${styles.heading} heading `}>
                   Approval Remarks
                 </div>

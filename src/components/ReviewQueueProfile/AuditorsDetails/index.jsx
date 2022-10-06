@@ -1,14 +1,19 @@
 import React from 'react'
 import styles from '../profile.module.scss'
 import moment from 'moment'
+import _get from 'lodash/get'
 
-function Index({ auditorsDetails }) {
-  // console.log(auditorsDetails,"auditorsDetails")
+
+function Index({ auditorsDetails, companyData }) {
+  console.log(companyData, "auditorsDetails")
   const latestYearData = auditorsDetails && auditorsDetails[0]
 
   const previousYearData = auditorsDetails && auditorsDetails[1]
 
   const lastYearData = auditorsDetails && auditorsDetails[2]
+
+  const yearArray = _get(companyData, 'financial.other.financialYears', ['', '', ''])
+
 
   return (
     <div className={`${styles.card} card border_color border-bottom`}>
@@ -42,22 +47,22 @@ function Index({ auditorsDetails }) {
                 <thead>
                   <tr>
                     <th width="25%"></th>
-                    <th width="25%">
+                    <th width="25%" style={{ color: `${latestYearData?.financialEndDate ? '#3687e8' : 'red'}` }}>
                       {latestYearData?.financialEndDate
                         ? moment(latestYearData?.financialEndDate)
                           .format('MMM-YY')
                           .toUpperCase()
-                        : ''}
+                        : 'MAR-' + yearArray[0].slice(5, 7)}
                     </th>
-                    <th width="25%">
+                    <th width="25%" style={{ color: `${previousYearData?.financialEndDate ? '#3687e8' : 'red'}` }}>
                       {previousYearData?.financialEndDate ? moment(previousYearData?.financialEndDate)
                         .format('MMM-YY')
-                        .toUpperCase() : ''}
+                        .toUpperCase() : 'MAR-' + yearArray[1].slice(5, 7)}
                     </th>
-                    <th width="25%">
+                    <th width="25%" style={{ color: `${lastYearData?.financialEndDate ? '#3687e8' : 'red'}` }}>
                       {lastYearData?.financialEndDate ? moment(lastYearData?.financialEndDate)
                         .format('MMM-YY')
-                        .toUpperCase() : ''}
+                        .toUpperCase() : 'MAR-' + yearArray[2].slice(5, 7)}
                     </th>
                   </tr>
                 </thead>
@@ -78,9 +83,9 @@ function Index({ auditorsDetails }) {
                     <td>Change in Auditor</td>
                     <td
                       className={`${latestYearData?.nameOfAuditor?.trim() ===
-                          previousYearData?.nameOfAuditor?.trim()
-                          ? null
-                          : styles.danger
+                        previousYearData?.nameOfAuditor?.trim()
+                        ? null
+                        : styles.danger
                         }`}
                     >
                       {latestYearData?.nameOfAuditor
@@ -90,19 +95,19 @@ function Index({ auditorsDetails }) {
                           : 'Yes'
                         : ''}
                       {`${latestYearData?.nameOfAuditor?.trim() !==
-                          previousYearData?.nameOfAuditor?.trim() ?
-                          (latestYearData?.financialEndDate
-                            ? moment(latestYearData?.financialEndDate).format(
-                              'YYYY',
-                            )
-                            : '') : ''
+                        previousYearData?.nameOfAuditor?.trim() ?
+                        (latestYearData?.financialEndDate
+                          ? moment(latestYearData?.financialEndDate).format(
+                            'YYYY',
+                          )
+                          : '') : ''
                         }`}
                     </td>
                     <td
                       className={`${previousYearData?.nameOfAuditor?.trim() ===
-                          lastYearData?.nameOfAuditor?.trim()
-                          ? null
-                          : styles.danger
+                        lastYearData?.nameOfAuditor?.trim()
+                        ? null
+                        : styles.danger
                         }`}
                     >
                       {previousYearData?.nameOfAuditor ? previousYearData?.nameOfAuditor?.trim() ===
@@ -110,27 +115,27 @@ function Index({ auditorsDetails }) {
                         ? 'No'
                         : 'Yes' : ''}
                       {` ${previousYearData?.nameOfAuditor?.trim() !==
-                          lastYearData?.nameOfAuditor?.trim()
-                          ? `${moment(
-                            previousYearData?.financialEndDate,
-                          ).format('YYYY')}`
-                          : ''
+                        lastYearData?.nameOfAuditor?.trim()
+                        ? `${moment(
+                          previousYearData?.financialEndDate,
+                        ).format('YYYY')}`
+                        : ''
                         }`}
                     </td>
                     <td
                       className={`${previousYearData?.nameOfAuditor?.trim() ===
-                          previousYearData?.nameOfAuditor?.trim()
-                          ? null
-                          : styles.danger
+                        previousYearData?.nameOfAuditor?.trim()
+                        ? null
+                        : styles.danger
                         }`}
                     >
-                     
+
                       {`${previousYearData?.nameOfAuditor?.trim() !==
-                          previousYearData?.nameOfAuditor?.trim()
-                          ? moment(lastYearData?.financialEndDate).format(
-                            'YYYY',
-                          )
-                          : ''
+                        previousYearData?.nameOfAuditor?.trim()
+                        ? moment(lastYearData?.financialEndDate).format(
+                          'YYYY',
+                        )
+                        : ''
                         }`}
                     </td>
                   </tr>

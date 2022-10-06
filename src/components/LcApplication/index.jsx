@@ -968,7 +968,38 @@ function Index({
                             </label>
                           </Col>
                           <Col className="mb-4 mt-4" md={12}>
-                            <textarea
+                             <div className="d-flex">
+                          <select
+                            name="confirmationInstructions"
+                            onChange={(e) => {
+                              saveLcData(e.target.name, e.target.value)
+                            }}
+                            value={lcData?.confirmationInstructions}
+                            className={`${styles.input_field}  ${styles.customSelect} input form-control`}
+                          >
+                            <option selected disabled>
+                              Select an option
+                            </option>
+                            <option value="May Add">May Add </option>
+                            <option value="Confirm">Confirm</option>
+                          
+                            <option value="Without">Without</option>
+                            <option value="May add at beneficiary cost">May add at beneficiary cost</option>
+                          </select>
+
+                          <label
+                            className={`${styles.label_heading} label_heading`}
+                          >
+                            (49) Confirmation Instructions
+                            <strong className="text-danger">*</strong>
+                          </label>
+                          <img
+                            className={`${styles.arrow} image_arrow img-fluid`}
+                            src="/static/inputDropDown.svg"
+                            alt="Search"
+                          />
+                        </div>
+                            {/* <textarea
                               className={`${styles.input_field} input form-control`}
                               style={{ height: '103px' }}
                               required
@@ -988,7 +1019,7 @@ function Index({
                             >
                               (49) Confirmation Instructions
                               <strong className="text-danger">*</strong>
-                            </label>
+                            </label> */}
                           </Col>
                           <Col className="mb-4 mt-4" lg={6} md={6} sm={6}>
                             <div className="d-flex">
