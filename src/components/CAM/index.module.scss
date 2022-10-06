@@ -189,7 +189,7 @@
       margin-bottom: 2rem;
     }
     .button {
-      margin-bottom: 2rem;
+      // margin-bottom: 2rem;
       width: 190px;
       height: 48px;
       border: 3px solid #3687e8;
@@ -402,7 +402,6 @@
       td {
         border-top: none;
         vertical-align: baseline;
-
         .dashedLine {
           border-bottom: 1px dashed black;
         }
@@ -1029,7 +1028,8 @@
         }
       }
       .creditScore {
-        width: 287px;
+        width: 100%;
+        max-width: 287px;
         height: 107px;
         //background: #ffffff;
         border: 1px solid #d2d7e5;
