@@ -48,6 +48,7 @@ const Index = ({ saveOrderData, orderData }) => {
               className={`${styles.options} accordion_DropDown `}
               name="unitOfValue"
               onChange={(e) => saveOrderData(e.target.name, e.target.value)}
+              style={{paddingRight:'0px'}}
             >
               <option>Select </option>
               <option value="Crores" selected>
