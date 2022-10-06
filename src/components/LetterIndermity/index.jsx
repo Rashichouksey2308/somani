@@ -477,11 +477,11 @@ function Index({ TransitDetails }) {
             <div>
               Name:{' '}
               <select
-                value={loi.authorizedSignatory.name}
+                value={loi.authorizedSignatory.name !== '' ? loi.authorizedSignatory.name : 'select'}
                 onChange={(e) => SetAuthorisedSignatoryHanlder(e)}
                 className={`${styles.input_field} ${styles.customSelect} input mt-4 pl-3`}
               >
-                <option disabled selected>
+                <option value='select' disabled defaultSelected>
                   Select an option
                 </option>
                 <option value="Bhawana Jain">Bhawana Jain </option>
