@@ -506,7 +506,7 @@ export default function Index({
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>
-                    Quantity <strong className="text-danger ml-n1">*</strong>
+                    BL Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
                     {_get(
