@@ -1311,9 +1311,9 @@ const index = ({
                     </tr>
                   </thead>
                   {keyPersonData?.length>0 && keyPersonData?.map((person, index) => (
+                    <tbody>
                     <>
                     {!person.isEdit? <>
-                     <tbody>
                       <tr><td>{person.name}</td>
                      <td>{person.designation}</td>
                      <td>{person.department}</td>
@@ -1338,9 +1338,8 @@ const index = ({
                           </div>
                         </td>
                      </tr>
-                     </tbody>
-                    </> : <tbody key={index}>
-                      <tr className="table_credit shadow-none">
+                    </> :
+                      <tr key={index} className="table_credit shadow-none">
                         <td>
                           <div className="d-flex">
                             {person.addnew ?
@@ -1528,9 +1527,9 @@ const index = ({
                             />
                           </div>
                         </td>
-                      </tr>
-                    </tbody>}
+                      </tr>}
                     </>
+                    </tbody>
                   ))}
                 </table>
               </div>

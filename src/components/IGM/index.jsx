@@ -506,7 +506,7 @@ export default function Index({
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6">
                   <div className={`${styles.label} text`}>
-                    Quantity <strong className="text-danger ml-n1">*</strong>
+                    BL Quantity <strong className="text-danger ml-n1">*</strong>
                   </div>
                   <span className={styles.value}>
                     {_get(
@@ -691,7 +691,7 @@ export default function Index({
                         onClick={() => onDeleteClick(index)}
                         className={`${styles.add_btn} mr-0 d-flex align-items-center justify-content-between border-danger text-danger`}
                       >
-                        <img src="/static/delete.svg" width={15} alt="delete" />{' '}
+                        <img src="/static/delete.svg" width={12} alt="delete" />{' '}
                         Delete
                       </button>
                     ) : null}

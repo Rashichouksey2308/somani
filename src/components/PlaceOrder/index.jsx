@@ -321,15 +321,15 @@ const Index = () => {
           </div>
         </div>
 
-        <div className={`${styles.main} card border-color`}>
+        <div className={`${styles.main} card border_color`}>
           <div
             className={`${styles.head_container} m-0 border_color align-items-center card-header head_container justify-content-between d-flex bg-transparent`}
           >
             <h3 className={`${styles.heading} mb-0`}>Limit Details</h3>
           </div>
 
-          <div className={`${styles.dashboard_form} mt-2 mb-4`}>
-            <div className="row">
+          <div className={`${styles.dashboard_form} card-body`}>
+            <div className="row pt-2 pb-4">
               <div className="col-md-2 col-sm-4">
                 <div className={`${styles.label} text`}>Total Limit</div>
                 <span className={styles.value}>{(checkNan(CovertvaluefromtoCR(creditData?.data?.totalLimit)) ?? '')}{" "} Cr </span>

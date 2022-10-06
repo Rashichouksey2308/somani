@@ -729,9 +729,9 @@ const Index = ({
               <div
                 className={`${styles.limit_container} d-flex justify-content-center`}
               >
-                <div className={styles.limit}>
+                  <div className={`${styles.limit} accordion_Text`}>
                   Total Limit:{' '}
-                  <span>
+                  <span className='text1'>
                     {checkNan(
                       CovertvaluefromtoCR(
                         creditDetail?.company?.creditLimit?.totalLimit ?? '',
@@ -739,10 +739,10 @@ const Index = ({
                     )?.toLocaleString()}
                   </span>
                 </div>
-                <div className={styles.limit}>
+                <div className={`${styles.limit} accordion_Text`}>
                   Utilised Limit:{' '}
                   <span>
-                    <span>
+                  <span className='text1'>
                       {checkNan(
                         CovertvaluefromtoCR(
                           creditDetail?.company?.creditLimit?.utilizedLimt ??
@@ -752,10 +752,10 @@ const Index = ({
                     </span>
                   </span>
                 </div>
-                <div className={styles.limit}>
+                <div className={`${styles.limit} accordion_Text`}>
                   Available Limit:{' '}
                   <span>
-                    <span>
+                  <span className='text1'>
                       {checkNan(
                         CovertvaluefromtoCR(
                           creditDetail?.company?.creditLimit?.availableLimit ??

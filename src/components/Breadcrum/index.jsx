@@ -221,7 +221,7 @@ export default function Index({ isQuery }) {
     if ('termsheet-preview' == pageName) {
       if (id !== null) {
         router.route =
-          '/Leads' + '/Termsheet' + `/${id?.toLowerCase()}` + `/${order}`
+          '/Leads' + '/Termsheet-Preview' + `/${id?.toLowerCase()}` + `/${order}`
         console.log('router123', router.route)
       } else {
         router.route = '/Leads' + '/Termsheet'

@@ -15,6 +15,9 @@ function Index({ incomeData, rtrnChartIndiaction }) {
 
   const lastYearData = _get(incomeData, 'financial.incomeStatement[2]', {})
 
+  const yearArray = _get(incomeData, 'financial.other.financialYears', ['', '', ''])
+
+
   return (
     <>
       <div className={`${styles.card} card border_color border-bottom`}>
@@ -41,20 +44,22 @@ function Index({ incomeData, rtrnChartIndiaction }) {
                   <thead>
                     <tr>
                       <th width="50%"></th>
-                      <th className="text-center" width="12.5%">
+                      <th className="text-center" width="12.5%" style={{ color: `${latestYearData?.financialEndDate ? '#3687e8' : 'red'}` }}>
+            
+
                         {latestYearData?.financialEndDate ? moment(latestYearData?.financialEndDate)
                           .format('MMM-YY')
-                          .toUpperCase() : ''}
+                          .toUpperCase() : 'MAR-' + yearArray[0].slice(5, 7)}
                       </th>
-                      <th className="text-center" width="12.5%">
+                      <th className="text-center" width="12.5%" style={{ color: `${previousYearData?.financialEndDate ? '#3687e8' : 'red'}` }}>
                         {previousYearData?.financialEndDate ? moment(previousYearData?.financialEndDate)
                           .format('MMM-YY')
-                          .toUpperCase() : ''}
+                          .toUpperCase() :  'MAR-' + yearArray[1].slice(5, 7)}
                       </th>
-                      <th className="text-center" width="12.5%">
+                      <th className="text-center" width="12.5%" style={{ color: `${lastYearData?.financialEndDate ? '#3687e8' : 'red'}` }}>
                         {lastYearData?.financialEndDate ? moment(lastYearData?.financialEndDate)
                           .format('MMM-YY')
-                          .toUpperCase() : ''}
+                          .toUpperCase() :  'MAR-' + yearArray[2].slice(5, 7)}
                       </th>
                       <th className="text-center" width="12.5%">
                         TREND

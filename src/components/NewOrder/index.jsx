@@ -18,9 +18,9 @@ const Index = ({ saveOrderData, orderData }) => {
   }
 
   return (
-    <div className={`${styles.main} vessel_card card border-color`}>
+    <div className={`${styles.main} vessel_card card border_color`}>
       <div
-        className={`${styles.head_container} card-header align-items-center head_container d-flex justify-content-between bg-transparent`} style={{ cursor: 'default' }}>
+        className={`${styles.head_container} card-header border_color align-items-center head_container d-flex justify-content-between bg-transparent`} style={{ cursor: 'default' }}>
         <h3 className={`${styles.heading} mb-0`}>Order Summary</h3>
         <div className="d-flex">
           <div className={`${styles.unit_container} d-flex align-items-center`}>
@@ -48,6 +48,7 @@ const Index = ({ saveOrderData, orderData }) => {
               className={`${styles.options} accordion_DropDown `}
               name="unitOfValue"
               onChange={(e) => saveOrderData(e.target.name, e.target.value)}
+              style={{paddingRight:'0px'}}
             >
               <option>Select </option>
               <option value="Crores" selected>

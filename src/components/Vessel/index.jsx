@@ -979,10 +979,13 @@ function Index({
             <UploadDocument
               docName='Vessel Certificate'
               docName2={shipmentTypeBulk === 'Bulk' ? false : 'Container List'}
-              vesselCertificatedoc={vesselCertificate}
-              containerListDocumentdoc={containerListDocument}
+              vesselCertificate={vesselCertificate}
+              containerList={containerListDocument}
               handleClose={handleClose}
-              uploadDocument1={uploadDocHandler} />
+              uploadDocument1={uploadDocHandler}
+              setVesselCertificate={setVesselCertificate}
+              setContainerListDocument={setContainerListDocument}
+            />
 
             <UploadOther
               module="Agreements&Insurance&LC&Opening"
