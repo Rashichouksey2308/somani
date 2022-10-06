@@ -60,7 +60,7 @@ const index = ({
   const [keyNameList, setKeyNameList] = useState([])
 
   useEffect(() => {
-    if (personData) {
+    if (personData?.length>0) {
       let temp = []
       personData.forEach((val) => {
         if (val.name !== "") {
@@ -184,7 +184,8 @@ const index = ({
     email: '',
     name: '',
   })
-  console.log(personData, "personData")
+  console.log(personData, "personData1111")
+
   useEffect(() => {
 
     setKeyPersonData(personData)
