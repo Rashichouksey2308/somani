@@ -8,6 +8,7 @@ import { setDynamicOrder } from 'redux/userData/action'
 import { GetMarginMoney } from 'redux/marginMoney/action'
 import _get from 'lodash/get'
 import moment from 'moment'
+import Router from 'next/router'
 import MarginBar from '../../src/components/MarginBar'
 import { addPrefixOrSuffix } from '../../src/utils/helper'
 import jsPDF from 'jspdf'
@@ -1949,10 +1950,11 @@ function Index() {
       <div className={`${styles.root_container} bg-transparent`}>
         <div className={styles.head_container}>
           <div className={styles.head_header}>
-            <img
+          <img
               className={`${styles.arrow} image_arrow mr-2 img-fluid`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="Arrow"
+              onClick={() => Router.push('/margin-money/id')}
             />
             <h1 className={`${styles.heading} heading`}>
               Revised Margin Money Preview
