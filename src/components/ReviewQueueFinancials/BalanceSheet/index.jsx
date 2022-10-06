@@ -364,7 +364,10 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                           )
                         } */}
                         {convertValue((lastYearData?.equityLiabilities?.tradePay +
-                          lastYearData?.equityLiabilities?.tradePayablesNoncurrent), unit)}
+                          lastYearData?.equityLiabilities?.tradePayablesNoncurrent), unit)?.toLocaleString('en-In', {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                          })}
 
                       </td>
                       <td className="text-center">
@@ -471,15 +474,15 @@ function Index({ balanceData, rtrnChartIndiaction }) {
                         <h3 className="text-color">Assets</h3>
                       </th>
                       <th className="text-center" width="12.5%" style={{ color: `${latestYearData?.date ? '#3687e8' : 'red'}` }}>
-                      {latestYearData?.date ? moment(latestYearData?.date).format('MMM-YY').toUpperCase() : 'MAR-' + yearArray[0].slice(5, 7)}
+                        {latestYearData?.date ? moment(latestYearData?.date).format('MMM-YY').toUpperCase() : 'MAR-' + yearArray[0].slice(5, 7)}
 
                       </th>
                       <th className="text-center" width="12.5%" style={{ color: `${previousYearData?.date ? '#3687e8' : 'red'}` }}>
-                      {previousYearData?.date ? moment(previousYearData?.date).format('MMM-YY').toUpperCase() : 'MAR-' + yearArray[0].slice(5, 7)}
+                        {previousYearData?.date ? moment(previousYearData?.date).format('MMM-YY').toUpperCase() : 'MAR-' + yearArray[0].slice(5, 7)}
 
                       </th>
                       <th className="text-center" width="12.5%" style={{ color: `${lastYearData?.date ? '#3687e8' : 'red'}` }}>
-                      {lastYearData?.date ? moment(lastYearData?.date).format('MMM-YY').toUpperCase() : 'MAR-' + yearArray[0].slice(5, 7)}
+                        {lastYearData?.date ? moment(lastYearData?.date).format('MMM-YY').toUpperCase() : 'MAR-' + yearArray[0].slice(5, 7)}
                       </th>
                       <th className="text-center" width="12.5%">
                         TREND
