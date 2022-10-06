@@ -21,6 +21,7 @@ let cha={
 function Index(props) {
   const[chaState,setChaState]=useState(cha)
   const [list,setList]=useState([])
+   const [removedOption,setRemovedOption]=useState(null)
   const [addressList,setAddressList]=useState([])
   const [newAddress,setNewAddress]=useState(
           {
@@ -80,7 +81,9 @@ useEffect(() => {
        
         
        }
-       setList(savedData.authorisedSignatoryDetails?savedData.authorisedSignatoryDetails:[])
+     setList(savedData.authorisedSignatoryDetails?.length>0?savedData.authorisedSignatoryDetails:[{
+      name:"",designation:"",email:"",phone:"",
+      actions:"false",addnew:"false" }])
        setAddressList(savedData.addresses)
        setChaState(supplier)
                let tempArr=savedData?.authorisedSignatoryDetails
@@ -114,7 +117,10 @@ useEffect(() => {
        
         
        }
-       setList(props.data?.authorisedSignatoryDetails?props.data?.authorisedSignatoryDetails:[])
+       setList(props?.data?.authorisedSignatoryDetails.length>0?props?.data?.authorisedSignatoryDetails.length:  [{
+      name:"",designation:"",email:"",phone:"",
+      actions:"false",addnew:"false" }])
+
        setAddressList(props.data?.addresses!==undefined?props.data?.addresses:[])
        setChaState(supplier)
             let tempArr=props.data?.authorisedSignatoryDetails

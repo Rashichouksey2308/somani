@@ -18,6 +18,10 @@ let stevedore={
         
 }
 function Index(props) {
+    const [removedOption,setRemovedOption]=useState(null)
+    const [options,setOptions]=useState([
+  "Bhawana Jain","Vipin Kumar","Devesh Jain","Fatima Yannoulis"
+])
   console.log(props.data,"setSameAsCHA")
   const[seteveState,setSeteveState]=useState(stevedore)
   const [list,setList]=useState([])
@@ -99,7 +103,9 @@ useEffect(() => {
        
         
        }
-       setList(savedData?.authorisedSignatoryDetails|| [])
+       setList(savedData.authorisedSignatoryDetails?.length>0?savedData.authorisedSignatoryDetails:[{
+      name:"",designation:"",email:"",phone:"",
+      actions:"false",addnew:"false" }])
        setAddressList(savedData?.addresses|| [{
               addressType: "Registered",
               fullAddress: "Flat No. 303, 3rd Floor, Tirumala Plaza, Dabagarden",
@@ -123,7 +129,9 @@ useEffect(() => {
        
         
        }
-       setList(savedData.authorisedSignatoryDetails|| [])
+      setList(props?.data?.authorisedSignatoryDetails.length>0?props?.data?.authorisedSignatoryDetails.length:  [{
+      name:"",designation:"",email:"",phone:"",
+      actions:"false",addnew:"false" }])
        setAddressList(savedData.addresses|| [])
        setSeteveState(supplier)
     }else{
@@ -136,7 +144,9 @@ useEffect(() => {
        
         
        }
-       setList(props.data?.authorisedSignatoryDetails|| [])
+      setList(props?.data?.authorisedSignatoryDetails.length>0?props?.data?.authorisedSignatoryDetails.length:  [{
+      name:"",designation:"",email:"",phone:"",
+      actions:"false",addnew:"false" }])
        setAddressList(props.data?.addresses|| [])
        setSeteveState(supplier)
     }
