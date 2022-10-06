@@ -31,6 +31,7 @@ function Index(props) {
   const dispatch = useDispatch()
 
   console.log(props.genericData, 'sales')
+  
   const [active, setActive] = useState('Product Specifications')
   const [multiPart, setMultiPart] = useState(false)
   const [multiPartValue, setMultiPartValue] = useState('Manufacturer')
