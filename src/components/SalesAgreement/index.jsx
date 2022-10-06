@@ -111,7 +111,7 @@ function Index(props) {
   }
   const addressValidation = (type, data, check = true) => {
     console.log(type, data, 'type,data')
-      if (type == 'Branch' || active == 'CHA') {
+      if (type == 'Branch' || active == 'CHA' || active == 'Stevedore') {
       if (check) {
         if (data.gstin === '' || data.gstin == undefined) {
           let toastMessage = 'Please add gstin'

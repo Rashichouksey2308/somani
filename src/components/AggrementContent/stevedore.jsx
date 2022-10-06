@@ -589,7 +589,7 @@ const addDoc=(e,index)=>{
                   />
                 </div>
               </Form.Group>
-          {addressType=="Registered" || addressType=="Supplier"?
+          { addressType=="Supplier"?
               <>
               <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
                 <Form.Control
@@ -1024,7 +1024,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         />
                       </div>
                     </Form.Group>
-                {addressEditType=="Registered" || addressEditType=="Supplier"?
+                { addressEditType=="Supplier"?
                     <>
                     <Form.Group className={`${styles.form_group}  col-md-12 col-sm-6`}>
                       <Form.Control
@@ -1146,7 +1146,7 @@ const editData=(addressEditType,EditAddress,setEditAddress,editNewAddress,cancel
                         }}
                       />
                       <Form.Label className={`${styles.label_heading} label_heading`}>
-                        Short Name
+                       Country <strong className="text-danger">*</strong>
                       </Form.Label>
                     </Form.Group>
                       <Form.Group className={`${styles.form_group} col-md-4 col-sm-6`}>
