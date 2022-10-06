@@ -127,7 +127,7 @@ function Index() {
           tableName="List of Insurance"
           isVesselHeader={false}
           pageType="INSURANCE TYPE"
-          dateHeading="ETD"
+          dateHeading="Expiry date"
           isStatus={true}
           handleRoute={changeRoute}
           handleEditRoute={handleEditRoute}

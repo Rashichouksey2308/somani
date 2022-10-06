@@ -5,7 +5,7 @@ import SaveBar from '../../SaveBar'
 import UploadOther from '../../UploadOther'
 import DateCalender from '../../DateCalender'
 import _get from 'lodash/get'
-import { UpdateCustomClearance } from '../../../redux/CustomClearance&Warehousing/action'
+import { UpdateCustomClearance,GetAllCustomClearance } from '../../../redux/CustomClearance&Warehousing/action'
 import { useDispatch } from 'react-redux'
 import moment from 'moment'
 import { toast } from 'react-toastify'
@@ -225,6 +225,8 @@ export default function Index({
 
       let task = 'submit'
       dispatch(UpdateCustomClearance({ fd, task }))
+      let id = sessionStorage.getItem('customId')
+      dispatch(GetAllCustomClearance(`?customClearanceId=${id}`))
       setComponentId(componentId + 1)
     }
   }

@@ -370,13 +370,15 @@ console.log(lcModuleData,"lcModuleData")
         return false
       }
     }
-    if (lcData.numberOfDays === '' || lcData.numberOfDays == undefined) {
+   if(lcData.atSight=="SPECIFY"){
+     if (lcData.numberOfDays === '' || lcData.numberOfDays == undefined) {
       toastMessage = 'Please add number of Days'
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
         return false
       }
     }
+   }
     if (lcData.partialShipment === '' || lcData.partialShipment == undefined) {
       toastMessage = 'Please select  Partial Shipment'
       if (!toast.isActive(toastMessage.toUpperCase())) {

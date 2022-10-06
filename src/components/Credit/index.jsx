@@ -1311,12 +1311,39 @@ const index = ({
                     </tr>
                   </thead>
                   {keyPersonData?.length>0 && keyPersonData?.map((person, index) => (
-                    <tbody key={index}>
-                      <tr className="table_credit shadow-none">
+                    <tbody>
+                    <>
+                    {!person.isEdit? <>
+                      <tr><td>{person.name}</td>
+                     <td>{person.designation}</td>
+                     <td>{person.department}</td>
+                     <td>{person.contact.number}</td>
+                     <td>{person.email}</td>
+                        <td>
+                          <div className="d-flex">
+                           
+                              <img
+                                src="/static/mode_edit.svg"
+                                className={`${styles.edit_image} mr-3`}
+                                onClick={(e) => {
+                                  setEditRow(index)
+                                }}
+                              />
+                      
+                            <img
+                              onClick={() => deleteAddress(index)}
+                              src="/static/delete 2.svg"
+                              alt="delete"
+                            />
+                          </div>
+                        </td>
+                     </tr>
+                    </> :
+                      <tr key={index} className="table_credit shadow-none">
                         <td>
                           <div className="d-flex">
                             {person.addnew ?
-
+                              
                               <>
                                 <input
                                   className="input"
@@ -1500,7 +1527,8 @@ const index = ({
                             />
                           </div>
                         </td>
-                      </tr>
+                      </tr>}
+                    </>
                     </tbody>
                   ))}
                 </table>
