@@ -94,7 +94,7 @@ export const getGenericData = (payload) => async (dispatch, getState, api) => {
   let [userId, refreshToken, jwtAccessToken] = decodedString.split('#')
   var headers = { authorization: jwtAccessToken, Cache: 'no-cache' }
   try {
-    let response = await Axios.get(`${API.corebaseUrl}/api/core/generic`, {
+    let response = await Axios.get(`${API.corebaseUrl}${API.updateGeneric}`, {
       headers: headers,
     })
     if (response.data.code === 200) {

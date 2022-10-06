@@ -1476,7 +1476,7 @@ function Index() {
         <div className={styles.head_container}>
           <div className={styles.head_header}>
             <img
-              className={styles.arrow}
+              className={`${styles.arrow} mr-2 image_arrow`}
               src="/static/keyboard_arrow_right-3.svg"
               alt="Arrow"
               onClick={() => Router.push('/margin-money/id')}
