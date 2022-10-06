@@ -115,10 +115,9 @@ const Index = () => {
   const saveMarineData = (name, value) => {
     let newInput = { ...marineData }
     newInput[name] = value
-    console.log(name,value,"sasdasd")
-    if(insuranceDocument){
-      setStorageData(newInput)
-    }
+    // if(insuranceDocument){
+    //   setStorageData(newInput)
+    // }
     setMarineData(newInput)
   }
   console.log(marineData,"setMarineData")
@@ -178,7 +177,7 @@ const Index = () => {
   }
   useEffect(() => {
    if(isInsurerSameData){
-    console.log(marineData,"marineData")
+    
     setStorageData({ ...marineData })
    }
    if(isInsurerSameData==false){
@@ -207,7 +206,7 @@ const Index = () => {
     if (insuranceData?.quotationRequest?.insuranceType == 'Marine Insurance') {
       if (
         marineData.insuranceFromType == 'Domestic' &&
-        marineData.gstOfInsurer == ''
+        (marineData.gstOfInsurer == '' || marineData.gstOfInsurer == undefined)
       ) {
         toastMessage = 'GST OF INSURER IS MANDATORY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -217,7 +216,7 @@ const Index = () => {
       }
       if (
         marineData.insuranceFromType == 'Domestic' &&
-        marineData.gstOfInsured == ''
+        (marineData.gstOfInsured == '' || marineData.gstOfInsured == undefined )
       ) {
         toastMessage = 'GST OF INSURED IS MANDATORY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -226,7 +225,7 @@ const Index = () => {
         }
       }
       if (
-        marineData.insuranceFrom == ''
+        marineData.insuranceFrom == '' || marineData.insuranceFrom == undefined
       ) {
         toastMessage = 'PLEASE SELECT INSURANCE FROM'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -236,7 +235,7 @@ const Index = () => {
       }
 
       if (
-        marineData.insuranceTo == ''
+        marineData.insuranceTo == '' || marineData.insuranceTo == undefined
       ) {
         toastMessage = 'PLEASE SELECT INSURANCE TO'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -259,7 +258,7 @@ const Index = () => {
     ) {
       if (
         storageData.insuranceFromType == 'Domestic' &&
-        storageData.gstOfInsurer == ''
+        (storageData.gstOfInsurer == '' || storageData.gstOfInsurer == undefined )
       ) {
         toastMessage = 'GST OF INSURER IS MANDATORY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -269,7 +268,7 @@ const Index = () => {
       }
       if (
         storageData.insuranceFromType == 'Domestic' &&
-        storageData.gstOfInsured == ''
+        (storageData.gstOfInsured == '' || storageData.gstOfInsured == undefined)
       ) {
         toastMessage = 'GST OF INSURED IS MANDATORY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -278,7 +277,7 @@ const Index = () => {
         }
       }
       if (
-        storageData.insuranceFrom == ''
+        storageData.insuranceFrom == '' || storageData.insuranceFrom == undefined
       ) {
         toastMessage = 'PLEASE SELECT INSURANCE FROM'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -287,7 +286,7 @@ const Index = () => {
         }
       }
       if (
-        storageData.insuranceTo == ''
+        storageData.insuranceTo == '' || storageData.insuranceTo == undefined
       ) {
         toastMessage = 'PLEASE SELECT INSURANCE TO'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -310,7 +309,7 @@ const Index = () => {
       'Marine & Storage Insurance'
     ) {
       if (
-        storageData.gstOfInsurer == ''
+        storageData.gstOfInsurer == '' || storageData.gstOfInsurer == undefined
       ) {
         toastMessage = 'GST OF INSURER IS MANDATORY IN STORAGE INSURANCE'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -319,7 +318,7 @@ const Index = () => {
         }
       }
       if (
-        storageData.gstOfInsured == ''
+        storageData.gstOfInsured == '' || storageData.gstOfInsured == undefined
       ) {
         toastMessage = 'GST OF INSURED IS MANDATORY IN STORAGE INSURANCE'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -329,7 +328,7 @@ const Index = () => {
       }
       if (
         marineData.insuranceFromType == 'Domestic' &&
-        marineData.gstOfInsurer == ''
+        marineData.gstOfInsurer == '' || marineData.gstOfInsurer == undefined
       ) {
         toastMessage = 'GST OF INSURER IS MANDATORY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -339,7 +338,7 @@ const Index = () => {
       }
       if (
         marineData.insuranceFromType == 'Domestic' &&
-        marineData.gstOfInsured == ''
+        marineData.gstOfInsured == '' || marineData.gstOfInsured == undefined
       ) {
         toastMessage = 'GST OF INSURED IS MANDATORY'
         if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -1038,6 +1037,7 @@ const Index = () => {
                               className={`${styles.label_heading} label_heading`}
                             >
                               GSTIN of Insurer
+                              <strong className="text-danger">*</strong>
                             </label>
 
                           </div>
@@ -1439,6 +1439,7 @@ const Index = () => {
                               className={`${styles.label_heading} label_heading`}
                             >
                               GSTIN of Insurer
+                              <strong className="text-danger">*</strong>
                             </label>
 
                           </div>
@@ -1723,6 +1724,7 @@ const Index = () => {
                               className={`${styles.label_heading} label_heading`}
                             >
                               GSTIN of Insurer
+                              <strong className="text-danger">*</strong>
                             </label>
 
                           </div>

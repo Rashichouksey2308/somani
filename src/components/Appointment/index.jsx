@@ -11,6 +11,7 @@ import { UpdateInspection } from 'redux/Inspections/action'
 import moment from 'moment'
 import { toast } from 'react-toastify'
 
+
 export default function Index({ inspectionData ,setDate}) {
   const dispatch = useDispatch()
   const [lastDate, setlastDate] = useState(new Date())
@@ -75,6 +76,19 @@ export default function Index({ inspectionData ,setDate}) {
   }
 
   const handleEdit = () => {
+    setAddressData({
+      name: appointmentData?.name,
+      dateOfAppointment:
+        appointmentData?.dateOfAppointment,
+      address: {
+        fullAddress:
+          appointmentData?.address?.fullAddress,
+        addressType:
+          appointmentData?.address?.addressType,
+        pinCode: appointmentData?.address?.pinCode,
+        country: appointmentData?.address?.country,
+      },
+    })
     setIsEdit(true)
   }
 
@@ -84,16 +98,48 @@ export default function Index({ inspectionData ,setDate}) {
     namesplit.length > 1
       ? (newInput[namesplit[0]][namesplit[1]] = value)
       : (newInput[name] = value)
-    setAddressData(newInput)
+      console.log(newInput,"newInput")
+    setAddressData({...newInput})
   }
 
   const handleEditCancel = () => {
     setIsEdit(false)
-    setAddressData({ ...addressData, address: { fullAddress: '' } })
+    setAddressData({ ...addressData, address: { fullAddress: '', addressType: '', pinCode: '', country: '' } })
   }
+  
 
   const handleOnAdd = () => {
+    console.log(addressData,"addressData")
+     if (addressData.address.addressType === '' || addressData.address.addressType == undefined) {
+          let toastMessage = 'Please add address Type'
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
+          return false
+     }
+     if (addressData.address.fullAddress === '' || addressData.address.fullAddress == undefined) {
+          let toastMessage = 'Please add address'
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
+          return false
+     }
+      if (addressData.address.pinCode === '' || addressData.address.pinCode == undefined) {
+          let toastMessage = 'Please add pin Code'
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
+          return false
+     }
+       if (addressData.address.country === '' || addressData.address.country == undefined) {
+          let toastMessage = 'Please add country'
+          if (!toast.isActive(toastMessage.toUpperCase())) {
+            toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
+          }
+          return false
+     }
     setAppointmentData(addressData)
+    setIsEdit(false)
   }
 
   const validation = () => {
@@ -128,6 +174,14 @@ export default function Index({ inspectionData ,setDate}) {
     let task = 'submit'
    dispatch(UpdateInspection({ fd, task }))
     
+  }
+  const emptyData = ()=>{
+    const temp={...appointmentData}
+    temp.address.fullAddress=""
+    temp.address.addressType=""
+    temp.address.pinCode=""
+    temp.address.country=""
+   setAppointmentData({...temp})
   }
   return (
     <>
@@ -176,7 +230,7 @@ export default function Index({ inspectionData ,setDate}) {
                           src="/static/caldericon.svg"
                           alt="Search"
                       /> */}
-                    <DatePicker
+                    {/* <DatePicker
                       name="dateOfAppointment"
                       selected={
                         moment(appointmentData?.dateOfAppointment).toDate()
@@ -192,15 +246,27 @@ export default function Index({ inspectionData ,setDate}) {
                         saveDate(startDate, 'dateOfAppointment')
                       }}
                       minDate={lastDate}
-                    />
+                    /> */}
+                     <DateCalender
+                                name="dateOfAppointment"
+                                defaultDate={
+                                   moment(appointmentData?.dateOfAppointment).toDate()
+                          ? moment(appointmentData?.dateOfAppointment).toDate()
+                          : startDate
+                                }
+                                 dateFormat="dd-MM-yyyy"
+                                // startFrom={dateStartFrom.eta}
+                                saveDate={saveDate}
+                                labelName="Date of Appointment"
+                              />
                     <img
                       className={`${styles.calanderIcon} image_arrow img-fluid`}
                       src="/static/caldericon.svg"
                       alt="Search"
                     />
-                    <label className={`${styles.label_heading} label_heading`}>
+                    {/* <label className={`${styles.label_heading} label_heading`}>
                       Date of Appointment
-                    </label>
+                    </label> */}
                   </div>
                 </div>
                 <div className={`${styles.form_group} col-12 `}>
@@ -231,6 +297,9 @@ export default function Index({ inspectionData ,setDate}) {
                       }}
                     />
                     <img
+                    onClick={() => {
+                      emptyData()
+                    }}
                       src="/static/delete.svg"
                       className={`${styles.delete_image} mr-3`}
                       alt="Bin"
@@ -246,6 +315,7 @@ export default function Index({ inspectionData ,setDate}) {
                   handleEditInput,
                   handleOnAdd,
                   appointmentData,
+                  addressData
                 )}
             </div>
           </div>
@@ -265,6 +335,7 @@ const editData = (
   handleEditInput,
   handleOnAdd,
   appointmentData,
+  addressData
 ) => {
   return (
     <div className={`${styles.newAddressContainer} border_color mt-3`}>
@@ -277,7 +348,7 @@ const editData = (
             <select
               className={`${styles.input_field} ${styles.customSelect} input form-control`}
               name="address.addressType"
-              value={appointmentData?.address?.addressType}
+              value={addressData?.address?.addressType}
               onChange={(e) => {
                 // setAddressType(e.target.value)
                 handleEditInput(e.target.name, e.target.value)
@@ -306,7 +377,7 @@ const editData = (
             required
             type="text"
             name="address.fullAddress"
-            defaultValue={appointmentData?.address?.fullAddress}
+            defaultValue={addressData?.address?.fullAddress}
             onChange={(e) => {
               handleEditInput(e.target.name, e.target.value)
             }}
@@ -323,7 +394,7 @@ const editData = (
             required
             type="text"
             name="address.pinCode"
-            defaultValue={appointmentData?.address?.pinCode}
+            defaultValue={addressData?.address?.pinCode}
             onChange={(e) => {
               handleEditInput(e.target.name, e.target.value)
             }}
@@ -345,7 +416,7 @@ const editData = (
             required
             type="text"
             name="address.country"
-            defaultValue={appointmentData?.address?.country}
+            defaultValue={addressData?.address?.country}
             onChange={(e) => {
               handleEditInput(e.target.name, e.target.value)
             }}
