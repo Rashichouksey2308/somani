@@ -34,7 +34,7 @@ const index = ({
   companyData,
   suggestedCredit,
 }) => {
-  console.log(personData, 'companyData')
+  console.log(personData, 'personData')
   console.log(debtData, 'debtData')
   const dispatch = useDispatch()
 
@@ -58,6 +58,7 @@ const index = ({
   })
   const { updatingCreditCalculate } = useSelector((state) => state.review)
   const [keyNameList, setKeyNameList] = useState([])
+
   useEffect(() => {
     if (personData) {
       let temp = []
@@ -70,6 +71,7 @@ const index = ({
       setKeyNameList([...temp])
     }
   }, [personData])
+  console.log(keyNameList,"keyNameList")
   const [keyAddressData, setKeyAddressData] = useState({
     GSTIN: '',
     GSTIN_document: {
@@ -1307,7 +1309,7 @@ const index = ({
                       <th></th>
                     </tr>
                   </thead>
-                  {personData?.map((person, index) => (
+                  {keyPersonData?.length>0 && keyPersonData?.map((person, index) => (
                     <tbody key={index}>
                       <tr className="table_credit shadow-none">
                         <td>
