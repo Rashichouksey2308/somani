@@ -18,6 +18,7 @@ const Index = ({
   maxDate,
   reset,
   ref,
+  noDate
 }) => {
   const [startDate, setStartDate] = useState(null)
   const [lastDate, setlastDate] = useState(null)
@@ -44,7 +45,7 @@ const Index = ({
   useEffect(() => {
     setStartDate(null)
   }, [reset])
-  console.log(defaultDate, 'lastDate', startDate)
+  console.log('sdasdasda', defaultDate)
   // console.log(startDate == null ?defaultDate==undefined?null:moment(defaultDate).toDate()  : startDate ,"llll")
   return (
     <>
@@ -55,7 +56,7 @@ const Index = ({
               ? defaultDate == undefined || defaultDate == ''
                 ? ''
                 : moment(defaultDate).toDate()
-              : startDate
+              :startDate
           }
           ref={ref}
           dateFormat={dateFormat ? dateFormat : 'dd-MM-yyyy'}

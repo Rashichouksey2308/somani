@@ -27,6 +27,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
 
   useEffect(() => {
     let data = _get(customData, 'warehouseDetails', {})
+    
     let tempData = {
       wareHouseDetails: {
         quantity: data?.wareHouseDetails?.quantity || '',
@@ -77,7 +78,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
     // onChangeWarehouseDetails('document', doc)
     let tempData = { ...warehouseDetails }
     tempData[name] = doc
-    setWarehouseDetails(tempData)
+    setWarehouseDetails({...tempData})
   }
   // console.log(warehouseDetails,'warehouseDetails')
   const onSaveDischarge = () => {
@@ -97,9 +98,9 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
     } else {
       console.log(warehouseDetailpayload, 'warehouseDetailpayload')
       let fd = new FormData()
-      fd.append('wareHouseDetails', JSON.stringify(warehouseDetailpayload))
+      fd.append('warehouseDetails', JSON.stringify(warehouseDetails))
       fd.append('customClearanceId', customData._id)
-      // fd.append('document', warehouseDetails.document)
+      fd.append('document', warehouseDetails.document)
       let task = 'submit'
       dispatch(UpdateCustomClearance({ fd, task }))
       let id = sessionStorage.getItem('customId')
@@ -112,7 +113,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
     let fd = new FormData()
     fd.append('warehouseDetails', JSON.stringify({ ...warehouseDetails }))
     fd.append('customClearanceId', customData._id)
-    // fd.append('document', warehouseDetails.document)
+    fd.append('document', warehouseDetails.document)
 
     let task = 'save'
     dispatch(UpdateCustomClearance({ fd, task }))
