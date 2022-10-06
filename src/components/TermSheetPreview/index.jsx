@@ -15,11 +15,7 @@ import {
 import moment from 'moment'
 import jsPDF from 'jspdf'
 import ReactDOMServer from 'react-dom/server'
-
-
-
 import _get from 'lodash/get'
-import { number } from 'prop-types'
 
 function Index() {
   const toPrint = useRef()
@@ -28,21 +24,22 @@ function Index() {
 
   const { termsheet } = useSelector((state) => state.order)
 
-  console.log(termsheet, 'termsheet')
+  console.log(termsheet, 'termsheet213')
   let Id = sessionStorage.getItem('termID')
   let orderId = _get(termsheet, 'data[0].order.orderId', 'Order Id')
 
   useEffect(() => {
     dispatch(GetTermsheet(`?termsheetId=${Id}`))
-    dispatch(setPageName('termsheet'))
-    dispatch(setDynamicName(orderId))
+    // dispatch(setPageName('termsheet'))
+    // dispatch(setDynamicName(orderId))
     // dispatch(setDynamicOrder(orderId))
   }, [dispatch, Id])
 
-  // useEffect(() => {
-  //     dispatch(setPageName('termsheet-preview'))
-  //     dispatch(setDynamicOrder(orderId))
-  // },[dispatch, termsheet])
+  useEffect(() => {
+    dispatch(setPageName('termsheet'))
+    dispatch(setDynamicName(_get(termsheet, 'data[0].company.companyName', 'Order Id')))
+    dispatch(setDynamicOrder(orderId !== 'Order Id' ? orderId : _get(termsheet, 'data[0].order.applicationId', 'Order Id')))
+  }, [dispatch, termsheet])
 
   const [termsheetDetails, setTermsheetDetails] = useState({})
   const [otherTermConditions, setOtherTermConditions] = useState({})
@@ -401,9 +398,9 @@ function Index() {
               >
                 <ul>
                   <li>{termsheetDetails?.commodityDetails?.commodity}</li>
-                  <li>{termsheetDetails?.commodityDetails?.quantity?.toLocaleString('en-In')} MT</li>
+                  <li>{termsheetDetails?.commodityDetails?.quantity?.toLocaleString("en-IN", { maximumFractionDigits: 2 })} MT</li>
                   <li>
-                    {termsheetDetails?.commodityDetails?.orderCurrency}{" "}{termsheetDetails?.commodityDetails?.perUnitPrice?.toLocaleString('en-In')}
+                    {termsheetDetails?.commodityDetails?.orderCurrency}{" "}{termsheetDetails?.commodityDetails?.perUnitPrice?.toLocaleString("en-IN", { maximumFractionDigits: 2 })}
                   </li>
                 </ul>
               </Col>
@@ -453,7 +450,7 @@ function Index() {
                 <ul>
                   <li>
                     {termsheetDetails?.commodityDetails?.orderCurrency}{' '}
-                    {Number(termsheetDetails?.transactionDetails?.lcValue)?.toLocaleString("en-IN")}
+                    {termsheetDetails?.transactionDetails?.lcValue ? Number(termsheetDetails?.transactionDetails?.lcValue)?.toLocaleString("en-IN", { maximumFractionDigits: 2 }) : ''}
                   </li>
                   <li>{termsheetDetails?.transactionDetails?.lcOpeningBank}</li>
                   <li>{termsheetDetails?.transactionDetails?.marginMoney?.toLocaleString("en-IN", {
@@ -557,11 +554,11 @@ function Index() {
               >
                 <ul>
                   <li>{`
-                 ${termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate
+                 ${(termsheetDetails?.paymentDueDate?.daysFromVesselDischargeDate
                       ? termsheetDetails?.paymentDueDate
                         ?.daysFromVesselDischargeDate
-                      : termsheetDetails?.paymentDueDate?.daysFromBlDate
-                    } days from the vessel/container(s) at discharge date at discharge port or  ${termsheetDetails?.paymentDueDate?.daysFromBlDate
+                      : termsheetDetails?.paymentDueDate?.daysFromBlDate ) ?? ''
+                    } days from the vessel/container(s) at discharge date at discharge port or  ${termsheetDetails?.paymentDueDate?.daysFromBlDate ?? ''
                     }  days from the from the BL date, whichever is earlier, through TT or LC (in case of LC all Bank charges to be borne by the Buyer).
                   `}</li>
                 </ul>
@@ -616,7 +613,7 @@ function Index() {
                   </li>
                   <li>
                     {`USD`}{' '}
-                    {Number(termsheetDetails.commercials?.lcOpeningChargesUnit)?.toLocaleString('en-In')}{' '}
+                    {Number(termsheetDetails.commercials?.lcOpeningChargesUnit)?.toLocaleString("en-IN", { maximumFractionDigits: 2 })}{' '}
                   </li>
                   <li>
                     {' '}
@@ -2414,7 +2411,7 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                                 ?.tradeMarginPercentage)?.toLocaleString("en-IN", {
                                   maximumFractionDigits: 2,
                                   minimumFractionDigits: 2,
-                                }) +' %' : ''
+                                }) + ' %' : ''
                           }
                         </p>
                       </td>
@@ -2549,12 +2546,12 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                         >
                           {' '}
                           {
-                             termsheetDetails.commercials
-                             ?.usanceInterestPercetage ? Number(termsheetDetails.commercials
-                              ?.usanceInterestPercetage)?.toLocaleString("en-IN", {
-                                maximumFractionDigits: 2,
-                                minimumFractionDigits: 2,
-                              }) : ''
+                            termsheetDetails.commercials
+                              ?.usanceInterestPercetage ? Number(termsheetDetails.commercials
+                                ?.usanceInterestPercetage)?.toLocaleString("en-IN", {
+                                  maximumFractionDigits: 2,
+                                  minimumFractionDigits: 2,
+                                }) : ''
                           }
                           %
                         </p>
@@ -2600,11 +2597,11 @@ const toPrintPdf = (data, termsheetDetails, additionalComments, otherTermConditi
                           {' '}
                           {
                             termsheetDetails.commercials
-                            ?.overDueInterestPerMonth ? Number(termsheetDetails.commercials
-                              ?.overDueInterestPerMonth)?.toLocaleString("en-IN", {
-                                maximumFractionDigits: 2,
-                                minimumFractionDigits: 2,
-                              }): ''
+                              ?.overDueInterestPerMonth ? Number(termsheetDetails.commercials
+                                ?.overDueInterestPerMonth)?.toLocaleString("en-IN", {
+                                  maximumFractionDigits: 2,
+                                  minimumFractionDigits: 2,
+                                }) : ''
                           }
                           %
                         </p>
