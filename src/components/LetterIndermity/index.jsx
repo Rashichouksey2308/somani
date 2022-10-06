@@ -347,7 +347,7 @@ function Index({ TransitDetails }) {
                     '',
                   ).toUpperCase()}{' '}
                   {index1}
-                  {index1 >= 0 ? (
+                  {index1 < bolArray.length -1 ? (
                     <button
                       onClick={() => onAddClick()}
                       className={styles.add_btn}
