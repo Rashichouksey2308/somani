@@ -4,24 +4,16 @@ import styles from './index.module.scss'
 import moment from 'moment'
 import { useEffect } from 'react'
 
-const Index = ({ uploadDocument1, uploadDocument2, docName, docName2, containerListDocumentdoc, vesselCertificatedoc }) => {
-  const [vesselCertificate, setVesselCertificate] = useState()
-  const [containerList, setContainerList] = useState()
+const Index = ({ uploadDocument1, uploadDocument2, docName, docName2, containerList, vesselCertificate, setVesselCertificate, setContainerListDocument }) => {
 
-  useEffect(() => {
-    setVesselCertificate(vesselCertificatedoc)
-    setContainerList(containerListDocumentdoc)
-  }, [vesselCertificatedoc, containerListDocumentdoc])
 
   const vesselDocFunction = (e) => {
-    // console.log(e.target.files[0],  'THIS IS VESSEL CERTIFICATE')
     if (e.target.id === 'Vessel Certificate') {
       setVesselCertificate(e.target.files[0])
     }
     if (e.target.id === 'Container List') {
-      setContainerList(e.target.files[0])
+      setContainerListDocument(e.target.files[0])
     }
-
     uploadDocument1(e)
   }
   console.log(containerList, vesselCertificate, "docName")
@@ -30,7 +22,7 @@ const Index = ({ uploadDocument1, uploadDocument2, docName, docName2, containerL
       setVesselCertificate(null)
     }
     if (e === 'Container List') {
-      setContainerList(null)
+      setContainerListDocument(null)
     }
   }
 
@@ -124,7 +116,7 @@ const Index = ({ uploadDocument1, uploadDocument2, docName, docName2, containerL
                           </>
                         ) : (
                           <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
-                            <span>{vesselCertificatedoc ? vesselCertificate?.originalName : vesselCertificate?.name }</span>
+                            <span>{vesselCertificate?.originalName ?? vesselCertificate?.name}</span>
                             <img
                               className={`${styles.close_image} image_arrow mr-2`}
                               src="/static/close.svg"
@@ -164,21 +156,10 @@ const Index = ({ uploadDocument1, uploadDocument2, docName, docName2, containerL
                                 Upload
                               </button>
                             </div>
-                            {/* <div className={styles.uploadBtnWrapper}>
-                      <input
-                        type="file"
-                        accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain, application/pdf, .docx,"
-                        onChange={(e) => uploadDocument1(e)}
-                        name="myfile"
-                      />
-                       <button  className={`${styles.uploadDoc} btn`}>
-                        Upload
-                      </button>
-                    </div> */}
                           </>
                         ) : (
                           <div className={`${styles.certificate} text1 d-flex justify-content-between`}>
-                            <span>{containerListDocumentdoc ? containerList?.originalName : containerList?.name }</span>
+                            <span>{  containerList?.originalName ?? containerList?.name}</span>
                             <img
                               className={`${styles.close_image} image_arrow mr-2`}
                               src="/static/close.svg"

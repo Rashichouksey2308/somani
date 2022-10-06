@@ -56,7 +56,7 @@ export default function Home() {
   const [list, setList] = useState([])
   const [containerExcel, setContainerExcel] = useState(null)
   const [vesselCertificate, setVesselCertificate] = useState({})
-  const [containerListDocument, setContainerListDocument] = useState({})
+  const [containerListDocument, setContainerListDocument] = useState(null)
   const [partShipmentAllowed, setPartShipmentAllowed] = useState(partShipment)
   const [companyName, setCompanyName] = useState('')
   const [vesselUpdatedAt, setVesselUpdatedAt] = useState('')
