@@ -125,6 +125,9 @@ console.log(lcModuleData,"lcModuleData")
   const saveLcData = (name, value) => {
     const newInput = { ...lcData }
     newInput[name] = value
+    if(name== "atSight" && value== "AT SIGHT"){
+      newInput.numberOfDays = ""
+    }
     // console.log(newInput)
     setLcData(newInput)
   }
