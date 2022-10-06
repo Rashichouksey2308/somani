@@ -2004,9 +2004,9 @@ function Index() {
                 cellSpacing="0"
               >
                 <tr>
-                  <th>Commodity Details</th>
-                  <th>Revised Margin Money</th>
-                  <th>Margin Money</th>
+                  <th width="40%">Commodity Details</th>
+                  <th width="30%">Revised Margin Money</th>
+                  <th width="30%">Margin Money</th>
                 </tr>
                 <tbody>
                   <tr>
@@ -2191,9 +2191,9 @@ function Index() {
                 cellSpacing="0"
               >
                 <tr>
-                  <th>Calculation</th>
-                  <th></th>
-                  <th></th>
+                  <th width="40%">Calculation</th>
+                  <th width="30%"></th>
+                  <th width="30%"></th>
                 </tr>
                 <tbody>
                   <tr>
