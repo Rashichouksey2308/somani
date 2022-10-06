@@ -992,7 +992,10 @@ function Index() {
     setKeyAddData(addressArr)
 
     let personArr = []
-    orderList?.company?.keyContactPerson?.forEach((element) => {
+   
+   
+    if( orderList?.company?.keyContactPerson.length>0){
+ orderList?.company?.keyContactPerson?.forEach((element) => {
       //  console.log(element,"useEE")
       personArr.push({
         contact: {
@@ -1007,6 +1010,25 @@ function Index() {
         addnew: false,
       })
     })
+    }else{
+ if (companyData?.profile?.directorDetail.length > 0) {
+      companyData?.profile?.directorDetail.forEach((val, index) => {
+        personArr.push({
+          contact: {
+            callingCode: '+91',
+            number: '',
+          },
+          department: '',
+          designation: val.designation,
+          email: val.email,
+          name: val.name,
+          isEdit: false,
+          addnew: false,
+        })
+      })
+    }
+    }
+   
     setPersonData([...personArr])
 
     let commentFinancialArr = []
@@ -1040,7 +1062,7 @@ function Index() {
       weaknessArr.push(element)
     })
     setWeaknessComment(weaknessArr)
-  }, [orderList, orderList?.company])
+  }, [orderList, orderList?.company,companyData?.profile?.directorDetail])
 
   const [groupExposureData, setGroupExposureData] = useState([
     {
@@ -8550,25 +8572,27 @@ function Index() {
     setTotalCourt(count)
   }
   console.log(High, 'highCourtDisplay')
-  useEffect(() => {
-    let temp = []
-    if (companyData?.profile?.directorDetail.length > 0) {
-      companyData?.profile?.directorDetail.forEach((val, index) => {
-        temp.push({
-          contact: {
-            callingCode: '+91',
-            number: '',
-          },
-          department: '',
-          designation: val.designation,
-          email: val.email,
-          name: val.name,
-        })
-      })
-    }
-    console.log(temp, 'temp')
-    setPersonData([...temp])
-  }, [companyData?.profile?.directorDetai])
+  // useEffect(() => {
+  //   let temp = []
+  //   if (companyData?.profile?.directorDetail.length > 0) {
+  //     companyData?.profile?.directorDetail.forEach((val, index) => {
+  //       temp.push({
+  //         contact: {
+  //           callingCode: '+91',
+  //           number: '',
+  //         },
+  //         department: '',
+  //         designation: val.designation,
+  //         email: val.email,
+  //         name: val.name,
+  //         isEdit: false,
+  //         addnew: false,
+  //       })
+  //     })
+  //   }
+  //   console.log(temp, 'temp')
+  //   setPersonData([...temp])
+  // }, [companyData?.profile?.directorDetail])
   console.log(personData, 'per')
   console.log(companyData?.profile?.directorDetail, 'director')
   const [top5Customers, setTop5Customers1] = useState({
