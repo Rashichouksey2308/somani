@@ -1307,9 +1307,9 @@ const index = ({
                       <th></th>
                     </tr>
                   </thead>
-                  {personData?.map((person, index) => (
-                    <tbody key={index}>
-                      <tr className="table_credit shadow-none">
+                  <tbody>
+                    {personData?.map((person, index) => (
+                      <tr key={index} className="table_credit shadow-none">
                         <td>
                           <div className="d-flex">
                             {person.addnew ?
@@ -1498,8 +1498,8 @@ const index = ({
                           </div>
                         </td>
                       </tr>
-                    </tbody>
-                  ))}
+                    ))}
+                  </tbody>
                 </table>
               </div>
             </div>

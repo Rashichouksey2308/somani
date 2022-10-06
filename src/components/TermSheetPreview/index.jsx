@@ -365,7 +365,7 @@ function Index() {
           </Row>
         </div>
 
-        <Card className={`${styles.content} ${styles.customCard}`}>
+        <Card className={`${styles.content} ${styles.customCard} border_color`}>
           <div>
             <Row className={`${styles.row_head} row_head`}>
               <Col
