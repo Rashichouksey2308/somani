@@ -85,6 +85,10 @@ if (window) {
        temp.push({attachDoc:val.document})
       }
      })
+     }else{
+     setList([{
+            name:"",designation:"",email:"",phone:"",
+            actions:"false",addnew:"false" }])
      }
      console.log(temp,"temp")
      setDocList(temp)
@@ -126,11 +130,15 @@ if (window) {
      let temp=[]
      if(props?.data?.authorisedSignatoryDetails.length>0){
       
-     props?.data?.authorisedSignatoryDetails.forEach((val,index)=>{
-      if(val.document){
-       temp.push({attachDoc:val.document})
-      }
-     })
+        props?.data?.authorisedSignatoryDetails.forEach((val,index)=>{
+          if(val.document){
+          temp.push({attachDoc:val.document})
+          }
+        })
+     }else{
+      setList([{
+            name:"",designation:"",email:"",phone:"",
+            actions:"false",addnew:"false" }])
      }
     
      setDocList(temp)

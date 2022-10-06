@@ -94,7 +94,9 @@ const cancelAddress=()=>{
 
 
         }
-        setList(savedData?.authorisedSignatoryDetails!==undefined?savedData.authorisedSignatoryDetails:[])
+        setList(savedData.authorisedSignatoryDetails?.length>0?savedData.authorisedSignatoryDetails:[{
+      name:"",designation:"",email:"",phone:"",
+      actions:"false",addnew:"false" }])
         setAddressList(savedData.addresses!==undefined?savedData.addresses:[])
         setCmaState(cma)
               let tempArr=savedData?.authorisedSignatoryDetails
@@ -130,7 +132,9 @@ const cancelAddress=()=>{
 
 
         }
-        setList(props.data?.authorisedSignatoryDetails!==undefined?props.data?.authorisedSignatoryDetails:[])
+       setList(props?.data?.authorisedSignatoryDetails.length>0?props?.data?.authorisedSignatoryDetails.length:  [{
+      name:"",designation:"",email:"",phone:"",
+      actions:"false",addnew:"false" }])
         setAddressList(props.data?.addresses!==undefined?props.data?.addresses:[])
         let a =false;
         for(let i=0;i<props.data?.addresses.length;i++){

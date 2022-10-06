@@ -146,7 +146,11 @@ console.log(props?.order?.supplierName,"props?.order?.supplierName")
         "savedData": savedData.multiPartyAddresses
         
        }
-       setList(savedData.authorisedSignatoryDetails?savedData.authorisedSignatoryDetails:[])
+       setList(savedData.authorisedSignatoryDetails?.length>0?savedData.authorisedSignatoryDetails:
+        [{
+      name:"",designation:"",email:"",phone:"",
+      actions:"false",addnew:"false" }]
+      )
 
        setAddressList(savedData.addresses)
        setMultiList(savedData.authorisedSignatoryDetails)
@@ -189,7 +193,7 @@ console.log(props?.order?.supplierName,"props?.order?.supplierName")
         "multiPartyAddresses": props.data?.multiPartyAddresses
         
        }
-       if(props.data?.authorisedSignatoryDetails){
+       if(props.data?.authorisedSignatoryDetails.length>0){
 
       
           let tempArr=props.data?.authorisedSignatoryDetails
@@ -198,7 +202,7 @@ console.log(props?.order?.supplierName,"props?.order?.supplierName")
           tempArr.forEach((val,index)=>{
           val.actions = "true"
           if(tempArr?.length>0){
-               if(val.name=="Bhawana Jain"){
+        if(val.name=="Bhawana Jain"){
              setOptions(["Vipin Kumar","Devesh Jain","Fatima Yannoulis"])
           }
           if(val.name=="Vipin Kumar"){
@@ -214,7 +218,11 @@ console.log(props?.order?.supplierName,"props?.order?.supplierName")
 
           })
           setList(tempArr)
-        }
+        }else{
+          setList([{
+            name:"",designation:"",email:"",phone:"",
+            actions:"false",addnew:"false" }])
+          }
        
         console.log(props.data?.authorisedSignatoryDetails,"savedData.authorisedSignatoryDetails")
        
@@ -226,7 +234,7 @@ console.log(props?.order?.supplierName,"props?.order?.supplierName")
    
    }
   },[props])
-  console.log(props,"props")
+  console.log(list,"props23424234")
   const onEdit=(index)=>{
     let tempArr=list;
     setList(prevState => {
