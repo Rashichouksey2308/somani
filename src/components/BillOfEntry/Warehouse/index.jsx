@@ -27,6 +27,7 @@ export default function Index({ OrderId, customData, uploadDoc, arrivalDate }) {
 
   useEffect(() => {
     let data = _get(customData, 'warehouseDetails', {})
+    
     let tempData = {
       wareHouseDetails: {
         quantity: data?.wareHouseDetails?.quantity || '',
