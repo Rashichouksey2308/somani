@@ -1,15 +1,44 @@
 import React, { useState, useRef, useEffect } from 'react'
 import styles from '../profile.module.scss'
 import {
+  Chart,
+  ArcElement,
+  registerables,
+  LineController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+  CategoryScale,
+  Filler,
+  Tooltip,
+  Legend
+  
+} from 'chart.js'
+import {
   Doughnut,
   getDatasetAtEvent,
   getElementAtEvent,
   getElementsAtEvent,
   onElementsClick,
 } from 'react-chartjs-2'
-import { Chart, ArcElement, registerables } from 'chart.js'
+
+Chart.register(
+  ArcElement,
+  LineController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+  CategoryScale,
+  Filler,
+  Tooltip,
+  Legend
+  
+)
 
 function Index({ shareHolding }) {
+  
   const chartRef = useRef(null)
 
   console.log(shareHolding, 'shareholding')
@@ -90,13 +119,7 @@ function Index({ shareHolding }) {
     ],
   }
   const options = {
-    onClick: (e, element) => {
-      console.log(':doughnut click')
-      if (element.length > 0) {
-        var ind = element[0]._index
-        alert(ind)
-      }
-    },
+
     plugins: {
       legend: {
         display: false
@@ -121,7 +144,7 @@ function Index({ shareHolding }) {
     },
 
     responsive: true,
-    cutout: 60,
+    cutout: 100,
   }
 
   const onClickEvent = (event) => {
