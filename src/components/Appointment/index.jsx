@@ -21,7 +21,7 @@ export default function Index({ inspectionData ,setDate}) {
   const [isEdit, setIsEdit] = useState(false)
 
   const [appointmentData, setAppointmentData] = useState()
-
+  console.log( inspectionData?.thirdPartyAppointment?.dateOfAppointment,"inspectionData")
   useEffect(() => {
     setAppointmentData({
       name:inspectionData?.thirdPartyAppointment?.name||"",
@@ -183,6 +183,7 @@ export default function Index({ inspectionData ,setDate}) {
     temp.address.country=""
    setAppointmentData({...temp})
   }
+  console.log(appointmentData?.dateOfAppointment,"oment(appointmentData?.dateOfAppointment).toDate()")
   return (
     <>
       <div
@@ -250,14 +251,16 @@ export default function Index({ inspectionData ,setDate}) {
                      <DateCalender
                                 name="dateOfAppointment"
                                 defaultDate={
-                                   moment(appointmentData?.dateOfAppointment).toDate()
-                          ? moment(appointmentData?.dateOfAppointment).toDate()
-                          : startDate
+                                   appointmentData?.dateOfAppointment
+                                  ? moment(appointmentData?.dateOfAppointment).toDate()
+                                  : null
                                 }
+                                
                                  dateFormat="dd-MM-yyyy"
                                 // startFrom={dateStartFrom.eta}
                                 saveDate={saveDate}
                                 labelName="Date of Appointment"
+                               
                               />
                     <img
                       className={`${styles.calanderIcon} image_arrow img-fluid`}
