@@ -2,10 +2,10 @@
 import config from './config'
 
 export default {
-  baseUrl: `${config.userServerUrl}`,
+  baseUrl: `${config.baseUrl}`,
   authbaseUrl: `${config.authServerUrl}`,
   corebaseUrl: `${config.coreServerUrl}`,
-
+  userbaseUrl:`${config.userServerUrl}`,
   // auth
   login: '/login',
   logout: '/logout',
@@ -20,7 +20,7 @@ export default {
   //  leads
   registerCompany: '/lead/company-details',
   getBuyers: '/lead/get-all-leads',
-  uploadDocuments: '/order/doc-upload',
+  uploadDocuments: '/order/doc-upoad',
   search: '/lead/search?searchTerm=',
   getPanGst: '/api/get-company',
 
