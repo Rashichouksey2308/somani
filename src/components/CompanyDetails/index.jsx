@@ -252,8 +252,8 @@ const Index = ({
                 className={`${styles.input_field} ${styles.company_name} input form-control`}
                 required
               />
-
               {gettingCompanyPanResponse && serachterm && (
+                  
                 <div className={styles.searchResults}>
                   <ul>
                   <li>here</li>
@@ -269,8 +269,9 @@ const Index = ({
                     ))}
                   </ul>
                 </div>
-              )}
 
+              )}
+             
               {/* <Filter/> */}
               <label
                 className={`${styles.label_heading} label_heading`}
