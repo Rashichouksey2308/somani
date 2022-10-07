@@ -359,14 +359,15 @@ function Index({ TransitDetails }) {
                     '',
                   ).toUpperCase()}{' '}
                   {index1}
-                  {index1 < bolArray.length - 1 ? (
-                    <button
-                      onClick={() => onAddClick()}
-                      className={styles.add_btn}
-                    >
-                      <span className={styles.add_sign}>+</span>Add
-                    </button>
-                  ) : null}
+                  {bolArray.length - 1 > index1 ?
+                    index1 === billsofLanding.length - 1 ?
+                      (<button
+                        onClick={() => onAddClick()}
+                        className={styles.add_btn}
+                      >
+                        <span className={styles.add_sign}>+</span>Add
+                      </button>) : null
+                    : null}
                   {index1 > 0 ? (
                     <button
                       onClick={() => onDeleteClick(index1)}

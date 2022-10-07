@@ -195,10 +195,10 @@ console.log(list,"val.dateOfExecution")
               <div className={styles.table_scroll_inner}>
                 <table className={`${styles.table} table `} cellPadding="0" cellSpacing="0" border="0">
                   <tr>
-                    <th className='border-0'>Agreement Name</th>
-                    <th className='border-0'>Place of Execution</th>
-                    <th className='border-0'>Date of Execution</th>
-                    <th className='border-0'>Actions</th>
+                    <th className='border-0 generic_th'>Agreement Name</th>
+                    <th className='border-0 generic_th'>Place of Execution</th>
+                    <th className='border-0 generic_th'>Date of Execution</th>
+                    <th className='border-0 generic_th'>Actions</th>
                     
                   </tr>
                   <tbody>
