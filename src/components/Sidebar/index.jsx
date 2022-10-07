@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect } from 'react'
 import styles from './index.module.scss'
-import dash from '../../../public/static/Dashboard.svg'
+import dash from '../../../public/static/dashboard-icon.svg'
 import accord from '../../../public/static/next-logo.png'
 import Router from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
