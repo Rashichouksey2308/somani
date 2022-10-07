@@ -12,7 +12,7 @@ function Index({ auditorsDetails, companyData }) {
 
   const lastYearData = auditorsDetails && auditorsDetails[2]
 
-  const yearArray = _get(companyData, 'financial.other.financialYears', ['', '', ''])
+  const yearArray = _get(companyData, 'profile.other.financialYears', ['', '', ''])
 
 
   return (
