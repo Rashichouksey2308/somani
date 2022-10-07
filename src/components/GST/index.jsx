@@ -391,7 +391,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       ),
       datasets: [
         {
-           label:[],
+          label: [],
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.revenueSummary?.totalSales,
           ),
@@ -401,7 +401,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           borderColor: '#2979F2',
         },
         {
-         label:[],
+          label: [],
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.revenueSummary
               ?.thirdPartySales,
@@ -412,7 +412,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           borderColor: '#FA5F1C',
         },
         {
-           label:[],
+          label: [],
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.revenueSummary
               ?.relatedPartySales,
@@ -422,8 +422,9 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           // backgroundColor: color,
           borderColor: '#FFD950',
         },
-        { label:[],
-          
+        {
+          label: [],
+
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.revenueSummary
               ?.intraOrgSales,
@@ -445,7 +446,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       ),
       datasets: [
         {
-         
+
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.netPurchaseVsSale?.sale,
           ),
@@ -459,7 +460,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           borderColor: 'rgb(71, 145, 255)',
         },
         {
-          
+
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.netPurchaseVsSale
               ?.purchase,
@@ -486,7 +487,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       ),
       datasets: [
         {
-         
+
           data:
             gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.customers,
 
@@ -500,7 +501,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           borderColor: 'rgb(41, 121, 242,1)',
         },
         {
-         
+
           data: gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends
             ?.invoices,
           fill: true,
@@ -535,7 +536,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     setChartData2(data2)
     setChartData3(data3)
   }
-  console.log(chartData,"setChartData")
+  console.log(chartData, "setChartData")
   useEffect(() => {
     const chart = chartRef.current
     const chart2 = chartRef2.current
@@ -553,7 +554,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       ),
       datasets: [
         {
-          label:["Total Sales"],
+          label: ["Total Sales"],
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.revenueSummary?.totalSales,
           ),
@@ -563,7 +564,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           borderColor: '#2979F2',
         },
         {
-          label:["Revenue Summary",],
+          label: ["Revenue Summary",],
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.revenueSummary
               ?.thirdPartySales,
@@ -574,7 +575,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           borderColor: '#FA5F1C',
         },
         {
-          label:["Third Party Sales"],
+          label: ["Third Party Sales"],
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.revenueSummary
               ?.relatedPartySales,
@@ -585,7 +586,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           borderColor: '#FFD950',
         },
         {
-          label:["Related Party Sales"],
+          label: ["Related Party Sales"],
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.revenueSummary
               ?.intraOrgSales,
@@ -607,7 +608,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       ),
       datasets: [
         {
-           label:["Net Turnover"],
+          label: ["Net Turnover"],
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.netPurchaseVsSale?.sale,
           ),
@@ -621,7 +622,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           borderColor: 'rgb(71, 145, 255)',
         },
         {
-          label:["Net Purchases"],
+          label: ["Net Purchases"],
           data: getdata(
             gstFilteredData?.detail?.summaryCharts?.netPurchaseVsSale
               ?.purchase,
@@ -648,7 +649,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
       ),
       datasets: [
         {
-           label:["No. of Customers"],
+          label: ["No. of Customers"],
           data:
             gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends?.customers,
 
@@ -662,7 +663,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
           borderColor: 'rgb(41, 121, 242,1)',
         },
         {
-           label:["No. of Invoices"],
+          label: ["No. of Invoices"],
           data: gstFilteredData?.detail?.summaryCharts?.averageMonthlyTrends
             ?.invoices,
           fill: true,
@@ -965,7 +966,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         labels: gstFilteredData?.detail?.summaryCharts?.top10Suppliers?.names,
         datasets: [
           {
-            
+
             data: getdata(
               gstFilteredData?.detail?.summaryCharts?.top10Suppliers?.values,
             ),
@@ -986,7 +987,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
     labels: gstFilteredData?.detail?.summaryCharts?.statewiseSales?.names,
     datasets: [
       {
-        
+
         data: getdata(
           gstFilteredData?.detail?.summaryCharts?.statewiseSales?.values,
         ),
@@ -1159,7 +1160,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
   const getCompliencePeriod = (period, chart) => {
     console.log(period, "period", chart)
     let item = (period ? period : '')?.split('-')
-    let text = `${item[0]?.slice(2, 6)}-${item[1]?.slice(2, 6)}`
+    let text = `${moment(item[0],'MMYYYY').format('MMM YYYY')}-${moment(item[1],'MMYYYY').format('MMM YYYY')}`
 
     if (chart) {
       text = `${moment(item[0], 'MMYYYY').format('MM-YYYY')} to ${moment(item[1], 'MMYYYY').format('MM-YYYY')}`
@@ -1494,7 +1495,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       </option>
                       <option value={100000}>Lakhs</option>
                     </select>
-                    <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+                    <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
                   </div>
                 </span>
               </div>
@@ -1860,7 +1861,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   Quarterly
                 </option>
               </select>
-              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>
             <span
               data-toggle="collapse"
@@ -2053,7 +2054,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                 </option>
                 <option value={100000}>Lakhs</option>
               </select>
-              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>
             <span
               data-toggle="collapse"
@@ -2990,7 +2991,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     <th width="66%" colSpan={3} className='text-color'>
 
                       <span className='breadcrum_mode mr-1'>
-                         Period:
+                        Period:
                       </span>
                       {finacialYear('current') ? finacialYear('current') : "-"}
                     </th>
@@ -3078,7 +3079,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                 <option value={10000000}>Crores</option>
                 <option value={100000}>Lakhs</option>
               </select>
-              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>
             <span
               data-toggle="collapse"
@@ -3112,10 +3113,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                       Annual Summary
                     </th>
                     <th colSpan={2} className='text-color'>
-                     Period: {finacialYear('current')}
+                      Period: {finacialYear('current')}
                     </th>
                     <th colSpan={2} className='text-color'>
-                     Period: {finacialYear()}
+                      Period: {finacialYear()}
                     </th>
                   </tr>
                   <tr className={styles.second_head}>
@@ -3486,10 +3487,10 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                   <tr>
                     <th width="34%" className={`${styles.first} text-color`}>Averages</th>
                     <th width="33%" className='text-color'>
-                      {finacialYear('current')}
+                      Period:{' '}  {finacialYear('current')}
                     </th>
                     <th width="33%" className='text-color'>
-                      {finacialYear()}
+                      Period:{' '} {finacialYear()}
                     </th>
                   </tr>
 
@@ -3641,7 +3642,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                     </td>
                   </tr>
                 </table>
-                <table
+                {/* <table
                   className={`${styles.table_pricipal} border_color  table`}
                   cellPadding="0"
                   cellSpacing="0"
@@ -3705,7 +3706,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
                         </tr>
                       ),
                     )}
-                </table>
+                </table> */}
               </div>
             </div>
           </div>
@@ -3745,7 +3746,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
               <div
                 className={`${styles.lightCompliance} accordion_Text ml-4 mr-2`}
               >
-                 Period:
+                Period:
               </div>
               {getCompliencePeriod(gstFilteredData?.detail?.complianceDetail?.financialPeriod)}
             </div>
@@ -3837,7 +3838,7 @@ function Index({ companyData, orderList, GstDataHandler, alertObj }) {
         supplierDetailsUnit,
         setSupplierDetailsUnit,
       )}
-      {gstSales('Sales', gstFilteredData, salesUnit, setSalesUnit, arrSales, getCompliencePeriod,finacialYear)}
+      {gstSales('Sales', gstFilteredData, salesUnit, setSalesUnit, arrSales, getCompliencePeriod, finacialYear)}
       {gstPurchase(
         'Purchase',
         gstFilteredData,
@@ -3877,7 +3878,7 @@ const gstCustomerDetail = (
                 </option>
                 <option value={100000}>Lakhs</option>
               </select>
-              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>
             <span
               data-toggle="collapse"
@@ -4223,7 +4224,7 @@ const gstSupplierDetail = (
                 </option>
                 <option value={100000}>Lakhs</option>
               </select>
-              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>
             <span
               data-toggle="collapse"
@@ -4541,7 +4542,7 @@ const gstSupplierDetail = (
   )
 }
 
-const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales, getCompliencePeriod,finacialYear) => {
+const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales, getCompliencePeriod, finacialYear) => {
   return (
     <>
       <div className={`${styles.wrapper} card border_color border-bottom`}>
@@ -4563,7 +4564,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales, getC
                 </option>
                 <option value={100000}>Lakhs</option>
               </select>
-              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>
             <span
               data-toggle="collapse"
@@ -4598,7 +4599,7 @@ const gstSales = (head, gstFilteredData, salesUnit, setSalesUnit, arrSales, getC
                           className={`${styles.first} text-color`}
                           colSpan={13}
                         >
-                           Period:{' '}
+                          Period:{' '}
                           {/* {getCompliencePeriod(gstFilteredData?.detail?.other?.period?.current?.financialPeriod) } */}
                           {finacialYear('current')}
                         </th>
@@ -4925,7 +4926,7 @@ const gstPurchase = (
                 </option>
                 <option value={100000}>Lakhs</option>
               </select>
-              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow"/>
+              <img className={`${styles.arrow2} img-fluid`} src="/static/inputDropDown.svg" alt="arrow" />
             </div>
             <span
               data-toggle="collapse"
@@ -4960,11 +4961,11 @@ const gstPurchase = (
                           className={`${styles.first} text-color`}
                           colSpan={13}
                         >
-                           Period:{' '}
+                          Period:{' '}
                           {/* {getCompliencePeriod(gstFilteredData?.detail?.other?.period?.current?.financialPeriod) } */}
                           {finacialYear('current')}
 
-                          
+
                         </th>
                       </tr>
                       <tr className={styles.second_head}>
