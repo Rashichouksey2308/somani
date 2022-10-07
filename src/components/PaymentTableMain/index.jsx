@@ -26,8 +26,10 @@ function Index({
 
   const handleRoute = (sheet) => {
     sessionStorage.setItem('ROrderID', sheet._id)
-    dispatch(GetDelivery(`?deliveryId=${sheet._id}`))
+   
     sessionStorage.setItem('company', sheet.company._id)
+    dispatch(GetDelivery(`?deliveryId=${sheet._id}`))
+    
     Router.push('/payment/id')
   }
 

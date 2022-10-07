@@ -437,8 +437,8 @@ export default function Index({
     let task = 'submit'
    let code = await  dispatch(UpdateTransitDetails({ fd, task }))
     if(code==200){
-      sessionStorage.setItem('headgingId',_get(inspectionData,"order.transit",""))
-      sessionStorage.setItem('headgingId',_get(inspectionData,"order.transit",""))
+      sessionStorage.setItem('docFetchID',_get(TransitDetails,"order._id",""))
+      sessionStorage.setItem('headgingId',_get(TransitDetails,"order.transit",""))
       dispatch(settingSidebar('Loading, Transit & Unloadinge', 'Forward Hedging', 'Forward Hedging', '3'))
       router.push(`/forward-hedging`)
     }
