@@ -43,13 +43,22 @@ const Index = ({
   useEffect(() => {
     getSlider()
   }, [slider])
-
+console.log(slider,sliderWithCr,"sliderWithCr")
   useEffect(() => {
     if (isSliderOnFocus === false) {
       setSliderWithCr(slider.toString() + ' Cr')
     }
   }, [slider, isSliderOnFocus])
+const getvalue=()=>{
+  if(!isSliderOnFocus){
+    if(sliderWithCr=="0 Cr") return ""
+    else return sliderWithCr
+  }else{
+    if(slider== 0 ) return ""
+    else return slider
+  }
 
+}
   const getSlider = (val) => {
     console.log(slider, 'slider8999')
     if (typeOfSlider == 1) {
@@ -414,7 +423,7 @@ const Index = ({
                   className={`${styles.input_container} form-control input`}
                   type="text"
                   onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
-                  value={sliderWithCr || slider}
+                  value={getvalue()}
                   onFocus={(e) => {
                     e.target.type === 'number',
                       setIsSliderOnFocus(true),

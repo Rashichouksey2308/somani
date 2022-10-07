@@ -68,6 +68,7 @@ export default function Index({
     document1: null,
     document2: null,
   })
+  console.log(dischargeOfCargo,"dischargeOfCargo111111")
 // useEffect((
  
 // ) => {
@@ -135,6 +136,7 @@ export default function Index({
   }
 
   const onSaveDischarge = () => {
+    console.log(dischargeOfCargo,"dischargeOfCargo?.dischargeOfCargo?.numberOfContainers")
     if (dischargeOfCargo.dischargeOfCargo.dischargeQuantity === '') {
       let toastMessage = 'DISCHARGE QUANTITY CANNOT BE EMPTY  '
       if (!toast.isActive(toastMessage.toUpperCase())) {
@@ -155,7 +157,8 @@ export default function Index({
       return
     }
     
-    if (dischargeOfCargo?.dischargeOfCargo?.numberOfContainers === '' || dischargeOfCargo?.dischargeOfCargo?.numberOfContainers === undefined) {
+    if (dischargeOfCargo.dischargeOfCargo?.numberOfContainers == '' 
+       || dischargeOfCargo.dischargeOfCargo?.numberOfContainers == undefined) {
       let toastMessage = 'Number  OF containers  CANNOT BE EMPTY  '
       if (!toast.isActive(toastMessage.toUpperCase())) {
         toast.error(toastMessage.toUpperCase(), { toastId: toastMessage })
@@ -276,6 +279,11 @@ export default function Index({
           vesselArrivaldate: data?.dischargeOfCargo?.vesselArrivaldate,
           dischargeStartDate: data?.dischargeOfCargo?.dischargeStartDate,
           dischargeEndDate: data?.dischargeOfCargo?.dischargeEndDate,
+          numberOfContainers:_get(
+        customData,
+        'dischargeOfCargo.dischargeOfCargo.numberOfContainers',
+        '',
+      ),
         },
         document1: data?.document1 ?? null,
         document2: data?.document2 ?? null,
