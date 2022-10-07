@@ -1049,7 +1049,7 @@ const [isFieldInFocus2, setIsFieldInFocus2] = useState(false)
                 <div className={styles.table_scroll_outer}>
                   <div className={styles.table_scroll_inner}>
                     <table
-                      className={`${styles.table} table`}
+                      className={`${styles.table} border_color table`}
                       cellPadding="0"
                       cellSpacing="0"
                       border="0"
