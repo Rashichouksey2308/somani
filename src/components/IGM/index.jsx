@@ -876,9 +876,7 @@ export default function Index({
                                 <span className={styles.value}>
                                   {blEntry?.blDate
                                     ? moment(
-                                        blEntry?.blDate?.slice(0, 10),
-                                        'YYYY-MM-DD',
-                                        true,
+                                        blEntry?.blDate
                                       ).format('DD-MM-YYYY')
                                     : ''}
                                 </span>
