@@ -24,7 +24,7 @@ function AddressComponent({
   const dispatch = useDispatch()
 
   return (
-    <div className={`${styles.address_card} value background1`}>
+    <div className={`${styles.address_card} value background1 border_color`}>
       <div className="d-flex justify-content-between w-100">
         <div className="w-100">
           <div
