@@ -415,7 +415,7 @@ export default function Index() {
                         <span className={styles.add_sign}>+</span>Add
                       </button>
                     </div>
-                    <div className={`${styles.dashboard_form} card-body`}>
+                    <div className={`${styles.dashboard_form} pb-5 card-body`}>
                       <div className="row">
                         <div
                           className={`${styles.form_group} col-lg-4 col-md-6 col-sm-6`}
